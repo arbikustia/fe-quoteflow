@@ -1,14 +1,14 @@
 import * as React from "react";
 
 import { Icons } from "../Icons";
-import type { NavbarProps } from "./Navbar.type";
+
 
 /**
  * Render Navbar Component
  * @param {NavbarProps} props - navbar component props
  * @returns {React.ReactElement} - NavbarComponent
  */
-export const NavbarComponent = (props: NavbarProps): React.ReactElement => {
+export const NavbarComponent = (): React.ReactElement => {
   return (
     <header className="h-20 flex items-center justify-between px-8 bg-white border-b border-gray-200 sticky top-0 z-10 transition-all">
       <div className="flex-1">

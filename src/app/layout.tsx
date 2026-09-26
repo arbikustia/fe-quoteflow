@@ -7,14 +7,14 @@ interface LayoutProps {
   pageTitle?: string;
 }
 
-export default function Layout({ children, pageTitle = "Dashboard" }: LayoutProps) {
+export default function Layout({ children }: LayoutProps) {
   return (
     <div className="flex h-full w-full bg-white overflow-hidden font-sans text-brand-text-dark">
       <Sidebar />
 
       {/* Main Content Area */}
       <div className="flex-1 flex flex-col min-w-0 overflow-hidden relative bg-white">
-        <Navbar pageTitle={pageTitle} />
+        <Navbar />
 
         {/* Page Content */}
         <main className="flex-1 overflow-y-auto p-8 relative z-0">

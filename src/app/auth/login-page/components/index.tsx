@@ -13,7 +13,7 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="min-h-svh w-full flex items-center justify-center bg-brand-gray-light overflow-hidden relative">
+    <div className="flex-1 h-full w-full flex items-center justify-center bg-brand-gray-light overflow-hidden relative">
       {/* Massive soft background gradients */}
       <div className="absolute top-0 left-0 w-[80vw] h-[80vw] max-w-200 max-h-200 bg-brand-orange-light rounded-full mix-blend-multiply filter blur-[100px] opacity-70 -translate-x-1/4 -translate-y-1/4"></div>
       <div className="absolute bottom-0 right-0 w-[80vw] h-[80vw] max-w-200 max-h-200 bg-brand-blue-light rounded-full mix-blend-multiply filter blur-[100px] opacity-70 translate-x-1/4 translate-y-1/4"></div>
