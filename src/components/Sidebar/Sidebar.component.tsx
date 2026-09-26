@@ -13,15 +13,20 @@ export const SidebarComponent = (props: SidebarProps): React.ReactElement => {
   const { navigation, currentPath, openMenus, onToggleMenu } = props;
 
   return (
-    <aside className="w-64 bg-white border-r border-gray-100 flex flex-col shadow-[4px_0_24px_rgba(0,0,0,0.02)] z-20">
-      <div className="h-20 flex items-center px-8 border-b border-gray-50">
-        <div className="flex items-center gap-2">
-          <div className="w-8 h-8 rounded-lg bg-linear-to-br from-brand-orange to-brand-blue flex items-center justify-center shadow-md">
-            <span className="text-white font-bold text-lg">Q</span>
+    <aside className="w-[280px] bg-white border-r border-gray-200 flex flex-col z-20">
+      <div className="h-20 flex items-center px-6 justify-between">
+        <div className="flex items-center gap-3">
+          <div className="w-9 h-9 rounded-full bg-brand-blue flex items-center justify-center">
+            <span className="text-white font-bold text-xl">Q</span>
           </div>
-          <span className="text-xl font-extrabold text-brand-text-dark tracking-tight">
-            QuoteFlow
-          </span>
+          <div className="flex flex-col">
+            <span className="text-[15px] font-bold text-gray-900 leading-tight">QuoteFlow</span>
+            <span className="text-[12px] text-gray-500 font-medium">Design Agency</span>
+          </div>
+        </div>
+        <div className="flex flex-col gap-1 cursor-pointer">
+          <div className="w-1.5 h-1.5 bg-gray-300 rounded-full"></div>
+          <div className="w-1.5 h-1.5 bg-gray-300 rounded-full"></div>
         </div>
       </div>
 

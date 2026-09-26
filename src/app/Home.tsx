@@ -25,7 +25,7 @@ export default function Home() {
             <div className="flex justify-between items-start">
               <div>
                 <p className="text-sm font-semibold text-brand-text-medium mb-1">Total Revenue</p>
-                <h3 className="text-3xl font-extrabold text-brand-text-dark">$24,500.00</h3>
+                <h3 className="text-3xl font-extrabold text-brand-text-dark">Rp 150.000.000</h3>
                 <p className="text-xs font-medium text-green-500 mt-2 flex items-center gap-1">
                   <span className="bg-green-100 text-green-700 px-1.5 py-0.5 rounded-md">+12.5%</span> from last month
                 </p>
@@ -41,7 +41,7 @@ export default function Home() {
             <div className="flex justify-between items-start">
               <div>
                 <p className="text-sm font-semibold text-brand-text-medium mb-1">Active Quotes</p>
-                <h3 className="text-3xl font-extrabold text-brand-text-dark">142</h3>
+                <h3 className="text-3xl font-extrabold text-brand-text-dark">12</h3>
                 <p className="text-xs font-medium text-brand-orange mt-2 flex items-center gap-1">
                   <span className="bg-brand-orange-light text-brand-orange-dark px-1.5 py-0.5 rounded-md">+5.2%</span> from last month
                 </p>
@@ -57,7 +57,7 @@ export default function Home() {
             <div className="flex justify-between items-start">
               <div>
                 <p className="text-sm font-semibold text-brand-text-medium mb-1">New Customers</p>
-                <h3 className="text-3xl font-extrabold text-brand-text-dark">28</h3>
+                <h3 className="text-3xl font-extrabold text-brand-text-dark">4</h3>
                 <p className="text-xs font-medium text-gray-500 mt-2 flex items-center gap-1">
                   <span className="bg-gray-100 text-gray-600 px-1.5 py-0.5 rounded-md">Stable</span> from last month
                 </p>
@@ -89,10 +89,10 @@ export default function Home() {
                 </thead>
                 <tbody className="divide-y divide-gray-50">
                   {[
-                    { client: "Acme Corp", amount: "$3,200.00", status: "Approved", date: "Today, 10:24 AM", color: "text-green-600", bg: "bg-green-100" },
-                    { client: "Stark Industries", amount: "$12,450.00", status: "Pending", date: "Yesterday, 3:15 PM", color: "text-brand-orange-dark", bg: "bg-brand-orange-light" },
-                    { client: "Wayne Enterprises", amount: "$850.00", status: "Rejected", date: "Sep 24, 2026", color: "text-red-600", bg: "bg-red-100" },
-                    { client: "Oscorp", amount: "$4,500.00", status: "Approved", date: "Sep 22, 2026", color: "text-green-600", bg: "bg-green-100" },
+                    { client: "YOUTHCAMP GPdI", amount: "Rp 42.500.000", status: "Pending", date: "Today, 10:24 AM", color: "text-brand-orange-dark", bg: "bg-brand-orange-light" },
+                    { client: "Gereja Bethany", amount: "Rp 15.000.000", status: "Approved", date: "Yesterday, 3:15 PM", color: "text-green-600", bg: "bg-green-100" },
+                    { client: "Wedding Party", amount: "Rp 20.000.000", status: "On Rental", date: "Sep 24, 2026", color: "text-indigo-600", bg: "bg-indigo-100" },
+                    { client: "Konser Musik", amount: "Rp 75.000.000", status: "Completed", date: "Sep 22, 2026", color: "text-gray-600", bg: "bg-gray-200" },
                   ].map((row, i) => (
                     <tr key={i} className="hover:bg-gray-50/50 transition-colors">
                       <td className="px-6 py-4">

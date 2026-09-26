@@ -1,14 +1,16 @@
-import * as React from "react";
+import React from "react";
 import type { TableProps } from "./Table.type";
 
-export const TableComponent = <T,>(props: TableProps<T>): React.ReactElement => {
+export const TableComponent = <T,>(
+  props: TableProps<T>
+): React.ReactElement => {
   const { data, columns, keyExtractor } = props;
 
   return (
-    <div className="overflow-x-auto w-full">
-      <table className="w-full text-left border-collapse">
+    <div className="w-full overflow-x-auto">
+      <table className="w-full whitespace-nowrap">
         <thead>
-          <tr className="bg-gray-50/50">
+          <tr className="bg-brand-gray-light border-b border-gray-100">
             {columns.map((col) => (
               <th 
                 key={col.key} 
@@ -21,7 +23,7 @@ export const TableComponent = <T,>(props: TableProps<T>): React.ReactElement => 
             ))}
           </tr>
         </thead>
-        <tbody className="divide-y divide-gray-50">
+        <tbody className="divide-y divide-gray-100">
           {data.length === 0 ? (
             <tr>
               <td colSpan={columns.length} className="px-6 py-8 text-center text-gray-400 font-medium">
@@ -29,16 +31,16 @@ export const TableComponent = <T,>(props: TableProps<T>): React.ReactElement => 
               </td>
             </tr>
           ) : (
-            data.map((row) => (
-              <tr key={keyExtractor(row)} className="hover:bg-gray-50/50 transition-colors">
+            data.map((row, index) => (
+              <tr key={keyExtractor ? keyExtractor(row) : index} className="hover:bg-gray-50/50 transition-colors group">
                 {columns.map((col) => (
                   <td 
                     key={col.key} 
-                    className={`px-6 py-4 ${
+                    className={`px-6 py-4 border-b border-gray-100 ${
                       col.align === "right" ? "text-right" : col.align === "center" ? "text-center" : "text-left"
                     }`}
                   >
-                    {col.render ? col.render(row) : (row as Record<string, unknown>)[col.key] as React.ReactNode}
+                    {col.render ? col.render(row) : (row as any)[col.key]}
                   </td>
                 ))}
               </tr>

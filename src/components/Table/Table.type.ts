@@ -2,7 +2,7 @@ import type { ReactNode } from "react";
 
 export type TableColumn<T> = {
   key: string;
-  header: string;
+  header: ReactNode;
   align?: "left" | "center" | "right";
   render?: (row: T) => ReactNode;
 };
