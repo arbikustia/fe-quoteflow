@@ -14,5 +14,5 @@ export const NAVIGATION_CONFIG: NavigationItem[] = [
       { name: "Master Item", path: "/master-data/items" },
     ],
   },
-  { name: "Report", path: "/settings", icon: Icons.Settings },
+  { name: "Report", path: "/report", icon: Icons.Report },
 ];

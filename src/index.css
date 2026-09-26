@@ -49,9 +49,11 @@
 
 #root {
   width: 100%;
-  min-height: 100svh;
+  height: calc(100svh / 0.67);
   display: flex;
   flex-direction: column;
+  zoom: 0.67;
+  overflow: hidden;
 }
 
 body {
