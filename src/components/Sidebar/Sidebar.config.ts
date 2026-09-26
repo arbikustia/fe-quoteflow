@@ -10,7 +10,7 @@ export const NAVIGATION_CONFIG: NavigationItem[] = [
     icon: Icons.Database,
     children: [
       { name: "Master User", path: "/master-data/users" },
-      { name: "Master Category", path: "/master-data/items" },
+      { name: "Master Category", path: "/master-data/categories" },
       { name: "Master Item", path: "/master-data/items" },
     ],
   },
