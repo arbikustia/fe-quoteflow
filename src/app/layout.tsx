@@ -9,15 +9,11 @@ interface LayoutProps {
 
 export default function Layout({ children, pageTitle = "Dashboard" }: LayoutProps) {
   return (
-    <div className="flex h-screen w-full bg-brand-gray-light overflow-hidden font-sans">
+    <div className="flex h-full w-full bg-white overflow-hidden font-sans text-brand-text-dark">
       <Sidebar />
 
       {/* Main Content Area */}
-      <div className="flex-1 flex flex-col min-w-0 overflow-hidden relative">
-        {/* Subtle Background Glows inside main content */}
-        <div className="absolute top-0 right-0 w-[40vw] h-[40vw] bg-brand-blue-light rounded-full mix-blend-multiply filter blur-[100px] opacity-40 translate-x-1/4 -translate-y-1/4 pointer-events-none"></div>
-        <div className="absolute bottom-0 left-0 w-[40vw] h-[40vw] bg-brand-orange-light rounded-full mix-blend-multiply filter blur-[100px] opacity-30 -translate-x-1/4 translate-y-1/4 pointer-events-none"></div>
-
+      <div className="flex-1 flex flex-col min-w-0 overflow-hidden relative bg-white">
         <Navbar pageTitle={pageTitle} />
 
         {/* Page Content */}

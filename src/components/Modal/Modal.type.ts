@@ -5,4 +5,5 @@ export type ModalProps = {
   onClose: () => void;
   title: string;
   children: ReactNode;
+  maxWidth?: string;
 };

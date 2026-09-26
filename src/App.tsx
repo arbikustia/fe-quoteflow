@@ -4,6 +4,9 @@ import Home from "./app/Home";
 import MasterUser from "./app/master-user";
 import MasterCategory from "./app/master-category";
 import MasterItem from "./app/master-item";
+import Quotes from "./app/quotes";
+import { QuotesCreateComponent as QuotesCreate } from "./app/quotes/QuotesCreate.component";
+import Report from "./app/report";
 
 function App() {
   return (
@@ -15,9 +18,13 @@ function App() {
         {/* Routes */}
         <Route path="/login" element={<Login />} />
         <Route path="/home" element={<Home />} />
+        <Route path="/quotes" element={<Quotes />} />
+        <Route path="/quotes/create" element={<QuotesCreate />} />
+        <Route path="/quotes/edit/:id" element={<QuotesCreate />} />
         <Route path="/master-data/users" element={<MasterUser />} />
         <Route path="/master-data/categories" element={<MasterCategory />} />
         <Route path="/master-data/items" element={<MasterItem />} />
+        <Route path="/report" element={<Report />} />
 
         {/* Fallback route */}
         <Route path="*" element={<Navigate to="/login" replace />} />

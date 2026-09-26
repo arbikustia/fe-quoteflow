@@ -6,12 +6,8 @@ import Modal from "../../components/Modal";
 import ConfirmModal from "../../components/ConfirmModal";
 import type { MasterUserProps, UserData } from "./MasterUser.type";
 import { FiEdit2, FiTrash2 } from "react-icons/fi";
-
-// Dummy data for now
-const DUMMY_DATA: UserData[] = [
-  { id: "1", username: "arbikustia14", role: "Admin" },
-  { id: "2", username: "johndoe", role: "User" },
-];
+import { Icons } from "../../components/Icons";
+import { MOCK_USERS } from "../../fixture/master-user";
 
 /**
  * Render Master User Component
@@ -30,23 +26,23 @@ export const MasterUserComponent = (props: MasterUserProps): React.ReactElement 
     { key: "role", header: "Role" },
     { 
       key: "actions", 
-      header: "Actions", 
-      align: "right",
+      header: "Action", 
+      align: "center",
       render: (row) => (
-        <div className="flex gap-3 justify-end pr-6">
+        <div className="flex items-center justify-center gap-2">
           <button 
             onClick={() => openEditModal(row)}
-            className="flex items-center gap-1.5 text-brand-blue hover:text-brand-blue-dark hover:bg-brand-blue/10 px-3 py-1.5 rounded-lg font-bold text-sm transition-all focus:outline-none"
+            className="p-1.5 text-gray-400 hover:text-indigo-600 hover:bg-indigo-50 rounded-lg transition-colors cursor-pointer"
+            title="Edit User"
           >
             <FiEdit2 className="w-4 h-4" />
-            Edit
           </button>
           <button 
             onClick={() => openConfirmModal(row)}
-            className="flex items-center gap-1.5 text-red-500 hover:text-red-700 hover:bg-red-50 px-3 py-1.5 rounded-lg font-bold text-sm transition-all focus:outline-none"
+            className="p-1.5 text-gray-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors cursor-pointer"
+            title="Delete User"
           >
             <FiTrash2 className="w-4 h-4" />
-            Delete
           </button>
         </div>
       )
@@ -54,24 +50,65 @@ export const MasterUserComponent = (props: MasterUserProps): React.ReactElement 
   ];
 
   return (
-    <Layout pageTitle="Master User">
-      <div className="bg-white/80 backdrop-blur-xl border border-white rounded-3xl p-6 shadow-[0_8px_30px_rgba(0,0,0,0.04)] min-h-[calc(100vh-10rem)] flex flex-col">
+    <Layout>
+      <div className="flex flex-col h-full">
         <div className="flex justify-between items-center mb-6">
-          <h2 className="text-xl font-bold text-brand-text-dark">User Management</h2>
+          <span className="text-2xl font-bold text-gray-900">User Management</span>
           <button 
             onClick={openCreateModal}
-            className="px-4 py-2 bg-brand-blue text-white font-bold rounded-xl shadow-md hover:bg-brand-blue-dark hover:shadow-lg transition-all"
+            className="px-5 py-2.5 bg-indigo-600 text-white font-medium rounded-lg hover:bg-indigo-700 transition-all text-sm cursor-pointer"
           >
-            + Add User
+            Create User
           </button>
         </div>
         
-        <div className="flex-1 overflow-hidden bg-white rounded-2xl border border-gray-100/50 shadow-sm">
-          <Table 
-            data={DUMMY_DATA} 
-            columns={columns} 
-            keyExtractor={(row) => row.id} 
-          />
+        <div className="bg-white rounded-xl border border-gray-200 shadow-sm flex flex-col flex-1 overflow-hidden">
+          {/* Toolbar */}
+          <div className="flex items-center justify-between p-4 px-6 border-b border-gray-100">
+            <div className="relative">
+              <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-gray-400">
+                <Icons.Search />
+              </div>
+              <input
+                type="text"
+                placeholder="Search user"
+                className="w-64 pl-10 pr-4 py-2 bg-gray-50 border-none rounded-lg text-sm font-medium focus:outline-none focus:ring-1 focus:ring-gray-200 text-gray-900 placeholder:text-gray-400"
+              />
+            </div>
+            <div className="flex items-center gap-3 text-sm text-gray-500">
+              Showing
+              <select className="border border-gray-200 rounded px-2 py-1 bg-white font-medium text-gray-700 focus:outline-none">
+                <option>15</option>
+                <option>30</option>
+                <option>50</option>
+              </select>
+              of 24 results
+            </div>
+          </div>
+
+          <div className="flex-1 overflow-auto">
+            <Table 
+              data={MOCK_USERS} 
+              columns={columns} 
+              keyExtractor={(row) => row.id} 
+            />
+          </div>
+
+          {/* Pagination */}
+          <div className="p-4 border-t border-gray-100 flex items-center justify-center gap-2 text-sm text-gray-500 font-medium">
+            <button className="p-1 text-gray-400 hover:text-gray-700">
+              {"<"}
+            </button>
+            <button className="w-8 h-8 flex items-center justify-center rounded-lg bg-gray-100 text-gray-900">
+              1
+            </button>
+            <button className="w-8 h-8 flex items-center justify-center rounded-lg hover:bg-gray-50">
+              2
+            </button>
+            <button className="p-1 text-gray-400 hover:text-gray-700">
+              {">"}
+            </button>
+          </div>
         </div>
       </div>
 
