@@ -1,14 +1,11 @@
 import jsPDF from "jspdf";
 import autoTable from "jspdf-autotable";
-import type { QuoteData } from "../app/quotes/Quotes.type";
+import type { QuoteData } from "../modules/order-page/OrderPage.type";
 import { MOCK_ORDER_ITEMS } from "../fixture/quotes";
 import FrameImage from "../assets/frame-pdf.png";
-import QRCode from "qrcode";
 
 export const generateQuotePDF = async (quote: QuoteData) => {
   const doc = new jsPDF();
-
-  // Load Frame Image
   const frameData = await new Promise<string>((resolve) => {
     const img = new Image();
     img.src = FrameImage;
@@ -80,16 +77,6 @@ export const generateQuotePDF = async (quote: QuoteData) => {
   );
   doc.text(`${quote.name} di ${quote.location}, sebagai berikut :`, 14, 93);
 
-  // --- PRE-GENERATE QR CODES ---
-  const qrCodes: Record<string, string> = {};
-  for (const item of quote.selectedItems) {
-    try {
-      qrCodes[item] = await QRCode.toDataURL(`${quote.id}-${item}`, { margin: 1, width: 64 });
-    } catch (err) {
-      console.error("QR Code Error:", err);
-    }
-  }
-
   // --- TABLE DATA PREPARATION ---
   const tableData: any[] = [];
   let no = 1;
@@ -134,7 +121,7 @@ export const generateQuotePDF = async (quote: QuoteData) => {
         });
       }
       
-      row.push({ content: "", styles: { minCellHeight: 12 } });
+      row.push("");
       tableData.push(row);
     });
   });
@@ -231,19 +218,7 @@ export const generateQuotePDF = async (quote: QuoteData) => {
       4: { cellWidth: 35, halign: 'center' }, // Price
       5: { cellWidth: 40, halign: 'center' }  // Remarks
     },
-    margin: { top: 40 },
-    didDrawCell: (data: any) => {
-      if (data.column.index === 5 && data.cell.section === 'body') {
-        const desc = data.row.raw[1];
-        if (typeof desc === 'string' && qrCodes[desc]) {
-          const qrData = qrCodes[desc];
-          const dim = 10; // 10x10 mm QR code
-          const x = data.cell.x + (data.cell.width - dim) / 2;
-          const y = data.cell.y + (data.cell.height - dim) / 2;
-          doc.addImage(qrData, 'PNG', x, y, dim, dim);
-        }
-      }
-    }
+    margin: { top: 40 }
   });
 
   // --- FOOTER NOTES ---

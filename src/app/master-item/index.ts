@@ -1,1 +1,1 @@
-export { default } from './MasterItem.container';
+export { default } from "../../modules/master-item";

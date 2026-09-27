@@ -1,1 +1,1 @@
-export { default } from './MasterCategory.container';
+export { default } from "../../modules/master-category";
