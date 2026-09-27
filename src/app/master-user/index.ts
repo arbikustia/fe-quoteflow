@@ -1,1 +1,1 @@
-export { default } from './MasterUser.container';
+export { default } from "../../modules/master-user";

@@ -1,1 +1,1 @@
-export { default } from './Quotes.container';
+export { default } from "../../modules/order-page";
