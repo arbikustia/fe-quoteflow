@@ -1,8 +1,8 @@
 import * as React from "react";
 import { Link } from "react-router-dom";
-import { Icons } from "../Icons";
 
 import type { SidebarProps } from "./Sidebar.type";
+import { Icons } from "../Icons";
 
 /**
  * Render Sidebar Component

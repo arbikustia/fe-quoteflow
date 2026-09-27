@@ -1,4 +1,5 @@
 import test from '@/libs/unit-test';
+
 import { MasterUserComponent } from './MasterUser.component';
 
 const configs = [

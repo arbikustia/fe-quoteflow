@@ -1,5 +1,5 @@
-import { Icons } from "../Icons";
 import type { NavigationItem } from "./Sidebar.type";
+import { Icons } from "../Icons";
 
 export const NAVIGATION_CONFIG: NavigationItem[] = [
   { name: "Dashboard", path: "/home", icon: Icons.Dashboard },

@@ -1,4 +1,5 @@
 import test from '@/libs/unit-test';
+
 import MasterUserContainer from './MasterUser.container';
 
 const configs = [

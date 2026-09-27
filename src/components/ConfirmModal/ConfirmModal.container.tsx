@@ -1,4 +1,5 @@
 import * as React from "react";
+
 import { ConfirmModalComponent } from "./ConfirmModal.component";
 import type { ConfirmModalProps } from "./ConfirmModal.type";
 

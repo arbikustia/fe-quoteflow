@@ -1,4 +1,4 @@
-import type { CategoryData } from "../app/master-category/MasterCategory.type";
+import type { CategoryData } from "../modules/master-category/MasterCategory.type";
 
 export const MOCK_CATEGORIES: CategoryData[] = [
   { id: "1", categoryName: "Audio System" },

@@ -1,55 +1,110 @@
-import { useState } from 'react';
-import type { CategoryData, MasterCategoryProps } from './MasterCategory.type';
+import { useState } from "react";
+
+import type { BaseCategoryState, CategoryData, ConfirmModalState, ModalState } from "./MasterCategory.type";
 
 /**
- * Master Category State Hook
- * @returns {MasterCategoryProps} - Master category state and handlers
+ * Modal state hook
+ * @returns {ModalState} modal state
  */
-export const useMasterCategoryState = (): MasterCategoryProps => {
+const useModalState = (): ModalState => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false);
-  const [editingCategory, setEditingCategory] = useState<CategoryData | null>(null);
-  const [deletingCategory, setDeletingCategory] = useState<CategoryData | null>(null);
+  const [editingCategory, setEditingCategory] = useState<CategoryData | null>(
+    null,
+  );
 
-  const openCreateModal = () => {
+  /**
+   * Open create modal
+   * @returns {void} void
+   */
+  const openCreateModal = (): void => {
     setEditingCategory(null);
     setIsModalOpen(true);
   };
 
-  const openEditModal = (category: CategoryData) => {
+  /**
+   * Open edit modal
+   * @param {CategoryData} category - category data
+   * @returns {void} void
+   */
+  const openEditModal = (category: CategoryData): void => {
     setEditingCategory(category);
     setIsModalOpen(true);
   };
 
-  const closeModal = () => {
+  /**
+   * Close modal
+   * @returns {void} void
+   */
+  const closeModal = (): void => {
     setIsModalOpen(false);
-    setTimeout(() => setEditingCategory(null), 200);
-  };
-
-  const openConfirmModal = (category: CategoryData) => {
-    setDeletingCategory(category);
-    setIsConfirmModalOpen(true);
-  };
-
-  const closeConfirmModal = () => {
-    setIsConfirmModalOpen(false);
-    setTimeout(() => setDeletingCategory(null), 200);
-  };
-
-  const onConfirmDelete = () => {
-    console.log("Delete category:", deletingCategory?.categoryName);
+    setTimeout((): void => setEditingCategory(null), 200);
   };
 
   return {
     isModalOpen,
-    isConfirmModalOpen,
     editingCategory,
-    deletingCategory,
     openCreateModal,
     openEditModal,
     closeModal,
+  };
+};
+
+/**
+ * Confirm modal state hook
+ * @returns {ConfirmModalState} confirm modal state
+ */
+const useConfirmModalState = (): ConfirmModalState => {
+  const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false);
+  const [deletingCategory, setDeletingCategory] = useState<CategoryData | null>(
+    null,
+  );
+
+  /**
+   * Open confirm modal
+   * @param {CategoryData} category - category data
+   * @returns {void} void
+   */
+  const openConfirmModal = (category: CategoryData): void => {
+    setDeletingCategory(category);
+    setIsConfirmModalOpen(true);
+  };
+
+  /**
+   * Close confirm modal
+   * @returns {void} void
+   */
+  const closeConfirmModal = (): void => {
+    setIsConfirmModalOpen(false);
+    setTimeout((): void => setDeletingCategory(null), 200);
+  };
+
+  /**
+   * On confirm delete
+   * @returns {void} void
+   */
+  const onConfirmDelete = (): void => {
+    closeConfirmModal();
+  };
+
+  return {
+    isConfirmModalOpen,
+    deletingCategory,
     openConfirmModal,
     closeConfirmModal,
     onConfirmDelete,
+  };
+};
+
+/**
+ * Master Category State Hook
+ * @returns {BaseCategoryState} - Master category state and handlers
+ */
+export const useMasterCategoryState = (): BaseCategoryState => {
+  const modalState = useModalState();
+  const confirmModalState = useConfirmModalState();
+
+  return {
+    ...modalState,
+    ...confirmModalState,
   };
 };

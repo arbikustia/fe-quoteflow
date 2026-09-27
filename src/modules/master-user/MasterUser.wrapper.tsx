@@ -1,6 +1,12 @@
-import MasterUserContainer from './MasterUser.container';
+import * as React from "react";
 
-const MasterUserContainerWrapper = () => {
+import MasterUserContainer from "./MasterUser.container";
+
+/**
+ * Render Master User Wrapper
+ * @returns {React.ReactElement} - Master User Wrapper
+ */
+const MasterUserContainerWrapper = (): React.ReactElement => {
   return <MasterUserContainer />;
 };
 
