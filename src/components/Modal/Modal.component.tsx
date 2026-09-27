@@ -12,19 +12,19 @@ export const ModalComponent = (props: ModalProps): React.ReactElement | null => 
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-gray-900/40 backdrop-blur-sm transition-opacity">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-brand-text-dark/40 backdrop-blur-sm transition-opacity">
       {/* Backdrop */}
       <div className="absolute inset-0 bg-transparent" onClick={onClose}></div>
 
       {/* Modal Box */}
       <div
-        className={`relative bg-white rounded-2xl shadow-xl w-full ${maxWidth} overflow-hidden flex flex-col transform transition-all animate-in fade-in zoom-in-95 duration-200`}
+        className={`relative bg-brand-white rounded-2xl shadow-xl w-full ${maxWidth} overflow-hidden flex flex-col transform transition-all animate-in fade-in zoom-in-95 duration-200`}
       >
-        <div className="flex items-center justify-between px-6 py-4 border-b border-gray-100 shrink-0">
+        <div className="flex items-center justify-between px-6 py-4 border-b border-brand-gray-light shrink-0">
           <h3 className="text-lg font-bold text-brand-text-dark">{title}</h3>
           <button
             onClick={onClose}
-            className="text-gray-400 hover:text-gray-600 hover:bg-gray-100 p-2 rounded-xl transition-colors focus:outline-none"
+            className="text-brand-text-medium hover:text-brand-text-medium hover:bg-brand-gray-light p-2 rounded-xl transition-colors focus:outline-none"
           >
             <span className="sr-only">Close</span>
             <svg

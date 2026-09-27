@@ -7,12 +7,29 @@ import type { QuoteData } from "../quotes/Quotes.type";
 import { Icons } from "../../components/Icons";
 import { FiDownload } from "react-icons/fi";
 import { generateQuotePDF } from "../../utils/pdfGenerator";
+import { usePagination } from "../../hooks/usePagination";
+import { PaginationHeader, PaginationFooter } from "../../components/Pagination";
 
 export const ReportComponent = (): React.ReactElement => {
   // Filter for completed orders
   const completedOrders = MOCK_QUOTES.filter(quote => quote.status === "Completed");
 
+  const { 
+    currentPage, totalPages, pageSize, paginatedData, 
+    goToPage, nextPage, prevPage, changePageSize, totalCount 
+  } = usePagination(completedOrders);
+
   const columns: TableColumn<QuoteData>[] = [
+    {
+      key: "no",
+      header: "No",
+      align: "center",
+      render: (_, index) => (
+        <span className="text-brand-text-medium font-medium text-sm">
+          {(currentPage - 1) * pageSize + index + 1}
+        </span>
+      ),
+    },
     { key: "name", header: "Event Name" },
     { key: "location", header: "Location" },
     { key: "startDate", header: "Start Date" },
@@ -21,7 +38,7 @@ export const ReportComponent = (): React.ReactElement => {
       key: "status",
       header: "Status",
       render: (row) => (
-        <span className="px-3 py-1 rounded-full text-xs font-bold bg-green-100 text-green-600">
+        <span className="px-3 py-1 rounded-full text-xs font-bold bg-brand-blue-light text-brand-blue">
           {row.status || "Completed"}
         </span>
       ),
@@ -36,7 +53,7 @@ export const ReportComponent = (): React.ReactElement => {
             onClick={() => {
               generateQuotePDF(row);
             }}
-            className="p-1.5 text-gray-400 hover:text-green-600 hover:bg-green-50 rounded-lg transition-colors cursor-pointer"
+            className="p-1.5 text-brand-text-medium hover:text-brand-blue hover:bg-brand-blue-light rounded-lg transition-colors cursor-pointer"
             title="Download PDF"
           >
             <FiDownload className="w-4 h-4" />
@@ -50,56 +67,47 @@ export const ReportComponent = (): React.ReactElement => {
     <Layout>
       <div className="flex flex-col h-full">
         <div className="flex justify-between items-center mb-6">
-          <span className="text-2xl font-bold text-gray-900">Completed Orders Report</span>
-          <button className="px-5 py-2.5 bg-indigo-600 text-white font-medium rounded-lg hover:bg-indigo-700 transition-all text-sm cursor-pointer flex items-center gap-2">
+          <span className="text-2xl font-bold text-brand-text-dark">Completed Orders Report</span>
+          <button className="px-5 py-2.5 bg-brand-blue text-brand-white font-medium rounded-lg hover:bg-brand-blue-dark transition-all text-sm cursor-pointer flex items-center gap-2">
             <FiDownload className="w-4 h-4" /> Export Report
           </button>
         </div>
 
-        <div className="bg-white rounded-xl border border-gray-200 shadow-sm flex flex-col flex-1 overflow-hidden">
+        <div className="bg-brand-white rounded-xl border border-brand-gray-light shadow-sm flex flex-col flex-1 overflow-hidden">
           {/* Toolbar */}
-          <div className="flex items-center justify-between p-4 px-6 border-b border-gray-100">
+          <div className="flex items-center justify-between p-4 px-6 border-b border-brand-gray-light">
             <div className="relative">
-              <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-gray-400">
+              <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-brand-text-medium">
                 <Icons.Search />
               </div>
               <input
                 type="text"
                 placeholder="Search completed orders"
-                className="w-64 pl-10 pr-4 py-2 bg-gray-50 border-none rounded-lg text-sm font-medium focus:outline-none focus:ring-1 focus:ring-gray-200 text-gray-900 placeholder:text-gray-400"
+                className="w-64 pl-10 pr-4 py-2 bg-brand-gray-light border-none rounded-lg text-sm font-medium focus:outline-none focus:ring-1 focus:ring-brand-gray-light text-brand-text-dark placeholder:text-brand-text-medium"
               />
             </div>
-            <div className="flex items-center gap-3 text-sm text-gray-500">
-              Showing
-              <select className="border border-gray-200 rounded px-2 py-1 bg-white font-medium text-gray-700 focus:outline-none">
-                <option>15</option>
-                <option>30</option>
-                <option>50</option>
-              </select>
-              of {completedOrders.length} results
-            </div>
+            <PaginationHeader 
+              pageSize={pageSize} 
+              totalCount={totalCount} 
+              onPageSizeChange={changePageSize} 
+            />
           </div>
 
           <div className="flex-1 overflow-auto">
             <Table
-              data={completedOrders}
+              data={paginatedData}
               columns={columns}
               keyExtractor={(row) => row.id}
             />
           </div>
 
-          {/* Pagination */}
-          <div className="p-4 border-t border-gray-100 flex items-center justify-center gap-2 text-sm text-gray-500 font-medium">
-            <button className="p-1 text-gray-400 hover:text-gray-700">
-              {"<"}
-            </button>
-            <button className="w-8 h-8 flex items-center justify-center rounded-lg bg-gray-100 text-gray-900">
-              1
-            </button>
-            <button className="p-1 text-gray-400 hover:text-gray-700">
-              {">"}
-            </button>
-          </div>
+          <PaginationFooter 
+            currentPage={currentPage}
+            totalPages={totalPages}
+            onPageChange={goToPage}
+            onNextPage={nextPage}
+            onPrevPage={prevPage}
+          />
         </div>
       </div>
     </Layout>

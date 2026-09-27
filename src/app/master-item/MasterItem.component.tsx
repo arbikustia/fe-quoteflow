@@ -8,6 +8,8 @@ import type { MasterItemProps, ItemData } from "./MasterItem.type";
 import { FiEdit2, FiTrash2 } from "react-icons/fi";
 import { Icons } from "../../components/Icons";
 import { MOCK_ITEMS } from "../../fixture/master-item";
+import { usePagination } from "../../hooks/usePagination";
+import { PaginationHeader, PaginationFooter } from "../../components/Pagination";
 
 /**
  * Render Master Item Component
@@ -21,7 +23,22 @@ export const MasterItemComponent = (props: MasterItemProps): React.ReactElement 
     openConfirmModal, closeConfirmModal, onConfirmDelete 
   } = props;
 
+  const { 
+    currentPage, totalPages, pageSize, paginatedData, 
+    goToPage, nextPage, prevPage, changePageSize, totalCount 
+  } = usePagination(MOCK_ITEMS);
+
   const columns: TableColumn<ItemData>[] = [
+    {
+      key: "no",
+      header: "No",
+      align: "center",
+      render: (_, index) => (
+        <span className="text-brand-text-medium font-medium text-sm">
+          {(currentPage - 1) * pageSize + index + 1}
+        </span>
+      ),
+    },
     { key: "name", header: "Item Name" },
     { key: "category", header: "Category" },
     { key: "unit", header: "Unit" },
@@ -39,14 +56,14 @@ export const MasterItemComponent = (props: MasterItemProps): React.ReactElement 
         <div className="flex items-center justify-center gap-2">
           <button 
             onClick={() => openEditModal(row)}
-            className="p-1.5 text-gray-400 hover:text-indigo-600 hover:bg-indigo-50 rounded-lg transition-colors cursor-pointer"
+            className="p-1.5 text-brand-text-medium hover:text-brand-blue hover:bg-brand-blue-light rounded-lg transition-colors cursor-pointer"
             title="Edit Item"
           >
             <FiEdit2 className="w-4 h-4" />
           </button>
           <button 
             onClick={() => openConfirmModal(row)}
-            className="p-1.5 text-gray-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors cursor-pointer"
+            className="p-1.5 text-brand-text-medium hover:text-brand-orange hover:bg-brand-orange-light rounded-lg transition-colors cursor-pointer"
             title="Delete Item"
           >
             <FiTrash2 className="w-4 h-4" />
@@ -60,62 +77,50 @@ export const MasterItemComponent = (props: MasterItemProps): React.ReactElement 
     <Layout>
       <div className="flex flex-col h-full">
         <div className="flex justify-between items-center mb-6">
-          <span className="text-2xl font-bold text-gray-900">Item Management</span>
+          <span className="text-2xl font-bold text-brand-text-dark">Item Management</span>
           <button 
             onClick={openCreateModal}
-            className="px-5 py-2.5 bg-indigo-600 text-white font-medium rounded-lg hover:bg-indigo-700 transition-all text-sm cursor-pointer"
+            className="px-5 py-2.5 bg-brand-blue text-brand-white font-medium rounded-lg hover:bg-brand-blue-dark transition-all text-sm cursor-pointer"
           >
             Create Item
           </button>
         </div>
         
-        <div className="bg-white rounded-xl border border-gray-200 shadow-sm flex flex-col flex-1 overflow-hidden">
+        <div className="bg-brand-white rounded-xl border border-brand-gray-light shadow-sm flex flex-col flex-1 overflow-hidden">
           {/* Toolbar */}
-          <div className="flex items-center justify-between p-4 px-6 border-b border-gray-100">
+          <div className="flex items-center justify-between p-4 px-6 border-b border-brand-gray-light">
             <div className="relative">
-              <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-gray-400">
+              <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-brand-text-medium">
                 <Icons.Search />
               </div>
               <input
                 type="text"
                 placeholder="Search item"
-                className="w-64 pl-10 pr-4 py-2 bg-gray-50 border-none rounded-lg text-sm font-medium focus:outline-none focus:ring-1 focus:ring-gray-200 text-gray-900 placeholder:text-gray-400"
+                className="w-64 pl-10 pr-4 py-2 bg-brand-gray-light border-none rounded-lg text-sm font-medium focus:outline-none focus:ring-1 focus:ring-brand-gray-light text-brand-text-dark placeholder:text-brand-text-medium"
               />
             </div>
-            <div className="flex items-center gap-3 text-sm text-gray-500">
-              Showing
-              <select className="border border-gray-200 rounded px-2 py-1 bg-white font-medium text-gray-700 focus:outline-none">
-                <option>15</option>
-                <option>30</option>
-                <option>50</option>
-              </select>
-              of 120 results
-            </div>
+            <PaginationHeader 
+              pageSize={pageSize} 
+              totalCount={totalCount} 
+              onPageSizeChange={changePageSize} 
+            />
           </div>
 
           <div className="flex-1 overflow-auto">
             <Table 
-              data={MOCK_ITEMS} 
+              data={paginatedData} 
               columns={columns} 
               keyExtractor={(row) => row.id} 
             />
           </div>
 
-          {/* Pagination */}
-          <div className="p-4 border-t border-gray-100 flex items-center justify-center gap-2 text-sm text-gray-500 font-medium">
-            <button className="p-1 text-gray-400 hover:text-gray-700">
-              {"<"}
-            </button>
-            <button className="w-8 h-8 flex items-center justify-center rounded-lg bg-gray-100 text-gray-900">
-              1
-            </button>
-            <button className="w-8 h-8 flex items-center justify-center rounded-lg hover:bg-gray-50">
-              2
-            </button>
-            <button className="p-1 text-gray-400 hover:text-gray-700">
-              {">"}
-            </button>
-          </div>
+          <PaginationFooter 
+            currentPage={currentPage}
+            totalPages={totalPages}
+            onPageChange={goToPage}
+            onNextPage={nextPage}
+            onPrevPage={prevPage}
+          />
         </div>
       </div>
 
@@ -127,7 +132,7 @@ export const MasterItemComponent = (props: MasterItemProps): React.ReactElement 
               type="text" 
               required
               defaultValue={editingItem?.name}
-              className="w-full px-4 py-2 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-brand-blue/20 focus:border-brand-blue transition-all text-brand-text-dark" 
+              className="w-full px-4 py-2 bg-brand-gray-light border border-brand-gray-light rounded-xl focus:outline-none focus:ring-2 focus:ring-brand-blue/20 focus:border-brand-blue transition-all text-brand-text-dark" 
               placeholder="Enter item name"
             />
           </div>
@@ -138,7 +143,7 @@ export const MasterItemComponent = (props: MasterItemProps): React.ReactElement 
               <select 
                 required
                 defaultValue={editingItem?.category || ""}
-                className="w-full px-4 py-2 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-brand-blue/20 focus:border-brand-blue transition-all text-brand-text-dark"
+                className="w-full px-4 py-2 bg-brand-gray-light border border-brand-gray-light rounded-xl focus:outline-none focus:ring-2 focus:ring-brand-blue/20 focus:border-brand-blue transition-all text-brand-text-dark"
               >
                 <option value="">Select Category</option>
                 <option value="Electronics">Electronics</option>
@@ -153,7 +158,7 @@ export const MasterItemComponent = (props: MasterItemProps): React.ReactElement 
                 type="text" 
                 required
                 defaultValue={editingItem?.unit}
-                className="w-full px-4 py-2 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-brand-blue/20 focus:border-brand-blue transition-all text-brand-text-dark" 
+                className="w-full px-4 py-2 bg-brand-gray-light border border-brand-gray-light rounded-xl focus:outline-none focus:ring-2 focus:ring-brand-blue/20 focus:border-brand-blue transition-all text-brand-text-dark" 
                 placeholder="e.g. Pcs, Box, Kg"
               />
             </div>
@@ -166,7 +171,7 @@ export const MasterItemComponent = (props: MasterItemProps): React.ReactElement 
               required
               min="0"
               defaultValue={editingItem?.price}
-              className="w-full px-4 py-2 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-brand-blue/20 focus:border-brand-blue transition-all text-brand-text-dark" 
+              className="w-full px-4 py-2 bg-brand-gray-light border border-brand-gray-light rounded-xl focus:outline-none focus:ring-2 focus:ring-brand-blue/20 focus:border-brand-blue transition-all text-brand-text-dark" 
               placeholder="Enter price"
             />
           </div>
@@ -175,22 +180,22 @@ export const MasterItemComponent = (props: MasterItemProps): React.ReactElement 
             <label className="block text-sm font-bold text-brand-text-dark mb-1">Remark</label>
             <textarea 
               defaultValue={editingItem?.remark}
-              className="w-full px-4 py-2 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-brand-blue/20 focus:border-brand-blue transition-all text-brand-text-dark min-h-[80px]" 
+              className="w-full px-4 py-2 bg-brand-gray-light border border-brand-gray-light rounded-xl focus:outline-none focus:ring-2 focus:ring-brand-blue/20 focus:border-brand-blue transition-all text-brand-text-dark min-h-[80px]" 
               placeholder="Add optional notes..."
             />
           </div>
 
-          <div className="pt-4 flex justify-end gap-3 border-t border-gray-100 mt-6">
+          <div className="pt-4 flex justify-end gap-3 border-t border-brand-gray-light mt-6">
             <button 
               type="button" 
               onClick={closeModal}
-              className="px-4 py-2 text-brand-text-medium font-bold hover:bg-gray-100 rounded-xl transition-colors"
+              className="px-4 py-2 text-brand-text-medium font-bold hover:bg-brand-gray-light rounded-xl transition-colors"
             >
               Cancel
             </button>
             <button 
               type="submit" 
-              className="px-6 py-2 bg-brand-blue text-white font-bold rounded-xl shadow-md hover:bg-brand-blue-dark hover:shadow-lg transition-all"
+              className="px-6 py-2 bg-brand-blue text-brand-white font-bold rounded-xl shadow-md hover:bg-brand-blue-dark hover:shadow-lg transition-all"
             >
               {editingItem ? "Save Changes" : "Save Item"}
             </button>
