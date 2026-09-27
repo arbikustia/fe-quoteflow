@@ -1,6 +1,12 @@
-import MasterCategoryContainer from './MasterCategory.container';
+import * as React from "react";
 
-const MasterCategoryContainerWrapper = () => {
+import MasterCategoryContainer from "./MasterCategory.container";
+
+/**
+ * Render Master Category Wrapper
+ * @returns {React.ReactElement} - Master Category Wrapper
+ */
+const MasterCategoryContainerWrapper = (): React.ReactElement => {
   return <MasterCategoryContainer />;
 };
 

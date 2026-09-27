@@ -1,10 +1,19 @@
 import jsPDF from "jspdf";
 import autoTable from "jspdf-autotable";
-import type { QuoteData } from "../modules/order-page/OrderPage.type";
-import { MOCK_ORDER_ITEMS } from "../fixture/quotes";
-import FrameImage from "../assets/frame-pdf.png";
 
-export const generateQuotePDF = async (quote: QuoteData) => {
+import FrameImage from "../assets/frame-pdf.png";
+import { MOCK_ORDER_ITEMS } from "../fixture/quotes";
+import type { QuoteData } from "../modules/order-page/OrderPage.type";
+
+type TableCell = string | number | Record<string, unknown>;
+type TableRow = TableCell[];
+
+/**
+ * Generate PDF for a Quote
+ * @param {QuoteData} quote - the quote data
+ * @returns {Promise<void>} promise
+ */
+export const generateQuotePDF = async (quote: QuoteData): Promise<void> => {
   const doc = new jsPDF();
   const frameData = await new Promise<string>((resolve) => {
     const img = new Image();
@@ -78,7 +87,7 @@ export const generateQuotePDF = async (quote: QuoteData) => {
   doc.text(`${quote.name} di ${quote.location}, sebagai berikut :`, 14, 93);
 
   // --- TABLE DATA PREPARATION ---
-  const tableData: any[] = [];
+  const tableData: TableRow[] = [];
   let no = 1;
   const categories = quote.category.split(", ").map(c => c.trim());
   let subTotal1 = 0;
@@ -106,7 +115,7 @@ export const generateQuotePDF = async (quote: QuoteData) => {
     const count = itemsInCat.length;
 
     itemsInCat.forEach((item, index) => {
-      const row: any[] = [
+      const row: TableRow = [
         { content: (no++).toString(), styles: { halign: 'center' } }, 
         item, 
         { content: quote.qty.toString(), styles: { halign: 'center' } }, 
@@ -222,7 +231,7 @@ export const generateQuotePDF = async (quote: QuoteData) => {
   });
 
   // --- FOOTER NOTES ---
-  let finalY = (doc as any).lastAutoTable.finalY + 8;
+  let finalY = ((doc as unknown) as { lastAutoTable: { finalY: number } }).lastAutoTable.finalY + 8;
   
   // The company name is omitted as requested because the frame image has it
   // Or the user does not want it duplicated below the table.

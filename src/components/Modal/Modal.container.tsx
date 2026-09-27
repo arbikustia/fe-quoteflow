@@ -1,4 +1,5 @@
 import * as React from "react";
+
 import { ModalComponent } from "./Modal.component";
 import type { ModalProps } from "./Modal.type";
 

@@ -1,4 +1,5 @@
 import test from '@/libs/unit-test';
+
 import MasterCategoryContainer from './MasterCategory.container';
 
 const configs = [

@@ -1,4 +1,4 @@
-import type { QuoteData } from "../app/quotes/Quotes.type";
+import type { QuoteData } from "../modules/order-page/OrderPage.type";
 
 export const MOCK_QUOTES: QuoteData[] = [
   // MASSIVE ORDER FOR PAGE BREAK TEST

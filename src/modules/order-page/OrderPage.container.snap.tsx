@@ -1,4 +1,5 @@
 import test from '@/libs/unit-test';
+
 import OrderPageContainer from './OrderPage.container';
 
 const configs = [

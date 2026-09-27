@@ -1,5 +1,6 @@
-import Layout from "./layout";
 import { Link } from "react-router-dom";
+
+import Layout from "./layout";
 
 // Dummy icons for stats
 const StatIcons = {

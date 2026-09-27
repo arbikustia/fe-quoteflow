@@ -1,4 +1,5 @@
 import test from '@/libs/unit-test';
+
 import { ReturnComponent } from './Return.component';
 
 const configs = [

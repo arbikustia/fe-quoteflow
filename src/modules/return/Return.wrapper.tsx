@@ -1,6 +1,12 @@
-import ReturnContainer from './Return.container';
+import * as React from "react";
 
-const ReturnContainerWrapper = () => {
+import ReturnContainer from "./Return.container";
+
+/**
+ * Return Container Wrapper
+ * @returns {React.ReactElement} node
+ */
+const ReturnContainerWrapper = (): React.ReactElement => {
   return <ReturnContainer />;
 };
 

@@ -1,8 +1,8 @@
 import * as React from 'react';
 
 import { SidebarComponent } from './Sidebar.component';
-import { useSidebarState } from './Sidebar.hook';
 import { NAVIGATION_CONFIG } from './Sidebar.config';
+import { useSidebarState } from './Sidebar.hook';
 
 /**
  * Render Sidebar Container

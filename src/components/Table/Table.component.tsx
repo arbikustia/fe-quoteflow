@@ -1,6 +1,18 @@
 import React from "react";
+
 import type { TableProps } from "./Table.type";
 
+const getAlignClass = (align?: "left" | "right" | "center"): string => {
+  if (align === "right") return "text-right";
+  if (align === "center") return "text-center";
+  return "text-left";
+};
+
+/**
+ * Render Table Component
+ * @param {TableProps<T>} props - props
+ * @returns {React.ReactElement} element
+ */
 export const TableComponent = <T,>(
   props: TableProps<T>
 ): React.ReactElement => {
@@ -14,9 +26,7 @@ export const TableComponent = <T,>(
             {columns.map((col) => (
               <th 
                 key={col.key} 
-                className={`px-6 py-4 text-xs font-bold text-brand-text-medium uppercase tracking-wider ${
-                  col.align === "right" ? "text-right" : col.align === "center" ? "text-center" : "text-left"
-                }`}
+                className={`px-6 py-4 text-xs font-bold text-brand-text-medium uppercase tracking-wider ${getAlignClass(col.align)}`}
               >
                 {col.header}
               </th>
@@ -36,11 +46,9 @@ export const TableComponent = <T,>(
                 {columns.map((col) => (
                   <td 
                     key={col.key} 
-                    className={`px-6 py-4 border-b border-brand-gray-light ${
-                      col.align === "right" ? "text-right" : col.align === "center" ? "text-center" : "text-left"
-                    }`}
+                    className={`px-6 py-4 border-b border-brand-gray-light ${getAlignClass(col.align)}`}
                   >
-                    {col.render ? col.render(row, index) : (row as any)[col.key]}
+                    {col.render ? col.render(row, index) : (row as Record<string, React.ReactNode>)[col.key]}
                   </td>
                 ))}
               </tr>

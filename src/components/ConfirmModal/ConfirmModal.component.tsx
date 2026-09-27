@@ -1,5 +1,6 @@
 import * as React from "react";
 import { FiAlertTriangle } from "react-icons/fi";
+
 import type { ConfirmModalProps } from "./ConfirmModal.type";
 
 export const ConfirmModalComponent = (props: ConfirmModalProps): React.ReactElement | null => {

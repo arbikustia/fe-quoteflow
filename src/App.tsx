@@ -1,13 +1,14 @@
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { BrowserRouter, Navigate,Route, Routes } from "react-router-dom";
+
 import Login from "./app/auth/login-page";
 import Home from "./app/Home";
-import MasterUser from "./app/master-user";
 import MasterCategory from "./app/master-category";
 import MasterItem from "./app/master-item";
+import MasterUser from "./app/master-user";
 import OrderPage from "./app/quotes";
-import { OrderPageCreateComponent as OrderPageCreate } from "./modules/order-page/OrderPageCreate.component";
 import Report from "./app/report";
 import Return from "./app/return";
+import OrderPageCreate from "./modules/order-page/form/OrderPageCreate.wrapper";
 
 function App() {
   return (

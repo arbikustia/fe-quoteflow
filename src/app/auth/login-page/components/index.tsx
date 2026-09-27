@@ -1,12 +1,22 @@
+import type { SyntheticEvent } from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-export default function LoginPage() {
+/**
+ * Render Login Page
+ * @returns {React.ReactElement} node
+ */
+export default function LoginPage(): React.ReactElement {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleSubmit = (e: React.FormEvent) => {
+  /**
+   * Handle submit
+   * @param {SyntheticEvent} e - event
+   * @returns {void}
+   */
+  const handleSubmit = (e: SyntheticEvent): void => {
     e.preventDefault();
     // Simulate login and redirect to home
     navigate("/home");

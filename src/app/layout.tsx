@@ -1,14 +1,20 @@
 import React, { useState } from "react";
-import Sidebar from "../components/Sidebar/index";
-import Navbar from "../components/Navbar/index";
 import { FiMenu, FiX } from "react-icons/fi";
 
-interface LayoutProps {
-  children: React.ReactNode;
-  pageTitle?: string;
-}
+import Navbar from "../components/Navbar/index";
+import Sidebar from "../components/Sidebar/index";
 
-export default function Layout({ children }: LayoutProps) {
+export type LayoutProps = {
+  readonly children: React.ReactNode;
+  readonly pageTitle?: string;
+};
+
+/**
+ * Render Layout
+ * @param {LayoutProps} props - props
+ * @returns {React.ReactElement} node
+ */
+export default function Layout({ children }: LayoutProps): React.ReactElement {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   return (
