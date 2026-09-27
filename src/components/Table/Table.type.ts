@@ -4,7 +4,7 @@ export type TableColumn<T> = {
   key: string;
   header: ReactNode;
   align?: "left" | "center" | "right";
-  render?: (row: T) => ReactNode;
+  render?: (row: T, index: number) => ReactNode;
 };
 
 export type TableProps<T> = {
