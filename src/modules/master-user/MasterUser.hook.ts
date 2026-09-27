@@ -1,55 +1,107 @@
-import { useState } from 'react';
-import type { UserData, MasterUserProps } from './MasterUser.type';
+import { useState } from "react";
+
+import type { BaseUserState, ConfirmModalState, ModalState, UserData } from "./MasterUser.type";
 
 /**
- * Master User State Hook
- * @returns {MasterUserProps} - Master user state and handlers
+ * Modal state hook
+ * @returns {ModalState} modal state
  */
-export const useMasterUserState = (): MasterUserProps => {
+const useModalState = (): ModalState => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false);
   const [editingUser, setEditingUser] = useState<UserData | null>(null);
-  const [deletingUser, setDeletingUser] = useState<UserData | null>(null);
 
-  const openCreateModal = () => {
+  /**
+   * Open create modal
+   * @returns {void} void
+   */
+  const openCreateModal = (): void => {
     setEditingUser(null);
     setIsModalOpen(true);
   };
 
-  const openEditModal = (user: UserData) => {
+  /**
+   * Open edit modal
+   * @param {UserData} user - user data
+   * @returns {void} void
+   */
+  const openEditModal = (user: UserData): void => {
     setEditingUser(user);
     setIsModalOpen(true);
   };
 
-  const closeModal = () => {
+  /**
+   * Close modal
+   * @returns {void} void
+   */
+  const closeModal = (): void => {
     setIsModalOpen(false);
-    setTimeout(() => setEditingUser(null), 200);
-  };
-
-  const openConfirmModal = (user: UserData) => {
-    setDeletingUser(user);
-    setIsConfirmModalOpen(true);
-  };
-
-  const closeConfirmModal = () => {
-    setIsConfirmModalOpen(false);
-    setTimeout(() => setDeletingUser(null), 200);
-  };
-
-  const onConfirmDelete = () => {
-    console.log("Delete user:", deletingUser?.username);
+    setTimeout((): void => setEditingUser(null), 200);
   };
 
   return {
     isModalOpen,
-    isConfirmModalOpen,
     editingUser,
-    deletingUser,
     openCreateModal,
     openEditModal,
     closeModal,
+  };
+};
+
+/**
+ * Confirm modal state hook
+ * @returns {ConfirmModalState} confirm modal state
+ */
+const useConfirmModalState = (): ConfirmModalState => {
+  const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false);
+  const [deletingUser, setDeletingUser] = useState<UserData | null>(null);
+
+  /**
+   * Open confirm modal
+   * @param {UserData} user - user data
+   * @returns {void} void
+   */
+  const openConfirmModal = (user: UserData): void => {
+    setDeletingUser(user);
+    setIsConfirmModalOpen(true);
+  };
+
+  /**
+   * Close confirm modal
+   * @returns {void} void
+   */
+  const closeConfirmModal = (): void => {
+    setIsConfirmModalOpen(false);
+    setTimeout((): void => setDeletingUser(null), 200);
+  };
+
+  /**
+   * On confirm delete
+   * @returns {void} void
+   */
+  const onConfirmDelete = (): void => {
+    // Note: implement real delete API here
+    closeConfirmModal();
+  };
+
+  return {
+    isConfirmModalOpen,
+    deletingUser,
     openConfirmModal,
     closeConfirmModal,
     onConfirmDelete,
+  };
+};
+
+/**
+ * Master User State Hook
+ * @returns {BaseUserState} - Master user state and handlers
+ */
+export const useMasterUserState = (): BaseUserState => {
+  const modalState = useModalState();
+  const confirmModalState = useConfirmModalState();
+
+  return {
+    ...modalState,
+    ...confirmModalState,
   };
 };

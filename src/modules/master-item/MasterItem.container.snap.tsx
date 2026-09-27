@@ -1,4 +1,5 @@
 import test from '@/libs/unit-test';
+
 import MasterItemContainer from './MasterItem.container';
 
 const configs = [

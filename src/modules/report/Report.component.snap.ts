@@ -1,4 +1,5 @@
 import test from '@/libs/unit-test';
+
 import { ReportComponent } from './Report.component';
 
 const configs = [

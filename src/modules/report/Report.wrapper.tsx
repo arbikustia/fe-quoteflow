@@ -1,6 +1,12 @@
-import ReportContainer from './Report.container';
+import * as React from "react";
 
-const ReportContainerWrapper = () => {
+import ReportContainer from "./Report.container";
+
+/**
+ * Report Container Wrapper
+ * @returns {React.ReactElement} node
+ */
+const ReportContainerWrapper = (): React.ReactElement => {
   return <ReportContainer />;
 };
 

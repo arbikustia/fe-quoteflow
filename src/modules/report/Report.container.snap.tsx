@@ -1,4 +1,5 @@
 import test from '@/libs/unit-test';
+
 import ReportContainer from './Report.container';
 
 const configs = [

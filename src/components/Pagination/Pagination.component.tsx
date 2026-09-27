@@ -1,30 +1,25 @@
+import type * as React from "react";
 
+import type { PaginationFooterProps, PaginationHeaderProps } from "./Pagination.type";
 
-interface PaginationProps {
-  currentPage: number;
-  totalPages: number;
-  pageSize: number;
-  totalCount: number;
-  onPageChange: (page: number) => void;
-  onNextPage: () => void;
-  onPrevPage: () => void;
-  onPageSizeChange?: (size: number) => void;
-  showPageSizeOptions?: boolean;
-}
-
+/**
+ * Render Pagination Header
+ * @param {PaginationHeaderProps} props - props
+ * @returns {React.ReactElement} node
+ */
 export const PaginationHeader = ({
   pageSize,
   totalCount,
   onPageSizeChange,
   showPageSizeOptions = true,
-}: Pick<PaginationProps, "pageSize" | "totalCount" | "onPageSizeChange" | "showPageSizeOptions">) => {
+}: PaginationHeaderProps): React.ReactElement => {
   return (
     <div className="flex items-center gap-3 text-sm text-brand-text-medium">
       Showing
       {showPageSizeOptions && onPageSizeChange ? (
         <select 
           value={pageSize}
-          onChange={(e) => onPageSizeChange(Number(e.target.value))}
+          onChange={(e): void => onPageSizeChange(Number(e.target.value))}
           className="border border-brand-gray-light rounded px-2 py-1 bg-brand-white font-medium text-brand-text-dark focus:outline-none"
         >
           <option value={5}>5</option>
@@ -41,13 +36,18 @@ export const PaginationHeader = ({
   );
 };
 
+/**
+ * Render Pagination Footer
+ * @param {PaginationFooterProps} props - props
+ * @returns {React.ReactElement | null} node
+ */
 export const PaginationFooter = ({
   currentPage,
   totalPages,
   onPageChange,
   onNextPage,
   onPrevPage,
-}: Pick<PaginationProps, "currentPage" | "totalPages" | "onPageChange" | "onNextPage" | "onPrevPage">) => {
+}: PaginationFooterProps): React.ReactElement | null => {
   if (totalPages <= 1) return null;
 
   const pages = Array.from({ length: totalPages }, (_, i) => i + 1);
@@ -65,7 +65,7 @@ export const PaginationFooter = ({
       {pages.map(page => (
         <button 
           key={page}
-          onClick={() => onPageChange(page)}
+          onClick={(): void => onPageChange(page)}
           className={`w-8 h-8 flex items-center justify-center rounded-lg transition-colors ${
             currentPage === page 
               ? 'bg-brand-blue text-brand-white font-bold' 

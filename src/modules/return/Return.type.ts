@@ -1,5 +1,6 @@
+import type { ChangeEvent, SyntheticEvent } from "react";
+
 import type { QuoteData } from "../order-page/OrderPage.type";
-import type { ChangeEvent, FormEvent } from "react";
 
 export type ReturnItemsData = Record<
   string,
@@ -13,8 +14,22 @@ export type ReturnProps = {
   error: string;
   returnItems: ReturnItemsData;
   isSubmitted: boolean;
-  handleSearch: (e: FormEvent) => void;
+  handleSearch: (e: SyntheticEvent) => void;
   handlePhotoUpload: (item: string, e: ChangeEvent<HTMLInputElement>) => void;
   handleRemarksChange: (item: string, text: string) => void;
-  handleSubmit: (e: FormEvent) => void;
+  handleSubmit: (e: SyntheticEvent) => void;
+};
+
+export type ItemPhotoProps = {
+  photo?: string | null;
+  onUpload: (e: ChangeEvent<HTMLInputElement>) => void;
+};
+
+export type ReturnItemCardProps = {
+  item: string;
+  idx: number;
+  quote: NonNullable<ReturnProps["quote"]>;
+  returnItems: ReturnProps["returnItems"];
+  handleRemarksChange: ReturnProps["handleRemarksChange"];
+  handlePhotoUpload: ReturnProps["handlePhotoUpload"];
 };

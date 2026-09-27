@@ -1,161 +1,126 @@
 import * as React from "react";
-import Layout from "../../app/layout";
-import Table from "../../components/Table";
-import type { TableColumn } from "../../components/Table";
-import Modal from "../../components/Modal";
-import ConfirmModal from "../../components/ConfirmModal";
-import type { MasterCategoryProps, CategoryData } from "./MasterCategory.type";
 import { FiEdit2, FiTrash2 } from "react-icons/fi";
+
+import Layout from "../../app/layout";
+import ConfirmModal from "../../components/ConfirmModal";
 import { Icons } from "../../components/Icons";
-import { MOCK_CATEGORIES } from "../../fixture/master-category";
-import { usePagination } from "../../hooks/usePagination";
-import { PaginationHeader, PaginationFooter } from "../../components/Pagination";
+import Modal from "../../components/Modal";
+import {
+  PaginationFooter,
+  PaginationHeader,
+} from "../../components/Pagination";
+import Table from "../../components/Table";
+
+import type {
+  CategoryActionProps,
+  CategoryFormModalProps,
+  CategoryToolbarProps,
+  MasterCategoryProps,
+} from "./MasterCategory.type";
+
+/**
+ * Render category form modal
+ * @param {CategoryFormModalProps} props - component props
+ * @returns {React.ReactElement} modal element
+ */
+const CategoryFormModal = ({
+  isOpen,
+  onClose,
+  editingCategory,
+  onSubmit,
+}: CategoryFormModalProps): React.ReactElement => (
+  <Modal isOpen={isOpen} onClose={onClose} title={editingCategory ? "Edit Category" : "Create New Category"}>
+    <form key={editingCategory?.id || "create"} className="space-y-4" onSubmit={onSubmit}>
+      <div>
+        <label className="block text-sm font-bold text-brand-text-dark mb-1">Category Name</label>
+        <input type="text" required defaultValue={editingCategory?.categoryName} className="w-full px-4 py-2 bg-brand-gray-light border border-brand-gray-light rounded-xl focus:outline-none focus:ring-2 focus:ring-brand-blue/20 focus:border-brand-blue transition-all text-brand-text-dark" placeholder="Enter category name" />
+      </div>
+      <div className="pt-4 flex justify-end gap-3 border-t border-brand-gray-light mt-6">
+        <button type="button" onClick={onClose} className="px-4 py-2 text-brand-text-medium font-bold hover:bg-brand-gray-light rounded-xl transition-colors">Cancel</button>
+        <button type="submit" className="px-6 py-2 bg-brand-blue text-brand-white font-bold rounded-xl shadow-md hover:bg-brand-blue-dark hover:shadow-lg transition-all">{editingCategory ? "Save Changes" : "Save Category"}</button>
+      </div>
+    </form>
+  </Modal>
+);
+
+/**
+ * Render category toolbar
+ * @param {CategoryToolbarProps} props - component props
+ * @returns {React.ReactElement} toolbar element
+ */
+const CategoryToolbar = ({ pageSize, totalCount, changePageSize }: CategoryToolbarProps): React.ReactElement => (
+  <div className="flex items-center justify-between p-4 px-6 border-b border-brand-gray-light">
+    <div className="relative">
+      <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-brand-text-medium">
+        <Icons.Search />
+      </div>
+      <input type="text" placeholder="Search category" className="w-64 pl-10 pr-4 py-2 bg-brand-gray-light border-none rounded-lg text-sm font-medium focus:outline-none focus:ring-1 focus:ring-brand-gray-light text-brand-text-dark placeholder:text-brand-text-medium" />
+    </div>
+    <PaginationHeader pageSize={pageSize} totalCount={totalCount} onPageSizeChange={changePageSize} />
+  </div>
+);
+
+/**
+ * Render action buttons
+ * @param {CategoryActionProps} props - component props
+ * @returns {React.ReactElement} action buttons
+ */
+export const CategoryActionButtons = ({ row, onEdit, onConfirm }: CategoryActionProps): React.ReactElement => {
+  /**
+   * Handle edit
+   * @returns {void} void
+   */
+  const handleEdit = (): void => onEdit(row);
+
+  /**
+   * Handle confirm
+   * @returns {void} void
+   */
+  const handleConfirm = (): void => onConfirm(row);
+
+  return (
+    <div className="flex items-center justify-center gap-2">
+      <button onClick={handleEdit} className="p-1.5 text-brand-text-medium hover:text-brand-blue hover:bg-brand-blue-light rounded-lg transition-colors cursor-pointer" title="Edit Category">
+        <FiEdit2 className="w-4 h-4" />
+      </button>
+      <button onClick={handleConfirm} className="p-1.5 text-brand-text-medium hover:text-brand-orange hover:bg-brand-orange-light rounded-lg transition-colors cursor-pointer" title="Delete Category">
+        <FiTrash2 className="w-4 h-4" />
+      </button>
+    </div>
+  );
+};
+
+
 
 /**
  * Render Master Category Component
  * @param {MasterCategoryProps} props - component props
  * @returns {React.ReactElement} - MasterCategoryComponent
  */
-export const MasterCategoryComponent = (props: MasterCategoryProps): React.ReactElement => {
-  const { 
-    isModalOpen, isConfirmModalOpen, editingCategory, deletingCategory,
-    openCreateModal, openEditModal, closeModal, 
-    openConfirmModal, closeConfirmModal, onConfirmDelete 
-  } = props;
-
-  const { 
-    currentPage, totalPages, pageSize, paginatedData, 
-    goToPage, nextPage, prevPage, changePageSize, totalCount 
-  } = usePagination(MOCK_CATEGORIES);
-
-  const columns: TableColumn<CategoryData>[] = [
-    {
-      key: "no",
-      header: "No",
-      align: "center",
-      render: (_, index) => (
-        <span className="text-brand-text-medium font-medium text-sm">
-          {(currentPage - 1) * pageSize + index + 1}
-        </span>
-      ),
-    },
-    { key: "categoryName", header: "Category Name" },
-    { 
-      key: "actions", 
-      header: "Action", 
-      align: "center",
-      render: (row) => (
-        <div className="flex items-center justify-center gap-2">
-          <button 
-            onClick={() => openEditModal(row)}
-            className="p-1.5 text-brand-text-medium hover:text-brand-blue hover:bg-brand-blue-light rounded-lg transition-colors cursor-pointer"
-            title="Edit Category"
-          >
-            <FiEdit2 className="w-4 h-4" />
-          </button>
-          <button 
-            onClick={() => openConfirmModal(row)}
-            className="p-1.5 text-brand-text-medium hover:text-brand-orange hover:bg-brand-orange-light rounded-lg transition-colors cursor-pointer"
-            title="Delete Category"
-          >
-            <FiTrash2 className="w-4 h-4" />
-          </button>
-        </div>
-      )
-    }
-  ];
+export const MasterCategoryComponent = (
+  props: MasterCategoryProps,
+): React.ReactElement => {
+  const { isModalOpen, isConfirmModalOpen, editingCategory, deletingCategory, openCreateModal, closeModal, closeConfirmModal, onConfirmDelete, currentPage, totalPages, pageSize, paginatedData, goToPage, nextPage, prevPage, changePageSize, totalCount, columns, onSubmit } = props;
 
   return (
     <Layout>
       <div className="flex flex-col h-full">
         <div className="flex justify-between items-center mb-6">
           <span className="text-2xl font-bold text-brand-text-dark">Category Management</span>
-          <button 
-            onClick={openCreateModal}
-            className="px-5 py-2.5 bg-brand-blue text-brand-white font-medium rounded-lg hover:bg-brand-blue-dark transition-all text-sm cursor-pointer"
-          >
+          <button onClick={openCreateModal} className="px-5 py-2.5 bg-brand-blue text-brand-white font-medium rounded-lg hover:bg-brand-blue-dark transition-all text-sm cursor-pointer">
             Create Category
           </button>
         </div>
-        
         <div className="bg-brand-white rounded-xl border border-brand-gray-light shadow-sm flex flex-col flex-1 overflow-hidden">
-          {/* Toolbar */}
-          <div className="flex items-center justify-between p-4 px-6 border-b border-brand-gray-light">
-            <div className="relative">
-              <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-brand-text-medium">
-                <Icons.Search />
-              </div>
-              <input
-                type="text"
-                placeholder="Search category"
-                className="w-64 pl-10 pr-4 py-2 bg-brand-gray-light border-none rounded-lg text-sm font-medium focus:outline-none focus:ring-1 focus:ring-brand-gray-light text-brand-text-dark placeholder:text-brand-text-medium"
-              />
-            </div>
-            <PaginationHeader 
-              pageSize={pageSize} 
-              totalCount={totalCount} 
-              onPageSizeChange={changePageSize} 
-            />
-          </div>
-
+          <CategoryToolbar pageSize={pageSize} totalCount={totalCount} changePageSize={changePageSize} />
           <div className="flex-1 overflow-auto">
-            <Table 
-              data={paginatedData} 
-              columns={columns} 
-              keyExtractor={(row) => row.id} 
-            />
+            <Table data={paginatedData} columns={columns} keyExtractor={(row) => row.id} />
           </div>
-
-          <PaginationFooter 
-            currentPage={currentPage}
-            totalPages={totalPages}
-            onPageChange={goToPage}
-            onNextPage={nextPage}
-            onPrevPage={prevPage}
-          />
+          <PaginationFooter currentPage={currentPage} totalPages={totalPages} onPageChange={goToPage} onNextPage={nextPage} onPrevPage={prevPage} />
         </div>
       </div>
-
-      <Modal isOpen={isModalOpen} onClose={closeModal} title={editingCategory ? "Edit Category" : "Create New Category"}>
-        <form key={editingCategory?.id || "create"} className="space-y-4" onSubmit={(e) => { e.preventDefault(); closeModal(); }}>
-          <div>
-            <label className="block text-sm font-bold text-brand-text-dark mb-1">Category Name</label>
-            <input 
-              type="text" 
-              required
-              defaultValue={editingCategory?.categoryName}
-              className="w-full px-4 py-2 bg-brand-gray-light border border-brand-gray-light rounded-xl focus:outline-none focus:ring-2 focus:ring-brand-blue/20 focus:border-brand-blue transition-all text-brand-text-dark" 
-              placeholder="Enter category name"
-            />
-          </div>
-          <div className="pt-4 flex justify-end gap-3 border-t border-brand-gray-light mt-6">
-            <button 
-              type="button" 
-              onClick={closeModal}
-              className="px-4 py-2 text-brand-text-medium font-bold hover:bg-brand-gray-light rounded-xl transition-colors"
-            >
-              Cancel
-            </button>
-            <button 
-              type="submit" 
-              className="px-6 py-2 bg-brand-blue text-brand-white font-bold rounded-xl shadow-md hover:bg-brand-blue-dark hover:shadow-lg transition-all"
-            >
-              {editingCategory ? "Save Changes" : "Save Category"}
-            </button>
-          </div>
-        </form>
-      </Modal>
-
-      <ConfirmModal 
-        isOpen={isConfirmModalOpen}
-        onClose={closeConfirmModal}
-        onConfirm={onConfirmDelete}
-        title="Delete Category"
-        message={`Are you sure you want to delete category "${deletingCategory?.categoryName}"? This action cannot be undone.`}
-        confirmText="Delete"
-        cancelText="Cancel"
-        isDestructive={true}
-      />
+      <CategoryFormModal isOpen={isModalOpen} onClose={closeModal} editingCategory={editingCategory} onSubmit={onSubmit} />
+      <ConfirmModal isOpen={isConfirmModalOpen} onClose={closeConfirmModal} onConfirm={onConfirmDelete} title="Delete Category" message={`Are you sure you want to delete category "${deletingCategory?.categoryName}"? This action cannot be undone.`} confirmText="Delete" cancelText="Cancel" isDestructive={true} />
     </Layout>
   );
 };

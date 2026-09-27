@@ -1,4 +1,4 @@
-import type { ItemData } from "../app/master-item/MasterItem.type";
+import type { ItemData } from "../modules/master-item/MasterItem.type";
 
 export const MOCK_ITEMS: ItemData[] = [
   // Audio System

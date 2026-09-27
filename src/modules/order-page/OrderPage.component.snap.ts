@@ -1,4 +1,5 @@
 import test from '@/libs/unit-test';
+
 import { OrderPageComponent } from './OrderPage.component';
 
 const configs = [

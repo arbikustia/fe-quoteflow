@@ -1,6 +1,12 @@
-import MasterItemContainer from './MasterItem.container';
+import * as React from "react";
 
-const MasterItemContainerWrapper = () => {
+import MasterItemContainer from "./MasterItem.container";
+
+/**
+ * Render Master Item Wrapper
+ * @returns {React.ReactElement} - Master Item Wrapper
+ */
+const MasterItemContainerWrapper = (): React.ReactElement => {
   return <MasterItemContainer />;
 };
 
