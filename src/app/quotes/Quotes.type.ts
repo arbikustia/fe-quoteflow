@@ -10,14 +10,20 @@ export type QuoteData = {
   pph: number;
   discount: number;
   remark: string;
-  status?: "Pending" | "Approved" | "Completed" | "On Rental";
+  status?: "Pending Payment" | "Confirmed" | "On Rental" | "Returned" | "Completed" | "Cancel";
 };
 
 export type QuotesProps = {
   isConfirmModalOpen: boolean;
   deletingQuote: QuoteData | null;
+  viewingItemsQuote?: QuoteData | null;
+  viewingCategoriesQuote?: QuoteData | null;
   openCreateModal: () => void;
   openEditModal: (quote: QuoteData) => void;
+  openViewItemsModal?: (quote: QuoteData) => void;
+  closeViewItemsModal?: () => void;
+  openViewCategoriesModal?: (quote: QuoteData) => void;
+  closeViewCategoriesModal?: () => void;
   openConfirmModal: (quote: QuoteData) => void;
   closeConfirmModal: () => void;
   onConfirmDelete: () => void;

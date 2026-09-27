@@ -1,21 +1,39 @@
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import type { QuoteData } from './Quotes.type';
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import type { QuoteData } from "./Quotes.type";
 
 export const useQuotesState = () => {
   const navigate = useNavigate();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false);
   const [editingQuote, setEditingQuote] = useState<QuoteData | null>(null);
+  const [viewingItemsQuote, setViewingItemsQuote] = useState<QuoteData | null>(null);
+  const [viewingCategoriesQuote, setViewingCategoriesQuote] = useState<QuoteData | null>(null);
   const [deletingQuote, setDeletingQuote] = useState<QuoteData | null>(null);
   const [selectedCategory, setSelectedCategory] = useState<string>("");
 
   const openCreateModal = () => {
-    navigate('/quotes/create');
+    navigate("/quotes/create");
   };
 
   const openEditModal = (quote: QuoteData) => {
     navigate(`/quotes/edit/${quote.id}`);
+  };
+
+  const openViewItemsModal = (quote: QuoteData) => {
+    setViewingItemsQuote(quote);
+  };
+
+  const closeViewItemsModal = () => {
+    setViewingItemsQuote(null);
+  };
+
+  const openViewCategoriesModal = (quote: QuoteData) => {
+    setViewingCategoriesQuote(quote);
+  };
+
+  const closeViewCategoriesModal = () => {
+    setViewingCategoriesQuote(null);
   };
 
   const closeModal = () => {
@@ -44,11 +62,17 @@ export const useQuotesState = () => {
     isModalOpen,
     isConfirmModalOpen,
     editingQuote,
+    viewingItemsQuote,
+    viewingCategoriesQuote,
     deletingQuote,
     selectedCategory,
     setSelectedCategory,
     openCreateModal,
     openEditModal,
+    openViewItemsModal,
+    closeViewItemsModal,
+    openViewCategoriesModal,
+    closeViewCategoriesModal,
     closeModal,
     openConfirmModal,
     closeConfirmModal,

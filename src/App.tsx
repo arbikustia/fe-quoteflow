@@ -7,6 +7,7 @@ import MasterItem from "./app/master-item";
 import Quotes from "./app/quotes";
 import { QuotesCreateComponent as QuotesCreate } from "./app/quotes/QuotesCreate.component";
 import Report from "./app/report";
+import Return from "./app/return";
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
         <Route path="/master-data/categories" element={<MasterCategory />} />
         <Route path="/master-data/items" element={<MasterItem />} />
         <Route path="/report" element={<Report />} />
+        <Route path="/return" element={<Return />} />
 
         {/* Fallback route */}
         <Route path="*" element={<Navigate to="/login" replace />} />

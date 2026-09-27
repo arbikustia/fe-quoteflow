@@ -10,7 +10,7 @@ export const TableComponent = <T,>(
     <div className="w-full overflow-x-auto">
       <table className="w-full whitespace-nowrap">
         <thead>
-          <tr className="bg-brand-gray-light border-b border-gray-100">
+          <tr className="bg-brand-gray-light border-b border-brand-gray-light">
             {columns.map((col) => (
               <th 
                 key={col.key} 
@@ -23,24 +23,24 @@ export const TableComponent = <T,>(
             ))}
           </tr>
         </thead>
-        <tbody className="divide-y divide-gray-100">
+        <tbody className="divide-y divide-brand-gray-light">
           {data.length === 0 ? (
             <tr>
-              <td colSpan={columns.length} className="px-6 py-8 text-center text-gray-400 font-medium">
+              <td colSpan={columns.length} className="px-6 py-8 text-center text-brand-text-medium font-medium">
                 No data available
               </td>
             </tr>
           ) : (
             data.map((row, index) => (
-              <tr key={keyExtractor ? keyExtractor(row) : index} className="hover:bg-gray-50/50 transition-colors group">
+              <tr key={keyExtractor ? keyExtractor(row) : index} className="hover:bg-brand-gray-light/50 transition-colors group">
                 {columns.map((col) => (
                   <td 
                     key={col.key} 
-                    className={`px-6 py-4 border-b border-gray-100 ${
+                    className={`px-6 py-4 border-b border-brand-gray-light ${
                       col.align === "right" ? "text-right" : col.align === "center" ? "text-center" : "text-left"
                     }`}
                   >
-                    {col.render ? col.render(row) : (row as any)[col.key]}
+                    {col.render ? col.render(row, index) : (row as any)[col.key]}
                   </td>
                 ))}
               </tr>

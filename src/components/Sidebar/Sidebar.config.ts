@@ -4,7 +4,7 @@ import type { NavigationItem } from "./Sidebar.type";
 export const NAVIGATION_CONFIG: NavigationItem[] = [
   { name: "Dashboard", path: "/home", icon: Icons.Dashboard },
   { name: "Order", path: "/quotes", icon: Icons.Quotes },
-  { name: "Return", path: "/customers", icon: Icons.Customers },
+  { name: "Return", path: "/return", icon: Icons.Customers },
   {
     name: "Master Data",
     icon: Icons.Database,
