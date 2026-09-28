@@ -18,8 +18,9 @@ export default function LoginPage(): React.ReactElement {
    */
   const handleSubmit = (e: SyntheticEvent): void => {
     e.preventDefault();
-    // Simulate login and redirect to home
-    navigate("/home");
+    // Simulate login and redirect to home or home-mobile based on screen size
+    const isMobile = window.innerWidth < 768;
+    navigate(isMobile ? "/home-mobile" : "/home");
   };
 
   return (

@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 
 import type { SidebarProps } from "./Sidebar.type";
 import { Icons } from "../Icons";
+import SoniclineLogo from "../../assets/Sonicline.png";
 
 /**
  * Render Sidebar Component
@@ -16,13 +17,7 @@ export const SidebarComponent = (props: SidebarProps): React.ReactElement => {
     <aside className="w-[280px] bg-brand-white border-r border-brand-gray-light flex flex-col z-20">
       <div className="h-20 flex items-center px-6 justify-between">
         <div className="flex items-center gap-3">
-          <div className="w-9 h-9 rounded-full bg-brand-blue flex items-center justify-center">
-            <span className="text-brand-white font-bold text-xl">Q</span>
-          </div>
-          <div className="flex flex-col">
-            <span className="text-[15px] font-bold text-brand-text-dark leading-tight">QuoteFlow</span>
-            <span className="text-[12px] text-brand-text-medium font-medium">Design Agency</span>
-          </div>
+          <img src={SoniclineLogo} alt="Sonicline" className="h-8 w-auto object-contain" />
         </div>
         <div className="flex flex-col gap-1 cursor-pointer">
           <div className="w-1.5 h-1.5 bg-gray-300 rounded-full"></div>
