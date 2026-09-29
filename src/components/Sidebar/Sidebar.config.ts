@@ -3,7 +3,7 @@ import { Icons } from "../Icons";
 
 export const NAVIGATION_CONFIG: NavigationItem[] = [
   { name: "Dashboard", path: "/home", icon: Icons.Dashboard },
-  { name: "Order", path: "/quotes", icon: Icons.Quotes },
+  { name: "Order", path: "/order", icon: Icons.Quotes },
   { name: "Return", path: "/return", icon: Icons.Customers },
   {
     name: "Master Data",

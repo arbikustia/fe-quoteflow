@@ -1,6 +1,12 @@
 import * as React from "react";
 import { FiEdit2, FiTrash2 } from "react-icons/fi";
 
+import type {
+  CategoryActionProps,
+  CategoryFormModalProps,
+  CategoryToolbarProps,
+  MasterCategoryProps,
+} from "./MasterCategory.type";
 import Layout from "../../app/layout";
 import ConfirmModal from "../../components/ConfirmModal";
 import { Icons } from "../../components/Icons";
@@ -10,13 +16,6 @@ import {
   PaginationHeader,
 } from "../../components/Pagination";
 import Table from "../../components/Table";
-
-import type {
-  CategoryActionProps,
-  CategoryFormModalProps,
-  CategoryToolbarProps,
-  MasterCategoryProps,
-} from "./MasterCategory.type";
 
 /**
  * Render category form modal

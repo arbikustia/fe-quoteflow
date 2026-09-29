@@ -1,14 +1,13 @@
 import * as React from "react";
 import { FiEdit2, FiTrash2 } from "react-icons/fi";
 
+import type { MasterUserProps, UserActionProps, UserFormModalProps, UserToolbarProps } from "./MasterUser.type";
 import Layout from "../../app/layout";
 import ConfirmModal from "../../components/ConfirmModal";
 import { Icons } from "../../components/Icons";
 import Modal from "../../components/Modal";
 import { PaginationFooter, PaginationHeader } from "../../components/Pagination";
 import Table from "../../components/Table";
-
-import type { MasterUserProps, UserActionProps, UserFormModalProps, UserToolbarProps } from "./MasterUser.type";
 
 /**
  * Render Role Field

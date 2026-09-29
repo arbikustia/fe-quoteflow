@@ -1,16 +1,27 @@
-import { useEffect,useState } from "react";
+import type { ReactElement } from "react";
+import { useEffect, useState } from "react";
 
-import MobileLayout from "../shared/MobileLayout";
 import DesktopDashboard from "../../modules/dashboard/desktop-dashboard";
 import MobileDashboard from "../../modules/dashboard/mobile-dashboard";
+import MobileLayout from "../shared/MobileLayout";
 
-export default function Dashboard() {
+/**
+ * Dashboard page
+ * @returns {ReactElement} Dashboard component
+ */
+export default function Dashboard(): ReactElement {
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
 
   useEffect(() => {
-    const handleResize = () => setIsMobile(window.innerWidth <= 768);
+    /**
+     * Handle resize window
+     * @returns {void} void
+     */
+    const handleResize = (): void => setIsMobile(window.innerWidth <= 768);
+
     window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
+
+    return (): void => window.removeEventListener("resize", handleResize);
   }, []);
 
   if (isMobile) {

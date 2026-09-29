@@ -1,12 +1,11 @@
 import * as React from "react";
 
-import type { TableColumn } from "../../components/Table";
-import { MOCK_CATEGORIES } from "../../fixture/master-category";
-import { usePagination } from "../../hooks/usePagination";
-
 import { CategoryActionButtons, MasterCategoryComponent } from "./MasterCategory.component";
 import { useMasterCategoryState } from "./MasterCategory.hook";
 import type { CategoryData, GetColumnsParams } from "./MasterCategory.type";
+import type { TableColumn } from "../../components/Table";
+import { MOCK_CATEGORIES } from "../../fixture/master-category";
+import { usePagination } from "../../hooks/usePagination";
 
 /**
  * Get table columns

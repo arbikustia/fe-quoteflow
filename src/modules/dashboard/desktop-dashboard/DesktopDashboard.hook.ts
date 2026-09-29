@@ -12,7 +12,7 @@ export const useDesktopDashboardEffect = (): { handleNewOrder: () => void; handl
    * @returns {void} - void
    */
   const handleNewOrder = (): void => {
-    navigate('/quotes/create');
+    navigate('/order/create');
   };
 
   /**

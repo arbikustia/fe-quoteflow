@@ -1,15 +1,14 @@
 import * as React from "react";
 import { FiDownload } from "react-icons/fi";
 
+import type { ReportProps } from "./Report.type";
+import type { QuoteData } from "../order-page/OrderPage.type";
 import Layout from "../../app/layout";
 import { Icons } from "../../components/Icons";
 import { PaginationFooter, PaginationHeader } from "../../components/Pagination";
 import type { TableColumn } from "../../components/Table";
 import Table from "../../components/Table";
 import { generateQuotePDF } from "../../utils/pdfGenerator";
-import type { QuoteData } from "../order-page/OrderPage.type";
-
-import type { ReportProps } from "./Report.type";
 
 /**
  * Get report columns
@@ -17,7 +16,6 @@ import type { ReportProps } from "./Report.type";
  * @param {number} pageSize - page size
  * @returns {TableColumn<QuoteData>[]} columns
  */
-// eslint-disable-next-line max-lines-per-function
 const getReportColumns = (currentPage: number, pageSize: number): TableColumn<QuoteData>[] => [
   {
     key: "no",
