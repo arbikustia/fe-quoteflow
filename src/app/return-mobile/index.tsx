@@ -12,17 +12,17 @@ const formatDate = (dateStr: string) => {
 };
 
 const getStatusStyles = (status: string) => {
-  if (status === "Confirmed" || status === "Completed") return "text-[#4a7246] bg-[#e7efdd]";
-  if (status === "Pending Payment") return "text-[#a87b1e] bg-[#fdf2c8]";
-  if (status === "Cancel") return "text-[#bd4040] bg-[#fde8e8]";
-  if (status === "On Rental") return "text-[#4a64b8] bg-[#daeaf3]";
-  return "text-gray-600 bg-gray-100";
+  if (status === "Pending Payment") return "bg-[#fdf2c8] text-[#a87b1e]";
+  if (status === "Confirmed") return "bg-[#d7e6c3] text-[#4a7246]";
+  if (status === "On Rental") return "bg-[#daeaf3] text-[#3b82f6]";
+  if (status === "Returned") return "bg-[#e7dff2] text-[#907cb5]";
+  if (status === "Completed") return "bg-[#e7efdd] text-[#4a7246]";
+  if (status === "Cancel") return "bg-[#fee2e2] text-[#ef4444]";
+  return "bg-gray-100 text-gray-600";
 };
 
 const getShortStatus = (status: string) => {
-  if (status === "Pending Payment") return "PENDING";
-  if (status === "On Rental") return "RENTAL";
-  return status.toUpperCase();
+  return status;
 };
 
 /**
@@ -37,7 +37,6 @@ const MobileHeader = (): React.ReactElement => {
           SD
         </div>
         <div className="flex flex-col">
-          <span className="text-[12px] text-gray-500 font-medium">Good morning,</span>
           <h3 className="text-[16px] font-bold text-[#1a233a] leading-tight">Superadmin</h3>
         </div>
       </div>
@@ -77,7 +76,7 @@ const ReturnRow = ({ quote }: { readonly quote: QuoteData }): React.ReactElement
 export default function ReturnMobile(): React.ReactElement {
   return (
     <div className="flex-1 w-full min-h-full bg-[#f8f9fb] font-sans pb-32 relative overflow-y-auto">
-      <MobileHeader />
+      
       <div className="px-6 mt-4">
         <h2 className="text-[28px] font-bold text-[#1a233a] mb-0.5">Return History</h2>
         <p className="text-[14px] text-gray-500 font-medium">Your recent returns.</p>

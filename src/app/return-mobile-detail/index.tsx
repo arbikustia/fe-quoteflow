@@ -1,7 +1,8 @@
 import * as React from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import type { QuoteData } from "../../modules/order-page/OrderPage.type";
+
 import { MOCK_QUOTES } from "../../fixture/quotes";
+import type { QuoteData } from "../../modules/order-page/OrderPage.type";
 import { generateQuotePDF } from "../../utils/pdfGenerator";
 
 const getStatusStyles = (status: string) => {

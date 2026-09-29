@@ -6,23 +6,24 @@ import type { QuoteData } from "../../modules/order-page/OrderPage.type";
 
 const formatDate = (dateStr: string) => {
   const d = new Date(dateStr);
-  const month = d.toLocaleString('en-US', { month: 'short' });
   const day = d.getDate().toString().padStart(2, '0');
-  return `${month} ${day}`;
+  const month = (d.getMonth() + 1).toString().padStart(2, '0');
+  const year = d.getFullYear();
+  return `${day}-${month}-${year}`;
 };
 
 const getStatusStyles = (status: string) => {
-  if (status === "Confirmed" || status === "Completed") return "text-[#4a7246] bg-[#e7efdd]";
-  if (status === "Pending Payment") return "text-[#a87b1e] bg-[#fdf2c8]";
-  if (status === "Cancel") return "text-[#bd4040] bg-[#fde8e8]";
-  if (status === "On Rental") return "text-[#4a64b8] bg-[#daeaf3]";
-  return "text-gray-600 bg-gray-100";
+  if (status === "Pending Payment") return "bg-[#fdf2c8] text-[#a87b1e]";
+  if (status === "Confirmed") return "bg-[#d7e6c3] text-[#4a7246]";
+  if (status === "On Rental") return "bg-[#daeaf3] text-[#3b82f6]";
+  if (status === "Returned") return "bg-[#e7dff2] text-[#907cb5]";
+  if (status === "Completed") return "bg-[#e7efdd] text-[#4a7246]";
+  if (status === "Cancel") return "bg-[#fee2e2] text-[#ef4444]";
+  return "bg-gray-100 text-gray-600";
 };
 
 const getShortStatus = (status: string) => {
-  if (status === "Pending Payment") return "PENDING";
-  if (status === "On Rental") return "RENTAL";
-  return status.toUpperCase();
+  return status;
 };
 
 /**
@@ -81,7 +82,7 @@ const OrderRow = ({ quote }: { readonly quote: QuoteData }): React.ReactElement 
 export default function OrderMobile(): React.ReactElement {
   return (
     <div className="flex-1 w-full min-h-full bg-[#f8f9fb] font-sans pb-32 relative overflow-y-auto">
-      <MobileHeader />
+      
       <div className="px-6 mt-4">
         <h2 className="text-[28px] font-bold text-[#1a233a] mb-0.5">Order History</h2>
         <p className="text-[14px] text-gray-500 font-medium">Your recent orders.</p>
@@ -93,8 +94,10 @@ export default function OrderMobile(): React.ReactElement {
         </div>
 
         <div className="flex flex-col">
-          {MOCK_QUOTES.slice(0, 10).map((quote) => (
-            <OrderRow key={quote.id} quote={quote} />
+          {MOCK_QUOTES
+            .filter(quote => ["On Rental", "Confirmed", "Pending Payment"].includes(quote.status))
+            .map((quote) => (
+              <OrderRow key={quote.id} quote={quote} />
           ))}
         </div>
       </div>

@@ -7,12 +7,8 @@ export const NAVIGATION_CONFIG: NavigationItem[] = [
   { name: "Return", path: "/return", icon: Icons.Customers },
   {
     name: "Master Data",
+    path: "/master-main",
     icon: Icons.Database,
-    children: [
-      { name: "Master User", path: "/master-data/users" },
-      { name: "Master Category", path: "/master-data/categories" },
-      { name: "Master Item", path: "/master-data/items" },
-    ],
   },
   { name: "Report", path: "/report", icon: Icons.Report },
 ];
