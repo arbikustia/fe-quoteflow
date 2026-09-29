@@ -24,8 +24,7 @@ import MobileReportMain from "./app/report-main-mobile";
 import MobileReportOrder from "./app/report-order-mobile";
 import MobileReportOrderDetail from "./app/report-order-mobile-detail";
 import Return from "./app/return";
-import ReturnMobile from "./app/return-mobile";
-import ReturnMobileDetail from "./app/return-mobile-detail";
+import ReturnPageDetail from "./app/return/detail";
 import MobileLayout from "./app/shared/MobileLayout";
 
 function App() {
@@ -51,7 +50,6 @@ function App() {
         <Route element={<MobileLayout />}>
 
 
-          <Route path="/return-mobile" element={<ReturnMobile />} />
           <Route path="/master-main-mobile" element={<MobileMasterMain />} />
           <Route path="/master-user-mobile" element={<MasterUserMobile />} />
           <Route path="/master-category-mobile" element={<MasterCategoryMobile />} />
@@ -62,7 +60,7 @@ function App() {
         
         {/* Detail and Create routes that DO NOT need the BottomNav */}
 
-        <Route path="/return-mobile/detail/:id" element={<ReturnMobileDetail />} />
+        <Route path="/return/detail/:id" element={<ReturnPageDetail />} />
         
         {/* Master User Mobile Detail and Create */}
         <Route path="/master-user-mobile-create" element={<MasterUserMobileCreate />} />
