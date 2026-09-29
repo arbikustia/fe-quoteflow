@@ -1,7 +1,7 @@
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 
 import Login from "./app/auth/login-page";
-import Home from "./app/Home";
+import Dashboard from "./app/dashboard";
 import MasterCategory from "./app/master-category";
 import MasterCategoryMobile from "./app/master-category-mobile";
 import MasterCategoryMobileCreate from "./app/master-category-mobile-create";
@@ -16,7 +16,6 @@ import MasterUser from "./app/master-user";
 import MasterUserMobile from "./app/master-user-mobile";
 import MasterUserMobileCreate from "./app/master-user-mobile-create";
 import MasterUserMobileDetail from "./app/master-user-mobile-detail";
-import MobileDashboard from "./app/mobile-dashboard";
 import OrderMobile from "./app/order-mobile";
 import OrderMobileCreate from "./app/order-mobile-create";
 import OrderMobileDetail from "./app/order-mobile-detail";
@@ -40,7 +39,7 @@ function App() {
 
         {/* Routes */}
         <Route path="/login" element={<Login />} />
-        <Route path="/home" element={<Home />} />
+        <Route path="/home" element={<Dashboard />} />
         <Route path="/master-main" element={<MasterMain />} />
         <Route path="/quotes" element={<OrderPage />} />
         <Route path="/quotes/create" element={<OrderPageCreate />} />
@@ -51,7 +50,7 @@ function App() {
         <Route path="/report" element={<Report />} />
         <Route path="/return" element={<Return />} />
         <Route element={<MobileLayout />}>
-          <Route path="/home-mobile" element={<MobileDashboard />} />
+
           <Route path="/order-mobile" element={<OrderMobile />} />
           <Route path="/return-mobile" element={<ReturnMobile />} />
           <Route path="/master-main-mobile" element={<MobileMasterMain />} />
