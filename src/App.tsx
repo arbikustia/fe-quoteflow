@@ -16,10 +16,9 @@ import MasterUser from "./app/master-user";
 import MasterUserMobile from "./app/master-user-mobile";
 import MasterUserMobileCreate from "./app/master-user-mobile-create";
 import MasterUserMobileDetail from "./app/master-user-mobile-detail";
-import OrderMobile from "./app/order-mobile";
-import OrderMobileCreate from "./app/order-mobile-create";
-import OrderMobileDetail from "./app/order-mobile-detail";
-import OrderPage from "./app/quotes";
+import OrderPage from "./app/order";
+import OrderPageCreate from "./app/order/create";
+import OrderPageDetail from "./app/order/detail";
 import Report from "./app/report";
 import MobileReportMain from "./app/report-main-mobile";
 import MobileReportOrder from "./app/report-order-mobile";
@@ -28,7 +27,6 @@ import Return from "./app/return";
 import ReturnMobile from "./app/return-mobile";
 import ReturnMobileDetail from "./app/return-mobile-detail";
 import MobileLayout from "./app/shared/MobileLayout";
-import OrderPageCreate from "./modules/order-page/form/OrderPageCreate.wrapper";
 
 function App() {
   return (
@@ -41,9 +39,10 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/home" element={<Dashboard />} />
         <Route path="/master-main" element={<MasterMain />} />
-        <Route path="/quotes" element={<OrderPage />} />
-        <Route path="/quotes/create" element={<OrderPageCreate />} />
-        <Route path="/quotes/edit/:id" element={<OrderPageCreate />} />
+        <Route path="/order" element={<OrderPage />} />
+        <Route path="/order/create" element={<OrderPageCreate />} />
+        <Route path="/order/edit/:id" element={<OrderPageCreate />} />
+        <Route path="/order/detail/:id" element={<OrderPageDetail />} />
         <Route path="/master-data/users" element={<MasterUser />} />
         <Route path="/master-data/categories" element={<MasterCategory />} />
         <Route path="/master-data/items" element={<MasterItem />} />
@@ -51,7 +50,7 @@ function App() {
         <Route path="/return" element={<Return />} />
         <Route element={<MobileLayout />}>
 
-          <Route path="/order-mobile" element={<OrderMobile />} />
+
           <Route path="/return-mobile" element={<ReturnMobile />} />
           <Route path="/master-main-mobile" element={<MobileMasterMain />} />
           <Route path="/master-user-mobile" element={<MasterUserMobile />} />
@@ -62,9 +61,7 @@ function App() {
         </Route>
         
         {/* Detail and Create routes that DO NOT need the BottomNav */}
-        <Route path="/order-mobile/create" element={<OrderMobileCreate />} />
-        <Route path="/order-mobile/create/:id" element={<OrderMobileCreate />} />
-        <Route path="/order-mobile/detail/:id" element={<OrderMobileDetail />} />
+
         <Route path="/return-mobile/detail/:id" element={<ReturnMobileDetail />} />
         
         {/* Master User Mobile Detail and Create */}

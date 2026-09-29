@@ -1,12 +1,11 @@
 import * as React from "react";
 
-import type { TableColumn } from "../../components/Table";
-import { MOCK_USERS } from "../../fixture/master-user";
-import { usePagination } from "../../hooks/usePagination";
-
 import { MasterUserComponent, UserActionButtons } from "./MasterUser.component";
 import { useMasterUserState } from "./MasterUser.hook";
 import type { GetColumnsParams, UserData } from "./MasterUser.type";
+import type { TableColumn } from "../../components/Table";
+import { MOCK_USERS } from "../../fixture/master-user";
+import { usePagination } from "../../hooks/usePagination";
 
 /**
  * Get table columns

@@ -18,8 +18,14 @@ const CARDS = [
  * @returns {string} - class
  */
 const getHoverClass = (color: string): string => {
-  if (color === "brand-blue") return "hover:shadow-[0_8px_30px_rgba(93,124,240,0.1)]";
-  if (color === "brand-orange") return "hover:shadow-[0_8px_30px_rgba(240,165,93,0.1)]";
+  if (color === "brand-blue") {
+    return "hover:shadow-[0_8px_30px_rgba(93,124,240,0.1)]";
+  }
+
+  if (color === "brand-orange") {
+    return "hover:shadow-[0_8px_30px_rgba(240,165,93,0.1)]";
+  }
+
   return "hover:shadow-[0_8px_30px_rgba(0,0,0,0.08)]";
 };
 

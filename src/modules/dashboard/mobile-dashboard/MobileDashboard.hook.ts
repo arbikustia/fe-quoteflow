@@ -12,7 +12,7 @@ export const useMobileDashboardEffect = (): { handleAddOrder: () => void; handle
    * @returns {void} - void
    */
   const handleAddOrder = (): void => {
-    navigate('/order-mobile/create');
+    navigate('/order/create');
   };
 
   /**

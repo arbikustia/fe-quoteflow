@@ -160,13 +160,10 @@ export default defineConfig([
   // Strict rules for specific modules
   {
     files: [
-      "src/modules/master-category/**/*.{ts,tsx}",
-      "src/modules/master-item/**/*.{ts,tsx}",
-      "src/modules/master-user/**/*.{ts,tsx}",
-      "src/modules/order-page/**/*.{ts,tsx}",
-      "src/modules/return/**/*.{ts,tsx}",
-      "src/modules/report/**/*.{ts,tsx}",
+      "src/app/order/**/*.{ts,tsx}",
+      "src/app/dashboard/**/*.{ts,tsx}",
       "src/modules/dashboard/**/*.{ts,tsx}",
+      "src/modules/order/**/*.{ts,tsx}",
     ],
     rules: {
       semi: ["error", "always"],
