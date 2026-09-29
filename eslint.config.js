@@ -166,6 +166,7 @@ export default defineConfig([
       "src/modules/order-page/**/*.{ts,tsx}",
       "src/modules/return/**/*.{ts,tsx}",
       "src/modules/report/**/*.{ts,tsx}",
+      "src/modules/dashboard/**/*.{ts,tsx}",
     ],
     rules: {
       semi: ["error", "always"],
