@@ -1,9 +1,8 @@
 import { useMemo } from "react";
 
+import type { ReportProps } from "./Report.type";
 import { MOCK_QUOTES } from "../../fixture/quotes";
 import { usePagination } from "../../hooks/usePagination";
-
-import type { ReportProps } from "./Report.type";
 
 /**
  * useReportState hook

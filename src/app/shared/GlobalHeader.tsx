@@ -10,7 +10,7 @@ export default function GlobalHeader(): React.ReactElement {
 
   // Determine if the create button should be shown and its endpoint
   let createEndpoint = "";
-  if (path === "/order-mobile") createEndpoint = "/order-mobile/create";
+  if (path === "/order") createEndpoint = "/order/create";
   else if (path === "/master-user-mobile") createEndpoint = "/master-user-mobile-create";
   else if (path === "/master-category-mobile") createEndpoint = "/master-category-mobile-create";
   else if (path === "/master-item-mobile") createEndpoint = "/master-item-mobile-create";
@@ -32,7 +32,7 @@ export default function GlobalHeader(): React.ReactElement {
             <span className="font-medium text-[14px]">Create</span>
           </button>
         )}
-        {path === "/home-mobile" && (
+        {path === "/home" && (
           <button
             onClick={() => navigate("/login")}
             className="w-12 h-12 bg-white rounded-full flex items-center justify-center text-gray-700 hover:text-red-500 hover:bg-red-50 transition-colors shadow-sm shrink-0"

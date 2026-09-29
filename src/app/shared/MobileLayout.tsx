@@ -1,20 +1,21 @@
 import * as React from "react";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
+
 import GlobalHeader from "./GlobalHeader";
 
-export default function MobileLayout(): React.ReactElement {
+export default function MobileLayout({ children }: { readonly children?: React.ReactNode }): React.ReactElement {
   const navigate = useNavigate();
   const location = useLocation();
   const path = location.pathname;
 
   const tabs = [
     {
-      id: "/home-mobile",
+      id: "/home",
       label: "Home",
       icon: <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
     },
     {
-      id: "/order-mobile",
+      id: "/order",
       label: "Order",
       icon: <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline></svg>
     },
@@ -39,7 +40,7 @@ export default function MobileLayout(): React.ReactElement {
     <div className="flex flex-col h-full w-full bg-[#f8f9fb] absolute inset-0">
       <GlobalHeader />
       <div className="flex-1 w-full relative overflow-y-auto overflow-x-hidden pb-10">
-        <Outlet />
+        {children || <Outlet />}
       </div>
       <div className="fixed bottom-6 left-6 right-6 bg-white rounded-[2rem] px-2 py-3 flex items-center justify-around shadow-[0_20px_50px_rgba(0,0,0,0.12)] z-50">
         {tabs.map((tab) => {
