@@ -1,8 +1,9 @@
 import React from "react";
 import { FiCheckCircle, FiSearch, FiUpload } from "react-icons/fi";
 
-import type { ItemPhotoProps, ReturnItemCardProps, ReturnProps } from "./Return.type";
-import Layout from "../../app/layout";
+import Layout from "../../../app/layout";
+
+import type { DesktopReturnItemCardProps, DesktopReturnProps,ItemPhotoProps } from "./DesktopReturn.type";
 
 /**
  * Render Item Photo
@@ -31,10 +32,10 @@ const ItemPhoto = (props: ItemPhotoProps): React.ReactElement => (
 
 /**
  * Return Item Card Component
- * @param {ReturnItemCardProps} props - props
+ * @param {DesktopReturnItemCardProps} props - props
  * @returns {React.ReactElement} element
  */
-const ReturnItemCard = (props: ReturnItemCardProps): React.ReactElement => (
+const DesktopReturnItemCard = (props: DesktopReturnItemCardProps): React.ReactElement => (
   <div className="bg-brand-white border border-brand-gray-light rounded-2xl p-5 flex flex-col md:flex-row gap-6 hover:border-brand-blue-light transition-colors">
     <div className="flex-1">
       <h4 className="font-bold text-brand-text-dark text-lg mb-1">{props.item}</h4>
@@ -63,10 +64,10 @@ const ReturnItemCard = (props: ReturnItemCardProps): React.ReactElement => (
 
 /**
  * Render Return Form
- * @param {ReturnProps} props - props
+ * @param {DesktopReturnProps} props - props
  * @returns {React.ReactElement} element
  */
-const ReturnFormSection = (props: ReturnProps): React.ReactElement => (
+const DesktopReturnFormSection = (props: DesktopReturnProps): React.ReactElement => (
   <form onSubmit={props.handleSubmit} className="animate-fade-in">
     <div className="bg-brand-gray-light p-4 rounded-xl mb-6 flex justify-between items-center border border-brand-gray-light">
       <div>
@@ -80,7 +81,7 @@ const ReturnFormSection = (props: ReturnProps): React.ReactElement => (
 
     <div className="space-y-4">
       {props.quote!.selectedItems.map((item, idx) => (
-        <ReturnItemCard key={idx} item={item} idx={idx} quote={props.quote!} {...props} />
+        <DesktopReturnItemCard key={idx} item={item} idx={idx} quote={props.quote!} {...props} />
       ))}
     </div>
 
@@ -94,10 +95,10 @@ const ReturnFormSection = (props: ReturnProps): React.ReactElement => (
 
 /**
  * Render Search Section
- * @param {ReturnProps} props - props
+ * @param {DesktopReturnProps} props - props
  * @returns {React.ReactElement} element
  */
-const SearchSection = (props: ReturnProps): React.ReactElement => (
+const SearchSection = (props: DesktopReturnProps): React.ReactElement => (
   <form onSubmit={props.handleSearch} className="flex items-end gap-4 mb-8">
     <div className="flex-1">
       <label className="block text-sm font-semibold text-brand-text-dark mb-2">Quotation Code (e.g. Q-999)</label>
@@ -122,10 +123,10 @@ const SearchSection = (props: ReturnProps): React.ReactElement => (
 
 /**
  * Render Return Component
- * @param {ReturnProps} props - props
+ * @param {DesktopReturnProps} props - props
  * @returns {React.ReactElement} element
  */
-export const ReturnComponent = (props: ReturnProps): React.ReactElement => (
+export const DesktopReturnComponent = (props: DesktopReturnProps): React.ReactElement => (
   <Layout pageTitle="Return Equipment">
     <div className="bg-brand-white rounded-3xl shadow-sm border border-brand-gray-light p-6 max-w-4xl mx-auto">
       <h2 className="text-xl font-bold text-brand-text-dark mb-6">Scan / Input Quotation Code</h2>
@@ -147,7 +148,7 @@ export const ReturnComponent = (props: ReturnProps): React.ReactElement => (
         </div>
       )}
 
-      {props.quote && !props.isSubmitted && <ReturnFormSection {...props} />}
+      {props.quote && !props.isSubmitted && <DesktopReturnFormSection {...props} />}
     </div>
   </Layout>
 );

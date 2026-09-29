@@ -162,8 +162,10 @@ export default defineConfig([
     files: [
       "src/app/order/**/*.{ts,tsx}",
       "src/app/dashboard/**/*.{ts,tsx}",
+      "src/app/return/**/*.{ts,tsx}",
       "src/modules/dashboard/**/*.{ts,tsx}",
       "src/modules/order/**/*.{ts,tsx}",
+      "src/modules/return/**/*.{ts,tsx}",
     ],
     rules: {
       semi: ["error", "always"],
