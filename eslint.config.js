@@ -163,9 +163,11 @@ export default defineConfig([
       "src/app/order/**/*.{ts,tsx}",
       "src/app/dashboard/**/*.{ts,tsx}",
       "src/app/return/**/*.{ts,tsx}",
+      "src/app/master-user/**/*.{ts,tsx}",
       "src/modules/dashboard/**/*.{ts,tsx}",
       "src/modules/order/**/*.{ts,tsx}",
       "src/modules/return/**/*.{ts,tsx}",
+      "src/modules/master-user/**/*.{ts,tsx}",
     ],
     rules: {
       semi: ["error", "always"],

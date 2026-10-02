@@ -1,18 +1,23 @@
 import * as React from 'react';
 
 export type StatusCardProps = {
-  title: string;
-  count: number;
-  bgColor: string;
-  iconColor: string;
-  icon: React.ReactNode;
+  readonly title: string;
+  readonly count: number;
+  readonly bgColor: string;
+  readonly iconColor: string;
+  readonly icon: React.ReactNode;
 };
 
 export type QuickActionsProps = {
-  onAddOrder: () => void;
-  onOrderReport: () => void;
+  readonly onAddOrder: () => void;
+  readonly onOrderReport: () => void;
 };
 
 export type MobileDashboardProps = QuickActionsProps & {
-  statuses: StatusCardProps[];
+  readonly statuses: StatusCardProps[];
+};
+
+export type MobileDashboardHookReturn = {
+  readonly handleAddOrder: () => void;
+  readonly handleOrderReport: () => void;
 };

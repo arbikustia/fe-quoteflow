@@ -118,7 +118,7 @@ const getBasicColumns = (currentPage: number, pageSize: number): TableColumn<Quo
     header: <input type="checkbox" className="rounded border-gray-300 text-brand-blue focus:ring-brand-blue w-4 h-4 cursor-pointer" />,
     /**
      * Render checkbox
-     * @returns {React.ReactElement} node
+     * @returns {React.ReactElement} - Checkbox
      */
     render: (): React.ReactElement => <input type="checkbox" className="rounded border-gray-300 text-brand-blue focus:ring-brand-blue w-4 h-4 cursor-pointer" />,
   },
@@ -130,7 +130,7 @@ const getBasicColumns = (currentPage: number, pageSize: number): TableColumn<Quo
      * Render index
      * @param {QuoteData} _ - row
      * @param {number} index - index
-     * @returns {React.ReactElement} node
+     * @returns {React.ReactElement} - Index
      */
     render: (_, index): React.ReactElement => (
       <span className="text-brand-text-medium font-medium text-sm">{(currentPage - 1) * pageSize + index + 1}</span>
@@ -142,7 +142,7 @@ const getBasicColumns = (currentPage: number, pageSize: number): TableColumn<Quo
     /**
      * Render event info
      * @param {QuoteData} row - row
-     * @returns {React.ReactElement} node
+     * @returns {React.ReactElement} - Info
      */
     render: (row): React.ReactElement => (
       <div className="flex flex-col gap-1">
@@ -160,7 +160,7 @@ const getBasicColumns = (currentPage: number, pageSize: number): TableColumn<Quo
     /**
      * Render date range
      * @param {QuoteData} row - row
-     * @returns {React.ReactElement} node
+     * @returns {React.ReactElement} - Date
      */
     render: (row): React.ReactElement => <DateRangeColumn row={row} />,
   },
@@ -178,7 +178,7 @@ const getActionColumns = (params: GetColumnsParams): TableColumn<QuoteData>[] =>
     /**
      * Render category
      * @param {QuoteData} row - row
-     * @returns {React.ReactElement} node
+     * @returns {React.ReactElement} - Category
      */
     render: (row): React.ReactElement => <CategoryColumn row={row} openViewCategoriesModal={params.openViewCategoriesModal} />,
   },
@@ -188,7 +188,7 @@ const getActionColumns = (params: GetColumnsParams): TableColumn<QuoteData>[] =>
     /**
      * Render items
      * @param {QuoteData} row - row
-     * @returns {React.ReactElement} node
+     * @returns {React.ReactElement} - Items
      */
     render: (row): React.ReactElement => <ItemsColumn row={row} openViewItemsModal={params.openViewItemsModal} />,
   },
@@ -199,7 +199,7 @@ const getActionColumns = (params: GetColumnsParams): TableColumn<QuoteData>[] =>
     /**
      * Render qty
      * @param {QuoteData} row - row
-     * @returns {React.ReactElement} node
+     * @returns {React.ReactElement} - Qty
      */
     render: (row): React.ReactElement => <span className="font-bold text-brand-text-dark bg-brand-gray-light w-7 h-7 flex items-center justify-center rounded-full border border-brand-gray-light mx-auto text-xs">{row.qty}</span>,
   },
@@ -210,7 +210,7 @@ const getActionColumns = (params: GetColumnsParams): TableColumn<QuoteData>[] =>
     /**
      * Render action
      * @param {QuoteData} row - row
-     * @returns {React.ReactElement} node
+     * @returns {React.ReactElement} - Action
      */
     render: (row): React.ReactElement => <ActionColumn row={row} openEditModal={params.openEditModal} openConfirmModal={params.openConfirmModal} />,
   },

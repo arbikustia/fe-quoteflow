@@ -3,26 +3,22 @@ import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import Login from "./app/auth/login-page";
 import Dashboard from "./app/dashboard";
 import MasterCategory from "./app/master-category";
-import MasterCategoryMobile from "./app/master-category-mobile";
-import MasterCategoryMobileCreate from "./app/master-category-mobile-create";
-import MasterCategoryMobileDetail from "./app/master-category-mobile-detail";
+import MasterCategoryCreate from "./app/master-category/create";
+import MasterCategoryDetail from "./app/master-category/detail";
 import MasterItem from "./app/master-item";
-import MasterItemMobile from "./app/master-item-mobile";
-import MasterItemMobileCreate from "./app/master-item-mobile-create";
-import MasterItemMobileDetail from "./app/master-item-mobile-detail";
+import MasterItemCreate from "./app/master-item/create";
+import MasterItemDetail from "./app/master-item/detail";
 import MasterMain from "./app/master-main";
-import MobileMasterMain from "./app/master-main-mobile";
+import MobileMasterMain from "./app/master-main";
 import MasterUser from "./app/master-user";
-import MasterUserMobile from "./app/master-user-mobile";
-import MasterUserMobileCreate from "./app/master-user-mobile-create";
-import MasterUserMobileDetail from "./app/master-user-mobile-detail";
+import MasterUserCreate from "./app/master-user/create";
+import MasterUserDetail from "./app/master-user/detail";
 import OrderPage from "./app/order";
 import OrderPageCreate from "./app/order/create";
 import OrderPageDetail from "./app/order/detail";
 import Report from "./app/report";
-import MobileReportMain from "./app/report-main-mobile";
-import MobileReportOrder from "./app/report-order-mobile";
-import MobileReportOrderDetail from "./app/report-order-mobile-detail";
+import ReportDetail from "./app/report/detail";
+import ReportMain from "./app/report/main";
 import Return from "./app/return";
 import ReturnPageDetail from "./app/return/detail";
 import MobileLayout from "./app/shared/MobileLayout";
@@ -42,7 +38,10 @@ function App() {
         <Route path="/order/create" element={<OrderPageCreate />} />
         <Route path="/order/edit/:id" element={<OrderPageCreate />} />
         <Route path="/order/detail/:id" element={<OrderPageDetail />} />
-        <Route path="/master-data/users" element={<MasterUser />} />
+        <Route path="/master-user" element={<MasterUser />} />
+        <Route path="/master-user/create" element={<MasterUserCreate />} />
+        <Route path="/master-user/edit/:id" element={<MasterUserCreate />} />
+        <Route path="/master-user/detail/:id" element={<MasterUserDetail />} />
         <Route path="/master-data/categories" element={<MasterCategory />} />
         <Route path="/master-data/items" element={<MasterItem />} />
         <Route path="/report" element={<Report />} />
@@ -50,35 +49,32 @@ function App() {
         <Route element={<MobileLayout />}>
 
 
-          <Route path="/master-main-mobile" element={<MobileMasterMain />} />
-          <Route path="/master-user-mobile" element={<MasterUserMobile />} />
-          <Route path="/master-category-mobile" element={<MasterCategoryMobile />} />
-          <Route path="/master-item-mobile" element={<MasterItemMobile />} />
-          <Route path="/report-main-mobile" element={<MobileReportMain />} />
-          <Route path="/report-order-mobile" element={<MobileReportOrder />} />
+          <Route path="/master-main" element={<MobileMasterMain />} />
+
+          <Route path="/master-category" element={<MasterCategory />} />
+          <Route path="/master-item" element={<MasterItem />} />
+          <Route path="/report/main" element={<ReportMain />} />
+          <Route path="/report" element={<Report />} />
         </Route>
         
         {/* Detail and Create routes that DO NOT need the BottomNav */}
 
         <Route path="/return/detail/:id" element={<ReturnPageDetail />} />
         
-        {/* Master User Mobile Detail and Create */}
-        <Route path="/master-user-mobile-create" element={<MasterUserMobileCreate />} />
-        <Route path="/master-user-mobile-create/:id" element={<MasterUserMobileCreate />} />
-        <Route path="/master-user-mobile-detail/:id" element={<MasterUserMobileDetail />} />
 
-        {/* Master Category Mobile Detail and Create */}
-        <Route path="/master-category-mobile-create" element={<MasterCategoryMobileCreate />} />
-        <Route path="/master-category-mobile-create/:id" element={<MasterCategoryMobileCreate />} />
-        <Route path="/master-category-mobile-detail/:id" element={<MasterCategoryMobileDetail />} />
 
-        {/* Master Item Mobile Detail and Create */}
-        <Route path="/master-item-mobile-create" element={<MasterItemMobileCreate />} />
-        <Route path="/master-item-mobile-create/:id" element={<MasterItemMobileCreate />} />
-        <Route path="/master-item-mobile-detail/:id" element={<MasterItemMobileDetail />} />
+        {/* Master Category Detail and Create */}
+        <Route path="/master-category/create" element={<MasterCategoryCreate />} />
+        <Route path="/master-category/create/:id" element={<MasterCategoryCreate />} />
+        <Route path="/master-category/detail/:id" element={<MasterCategoryDetail />} />
 
-        {/* Report Mobile Detail */}
-        <Route path="/report-order-mobile-detail/:id" element={<MobileReportOrderDetail />} />
+        {/* Master Item Detail and Create */}
+        <Route path="/master-item/create" element={<MasterItemCreate />} />
+        <Route path="/master-item/create/:id" element={<MasterItemCreate />} />
+        <Route path="/master-item/detail/:id" element={<MasterItemDetail />} />
+
+        {/* Report Detail */}
+        <Route path="/report/detail/:id" element={<ReportDetail />} />
 
         {/* Fallback route */}
         <Route path="*" element={<Navigate to="/login" replace />} />

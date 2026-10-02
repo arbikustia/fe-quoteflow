@@ -1,9 +1,4 @@
-import type {
-  ChangeEvent,
-  Dispatch,
-  SetStateAction,
-  SyntheticEvent,
-} from "react";
+import type { ChangeEvent, Dispatch, SetStateAction, SyntheticEvent } from "react";
 import { useState } from "react";
 
 import { MOCK_QUOTES } from "../../../fixture/quotes";
@@ -15,13 +10,11 @@ import type {
   OnSearchOptions,
 } from "./DesktopReturn.type";
 
-
-
 /**
  * Handle search event
  * @param {SyntheticEvent} e - event
  * @param {OnSearchOptions} options - options
- * @returns {void}
+ * @returns {void} - void
  */
 const onSearch = (
   e: SyntheticEvent,
@@ -59,8 +52,8 @@ const onSearch = (
  * Handle photo upload
  * @param {string} item - item name
  * @param {ChangeEvent<HTMLInputElement>} e - event
- * @param {Function} setReturnItems - setter
- * @returns {void}
+ * @param {Dispatch<SetStateAction<DesktopReturnItemsData>>} setReturnItems - setter
+ * @returns {void} - void
  */
 const onPhotoUpload = (
   item: string,
@@ -81,8 +74,8 @@ const onPhotoUpload = (
  * Handle remarks change
  * @param {string} item - item name
  * @param {string} text - text
- * @param {Function} setReturnItems - setter
- * @returns {void}
+ * @param {Dispatch<SetStateAction<DesktopReturnItemsData>>} setReturnItems - setter
+ * @returns {void} - void
  */
 const onRemarksChange = (
   item: string,
@@ -96,8 +89,8 @@ const onRemarksChange = (
  * Handle submit
  * @param {SyntheticEvent} e - event
  * @param {DesktopReturnItemsData} items - items
- * @param {Function} setIsSubmitted - setter
- * @returns {void}
+ * @param {Dispatch<SetStateAction<boolean>>} setIsSubmitted - setter
+ * @returns {void} - void
  */
 const onSubmit = (
   e: SyntheticEvent,
@@ -146,7 +139,7 @@ export const useDesktopReturnState = (): DesktopReturnProps => {
     /**
      * Handle search
      * @param {SyntheticEvent} e - event
-     * @returns {void}
+     * @returns {void} - void
      */
     handleSearch: (e: SyntheticEvent): void =>
       onSearch(e, {
@@ -160,7 +153,7 @@ export const useDesktopReturnState = (): DesktopReturnProps => {
      * Handle photo upload
      * @param {string} item - item
      * @param {ChangeEvent<HTMLInputElement>} e - event
-     * @returns {void}
+     * @returns {void} - void
      */
     handlePhotoUpload: (item: string, e: ChangeEvent<HTMLInputElement>): void =>
       onPhotoUpload(item, e, setReturnItems),
@@ -168,14 +161,14 @@ export const useDesktopReturnState = (): DesktopReturnProps => {
      * Handle remarks change
      * @param {string} item - item
      * @param {string} text - text
-     * @returns {void}
+     * @returns {void} - void
      */
     handleRemarksChange: (item: string, text: string): void =>
       onRemarksChange(item, text, setReturnItems),
     /**
      * Handle submit
      * @param {SyntheticEvent} e - event
-     * @returns {void}
+     * @returns {void} - void
      */
     handleSubmit: (e: SyntheticEvent): void =>
       onSubmit(e, returnItems, setIsSubmitted),

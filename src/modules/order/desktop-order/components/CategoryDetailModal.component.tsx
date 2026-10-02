@@ -5,7 +5,8 @@ import type { CategoryDetailModalProps } from "../DesktopOrder.type";
 
 /**
  * Category Detail Content Component
- * @param {{categories: string[]}} props - props
+ * @param {object} props - props
+ * @param {string[]} props.categories - categories list
  * @returns {React.ReactElement} content element
  */
 const CategoryDetailContent = ({ categories }: { categories: string[] }): React.ReactElement => (

@@ -18,3 +18,11 @@ export type DesktopDashboardProps = {
   readonly onNewOrder: () => void;
   readonly onReturn: () => void;
 };
+
+/**
+ * Hook Return Type
+ */
+export type DesktopDashboardHookReturn = {
+  readonly handleNewOrder: () => void;
+  readonly handleReturn: () => void;
+};

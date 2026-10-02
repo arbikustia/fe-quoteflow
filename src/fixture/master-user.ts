@@ -1,4 +1,4 @@
-import type { UserData } from "../modules/master-user/MasterUser.type";
+import type { UserData } from "../modules/master-user/desktop-master-user/DesktopMasterUser.type";
 
 export const MOCK_USERS: UserData[] = [
   { id: "1", username: "arbikustia14", role: "Admin" },
