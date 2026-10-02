@@ -33,7 +33,7 @@ export default function MasterCategoryMobileDetail(): React.ReactElement {
           </div>
           <span className="font-bold text-[15px]">Back</span>
         </button>
-        <button onClick={() => navigate(`/master-category-create/${category.id}`)} className="px-5 py-2.5 bg-[#e7dff2] text-[#8b5cf6] font-bold text-[13px] rounded-full hover:bg-[#d8cced] transition-colors">
+        <button onClick={() => navigate(`/master-category/create/${category.id}`)} className="px-5 py-2.5 bg-[#e7dff2] text-[#8b5cf6] font-bold text-[13px] rounded-full hover:bg-[#d8cced] transition-colors">
           Edit Category
         </button>
       </div>

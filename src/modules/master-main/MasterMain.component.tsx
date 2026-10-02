@@ -1,18 +1,8 @@
 import * as React from "react";
 import { useNavigate } from "react-router-dom";
 
-import Layout from "../../app/layout";
+import type { MasterMainCardProps } from "./MasterMain.type";
 import { Icons } from "../../components/Icons";
-
-/**
- * Master Main Card Props
- */
-type MasterMainCardProps = {
-  readonly title: string;
-  readonly description: string;
-  readonly icon: React.ReactElement;
-  readonly path: string;
-};
 
 /**
  * Render Master Main Card
@@ -62,36 +52,34 @@ const MasterMainComponent = (): React.ReactElement => {
       title: "Master Category",
       description: "Manage product and item categories",
       icon: <Icons.Dashboard />,
-      path: "/master-data/categories",
+      path: "/master-category",
     },
     {
       title: "Master Item",
       description: "Manage items and inventory data",
       icon: <Icons.Database />,
-      path: "/master-data/items",
+      path: "/master-item",
     },
   ];
 
   return (
-    <Layout>
-      <div className="flex flex-col h-full">
-        <div className="mb-6">
-          <span className="text-2xl font-bold text-brand-text-dark">Master Data</span>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {cards.map((card, index) => (
-            <MasterMainCard
-              key={index}
-              title={card.title}
-              description={card.description}
-              icon={card.icon}
-              path={card.path}
-            />
-          ))}
-        </div>
+    <div className="flex flex-col h-full">
+      <div className="mb-6">
+        <span className="text-2xl font-bold text-brand-text-dark">Master Data</span>
       </div>
-    </Layout>
+
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        {cards.map((card, index) => (
+          <MasterMainCard
+            key={index}
+            title={card.title}
+            description={card.description}
+            icon={card.icon}
+            path={card.path}
+          />
+        ))}
+      </div>
+    </div>
   );
 };
 

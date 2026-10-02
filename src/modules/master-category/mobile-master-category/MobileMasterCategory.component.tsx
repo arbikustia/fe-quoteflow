@@ -25,7 +25,7 @@ const _MobileHeader = ({ onNavigate }: MobileHeaderProps): React.ReactElement =>
    * @returns {void} - void
    */
   const handleNavigateToCreate = (): void => {
-    onNavigate("/master-category-create");
+    onNavigate("/master-category/create");
   };
 
   return (
@@ -54,7 +54,7 @@ const _CategoryRow = ({ category, index, onNavigate }: CategoryRowProps): React.
    * @returns {void} - void
    */
   const handleRowClick = (): void => {
-    onNavigate(`/master-category-detail/${category.id}`);
+    onNavigate(`/master-category/detail/${category.id}`);
   };
 
   return (

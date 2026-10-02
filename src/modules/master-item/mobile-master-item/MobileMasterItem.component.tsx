@@ -19,7 +19,7 @@ const formatPrice = (price: number): string => {
  */
 const MobileHeader = ({ onNavigate }: MobileHeaderProps): React.ReactElement => {
   const handleNavigateMain = (): void => onNavigate("/master-main");
-  const handleNavigateCreate = (): void => onNavigate("/master-item-create");
+  const handleNavigateCreate = (): void => onNavigate("/master-item/create");
 
   return (
     <div className="px-6 pt-10 pb-2 flex items-center justify-between sticky top-0 bg-[#f8f9fb]/90 backdrop-blur-sm z-20">
@@ -42,7 +42,7 @@ const MobileHeader = ({ onNavigate }: MobileHeaderProps): React.ReactElement => 
  * @returns {React.ReactElement} - node
  */
 const ItemRow = ({ item, index, onNavigate }: ItemRowProps): React.ReactElement => {
-  const handleNavigateDetail = (): void => onNavigate(`/master-item-detail/${item.id}`);
+  const handleNavigateDetail = (): void => onNavigate(`/master-item/detail/${item.id}`);
 
   return (
     <div onClick={handleNavigateDetail} className="bg-white rounded-3xl px-5 py-4 mb-3 flex items-center shadow-[0_4px_15_rgba(0,0,0,0.02)] border border-gray-100 transition-transform hover:scale-[1.01] cursor-pointer">

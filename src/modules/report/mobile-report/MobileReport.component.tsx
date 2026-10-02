@@ -16,7 +16,7 @@ const MobileHeader = ({ onNavigate }: MobileHeaderProps): React.ReactElement => 
    * @returns {void} - void
    */
   const handleBack = (): void => {
-    onNavigate("/report-main-mobile");
+    onNavigate("/report/main");
   };
 
   return (
@@ -88,7 +88,7 @@ const OrderRow = ({ order, index, onNavigate }: OrderRowProps): React.ReactEleme
    * @returns {void} - void
    */
   const handleRowClick = (): void => {
-    onNavigate(`/report-detail/${order.id}`);
+    onNavigate(`/report/detail/${order.id}`);
   };
 
   return (
