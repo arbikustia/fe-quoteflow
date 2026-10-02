@@ -37,7 +37,7 @@ export default function MasterItemMobileDetail(): React.ReactElement {
           </div>
           <span className="font-bold text-[15px]">Back</span>
         </button>
-        <button onClick={() => navigate(`/master-item-create/${item.id}`)} className="px-5 py-2.5 bg-[#f4e482] text-[#eab308] font-bold text-[13px] rounded-full hover:bg-[#eade6d] transition-colors">
+        <button onClick={() => navigate(`/master-item/create/${item.id}`)} className="px-5 py-2.5 bg-[#f4e482] text-[#eab308] font-bold text-[13px] rounded-full hover:bg-[#eade6d] transition-colors">
           Edit Item
         </button>
       </div>

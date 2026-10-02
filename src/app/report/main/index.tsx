@@ -1,6 +1,7 @@
 import * as React from "react";
 import { useNavigate } from "react-router-dom";
 
+import MobileLayout from "../../shared/MobileLayout";
 import { Icons } from "../../../components/Icons";
 
 /**
@@ -34,7 +35,8 @@ export default function MobileReportMain(): React.ReactElement {
   ];
 
   return (
-    <div className="flex-1 w-full min-h-full bg-[#f8f9fb] font-sans pb-32">
+    <MobileLayout>
+      <div className="flex-1 w-full min-h-full bg-[#f8f9fb] font-sans pb-32">
       
       
       <div className="px-6 mt-6">
@@ -61,7 +63,8 @@ export default function MobileReportMain(): React.ReactElement {
             </div>
           ))}
         </div>
+        </div>
       </div>
-    </div>
+    </MobileLayout>
   );
 }

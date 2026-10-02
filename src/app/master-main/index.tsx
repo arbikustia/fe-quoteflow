@@ -1,14 +1,16 @@
 import type { ReactElement } from "react";
 import { useEffect, useState } from "react";
 
+import MobileMasterMain from "./mobile";
+import Layout from "../layout";
 import MobileLayout from "../shared/MobileLayout";
-import { DesktopMasterCategory, MobileMasterCategory } from "../../modules/master-category";
+import DesktopMasterMain from "../../modules/master-main";
 
 /**
- * Master category page - responsive wrapper.
- * @returns {ReactElement} master category page
+ * Render the responsive master data landing page.
+ * @returns {ReactElement} - master data page
  */
-export default function MasterCategoryPage(): ReactElement {
+export default function MasterMainPage(): ReactElement {
   const [isMobile, setIsMobile] = useState<boolean>(window.innerWidth <= 768);
 
   useEffect(() => {
@@ -22,10 +24,15 @@ export default function MasterCategoryPage(): ReactElement {
   if (isMobile) {
     return (
       <MobileLayout>
-        <MobileMasterCategory />
+        <MobileMasterMain />
       </MobileLayout>
     );
   }
 
-  return <DesktopMasterCategory />;
+  return (
+    <Layout>
+      <DesktopMasterMain />
+    </Layout>
+  );
 }
+
