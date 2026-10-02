@@ -1,10 +1,12 @@
 import { useNavigate } from 'react-router-dom';
 
+import type { MobileDashboardHookReturn } from './MobileDashboard.type';
+
 /**
  * Mobile dashboard effect hook
- * @returns {{ handleAddOrder: () => void; handleOrderReport: () => void }} - hook returns
+ * @returns {MobileDashboardHookReturn} - hook returns
  */
-export const useMobileDashboardEffect = (): { handleAddOrder: () => void; handleOrderReport: () => void } => {
+export const useMobileDashboardEffect = (): MobileDashboardHookReturn => {
   const navigate = useNavigate();
 
   /**
@@ -20,7 +22,7 @@ export const useMobileDashboardEffect = (): { handleAddOrder: () => void; handle
    * @returns {void} - void
    */
   const handleOrderReport = (): void => {
-    navigate('/report-order-mobile');
+    navigate('/report');
   };
 
   return { handleAddOrder, handleOrderReport };

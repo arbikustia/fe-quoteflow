@@ -13,7 +13,7 @@ import type { BaseDesktopOrderState, DesktopOrderProps, OrderHeaderProps, OrderT
 /**
  * Render order header
  * @param {OrderHeaderProps} props - component props
- * @returns {React.ReactElement} node
+ * @returns {React.ReactElement} - Header
  */
 const OrderHeader = ({ openCreateModal }: OrderHeaderProps): React.ReactElement => (
   <div className="flex justify-between items-center mb-6">
@@ -30,18 +30,19 @@ const OrderHeader = ({ openCreateModal }: OrderHeaderProps): React.ReactElement 
 /**
  * Render order tabs
  * @param {OrderTabsProps} props - component props
- * @returns {React.ReactElement} node
+ * @returns {React.ReactElement} - Header
  */
 const OrderTabs = ({ activeTab, setActiveTab, statusCounts, TABS }: OrderTabsProps): React.ReactElement => (
   <div className="flex items-center justify-between border-b border-brand-gray-light px-6">
     <div className="flex items-center gap-6 overflow-x-auto">
       {TABS.map((tab: TabType) => {
         const isActive = activeTab === tab;
+        const _handleTabClick = (): void => setActiveTab(tab);
 
         return (
           <button
             key={tab}
-            onClick={() => setActiveTab(tab)}
+            onClick={_handleTabClick}
             className={`flex items-center gap-2 py-4 border-b-2 text-sm cursor-pointer whitespace-nowrap transition-colors ${isActive ? "border-brand-blue text-brand-blue font-bold" : "border-transparent text-brand-text-medium hover:text-brand-text-dark font-medium"}`}
           >
             {tab === "All Orders" && <span className={isActive ? "text-brand-blue" : "text-brand-text-medium"}>☆</span>}
@@ -67,23 +68,27 @@ const OrderTabs = ({ activeTab, setActiveTab, statusCounts, TABS }: OrderTabsPro
 /**
  * Render order toolbar
  * @param {OrderToolbarProps} props - component props
- * @returns {React.ReactElement} node
+ * @returns {React.ReactElement} - Toolbar
  */
-const OrderToolbar = ({ pageSize, totalCount, changePageSize }: OrderToolbarProps): React.ReactElement => (
-  <div className="flex items-center justify-between p-4 px-6 border-b border-brand-gray-light">
-    <div className="relative">
-      <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-brand-text-medium">
-        <Icons.Search />
+const OrderToolbar = ({ pageSize, totalCount, changePageSize }: OrderToolbarProps): React.ReactElement => {
+  const _handlePageSizeChange = (size: number): void => changePageSize(size);
+
+  return (
+    <div className="flex items-center justify-between p-4 px-6 border-b border-brand-gray-light">
+      <div className="relative">
+        <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-brand-text-medium">
+          <Icons.Search />
+        </div>
+        <input
+          type="text"
+          placeholder="Search order"
+          className="w-64 pl-10 pr-4 py-2 bg-brand-gray-light border-none rounded-lg text-sm font-medium focus:outline-none focus:ring-1 focus:ring-brand-gray-light text-brand-text-dark placeholder:text-brand-text-medium"
+        />
       </div>
-      <input
-        type="text"
-        placeholder="Search order"
-        className="w-64 pl-10 pr-4 py-2 bg-brand-gray-light border-none rounded-lg text-sm font-medium focus:outline-none focus:ring-1 focus:ring-brand-gray-light text-brand-text-dark placeholder:text-brand-text-medium"
-      />
+      <PaginationHeader pageSize={pageSize} totalCount={totalCount} onPageSizeChange={_handlePageSizeChange} />
     </div>
-    <PaginationHeader pageSize={pageSize} totalCount={totalCount} onPageSizeChange={changePageSize} />
-  </div>
-);
+  );
+};
 
 /**
  * Render order table container
@@ -95,13 +100,14 @@ const OrderToolbar = ({ pageSize, totalCount, changePageSize }: OrderToolbarProp
  * @param {(p: number) => void} props.goToPage - go to page handler
  * @param {() => void} props.nextPage - next page handler
  * @param {() => void} props.prevPage - prev page handler
- * @returns {React.ReactElement} node
+ * @returns {React.ReactElement} - TableContainer
  */
 const OrderTableContainer = ({ paginatedData, columns, currentPage, totalPages, goToPage, nextPage, prevPage }: Omit<OrderTableContainerProps, keyof OrderTabsProps | keyof OrderToolbarProps>): React.ReactElement => (
   <>
     <div className="flex-1 overflow-auto">
       <Table data={paginatedData} columns={columns} keyExtractor={(row) => row.id} />
     </div>
+
     <PaginationFooter currentPage={currentPage} totalPages={totalPages} onPageChange={goToPage} onNextPage={nextPage} onPrevPage={prevPage} />
   </>
 );
