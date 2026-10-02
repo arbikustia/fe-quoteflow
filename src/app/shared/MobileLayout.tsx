@@ -3,6 +3,24 @@ import { Outlet, useLocation, useNavigate } from "react-router-dom";
 
 import GlobalHeader from "./GlobalHeader";
 
+/**
+ * Determine whether a bottom-navigation tab corresponds to the current route.
+ * @param {string} tabId - tab destination route
+ * @param {string} path - current browser route
+ * @returns {boolean} whether the tab is active
+ */
+const _isTabActive = (tabId: string, path: string): boolean => {
+  if (tabId === "/report/main") {
+    return path.startsWith("/report");
+  }
+
+  if (tabId === "/master-main") {
+    return path.startsWith("/master");
+  }
+
+  return path === tabId || path.startsWith(tabId + "/");
+};
+
 export default function MobileLayout({ children }: { readonly children?: React.ReactNode }): React.ReactElement {
   const navigate = useNavigate();
   const location = useLocation();
@@ -30,7 +48,7 @@ export default function MobileLayout({ children }: { readonly children?: React.R
       icon: <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
     },
     {
-      id: "/report-main-mobile",
+      id: "/report/main",
       label: "Report",
       icon: <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
     }
@@ -44,7 +62,7 @@ export default function MobileLayout({ children }: { readonly children?: React.R
       </div>
       <div className="fixed bottom-6 left-6 right-6 bg-white rounded-[2rem] px-2 py-3 flex items-center justify-around shadow-[0_20px_50px_rgba(0,0,0,0.12)] z-50">
         {tabs.map((tab) => {
-          const isActive = path.startsWith(tab.id) && tab.id.startsWith("/");
+          const isActive = _isTabActive(tab.id, path);
           return (
             <button 
               key={tab.id}

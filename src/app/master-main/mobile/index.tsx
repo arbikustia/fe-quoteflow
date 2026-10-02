@@ -1,7 +1,7 @@
 import * as React from "react";
 import { useNavigate } from "react-router-dom";
 
-import { Icons } from "../../components/Icons";
+import { Icons } from "../../../components/Icons";
 
 /**
  * Mobile Header Component

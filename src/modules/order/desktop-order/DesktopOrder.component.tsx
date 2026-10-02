@@ -37,6 +37,9 @@ const OrderTabs = ({ activeTab, setActiveTab, statusCounts, TABS }: OrderTabsPro
     <div className="flex items-center gap-6 overflow-x-auto">
       {TABS.map((tab: TabType) => {
         const isActive = activeTab === tab;
+        /**
+         *
+         */
         const _handleTabClick = (): void => setActiveTab(tab);
 
         return (
@@ -71,6 +74,10 @@ const OrderTabs = ({ activeTab, setActiveTab, statusCounts, TABS }: OrderTabsPro
  * @returns {React.ReactElement} - Toolbar
  */
 const OrderToolbar = ({ pageSize, totalCount, changePageSize }: OrderToolbarProps): React.ReactElement => {
+  /**
+   *
+   * @param size
+   */
   const _handlePageSizeChange = (size: number): void => changePageSize(size);
 
   return (
