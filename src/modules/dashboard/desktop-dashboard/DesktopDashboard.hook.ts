@@ -1,10 +1,12 @@
 import { useNavigate } from 'react-router-dom';
 
+import type { DesktopDashboardHookReturn } from './DesktopDashboard.type';
+
 /**
  * Desktop Dashboard Effect Hook
- * @returns {{ handleNewOrder: () => void; handleReturn: () => void }} - hook returns
+ * @returns {DesktopDashboardHookReturn} - hook returns
  */
-export const useDesktopDashboardEffect = (): { handleNewOrder: () => void; handleReturn: () => void } => {
+export const useDesktopDashboardEffect = (): DesktopDashboardHookReturn => {
   const navigate = useNavigate();
 
   /**

@@ -11,9 +11,9 @@ export default function GlobalHeader(): React.ReactElement {
   // Determine if the create button should be shown and its endpoint
   let createEndpoint = "";
   if (path === "/order") createEndpoint = "/order/create";
-  else if (path === "/master-user-mobile") createEndpoint = "/master-user-mobile-create";
-  else if (path === "/master-category-mobile") createEndpoint = "/master-category-mobile-create";
-  else if (path === "/master-item-mobile") createEndpoint = "/master-item-mobile-create";
+  else if (path === "/master-user") createEndpoint = "/master-user/create";
+  else if (path === "/master-category") createEndpoint = "/master-category-create";
+  else if (path === "/master-item") createEndpoint = "/master-item-create";
 
   return (
     <div className="px-6 pt-5 pb-4 flex items-center justify-between bg-[#f8f9fb]">
