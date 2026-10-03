@@ -1,0 +1,3 @@
+export const MASTER_PAYMENT_METHOD_CONFIG = {
+  DEFAULT_PAGE_SIZE: 10,
+};
