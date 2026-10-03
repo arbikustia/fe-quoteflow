@@ -9,6 +9,7 @@ import MasterItem from "./app/master-item";
 import MasterItemCreate from "./app/master-item/create";
 import MasterItemDetail from "./app/master-item/detail";
 import MasterMain from "./app/master-main";
+import MasterPIC from "./app/master-pic";
 import MasterUser from "./app/master-user";
 import MasterUserCreate from "./app/master-user/create";
 import MasterUserDetail from "./app/master-user/detail";
@@ -29,6 +30,7 @@ function App(): React.ReactElement {
         <Route path="/login" element={<Login />} />
         <Route path="/home" element={<Dashboard />} />
         <Route path="/master-main" element={<MasterMain />} />
+        <Route path="/master-pic" element={<MasterPIC />} />
         <Route path="/master-user" element={<MasterUser />} />
         <Route path="/master-user/create" element={<MasterUserCreate />} />
         <Route path="/master-user/edit/:id" element={<MasterUserCreate />} />
