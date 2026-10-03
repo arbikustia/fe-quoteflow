@@ -43,10 +43,28 @@ const MasterMainCard = (props: MasterMainCardProps): React.ReactElement => {
 const MasterMainComponent = (): React.ReactElement => {
   const cards: MasterMainCardProps[] = [
     {
+      title: "Master Customer",
+      description: "Manage customer profiles and contact info",
+      icon: <Icons.Customers />,
+      path: "/master-customer",
+    },
+    {
+      title: "Master Item",
+      description: "Manage items and inventory data",
+      icon: <Icons.Database />,
+      path: "/master-item",
+    },
+    {
       title: "Master User",
       description: "Manage system users and their roles",
       icon: <Icons.Customers />,
       path: "/master-user",
+    },
+    {
+      title: "Master Role",
+      description: "Manage user roles and access rights",
+      icon: <Icons.Dashboard />,
+      path: "/master-role",
     },
     {
       title: "Master Category",
@@ -55,10 +73,40 @@ const MasterMainComponent = (): React.ReactElement => {
       path: "/master-category",
     },
     {
-      title: "Master Item",
-      description: "Manage items and inventory data",
+      title: "Master Voucher",
+      description: "Manage discount codes and vouchers",
+      icon: <Icons.Quotes />,
+      path: "/master-voucher",
+    },
+    {
+      title: "Master Project",
+      description: "Manage project items and details",
       icon: <Icons.Database />,
-      path: "/master-item",
+      path: "/master-project",
+    },
+    {
+      title: "Master Service Type",
+      description: "Manage service types and pricing",
+      icon: <Icons.Report />,
+      path: "/master-service-type",
+    },
+    {
+      title: "Master Payment Method",
+      description: "Manage available payment methods",
+      icon: <Icons.Report />,
+      path: "/master-payment-method",
+    },
+    {
+      title: "Master PIC",
+      description: "Manage person in charge data",
+      icon: <Icons.Customers />,
+      path: "/master-pic",
+    },
+    {
+      title: "Master Payment Type",
+      description: "Manage payment types categorization",
+      icon: <Icons.Report />,
+      path: "/master-payment-type",
     },
   ];
 

@@ -1,22 +1,15 @@
 import * as React from "react";
-
+import type { MasterBase } from "../../../types/master";
 import type { TableColumn } from "../../../components/Table";
 
-export type ItemData = {
-  id: string;
+export type ItemData = MasterBase & {
   name: string;
   category: string;
-  unit: string;
   price: number;
+  stock: number;
+  image: string;
+  duration: string;
   remark: string;
-};
-
-export type ItemFormFieldsProps = {
-  editingItem: ItemData | null;
-};
-
-export type ItemHeaderProps = {
-  openCreateModal: () => void;
 };
 
 export type DesktopMasterItemProps = {
@@ -98,4 +91,8 @@ export type ItemToolbarProps = {
   pageSize: number;
   totalCount: number;
   changePageSize: (size: number) => void;
+};
+
+export type ItemFormFieldsProps = {
+  editingItem: ItemData | null;
 };
