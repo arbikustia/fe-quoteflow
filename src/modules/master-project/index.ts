@@ -1,0 +1,1 @@
+export { default as DesktopMasterProject } from './desktop-master-project';

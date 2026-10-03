@@ -1,0 +1,1 @@
+export * from './desktop-master-item/DesktopMasterItem.type';
