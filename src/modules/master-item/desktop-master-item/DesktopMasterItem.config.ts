@@ -1,3 +1,1 @@
-export const MASTER_ITEM_CONFIG = {
-  // configuration
-};
+export const MASTER_ITEM_CONFIG = {};

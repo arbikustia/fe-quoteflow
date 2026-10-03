@@ -1,5 +1,4 @@
 import * as React from "react";
-
 import { DesktopMasterItemComponent, ItemActionButtons } from "./DesktopMasterItem.component";
 import { useDesktopMasterItemState } from "./DesktopMasterItem.hook";
 import type { GetColumnsParams, ItemData } from "./DesktopMasterItem.type";
@@ -7,11 +6,6 @@ import type { TableColumn } from "../../../components/Table";
 import { MOCK_ITEMS } from "../../../fixture/master-item";
 import { usePagination } from "../../../hooks/usePagination";
 
-/**
- * Get table columns
- * @param {GetColumnsParams} params - params
- * @returns {TableColumn<ItemData>[]} - table columns
- */
 const getColumns = ({
   currentPage,
   pageSize,
@@ -22,60 +16,54 @@ const getColumns = ({
     key: "no",
     header: "No",
     align: "center",
-    /**
-     * Render no column
-     * @param {ItemData} _ - unused
-     * @param {number} index - index
-     * @returns {React.ReactElement} - column node
-     */
-    render: (_, index) => (
+    render: (_row: ItemData, index: number): React.ReactElement => (
       <span className="text-brand-text-medium font-medium text-sm">
         {(currentPage - 1) * pageSize + index + 1}
       </span>
     ),
   },
+  {
+    key: "image",
+    header: "Image",
+    align: "center",
+    render: (row: ItemData): React.ReactElement => (
+      <img src={row.image} alt={row.name} className="w-10 h-10 rounded-lg object-cover mx-auto border border-brand-gray-light" onError={(e): void => { (e.target as HTMLImageElement).style.display = "none"; }} />
+    ),
+  },
   { key: "name", header: "Item Name" },
   { key: "category", header: "Category" },
-  { key: "unit", header: "Unit" },
   {
     key: "price",
     header: "Price",
-    /**
-     * Render price column
-     * @param {ItemData} row - row
-     * @returns {string} - price
-     */
-    render: (row) => `Rp ${row.price.toLocaleString("id-ID")}`,
+    render: (row: ItemData): string => "Rp " + row.price.toLocaleString("id-ID"),
+  },
+  { key: "stock", header: "Stock", align: "center" },
+  { key: "duration", header: "Duration", align: "center" },
+  {
+    key: "status",
+    header: "Status",
+    align: "center",
+    render: (row: ItemData): React.ReactElement => (
+      <span className={"px-3 py-1 rounded-full text-xs font-bold uppercase " + (row.status === "active" ? "bg-green-100 text-green-600" : "bg-red-100 text-red-600")}>
+        {row.status}
+      </span>
+    ),
   },
   { key: "remark", header: "Remark" },
   {
     key: "actions",
     header: "Action",
     align: "center",
-    /**
-     * Render actions column
-     * @param {ItemData} row - current row
-     * @returns {React.ReactElement} - actions node
-     */
-    render: (row): React.ReactElement => (
+    render: (row: ItemData): React.ReactElement => (
       <ItemActionButtons row={row} onEdit={onEdit} onConfirm={onConfirm} />
     ),
   },
 ];
 
-/**
- * Render Master Item Container
- * @returns {React.ReactElement} - Master Item Container
- */
 const DesktopMasterItemContainer = (): React.ReactElement => {
   const state = useDesktopMasterItemState();
   const pagination = usePagination(MOCK_ITEMS);
 
-  /**
-   * Handle form submit
-   * @param {React.SyntheticEvent<HTMLFormElement>} e - event
-   * @returns {void} - void
-   */
   const handleFormSubmit = (e: React.SyntheticEvent<HTMLFormElement>): void => {
     e.preventDefault();
     state.closeModal();
