@@ -1,0 +1,91 @@
+import * as React from "react";
+import { MasterProjectComponent, ProjectActionButtons } from "./MasterProject.component";
+import { useMasterProjectState } from "./MasterProject.hook";
+import type { GetColumnsParams, ProjectData } from "./MasterProject.type";
+import type { TableColumn } from "../../components/Table";
+import { MOCK_ITEMS } from "../../fixture/master-item";
+import { MOCK_PROJECTS } from "../../fixture/master-project";
+import { usePagination } from "../../hooks/usePagination";
+
+const getColumns = ({
+  currentPage,
+  pageSize,
+  onEdit,
+  onConfirm,
+}: GetColumnsParams): TableColumn<ProjectData>[] => [
+  {
+    key: "no",
+    header: "No",
+    align: "center",
+    render: (_row: ProjectData, index: number): React.ReactElement => (
+      <span className="text-brand-text-medium font-medium text-sm">
+        {(currentPage - 1) * pageSize + index + 1}
+      </span>
+    ),
+  },
+  { key: "name", header: "Project Name" },
+  {
+    key: "items",
+    header: "Items",
+    render: (row: ProjectData): React.ReactElement => {
+      const names = row.items.map((it) => {
+        const found = MOCK_ITEMS.find((m) => m.id === it.itemId);
+        return found ? found.name + " x" + it.qty : it.itemId + " x" + it.qty;
+      });
+      return (
+        <div className="flex flex-col">
+          <span className="text-xs font-bold text-brand-blue">{row.items.length} item(s)</span>
+          <span className="text-xs text-brand-text-medium truncate max-w-[220px]">{names.join(", ")}</span>
+        </div>
+      );
+    },
+  },
+  { key: "remark", header: "Remark" },
+  {
+    key: "status",
+    header: "Status",
+    align: "center",
+    render: (row: ProjectData): React.ReactElement => (
+      <span className={"px-3 py-1 rounded-full text-xs font-bold uppercase " + (row.status === "active" ? "bg-green-100 text-green-600" : "bg-red-100 text-red-600")}>
+        {row.status}
+      </span>
+    ),
+  },
+  { key: "createBy", header: "Created By" },
+  {
+    key: "actions",
+    header: "Action",
+    align: "center",
+    render: (row: ProjectData): React.ReactElement => (
+      <ProjectActionButtons row={row} onEdit={onEdit} onConfirm={onConfirm} />
+    ),
+  },
+];
+
+const MasterProjectContainer = (): React.ReactElement => {
+  const state = useMasterProjectState();
+  const pagination = usePagination(MOCK_PROJECTS);
+
+  const handleFormSubmit = (e: React.SyntheticEvent<HTMLFormElement>): void => {
+    e.preventDefault();
+    state.closeModal();
+  };
+
+  const columns = getColumns({
+    currentPage: pagination.currentPage,
+    pageSize: pagination.pageSize,
+    onEdit: state.openEditModal,
+    onConfirm: state.openConfirmModal,
+  });
+
+  return (
+    <MasterProjectComponent
+      {...state}
+      {...pagination}
+      columns={columns}
+      onSubmit={handleFormSubmit}
+    />
+  );
+};
+
+export default MasterProjectContainer;

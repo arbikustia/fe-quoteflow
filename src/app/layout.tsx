@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { FiMenu, FiX } from "react-icons/fi";
 
+import BottomNav from "../components/BottomNav/index";
 import Navbar from "../components/Navbar/index";
 import Sidebar from "../components/Sidebar/index";
 
@@ -45,6 +46,7 @@ export default function Layout({ children }: LayoutProps): React.ReactElement {
       </div>
 
       {/* Main Content Area */}
+      <BottomNav />
       <div className="flex-1 flex flex-col min-w-0 overflow-hidden relative bg-brand-white">
         
         {/* Mobile Header (Visible only on small screens) */}
