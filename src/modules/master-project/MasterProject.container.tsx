@@ -1,6 +1,7 @@
 import * as React from "react";
-import { MasterProjectComponent, ProjectActionButtons } from "./MasterProject.component";
-import { useMasterProjectState } from "./MasterProject.hook";
+import { FiEdit2 } from "react-icons/fi";
+import { useNavigate } from "react-router-dom";
+import { MasterProjectComponent } from "./MasterProject.component";
 import type { GetColumnsParams, ProjectData } from "./MasterProject.type";
 import type { TableColumn } from "../../components/Table";
 import { MOCK_ITEMS } from "../../fixture/master-item";
@@ -11,7 +12,6 @@ const getColumns = ({
   currentPage,
   pageSize,
   onEdit,
-  onConfirm,
 }: GetColumnsParams): TableColumn<ProjectData>[] => [
   {
     key: "no",
@@ -57,33 +57,46 @@ const getColumns = ({
     header: "Action",
     align: "center",
     render: (row: ProjectData): React.ReactElement => (
-      <ProjectActionButtons row={row} onEdit={onEdit} onConfirm={onConfirm} />
+      <button
+        onClick={(e: React.MouseEvent) => { e.stopPropagation(); onEdit(row); }}
+        className="p-1.5 text-brand-text-medium hover:text-brand-blue hover:bg-brand-blue-light rounded-lg transition-colors cursor-pointer"
+        title="Edit"
+      >
+        <FiEdit2 className="w-4 h-4" />
+      </button>
     ),
   },
 ];
 
 const MasterProjectContainer = (): React.ReactElement => {
-  const state = useMasterProjectState();
+  const navigate = useNavigate();
   const pagination = usePagination(MOCK_PROJECTS);
 
-  const handleFormSubmit = (e: React.SyntheticEvent<HTMLFormElement>): void => {
-    e.preventDefault();
-    state.closeModal();
+  const goCreate = (): void => {
+    navigate("/master-project/create");
+  };
+
+  const goEdit = (p: ProjectData): void => {
+    navigate(`/master-project/edit/${p.id}`);
+  };
+
+  const goDetail = (p: ProjectData): void => {
+    navigate(`/master-project/detail/${p.id}`);
   };
 
   const columns = getColumns({
     currentPage: pagination.currentPage,
     pageSize: pagination.pageSize,
-    onEdit: state.openEditModal,
-    onConfirm: state.openConfirmModal,
+    onEdit: goEdit,
   });
 
   return (
     <MasterProjectComponent
-      {...state}
       {...pagination}
       columns={columns}
-      onSubmit={handleFormSubmit}
+      onCreate={goCreate}
+      onEdit={goEdit}
+      onRowClick={goDetail}
     />
   );
 };

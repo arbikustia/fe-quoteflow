@@ -1,9 +1,8 @@
 import * as React from "react";
 import { useNavigate, useParams } from "react-router-dom";
-
 import { MOCK_CATEGORIES } from "../../../fixture/master-category";
 
-const FormHeader = (): React.ReactElement => {
+const FormHeader = () => {
   const navigate = useNavigate();
   return (
     <div className="px-6 pt-10 pb-4 flex items-center sticky top-0 bg-[#f8f9fb]/90 backdrop-blur-sm z-20">
@@ -17,67 +16,31 @@ const FormHeader = (): React.ReactElement => {
   );
 };
 
-interface InputFieldProps {
-  label: string;
-  type?: string;
-  placeholder?: string;
-  icon?: React.ReactNode;
-  defaultValue?: string;
-  required?: boolean;
-}
-
-const InputField = ({ label, type = "text", placeholder, icon, required, ...props }: InputFieldProps) => (
+const InputField = ({ label, icon, defaultValue, required }: { label: string; icon?: React.ReactNode; defaultValue?: string; required?: boolean }) => (
   <div className="mb-5">
     <label className="block text-[12px] font-bold text-gray-400 mb-2 pl-3 tracking-widest uppercase">{label}</label>
     <div className="relative">
-      <div className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400">
-        {icon}
-      </div>
-      <input
-        type={type}
-        placeholder={placeholder}
-        defaultValue={props.defaultValue}
-        required={required}
-        className="w-full bg-white border border-gray-100 rounded-3xl py-4 pl-12 pr-5 text-[15px] font-semibold text-gray-800 shadow-[0_4px_15px_rgba(0,0,0,0.02)] outline-none focus:border-[#daeaf3] focus:ring-4 focus:ring-[#daeaf3]/50 transition-all placeholder:text-gray-300"
-      />
+      <div className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400">{icon}</div>
+      <input defaultValue={defaultValue} required={required} className="w-full bg-white border border-gray-100 rounded-3xl py-4 pl-12 pr-5 text-[15px] font-semibold text-gray-800 shadow-[0_4px_15px_rgba(0,0,0,0.02)] outline-none focus:border-[#daeaf3] focus:ring-4 focus:ring-[#daeaf3]/50 transition-all" />
     </div>
   </div>
 );
 
-export default function MasterCategoryMobileCreate(): React.ReactElement {
+export default function MasterCategoryCreate() {
   const navigate = useNavigate();
   const { id } = useParams();
-  
-  const existingCategory = id ? MOCK_CATEGORIES.find(c => c.id === id) : null;
-  const isEdit = !!existingCategory;
-
-  const handleSubmit = (e: React.SyntheticEvent) => {
-    e.preventDefault();
-    navigate("/master-category");
-  };
-
+  const existing = id ? MOCK_CATEGORIES.find(c => c.id === id) : null;
+  const handleSubmit = (e: React.SyntheticEvent) => { e.preventDefault(); navigate("/master-category"); };
   return (
     <div className="flex-1 w-full min-h-full bg-[#f8f9fb] font-sans pb-10 relative overflow-y-auto">
       <FormHeader />
-      
       <div className="px-6 mt-2">
         <div className="mb-8 pl-1">
-          <h2 className="text-[28px] font-extrabold text-gray-900 tracking-tight">{isEdit ? "Edit Category" : "New Category"}</h2>
-          <p className="text-[14px] text-gray-500 mt-2 font-medium leading-relaxed">Fill in the category details below.</p>
+          <h2 className="text-[28px] font-extrabold text-gray-900 tracking-tight">{existing ? "Edit Category" : "New Category"}</h2>
         </div>
-
-        <form onSubmit={handleSubmit} className="flex flex-col">
-          <InputField 
-            label="Category Name" 
-            placeholder="e.g. Audio System" 
-            defaultValue={existingCategory?.categoryName}
-            required
-            icon={<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M4 9h16"></path><path d="M4 15h16"></path><path d="M10 3L8 21"></path><path d="M16 3l-2 18"></path></svg>} 
-          />
-
-          <button type="submit" className="w-full bg-[#1a233a] text-white rounded-full py-4.5 text-[16px] font-bold tracking-wide shadow-[0_10px_20px_rgba(26,35,58,0.15)] hover:bg-black transition-all transform hover:-translate-y-0.5 mt-2">
-            {isEdit ? "Update Category" : "Create Category"}
-          </button>
+        <form onSubmit={handleSubmit}>
+          <InputField label="Category Name" defaultValue={existing?.categoryName} required icon={<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M4 9h16"></path><path d="M4 15h16"></path><path d="M10 3L8 21"></path><path d="M16 3l-2 18"></path></svg>} />
+          <button type="submit" className="w-full bg-[#1a233a] text-white rounded-full py-4 text-[16px] font-bold mt-2">{existing ? "Update Category" : "Create Category"}</button>
         </form>
       </div>
     </div>

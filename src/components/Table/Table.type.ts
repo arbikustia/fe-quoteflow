@@ -8,6 +8,7 @@ export type TableColumn<T> = {
 };
 
 export type TableProps<T> = {
+  onRowClick?: (row: T) => void;
   data: T[];
   columns: TableColumn<T>[];
   keyExtractor: (row: T) => string | number;

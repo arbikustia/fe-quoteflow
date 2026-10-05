@@ -16,7 +16,7 @@ const getAlignClass = (align?: "left" | "right" | "center"): string => {
 export const TableComponent = <T,>(
   props: TableProps<T>
 ): React.ReactElement => {
-  const { data, columns, keyExtractor } = props;
+  const { data, columns, keyExtractor, onRowClick } = props;
 
   return (
     <div className="w-full overflow-x-auto">
@@ -42,7 +42,7 @@ export const TableComponent = <T,>(
             </tr>
           ) : (
             data.map((row, index) => (
-              <tr key={keyExtractor ? keyExtractor(row) : index} className="hover:bg-brand-gray-light/50 transition-colors group">
+              <tr key={keyExtractor ? keyExtractor(row) : index} onClick={() => onRowClick?.(row)} className={`hover:bg-brand-gray-light/50 transition-colors group ${onRowClick ? "cursor-pointer" : ""}`} >
                 {columns.map((col) => (
                   <td 
                     key={col.key} 

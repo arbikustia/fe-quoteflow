@@ -10,5 +10,10 @@ export type PaginationProps = {
   readonly showPageSizeOptions?: boolean;
 };
 
-export type PaginationHeaderProps = Pick<PaginationProps, "pageSize" | "totalCount" | "onPageSizeChange" | "showPageSizeOptions">;
-export type PaginationFooterProps = Pick<PaginationProps, "currentPage" | "totalPages" | "onPageChange" | "onNextPage" | "onPrevPage">;
+export type PaginationHeaderProps = Pick<PaginationProps, "pageSize" | "totalCount" | "onPageSizeChange" | "showPageSizeOptions"> & {
+  readonly className?: string;
+};
+
+export type PaginationFooterProps = Pick<PaginationProps, "currentPage" | "totalPages" | "onPageChange" | "onNextPage" | "onPrevPage"> & {
+  readonly className?: string;
+};

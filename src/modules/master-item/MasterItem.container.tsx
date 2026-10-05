@@ -1,6 +1,7 @@
 import * as React from "react";
+import { FiEdit2 } from "react-icons/fi";
+import { useNavigate } from "react-router-dom";
 import { MasterItemComponent, ItemActionButtons } from "./MasterItem.component";
-import { useMasterItemState } from "./MasterItem.hook";
 import type { GetColumnsParams, ItemData } from "./MasterItem.type";
 import type { TableColumn } from "../../components/Table";
 import { MOCK_ITEMS } from "../../fixture/master-item";
@@ -10,7 +11,6 @@ const getColumns = ({
   currentPage,
   pageSize,
   onEdit,
-  onConfirm,
 }: GetColumnsParams): TableColumn<ItemData>[] => [
   {
     key: "no",
@@ -55,33 +55,33 @@ const getColumns = ({
     header: "Action",
     align: "center",
     render: (row: ItemData): React.ReactElement => (
-      <ItemActionButtons row={row} onEdit={onEdit} onConfirm={onConfirm} />
+      <ItemActionButtons row={row} onEdit={onEdit} onConfirm={() => {}} />
     ),
   },
 ];
 
 const MasterItemContainer = (): React.ReactElement => {
-  const state = useMasterItemState();
+  const navigate = useNavigate();
   const pagination = usePagination(MOCK_ITEMS);
 
-  const handleFormSubmit = (e: React.SyntheticEvent<HTMLFormElement>): void => {
-    e.preventDefault();
-    state.closeModal();
-  };
+  const goCreate = (): void => { navigate("/master-item/create"); };
+  const goEdit = (item: ItemData): void => { navigate(`/master-item/edit/${item.id}`); };
+  const goDetail = (item: ItemData): void => { navigate(`/master-item/detail/${item.id}`); };
 
   const columns = getColumns({
     currentPage: pagination.currentPage,
     pageSize: pagination.pageSize,
-    onEdit: state.openEditModal,
-    onConfirm: state.openConfirmModal,
+    onEdit: goEdit,
+    onConfirm: () => {},
   });
 
   return (
     <MasterItemComponent
-      {...state}
       {...pagination}
       columns={columns}
-      onSubmit={handleFormSubmit}
+      onCreate={goCreate}
+      onEdit={goEdit}
+      onRowClick={goDetail}
     />
   );
 };
