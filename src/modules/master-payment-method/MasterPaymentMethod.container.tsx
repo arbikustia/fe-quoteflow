@@ -1,17 +1,18 @@
 import * as React from "react";
-import { MasterPaymentMethodComponent, PaymentMethodActionButtons } from "./MasterPaymentMethod.component";
-import { useMasterPaymentMethodState } from "./MasterPaymentMethod.hook";
-import type { PaymentMethodData, GetColumnsParams } from "./MasterPaymentMethod.type";
+import { FiEdit2 } from "react-icons/fi";
+import { useNavigate } from "react-router-dom";
+import { MasterPaymentMethodComponent } from "./MasterPaymentMethod.component";
+import type { GetColumnsParams, PaymentMethodData } from "./MasterPaymentMethod.type";
 import type { TableColumn } from "../../components/Table";
 import { MOCK_PAYMENT_METHODS } from "../../fixture/master-payment-method";
 import { usePagination } from "../../hooks/usePagination";
 
-const getColumns = ({ currentPage, pageSize, onEdit, onConfirm }: GetColumnsParams): TableColumn<PaymentMethodData>[] => [
+const getColumns = ({ currentPage, pageSize, onEdit }: GetColumnsParams): TableColumn<PaymentMethodData>[] => [
   { 
     key: "no", 
     header: "No", 
     align: "center", 
-    render: (_, index) => <span className="text-sm">{(currentPage - 1) * pageSize + index + 1}</span> 
+    render: (_row: PaymentMethodData, index: number) => <span className="text-sm">{(currentPage - 1) * pageSize + index + 1}</span> 
   },
   { key: "name", header: "Payment Method" },
   { key: "description", header: "Description" },
@@ -19,7 +20,7 @@ const getColumns = ({ currentPage, pageSize, onEdit, onConfirm }: GetColumnsPara
     key: "status", 
     header: "Status", 
     align: "center",
-    render: (row) => (
+    render: (row: PaymentMethodData) => (
       <span className={`px-3 py-1 rounded-full text-xs font-bold uppercase ${row.status === "active" ? "bg-green-100 text-green-600" : "bg-red-100 text-red-600"}`}>
         {row.status}
       </span>
@@ -30,27 +31,41 @@ const getColumns = ({ currentPage, pageSize, onEdit, onConfirm }: GetColumnsPara
     key: "actions", 
     header: "Action", 
     align: "center", 
-    render: (row) => <PaymentMethodActionButtons row={row} onEdit={onEdit} onConfirm={onConfirm} /> 
+    render: (row: PaymentMethodData): React.ReactElement => (
+      <button
+        onClick={(e: React.MouseEvent) => { e.stopPropagation(); onEdit(row); }}
+        className="p-1.5 text-brand-text-medium hover:text-brand-blue hover:bg-brand-blue-light rounded-lg transition-colors cursor-pointer"
+        title="Edit"
+      >
+        <FiEdit2 className="w-4 h-4" />
+      </button>
+    )
   },
 ];
 
 const MasterPaymentMethodContainer = (): React.ReactElement => {
-  const state = useMasterPaymentMethodState();
+  const navigate = useNavigate();
   const pagination = usePagination(MOCK_PAYMENT_METHODS);
-  
-  const handleFormSubmit = (e: React.SyntheticEvent<HTMLFormElement>): void => {
-    e.preventDefault();
-    state.closeModal();
-  };
+
+  const goCreate = (): void => { navigate("/master-payment-method/create"); };
+  const goEdit = (p: PaymentMethodData): void => { navigate(`/master-payment-method/edit/${p.id}`); };
+  const goDetail = (p: PaymentMethodData): void => { navigate(`/master-payment-method/detail/${p.id}`); };
 
   const columns = getColumns({
     currentPage: pagination.currentPage,
     pageSize: pagination.pageSize,
-    onEdit: state.openEditModal,
-    onConfirm: state.openConfirmModal,
+    onEdit: goEdit,
   });
 
-  return <MasterPaymentMethodComponent {...state} {...pagination} columns={columns} onSubmit={handleFormSubmit} />;
+  return (
+    <MasterPaymentMethodComponent
+      {...pagination}
+      columns={columns}
+      onCreate={goCreate}
+      onEdit={goEdit}
+      onRowClick={goDetail}
+    />
+  );
 };
 
 export default MasterPaymentMethodContainer;

@@ -23,14 +23,17 @@ const MasterMainCard = (props: MasterMainCardProps): React.ReactElement => {
   return (
     <div
       onClick={handleClick}
-      className="bg-brand-white p-6 rounded-xl border border-brand-gray-light shadow-sm hover:shadow-md transition-shadow cursor-pointer flex flex-col items-center text-center gap-4 group"
+      className="bg-brand-white/80 backdrop-blur-xl p-6 rounded-2xl border border-brand-gray-light shadow-xs hover:shadow-md hover:border-brand-blue/30 transition-all cursor-pointer flex flex-col items-start text-left gap-4 group relative overflow-hidden"
     >
-      <div className="p-4 bg-brand-gray-light rounded-full text-brand-blue group-hover:bg-brand-blue group-hover:text-brand-white transition-colors">
+      <div className="absolute top-0 left-0 w-1 h-full bg-transparent group-hover:bg-brand-blue transition-colors" />
+      <div className="p-3.5 bg-brand-blue-light/60 rounded-xl text-brand-blue group-hover:bg-brand-blue group-hover:text-brand-white transition-colors">
         {props.icon}
       </div>
       <div>
-        <h3 className="text-lg font-bold text-brand-text-dark mb-2">{props.title}</h3>
-        <p className="text-sm text-brand-text-medium">{props.description}</p>
+        <h3 className="text-lg font-bold text-brand-text-dark mb-1 group-hover:text-brand-blue transition-colors">
+          {props.title}
+        </h3>
+        <p className="text-xs leading-relaxed text-brand-text-medium">{props.description}</p>
       </div>
     </div>
   );

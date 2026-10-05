@@ -12,9 +12,10 @@ export const PaginationHeader = ({
   totalCount,
   onPageSizeChange,
   showPageSizeOptions = true,
+  className = "",
 }: PaginationHeaderProps): React.ReactElement => {
   return (
-    <div className="flex items-center gap-3 text-sm text-brand-text-medium">
+    <div className={`flex items-center gap-3 text-sm text-brand-text-medium ${className}`}>
       Showing
       {showPageSizeOptions && onPageSizeChange ? (
         <select 
@@ -47,13 +48,12 @@ export const PaginationFooter = ({
   onPageChange,
   onNextPage,
   onPrevPage,
-}: PaginationFooterProps): React.ReactElement | null => {
-  if (totalPages <= 1) return null;
-
+  className = "",
+}: PaginationFooterProps): React.ReactElement => {
   const pages = Array.from({ length: totalPages }, (_, i) => i + 1);
 
   return (
-    <div className="p-4 border-t border-brand-gray-light flex items-center justify-center gap-2 text-sm text-brand-text-medium font-medium">
+    <div className={`flex items-center justify-center gap-2 text-sm text-brand-text-medium font-medium ${className}`}>
       <button 
         onClick={onPrevPage}
         disabled={currentPage === 1}
