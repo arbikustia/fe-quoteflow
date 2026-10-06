@@ -2,127 +2,172 @@ import * as React from "react";
 
 import Layout from "../../app/layout";
 import { Icons } from "../../components/Icons";
+import type { MobileListItemProps } from "../../components/MobileList";
 import { MobileList } from "../../components/MobileList";
 import { PaginationFooter, PaginationHeader } from "../../components/Pagination";
 import Table from "../../components/Table";
 
-import type { MasterCustomerProps } from "./MasterCustomer.type";
+import type { CustomerData, MasterCustomerProps } from "./MasterCustomer.type";
 
 /**
- *
- * @param props
+ * Render desktop table view
+ * @param {MasterCustomerProps} props - The component props
+ * @returns {React.ReactElement} The desktop table element
+ */
+const _renderDesktopTable = (props: MasterCustomerProps): React.ReactElement => {
+  const { paginatedData, columns, currentPage, totalPages, goToPage, nextPage, prevPage, pageSize, totalCount, changePageSize, onRowClick } = props;
+
+  return (
+    <div className="hidden md:flex bg-brand-white rounded-xl border border-brand-gray-light shadow-sm flex-col flex-1 overflow-hidden mt-6">
+      <div className="flex items-center justify-between p-5 px-6 border-b border-brand-gray-light">
+        <div className="relative">
+          <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-brand-text-medium"><Icons.Search /></div>
+          <input type="text" placeholder="Search customer" className="w-64 pl-10 pr-4 py-2 bg-brand-gray-light border-none rounded-lg text-sm focus:outline-none placeholder:text-brand-text-medium text-brand-text-dark" />
+        </div>
+        <PaginationHeader pageSize={pageSize} totalCount={totalCount} onPageSizeChange={changePageSize} />
+      </div>
+      <div className="flex-1 overflow-auto">
+        <Table data={paginatedData} columns={columns} onRowClick={onRowClick} keyExtractor={(r: CustomerData) => r.id} />
+      </div>
+      <PaginationFooter currentPage={currentPage} totalPages={totalPages} onPageChange={goToPage} onNextPage={nextPage} onPrevPage={prevPage} />
+    </div>
+  );
+};
+
+/**
+ * Render mobile list view
+ * @param {MasterCustomerProps} props - The component props
+ * @returns {React.ReactElement} The mobile list element
+ */
+const _renderMobileList = (props: MasterCustomerProps): React.ReactElement => {
+  const { paginatedData, currentPage, totalPages, goToPage, nextPage, prevPage, pageSize, totalCount, changePageSize, onRowClick } = props;
+
+  /**
+   * Get mobile list data
+   * @returns {MobileListItemProps[]} The formatted mobile list data
+   */
+  const getMobileListData = (): MobileListItemProps[] => paginatedData.map((row) => ({
+    title: row.name,
+    meta: row.address,
+    hideImage: true,
+    titleClassName: "text-xl font-semibold text-brand-text-dark leading-snug truncate",
+    metaClassName: "text-base font-normal text-brand-text-medium/80 truncate",
+    badge: (
+      <span className={`inline-flex items-center rounded-full px-3 py-1 text-sm font-medium whitespace-nowrap ${row.status.toLowerCase() === 'active' ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'}`}>
+        {row.status}
+      </span>
+    ),
+    /**
+     * Handle row click
+     * @returns {void}
+     */
+    onClick: (): void => onRowClick(row),
+  }));
+
+  return (
+    <div className="md:hidden space-y-6 mt-10">
+      <div className="relative mb-3">
+        <span className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-brand-text-medium scale-125"><Icons.Search /></span>
+        <input type="text" placeholder="Search" className="w-full pl-12 pr-6 py-3.5 bg-brand-gray-light border-none rounded-full text-xl font-medium focus:outline-none focus:ring-1 focus:ring-brand-blue/20 placeholder:text-brand-text-medium text-brand-text-dark" />
+      </div>
+      <div className="scale-100 origin-top">
+        <MobileList data={getMobileListData()} />
+      </div>
+      <div className="pt-4 flex items-center justify-between">
+        <PaginationHeader pageSize={pageSize} totalCount={totalCount} onPageSizeChange={changePageSize} className="shrink-0" />
+        <PaginationFooter currentPage={currentPage} totalPages={totalPages} onPageChange={goToPage} onNextPage={nextPage} onPrevPage={prevPage} />
+      </div>
+    </div>
+  );
+};
+
+/**
+ * Render dropdown menu
+ * @param {MasterCustomerProps} props - The component props
+ * @returns {React.ReactElement | null} The dropdown menu element
+ */
+const _renderDropdownMenu = (props: MasterCustomerProps): React.ReactElement | null => {
+  const { isMoreOpen, onCloseMore, onCreate, onDelete } = props;
+
+  if (!isMoreOpen) return null;
+
+  return (
+    <>
+      <button type="button" aria-label="Close menu" onClick={onCloseMore} className="fixed inset-0 z-10 cursor-default" tabIndex={-1} />
+      <div role="menu" className="absolute right-0 top-[calc(100%+8px)] z-20 w-52 rounded-2xl border border-gray-100 bg-white py-2 shadow-xl overflow-hidden">
+        <button
+          role="menuitem"
+          type="button"
+          onClick={() => { onCloseMore?.(); onCreate(); }}
+          className="w-full flex items-center gap-3 px-4 py-3 text-left text-[14px] font-medium text-gray-800 hover:bg-gray-50 transition-colors"
+        >
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M12 5v14" /><path d="M5 12h14" /></svg>
+          New Customer
+        </button>
+        <div className="mx-3 my-1 h-px bg-gray-100" role="separator" />
+        <button
+          role="menuitem"
+          type="button"
+          onClick={() => { onDelete?.(); }}
+          className="w-full flex items-center gap-3 px-4 py-3 text-left text-[14px] font-medium text-red-600 hover:bg-red-50 transition-colors"
+        >
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><polyline points="3 6 5 6 21 6" /><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" /></svg>
+          Delete
+        </button>
+      </div>
+    </>
+  );
+};
+
+/**
+ * Render the header
+ * @param {MasterCustomerProps} props - The component props
+ * @returns {React.ReactElement} The header element
+ */
+const _renderHeader = (props: MasterCustomerProps): React.ReactElement => {
+  const { onBack, onMore, isMoreOpen } = props;
+
+  return (
+    <div className="flex items-center justify-between py-2 mb-1 lg:mb-4 relative">
+      <button type="button" onClick={onBack} aria-label="Back" className="w-11 h-11 rounded-full bg-[#F4F4F5] hover:bg-[#E9E9EB] active:scale-95 transition-all flex items-center justify-center text-black shrink-0">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.4} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M19 12H5" /><path d="M12 19 5 12l7-7" /></svg>
+      </button>
+      <h1 className="flex-1 text-center text-[17px] font-semibold text-black tracking-tight px-2 truncate">
+        Customer List
+      </h1>
+      <div className="relative shrink-0">
+        <button
+          type="button"
+          onClick={onMore}
+          aria-label="More options"
+          aria-expanded={isMoreOpen}
+          aria-haspopup="menu"
+          className="w-11 h-11 rounded-full bg-[#F4F4F5] hover:bg-[#E9E9EB] active:scale-95 transition-all flex items-center justify-center text-black"
+        >
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <circle cx="5" cy="12" r="1.8" />
+            <circle cx="12" cy="12" r="1.8" />
+            <circle cx="19" cy="12" r="1.8" />
+          </svg>
+        </button>
+        {_renderDropdownMenu(props)}
+      </div>
+    </div>
+  );
+};
+
+/**
+ * Master Customer Component
+ * @param {MasterCustomerProps} props - The component props
+ * @returns {React.ReactElement} The component
  */
 export const MasterCustomerComponent = (props: MasterCustomerProps): React.ReactElement => {
-  const { onBack, paginatedData, columns, currentPage, totalPages, goToPage, nextPage, prevPage, pageSize, totalCount, changePageSize, onCreate, onEdit, onRowClick, onMore, isMoreOpen, onCloseMore, onDelete } = props;
-
   return (
     <Layout pageTitle="Customer List">
       <div className="flex flex-col h-full pb-18 lg:pb-0 px-3 lg:px-0 lg:-mt-4 relative">
-        <div className="flex items-center justify-between py-2 mb-1 lg:mb-4 relative">
-          <button type="button" onClick={onBack} aria-label="Back" className="w-11 h-11 rounded-full bg-[#F4F4F5] hover:bg-[#E9E9EB] active:scale-95 transition-all flex items-center justify-center text-black shrink-0"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.4} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M19 12H5" /><path d="M12 19 5 12l7-7" /></svg></button>
-          <h1 className="flex-1 text-center text-[17px] font-semibold text-black tracking-tight px-2 truncate">
-            Customer List
-          </h1>
-          <div className="relative shrink-0">
-            <button
-              type="button"
-              onClick={onMore}
-              aria-label="More options"
-              aria-expanded={isMoreOpen}
-              aria-haspopup="menu"
-              className="w-11 h-11 rounded-full bg-[#F4F4F5] hover:bg-[#E9E9EB] active:scale-95 transition-all flex items-center justify-center text-black"
-            >
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                <circle cx="5" cy="12" r="1.8" />
-                <circle cx="12" cy="12" r="1.8" />
-                <circle cx="19" cy="12" r="1.8" />
-              </svg>
-            </button>
-            {isMoreOpen && (
-              <>
-                <button type="button" aria-label="Close menu" onClick={onCloseMore} className="fixed inset-0 z-10 cursor-default" tabIndex={-1} />
-                <div role="menu" className="absolute right-0 top-[calc(100%+8px)] z-20 w-52 rounded-2xl border border-gray-100 bg-white py-2 shadow-xl overflow-hidden">
-                  <button
-                    role="menuitem"
-                    type="button"
-                    onClick={() => { onCloseMore?.(); onCreate(); }}
-                    className="w-full flex items-center gap-3 px-4 py-3 text-left text-[14px] font-medium text-gray-800 hover:bg-gray-50 transition-colors"
-                  >
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M12 5v14" /><path d="M5 12h14" /></svg>
-                    New Customer
-                  </button>
-                  <div className="mx-3 my-1 h-px bg-gray-100" role="separator" />
-                  <button
-                    role="menuitem"
-                    type="button"
-                    onClick={() => { onDelete?.(); }}
-                    className="w-full flex items-center gap-3 px-4 py-3 text-left text-[14px] font-medium text-red-600 hover:bg-red-50 transition-colors"
-                  >
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><polyline points="3 6 5 6 21 6" /><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" /></svg>
-                    Delete
-                  </button>
-                </div>
-              </>
-            )}
-          </div>
-        </div>
-        {/* <div className="flex justify-end items-start gap-4 mb-4 lg:mb-4">
-          <div className="flex flex-col gap-1 flex-1 min-w-0 pr-2">
-            <span className="text-4xl lg:text-5xl lg:font-semibold text-brand-text-dark leading-none break-words">Customer List</span>
-            <p className="text-sm lg:text-sm text-brand-text-medium leading-tight">Manage your customer database and contact details</p>
-          </div>
-          <div className="flex items-center gap-2 shrink-0">
-            <button onClick={onCreate} className="hidden lg:block px-4 py-2 bg-brand-blue text-brand-white font-medium rounded-lg lg:px-10 lg:py-3 hover:bg-brand-blue-dark transition-all lg:text-md cursor-pointer shadow-sm">Create Customer</button>
-            <button onClick={onCreate} className="lg:hidden px-4 py-2.5 shrink-0 flex items-center justify-center gap-2 bg-brand-blue text-brand-white rounded-lg shadow-lg shadow-brand-blue/20 hover:bg-brand-blue-dark active:scale-95 transition-all whitespace-nowrap" aria-label="Create">
-              <span className="text-sm font-bold tracking-tight">Create Customer</span>
-            </button>
-          </div>
-        </div> */}
-
-        <div className="md:hidden space-y-6 mt-10">
-          <div className="relative mb-3">
-            <span className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-brand-text-medium scale-125"><Icons.Search /></span>
-            <input type="text" placeholder="Search" className="w-full pl-12 pr-6 py-3.5 bg-brand-gray-light border-none rounded-full text-xl font-medium focus:outline-none focus:ring-1 focus:ring-brand-blue/20 text-brand-text-dark placeholder:text-brand-text-medium" />
-          </div>
-          <div className="scale-100 origin-top">
-            <MobileList
-              data={paginatedData.map((row) => ({
-                title: row.name,
-                meta: row.address,
-                hideImage: true,
-                titleClassName: "text-xl font-semibold text-brand-text-dark leading-snug truncate",
-                metaClassName: "text-base font-normal text-brand-text-medium/80 truncate",
-                badge: (
-                  <span className={`inline-flex items-center rounded-full px-3 py-1 text-sm font-medium whitespace-nowrap ${row.status.toLowerCase() === 'active' ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'}`}>
-                    {row.status}
-                  </span>
-                ),
-                /**
-                 *
-                 */
-                onClick: () => onRowClick(row),
-              }))}
-            />
-          </div>
-          <div className="pt-4 flex items-center justify-between">
-            <PaginationHeader pageSize={pageSize} totalCount={totalCount} onPageSizeChange={changePageSize} className="shrink-0" />
-            <PaginationFooter currentPage={currentPage} totalPages={totalPages} onPageChange={goToPage} onNextPage={nextPage} onPrevPage={prevPage} />
-          </div>
-        </div>
-
-        <div className="hidden md:flex bg-brand-white rounded-xl border border-brand-gray-light shadow-sm flex-col flex-1 overflow-hidden mt-6">
-          <div className="flex items-center justify-between p-5 px-6 border-b border-brand-gray-light">
-            <div className="relative">
-              <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-brand-text-medium"><Icons.Search /></div>
-              <input type="text" placeholder="Search customer" className="w-64 pl-10 pr-4 py-2 bg-brand-gray-light border-none rounded-lg text-sm focus:outline-none text-brand-text-dark placeholder:text-brand-text-medium" />
-            </div>
-            <PaginationHeader pageSize={pageSize} totalCount={totalCount} onPageSizeChange={changePageSize} />
-          </div>
-          <div className="flex-1 overflow-auto">
-            <Table data={paginatedData} columns={columns} onRowClick={onRowClick} keyExtractor={(r: any) => r.id} />
-          </div>
-          <PaginationFooter currentPage={currentPage} totalPages={totalPages} onPageChange={goToPage} onNextPage={nextPage} onPrevPage={prevPage} />
-        </div>
+        {_renderHeader(props)}
+        {_renderMobileList(props)}
+        {_renderDesktopTable(props)}
       </div>
     </Layout>
   );

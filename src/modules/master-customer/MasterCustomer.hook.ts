@@ -1,82 +1,154 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
-import type { BaseCustomerState, ConfirmModalState, CustomerData, ModalState } from "./MasterCustomer.type";
+import { MOCK_CUSTOMERS } from "../../fixture/master-customer";
+
+import type {
+  CustomerData,
+  MasterCustomerContainerState,
+  MasterCustomerNavigation,
+  MasterCustomerPagination,
+} from "./MasterCustomer.type";
 
 /**
- *
+ * Hook for master customer navigation
+ * @returns {MasterCustomerNavigation} Navigation functions
  */
-const useModalState = (): ModalState => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [editingCustomer, setEditingCustomer] = useState<CustomerData | null>(null);
+export const useMasterCustomerNavigation = (): MasterCustomerNavigation => {
+  const navigate = useNavigate();
 
   /**
-   *
+   * Navigate back
+   * @returns {void}
    */
-  const openCreateModal = (): void => {
-    setEditingCustomer(null);
-    setIsModalOpen(true);
+  const goBack = (): void => { navigate(-1); };
+
+  /**
+   * Navigate to create page
+   * @returns {void}
+   */
+  const goCreate = (): void => { navigate("/master-customer/create"); };
+
+  /**
+   * Navigate to edit page
+   * @param {CustomerData} customer - The customer data
+   * @returns {void}
+   */
+  const goEdit = (customer: CustomerData): void => {
+    navigate(`/master-customer/edit/${customer.id}`);
   };
 
   /**
-   *
-   * @param customer
+   * Navigate to detail page
+   * @param {CustomerData} customer - The customer data
+   * @returns {void}
    */
-  const openEditModal = (customer: CustomerData): void => {
-    setEditingCustomer(customer);
-    setIsModalOpen(true);
+  const goDetail = (customer: CustomerData): void => {
+    navigate(`/master-customer/detail/${customer.id}`);
   };
 
-  /**
-   *
-   */
-  const closeModal = (): void => {
-    setIsModalOpen(false);
-    setTimeout((): void => setEditingCustomer(null), 200);
+  return {
+    goBack,
+    goCreate,
+    goEdit,
+    goDetail,
   };
-
-  return { isModalOpen, editingCustomer, openCreateModal, openEditModal, closeModal };
 };
 
 /**
- *
+ * Hook for master customer pagination
+ * @returns {MasterCustomerPagination} Pagination state and handlers
  */
-const useConfirmModalState = (): ConfirmModalState => {
-  const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false);
-  const [deletingCustomer, setDeletingCustomer] = useState<CustomerData | null>(null);
+export const useMasterCustomerPagination = (): MasterCustomerPagination => {
+  const [currentPage, setCurrentPage] = useState(1);
+  const [pageSize, setPageSize] = useState(10);
+
+  const totalCount = MOCK_CUSTOMERS.length;
+  const totalPages = Math.ceil(totalCount / pageSize);
+
+  const startIndex = (currentPage - 1) * pageSize;
+  const endIndex = startIndex + pageSize;
+  const paginatedData = MOCK_CUSTOMERS.slice(startIndex, endIndex);
 
   /**
-   *
-   * @param customer
+   * Handle page change
+   * @param {number} page - The new page number
+   * @returns {void}
    */
-  const openConfirmModal = (customer: CustomerData): void => {
-    setDeletingCustomer(customer);
-    setIsConfirmModalOpen(true);
+  const goToPage = (page: number): void => {
+    setCurrentPage(Math.min(Math.max(1, page), totalPages));
   };
+
+  /** 
+   * Handle next page
+   * @returns {void}
+   */
+  const nextPage = (): void => goToPage(currentPage + 1);
+
+  /** 
+   * Handle prev page
+   * @returns {void}
+   */
+  const prevPage = (): void => goToPage(currentPage - 1);
 
   /**
-   *
+   * Handle page size change
+   * @param {number} size - The new page size
+   * @returns {void}
    */
-  const closeConfirmModal = (): void => {
-    setIsConfirmModalOpen(false);
-    setTimeout((): void => setDeletingCustomer(null), 200);
+  const changePageSize = (size: number): void => {
+    setPageSize(size);
+    setCurrentPage(1);
   };
 
-  /**
-   *
-   */
-  const onConfirmDelete = (): void => {
-    closeConfirmModal();
+  return {
+    currentPage,
+    totalPages,
+    pageSize,
+    paginatedData,
+    totalCount,
+    goToPage,
+    nextPage,
+    prevPage,
+    changePageSize,
   };
-
-  return { isConfirmModalOpen, deletingCustomer, openConfirmModal, closeConfirmModal, onConfirmDelete };
 };
 
 /**
- *
+ * Hook for master customer container state
+ * @returns {MasterCustomerContainerState} Container state and handlers
  */
-export const useMasterCustomerState = (): BaseCustomerState => {
-  const modalState = useModalState();
-  const confirmModalState = useConfirmModalState();
+export const useMasterCustomerContainerState =
+  (): MasterCustomerContainerState => {
+    const pagination = useMasterCustomerPagination();
+    const [isMoreOpen, setIsMoreOpen] = useState(false);
 
-  return { ...modalState, ...confirmModalState };
-};
+    /** 
+     * Toggle more menu
+     * @returns {void}
+     */
+    const toggleMore = (): void => setIsMoreOpen((prev) => !prev);
+
+    /** 
+     * Close more menu
+     * @returns {void}
+     */
+    const handleCloseMore = (): void => setIsMoreOpen(false);
+
+    /** 
+     * Handle delete action
+     * @returns {void}
+     */
+    const goDelete = (): void => {
+      // Delete action
+      handleCloseMore();
+    };
+
+    return {
+      pagination,
+      isMoreOpen,
+      toggleMore,
+      handleCloseMore,
+      goDelete,
+    };
+  };

@@ -1,36 +1,68 @@
 import type { TableColumn } from "../../components/Table";
 import type { MasterBase } from "../../types/master";
 
+/** Customer data model */
 export type CustomerData = MasterBase & {
-  name: string;
-  address: string;
-  phoneNumber: string;
+  readonly name: string;
+  readonly address: string;
+  readonly phoneNumber: string;
 };
 
+/** Navigation hooks return type */
+export type MasterCustomerNavigation = {
+  readonly goBack: () => void;
+  readonly goCreate: () => void;
+  readonly goEdit: (customer: CustomerData) => void;
+  readonly goDetail: (customer: CustomerData) => void;
+};
+
+/** Pagination state type */
+export type MasterCustomerPagination = {
+  readonly currentPage: number;
+  readonly totalPages: number;
+  readonly pageSize: number;
+  readonly paginatedData: CustomerData[];
+  readonly totalCount: number;
+  readonly goToPage: (page: number) => void;
+  readonly nextPage: () => void;
+  readonly prevPage: () => void;
+  readonly changePageSize: (size: number) => void;
+};
+
+/** Container state hook return type */
+export type MasterCustomerContainerState = {
+  readonly pagination: MasterCustomerPagination;
+  readonly isMoreOpen: boolean;
+  readonly toggleMore: () => void;
+  readonly handleCloseMore: () => void;
+  readonly goDelete: () => void;
+};
+
+/** Component props */
 export type MasterCustomerProps = {
-  currentPage: number;
-  totalPages: number;
-  pageSize: number;
-  paginatedData: CustomerData[];
-  goToPage: (page: number) => void;
-  nextPage: () => void;
-  prevPage: () => void;
-  changePageSize: (size: number) => void;
-  totalCount: number;
-  columns: TableColumn<CustomerData>[];
-  onCreate: () => void;
-  onEdit: (customer: CustomerData) => void;
-  onRowClick: (customer: CustomerData) => void;
-  
-  onMore?: () => void;
-  isMoreOpen?: boolean;
-  onCloseMore?: () => void;
-  onDelete?: () => void;
-  onBack: () => void;
+  readonly currentPage: number;
+  readonly totalPages: number;
+  readonly pageSize: number;
+  readonly paginatedData: CustomerData[];
+  readonly totalCount: number;
+  readonly columns: TableColumn<CustomerData>[];
+  readonly isMoreOpen: boolean;
+  readonly goToPage: (page: number) => void;
+  readonly nextPage: () => void;
+  readonly prevPage: () => void;
+  readonly changePageSize: (size: number) => void;
+  readonly onCreate: () => void;
+  readonly onEdit: (customer: CustomerData) => void;
+  readonly onRowClick: (customer: CustomerData) => void;
+  readonly onBack: () => void;
+  readonly onMore: () => void;
+  readonly onCloseMore: () => void;
+  readonly onDelete: () => void;
 };
 
+/** Get columns parameters */
 export type GetColumnsParams = {
-  currentPage: number;
-  pageSize: number;
-  onEdit: (customer: CustomerData) => void;
+  readonly currentPage: number;
+  readonly pageSize: number;
+  readonly onEdit: (customer: CustomerData) => void;
 };
