@@ -1,51 +1,94 @@
 import { useState } from "react";
-import type { BaseServiceTypeState, ServiceTypeData, ConfirmModalState, ModalState } from "./MasterServiceType.type";
+import { useNavigate } from "react-router-dom";
 
-const useModalState = (): ModalState => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [editingServiceType, setEditingServiceType] = useState<ServiceTypeData | null>(null);
+import { MOCK_SERVICE_TYPES } from "../../fixture/master-service-type";
+import { usePagination } from "../../hooks/usePagination";
 
-  const openCreateModal = (): void => {
-    setEditingServiceType(null);
-    setIsModalOpen(true);
+import type { MasterServiceTypeContainerState, MasterServiceTypeNavigation,ServiceTypeData } from "./MasterServiceType.type";
+
+/**
+ * Navigation hook
+ * @returns {MasterServiceTypeNavigation} navigation state
+ */
+export const useMasterServiceTypeNavigation = (): MasterServiceTypeNavigation => {
+  const navigate = useNavigate();
+
+  /**
+   * Navigate back
+   * @returns {void} void
+   */
+  const goBack = (): void => {
+    navigate(-1);
   };
 
-  const openEditModal = (serviceType: ServiceTypeData): void => {
-    setEditingServiceType(serviceType);
-    setIsModalOpen(true);
+  /**
+   * Navigate to create
+   * @returns {void} void
+   */
+  const goCreate = (): void => {
+    navigate("/master-service-type/create");
   };
 
-  const closeModal = (): void => {
-    setIsModalOpen(false);
-    setTimeout((): void => setEditingServiceType(null), 200);
+  /**
+   * Navigate to edit
+   * @param {ServiceTypeData} s - data
+   * @returns {void} void
+   */
+  const goEdit = (s: ServiceTypeData): void => {
+    navigate(`/master-service-type/edit/${s.id}`);
   };
 
-  return { isModalOpen, editingServiceType, openCreateModal, openEditModal, closeModal };
+  /**
+   * Navigate to detail
+   * @param {ServiceTypeData} s - data
+   * @returns {void} void
+   */
+  const goDetail = (s: ServiceTypeData): void => {
+    navigate(`/master-service-type/detail/${s.id}`);
+  };
+
+  return { goBack, goCreate, goEdit, goDetail };
 };
 
-const useConfirmModalState = (): ConfirmModalState => {
-  const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false);
-  const [deletingServiceType, setDeletingServiceType] = useState<ServiceTypeData | null>(null);
+/**
+ * Container state hook
+ * @returns {MasterServiceTypeContainerState} container state
+ */
+export const useMasterServiceTypeContainerState = (): MasterServiceTypeContainerState => {
+  const navigation = useMasterServiceTypeNavigation();
+  const pagination = usePagination(MOCK_SERVICE_TYPES);
+  const [isMoreOpen, setIsMoreOpen] = useState(false);
 
-  const openConfirmModal = (serviceType: ServiceTypeData): void => {
-    setDeletingServiceType(serviceType);
-    setIsConfirmModalOpen(true);
+  /**
+   * Toggle more
+   * @returns {void} void
+   */
+  const toggleMore = (): void => {
+    setIsMoreOpen(!isMoreOpen);
   };
 
-  const closeConfirmModal = (): void => {
-    setIsConfirmModalOpen(false);
-    setTimeout((): void => setDeletingServiceType(null), 200);
+  /**
+   * Handle delete
+   * @returns {void} void
+   */
+  const goDelete = (): void => {
+    setIsMoreOpen(false);
   };
 
-  const onConfirmDelete = (): void => {
-    closeConfirmModal();
+  /**
+   * Close more menu
+   * @returns {void} void
+   */
+  const handleCloseMore = (): void => {
+    setIsMoreOpen(false);
   };
 
-  return { isConfirmModalOpen, deletingServiceType, openConfirmModal, closeConfirmModal, onConfirmDelete };
-};
-
-export const useMasterServiceTypeState = (): BaseServiceTypeState => {
-  const modalState = useModalState();
-  const confirmModalState = useConfirmModalState();
-  return { ...modalState, ...confirmModalState };
+  return {
+    ...navigation,
+    pagination,
+    isMoreOpen,
+    toggleMore,
+    goDelete,
+    handleCloseMore,
+  };
 };

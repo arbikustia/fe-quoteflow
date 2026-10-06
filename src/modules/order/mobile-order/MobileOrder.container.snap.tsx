@@ -1,7 +1,6 @@
 
-import test from '../../../libs/unit-test';
-
 import MobileOrderContainer from './MobileOrder.container';
+import test from '../../../libs/unit-test';
 
 const configs = [
   {

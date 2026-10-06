@@ -1,4 +1,5 @@
 import * as React from "react";
+
 import MasterRoleContainer from "./MasterRole.container";
 
 /**
@@ -6,4 +7,5 @@ import MasterRoleContainer from "./MasterRole.container";
  * @returns {React.ReactElement} wrapper
  */
 const MasterRoleWrapper = (): React.ReactElement => <MasterRoleContainer />;
+
 export default MasterRoleWrapper;

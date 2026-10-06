@@ -1,14 +1,13 @@
 import type { ChangeEvent, Dispatch, SetStateAction, SyntheticEvent } from "react";
 import { useState } from "react";
 
-import { MOCK_QUOTES } from "../../../fixture/quotes";
-import type { QuoteData } from "../../order/desktop-order/DesktopOrder.type";
-
 import type {
   DesktopReturnItemsData,
   DesktopReturnProps,
   OnSearchOptions,
 } from "./DesktopReturn.type";
+import type { QuoteData } from "../../order/desktop-order/DesktopOrder.type";
+import { MOCK_QUOTES } from "../../../fixture/quotes";
 
 /**
  * Handle search event

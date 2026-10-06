@@ -6,16 +6,16 @@ export type RoleData = MasterBase & {
 };
 
 export type MasterRoleProps = {
-  currentPage: number;
-  totalPages: number;
-  pageSize: number;
-  paginatedData: RoleData[];
-  goToPage: (page: number) => void;
-  nextPage: () => void;
-  prevPage: () => void;
-  changePageSize: (size: number) => void;
-  totalCount: number;
-  columns: TableColumn<RoleData>[];
+  readonly currentPage: number;
+  readonly totalPages: number;
+  readonly pageSize: number;
+  readonly paginatedData: readonly RoleData[];
+  readonly goToPage: (page: number) => void;
+  readonly nextPage: () => void;
+  readonly prevPage: () => void;
+  readonly changePageSize: (size: number) => void;
+  readonly totalCount: number;
+  readonly columns: readonly TableColumn<RoleData>[];
   onCreate: () => void;
   onEdit: (role: RoleData) => void;
   onRowClick: (role: RoleData) => void;
@@ -31,4 +31,31 @@ export type GetColumnsParams = {
   currentPage: number;
   pageSize: number;
   onEdit: (role: RoleData) => void;
+};
+
+/** Navigation hook return type */
+export type MasterRoleNavigation = {
+  readonly goBack: () => void;
+  readonly goCreate: () => void;
+  readonly goEdit: (item: RoleData) => void;
+  readonly goDetail: (item: RoleData) => void;
+};
+
+/** Container state hook return type */
+export type MasterRoleContainerState = MasterRoleNavigation & {
+  readonly pagination: {
+    readonly currentPage: number;
+    readonly totalPages: number;
+    readonly pageSize: number;
+    readonly paginatedData: readonly RoleData[];
+    readonly goToPage: (page: number) => void;
+    readonly nextPage: () => void;
+    readonly prevPage: () => void;
+    readonly changePageSize: (size: number) => void;
+    readonly totalCount: number;
+  };
+  readonly isMoreOpen: boolean;
+  readonly toggleMore: () => void;
+  readonly goDelete: () => void;
+  readonly handleCloseMore: () => void;
 };

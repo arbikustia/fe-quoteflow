@@ -1,7 +1,6 @@
-import test from '../../../libs/unit-test';
-
 import { DesktopDashboardComponent } from './DesktopDashboard.component';
 import type { DesktopDashboardProps } from './DesktopDashboard.type';
+import test from '../../../libs/unit-test';
 
 /**
  * mock new order

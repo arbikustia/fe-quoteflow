@@ -1,9 +1,8 @@
 import * as React from 'react';
 
-import type { QuoteData } from '../desktop-order/DesktopOrder.type';
-
 import { MobileOrderCreateComponent } from './MobileOrderCreate.component';
 import { useMobileOrderCreateLogic } from './MobileOrderCreate.hook';
+import type { QuoteData } from '../desktop-order/DesktopOrder.type';
 
 /**
  * MobileOrderCreate Container

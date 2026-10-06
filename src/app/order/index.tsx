@@ -1,9 +1,9 @@
 import type { ReactElement } from "react";
 import { useEffect, useState } from "react";
 
+import MobileLayout from "../shared/MobileLayout";
 import DesktopOrder from "../../modules/order/desktop-order";
 import MobileOrder from "../../modules/order/mobile-order";
-import MobileLayout from "../shared/MobileLayout";
 
 /**
  * Order page

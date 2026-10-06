@@ -1,6 +1,7 @@
 import * as React from "react";
-import { Icons } from "../../components/Icons";
+
 import type { MasterMainCardProps } from "./MasterMain.type";
+import { Icons } from "../../components/Icons";
 
 export const MASTER_MAIN_CONFIG: readonly MasterMainCardProps[] = [
   {

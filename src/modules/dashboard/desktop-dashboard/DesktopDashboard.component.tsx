@@ -1,11 +1,10 @@
 import * as React from "react";
 
-import Layout from "../../../app/layout";
-
 import { QuickActions } from "./components/QuickActions";
 import { RecentQuotesTable } from "./components/RecentQuotesTable";
 import { StatCards } from "./components/StatCards";
 import type { DesktopDashboardProps } from './DesktopDashboard.type';
+import Layout from "../../../app/layout";
 
 /**
  * Render Desktop Dashboard

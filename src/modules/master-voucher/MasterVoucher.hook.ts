@@ -1,28 +1,94 @@
 import { useState } from "react";
-import type { BaseVoucherState, VoucherData, ConfirmModalState, ModalState } from "./MasterVoucher.type";
+import { useNavigate } from "react-router-dom";
 
-const useModalState = (): ModalState => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [editingVoucher, setEditingVoucher] = useState<VoucherData | null>(null);
-  const openCreateModal = (): void => { setEditingVoucher(null); setIsModalOpen(true); };
-  const openEditModal = (data: VoucherData): void => { setEditingVoucher(data); setIsModalOpen(true); };
-  const closeModal = (): void => { setIsModalOpen(false); setTimeout(() => setEditingVoucher(null), 200); };
-  return { isModalOpen, editingVoucher, openCreateModal, openEditModal, closeModal };
-};
+import { MOCK_VOUCHERS } from "../../fixture/master-voucher";
+import { usePagination } from "../../hooks/usePagination";
 
-const useConfirmModalState = (): ConfirmModalState => {
-  const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false);
-  const [deletingVoucher, setDeletingVoucher] = useState<VoucherData | null>(null);
-  const openConfirmModal = (data: VoucherData): void => { setDeletingVoucher(data); setIsConfirmModalOpen(true); };
-  const closeConfirmModal = (): void => { setIsConfirmModalOpen(false); setTimeout(() => setDeletingVoucher(null), 200); };
-  const onConfirmDelete = (): void => { closeConfirmModal(); };
-  return { isConfirmModalOpen, deletingVoucher, openConfirmModal, closeConfirmModal, onConfirmDelete };
+import type { MasterVoucherContainerState, MasterVoucherNavigation,VoucherData } from "./MasterVoucher.type";
+
+/**
+ * Navigation hook
+ * @returns {MasterVoucherNavigation} navigation state
+ */
+export const useMasterVoucherNavigation = (): MasterVoucherNavigation => {
+  const navigate = useNavigate();
+
+  /**
+   * Navigate back
+   * @returns {void} void
+   */
+  const goBack = (): void => {
+    navigate(-1);
+  };
+
+  /**
+   * Navigate to create
+   * @returns {void} void
+   */
+  const goCreate = (): void => {
+    navigate("/master-voucher/create");
+  };
+
+  /**
+   * Navigate to edit
+   * @param {VoucherData} c - role data
+   * @returns {void} void
+   */
+  const goEdit = (c: VoucherData): void => {
+    navigate(`/master-voucher/edit/${c.id}`);
+  };
+
+  /**
+   * Navigate to detail
+   * @param {VoucherData} c - role data
+   * @returns {void} void
+   */
+  const goDetail = (c: VoucherData): void => {
+    navigate(`/master-voucher/detail/${c.id}`);
+  };
+
+  return { goBack, goCreate, goEdit, goDetail };
 };
 
 /**
- * Master Voucher State Hook
- * @returns {BaseVoucherState} state
+ * Container state hook
+ * @returns {MasterVoucherContainerState} container state
  */
-export const useMasterVoucherState = (): BaseVoucherState => {
-  return { ...useModalState(), ...useConfirmModalState() };
+export const useMasterVoucherContainerState = (): MasterVoucherContainerState => {
+  const navigation = useMasterVoucherNavigation();
+  const pagination = usePagination(MOCK_VOUCHERS);
+  const [isMoreOpen, setIsMoreOpen] = useState(false);
+
+  /**
+   * Toggle more
+   * @returns {void} void
+   */
+  const toggleMore = (): void => {
+    setIsMoreOpen(!isMoreOpen);
+  };
+
+  /**
+   * Handle delete
+   * @returns {void} void
+   */
+  const goDelete = (): void => {
+    setIsMoreOpen(false);
+  };
+
+  /**
+   * Close more menu
+   * @returns {void} void
+   */
+  const handleCloseMore = (): void => {
+    setIsMoreOpen(false);
+  };
+
+  return {
+    ...navigation,
+    pagination,
+    isMoreOpen,
+    toggleMore,
+    goDelete,
+    handleCloseMore,
+  };
 };

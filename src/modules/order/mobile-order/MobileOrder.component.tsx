@@ -1,8 +1,7 @@
 import * as React from "react";
 
-import type { QuoteData } from "../desktop-order/DesktopOrder.type";
-
 import type { MobileOrderProps } from "./MobileOrder.type";
+import type { QuoteData } from "../desktop-order/DesktopOrder.type";
 
 /**
  * Format a date string

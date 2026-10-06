@@ -1,14 +1,13 @@
 import * as React from "react";
 
+import { CategoryDetailModal } from "./components/CategoryDetailModal.component";
+import { ItemDetailModal } from "./components/ItemDetailModal.component";
+import type { BaseDesktopOrderState, DesktopOrderProps, OrderHeaderProps, OrderTableContainerProps, OrderTabsProps, OrderToolbarProps, TabType } from "./DesktopOrder.type";
 import Layout from "../../../app/layout";
 import ConfirmModal from "../../../components/ConfirmModal";
 import { Icons } from "../../../components/Icons";
 import { PaginationFooter, PaginationHeader } from "../../../components/Pagination";
 import Table from "../../../components/Table";
-
-import { CategoryDetailModal } from "./components/CategoryDetailModal.component";
-import { ItemDetailModal } from "./components/ItemDetailModal.component";
-import type { BaseDesktopOrderState, DesktopOrderProps, OrderHeaderProps, OrderTableContainerProps, OrderTabsProps, OrderToolbarProps, TabType } from "./DesktopOrder.type";
 
 /**
  * Render order header

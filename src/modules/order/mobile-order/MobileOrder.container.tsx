@@ -1,9 +1,8 @@
 import * as React from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { MOCK_QUOTES } from '../../../fixture/quotes';
-
 import { MobileOrderComponent } from './MobileOrder.component';
+import { MOCK_QUOTES } from '../../../fixture/quotes';
 
 /**
  * MobileOrder Container

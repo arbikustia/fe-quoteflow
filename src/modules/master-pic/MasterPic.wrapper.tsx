@@ -1,4 +1,5 @@
 import * as React from "react";
+
 import MasterPicContainer from "./MasterPic.container";
 
 /**
@@ -6,4 +7,5 @@ import MasterPicContainer from "./MasterPic.container";
  * @returns {React.ReactElement} wrapper
  */
 const MasterPicWrapper = (): React.ReactElement => <MasterPicContainer />;
+
 export default MasterPicWrapper;

@@ -1,9 +1,9 @@
 import type { ReactElement } from "react";
 import { useEffect, useState } from "react";
 
+import MobileLayout from "../shared/MobileLayout";
 import DesktopReturn from "../../modules/return/desktop-return";
 import MobileReturn from "../../modules/return/mobile-return";
-import MobileLayout from "../shared/MobileLayout";
 
 /**
  * Return page

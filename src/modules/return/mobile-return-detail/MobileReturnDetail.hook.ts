@@ -1,14 +1,13 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
-import { MOCK_QUOTES } from "../../../fixture/quotes";
-import { generateQuotePDF } from "../../../utils/pdfGenerator";
-import type { QuoteData } from "../../order/desktop-order/DesktopOrder.type";
-
 import type {
   MobileReturnDetailProps,
   UseItemFilesReturn,
 } from "./MobileReturnDetail.type";
+import type { QuoteData } from "../../order/desktop-order/DesktopOrder.type";
+import { MOCK_QUOTES } from "../../../fixture/quotes";
+import { generateQuotePDF } from "../../../utils/pdfGenerator";
 
 /**
  * Fetches the geocoded location string from latitude and longitude
@@ -21,7 +20,7 @@ const fetchGeocodedLocation = async (
   lon: number,
 ): Promise<string> => {
   try {
-    // eslint-disable-next-line
+     
     const res = await fetch(
       `https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${lat}&longitude=${lon}&localityLanguage=id`,
     );

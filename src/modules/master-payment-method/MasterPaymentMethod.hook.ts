@@ -1,51 +1,66 @@
 import { useState } from "react";
-import type { BasePaymentMethodState, PaymentMethodData, ConfirmModalState, ModalState } from "./MasterPaymentMethod.type";
+import { useNavigate } from "react-router-dom";
 
-const useModalState = (): ModalState => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [editingPaymentMethod, setEditingPaymentMethod] = useState<PaymentMethodData | null>(null);
+import { MOCK_PAYMENT_METHODS } from "../../fixture/master-payment-method";
+import { usePagination } from "../../hooks/usePagination";
 
-  const openCreateModal = (): void => {
-    setEditingPaymentMethod(null);
-    setIsModalOpen(true);
-  };
+import type { 
+  MasterPaymentMethodContainerState,
+  MasterPaymentMethodNavigation,
+  PaymentMethodData
+} from "./MasterPaymentMethod.type";
 
-  const openEditModal = (paymentMethod: PaymentMethodData): void => {
-    setEditingPaymentMethod(paymentMethod);
-    setIsModalOpen(true);
-  };
+/**
+ * Hook for master payment method navigation
+ * @returns {MasterPaymentMethodNavigation} navigation functions
+ */
+export const useMasterPaymentMethodNavigation = (): MasterPaymentMethodNavigation => {
+  const navigate = useNavigate();
 
-  const closeModal = (): void => {
-    setIsModalOpen(false);
-    setTimeout((): void => setEditingPaymentMethod(null), 200);
-  };
+  /**
+   *
+   */
+  const goBack = (): void => { navigate(-1); };
+  /**
+   *
+   */
+  const goCreate = (): void => { navigate("/master-payment-method/create"); };
+  /**
+   * Navigate to edit page
+   * @param {PaymentMethodData} p - The payment method data
+   * @returns {void}
+   */
+  const goEdit = (p: PaymentMethodData): void => { navigate(`/master-payment-method/edit/${p.id}`); };
+  /**
+   * Navigate to detail page
+   * @param {PaymentMethodData} p - The payment method data
+   * @returns {void}
+   */
+  const goDetail = (p: PaymentMethodData): void => { navigate(`/master-payment-method/detail/${p.id}`); };
 
-  return { isModalOpen, editingPaymentMethod, openCreateModal, openEditModal, closeModal };
+  return { goBack, goCreate, goEdit, goDetail };
 };
 
-const useConfirmModalState = (): ConfirmModalState => {
-  const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false);
-  const [deletingPaymentMethod, setDeletingPaymentMethod] = useState<PaymentMethodData | null>(null);
+/**
+ * Hook for master payment method container state
+ * @returns {MasterPaymentMethodContainerState} container state
+ */
+export const useMasterPaymentMethodContainerState = (): MasterPaymentMethodContainerState => {
+  const pagination = usePagination(MOCK_PAYMENT_METHODS);
+  const [isMoreOpen, setIsMoreOpen] = useState(false);
 
-  const openConfirmModal = (paymentMethod: PaymentMethodData): void => {
-    setDeletingPaymentMethod(paymentMethod);
-    setIsConfirmModalOpen(true);
-  };
+  /**
+   *
+   */
+  const toggleMore = (): void => { setIsMoreOpen(!isMoreOpen); };
+  /**
+   *
+   */
+  const goDelete = (): void => { setIsMoreOpen(false); };
+  /**
+   *
+   */
+  const handleCloseMore = (): void => { setIsMoreOpen(false); };
 
-  const closeConfirmModal = (): void => {
-    setIsConfirmModalOpen(false);
-    setTimeout((): void => setDeletingPaymentMethod(null), 200);
-  };
-
-  const onConfirmDelete = (): void => {
-    closeConfirmModal();
-  };
-
-  return { isConfirmModalOpen, deletingPaymentMethod, openConfirmModal, closeConfirmModal, onConfirmDelete };
-};
-
-export const useMasterPaymentMethodState = (): BasePaymentMethodState => {
-  const modalState = useModalState();
-  const confirmModalState = useConfirmModalState();
-  return { ...modalState, ...confirmModalState };
+  return { pagination, isMoreOpen, toggleMore, goDelete, handleCloseMore };
 };
