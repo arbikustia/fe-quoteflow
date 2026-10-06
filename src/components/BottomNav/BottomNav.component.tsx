@@ -2,18 +2,18 @@ import * as React from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { Icons } from "../Icons";
 
-type NavItem = { label: string; path: string; icon: React.ReactElement };
+type NavItem = { 
+  label: string; 
+  path: string; 
+  icon: React.ReactElement; 
+};
 
 const NAV_ITEMS: NavItem[] = [
-  { label: "Dashboard", path: "/home", icon: <Icons.Dashboard /> },
-  { label: "Order", path: "/order", icon: <Icons.Quotes /> },
   { label: "Master", path: "/master-main", icon: <Icons.Database /> },
-  { label: "Report", path: "/report", icon: <Icons.Report /> },
 ];
 
 /**
- * Bottom navigation reflecting main app modules.
- * @returns {React.ReactElement}
+ * Mobile Bottom Navigation - Redesigned (Standardized Items)
  */
 export const BottomNav = (): React.ReactElement => {
   const navigate = useNavigate();
@@ -21,17 +21,22 @@ export const BottomNav = (): React.ReactElement => {
   const isActive = (path: string): boolean => pathname === path || pathname.startsWith(path + "/");
   
   return (
-    <nav className="lg:hidden fixed bottom-0 left-0 right-0 z-40 bg-brand-white border-t border-brand-gray-light flex justify-around items-stretch pt-1 pb-[max(0.5rem,env(safe-area-inset-bottom))] shadow-[0_-2px_12px_rgba(0,0,0,0.06)]">
+    <nav className="lg:hidden fixed bottom-0 left-0 right-0 z-40 bg-white border-t border-gray-200 flex items-center justify-around px-4 pb-[env(safe-area-inset-bottom)] h-16 shadow-[0_-2px_10px_rgba(0,0,0,0.05)]">
       {NAV_ITEMS.map((item) => {
         const active = isActive(item.path);
+        
         return (
           <button
             key={item.path}
             onClick={() => navigate(item.path)}
-            className={`flex flex-1 flex-col items-center gap-1 py-1.5 text-[10px] font-bold transition-colors ${active ? "text-brand-blue" : "text-brand-text-medium"}`}
+            className={`flex flex-col items-center justify-center gap-1 w-12 transition-colors ${
+              active ? "text-gray-900" : "text-gray-400"
+            }`}
           >
-            {item.icon}
-            <span>{item.label}</span>
+            <div className={`p-1.5 rounded-full transition-colors flex items-center justify-center ${active ? "bg-gray-900 text-white" : ""}`}>
+              {item.icon}
+            </div>
+            <span className="text-[10px] font-medium">{item.label}</span>
           </button>
         );
       })}

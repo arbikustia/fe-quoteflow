@@ -20,12 +20,12 @@ export default function Layout({ children }: LayoutProps): React.ReactElement {
   const isMasterRoute = pathname.startsWith("/master");
 
   return (
-    <div className="flex h-full w-full bg-brand-white overflow-hidden font-sans text-brand-text-dark relative">
-      <div className="hidden lg:block shrink-0">
+    <div className="flex h-full min-h-0 w-full bg-brand-white overflow-hidden font-sans text-brand-text-dark relative items-stretch">
+      <div className="hidden lg:flex h-full min-h-0 shrink-0 self-stretch">
         <Sidebar />
       </div>
 
-      <div className="flex-1 flex flex-col min-w-0 overflow-hidden relative bg-brand-white">
+      <div className="flex-1 flex flex-col min-w-0 min-h-0 overflow-hidden relative bg-brand-white">
         {!isMasterRoute && (
           <div className="lg:hidden flex items-center gap-3 p-4 border-b border-brand-gray-light bg-brand-white shrink-0">
             <div className="w-8 h-8 rounded-full bg-brand-blue flex items-center justify-center">
@@ -44,7 +44,10 @@ export default function Layout({ children }: LayoutProps): React.ReactElement {
         </main>
       </div>
 
-      <BottomNav />
+        {/* {!isMasterRoute && (
+          <BottomNav />
+        )} */}
+        <BottomNav />
     </div>
   );
 }

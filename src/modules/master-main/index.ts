@@ -1,1 +1,1 @@
-export { default } from "./MasterMain.component";
+export { default } from "./MasterMain.wrapper";

@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 
 import DesktopDashboard from "../../modules/dashboard/desktop-dashboard";
 import MobileDashboard from "../../modules/dashboard/mobile-dashboard";
+import Layout from "../layout";
 import MobileLayout from "../shared/MobileLayout";
 
 /**
@@ -32,5 +33,9 @@ export default function Dashboard(): ReactElement {
     );
   }
 
-  return <DesktopDashboard />;
+  return (
+    <Layout pageTitle="Dashboard">
+      <DesktopDashboard />
+    </Layout>
+  );
 }

@@ -9,7 +9,6 @@ export type SnapshotConfig<T> = {
 
 /**
  * Utility to run snapshot tests against an array of configs.
- * Note: This is a boilerplate helper based on the FE Code Convention.
  * @param {React.ComponentType<T>} Component - The React component to test
  * @param {SnapshotConfig<T>[]} configs - Array of test configurations
  * @returns {void}

@@ -1,14 +1,29 @@
-import type { NavigationItem } from "./Sidebar.type";
+import type { NavigationItem, NavigationSection } from "./Sidebar.type";
 import { Icons } from "../Icons";
 
 export const NAVIGATION_CONFIG: NavigationItem[] = [
-  { name: "Dashboard", path: "/home", icon: Icons.Dashboard },
-  { name: "Order", path: "/order", icon: Icons.Quotes },
-  { name: "Return", path: "/return", icon: Icons.Customers },
   {
     name: "Master Data",
-    path: "/master-main",
     icon: Icons.Database,
+    children: [
+      { name: "Customer", path: "/master-customer" },
+      { name: "Item", path: "/master-item" },
+      { name: "Category", path: "/master-category" },
+      { name: "Role", path: "/master-role" },
+      { name: "Voucher", path: "/master-voucher" },
+      { name: "Project", path: "/master-project" },
+      { name: "Service Type", path: "/master-service-type" },
+      { name: "Payment Method", path: "/master-payment-method" },
+      { name: "Payment Type", path: "/master-payment-type" },
+      { name: "PIC", path: "/master-pic" },
+      { name: "User", path: "/master-user" },
+    ],
   },
-  { name: "Report", path: "/report", icon: Icons.Report },
+];
+
+export const NAVIGATION_SECTIONS: NavigationSection[] = [
+  {
+    title: "Menu",
+    items: NAVIGATION_CONFIG,
+  },
 ];
