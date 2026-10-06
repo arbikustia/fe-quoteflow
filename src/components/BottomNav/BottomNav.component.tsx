@@ -18,7 +18,10 @@ const NAV_ITEMS: NavItem[] = [
 export const BottomNav = (): React.ReactElement => {
   const navigate = useNavigate();
   const { pathname } = useLocation();
-  const isActive = (path: string): boolean => pathname === path || pathname.startsWith(path + "/");
+  const isActive = (path: string): boolean => {
+    if (path === "/master-main") return pathname === "/master-main";
+    return pathname === path || pathname.startsWith(path + "/");
+  };
   
   return (
     <nav className="lg:hidden fixed bottom-0 left-0 right-0 z-40 bg-white border-t border-gray-200 flex items-center justify-around px-4 pb-[env(safe-area-inset-bottom)] h-16 shadow-[0_-2px_10px_rgba(0,0,0,0.05)]">

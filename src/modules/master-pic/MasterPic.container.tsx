@@ -1,4 +1,5 @@
 import * as React from "react";
+import { useState } from "react";
 import { FiEdit2 } from "react-icons/fi";
 import { useNavigate } from "react-router-dom";
 import { MasterPicComponent } from "./MasterPic.component";
@@ -45,10 +46,14 @@ const getColumns = ({ currentPage, pageSize, onEdit }: GetColumnsParams): TableC
 const MasterPicContainer = (): React.ReactElement => {
   const navigate = useNavigate();
   const pagination = usePagination(MOCK_PICS);
+  const [isMoreOpen, setIsMoreOpen] = useState(false);
 
+  const goBack = (): void => { navigate(-1); };
   const goCreate = (): void => { navigate("/master-pic/create"); };
   const goEdit = (c: PicData): void => { navigate(`/master-pic/edit/${c.id}`); };
   const goDetail = (c: PicData): void => { navigate(`/master-pic/detail/${c.id}`); };
+  const toggleMore = (): void => { setIsMoreOpen(!isMoreOpen); };
+  const goDelete = (): void => { setIsMoreOpen(false); };
 
   const columns = getColumns({
     currentPage: pagination.currentPage,
@@ -60,9 +65,14 @@ const MasterPicContainer = (): React.ReactElement => {
     <MasterPicComponent
       {...pagination}
       columns={columns}
+      onBack={goBack}
       onCreate={goCreate}
       onEdit={goEdit}
       onRowClick={goDetail}
+      onMore={toggleMore}
+      isMoreOpen={isMoreOpen}
+      onCloseMore={() => setIsMoreOpen(false)}
+      onDelete={goDelete}
     />
   );
 };

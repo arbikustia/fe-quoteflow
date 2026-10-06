@@ -1,4 +1,5 @@
 import * as React from "react";
+import { useState } from "react";
 import { FiEdit2 } from "react-icons/fi";
 import { useNavigate } from "react-router-dom";
 import { MasterUserComponent } from "./MasterUser.component";
@@ -54,10 +55,14 @@ const getColumns = ({ currentPage, pageSize, onEdit }: GetColumnsParams): TableC
 const MasterUserContainer = (): React.ReactElement => {
   const navigate = useNavigate();
   const pagination = usePagination(MOCK_USERS);
+  const [isMoreOpen, setIsMoreOpen] = useState(false);
 
+  const goBack = (): void => { navigate(-1); };
   const goCreate = (): void => { navigate("/master-user/create"); };
   const goEdit = (c: UserData): void => { navigate(`/master-user/edit/${c.id}`); };
   const goDetail = (c: UserData): void => { navigate(`/master-user/detail/${c.id}`); };
+  const toggleMore = (): void => { setIsMoreOpen(!isMoreOpen); };
+  const goDelete = (): void => { setIsMoreOpen(false); console.log("Delete triggered"); };
 
   const columns = getColumns({
     currentPage: pagination.currentPage,
@@ -69,9 +74,14 @@ const MasterUserContainer = (): React.ReactElement => {
     <MasterUserComponent
       {...pagination}
       columns={columns}
+      onBack={goBack}
       onCreate={goCreate}
       onEdit={goEdit}
       onRowClick={goDetail}
+      onMore={toggleMore}
+      isMoreOpen={isMoreOpen}
+      onCloseMore={() => setIsMoreOpen(false)}
+      onDelete={goDelete}
     />
   );
 };

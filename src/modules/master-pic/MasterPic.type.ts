@@ -19,6 +19,12 @@ export type MasterPicProps = {
   onCreate: () => void;
   onEdit: (pic: PicData) => void;
   onRowClick: (pic: PicData) => void;
+  
+  onMore?: () => void;
+  isMoreOpen?: boolean;
+  onCloseMore?: () => void;
+  onDelete?: () => void;
+  onBack: () => void;
 };
 
 export type GetColumnsParams = {

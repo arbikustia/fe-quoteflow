@@ -27,6 +27,12 @@ export type MasterItemProps = {
   onCreate: () => void;
   onEdit: (item: ItemData) => void;
   onRowClick: (item: ItemData) => void;
+  
+  onMore?: () => void;
+  isMoreOpen?: boolean;
+  onCloseMore?: () => void;
+  onDelete?: () => void;
+  onBack: () => void;
 };
 
 export type ItemToolbarProps = {

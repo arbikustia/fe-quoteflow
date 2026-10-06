@@ -1,4 +1,5 @@
 import * as React from "react";
+import { useState } from "react";
 import { FiEdit2 } from "react-icons/fi";
 import { useNavigate } from "react-router-dom";
 import { MasterProjectComponent } from "./MasterProject.component";
@@ -71,18 +72,14 @@ const getColumns = ({
 const MasterProjectContainer = (): React.ReactElement => {
   const navigate = useNavigate();
   const pagination = usePagination(MOCK_PROJECTS);
+  const [isMoreOpen, setIsMoreOpen] = useState(false);
 
-  const goCreate = (): void => {
-    navigate("/master-project/create");
-  };
-
-  const goEdit = (p: ProjectData): void => {
-    navigate(`/master-project/edit/${p.id}`);
-  };
-
-  const goDetail = (p: ProjectData): void => {
-    navigate(`/master-project/detail/${p.id}`);
-  };
+  const goBack = (): void => { navigate(-1); };
+  const goCreate = (): void => { navigate("/master-project/create"); };
+  const goEdit = (p: ProjectData): void => { navigate(`/master-project/edit/${p.id}`); };
+  const goDetail = (p: ProjectData): void => { navigate(`/master-project/detail/${p.id}`); };
+  const toggleMore = (): void => { setIsMoreOpen(!isMoreOpen); };
+  const goDelete = (): void => { setIsMoreOpen(false); };
 
   const columns = getColumns({
     currentPage: pagination.currentPage,
@@ -94,9 +91,14 @@ const MasterProjectContainer = (): React.ReactElement => {
     <MasterProjectComponent
       {...pagination}
       columns={columns}
+      onBack={goBack}
       onCreate={goCreate}
       onEdit={goEdit}
       onRowClick={goDetail}
+      onMore={toggleMore}
+      isMoreOpen={isMoreOpen}
+      onCloseMore={() => setIsMoreOpen(false)}
+      onDelete={goDelete}
     />
   );
 };

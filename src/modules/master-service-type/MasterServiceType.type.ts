@@ -21,6 +21,12 @@ export type MasterServiceTypeProps = {
   onCreate: () => void;
   onEdit: (serviceType: ServiceTypeData) => void;
   onRowClick: (serviceType: ServiceTypeData) => void;
+  
+  onMore?: () => void;
+  isMoreOpen?: boolean;
+  onCloseMore?: () => void;
+  onDelete?: () => void;
+  onBack: () => void;
 };
 
 export type GetColumnsParams = {

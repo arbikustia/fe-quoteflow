@@ -7,20 +7,56 @@ import { PaginationFooter, PaginationHeader } from "../../components/Pagination"
 import Table from "../../components/Table";
 
 export const MasterPaymentMethodComponent = (props: MasterPaymentMethodProps): React.ReactElement => {
-  const { paginatedData, columns, currentPage, totalPages, goToPage, nextPage, prevPage, pageSize, totalCount, changePageSize, onCreate, onEdit, onRowClick } = props;
+  const { onBack, paginatedData, columns, currentPage, totalPages, goToPage, nextPage, prevPage, pageSize, totalCount, changePageSize, onCreate, onRowClick, onMore, isMoreOpen, onCloseMore, onDelete } = props;
   return (
     <Layout pageTitle="Payment Method List">
-      <div className="flex flex-col h-full pb-18 lg:pb-0 px-3 lg:px-0 lg:-mt-4">
-        <div className="flex justify-between items-start gap-4 mb-4 lg:mb-4">
-          <div className="flex flex-col gap-1 flex-1 min-w-0 pr-2">
-            <span className="text-4xl lg:text-5xl lg:font-semibold text-brand-text-dark leading-none break-words">Payment Method List</span>
-            <p className="text-sm lg:text-sm text-brand-text-medium leading-tight">Manage payment methods and options</p>
-          </div>
-          <div className="flex items-center gap-2 shrink-0">
-            <button onClick={onCreate} className="hidden lg:block px-4 py-2 bg-brand-blue text-brand-white font-medium rounded-lg lg:px-10 lg:py-3 hover:bg-brand-blue-dark transition-all lg:text-md cursor-pointer shadow-sm">Create Payment Method</button>
-            <button onClick={onCreate} className="lg:hidden px-4 py-2.5 shrink-0 flex items-center justify-center gap-2 bg-brand-blue text-brand-white rounded-lg shadow-lg shadow-brand-blue/20 hover:bg-brand-blue-dark active:scale-95 transition-all whitespace-nowrap" aria-label="Create">
-              <span className="text-sm font-bold tracking-tight">Create Payment Method</span>
+      <div className="flex flex-col h-full pb-18 lg:pb-0 px-3 lg:px-0 lg:-mt-4 relative">
+        <div className="flex items-center justify-between py-2 mb-1 lg:mb-4 relative">
+          <button type="button" onClick={onBack} aria-label="Back" className="w-11 h-11 rounded-full bg-[#F4F4F5] hover:bg-[#E9E9EB] active:scale-95 transition-all flex items-center justify-center text-black shrink-0"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.4} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M19 12H5" /><path d="M12 19 5 12l7-7" /></svg></button>
+          <h1 className="flex-1 text-center text-[17px] font-semibold text-black tracking-tight px-2 truncate">
+            Payment Method List
+          </h1>
+          <div className="relative shrink-0">
+            <button
+              type="button"
+              onClick={onMore}
+              aria-label="More options"
+              aria-expanded={isMoreOpen}
+              aria-haspopup="menu"
+              className="w-11 h-11 rounded-full bg-[#F4F4F5] hover:bg-[#E9E9EB] active:scale-95 transition-all flex items-center justify-center text-black"
+            >
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <circle cx="5" cy="12" r="1.8" />
+                <circle cx="12" cy="12" r="1.8" />
+                <circle cx="19" cy="12" r="1.8" />
+              </svg>
             </button>
+            {isMoreOpen && (
+              <>
+                <button type="button" aria-label="Close menu" onClick={onCloseMore} className="fixed inset-0 z-10 cursor-default" tabIndex={-1} />
+                <div role="menu" className="absolute right-0 top-[calc(100%+8px)] z-20 w-52 rounded-2xl border border-gray-100 bg-white py-2 shadow-xl overflow-hidden">
+                  <button
+                    role="menuitem"
+                    type="button"
+                    onClick={() => { onCloseMore?.(); onCreate(); }}
+                    className="w-full flex items-center gap-3 px-4 py-3 text-left text-[14px] font-medium text-gray-800 hover:bg-gray-50 transition-colors"
+                  >
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M12 5v14" /><path d="M5 12h14" /></svg>
+                    New Payment Method
+                  </button>
+                  <div className="mx-3 my-1 h-px bg-gray-100" role="separator" />
+                  <button
+                    role="menuitem"
+                    type="button"
+                    onClick={() => { onDelete?.(); }}
+                    className="w-full flex items-center gap-3 px-4 py-3 text-left text-[14px] font-medium text-red-600 hover:bg-red-50 transition-colors"
+                  >
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><polyline points="3 6 5 6 21 6" /><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" /></svg>
+                    Delete
+                  </button>
+                </div>
+              </>
+            )}
           </div>
         </div>
 
@@ -33,10 +69,16 @@ export const MasterPaymentMethodComponent = (props: MasterPaymentMethodProps): R
             <MobileList
               data={paginatedData.map((row) => ({
                 title: row.name,
-                subtitle: row.status,
-                meta: '',
+                meta: row.description,
+                hideEdit: true,
                 hideImage: true,
-                onEdit: () => onEdit(row),
+                titleClassName: "text-xl font-semibold text-brand-text-dark leading-snug truncate",
+                metaClassName: "text-base font-normal text-brand-text-medium/80 truncate",
+                badge: (
+                  <span className={`inline-flex items-center rounded-full px-3 py-1 text-sm font-medium whitespace-nowrap ${row.status === "active" ? "bg-green-100 text-green-700" : "bg-red-100 text-red-700"}`}>
+                    {row.status}
+                  </span>
+                ),
                 onClick: () => onRowClick(row),
               }))}
             />

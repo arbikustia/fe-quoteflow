@@ -20,6 +20,12 @@ export type MasterUserProps = {
   onCreate: () => void;
   onEdit: (user: UserData) => void;
   onRowClick: (user: UserData) => void;
+  
+  onMore?: () => void;
+  isMoreOpen?: boolean;
+  onCloseMore?: () => void;
+  onDelete?: () => void;
+  onBack: () => void;
 };
 
 export type GetColumnsParams = {

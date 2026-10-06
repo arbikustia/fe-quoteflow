@@ -1,4 +1,5 @@
 import * as React from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { FiEdit2 } from "react-icons/fi";
 import { MasterCustomerComponent } from "./MasterCustomer.component";
@@ -49,9 +50,14 @@ const MasterCustomerContainer = (): React.ReactElement => {
   const navigate = useNavigate();
   const pagination = usePagination(MOCK_CUSTOMERS);
 
+  const [isMoreOpen, setIsMoreOpen] = useState(false);
+
+  const goBack = (): void => { navigate(-1); };
   const goCreate = (): void => { navigate("/master-customer/create"); };
   const goEdit = (c: CustomerData): void => { navigate(`/master-customer/edit/${c.id}`); };
   const goDetail = (c: CustomerData): void => { navigate(`/master-customer/detail/${c.id}`); };
+  const toggleMore = (): void => { setIsMoreOpen(!isMoreOpen); };
+  const goDelete = (): void => { setIsMoreOpen(false); console.log("Delete triggered"); };
 
   const columns = getColumns({
     currentPage: pagination.currentPage,
@@ -63,9 +69,14 @@ const MasterCustomerContainer = (): React.ReactElement => {
     <MasterCustomerComponent
       {...pagination}
       columns={columns}
+      onBack={goBack}
       onCreate={goCreate}
       onEdit={goEdit}
       onRowClick={goDetail}
+      onMore={toggleMore}
+      isMoreOpen={isMoreOpen}
+      onCloseMore={() => setIsMoreOpen(false)}
+      onDelete={goDelete}
     />
   );
 };

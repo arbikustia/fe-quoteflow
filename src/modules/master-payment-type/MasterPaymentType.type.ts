@@ -19,6 +19,12 @@ export type MasterPaymentTypeProps = {
   onCreate: () => void;
   onEdit: (paymentType: PaymentTypeData) => void;
   onRowClick: (paymentType: PaymentTypeData) => void;
+  
+  onMore?: () => void;
+  isMoreOpen?: boolean;
+  onCloseMore?: () => void;
+  onDelete?: () => void;
+  onBack: () => void;
 };
 
 export type GetColumnsParams = {

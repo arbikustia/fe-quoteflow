@@ -19,6 +19,8 @@ export default function Layout({ children }: LayoutProps): React.ReactElement {
   const { pathname } = useLocation();
   const isMasterRoute = pathname.startsWith("/master");
 
+  const isMasterSubRoute = pathname.startsWith("/master-") && pathname !== "/master-main";
+
   return (
     <div className="flex h-full min-h-0 w-full bg-brand-white overflow-hidden font-sans text-brand-text-dark relative items-stretch">
       <div className="hidden lg:flex h-full min-h-0 shrink-0 self-stretch">
@@ -44,10 +46,7 @@ export default function Layout({ children }: LayoutProps): React.ReactElement {
         </main>
       </div>
 
-        {/* {!isMasterRoute && (
-          <BottomNav />
-        )} */}
-        <BottomNav />
+        {!isMasterSubRoute && <BottomNav />}
     </div>
   );
 }

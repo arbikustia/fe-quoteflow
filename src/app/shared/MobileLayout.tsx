@@ -15,7 +15,7 @@ const _isTabActive = (tabId: string, path: string): boolean => {
   }
 
   if (tabId === "/master-main") {
-    return path.startsWith("/master");
+    return path === "/master-main";
   }
 
   return path === tabId || path.startsWith(tabId + "/");
@@ -25,6 +25,7 @@ export default function MobileLayout({ children }: { readonly children?: React.R
   const navigate = useNavigate();
   const location = useLocation();
   const path = location.pathname;
+  const isMasterSubRoute = path.startsWith("/master-") && path !== "/master-main";
 
   const tabs = [
     {
@@ -60,30 +61,32 @@ export default function MobileLayout({ children }: { readonly children?: React.R
       <div className="flex-1 w-full relative overflow-y-auto overflow-x-hidden pb-10 bg-white">
         {children || <Outlet />}
       </div>
-      <div className="fixed bottom-6 left-6 right-6 bg-white rounded-[2rem] px-2 py-3 flex items-center justify-around shadow-[0_20px_50px_rgba(0,0,0,0.12)] z-50">
-        {tabs.map((tab) => {
-          const isActive = _isTabActive(tab.id, path);
-          return (
-            <button 
-              key={tab.id}
-              onClick={() => {
-                if (tab.id.startsWith("/")) navigate(tab.id);
-              }}
-              className={`relative flex flex-col items-center justify-center transition-all duration-300 ${isActive ? 'text-[#2b2d30]' : 'text-gray-400 hover:text-gray-900'} w-14 h-14`}
-            >
-              <div 
-                className={`absolute top-0 bg-[#2b2d30] rounded-full transition-all duration-300 origin-center shadow-lg ${isActive ? 'scale-100 opacity-100 transform -translate-y-4 w-12 h-12' : 'scale-0 opacity-0 w-12 h-12'}`}
-              ></div>
-              <div className={`relative z-10 transition-transform duration-300 mb-3 ${isActive ? '-translate-y-4 scale-110 text-white' : 'scale-100'}`}>
-                {tab.icon}
-              </div>
-              <span className={`absolute bottom-0.5 text-[11px] font-medium transition-all duration-300 ${isActive ? 'opacity-100 text-[#2b2d30]' : 'opacity-100'}`}>
-                {tab.label}
-              </span>
-            </button>
-          );
-        })}
-      </div>
+      {!isMasterSubRoute && (
+        <div className="fixed bottom-6 left-6 right-6 bg-white rounded-[2rem] px-2 py-3 flex items-center justify-around shadow-[0_20px_50px_rgba(0,0,0,0.12)] z-50">
+          {tabs.map((tab) => {
+            const isActive = _isTabActive(tab.id, path);
+            return (
+              <button 
+                key={tab.id}
+                onClick={() => {
+                  if (tab.id.startsWith("/")) navigate(tab.id);
+                }}
+                className={`relative flex flex-col items-center justify-center transition-all duration-300 ${isActive ? 'text-[#2b2d30]' : 'text-gray-400 hover:text-gray-900'} w-14 h-14`}
+              >
+                <div 
+                  className={`absolute top-0 bg-[#2b2d30] rounded-full transition-all duration-300 origin-center shadow-lg ${isActive ? 'scale-100 opacity-100 transform -translate-y-4 w-12 h-12' : 'scale-0 opacity-0 w-12 h-12'}`}
+                ></div>
+                <div className={`relative z-10 transition-transform duration-300 mb-3 ${isActive ? '-translate-y-4 scale-110 text-white' : 'scale-100'}`}>
+                  {tab.icon}
+                </div>
+                <span className={`absolute bottom-0.5 text-[11px] font-medium transition-all duration-300 ${isActive ? 'opacity-100 text-[#2b2d30]' : 'opacity-100'}`}>
+                  {tab.label}
+                </span>
+              </button>
+            );
+          })}
+        </div>
+      )}
     </div>
   );
 }

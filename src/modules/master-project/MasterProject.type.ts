@@ -26,6 +26,12 @@ export type MasterProjectProps = {
   onCreate: () => void;
   onEdit: (project: ProjectData) => void;
   onRowClick: (project: ProjectData) => void;
+  
+  onMore?: () => void;
+  isMoreOpen?: boolean;
+  onCloseMore?: () => void;
+  onDelete?: () => void;
+  onBack: () => void;
 };
 
 export type GetColumnsParams = {

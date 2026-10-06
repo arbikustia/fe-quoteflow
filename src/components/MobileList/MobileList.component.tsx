@@ -8,6 +8,11 @@ export type MobileListItemProps = {
   readonly imageUrl?: string;
   readonly fallbackInitial?: string;
   readonly hideImage?: boolean;
+  readonly badge?: React.ReactNode;
+  readonly hideEdit?: boolean;
+  readonly titleClassName?: string;
+  readonly metaClassName?: string;
+  readonly subtitleClassName?: string;
   readonly onEdit?: () => void;
   readonly onDelete?: () => void;
   readonly onClick?: () => void;
@@ -19,7 +24,7 @@ export type MobileListItemProps = {
  * @returns {React.ReactElement}
  */
 export const MobileListCard = (props: MobileListItemProps): React.ReactElement => {
-  const { title, subtitle, meta, imageUrl, fallbackInitial, hideImage, onEdit, onClick } = props;
+  const { title, subtitle, meta, imageUrl, fallbackInitial, hideImage, badge, hideEdit, titleClassName, subtitleClassName, metaClassName, onEdit, onClick } = props;
   const showImage = !hideImage;
   const initial = fallbackInitial ?? title.charAt(0).toUpperCase();
 
@@ -51,34 +56,39 @@ export const MobileListCard = (props: MobileListItemProps): React.ReactElement =
 
       {/* Text Info Stack */}
       <div className="flex-1 min-w-0 space-y-1">
-        <p className="text-base font-normal text-brand-text-dark leading-snug truncate">
+        <p className={titleClassName ?? "text-base font-normal text-brand-text-dark leading-snug truncate"}>
           {title}
         </p>
         {subtitle && (
-          <p className="text-sm font-normal text-brand-text-medium/80 truncate">
+          <p className={subtitleClassName ?? "text-sm font-normal text-brand-text-medium/80 truncate"}>
             {subtitle}
           </p>
         )}
         {meta && (
-          <p className="text-xs font-normal text-brand-text-medium/80 truncate">
+          <p className={metaClassName ?? "text-xs font-normal text-brand-text-medium/80 truncate"}>
             {meta}
           </p>
         )}
       </div>
 
-      {/* Edit Action Button */}
-      {onEdit && (
-        <button
-          onClick={(e): void => {
-            e.stopPropagation();
-            onEdit();
-          }}
-          className="shrink-0 p-2 text-brand-blue hover:bg-brand-blue/10 rounded-lg transition-colors cursor-pointer"
-          aria-label="Edit"
-          title="Edit"
-        >
-          <FiEdit2 className="w-5 h-5" />
-        </button>
+      {/* Right side: badge or edit */}
+      {badge ? (
+        <div className="shrink-0">{badge}</div>
+      ) : (
+        onEdit &&
+        !hideEdit && (
+          <button
+            onClick={(e): void => {
+              e.stopPropagation();
+              onEdit();
+            }}
+            className="shrink-0 p-2 text-brand-blue hover:bg-brand-blue/10 rounded-lg transition-colors cursor-pointer"
+            aria-label="Edit"
+            title="Edit"
+          >
+            <FiEdit2 className="w-5 h-5" />
+          </button>
+        )
       )}
     </div>
   );

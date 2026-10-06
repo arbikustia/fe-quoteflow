@@ -1,4 +1,5 @@
 import * as React from "react";
+import { useState } from "react";
 import { FiEdit2 } from "react-icons/fi";
 import { useNavigate } from "react-router-dom";
 import { MasterPaymentMethodComponent } from "./MasterPaymentMethod.component";
@@ -46,10 +47,14 @@ const getColumns = ({ currentPage, pageSize, onEdit }: GetColumnsParams): TableC
 const MasterPaymentMethodContainer = (): React.ReactElement => {
   const navigate = useNavigate();
   const pagination = usePagination(MOCK_PAYMENT_METHODS);
+  const [isMoreOpen, setIsMoreOpen] = useState(false);
 
+  const goBack = (): void => { navigate(-1); };
   const goCreate = (): void => { navigate("/master-payment-method/create"); };
   const goEdit = (p: PaymentMethodData): void => { navigate(`/master-payment-method/edit/${p.id}`); };
   const goDetail = (p: PaymentMethodData): void => { navigate(`/master-payment-method/detail/${p.id}`); };
+  const toggleMore = (): void => { setIsMoreOpen(!isMoreOpen); };
+  const goDelete = (): void => { setIsMoreOpen(false); };
 
   const columns = getColumns({
     currentPage: pagination.currentPage,
@@ -61,9 +66,14 @@ const MasterPaymentMethodContainer = (): React.ReactElement => {
     <MasterPaymentMethodComponent
       {...pagination}
       columns={columns}
+      onBack={goBack}
       onCreate={goCreate}
       onEdit={goEdit}
       onRowClick={goDetail}
+      onMore={toggleMore}
+      isMoreOpen={isMoreOpen}
+      onCloseMore={() => setIsMoreOpen(false)}
+      onDelete={goDelete}
     />
   );
 };

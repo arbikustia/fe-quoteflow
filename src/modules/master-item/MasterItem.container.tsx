@@ -1,4 +1,5 @@
 import * as React from "react";
+import { useState } from "react";
 import { FiEdit2 } from "react-icons/fi";
 import { useNavigate } from "react-router-dom";
 import { MasterItemComponent, ItemActionButtons } from "./MasterItem.component";
@@ -63,10 +64,14 @@ const getColumns = ({
 const MasterItemContainer = (): React.ReactElement => {
   const navigate = useNavigate();
   const pagination = usePagination(MOCK_ITEMS);
+  const [isMoreOpen, setIsMoreOpen] = useState(false);
 
+  const goBack = (): void => { navigate(-1); };
   const goCreate = (): void => { navigate("/master-item/create"); };
   const goEdit = (item: ItemData): void => { navigate(`/master-item/edit/${item.id}`); };
   const goDetail = (item: ItemData): void => { navigate(`/master-item/detail/${item.id}`); };
+  const toggleMore = (): void => { setIsMoreOpen(!isMoreOpen); };
+  const goDelete = (): void => { setIsMoreOpen(false); console.log("Delete triggered"); };
 
   const columns = getColumns({
     currentPage: pagination.currentPage,
@@ -79,9 +84,14 @@ const MasterItemContainer = (): React.ReactElement => {
     <MasterItemComponent
       {...pagination}
       columns={columns}
+      onBack={goBack}
       onCreate={goCreate}
       onEdit={goEdit}
       onRowClick={goDetail}
+      onMore={toggleMore}
+      isMoreOpen={isMoreOpen}
+      onCloseMore={() => setIsMoreOpen(false)}
+      onDelete={goDelete}
     />
   );
 };

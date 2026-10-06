@@ -1,71 +1,159 @@
 import * as React from "react";
 import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import Layout from "../../../app/layout";
 import { MOCK_SERVICE_TYPES } from "../../../fixture/master-service-type";
 
 export default function MasterServiceTypeDetail(): React.ReactElement {
   const navigate = useNavigate();
   const { id } = useParams();
-  const [showConfirm, setShowConfirm] = useState(false);
+  const [isMoreOpen, setIsMoreOpen] = useState(false);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
   const serviceType = MOCK_SERVICE_TYPES.find((c) => c.id === id);
+
   if (!serviceType) {
-    return <div className="flex-1 w-full min-h-full bg-[#f8f9fb] flex items-center justify-center"><p className="text-gray-500 font-medium">Service Type not found</p></div>;
+    return (
+      <Layout pageTitle="Detail Service Type">
+        <div className="flex flex-col h-full pb-18 lg:pb-0 px-3 lg:px-0 lg:-mt-4 relative">
+          <div className="flex-1 flex items-center justify-center py-20">
+            <p className="text-gray-500 font-medium">Service Type not found</p>
+          </div>
+        </div>
+      </Layout>
+    );
   }
-  const handleDelete = (): void => { setShowConfirm(false); navigate("/master-service-type"); };
+
+  const handleDelete = (): void => {
+    setShowDeleteModal(false);
+    navigate("/master-service-type");
+  };
+
   return (
-    <div className="flex-1 w-full min-h-full bg-[#f8f9fb] font-sans relative overflow-y-auto">
-      <div className="px-6 pt-10 pb-4 flex items-center justify-between sticky top-0 bg-[#f8f9fb]/90 backdrop-blur-sm z-20">
-        <button type="button" onClick={() => navigate(-1)} className="flex items-center gap-3 text-gray-600 hover:text-gray-900 transition-colors group">
-          <div className="w-10 h-10 rounded-full bg-white shadow-sm flex items-center justify-center text-[#1a233a] group-hover:bg-gray-50 transition-colors">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+    <Layout pageTitle="Detail Service Type">
+      <div className="flex flex-col h-full pb-18 lg:pb-0 px-3 lg:px-0 lg:-mt-4 relative">
+        <div className="flex items-center justify-between py-2 mb-1 lg:mb-4 relative">
+          <button
+            type="button"
+            onClick={() => navigate(-1)}
+            aria-label="Back"
+            className="w-11 h-11 rounded-full bg-[#F4F4F5] hover:bg-[#E9E9EB] active:scale-95 transition-all flex items-center justify-center text-black shrink-0"
+          >
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.4} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+              <path d="M19 12H5" />
+              <path d="M12 19 5 12l7-7" />
+            </svg>
+          </button>
+          <h1 className="flex-1 text-center text-[17px] font-semibold text-black tracking-tight px-2 truncate">
+            Detail Service Type
+          </h1>
+          <div className="relative shrink-0">
+            <button
+              type="button"
+              onClick={() => setIsMoreOpen(!isMoreOpen)}
+              aria-label="More options"
+              aria-expanded={isMoreOpen}
+              aria-haspopup="menu"
+              className="w-11 h-11 rounded-full bg-[#F4F4F5] hover:bg-[#E9E9EB] active:scale-95 transition-all flex items-center justify-center text-black"
+            >
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <circle cx="5" cy="12" r="1.8" />
+                <circle cx="12" cy="12" r="1.8" />
+                <circle cx="19" cy="12" r="1.8" />
+              </svg>
+            </button>
+            {isMoreOpen && (
+              <>
+                <button type="button" aria-label="Close menu" onClick={() => setIsMoreOpen(false)} className="fixed inset-0 z-10 cursor-default" tabIndex={-1} />
+                <div role="menu" className="absolute right-0 top-[calc(100%+8px)] z-20 w-40 rounded-2xl border border-gray-100 bg-white py-2 shadow-xl overflow-hidden">
+                  <button
+                    role="menuitem"
+                    type="button"
+                    onClick={() => { setIsMoreOpen(false); navigate(`/master-service-type/edit/${serviceType.id}`); }}
+                    className="w-full px-4 py-2 text-left text-sm font-medium text-gray-800 hover:bg-gray-50"
+                  >
+                    Edit
+                  </button>
+                  <button
+                    role="menuitem"
+                    type="button"
+                    onClick={() => { setIsMoreOpen(false); setShowDeleteModal(true); }}
+                    className="w-full px-4 py-2 text-left text-sm font-medium text-red-600 hover:bg-red-50"
+                  >
+                    Delete
+                  </button>
+                </div>
+              </>
+            )}
           </div>
-          <span className="font-bold text-[15px]">Back</span>
-        </button>
-        <button onClick={() => navigate(`/master-service-type/edit/${serviceType.id}`)} className="px-5 py-2.5 bg-[#f4e482] text-[#eab308] font-bold text-[13px] rounded-full hover:bg-[#eade6d] transition-colors">Edit Service Type</button>
+        </div>
+
+        <div className="pb-24 space-y-4">
+          <div className="bg-white rounded-3xl p-5 border border-gray-100 shadow-[0_2px_12px_rgba(0,0,0,0.04)]">
+            <div className="flex-1 min-w-0 text-center py-2">
+              <h2 className="text-[20px] font-bold text-gray-900 leading-tight truncate mb-2">{serviceType.name}</h2>
+              <span className={`inline-flex items-center rounded-full px-3 py-1 text-[13px] font-semibold ${serviceType.status === "active" ? "bg-green-100 text-green-700" : "bg-red-100 text-red-700"}`}>
+                {serviceType.status}
+              </span>
+            </div>
+          </div>
+
+          <div className="bg-white rounded-3xl border border-gray-100 shadow-[0_2px_12px_rgba(0,0,0,0.04)] overflow-hidden">
+            <div className="px-5 pt-5 pb-3">
+              <h3 className="text-[12px] font-bold text-gray-400 tracking-widest uppercase">Service Type Details</h3>
+            </div>
+            <dl className="divide-y divide-gray-100">
+              <div className="flex items-center justify-between gap-4 px-5 py-4">
+                <dt className="text-[13px] font-medium text-gray-500 shrink-0">Service Name</dt>
+                <dd className="font-semibold text-gray-900 text-[15px] text-right truncate">{serviceType.name}</dd>
+              </div>
+              <div className="flex items-center justify-between gap-4 px-5 py-4">
+                <dt className="text-[13px] font-medium text-gray-500 shrink-0">Service Type ID</dt>
+                <dd className="font-semibold text-gray-900 text-[15px] text-right truncate">{serviceType.id}</dd>
+              </div>
+              <div className="flex items-center justify-between gap-4 px-5 py-4">
+                <dt className="text-[13px] font-medium text-gray-500 shrink-0">Price</dt>
+                <dd className="font-semibold text-gray-900 text-[15px] text-right">Rp {serviceType.price.toLocaleString("id-ID")}</dd>
+              </div>
+              <div className="flex items-center justify-between gap-4 px-5 py-4">
+                <dt className="text-[13px] font-medium text-gray-500 shrink-0">Active</dt>
+                <dd className="font-semibold text-gray-900 text-[15px] text-right">{serviceType.isActive ? "Yes" : "No"}</dd>
+              </div>
+            </dl>
+          </div>
+
+          <div className="bg-white rounded-3xl border border-gray-100 shadow-[0_2px_12px_rgba(0,0,0,0.04)] overflow-hidden">
+            <div className="px-5 pt-5 pb-1">
+              <h3 className="text-[12px] font-bold text-gray-400 tracking-widest uppercase">Record Info</h3>
+            </div>
+            <div className="grid grid-cols-2 divide-x divide-gray-100">
+              <div className="px-5 py-4">
+                <p className="text-[13px] font-medium text-gray-500 mb-1">Created By</p>
+                <p className="font-semibold text-gray-900 text-[15px] truncate">{serviceType.createBy}</p>
+              </div>
+              <div className="px-5 py-4">
+                <p className="text-[13px] font-medium text-gray-500 mb-1">Created At</p>
+                <p className="font-semibold text-gray-900 text-[15px]">{serviceType.createAt}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {showDeleteModal && (
+          <div className="fixed inset-0 bg-black/60 z-50 flex items-center justify-center p-6 backdrop-blur-sm">
+            <div className="bg-white rounded-3xl w-full max-w-sm p-6 shadow-2xl">
+              <div className="w-14 h-14 bg-[#fde8e8] rounded-full flex items-center justify-center mb-4 mx-auto text-[#bd4040]">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+              </div>
+              <h3 className="text-[22px] font-bold text-center text-gray-900 mb-2">Delete Service Type?</h3>
+              <p className="text-[14px] text-gray-500 text-center mb-8 font-medium">Are you sure you want to delete <span className="text-gray-900 font-bold">{serviceType.name}</span>?</p>
+              <div className="flex gap-3">
+                <button onClick={() => setShowDeleteModal(false)} className="flex-1 py-3.5 bg-gray-100 text-gray-700 font-bold rounded-2xl hover:bg-gray-200 transition-colors">Cancel</button>
+                <button onClick={handleDelete} className="flex-1 py-3.5 bg-[#bd4040] text-white font-bold rounded-2xl hover:bg-red-700 transition-colors shadow-md">Yes, Delete</button>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
-      <div className="px-6 mt-4 pb-24">
-        <div className="bg-white rounded-[2rem] p-6 mb-6 shadow-[0_4px_15px_rgba(0,0,0,0.02)] border border-gray-100 flex flex-col items-center">
-          <div className="w-20 h-20 rounded-full bg-[#f4e482] text-[#eab308] flex items-center justify-center mb-4 border-4 border-white shadow-md">
-            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
-          </div>
-          <h2 className="text-[24px] font-extrabold text-gray-900 leading-none mb-2 text-center">{serviceType.name}</h2>
-          <div className="mt-2 rounded-full px-4 py-1.5 text-[12px] font-bold tracking-wider uppercase text-[#eab308] bg-[#f4e482]">{serviceType.status}</div>
-        </div>
-        <div className="bg-white rounded-[2rem] p-6 shadow-[0_4px_15px_rgba(0,0,0,0.02)] border border-gray-100">
-          <h3 className="text-[14px] font-bold text-gray-400 tracking-widest uppercase mb-6">Service Type Details</h3>
-          <div className="flex flex-col gap-6">
-            <div><span className="text-[11px] font-bold text-gray-400 tracking-widest uppercase block mb-1">Service Type ID</span><p className="font-semibold text-gray-800 text-[15px]">{serviceType.id}</p></div>
-            <div className="w-full h-px bg-gray-100"></div>
-            <div><span className="text-[11px] font-bold text-gray-400 tracking-widest uppercase block mb-1">Price</span><p className="font-semibold text-gray-800 text-[15px]">Rp {serviceType.price.toLocaleString("id-ID")}</p></div>
-            <div className="w-full h-px bg-gray-100"></div>
-            <div><span className="text-[11px] font-bold text-gray-400 tracking-widest uppercase block mb-1">Active</span><p className="font-semibold text-gray-800 text-[15px]">{serviceType.isActive ? "Yes" : "No"}</p></div>
-            <div className="w-full h-px bg-gray-100"></div>
-            <div className="flex gap-4">
-              <div className="flex-1"><span className="text-[11px] font-bold text-gray-400 tracking-widest uppercase block mb-1">Created By</span><p className="font-semibold text-gray-800 text-[15px]">{serviceType.createBy}</p></div>
-              <div className="flex-1 border-l border-gray-100 pl-4"><span className="text-[11px] font-bold text-gray-400 tracking-widest uppercase block mb-1">Created At</span><p className="font-semibold text-gray-800 text-[15px]">{serviceType.createAt}</p></div>
-            </div>
-          </div>
-        </div>
-        <button onClick={() => setShowConfirm(true)} className="w-full mt-8 bg-[#fde8e8] text-[#bd4040] rounded-full py-4 text-[16px] font-bold tracking-wide shadow-sm hover:bg-red-100 transition-colors flex items-center justify-center gap-2">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
-          Delete Service Type
-        </button>
-      </div>
-      {showConfirm && (
-        <div className="fixed inset-0 bg-black/60 z-50 flex items-center justify-center p-6 backdrop-blur-sm">
-          <div className="bg-white rounded-3xl w-full max-w-sm p-6 shadow-2xl">
-            <div className="w-14 h-14 bg-[#fde8e8] rounded-full flex items-center justify-center mb-4 mx-auto text-[#bd4040]">
-              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
-            </div>
-            <h3 className="text-[22px] font-bold text-center text-gray-900 mb-2">Delete Service Type?</h3>
-            <p className="text-[14px] text-gray-500 text-center mb-8 font-medium">Are you sure you want to delete <span className="text-gray-900 font-bold">{serviceType.name}</span>?</p>
-            <div className="flex gap-3">
-              <button onClick={() => setShowConfirm(false)} className="flex-1 py-3.5 bg-gray-100 text-gray-700 font-bold rounded-2xl hover:bg-gray-200 transition-colors">Cancel</button>
-              <button onClick={handleDelete} className="flex-1 py-3.5 bg-[#bd4040] text-white font-bold rounded-2xl hover:bg-red-700 transition-colors shadow-md">Yes, Delete</button>
-            </div>
-          </div>
-        </div>
-      )}
-    </div>
+    </Layout>
   );
 }

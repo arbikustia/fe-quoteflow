@@ -1,5 +1,5 @@
-import type { MasterBase } from "../../types/master";
 import type { TableColumn } from "../../components/Table";
+import type { MasterBase } from "../../types/master";
 
 export type RoleData = MasterBase & {
   roleName: string;
@@ -19,6 +19,12 @@ export type MasterRoleProps = {
   onCreate: () => void;
   onEdit: (role: RoleData) => void;
   onRowClick: (role: RoleData) => void;
+  
+  onMore?: () => void;
+  isMoreOpen?: boolean;
+  onCloseMore?: () => void;
+  onDelete?: () => void;
+  onBack: () => void;
 };
 
 export type GetColumnsParams = {

@@ -1,4 +1,5 @@
 import * as React from "react";
+import { useState } from "react";
 import { FiEdit2 } from "react-icons/fi";
 import { useNavigate } from "react-router-dom";
 import { MasterServiceTypeComponent } from "./MasterServiceType.component";
@@ -12,7 +13,7 @@ const getColumns = ({ currentPage, pageSize, onEdit }: GetColumnsParams): TableC
     key: "no", 
     header: "No", 
     align: "center", 
-    render: (_row: ServiceTypeData, index: number) => <span className="text-sm">{(currentPage - 1) * pageSize + index + 1}</span> 
+    render: (_row: ServiceTypeData, index: number) => <span className="text-sm text-brand-text-medium font-medium">{(currentPage - 1) * pageSize + index + 1}</span> 
   },
   { key: "name", header: "Service Name" },
   { 
@@ -46,13 +47,15 @@ const getColumns = ({ currentPage, pageSize, onEdit }: GetColumnsParams): TableC
     header: "Action", 
     align: "center", 
     render: (row: ServiceTypeData): React.ReactElement => (
-      <button
-        onClick={(e: React.MouseEvent) => { e.stopPropagation(); onEdit(row); }}
-        className="p-1.5 text-brand-text-medium hover:text-brand-blue hover:bg-brand-blue-light rounded-lg transition-colors cursor-pointer"
-        title="Edit"
-      >
-        <FiEdit2 className="w-4 h-4" />
-      </button>
+      <div className="flex items-center justify-center">
+        <button
+          onClick={(e: React.MouseEvent) => { e.stopPropagation(); onEdit(row); }}
+          className="p-1.5 text-brand-text-medium hover:text-brand-blue hover:bg-brand-blue-light rounded-lg transition-colors cursor-pointer"
+          title="Edit"
+        >
+          <FiEdit2 className="w-4 h-4" />
+        </button>
+      </div>
     )
   },
 ];
@@ -60,10 +63,14 @@ const getColumns = ({ currentPage, pageSize, onEdit }: GetColumnsParams): TableC
 const MasterServiceTypeContainer = (): React.ReactElement => {
   const navigate = useNavigate();
   const pagination = usePagination(MOCK_SERVICE_TYPES);
+  const [isMoreOpen, setIsMoreOpen] = useState(false);
 
+  const goBack = (): void => { navigate(-1); };
   const goCreate = (): void => { navigate("/master-service-type/create"); };
   const goEdit = (s: ServiceTypeData): void => { navigate(`/master-service-type/edit/${s.id}`); };
   const goDetail = (s: ServiceTypeData): void => { navigate(`/master-service-type/detail/${s.id}`); };
+  const toggleMore = (): void => { setIsMoreOpen(!isMoreOpen); };
+  const goDelete = (): void => { setIsMoreOpen(false); console.log("Delete triggered"); };
 
   const columns = getColumns({
     currentPage: pagination.currentPage,
@@ -75,9 +82,14 @@ const MasterServiceTypeContainer = (): React.ReactElement => {
     <MasterServiceTypeComponent
       {...pagination}
       columns={columns}
+      onBack={goBack}
       onCreate={goCreate}
       onEdit={goEdit}
       onRowClick={goDetail}
+      onMore={toggleMore}
+      isMoreOpen={isMoreOpen}
+      onCloseMore={() => setIsMoreOpen(false)}
+      onDelete={goDelete}
     />
   );
 };

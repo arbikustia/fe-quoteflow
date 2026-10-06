@@ -20,6 +20,12 @@ export type MasterVoucherProps = {
   onCreate: () => void;
   onEdit: (voucher: VoucherData) => void;
   onRowClick: (voucher: VoucherData) => void;
+  
+  onMore?: () => void;
+  isMoreOpen?: boolean;
+  onCloseMore?: () => void;
+  onDelete?: () => void;
+  onBack: () => void;
 };
 
 export type GetColumnsParams = {

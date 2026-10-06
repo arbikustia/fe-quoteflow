@@ -21,6 +21,12 @@ export type MasterCustomerProps = {
   onCreate: () => void;
   onEdit: (customer: CustomerData) => void;
   onRowClick: (customer: CustomerData) => void;
+  
+  onMore?: () => void;
+  isMoreOpen?: boolean;
+  onCloseMore?: () => void;
+  onDelete?: () => void;
+  onBack: () => void;
 };
 
 export type GetColumnsParams = {
