@@ -16,7 +16,7 @@ export const ItemActionButtons = ({ row, onEdit, onConfirm }: ItemActionProps): 
 );
 
 export const MasterItemComponent = (props: MasterItemProps): React.ReactElement => {
-  const { onCreate, onRowClick, paginatedData, columns, currentPage, totalPages, goToPage, nextPage, prevPage, pageSize, totalCount, changePageSize, onMore, isMoreOpen, onCloseMore, onDelete } = props;
+  const { onBack, onCreate, onRowClick, paginatedData, columns, currentPage, totalPages, goToPage, nextPage, prevPage, pageSize, totalCount, changePageSize, onMore, isMoreOpen, onCloseMore, onDelete } = props;
   return (
     <Layout pageTitle="Master Item">
       <div className="flex flex-col h-full pb-18 lg:pb-0 px-3 lg:px-0 lg:-mt-4 relative">
