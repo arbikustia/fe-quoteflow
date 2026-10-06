@@ -11,12 +11,13 @@ export const MOCK_ITEMS: ItemData[] = [
     duration: "3 days",
     status: "active",
     remark: "High quality sound",
+    unit: "unit",
     createAt: "2024-01-01T10:00:00Z",
     createBy: "Admin"
   },
   { 
     id: "102", 
-    name: "Subwoofer 18\"", 
+    name: "Subwoofer 18 inch", 
     category: "Audio System", 
     price: 1500000, 
     stock: 8,
@@ -24,6 +25,7 @@ export const MOCK_ITEMS: ItemData[] = [
     duration: "1 day",
     status: "active",
     remark: "Deep bass",
+    unit: "unit",
     createAt: "2024-01-02T11:00:00Z",
     createBy: "Admin"
   },
@@ -37,6 +39,7 @@ export const MOCK_ITEMS: ItemData[] = [
     duration: "1 day",
     status: "active",
     remark: "Indoor use",
+    unit: "unit",
     createAt: "2024-01-03T09:00:00Z",
     createBy: "Operator"
   },
@@ -50,6 +53,7 @@ export const MOCK_ITEMS: ItemData[] = [
     duration: "2 days",
     status: "inactive",
     remark: "Sharp beam effect",
+    unit: "unit",
     createAt: "2024-01-04T08:00:00Z",
     createBy: "Admin"
   },
@@ -63,6 +67,7 @@ export const MOCK_ITEMS: ItemData[] = [
     duration: "5 days",
     status: "active",
     remark: "Including cover & ribbon",
+    unit: "unit",
     createAt: "2024-01-05T14:00:00Z",
     createBy: "Admin"
   }
