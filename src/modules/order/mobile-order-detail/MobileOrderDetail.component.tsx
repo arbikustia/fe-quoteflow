@@ -1,8 +1,7 @@
 import * as React from "react";
 
-import { generateQuotePDF } from "../../../utils/pdfGenerator";
-
 import type { MobileOrderDetailProps } from "./MobileOrderDetail.type";
+import { generateQuotePDF } from "../../../utils/pdfGenerator";
 
 /**
  * Get status styles

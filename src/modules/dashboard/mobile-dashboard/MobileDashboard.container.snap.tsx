@@ -1,9 +1,8 @@
 import type { Mock } from 'vitest';
 import { vi } from 'vitest';
 
-import test from '../../../libs/unit-test';
-
 import MobileDashboardContainer from './MobileDashboard.container';
+import test from '../../../libs/unit-test';
 
 /**
  * Mock mobile dashboard effect

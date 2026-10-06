@@ -1,8 +1,7 @@
 import * as React from "react";
 
-import { MOCK_ORDER_ITEMS } from "../../../fixture/quotes";
-
 import type { InputFieldProps, MobileOrderCreateProps } from "./MobileOrderCreate.type";
+import { MOCK_ORDER_ITEMS } from "../../../fixture/quotes";
 
 /**
  * Input field component

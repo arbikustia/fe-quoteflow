@@ -1,9 +1,8 @@
 import { vi } from "vitest";
 
-import test from "../../libs/unit-test";
-
 import { SidebarComponent } from "./Sidebar.component";
 import { NAVIGATION_CONFIG } from "./Sidebar.config";
+import test from "../../libs/unit-test";
 
 const mockOnToggleMenu = vi.fn();
 const mockOnToggleCollapsed = vi.fn();

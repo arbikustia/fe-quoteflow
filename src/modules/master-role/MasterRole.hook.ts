@@ -1,28 +1,94 @@
 import { useState } from "react";
-import type { BaseRoleState, RoleData, ConfirmModalState, ModalState } from "./MasterRole.type";
+import { useNavigate } from "react-router-dom";
 
-const useModalState = (): ModalState => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [editingRole, setEditingRole] = useState<RoleData | null>(null);
-  const openCreateModal = (): void => { setEditingRole(null); setIsModalOpen(true); };
-  const openEditModal = (data: RoleData): void => { setEditingRole(data); setIsModalOpen(true); };
-  const closeModal = (): void => { setIsModalOpen(false); setTimeout(() => setEditingRole(null), 200); };
-  return { isModalOpen, editingRole, openCreateModal, openEditModal, closeModal };
-};
+import { MOCK_ROLES } from "../../fixture/master-role";
+import { usePagination } from "../../hooks/usePagination";
 
-const useConfirmModalState = (): ConfirmModalState => {
-  const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false);
-  const [deletingRole, setDeletingRole] = useState<RoleData | null>(null);
-  const openConfirmModal = (data: RoleData): void => { setDeletingRole(data); setIsConfirmModalOpen(true); };
-  const closeConfirmModal = (): void => { setIsConfirmModalOpen(false); setTimeout(() => setDeletingRole(null), 200); };
-  const onConfirmDelete = (): void => { closeConfirmModal(); };
-  return { isConfirmModalOpen, deletingRole, openConfirmModal, closeConfirmModal, onConfirmDelete };
+import type { MasterRoleContainerState, MasterRoleNavigation,RoleData } from "./MasterRole.type";
+
+/**
+ * Navigation hook
+ * @returns {MasterRoleNavigation} navigation state
+ */
+export const useMasterRoleNavigation = (): MasterRoleNavigation => {
+  const navigate = useNavigate();
+
+  /**
+   * Navigate back
+   * @returns {void} void
+   */
+  const goBack = (): void => {
+    navigate(-1);
+  };
+
+  /**
+   * Navigate to create
+   * @returns {void} void
+   */
+  const goCreate = (): void => {
+    navigate("/master-role/create");
+  };
+
+  /**
+   * Navigate to edit
+   * @param {RoleData} c - role data
+   * @returns {void} void
+   */
+  const goEdit = (c: RoleData): void => {
+    navigate(`/master-role/edit/${c.id}`);
+  };
+
+  /**
+   * Navigate to detail
+   * @param {RoleData} c - role data
+   * @returns {void} void
+   */
+  const goDetail = (c: RoleData): void => {
+    navigate(`/master-role/detail/${c.id}`);
+  };
+
+  return { goBack, goCreate, goEdit, goDetail };
 };
 
 /**
- * Master Role State Hook
- * @returns {BaseRoleState} state
+ * Container state hook
+ * @returns {MasterRoleContainerState} container state
  */
-export const useMasterRoleState = (): BaseRoleState => {
-  return { ...useModalState(), ...useConfirmModalState() };
+export const useMasterRoleContainerState = (): MasterRoleContainerState => {
+  const navigation = useMasterRoleNavigation();
+  const pagination = usePagination(MOCK_ROLES);
+  const [isMoreOpen, setIsMoreOpen] = useState(false);
+
+  /**
+   * Toggle more
+   * @returns {void} void
+   */
+  const toggleMore = (): void => {
+    setIsMoreOpen(!isMoreOpen);
+  };
+
+  /**
+   * Handle delete
+   * @returns {void} void
+   */
+  const goDelete = (): void => {
+    setIsMoreOpen(false);
+  };
+
+  /**
+   * Close more menu
+   * @returns {void} void
+   */
+  const handleCloseMore = (): void => {
+    setIsMoreOpen(false);
+  };
+
+  return {
+    ...navigation,
+    pagination,
+    isMoreOpen,
+    toggleMore,
+    goDelete,
+    handleCloseMore,
+  };
 };

@@ -2,10 +2,9 @@ import { useEffect, useRef, useState } from "react";
 import type { NavigateFunction } from "react-router-dom";
 import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 
-import { MOCK_QUOTES } from "../../../fixture/quotes";
-import type { QuoteData } from "../desktop-order/DesktopOrder.type";
-
 import type { CategoryStateReturn, ItemStateReturn, MobileOrderCreateProps } from "./MobileOrderCreate.type";
+import type { QuoteData } from "../desktop-order/DesktopOrder.type";
+import { MOCK_QUOTES } from "../../../fixture/quotes";
 
 /**
  * Helper to initialize item details

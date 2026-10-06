@@ -1,6 +1,5 @@
-import test from '../../../libs/unit-test';
-
 import { MobileOrderDetailComponent } from './MobileOrderDetail.component';
+import test from '../../../libs/unit-test';
 
 const configs = [
   {

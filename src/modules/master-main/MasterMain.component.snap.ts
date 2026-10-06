@@ -1,7 +1,6 @@
-import test from "../../libs/unit-test";
-
 import { MasterMainComponent } from "./MasterMain.component";
 import { MASTER_MAIN_CONFIG } from "./MasterMain.config";
+import test from "../../libs/unit-test";
 
 const configs = [
   {

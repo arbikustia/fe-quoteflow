@@ -1,10 +1,9 @@
 import * as React from 'react';
 
-import { MOCK_QUOTES } from '../../../fixture/quotes';
-
 import { MobileDashboardComponent } from './MobileDashboard.component';
 import { useMobileDashboardEffect } from './MobileDashboard.hook';
 import type { StatusCardProps } from './MobileDashboard.type';
+import { MOCK_QUOTES } from '../../../fixture/quotes';
 
 /**
  * Render Mobile Dashboard Container

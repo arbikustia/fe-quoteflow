@@ -1,4 +1,5 @@
 import * as React from "react";
+
 import MasterVoucherContainer from "./MasterVoucher.container";
 
 /**
@@ -6,4 +7,5 @@ import MasterVoucherContainer from "./MasterVoucher.container";
  * @returns {React.ReactElement} wrapper
  */
 const MasterVoucherWrapper = (): React.ReactElement => <MasterVoucherContainer />;
+
 export default MasterVoucherWrapper;

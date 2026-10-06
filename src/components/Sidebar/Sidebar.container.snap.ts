@@ -1,9 +1,8 @@
 import { vi } from "vitest";
 
-import test from "../../libs/unit-test";
-
-import type { SidebarProps } from "./Sidebar.type";
 import SidebarContainer from "./Sidebar.container";
+import type { SidebarProps } from "./Sidebar.type";
+import test from "../../libs/unit-test";
 
 vi.mock("./Sidebar.hook", () => ({
   useSidebarState: (): unknown => ({

@@ -1,10 +1,9 @@
 import * as React from "react";
 import { FiArrowLeft } from "react-icons/fi";
 
+import type { DesktopOrderCreateProps } from "./DesktopOrderCreate.type";
 import Layout from "../../../app/layout";
 import { MOCK_ORDER_ITEMS } from "../../../fixture/quotes";
-
-import type { DesktopOrderCreateProps } from "./DesktopOrderCreate.type";
 
 /**
  * Event Details Section

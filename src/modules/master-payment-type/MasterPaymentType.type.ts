@@ -1,34 +1,49 @@
-import type { MasterBase } from "../../types/master";
 import type { TableColumn } from "../../components/Table";
+import type { PaginationResult } from "../../hooks/usePagination";
+import type { MasterBase } from "../../types/master";
 
 export type PaymentTypeData = MasterBase & {
-  name: string;
+  readonly name: string;
+};
+
+export type MasterPaymentTypeNavigation = {
+  readonly goBack: () => void;
+  readonly goCreate: () => void;
+  readonly goEdit: (paymentType: PaymentTypeData) => void;
+  readonly goDetail: (paymentType: PaymentTypeData) => void;
+};
+
+export type MasterPaymentTypeContainerState = {
+  readonly pagination: PaginationResult<PaymentTypeData>;
+  readonly isMoreOpen: boolean;
+  readonly toggleMore: () => void;
+  readonly goDelete: () => void;
+  readonly handleCloseMore: () => void;
 };
 
 export type MasterPaymentTypeProps = {
-  currentPage: number;
-  totalPages: number;
-  pageSize: number;
-  paginatedData: PaymentTypeData[];
-  goToPage: (page: number) => void;
-  nextPage: () => void;
-  prevPage: () => void;
-  changePageSize: (size: number) => void;
-  totalCount: number;
-  columns: TableColumn<PaymentTypeData>[];
-  onCreate: () => void;
-  onEdit: (paymentType: PaymentTypeData) => void;
-  onRowClick: (paymentType: PaymentTypeData) => void;
-  
-  onMore?: () => void;
-  isMoreOpen?: boolean;
-  onCloseMore?: () => void;
-  onDelete?: () => void;
-  onBack: () => void;
+  readonly currentPage: number;
+  readonly totalPages: number;
+  readonly pageSize: number;
+  readonly paginatedData: PaymentTypeData[];
+  readonly goToPage: (page: number) => void;
+  readonly nextPage: () => void;
+  readonly prevPage: () => void;
+  readonly changePageSize: (size: number) => void;
+  readonly totalCount: number;
+  readonly columns: TableColumn<PaymentTypeData>[];
+  readonly onCreate: () => void;
+  readonly onEdit: (paymentType: PaymentTypeData) => void;
+  readonly onRowClick: (paymentType: PaymentTypeData) => void;
+  readonly onMore: () => void;
+  readonly isMoreOpen: boolean;
+  readonly onCloseMore: () => void;
+  readonly onDelete: () => void;
+  readonly onBack: () => void;
 };
 
 export type GetColumnsParams = {
-  currentPage: number;
-  pageSize: number;
-  onEdit: (paymentType: PaymentTypeData) => void;
+  readonly currentPage: number;
+  readonly pageSize: number;
+  readonly onEdit: (paymentType: PaymentTypeData) => void;
 };

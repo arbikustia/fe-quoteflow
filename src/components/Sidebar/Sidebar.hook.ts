@@ -1,5 +1,6 @@
 import { useCallback, useState } from "react";
 import { useLocation } from "react-router-dom";
+
 import { NAVIGATION_CONFIG } from "./Sidebar.config";
 
 /**

@@ -1,14 +1,20 @@
 import * as React from "react";
 
-import type { MasterCustomerProps } from "./MasterCustomer.type";
 import Layout from "../../app/layout";
 import { Icons } from "../../components/Icons";
 import { MobileList } from "../../components/MobileList";
 import { PaginationFooter, PaginationHeader } from "../../components/Pagination";
 import Table from "../../components/Table";
 
+import type { MasterCustomerProps } from "./MasterCustomer.type";
+
+/**
+ *
+ * @param props
+ */
 export const MasterCustomerComponent = (props: MasterCustomerProps): React.ReactElement => {
   const { onBack, paginatedData, columns, currentPage, totalPages, goToPage, nextPage, prevPage, pageSize, totalCount, changePageSize, onCreate, onEdit, onRowClick, onMore, isMoreOpen, onCloseMore, onDelete } = props;
+
   return (
     <Layout pageTitle="Customer List">
       <div className="flex flex-col h-full pb-18 lg:pb-0 px-3 lg:px-0 lg:-mt-4 relative">
@@ -91,6 +97,9 @@ export const MasterCustomerComponent = (props: MasterCustomerProps): React.React
                     {row.status}
                   </span>
                 ),
+                /**
+                 *
+                 */
                 onClick: () => onRowClick(row),
               }))}
             />

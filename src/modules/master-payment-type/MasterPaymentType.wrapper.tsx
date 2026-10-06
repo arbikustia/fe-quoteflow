@@ -1,4 +1,5 @@
 import * as React from "react";
+
 import MasterPaymentTypeContainer from "./MasterPaymentType.container";
 
 /**
@@ -6,4 +7,5 @@ import MasterPaymentTypeContainer from "./MasterPaymentType.container";
  * @returns {React.ReactElement} wrapper
  */
 const MasterPaymentTypeWrapper = (): React.ReactElement => <MasterPaymentTypeContainer />;
+
 export default MasterPaymentTypeWrapper;

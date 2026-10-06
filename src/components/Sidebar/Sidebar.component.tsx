@@ -1,9 +1,10 @@
 import * as React from "react";
 import { Link } from "react-router-dom";
+
+import type { NavigationItem, SidebarProps } from "./Sidebar.type";
+import { Icons } from "../Icons";
 import LogoCollapsed from "../../assets/logo.png";
 import SoniclineLogo from "../../assets/Sonicline.png";
-import { Icons } from "../Icons";
-import type { NavigationItem, SidebarProps } from "./Sidebar.type";
 
 /**
  * Reusable sidebar — supports expanded/collapsed, badges, children, tooltips, profile dropdown.

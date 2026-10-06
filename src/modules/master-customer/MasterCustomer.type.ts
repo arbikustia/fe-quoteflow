@@ -1,5 +1,5 @@
-import type { MasterBase } from "../../types/master";
 import type { TableColumn } from "../../components/Table";
+import type { MasterBase } from "../../types/master";
 
 export type CustomerData = MasterBase & {
   name: string;

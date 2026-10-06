@@ -1,8 +1,7 @@
 import { useNavigate } from "react-router-dom";
 
-import { MOCK_QUOTES } from "../../../fixture/quotes";
-
 import type { MobileReturnProps } from "./MobileReturn.type";
+import { MOCK_QUOTES } from "../../../fixture/quotes";
 
 /**
  * Hook for Mobile Return

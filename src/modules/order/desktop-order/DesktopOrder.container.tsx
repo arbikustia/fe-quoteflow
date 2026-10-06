@@ -1,14 +1,13 @@
 import * as React from "react";
 import { FiCalendar, FiDownload, FiEdit2, FiMapPin, FiTrash2 } from "react-icons/fi";
 
+import { DesktopOrderComponent } from "./DesktopOrder.component";
+import { useDesktopOrderState } from "./DesktopOrder.hook";
+import type { GetColumnsParams, QuoteData, TabType } from "./DesktopOrder.type";
 import type { TableColumn } from "../../../components/Table";
 import { MOCK_QUOTES } from "../../../fixture/quotes";
 import { usePagination } from "../../../hooks/usePagination";
 import { generateQuotePDF } from "../../../utils/pdfGenerator";
-
-import { DesktopOrderComponent } from "./DesktopOrder.component";
-import { useDesktopOrderState } from "./DesktopOrder.hook";
-import type { GetColumnsParams, QuoteData, TabType } from "./DesktopOrder.type";
 
 /**
  * Render category column

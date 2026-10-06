@@ -1,51 +1,94 @@
 import { useState } from "react";
-import type { BaseProjectState, ConfirmModalState, ModalState, ProjectData } from "./MasterProject.type";
+import { useNavigate } from "react-router-dom";
 
-const useModalState = (): ModalState => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [editingProject, setEditingProject] = useState<ProjectData | null>(null);
+import { MOCK_PROJECTS } from "../../fixture/master-project";
+import { usePagination } from "../../hooks/usePagination";
 
-  const openCreateModal = (): void => {
-    setEditingProject(null);
-    setIsModalOpen(true);
+import type { MasterProjectContainerState, MasterProjectNavigation,ProjectData } from "./MasterProject.type";
+
+/**
+ * Navigation hook
+ * @returns {MasterProjectNavigation} navigation state
+ */
+export const useMasterProjectNavigation = (): MasterProjectNavigation => {
+  const navigate = useNavigate();
+
+  /**
+   * Navigate back
+   * @returns {void} void
+   */
+  const goBack = (): void => {
+    navigate(-1);
   };
 
-  const openEditModal = (project: ProjectData): void => {
-    setEditingProject(project);
-    setIsModalOpen(true);
+  /**
+   * Navigate to create
+   * @returns {void} void
+   */
+  const goCreate = (): void => {
+    navigate("/master-project/create");
   };
 
-  const closeModal = (): void => {
-    setIsModalOpen(false);
-    setTimeout((): void => setEditingProject(null), 200);
+  /**
+   * Navigate to edit
+   * @param {ProjectData} p - data
+   * @returns {void} void
+   */
+  const goEdit = (p: ProjectData): void => {
+    navigate(`/master-project/edit/${p.id}`);
   };
 
-  return { isModalOpen, editingProject, openCreateModal, openEditModal, closeModal };
+  /**
+   * Navigate to detail
+   * @param {ProjectData} p - data
+   * @returns {void} void
+   */
+  const goDetail = (p: ProjectData): void => {
+    navigate(`/master-project/detail/${p.id}`);
+  };
+
+  return { goBack, goCreate, goEdit, goDetail };
 };
 
-const useConfirmModalState = (): ConfirmModalState => {
-  const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false);
-  const [deletingProject, setDeletingProject] = useState<ProjectData | null>(null);
+/**
+ * Container state hook
+ * @returns {MasterProjectContainerState} container state
+ */
+export const useMasterProjectContainerState = (): MasterProjectContainerState => {
+  const navigation = useMasterProjectNavigation();
+  const pagination = usePagination(MOCK_PROJECTS);
+  const [isMoreOpen, setIsMoreOpen] = useState(false);
 
-  const openConfirmModal = (project: ProjectData): void => {
-    setDeletingProject(project);
-    setIsConfirmModalOpen(true);
+  /**
+   * Toggle more
+   * @returns {void} void
+   */
+  const toggleMore = (): void => {
+    setIsMoreOpen(!isMoreOpen);
   };
 
-  const closeConfirmModal = (): void => {
-    setIsConfirmModalOpen(false);
-    setTimeout((): void => setDeletingProject(null), 200);
+  /**
+   * Handle delete
+   * @returns {void} void
+   */
+  const goDelete = (): void => {
+    setIsMoreOpen(false);
   };
 
-  const onConfirmDelete = (): void => {
-    closeConfirmModal();
+  /**
+   * Close more menu
+   * @returns {void} void
+   */
+  const handleCloseMore = (): void => {
+    setIsMoreOpen(false);
   };
 
-  return { isConfirmModalOpen, deletingProject, openConfirmModal, closeConfirmModal, onConfirmDelete };
-};
-
-export const useMasterProjectState = (): BaseProjectState => {
-  const modalState = useModalState();
-  const confirmModalState = useConfirmModalState();
-  return { ...modalState, ...confirmModalState };
+  return {
+    ...navigation,
+    pagination,
+    isMoreOpen,
+    toggleMore,
+    goDelete,
+    handleCloseMore,
+  };
 };
