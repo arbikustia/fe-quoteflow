@@ -8,5 +8,10 @@ export type MasterMainCardProps = {
   readonly description: string;
   readonly icon: React.ReactElement;
   readonly path: string;
+  readonly onClick?: () => void;
 };
 
+export type MasterMainProps = {
+  readonly cards: readonly MasterMainCardProps[];
+  readonly onCardClick: (path: string) => void;
+};

@@ -1,20 +1,31 @@
 import type { ReactNode } from "react";
 
 export type NavigationChild = {
-  name: string;
-  path: string;
+  readonly name: string;
+  readonly path: string;
 };
 
 export type NavigationItem = {
-  name: string;
-  path?: string;
-  icon: () => ReactNode;
-  children?: NavigationChild[];
+  readonly name: string;
+  readonly path?: string;
+  readonly icon: () => ReactNode;
+  readonly badge?: string | number;
+  readonly children?: readonly NavigationChild[];
+};
+
+export type NavigationSection = {
+  readonly title: string;
+  readonly items: readonly NavigationItem[];
 };
 
 export type SidebarProps = {
-  navigation: NavigationItem[];
-  currentPath: string;
-  openMenus: string[];
-  onToggleMenu: (menuName: string) => void;
+  readonly navigation: readonly NavigationItem[] | readonly NavigationSection[];
+  readonly sections?: readonly NavigationSection[];
+  readonly currentPath: string;
+  readonly openMenus: readonly string[];
+  readonly onToggleMenu: (menuName: string) => void;
+  readonly isCollapsed: boolean;
+  readonly onToggleCollapsed: () => void;
+  readonly isProfileOpen: boolean;
+  readonly onToggleProfile: () => void;
 };

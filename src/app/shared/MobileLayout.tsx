@@ -55,9 +55,9 @@ export default function MobileLayout({ children }: { readonly children?: React.R
   ];
 
   return (
-    <div className="flex flex-col h-full w-full bg-[#f8f9fb] absolute inset-0">
+    <div className="flex flex-col h-full w-full bg-white absolute inset-0">
       <GlobalHeader />
-      <div className="flex-1 w-full relative overflow-y-auto overflow-x-hidden pb-10">
+      <div className="flex-1 w-full relative overflow-y-auto overflow-x-hidden pb-10 bg-white">
         {children || <Outlet />}
       </div>
       <div className="fixed bottom-6 left-6 right-6 bg-white rounded-[2rem] px-2 py-3 flex items-center justify-around shadow-[0_20px_50px_rgba(0,0,0,0.12)] z-50">

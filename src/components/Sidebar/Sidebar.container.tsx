@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import { SidebarComponent } from './Sidebar.component';
-import { NAVIGATION_CONFIG } from './Sidebar.config';
+import { NAVIGATION_SECTIONS } from './Sidebar.config';
 import { useSidebarState } from './Sidebar.hook';
 
 /**
@@ -9,14 +9,26 @@ import { useSidebarState } from './Sidebar.hook';
  * @returns {React.ReactElement} - Sidebar Container
  */
 const SidebarContainer = (): React.ReactElement => {
-  const { currentPath, openMenus, onToggleMenu } = useSidebarState();
+  const {
+    currentPath,
+    openMenus,
+    onToggleMenu,
+    isCollapsed,
+    onToggleCollapsed,
+    isProfileOpen,
+    onToggleProfile,
+  } = useSidebarState();
 
   return (
     <SidebarComponent
-      navigation={NAVIGATION_CONFIG}
+      navigation={NAVIGATION_SECTIONS}
       currentPath={currentPath}
       openMenus={openMenus}
       onToggleMenu={onToggleMenu}
+      isCollapsed={isCollapsed}
+      onToggleCollapsed={onToggleCollapsed}
+      isProfileOpen={isProfileOpen}
+      onToggleProfile={onToggleProfile}
     />
   );
 };

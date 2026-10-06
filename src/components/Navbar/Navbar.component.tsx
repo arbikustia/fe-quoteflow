@@ -10,7 +10,7 @@ import { Icons } from "../Icons";
  */
 export const NavbarComponent = (): React.ReactElement => {
   return (
-    <header className="h-20 flex items-center justify-between px-8 bg-brand-white border-b border-brand-gray-light sticky top-0 z-10 transition-all">
+    <header className="h-20 flex items-center justify-between px-8 border-b border-brand-gray-light sticky top-0 z-10 transition-all">
       <div className="flex-1">
         {/* Search Bar */}
         <div className="relative group hidden md:block max-w-lg">
