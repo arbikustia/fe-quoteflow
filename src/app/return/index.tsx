@@ -1,36 +1,22 @@
 import type { ReactElement } from "react";
-import { useEffect, useState } from "react";
 
-import MobileLayout from "../shared/MobileLayout";
+import ResponsiveLayout from "../shared/ResponsiveLayout";
 import DesktopReturn from "../../modules/return/desktop-return";
 import MobileReturn from "../../modules/return/mobile-return";
 
 /**
- * Return page
+ * Return page using CSS-only responsive layout.
  * @returns {ReactElement} Return page component
  */
 export default function ReturnPage(): ReactElement {
-  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
-
-  useEffect(() => {
-    /**
-     * Handle resize window
-     * @returns {void} void
-     */
-    const handleResize = (): void => setIsMobile(window.innerWidth <= 768);
-
-    window.addEventListener("resize", handleResize);
-
-    return (): void => window.removeEventListener("resize", handleResize);
-  }, []);
-
-  if (isMobile) {
-    return (
-      <MobileLayout>
+  return (
+    <ResponsiveLayout pageTitle="Return Equipment">
+      <div className="hidden lg:block">
+        <DesktopReturn />
+      </div>
+      <div className="lg:hidden">
         <MobileReturn />
-      </MobileLayout>
-    );
-  }
-
-  return <DesktopReturn />;
+      </div>
+    </ResponsiveLayout>
+  );
 }

@@ -1,19 +1,18 @@
 import * as React from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 
+import type { GlobalHeaderProps } from "./GlobalHeader.type";
 import Logo from "../../assets/Sonicline.png";
 
-export default function GlobalHeader(): React.ReactElement {
+/**
+ * Render mobile application header.
+ * @param {GlobalHeaderProps} props - header configuration
+ * @returns {React.ReactElement} mobile header
+ */
+export default function GlobalHeader({ showCreateButton = false, createEndpoint = "" }: GlobalHeaderProps): React.ReactElement {
   const navigate = useNavigate();
   const location = useLocation();
   const path = location.pathname;
-
-  // Determine if the create button should be shown and its endpoint
-  let createEndpoint = "";
-  if (path === "/order") createEndpoint = "/order/create";
-  else if (path === "/master-user") createEndpoint = "/master-user/create";
-  else if (path === "/master-category") createEndpoint = "/master-category/create";
-  else if (path === "/master-item") createEndpoint = "/master-item/create";
 
   return (
     <div className="px-6 pt-5 pb-4 flex items-center justify-between bg-white">
@@ -23,7 +22,7 @@ export default function GlobalHeader(): React.ReactElement {
         </div>
       </div>
       <div className="flex items-center gap-3">
-        {createEndpoint && (
+        {showCreateButton && createEndpoint && (
           <button 
             onClick={() => navigate(createEndpoint)}
             className="bg-[#212330] text-white rounded-full flex items-center justify-center gap-2 px-4 py-3 hover:bg-gray-800 transition-colors shadow-sm"
