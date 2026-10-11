@@ -16,15 +16,15 @@ export type SnapshotConfig<T> = {
  */
 const assertSnapshots = <T extends object>(
   Component: React.ComponentType<T>,
-  configs: SnapshotConfig<T>[]
+  configs: SnapshotConfig<T>[],
 ): void => {
   const snapshot = (config: SnapshotConfig<T>): void => {
     const { asFragment } = render(
       React.createElement(
         MemoryRouter,
         null,
-        React.createElement(Component, config.props)
-      )
+        React.createElement(Component, config.props),
+      ),
     );
 
     expect(asFragment()).toMatchSnapshot();
