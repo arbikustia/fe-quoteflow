@@ -1,0 +1,206 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`TableComponent Snapshot > should render mobile action card and desktop action column 1`] = `
+<DocumentFragment>
+  <div
+    class="flex flex-col bg-background-surface rounded-xl border border-border-default shadow-sm overflow-hidden"
+  >
+    <div
+      class="hidden md:flex flex-1 overflow-auto"
+    >
+      <div
+        class="w-full overflow-x-auto"
+      >
+        <table
+          class="w-full min-w-max whitespace-nowrap"
+        >
+          <thead>
+            <tr
+              class="bg-table-header border-b border-border-default"
+            >
+              <th
+                class="px-4 py-3 text-xs font-semibold text-text-secondary uppercase tracking-wider text-left "
+              >
+                Name
+              </th>
+              <th
+                class="px-4 py-3 text-xs font-semibold text-text-secondary uppercase tracking-wider text-left "
+              >
+                Action
+              </th>
+            </tr>
+          </thead>
+          <tbody
+            class="divide-y divide-border-default"
+          >
+            <tr
+              class="hover:bg-background-subtle/50 transition-colors cursor-pointer"
+            >
+              <td
+                class="px-4 py-3 border-b border-border-default text-left "
+              >
+                Audio
+              </td>
+              <td
+                class="px-4 py-3 border-b border-border-default text-left "
+              >
+                <div
+                  class="flex items-center justify-center gap-1.5"
+                >
+                  <button
+                    aria-label="Edit"
+                    class="p-1.5 rounded-lg transition-colors cursor-pointer text-text-tertiary hover:text-action-primary hover:bg-action-primary-subtle"
+                    title="Edit"
+                  >
+                    <svg
+                      class="w-4 h-4"
+                      fill="none"
+                      height="1em"
+                      stroke="currentColor"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      viewBox="0 0 24 24"
+                      width="1em"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"
+                      />
+                    </svg>
+                  </button>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div
+      class="md:hidden"
+    >
+      <div
+        class="bg-background-surface overflow-hidden divide-y divide-border-default"
+      >
+        <div
+          class="flex flex-col gap-3 px-4 py-4 bg-transparent cursor-pointer active:bg-background-subtle/50 transition-colors"
+          role="button"
+          tabindex="0"
+        >
+          <div
+            class="flex items-center justify-between gap-2"
+          >
+            <span
+              class="text-xs font-medium text-text-tertiary uppercase tracking-wider"
+            >
+              Name
+            </span>
+            <span
+              class="flex-1 text-sm font-medium text-text-primary text-right truncate"
+            >
+              Audio
+            </span>
+          </div>
+          <div
+            class="flex items-center justify-end gap-2 pt-2 border-t border-border-default"
+          >
+            <button
+              aria-label="Edit"
+              class="p-2 text-text-tertiary hover:text-action-primary hover:bg-action-primary-subtle rounded-lg transition-colors cursor-pointer"
+              title="Edit"
+            >
+              <svg
+                class="w-5 h-5"
+                fill="none"
+                height="1em"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+                width="1em"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"
+                />
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`TableComponent Snapshot > should render responsive table 1`] = `
+<DocumentFragment>
+  <div
+    class="flex flex-col bg-background-surface rounded-xl border border-border-default shadow-sm overflow-hidden"
+  >
+    <div
+      class="hidden md:flex flex-1 overflow-auto"
+    >
+      <div
+        class="w-full overflow-x-auto"
+      >
+        <table
+          class="w-full min-w-max whitespace-nowrap"
+        >
+          <thead>
+            <tr
+              class="bg-table-header border-b border-border-default"
+            >
+              <th
+                class="px-4 py-3 text-xs font-semibold text-text-secondary uppercase tracking-wider text-left "
+              >
+                Name
+              </th>
+            </tr>
+          </thead>
+          <tbody
+            class="divide-y divide-border-default"
+          >
+            <tr
+              class="hover:bg-background-subtle/50 transition-colors "
+            >
+              <td
+                class="px-4 py-3 border-b border-border-default text-left "
+              >
+                Audio
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div
+      class="md:hidden"
+    >
+      <div
+        class="bg-background-surface overflow-hidden divide-y divide-border-default"
+      >
+        <div
+          class="flex flex-col gap-3 px-4 py-4 bg-transparent cursor-pointer active:bg-background-subtle/50 transition-colors"
+        >
+          <div
+            class="flex items-center justify-between gap-2"
+          >
+            <span
+              class="text-xs font-medium text-text-tertiary uppercase tracking-wider"
+            >
+              Name
+            </span>
+            <span
+              class="flex-1 text-sm font-medium text-text-primary text-right truncate"
+            >
+              Audio
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;

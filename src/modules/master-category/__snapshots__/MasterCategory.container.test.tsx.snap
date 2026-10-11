@@ -392,13 +392,13 @@ exports[`MasterCategoryContainer > matches snapshot 1`] = `
             </div>
           </div>
           <div
-            class="md:hidden space-y-6 mt-10"
+            class="flex flex-col gap-4 mt-4"
           >
             <div
-              class="relative mb-3"
+              class="relative"
             >
               <span
-                class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-brand-text-medium scale-125"
+                class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-text-tertiary"
               >
                 <svg
                   fill="none"
@@ -422,660 +422,1142 @@ exports[`MasterCategoryContainer > matches snapshot 1`] = `
                 </svg>
               </span>
               <input
-                class="w-full pl-12 pr-6 py-3.5 bg-brand-gray-light border-none rounded-full text-xl font-medium focus:outline-none focus:ring-1 focus:ring-brand-blue/20 text-brand-text-dark placeholder:text-brand-text-medium"
-                placeholder="Search"
+                class="w-full sm:w-64 pl-10 pr-4 py-2 bg-background-surface border border-border-default rounded-lg text-sm focus:outline-none focus:ring-1 focus:ring-action-primary text-text-primary placeholder:text-text-tertiary"
+                placeholder="Search category"
                 type="text"
               />
             </div>
             <div
-              class="scale-100 origin-top"
+              class="flex flex-col bg-background-surface rounded-xl border border-border-default shadow-sm overflow-hidden"
             >
               <div
-                class="bg-transparent overflow-hidden divide-y divide-brand-gray-light"
+                class="hidden md:flex flex-1 overflow-auto"
               >
                 <div
-                  class="flex items-center gap-4 px-0 py-4 bg-transparent border-b border-brand-gray-light last:border-b-0 active:bg-brand-gray-light/20 transition-colors cursor-pointer"
-                  role="button"
-                  tabindex="0"
+                  class="w-full overflow-x-auto"
                 >
-                  <div
-                    class="flex-1 min-w-0 space-y-1"
+                  <table
+                    class="w-full min-w-max whitespace-nowrap"
                   >
-                    <p
-                      class="text-xl font-semibold text-brand-text-dark leading-snug truncate"
-                    >
-                      Audio System
-                    </p>
-                    <p
-                      class="text-base font-normal text-brand-text-medium/80 truncate"
-                    >
-                      Created by Admin
-                    </p>
-                  </div>
-                  <div
-                    class="shrink-0"
-                  >
-                    <span
-                      class="inline-flex items-center rounded-full px-3 py-1 text-sm font-medium whitespace-nowrap bg-green-100 text-green-700"
-                    >
-                      active
-                    </span>
-                  </div>
-                </div>
-                <div
-                  class="flex items-center gap-4 px-0 py-4 bg-transparent border-b border-brand-gray-light last:border-b-0 active:bg-brand-gray-light/20 transition-colors cursor-pointer"
-                  role="button"
-                  tabindex="0"
-                >
-                  <div
-                    class="flex-1 min-w-0 space-y-1"
-                  >
-                    <p
-                      class="text-xl font-semibold text-brand-text-dark leading-snug truncate"
-                    >
-                      Visual & Display
-                    </p>
-                    <p
-                      class="text-base font-normal text-brand-text-medium/80 truncate"
-                    >
-                      Created by Admin
-                    </p>
-                  </div>
-                  <div
-                    class="shrink-0"
-                  >
-                    <span
-                      class="inline-flex items-center rounded-full px-3 py-1 text-sm font-medium whitespace-nowrap bg-green-100 text-green-700"
-                    >
-                      active
-                    </span>
-                  </div>
-                </div>
-                <div
-                  class="flex items-center gap-4 px-0 py-4 bg-transparent border-b border-brand-gray-light last:border-b-0 active:bg-brand-gray-light/20 transition-colors cursor-pointer"
-                  role="button"
-                  tabindex="0"
-                >
-                  <div
-                    class="flex-1 min-w-0 space-y-1"
-                  >
-                    <p
-                      class="text-xl font-semibold text-brand-text-dark leading-snug truncate"
-                    >
-                      Lighting System
-                    </p>
-                    <p
-                      class="text-base font-normal text-brand-text-medium/80 truncate"
-                    >
-                      Created by Admin
-                    </p>
-                  </div>
-                  <div
-                    class="shrink-0"
-                  >
-                    <span
-                      class="inline-flex items-center rounded-full px-3 py-1 text-sm font-medium whitespace-nowrap bg-red-100 text-red-700"
-                    >
-                      inactive
-                    </span>
-                  </div>
-                </div>
-                <div
-                  class="flex items-center gap-4 px-0 py-4 bg-transparent border-b border-brand-gray-light last:border-b-0 active:bg-brand-gray-light/20 transition-colors cursor-pointer"
-                  role="button"
-                  tabindex="0"
-                >
-                  <div
-                    class="flex-1 min-w-0 space-y-1"
-                  >
-                    <p
-                      class="text-xl font-semibold text-brand-text-dark leading-snug truncate"
-                    >
-                      Staging & Rigging
-                    </p>
-                    <p
-                      class="text-base font-normal text-brand-text-medium/80 truncate"
-                    >
-                      Created by Admin
-                    </p>
-                  </div>
-                  <div
-                    class="shrink-0"
-                  >
-                    <span
-                      class="inline-flex items-center rounded-full px-3 py-1 text-sm font-medium whitespace-nowrap bg-green-100 text-green-700"
-                    >
-                      active
-                    </span>
-                  </div>
-                </div>
-                <div
-                  class="flex items-center gap-4 px-0 py-4 bg-transparent border-b border-brand-gray-light last:border-b-0 active:bg-brand-gray-light/20 transition-colors cursor-pointer"
-                  role="button"
-                  tabindex="0"
-                >
-                  <div
-                    class="flex-1 min-w-0 space-y-1"
-                  >
-                    <p
-                      class="text-xl font-semibold text-brand-text-dark leading-snug truncate"
-                    >
-                      Power Generator
-                    </p>
-                    <p
-                      class="text-base font-normal text-brand-text-medium/80 truncate"
-                    >
-                      Created by Admin
-                    </p>
-                  </div>
-                  <div
-                    class="shrink-0"
-                  >
-                    <span
-                      class="inline-flex items-center rounded-full px-3 py-1 text-sm font-medium whitespace-nowrap bg-green-100 text-green-700"
-                    >
-                      active
-                    </span>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div
-              class="pt-4 flex items-center justify-between"
-            >
-              <div
-                class="flex items-center gap-3 text-sm text-brand-text-medium shrink-0"
-              >
-                Showing
-                <select
-                  class="border border-brand-gray-light rounded px-2 py-1 bg-brand-white font-medium text-brand-text-dark focus:outline-none"
-                >
-                  <option
-                    value="5"
-                  >
-                    5
-                  </option>
-                  <option
-                    value="10"
-                  >
-                    10
-                  </option>
-                  <option
-                    value="20"
-                  >
-                    20
-                  </option>
-                  <option
-                    value="50"
-                  >
-                    50
-                  </option>
-                  <option
-                    value="100"
-                  >
-                    100
-                  </option>
-                </select>
-                of 10 results
-              </div>
-              <div
-                class="flex items-center justify-center gap-2 text-sm text-brand-text-medium font-medium "
-              >
-                <button
-                  class="p-1 rounded text-gray-300 cursor-not-allowed"
-                  disabled=""
-                >
-                  &lt;
-                </button>
-                <button
-                  class="w-8 h-8 flex items-center justify-center rounded-lg transition-colors bg-brand-blue text-brand-white font-bold"
-                >
-                  1
-                </button>
-                <button
-                  class="w-8 h-8 flex items-center justify-center rounded-lg transition-colors hover:bg-brand-gray-light text-brand-text-dark"
-                >
-                  2
-                </button>
-                <button
-                  class="p-1 rounded text-brand-text-medium hover:text-brand-text-dark hover:bg-brand-gray-light"
-                >
-                  &gt;
-                </button>
-              </div>
-            </div>
-          </div>
-          <div
-            class="hidden md:flex bg-brand-white rounded-xl border border-brand-gray-light shadow-sm flex-col flex-1 overflow-hidden mt-6"
-          >
-            <div
-              class="flex items-center justify-between p-5 px-6 border-b border-brand-gray-light"
-            >
-              <div
-                class="relative"
-              >
-                <div
-                  class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-brand-text-medium"
-                >
-                  <svg
-                    fill="none"
-                    height="18"
-                    stroke="currentColor"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="1.8"
-                    viewBox="0 0 24 24"
-                    width="18"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <circle
-                      cx="11"
-                      cy="11"
-                      r="8"
-                    />
-                    <path
-                      d="m21 21-4.3-4.3"
-                    />
-                  </svg>
-                </div>
-                <input
-                  class="w-64 pl-10 pr-4 py-2 bg-brand-gray-light border-none rounded-lg text-sm focus:outline-none text-brand-text-dark placeholder:text-brand-text-medium"
-                  placeholder="Search category"
-                  type="text"
-                />
-              </div>
-              <div
-                class="flex items-center gap-3 text-sm text-brand-text-medium "
-              >
-                Showing
-                <select
-                  class="border border-brand-gray-light rounded px-2 py-1 bg-brand-white font-medium text-brand-text-dark focus:outline-none"
-                >
-                  <option
-                    value="5"
-                  >
-                    5
-                  </option>
-                  <option
-                    value="10"
-                  >
-                    10
-                  </option>
-                  <option
-                    value="20"
-                  >
-                    20
-                  </option>
-                  <option
-                    value="50"
-                  >
-                    50
-                  </option>
-                  <option
-                    value="100"
-                  >
-                    100
-                  </option>
-                </select>
-                of 10 results
-              </div>
-            </div>
-            <div
-              class="flex-1 overflow-auto"
-            >
-              <div
-                class="w-full overflow-x-auto"
-              >
-                <table
-                  class="w-full whitespace-nowrap"
-                >
-                  <thead>
-                    <tr
-                      class="bg-brand-gray-light border-b border-brand-gray-light"
-                    >
-                      <th
-                        class="px-6 py-4 text-xs font-bold text-brand-text-medium uppercase tracking-wider text-center"
+                    <thead>
+                      <tr
+                        class="bg-table-header border-b border-border-default"
                       >
-                        No
-                      </th>
-                      <th
-                        class="px-6 py-4 text-xs font-bold text-brand-text-medium uppercase tracking-wider text-left"
+                        <th
+                          class="px-4 py-3 text-xs font-semibold text-text-secondary uppercase tracking-wider text-center "
+                        >
+                          No
+                        </th>
+                        <th
+                          class="px-4 py-3 text-xs font-semibold text-text-secondary uppercase tracking-wider text-left "
+                        >
+                          Category Name
+                        </th>
+                        <th
+                          class="px-4 py-3 text-xs font-semibold text-text-secondary uppercase tracking-wider text-center "
+                        >
+                          Status
+                        </th>
+                        <th
+                          class="px-4 py-3 text-xs font-semibold text-text-secondary uppercase tracking-wider text-left "
+                        >
+                          Created At
+                        </th>
+                        <th
+                          class="px-4 py-3 text-xs font-semibold text-text-secondary uppercase tracking-wider text-center "
+                        >
+                          Action
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody
+                      class="divide-y divide-border-default"
+                    >
+                      <tr
+                        class="hover:bg-background-subtle/50 transition-colors cursor-pointer"
+                      >
+                        <td
+                          class="px-4 py-3 border-b border-border-default text-center "
+                        >
+                          <span
+                            class="text-sm text-brand-text-medium"
+                          >
+                            1
+                          </span>
+                        </td>
+                        <td
+                          class="px-4 py-3 border-b border-border-default text-left "
+                        >
+                          Audio System
+                        </td>
+                        <td
+                          class="px-4 py-3 border-b border-border-default text-center "
+                        >
+                          <span
+                            class="px-3 py-1 rounded-full text-xs font-bold uppercase bg-green-100 text-green-600"
+                          >
+                            active
+                          </span>
+                        </td>
+                        <td
+                          class="px-4 py-3 border-b border-border-default text-left "
+                        >
+                          2024-02-01T00:00:00Z
+                        </td>
+                        <td
+                          class="px-4 py-3 border-b border-border-default text-center "
+                        >
+                          <div
+                            class="flex items-center justify-center gap-1.5"
+                          >
+                            <button
+                              aria-label="Edit"
+                              class="p-1.5 rounded-lg transition-colors cursor-pointer text-text-tertiary hover:text-action-primary hover:bg-action-primary-subtle"
+                              title="Edit"
+                            >
+                              <svg
+                                class="w-4 h-4"
+                                fill="none"
+                                height="1em"
+                                stroke="currentColor"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="2"
+                                viewBox="0 0 24 24"
+                                width="1em"
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
+                                <path
+                                  d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"
+                                />
+                              </svg>
+                            </button>
+                            <button
+                              aria-label="Delete"
+                              class="p-1.5 rounded-lg transition-colors cursor-pointer text-text-tertiary hover:text-danger hover:bg-danger-subtle"
+                              title="Delete"
+                            >
+                              <svg
+                                class="w-4 h-4"
+                                fill="none"
+                                height="1em"
+                                stroke="currentColor"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="2"
+                                viewBox="0 0 24 24"
+                                width="1em"
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
+                                <polyline
+                                  points="3 6 5 6 21 6"
+                                />
+                                <path
+                                  d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"
+                                />
+                                <line
+                                  x1="10"
+                                  x2="10"
+                                  y1="11"
+                                  y2="17"
+                                />
+                                <line
+                                  x1="14"
+                                  x2="14"
+                                  y1="11"
+                                  y2="17"
+                                />
+                              </svg>
+                            </button>
+                          </div>
+                        </td>
+                      </tr>
+                      <tr
+                        class="hover:bg-background-subtle/50 transition-colors cursor-pointer"
+                      >
+                        <td
+                          class="px-4 py-3 border-b border-border-default text-center "
+                        >
+                          <span
+                            class="text-sm text-brand-text-medium"
+                          >
+                            2
+                          </span>
+                        </td>
+                        <td
+                          class="px-4 py-3 border-b border-border-default text-left "
+                        >
+                          Visual & Display
+                        </td>
+                        <td
+                          class="px-4 py-3 border-b border-border-default text-center "
+                        >
+                          <span
+                            class="px-3 py-1 rounded-full text-xs font-bold uppercase bg-green-100 text-green-600"
+                          >
+                            active
+                          </span>
+                        </td>
+                        <td
+                          class="px-4 py-3 border-b border-border-default text-left "
+                        >
+                          2024-03-01T00:00:00Z
+                        </td>
+                        <td
+                          class="px-4 py-3 border-b border-border-default text-center "
+                        >
+                          <div
+                            class="flex items-center justify-center gap-1.5"
+                          >
+                            <button
+                              aria-label="Edit"
+                              class="p-1.5 rounded-lg transition-colors cursor-pointer text-text-tertiary hover:text-action-primary hover:bg-action-primary-subtle"
+                              title="Edit"
+                            >
+                              <svg
+                                class="w-4 h-4"
+                                fill="none"
+                                height="1em"
+                                stroke="currentColor"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="2"
+                                viewBox="0 0 24 24"
+                                width="1em"
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
+                                <path
+                                  d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"
+                                />
+                              </svg>
+                            </button>
+                            <button
+                              aria-label="Delete"
+                              class="p-1.5 rounded-lg transition-colors cursor-pointer text-text-tertiary hover:text-danger hover:bg-danger-subtle"
+                              title="Delete"
+                            >
+                              <svg
+                                class="w-4 h-4"
+                                fill="none"
+                                height="1em"
+                                stroke="currentColor"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="2"
+                                viewBox="0 0 24 24"
+                                width="1em"
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
+                                <polyline
+                                  points="3 6 5 6 21 6"
+                                />
+                                <path
+                                  d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"
+                                />
+                                <line
+                                  x1="10"
+                                  x2="10"
+                                  y1="11"
+                                  y2="17"
+                                />
+                                <line
+                                  x1="14"
+                                  x2="14"
+                                  y1="11"
+                                  y2="17"
+                                />
+                              </svg>
+                            </button>
+                          </div>
+                        </td>
+                      </tr>
+                      <tr
+                        class="hover:bg-background-subtle/50 transition-colors cursor-pointer"
+                      >
+                        <td
+                          class="px-4 py-3 border-b border-border-default text-center "
+                        >
+                          <span
+                            class="text-sm text-brand-text-medium"
+                          >
+                            3
+                          </span>
+                        </td>
+                        <td
+                          class="px-4 py-3 border-b border-border-default text-left "
+                        >
+                          Lighting System
+                        </td>
+                        <td
+                          class="px-4 py-3 border-b border-border-default text-center "
+                        >
+                          <span
+                            class="px-3 py-1 rounded-full text-xs font-bold uppercase bg-red-100 text-red-600"
+                          >
+                            inactive
+                          </span>
+                        </td>
+                        <td
+                          class="px-4 py-3 border-b border-border-default text-left "
+                        >
+                          2024-04-01T00:00:00Z
+                        </td>
+                        <td
+                          class="px-4 py-3 border-b border-border-default text-center "
+                        >
+                          <div
+                            class="flex items-center justify-center gap-1.5"
+                          >
+                            <button
+                              aria-label="Edit"
+                              class="p-1.5 rounded-lg transition-colors cursor-pointer text-text-tertiary hover:text-action-primary hover:bg-action-primary-subtle"
+                              title="Edit"
+                            >
+                              <svg
+                                class="w-4 h-4"
+                                fill="none"
+                                height="1em"
+                                stroke="currentColor"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="2"
+                                viewBox="0 0 24 24"
+                                width="1em"
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
+                                <path
+                                  d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"
+                                />
+                              </svg>
+                            </button>
+                            <button
+                              aria-label="Delete"
+                              class="p-1.5 rounded-lg transition-colors cursor-pointer text-text-tertiary hover:text-danger hover:bg-danger-subtle"
+                              title="Delete"
+                            >
+                              <svg
+                                class="w-4 h-4"
+                                fill="none"
+                                height="1em"
+                                stroke="currentColor"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="2"
+                                viewBox="0 0 24 24"
+                                width="1em"
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
+                                <polyline
+                                  points="3 6 5 6 21 6"
+                                />
+                                <path
+                                  d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"
+                                />
+                                <line
+                                  x1="10"
+                                  x2="10"
+                                  y1="11"
+                                  y2="17"
+                                />
+                                <line
+                                  x1="14"
+                                  x2="14"
+                                  y1="11"
+                                  y2="17"
+                                />
+                              </svg>
+                            </button>
+                          </div>
+                        </td>
+                      </tr>
+                      <tr
+                        class="hover:bg-background-subtle/50 transition-colors cursor-pointer"
+                      >
+                        <td
+                          class="px-4 py-3 border-b border-border-default text-center "
+                        >
+                          <span
+                            class="text-sm text-brand-text-medium"
+                          >
+                            4
+                          </span>
+                        </td>
+                        <td
+                          class="px-4 py-3 border-b border-border-default text-left "
+                        >
+                          Staging & Rigging
+                        </td>
+                        <td
+                          class="px-4 py-3 border-b border-border-default text-center "
+                        >
+                          <span
+                            class="px-3 py-1 rounded-full text-xs font-bold uppercase bg-green-100 text-green-600"
+                          >
+                            active
+                          </span>
+                        </td>
+                        <td
+                          class="px-4 py-3 border-b border-border-default text-left "
+                        >
+                          2024-05-01T00:00:00Z
+                        </td>
+                        <td
+                          class="px-4 py-3 border-b border-border-default text-center "
+                        >
+                          <div
+                            class="flex items-center justify-center gap-1.5"
+                          >
+                            <button
+                              aria-label="Edit"
+                              class="p-1.5 rounded-lg transition-colors cursor-pointer text-text-tertiary hover:text-action-primary hover:bg-action-primary-subtle"
+                              title="Edit"
+                            >
+                              <svg
+                                class="w-4 h-4"
+                                fill="none"
+                                height="1em"
+                                stroke="currentColor"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="2"
+                                viewBox="0 0 24 24"
+                                width="1em"
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
+                                <path
+                                  d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"
+                                />
+                              </svg>
+                            </button>
+                            <button
+                              aria-label="Delete"
+                              class="p-1.5 rounded-lg transition-colors cursor-pointer text-text-tertiary hover:text-danger hover:bg-danger-subtle"
+                              title="Delete"
+                            >
+                              <svg
+                                class="w-4 h-4"
+                                fill="none"
+                                height="1em"
+                                stroke="currentColor"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="2"
+                                viewBox="0 0 24 24"
+                                width="1em"
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
+                                <polyline
+                                  points="3 6 5 6 21 6"
+                                />
+                                <path
+                                  d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"
+                                />
+                                <line
+                                  x1="10"
+                                  x2="10"
+                                  y1="11"
+                                  y2="17"
+                                />
+                                <line
+                                  x1="14"
+                                  x2="14"
+                                  y1="11"
+                                  y2="17"
+                                />
+                              </svg>
+                            </button>
+                          </div>
+                        </td>
+                      </tr>
+                      <tr
+                        class="hover:bg-background-subtle/50 transition-colors cursor-pointer"
+                      >
+                        <td
+                          class="px-4 py-3 border-b border-border-default text-center "
+                        >
+                          <span
+                            class="text-sm text-brand-text-medium"
+                          >
+                            5
+                          </span>
+                        </td>
+                        <td
+                          class="px-4 py-3 border-b border-border-default text-left "
+                        >
+                          Power Generator
+                        </td>
+                        <td
+                          class="px-4 py-3 border-b border-border-default text-center "
+                        >
+                          <span
+                            class="px-3 py-1 rounded-full text-xs font-bold uppercase bg-green-100 text-green-600"
+                          >
+                            active
+                          </span>
+                        </td>
+                        <td
+                          class="px-4 py-3 border-b border-border-default text-left "
+                        >
+                          2024-06-01T00:00:00Z
+                        </td>
+                        <td
+                          class="px-4 py-3 border-b border-border-default text-center "
+                        >
+                          <div
+                            class="flex items-center justify-center gap-1.5"
+                          >
+                            <button
+                              aria-label="Edit"
+                              class="p-1.5 rounded-lg transition-colors cursor-pointer text-text-tertiary hover:text-action-primary hover:bg-action-primary-subtle"
+                              title="Edit"
+                            >
+                              <svg
+                                class="w-4 h-4"
+                                fill="none"
+                                height="1em"
+                                stroke="currentColor"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="2"
+                                viewBox="0 0 24 24"
+                                width="1em"
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
+                                <path
+                                  d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"
+                                />
+                              </svg>
+                            </button>
+                            <button
+                              aria-label="Delete"
+                              class="p-1.5 rounded-lg transition-colors cursor-pointer text-text-tertiary hover:text-danger hover:bg-danger-subtle"
+                              title="Delete"
+                            >
+                              <svg
+                                class="w-4 h-4"
+                                fill="none"
+                                height="1em"
+                                stroke="currentColor"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="2"
+                                viewBox="0 0 24 24"
+                                width="1em"
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
+                                <polyline
+                                  points="3 6 5 6 21 6"
+                                />
+                                <path
+                                  d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"
+                                />
+                                <line
+                                  x1="10"
+                                  x2="10"
+                                  y1="11"
+                                  y2="17"
+                                />
+                                <line
+                                  x1="14"
+                                  x2="14"
+                                  y1="11"
+                                  y2="17"
+                                />
+                              </svg>
+                            </button>
+                          </div>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div
+                class="md:hidden"
+              >
+                <div
+                  class="bg-background-surface overflow-hidden divide-y divide-border-default"
+                >
+                  <div
+                    class="flex flex-col gap-3 px-4 py-4 bg-transparent cursor-pointer active:bg-background-subtle/50 transition-colors"
+                    role="button"
+                    tabindex="0"
+                  >
+                    <div
+                      class="flex items-center justify-between gap-2"
+                    >
+                      <span
+                        class="text-xs font-medium text-text-tertiary uppercase tracking-wider"
                       >
                         Category Name
-                      </th>
-                      <th
-                        class="px-6 py-4 text-xs font-bold text-brand-text-medium uppercase tracking-wider text-center"
-                      >
-                        Status
-                      </th>
-                      <th
-                        class="px-6 py-4 text-xs font-bold text-brand-text-medium uppercase tracking-wider text-left"
-                      >
-                        Created At
-                      </th>
-                      <th
-                        class="px-6 py-4 text-xs font-bold text-brand-text-medium uppercase tracking-wider text-center"
-                      >
-                        Action
-                      </th>
-                    </tr>
-                  </thead>
-                  <tbody
-                    class="divide-y divide-brand-gray-light"
-                  >
-                    <tr
-                      class="hover:bg-brand-gray-light/50 transition-colors group cursor-pointer"
-                    >
-                      <td
-                        class="px-6 py-4 border-b border-brand-gray-light text-center"
-                      >
-                        <span
-                          class="text-sm text-brand-text-medium"
-                        >
-                          1
-                        </span>
-                      </td>
-                      <td
-                        class="px-6 py-4 border-b border-brand-gray-light text-left"
+                      </span>
+                      <span
+                        class="flex-1 text-sm font-medium text-text-primary text-right truncate"
                       >
                         Audio System
-                      </td>
-                      <td
-                        class="px-6 py-4 border-b border-brand-gray-light text-center"
+                      </span>
+                    </div>
+                    <div
+                      class="flex items-center justify-between gap-2"
+                    >
+                      <span
+                        class="text-xs font-medium text-text-tertiary uppercase tracking-wider"
+                      >
+                        Status
+                      </span>
+                      <span
+                        class="flex-1 text-sm font-medium text-text-primary text-right truncate"
                       >
                         <span
                           class="px-3 py-1 rounded-full text-xs font-bold uppercase bg-green-100 text-green-600"
                         >
                           active
                         </span>
-                      </td>
-                      <td
-                        class="px-6 py-4 border-b border-brand-gray-light text-left"
-                      >
-                        2024-02-01T00:00:00Z
-                      </td>
-                      <td
-                        class="px-6 py-4 border-b border-brand-gray-light text-center"
-                      >
-                        <button
-                          class="p-1.5 text-brand-text-medium hover:text-brand-blue hover:bg-brand-blue-light rounded-lg transition-colors cursor-pointer"
-                          title="Edit"
-                        >
-                          <svg
-                            class="w-4 h-4"
-                            fill="none"
-                            height="1em"
-                            stroke="currentColor"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            stroke-width="2"
-                            viewBox="0 0 24 24"
-                            width="1em"
-                            xmlns="http://www.w3.org/2000/svg"
-                          >
-                            <path
-                              d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"
-                            />
-                          </svg>
-                        </button>
-                      </td>
-                    </tr>
-                    <tr
-                      class="hover:bg-brand-gray-light/50 transition-colors group cursor-pointer"
+                      </span>
+                    </div>
+                    <div
+                      class="flex items-center justify-end gap-2 pt-2 border-t border-border-default"
                     >
-                      <td
-                        class="px-6 py-4 border-b border-brand-gray-light text-center"
+                      <button
+                        aria-label="Edit"
+                        class="p-2 text-text-tertiary hover:text-action-primary hover:bg-action-primary-subtle rounded-lg transition-colors cursor-pointer"
+                        title="Edit"
                       >
-                        <span
-                          class="text-sm text-brand-text-medium"
+                        <svg
+                          class="w-5 h-5"
+                          fill="none"
+                          height="1em"
+                          stroke="currentColor"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                          viewBox="0 0 24 24"
+                          width="1em"
+                          xmlns="http://www.w3.org/2000/svg"
                         >
-                          2
-                        </span>
-                      </td>
-                      <td
-                        class="px-6 py-4 border-b border-brand-gray-light text-left"
+                          <path
+                            d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"
+                          />
+                        </svg>
+                      </button>
+                      <button
+                        aria-label="Delete"
+                        class="p-2 text-text-tertiary hover:text-danger hover:bg-danger-subtle rounded-lg transition-colors cursor-pointer"
+                        title="Delete"
+                      >
+                        <svg
+                          class="w-5 h-5"
+                          fill="none"
+                          height="1em"
+                          stroke="currentColor"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                          viewBox="0 0 24 24"
+                          width="1em"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <polyline
+                            points="3 6 5 6 21 6"
+                          />
+                          <path
+                            d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"
+                          />
+                          <line
+                            x1="10"
+                            x2="10"
+                            y1="11"
+                            y2="17"
+                          />
+                          <line
+                            x1="14"
+                            x2="14"
+                            y1="11"
+                            y2="17"
+                          />
+                        </svg>
+                      </button>
+                    </div>
+                  </div>
+                  <div
+                    class="flex flex-col gap-3 px-4 py-4 bg-transparent cursor-pointer active:bg-background-subtle/50 transition-colors"
+                    role="button"
+                    tabindex="0"
+                  >
+                    <div
+                      class="flex items-center justify-between gap-2"
+                    >
+                      <span
+                        class="text-xs font-medium text-text-tertiary uppercase tracking-wider"
+                      >
+                        Category Name
+                      </span>
+                      <span
+                        class="flex-1 text-sm font-medium text-text-primary text-right truncate"
                       >
                         Visual & Display
-                      </td>
-                      <td
-                        class="px-6 py-4 border-b border-brand-gray-light text-center"
+                      </span>
+                    </div>
+                    <div
+                      class="flex items-center justify-between gap-2"
+                    >
+                      <span
+                        class="text-xs font-medium text-text-tertiary uppercase tracking-wider"
+                      >
+                        Status
+                      </span>
+                      <span
+                        class="flex-1 text-sm font-medium text-text-primary text-right truncate"
                       >
                         <span
                           class="px-3 py-1 rounded-full text-xs font-bold uppercase bg-green-100 text-green-600"
                         >
                           active
                         </span>
-                      </td>
-                      <td
-                        class="px-6 py-4 border-b border-brand-gray-light text-left"
-                      >
-                        2024-03-01T00:00:00Z
-                      </td>
-                      <td
-                        class="px-6 py-4 border-b border-brand-gray-light text-center"
-                      >
-                        <button
-                          class="p-1.5 text-brand-text-medium hover:text-brand-blue hover:bg-brand-blue-light rounded-lg transition-colors cursor-pointer"
-                          title="Edit"
-                        >
-                          <svg
-                            class="w-4 h-4"
-                            fill="none"
-                            height="1em"
-                            stroke="currentColor"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            stroke-width="2"
-                            viewBox="0 0 24 24"
-                            width="1em"
-                            xmlns="http://www.w3.org/2000/svg"
-                          >
-                            <path
-                              d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"
-                            />
-                          </svg>
-                        </button>
-                      </td>
-                    </tr>
-                    <tr
-                      class="hover:bg-brand-gray-light/50 transition-colors group cursor-pointer"
+                      </span>
+                    </div>
+                    <div
+                      class="flex items-center justify-end gap-2 pt-2 border-t border-border-default"
                     >
-                      <td
-                        class="px-6 py-4 border-b border-brand-gray-light text-center"
+                      <button
+                        aria-label="Edit"
+                        class="p-2 text-text-tertiary hover:text-action-primary hover:bg-action-primary-subtle rounded-lg transition-colors cursor-pointer"
+                        title="Edit"
                       >
-                        <span
-                          class="text-sm text-brand-text-medium"
+                        <svg
+                          class="w-5 h-5"
+                          fill="none"
+                          height="1em"
+                          stroke="currentColor"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                          viewBox="0 0 24 24"
+                          width="1em"
+                          xmlns="http://www.w3.org/2000/svg"
                         >
-                          3
-                        </span>
-                      </td>
-                      <td
-                        class="px-6 py-4 border-b border-brand-gray-light text-left"
+                          <path
+                            d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"
+                          />
+                        </svg>
+                      </button>
+                      <button
+                        aria-label="Delete"
+                        class="p-2 text-text-tertiary hover:text-danger hover:bg-danger-subtle rounded-lg transition-colors cursor-pointer"
+                        title="Delete"
+                      >
+                        <svg
+                          class="w-5 h-5"
+                          fill="none"
+                          height="1em"
+                          stroke="currentColor"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                          viewBox="0 0 24 24"
+                          width="1em"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <polyline
+                            points="3 6 5 6 21 6"
+                          />
+                          <path
+                            d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"
+                          />
+                          <line
+                            x1="10"
+                            x2="10"
+                            y1="11"
+                            y2="17"
+                          />
+                          <line
+                            x1="14"
+                            x2="14"
+                            y1="11"
+                            y2="17"
+                          />
+                        </svg>
+                      </button>
+                    </div>
+                  </div>
+                  <div
+                    class="flex flex-col gap-3 px-4 py-4 bg-transparent cursor-pointer active:bg-background-subtle/50 transition-colors"
+                    role="button"
+                    tabindex="0"
+                  >
+                    <div
+                      class="flex items-center justify-between gap-2"
+                    >
+                      <span
+                        class="text-xs font-medium text-text-tertiary uppercase tracking-wider"
+                      >
+                        Category Name
+                      </span>
+                      <span
+                        class="flex-1 text-sm font-medium text-text-primary text-right truncate"
                       >
                         Lighting System
-                      </td>
-                      <td
-                        class="px-6 py-4 border-b border-brand-gray-light text-center"
+                      </span>
+                    </div>
+                    <div
+                      class="flex items-center justify-between gap-2"
+                    >
+                      <span
+                        class="text-xs font-medium text-text-tertiary uppercase tracking-wider"
+                      >
+                        Status
+                      </span>
+                      <span
+                        class="flex-1 text-sm font-medium text-text-primary text-right truncate"
                       >
                         <span
                           class="px-3 py-1 rounded-full text-xs font-bold uppercase bg-red-100 text-red-600"
                         >
                           inactive
                         </span>
-                      </td>
-                      <td
-                        class="px-6 py-4 border-b border-brand-gray-light text-left"
-                      >
-                        2024-04-01T00:00:00Z
-                      </td>
-                      <td
-                        class="px-6 py-4 border-b border-brand-gray-light text-center"
-                      >
-                        <button
-                          class="p-1.5 text-brand-text-medium hover:text-brand-blue hover:bg-brand-blue-light rounded-lg transition-colors cursor-pointer"
-                          title="Edit"
-                        >
-                          <svg
-                            class="w-4 h-4"
-                            fill="none"
-                            height="1em"
-                            stroke="currentColor"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            stroke-width="2"
-                            viewBox="0 0 24 24"
-                            width="1em"
-                            xmlns="http://www.w3.org/2000/svg"
-                          >
-                            <path
-                              d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"
-                            />
-                          </svg>
-                        </button>
-                      </td>
-                    </tr>
-                    <tr
-                      class="hover:bg-brand-gray-light/50 transition-colors group cursor-pointer"
+                      </span>
+                    </div>
+                    <div
+                      class="flex items-center justify-end gap-2 pt-2 border-t border-border-default"
                     >
-                      <td
-                        class="px-6 py-4 border-b border-brand-gray-light text-center"
+                      <button
+                        aria-label="Edit"
+                        class="p-2 text-text-tertiary hover:text-action-primary hover:bg-action-primary-subtle rounded-lg transition-colors cursor-pointer"
+                        title="Edit"
                       >
-                        <span
-                          class="text-sm text-brand-text-medium"
+                        <svg
+                          class="w-5 h-5"
+                          fill="none"
+                          height="1em"
+                          stroke="currentColor"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                          viewBox="0 0 24 24"
+                          width="1em"
+                          xmlns="http://www.w3.org/2000/svg"
                         >
-                          4
-                        </span>
-                      </td>
-                      <td
-                        class="px-6 py-4 border-b border-brand-gray-light text-left"
+                          <path
+                            d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"
+                          />
+                        </svg>
+                      </button>
+                      <button
+                        aria-label="Delete"
+                        class="p-2 text-text-tertiary hover:text-danger hover:bg-danger-subtle rounded-lg transition-colors cursor-pointer"
+                        title="Delete"
+                      >
+                        <svg
+                          class="w-5 h-5"
+                          fill="none"
+                          height="1em"
+                          stroke="currentColor"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                          viewBox="0 0 24 24"
+                          width="1em"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <polyline
+                            points="3 6 5 6 21 6"
+                          />
+                          <path
+                            d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"
+                          />
+                          <line
+                            x1="10"
+                            x2="10"
+                            y1="11"
+                            y2="17"
+                          />
+                          <line
+                            x1="14"
+                            x2="14"
+                            y1="11"
+                            y2="17"
+                          />
+                        </svg>
+                      </button>
+                    </div>
+                  </div>
+                  <div
+                    class="flex flex-col gap-3 px-4 py-4 bg-transparent cursor-pointer active:bg-background-subtle/50 transition-colors"
+                    role="button"
+                    tabindex="0"
+                  >
+                    <div
+                      class="flex items-center justify-between gap-2"
+                    >
+                      <span
+                        class="text-xs font-medium text-text-tertiary uppercase tracking-wider"
+                      >
+                        Category Name
+                      </span>
+                      <span
+                        class="flex-1 text-sm font-medium text-text-primary text-right truncate"
                       >
                         Staging & Rigging
-                      </td>
-                      <td
-                        class="px-6 py-4 border-b border-brand-gray-light text-center"
+                      </span>
+                    </div>
+                    <div
+                      class="flex items-center justify-between gap-2"
+                    >
+                      <span
+                        class="text-xs font-medium text-text-tertiary uppercase tracking-wider"
+                      >
+                        Status
+                      </span>
+                      <span
+                        class="flex-1 text-sm font-medium text-text-primary text-right truncate"
                       >
                         <span
                           class="px-3 py-1 rounded-full text-xs font-bold uppercase bg-green-100 text-green-600"
                         >
                           active
                         </span>
-                      </td>
-                      <td
-                        class="px-6 py-4 border-b border-brand-gray-light text-left"
-                      >
-                        2024-05-01T00:00:00Z
-                      </td>
-                      <td
-                        class="px-6 py-4 border-b border-brand-gray-light text-center"
-                      >
-                        <button
-                          class="p-1.5 text-brand-text-medium hover:text-brand-blue hover:bg-brand-blue-light rounded-lg transition-colors cursor-pointer"
-                          title="Edit"
-                        >
-                          <svg
-                            class="w-4 h-4"
-                            fill="none"
-                            height="1em"
-                            stroke="currentColor"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            stroke-width="2"
-                            viewBox="0 0 24 24"
-                            width="1em"
-                            xmlns="http://www.w3.org/2000/svg"
-                          >
-                            <path
-                              d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"
-                            />
-                          </svg>
-                        </button>
-                      </td>
-                    </tr>
-                    <tr
-                      class="hover:bg-brand-gray-light/50 transition-colors group cursor-pointer"
+                      </span>
+                    </div>
+                    <div
+                      class="flex items-center justify-end gap-2 pt-2 border-t border-border-default"
                     >
-                      <td
-                        class="px-6 py-4 border-b border-brand-gray-light text-center"
+                      <button
+                        aria-label="Edit"
+                        class="p-2 text-text-tertiary hover:text-action-primary hover:bg-action-primary-subtle rounded-lg transition-colors cursor-pointer"
+                        title="Edit"
                       >
-                        <span
-                          class="text-sm text-brand-text-medium"
+                        <svg
+                          class="w-5 h-5"
+                          fill="none"
+                          height="1em"
+                          stroke="currentColor"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                          viewBox="0 0 24 24"
+                          width="1em"
+                          xmlns="http://www.w3.org/2000/svg"
                         >
-                          5
-                        </span>
-                      </td>
-                      <td
-                        class="px-6 py-4 border-b border-brand-gray-light text-left"
+                          <path
+                            d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"
+                          />
+                        </svg>
+                      </button>
+                      <button
+                        aria-label="Delete"
+                        class="p-2 text-text-tertiary hover:text-danger hover:bg-danger-subtle rounded-lg transition-colors cursor-pointer"
+                        title="Delete"
+                      >
+                        <svg
+                          class="w-5 h-5"
+                          fill="none"
+                          height="1em"
+                          stroke="currentColor"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                          viewBox="0 0 24 24"
+                          width="1em"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <polyline
+                            points="3 6 5 6 21 6"
+                          />
+                          <path
+                            d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"
+                          />
+                          <line
+                            x1="10"
+                            x2="10"
+                            y1="11"
+                            y2="17"
+                          />
+                          <line
+                            x1="14"
+                            x2="14"
+                            y1="11"
+                            y2="17"
+                          />
+                        </svg>
+                      </button>
+                    </div>
+                  </div>
+                  <div
+                    class="flex flex-col gap-3 px-4 py-4 bg-transparent cursor-pointer active:bg-background-subtle/50 transition-colors"
+                    role="button"
+                    tabindex="0"
+                  >
+                    <div
+                      class="flex items-center justify-between gap-2"
+                    >
+                      <span
+                        class="text-xs font-medium text-text-tertiary uppercase tracking-wider"
+                      >
+                        Category Name
+                      </span>
+                      <span
+                        class="flex-1 text-sm font-medium text-text-primary text-right truncate"
                       >
                         Power Generator
-                      </td>
-                      <td
-                        class="px-6 py-4 border-b border-brand-gray-light text-center"
+                      </span>
+                    </div>
+                    <div
+                      class="flex items-center justify-between gap-2"
+                    >
+                      <span
+                        class="text-xs font-medium text-text-tertiary uppercase tracking-wider"
+                      >
+                        Status
+                      </span>
+                      <span
+                        class="flex-1 text-sm font-medium text-text-primary text-right truncate"
                       >
                         <span
                           class="px-3 py-1 rounded-full text-xs font-bold uppercase bg-green-100 text-green-600"
                         >
                           active
                         </span>
-                      </td>
-                      <td
-                        class="px-6 py-4 border-b border-brand-gray-light text-left"
+                      </span>
+                    </div>
+                    <div
+                      class="flex items-center justify-end gap-2 pt-2 border-t border-border-default"
+                    >
+                      <button
+                        aria-label="Edit"
+                        class="p-2 text-text-tertiary hover:text-action-primary hover:bg-action-primary-subtle rounded-lg transition-colors cursor-pointer"
+                        title="Edit"
                       >
-                        2024-06-01T00:00:00Z
-                      </td>
-                      <td
-                        class="px-6 py-4 border-b border-brand-gray-light text-center"
-                      >
-                        <button
-                          class="p-1.5 text-brand-text-medium hover:text-brand-blue hover:bg-brand-blue-light rounded-lg transition-colors cursor-pointer"
-                          title="Edit"
+                        <svg
+                          class="w-5 h-5"
+                          fill="none"
+                          height="1em"
+                          stroke="currentColor"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                          viewBox="0 0 24 24"
+                          width="1em"
+                          xmlns="http://www.w3.org/2000/svg"
                         >
-                          <svg
-                            class="w-4 h-4"
-                            fill="none"
-                            height="1em"
-                            stroke="currentColor"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            stroke-width="2"
-                            viewBox="0 0 24 24"
-                            width="1em"
-                            xmlns="http://www.w3.org/2000/svg"
-                          >
-                            <path
-                              d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"
-                            />
-                          </svg>
-                        </button>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
+                          <path
+                            d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"
+                          />
+                        </svg>
+                      </button>
+                      <button
+                        aria-label="Delete"
+                        class="p-2 text-text-tertiary hover:text-danger hover:bg-danger-subtle rounded-lg transition-colors cursor-pointer"
+                        title="Delete"
+                      >
+                        <svg
+                          class="w-5 h-5"
+                          fill="none"
+                          height="1em"
+                          stroke="currentColor"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                          viewBox="0 0 24 24"
+                          width="1em"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <polyline
+                            points="3 6 5 6 21 6"
+                          />
+                          <path
+                            d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"
+                          />
+                          <line
+                            x1="10"
+                            x2="10"
+                            y1="11"
+                            y2="17"
+                          />
+                          <line
+                            x1="14"
+                            x2="14"
+                            y1="11"
+                            y2="17"
+                          />
+                        </svg>
+                      </button>
+                    </div>
+                  </div>
+                </div>
               </div>
-            </div>
-            <div
-              class="flex items-center justify-center gap-2 text-sm text-brand-text-medium font-medium "
-            >
-              <button
-                class="p-1 rounded text-gray-300 cursor-not-allowed"
-                disabled=""
+              <div
+                class="flex flex-col sm:flex-row items-center justify-between gap-4 p-4 border-t border-border-default"
               >
-                &lt;
-              </button>
-              <button
-                class="w-8 h-8 flex items-center justify-center rounded-lg transition-colors bg-brand-blue text-brand-white font-bold"
-              >
-                1
-              </button>
-              <button
-                class="w-8 h-8 flex items-center justify-center rounded-lg transition-colors hover:bg-brand-gray-light text-brand-text-dark"
-              >
-                2
-              </button>
-              <button
-                class="p-1 rounded text-brand-text-medium hover:text-brand-text-dark hover:bg-brand-gray-light"
-              >
-                &gt;
-              </button>
+                <div
+                  class="flex items-center gap-3 text-sm text-text-tertiary"
+                >
+                  <span>
+                    Showing
+                  </span>
+                  <select
+                    class="border border-border-default rounded px-2 py-1 bg-background-surface font-medium text-text-primary focus:outline-none focus:ring-1 focus:ring-action-primary"
+                  >
+                    <option
+                      value="5"
+                    >
+                      5
+                    </option>
+                    <option
+                      value="10"
+                    >
+                      10
+                    </option>
+                    <option
+                      value="20"
+                    >
+                      20
+                    </option>
+                    <option
+                      value="50"
+                    >
+                      50
+                    </option>
+                    <option
+                      value="100"
+                    >
+                      100
+                    </option>
+                  </select>
+                  <span>
+                    of 10 results
+                  </span>
+                </div>
+                <div
+                  class="flex items-center justify-center gap-1.5 text-sm text-text-tertiary font-medium"
+                >
+                  <button
+                    aria-label="Previous page"
+                    class="p-1.5 rounded transition-colors text-text-disabled cursor-not-allowed"
+                    disabled=""
+                  >
+                    &lt;
+                  </button>
+                  <button
+                    aria-current="page"
+                    aria-label="Page 1"
+                    class="w-8 h-8 flex items-center justify-center rounded-lg transition-colors bg-action-primary text-text-inverse font-bold"
+                  >
+                    1
+                  </button>
+                  <button
+                    aria-label="Page 2"
+                    class="w-8 h-8 flex items-center justify-center rounded-lg transition-colors hover:bg-background-subtle text-text-primary"
+                  >
+                    2
+                  </button>
+                  <button
+                    aria-label="Next page"
+                    class="p-1.5 rounded transition-colors text-text-tertiary hover:text-text-primary hover:bg-background-subtle"
+                  >
+                    &gt;
+                  </button>
+                </div>
+              </div>
             </div>
           </div>
         </div>

@@ -520,352 +520,418 @@ exports[`MasterCustomer Component > MasterCustomerComponent Snapshots > default 
           class="flex-1 overflow-auto"
         >
           <div
-            class="w-full overflow-x-auto"
+            class="flex flex-col bg-background-surface rounded-xl border border-border-default shadow-sm overflow-hidden"
           >
-            <table
-              class="w-full whitespace-nowrap"
+            <div
+              class="hidden md:flex flex-1 overflow-auto"
             >
-              <thead>
-                <tr
-                  class="bg-brand-gray-light border-b border-brand-gray-light"
-                >
-                  <th
-                    class="px-6 py-4 text-xs font-bold text-brand-text-medium uppercase tracking-wider text-left"
-                  >
-                    No
-                  </th>
-                  <th
-                    class="px-6 py-4 text-xs font-bold text-brand-text-medium uppercase tracking-wider text-left"
-                  >
-                    Customer Name
-                  </th>
-                  <th
-                    class="px-6 py-4 text-xs font-bold text-brand-text-medium uppercase tracking-wider text-left"
-                  >
-                    Address
-                  </th>
-                  <th
-                    class="px-6 py-4 text-xs font-bold text-brand-text-medium uppercase tracking-wider text-left"
-                  >
-                    Phone Number
-                  </th>
-                  <th
-                    class="px-6 py-4 text-xs font-bold text-brand-text-medium uppercase tracking-wider text-left"
-                  >
-                    Status
-                  </th>
-                  <th
-                    class="px-6 py-4 text-xs font-bold text-brand-text-medium uppercase tracking-wider text-left"
-                  >
-                    Action
-                  </th>
-                </tr>
-              </thead>
-              <tbody
-                class="divide-y divide-brand-gray-light"
+              <div
+                class="w-full overflow-x-auto"
               >
-                <tr
-                  class="hover:bg-brand-gray-light/50 transition-colors group cursor-pointer"
+                <table
+                  class="w-full min-w-max whitespace-nowrap"
                 >
-                  <td
-                    class="px-6 py-4 border-b border-brand-gray-light text-left"
-                  />
-                  <td
-                    class="px-6 py-4 border-b border-brand-gray-light text-left"
+                  <thead>
+                    <tr
+                      class="bg-table-header border-b border-border-default"
+                    >
+                      <th
+                        class="px-4 py-3 text-xs font-semibold text-text-secondary uppercase tracking-wider text-left "
+                      >
+                        No
+                      </th>
+                      <th
+                        class="px-4 py-3 text-xs font-semibold text-text-secondary uppercase tracking-wider text-left "
+                      >
+                        Customer Name
+                      </th>
+                      <th
+                        class="px-4 py-3 text-xs font-semibold text-text-secondary uppercase tracking-wider text-left "
+                      >
+                        Address
+                      </th>
+                      <th
+                        class="px-4 py-3 text-xs font-semibold text-text-secondary uppercase tracking-wider text-left "
+                      >
+                        Phone Number
+                      </th>
+                      <th
+                        class="px-4 py-3 text-xs font-semibold text-text-secondary uppercase tracking-wider text-left "
+                      >
+                        Status
+                      </th>
+                      <th
+                        class="px-4 py-3 text-xs font-semibold text-text-secondary uppercase tracking-wider text-left "
+                      >
+                        Action
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody
+                    class="divide-y divide-border-default"
                   >
-                    PT Mega Jaya Abadi
-                  </td>
-                  <td
-                    class="px-6 py-4 border-b border-brand-gray-light text-left"
-                  >
-                    Jl. Sudirman No. 45, Jakarta Pusat
-                  </td>
-                  <td
-                    class="px-6 py-4 border-b border-brand-gray-light text-left"
-                  >
-                    081234567890
-                  </td>
-                  <td
-                    class="px-6 py-4 border-b border-brand-gray-light text-left"
-                  >
-                    active
-                  </td>
-                  <td
-                    class="px-6 py-4 border-b border-brand-gray-light text-left"
-                  />
-                </tr>
-                <tr
-                  class="hover:bg-brand-gray-light/50 transition-colors group cursor-pointer"
-                >
-                  <td
-                    class="px-6 py-4 border-b border-brand-gray-light text-left"
-                  />
-                  <td
-                    class="px-6 py-4 border-b border-brand-gray-light text-left"
-                  >
-                    CV Sinar Terang
-                  </td>
-                  <td
-                    class="px-6 py-4 border-b border-brand-gray-light text-left"
-                  >
-                    Jl. Gatot Subroto No. 12, Bandung
-                  </td>
-                  <td
-                    class="px-6 py-4 border-b border-brand-gray-light text-left"
-                  >
-                    081298765432
-                  </td>
-                  <td
-                    class="px-6 py-4 border-b border-brand-gray-light text-left"
-                  >
-                    active
-                  </td>
-                  <td
-                    class="px-6 py-4 border-b border-brand-gray-light text-left"
-                  />
-                </tr>
-                <tr
-                  class="hover:bg-brand-gray-light/50 transition-colors group cursor-pointer"
-                >
-                  <td
-                    class="px-6 py-4 border-b border-brand-gray-light text-left"
-                  />
-                  <td
-                    class="px-6 py-4 border-b border-brand-gray-light text-left"
-                  >
-                    Budi Santoso
-                  </td>
-                  <td
-                    class="px-6 py-4 border-b border-brand-gray-light text-left"
-                  >
-                    Jl. Diponegoro No. 88, Surabaya
-                  </td>
-                  <td
-                    class="px-6 py-4 border-b border-brand-gray-light text-left"
-                  >
-                    085612345678
-                  </td>
-                  <td
-                    class="px-6 py-4 border-b border-brand-gray-light text-left"
-                  >
-                    inactive
-                  </td>
-                  <td
-                    class="px-6 py-4 border-b border-brand-gray-light text-left"
-                  />
-                </tr>
-                <tr
-                  class="hover:bg-brand-gray-light/50 transition-colors group cursor-pointer"
-                >
-                  <td
-                    class="px-6 py-4 border-b border-brand-gray-light text-left"
-                  />
-                  <td
-                    class="px-6 py-4 border-b border-brand-gray-light text-left"
-                  >
-                    PT Nusantara Prima
-                  </td>
-                  <td
-                    class="px-6 py-4 border-b border-brand-gray-light text-left"
-                  >
-                    Jl. M.H. Thamrin No. 9, Jakarta Pusat
-                  </td>
-                  <td
-                    class="px-6 py-4 border-b border-brand-gray-light text-left"
-                  >
-                    081377889900
-                  </td>
-                  <td
-                    class="px-6 py-4 border-b border-brand-gray-light text-left"
-                  >
-                    active
-                  </td>
-                  <td
-                    class="px-6 py-4 border-b border-brand-gray-light text-left"
-                  />
-                </tr>
-                <tr
-                  class="hover:bg-brand-gray-light/50 transition-colors group cursor-pointer"
-                >
-                  <td
-                    class="px-6 py-4 border-b border-brand-gray-light text-left"
-                  />
-                  <td
-                    class="px-6 py-4 border-b border-brand-gray-light text-left"
-                  >
-                    Dewi Lestari
-                  </td>
-                  <td
-                    class="px-6 py-4 border-b border-brand-gray-light text-left"
-                  >
-                    Jl. Malioboro No. 23, Yogyakarta
-                  </td>
-                  <td
-                    class="px-6 py-4 border-b border-brand-gray-light text-left"
-                  >
-                    087811223344
-                  </td>
-                  <td
-                    class="px-6 py-4 border-b border-brand-gray-light text-left"
-                  >
-                    active
-                  </td>
-                  <td
-                    class="px-6 py-4 border-b border-brand-gray-light text-left"
-                  />
-                </tr>
-                <tr
-                  class="hover:bg-brand-gray-light/50 transition-colors group cursor-pointer"
-                >
-                  <td
-                    class="px-6 py-4 border-b border-brand-gray-light text-left"
-                  />
-                  <td
-                    class="px-6 py-4 border-b border-brand-gray-light text-left"
-                  >
-                    CV Berkah Mandiri
-                  </td>
-                  <td
-                    class="px-6 py-4 border-b border-brand-gray-light text-left"
-                  >
-                    Jl. Pemuda No. 101, Semarang
-                  </td>
-                  <td
-                    class="px-6 py-4 border-b border-brand-gray-light text-left"
-                  >
-                    082155667788
-                  </td>
-                  <td
-                    class="px-6 py-4 border-b border-brand-gray-light text-left"
-                  >
-                    inactive
-                  </td>
-                  <td
-                    class="px-6 py-4 border-b border-brand-gray-light text-left"
-                  />
-                </tr>
-                <tr
-                  class="hover:bg-brand-gray-light/50 transition-colors group cursor-pointer"
-                >
-                  <td
-                    class="px-6 py-4 border-b border-brand-gray-light text-left"
-                  />
-                  <td
-                    class="px-6 py-4 border-b border-brand-gray-light text-left"
-                  >
-                    PT Cipta Karya Solusi
-                  </td>
-                  <td
-                    class="px-6 py-4 border-b border-brand-gray-light text-left"
-                  >
-                    Jl. Raya Bogor KM 28, Depok
-                  </td>
-                  <td
-                    class="px-6 py-4 border-b border-brand-gray-light text-left"
-                  >
-                    081900112233
-                  </td>
-                  <td
-                    class="px-6 py-4 border-b border-brand-gray-light text-left"
-                  >
-                    active
-                  </td>
-                  <td
-                    class="px-6 py-4 border-b border-brand-gray-light text-left"
-                  />
-                </tr>
-                <tr
-                  class="hover:bg-brand-gray-light/50 transition-colors group cursor-pointer"
-                >
-                  <td
-                    class="px-6 py-4 border-b border-brand-gray-light text-left"
-                  />
-                  <td
-                    class="px-6 py-4 border-b border-brand-gray-light text-left"
-                  >
-                    Ahmad Fauzi
-                  </td>
-                  <td
-                    class="px-6 py-4 border-b border-brand-gray-light text-left"
-                  >
-                    Jl. Ahmad Yani No. 50, Medan
-                  </td>
-                  <td
-                    class="px-6 py-4 border-b border-brand-gray-light text-left"
-                  >
-                    085244332211
-                  </td>
-                  <td
-                    class="px-6 py-4 border-b border-brand-gray-light text-left"
-                  >
-                    active
-                  </td>
-                  <td
-                    class="px-6 py-4 border-b border-brand-gray-light text-left"
-                  />
-                </tr>
-                <tr
-                  class="hover:bg-brand-gray-light/50 transition-colors group cursor-pointer"
-                >
-                  <td
-                    class="px-6 py-4 border-b border-brand-gray-light text-left"
-                  />
-                  <td
-                    class="px-6 py-4 border-b border-brand-gray-light text-left"
-                  >
-                    PT Global Indo Medika
-                  </td>
-                  <td
-                    class="px-6 py-4 border-b border-brand-gray-light text-left"
-                  >
-                    Jl. HR Rasuna Said Kav. C-22, Jakarta Selatan
-                  </td>
-                  <td
-                    class="px-6 py-4 border-b border-brand-gray-light text-left"
-                  >
-                    081199887766
-                  </td>
-                  <td
-                    class="px-6 py-4 border-b border-brand-gray-light text-left"
-                  >
-                    inactive
-                  </td>
-                  <td
-                    class="px-6 py-4 border-b border-brand-gray-light text-left"
-                  />
-                </tr>
-                <tr
-                  class="hover:bg-brand-gray-light/50 transition-colors group cursor-pointer"
-                >
-                  <td
-                    class="px-6 py-4 border-b border-brand-gray-light text-left"
-                  />
-                  <td
-                    class="px-6 py-4 border-b border-brand-gray-light text-left"
-                  >
-                    Siti Rahmawati
-                  </td>
-                  <td
-                    class="px-6 py-4 border-b border-brand-gray-light text-left"
-                  >
-                    Jl. Gajah Mada No. 14, Denpasar
-                  </td>
-                  <td
-                    class="px-6 py-4 border-b border-brand-gray-light text-left"
-                  >
-                    083812349988
-                  </td>
-                  <td
-                    class="px-6 py-4 border-b border-brand-gray-light text-left"
-                  >
-                    active
-                  </td>
-                  <td
-                    class="px-6 py-4 border-b border-brand-gray-light text-left"
-                  />
-                </tr>
-              </tbody>
-            </table>
+                    <tr
+                      class="hover:bg-background-subtle/50 transition-colors cursor-pointer"
+                    >
+                      <td
+                        class="px-4 py-3 border-b border-border-default text-left "
+                      />
+                      <td
+                        class="px-4 py-3 border-b border-border-default text-left "
+                      >
+                        PT Mega Jaya Abadi
+                      </td>
+                      <td
+                        class="px-4 py-3 border-b border-border-default text-left "
+                      >
+                        Jl. Sudirman No. 45, Jakarta Pusat
+                      </td>
+                      <td
+                        class="px-4 py-3 border-b border-border-default text-left "
+                      >
+                        081234567890
+                      </td>
+                      <td
+                        class="px-4 py-3 border-b border-border-default text-left "
+                      >
+                        active
+                      </td>
+                      <td
+                        class="px-4 py-3 border-b border-border-default text-left "
+                      />
+                    </tr>
+                    <tr
+                      class="hover:bg-background-subtle/50 transition-colors cursor-pointer"
+                    >
+                      <td
+                        class="px-4 py-3 border-b border-border-default text-left "
+                      />
+                      <td
+                        class="px-4 py-3 border-b border-border-default text-left "
+                      >
+                        CV Sinar Terang
+                      </td>
+                      <td
+                        class="px-4 py-3 border-b border-border-default text-left "
+                      >
+                        Jl. Gatot Subroto No. 12, Bandung
+                      </td>
+                      <td
+                        class="px-4 py-3 border-b border-border-default text-left "
+                      >
+                        081298765432
+                      </td>
+                      <td
+                        class="px-4 py-3 border-b border-border-default text-left "
+                      >
+                        active
+                      </td>
+                      <td
+                        class="px-4 py-3 border-b border-border-default text-left "
+                      />
+                    </tr>
+                    <tr
+                      class="hover:bg-background-subtle/50 transition-colors cursor-pointer"
+                    >
+                      <td
+                        class="px-4 py-3 border-b border-border-default text-left "
+                      />
+                      <td
+                        class="px-4 py-3 border-b border-border-default text-left "
+                      >
+                        Budi Santoso
+                      </td>
+                      <td
+                        class="px-4 py-3 border-b border-border-default text-left "
+                      >
+                        Jl. Diponegoro No. 88, Surabaya
+                      </td>
+                      <td
+                        class="px-4 py-3 border-b border-border-default text-left "
+                      >
+                        085612345678
+                      </td>
+                      <td
+                        class="px-4 py-3 border-b border-border-default text-left "
+                      >
+                        inactive
+                      </td>
+                      <td
+                        class="px-4 py-3 border-b border-border-default text-left "
+                      />
+                    </tr>
+                    <tr
+                      class="hover:bg-background-subtle/50 transition-colors cursor-pointer"
+                    >
+                      <td
+                        class="px-4 py-3 border-b border-border-default text-left "
+                      />
+                      <td
+                        class="px-4 py-3 border-b border-border-default text-left "
+                      >
+                        PT Nusantara Prima
+                      </td>
+                      <td
+                        class="px-4 py-3 border-b border-border-default text-left "
+                      >
+                        Jl. M.H. Thamrin No. 9, Jakarta Pusat
+                      </td>
+                      <td
+                        class="px-4 py-3 border-b border-border-default text-left "
+                      >
+                        081377889900
+                      </td>
+                      <td
+                        class="px-4 py-3 border-b border-border-default text-left "
+                      >
+                        active
+                      </td>
+                      <td
+                        class="px-4 py-3 border-b border-border-default text-left "
+                      />
+                    </tr>
+                    <tr
+                      class="hover:bg-background-subtle/50 transition-colors cursor-pointer"
+                    >
+                      <td
+                        class="px-4 py-3 border-b border-border-default text-left "
+                      />
+                      <td
+                        class="px-4 py-3 border-b border-border-default text-left "
+                      >
+                        Dewi Lestari
+                      </td>
+                      <td
+                        class="px-4 py-3 border-b border-border-default text-left "
+                      >
+                        Jl. Malioboro No. 23, Yogyakarta
+                      </td>
+                      <td
+                        class="px-4 py-3 border-b border-border-default text-left "
+                      >
+                        087811223344
+                      </td>
+                      <td
+                        class="px-4 py-3 border-b border-border-default text-left "
+                      >
+                        active
+                      </td>
+                      <td
+                        class="px-4 py-3 border-b border-border-default text-left "
+                      />
+                    </tr>
+                    <tr
+                      class="hover:bg-background-subtle/50 transition-colors cursor-pointer"
+                    >
+                      <td
+                        class="px-4 py-3 border-b border-border-default text-left "
+                      />
+                      <td
+                        class="px-4 py-3 border-b border-border-default text-left "
+                      >
+                        CV Berkah Mandiri
+                      </td>
+                      <td
+                        class="px-4 py-3 border-b border-border-default text-left "
+                      >
+                        Jl. Pemuda No. 101, Semarang
+                      </td>
+                      <td
+                        class="px-4 py-3 border-b border-border-default text-left "
+                      >
+                        082155667788
+                      </td>
+                      <td
+                        class="px-4 py-3 border-b border-border-default text-left "
+                      >
+                        inactive
+                      </td>
+                      <td
+                        class="px-4 py-3 border-b border-border-default text-left "
+                      />
+                    </tr>
+                    <tr
+                      class="hover:bg-background-subtle/50 transition-colors cursor-pointer"
+                    >
+                      <td
+                        class="px-4 py-3 border-b border-border-default text-left "
+                      />
+                      <td
+                        class="px-4 py-3 border-b border-border-default text-left "
+                      >
+                        PT Cipta Karya Solusi
+                      </td>
+                      <td
+                        class="px-4 py-3 border-b border-border-default text-left "
+                      >
+                        Jl. Raya Bogor KM 28, Depok
+                      </td>
+                      <td
+                        class="px-4 py-3 border-b border-border-default text-left "
+                      >
+                        081900112233
+                      </td>
+                      <td
+                        class="px-4 py-3 border-b border-border-default text-left "
+                      >
+                        active
+                      </td>
+                      <td
+                        class="px-4 py-3 border-b border-border-default text-left "
+                      />
+                    </tr>
+                    <tr
+                      class="hover:bg-background-subtle/50 transition-colors cursor-pointer"
+                    >
+                      <td
+                        class="px-4 py-3 border-b border-border-default text-left "
+                      />
+                      <td
+                        class="px-4 py-3 border-b border-border-default text-left "
+                      >
+                        Ahmad Fauzi
+                      </td>
+                      <td
+                        class="px-4 py-3 border-b border-border-default text-left "
+                      >
+                        Jl. Ahmad Yani No. 50, Medan
+                      </td>
+                      <td
+                        class="px-4 py-3 border-b border-border-default text-left "
+                      >
+                        085244332211
+                      </td>
+                      <td
+                        class="px-4 py-3 border-b border-border-default text-left "
+                      >
+                        active
+                      </td>
+                      <td
+                        class="px-4 py-3 border-b border-border-default text-left "
+                      />
+                    </tr>
+                    <tr
+                      class="hover:bg-background-subtle/50 transition-colors cursor-pointer"
+                    >
+                      <td
+                        class="px-4 py-3 border-b border-border-default text-left "
+                      />
+                      <td
+                        class="px-4 py-3 border-b border-border-default text-left "
+                      >
+                        PT Global Indo Medika
+                      </td>
+                      <td
+                        class="px-4 py-3 border-b border-border-default text-left "
+                      >
+                        Jl. HR Rasuna Said Kav. C-22, Jakarta Selatan
+                      </td>
+                      <td
+                        class="px-4 py-3 border-b border-border-default text-left "
+                      >
+                        081199887766
+                      </td>
+                      <td
+                        class="px-4 py-3 border-b border-border-default text-left "
+                      >
+                        inactive
+                      </td>
+                      <td
+                        class="px-4 py-3 border-b border-border-default text-left "
+                      />
+                    </tr>
+                    <tr
+                      class="hover:bg-background-subtle/50 transition-colors cursor-pointer"
+                    >
+                      <td
+                        class="px-4 py-3 border-b border-border-default text-left "
+                      />
+                      <td
+                        class="px-4 py-3 border-b border-border-default text-left "
+                      >
+                        Siti Rahmawati
+                      </td>
+                      <td
+                        class="px-4 py-3 border-b border-border-default text-left "
+                      >
+                        Jl. Gajah Mada No. 14, Denpasar
+                      </td>
+                      <td
+                        class="px-4 py-3 border-b border-border-default text-left "
+                      >
+                        083812349988
+                      </td>
+                      <td
+                        class="px-4 py-3 border-b border-border-default text-left "
+                      >
+                        active
+                      </td>
+                      <td
+                        class="px-4 py-3 border-b border-border-default text-left "
+                      />
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <div
+              class="md:hidden"
+            >
+              <div
+                class="bg-background-surface overflow-hidden divide-y divide-border-default"
+              >
+                <div
+                  class="flex flex-col gap-3 px-4 py-4 bg-transparent cursor-pointer active:bg-background-subtle/50 transition-colors"
+                  role="button"
+                  tabindex="0"
+                />
+                <div
+                  class="flex flex-col gap-3 px-4 py-4 bg-transparent cursor-pointer active:bg-background-subtle/50 transition-colors"
+                  role="button"
+                  tabindex="0"
+                />
+                <div
+                  class="flex flex-col gap-3 px-4 py-4 bg-transparent cursor-pointer active:bg-background-subtle/50 transition-colors"
+                  role="button"
+                  tabindex="0"
+                />
+                <div
+                  class="flex flex-col gap-3 px-4 py-4 bg-transparent cursor-pointer active:bg-background-subtle/50 transition-colors"
+                  role="button"
+                  tabindex="0"
+                />
+                <div
+                  class="flex flex-col gap-3 px-4 py-4 bg-transparent cursor-pointer active:bg-background-subtle/50 transition-colors"
+                  role="button"
+                  tabindex="0"
+                />
+                <div
+                  class="flex flex-col gap-3 px-4 py-4 bg-transparent cursor-pointer active:bg-background-subtle/50 transition-colors"
+                  role="button"
+                  tabindex="0"
+                />
+                <div
+                  class="flex flex-col gap-3 px-4 py-4 bg-transparent cursor-pointer active:bg-background-subtle/50 transition-colors"
+                  role="button"
+                  tabindex="0"
+                />
+                <div
+                  class="flex flex-col gap-3 px-4 py-4 bg-transparent cursor-pointer active:bg-background-subtle/50 transition-colors"
+                  role="button"
+                  tabindex="0"
+                />
+                <div
+                  class="flex flex-col gap-3 px-4 py-4 bg-transparent cursor-pointer active:bg-background-subtle/50 transition-colors"
+                  role="button"
+                  tabindex="0"
+                />
+                <div
+                  class="flex flex-col gap-3 px-4 py-4 bg-transparent cursor-pointer active:bg-background-subtle/50 transition-colors"
+                  role="button"
+                  tabindex="0"
+                />
+              </div>
+            </div>
           </div>
         </div>
         <div
@@ -1484,352 +1550,418 @@ exports[`MasterCustomer Component > MasterCustomerComponent Snapshots > more ope
           class="flex-1 overflow-auto"
         >
           <div
-            class="w-full overflow-x-auto"
+            class="flex flex-col bg-background-surface rounded-xl border border-border-default shadow-sm overflow-hidden"
           >
-            <table
-              class="w-full whitespace-nowrap"
+            <div
+              class="hidden md:flex flex-1 overflow-auto"
             >
-              <thead>
-                <tr
-                  class="bg-brand-gray-light border-b border-brand-gray-light"
-                >
-                  <th
-                    class="px-6 py-4 text-xs font-bold text-brand-text-medium uppercase tracking-wider text-left"
-                  >
-                    No
-                  </th>
-                  <th
-                    class="px-6 py-4 text-xs font-bold text-brand-text-medium uppercase tracking-wider text-left"
-                  >
-                    Customer Name
-                  </th>
-                  <th
-                    class="px-6 py-4 text-xs font-bold text-brand-text-medium uppercase tracking-wider text-left"
-                  >
-                    Address
-                  </th>
-                  <th
-                    class="px-6 py-4 text-xs font-bold text-brand-text-medium uppercase tracking-wider text-left"
-                  >
-                    Phone Number
-                  </th>
-                  <th
-                    class="px-6 py-4 text-xs font-bold text-brand-text-medium uppercase tracking-wider text-left"
-                  >
-                    Status
-                  </th>
-                  <th
-                    class="px-6 py-4 text-xs font-bold text-brand-text-medium uppercase tracking-wider text-left"
-                  >
-                    Action
-                  </th>
-                </tr>
-              </thead>
-              <tbody
-                class="divide-y divide-brand-gray-light"
+              <div
+                class="w-full overflow-x-auto"
               >
-                <tr
-                  class="hover:bg-brand-gray-light/50 transition-colors group cursor-pointer"
+                <table
+                  class="w-full min-w-max whitespace-nowrap"
                 >
-                  <td
-                    class="px-6 py-4 border-b border-brand-gray-light text-left"
-                  />
-                  <td
-                    class="px-6 py-4 border-b border-brand-gray-light text-left"
+                  <thead>
+                    <tr
+                      class="bg-table-header border-b border-border-default"
+                    >
+                      <th
+                        class="px-4 py-3 text-xs font-semibold text-text-secondary uppercase tracking-wider text-left "
+                      >
+                        No
+                      </th>
+                      <th
+                        class="px-4 py-3 text-xs font-semibold text-text-secondary uppercase tracking-wider text-left "
+                      >
+                        Customer Name
+                      </th>
+                      <th
+                        class="px-4 py-3 text-xs font-semibold text-text-secondary uppercase tracking-wider text-left "
+                      >
+                        Address
+                      </th>
+                      <th
+                        class="px-4 py-3 text-xs font-semibold text-text-secondary uppercase tracking-wider text-left "
+                      >
+                        Phone Number
+                      </th>
+                      <th
+                        class="px-4 py-3 text-xs font-semibold text-text-secondary uppercase tracking-wider text-left "
+                      >
+                        Status
+                      </th>
+                      <th
+                        class="px-4 py-3 text-xs font-semibold text-text-secondary uppercase tracking-wider text-left "
+                      >
+                        Action
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody
+                    class="divide-y divide-border-default"
                   >
-                    PT Mega Jaya Abadi
-                  </td>
-                  <td
-                    class="px-6 py-4 border-b border-brand-gray-light text-left"
-                  >
-                    Jl. Sudirman No. 45, Jakarta Pusat
-                  </td>
-                  <td
-                    class="px-6 py-4 border-b border-brand-gray-light text-left"
-                  >
-                    081234567890
-                  </td>
-                  <td
-                    class="px-6 py-4 border-b border-brand-gray-light text-left"
-                  >
-                    active
-                  </td>
-                  <td
-                    class="px-6 py-4 border-b border-brand-gray-light text-left"
-                  />
-                </tr>
-                <tr
-                  class="hover:bg-brand-gray-light/50 transition-colors group cursor-pointer"
-                >
-                  <td
-                    class="px-6 py-4 border-b border-brand-gray-light text-left"
-                  />
-                  <td
-                    class="px-6 py-4 border-b border-brand-gray-light text-left"
-                  >
-                    CV Sinar Terang
-                  </td>
-                  <td
-                    class="px-6 py-4 border-b border-brand-gray-light text-left"
-                  >
-                    Jl. Gatot Subroto No. 12, Bandung
-                  </td>
-                  <td
-                    class="px-6 py-4 border-b border-brand-gray-light text-left"
-                  >
-                    081298765432
-                  </td>
-                  <td
-                    class="px-6 py-4 border-b border-brand-gray-light text-left"
-                  >
-                    active
-                  </td>
-                  <td
-                    class="px-6 py-4 border-b border-brand-gray-light text-left"
-                  />
-                </tr>
-                <tr
-                  class="hover:bg-brand-gray-light/50 transition-colors group cursor-pointer"
-                >
-                  <td
-                    class="px-6 py-4 border-b border-brand-gray-light text-left"
-                  />
-                  <td
-                    class="px-6 py-4 border-b border-brand-gray-light text-left"
-                  >
-                    Budi Santoso
-                  </td>
-                  <td
-                    class="px-6 py-4 border-b border-brand-gray-light text-left"
-                  >
-                    Jl. Diponegoro No. 88, Surabaya
-                  </td>
-                  <td
-                    class="px-6 py-4 border-b border-brand-gray-light text-left"
-                  >
-                    085612345678
-                  </td>
-                  <td
-                    class="px-6 py-4 border-b border-brand-gray-light text-left"
-                  >
-                    inactive
-                  </td>
-                  <td
-                    class="px-6 py-4 border-b border-brand-gray-light text-left"
-                  />
-                </tr>
-                <tr
-                  class="hover:bg-brand-gray-light/50 transition-colors group cursor-pointer"
-                >
-                  <td
-                    class="px-6 py-4 border-b border-brand-gray-light text-left"
-                  />
-                  <td
-                    class="px-6 py-4 border-b border-brand-gray-light text-left"
-                  >
-                    PT Nusantara Prima
-                  </td>
-                  <td
-                    class="px-6 py-4 border-b border-brand-gray-light text-left"
-                  >
-                    Jl. M.H. Thamrin No. 9, Jakarta Pusat
-                  </td>
-                  <td
-                    class="px-6 py-4 border-b border-brand-gray-light text-left"
-                  >
-                    081377889900
-                  </td>
-                  <td
-                    class="px-6 py-4 border-b border-brand-gray-light text-left"
-                  >
-                    active
-                  </td>
-                  <td
-                    class="px-6 py-4 border-b border-brand-gray-light text-left"
-                  />
-                </tr>
-                <tr
-                  class="hover:bg-brand-gray-light/50 transition-colors group cursor-pointer"
-                >
-                  <td
-                    class="px-6 py-4 border-b border-brand-gray-light text-left"
-                  />
-                  <td
-                    class="px-6 py-4 border-b border-brand-gray-light text-left"
-                  >
-                    Dewi Lestari
-                  </td>
-                  <td
-                    class="px-6 py-4 border-b border-brand-gray-light text-left"
-                  >
-                    Jl. Malioboro No. 23, Yogyakarta
-                  </td>
-                  <td
-                    class="px-6 py-4 border-b border-brand-gray-light text-left"
-                  >
-                    087811223344
-                  </td>
-                  <td
-                    class="px-6 py-4 border-b border-brand-gray-light text-left"
-                  >
-                    active
-                  </td>
-                  <td
-                    class="px-6 py-4 border-b border-brand-gray-light text-left"
-                  />
-                </tr>
-                <tr
-                  class="hover:bg-brand-gray-light/50 transition-colors group cursor-pointer"
-                >
-                  <td
-                    class="px-6 py-4 border-b border-brand-gray-light text-left"
-                  />
-                  <td
-                    class="px-6 py-4 border-b border-brand-gray-light text-left"
-                  >
-                    CV Berkah Mandiri
-                  </td>
-                  <td
-                    class="px-6 py-4 border-b border-brand-gray-light text-left"
-                  >
-                    Jl. Pemuda No. 101, Semarang
-                  </td>
-                  <td
-                    class="px-6 py-4 border-b border-brand-gray-light text-left"
-                  >
-                    082155667788
-                  </td>
-                  <td
-                    class="px-6 py-4 border-b border-brand-gray-light text-left"
-                  >
-                    inactive
-                  </td>
-                  <td
-                    class="px-6 py-4 border-b border-brand-gray-light text-left"
-                  />
-                </tr>
-                <tr
-                  class="hover:bg-brand-gray-light/50 transition-colors group cursor-pointer"
-                >
-                  <td
-                    class="px-6 py-4 border-b border-brand-gray-light text-left"
-                  />
-                  <td
-                    class="px-6 py-4 border-b border-brand-gray-light text-left"
-                  >
-                    PT Cipta Karya Solusi
-                  </td>
-                  <td
-                    class="px-6 py-4 border-b border-brand-gray-light text-left"
-                  >
-                    Jl. Raya Bogor KM 28, Depok
-                  </td>
-                  <td
-                    class="px-6 py-4 border-b border-brand-gray-light text-left"
-                  >
-                    081900112233
-                  </td>
-                  <td
-                    class="px-6 py-4 border-b border-brand-gray-light text-left"
-                  >
-                    active
-                  </td>
-                  <td
-                    class="px-6 py-4 border-b border-brand-gray-light text-left"
-                  />
-                </tr>
-                <tr
-                  class="hover:bg-brand-gray-light/50 transition-colors group cursor-pointer"
-                >
-                  <td
-                    class="px-6 py-4 border-b border-brand-gray-light text-left"
-                  />
-                  <td
-                    class="px-6 py-4 border-b border-brand-gray-light text-left"
-                  >
-                    Ahmad Fauzi
-                  </td>
-                  <td
-                    class="px-6 py-4 border-b border-brand-gray-light text-left"
-                  >
-                    Jl. Ahmad Yani No. 50, Medan
-                  </td>
-                  <td
-                    class="px-6 py-4 border-b border-brand-gray-light text-left"
-                  >
-                    085244332211
-                  </td>
-                  <td
-                    class="px-6 py-4 border-b border-brand-gray-light text-left"
-                  >
-                    active
-                  </td>
-                  <td
-                    class="px-6 py-4 border-b border-brand-gray-light text-left"
-                  />
-                </tr>
-                <tr
-                  class="hover:bg-brand-gray-light/50 transition-colors group cursor-pointer"
-                >
-                  <td
-                    class="px-6 py-4 border-b border-brand-gray-light text-left"
-                  />
-                  <td
-                    class="px-6 py-4 border-b border-brand-gray-light text-left"
-                  >
-                    PT Global Indo Medika
-                  </td>
-                  <td
-                    class="px-6 py-4 border-b border-brand-gray-light text-left"
-                  >
-                    Jl. HR Rasuna Said Kav. C-22, Jakarta Selatan
-                  </td>
-                  <td
-                    class="px-6 py-4 border-b border-brand-gray-light text-left"
-                  >
-                    081199887766
-                  </td>
-                  <td
-                    class="px-6 py-4 border-b border-brand-gray-light text-left"
-                  >
-                    inactive
-                  </td>
-                  <td
-                    class="px-6 py-4 border-b border-brand-gray-light text-left"
-                  />
-                </tr>
-                <tr
-                  class="hover:bg-brand-gray-light/50 transition-colors group cursor-pointer"
-                >
-                  <td
-                    class="px-6 py-4 border-b border-brand-gray-light text-left"
-                  />
-                  <td
-                    class="px-6 py-4 border-b border-brand-gray-light text-left"
-                  >
-                    Siti Rahmawati
-                  </td>
-                  <td
-                    class="px-6 py-4 border-b border-brand-gray-light text-left"
-                  >
-                    Jl. Gajah Mada No. 14, Denpasar
-                  </td>
-                  <td
-                    class="px-6 py-4 border-b border-brand-gray-light text-left"
-                  >
-                    083812349988
-                  </td>
-                  <td
-                    class="px-6 py-4 border-b border-brand-gray-light text-left"
-                  >
-                    active
-                  </td>
-                  <td
-                    class="px-6 py-4 border-b border-brand-gray-light text-left"
-                  />
-                </tr>
-              </tbody>
-            </table>
+                    <tr
+                      class="hover:bg-background-subtle/50 transition-colors cursor-pointer"
+                    >
+                      <td
+                        class="px-4 py-3 border-b border-border-default text-left "
+                      />
+                      <td
+                        class="px-4 py-3 border-b border-border-default text-left "
+                      >
+                        PT Mega Jaya Abadi
+                      </td>
+                      <td
+                        class="px-4 py-3 border-b border-border-default text-left "
+                      >
+                        Jl. Sudirman No. 45, Jakarta Pusat
+                      </td>
+                      <td
+                        class="px-4 py-3 border-b border-border-default text-left "
+                      >
+                        081234567890
+                      </td>
+                      <td
+                        class="px-4 py-3 border-b border-border-default text-left "
+                      >
+                        active
+                      </td>
+                      <td
+                        class="px-4 py-3 border-b border-border-default text-left "
+                      />
+                    </tr>
+                    <tr
+                      class="hover:bg-background-subtle/50 transition-colors cursor-pointer"
+                    >
+                      <td
+                        class="px-4 py-3 border-b border-border-default text-left "
+                      />
+                      <td
+                        class="px-4 py-3 border-b border-border-default text-left "
+                      >
+                        CV Sinar Terang
+                      </td>
+                      <td
+                        class="px-4 py-3 border-b border-border-default text-left "
+                      >
+                        Jl. Gatot Subroto No. 12, Bandung
+                      </td>
+                      <td
+                        class="px-4 py-3 border-b border-border-default text-left "
+                      >
+                        081298765432
+                      </td>
+                      <td
+                        class="px-4 py-3 border-b border-border-default text-left "
+                      >
+                        active
+                      </td>
+                      <td
+                        class="px-4 py-3 border-b border-border-default text-left "
+                      />
+                    </tr>
+                    <tr
+                      class="hover:bg-background-subtle/50 transition-colors cursor-pointer"
+                    >
+                      <td
+                        class="px-4 py-3 border-b border-border-default text-left "
+                      />
+                      <td
+                        class="px-4 py-3 border-b border-border-default text-left "
+                      >
+                        Budi Santoso
+                      </td>
+                      <td
+                        class="px-4 py-3 border-b border-border-default text-left "
+                      >
+                        Jl. Diponegoro No. 88, Surabaya
+                      </td>
+                      <td
+                        class="px-4 py-3 border-b border-border-default text-left "
+                      >
+                        085612345678
+                      </td>
+                      <td
+                        class="px-4 py-3 border-b border-border-default text-left "
+                      >
+                        inactive
+                      </td>
+                      <td
+                        class="px-4 py-3 border-b border-border-default text-left "
+                      />
+                    </tr>
+                    <tr
+                      class="hover:bg-background-subtle/50 transition-colors cursor-pointer"
+                    >
+                      <td
+                        class="px-4 py-3 border-b border-border-default text-left "
+                      />
+                      <td
+                        class="px-4 py-3 border-b border-border-default text-left "
+                      >
+                        PT Nusantara Prima
+                      </td>
+                      <td
+                        class="px-4 py-3 border-b border-border-default text-left "
+                      >
+                        Jl. M.H. Thamrin No. 9, Jakarta Pusat
+                      </td>
+                      <td
+                        class="px-4 py-3 border-b border-border-default text-left "
+                      >
+                        081377889900
+                      </td>
+                      <td
+                        class="px-4 py-3 border-b border-border-default text-left "
+                      >
+                        active
+                      </td>
+                      <td
+                        class="px-4 py-3 border-b border-border-default text-left "
+                      />
+                    </tr>
+                    <tr
+                      class="hover:bg-background-subtle/50 transition-colors cursor-pointer"
+                    >
+                      <td
+                        class="px-4 py-3 border-b border-border-default text-left "
+                      />
+                      <td
+                        class="px-4 py-3 border-b border-border-default text-left "
+                      >
+                        Dewi Lestari
+                      </td>
+                      <td
+                        class="px-4 py-3 border-b border-border-default text-left "
+                      >
+                        Jl. Malioboro No. 23, Yogyakarta
+                      </td>
+                      <td
+                        class="px-4 py-3 border-b border-border-default text-left "
+                      >
+                        087811223344
+                      </td>
+                      <td
+                        class="px-4 py-3 border-b border-border-default text-left "
+                      >
+                        active
+                      </td>
+                      <td
+                        class="px-4 py-3 border-b border-border-default text-left "
+                      />
+                    </tr>
+                    <tr
+                      class="hover:bg-background-subtle/50 transition-colors cursor-pointer"
+                    >
+                      <td
+                        class="px-4 py-3 border-b border-border-default text-left "
+                      />
+                      <td
+                        class="px-4 py-3 border-b border-border-default text-left "
+                      >
+                        CV Berkah Mandiri
+                      </td>
+                      <td
+                        class="px-4 py-3 border-b border-border-default text-left "
+                      >
+                        Jl. Pemuda No. 101, Semarang
+                      </td>
+                      <td
+                        class="px-4 py-3 border-b border-border-default text-left "
+                      >
+                        082155667788
+                      </td>
+                      <td
+                        class="px-4 py-3 border-b border-border-default text-left "
+                      >
+                        inactive
+                      </td>
+                      <td
+                        class="px-4 py-3 border-b border-border-default text-left "
+                      />
+                    </tr>
+                    <tr
+                      class="hover:bg-background-subtle/50 transition-colors cursor-pointer"
+                    >
+                      <td
+                        class="px-4 py-3 border-b border-border-default text-left "
+                      />
+                      <td
+                        class="px-4 py-3 border-b border-border-default text-left "
+                      >
+                        PT Cipta Karya Solusi
+                      </td>
+                      <td
+                        class="px-4 py-3 border-b border-border-default text-left "
+                      >
+                        Jl. Raya Bogor KM 28, Depok
+                      </td>
+                      <td
+                        class="px-4 py-3 border-b border-border-default text-left "
+                      >
+                        081900112233
+                      </td>
+                      <td
+                        class="px-4 py-3 border-b border-border-default text-left "
+                      >
+                        active
+                      </td>
+                      <td
+                        class="px-4 py-3 border-b border-border-default text-left "
+                      />
+                    </tr>
+                    <tr
+                      class="hover:bg-background-subtle/50 transition-colors cursor-pointer"
+                    >
+                      <td
+                        class="px-4 py-3 border-b border-border-default text-left "
+                      />
+                      <td
+                        class="px-4 py-3 border-b border-border-default text-left "
+                      >
+                        Ahmad Fauzi
+                      </td>
+                      <td
+                        class="px-4 py-3 border-b border-border-default text-left "
+                      >
+                        Jl. Ahmad Yani No. 50, Medan
+                      </td>
+                      <td
+                        class="px-4 py-3 border-b border-border-default text-left "
+                      >
+                        085244332211
+                      </td>
+                      <td
+                        class="px-4 py-3 border-b border-border-default text-left "
+                      >
+                        active
+                      </td>
+                      <td
+                        class="px-4 py-3 border-b border-border-default text-left "
+                      />
+                    </tr>
+                    <tr
+                      class="hover:bg-background-subtle/50 transition-colors cursor-pointer"
+                    >
+                      <td
+                        class="px-4 py-3 border-b border-border-default text-left "
+                      />
+                      <td
+                        class="px-4 py-3 border-b border-border-default text-left "
+                      >
+                        PT Global Indo Medika
+                      </td>
+                      <td
+                        class="px-4 py-3 border-b border-border-default text-left "
+                      >
+                        Jl. HR Rasuna Said Kav. C-22, Jakarta Selatan
+                      </td>
+                      <td
+                        class="px-4 py-3 border-b border-border-default text-left "
+                      >
+                        081199887766
+                      </td>
+                      <td
+                        class="px-4 py-3 border-b border-border-default text-left "
+                      >
+                        inactive
+                      </td>
+                      <td
+                        class="px-4 py-3 border-b border-border-default text-left "
+                      />
+                    </tr>
+                    <tr
+                      class="hover:bg-background-subtle/50 transition-colors cursor-pointer"
+                    >
+                      <td
+                        class="px-4 py-3 border-b border-border-default text-left "
+                      />
+                      <td
+                        class="px-4 py-3 border-b border-border-default text-left "
+                      >
+                        Siti Rahmawati
+                      </td>
+                      <td
+                        class="px-4 py-3 border-b border-border-default text-left "
+                      >
+                        Jl. Gajah Mada No. 14, Denpasar
+                      </td>
+                      <td
+                        class="px-4 py-3 border-b border-border-default text-left "
+                      >
+                        083812349988
+                      </td>
+                      <td
+                        class="px-4 py-3 border-b border-border-default text-left "
+                      >
+                        active
+                      </td>
+                      <td
+                        class="px-4 py-3 border-b border-border-default text-left "
+                      />
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <div
+              class="md:hidden"
+            >
+              <div
+                class="bg-background-surface overflow-hidden divide-y divide-border-default"
+              >
+                <div
+                  class="flex flex-col gap-3 px-4 py-4 bg-transparent cursor-pointer active:bg-background-subtle/50 transition-colors"
+                  role="button"
+                  tabindex="0"
+                />
+                <div
+                  class="flex flex-col gap-3 px-4 py-4 bg-transparent cursor-pointer active:bg-background-subtle/50 transition-colors"
+                  role="button"
+                  tabindex="0"
+                />
+                <div
+                  class="flex flex-col gap-3 px-4 py-4 bg-transparent cursor-pointer active:bg-background-subtle/50 transition-colors"
+                  role="button"
+                  tabindex="0"
+                />
+                <div
+                  class="flex flex-col gap-3 px-4 py-4 bg-transparent cursor-pointer active:bg-background-subtle/50 transition-colors"
+                  role="button"
+                  tabindex="0"
+                />
+                <div
+                  class="flex flex-col gap-3 px-4 py-4 bg-transparent cursor-pointer active:bg-background-subtle/50 transition-colors"
+                  role="button"
+                  tabindex="0"
+                />
+                <div
+                  class="flex flex-col gap-3 px-4 py-4 bg-transparent cursor-pointer active:bg-background-subtle/50 transition-colors"
+                  role="button"
+                  tabindex="0"
+                />
+                <div
+                  class="flex flex-col gap-3 px-4 py-4 bg-transparent cursor-pointer active:bg-background-subtle/50 transition-colors"
+                  role="button"
+                  tabindex="0"
+                />
+                <div
+                  class="flex flex-col gap-3 px-4 py-4 bg-transparent cursor-pointer active:bg-background-subtle/50 transition-colors"
+                  role="button"
+                  tabindex="0"
+                />
+                <div
+                  class="flex flex-col gap-3 px-4 py-4 bg-transparent cursor-pointer active:bg-background-subtle/50 transition-colors"
+                  role="button"
+                  tabindex="0"
+                />
+                <div
+                  class="flex flex-col gap-3 px-4 py-4 bg-transparent cursor-pointer active:bg-background-subtle/50 transition-colors"
+                  role="button"
+                  tabindex="0"
+                />
+              </div>
+            </div>
           </div>
         </div>
         <div

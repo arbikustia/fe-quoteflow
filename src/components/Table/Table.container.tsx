@@ -3,7 +3,7 @@ import * as React from "react";
 import { TableComponent } from "./Table.component";
 import type { TableProps } from "./Table.type";
 
-const TableContainer = <T,>(props: TableProps<T>): React.ReactElement => {
+const TableContainer = <T extends object,>(props: TableProps<T>): React.ReactElement => {
   return <TableComponent {...props} />;
 };
 
