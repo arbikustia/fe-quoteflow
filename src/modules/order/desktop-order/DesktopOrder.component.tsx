@@ -3,7 +3,6 @@ import * as React from "react";
 import { CategoryDetailModal } from "./components/CategoryDetailModal.component";
 import { ItemDetailModal } from "./components/ItemDetailModal.component";
 import type { BaseDesktopOrderState, DesktopOrderProps, OrderHeaderProps, OrderTableContainerProps, OrderTabsProps, OrderToolbarProps, TabType } from "./DesktopOrder.type";
-import Layout from "../../../app/layout";
 import ConfirmModal from "../../../components/ConfirmModal";
 import { Icons } from "../../../components/Icons";
 import { PaginationFooter, PaginationHeader } from "../../../components/Pagination";
@@ -151,25 +150,23 @@ const OrderModals = (props: BaseDesktopOrderState): React.ReactElement => (
  */
 export const DesktopOrderComponent = (props: DesktopOrderProps): React.ReactElement => {
   return (
-    <Layout>
-      <div className="flex flex-col h-full">
-        <OrderHeader openCreateModal={props.openCreateModal} />
+    <div className="flex flex-col h-full">
+      <OrderHeader openCreateModal={props.openCreateModal} />
 
-        <div className="bg-brand-white rounded-xl border border-brand-gray-light shadow-sm flex flex-col flex-1 overflow-hidden">
-          <OrderTabs activeTab={props.activeTab} setActiveTab={props.setActiveTab} statusCounts={props.statusCounts} TABS={props.TABS} />
-          <OrderToolbar pageSize={props.pageSize} totalCount={props.totalCount} changePageSize={props.changePageSize} />
-          <OrderTableContainer
-            paginatedData={props.paginatedData}
-            columns={props.columns}
-            currentPage={props.currentPage}
-            totalPages={props.totalPages}
-            goToPage={props.goToPage}
-            nextPage={props.nextPage}
-            prevPage={props.prevPage}
-          />
-        </div>
+      <div className="bg-brand-white rounded-xl border border-brand-gray-light shadow-sm flex flex-col flex-1 overflow-hidden">
+        <OrderTabs activeTab={props.activeTab} setActiveTab={props.setActiveTab} statusCounts={props.statusCounts} TABS={props.TABS} />
+        <OrderToolbar pageSize={props.pageSize} totalCount={props.totalCount} changePageSize={props.changePageSize} />
+        <OrderTableContainer
+          paginatedData={props.paginatedData}
+          columns={props.columns}
+          currentPage={props.currentPage}
+          totalPages={props.totalPages}
+          goToPage={props.goToPage}
+          nextPage={props.nextPage}
+          prevPage={props.prevPage}
+        />
       </div>
       <OrderModals {...props} />
-    </Layout>
+    </div>
   );
 };

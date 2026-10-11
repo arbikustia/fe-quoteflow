@@ -1,22 +1,9 @@
 import * as React from "react";
 import { FiEdit2 } from "react-icons/fi";
 
-export type MobileListItemProps = {
-  readonly title: string;
-  readonly subtitle?: string;
-  readonly meta?: string;
-  readonly imageUrl?: string;
-  readonly fallbackInitial?: string;
-  readonly hideImage?: boolean;
-  readonly badge?: React.ReactNode;
-  readonly hideEdit?: boolean;
-  readonly titleClassName?: string;
-  readonly metaClassName?: string;
-  readonly subtitleClassName?: string;
-  readonly onEdit?: () => void;
-  readonly onDelete?: () => void;
-  readonly onClick?: () => void;
-};
+import type { MobileListItemProps, MobileListProps } from "./MobileList.type";
+
+export type { MobileListItemProps, MobileListProps } from "./MobileList.type";
 
 /**
  * Single row card for mobile list.
@@ -94,16 +81,6 @@ export const MobileListCard = (props: MobileListItemProps): React.ReactElement =
   );
 };
 
-export type MobileListProps = {
-  readonly data: MobileListItemProps[];
-  readonly emptyText?: string;
-};
-
-/**
- * Mobile list container for card items.
- * @param {MobileListProps} props
- * @returns {React.ReactElement}
- */
 export const MobileList = ({
   data,
   emptyText = "No data available",

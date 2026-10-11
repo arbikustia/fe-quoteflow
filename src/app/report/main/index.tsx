@@ -1,20 +1,8 @@
 import * as React from "react";
 import { useNavigate } from "react-router-dom";
 
-import MobileLayout from "../../shared/MobileLayout";
+import ResponsiveLayout from "../../shared/ResponsiveLayout";
 import { Icons } from "../../../components/Icons";
-
-/**
- * Mobile Header Component
- * @returns {React.ReactElement} node
- */
-const MobileHeader = (): React.ReactElement => (
-  <div className="px-6 pt-12 pb-6 flex items-center justify-between">
-    <div className="flex items-center gap-4">
-      <h1 className="text-[22px] font-medium text-gray-900 leading-tight">Reports</h1>
-    </div>
-  </div>
-);
 
 /**
  * Mobile Report Main View Component
@@ -35,7 +23,7 @@ export default function MobileReportMain(): React.ReactElement {
   ];
 
   return (
-    <MobileLayout>
+    <ResponsiveLayout>
       <div className="flex-1 w-full min-h-full bg-[#f8f9fb] font-sans pb-32">
       
       
@@ -65,6 +53,6 @@ export default function MobileReportMain(): React.ReactElement {
         </div>
         </div>
       </div>
-    </MobileLayout>
+    </ResponsiveLayout>
   );
 }

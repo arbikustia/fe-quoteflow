@@ -1,16 +1,15 @@
 import * as React from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 
+import type { BottomNavItem } from "./BottomNav.type";
 import { Icons } from "../Icons";
 
-type NavItem = { 
-  label: string; 
-  path: string; 
-  icon: React.ReactElement; 
-};
-
-const NAV_ITEMS: NavItem[] = [
+const NAV_ITEMS: BottomNavItem[] = [
+  { label: "Home", path: "/home", icon: <Icons.Dashboard /> },
+  { label: "Order", path: "/order", icon: <Icons.Document /> },
+  { label: "Return", path: "/return", icon: <Icons.Schedule /> },
   { label: "Master", path: "/master-main", icon: <Icons.Database /> },
+  { label: "Report", path: "/report/main", icon: <Icons.Reporting /> },
 ];
 
 /**
@@ -20,7 +19,9 @@ export const BottomNav = (): React.ReactElement => {
   const navigate = useNavigate();
   const { pathname } = useLocation();
   const isActive = (path: string): boolean => {
+    if (path === "/report/main") return pathname.startsWith("/report");
     if (path === "/master-main") return pathname === "/master-main";
+
     return pathname === path || pathname.startsWith(path + "/");
   };
   

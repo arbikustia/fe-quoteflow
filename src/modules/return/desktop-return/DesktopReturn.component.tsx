@@ -1,8 +1,7 @@
 import React from "react";
 import { FiCheckCircle, FiSearch, FiUpload } from "react-icons/fi";
 
-import type { DesktopReturnItemCardProps, DesktopReturnProps,ItemPhotoProps } from "./DesktopReturn.type";
-import Layout from "../../../app/layout";
+import type { DesktopReturnItemCardProps, DesktopReturnProps, ItemPhotoProps } from "./DesktopReturn.type";
 
 /**
  * Render Item Photo
@@ -126,28 +125,26 @@ const SearchSection = (props: DesktopReturnProps): React.ReactElement => (
  * @returns {React.ReactElement} element
  */
 export const DesktopReturnComponent = (props: DesktopReturnProps): React.ReactElement => (
-  <Layout pageTitle="Return Equipment">
-    <div className="bg-brand-white rounded-3xl shadow-sm border border-brand-gray-light p-6 max-w-4xl mx-auto">
-      <h2 className="text-xl font-bold text-brand-text-dark mb-6">Scan / Input Quotation Code</h2>
-      <SearchSection {...props} />
+  <div className="bg-brand-white rounded-3xl shadow-sm border border-brand-gray-light p-6 max-w-4xl mx-auto">
+    <h2 className="text-xl font-bold text-brand-text-dark mb-6">Scan / Input Quotation Code</h2>
+    <SearchSection {...props} />
 
-      {props.error && (
-        <div className="p-4 bg-brand-orange-light text-brand-orange rounded-xl mb-6 font-medium">
-          {props.error}
+    {props.error && (
+      <div className="p-4 bg-brand-orange-light text-brand-orange rounded-xl mb-6 font-medium">
+        {props.error}
+      </div>
+    )}
+
+    {props.isSubmitted && (
+      <div className="p-6 bg-brand-blue-light rounded-2xl mb-8 flex flex-col items-center justify-center text-center border border-brand-blue-light">
+        <div className="w-16 h-16 bg-brand-blue-light text-brand-blue rounded-full flex items-center justify-center mb-4">
+          <FiCheckCircle className="w-8 h-8" />
         </div>
-      )}
+        <h3 className="text-xl font-bold text-brand-blue-dark mb-2">Return Processed Successfully</h3>
+        <p className="text-brand-blue">All equipment for {props.quote?.id} has been recorded.</p>
+      </div>
+    )}
 
-      {props.isSubmitted && (
-        <div className="p-6 bg-brand-blue-light rounded-2xl mb-8 flex flex-col items-center justify-center text-center border border-brand-blue-light">
-          <div className="w-16 h-16 bg-brand-blue-light text-brand-blue rounded-full flex items-center justify-center mb-4">
-            <FiCheckCircle className="w-8 h-8" />
-          </div>
-          <h3 className="text-xl font-bold text-brand-blue-dark mb-2">Return Processed Successfully</h3>
-          <p className="text-brand-blue">All equipment for {props.quote?.id} has been recorded.</p>
-        </div>
-      )}
-
-      {props.quote && !props.isSubmitted && <DesktopReturnFormSection {...props} />}
-    </div>
-  </Layout>
+    {props.quote && !props.isSubmitted && <DesktopReturnFormSection {...props} />}
+  </div>
 );
