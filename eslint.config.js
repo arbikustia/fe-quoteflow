@@ -13,6 +13,7 @@ import sonarjsPlugin from "eslint-plugin-sonarjs";
 export default defineConfig([
   globalIgnores([
     "dist",
+    "coverage",
     "__generated__/**",
     "**/*.test.*",
     "src/libs/utils/**",

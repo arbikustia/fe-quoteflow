@@ -16,11 +16,7 @@ export default defineConfig({
     environment: "jsdom",
     setupFiles: ["./src/setupTests.ts"],
     globals: true,
-    include: [
-      ...configDefaults.include,
-      "src/components/Button/*.snap.{ts,tsx}",
-      "src/modules/master-category/*.snap.{ts,tsx}",
-    ],
+    include: [...configDefaults.include],
     coverage: {
       provider: "v8",
       reporter: ["text", "json", "html"],
