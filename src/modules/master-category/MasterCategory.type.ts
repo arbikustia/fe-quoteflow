@@ -37,6 +37,7 @@ export type GetColumnsParams = {
   currentPage: number;
   pageSize: number;
   onEdit: (category: CategoryData) => void;
+  onDelete: (category: CategoryData) => void;
 };
 
 export type ModalState = {

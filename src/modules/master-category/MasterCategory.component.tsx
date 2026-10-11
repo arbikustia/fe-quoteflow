@@ -3,8 +3,6 @@ import * as React from "react";
 import type { MasterCategoryProps } from "./MasterCategory.type";
 import Layout from "../../app/layout";
 import { Icons } from "../../components/Icons";
-import { MobileList } from "../../components/MobileList";
-import { PaginationFooter, PaginationHeader } from "../../components/Pagination";
 import Table from "../../components/Table";
 
 /**
@@ -20,8 +18,6 @@ export const MasterCategoryComponent = (props: MasterCategoryProps): React.React
     currentPage, 
     totalPages, 
     goToPage, 
-    nextPage, 
-    prevPage, 
     pageSize, 
     totalCount, 
     changePageSize, 
@@ -32,6 +28,7 @@ export const MasterCategoryComponent = (props: MasterCategoryProps): React.React
     onCloseMore, 
     onDelete 
   } = props;
+
   return (
     <Layout pageTitle="Category List">
       <div className="flex flex-col h-full pb-18 lg:pb-0 px-3 lg:px-0 lg:-mt-4 relative">
@@ -84,47 +81,30 @@ export const MasterCategoryComponent = (props: MasterCategoryProps): React.React
           </div>
         </div>
 
-        <div className="md:hidden space-y-6 mt-10">
-          <div className="relative mb-3">
-            <span className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-brand-text-medium scale-125"><Icons.Search /></span>
-            <input type="text" placeholder="Search" className="w-full pl-12 pr-6 py-3.5 bg-brand-gray-light border-none rounded-full text-xl font-medium focus:outline-none focus:ring-1 focus:ring-brand-blue/20 text-brand-text-dark placeholder:text-brand-text-medium" />
-          </div>
-          <div className="scale-100 origin-top">
-            <MobileList
-              data={paginatedData.map((row) => ({
-                title: row.categoryName,
-                meta: "Created by " + row.createBy,
-                hideEdit: true,
-                hideImage: true,
-                titleClassName: "text-xl font-semibold text-brand-text-dark leading-snug truncate",
-                metaClassName: "text-base font-normal text-brand-text-medium/80 truncate",
-                badge: (
-                  <span className={`inline-flex items-center rounded-full px-3 py-1 text-sm font-medium whitespace-nowrap ${row.status === "active" ? "bg-green-100 text-green-700" : "bg-red-100 text-red-700"}`}>
-                    {row.status}
-                  </span>
-                ),
-                onClick: () => onRowClick(row),
-              }))}
+        <div className="flex flex-col gap-4 mt-4">
+          <div className="relative">
+            <span className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-text-tertiary">
+              <Icons.Search />
+            </span>
+            <input
+              type="text"
+              placeholder="Search category"
+              className="w-full sm:w-64 pl-10 pr-4 py-2 bg-background-surface border border-border-default rounded-lg text-sm focus:outline-none focus:ring-1 focus:ring-action-primary text-text-primary placeholder:text-text-tertiary"
             />
           </div>
-          <div className="pt-4 flex items-center justify-between">
-            <PaginationHeader pageSize={pageSize} totalCount={totalCount} onPageSizeChange={changePageSize} className="shrink-0" />
-            <PaginationFooter currentPage={currentPage} totalPages={totalPages} onPageChange={goToPage} onNextPage={nextPage} onPrevPage={prevPage} />
-          </div>
-        </div>
 
-        <div className="hidden md:flex bg-brand-white rounded-xl border border-brand-gray-light shadow-sm flex-col flex-1 overflow-hidden mt-6">
-          <div className="flex items-center justify-between p-5 px-6 border-b border-brand-gray-light">
-            <div className="relative">
-              <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-brand-text-medium"><Icons.Search /></div>
-              <input type="text" placeholder="Search category" className="w-64 pl-10 pr-4 py-2 bg-brand-gray-light border-none rounded-lg text-sm focus:outline-none text-brand-text-dark placeholder:text-brand-text-medium" />
-            </div>
-            <PaginationHeader pageSize={pageSize} totalCount={totalCount} onPageSizeChange={changePageSize} />
-          </div>
-          <div className="flex-1 overflow-auto">
-            <Table data={paginatedData} columns={columns} onRowClick={onRowClick} keyExtractor={(r) => r.id} />
-          </div>
-          <PaginationFooter currentPage={currentPage} totalPages={totalPages} onPageChange={goToPage} onNextPage={nextPage} onPrevPage={prevPage} />
+          <Table
+            data={paginatedData}
+            columns={columns}
+            onRowClick={onRowClick}
+            keyExtractor={(r) => r.id}
+            currentPage={currentPage}
+            totalPages={totalPages}
+            pageSize={pageSize}
+            totalCount={totalCount}
+            onPageChange={goToPage}
+            onPageSizeChange={changePageSize}
+          />
         </div>
       </div>
     </Layout>

@@ -19,11 +19,15 @@ const MasterCategoryContainer = (): React.ReactElement => {
   const goDetail = (c: CategoryData): void => { navigate(`/master-category/detail/${c.id}`); };
   const toggleMore = (): void => { setIsMoreOpen(!isMoreOpen); };
   const goDelete = (): void => { setIsMoreOpen(false); };
+  const goDeleteRow = (category: CategoryData): void => {
+    navigate(`/master-category/delete/${category.id}`);
+  };
 
   const columns = getColumns({
     currentPage: pagination.currentPage,
     pageSize: pagination.pageSize,
     onEdit: goEdit,
+    onDelete: goDeleteRow,
   });
 
   return (
