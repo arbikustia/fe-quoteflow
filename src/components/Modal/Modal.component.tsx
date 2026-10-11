@@ -65,19 +65,17 @@ export const ModalComponent = (props: ModalComponentProps): React.ReactElement |
   }
 
   return (
-    <div className="fixed inset-0 z-[70] flex items-center justify-center bg-black/50 p-4 backdrop-blur-sm sm:p-6">
-      <button
-        aria-label="Close dialog"
+    <div className="fixed inset-0 z-modal flex items-center justify-center bg-overlay p-4 backdrop-blur-sm sm:p-6">
+      <div
+        aria-hidden="true"
         className="absolute inset-0 cursor-default"
-        disabled={!closeOnBackdrop || isCloseDisabled}
-        onClick={onClose}
-        tabIndex={-1}
-        type="button"
+        data-testid="modal-backdrop"
+        onClick={closeOnBackdrop && !isCloseDisabled ? onClose : undefined}
       />
       <div
         aria-labelledby={titleId}
         aria-modal="true"
-        className={`relative flex max-h-[calc(100dvh-2rem)] w-full ${maxWidth} flex-col overflow-hidden rounded-large border border-border-default bg-background-surface text-text-primary shadow-overlay motion-safe:animate-in motion-safe:fade-in motion-safe:zoom-in-95 duration-normal motion-reduce:transition-none`}
+        className={`relative flex max-h-modal w-full ${maxWidth} flex-col overflow-hidden rounded-large border border-border-default bg-background-surface text-text-primary shadow-overlay motion-safe:animate-in motion-safe:fade-in motion-safe:zoom-in-95 duration-normal motion-reduce:transition-none`}
         onKeyDown={handleDialogKeyDown}
         ref={dialogRef}
         role="dialog"

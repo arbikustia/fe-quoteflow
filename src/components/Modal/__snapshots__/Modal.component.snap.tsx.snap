@@ -1,0 +1,62 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Modal Snapshot > should render accessible modal 1`] = `
+<DocumentFragment>
+  <div
+    class="fixed inset-0 z-modal flex items-center justify-center bg-overlay p-4 backdrop-blur-sm sm:p-6"
+  >
+    <div
+      aria-hidden="true"
+      class="absolute inset-0 cursor-default"
+      data-testid="modal-backdrop"
+    />
+    <div
+      aria-labelledby="_r_0_"
+      aria-modal="true"
+      class="relative flex max-h-modal w-full max-w-2xl flex-col overflow-hidden rounded-large border border-border-default bg-background-surface text-text-primary shadow-overlay motion-safe:animate-in motion-safe:fade-in motion-safe:zoom-in-95 duration-normal motion-reduce:transition-none"
+      role="dialog"
+      tabindex="-1"
+    >
+      <div
+        class="flex shrink-0 items-center justify-between border-b border-border-default px-6 py-4"
+      >
+        <h2
+          class="text-base font-semibold"
+          id="_r_0_"
+        >
+          Edit customer
+        </h2>
+        <button
+          aria-label="Close dialog"
+          class="rounded-medium p-2 text-text-secondary hover:bg-background-subtle focus-visible:outline-2 focus-visible:outline-focus-ring disabled:opacity-60"
+          type="button"
+        >
+          <svg
+            aria-hidden="true"
+            class="h-5 w-5"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              d="M6 18L18 6M6 6l12 12"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+            />
+          </svg>
+        </button>
+      </div>
+      <div
+        class="overflow-y-auto p-6"
+      >
+        <button
+          type="button"
+        >
+          Save
+        </button>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;

@@ -61,6 +61,7 @@
   --color-focus-ring: var(--focus-ring);
   --color-sidebar-background: var(--sidebar-background);
   --color-table-header: var(--table-header);
+  --color-overlay: var(--overlay);
   --color-success: #16A34A;
   --color-success-subtle: #F0FDF4;
   --color-success-strong: #166534;
@@ -96,6 +97,14 @@
   --duration-fast: 100ms;
   --duration-normal: 200ms;
   --duration-slow: 300ms;
+}
+
+@utility z-modal {
+  z-index: 70;
+}
+
+@utility max-h-modal {
+  max-height: calc(100dvh - 2rem);
 }
 
 :root {
