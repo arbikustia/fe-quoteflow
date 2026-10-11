@@ -16,9 +16,11 @@ export default defineConfig({
     environment: "jsdom",
     setupFiles: ["./src/setupTests.ts"],
     globals: true,
+    exclude: [...configDefaults.exclude, "**/.worktrees/**"],
     include: [
       ...configDefaults.include,
       "src/components/Button/*.snap.{ts,tsx}",
+      "src/components/{Modal,ConfirmModal}/*.snap.{ts,tsx}",
       "src/modules/master-category/*.snap.{ts,tsx}",
     ],
     coverage: {
