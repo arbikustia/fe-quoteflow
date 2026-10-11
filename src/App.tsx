@@ -39,6 +39,7 @@ import MasterVoucherDetail from "./app/master-voucher/detail";
 import OrderPage from "./app/order";
 import OrderPageCreate from "./app/order/create";
 import OrderPageDetail from "./app/order/detail";
+import Preview from "./app/preview";
 import Report from "./app/report";
 import ReportDetail from "./app/report/detail";
 import ReportMain from "./app/report/main";
@@ -125,6 +126,7 @@ function App(): React.ReactElement {
         <Route path="/order/create" element={<OrderPageCreate />} />
         <Route path="/order/edit/:id" element={<OrderPageCreate />} />
         <Route path="/order/detail/:id" element={<OrderPageDetail />} />
+        <Route path="/preview" element={<Preview />} />
         <Route path="/report/main" element={<ReportMain />} />
         <Route path="/report" element={<Report />} />
         <Route path="/report/detail/:id" element={<ReportDetail />} />

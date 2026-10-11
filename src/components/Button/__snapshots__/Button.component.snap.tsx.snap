@@ -1,0 +1,35 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`ButtonComponent Snapshot > should render primary create button 1`] = `
+<DocumentFragment>
+  <button
+    class="relative inline-flex items-center justify-center gap-2 rounded-medium border text-sm font-medium transition-colors duration-normal motion-reduce:transition-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus-ring disabled:cursor-not-allowed disabled:opacity-60 border-action-primary bg-action-primary text-text-inverse hover:bg-action-primary-hover active:bg-action-primary-pressed h-10 px-4 py-2"
+    type="button"
+  >
+    <span
+      class="inline-flex items-center gap-2"
+    >
+      <span>
+        Create quotation
+      </span>
+    </span>
+  </button>
+</DocumentFragment>
+`;
+
+exports[`ButtonComponent Snapshot > should render secondary download button 1`] = `
+<DocumentFragment>
+  <button
+    class="relative inline-flex items-center justify-center gap-2 rounded-medium border text-sm font-medium transition-colors duration-normal motion-reduce:transition-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus-ring disabled:cursor-not-allowed disabled:opacity-60 border-border-strong bg-background-surface text-text-primary hover:bg-background-subtle active:bg-background-disabled h-10 px-4 py-2"
+    type="button"
+  >
+    <span
+      class="inline-flex items-center gap-2"
+    >
+      <span>
+        Download PDF
+      </span>
+    </span>
+  </button>
+</DocumentFragment>
+`;
