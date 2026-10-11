@@ -7,6 +7,7 @@ import test from "../../libs/unit-test";
 const mockOnToggleMenu = vi.fn();
 const mockOnToggleCollapsed = vi.fn();
 const mockOnToggleProfile = vi.fn();
+const mockOnToggleTheme = vi.fn();
 
 const configs = [
   {
@@ -19,6 +20,8 @@ const configs = [
       onToggleCollapsed: mockOnToggleCollapsed,
       isProfileOpen: false,
       onToggleProfile: mockOnToggleProfile,
+      theme: "light" as const,
+      onToggleTheme: mockOnToggleTheme,
     },
     desc: "Should Render SidebarComponent with default props",
   },

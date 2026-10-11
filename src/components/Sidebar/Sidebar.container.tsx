@@ -1,8 +1,9 @@
-import * as React from 'react';
+import * as React from "react";
 
-import { SidebarComponent } from './Sidebar.component';
-import { NAVIGATION_SECTIONS } from './Sidebar.config';
-import { useSidebarState } from './Sidebar.hook';
+import { useTheme } from "../../store/theme.hook";
+import { SidebarComponent } from "./Sidebar.component";
+import { NAVIGATION_SECTIONS } from "./Sidebar.config";
+import { useSidebarState } from "./Sidebar.hook";
 
 /**
  * Render Sidebar Container
@@ -18,6 +19,7 @@ const SidebarContainer = (): React.ReactElement => {
     isProfileOpen,
     onToggleProfile,
   } = useSidebarState();
+  const { theme, toggleTheme } = useTheme();
 
   return (
     <SidebarComponent
@@ -29,6 +31,8 @@ const SidebarContainer = (): React.ReactElement => {
       onToggleCollapsed={onToggleCollapsed}
       isProfileOpen={isProfileOpen}
       onToggleProfile={onToggleProfile}
+      theme={theme}
+      onToggleTheme={toggleTheme}
     />
   );
 };

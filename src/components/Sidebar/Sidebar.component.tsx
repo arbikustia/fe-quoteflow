@@ -22,6 +22,8 @@ export const SidebarComponent = (props: SidebarProps): React.ReactElement => {
     onToggleCollapsed,
     isProfileOpen,
     onToggleProfile,
+    theme,
+    onToggleTheme,
   } = props;
 
   // Normalize: if navigation items look like sections (has .title/.items), unwrap — otherwise wrap as single Menu section
@@ -33,8 +35,8 @@ export const SidebarComponent = (props: SidebarProps): React.ReactElement => {
 
   return (
     <aside
-      className={`${isCollapsed ? "w-[76px]" : "w-[260px]"} h-full min-h-0 self-stretch bg-white border border-[#E5E5E5] flex flex-col shrink-0 overflow-hidden transition-[width] duration-[250ms] ease-in-out`}
-      style={{ borderRadius: 12, backgroundColor: "white" }}
+      className={`${isCollapsed ? "w-[76px]" : "w-[260px]"} h-full min-h-0 self-stretch bg-background-surface border border-border-default flex flex-col shrink-0 overflow-hidden transition-[width] duration-[250ms] ease-in-out`}
+      style={{ borderRadius: 12 }}
       aria-label="Sidebar"
     >
       {/* Header — logo only (image contains brand) */}
@@ -58,7 +60,7 @@ export const SidebarComponent = (props: SidebarProps): React.ReactElement => {
       <div className={`shrink-0 ${isCollapsed ? "px-2" : "px-4"} pb-4`}>
         <div
           role="search"
-          className={`h-10 bg-[#F3F3F5] flex items-center text-[#6B7280] ${isCollapsed ? "justify-center px-0 rounded-[8px]" : "gap-2 px-3 rounded-[8px]"}`}
+          className={`h-10 bg-background-subtle flex items-center text-text-tertiary ${isCollapsed ? "justify-center px-0 rounded-[8px]" : "gap-2 px-3 rounded-[8px]"}`}
         >
           <span className="shrink-0 flex items-center justify-center" aria-hidden>
             <Icons.Search />
@@ -104,7 +106,7 @@ export const SidebarComponent = (props: SidebarProps): React.ReactElement => {
                           onClick={() => onToggleMenu(item.name)}
                           aria-expanded={isMenuOpen}
                           aria-label={item.name}
-                          className={`w-full h-9 flex items-center justify-center rounded-[6px] transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#7C3AED]/30 ${isActive || isMenuOpen ? "bg-[#F3F3F5] text-[#111827]" : "text-[#6B7280] hover:bg-[#F9FAFB] hover:text-[#111827]"}`}
+                          className={`w-full h-9 flex items-center justify-center rounded-[6px] transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-border-focus ${isActive || isMenuOpen ? "bg-background-subtle text-text-primary" : "text-text-tertiary hover:bg-background-elevated hover:text-text-primary"}`}
                         >
                           <item.icon />
                           {item.badge !== undefined && (
@@ -236,7 +238,20 @@ export const SidebarComponent = (props: SidebarProps): React.ReactElement => {
       </div>
 
       {/* Profile — pinned bottom */}
-      <div className={`shrink-0 border-t border-[#E5E5E5] relative ${isCollapsed ? "p-2" : "p-3"}`}>
+      <div className={`shrink-0 border-t border-border-default ${isCollapsed ? "p-2" : "p-3"}`}>
+        <button
+          type="button"
+          role="switch"
+          aria-checked={theme === "dark"}
+          aria-label="Toggle dark theme"
+          onClick={onToggleTheme}
+          className={`mb-2 flex h-9 w-full items-center rounded-[8px] bg-background-subtle text-text-secondary transition-colors hover:bg-action-primary-subtle focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring ${isCollapsed ? "justify-center" : "gap-3 px-3"}`}
+        >
+          <span className="shrink-0" aria-hidden>
+            {theme === "dark" ? <Icons.Sun /> : <Icons.Moon />}
+          </span>
+          {!isCollapsed && <span className="flex-1 text-left text-[13px] font-medium">{theme === "dark" ? "Light theme" : "Dark theme"}</span>}
+        </button>
         <button
           type="button"
           onClick={onToggleProfile}

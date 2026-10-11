@@ -28,4 +28,6 @@ export type SidebarProps = {
   readonly onToggleCollapsed: () => void;
   readonly isProfileOpen: boolean;
   readonly onToggleProfile: () => void;
+  readonly theme: "light" | "dark";
+  readonly onToggleTheme: () => void;
 };
