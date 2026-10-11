@@ -22,18 +22,18 @@ export default function Layout({ children }: LayoutProps): React.ReactElement {
   const isMasterSubRoute = pathname.startsWith("/master-") && pathname !== "/master-main";
 
   return (
-    <div className="flex h-full min-h-0 w-full bg-brand-white overflow-hidden font-sans text-brand-text-dark relative items-stretch">
+    <div className="flex h-full min-h-0 w-full bg-background-page overflow-hidden font-sans text-text-primary relative items-stretch">
       <div className="hidden lg:flex h-full min-h-0 shrink-0 self-stretch">
         <Sidebar />
       </div>
 
-      <div className="flex-1 flex flex-col min-w-0 min-h-0 overflow-hidden relative bg-brand-white">
+      <div className="flex-1 flex flex-col min-w-0 min-h-0 overflow-hidden relative bg-background-page">
         {!isMasterRoute && (
-          <div className="lg:hidden flex items-center gap-3 p-4 border-b border-brand-gray-light bg-brand-white shrink-0">
-            <div className="w-8 h-8 rounded-full bg-brand-blue flex items-center justify-center">
-              <span className="text-brand-white font-bold">Q</span>
+          <div className="lg:hidden flex items-center gap-3 p-4 border-b border-border-default bg-background-surface shrink-0">
+            <div className="w-8 h-8 rounded-full bg-action-primary flex items-center justify-center">
+              <span className="text-text-inverse font-bold">Q</span>
             </div>
-            <span className="font-bold text-brand-text-dark">QuoteFlow</span>
+            <span className="font-bold text-text-primary">QuoteFlow</span>
           </div>
         )}
 

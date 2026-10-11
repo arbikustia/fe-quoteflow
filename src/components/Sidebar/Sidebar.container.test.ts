@@ -17,6 +17,14 @@ vi.mock("./Sidebar.hook", () => ({
   }),
 }));
 
+vi.mock("../../store/theme.hook", () => ({
+  useTheme: () => ({
+    theme: "light" as const,
+    toggleTheme: vi.fn(),
+    setTheme: vi.fn(),
+  }),
+}));
+
 describe("SidebarContainer Test", () => {
   it("should render SidebarContainer", () => {
     const { container } = render(
