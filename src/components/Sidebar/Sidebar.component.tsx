@@ -35,7 +35,7 @@ export const SidebarComponent = (props: SidebarProps): React.ReactElement => {
 
   return (
     <aside
-      className={`${isCollapsed ? "w-[76px]" : "w-[260px]"} h-full min-h-0 self-stretch bg-background-surface border border-border-default flex flex-col shrink-0 overflow-hidden transition-[width] duration-[250ms] ease-in-out`}
+      className={`${isCollapsed ? "w-[76px]" : "w-[260px]"} h-full min-h-0 self-stretch bg-sidebar-background border border-border-default flex flex-col shrink-0 overflow-hidden transition-[width] duration-[250ms] ease-in-out`}
       style={{ borderRadius: 12 }}
       aria-label="Sidebar"
     >
@@ -46,7 +46,7 @@ export const SidebarComponent = (props: SidebarProps): React.ReactElement => {
           onClick={onToggleCollapsed}
           aria-label={isCollapsed ? "Expand sidebar" : "Collapse sidebar"}
           aria-expanded={!isCollapsed}
-          className="flex items-center justify-center shrink-0 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#7C3AED]/30 rounded-[8px]"
+          className="flex items-center justify-center shrink-0 focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring/30 rounded-[8px]"
         >
           <img
             src={isCollapsed ? LogoCollapsed : SoniclineLogo}
@@ -67,8 +67,8 @@ export const SidebarComponent = (props: SidebarProps): React.ReactElement => {
           </span>
           {!isCollapsed && (
             <>
-              <span className="flex-1 text-left text-[13px] text-[#9CA3AF] truncate">Search</span>
-              <span className="shrink-0 text-[11px] leading-none bg-white px-1.5 py-1 rounded-[6px] border border-[#E5E5E5] text-[#6B7280] font-medium">
+              <span className="flex-1 text-left text-[13px] text-text-tertiary truncate">Search</span>
+              <span className="shrink-0 text-[11px] leading-none bg-background-surface px-1.5 py-1 rounded-[6px] border border-border-default text-text-secondary font-medium">
                 ⌘ K
               </span>
             </>
@@ -81,7 +81,7 @@ export const SidebarComponent = (props: SidebarProps): React.ReactElement => {
         {sections.map((section) => (
           <div key={section.title}>
             {!isCollapsed && (
-              <p className="px-2 mb-2 text-[12px] font-semibold tracking-widest uppercase text-[#9CA3AF]">
+              <p className="px-2 mb-2 text-[12px] font-semibold tracking-widest uppercase text-text-tertiary">
                 {section.title}
               </p>
             )}
@@ -110,7 +110,7 @@ export const SidebarComponent = (props: SidebarProps): React.ReactElement => {
                         >
                           <item.icon />
                           {item.badge !== undefined && (
-                            <span className="absolute -top-1 -right-1 min-w-[16px] h-[16px] px-1 flex items-center justify-center rounded-full bg-[#EDE9FE] text-[#7C3AED] text-[10px] font-semibold leading-none">
+                            <span className="absolute -top-1 -right-1 min-w-[16px] h-[16px] px-1 flex items-center justify-center rounded-full bg-action-primary-subtle text-action-primary text-[10px] font-semibold leading-none">
                               {item.badge}
                             </span>
                           )}
@@ -118,21 +118,21 @@ export const SidebarComponent = (props: SidebarProps): React.ReactElement => {
                         {/* tooltip */}
                         <span
                           role="tooltip"
-                          className="pointer-events-none absolute left-[calc(100%+10px)] top-1/2 -translate-y-1/2 whitespace-nowrap rounded-[6px] bg-[#1F2937] px-2.5 py-1.5 text-[12px] font-medium text-white opacity-0 group-hover:opacity-100 group-focus-within:opacity-100 transition-opacity shadow-lg z-20"
+                          className="pointer-events-none absolute left-[calc(100%+10px)] top-1/2 -translate-y-1/2 whitespace-nowrap rounded-[6px] bg-text-primary px-2.5 py-1.5 text-[12px] font-medium text-background-surface opacity-0 group-hover:opacity-100 group-focus-within:opacity-100 transition-opacity shadow-lg z-20"
                         >
                           {item.name}
                         </span>
                         {/* children popover when open in collapsed */}
                         {isMenuOpen && (
-                          <div className="absolute left-[calc(100%+10px)] top-9 z-20 w-[200px] rounded-[10px] border border-[#E5E5E5] bg-white p-2 shadow-xl">
-                            <p className="px-2 py-1 text-[11px] font-semibold uppercase tracking-widest text-[#9CA3AF]">{item.name}</p>
+                          <div className="absolute left-[calc(100%+10px)] top-9 z-20 w-[200px] rounded-[10px] border border-border-default bg-background-surface p-2 shadow-xl">
+                            <p className="px-2 py-1 text-[11px] font-semibold uppercase tracking-widest text-text-tertiary">{item.name}</p>
                             {item.children!.map((child) => {
                               const childActive = currentPath === child.path || currentPath.startsWith(child.path + "/");
                               return (
                                 <Link
                                   key={child.name}
                                   to={child.path}
-                                  className={`flex h-8 items-center rounded-[6px] px-3 text-[14px] transition-colors ${childActive ? "bg-[#F3F3F5] text-[#111827] font-medium" : "text-[#6B7280] hover:bg-[#F9FAFB] hover:text-[#111827]"}`}
+                                  className={`flex h-8 items-center rounded-[6px] px-3 text-[14px] transition-colors ${childActive ? "bg-background-subtle text-text-primary font-medium" : "text-text-secondary hover:bg-background-elevated hover:text-text-primary"}`}
                                 >
                                   {child.name}
                                 </Link>
@@ -150,18 +150,18 @@ export const SidebarComponent = (props: SidebarProps): React.ReactElement => {
                         to={item.path ?? "#"}
                         aria-label={item.name}
                         aria-current={isActive ? "page" : undefined}
-                        className={`h-9 flex items-center justify-center rounded-[6px] transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#7C3AED]/30 ${isActive ? "bg-[#F3F3F5] text-[#111827]" : "text-[#6B7280] hover:bg-[#F9FAFB] hover:text-[#111827]"}`}
+                        className={`h-9 flex items-center justify-center rounded-[6px] transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring/30 ${isActive ? "bg-background-subtle text-text-primary" : "text-text-secondary hover:bg-background-elevated hover:text-text-primary"}`}
                       >
                         <item.icon />
                         {item.badge !== undefined && (
-                          <span className="absolute -top-1 -right-1 min-w-[16px] h-[16px] px-1 flex items-center justify-center rounded-full bg-[#EDE9FE] text-[#7C3AED] text-[10px] font-semibold leading-none">
+                          <span className="absolute -top-1 -right-1 min-w-[16px] h-[16px] px-1 flex items-center justify-center rounded-full bg-action-primary-subtle text-action-primary text-[10px] font-semibold leading-none">
                             {item.badge}
                           </span>
                         )}
                       </Link>
                       <span
                         role="tooltip"
-                        className="pointer-events-none absolute left-[calc(100%+10px)] top-1/2 -translate-y-1/2 whitespace-nowrap rounded-[6px] bg-[#1F2937] px-2.5 py-1.5 text-[12px] font-medium text-white opacity-0 group-hover:opacity-100 group-focus-within:opacity-100 transition-opacity shadow-lg z-20"
+                        className="pointer-events-none absolute left-[calc(100%+10px)] top-1/2 -translate-y-1/2 whitespace-nowrap rounded-[6px] bg-text-primary px-2.5 py-1.5 text-[12px] font-medium text-background-surface opacity-0 group-hover:opacity-100 group-focus-within:opacity-100 transition-opacity shadow-lg z-20"
                       >
                         {item.name}
                       </span>
@@ -177,23 +177,23 @@ export const SidebarComponent = (props: SidebarProps): React.ReactElement => {
                         type="button"
                         onClick={() => onToggleMenu(item.name)}
                         aria-expanded={isMenuOpen}
-                        className={`w-full h-9 flex items-center gap-3 rounded-[6px] px-3 text-left transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#7C3AED]/30 ${isActive || isMenuOpen ? "bg-[#F3F3F5] text-[#111827]" : "text-[#6B7280] hover:bg-[#F9FAFB] hover:text-[#111827]"}`}
+                        className={`w-full h-9 flex items-center gap-3 rounded-[6px] px-3 text-left transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring/30 ${isActive || isMenuOpen ? "bg-background-subtle text-text-primary" : "text-text-secondary hover:bg-background-elevated hover:text-text-primary"}`}
                       >
-                        <span className={`shrink-0 [&_svg]:h-5 [&_svg]:w-5 ${isActive || isMenuOpen ? "text-[#111827]" : "text-[#9CA3AF]"}`}>
+                        <span className={`shrink-0 [&_svg]:h-5 [&_svg]:w-5 ${isActive || isMenuOpen ? "text-text-primary" : "text-text-tertiary"}`}>
                           <item.icon />
                         </span>
-                        <span className={`flex-1 truncate text-[14px] leading-none ${isActive || isMenuOpen ? "font-medium text-[#111827]" : "font-normal"}`}>{item.name}</span>
+                        <span className={`flex-1 truncate text-[14px] leading-none ${isActive || isMenuOpen ? "font-medium text-text-primary" : "font-normal"}`}>{item.name}</span>
                         {item.badge !== undefined && (
-                          <span className="shrink-0 min-w-[20px] h-5 px-1.5 flex items-center justify-center rounded-full bg-[#EDE9FE] text-[#7C3AED] text-[11px] font-semibold leading-none">
+                          <span className="shrink-0 min-w-[20px] h-5 px-1.5 flex items-center justify-center rounded-full bg-action-primary-subtle text-action-primary text-[11px] font-semibold leading-none">
                             {item.badge}
                           </span>
                         )}
-                        <span className={`shrink-0 text-[#9CA3AF] transition-transform duration-200 ${isMenuOpen ? "rotate-180" : ""}`}>
+                        <span className={`shrink-0 text-text-tertiary transition-transform duration-200 ${isMenuOpen ? "rotate-180" : ""}`}>
                           <Icons.ChevronDown />
                         </span>
                       </button>
                       {isMenuOpen && (
-                        <div className="mt-1 ml-3 pl-3 border-l border-[#E5E5E5]/80 space-y-0.5">
+                        <div className="mt-1 ml-3 pl-3 border-l border-border-default/80 space-y-0.5">
                           {item.children!.map((child) => {
                             const childActive = currentPath === child.path || currentPath.startsWith(child.path + "/");
                             return (
@@ -201,7 +201,7 @@ export const SidebarComponent = (props: SidebarProps): React.ReactElement => {
                                 key={child.name}
                                 to={child.path}
                                 aria-current={childActive ? "page" : undefined}
-                                className={`flex h-8 items-center rounded-[6px] px-3 text-[13px] transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#7C3AED]/30 ${childActive ? "bg-[#F3F3F5] text-[#111827] font-medium" : "text-[#6B7280] hover:bg-[#F9FAFB] hover:text-[#111827]"}`}
+                                className={`flex h-8 items-center rounded-[6px] px-3 text-[13px] transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring/30 ${childActive ? "bg-background-subtle text-text-primary font-medium" : "text-text-secondary hover:bg-background-elevated hover:text-text-primary"}`}
                               >
                                 {child.name}
                               </Link>
@@ -218,14 +218,14 @@ export const SidebarComponent = (props: SidebarProps): React.ReactElement => {
                     key={item.name}
                     to={item.path ?? "#"}
                     aria-current={isActive ? "page" : undefined}
-                    className={`h-9 flex items-center gap-3 rounded-[6px] px-3 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#7C3AED]/30 ${isActive ? "bg-[#F3F3F5] text-[#111827]" : "text-[#6B7280] hover:bg-[#F9FAFB] hover:text-[#111827]"}`}
+                    className={`h-9 flex items-center gap-3 rounded-[6px] px-3 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring/30 ${isActive ? "bg-background-subtle text-text-primary" : "text-text-secondary hover:bg-background-elevated hover:text-text-primary"}`}
                   >
-                    <span className={`shrink-0 [&_svg]:h-5 [&_svg]:w-5 ${isActive ? "text-[#111827]" : "text-[#9CA3AF]"}`}>
+                    <span className={`shrink-0 [&_svg]:h-5 [&_svg]:w-5 ${isActive ? "text-text-primary" : "text-text-tertiary"}`}>
                       <item.icon />
                     </span>
-                    <span className={`flex-1 truncate text-[14px] leading-none ${isActive ? "font-medium text-[#111827]" : "font-normal"}`}>{item.name}</span>
+                    <span className={`flex-1 truncate text-[14px] leading-none ${isActive ? "font-medium text-text-primary" : "font-normal"}`}>{item.name}</span>
                     {item.badge !== undefined && (
-                      <span className="shrink-0 min-w-[20px] h-5 px-1.5 flex items-center justify-center rounded-full bg-[#EDE9FE] text-[#7C3AED] text-[11px] font-semibold leading-none">
+                      <span className="shrink-0 min-w-[20px] h-5 px-1.5 flex items-center justify-center rounded-full bg-action-primary-subtle text-action-primary text-[11px] font-semibold leading-none">
                         {item.badge}
                       </span>
                     )}
@@ -257,18 +257,18 @@ export const SidebarComponent = (props: SidebarProps): React.ReactElement => {
           onClick={onToggleProfile}
           aria-expanded={isProfileOpen}
           aria-haspopup="menu"
-          className={`w-full flex items-center rounded-[10px] transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#7C3AED]/30 hover:bg-[#F9FAFB] ${isCollapsed ? "justify-center p-1" : "gap-3 p-2"}`}
+          className={`w-full flex items-center rounded-[10px] transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring/30 hover:bg-background-elevated ${isCollapsed ? "justify-center p-1" : "gap-3 p-2"}`}
         >
-          <span className="w-8 h-8 rounded-full bg-[#EDE9FE] text-[#7C3AED] flex items-center justify-center text-[12px] font-semibold shrink-0" aria-hidden>
+          <span className="w-8 h-8 rounded-full bg-action-primary-subtle text-action-primary flex items-center justify-center text-[12px] font-semibold shrink-0" aria-hidden>
             DR
           </span>
           {!isCollapsed && (
             <>
               <span className="flex-1 min-w-0 text-left">
-                <span className="block truncate text-[13px] font-semibold leading-4 text-[#111827]">Dianne Russell</span>
-                <span className="block truncate text-[11px] leading-4 text-[#9CA3AF]">dianne.russell@gmail.com</span>
+                <span className="block truncate text-[13px] font-semibold leading-4 text-text-primary">Dianne Russell</span>
+                <span className="block truncate text-[11px] leading-4 text-text-tertiary">dianne.russell@gmail.com</span>
               </span>
-              <span className={`shrink-0 text-[#9CA3AF] transition-transform duration-200 ${isProfileOpen ? "rotate-180" : ""}`}>
+              <span className={`shrink-0 text-text-tertiary transition-transform duration-200 ${isProfileOpen ? "rotate-180" : ""}`}>
                 <Icons.ChevronDown />
               </span>
             </>
@@ -281,30 +281,30 @@ export const SidebarComponent = (props: SidebarProps): React.ReactElement => {
             <button type="button" aria-label="Close menu" onClick={onToggleProfile} className="fixed inset-0 z-10 cursor-default" tabIndex={-1} />
             <div
               role="menu"
-              className={`absolute z-20 w-[240px] rounded-[12px] border border-[#E5E5E5] bg-white p-2 shadow-[0_8px_24px_rgba(0,0,0,0.08)] ${isCollapsed ? "left-[76px] bottom-2 ml-2" : "left-3 right-3 bottom-[calc(100%+8px)]"}`}
+              className={`absolute z-20 w-[240px] rounded-[12px] border border-border-default bg-background-surface p-2 shadow-medium ${isCollapsed ? "left-[76px] bottom-2 ml-2" : "left-3 right-3 bottom-[calc(100%+8px)]"}`}
             >
               <div className={`flex items-center gap-3 px-3 py-2.5 ${isCollapsed ? "hidden" : ""}`}>
-                <span className="w-9 h-9 rounded-full bg-[#EDE9FE] text-[#7C3AED] flex items-center justify-center text-[12px] font-semibold shrink-0">DR</span>
+                <span className="w-9 h-9 rounded-full bg-action-primary-subtle text-action-primary flex items-center justify-center text-[12px] font-semibold shrink-0">DR</span>
                 <span className="min-w-0">
-                  <span className="block truncate text-[13px] font-semibold text-[#111827]">Dianne Russell</span>
-                  <span className="block truncate text-[11px] text-[#9CA3AF]">dianne.russell@gmail.com</span>
+                  <span className="block truncate text-[13px] font-semibold text-text-primary">Dianne Russell</span>
+                  <span className="block truncate text-[11px] text-text-tertiary">dianne.russell@gmail.com</span>
                 </span>
               </div>
-              <div className="my-1 h-px bg-[#E5E5E5]" role="separator" />
-              <Link role="menuitem" to="#" className="flex h-9 items-center gap-3 rounded-[8px] px-3 text-[13px] text-[#374151] hover:bg-[#F3F3F5] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#7C3AED]/30">
+              <div className="my-1 h-px bg-border-default" role="separator" />
+              <Link role="menuitem" to="#" className="flex h-9 items-center gap-3 rounded-[8px] px-3 text-[13px] text-text-secondary hover:bg-background-subtle focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring/30">
                 <Icons.User /> Profile
               </Link>
-              <Link role="menuitem" to="#" className="flex h-9 items-center gap-3 rounded-[8px] px-3 text-[13px] text-[#374151] hover:bg-[#F3F3F5] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#7C3AED]/30">
+              <Link role="menuitem" to="#" className="flex h-9 items-center gap-3 rounded-[8px] px-3 text-[13px] text-text-secondary hover:bg-background-subtle focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring/30">
                 <Icons.Crown /> Upgrade to pro
               </Link>
-              <Link role="menuitem" to="#" className="flex h-9 items-center gap-3 rounded-[8px] px-3 text-[13px] text-[#374151] hover:bg-[#F3F3F5] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#7C3AED]/30">
+              <Link role="menuitem" to="#" className="flex h-9 items-center gap-3 rounded-[8px] px-3 text-[13px] text-text-secondary hover:bg-background-subtle focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring/30">
                 <Icons.Settings /> Settings
               </Link>
-              <div className="my-1 h-px bg-[#E5E5E5]" role="separator" />
-              <button role="menuitem" type="button" className="w-full flex h-9 items-center gap-3 rounded-[8px] px-3 text-left text-[13px] text-[#374151] hover:bg-[#F3F3F5] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#7C3AED]/30">
+              <div className="my-1 h-px bg-border-default" role="separator" />
+              <button role="menuitem" type="button" className="w-full flex h-9 items-center gap-3 rounded-[8px] px-3 text-left text-[13px] text-text-secondary hover:bg-background-subtle focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring/30">
                 <Icons.Plus /> Add account
               </button>
-              <button role="menuitem" type="button" className="w-full flex h-9 items-center gap-3 rounded-[8px] px-3 text-left text-[13px] text-[#374151] hover:bg-[#F3F3F5] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#7C3AED]/30">
+              <button role="menuitem" type="button" className="w-full flex h-9 items-center gap-3 rounded-[8px] px-3 text-left text-[13px] text-text-secondary hover:bg-background-subtle focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring/30">
                 <Icons.LogOut /> Log out
               </button>
             </div>
