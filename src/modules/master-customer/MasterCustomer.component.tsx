@@ -1,6 +1,7 @@
 import * as React from "react";
 
 import Layout from "../../app/layout";
+import { PageLayout } from "../../app/shared/PageLayout";
 import { Icons } from "../../components/Icons";
 import type { MobileListItemProps } from "../../components/MobileList";
 import { MobileList } from "../../components/MobileList";
@@ -82,93 +83,31 @@ const _renderMobileList = (props: MasterCustomerProps): React.ReactElement => {
 };
 
 /**
- * Render dropdown menu
- * @param {MasterCustomerProps} props - The component props
- * @returns {React.ReactElement | null} The dropdown menu element
- */
-const _renderDropdownMenu = (props: MasterCustomerProps): React.ReactElement | null => {
-  const { isMoreOpen, onCloseMore, onCreate, onDelete } = props;
-
-  if (!isMoreOpen) return null;
-
-  return (
-    <>
-      <button type="button" aria-label="Close menu" onClick={onCloseMore} className="fixed inset-0 z-10 cursor-default" tabIndex={-1} />
-      <div role="menu" className="absolute right-0 top-[calc(100%+8px)] z-20 w-52 rounded-2xl border border-gray-100 bg-white py-2 shadow-xl overflow-hidden">
-        <button
-          role="menuitem"
-          type="button"
-          onClick={() => { onCloseMore?.(); onCreate(); }}
-          className="w-full flex items-center gap-3 px-4 py-3 text-left text-[14px] font-medium text-gray-800 hover:bg-gray-50 transition-colors"
-        >
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M12 5v14" /><path d="M5 12h14" /></svg>
-          New Customer
-        </button>
-        <div className="mx-3 my-1 h-px bg-gray-100" role="separator" />
-        <button
-          role="menuitem"
-          type="button"
-          onClick={() => { onDelete?.(); }}
-          className="w-full flex items-center gap-3 px-4 py-3 text-left text-[14px] font-medium text-red-600 hover:bg-red-50 transition-colors"
-        >
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><polyline points="3 6 5 6 21 6" /><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" /></svg>
-          Delete
-        </button>
-      </div>
-    </>
-  );
-};
-
-/**
- * Render the header
- * @param {MasterCustomerProps} props - The component props
- * @returns {React.ReactElement} The header element
- */
-const _renderHeader = (props: MasterCustomerProps): React.ReactElement => {
-  const { onBack, onMore, isMoreOpen } = props;
-
-  return (
-    <div className="flex items-center justify-between py-2 mb-1 lg:mb-4 relative">
-      <button type="button" onClick={onBack} aria-label="Back" className="w-11 h-11 rounded-full bg-[#F4F4F5] hover:bg-[#E9E9EB] active:scale-95 transition-all flex items-center justify-center text-black shrink-0">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.4} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M19 12H5" /><path d="M12 19 5 12l7-7" /></svg>
-      </button>
-      <h1 className="flex-1 text-center text-[17px] font-semibold text-black tracking-tight px-2 truncate">
-        Customer List
-      </h1>
-      <div className="relative shrink-0">
-        <button
-          type="button"
-          onClick={onMore}
-          aria-label="More options"
-          aria-expanded={isMoreOpen}
-          aria-haspopup="menu"
-          className="w-11 h-11 rounded-full bg-[#F4F4F5] hover:bg-[#E9E9EB] active:scale-95 transition-all flex items-center justify-center text-black"
-        >
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-            <circle cx="5" cy="12" r="1.8" />
-            <circle cx="12" cy="12" r="1.8" />
-            <circle cx="19" cy="12" r="1.8" />
-          </svg>
-        </button>
-        {_renderDropdownMenu(props)}
-      </div>
-    </div>
-  );
-};
-
-/**
  * Master Customer Component
  * @param {MasterCustomerProps} props - The component props
  * @returns {React.ReactElement} The component
  */
 export const MasterCustomerComponent = (props: MasterCustomerProps): React.ReactElement => {
+  const { onBack, onCreate, onDelete } = props;
+
+  const actions = [
+    { label: "New Customer", onClick: onCreate },
+    { label: "Delete", onClick: onDelete, isDangerous: true },
+  ];
+
   return (
     <Layout pageTitle="Customer List">
-      <div className="flex flex-col h-full pb-18 lg:pb-0 px-3 lg:px-0 lg:-mt-4 relative">
-        {_renderHeader(props)}
-        {_renderMobileList(props)}
-        {_renderDesktopTable(props)}
-      </div>
+      <PageLayout
+        title="Customer List"
+        breadcrumbs={["Home", "Master", "Customer"]}
+        actions={actions}
+        onBack={onBack}
+      >
+        <div className="flex flex-col h-full pb-18 lg:pb-0 px-3 lg:px-0 lg:-mt-4 relative">
+          {_renderMobileList(props)}
+          {_renderDesktopTable(props)}
+        </div>
+      </PageLayout>
     </Layout>
   );
 };
