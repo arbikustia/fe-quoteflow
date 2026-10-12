@@ -8,7 +8,8 @@ export type ThemeProviderProps = {
 };
 
 /**
- * ThemeProvider synchronizes current Redux theme state with the DOM document root (.dark class).
+ * ThemeProvider synchronizes current Redux theme state with the DOM document root (.dark/.light class).
+ * Both classes are set explicitly so an OS-level prefers-color-scheme: dark cannot override the user choice.
  * @param {ThemeProviderProps} props - provider props
  * @returns {React.ReactElement} node
  */
@@ -21,11 +22,8 @@ export const ThemeProvider = ({ children }: ThemeProviderProps): React.ReactElem
     }
 
     const root = document.documentElement;
-    if (theme === "dark") {
-      root.classList.add("dark");
-    } else {
-      root.classList.remove("dark");
-    }
+    root.classList.toggle("dark", theme === "dark");
+    root.classList.toggle("light", theme === "light");
   }, [theme]);
 
   return <>{children}</>;
