@@ -2,7 +2,7 @@ import * as React from "react";
 import { useLocation } from "react-router-dom";
 
 import GlobalHeader from "./GlobalHeader";
-import BottomNav from "../../components/BottomNav/index";
+import MobileNavigate from "../../components/MobileNavigate";
 import Navbar from "../../components/Navbar/index";
 import Sidebar from "../../components/Sidebar/index";
 
@@ -15,7 +15,7 @@ export type ResponsiveLayoutProps = {
 
 /**
  * ResponsiveLayout - unified layout wrapper using CSS-only breakpoints (lg:).
- * Mobile (lg:hidden): GlobalHeader + content + BottomNav (fixed bottom).
+ * Mobile (lg:hidden): GlobalHeader + content + MobileNavigate (fixed bottom).
  * Desktop (hidden lg:flex/block): Sidebar + Navbar + content area.
  * @param {ResponsiveLayoutProps} props - layout props
  * @returns {React.ReactElement} layout element
@@ -61,8 +61,8 @@ export const ResponsiveLayout = ({
           {children}
         </main>
 
-        {/* Mobile BottomNav - lg:hidden */}
-        {!isMasterSubRoute && <BottomNav />}
+        {/* MobileNavigate - lg:hidden */}
+        {!isMasterSubRoute && <MobileNavigate />}
       </div>
     </div>
   );
