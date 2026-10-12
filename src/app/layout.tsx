@@ -1,7 +1,6 @@
 import React from "react";
 import { useLocation } from "react-router-dom";
 
-import BottomNav from "../components/BottomNav/index";
 import Navbar from "../components/Navbar/index";
 import Sidebar from "../components/Sidebar/index";
 
@@ -18,8 +17,6 @@ export type LayoutProps = {
 export default function Layout({ children }: LayoutProps): React.ReactElement {
   const { pathname } = useLocation();
   const isMasterRoute = pathname.startsWith("/master");
-
-  const isMasterSubRoute = pathname.startsWith("/master-") && pathname !== "/master-main";
 
   return (
     <div className="flex h-full min-h-0 w-full bg-background-page overflow-hidden font-sans text-text-primary relative items-stretch">
@@ -45,8 +42,6 @@ export default function Layout({ children }: LayoutProps): React.ReactElement {
           {children}
         </main>
       </div>
-
-        {!isMasterSubRoute && <BottomNav />}
     </div>
   );
 }
