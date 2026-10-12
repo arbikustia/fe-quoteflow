@@ -1,13 +1,17 @@
-import { describe, vi } from "vitest";
 import { MasterServiceTypeComponent } from "./MasterServiceType.component";
 import test from "../../libs/unit-test";
 import type { MasterServiceTypeProps } from "./MasterServiceType.type";
 
-vi.mock("react-router-dom", () => ({
-  useLocation: vi.fn().mockReturnValue({ pathname: "/master-service-type" }),
-  useNavigate: vi.fn(),
-  Link: ({ children }: any) => <a>{children}</a>,
-}));
+jest.mock("react-router-dom", () => {
+  const actual = jest.requireActual("react-router-dom");
+
+  return {
+    ...actual,
+    useLocation: jest.fn().mockReturnValue({ pathname: "/master-service-type" }),
+    useNavigate: jest.fn(),
+    Link: ({ children }: any) => <a>{children}</a>,
+  };
+});
 
 const defaultProps: MasterServiceTypeProps = {
   currentPage: 1,
@@ -24,20 +28,20 @@ const defaultProps: MasterServiceTypeProps = {
       createBy: "Admin",
     },
   ],
-  goToPage: vi.fn(),
-  nextPage: vi.fn(),
-  prevPage: vi.fn(),
-  changePageSize: vi.fn(),
+  goToPage: jest.fn(),
+  nextPage: jest.fn(),
+  prevPage: jest.fn(),
+  changePageSize: jest.fn(),
   totalCount: 1,
   columns: [],
-  onCreate: vi.fn(),
-  onEdit: vi.fn(),
-  onRowClick: vi.fn(),
-  onMore: vi.fn(),
+  onCreate: jest.fn(),
+  onEdit: jest.fn(),
+  onRowClick: jest.fn(),
+  onMore: jest.fn(),
   isMoreOpen: false,
-  onCloseMore: vi.fn(),
-  onDelete: vi.fn(),
-  onBack: vi.fn(),
+  onCloseMore: jest.fn(),
+  onDelete: jest.fn(),
+  onBack: jest.fn(),
 };
 
 describe("MasterServiceType.component", () => {

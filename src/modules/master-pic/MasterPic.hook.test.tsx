@@ -1,9 +1,8 @@
-import { describe, it, expect, vi } from "vitest";
 import { renderHook, act } from "@testing-library/react";
 import { useMasterPicNavigation, useMasterPicContainerState } from "./MasterPic.hook";
 
-const mockNavigate = vi.fn();
-vi.mock("react-router-dom", () => ({
+const mockNavigate = jest.fn();
+jest.mock("react-router-dom", () => ({
   useNavigate: () => mockNavigate,
 }));
 

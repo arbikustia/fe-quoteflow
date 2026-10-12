@@ -14,6 +14,7 @@ export default defineConfig([
   globalIgnores([
     "dist",
     "coverage",
+    ".worktrees",
     "__generated__/**",
     "**/*.test.*",
     "src/libs/utils/**",

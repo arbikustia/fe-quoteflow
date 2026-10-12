@@ -1,6 +1,5 @@
 import { fireEvent, render, screen } from "@testing-library/react";
 import React from "react";
-import { describe, expect, it, vi } from "vitest";
 
 import { MobileNavigateComponent } from "./MobileNavigate.component";
 import type { MobileNavigateProps } from "./MobileNavigate.type";
@@ -22,11 +21,11 @@ const DEFAULT_PROPS: MobileNavigateProps = {
       isActive: false,
     },
   ],
-  onNavigate: vi.fn(),
+  onNavigate: jest.fn(),
   isHidden: false,
 };
 
-const mockOnNavigate = vi.fn();
+const mockOnNavigate = jest.fn();
 
 const snapshotConfigs: { props: MobileNavigateProps; desc: string }[] = [
   {
@@ -98,7 +97,7 @@ describe("MobileNavigateComponent Test", () => {
   });
 
   it("should call onNavigate with selected path", () => {
-    const onNavigate = vi.fn();
+    const onNavigate = jest.fn();
 
     render(React.createElement(MobileNavigateComponent, { ...DEFAULT_PROPS, onNavigate }));
     fireEvent.click(screen.getByRole("button", { name: "Order" }));

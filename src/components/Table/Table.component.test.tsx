@@ -1,6 +1,4 @@
 import { fireEvent, render, screen } from "@testing-library/react";
-import "@testing-library/jest-dom/vitest";
-import { describe, expect, it, vi } from "vitest";
 
 import { TableComponent } from "./Table.component";
 import type { TableColumn } from "./Table.type";
@@ -43,8 +41,8 @@ describe("TableComponent", () => {
   });
 
   it("should isolate action click from row click", (): void => {
-    const onRowClick = vi.fn();
-    const onEdit = vi.fn();
+    const onRowClick = jest.fn();
+    const onEdit = jest.fn();
     const columns: readonly TableColumn<TestRow>[] = [
       ...COLUMNS,
       { key: "actions", header: "Action", actions: { edit: onEdit } },
@@ -65,8 +63,8 @@ describe("TableComponent", () => {
   });
 
   it("should handle pagination and page size changes", (): void => {
-    const onPageChange = vi.fn();
-    const onPageSizeChange = vi.fn();
+    const onPageChange = jest.fn();
+    const onPageSizeChange = jest.fn();
 
     render(
       <TableComponent
@@ -112,7 +110,7 @@ describe("TableComponent", () => {
   });
 
   it("should trigger onRowClick on keyboard Enter key for mobile card", (): void => {
-    const onRowClick = vi.fn();
+    const onRowClick = jest.fn();
     render(
       <TableComponent
         data={ROWS}
@@ -129,7 +127,7 @@ describe("TableComponent", () => {
   });
 
   it("should trigger onRowClick on keyboard Space key for mobile card", (): void => {
-    const onRowClick = vi.fn();
+    const onRowClick = jest.fn();
     render(
       <TableComponent
         data={ROWS}
@@ -146,7 +144,7 @@ describe("TableComponent", () => {
   });
 
   it("should not trigger onRowClick on other keys for mobile card", (): void => {
-    const onRowClick = vi.fn();
+    const onRowClick = jest.fn();
     render(
       <TableComponent
         data={ROWS}
@@ -163,8 +161,8 @@ describe("TableComponent", () => {
   });
 
   it("should render mobile action buttons when actions provided", (): void => {
-    const onEdit = vi.fn();
-    const onDelete = vi.fn();
+    const onEdit = jest.fn();
+    const onDelete = jest.fn();
     const columns: readonly TableColumn<TestRow>[] = [
       ...COLUMNS,
       { key: "actions", header: "Action", actions: { edit: onEdit, delete: onDelete } },
@@ -175,7 +173,7 @@ describe("TableComponent", () => {
         data={ROWS}
         columns={columns}
         keyExtractor={(row): string => row.id}
-        onRowClick={vi.fn()}
+        onRowClick={jest.fn()}
       />
     );
 

@@ -1,11 +1,10 @@
 import { render, screen } from "@testing-library/react";
 import { BrowserRouter } from "react-router-dom";
-import { describe, expect, it, vi } from "vitest";
 
 import MasterCustomerContainer from "./MasterCustomer.container";
 
 // Mock the component to avoid rendering the full UI
-vi.mock("./MasterCustomer.component", () => ({
+jest.mock("./MasterCustomer.component", () => ({
   MasterCustomerComponent: (props: any) => (
     <div data-testid="mock-component" {...props} />
   ),

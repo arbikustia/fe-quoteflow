@@ -1,11 +1,10 @@
 import { render, screen, fireEvent } from '@testing-library/react';
-import { describe, it, expect, vi } from 'vitest';
 import { MobileDashboardComponent } from './MobileDashboard.component';
 
 describe('MobileDashboardComponent Test', () => {
   it('Should call onAddOrder when Add New Order button is clicked', () => {
-    const mockOnAddOrder = vi.fn();
-    const mockOnOrderReport = vi.fn();
+    const mockOnAddOrder = jest.fn();
+    const mockOnOrderReport = jest.fn();
 
     render(
       <MobileDashboardComponent 
@@ -24,8 +23,8 @@ describe('MobileDashboardComponent Test', () => {
   });
 
   it('Should call onOrderReport when Order Report button is clicked', () => {
-    const mockOnAddOrder = vi.fn();
-    const mockOnOrderReport = vi.fn();
+    const mockOnAddOrder = jest.fn();
+    const mockOnOrderReport = jest.fn();
 
     render(
       <MobileDashboardComponent 

@@ -1,27 +1,12 @@
-import type { Mock } from 'vitest';
-import { vi } from 'vitest';
-
 import DesktopDashboardContainer from './DesktopDashboard.container';
 import test from '../../../libs/unit-test';
 
-/**
- * Mock effect
- * @returns {{ handleNewOrder: Mock; handleReturn: Mock }} - mock hook return
- */
-const mockUseDesktopDashboardEffect = (): { handleNewOrder: Mock; handleReturn: Mock } => ({
-  handleNewOrder: vi.fn(),
-  handleReturn: vi.fn()
-});
-
-/**
- * Mock hook module factory
- * @returns {{ useDesktopDashboardEffect: () => { handleNewOrder: Mock; handleReturn: Mock } }} - mock module
- */
-const mockModuleFactory = (): { useDesktopDashboardEffect: () => { handleNewOrder: Mock; handleReturn: Mock } } => ({
-  useDesktopDashboardEffect: mockUseDesktopDashboardEffect
-});
-
-vi.mock('./DesktopDashboard.hook', mockModuleFactory);
+jest.mock('./DesktopDashboard.hook', () => ({
+  useDesktopDashboardEffect: (): { handleNewOrder: jest.Mock; handleReturn: jest.Mock } => ({
+    handleNewOrder: jest.fn(),
+    handleReturn: jest.fn(),
+  }),
+}));
 
 const configs = [
   {

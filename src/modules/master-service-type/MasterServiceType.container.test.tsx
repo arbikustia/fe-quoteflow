@@ -1,36 +1,35 @@
 import { render } from "@testing-library/react";
-import { describe, it, vi, expect } from "vitest";
 import MasterServiceTypeContainer from "./MasterServiceType.container";
 import * as Hook from "./MasterServiceType.hook";
 
-vi.mock("react-router-dom", () => ({
-  useNavigate: vi.fn(),
-  useLocation: vi.fn().mockReturnValue({ pathname: "/master-service-type" }),
+jest.mock("react-router-dom", () => ({
+  useNavigate: jest.fn(),
+  useLocation: jest.fn().mockReturnValue({ pathname: "/master-service-type" }),
   Link: ({ children }: any) => <a>{children}</a>,
 }));
 
 describe("MasterServiceType.container", () => {
   it("should match snapshot", () => {
-    vi.spyOn(Hook, "useMasterServiceTypeContainerState").mockReturnValue({
+    jest.spyOn(Hook, "useMasterServiceTypeContainerState").mockReturnValue({
       pagination: {
         currentPage: 1,
         totalPages: 1,
         pageSize: 10,
         paginatedData: [],
-        goToPage: vi.fn(),
-        nextPage: vi.fn(),
-        prevPage: vi.fn(),
-        changePageSize: vi.fn(),
+        goToPage: jest.fn(),
+        nextPage: jest.fn(),
+        prevPage: jest.fn(),
+        changePageSize: jest.fn(),
         totalCount: 0,
       },
       isMoreOpen: false,
-      toggleMore: vi.fn(),
-      goDelete: vi.fn(),
-      handleCloseMore: vi.fn(),
-      goBack: vi.fn(),
-      goCreate: vi.fn(),
-      goEdit: vi.fn(),
-      goDetail: vi.fn(),
+      toggleMore: jest.fn(),
+      goDelete: jest.fn(),
+      handleCloseMore: jest.fn(),
+      goBack: jest.fn(),
+      goCreate: jest.fn(),
+      goEdit: jest.fn(),
+      goDetail: jest.fn(),
     });
 
     const { container } = render(<MasterServiceTypeContainer />);

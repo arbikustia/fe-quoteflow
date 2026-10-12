@@ -1,13 +1,12 @@
 
 import { render, screen, fireEvent } from '@testing-library/react';
-import { describe, it, expect, vi } from 'vitest';
 import { DesktopDashboardComponent } from './DesktopDashboard.component';
 import { MemoryRouter } from 'react-router-dom';
 
 describe('DesktopDashboardComponent Test', () => {
   it('Should call onNewOrder when New Order button is clicked', () => {
-    const mockOnNewOrder = vi.fn();
-    const mockOnReturn = vi.fn();
+    const mockOnNewOrder = jest.fn();
+    const mockOnReturn = jest.fn();
 
     render(
       <MemoryRouter>

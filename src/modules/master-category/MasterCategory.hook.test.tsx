@@ -1,13 +1,12 @@
 import { renderHook, act } from "@testing-library/react";
-import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
 import { useMasterCategoryState } from "./MasterCategory.hook";
 import type { CategoryData } from "./MasterCategory.type";
 
 const mockCategory: CategoryData = { id: "1", categoryName: "Audio", status: "active", createAt: "2024-02-01", createBy: "Admin" };
 
 describe("useMasterCategoryState", () => {
-  beforeEach(() => vi.useFakeTimers());
-  afterEach(() => vi.useRealTimers());
+  beforeEach(() => jest.useFakeTimers());
+  afterEach(() => jest.useRealTimers());
 
   it("initial state", () => {
     const { result } = renderHook(() => useMasterCategoryState());
@@ -24,7 +23,7 @@ describe("useMasterCategoryState", () => {
     expect(result.current.editingCategory).toBeNull();
     act(() => result.current.closeModal());
     expect(result.current.isModalOpen).toBe(false);
-    act(() => { vi.advanceTimersByTime(250); });
+    act(() => { jest.advanceTimersByTime(250); });
     expect(result.current.editingCategory).toBeNull();
   });
 
@@ -35,7 +34,7 @@ describe("useMasterCategoryState", () => {
     expect(result.current.editingCategory).toEqual(mockCategory);
     act(() => result.current.closeModal());
     expect(result.current.isModalOpen).toBe(false);
-    act(() => { vi.advanceTimersByTime(250); });
+    act(() => { jest.advanceTimersByTime(250); });
     expect(result.current.editingCategory).toBeNull();
   });
 
@@ -46,7 +45,7 @@ describe("useMasterCategoryState", () => {
     expect(result.current.deletingCategory).toEqual(mockCategory);
     act(() => result.current.closeConfirmModal());
     expect(result.current.isConfirmModalOpen).toBe(false);
-    act(() => { vi.advanceTimersByTime(250); });
+    act(() => { jest.advanceTimersByTime(250); });
     expect(result.current.deletingCategory).toBeNull();
   });
 
@@ -56,7 +55,7 @@ describe("useMasterCategoryState", () => {
     expect(result.current.isConfirmModalOpen).toBe(true);
     act(() => result.current.onConfirmDelete());
     expect(result.current.isConfirmModalOpen).toBe(false);
-    act(() => { vi.advanceTimersByTime(250); });
+    act(() => { jest.advanceTimersByTime(250); });
     expect(result.current.deletingCategory).toBeNull();
   });
 });

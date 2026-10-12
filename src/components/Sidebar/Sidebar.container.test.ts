@@ -1,27 +1,26 @@
 import { render } from "@testing-library/react";
 import React from "react";
 import { MemoryRouter } from "react-router-dom";
-import { describe, expect, it, vi } from "vitest";
 
 import SidebarContainer from "./Sidebar.container";
 
-vi.mock("./Sidebar.hook", () => ({
+jest.mock("./Sidebar.hook", () => ({
   useSidebarState: (): unknown => ({
     currentPath: "/home",
     openMenus: [],
-    onToggleMenu: vi.fn(),
+    onToggleMenu: jest.fn(),
     isCollapsed: false,
-    onToggleCollapsed: vi.fn(),
+    onToggleCollapsed: jest.fn(),
     isProfileOpen: false,
-    onToggleProfile: vi.fn(),
+    onToggleProfile: jest.fn(),
   }),
 }));
 
-vi.mock("../../store/theme.hook", () => ({
+jest.mock("../../store/theme.hook", () => ({
   useTheme: () => ({
     theme: "light" as const,
-    toggleTheme: vi.fn(),
-    setTheme: vi.fn(),
+    toggleTheme: jest.fn(),
+    setTheme: jest.fn(),
   }),
 }));
 

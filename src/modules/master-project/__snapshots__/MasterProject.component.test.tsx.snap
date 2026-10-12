@@ -1,17 +1,17 @@
-// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`MasterProjectComponent > matches snapshot 1`] = `
+exports[`MasterProjectComponent matches snapshot 1`] = `
 <DocumentFragment>
   <div
-    class="flex h-full min-h-0 w-full bg-brand-white overflow-hidden font-sans text-brand-text-dark relative items-stretch"
+    class="flex h-full min-h-0 w-full bg-background-page overflow-hidden font-sans text-text-primary relative items-stretch"
   >
     <div
       class="hidden lg:flex h-full min-h-0 shrink-0 self-stretch"
     >
       <aside
         aria-label="Sidebar"
-        class="w-[260px] h-full min-h-0 self-stretch bg-white border border-[#E5E5E5] flex flex-col shrink-0 overflow-hidden transition-[width] duration-[250ms] ease-in-out"
-        style="border-radius: 12px; background-color: white;"
+        class="w-[260px] h-full min-h-0 self-stretch bg-sidebar-background border border-border-default flex flex-col shrink-0 overflow-hidden transition-[width] duration-[250ms] ease-in-out"
+        style="border-radius: 12px;"
       >
         <div
           class="h-[56px] flex items-center shrink-0 px-4"
@@ -19,7 +19,7 @@ exports[`MasterProjectComponent > matches snapshot 1`] = `
           <button
             aria-expanded="true"
             aria-label="Collapse sidebar"
-            class="flex items-center justify-center shrink-0 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#7C3AED]/30 rounded-[8px]"
+            class="flex items-center justify-center shrink-0 focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring/30 rounded-[8px]"
             type="button"
           >
             <img
@@ -33,7 +33,7 @@ exports[`MasterProjectComponent > matches snapshot 1`] = `
           class="shrink-0 px-4 pb-4"
         >
           <div
-            class="h-10 bg-[#F3F3F5] flex items-center text-[#6B7280] gap-2 px-3 rounded-[8px]"
+            class="h-10 bg-background-subtle flex items-center text-text-tertiary gap-2 px-3 rounded-[8px]"
             role="search"
           >
             <span
@@ -62,12 +62,12 @@ exports[`MasterProjectComponent > matches snapshot 1`] = `
               </svg>
             </span>
             <span
-              class="flex-1 text-left text-[13px] text-[#9CA3AF] truncate"
+              class="flex-1 text-left text-[13px] text-text-tertiary truncate"
             >
               Search
             </span>
             <span
-              class="shrink-0 text-[11px] leading-none bg-white px-1.5 py-1 rounded-[6px] border border-[#E5E5E5] text-[#6B7280] font-medium"
+              class="shrink-0 text-[11px] leading-none bg-background-surface px-1.5 py-1 rounded-[6px] border border-border-default text-text-secondary font-medium"
             >
               ⌘ K
             </span>
@@ -78,7 +78,7 @@ exports[`MasterProjectComponent > matches snapshot 1`] = `
         >
           <div>
             <p
-              class="px-2 mb-2 text-[12px] font-semibold tracking-widest uppercase text-[#9CA3AF]"
+              class="px-2 mb-2 text-[12px] font-semibold tracking-widest uppercase text-text-tertiary"
             >
               Menu
             </p>
@@ -89,11 +89,11 @@ exports[`MasterProjectComponent > matches snapshot 1`] = `
               <div>
                 <button
                   aria-expanded="false"
-                  class="w-full h-9 flex items-center gap-3 rounded-[6px] px-3 text-left transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#7C3AED]/30 text-[#6B7280] hover:bg-[#F9FAFB] hover:text-[#111827]"
+                  class="w-full h-9 flex items-center gap-3 rounded-[6px] px-3 text-left transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring/30 text-text-secondary hover:bg-background-elevated hover:text-text-primary"
                   type="button"
                 >
                   <span
-                    class="shrink-0 [&_svg]:h-5 [&_svg]:w-5 text-[#9CA3AF]"
+                    class="shrink-0 [&_svg]:h-5 [&_svg]:w-5 text-text-tertiary"
                   >
                     <svg
                       fill="none"
@@ -126,7 +126,7 @@ exports[`MasterProjectComponent > matches snapshot 1`] = `
                     Master Data
                   </span>
                   <span
-                    class="shrink-0 text-[#9CA3AF] transition-transform duration-200 "
+                    class="shrink-0 text-text-tertiary transition-transform duration-200 "
                   >
                     <svg
                       fill="none"
@@ -150,17 +150,50 @@ exports[`MasterProjectComponent > matches snapshot 1`] = `
           </div>
         </div>
         <div
-          class="shrink-0 border-t border-[#E5E5E5] relative p-3"
+          class="shrink-0 border-t border-border-default p-3"
         >
           <button
-            aria-expanded="false"
-            aria-haspopup="menu"
-            class="w-full flex items-center rounded-[10px] transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#7C3AED]/30 hover:bg-[#F9FAFB] gap-3 p-2"
+            aria-checked="false"
+            aria-label="Toggle dark theme"
+            class="mb-2 flex h-9 w-full items-center rounded-[8px] bg-background-subtle text-text-secondary transition-colors hover:bg-action-primary-subtle focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring gap-3 px-3"
+            role="switch"
             type="button"
           >
             <span
               aria-hidden="true"
-              class="w-8 h-8 rounded-full bg-[#EDE9FE] text-[#7C3AED] flex items-center justify-center text-[12px] font-semibold shrink-0"
+              class="shrink-0"
+            >
+              <svg
+                fill="none"
+                height="20"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="1.8"
+                viewBox="0 0 24 24"
+                width="20"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"
+                />
+              </svg>
+            </span>
+            <span
+              class="flex-1 text-left text-[13px] font-medium"
+            >
+              Dark theme
+            </span>
+          </button>
+          <button
+            aria-expanded="false"
+            aria-haspopup="menu"
+            class="w-full flex items-center rounded-[10px] transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring/30 hover:bg-background-elevated gap-3 p-2"
+            type="button"
+          >
+            <span
+              aria-hidden="true"
+              class="w-8 h-8 rounded-full bg-action-primary-subtle text-action-primary flex items-center justify-center text-[12px] font-semibold shrink-0"
             >
               DR
             </span>
@@ -168,18 +201,18 @@ exports[`MasterProjectComponent > matches snapshot 1`] = `
               class="flex-1 min-w-0 text-left"
             >
               <span
-                class="block truncate text-[13px] font-semibold leading-4 text-[#111827]"
+                class="block truncate text-[13px] font-semibold leading-4 text-text-primary"
               >
                 Dianne Russell
               </span>
               <span
-                class="block truncate text-[11px] leading-4 text-[#9CA3AF]"
+                class="block truncate text-[11px] leading-4 text-text-tertiary"
               >
                 dianne.russell@gmail.com
               </span>
             </span>
             <span
-              class="shrink-0 text-[#9CA3AF] transition-transform duration-200 "
+              class="shrink-0 text-text-tertiary transition-transform duration-200 "
             >
               <svg
                 fill="none"
@@ -202,22 +235,22 @@ exports[`MasterProjectComponent > matches snapshot 1`] = `
       </aside>
     </div>
     <div
-      class="flex-1 flex flex-col min-w-0 min-h-0 overflow-hidden relative bg-brand-white"
+      class="flex-1 flex flex-col min-w-0 min-h-0 overflow-hidden relative bg-background-page"
     >
       <div
-        class="lg:hidden flex items-center gap-3 p-4 border-b border-brand-gray-light bg-brand-white shrink-0"
+        class="lg:hidden flex items-center gap-3 p-4 border-b border-border-default bg-background-surface shrink-0"
       >
         <div
-          class="w-8 h-8 rounded-full bg-brand-blue flex items-center justify-center"
+          class="w-8 h-8 rounded-full bg-action-primary flex items-center justify-center"
         >
           <span
-            class="text-brand-white font-bold"
+            class="text-text-inverse font-bold"
           >
             Q
           </span>
         </div>
         <span
-          class="font-bold text-brand-text-dark"
+          class="font-bold text-text-primary"
         >
           QuoteFlow
         </span>
@@ -690,252 +723,22 @@ exports[`MasterProjectComponent > matches snapshot 1`] = `
         </div>
       </main>
     </div>
-    <nav
-      class="lg:hidden fixed bottom-0 left-0 right-0 z-40 bg-white border-t border-gray-200 flex items-center justify-around px-4 pb-[env(safe-area-inset-bottom)] h-16 shadow-[0_-2px_10px_rgba(0,0,0,0.05)]"
-    >
-      <button
-        class="flex flex-col items-center justify-center gap-1 w-12 transition-colors text-gray-400"
-      >
-        <div
-          class="p-1.5 rounded-full transition-colors flex items-center justify-center "
-        >
-          <svg
-            fill="none"
-            height="20"
-            stroke="currentColor"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="1.8"
-            viewBox="0 0 24 24"
-            width="20"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <rect
-              height="9"
-              rx="1"
-              width="7"
-              x="3"
-              y="3"
-            />
-            <rect
-              height="5"
-              rx="1"
-              width="7"
-              x="14"
-              y="3"
-            />
-            <rect
-              height="9"
-              rx="1"
-              width="7"
-              x="14"
-              y="12"
-            />
-            <rect
-              height="5"
-              rx="1"
-              width="7"
-              x="3"
-              y="16"
-            />
-          </svg>
-        </div>
-        <span
-          class="text-[10px] font-medium"
-        >
-          Home
-        </span>
-      </button>
-      <button
-        class="flex flex-col items-center justify-center gap-1 w-12 transition-colors text-gray-400"
-      >
-        <div
-          class="p-1.5 rounded-full transition-colors flex items-center justify-center "
-        >
-          <svg
-            fill="none"
-            height="20"
-            stroke="currentColor"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="1.8"
-            viewBox="0 0 24 24"
-            width="20"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"
-            />
-            <polyline
-              points="14 2 14 8 20 8"
-            />
-            <line
-              x1="16"
-              x2="8"
-              y1="13"
-              y2="13"
-            />
-            <line
-              x1="16"
-              x2="8"
-              y1="17"
-              y2="17"
-            />
-          </svg>
-        </div>
-        <span
-          class="text-[10px] font-medium"
-        >
-          Order
-        </span>
-      </button>
-      <button
-        class="flex flex-col items-center justify-center gap-1 w-12 transition-colors text-gray-400"
-      >
-        <div
-          class="p-1.5 rounded-full transition-colors flex items-center justify-center "
-        >
-          <svg
-            fill="none"
-            height="20"
-            stroke="currentColor"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="1.8"
-            viewBox="0 0 24 24"
-            width="20"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <rect
-              height="18"
-              rx="2"
-              width="18"
-              x="3"
-              y="4"
-            />
-            <line
-              x1="16"
-              x2="16"
-              y1="2"
-              y2="6"
-            />
-            <line
-              x1="8"
-              x2="8"
-              y1="2"
-              y2="6"
-            />
-            <line
-              x1="3"
-              x2="21"
-              y1="10"
-              y2="10"
-            />
-          </svg>
-        </div>
-        <span
-          class="text-[10px] font-medium"
-        >
-          Return
-        </span>
-      </button>
-      <button
-        class="flex flex-col items-center justify-center gap-1 w-12 transition-colors text-gray-400"
-      >
-        <div
-          class="p-1.5 rounded-full transition-colors flex items-center justify-center "
-        >
-          <svg
-            fill="none"
-            height="20"
-            stroke="currentColor"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="1.8"
-            viewBox="0 0 24 24"
-            width="20"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <ellipse
-              cx="12"
-              cy="5"
-              rx="9"
-              ry="3"
-            />
-            <path
-              d="M3 5V19A9 3 0 0 0 21 19V5"
-            />
-            <path
-              d="M3 12A9 3 0 0 0 21 12"
-            />
-          </svg>
-        </div>
-        <span
-          class="text-[10px] font-medium"
-        >
-          Master
-        </span>
-      </button>
-      <button
-        class="flex flex-col items-center justify-center gap-1 w-12 transition-colors text-gray-400"
-      >
-        <div
-          class="p-1.5 rounded-full transition-colors flex items-center justify-center "
-        >
-          <svg
-            fill="none"
-            height="20"
-            stroke="currentColor"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="1.8"
-            viewBox="0 0 24 24"
-            width="20"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <line
-              x1="12"
-              x2="12"
-              y1="20"
-              y2="10"
-            />
-            <line
-              x1="18"
-              x2="18"
-              y1="20"
-              y2="4"
-            />
-            <line
-              x1="6"
-              x2="6"
-              y1="20"
-              y2="16"
-            />
-          </svg>
-        </div>
-        <span
-          class="text-[10px] font-medium"
-        >
-          Report
-        </span>
-      </button>
-    </nav>
   </div>
 </DocumentFragment>
 `;
 
-exports[`MasterProjectComponent > matches snapshot with empty data and closed menu 1`] = `
+exports[`MasterProjectComponent matches snapshot with empty data and closed menu 1`] = `
 <DocumentFragment>
   <div
-    class="flex h-full min-h-0 w-full bg-brand-white overflow-hidden font-sans text-brand-text-dark relative items-stretch"
+    class="flex h-full min-h-0 w-full bg-background-page overflow-hidden font-sans text-text-primary relative items-stretch"
   >
     <div
       class="hidden lg:flex h-full min-h-0 shrink-0 self-stretch"
     >
       <aside
         aria-label="Sidebar"
-        class="w-[260px] h-full min-h-0 self-stretch bg-white border border-[#E5E5E5] flex flex-col shrink-0 overflow-hidden transition-[width] duration-[250ms] ease-in-out"
-        style="border-radius: 12px; background-color: white;"
+        class="w-[260px] h-full min-h-0 self-stretch bg-sidebar-background border border-border-default flex flex-col shrink-0 overflow-hidden transition-[width] duration-[250ms] ease-in-out"
+        style="border-radius: 12px;"
       >
         <div
           class="h-[56px] flex items-center shrink-0 px-4"
@@ -943,7 +746,7 @@ exports[`MasterProjectComponent > matches snapshot with empty data and closed me
           <button
             aria-expanded="true"
             aria-label="Collapse sidebar"
-            class="flex items-center justify-center shrink-0 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#7C3AED]/30 rounded-[8px]"
+            class="flex items-center justify-center shrink-0 focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring/30 rounded-[8px]"
             type="button"
           >
             <img
@@ -957,7 +760,7 @@ exports[`MasterProjectComponent > matches snapshot with empty data and closed me
           class="shrink-0 px-4 pb-4"
         >
           <div
-            class="h-10 bg-[#F3F3F5] flex items-center text-[#6B7280] gap-2 px-3 rounded-[8px]"
+            class="h-10 bg-background-subtle flex items-center text-text-tertiary gap-2 px-3 rounded-[8px]"
             role="search"
           >
             <span
@@ -986,12 +789,12 @@ exports[`MasterProjectComponent > matches snapshot with empty data and closed me
               </svg>
             </span>
             <span
-              class="flex-1 text-left text-[13px] text-[#9CA3AF] truncate"
+              class="flex-1 text-left text-[13px] text-text-tertiary truncate"
             >
               Search
             </span>
             <span
-              class="shrink-0 text-[11px] leading-none bg-white px-1.5 py-1 rounded-[6px] border border-[#E5E5E5] text-[#6B7280] font-medium"
+              class="shrink-0 text-[11px] leading-none bg-background-surface px-1.5 py-1 rounded-[6px] border border-border-default text-text-secondary font-medium"
             >
               ⌘ K
             </span>
@@ -1002,7 +805,7 @@ exports[`MasterProjectComponent > matches snapshot with empty data and closed me
         >
           <div>
             <p
-              class="px-2 mb-2 text-[12px] font-semibold tracking-widest uppercase text-[#9CA3AF]"
+              class="px-2 mb-2 text-[12px] font-semibold tracking-widest uppercase text-text-tertiary"
             >
               Menu
             </p>
@@ -1013,11 +816,11 @@ exports[`MasterProjectComponent > matches snapshot with empty data and closed me
               <div>
                 <button
                   aria-expanded="false"
-                  class="w-full h-9 flex items-center gap-3 rounded-[6px] px-3 text-left transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#7C3AED]/30 text-[#6B7280] hover:bg-[#F9FAFB] hover:text-[#111827]"
+                  class="w-full h-9 flex items-center gap-3 rounded-[6px] px-3 text-left transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring/30 text-text-secondary hover:bg-background-elevated hover:text-text-primary"
                   type="button"
                 >
                   <span
-                    class="shrink-0 [&_svg]:h-5 [&_svg]:w-5 text-[#9CA3AF]"
+                    class="shrink-0 [&_svg]:h-5 [&_svg]:w-5 text-text-tertiary"
                   >
                     <svg
                       fill="none"
@@ -1050,7 +853,7 @@ exports[`MasterProjectComponent > matches snapshot with empty data and closed me
                     Master Data
                   </span>
                   <span
-                    class="shrink-0 text-[#9CA3AF] transition-transform duration-200 "
+                    class="shrink-0 text-text-tertiary transition-transform duration-200 "
                   >
                     <svg
                       fill="none"
@@ -1074,17 +877,50 @@ exports[`MasterProjectComponent > matches snapshot with empty data and closed me
           </div>
         </div>
         <div
-          class="shrink-0 border-t border-[#E5E5E5] relative p-3"
+          class="shrink-0 border-t border-border-default p-3"
         >
           <button
-            aria-expanded="false"
-            aria-haspopup="menu"
-            class="w-full flex items-center rounded-[10px] transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#7C3AED]/30 hover:bg-[#F9FAFB] gap-3 p-2"
+            aria-checked="false"
+            aria-label="Toggle dark theme"
+            class="mb-2 flex h-9 w-full items-center rounded-[8px] bg-background-subtle text-text-secondary transition-colors hover:bg-action-primary-subtle focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring gap-3 px-3"
+            role="switch"
             type="button"
           >
             <span
               aria-hidden="true"
-              class="w-8 h-8 rounded-full bg-[#EDE9FE] text-[#7C3AED] flex items-center justify-center text-[12px] font-semibold shrink-0"
+              class="shrink-0"
+            >
+              <svg
+                fill="none"
+                height="20"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="1.8"
+                viewBox="0 0 24 24"
+                width="20"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"
+                />
+              </svg>
+            </span>
+            <span
+              class="flex-1 text-left text-[13px] font-medium"
+            >
+              Dark theme
+            </span>
+          </button>
+          <button
+            aria-expanded="false"
+            aria-haspopup="menu"
+            class="w-full flex items-center rounded-[10px] transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring/30 hover:bg-background-elevated gap-3 p-2"
+            type="button"
+          >
+            <span
+              aria-hidden="true"
+              class="w-8 h-8 rounded-full bg-action-primary-subtle text-action-primary flex items-center justify-center text-[12px] font-semibold shrink-0"
             >
               DR
             </span>
@@ -1092,18 +928,18 @@ exports[`MasterProjectComponent > matches snapshot with empty data and closed me
               class="flex-1 min-w-0 text-left"
             >
               <span
-                class="block truncate text-[13px] font-semibold leading-4 text-[#111827]"
+                class="block truncate text-[13px] font-semibold leading-4 text-text-primary"
               >
                 Dianne Russell
               </span>
               <span
-                class="block truncate text-[11px] leading-4 text-[#9CA3AF]"
+                class="block truncate text-[11px] leading-4 text-text-tertiary"
               >
                 dianne.russell@gmail.com
               </span>
             </span>
             <span
-              class="shrink-0 text-[#9CA3AF] transition-transform duration-200 "
+              class="shrink-0 text-text-tertiary transition-transform duration-200 "
             >
               <svg
                 fill="none"
@@ -1126,22 +962,22 @@ exports[`MasterProjectComponent > matches snapshot with empty data and closed me
       </aside>
     </div>
     <div
-      class="flex-1 flex flex-col min-w-0 min-h-0 overflow-hidden relative bg-brand-white"
+      class="flex-1 flex flex-col min-w-0 min-h-0 overflow-hidden relative bg-background-page"
     >
       <div
-        class="lg:hidden flex items-center gap-3 p-4 border-b border-brand-gray-light bg-brand-white shrink-0"
+        class="lg:hidden flex items-center gap-3 p-4 border-b border-border-default bg-background-surface shrink-0"
       >
         <div
-          class="w-8 h-8 rounded-full bg-brand-blue flex items-center justify-center"
+          class="w-8 h-8 rounded-full bg-action-primary flex items-center justify-center"
         >
           <span
-            class="text-brand-white font-bold"
+            class="text-text-inverse font-bold"
           >
             Q
           </span>
         </div>
         <span
-          class="font-bold text-brand-text-dark"
+          class="font-bold text-text-primary"
         >
           QuoteFlow
         </span>
@@ -1573,236 +1409,6 @@ exports[`MasterProjectComponent > matches snapshot with empty data and closed me
         </div>
       </main>
     </div>
-    <nav
-      class="lg:hidden fixed bottom-0 left-0 right-0 z-40 bg-white border-t border-gray-200 flex items-center justify-around px-4 pb-[env(safe-area-inset-bottom)] h-16 shadow-[0_-2px_10px_rgba(0,0,0,0.05)]"
-    >
-      <button
-        class="flex flex-col items-center justify-center gap-1 w-12 transition-colors text-gray-400"
-      >
-        <div
-          class="p-1.5 rounded-full transition-colors flex items-center justify-center "
-        >
-          <svg
-            fill="none"
-            height="20"
-            stroke="currentColor"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="1.8"
-            viewBox="0 0 24 24"
-            width="20"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <rect
-              height="9"
-              rx="1"
-              width="7"
-              x="3"
-              y="3"
-            />
-            <rect
-              height="5"
-              rx="1"
-              width="7"
-              x="14"
-              y="3"
-            />
-            <rect
-              height="9"
-              rx="1"
-              width="7"
-              x="14"
-              y="12"
-            />
-            <rect
-              height="5"
-              rx="1"
-              width="7"
-              x="3"
-              y="16"
-            />
-          </svg>
-        </div>
-        <span
-          class="text-[10px] font-medium"
-        >
-          Home
-        </span>
-      </button>
-      <button
-        class="flex flex-col items-center justify-center gap-1 w-12 transition-colors text-gray-400"
-      >
-        <div
-          class="p-1.5 rounded-full transition-colors flex items-center justify-center "
-        >
-          <svg
-            fill="none"
-            height="20"
-            stroke="currentColor"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="1.8"
-            viewBox="0 0 24 24"
-            width="20"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"
-            />
-            <polyline
-              points="14 2 14 8 20 8"
-            />
-            <line
-              x1="16"
-              x2="8"
-              y1="13"
-              y2="13"
-            />
-            <line
-              x1="16"
-              x2="8"
-              y1="17"
-              y2="17"
-            />
-          </svg>
-        </div>
-        <span
-          class="text-[10px] font-medium"
-        >
-          Order
-        </span>
-      </button>
-      <button
-        class="flex flex-col items-center justify-center gap-1 w-12 transition-colors text-gray-400"
-      >
-        <div
-          class="p-1.5 rounded-full transition-colors flex items-center justify-center "
-        >
-          <svg
-            fill="none"
-            height="20"
-            stroke="currentColor"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="1.8"
-            viewBox="0 0 24 24"
-            width="20"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <rect
-              height="18"
-              rx="2"
-              width="18"
-              x="3"
-              y="4"
-            />
-            <line
-              x1="16"
-              x2="16"
-              y1="2"
-              y2="6"
-            />
-            <line
-              x1="8"
-              x2="8"
-              y1="2"
-              y2="6"
-            />
-            <line
-              x1="3"
-              x2="21"
-              y1="10"
-              y2="10"
-            />
-          </svg>
-        </div>
-        <span
-          class="text-[10px] font-medium"
-        >
-          Return
-        </span>
-      </button>
-      <button
-        class="flex flex-col items-center justify-center gap-1 w-12 transition-colors text-gray-400"
-      >
-        <div
-          class="p-1.5 rounded-full transition-colors flex items-center justify-center "
-        >
-          <svg
-            fill="none"
-            height="20"
-            stroke="currentColor"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="1.8"
-            viewBox="0 0 24 24"
-            width="20"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <ellipse
-              cx="12"
-              cy="5"
-              rx="9"
-              ry="3"
-            />
-            <path
-              d="M3 5V19A9 3 0 0 0 21 19V5"
-            />
-            <path
-              d="M3 12A9 3 0 0 0 21 12"
-            />
-          </svg>
-        </div>
-        <span
-          class="text-[10px] font-medium"
-        >
-          Master
-        </span>
-      </button>
-      <button
-        class="flex flex-col items-center justify-center gap-1 w-12 transition-colors text-gray-400"
-      >
-        <div
-          class="p-1.5 rounded-full transition-colors flex items-center justify-center "
-        >
-          <svg
-            fill="none"
-            height="20"
-            stroke="currentColor"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="1.8"
-            viewBox="0 0 24 24"
-            width="20"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <line
-              x1="12"
-              x2="12"
-              y1="20"
-              y2="10"
-            />
-            <line
-              x1="18"
-              x2="18"
-              y1="20"
-              y2="4"
-            />
-            <line
-              x1="6"
-              x2="6"
-              y1="20"
-              y2="16"
-            />
-          </svg>
-        </div>
-        <span
-          class="text-[10px] font-medium"
-        >
-          Report
-        </span>
-      </button>
-    </nav>
   </div>
 </DocumentFragment>
 `;

@@ -1,5 +1,4 @@
 import { render } from "@testing-library/react";
-import { describe, expect, it } from "vitest";
 
 import { TableComponent } from "./Table.component";
 import type { TableColumn } from "./Table.type";

@@ -1,5 +1,4 @@
 import { fireEvent, render, screen } from "@testing-library/react";
-import { describe, expect, it, vi } from "vitest";
 
 import { ButtonComponent } from "./Button.component";
 
@@ -23,7 +22,7 @@ describe("ButtonComponent", () => {
   });
 
   it("should not invoke action while loading", (): void => {
-    const onClick = vi.fn();
+    const onClick = jest.fn();
 
     render(
       <ButtonComponent isLoading={true} onClick={onClick}>

@@ -1,5 +1,4 @@
 import { render, screen, fireEvent } from "@testing-library/react";
-import { describe, it, expect, vi } from "vitest";
 import { MemoryRouter } from "react-router-dom";
 import { getColumns } from "./MasterItem.columns";
 import MasterItemContainer from "./MasterItem.container";
@@ -36,8 +35,8 @@ describe("MasterItemContainer", () => {
 });
 
 describe("getColumns", () => {
-  const mockOnEdit = vi.fn();
-  const mockOnConfirm = vi.fn();
+  const mockOnEdit = jest.fn();
+  const mockOnConfirm = jest.fn();
   const base: ItemData = { id: "1", name: "Speaker", category: "Audio", price: 5000000, stock: 12, image: "https://example.com/a.jpg", duration: "3 days", remark: "ok", unit: "unit", status: "active", createAt: "2024-01-01", createBy: "Admin" };
   const inactive: ItemData = { id: "2", name: "Light", category: "Lighting", price: 600000, stock: 5, image: "https://example.com/b.jpg", duration: "1 day", remark: "sharp", unit: "unit", status: "inactive", createAt: "2024-01-02", createBy: "Admin" };
 
@@ -78,8 +77,8 @@ describe("getColumns", () => {
   });
 
   it("actions column calls onEdit with stopPropagation", () => {
-    const onEdit = vi.fn();
-    const onConfirm = vi.fn();
+    const onEdit = jest.fn();
+    const onConfirm = jest.fn();
     const cols = getColumns({ currentPage: 1, pageSize: 5, onEdit, onConfirm });
     const actionsCol = cols.find((c) => c.key === "actions")!;
     const el = (actionsCol.render as any)(base) as any;

@@ -1,17 +1,17 @@
-// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`MasterServiceType.component > MasterServiceTypeComponent Snapshots > should match snapshot 1`] = `
+exports[`MasterServiceType.component MasterServiceTypeComponent Snapshots should match snapshot 1`] = `
 <DocumentFragment>
   <div
-    class="flex h-full min-h-0 w-full bg-brand-white overflow-hidden font-sans text-brand-text-dark relative items-stretch"
+    class="flex h-full min-h-0 w-full bg-background-page overflow-hidden font-sans text-text-primary relative items-stretch"
   >
     <div
       class="hidden lg:flex h-full min-h-0 shrink-0 self-stretch"
     >
       <aside
         aria-label="Sidebar"
-        class="w-[260px] h-full min-h-0 self-stretch bg-white border border-[#E5E5E5] flex flex-col shrink-0 overflow-hidden transition-[width] duration-[250ms] ease-in-out"
-        style="border-radius: 12px; background-color: white;"
+        class="w-[260px] h-full min-h-0 self-stretch bg-sidebar-background border border-border-default flex flex-col shrink-0 overflow-hidden transition-[width] duration-[250ms] ease-in-out"
+        style="border-radius: 12px;"
       >
         <div
           class="h-[56px] flex items-center shrink-0 px-4"
@@ -19,7 +19,7 @@ exports[`MasterServiceType.component > MasterServiceTypeComponent Snapshots > sh
           <button
             aria-expanded="true"
             aria-label="Collapse sidebar"
-            class="flex items-center justify-center shrink-0 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#7C3AED]/30 rounded-[8px]"
+            class="flex items-center justify-center shrink-0 focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring/30 rounded-[8px]"
             type="button"
           >
             <img
@@ -33,7 +33,7 @@ exports[`MasterServiceType.component > MasterServiceTypeComponent Snapshots > sh
           class="shrink-0 px-4 pb-4"
         >
           <div
-            class="h-10 bg-[#F3F3F5] flex items-center text-[#6B7280] gap-2 px-3 rounded-[8px]"
+            class="h-10 bg-background-subtle flex items-center text-text-tertiary gap-2 px-3 rounded-[8px]"
             role="search"
           >
             <span
@@ -62,12 +62,12 @@ exports[`MasterServiceType.component > MasterServiceTypeComponent Snapshots > sh
               </svg>
             </span>
             <span
-              class="flex-1 text-left text-[13px] text-[#9CA3AF] truncate"
+              class="flex-1 text-left text-[13px] text-text-tertiary truncate"
             >
               Search
             </span>
             <span
-              class="shrink-0 text-[11px] leading-none bg-white px-1.5 py-1 rounded-[6px] border border-[#E5E5E5] text-[#6B7280] font-medium"
+              class="shrink-0 text-[11px] leading-none bg-background-surface px-1.5 py-1 rounded-[6px] border border-border-default text-text-secondary font-medium"
             >
               ⌘ K
             </span>
@@ -78,7 +78,7 @@ exports[`MasterServiceType.component > MasterServiceTypeComponent Snapshots > sh
         >
           <div>
             <p
-              class="px-2 mb-2 text-[12px] font-semibold tracking-widest uppercase text-[#9CA3AF]"
+              class="px-2 mb-2 text-[12px] font-semibold tracking-widest uppercase text-text-tertiary"
             >
               Menu
             </p>
@@ -89,11 +89,11 @@ exports[`MasterServiceType.component > MasterServiceTypeComponent Snapshots > sh
               <div>
                 <button
                   aria-expanded="true"
-                  class="w-full h-9 flex items-center gap-3 rounded-[6px] px-3 text-left transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#7C3AED]/30 bg-[#F3F3F5] text-[#111827]"
+                  class="w-full h-9 flex items-center gap-3 rounded-[6px] px-3 text-left transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring/30 bg-background-subtle text-text-primary"
                   type="button"
                 >
                   <span
-                    class="shrink-0 [&_svg]:h-5 [&_svg]:w-5 text-[#111827]"
+                    class="shrink-0 [&_svg]:h-5 [&_svg]:w-5 text-text-primary"
                   >
                     <svg
                       fill="none"
@@ -121,12 +121,12 @@ exports[`MasterServiceType.component > MasterServiceTypeComponent Snapshots > sh
                     </svg>
                   </span>
                   <span
-                    class="flex-1 truncate text-[14px] leading-none font-medium text-[#111827]"
+                    class="flex-1 truncate text-[14px] leading-none font-medium text-text-primary"
                   >
                     Master Data
                   </span>
                   <span
-                    class="shrink-0 text-[#9CA3AF] transition-transform duration-200 rotate-180"
+                    class="shrink-0 text-text-tertiary transition-transform duration-200 rotate-180"
                   >
                     <svg
                       fill="none"
@@ -146,7 +146,7 @@ exports[`MasterServiceType.component > MasterServiceTypeComponent Snapshots > sh
                   </span>
                 </button>
                 <div
-                  class="mt-1 ml-3 pl-3 border-l border-[#E5E5E5]/80 space-y-0.5"
+                  class="mt-1 ml-3 pl-3 border-l border-border-default/80 space-y-0.5"
                 >
                   <a>
                     Customer
@@ -187,17 +187,50 @@ exports[`MasterServiceType.component > MasterServiceTypeComponent Snapshots > sh
           </div>
         </div>
         <div
-          class="shrink-0 border-t border-[#E5E5E5] relative p-3"
+          class="shrink-0 border-t border-border-default p-3"
         >
           <button
-            aria-expanded="false"
-            aria-haspopup="menu"
-            class="w-full flex items-center rounded-[10px] transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#7C3AED]/30 hover:bg-[#F9FAFB] gap-3 p-2"
+            aria-checked="false"
+            aria-label="Toggle dark theme"
+            class="mb-2 flex h-9 w-full items-center rounded-[8px] bg-background-subtle text-text-secondary transition-colors hover:bg-action-primary-subtle focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring gap-3 px-3"
+            role="switch"
             type="button"
           >
             <span
               aria-hidden="true"
-              class="w-8 h-8 rounded-full bg-[#EDE9FE] text-[#7C3AED] flex items-center justify-center text-[12px] font-semibold shrink-0"
+              class="shrink-0"
+            >
+              <svg
+                fill="none"
+                height="20"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="1.8"
+                viewBox="0 0 24 24"
+                width="20"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"
+                />
+              </svg>
+            </span>
+            <span
+              class="flex-1 text-left text-[13px] font-medium"
+            >
+              Dark theme
+            </span>
+          </button>
+          <button
+            aria-expanded="false"
+            aria-haspopup="menu"
+            class="w-full flex items-center rounded-[10px] transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring/30 hover:bg-background-elevated gap-3 p-2"
+            type="button"
+          >
+            <span
+              aria-hidden="true"
+              class="w-8 h-8 rounded-full bg-action-primary-subtle text-action-primary flex items-center justify-center text-[12px] font-semibold shrink-0"
             >
               DR
             </span>
@@ -205,18 +238,18 @@ exports[`MasterServiceType.component > MasterServiceTypeComponent Snapshots > sh
               class="flex-1 min-w-0 text-left"
             >
               <span
-                class="block truncate text-[13px] font-semibold leading-4 text-[#111827]"
+                class="block truncate text-[13px] font-semibold leading-4 text-text-primary"
               >
                 Dianne Russell
               </span>
               <span
-                class="block truncate text-[11px] leading-4 text-[#9CA3AF]"
+                class="block truncate text-[11px] leading-4 text-text-tertiary"
               >
                 dianne.russell@gmail.com
               </span>
             </span>
             <span
-              class="shrink-0 text-[#9CA3AF] transition-transform duration-200 "
+              class="shrink-0 text-text-tertiary transition-transform duration-200 "
             >
               <svg
                 fill="none"
@@ -239,7 +272,7 @@ exports[`MasterServiceType.component > MasterServiceTypeComponent Snapshots > sh
       </aside>
     </div>
     <div
-      class="flex-1 flex flex-col min-w-0 min-h-0 overflow-hidden relative bg-brand-white"
+      class="flex-1 flex flex-col min-w-0 min-h-0 overflow-hidden relative bg-background-page"
     >
       <div
         class="hidden lg:block shrink-0"
@@ -628,24 +661,45 @@ exports[`MasterServiceType.component > MasterServiceTypeComponent Snapshots > sh
               class="flex-1 overflow-auto"
             >
               <div
-                class="w-full overflow-x-auto"
+                class="flex flex-col bg-background-surface rounded-xl border border-border-default shadow-sm overflow-hidden"
               >
-                <table
-                  class="w-full whitespace-nowrap"
+                <div
+                  class="hidden md:flex flex-1 overflow-auto"
                 >
-                  <thead>
-                    <tr
-                      class="bg-brand-gray-light border-b border-brand-gray-light"
-                    />
-                  </thead>
-                  <tbody
-                    class="divide-y divide-brand-gray-light"
+                  <div
+                    class="w-full overflow-x-auto"
                   >
-                    <tr
-                      class="hover:bg-brand-gray-light/50 transition-colors group cursor-pointer"
+                    <table
+                      class="w-full min-w-max whitespace-nowrap"
+                    >
+                      <thead>
+                        <tr
+                          class="bg-table-header border-b border-border-default"
+                        />
+                      </thead>
+                      <tbody
+                        class="divide-y divide-border-default"
+                      >
+                        <tr
+                          class="hover:bg-background-subtle/50 transition-colors cursor-pointer"
+                        />
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+                <div
+                  class="md:hidden"
+                >
+                  <div
+                    class="bg-background-surface overflow-hidden divide-y divide-border-default"
+                  >
+                    <div
+                      class="flex flex-col gap-3 px-4 py-4 bg-transparent cursor-pointer active:bg-background-subtle/50 transition-colors"
+                      role="button"
+                      tabindex="0"
                     />
-                  </tbody>
-                </table>
+                  </div>
+                </div>
               </div>
             </div>
             <div
@@ -677,18 +731,18 @@ exports[`MasterServiceType.component > MasterServiceTypeComponent Snapshots > sh
 </DocumentFragment>
 `;
 
-exports[`MasterServiceType.component > MasterServiceTypeComponent Snapshots > should match snapshot when more menu is open 1`] = `
+exports[`MasterServiceType.component MasterServiceTypeComponent Snapshots should match snapshot when more menu is open 1`] = `
 <DocumentFragment>
   <div
-    class="flex h-full min-h-0 w-full bg-brand-white overflow-hidden font-sans text-brand-text-dark relative items-stretch"
+    class="flex h-full min-h-0 w-full bg-background-page overflow-hidden font-sans text-text-primary relative items-stretch"
   >
     <div
       class="hidden lg:flex h-full min-h-0 shrink-0 self-stretch"
     >
       <aside
         aria-label="Sidebar"
-        class="w-[260px] h-full min-h-0 self-stretch bg-white border border-[#E5E5E5] flex flex-col shrink-0 overflow-hidden transition-[width] duration-[250ms] ease-in-out"
-        style="border-radius: 12px; background-color: white;"
+        class="w-[260px] h-full min-h-0 self-stretch bg-sidebar-background border border-border-default flex flex-col shrink-0 overflow-hidden transition-[width] duration-[250ms] ease-in-out"
+        style="border-radius: 12px;"
       >
         <div
           class="h-[56px] flex items-center shrink-0 px-4"
@@ -696,7 +750,7 @@ exports[`MasterServiceType.component > MasterServiceTypeComponent Snapshots > sh
           <button
             aria-expanded="true"
             aria-label="Collapse sidebar"
-            class="flex items-center justify-center shrink-0 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#7C3AED]/30 rounded-[8px]"
+            class="flex items-center justify-center shrink-0 focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring/30 rounded-[8px]"
             type="button"
           >
             <img
@@ -710,7 +764,7 @@ exports[`MasterServiceType.component > MasterServiceTypeComponent Snapshots > sh
           class="shrink-0 px-4 pb-4"
         >
           <div
-            class="h-10 bg-[#F3F3F5] flex items-center text-[#6B7280] gap-2 px-3 rounded-[8px]"
+            class="h-10 bg-background-subtle flex items-center text-text-tertiary gap-2 px-3 rounded-[8px]"
             role="search"
           >
             <span
@@ -739,12 +793,12 @@ exports[`MasterServiceType.component > MasterServiceTypeComponent Snapshots > sh
               </svg>
             </span>
             <span
-              class="flex-1 text-left text-[13px] text-[#9CA3AF] truncate"
+              class="flex-1 text-left text-[13px] text-text-tertiary truncate"
             >
               Search
             </span>
             <span
-              class="shrink-0 text-[11px] leading-none bg-white px-1.5 py-1 rounded-[6px] border border-[#E5E5E5] text-[#6B7280] font-medium"
+              class="shrink-0 text-[11px] leading-none bg-background-surface px-1.5 py-1 rounded-[6px] border border-border-default text-text-secondary font-medium"
             >
               ⌘ K
             </span>
@@ -755,7 +809,7 @@ exports[`MasterServiceType.component > MasterServiceTypeComponent Snapshots > sh
         >
           <div>
             <p
-              class="px-2 mb-2 text-[12px] font-semibold tracking-widest uppercase text-[#9CA3AF]"
+              class="px-2 mb-2 text-[12px] font-semibold tracking-widest uppercase text-text-tertiary"
             >
               Menu
             </p>
@@ -766,11 +820,11 @@ exports[`MasterServiceType.component > MasterServiceTypeComponent Snapshots > sh
               <div>
                 <button
                   aria-expanded="true"
-                  class="w-full h-9 flex items-center gap-3 rounded-[6px] px-3 text-left transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#7C3AED]/30 bg-[#F3F3F5] text-[#111827]"
+                  class="w-full h-9 flex items-center gap-3 rounded-[6px] px-3 text-left transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring/30 bg-background-subtle text-text-primary"
                   type="button"
                 >
                   <span
-                    class="shrink-0 [&_svg]:h-5 [&_svg]:w-5 text-[#111827]"
+                    class="shrink-0 [&_svg]:h-5 [&_svg]:w-5 text-text-primary"
                   >
                     <svg
                       fill="none"
@@ -798,12 +852,12 @@ exports[`MasterServiceType.component > MasterServiceTypeComponent Snapshots > sh
                     </svg>
                   </span>
                   <span
-                    class="flex-1 truncate text-[14px] leading-none font-medium text-[#111827]"
+                    class="flex-1 truncate text-[14px] leading-none font-medium text-text-primary"
                   >
                     Master Data
                   </span>
                   <span
-                    class="shrink-0 text-[#9CA3AF] transition-transform duration-200 rotate-180"
+                    class="shrink-0 text-text-tertiary transition-transform duration-200 rotate-180"
                   >
                     <svg
                       fill="none"
@@ -823,7 +877,7 @@ exports[`MasterServiceType.component > MasterServiceTypeComponent Snapshots > sh
                   </span>
                 </button>
                 <div
-                  class="mt-1 ml-3 pl-3 border-l border-[#E5E5E5]/80 space-y-0.5"
+                  class="mt-1 ml-3 pl-3 border-l border-border-default/80 space-y-0.5"
                 >
                   <a>
                     Customer
@@ -864,17 +918,50 @@ exports[`MasterServiceType.component > MasterServiceTypeComponent Snapshots > sh
           </div>
         </div>
         <div
-          class="shrink-0 border-t border-[#E5E5E5] relative p-3"
+          class="shrink-0 border-t border-border-default p-3"
         >
           <button
-            aria-expanded="false"
-            aria-haspopup="menu"
-            class="w-full flex items-center rounded-[10px] transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#7C3AED]/30 hover:bg-[#F9FAFB] gap-3 p-2"
+            aria-checked="false"
+            aria-label="Toggle dark theme"
+            class="mb-2 flex h-9 w-full items-center rounded-[8px] bg-background-subtle text-text-secondary transition-colors hover:bg-action-primary-subtle focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring gap-3 px-3"
+            role="switch"
             type="button"
           >
             <span
               aria-hidden="true"
-              class="w-8 h-8 rounded-full bg-[#EDE9FE] text-[#7C3AED] flex items-center justify-center text-[12px] font-semibold shrink-0"
+              class="shrink-0"
+            >
+              <svg
+                fill="none"
+                height="20"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="1.8"
+                viewBox="0 0 24 24"
+                width="20"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"
+                />
+              </svg>
+            </span>
+            <span
+              class="flex-1 text-left text-[13px] font-medium"
+            >
+              Dark theme
+            </span>
+          </button>
+          <button
+            aria-expanded="false"
+            aria-haspopup="menu"
+            class="w-full flex items-center rounded-[10px] transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring/30 hover:bg-background-elevated gap-3 p-2"
+            type="button"
+          >
+            <span
+              aria-hidden="true"
+              class="w-8 h-8 rounded-full bg-action-primary-subtle text-action-primary flex items-center justify-center text-[12px] font-semibold shrink-0"
             >
               DR
             </span>
@@ -882,18 +969,18 @@ exports[`MasterServiceType.component > MasterServiceTypeComponent Snapshots > sh
               class="flex-1 min-w-0 text-left"
             >
               <span
-                class="block truncate text-[13px] font-semibold leading-4 text-[#111827]"
+                class="block truncate text-[13px] font-semibold leading-4 text-text-primary"
               >
                 Dianne Russell
               </span>
               <span
-                class="block truncate text-[11px] leading-4 text-[#9CA3AF]"
+                class="block truncate text-[11px] leading-4 text-text-tertiary"
               >
                 dianne.russell@gmail.com
               </span>
             </span>
             <span
-              class="shrink-0 text-[#9CA3AF] transition-transform duration-200 "
+              class="shrink-0 text-text-tertiary transition-transform duration-200 "
             >
               <svg
                 fill="none"
@@ -916,7 +1003,7 @@ exports[`MasterServiceType.component > MasterServiceTypeComponent Snapshots > sh
       </aside>
     </div>
     <div
-      class="flex-1 flex flex-col min-w-0 min-h-0 overflow-hidden relative bg-brand-white"
+      class="flex-1 flex flex-col min-w-0 min-h-0 overflow-hidden relative bg-background-page"
     >
       <div
         class="hidden lg:block shrink-0"
@@ -1370,24 +1457,45 @@ exports[`MasterServiceType.component > MasterServiceTypeComponent Snapshots > sh
               class="flex-1 overflow-auto"
             >
               <div
-                class="w-full overflow-x-auto"
+                class="flex flex-col bg-background-surface rounded-xl border border-border-default shadow-sm overflow-hidden"
               >
-                <table
-                  class="w-full whitespace-nowrap"
+                <div
+                  class="hidden md:flex flex-1 overflow-auto"
                 >
-                  <thead>
-                    <tr
-                      class="bg-brand-gray-light border-b border-brand-gray-light"
-                    />
-                  </thead>
-                  <tbody
-                    class="divide-y divide-brand-gray-light"
+                  <div
+                    class="w-full overflow-x-auto"
                   >
-                    <tr
-                      class="hover:bg-brand-gray-light/50 transition-colors group cursor-pointer"
+                    <table
+                      class="w-full min-w-max whitespace-nowrap"
+                    >
+                      <thead>
+                        <tr
+                          class="bg-table-header border-b border-border-default"
+                        />
+                      </thead>
+                      <tbody
+                        class="divide-y divide-border-default"
+                      >
+                        <tr
+                          class="hover:bg-background-subtle/50 transition-colors cursor-pointer"
+                        />
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+                <div
+                  class="md:hidden"
+                >
+                  <div
+                    class="bg-background-surface overflow-hidden divide-y divide-border-default"
+                  >
+                    <div
+                      class="flex flex-col gap-3 px-4 py-4 bg-transparent cursor-pointer active:bg-background-subtle/50 transition-colors"
+                      role="button"
+                      tabindex="0"
                     />
-                  </tbody>
-                </table>
+                  </div>
+                </div>
               </div>
             </div>
             <div

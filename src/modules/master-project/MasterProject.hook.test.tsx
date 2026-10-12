@@ -1,22 +1,21 @@
 import { renderHook, act } from "@testing-library/react";
 import { MemoryRouter, useNavigate } from "react-router-dom";
-import { vi } from "vitest";
 import { useMasterProjectContainerState, useMasterProjectNavigation } from "./MasterProject.hook";
 
-vi.mock("react-router-dom", async () => {
-  const actual = await vi.importActual("react-router-dom");
+jest.mock("react-router-dom", () => {
+  const actual = jest.requireActual("react-router-dom");
   return {
     ...actual,
-    useNavigate: vi.fn(),
+    useNavigate: jest.fn(),
   };
 });
 
-const mockNavigate = vi.fn();
+const mockNavigate = jest.fn();
 
 describe("MasterProject Navigation Hook", () => {
   beforeEach(() => {
-    vi.clearAllMocks();
-    (useNavigate as ReturnType<typeof vi.fn>).mockReturnValue(mockNavigate);
+    jest.clearAllMocks();
+    (useNavigate as ReturnType<typeof jest.fn>).mockReturnValue(mockNavigate);
   });
 
   it("should provide navigation functions", () => {
@@ -46,7 +45,7 @@ describe("MasterProject Navigation Hook", () => {
 
 describe("MasterProject Container State Hook", () => {
   beforeEach(() => {
-    vi.clearAllMocks();
+    jest.clearAllMocks();
   });
 
   it("should provide container state", () => {

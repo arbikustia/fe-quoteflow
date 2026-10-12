@@ -1,17 +1,16 @@
 import { renderHook, act } from "@testing-library/react";
-import { describe, it, expect, vi } from "vitest";
 import { useNavigate } from "react-router-dom";
 import { useMasterServiceTypeContainerState, useMasterServiceTypeNavigation } from "./MasterServiceType.hook";
 
-vi.mock("react-router-dom", () => ({
-  useNavigate: vi.fn(),
+jest.mock("react-router-dom", () => ({
+  useNavigate: jest.fn(),
 }));
 
 describe("MasterServiceType.hook", () => {
   describe("useMasterServiceTypeNavigation", () => {
     it("should handle navigation correctly", () => {
-      const mockNavigate = vi.fn();
-      vi.mocked(useNavigate).mockReturnValue(mockNavigate);
+      const mockNavigate = jest.fn();
+      jest.mocked(useNavigate).mockReturnValue(mockNavigate);
 
       const { result } = renderHook(() => useMasterServiceTypeNavigation());
 

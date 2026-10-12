@@ -1,6 +1,6 @@
-// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`TableComponent Snapshot > should render mobile action card and desktop action column 1`] = `
+exports[`TableComponent Snapshot should render mobile action card and desktop action column 1`] = `
 <DocumentFragment>
   <div
     class="flex flex-col bg-background-surface rounded-xl border border-border-default shadow-sm overflow-hidden"
@@ -134,7 +134,7 @@ exports[`TableComponent Snapshot > should render mobile action card and desktop 
 </DocumentFragment>
 `;
 
-exports[`TableComponent Snapshot > should render responsive table 1`] = `
+exports[`TableComponent Snapshot should render responsive table 1`] = `
 <DocumentFragment>
   <div
     class="flex flex-col bg-background-surface rounded-xl border border-border-default shadow-sm overflow-hidden"

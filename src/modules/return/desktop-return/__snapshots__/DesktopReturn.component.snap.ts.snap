@@ -1,0 +1,70 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`DesktopReturnComponent matches snapshot 1`] = `
+<DocumentFragment>
+  <div
+    class="bg-brand-white rounded-3xl shadow-sm border border-brand-gray-light p-6 max-w-4xl mx-auto"
+  >
+    <h2
+      class="text-xl font-bold text-brand-text-dark mb-6"
+    >
+      Scan / Input Quotation Code
+    </h2>
+    <form
+      class="flex items-end gap-4 mb-8"
+    >
+      <div
+        class="flex-1"
+      >
+        <label
+          class="block text-sm font-semibold text-brand-text-dark mb-2"
+        >
+          Quotation Code (e.g. Q-999)
+        </label>
+        <div
+          class="relative"
+        >
+          <div
+            class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-brand-text-medium"
+          >
+            <svg
+              fill="none"
+              height="1em"
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              viewBox="0 0 24 24"
+              width="1em"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <circle
+                cx="11"
+                cy="11"
+                r="8"
+              />
+              <line
+                x1="21"
+                x2="16.65"
+                y1="21"
+                y2="16.65"
+              />
+            </svg>
+          </div>
+          <input
+            class="w-full pl-10 pr-4 py-3 bg-brand-gray-light border border-brand-gray-light rounded-xl focus:ring-2 focus:ring-brand-blue focus:border-brand-blue transition-colors"
+            placeholder="Enter quotation ID"
+            type="text"
+          />
+        </div>
+      </div>
+      <button
+        class="px-6 py-3 bg-brand-blue text-brand-white font-bold rounded-xl hover:bg-brand-blue-dark transition-colors"
+        type="submit"
+      >
+        Search
+      </button>
+    </form>
+  </div>
+</DocumentFragment>
+`;

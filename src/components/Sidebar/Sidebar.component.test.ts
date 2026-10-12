@@ -1,7 +1,6 @@
 import { fireEvent, render, screen } from "@testing-library/react";
 import React from "react";
 import { MemoryRouter } from "react-router-dom";
-import { describe, expect, it, vi } from "vitest";
 
 import type { SidebarProps } from "./Sidebar.type";
 import { SidebarComponent } from "./Sidebar.component";
@@ -12,13 +11,13 @@ describe("SidebarComponent Test", () => {
     navigation: NAVIGATION_CONFIG,
     currentPath: "/home",
     openMenus: [] as readonly string[],
-    onToggleMenu: vi.fn(),
+    onToggleMenu: jest.fn(),
     isCollapsed: false,
-    onToggleCollapsed: vi.fn(),
+    onToggleCollapsed: jest.fn(),
     isProfileOpen: false,
-    onToggleProfile: vi.fn(),
+    onToggleProfile: jest.fn(),
     theme: "light",
-    onToggleTheme: vi.fn(),
+    onToggleTheme: jest.fn(),
   };
 
   it("should render SidebarComponent with Master Data", () => {
@@ -28,7 +27,7 @@ describe("SidebarComponent Test", () => {
   });
 
   it("should call onToggleCollapsed when logo button is clicked", () => {
-    const onToggleCollapsed = vi.fn();
+    const onToggleCollapsed = jest.fn();
 
     render(
       React.createElement(
@@ -44,7 +43,7 @@ describe("SidebarComponent Test", () => {
   });
 
   it("should call onToggleTheme when theme switch is clicked", () => {
-    const onToggleTheme = vi.fn();
+    const onToggleTheme = jest.fn();
 
     render(
       React.createElement(

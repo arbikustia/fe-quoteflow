@@ -1,6 +1,5 @@
 import { render, screen, fireEvent } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
-import { vi } from "vitest";
 import { getColumns } from "./MasterRole.columns";
 import MasterRoleContainer from "./MasterRole.container";
 import type { RoleData } from "./MasterRole.type";
@@ -35,7 +34,7 @@ describe("MasterRoleContainer", () => {
 });
 
 describe("getColumns", () => {
-  const onEdit = vi.fn();
+  const onEdit = jest.fn();
   const columns = getColumns({ currentPage: 1, pageSize: 10, onEdit });
 
   it("returns columns correctly", () => {

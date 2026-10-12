@@ -1,6 +1,6 @@
-// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`MasterPaymentMethod.component > MasterPaymentMethodComponent Snapshots > default state 1`] = `
+exports[`MasterPaymentMethod.component MasterPaymentMethodComponent Snapshots default state 1`] = `
 <DocumentFragment>
   <div
     data-testid="layout"
@@ -155,7 +155,7 @@ exports[`MasterPaymentMethod.component > MasterPaymentMethodComponent Snapshots 
 </DocumentFragment>
 `;
 
-exports[`MasterPaymentMethod.component > MasterPaymentMethodComponent Snapshots > more open state 1`] = `
+exports[`MasterPaymentMethod.component MasterPaymentMethodComponent Snapshots more open state 1`] = `
 <DocumentFragment>
   <div
     data-testid="layout"

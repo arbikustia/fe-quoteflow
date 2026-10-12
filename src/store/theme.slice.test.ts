@@ -1,4 +1,4 @@
-import { describe, expect, it, vi } from "vitest";
+/** @jest-environment node */
 
 import { themeSlice, getInitialTheme, selectTheme } from "./theme.slice";
 import type { ThemeState } from "./theme.type";
@@ -56,7 +56,7 @@ describe("theme slice", () => {
     it("should return stored theme when valid", () => {
       const originalWindow = globalThis.window;
       const mockLocalStorage = {
-        getItem: vi.fn().mockReturnValue("dark"),
+        getItem: jest.fn().mockReturnValue("dark"),
       };
       globalThis.window = {
         localStorage: mockLocalStorage,
