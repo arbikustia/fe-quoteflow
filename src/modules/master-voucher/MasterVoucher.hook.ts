@@ -1,10 +1,12 @@
 /* eslint-disable jsdoc/require-jsdoc */
+import type * as React from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { _mapVoucher, useCreateVoucherMutation, useGetVouchersQuery } from "./MasterVoucher.api";
 import type {
   MasterVoucherContainerState,
+  MasterVoucherCreateFormState,
   MasterVoucherNavigation,
   MasterVoucherPagination,
   VoucherData,
@@ -52,7 +54,9 @@ const _deriveVoucherListState = (
   }
 
   if (!response.status) {
-    const message = typeof response.messages === "string" ? response.messages : "Unable to load vouchers.";
+    const message = Array.isArray(response.messages)
+      ? response.messages.join(" ")
+      : (response.messages ?? "Unable to load vouchers.");
 
     return { isLoading: false, errorMessage: message, isMissingData: false, paginatedData: [], totalPages: 0, totalCount: 0, hasNext: false, hasPrevious: false };
   }
@@ -61,11 +65,11 @@ const _deriveVoucherListState = (
     isLoading: false,
     errorMessage: null,
     isMissingData: false,
-    paginatedData: response.data.data.map(_mapVoucher),
-    totalPages: response.data.total_pages,
-    totalCount: response.data.total_count,
-    hasNext: response.data.has_next,
-    hasPrevious: response.data.has_previous,
+    paginatedData: response.data.map(_mapVoucher),
+    totalPages: response.total_pages,
+    totalCount: response.total_count,
+    hasNext: response.has_next,
+    hasPrevious: response.has_previous,
   };
 };
 
@@ -74,6 +78,71 @@ const _deriveVoucherListState = (
  * @returns {ReturnType<typeof useCreateVoucherMutation>} Voucher mutation state
  */
 export const useMasterVoucherCreate = (): ReturnType<typeof useCreateVoucherMutation> => useCreateVoucherMutation();
+
+/**
+ * Provide voucher creation form state.
+ * @returns {MasterVoucherCreateFormState} Voucher form state
+ */
+export const useMasterVoucherCreateForm = (): MasterVoucherCreateFormState => {
+  const navigate = useNavigate();
+  const [name, setName] = useState("");
+  const [code, setCode] = useState("");
+  const [discountPercent, setDiscountPercent] = useState("");
+  const [status, setStatus] = useState("1");
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [createVoucher, { isLoading: isSubmitting }] = useCreateVoucherMutation();
+
+  const handleNameChange = (event: React.ChangeEvent<HTMLInputElement>): void => setName(event.target.value);
+  const handleCodeChange = (event: React.ChangeEvent<HTMLInputElement>): void => setCode(event.target.value);
+  const handleDiscountChange = (event: React.ChangeEvent<HTMLInputElement>): void => setDiscountPercent(event.target.value);
+  const handleStatusChange = (event: React.ChangeEvent<HTMLSelectElement>): void => setStatus(event.target.value);
+
+  const handleSubmit = async (event: React.SyntheticEvent): Promise<void> => {
+    event.preventDefault();
+    setErrorMessage(null);
+
+    try {
+      const response = await createVoucher({
+        name,
+        code,
+        discount_percent: Number(discountPercent),
+        status: Number(status),
+      }).unwrap();
+
+      if (!response.status) {
+        const message = Array.isArray(response.messages)
+          ? response.messages.join(" ")
+          : (response.messages ?? "Failed to create voucher.");
+        setErrorMessage(message);
+
+        return;
+      }
+
+      navigate("/master-voucher");
+    } catch {
+      setErrorMessage("Unable to create voucher. Please try again.");
+    }
+  };
+
+  const goBack = (): void => {
+    navigate(-1);
+  };
+
+  return {
+    name,
+    code,
+    discountPercent,
+    status,
+    isSubmitting,
+    errorMessage,
+    handleNameChange,
+    handleCodeChange,
+    handleDiscountChange,
+    handleStatusChange,
+    handleSubmit,
+    goBack,
+  };
+};
 
 /**
  * Provide API-backed voucher pagination.

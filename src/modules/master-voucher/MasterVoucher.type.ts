@@ -1,5 +1,7 @@
+import type * as React from "react";
+
 import type { TableColumn } from "../../components/Table";
-import type { ApiEnvelope, PaginatedResponse } from "../../types/api.type";
+import type { ApiEnvelope } from "../../types/api.type";
 
 export type ApiVoucher = {
   readonly id: string;
@@ -11,7 +13,17 @@ export type ApiVoucher = {
   readonly updated_at: string | null;
 };
 
-export type VoucherListResponse = ApiEnvelope<PaginatedResponse<ApiVoucher> | null>;
+export type VoucherListResponse = {
+  readonly data: ApiVoucher[];
+  readonly page_number: number;
+  readonly total_pages: number;
+  readonly page_size: number;
+  readonly total_count: number;
+  readonly has_previous: boolean;
+  readonly has_next: boolean;
+  readonly status: boolean;
+  readonly messages: string[] | string | null;
+};
 export type VoucherCreateResponse = ApiEnvelope<ApiVoucher | null>;
 
 export type VoucherListParams = {
@@ -25,6 +37,21 @@ export type VoucherCreatePayload = {
   readonly code: string;
   readonly discount_percent: number;
   readonly status: number;
+};
+
+export type MasterVoucherCreateFormState = {
+  readonly name: string;
+  readonly code: string;
+  readonly discountPercent: string;
+  readonly status: string;
+  readonly isSubmitting: boolean;
+  readonly errorMessage: string | null;
+  readonly handleNameChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  readonly handleCodeChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  readonly handleDiscountChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  readonly handleStatusChange: (event: React.ChangeEvent<HTMLSelectElement>) => void;
+  readonly handleSubmit: (event: React.SyntheticEvent) => Promise<void>;
+  readonly goBack: () => void;
 };
 
 export type VoucherData = {
