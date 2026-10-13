@@ -1,77 +1,116 @@
-import { renderHook, act } from "@testing-library/react";
-import { MemoryRouter, useNavigate } from "react-router-dom";
-import { useMasterVoucherContainerState, useMasterVoucherNavigation } from "./MasterVoucher.hook";
+import { act, renderHook } from "@testing-library/react";
 
-jest.mock("react-router-dom", () => {
-  const actual = jest.requireActual("react-router-dom");
-  return {
-    ...actual,
-    useNavigate: jest.fn(),
-  };
-});
+import { MOCK_VOUCHERS } from "../../fixture/master-voucher";
+import { useGetVouchersQuery } from "./MasterVoucher.api";
+import { useMasterVoucherContainerState, useMasterVoucherNavigation } from "./MasterVoucher.hook";
 
 const mockNavigate = jest.fn();
 
-describe("MasterVoucher Navigation Hook", () => {
+jest.mock("./MasterVoucher.api", () => ({
+  _mapVoucher: (voucher: { readonly id: string; readonly name: string; readonly code: string; readonly discount_percent: number; readonly status: number; readonly created_at: string | null }) => ({
+    id: voucher.id,
+    name: voucher.name,
+    code: voucher.code,
+    discountPercent: voucher.discount_percent,
+    status: voucher.status === 1 ? "active" : "inactive",
+    createAt: voucher.created_at ?? "",
+    createBy: "",
+  }),
+  useGetVouchersQuery: jest.fn(),
+}));
+
+jest.mock("react-router-dom", () => ({
+  useNavigate: (): typeof mockNavigate => mockNavigate,
+}));
+
+const mockUseGetVouchersQuery = useGetVouchersQuery as jest.Mock;
+const emptyResponse = {
+  data: {
+    status: true,
+    messages: null,
+    data: {
+      data: [],
+      page_number: 1,
+      total_pages: 1,
+      total_count: 0,
+      has_previous: false,
+      has_next: false,
+    },
+  },
+  error: undefined,
+  isLoading: false,
+};
+
+describe("MasterVoucher hook", () => {
   beforeEach(() => {
     jest.clearAllMocks();
-    (useNavigate as ReturnType<typeof jest.fn>).mockReturnValue(mockNavigate);
+    mockUseGetVouchersQuery.mockReturnValue(emptyResponse as ReturnType<typeof useGetVouchersQuery>);
   });
 
-  it("should provide navigation functions", () => {
-    const { result } = renderHook(() => useMasterVoucherNavigation(), { wrapper: MemoryRouter });
-    expect(result.current).toHaveProperty("goBack");
-    expect(result.current).toHaveProperty("goCreate");
-    expect(result.current).toHaveProperty("goEdit");
-    expect(result.current).toHaveProperty("goDetail");
-  });
+  it("should navigate to voucher pages", () => {
+    const { result } = renderHook(() => useMasterVoucherNavigation());
 
-  it("should trigger correct navigation paths", () => {
-    const { result } = renderHook(() => useMasterVoucherNavigation(), { wrapper: MemoryRouter });
-    
-    act(() => result.current.goBack());
+    act(() => { result.current.goBack(); });
     expect(mockNavigate).toHaveBeenCalledWith(-1);
-
-    act(() => result.current.goCreate());
+    act(() => { result.current.goCreate(); });
     expect(mockNavigate).toHaveBeenCalledWith("/master-voucher/create");
-
-    act(() => result.current.goEdit({ id: "1" } as any));
+    act(() => { result.current.goEdit(MOCK_VOUCHERS[0]); });
     expect(mockNavigate).toHaveBeenCalledWith("/master-voucher/edit/1");
-
-    act(() => result.current.goDetail({ id: "2" } as any));
+    act(() => { result.current.goDetail(MOCK_VOUCHERS[1]); });
     expect(mockNavigate).toHaveBeenCalledWith("/master-voucher/detail/2");
   });
-});
 
-describe("MasterVoucher Container State Hook", () => {
-  beforeEach(() => {
-    jest.clearAllMocks();
+  it("should expose empty API state", () => {
+    const { result } = renderHook(() => useMasterVoucherContainerState());
+
+    expect(mockUseGetVouchersQuery).toHaveBeenCalledWith({ pageNumber: 1, pageSize: 10, searchTerm: "" });
+    expect(result.current.pagination.paginatedData).toEqual([]);
+    expect(result.current.pagination.isEmpty).toBe(true);
   });
 
-  it("should provide container state", () => {
-    const { result } = renderHook(() => useMasterVoucherContainerState(), { wrapper: MemoryRouter });
-    expect(result.current).toHaveProperty("pagination");
-    expect(result.current.pagination).toHaveProperty("paginatedData");
-    expect(result.current).toHaveProperty("isMoreOpen");
+  it("should map voucher API response", () => {
+    mockUseGetVouchersQuery.mockReturnValue({
+      ...emptyResponse,
+      data: {
+        ...emptyResponse.data,
+        data: {
+          ...emptyResponse.data.data,
+          data: [{ id: "1", name: "Discount", code: "DISC10", discount_percent: 10, status: 1, created_at: "2026-10-13", updated_at: null }],
+          total_count: 1,
+        },
+      },
+    } as ReturnType<typeof useGetVouchersQuery>);
+
+    const { result } = renderHook(() => useMasterVoucherContainerState());
+
+    expect(result.current.pagination.paginatedData[0].code).toBe("DISC10");
+    expect(result.current.pagination.totalCount).toBe(1);
   });
 
-  it("should toggle more menu", () => {
-    const { result } = renderHook(() => useMasterVoucherContainerState(), { wrapper: MemoryRouter });
-    expect(result.current.isMoreOpen).toBe(false);
+  it("should expose loading, error, and missing states", () => {
+    mockUseGetVouchersQuery.mockReturnValue({ data: undefined, error: undefined, isLoading: true } as ReturnType<typeof useGetVouchersQuery>);
+    const loading = renderHook(() => useMasterVoucherContainerState());
+    expect(loading.result.current.pagination.isLoading).toBe(true);
+    loading.unmount();
 
-    act(() => result.current.toggleMore());
+    mockUseGetVouchersQuery.mockReturnValue({ data: undefined, error: { status: 500 }, isLoading: false } as ReturnType<typeof useGetVouchersQuery>);
+    const failed = renderHook(() => useMasterVoucherContainerState());
+    expect(failed.result.current.pagination.errorMessage).toBe("Unable to load vouchers.");
+    failed.unmount();
+
+    mockUseGetVouchersQuery.mockReturnValue({ data: undefined, error: undefined, isLoading: false } as ReturnType<typeof useGetVouchersQuery>);
+    const missing = renderHook(() => useMasterVoucherContainerState());
+    expect(missing.result.current.pagination.isMissingData).toBe(true);
+  });
+
+  it("should update menu and page size", () => {
+    const { result } = renderHook(() => useMasterVoucherContainerState());
+
+    act(() => { result.current.toggleMore(); });
     expect(result.current.isMoreOpen).toBe(true);
-
-    act(() => result.current.handleCloseMore());
+    act(() => { result.current.goDelete(); });
     expect(result.current.isMoreOpen).toBe(false);
-  });
-
-  it("should handle delete action", () => {
-    const { result } = renderHook(() => useMasterVoucherContainerState(), { wrapper: MemoryRouter });
-    act(() => result.current.toggleMore());
-    expect(result.current.isMoreOpen).toBe(true);
-
-    act(() => result.current.goDelete());
-    expect(result.current.isMoreOpen).toBe(false);
+    act(() => { result.current.pagination.changePageSize(5); });
+    expect(result.current.pagination.pageSize).toBe(5);
   });
 });
