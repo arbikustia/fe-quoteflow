@@ -62,28 +62,21 @@ const _deriveCustomerListState = (queryResult: ReturnType<typeof useGetCustomers
     return _createErrorState();
   }
 
-  const envelope: CustomerListResponse | undefined = data;
+  const response: CustomerListResponse | undefined = data;
 
-  if (!envelope) {
+  if (!response) {
     return _createMissingResponseState();
   }
 
-  if (envelope.status === false) {
-    const messages = envelope.messages;
-    const messageText = Array.isArray(messages) ? messages.join(" ") : (messages ?? "Request failed.");
+  const customerList = response.data;
 
-    return _createEnvelopeErrorState(messageText);
-  }
-
-  const payload = envelope.data;
-
-  if (!payload) {
+  if (!customerList) {
     return _createMissingPayloadState();
   }
 
-  const customers = payload.data.map(_mapCustomer);
+  const customers = customerList.map(_mapCustomer);
 
-  return _createSuccessState(customers, payload.total_pages, payload.total_count);
+  return _createSuccessState(customers, response.total_pages, response.total_count);
 };
 
 /**
@@ -123,21 +116,6 @@ const _createMissingResponseState = (): CustomerListApiState => ({
   errorMessage: "No response received from server.",
   isEnvelopeError: false,
   isMissingData: true,
-  paginatedData: [],
-  totalPages: 0,
-  totalCount: 0,
-});
-
-/**
- * Create envelope error state.
- * @param {string} message - Error message from envelope
- * @returns {CustomerListApiState} Envelope error state
- */
-const _createEnvelopeErrorState = (message: string): CustomerListApiState => ({
-  isLoading: false,
-  errorMessage: message,
-  isEnvelopeError: true,
-  isMissingData: false,
   paginatedData: [],
   totalPages: 0,
   totalCount: 0,
@@ -196,15 +174,15 @@ export const useMasterCustomerPagination = (): MasterCustomerPagination => {
    */
   const goToPage = (page: number): void => setCurrentPage(Math.max(1, Math.min(page, derived.totalPages)));
   /**
-   * Handle next page
+ * Handle next page
    * @returns {void}
    */
-  const nextPage = (): void => { if (!derived.isLoading && !derived.errorMessage && derived.paginatedData.length > 0 && queryResult.data?.data?.has_next) goToPage(currentPage + 1); };
+  const nextPage = (): void => { if (!derived.isLoading && !derived.errorMessage && derived.paginatedData.length > 0 && queryResult.data?.has_next) goToPage(currentPage + 1); };
   /**
    * Handle prev page
    * @returns {void}
    */
-  const prevPage = (): void => { if (!derived.isLoading && !derived.errorMessage && derived.paginatedData.length > 0 && queryResult.data?.data?.has_previous) goToPage(currentPage - 1); };
+  const prevPage = (): void => { if (!derived.isLoading && !derived.errorMessage && derived.paginatedData.length > 0 && queryResult.data?.has_previous) goToPage(currentPage - 1); };
   /**
    * Handle page size change
    * @param {number} size - The new page size

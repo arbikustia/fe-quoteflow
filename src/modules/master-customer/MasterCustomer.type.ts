@@ -13,7 +13,7 @@ export type ApiCustomer = {
   readonly created_by: string | null;
 };
 
-export type CustomerListResponse = ApiEnvelope<PaginatedResponse<ApiCustomer>>;
+export type CustomerListResponse = PaginatedResponse<ApiCustomer>;
 export type CustomerCreateResponse = ApiEnvelope<ApiCustomer | null>;
 
 export type CustomerListParams = {
