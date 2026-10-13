@@ -32,7 +32,7 @@ const _renderInputField = (props: InputFieldProps): React.ReactElement => {
  * @returns {React.ReactElement} Form element
  */
 export const MasterProjectCreateForm = (props: MasterProjectCreateFormState): React.ReactElement => {
-  const { name, remark, isSubmitting, errorMessage, successMessage, handleNameChange, handleRemarkChange, handleSubmit, goBack } = props;
+  const { name, remark, isActive, isSubmitting, errorMessage, successMessage, handleNameChange, handleRemarkChange, toggleStatus, handleSubmit, goBack } = props;
 
   return (
     <div className="flex-1 w-full min-h-full bg-[#f8f9fb] font-sans pb-10 relative overflow-y-auto">
@@ -52,6 +52,12 @@ export const MasterProjectCreateForm = (props: MasterProjectCreateFormState): Re
         <form onSubmit={handleSubmit} className="flex flex-col">
           {_renderInputField({ label: "Project Name", placeholder: "e.g. Wedding Gala - Grand Ballroom", value: name, required: true, onChange: handleNameChange, icon: <span aria-hidden="true">▣</span> })}
           {_renderInputField({ label: "Remark", placeholder: "e.g. Full setup including staging", value: remark, multiline: true, onChange: handleRemarkChange, icon: <span aria-hidden="true">▤</span> })}
+          <div className="mb-5 flex items-center justify-between rounded-3xl bg-white border border-gray-100 px-5 py-4 shadow-[0_4px_15px_rgba(0,0,0,0.02)]">
+            <span className="text-[15px] font-semibold text-gray-800">Active</span>
+            <button type="button" role="switch" aria-checked={isActive} onClick={toggleStatus} className={`relative h-7 w-12 rounded-full transition-colors ${isActive ? "bg-brand-blue" : "bg-gray-300"}`}>
+              <span className={`absolute top-1 h-5 w-5 rounded-full bg-white shadow transition-transform ${isActive ? "translate-x-6" : "translate-x-1"}`} />
+            </button>
+          </div>
           {errorMessage && <p role="alert" className="mb-4 text-[13px] font-medium text-red-600">{errorMessage}</p>}
           {successMessage && <p role="status" className="mb-4 text-[13px] font-medium text-green-700">{successMessage}</p>}
           <button type="submit" disabled={isSubmitting} className="w-full bg-[#1a233a] text-white rounded-full py-4 text-[16px] font-bold tracking-wide shadow-[0_10px_20px_rgba(26,35,58,0.15)] hover:bg-black transition-all mt-2 disabled:opacity-60">{isSubmitting ? "Creating…" : "Create Project"}</button>

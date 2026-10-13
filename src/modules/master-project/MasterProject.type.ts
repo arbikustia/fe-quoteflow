@@ -47,6 +47,7 @@ export type ProjectListApiState = {
 export type ProjectCreatePayload = {
   readonly name: string;
   readonly remark: string;
+  readonly status: number;
 };
 
 export type MasterProjectNavigation = {
@@ -127,11 +128,13 @@ export type InputFieldProps = {
 export type MasterProjectCreateFormState = {
   readonly name: string;
   readonly remark: string;
+  readonly isActive: boolean;
   readonly isSubmitting: boolean;
   readonly errorMessage: string | null;
   readonly successMessage: string | null;
   readonly handleNameChange: (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
   readonly handleRemarkChange: (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
+  readonly toggleStatus: () => void;
   readonly handleSubmit: (event: React.SyntheticEvent) => void;
   readonly goBack: () => void;
 };

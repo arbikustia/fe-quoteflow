@@ -26,12 +26,14 @@ export const useMasterProjectCreate = (): MasterProjectCreateFormState => {
   const navigate = useNavigate();
   const [name, setName] = useState("");
   const [remark, setRemark] = useState("");
+  const [isActive, setIsActive] = useState(true);
   const [createProject, { isLoading: isSubmitting }] = useCreateProjectMutation();
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
 
   const handleNameChange = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>): void => setName(event.target.value);
   const handleRemarkChange = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>): void => setRemark(event.target.value);
+  const toggleStatus = (): void => setIsActive((previous) => !previous);
 
   /**
    * Submit new project to API.
@@ -44,7 +46,7 @@ export const useMasterProjectCreate = (): MasterProjectCreateFormState => {
     setSuccessMessage(null);
 
     try {
-      const response = await createProject({ name, remark }).unwrap();
+      const response = await createProject({ name, remark, status: isActive ? 1 : 0 }).unwrap();
 
       if (!response.status) {
         setErrorMessage(_formatMessages(response.messages));
@@ -64,11 +66,13 @@ export const useMasterProjectCreate = (): MasterProjectCreateFormState => {
   return {
     name,
     remark,
+    isActive,
     isSubmitting,
     errorMessage,
     successMessage,
     handleNameChange,
     handleRemarkChange,
+    toggleStatus,
     handleSubmit,
     goBack,
   };
