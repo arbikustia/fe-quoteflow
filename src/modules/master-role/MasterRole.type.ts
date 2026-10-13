@@ -1,12 +1,12 @@
+import type * as React from "react";
+
 import type { TableColumn } from "../../components/Table";
 import type { ApiEnvelope, PaginatedResponse } from "../../types/api.type";
 
 export type ApiRole = {
   readonly id: string;
-  readonly role_name: string;
-  readonly status: number;
-  readonly created_at: string | null;
-  readonly created_by: string | null;
+  readonly role: string;
+  readonly last_created: string | null;
 };
 
 export type RoleListResponse = PaginatedResponse<ApiRole>;
@@ -36,7 +36,16 @@ export type RoleListApiState = {
 };
 
 export type RoleCreatePayload = {
-  readonly role_name: string;
+  readonly role: string;
+};
+
+export type MasterRoleCreateFormState = {
+  readonly roleName: string;
+  readonly isSubmitting: boolean;
+  readonly errorMessage: string | null;
+  readonly handleRoleNameChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  readonly handleSubmit: (event: React.SyntheticEvent) => Promise<void>;
+  readonly goBack: () => void;
 };
 
 export type MasterRoleNavigation = {

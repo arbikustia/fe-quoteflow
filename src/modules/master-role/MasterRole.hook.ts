@@ -1,9 +1,11 @@
+import type * as React from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { _mapRole, useCreateRoleMutation, useGetRolesQuery } from "./MasterRole.api";
 import type {
   MasterRoleContainerState,
+  MasterRoleCreateFormState,
   MasterRoleNavigation,
   MasterRolePagination,
   RoleData,
@@ -187,6 +189,64 @@ export const useMasterRolePagination = (): MasterRolePagination => {
     changePageSize,
     setSearchTerm: handleSearchTerm,
   };
+};
+
+/**
+ * Hook for master role create form.
+ * @returns {MasterRoleCreateFormState} role create form state
+ */
+export const useMasterRoleCreateForm = (): MasterRoleCreateFormState => {
+  const navigate = useNavigate();
+  const [roleName, setRoleName] = useState("");
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [createRole, { isLoading: isSubmitting }] = useCreateRoleMutation();
+
+  /**
+   * Handle role name change.
+   * @param {React.ChangeEvent<HTMLInputElement>} event - Input event
+   * @returns {void} void
+   */
+  const handleRoleNameChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
+    setRoleName(event.target.value);
+  };
+
+  /**
+   * Submit role creation request.
+   * @param {React.SyntheticEvent} event - Form event
+   * @returns {Promise<void>} Submission result
+   */
+  const handleSubmit = async (event: React.SyntheticEvent): Promise<void> => {
+    event.preventDefault();
+    setErrorMessage(null);
+
+    try {
+      const response = await createRole({ role: roleName }).unwrap();
+
+      if (!response.status) {
+        const message = Array.isArray(response.messages)
+          ? response.messages.join(" ")
+          : (response.messages ?? "Failed to create role.");
+
+        setErrorMessage(message);
+
+        return;
+      }
+
+      navigate("/master-role");
+    } catch {
+      setErrorMessage("Unable to create role. Please try again.");
+    }
+  };
+
+  /**
+   * Navigate back from role form.
+   * @returns {void} void
+   */
+  const goBack = (): void => {
+    navigate(-1);
+  };
+
+  return { roleName, isSubmitting, errorMessage, handleRoleNameChange, handleSubmit, goBack };
 };
 
 /**

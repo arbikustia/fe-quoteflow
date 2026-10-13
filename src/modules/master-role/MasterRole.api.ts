@@ -13,14 +13,12 @@ import type {
  * @param {RoleListResponse["data"][number]} role - Raw API role object
  * @returns {RoleData} Mapped role model
  */
-export const _mapRole = (
-  role: RoleListResponse["data"][number],
-): RoleData => ({
+export const _mapRole = (role: RoleListResponse["data"][number]): RoleData => ({
   id: role.id,
-  roleName: role.role_name,
-  status: role.status === 1 ? "active" : "inactive",
-  createAt: role.created_at ?? "",
-  createBy: role.created_by ?? "",
+  roleName: role.role,
+  status: "active",
+  createAt: role.last_created ?? "",
+  createBy: "",
 });
 
 export const masterRoleApi = apiRtkClient.injectEndpoints({
@@ -42,12 +40,12 @@ export const masterRoleApi = apiRtkClient.injectEndpoints({
        * @returns {object} RTK Query configuration
        */
       query: (params) => ({
-        url: "/api/role/paged",
+        url: "/api/role/list-role",
         method: "GET",
         params: {
-          PageNumber: params.pageNumber,
-          PageSize: params.pageSize,
-          SearchTerm: params.searchTerm,
+          page_number: params.pageNumber,
+          page_size: params.pageSize,
+          search_term: params.searchTerm,
         },
       }),
       providesTags: ["Role"],
@@ -75,4 +73,3 @@ export const masterRoleApi = apiRtkClient.injectEndpoints({
 });
 
 export const { useGetRolesQuery, useCreateRoleMutation } = masterRoleApi;
-
