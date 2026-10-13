@@ -85,6 +85,42 @@ const _renderHeader = (props: MasterUserProps): React.ReactElement => {
 };
 
 /**
+ * Render loading, error, missing-data, and empty states.
+ * @param {MasterUserProps} props - Component properties
+ * @returns {React.ReactElement | null} State message or null
+ */
+const _renderListState = (props: MasterUserProps): React.ReactElement | null => {
+  const { isLoading, errorMessage, isEmpty, isMissingData } = props;
+
+  if (isLoading) return <p className="py-10 text-center text-sm text-brand-text-medium">Loading users…</p>;
+
+  if (isMissingData) return <p className="py-10 text-center text-sm text-red-600">User data is unavailable. Please try again.</p>;
+
+  if (errorMessage) return <p className="py-10 text-center text-sm text-red-600">{errorMessage}</p>;
+
+  if (isEmpty) return <p className="py-10 text-center text-sm text-brand-text-medium">No users found.</p>;
+
+  return null;
+};
+
+/**
+ * Get mobile status class name.
+ * @param {UserData["status"]} status - user status
+ * @returns {string} Tailwind class name
+ */
+const _getMobileStatusClassName = (status: UserData["status"]): string => {
+  if (status === "active") {
+    return "bg-green-100 text-green-700";
+  }
+
+  if (status === "inactive") {
+    return "bg-red-100 text-red-700";
+  }
+
+  return "bg-gray-100 text-gray-700";
+};
+
+/**
  * Format mobile data
  * @param {readonly UserData[]} data - paginated data
  * @param {(item: UserData) => void} onRowClick - click handler
@@ -111,8 +147,8 @@ const _formatMobileData = (
       titleClassName: "text-xl font-semibold text-brand-text-dark leading-snug truncate",
       subtitleClassName: "text-base font-normal text-brand-text-medium/80 truncate",
       badge: (
-        <span className={`inline-flex items-center rounded-full px-3 py-1 text-sm font-medium whitespace-nowrap ${row.status === "active" ? "bg-green-100 text-green-700" : "bg-red-100 text-red-700"}`}>
-          {row.status}
+        <span className={`inline-flex items-center rounded-full px-3 py-1 text-sm font-medium whitespace-nowrap ${_getMobileStatusClassName(row.status)}`}>
+          {row.status ?? "Unavailable"}
         </span>
       ),
       onClick: handleClick,
@@ -171,7 +207,7 @@ const _renderDesktopTable = (props: MasterUserProps): React.ReactElement => {
         <PaginationHeader pageSize={pageSize} totalCount={totalCount} onPageSizeChange={changePageSize} />
       </div>
       <div className="flex-1 overflow-auto">
-        <Table data={paginatedData} columns={columns} onRowClick={onRowClick} keyExtractor={_extractKey} />
+        {_renderListState(props) ?? <Table data={paginatedData} columns={columns} onRowClick={onRowClick} keyExtractor={_extractKey} />}
       </div>
       <PaginationFooter currentPage={currentPage} totalPages={totalPages} onPageChange={goToPage} onNextPage={nextPage} onPrevPage={prevPage} />
     </div>
