@@ -1,9 +1,39 @@
 import type { TableColumn } from "../../components/Table";
-import type { PaginationResult } from "../../hooks/usePagination";
+import type { ApiEnvelope, PaginatedResponse } from "../../types/api.type";
 import type { MasterBase } from "../../types/master";
+
+export type ApiPic = {
+  readonly id: string;
+  readonly name: string;
+  readonly status: number;
+  readonly created_by: string | null;
+  readonly created_at: string | null;
+  readonly updated_at: string | null;
+};
+
+export type PicListParams = {
+  readonly pageNumber: number;
+  readonly pageSize: number;
+  readonly searchTerm: string;
+};
+
+export type PicListResponse = PaginatedResponse<ApiPic>;
+export type PicCreatePayload = {
+  readonly name: string;
+};
+export type PicCreateResponse = ApiEnvelope<ApiPic | null>;
 
 export type PicData = MasterBase & {
   readonly name: string;
+};
+
+export type PicListApiState = {
+  readonly isLoading: boolean;
+  readonly errorMessage: string | null;
+  readonly isMissingData: boolean;
+  readonly paginatedData: PicData[];
+  readonly totalPages: number;
+  readonly totalCount: number;
 };
 
 export type MasterPicNavigation = {
@@ -13,8 +43,25 @@ export type MasterPicNavigation = {
   readonly goDetail: (pic: PicData) => void;
 };
 
+export type MasterPicPagination = {
+  readonly currentPage: number;
+  readonly totalPages: number;
+  readonly pageSize: number;
+  readonly paginatedData: PicData[];
+  readonly totalCount: number;
+  readonly isLoading: boolean;
+  readonly errorMessage: string | null;
+  readonly isEmpty: boolean;
+  readonly isMissingData: boolean;
+  readonly goToPage: (page: number) => void;
+  readonly nextPage: () => void;
+  readonly prevPage: () => void;
+  readonly changePageSize: (size: number) => void;
+  readonly setSearchTerm: (searchTerm: string) => void;
+};
+
 export type MasterPicContainerState = {
-  readonly pagination: PaginationResult<PicData>;
+  readonly pagination: MasterPicPagination;
   readonly isMoreOpen: boolean;
   readonly toggleMore: () => void;
   readonly goDelete: () => void;
@@ -30,6 +77,7 @@ export type MasterPicProps = {
   readonly nextPage: () => void;
   readonly prevPage: () => void;
   readonly changePageSize: (size: number) => void;
+  readonly setSearchTerm: (searchTerm: string) => void;
   readonly totalCount: number;
   readonly columns: TableColumn<PicData>[];
   readonly onCreate: () => void;
@@ -37,6 +85,10 @@ export type MasterPicProps = {
   readonly onRowClick: (pic: PicData) => void;
   readonly onMore: () => void;
   readonly isMoreOpen: boolean;
+  readonly isLoading: boolean;
+  readonly errorMessage: string | null;
+  readonly isEmpty: boolean;
+  readonly isMissingData: boolean;
   readonly onCloseMore: () => void;
   readonly onDelete: () => void;
   readonly onBack: () => void;
