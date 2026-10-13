@@ -11,7 +11,7 @@ jest.mock("./MasterItem.api", () => ({
   _mapItem: (item: {
     readonly id: string;
     readonly name: string;
-    readonly category: string | null;
+    readonly category_id: string | null;
     readonly price: number | null;
     readonly stock: number | null;
     readonly image: string | null;
@@ -24,13 +24,12 @@ jest.mock("./MasterItem.api", () => ({
   }) => ({
     id: item.id,
     name: item.name,
-    category: item.category ?? "",
+    categoryId: item.category_id ?? "",
     price: item.price ?? 0,
     stock: item.stock ?? 0,
     image: item.image ?? "",
-    duration: item.duration ?? "",
+    duration: item.duration ?? 0,
     remark: item.remark ?? "",
-    unit: item.unit ?? "",
     status: item.status === 1 ? "active" : "inactive",
     createAt: item.created_at ?? "",
     createBy: item.created_by ?? "",
@@ -41,30 +40,27 @@ const mockQueryResult = {
   data: {
     status: true,
     messages: null,
-    data: {
-      data: [
-        {
-          id: "1",
-          name: "Line Array Speaker",
-          category: "Audio System",
-          price: 5000000,
-          stock: 12,
-          image: "https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?q=80&w=200&auto=format&fit=crop",
-          duration: "3 days",
-          remark: "High quality sound",
-          unit: "unit",
-          status: 1,
-          created_at: "2024-01-01 10:00",
-          created_by: "Admin",
-        },
-      ],
-      page_number: 1,
-      total_pages: 2,
-      page_size: 10,
-      total_count: 11,
-      has_previous: false,
-      has_next: true,
-    },
+    data: [
+      {
+        id: "1",
+        name: "Line Array Speaker",
+        category_id: "Audio System",
+        price: 5000000,
+        stock: 12,
+        image: "https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?q=80&w=200&auto=format&fit=crop",
+        duration: 3,
+        remark: "High quality sound",
+        status: 1,
+        created_at: "2024-01-01 10:00",
+        created_by: "Admin",
+      },
+    ],
+    page_number: 1,
+    total_pages: 2,
+    page_size: 10,
+    total_count: 11,
+    has_previous: false,
+    has_next: true,
   },
   error: undefined,
   isLoading: false,
@@ -119,13 +115,12 @@ describe("getColumns", () => {
   const base: ItemData = {
     id: "1",
     name: "Speaker",
-    category: "Audio",
+    categoryId: "Audio",
     price: 5000000,
     stock: 12,
     image: "https://example.com/a.jpg",
-    duration: "3 days",
+    duration: 3,
     remark: "ok",
-    unit: "unit",
     status: "active",
     createAt: "2024-01-01",
     createBy: "Admin",
@@ -133,13 +128,12 @@ describe("getColumns", () => {
   const inactive: ItemData = {
     id: "2",
     name: "Light",
-    category: "Lighting",
+    categoryId: "Lighting",
     price: 600000,
     stock: 5,
     image: "https://example.com/b.jpg",
-    duration: "1 day",
+    duration: 1,
     remark: "sharp",
-    unit: "unit",
     status: "inactive",
     createAt: "2024-01-02",
     createBy: "Admin",
@@ -157,7 +151,7 @@ describe("getColumns", () => {
       "no",
       "image",
       "name",
-      "category",
+      "categoryId",
       "price",
       "stock",
       "duration",

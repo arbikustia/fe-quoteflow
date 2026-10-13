@@ -11,26 +11,24 @@ jest.mock("./MasterItem.api", () => ({
   _mapItem: (item: {
     readonly id: string;
     readonly name: string;
-    readonly category: string | null;
+    readonly category_id: string | null;
     readonly price: number | null;
     readonly stock: number | null;
     readonly image: string | null;
-    readonly duration: string | null;
+    readonly duration: number | null;
     readonly remark: string | null;
-    readonly unit: string | null;
     readonly status: number;
     readonly created_at: string | null;
     readonly created_by: string | null;
   }) => ({
     id: item.id,
     name: item.name,
-    category: item.category ?? "",
+    categoryId: item.category_id ?? "",
     price: item.price ?? 0,
     stock: item.stock ?? 0,
     image: item.image ?? "",
-    duration: item.duration ?? "",
+    duration: item.duration ?? 0,
     remark: item.remark ?? "",
-    unit: item.unit ?? "",
     status: item.status === 1 ? "active" : "inactive",
     createAt: item.created_at ?? "",
     createBy: item.created_by ?? "",
@@ -46,14 +44,12 @@ const successfulEmptyResponse = {
   data: {
     status: true,
     messages: null,
-    data: {
-      data: [],
-      page_number: 1,
-      total_pages: 1,
-      total_count: 0,
-      has_previous: false,
-      has_next: false,
-    },
+    data: [],
+    page_number: 1,
+    total_pages: 1,
+    total_count: 0,
+    has_previous: false,
+    has_next: false,
   },
   error: undefined,
   isLoading: false,
@@ -93,13 +89,12 @@ describe("MasterItem hook", () => {
       const mockItem: ItemData = {
         id: "1",
         name: "Speaker",
-        category: "Audio",
+        categoryId: "Audio",
         price: 5000000,
         stock: 12,
         image: "https://example.com/a.jpg",
-        duration: "3 days",
+        duration: 3,
         remark: "ok",
-        unit: "unit",
         status: "active",
         createAt: "2024-01-01",
         createBy: "Admin",
@@ -118,13 +113,12 @@ describe("MasterItem hook", () => {
       const mockItem: ItemData = {
         id: "1",
         name: "Speaker",
-        category: "Audio",
+        categoryId: "Audio",
         price: 5000000,
         stock: 12,
         image: "https://example.com/a.jpg",
-        duration: "3 days",
+        duration: 3,
         remark: "ok",
-        unit: "unit",
         status: "active",
         createAt: "2024-01-01",
         createBy: "Admin",
@@ -143,13 +137,12 @@ describe("MasterItem hook", () => {
       const mockItem: ItemData = {
         id: "1",
         name: "Speaker",
-        category: "Audio",
+        categoryId: "Audio",
         price: 5000000,
         stock: 12,
         image: "https://example.com/a.jpg",
-        duration: "3 days",
+        duration: 3,
         remark: "ok",
-        unit: "unit",
         status: "active",
         createAt: "2024-01-01",
         createBy: "Admin",
@@ -177,13 +170,12 @@ describe("MasterItem hook", () => {
       const mockItem: ItemData = {
         id: "1",
         name: "Speaker",
-        category: "Audio",
+        categoryId: "Audio",
         price: 5000000,
         stock: 12,
         image: "https://example.com/a.jpg",
-        duration: "3 days",
+        duration: 3,
         remark: "ok",
-        unit: "unit",
         status: "active",
         createAt: "2024-01-01",
         createBy: "Admin",

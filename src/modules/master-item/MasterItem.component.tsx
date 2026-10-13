@@ -164,7 +164,7 @@ const _formatMobileData = (paginatedData: readonly ItemData[], onRowClick: (row:
     return {
       title: row.name,
       subtitle: "Rp " + row.price.toLocaleString("id-ID"),
-      meta: row.stock + " in stocks · " + row.category,
+      meta: row.stock + " in stocks · " + row.categoryId,
       imageUrl: row.image,
       hideEdit: true,
       titleClassName: "text-xl font-semibold text-brand-text-dark leading-snug truncate",

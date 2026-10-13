@@ -222,13 +222,9 @@ const _deriveItemListState = (
     return _createMissingPayloadState();
   }
 
-  if (!itemList.data) {
-    return _createMissingPayloadState();
-  }
+  const items = itemList.map(_mapItem);
 
-  const items = itemList.data.map(_mapItem);
-
-  return _createSuccessState(items, itemList.total_pages, itemList.total_count);
+  return _createSuccessState(items, response.total_pages, response.total_count);
 };
 
 /**
@@ -359,7 +355,7 @@ export const useMasterItemPagination = (): MasterItemPagination => {
       !derived.isLoading &&
       !derived.errorMessage &&
       derived.paginatedData.length > 0 &&
-      queryResult.data?.data?.has_next
+      queryResult.data?.has_next
     ) {
       goToPage(currentPage + 1);
     }
@@ -374,7 +370,7 @@ export const useMasterItemPagination = (): MasterItemPagination => {
       !derived.isLoading &&
       !derived.errorMessage &&
       derived.paginatedData.length > 0 &&
-      queryResult.data?.data?.has_previous
+      queryResult.data?.has_previous
     ) {
       goToPage(currentPage - 1);
     }

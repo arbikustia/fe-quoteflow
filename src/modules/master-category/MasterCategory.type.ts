@@ -1,17 +1,28 @@
 import type * as React from "react";
 
 import type { TableColumn } from "../../components/Table";
-import type { ApiEnvelope, PaginatedResponse } from "../../types/api.type";
+import type { ApiEnvelope } from "../../types/api.type";
 
 export type ApiCategory = {
   readonly id: string;
-  readonly name: string;
+  readonly category_name: string;
   readonly status: number;
   readonly created_at: string | null;
   readonly created_by: string | null;
+  readonly updated_at: string | null;
 };
 
-export type CategoryListResponse = ApiEnvelope<PaginatedResponse<ApiCategory> | null>;
+export type CategoryListResponse = {
+  readonly status: boolean;
+  readonly messages: string[] | string | null;
+  readonly data: ApiCategory[];
+  readonly page_number: number;
+  readonly total_pages: number;
+  readonly page_size: number;
+  readonly total_count: number;
+  readonly has_previous: boolean;
+  readonly has_next: boolean;
+};
 export type CategoryCreateResponse = ApiEnvelope<ApiCategory | null>;
 
 export type CategoryListParams = {
@@ -39,7 +50,20 @@ export type CategoryListApiState = {
 };
 
 export type CategoryCreatePayload = {
-  readonly name: string;
+  readonly category_name: string;
+};
+
+export type CategoryAllItem = {
+  readonly id: string;
+  readonly category_name: string;
+};
+
+export type CategoryAllResponse = ApiEnvelope<CategoryAllItem[]>;
+
+export type CategorySelectState = {
+  readonly categories: CategoryAllItem[];
+  readonly isLoading: boolean;
+  readonly errorMessage: string | null;
 };
 
 export type MasterCategoryNavigation = {

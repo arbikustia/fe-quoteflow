@@ -2,12 +2,14 @@ import type * as React from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-import { _mapCategory, useCreateCategoryMutation, useGetCategoriesQuery } from "./MasterCategory.api";
+import { _mapCategory, useCreateCategoryMutation, useGetAllCategoriesQuery, useGetCategoriesQuery } from "./MasterCategory.api";
 import type {
   BaseCategoryState,
+  CategoryAllItem,
   CategoryData,
   CategoryListApiState,
   CategoryListResponse,
+  CategorySelectState,
   ConfirmModalState,
   MasterCategoryContainerState,
   MasterCategoryCreateFormState,
@@ -50,15 +52,11 @@ const _deriveCategoryListState = (queryResult: ReturnType<typeof useGetCategorie
     return _createEnvelopeErrorState(response.messages);
   }
 
-  const paginatedResponse = response.data;
-
-  if (!paginatedResponse) return _createMissingPayloadState();
-
-  const categoryList = paginatedResponse.data;
+  const categoryList = response.data;
 
   if (!categoryList) return _createMissingPayloadState();
 
-  return _createSuccessState(categoryList.map(_mapCategory), paginatedResponse.total_pages, paginatedResponse.total_count);
+  return _createSuccessState(categoryList.map(_mapCategory), response.total_pages, response.total_count);
 };
 
 /**
@@ -162,10 +160,10 @@ export const useMasterCategoryPagination = (): MasterCategoryPagination => {
 
   const goToPage = (page: number): void => setCurrentPage(Math.max(1, Math.min(page, derived.totalPages)));
   const nextPage = (): void => {
-    if (!derived.isLoading && !derived.errorMessage && queryResult.data?.data?.has_next) goToPage(currentPage + 1);
+    if (!derived.isLoading && !derived.errorMessage && queryResult.data?.has_next) goToPage(currentPage + 1);
   };
   const prevPage = (): void => {
-    if (!derived.isLoading && !derived.errorMessage && queryResult.data?.data?.has_previous) goToPage(currentPage - 1);
+    if (!derived.isLoading && !derived.errorMessage && queryResult.data?.has_previous) goToPage(currentPage - 1);
   };
   const changePageSize = (size: number): void => { setPageSize(size); setCurrentPage(1); };
   const handleSearchTerm = (value: string): void => { setSearchTerm(value); setCurrentPage(1); };
@@ -240,7 +238,7 @@ export const useMasterCategoryCreate = (): MasterCategoryCreateFormState => {
     setSuccessMessage(null);
 
     try {
-      const response = await createCategory({ name }).unwrap();
+      const response = await createCategory({ category_name: name }).unwrap();
 
       if (!response.status) {
         setErrorMessage(Array.isArray(response.messages) ? response.messages.join(" ") : (response.messages ?? "Category request failed."));
@@ -264,3 +262,33 @@ export const useMasterCategoryCreate = (): MasterCategoryCreateFormState => {
  * @returns {BaseCategoryState} Modal state
  */
 export const useMasterCategoryState = (): BaseCategoryState => ({ ...useModalState(), ...useConfirmModalState() });
+
+/**
+ * Hook to fetch all categories for use in select/dropdown inputs.
+ * @returns {CategorySelectState} Categories list, loading and error state
+ */
+export const useCategorySelectOptions = (): CategorySelectState => {
+  const { data, error, isLoading } = useGetAllCategoriesQuery();
+
+  if (isLoading) {
+    return { categories: [], isLoading: true, errorMessage: null };
+  }
+
+  if (error) {
+    return { categories: [], isLoading: false, errorMessage: "Unable to load categories." };
+  }
+
+  if (!data) {
+    return { categories: [], isLoading: false, errorMessage: "No response received from server." };
+  }
+
+  if (!data.status) {
+    const message = Array.isArray(data.messages) ? data.messages.join(" ") : (data.messages ?? "Category request failed.");
+
+    return { categories: [], isLoading: false, errorMessage: message };
+  }
+
+  const categories: CategoryAllItem[] = data.data;
+
+  return { categories, isLoading: false, errorMessage: null };
+};

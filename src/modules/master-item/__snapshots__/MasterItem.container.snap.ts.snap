@@ -762,7 +762,7 @@ exports[`MasterItemContainer matches snapshot 1`] = `
                           <td
                             class="px-4 py-3 border-b border-border-default text-center "
                           >
-                            3 days
+                            3
                           </td>
                           <td
                             class="px-4 py-3 border-b border-border-default text-center "

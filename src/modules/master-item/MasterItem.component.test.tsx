@@ -4,8 +4,8 @@ import { MasterItemComponent } from "./MasterItem.component";
 import type { ItemData } from "./MasterItem.type";
 
 const mockItems: ItemData[] = [
-  { id: "1", name: "Speaker", category: "Audio", price: 5000000, stock: 12, image: "https://example.com/a.jpg", duration: "3 days", remark: "ok", unit: "unit", status: "active", createAt: "2024-01-01", createBy: "Admin" },
-  { id: "2", name: "Light", category: "Lighting", price: 600000, stock: 5, image: "https://example.com/b.jpg", duration: "1 day", remark: "sharp", unit: "unit", status: "inactive", createAt: "2024-01-02", createBy: "Admin" },
+  { id: "1", name: "Speaker", categoryId: "Audio", price: 5000000, stock: 12, image: "https://example.com/a.jpg", duration: 3, remark: "ok", status: "active", createAt: "2024-01-01", createBy: "Admin" },
+  { id: "2", name: "Light", categoryId: "Lighting", price: 600000, stock: 5, image: "https://example.com/b.jpg", duration: 1, remark: "sharp", status: "inactive", createAt: "2024-01-02", createBy: "Admin" },
 ];
 
 const mockColumns: any[] = [{ key: "name", header: "Item Name" }];
@@ -17,10 +17,15 @@ const defaultProps = {
   totalPages: 2,
   pageSize: 5,
   totalCount: 10,
+  isLoading: false,
+  errorMessage: null,
+  isEmpty: false,
+  isMissingData: false,
   goToPage: jest.fn(),
   nextPage: jest.fn(),
   prevPage: jest.fn(),
   changePageSize: jest.fn(),
+  setSearchTerm: jest.fn(),
   onCreate: jest.fn(),
   onEdit: jest.fn(),
   onRowClick: jest.fn(),

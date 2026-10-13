@@ -1,6 +1,7 @@
 import { apiRtkClient } from "@/libs/ApiRtkServices/apiRtkClient";
 
 import type {
+  CategoryAllResponse,
   CategoryCreatePayload,
   CategoryCreateResponse,
   CategoryData,
@@ -10,14 +11,14 @@ import type {
 
 /**
  * Map API category model to CategoryData UI model.
- * @param {CategoryListResponse["data"]["data"][number]} category - Raw API category object
+ * @param {CategoryListResponse["data"][number]} category - Raw API category object
  * @returns {CategoryData} Mapped category model
  */
 export const _mapCategory = (
-  category: CategoryListResponse["data"]["data"][number],
+  category: CategoryListResponse["data"][number],
 ): CategoryData => ({
   id: category.id,
-  categoryName: category.name,
+  categoryName: category.category_name,
   status: category.status === 1 ? "active" : "inactive",
   createAt: category.created_at ?? "",
   createBy: category.created_by ?? "",
@@ -70,8 +71,23 @@ export const masterCategoryApi = apiRtkClient.injectEndpoints({
       }),
       invalidatesTags: ["Category"],
     }),
+    /**
+     * GET /api/category/get-all-category - Fetch all categories without pagination
+     * @returns {Promise<CategoryAllResponse>} All categories
+     */
+    getAllCategories: builder.query<CategoryAllResponse, void>({
+      /**
+       * Configure the query for fetching all categories
+       * @returns {object} RTK Query configuration
+       */
+      query: () => ({
+        url: "/api/category/get-all-category",
+        method: "GET",
+      }),
+      providesTags: ["Category"],
+    }),
   }),
   overrideExisting: false,
 });
 
-export const { useGetCategoriesQuery, useCreateCategoryMutation } = masterCategoryApi;
+export const { useGetCategoriesQuery, useCreateCategoryMutation, useGetAllCategoriesQuery } = masterCategoryApi;

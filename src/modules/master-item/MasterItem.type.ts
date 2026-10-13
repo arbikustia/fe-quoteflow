@@ -4,25 +4,34 @@
  */
 
 import type { TableColumn } from "../../components/Table";
-import type { ApiEnvelope, PaginatedResponse } from "../../types/api.type";
+import type { ApiEnvelope } from "../../types/api.type";
 import type { MasterBase } from "../../types/master";
 
 export type ApiItem = {
   readonly id: string;
   readonly name: string;
-  readonly category: string | null;
+  readonly category_id: string | null;
   readonly price: number | null;
   readonly stock: number | null;
   readonly image: string | null;
-  readonly duration: string | null;
+  readonly duration: number | null;
   readonly remark: string | null;
-  readonly unit: string | null;
   readonly status: number;
   readonly created_at: string | null;
   readonly created_by: string | null;
 };
 
-export type ItemListResponse = ApiEnvelope<PaginatedResponse<ApiItem> | null>;
+export type ItemListResponse = {
+  readonly status: boolean;
+  readonly messages: string[] | string | null;
+  readonly data: ApiItem[];
+  readonly page_number: number;
+  readonly total_pages: number;
+  readonly page_size: number;
+  readonly total_count: number;
+  readonly has_previous: boolean;
+  readonly has_next: boolean;
+};
 export type ItemCreateResponse = ApiEnvelope<ApiItem | null>;
 
 export type ItemListParams = {
@@ -33,13 +42,12 @@ export type ItemListParams = {
 
 export type ItemCreatePayload = {
   readonly name: string;
-  readonly category: string;
+  readonly category_id: string;
   readonly price: number;
   readonly stock: number;
   readonly image: string;
-  readonly duration: string;
+  readonly duration: number;
   readonly remark: string;
-  readonly unit: string;
 };
 
 export type MasterItemCreateState = {
@@ -50,13 +58,12 @@ export type MasterItemCreateState = {
 /** Item data structure */
 export type ItemData = MasterBase & {
   readonly name: string;
-  readonly category: string;
+  readonly categoryId: string;
   readonly price: number;
   readonly stock: number;
   readonly image: string;
-  readonly duration: string;
+  readonly duration: number;
   readonly remark: string;
-  readonly unit: string;
 };
 
 /** Master Item component props */
