@@ -85,10 +85,29 @@ const _renderHeader = (props: MasterVoucherProps): React.ReactElement => {
 };
 
 /**
- * Format mobile data
- * @param {readonly VoucherData[]} data - paginated data
- * @param {(item: VoucherData) => void} onRowClick - click handler
- * @returns {MobileListItemProps[]} formatted mobile list data
+ * Render explicit list state.
+ * @param {MasterVoucherProps} props - Component properties
+ * @returns {React.ReactElement | null} State element or null
+ */
+const _renderListState = (props: MasterVoucherProps): React.ReactElement | null => {
+  const { isLoading, errorMessage, isEmpty, isMissingData } = props;
+
+  if (isLoading) return <p className="py-10 text-center text-sm text-brand-text-medium">Loading vouchers…</p>;
+
+  if (isMissingData) return <p className="py-10 text-center text-sm text-red-600">Voucher data is unavailable. Please try again.</p>;
+
+  if (errorMessage) return <p className="py-10 text-center text-sm text-red-600">{errorMessage}</p>;
+
+  if (isEmpty) return <p className="py-10 text-center text-sm text-brand-text-medium">No vouchers found.</p>;
+
+  return null;
+};
+
+/**
+ * Format mobile data.
+ * @param {readonly VoucherData[]} data - Paginated data
+ * @param {(item: VoucherData) => void} onRowClick - Row click handler
+ * @returns {MobileListItemProps[]} Formatted mobile list data
  */
 const _formatMobileData = (
   data: readonly VoucherData[],
@@ -136,7 +155,7 @@ const _renderMobileList = (props: MasterVoucherProps): React.ReactElement => {
         <input type="text" placeholder="Search" className="w-full pl-12 pr-6 py-3.5 bg-brand-gray-light border-none rounded-full text-xl font-medium focus:outline-none focus:ring-1 focus:ring-brand-blue/20 text-brand-text-dark placeholder:text-brand-text-medium" />
       </div>
       <div className="scale-100 origin-top">
-        <MobileList data={mobileData} />
+        {_renderListState(props) ?? <MobileList data={mobileData} />}
       </div>
       <div className="pt-4 flex items-center justify-between">
         <PaginationHeader pageSize={pageSize} totalCount={totalCount} onPageSizeChange={changePageSize} className="shrink-0" />
@@ -171,7 +190,7 @@ const _renderDesktopTable = (props: MasterVoucherProps): React.ReactElement => {
         <PaginationHeader pageSize={pageSize} totalCount={totalCount} onPageSizeChange={changePageSize} />
       </div>
       <div className="flex-1 overflow-auto">
-        <Table data={paginatedData} columns={columns} onRowClick={onRowClick} keyExtractor={_extractKey} />
+        {_renderListState(props) ?? <Table data={paginatedData} columns={columns} onRowClick={onRowClick} keyExtractor={_extractKey} />}
       </div>
       <PaginationFooter currentPage={currentPage} totalPages={totalPages} onPageChange={goToPage} onNextPage={nextPage} onPrevPage={prevPage} />
     </div>

@@ -2,10 +2,28 @@ import { render, screen, fireEvent } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
 import { getColumns } from "./MasterVoucher.columns";
 import MasterVoucherContainer from "./MasterVoucher.container";
+import { useGetVouchersQuery } from "./MasterVoucher.api";
 import type { VoucherData } from "./MasterVoucher.type";
+
+jest.mock("./MasterVoucher.api", () => ({
+  useGetVouchersQuery: jest.fn(),
+  useCreateVoucherMutation: jest.fn(),
+  _mapVoucher: (voucher: { readonly id: string; readonly name: string; readonly code: string; readonly discount_percent: number; readonly status: number; readonly created_at: string | null }) => ({
+    id: voucher.id,
+    name: voucher.name,
+    code: voucher.code,
+    discountPercent: voucher.discount_percent,
+    status: voucher.status === 1 ? "active" : "inactive",
+    createAt: voucher.created_at ?? "",
+    createBy: "",
+  }),
+}));
+
+const mockUseGetVouchersQuery = useGetVouchersQuery as jest.Mock;
 
 const mockVoucher: VoucherData = {
   id: "1",
+  name: "Discount Voucher",
   code: "DISC10",
   discountPercent: 10,
   status: "active",
@@ -14,6 +32,25 @@ const mockVoucher: VoucherData = {
 };
 
 describe("MasterVoucherContainer", () => {
+  beforeEach(() => {
+    mockUseGetVouchersQuery.mockReturnValue({
+      data: {
+        status: true,
+        messages: null,
+        data: {
+          data: [],
+          page_number: 1,
+          total_pages: 1,
+          total_count: 0,
+          has_previous: false,
+          has_next: false,
+        },
+      },
+      error: undefined,
+      isLoading: false,
+    });
+  });
+
   it("renders container component correctly", () => {
     const { container } = render(
       <MemoryRouter>

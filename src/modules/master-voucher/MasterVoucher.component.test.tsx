@@ -5,6 +5,7 @@ import type { MasterVoucherProps, VoucherData } from "./MasterVoucher.type";
 
 const mockVoucher: VoucherData = {
   id: "1",
+  name: "Discount Voucher",
   code: "DISC10",
   discountPercent: 10,
   status: "active",
@@ -23,6 +24,10 @@ const defaultProps: MasterVoucherProps = {
   nextPage: jest.fn(),
   prevPage: jest.fn(),
   changePageSize: jest.fn(),
+  isLoading: false,
+  errorMessage: null,
+  isEmpty: false,
+  isMissingData: false,
   onCreate: jest.fn(),
   onEdit: jest.fn(),
   onRowClick: jest.fn(),
