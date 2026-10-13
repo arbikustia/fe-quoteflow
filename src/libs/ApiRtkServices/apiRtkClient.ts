@@ -35,6 +35,6 @@ const axiosBaseQuery = async (
 export const apiRtkClient = createApi({
   reducerPath: "api",
   baseQuery: axiosBaseQuery,
-  tagTypes: ["Customer", "Role"],
+  tagTypes: ["Customer", "Category", "Item"],
   endpoints: () => ({}),
 });
