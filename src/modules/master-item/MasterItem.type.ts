@@ -4,7 +4,48 @@
  */
 
 import type { TableColumn } from "../../components/Table";
+import type { ApiEnvelope, PaginatedResponse } from "../../types/api.type";
 import type { MasterBase } from "../../types/master";
+
+export type ApiItem = {
+  readonly id: string;
+  readonly name: string;
+  readonly category: string | null;
+  readonly price: number | null;
+  readonly stock: number | null;
+  readonly image: string | null;
+  readonly duration: string | null;
+  readonly remark: string | null;
+  readonly unit: string | null;
+  readonly status: number;
+  readonly created_at: string | null;
+  readonly created_by: string | null;
+};
+
+export type ItemListResponse = ApiEnvelope<PaginatedResponse<ApiItem> | null>;
+export type ItemCreateResponse = ApiEnvelope<ApiItem | null>;
+
+export type ItemListParams = {
+  readonly pageNumber: number;
+  readonly pageSize: number;
+  readonly searchTerm: string;
+};
+
+export type ItemCreatePayload = {
+  readonly name: string;
+  readonly category: string;
+  readonly price: number;
+  readonly stock: number;
+  readonly image: string;
+  readonly duration: string;
+  readonly remark: string;
+  readonly unit: string;
+};
+
+export type MasterItemCreateState = {
+  readonly createItem: (payload: ItemCreatePayload) => Promise<ItemCreateResponse>;
+  readonly isCreating: boolean;
+};
 
 /** Item data structure */
 export type ItemData = MasterBase & {
@@ -38,6 +79,11 @@ export type MasterItemProps = {
   readonly onCloseMore?: () => void;
   readonly onDelete?: () => void;
   readonly onBack: () => void;
+  readonly isLoading: boolean;
+  readonly errorMessage: string | null;
+  readonly isEmpty: boolean;
+  readonly isMissingData: boolean;
+  readonly setSearchTerm: (searchTerm: string) => void;
 };
 
 /** Toolbar props */
@@ -45,6 +91,16 @@ export type ItemToolbarProps = {
   readonly pageSize: number;
   readonly totalCount: number;
   readonly changePageSize: (size: number) => void;
+};
+
+/** API list state */
+export type ItemListApiState = {
+  readonly isLoading: boolean;
+  readonly errorMessage: string | null;
+  readonly isMissingData: boolean;
+  readonly paginatedData: readonly ItemData[];
+  readonly totalPages: number;
+  readonly totalCount: number;
 };
 
 /** Action buttons props */
@@ -91,19 +147,21 @@ export type MasterItemNavigation = {
   readonly goDetail: (item: ItemData) => void;
 };
 
+/** Master item pagination state */
+export type MasterItemPagination = ItemListApiState & {
+  readonly currentPage: number;
+  readonly pageSize: number;
+  readonly isEmpty: boolean;
+  readonly goToPage: (page: number) => void;
+  readonly nextPage: () => void;
+  readonly prevPage: () => void;
+  readonly changePageSize: (size: number) => void;
+  readonly setSearchTerm: (searchTerm: string) => void;
+};
+
 /** Container state hook return type */
 export type MasterItemContainerState = MasterItemNavigation & {
-  readonly pagination: {
-    readonly currentPage: number;
-    readonly totalPages: number;
-    readonly pageSize: number;
-    readonly paginatedData: readonly ItemData[];
-    readonly goToPage: (page: number) => void;
-    readonly nextPage: () => void;
-    readonly prevPage: () => void;
-    readonly changePageSize: (size: number) => void;
-    readonly totalCount: number;
-  };
+  readonly pagination: MasterItemPagination;
   readonly isMoreOpen: boolean;
   readonly toggleMore: () => void;
   readonly goDelete: () => void;
