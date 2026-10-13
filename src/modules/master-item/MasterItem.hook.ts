@@ -222,6 +222,10 @@ const _deriveItemListState = (
     return _createMissingPayloadState();
   }
 
+  if (!itemList.data) {
+    return _createMissingPayloadState();
+  }
+
   const items = itemList.data.map(_mapItem);
 
   return _createSuccessState(items, itemList.total_pages, itemList.total_count);
