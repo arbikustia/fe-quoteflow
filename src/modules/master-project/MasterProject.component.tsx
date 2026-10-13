@@ -10,6 +10,25 @@ import Table from "../../components/Table";
 import type { MasterProjectProps, ProjectData } from "./MasterProject.type";
 
 /**
+ * Render loading, empty, and error states.
+ * @param {MasterProjectProps} props - Component properties
+ * @returns {React.ReactElement | null} State element
+ */
+const _renderListState = (props: MasterProjectProps): React.ReactElement | null => {
+  const { isLoading, errorMessage, isEmpty, isMissingData } = props;
+
+  if (isLoading) return <p className="py-10 text-center text-sm text-brand-text-medium">Loading projects…</p>;
+
+  if (isMissingData) return <p className="py-10 text-center text-sm text-red-600">Project data is unavailable. Please try again.</p>;
+
+  if (errorMessage) return <p className="py-10 text-center text-sm text-red-600">{errorMessage}</p>;
+
+  if (isEmpty) return <p className="py-10 text-center text-sm text-brand-text-medium">No projects found.</p>;
+
+  return null;
+};
+
+/**
  * Render Dropdown Menu
  * @param {(() => void) | undefined} onCloseMore - close handler
  * @param {() => void} onCreate - create handler
@@ -136,7 +155,7 @@ const _renderMobileList = (props: MasterProjectProps): React.ReactElement => {
         <input type="text" placeholder="Search" className="w-full pl-12 pr-6 py-3.5 bg-brand-gray-light border-none rounded-full text-xl font-medium focus:outline-none focus:ring-1 focus:ring-brand-blue/20 text-brand-text-dark placeholder:text-brand-text-medium" />
       </div>
       <div className="scale-100 origin-top">
-        <MobileList data={mobileData} />
+        {_renderListState(props) ?? <MobileList data={mobileData} />}
       </div>
       <div className="pt-4 flex items-center justify-between">
         <PaginationHeader pageSize={pageSize} totalCount={totalCount} onPageSizeChange={changePageSize} className="shrink-0" />
@@ -171,7 +190,7 @@ const _renderDesktopTable = (props: MasterProjectProps): React.ReactElement => {
         <PaginationHeader pageSize={pageSize} totalCount={totalCount} onPageSizeChange={changePageSize} />
       </div>
       <div className="flex-1 overflow-auto">
-        <Table data={paginatedData} columns={columns} onRowClick={onRowClick} keyExtractor={_extractKey} />
+        {_renderListState(props) ?? <Table data={paginatedData} columns={columns} onRowClick={onRowClick} keyExtractor={_extractKey} />}
       </div>
       <PaginationFooter currentPage={currentPage} totalPages={totalPages} onPageChange={goToPage} onNextPage={nextPage} onPrevPage={prevPage} />
     </div>
