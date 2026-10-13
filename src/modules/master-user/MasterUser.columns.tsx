@@ -24,9 +24,26 @@ const _renderNo = (_: UserData, index: number, currentPage: number, pageSize: nu
  */
 const _renderRole = (row: UserData): React.ReactElement => (
   <span className={`font-bold ${row.role === "Admin" ? "text-brand-blue" : "text-brand-text-medium"}`}>
-    {row.role}
+    {row.role ?? "Unavailable"}
   </span>
 );
+
+/**
+ * Get status class name.
+ * @param {UserData["status"]} status - user status
+ * @returns {string} Tailwind class name
+ */
+const _getStatusClassName = (status: UserData["status"]): string => {
+  if (status === "active") {
+    return "bg-green-100 text-green-600";
+  }
+
+  if (status === "inactive") {
+    return "bg-red-100 text-red-600";
+  }
+
+  return "bg-gray-100 text-gray-600";
+};
 
 /**
  * Render Status
@@ -34,8 +51,8 @@ const _renderRole = (row: UserData): React.ReactElement => (
  * @returns {React.ReactElement} span
  */
 const _renderStatus = (row: UserData): React.ReactElement => (
-  <span className={`px-3 py-1 rounded-full text-xs font-bold uppercase ${row.status === "active" ? "bg-green-100 text-green-600" : "bg-red-100 text-red-600"}`}>
-    {row.status}
+  <span className={`px-3 py-1 rounded-full text-xs font-bold uppercase ${_getStatusClassName(row.status)}`}>
+    {row.status ?? "Unavailable"}
   </span>
 );
 
@@ -44,7 +61,7 @@ const _renderStatus = (row: UserData): React.ReactElement => (
  * @param {UserData} row - user data
  * @returns {string} string
  */
-const _renderDate = (row: UserData): string => row.createAt;
+const _renderDate = (row: UserData): string => row.createAt ?? "Unavailable";
 
 /**
  * Get Basic Columns

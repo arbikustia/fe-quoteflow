@@ -4,6 +4,10 @@ import { getColumns } from "./MasterUser.columns";
 import MasterUserContainer from "./MasterUser.container";
 import type { UserData } from "./MasterUser.type";
 
+jest.mock("./MasterUser.api", () => ({
+  useGetUsersQuery: jest.fn(() => ({ data: undefined, error: undefined, isLoading: false })),
+}));
+
 describe("MasterUserContainer", () => {
   it("renders without crashing", () => {
     render(
