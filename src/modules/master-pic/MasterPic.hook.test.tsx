@@ -1,10 +1,27 @@
 import { renderHook, act } from "@testing-library/react";
+import { useGetPicsQuery } from "./MasterPic.api";
 import { useMasterPicNavigation, useMasterPicContainerState } from "./MasterPic.hook";
+
+jest.mock("./MasterPic.api", () => ({
+  useGetPicsQuery: jest.fn(),
+  useCreatePicMutation: jest.fn(),
+  _mapPic: (pic: { id: string; name: string; status: number; created_at: string | null; created_by: string | null }) => ({
+    id: pic.id,
+    name: pic.name,
+    status: pic.status === 1 ? "active" : "inactive",
+    createAt: pic.created_at ?? "",
+    createBy: pic.created_by ?? "",
+  }),
+}));
 
 const mockNavigate = jest.fn();
 jest.mock("react-router-dom", () => ({
   useNavigate: () => mockNavigate,
 }));
+
+beforeEach(() => {
+  jest.mocked(useGetPicsQuery).mockReturnValue({ data: undefined, error: undefined, isLoading: false } as ReturnType<typeof useGetPicsQuery>);
+});
 
 describe("MasterPic hook", () => {
   describe("useMasterPicNavigation", () => {

@@ -80,7 +80,14 @@ const _renderHeader = (props: MasterPicProps): React.ReactElement => (
  * @returns {React.ReactElement} mobile list
  */
 const _renderMobileList = (props: MasterPicProps): React.ReactElement => {
-  const { paginatedData, onRowClick, pageSize, totalCount, changePageSize, currentPage, totalPages, goToPage, nextPage, prevPage } = props;
+  const { paginatedData, onRowClick, pageSize, totalCount, changePageSize, currentPage, totalPages, goToPage, nextPage, prevPage, setSearchTerm } = props;
+
+  /**
+   * Handle search input change.
+   * @param {React.ChangeEvent<HTMLInputElement>} event - Search input event
+   * @returns {void}
+   */
+  const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>): void => setSearchTerm(event.target.value);
 
   /**
    * Get mobile list data
@@ -109,7 +116,7 @@ const _renderMobileList = (props: MasterPicProps): React.ReactElement => {
     <div className="md:hidden space-y-6 mt-10">
       <div className="relative mb-3">
         <span className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-brand-text-medium scale-125"><Icons.Search /></span>
-        <input type="text" placeholder="Search" className="w-full pl-12 pr-6 py-3.5 bg-brand-gray-light border-none rounded-full text-xl font-medium focus:outline-none focus:ring-1 focus:ring-brand-blue/20 placeholder:text-brand-text-medium text-brand-text-dark" />
+        <input type="text" placeholder="Search" aria-label="Search PIC" onChange={handleSearchChange} className="w-full pl-12 pr-6 py-3.5 bg-brand-gray-light border-none rounded-full text-xl font-medium focus:outline-none focus:ring-1 focus:ring-brand-blue/20 placeholder:text-brand-text-medium text-brand-text-dark" />
       </div>
       <div className="scale-100 origin-top">
         <MobileList data={getMobileListData()} />
@@ -128,26 +135,49 @@ const _renderMobileList = (props: MasterPicProps): React.ReactElement => {
  * @returns {React.ReactElement} desktop table
  */
 const _renderDesktopTable = (props: MasterPicProps): React.ReactElement => {
-  const { paginatedData, columns, onRowClick, pageSize, totalCount, changePageSize, currentPage, totalPages, goToPage, nextPage, prevPage } = props;
+  const { paginatedData, columns, onRowClick, pageSize, totalCount, changePageSize, currentPage, totalPages, goToPage, nextPage, prevPage, setSearchTerm } = props;
 
   /**
-   * Extract unique key from row data
-   * @param {PicData} r - The row data
-   * @returns {string} The row ID
+   * Handle search input change.
+   * @param {React.ChangeEvent<HTMLInputElement>} event - Search input event
+   * @returns {void}
    */
-  const keyExtractor = (r: PicData): string => r.id;
+  const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>): void => setSearchTerm(event.target.value);
+
+  /**
+   * Render explicit list state.
+   * @returns {React.ReactElement | null} State element
+   */
+  const renderListState = (): React.ReactElement | null => {
+    if (props.isLoading) return <p className="py-10 text-center text-sm text-brand-text-medium">Loading PICs…</p>;
+
+    if (props.isMissingData) return <p className="py-10 text-center text-sm text-red-600">PIC data is unavailable. Please try again.</p>;
+
+    if (props.errorMessage) return <p className="py-10 text-center text-sm text-red-600">{props.errorMessage}</p>;
+
+    if (props.isEmpty) return <p className="py-10 text-center text-sm text-brand-text-medium">No PICs found.</p>;
+
+    return null;
+  };
+
+  /**
+   * Extract table row ID.
+   * @param {PicData} row - Table row
+   * @returns {string} Row ID
+   */
+  const keyExtractor = (row: PicData): string => row.id;
 
   return (
     <div className="hidden md:flex bg-brand-white rounded-xl border border-brand-gray-light shadow-sm flex-col flex-1 overflow-hidden mt-6">
       <div className="flex items-center justify-between p-5 px-6 border-b border-brand-gray-light">
         <div className="relative">
           <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-brand-text-medium"><Icons.Search /></div>
-          <input type="text" placeholder="Search PIC" className="w-64 pl-10 pr-4 py-2 bg-brand-gray-light border-none rounded-lg text-sm focus:outline-none placeholder:text-brand-text-medium text-brand-text-dark" />
+          <input type="text" placeholder="Search PIC" aria-label="Search PIC" onChange={handleSearchChange} className="w-64 pl-10 pr-4 py-2 bg-brand-gray-light border-none rounded-lg text-sm focus:outline-none placeholder:text-brand-text-medium text-brand-text-dark" />
         </div>
         <PaginationHeader pageSize={pageSize} totalCount={totalCount} onPageSizeChange={changePageSize} />
       </div>
       <div className="flex-1 overflow-auto">
-        <Table data={paginatedData} columns={columns} onRowClick={onRowClick} keyExtractor={keyExtractor} />
+        {renderListState() ?? <Table data={paginatedData} columns={columns} onRowClick={onRowClick} keyExtractor={keyExtractor} />}
       </div>
       <PaginationFooter currentPage={currentPage} totalPages={totalPages} onPageChange={goToPage} onNextPage={nextPage} onPrevPage={prevPage} />
     </div>

@@ -22,6 +22,11 @@ const MasterPicContainer = (): React.ReactElement => {
     <MasterPicComponent
       {...pagination}
       columns={columns}
+      isLoading={pagination.isLoading}
+      errorMessage={pagination.errorMessage}
+      isEmpty={pagination.isEmpty}
+      isMissingData={pagination.isMissingData}
+      setSearchTerm={pagination.setSearchTerm}
       onBack={goBack}
       onCreate={goCreate}
       onEdit={goEdit}
