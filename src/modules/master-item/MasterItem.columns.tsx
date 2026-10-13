@@ -71,7 +71,7 @@ const _getBasicColumns = (currentPage: number, pageSize: number): TableColumn<It
   },
   { key: "image", header: "Image", align: "center", render: _renderImage },
   { key: "name", header: "Item Name" },
-  { key: "category", header: "Category" },
+  { key: "categoryId", header: "Category" },
 ];
 
 /**

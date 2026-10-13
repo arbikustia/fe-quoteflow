@@ -19,7 +19,9 @@ const axiosBaseQuery = async (
 
     return { data: response.data };
   } catch (error) {
-    if (axios.isAxiosError<{ readonly messages: string[] | string | null }>(error)) {
+    if (
+      axios.isAxiosError<{ readonly messages: string[] | string | null }>(error)
+    ) {
       return {
         error: {
           status: error.response?.status ?? 0,
@@ -35,6 +37,14 @@ const axiosBaseQuery = async (
 export const apiRtkClient = createApi({
   reducerPath: "api",
   baseQuery: axiosBaseQuery,
-  tagTypes: ["Customer", "ServiceType"],
+  tagTypes: [
+    "Customer",
+    "Category",
+    "Item",
+    "Role",
+    "Voucher",
+    "Project",
+    "ServiceType",
+  ],
   endpoints: () => ({}),
 });

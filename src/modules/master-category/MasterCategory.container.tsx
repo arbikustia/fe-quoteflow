@@ -1,28 +1,21 @@
 import * as React from "react";
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
 
 import { getColumns } from "./MasterCategory.columns";
 import { MasterCategoryComponent } from "./MasterCategory.component";
+import {
+  useMasterCategoryContainerState,
+  useMasterCategoryNavigation,
+} from "./MasterCategory.hook";
 import type { CategoryData } from "./MasterCategory.type";
-import { MOCK_CATEGORIES } from "../../fixture/master-category";
-import { usePagination } from "../../hooks/usePagination";
 
+/**
+ * Master Category Container
+ * @returns {React.ReactElement} Container element
+ */
 const MasterCategoryContainer = (): React.ReactElement => {
-  const navigate = useNavigate();
-  const pagination = usePagination(MOCK_CATEGORIES);
-  const [isMoreOpen, setIsMoreOpen] = useState(false);
-
-  const goBack = (): void => { navigate(-1); };
-  const goCreate = (): void => { navigate("/master-category/create"); };
-  const goEdit = (c: CategoryData): void => { navigate(`/master-category/edit/${c.id}`); };
-  const goDetail = (c: CategoryData): void => { navigate(`/master-category/detail/${c.id}`); };
-  const toggleMore = (): void => { setIsMoreOpen(!isMoreOpen); };
-  const goDelete = (): void => { setIsMoreOpen(false); };
-  const goDeleteRow = (category: CategoryData): void => {
-    navigate(`/master-category/delete/${category.id}`);
-  };
-
+  const { goBack, goCreate, goEdit, goDetail } = useMasterCategoryNavigation();
+  const { pagination, isMoreOpen, toggleMore, handleCloseMore, goDelete } = useMasterCategoryContainerState();
+  const goDeleteRow = (category: CategoryData): void => goEdit(category);
   const columns = getColumns({
     currentPage: pagination.currentPage,
     pageSize: pagination.pageSize,
@@ -34,13 +27,13 @@ const MasterCategoryContainer = (): React.ReactElement => {
     <MasterCategoryComponent
       {...pagination}
       columns={columns}
+      isMoreOpen={isMoreOpen}
       onBack={goBack}
       onCreate={goCreate}
       onEdit={goEdit}
       onRowClick={goDetail}
       onMore={toggleMore}
-      isMoreOpen={isMoreOpen}
-      onCloseMore={() => setIsMoreOpen(false)}
+      onCloseMore={handleCloseMore}
       onDelete={goDelete}
     />
   );
