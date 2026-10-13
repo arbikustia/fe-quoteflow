@@ -11,23 +11,39 @@ import Table from "../../components/Table";
  * @returns {React.ReactElement} - component
  */
 export const MasterCategoryComponent = (props: MasterCategoryProps): React.ReactElement => {
-  const { 
-    onBack, 
-    paginatedData, 
-    columns, 
-    currentPage, 
-    totalPages, 
-    goToPage, 
-    pageSize, 
-    totalCount, 
-    changePageSize, 
-    onCreate, 
-    onRowClick, 
-    onMore, 
-    isMoreOpen, 
-    onCloseMore, 
-    onDelete 
+  const {
+    onBack,
+    paginatedData,
+    columns,
+    currentPage,
+    totalPages,
+    goToPage,
+    pageSize,
+    totalCount,
+    changePageSize,
+    onCreate,
+    onRowClick,
+    onMore,
+    isMoreOpen,
+    onCloseMore,
+    onDelete,
+    isLoading,
+    isEmpty,
+    isMissingData,
+    errorMessage,
+    setSearchTerm,
   } = props;
+  const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>): void => setSearchTerm(event.target.value);
+
+  let emptyText = "No data available";
+
+  if (isMissingData) {
+    emptyText = "Category data is unavailable. Please try again.";
+  } else if (errorMessage) {
+    emptyText = errorMessage;
+  } else if (isEmpty) {
+    emptyText = "No categories found.";
+  }
 
   return (
     <Layout pageTitle="Category List">
@@ -89,6 +105,7 @@ export const MasterCategoryComponent = (props: MasterCategoryProps): React.React
             <input
               type="text"
               placeholder="Search category"
+              onChange={handleSearchChange}
               className="w-full sm:w-64 pl-10 pr-4 py-2 bg-background-surface border border-border-default rounded-lg text-sm focus:outline-none focus:ring-1 focus:ring-action-primary text-text-primary placeholder:text-text-tertiary"
             />
           </div>
@@ -104,6 +121,8 @@ export const MasterCategoryComponent = (props: MasterCategoryProps): React.React
             totalCount={totalCount}
             onPageChange={goToPage}
             onPageSizeChange={changePageSize}
+            emptyText={emptyText}
+            isLoading={isLoading}
           />
         </div>
       </div>
