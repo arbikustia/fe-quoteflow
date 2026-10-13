@@ -1,6 +1,5 @@
 import { fireEvent, render, screen } from "@testing-library/react";
 import { BrowserRouter } from "react-router-dom";
-import { describe, expect, it, vi } from "vitest";
 
 import MasterCustomerContainer from "./MasterCustomer.container";
 import { useGetCustomersQuery } from "./MasterCustomer.api";
@@ -19,12 +18,10 @@ vi.mock("./MasterCustomer.api", () => ({
   }),
 }));
 
-vi.mock("./MasterCustomer.component", () => ({
-  MasterCustomerComponent: ({ setSearchTerm }: { readonly setSearchTerm: (searchTerm: string) => void }) => (
-    <>
-      <input aria-label="Search customer" onChange={(event) => setSearchTerm(event.target.value)} />
-      <div data-testid="mock-component" />
-    </>
+// Mock the component to avoid rendering the full UI
+jest.mock("./MasterCustomer.component", () => ({
+  MasterCustomerComponent: (props: any) => (
+    <div data-testid="mock-component" {...props} />
   ),
 }));
 

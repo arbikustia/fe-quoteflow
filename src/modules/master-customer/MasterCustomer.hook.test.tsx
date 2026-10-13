@@ -1,5 +1,4 @@
 import { act, renderHook } from "@testing-library/react";
-import { beforeEach, describe, expect, it, vi } from "vitest";
 
 import { MOCK_CUSTOMERS } from "../../fixture/master-customer";
 import { useMasterCustomerContainerState, useMasterCustomerNavigation } from "./MasterCustomer.hook";
@@ -22,8 +21,9 @@ vi.mock("./MasterCustomer.api", () => ({
   useGetCustomersQuery: mocks.useGetCustomersQuery,
 }));
 
-vi.mock("react-router-dom", () => ({
-  useNavigate: () => mocks.navigate,
+const mockNavigate = jest.fn();
+jest.mock("react-router-dom", () => ({
+  useNavigate: () => mockNavigate,
 }));
 
 const successfulEmptyResponse = {
@@ -45,8 +45,7 @@ const successfulEmptyResponse = {
 
 describe("MasterCustomer hook", () => {
   beforeEach(() => {
-    vi.clearAllMocks();
-    mocks.useGetCustomersQuery.mockReturnValue(successfulEmptyResponse);
+    jest.clearAllMocks();
   });
 
   describe("useMasterCustomerNavigation", () => {

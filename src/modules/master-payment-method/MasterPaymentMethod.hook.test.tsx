@@ -1,17 +1,16 @@
 import { renderHook, act } from "@testing-library/react";
-import { describe, it, expect, vi } from "vitest";
 import { useNavigate } from "react-router-dom";
 import { useMasterPaymentMethodContainerState, useMasterPaymentMethodNavigation } from "./MasterPaymentMethod.hook";
 
-vi.mock("react-router-dom", () => ({
-  useNavigate: vi.fn(),
+jest.mock("react-router-dom", () => ({
+  useNavigate: jest.fn(),
 }));
 
 describe("MasterPaymentMethod.hook", () => {
   describe("useMasterPaymentMethodNavigation", () => {
     it("should handle navigation correctly", () => {
-      const mockNavigate = vi.fn();
-      vi.mocked(useNavigate).mockReturnValue(mockNavigate);
+      const mockNavigate = jest.fn();
+      jest.mocked(useNavigate).mockReturnValue(mockNavigate);
 
       const { result } = renderHook(() => useMasterPaymentMethodNavigation());
 

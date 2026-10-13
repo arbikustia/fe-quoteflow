@@ -1,24 +1,22 @@
 import { renderHook, act } from "@testing-library/react";
-import { describe, it, expect } from "vitest";
 import { useMasterUserContainerState, useMasterUserNavigation } from "./MasterUser.hook";
 import type { UserData } from "./MasterUser.type";
 import * as ReactRouter from "react-router-dom";
-import { vi } from "vitest";
 
 const mockUser: UserData = { id: "1", username: "admin1", role: "Admin", status: "active", createAt: "2024-01-01", createBy: "Admin" };
 
-vi.mock("react-router-dom", async () => {
-  const actual = await vi.importActual("react-router-dom");
+jest.mock("react-router-dom", () => {
+  const actual = jest.requireActual("react-router-dom");
   return {
     ...actual,
-    useNavigate: vi.fn(),
+    useNavigate: jest.fn(),
   };
 });
 
 describe("useMasterUserNavigation", () => {
   it("returns navigation handlers", () => {
-    const navigateMock = vi.fn();
-    vi.mocked(ReactRouter.useNavigate).mockReturnValue(navigateMock);
+    const navigateMock = jest.fn();
+    jest.mocked(ReactRouter.useNavigate).mockReturnValue(navigateMock);
 
     const { result } = renderHook(() => useMasterUserNavigation());
     
@@ -38,8 +36,8 @@ describe("useMasterUserNavigation", () => {
 
 describe("useMasterUserContainerState", () => {
   it("initial state and handlers", () => {
-    const navigateMock = vi.fn();
-    vi.mocked(ReactRouter.useNavigate).mockReturnValue(navigateMock);
+    const navigateMock = jest.fn();
+    jest.mocked(ReactRouter.useNavigate).mockReturnValue(navigateMock);
 
     const { result } = renderHook(() => useMasterUserContainerState());
     

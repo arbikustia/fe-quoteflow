@@ -1,11 +1,10 @@
 import { render, screen } from '@testing-library/react';
-import { describe, it, expect, vi } from 'vitest';
 import { MobileOrderCreateComponent } from './MobileOrderCreate.component';
 import React from 'react';
 
 describe('MobileOrderCreateComponent', () => {
   it('should render successfully', () => {
-    const mockRef = React.createRef<HTMLDivElement>();
+    const mockRef = { current: document.createElement('div') };
     render(
       <MobileOrderCreateComponent 
         isEdit={false}
@@ -16,14 +15,14 @@ describe('MobileOrderCreateComponent', () => {
         categoryRemarks={{}}
         isCategoryOpen={false}
         categoryRef={mockRef}
-        onNavigateBack={vi.fn()}
-        onToggleCategory={vi.fn()}
-        onToggleItem={vi.fn()}
-        onUpdateQty={vi.fn()}
-        onUpdateRemark={vi.fn()}
-        onUpdateCategoryRemark={vi.fn()}
-        onSubmit={vi.fn()}
-        onToggleCategoryOpen={vi.fn()}
+        onNavigateBack={jest.fn()}
+        onToggleCategory={jest.fn()}
+        onToggleItem={jest.fn()}
+        onUpdateQty={jest.fn()}
+        onUpdateRemark={jest.fn()}
+        onUpdateCategoryRemark={jest.fn()}
+        onSubmit={jest.fn()}
+        onToggleCategoryOpen={jest.fn()}
       />
     );
     expect(screen.getByText('New Request')).toBeTruthy();

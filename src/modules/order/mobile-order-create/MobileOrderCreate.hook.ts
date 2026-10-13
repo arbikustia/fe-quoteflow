@@ -50,7 +50,7 @@ const useCategoryState = (existingOrder: QuoteData | null): CategoryStateReturn 
   );
   const [categoryRemarks, setCategoryRemarks] = useState<Record<string, string>>({});
   const [isCategoryOpen, setIsCategoryOpen] = useState<boolean>(false);
-  const categoryRef = useRef<HTMLDivElement>(null);
+  const categoryRef = useRef<HTMLDivElement>(null!);
 
   return {
     selectedCategories, setSelectedCategories,

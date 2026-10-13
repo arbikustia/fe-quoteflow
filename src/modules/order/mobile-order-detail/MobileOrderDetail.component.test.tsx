@@ -1,5 +1,4 @@
 import { render, screen } from '@testing-library/react';
-import { describe, it, expect, vi } from 'vitest';
 import { MobileOrderDetailComponent } from './MobileOrderDetail.component';
 
 describe('MobileOrderDetailComponent', () => {
@@ -21,11 +20,11 @@ describe('MobileOrderDetailComponent', () => {
           remark: "Test remark"
         }}
         isDeleteModalOpen={false}
-        onCloseDeleteModal={vi.fn()}
-        onOpenDeleteModal={vi.fn()}
-        onNavigateBack={vi.fn()}
-        onNavigateEdit={vi.fn()}
-        onDeleteOrder={vi.fn()}
+        onCloseDeleteModal={jest.fn()}
+        onOpenDeleteModal={jest.fn()}
+        onNavigateBack={jest.fn()}
+        onNavigateEdit={jest.fn()}
+        onDeleteOrder={jest.fn()}
       />
     );
     expect(screen.getByText('ORD-123')).toBeTruthy();

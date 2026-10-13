@@ -1,13 +1,12 @@
-import { vi } from "vitest";
 
 import { SidebarComponent } from "./Sidebar.component";
 import { NAVIGATION_CONFIG } from "./Sidebar.config";
 import test from "../../libs/unit-test";
 
-const mockOnToggleMenu = vi.fn();
-const mockOnToggleCollapsed = vi.fn();
-const mockOnToggleProfile = vi.fn();
-const mockOnToggleTheme = vi.fn();
+const mockOnToggleMenu = jest.fn();
+const mockOnToggleCollapsed = jest.fn();
+const mockOnToggleProfile = jest.fn();
+const mockOnToggleTheme = jest.fn();
 
 const configs = [
   {

@@ -1,5 +1,4 @@
 import { render, screen, fireEvent } from "@testing-library/react";
-import { describe, it, expect, vi } from "vitest";
 import { MemoryRouter } from "react-router-dom";
 import { getColumns } from "./MasterUser.columns";
 import MasterUserContainer from "./MasterUser.container";
@@ -36,7 +35,7 @@ describe("MasterUserContainer", () => {
 });
 
 describe("getColumns", () => {
-  const mockOnEdit = vi.fn();
+  const mockOnEdit = jest.fn();
   const base: UserData = { id: "1", username: "admin1", role: "Admin", status: "active", createAt: "2024-01-01", createBy: "Admin" };
   const inactive: UserData = { id: "2", username: "user1", role: "User", status: "inactive", createAt: "2024-01-02", createBy: "Admin" };
 
@@ -85,7 +84,7 @@ describe("getColumns", () => {
   });
 
   it("actions column calls onEdit with stopPropagation", () => {
-    const onEdit = vi.fn();
+    const onEdit = jest.fn();
     const cols = getColumns({ currentPage: 1, pageSize: 5, onEdit });
     const actionsCol = cols.find((c) => c.key === "actions")!;
     const el = (actionsCol.render as any)(base) as any;

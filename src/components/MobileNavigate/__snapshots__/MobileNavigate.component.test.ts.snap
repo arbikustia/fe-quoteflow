@@ -1,6 +1,6 @@
-// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`MobileNavigateComponent Test > MobileNavigateComponent matches snapshot 1`] = `
+exports[`MobileNavigateComponent Test MobileNavigateComponent matches snapshot 1`] = `
 <DocumentFragment>
   <nav
     aria-label="Main mobile navigation"
@@ -119,7 +119,7 @@ exports[`MobileNavigateComponent Test > MobileNavigateComponent matches snapshot
 </DocumentFragment>
 `;
 
-exports[`MobileNavigateComponent Test > MobileNavigateComponent matches snapshot 2`] = `
+exports[`MobileNavigateComponent Test MobileNavigateComponent matches snapshot 2`] = `
 <DocumentFragment>
   <nav
     aria-label="Main mobile navigation"
@@ -238,4 +238,4 @@ exports[`MobileNavigateComponent Test > MobileNavigateComponent matches snapshot
 </DocumentFragment>
 `;
 
-exports[`MobileNavigateComponent Test > MobileNavigateComponent matches snapshot 3`] = `<DocumentFragment />`;
+exports[`MobileNavigateComponent Test MobileNavigateComponent matches snapshot 3`] = `<DocumentFragment />`;

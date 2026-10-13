@@ -1,18 +1,17 @@
-import { vi } from "vitest";
 
 import SidebarContainer from "./Sidebar.container";
 import type { SidebarProps } from "./Sidebar.type";
 import test from "../../libs/unit-test";
 
-vi.mock("./Sidebar.hook", () => ({
+jest.mock("./Sidebar.hook", () => ({
   useSidebarState: (): unknown => ({
     currentPath: "/home",
     openMenus: [],
-    onToggleMenu: vi.fn(),
+    onToggleMenu: jest.fn(),
     isCollapsed: false,
-    onToggleCollapsed: vi.fn(),
+    onToggleCollapsed: jest.fn(),
     isProfileOpen: false,
-    onToggleProfile: vi.fn(),
+    onToggleProfile: jest.fn(),
   }),
 }));
 

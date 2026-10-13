@@ -1,5 +1,4 @@
 import { render, screen } from "@testing-library/react";
-import { describe, expect, it, vi } from "vitest";
 import { MemoryRouter } from "react-router-dom";
 import MasterCategoryContainer from "./MasterCategory.container";
 import { getColumns } from "./MasterCategory.columns";
@@ -38,8 +37,8 @@ describe("MasterCategoryContainer", () => {
 });
 
 describe("getColumns", () => {
-  const mockOnEdit = vi.fn();
-  const mockOnDelete = vi.fn();
+  const mockOnEdit = jest.fn();
+  const mockOnDelete = jest.fn();
   const base: CategoryData = { id: "1", categoryName: "Audio", status: "active", createAt: "2024-02-01", createBy: "Admin" };
   const inactive: CategoryData = { id: "2", categoryName: "Light", status: "inactive", createAt: "2024-03-01", createBy: "Admin" };
 
@@ -81,8 +80,8 @@ describe("getColumns", () => {
     });
 
   it("actions column calls onEdit with stopPropagation", () => {
-      const onEdit = vi.fn();
-      const onDelete = vi.fn();
+      const onEdit = jest.fn();
+      const onDelete = jest.fn();
       const cols = getColumns({ currentPage: 1, pageSize: 5, onEdit, onDelete });
       const actionsCol = cols.find((c) => c.key === "actions")!;
       // Actions column now uses actions object instead of render function

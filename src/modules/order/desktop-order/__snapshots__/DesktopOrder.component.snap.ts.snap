@@ -1,0 +1,222 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`DesktopOrderComponent matches snapshot 1`] = `
+<DocumentFragment>
+  <div
+    class="flex flex-col h-full"
+  >
+    <div
+      class="flex justify-between items-center mb-6"
+    >
+      <span
+        class="text-2xl font-bold text-brand-text-dark"
+      >
+        Orders
+      </span>
+      <button
+        class="px-5 py-2.5 bg-brand-blue text-brand-white font-medium rounded-lg hover:bg-brand-blue-dark transition-all text-sm cursor-pointer"
+      >
+        Create Order
+      </button>
+    </div>
+    <div
+      class="bg-brand-white rounded-xl border border-brand-gray-light shadow-sm flex flex-col flex-1 overflow-hidden"
+    >
+      <div
+        class="flex items-center justify-between border-b border-brand-gray-light px-6"
+      >
+        <div
+          class="flex items-center gap-6 overflow-x-auto"
+        >
+          <button
+            class="flex items-center gap-2 py-4 border-b-2 text-sm cursor-pointer whitespace-nowrap transition-colors border-brand-blue text-brand-blue font-bold"
+          >
+            <span
+              class="text-brand-blue"
+            >
+              ☆
+            </span>
+            All Orders 
+            <span
+              class="px-1.5 py-0.5 rounded-full text-[10px] bg-brand-blue-light text-brand-blue-dark"
+            >
+              0
+            </span>
+          </button>
+        </div>
+        <div
+          class="flex items-center gap-3"
+        >
+          <button
+            class="flex items-center gap-2 px-3 py-1.5 border border-brand-gray-light rounded-lg text-sm font-medium text-brand-text-medium hover:bg-brand-gray-light transition-colors cursor-pointer"
+          >
+            <svg
+              fill="none"
+              height="14"
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              viewBox="0 0 24 24"
+              width="14"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="m6 9 6 6 6-6"
+              />
+            </svg>
+             Sort
+          </button>
+          <button
+            class="flex items-center gap-2 px-3 py-1.5 border border-brand-gray-light rounded-lg text-sm font-medium text-brand-text-medium hover:bg-brand-gray-light transition-colors cursor-pointer"
+          >
+            <span>
+              Y
+            </span>
+             Filter
+          </button>
+        </div>
+      </div>
+      <div
+        class="flex items-center justify-between p-4 px-6 border-b border-brand-gray-light"
+      >
+        <div
+          class="relative"
+        >
+          <div
+            class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-brand-text-medium"
+          >
+            <svg
+              fill="none"
+              height="18"
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="1.8"
+              viewBox="0 0 24 24"
+              width="18"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <circle
+                cx="11"
+                cy="11"
+                r="8"
+              />
+              <path
+                d="m21 21-4.3-4.3"
+              />
+            </svg>
+          </div>
+          <input
+            class="w-64 pl-10 pr-4 py-2 bg-brand-gray-light border-none rounded-lg text-sm font-medium focus:outline-none focus:ring-1 focus:ring-brand-gray-light text-brand-text-dark placeholder:text-brand-text-medium"
+            placeholder="Search order"
+            type="text"
+          />
+        </div>
+        <div
+          class="flex items-center gap-3 text-sm text-brand-text-medium "
+        >
+          Showing
+          <select
+            class="border border-brand-gray-light rounded px-2 py-1 bg-brand-white font-medium text-brand-text-dark focus:outline-none"
+          >
+            <option
+              value="5"
+            >
+              5
+            </option>
+            <option
+              value="10"
+            >
+              10
+            </option>
+            <option
+              value="20"
+            >
+              20
+            </option>
+            <option
+              value="50"
+            >
+              50
+            </option>
+            <option
+              value="100"
+            >
+              100
+            </option>
+          </select>
+          of 0 results
+        </div>
+      </div>
+      <div
+        class="flex-1 overflow-auto"
+      >
+        <div
+          class="flex flex-col bg-background-surface rounded-xl border border-border-default shadow-sm overflow-hidden"
+        >
+          <div
+            class="hidden md:flex flex-1 overflow-auto"
+          >
+            <div
+              class="w-full overflow-x-auto"
+            >
+              <table
+                class="w-full min-w-max whitespace-nowrap"
+              >
+                <thead>
+                  <tr
+                    class="bg-table-header border-b border-border-default"
+                  />
+                </thead>
+                <tbody
+                  class="divide-y divide-border-default"
+                >
+                  <tr>
+                    <td
+                      class="px-4 py-8 text-center text-text-tertiary font-medium"
+                      colspan="0"
+                    >
+                      No data available
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div
+            class="md:hidden"
+          >
+            <div
+              class="py-12 text-center text-base text-text-tertiary font-medium"
+            >
+              No data available
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="flex items-center justify-center gap-2 text-sm text-brand-text-medium font-medium "
+      >
+        <button
+          class="p-1 rounded text-gray-300 cursor-not-allowed"
+          disabled=""
+        >
+          &lt;
+        </button>
+        <button
+          class="w-8 h-8 flex items-center justify-center rounded-lg transition-colors bg-brand-blue text-brand-white font-bold"
+        >
+          1
+        </button>
+        <button
+          class="p-1 rounded text-gray-300 cursor-not-allowed"
+          disabled=""
+        >
+          &gt;
+        </button>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;

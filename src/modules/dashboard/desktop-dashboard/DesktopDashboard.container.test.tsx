@@ -1,13 +1,12 @@
 
 import { render } from '@testing-library/react';
-import { describe, it, expect, vi } from 'vitest';
 import DesktopDashboardContainer from './DesktopDashboard.container';
 import { MemoryRouter } from 'react-router-dom';
 
-vi.mock('./DesktopDashboard.hook', (): { useDesktopDashboardEffect: () => { handleNewOrder: unknown; handleReturn: unknown } } => ({
+jest.mock('./DesktopDashboard.hook', (): { useDesktopDashboardEffect: () => { handleNewOrder: unknown; handleReturn: unknown } } => ({
   useDesktopDashboardEffect: (): { handleNewOrder: unknown; handleReturn: unknown } => ({
-    handleNewOrder: vi.fn(),
-    handleReturn: vi.fn()
+    handleNewOrder: jest.fn(),
+    handleReturn: jest.fn()
   })
 }));
 

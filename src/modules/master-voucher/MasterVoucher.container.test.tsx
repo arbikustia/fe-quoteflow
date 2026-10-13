@@ -1,6 +1,5 @@
 import { render, screen, fireEvent } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
-import { vi } from "vitest";
 import { getColumns } from "./MasterVoucher.columns";
 import MasterVoucherContainer from "./MasterVoucher.container";
 import type { VoucherData } from "./MasterVoucher.type";
@@ -36,7 +35,7 @@ describe("MasterVoucherContainer", () => {
 });
 
 describe("getColumns", () => {
-  const onEdit = vi.fn();
+  const onEdit = jest.fn();
   const columns = getColumns({ currentPage: 1, pageSize: 10, onEdit });
 
   it("returns columns correctly", () => {

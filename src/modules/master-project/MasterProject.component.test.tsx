@@ -1,6 +1,5 @@
 import { render, screen, fireEvent } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
-import { vi } from "vitest";
 import { MasterProjectComponent } from "./MasterProject.component";
 import type { MasterProjectProps, ProjectData } from "./MasterProject.type";
 
@@ -21,18 +20,18 @@ const defaultProps: MasterProjectProps = {
   totalPages: 2,
   pageSize: 10,
   totalCount: 15,
-  goToPage: vi.fn(),
-  nextPage: vi.fn(),
-  prevPage: vi.fn(),
-  changePageSize: vi.fn(),
-  onCreate: vi.fn(),
-  onEdit: vi.fn(),
-  onRowClick: vi.fn(),
-  onBack: vi.fn(),
-  onMore: vi.fn(),
+  goToPage: jest.fn(),
+  nextPage: jest.fn(),
+  prevPage: jest.fn(),
+  changePageSize: jest.fn(),
+  onCreate: jest.fn(),
+  onEdit: jest.fn(),
+  onRowClick: jest.fn(),
+  onBack: jest.fn(),
+  onMore: jest.fn(),
   isMoreOpen: false,
-  onCloseMore: vi.fn(),
-  onDelete: vi.fn(),
+  onCloseMore: jest.fn(),
+  onDelete: jest.fn(),
 };
 
 describe("MasterProjectComponent", () => {
@@ -62,7 +61,7 @@ describe("MasterProjectComponent", () => {
   });
 
   it("calls onBack when back button clicked", () => {
-    const onBack = vi.fn();
+    const onBack = jest.fn();
     renderWithRouter({ ...defaultProps, onBack });
     const backBtn = screen.getByLabelText("Back");
     fireEvent.click(backBtn);
@@ -70,7 +69,7 @@ describe("MasterProjectComponent", () => {
   });
 
   it("calls onMore when more button clicked", () => {
-    const onMore = vi.fn();
+    const onMore = jest.fn();
     renderWithRouter({ ...defaultProps, onMore });
     const moreBtn = screen.getByLabelText("More options");
     fireEvent.click(moreBtn);
@@ -78,14 +77,14 @@ describe("MasterProjectComponent", () => {
   });
 
   it("calls onCreate when New Project clicked", () => {
-    const onCreate = vi.fn();
+    const onCreate = jest.fn();
     renderWithRouter({ ...defaultProps, isMoreOpen: true, onCreate });
     fireEvent.click(screen.getByText("New Project"));
     expect(onCreate).toHaveBeenCalledTimes(1);
   });
 
   it("calls onDelete when Delete clicked", () => {
-    const onDelete = vi.fn();
+    const onDelete = jest.fn();
     renderWithRouter({ ...defaultProps, isMoreOpen: true, onDelete });
     fireEvent.click(screen.getByText("Delete"));
     expect(onDelete).toHaveBeenCalledTimes(1);

@@ -1,7 +1,6 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { render, waitFor } from "@testing-library/react";
 import { Provider } from "react-redux";
-import { afterEach, describe, expect, it } from "vitest";
 
 import { themeSlice } from "./theme.slice";
 import { ThemeProvider } from "./ThemeProvider";

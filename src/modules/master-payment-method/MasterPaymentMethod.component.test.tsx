@@ -1,28 +1,25 @@
 import * as React from "react";
-import { describe, vi } from "vitest";
 import { MasterPaymentMethodComponent } from "./MasterPaymentMethod.component";
 import test from "../../libs/unit-test";
 
-vi.mock("../../app/layout", () => ({
-  default: ({ children }: { children: React.ReactNode }) => <div data-testid="layout">{children}</div>,
-}));
+jest.mock("../../app/layout", () =>
+  ({ children }: { children: React.ReactNode }) => <div data-testid="layout">{children}</div>,
+);
 
-vi.mock("../../components/Icons", () => ({
+jest.mock("../../components/Icons", () => ({
   Icons: { Search: () => <div data-testid="icon-search" /> },
 }));
 
-vi.mock("../../components/MobileList", () => ({
+jest.mock("../../components/MobileList", () => ({
   MobileList: () => <div data-testid="mobile-list" />,
 }));
 
-vi.mock("../../components/Pagination", () => ({
+jest.mock("../../components/Pagination", () => ({
   PaginationFooter: () => <div data-testid="pagination-footer" />,
   PaginationHeader: () => <div data-testid="pagination-header" />,
 }));
 
-vi.mock("../../components/Table", () => ({
-  default: () => <div data-testid="table" />,
-}));
+jest.mock("../../components/Table", () => () => <div data-testid="table" />);
 
 describe("MasterPaymentMethod.component", () => {
   const defaultProps = {
@@ -35,18 +32,18 @@ describe("MasterPaymentMethod.component", () => {
     totalPages: 5,
     pageSize: 10,
     totalCount: 50,
-    goToPage: vi.fn(),
-    nextPage: vi.fn(),
-    prevPage: vi.fn(),
-    changePageSize: vi.fn(),
-    onBack: vi.fn(),
-    onCreate: vi.fn(),
-    onEdit: vi.fn(),
-    onRowClick: vi.fn(),
-    onMore: vi.fn(),
+    goToPage: jest.fn(),
+    nextPage: jest.fn(),
+    prevPage: jest.fn(),
+    changePageSize: jest.fn(),
+    onBack: jest.fn(),
+    onCreate: jest.fn(),
+    onEdit: jest.fn(),
+    onRowClick: jest.fn(),
+    onMore: jest.fn(),
     isMoreOpen: false,
-    onCloseMore: vi.fn(),
-    onDelete: vi.fn(),
+    onCloseMore: jest.fn(),
+    onDelete: jest.fn(),
   };
 
   test.assertSnapshots(MasterPaymentMethodComponent, [

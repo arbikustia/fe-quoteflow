@@ -1,0 +1,400 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`MobileOrderCreateContainer Snapshots Should Render MobileOrderCreateContainer 1`] = `
+<DocumentFragment>
+  <div
+    class="flex-1 w-full min-h-full bg-[#f8f9fb] font-sans pb-10 relative overflow-y-auto"
+  >
+    <div
+      class="px-6 pt-10 pb-4 flex items-center sticky top-0 bg-[#f8f9fb]/90 backdrop-blur-sm z-20"
+    >
+      <button
+        class="flex items-center gap-3 text-gray-600 hover:text-gray-900 transition-colors group"
+        type="button"
+      >
+        <div
+          class="w-10 h-10 rounded-full bg-white shadow-sm flex items-center justify-center text-[#1a233a] group-hover:bg-gray-50 transition-colors"
+        >
+          <svg
+            fill="none"
+            height="20"
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="3"
+            viewBox="0 0 24 24"
+            width="20"
+          >
+            <polyline
+              points="15 18 9 12 15 6"
+            />
+          </svg>
+        </div>
+        <span
+          class="font-bold text-[15px]"
+        >
+          Back
+        </span>
+      </button>
+    </div>
+    <div
+      class="px-6 mt-2"
+    >
+      <div
+        class="mb-8 pl-1"
+      >
+        <h2
+          class="text-[28px] font-extrabold text-gray-900 tracking-tight"
+        >
+          New Request
+        </h2>
+        <p
+          class="text-[14px] text-gray-500 mt-2 font-medium leading-relaxed"
+        >
+          Fill in the complete event details and select the required equipment below.
+        </p>
+      </div>
+    </div>
+    <div
+      class="px-6"
+    >
+      <form
+        class="flex flex-col"
+      >
+        <div
+          class="mb-5"
+        >
+          <label
+            class="block text-[12px] font-bold text-gray-400 mb-2 pl-3 tracking-widest uppercase"
+          >
+            Client Name
+          </label>
+          <div
+            class="relative"
+          >
+            <div
+              class="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"
+            >
+              <svg
+                fill="none"
+                height="20"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2.5"
+                viewBox="0 0 24 24"
+                width="20"
+              >
+                <path
+                  d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"
+                />
+                <circle
+                  cx="12"
+                  cy="7"
+                  r="4"
+                />
+              </svg>
+            </div>
+            <input
+              class="w-full bg-white border border-gray-100 rounded-3xl py-4 pl-12 pr-5 text-[15px] font-semibold text-gray-800 shadow-[0_4px_15px_rgba(0,0,0,0.02)] outline-none focus:border-[#daeaf3] focus:ring-4 focus:ring-[#daeaf3]/50 transition-all placeholder:text-gray-300"
+              placeholder="e.g. Stevy Ditolla"
+              type="text"
+            />
+          </div>
+        </div>
+        <div
+          class="mb-5"
+        >
+          <label
+            class="block text-[12px] font-bold text-gray-400 mb-2 pl-3 tracking-widest uppercase"
+          >
+            Event Location
+          </label>
+          <div
+            class="relative"
+          >
+            <div
+              class="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"
+            >
+              <svg
+                fill="none"
+                height="20"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2.5"
+                viewBox="0 0 24 24"
+                width="20"
+              >
+                <path
+                  d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"
+                />
+                <circle
+                  cx="12"
+                  cy="10"
+                  r="3"
+                />
+              </svg>
+            </div>
+            <input
+              class="w-full bg-white border border-gray-100 rounded-3xl py-4 pl-12 pr-5 text-[15px] font-semibold text-gray-800 shadow-[0_4px_15px_rgba(0,0,0,0.02)] outline-none focus:border-[#daeaf3] focus:ring-4 focus:ring-[#daeaf3]/50 transition-all placeholder:text-gray-300"
+              placeholder="e.g. Grand Ballroom"
+              type="text"
+            />
+          </div>
+        </div>
+        <div
+          class="flex gap-4"
+        >
+          <div
+            class="flex-1"
+          >
+            <div
+              class="mb-5"
+            >
+              <label
+                class="block text-[12px] font-bold text-gray-400 mb-2 pl-3 tracking-widest uppercase"
+              >
+                Start Date
+              </label>
+              <div
+                class="relative"
+              >
+                <div
+                  class="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"
+                >
+                  <svg
+                    fill="none"
+                    height="20"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2.5"
+                    viewBox="0 0 24 24"
+                    width="20"
+                  >
+                    <rect
+                      height="18"
+                      rx="2"
+                      ry="2"
+                      width="18"
+                      x="3"
+                      y="4"
+                    />
+                    <line
+                      x1="16"
+                      x2="16"
+                      y1="2"
+                      y2="6"
+                    />
+                    <line
+                      x1="8"
+                      x2="8"
+                      y1="2"
+                      y2="6"
+                    />
+                    <line
+                      x1="3"
+                      x2="21"
+                      y1="10"
+                      y2="10"
+                    />
+                  </svg>
+                </div>
+                <input
+                  class="w-full bg-white border border-gray-100 rounded-3xl py-4 pl-12 pr-5 text-[15px] font-semibold text-gray-800 shadow-[0_4px_15px_rgba(0,0,0,0.02)] outline-none focus:border-[#daeaf3] focus:ring-4 focus:ring-[#daeaf3]/50 transition-all placeholder:text-gray-300"
+                  placeholder="DD MMM YYYY"
+                  type="date"
+                />
+              </div>
+            </div>
+          </div>
+          <div
+            class="flex-1"
+          >
+            <div
+              class="mb-5"
+            >
+              <label
+                class="block text-[12px] font-bold text-gray-400 mb-2 pl-3 tracking-widest uppercase"
+              >
+                End Date
+              </label>
+              <div
+                class="relative"
+              >
+                <div
+                  class="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"
+                >
+                  <svg
+                    fill="none"
+                    height="20"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2.5"
+                    viewBox="0 0 24 24"
+                    width="20"
+                  >
+                    <rect
+                      height="18"
+                      rx="2"
+                      ry="2"
+                      width="18"
+                      x="3"
+                      y="4"
+                    />
+                    <line
+                      x1="16"
+                      x2="16"
+                      y1="2"
+                      y2="6"
+                    />
+                    <line
+                      x1="8"
+                      x2="8"
+                      y1="2"
+                      y2="6"
+                    />
+                    <line
+                      x1="3"
+                      x2="21"
+                      y1="10"
+                      y2="10"
+                    />
+                  </svg>
+                </div>
+                <input
+                  class="w-full bg-white border border-gray-100 rounded-3xl py-4 pl-12 pr-5 text-[15px] font-semibold text-gray-800 shadow-[0_4px_15px_rgba(0,0,0,0.02)] outline-none focus:border-[#daeaf3] focus:ring-4 focus:ring-[#daeaf3]/50 transition-all placeholder:text-gray-300"
+                  placeholder="DD MMM YYYY"
+                  type="date"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          class="mb-5"
+        >
+          <label
+            class="block text-[12px] font-bold text-gray-400 mb-2 pl-3 tracking-widest uppercase"
+          >
+            Discount (%)
+          </label>
+          <div
+            class="relative"
+          >
+            <div
+              class="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"
+            >
+              <svg
+                fill="none"
+                height="20"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2.5"
+                viewBox="0 0 24 24"
+                width="20"
+              >
+                <line
+                  x1="19"
+                  x2="5"
+                  y1="5"
+                  y2="19"
+                />
+                <circle
+                  cx="6.5"
+                  cy="6.5"
+                  r="2.5"
+                />
+                <circle
+                  cx="17.5"
+                  cy="17.5"
+                  r="2.5"
+                />
+              </svg>
+            </div>
+            <input
+              class="w-full bg-white border border-gray-100 rounded-3xl py-4 pl-12 pr-5 text-[15px] font-semibold text-gray-800 shadow-[0_4px_15px_rgba(0,0,0,0.02)] outline-none focus:border-[#daeaf3] focus:ring-4 focus:ring-[#daeaf3]/50 transition-all placeholder:text-gray-300"
+              placeholder="e.g. 10"
+              type="number"
+            />
+          </div>
+        </div>
+        <div
+          class="mb-6 mt-2 relative z-10"
+        >
+          <label
+            class="block text-[12px] font-bold text-gray-400 mb-2 pl-3 tracking-widest uppercase"
+          >
+            Service Category
+          </label>
+          <div
+            class="relative"
+          >
+            <div
+              class="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"
+            >
+              <svg
+                fill="none"
+                height="20"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2.5"
+                viewBox="0 0 24 24"
+                width="20"
+              >
+                <polygon
+                  points="12 2 2 7 12 12 22 7 12 2"
+                />
+                <polyline
+                  points="2 17 12 22 22 17"
+                />
+                <polyline
+                  points="2 12 12 17 22 12"
+                />
+              </svg>
+            </div>
+            <div
+              class="w-full bg-white border border-gray-100 rounded-3xl py-4 pl-12 pr-10 text-[15px] font-semibold text-gray-800 shadow-[0_4px_15px_rgba(0,0,0,0.02)] cursor-pointer transition-all flex items-center"
+            >
+              <span
+                class="truncate"
+              >
+                Select category...
+              </span>
+            </div>
+            <div
+              class="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none"
+            >
+              <svg
+                class="transition-transform duration-200 "
+                fill="none"
+                height="20"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2.5"
+                viewBox="0 0 24 24"
+                width="20"
+              >
+                <polyline
+                  points="6 9 12 15 18 9"
+                />
+              </svg>
+            </div>
+          </div>
+        </div>
+        <button
+          class="w-full bg-[#1a233a] text-white rounded-full py-4.5 text-[16px] font-bold tracking-wide shadow-[0_10px_20px_rgba(26,35,58,0.15)] hover:bg-black transition-all transform hover:-translate-y-0.5 mt-2"
+          type="submit"
+        >
+          Create Order
+        </button>
+      </form>
+    </div>
+  </div>
+</DocumentFragment>
+`;

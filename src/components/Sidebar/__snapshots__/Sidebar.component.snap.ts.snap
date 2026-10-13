@@ -1,0 +1,231 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`SidebarComponent matches snapshot 1`] = `
+<DocumentFragment>
+  <aside
+    aria-label="Sidebar"
+    class="w-[260px] h-full min-h-0 self-stretch bg-sidebar-background border border-border-default flex flex-col shrink-0 overflow-hidden transition-[width] duration-[250ms] ease-in-out"
+    style="border-radius: 12px;"
+  >
+    <div
+      class="h-[56px] flex items-center shrink-0 px-4"
+    >
+      <button
+        aria-expanded="true"
+        aria-label="Collapse sidebar"
+        class="flex items-center justify-center shrink-0 focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring/30 rounded-[8px]"
+        type="button"
+      >
+        <img
+          alt="Sonicline"
+          class="h-8 w-auto object-contain"
+          src="/src/assets/Sonicline.png"
+        />
+      </button>
+    </div>
+    <div
+      class="shrink-0 px-4 pb-4"
+    >
+      <div
+        class="h-10 bg-background-subtle flex items-center text-text-tertiary gap-2 px-3 rounded-[8px]"
+        role="search"
+      >
+        <span
+          aria-hidden="true"
+          class="shrink-0 flex items-center justify-center"
+        >
+          <svg
+            fill="none"
+            height="18"
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="1.8"
+            viewBox="0 0 24 24"
+            width="18"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <circle
+              cx="11"
+              cy="11"
+              r="8"
+            />
+            <path
+              d="m21 21-4.3-4.3"
+            />
+          </svg>
+        </span>
+        <span
+          class="flex-1 text-left text-[13px] text-text-tertiary truncate"
+        >
+          Search
+        </span>
+        <span
+          class="shrink-0 text-[11px] leading-none bg-background-surface px-1.5 py-1 rounded-[6px] border border-border-default text-text-secondary font-medium"
+        >
+          ⌘ K
+        </span>
+      </div>
+    </div>
+    <div
+      class="flex-1 overflow-y-auto overflow-x-hidden px-4 space-y-5 scrollbar-thin"
+    >
+      <div>
+        <p
+          class="px-2 mb-2 text-[12px] font-semibold tracking-widest uppercase text-text-tertiary"
+        >
+          Menu
+        </p>
+        <nav
+          aria-label="Menu"
+          class="space-y-1"
+        >
+          <div>
+            <button
+              aria-expanded="false"
+              class="w-full h-9 flex items-center gap-3 rounded-[6px] px-3 text-left transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring/30 text-text-secondary hover:bg-background-elevated hover:text-text-primary"
+              type="button"
+            >
+              <span
+                class="shrink-0 [&_svg]:h-5 [&_svg]:w-5 text-text-tertiary"
+              >
+                <svg
+                  fill="none"
+                  height="20"
+                  stroke="currentColor"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="1.8"
+                  viewBox="0 0 24 24"
+                  width="20"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <ellipse
+                    cx="12"
+                    cy="5"
+                    rx="9"
+                    ry="3"
+                  />
+                  <path
+                    d="M3 5V19A9 3 0 0 0 21 19V5"
+                  />
+                  <path
+                    d="M3 12A9 3 0 0 0 21 12"
+                  />
+                </svg>
+              </span>
+              <span
+                class="flex-1 truncate text-[14px] leading-none font-normal"
+              >
+                Master Data
+              </span>
+              <span
+                class="shrink-0 text-text-tertiary transition-transform duration-200 "
+              >
+                <svg
+                  fill="none"
+                  height="14"
+                  stroke="currentColor"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  viewBox="0 0 24 24"
+                  width="14"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="m6 9 6 6 6-6"
+                  />
+                </svg>
+              </span>
+            </button>
+          </div>
+        </nav>
+      </div>
+    </div>
+    <div
+      class="shrink-0 border-t border-border-default p-3"
+    >
+      <button
+        aria-checked="false"
+        aria-label="Toggle dark theme"
+        class="mb-2 flex h-9 w-full items-center rounded-[8px] bg-background-subtle text-text-secondary transition-colors hover:bg-action-primary-subtle focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring gap-3 px-3"
+        role="switch"
+        type="button"
+      >
+        <span
+          aria-hidden="true"
+          class="shrink-0"
+        >
+          <svg
+            fill="none"
+            height="20"
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="1.8"
+            viewBox="0 0 24 24"
+            width="20"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"
+            />
+          </svg>
+        </span>
+        <span
+          class="flex-1 text-left text-[13px] font-medium"
+        >
+          Dark theme
+        </span>
+      </button>
+      <button
+        aria-expanded="false"
+        aria-haspopup="menu"
+        class="w-full flex items-center rounded-[10px] transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring/30 hover:bg-background-elevated gap-3 p-2"
+        type="button"
+      >
+        <span
+          aria-hidden="true"
+          class="w-8 h-8 rounded-full bg-action-primary-subtle text-action-primary flex items-center justify-center text-[12px] font-semibold shrink-0"
+        >
+          DR
+        </span>
+        <span
+          class="flex-1 min-w-0 text-left"
+        >
+          <span
+            class="block truncate text-[13px] font-semibold leading-4 text-text-primary"
+          >
+            Dianne Russell
+          </span>
+          <span
+            class="block truncate text-[11px] leading-4 text-text-tertiary"
+          >
+            dianne.russell@gmail.com
+          </span>
+        </span>
+        <span
+          class="shrink-0 text-text-tertiary transition-transform duration-200 "
+        >
+          <svg
+            fill="none"
+            height="14"
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            viewBox="0 0 24 24"
+            width="14"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="m6 9 6 6 6-6"
+            />
+          </svg>
+        </span>
+      </button>
+    </div>
+  </aside>
+</DocumentFragment>
+`;

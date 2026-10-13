@@ -1,0 +1,1601 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`MasterCategoryContainer matches snapshot 1`] = `
+<DocumentFragment>
+  <div
+    class="flex h-full min-h-0 w-full bg-background-page overflow-hidden font-sans text-text-primary relative items-stretch"
+  >
+    <div
+      class="hidden lg:flex h-full min-h-0 shrink-0 self-stretch"
+    >
+      <aside
+        aria-label="Sidebar"
+        class="w-[260px] h-full min-h-0 self-stretch bg-sidebar-background border border-border-default flex flex-col shrink-0 overflow-hidden transition-[width] duration-[250ms] ease-in-out"
+        style="border-radius: 12px;"
+      >
+        <div
+          class="h-[56px] flex items-center shrink-0 px-4"
+        >
+          <button
+            aria-expanded="true"
+            aria-label="Collapse sidebar"
+            class="flex items-center justify-center shrink-0 focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring/30 rounded-[8px]"
+            type="button"
+          >
+            <img
+              alt="Sonicline"
+              class="h-8 w-auto object-contain"
+              src="/src/assets/Sonicline.png"
+            />
+          </button>
+        </div>
+        <div
+          class="shrink-0 px-4 pb-4"
+        >
+          <div
+            class="h-10 bg-background-subtle flex items-center text-text-tertiary gap-2 px-3 rounded-[8px]"
+            role="search"
+          >
+            <span
+              aria-hidden="true"
+              class="shrink-0 flex items-center justify-center"
+            >
+              <svg
+                fill="none"
+                height="18"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="1.8"
+                viewBox="0 0 24 24"
+                width="18"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <circle
+                  cx="11"
+                  cy="11"
+                  r="8"
+                />
+                <path
+                  d="m21 21-4.3-4.3"
+                />
+              </svg>
+            </span>
+            <span
+              class="flex-1 text-left text-[13px] text-text-tertiary truncate"
+            >
+              Search
+            </span>
+            <span
+              class="shrink-0 text-[11px] leading-none bg-background-surface px-1.5 py-1 rounded-[6px] border border-border-default text-text-secondary font-medium"
+            >
+              ⌘ K
+            </span>
+          </div>
+        </div>
+        <div
+          class="flex-1 overflow-y-auto overflow-x-hidden px-4 space-y-5 scrollbar-thin"
+        >
+          <div>
+            <p
+              class="px-2 mb-2 text-[12px] font-semibold tracking-widest uppercase text-text-tertiary"
+            >
+              Menu
+            </p>
+            <nav
+              aria-label="Menu"
+              class="space-y-1"
+            >
+              <div>
+                <button
+                  aria-expanded="false"
+                  class="w-full h-9 flex items-center gap-3 rounded-[6px] px-3 text-left transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring/30 text-text-secondary hover:bg-background-elevated hover:text-text-primary"
+                  type="button"
+                >
+                  <span
+                    class="shrink-0 [&_svg]:h-5 [&_svg]:w-5 text-text-tertiary"
+                  >
+                    <svg
+                      fill="none"
+                      height="20"
+                      stroke="currentColor"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="1.8"
+                      viewBox="0 0 24 24"
+                      width="20"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <ellipse
+                        cx="12"
+                        cy="5"
+                        rx="9"
+                        ry="3"
+                      />
+                      <path
+                        d="M3 5V19A9 3 0 0 0 21 19V5"
+                      />
+                      <path
+                        d="M3 12A9 3 0 0 0 21 12"
+                      />
+                    </svg>
+                  </span>
+                  <span
+                    class="flex-1 truncate text-[14px] leading-none font-normal"
+                  >
+                    Master Data
+                  </span>
+                  <span
+                    class="shrink-0 text-text-tertiary transition-transform duration-200 "
+                  >
+                    <svg
+                      fill="none"
+                      height="14"
+                      stroke="currentColor"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      viewBox="0 0 24 24"
+                      width="14"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="m6 9 6 6 6-6"
+                      />
+                    </svg>
+                  </span>
+                </button>
+              </div>
+            </nav>
+          </div>
+        </div>
+        <div
+          class="shrink-0 border-t border-border-default p-3"
+        >
+          <button
+            aria-checked="false"
+            aria-label="Toggle dark theme"
+            class="mb-2 flex h-9 w-full items-center rounded-[8px] bg-background-subtle text-text-secondary transition-colors hover:bg-action-primary-subtle focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring gap-3 px-3"
+            role="switch"
+            type="button"
+          >
+            <span
+              aria-hidden="true"
+              class="shrink-0"
+            >
+              <svg
+                fill="none"
+                height="20"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="1.8"
+                viewBox="0 0 24 24"
+                width="20"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"
+                />
+              </svg>
+            </span>
+            <span
+              class="flex-1 text-left text-[13px] font-medium"
+            >
+              Dark theme
+            </span>
+          </button>
+          <button
+            aria-expanded="false"
+            aria-haspopup="menu"
+            class="w-full flex items-center rounded-[10px] transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring/30 hover:bg-background-elevated gap-3 p-2"
+            type="button"
+          >
+            <span
+              aria-hidden="true"
+              class="w-8 h-8 rounded-full bg-action-primary-subtle text-action-primary flex items-center justify-center text-[12px] font-semibold shrink-0"
+            >
+              DR
+            </span>
+            <span
+              class="flex-1 min-w-0 text-left"
+            >
+              <span
+                class="block truncate text-[13px] font-semibold leading-4 text-text-primary"
+              >
+                Dianne Russell
+              </span>
+              <span
+                class="block truncate text-[11px] leading-4 text-text-tertiary"
+              >
+                dianne.russell@gmail.com
+              </span>
+            </span>
+            <span
+              class="shrink-0 text-text-tertiary transition-transform duration-200 "
+            >
+              <svg
+                fill="none"
+                height="14"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+                width="14"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="m6 9 6 6 6-6"
+                />
+              </svg>
+            </span>
+          </button>
+        </div>
+      </aside>
+    </div>
+    <div
+      class="flex-1 flex flex-col min-w-0 min-h-0 overflow-hidden relative bg-background-page"
+    >
+      <div
+        class="lg:hidden flex items-center gap-3 p-4 border-b border-border-default bg-background-surface shrink-0"
+      >
+        <div
+          class="w-8 h-8 rounded-full bg-action-primary flex items-center justify-center"
+        >
+          <span
+            class="text-text-inverse font-bold"
+          >
+            Q
+          </span>
+        </div>
+        <span
+          class="font-bold text-text-primary"
+        >
+          QuoteFlow
+        </span>
+      </div>
+      <div
+        class="hidden lg:block shrink-0"
+      >
+        <header
+          class="h-20 flex items-center justify-between px-8 border-b border-brand-gray-light sticky top-0 z-10 transition-all"
+        >
+          <div
+            class="flex-1"
+          >
+            <div
+              class="relative group hidden md:block max-w-lg"
+            >
+              <div
+                class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-brand-text-medium"
+              >
+                <svg
+                  fill="none"
+                  height="18"
+                  stroke="currentColor"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="1.8"
+                  viewBox="0 0 24 24"
+                  width="18"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <circle
+                    cx="11"
+                    cy="11"
+                    r="8"
+                  />
+                  <path
+                    d="m21 21-4.3-4.3"
+                  />
+                </svg>
+              </div>
+              <input
+                class="w-full pl-10 pr-12 py-2.5 bg-brand-white border border-brand-gray-light rounded-lg text-sm font-medium focus:outline-none focus:ring-1 focus:ring-brand-blue focus:border-brand-blue transition-all placeholder:text-brand-text-medium text-brand-text-dark"
+                placeholder="Search anything"
+                type="text"
+              />
+              <div
+                class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none"
+              >
+                <span
+                  class="text-[10px] font-medium text-brand-text-medium bg-brand-gray-light px-1.5 py-0.5 rounded border border-brand-gray-light"
+                >
+                  ⌘K
+                </span>
+              </div>
+            </div>
+          </div>
+          <div
+            class="flex items-center gap-5"
+          >
+            <button
+              class="flex items-center gap-2.5 px-1.5 py-1.5 pr-3 rounded-full bg-brand-white border border-brand-gray-light hover:bg-brand-gray-light transition-all focus:outline-none"
+            >
+              <div
+                class="w-8 h-8 rounded-full overflow-hidden"
+              >
+                <img
+                  alt="User Avatar"
+                  class="w-full h-full object-cover"
+                  src="https://ui-avatars.com/api/?name=Admin+User&background=random"
+                />
+              </div>
+              <span
+                class="text-sm font-bold text-brand-text-dark"
+              >
+                Admin User
+              </span>
+              <div
+                class="text-brand-text-medium"
+              >
+                <svg
+                  fill="none"
+                  height="14"
+                  stroke="currentColor"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  viewBox="0 0 24 24"
+                  width="14"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="m6 9 6 6 6-6"
+                  />
+                </svg>
+              </div>
+            </button>
+          </div>
+        </header>
+      </div>
+      <main
+        class="flex-1 overflow-y-auto p-4 lg:p-8 pb-20 lg:pb-8 relative z-0"
+      >
+        <div
+          class="flex flex-col h-full pb-18 lg:pb-0 px-3 lg:px-0 lg:-mt-4 relative"
+        >
+          <div
+            class="flex items-center justify-between py-2 mb-1 lg:mb-4 relative"
+          >
+            <button
+              aria-label="Back"
+              class="w-11 h-11 rounded-full bg-[#F4F4F5] hover:bg-[#E9E9EB] active:scale-95 transition-all flex items-center justify-center text-black shrink-0"
+              type="button"
+            >
+              <svg
+                aria-hidden="true"
+                fill="none"
+                height="20"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2.4"
+                viewBox="0 0 24 24"
+                width="20"
+              >
+                <path
+                  d="M19 12H5"
+                />
+                <path
+                  d="M12 19 5 12l7-7"
+                />
+              </svg>
+            </button>
+            <h1
+              class="flex-1 text-center text-[17px] font-semibold text-black tracking-tight px-2 truncate"
+            >
+              Category List
+            </h1>
+            <div
+              class="relative shrink-0"
+            >
+              <button
+                aria-expanded="false"
+                aria-haspopup="menu"
+                aria-label="More options"
+                class="w-11 h-11 rounded-full bg-[#F4F4F5] hover:bg-[#E9E9EB] active:scale-95 transition-all flex items-center justify-center text-black"
+                type="button"
+              >
+                <svg
+                  aria-hidden="true"
+                  fill="currentColor"
+                  height="20"
+                  viewBox="0 0 24 24"
+                  width="20"
+                >
+                  <circle
+                    cx="5"
+                    cy="12"
+                    r="1.8"
+                  />
+                  <circle
+                    cx="12"
+                    cy="12"
+                    r="1.8"
+                  />
+                  <circle
+                    cx="19"
+                    cy="12"
+                    r="1.8"
+                  />
+                </svg>
+              </button>
+            </div>
+          </div>
+          <div
+            class="flex flex-col gap-4 mt-4"
+          >
+            <div
+              class="relative"
+            >
+              <span
+                class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-text-tertiary"
+              >
+                <svg
+                  fill="none"
+                  height="18"
+                  stroke="currentColor"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="1.8"
+                  viewBox="0 0 24 24"
+                  width="18"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <circle
+                    cx="11"
+                    cy="11"
+                    r="8"
+                  />
+                  <path
+                    d="m21 21-4.3-4.3"
+                  />
+                </svg>
+              </span>
+              <input
+                class="w-full sm:w-64 pl-10 pr-4 py-2 bg-background-surface border border-border-default rounded-lg text-sm focus:outline-none focus:ring-1 focus:ring-action-primary text-text-primary placeholder:text-text-tertiary"
+                placeholder="Search category"
+                type="text"
+              />
+            </div>
+            <div
+              class="flex flex-col bg-background-surface rounded-xl border border-border-default shadow-sm overflow-hidden"
+            >
+              <div
+                class="hidden md:flex flex-1 overflow-auto"
+              >
+                <div
+                  class="w-full overflow-x-auto"
+                >
+                  <table
+                    class="w-full min-w-max whitespace-nowrap"
+                  >
+                    <thead>
+                      <tr
+                        class="bg-table-header border-b border-border-default"
+                      >
+                        <th
+                          class="px-4 py-3 text-xs font-semibold text-text-secondary uppercase tracking-wider text-center "
+                        >
+                          No
+                        </th>
+                        <th
+                          class="px-4 py-3 text-xs font-semibold text-text-secondary uppercase tracking-wider text-left "
+                        >
+                          Category Name
+                        </th>
+                        <th
+                          class="px-4 py-3 text-xs font-semibold text-text-secondary uppercase tracking-wider text-center "
+                        >
+                          Status
+                        </th>
+                        <th
+                          class="px-4 py-3 text-xs font-semibold text-text-secondary uppercase tracking-wider text-left "
+                        >
+                          Created At
+                        </th>
+                        <th
+                          class="px-4 py-3 text-xs font-semibold text-text-secondary uppercase tracking-wider text-center "
+                        >
+                          Action
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody
+                      class="divide-y divide-border-default"
+                    >
+                      <tr
+                        class="hover:bg-background-subtle/50 transition-colors cursor-pointer"
+                      >
+                        <td
+                          class="px-4 py-3 border-b border-border-default text-center "
+                        >
+                          <span
+                            class="text-sm text-brand-text-medium"
+                          >
+                            1
+                          </span>
+                        </td>
+                        <td
+                          class="px-4 py-3 border-b border-border-default text-left "
+                        >
+                          Audio System
+                        </td>
+                        <td
+                          class="px-4 py-3 border-b border-border-default text-center "
+                        >
+                          <span
+                            class="px-3 py-1 rounded-full text-xs font-bold uppercase bg-green-100 text-green-600"
+                          >
+                            active
+                          </span>
+                        </td>
+                        <td
+                          class="px-4 py-3 border-b border-border-default text-left "
+                        >
+                          2024-02-01T00:00:00Z
+                        </td>
+                        <td
+                          class="px-4 py-3 border-b border-border-default text-center "
+                        >
+                          <div
+                            class="flex items-center justify-center gap-1.5"
+                          >
+                            <button
+                              aria-label="Edit"
+                              class="p-1.5 rounded-lg transition-colors cursor-pointer text-text-tertiary hover:text-action-primary hover:bg-action-primary-subtle"
+                              title="Edit"
+                            >
+                              <svg
+                                class="w-4 h-4"
+                                fill="none"
+                                height="1em"
+                                stroke="currentColor"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="2"
+                                viewBox="0 0 24 24"
+                                width="1em"
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
+                                <path
+                                  d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"
+                                />
+                              </svg>
+                            </button>
+                            <button
+                              aria-label="Delete"
+                              class="p-1.5 rounded-lg transition-colors cursor-pointer text-text-tertiary hover:text-danger hover:bg-danger-subtle"
+                              title="Delete"
+                            >
+                              <svg
+                                class="w-4 h-4"
+                                fill="none"
+                                height="1em"
+                                stroke="currentColor"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="2"
+                                viewBox="0 0 24 24"
+                                width="1em"
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
+                                <polyline
+                                  points="3 6 5 6 21 6"
+                                />
+                                <path
+                                  d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"
+                                />
+                                <line
+                                  x1="10"
+                                  x2="10"
+                                  y1="11"
+                                  y2="17"
+                                />
+                                <line
+                                  x1="14"
+                                  x2="14"
+                                  y1="11"
+                                  y2="17"
+                                />
+                              </svg>
+                            </button>
+                          </div>
+                        </td>
+                      </tr>
+                      <tr
+                        class="hover:bg-background-subtle/50 transition-colors cursor-pointer"
+                      >
+                        <td
+                          class="px-4 py-3 border-b border-border-default text-center "
+                        >
+                          <span
+                            class="text-sm text-brand-text-medium"
+                          >
+                            2
+                          </span>
+                        </td>
+                        <td
+                          class="px-4 py-3 border-b border-border-default text-left "
+                        >
+                          Visual & Display
+                        </td>
+                        <td
+                          class="px-4 py-3 border-b border-border-default text-center "
+                        >
+                          <span
+                            class="px-3 py-1 rounded-full text-xs font-bold uppercase bg-green-100 text-green-600"
+                          >
+                            active
+                          </span>
+                        </td>
+                        <td
+                          class="px-4 py-3 border-b border-border-default text-left "
+                        >
+                          2024-03-01T00:00:00Z
+                        </td>
+                        <td
+                          class="px-4 py-3 border-b border-border-default text-center "
+                        >
+                          <div
+                            class="flex items-center justify-center gap-1.5"
+                          >
+                            <button
+                              aria-label="Edit"
+                              class="p-1.5 rounded-lg transition-colors cursor-pointer text-text-tertiary hover:text-action-primary hover:bg-action-primary-subtle"
+                              title="Edit"
+                            >
+                              <svg
+                                class="w-4 h-4"
+                                fill="none"
+                                height="1em"
+                                stroke="currentColor"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="2"
+                                viewBox="0 0 24 24"
+                                width="1em"
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
+                                <path
+                                  d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"
+                                />
+                              </svg>
+                            </button>
+                            <button
+                              aria-label="Delete"
+                              class="p-1.5 rounded-lg transition-colors cursor-pointer text-text-tertiary hover:text-danger hover:bg-danger-subtle"
+                              title="Delete"
+                            >
+                              <svg
+                                class="w-4 h-4"
+                                fill="none"
+                                height="1em"
+                                stroke="currentColor"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="2"
+                                viewBox="0 0 24 24"
+                                width="1em"
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
+                                <polyline
+                                  points="3 6 5 6 21 6"
+                                />
+                                <path
+                                  d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"
+                                />
+                                <line
+                                  x1="10"
+                                  x2="10"
+                                  y1="11"
+                                  y2="17"
+                                />
+                                <line
+                                  x1="14"
+                                  x2="14"
+                                  y1="11"
+                                  y2="17"
+                                />
+                              </svg>
+                            </button>
+                          </div>
+                        </td>
+                      </tr>
+                      <tr
+                        class="hover:bg-background-subtle/50 transition-colors cursor-pointer"
+                      >
+                        <td
+                          class="px-4 py-3 border-b border-border-default text-center "
+                        >
+                          <span
+                            class="text-sm text-brand-text-medium"
+                          >
+                            3
+                          </span>
+                        </td>
+                        <td
+                          class="px-4 py-3 border-b border-border-default text-left "
+                        >
+                          Lighting System
+                        </td>
+                        <td
+                          class="px-4 py-3 border-b border-border-default text-center "
+                        >
+                          <span
+                            class="px-3 py-1 rounded-full text-xs font-bold uppercase bg-red-100 text-red-600"
+                          >
+                            inactive
+                          </span>
+                        </td>
+                        <td
+                          class="px-4 py-3 border-b border-border-default text-left "
+                        >
+                          2024-04-01T00:00:00Z
+                        </td>
+                        <td
+                          class="px-4 py-3 border-b border-border-default text-center "
+                        >
+                          <div
+                            class="flex items-center justify-center gap-1.5"
+                          >
+                            <button
+                              aria-label="Edit"
+                              class="p-1.5 rounded-lg transition-colors cursor-pointer text-text-tertiary hover:text-action-primary hover:bg-action-primary-subtle"
+                              title="Edit"
+                            >
+                              <svg
+                                class="w-4 h-4"
+                                fill="none"
+                                height="1em"
+                                stroke="currentColor"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="2"
+                                viewBox="0 0 24 24"
+                                width="1em"
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
+                                <path
+                                  d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"
+                                />
+                              </svg>
+                            </button>
+                            <button
+                              aria-label="Delete"
+                              class="p-1.5 rounded-lg transition-colors cursor-pointer text-text-tertiary hover:text-danger hover:bg-danger-subtle"
+                              title="Delete"
+                            >
+                              <svg
+                                class="w-4 h-4"
+                                fill="none"
+                                height="1em"
+                                stroke="currentColor"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="2"
+                                viewBox="0 0 24 24"
+                                width="1em"
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
+                                <polyline
+                                  points="3 6 5 6 21 6"
+                                />
+                                <path
+                                  d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"
+                                />
+                                <line
+                                  x1="10"
+                                  x2="10"
+                                  y1="11"
+                                  y2="17"
+                                />
+                                <line
+                                  x1="14"
+                                  x2="14"
+                                  y1="11"
+                                  y2="17"
+                                />
+                              </svg>
+                            </button>
+                          </div>
+                        </td>
+                      </tr>
+                      <tr
+                        class="hover:bg-background-subtle/50 transition-colors cursor-pointer"
+                      >
+                        <td
+                          class="px-4 py-3 border-b border-border-default text-center "
+                        >
+                          <span
+                            class="text-sm text-brand-text-medium"
+                          >
+                            4
+                          </span>
+                        </td>
+                        <td
+                          class="px-4 py-3 border-b border-border-default text-left "
+                        >
+                          Staging & Rigging
+                        </td>
+                        <td
+                          class="px-4 py-3 border-b border-border-default text-center "
+                        >
+                          <span
+                            class="px-3 py-1 rounded-full text-xs font-bold uppercase bg-green-100 text-green-600"
+                          >
+                            active
+                          </span>
+                        </td>
+                        <td
+                          class="px-4 py-3 border-b border-border-default text-left "
+                        >
+                          2024-05-01T00:00:00Z
+                        </td>
+                        <td
+                          class="px-4 py-3 border-b border-border-default text-center "
+                        >
+                          <div
+                            class="flex items-center justify-center gap-1.5"
+                          >
+                            <button
+                              aria-label="Edit"
+                              class="p-1.5 rounded-lg transition-colors cursor-pointer text-text-tertiary hover:text-action-primary hover:bg-action-primary-subtle"
+                              title="Edit"
+                            >
+                              <svg
+                                class="w-4 h-4"
+                                fill="none"
+                                height="1em"
+                                stroke="currentColor"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="2"
+                                viewBox="0 0 24 24"
+                                width="1em"
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
+                                <path
+                                  d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"
+                                />
+                              </svg>
+                            </button>
+                            <button
+                              aria-label="Delete"
+                              class="p-1.5 rounded-lg transition-colors cursor-pointer text-text-tertiary hover:text-danger hover:bg-danger-subtle"
+                              title="Delete"
+                            >
+                              <svg
+                                class="w-4 h-4"
+                                fill="none"
+                                height="1em"
+                                stroke="currentColor"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="2"
+                                viewBox="0 0 24 24"
+                                width="1em"
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
+                                <polyline
+                                  points="3 6 5 6 21 6"
+                                />
+                                <path
+                                  d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"
+                                />
+                                <line
+                                  x1="10"
+                                  x2="10"
+                                  y1="11"
+                                  y2="17"
+                                />
+                                <line
+                                  x1="14"
+                                  x2="14"
+                                  y1="11"
+                                  y2="17"
+                                />
+                              </svg>
+                            </button>
+                          </div>
+                        </td>
+                      </tr>
+                      <tr
+                        class="hover:bg-background-subtle/50 transition-colors cursor-pointer"
+                      >
+                        <td
+                          class="px-4 py-3 border-b border-border-default text-center "
+                        >
+                          <span
+                            class="text-sm text-brand-text-medium"
+                          >
+                            5
+                          </span>
+                        </td>
+                        <td
+                          class="px-4 py-3 border-b border-border-default text-left "
+                        >
+                          Power Generator
+                        </td>
+                        <td
+                          class="px-4 py-3 border-b border-border-default text-center "
+                        >
+                          <span
+                            class="px-3 py-1 rounded-full text-xs font-bold uppercase bg-green-100 text-green-600"
+                          >
+                            active
+                          </span>
+                        </td>
+                        <td
+                          class="px-4 py-3 border-b border-border-default text-left "
+                        >
+                          2024-06-01T00:00:00Z
+                        </td>
+                        <td
+                          class="px-4 py-3 border-b border-border-default text-center "
+                        >
+                          <div
+                            class="flex items-center justify-center gap-1.5"
+                          >
+                            <button
+                              aria-label="Edit"
+                              class="p-1.5 rounded-lg transition-colors cursor-pointer text-text-tertiary hover:text-action-primary hover:bg-action-primary-subtle"
+                              title="Edit"
+                            >
+                              <svg
+                                class="w-4 h-4"
+                                fill="none"
+                                height="1em"
+                                stroke="currentColor"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="2"
+                                viewBox="0 0 24 24"
+                                width="1em"
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
+                                <path
+                                  d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"
+                                />
+                              </svg>
+                            </button>
+                            <button
+                              aria-label="Delete"
+                              class="p-1.5 rounded-lg transition-colors cursor-pointer text-text-tertiary hover:text-danger hover:bg-danger-subtle"
+                              title="Delete"
+                            >
+                              <svg
+                                class="w-4 h-4"
+                                fill="none"
+                                height="1em"
+                                stroke="currentColor"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="2"
+                                viewBox="0 0 24 24"
+                                width="1em"
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
+                                <polyline
+                                  points="3 6 5 6 21 6"
+                                />
+                                <path
+                                  d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"
+                                />
+                                <line
+                                  x1="10"
+                                  x2="10"
+                                  y1="11"
+                                  y2="17"
+                                />
+                                <line
+                                  x1="14"
+                                  x2="14"
+                                  y1="11"
+                                  y2="17"
+                                />
+                              </svg>
+                            </button>
+                          </div>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div
+                class="md:hidden"
+              >
+                <div
+                  class="bg-background-surface overflow-hidden divide-y divide-border-default"
+                >
+                  <div
+                    class="flex flex-col gap-3 px-4 py-4 bg-transparent cursor-pointer active:bg-background-subtle/50 transition-colors"
+                    role="button"
+                    tabindex="0"
+                  >
+                    <div
+                      class="flex items-center justify-between gap-2"
+                    >
+                      <span
+                        class="text-xs font-medium text-text-tertiary uppercase tracking-wider"
+                      >
+                        Category Name
+                      </span>
+                      <span
+                        class="flex-1 text-sm font-medium text-text-primary text-right truncate"
+                      >
+                        Audio System
+                      </span>
+                    </div>
+                    <div
+                      class="flex items-center justify-between gap-2"
+                    >
+                      <span
+                        class="text-xs font-medium text-text-tertiary uppercase tracking-wider"
+                      >
+                        Status
+                      </span>
+                      <span
+                        class="flex-1 text-sm font-medium text-text-primary text-right truncate"
+                      >
+                        <span
+                          class="px-3 py-1 rounded-full text-xs font-bold uppercase bg-green-100 text-green-600"
+                        >
+                          active
+                        </span>
+                      </span>
+                    </div>
+                    <div
+                      class="flex items-center justify-end gap-2 pt-2 border-t border-border-default"
+                    >
+                      <button
+                        aria-label="Edit"
+                        class="p-2 text-text-tertiary hover:text-action-primary hover:bg-action-primary-subtle rounded-lg transition-colors cursor-pointer"
+                        title="Edit"
+                      >
+                        <svg
+                          class="w-5 h-5"
+                          fill="none"
+                          height="1em"
+                          stroke="currentColor"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                          viewBox="0 0 24 24"
+                          width="1em"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"
+                          />
+                        </svg>
+                      </button>
+                      <button
+                        aria-label="Delete"
+                        class="p-2 text-text-tertiary hover:text-danger hover:bg-danger-subtle rounded-lg transition-colors cursor-pointer"
+                        title="Delete"
+                      >
+                        <svg
+                          class="w-5 h-5"
+                          fill="none"
+                          height="1em"
+                          stroke="currentColor"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                          viewBox="0 0 24 24"
+                          width="1em"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <polyline
+                            points="3 6 5 6 21 6"
+                          />
+                          <path
+                            d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"
+                          />
+                          <line
+                            x1="10"
+                            x2="10"
+                            y1="11"
+                            y2="17"
+                          />
+                          <line
+                            x1="14"
+                            x2="14"
+                            y1="11"
+                            y2="17"
+                          />
+                        </svg>
+                      </button>
+                    </div>
+                  </div>
+                  <div
+                    class="flex flex-col gap-3 px-4 py-4 bg-transparent cursor-pointer active:bg-background-subtle/50 transition-colors"
+                    role="button"
+                    tabindex="0"
+                  >
+                    <div
+                      class="flex items-center justify-between gap-2"
+                    >
+                      <span
+                        class="text-xs font-medium text-text-tertiary uppercase tracking-wider"
+                      >
+                        Category Name
+                      </span>
+                      <span
+                        class="flex-1 text-sm font-medium text-text-primary text-right truncate"
+                      >
+                        Visual & Display
+                      </span>
+                    </div>
+                    <div
+                      class="flex items-center justify-between gap-2"
+                    >
+                      <span
+                        class="text-xs font-medium text-text-tertiary uppercase tracking-wider"
+                      >
+                        Status
+                      </span>
+                      <span
+                        class="flex-1 text-sm font-medium text-text-primary text-right truncate"
+                      >
+                        <span
+                          class="px-3 py-1 rounded-full text-xs font-bold uppercase bg-green-100 text-green-600"
+                        >
+                          active
+                        </span>
+                      </span>
+                    </div>
+                    <div
+                      class="flex items-center justify-end gap-2 pt-2 border-t border-border-default"
+                    >
+                      <button
+                        aria-label="Edit"
+                        class="p-2 text-text-tertiary hover:text-action-primary hover:bg-action-primary-subtle rounded-lg transition-colors cursor-pointer"
+                        title="Edit"
+                      >
+                        <svg
+                          class="w-5 h-5"
+                          fill="none"
+                          height="1em"
+                          stroke="currentColor"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                          viewBox="0 0 24 24"
+                          width="1em"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"
+                          />
+                        </svg>
+                      </button>
+                      <button
+                        aria-label="Delete"
+                        class="p-2 text-text-tertiary hover:text-danger hover:bg-danger-subtle rounded-lg transition-colors cursor-pointer"
+                        title="Delete"
+                      >
+                        <svg
+                          class="w-5 h-5"
+                          fill="none"
+                          height="1em"
+                          stroke="currentColor"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                          viewBox="0 0 24 24"
+                          width="1em"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <polyline
+                            points="3 6 5 6 21 6"
+                          />
+                          <path
+                            d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"
+                          />
+                          <line
+                            x1="10"
+                            x2="10"
+                            y1="11"
+                            y2="17"
+                          />
+                          <line
+                            x1="14"
+                            x2="14"
+                            y1="11"
+                            y2="17"
+                          />
+                        </svg>
+                      </button>
+                    </div>
+                  </div>
+                  <div
+                    class="flex flex-col gap-3 px-4 py-4 bg-transparent cursor-pointer active:bg-background-subtle/50 transition-colors"
+                    role="button"
+                    tabindex="0"
+                  >
+                    <div
+                      class="flex items-center justify-between gap-2"
+                    >
+                      <span
+                        class="text-xs font-medium text-text-tertiary uppercase tracking-wider"
+                      >
+                        Category Name
+                      </span>
+                      <span
+                        class="flex-1 text-sm font-medium text-text-primary text-right truncate"
+                      >
+                        Lighting System
+                      </span>
+                    </div>
+                    <div
+                      class="flex items-center justify-between gap-2"
+                    >
+                      <span
+                        class="text-xs font-medium text-text-tertiary uppercase tracking-wider"
+                      >
+                        Status
+                      </span>
+                      <span
+                        class="flex-1 text-sm font-medium text-text-primary text-right truncate"
+                      >
+                        <span
+                          class="px-3 py-1 rounded-full text-xs font-bold uppercase bg-red-100 text-red-600"
+                        >
+                          inactive
+                        </span>
+                      </span>
+                    </div>
+                    <div
+                      class="flex items-center justify-end gap-2 pt-2 border-t border-border-default"
+                    >
+                      <button
+                        aria-label="Edit"
+                        class="p-2 text-text-tertiary hover:text-action-primary hover:bg-action-primary-subtle rounded-lg transition-colors cursor-pointer"
+                        title="Edit"
+                      >
+                        <svg
+                          class="w-5 h-5"
+                          fill="none"
+                          height="1em"
+                          stroke="currentColor"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                          viewBox="0 0 24 24"
+                          width="1em"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"
+                          />
+                        </svg>
+                      </button>
+                      <button
+                        aria-label="Delete"
+                        class="p-2 text-text-tertiary hover:text-danger hover:bg-danger-subtle rounded-lg transition-colors cursor-pointer"
+                        title="Delete"
+                      >
+                        <svg
+                          class="w-5 h-5"
+                          fill="none"
+                          height="1em"
+                          stroke="currentColor"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                          viewBox="0 0 24 24"
+                          width="1em"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <polyline
+                            points="3 6 5 6 21 6"
+                          />
+                          <path
+                            d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"
+                          />
+                          <line
+                            x1="10"
+                            x2="10"
+                            y1="11"
+                            y2="17"
+                          />
+                          <line
+                            x1="14"
+                            x2="14"
+                            y1="11"
+                            y2="17"
+                          />
+                        </svg>
+                      </button>
+                    </div>
+                  </div>
+                  <div
+                    class="flex flex-col gap-3 px-4 py-4 bg-transparent cursor-pointer active:bg-background-subtle/50 transition-colors"
+                    role="button"
+                    tabindex="0"
+                  >
+                    <div
+                      class="flex items-center justify-between gap-2"
+                    >
+                      <span
+                        class="text-xs font-medium text-text-tertiary uppercase tracking-wider"
+                      >
+                        Category Name
+                      </span>
+                      <span
+                        class="flex-1 text-sm font-medium text-text-primary text-right truncate"
+                      >
+                        Staging & Rigging
+                      </span>
+                    </div>
+                    <div
+                      class="flex items-center justify-between gap-2"
+                    >
+                      <span
+                        class="text-xs font-medium text-text-tertiary uppercase tracking-wider"
+                      >
+                        Status
+                      </span>
+                      <span
+                        class="flex-1 text-sm font-medium text-text-primary text-right truncate"
+                      >
+                        <span
+                          class="px-3 py-1 rounded-full text-xs font-bold uppercase bg-green-100 text-green-600"
+                        >
+                          active
+                        </span>
+                      </span>
+                    </div>
+                    <div
+                      class="flex items-center justify-end gap-2 pt-2 border-t border-border-default"
+                    >
+                      <button
+                        aria-label="Edit"
+                        class="p-2 text-text-tertiary hover:text-action-primary hover:bg-action-primary-subtle rounded-lg transition-colors cursor-pointer"
+                        title="Edit"
+                      >
+                        <svg
+                          class="w-5 h-5"
+                          fill="none"
+                          height="1em"
+                          stroke="currentColor"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                          viewBox="0 0 24 24"
+                          width="1em"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"
+                          />
+                        </svg>
+                      </button>
+                      <button
+                        aria-label="Delete"
+                        class="p-2 text-text-tertiary hover:text-danger hover:bg-danger-subtle rounded-lg transition-colors cursor-pointer"
+                        title="Delete"
+                      >
+                        <svg
+                          class="w-5 h-5"
+                          fill="none"
+                          height="1em"
+                          stroke="currentColor"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                          viewBox="0 0 24 24"
+                          width="1em"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <polyline
+                            points="3 6 5 6 21 6"
+                          />
+                          <path
+                            d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"
+                          />
+                          <line
+                            x1="10"
+                            x2="10"
+                            y1="11"
+                            y2="17"
+                          />
+                          <line
+                            x1="14"
+                            x2="14"
+                            y1="11"
+                            y2="17"
+                          />
+                        </svg>
+                      </button>
+                    </div>
+                  </div>
+                  <div
+                    class="flex flex-col gap-3 px-4 py-4 bg-transparent cursor-pointer active:bg-background-subtle/50 transition-colors"
+                    role="button"
+                    tabindex="0"
+                  >
+                    <div
+                      class="flex items-center justify-between gap-2"
+                    >
+                      <span
+                        class="text-xs font-medium text-text-tertiary uppercase tracking-wider"
+                      >
+                        Category Name
+                      </span>
+                      <span
+                        class="flex-1 text-sm font-medium text-text-primary text-right truncate"
+                      >
+                        Power Generator
+                      </span>
+                    </div>
+                    <div
+                      class="flex items-center justify-between gap-2"
+                    >
+                      <span
+                        class="text-xs font-medium text-text-tertiary uppercase tracking-wider"
+                      >
+                        Status
+                      </span>
+                      <span
+                        class="flex-1 text-sm font-medium text-text-primary text-right truncate"
+                      >
+                        <span
+                          class="px-3 py-1 rounded-full text-xs font-bold uppercase bg-green-100 text-green-600"
+                        >
+                          active
+                        </span>
+                      </span>
+                    </div>
+                    <div
+                      class="flex items-center justify-end gap-2 pt-2 border-t border-border-default"
+                    >
+                      <button
+                        aria-label="Edit"
+                        class="p-2 text-text-tertiary hover:text-action-primary hover:bg-action-primary-subtle rounded-lg transition-colors cursor-pointer"
+                        title="Edit"
+                      >
+                        <svg
+                          class="w-5 h-5"
+                          fill="none"
+                          height="1em"
+                          stroke="currentColor"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                          viewBox="0 0 24 24"
+                          width="1em"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"
+                          />
+                        </svg>
+                      </button>
+                      <button
+                        aria-label="Delete"
+                        class="p-2 text-text-tertiary hover:text-danger hover:bg-danger-subtle rounded-lg transition-colors cursor-pointer"
+                        title="Delete"
+                      >
+                        <svg
+                          class="w-5 h-5"
+                          fill="none"
+                          height="1em"
+                          stroke="currentColor"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                          viewBox="0 0 24 24"
+                          width="1em"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <polyline
+                            points="3 6 5 6 21 6"
+                          />
+                          <path
+                            d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"
+                          />
+                          <line
+                            x1="10"
+                            x2="10"
+                            y1="11"
+                            y2="17"
+                          />
+                          <line
+                            x1="14"
+                            x2="14"
+                            y1="11"
+                            y2="17"
+                          />
+                        </svg>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div
+                class="flex flex-col sm:flex-row items-center justify-between gap-4 p-4 border-t border-border-default"
+              >
+                <div
+                  class="flex items-center gap-3 text-sm text-text-tertiary"
+                >
+                  <span>
+                    Showing
+                  </span>
+                  <select
+                    class="border border-border-default rounded px-2 py-1 bg-background-surface font-medium text-text-primary focus:outline-none focus:ring-1 focus:ring-action-primary"
+                  >
+                    <option
+                      value="5"
+                    >
+                      5
+                    </option>
+                    <option
+                      value="10"
+                    >
+                      10
+                    </option>
+                    <option
+                      value="20"
+                    >
+                      20
+                    </option>
+                    <option
+                      value="50"
+                    >
+                      50
+                    </option>
+                    <option
+                      value="100"
+                    >
+                      100
+                    </option>
+                  </select>
+                  <span>
+                    of 10 results
+                  </span>
+                </div>
+                <div
+                  class="flex items-center justify-center gap-1.5 text-sm text-text-tertiary font-medium"
+                >
+                  <button
+                    aria-label="Previous page"
+                    class="p-1.5 rounded transition-colors text-text-disabled cursor-not-allowed"
+                    disabled=""
+                  >
+                    &lt;
+                  </button>
+                  <button
+                    aria-current="page"
+                    aria-label="Page 1"
+                    class="w-8 h-8 flex items-center justify-center rounded-lg transition-colors bg-action-primary text-text-inverse font-bold"
+                  >
+                    1
+                  </button>
+                  <button
+                    aria-label="Page 2"
+                    class="w-8 h-8 flex items-center justify-center rounded-lg transition-colors hover:bg-background-subtle text-text-primary"
+                  >
+                    2
+                  </button>
+                  <button
+                    aria-label="Next page"
+                    class="p-1.5 rounded transition-colors text-text-tertiary hover:text-text-primary hover:bg-background-subtle"
+                  >
+                    &gt;
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+</DocumentFragment>
+`;

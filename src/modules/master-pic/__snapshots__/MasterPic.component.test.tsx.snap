@@ -1,6 +1,6 @@
-// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`MasterPic Component > MasterPicComponent Snapshots > default state 1`] = `
+exports[`MasterPic Component MasterPicComponent Snapshots default state 1`] = `
 <DocumentFragment>
   <div
     data-testid="layout"
@@ -155,7 +155,7 @@ exports[`MasterPic Component > MasterPicComponent Snapshots > default state 1`] 
 </DocumentFragment>
 `;
 
-exports[`MasterPic Component > MasterPicComponent Snapshots > more open state 1`] = `
+exports[`MasterPic Component MasterPicComponent Snapshots more open state 1`] = `
 <DocumentFragment>
   <div
     data-testid="layout"
