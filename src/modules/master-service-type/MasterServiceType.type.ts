@@ -1,5 +1,31 @@
 import type { TableColumn } from "../../components/Table";
+import type { ApiEnvelope, PaginatedResponse } from "../../types/api.type";
 import type { MasterBase } from "../../types/master";
+
+export type ApiServiceType = {
+  readonly id: string;
+  readonly name: string;
+  readonly price: number;
+  readonly is_active: boolean;
+  readonly status: number;
+  readonly created_at: string | null;
+  readonly updated_at: string | null;
+  readonly created_by?: string | null;
+};
+
+export type ServiceTypeListParams = {
+  readonly pageNumber: number;
+  readonly pageSize: number;
+  readonly searchTerm: string;
+};
+
+export type ServiceTypeListResponse = PaginatedResponse<ApiServiceType>;
+export type ServiceTypeCreatePayload = {
+  readonly name: string;
+  readonly price: number;
+  readonly is_active: boolean;
+};
+export type ServiceTypeCreateResponse = ApiEnvelope<ApiServiceType | null>;
 
 export type ServiceTypeData = MasterBase & {
   name: string;
@@ -7,21 +33,36 @@ export type ServiceTypeData = MasterBase & {
   isActive: boolean;
 };
 
+export type ServiceTypeListApiState = {
+  readonly isLoading: boolean;
+  readonly errorMessage: string | null;
+  readonly isMissingData: boolean;
+  readonly paginatedData: ServiceTypeData[];
+  readonly totalPages: number;
+  readonly totalCount: number;
+  readonly hasNext: boolean;
+  readonly hasPrevious: boolean;
+};
+
 export type MasterServiceTypeProps = {
   readonly currentPage: number;
   readonly totalPages: number;
   readonly pageSize: number;
   readonly paginatedData: readonly ServiceTypeData[];
+  readonly totalCount: number;
+  readonly columns: readonly TableColumn<ServiceTypeData>[];
+  readonly isLoading: boolean;
+  readonly errorMessage: string | null;
+  readonly isEmpty: boolean;
+  readonly isMissingData: boolean;
   readonly goToPage: (page: number) => void;
   readonly nextPage: () => void;
   readonly prevPage: () => void;
   readonly changePageSize: (size: number) => void;
-  readonly totalCount: number;
-  readonly columns: readonly TableColumn<ServiceTypeData>[];
+  readonly setSearchTerm: (searchTerm: string) => void;
   onCreate: () => void;
   onEdit: (serviceType: ServiceTypeData) => void;
   onRowClick: (serviceType: ServiceTypeData) => void;
-  
   onMore?: () => void;
   isMoreOpen?: boolean;
   onCloseMore?: () => void;
@@ -35,7 +76,6 @@ export type GetColumnsParams = {
   onEdit: (serviceType: ServiceTypeData) => void;
 };
 
-/** Navigation hook return type */
 export type MasterServiceTypeNavigation = {
   readonly goBack: () => void;
   readonly goCreate: () => void;
@@ -43,19 +83,25 @@ export type MasterServiceTypeNavigation = {
   readonly goDetail: (item: ServiceTypeData) => void;
 };
 
-/** Container state hook return type */
+export type MasterServiceTypePagination = {
+  readonly currentPage: number;
+  readonly totalPages: number;
+  readonly pageSize: number;
+  readonly paginatedData: ServiceTypeData[];
+  readonly totalCount: number;
+  readonly isLoading: boolean;
+  readonly errorMessage: string | null;
+  readonly isEmpty: boolean;
+  readonly isMissingData: boolean;
+  readonly goToPage: (page: number) => void;
+  readonly nextPage: () => void;
+  readonly prevPage: () => void;
+  readonly changePageSize: (size: number) => void;
+  readonly setSearchTerm: (searchTerm: string) => void;
+};
+
 export type MasterServiceTypeContainerState = MasterServiceTypeNavigation & {
-  readonly pagination: {
-    readonly currentPage: number;
-    readonly totalPages: number;
-    readonly pageSize: number;
-    readonly paginatedData: readonly ServiceTypeData[];
-    readonly goToPage: (page: number) => void;
-    readonly nextPage: () => void;
-    readonly prevPage: () => void;
-    readonly changePageSize: (size: number) => void;
-    readonly totalCount: number;
-  };
+  readonly pagination: MasterServiceTypePagination;
   readonly isMoreOpen: boolean;
   readonly toggleMore: () => void;
   readonly goDelete: () => void;
