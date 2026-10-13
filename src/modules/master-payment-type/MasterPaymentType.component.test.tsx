@@ -3,6 +3,8 @@ import * as React from "react";
 import test from "../../libs/unit-test";
 import { MasterPaymentTypeComponent } from "./MasterPaymentType.component";
 import { getColumns } from "./MasterPaymentType.columns";
+import type { MasterPaymentTypeProps } from "./MasterPaymentType.type";
+
 
 jest.mock("../../app/layout", () =>
   ({ children }: { children: React.ReactNode }) => <div data-testid="layout">{children}</div>,
@@ -24,14 +26,19 @@ jest.mock("../../components/Pagination", () => ({
 jest.mock("../../components/Table", () => () => <div data-testid="table" />);
 
 describe("MasterPaymentType Component", () => {
-  const mockProps = {
+  const mockProps: MasterPaymentTypeProps = {
     currentPage: 1,
     totalPages: 1,
     pageSize: 10,
     paginatedData: [
       { id: "1", name: "PT 1", status: "active", createAt: "2024-01-01", createBy: "Admin" },
       { id: "2", name: "PT 2", status: "inactive", createAt: "2024-01-02", createBy: "Admin" },
-    ] as any[],
+    ],
+    isLoading: false,
+    errorMessage: null,
+    isEmpty: false,
+    isMissingData: false,
+    setSearchTerm: jest.fn(),
     goToPage: jest.fn(),
     nextPage: jest.fn(),
     prevPage: jest.fn(),

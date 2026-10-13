@@ -7,7 +7,26 @@ import { MobileList } from "../../components/MobileList";
 import { PaginationFooter, PaginationHeader } from "../../components/Pagination";
 import Table from "../../components/Table";
 
-import type { MasterPaymentTypeProps,PaymentTypeData } from "./MasterPaymentType.type";
+import type { MasterPaymentTypeProps, PaymentTypeData } from "./MasterPaymentType.type";
+
+/**
+ * Render loading, empty, and error states.
+ * @param {MasterPaymentTypeProps} props - The component props
+ * @returns {React.ReactElement | null} The state element when no rows should render
+ */
+const _renderListState = (props: MasterPaymentTypeProps): React.ReactElement | null => {
+  const { isLoading, errorMessage, isEmpty, isMissingData } = props;
+
+  if (isLoading) return <p className="py-10 text-center text-sm text-brand-text-medium">Loading payment types…</p>;
+
+  if (isMissingData) return <p className="py-10 text-center text-sm text-red-600">Payment type data is unavailable. Please try again.</p>;
+
+  if (errorMessage) return <p className="py-10 text-center text-sm text-red-600">{errorMessage}</p>;
+
+  if (isEmpty) return <p className="py-10 text-center text-sm text-brand-text-medium">No payment types found.</p>;
+
+  return null;
+};
 
 /**
  * Render desktop table view
@@ -22,12 +41,12 @@ const _renderDesktopTable = (props: MasterPaymentTypeProps): React.ReactElement 
       <div className="flex items-center justify-between p-5 px-6 border-b border-brand-gray-light">
         <div className="relative">
           <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-brand-text-medium"><Icons.Search /></div>
-          <input type="text" placeholder="Search payment type" className="w-64 pl-10 pr-4 py-2 bg-brand-gray-light border-none rounded-lg text-sm focus:outline-none placeholder:text-brand-text-medium text-brand-text-dark" />
+          <input type="text" aria-label="Search payment type" placeholder="Search payment type" onChange={(event) => props.setSearchTerm(event.target.value)} className="w-64 pl-10 pr-4 py-2 bg-brand-gray-light border-none rounded-lg text-sm focus:outline-none placeholder:text-brand-text-medium text-brand-text-dark" />
         </div>
         <PaginationHeader pageSize={pageSize} totalCount={totalCount} onPageSizeChange={changePageSize} />
       </div>
       <div className="flex-1 overflow-auto">
-        <Table data={paginatedData} columns={columns} onRowClick={onRowClick} keyExtractor={(r: PaymentTypeData) => r.id} />
+        {_renderListState(props) ?? <Table data={paginatedData} columns={columns} onRowClick={onRowClick} keyExtractor={(r: PaymentTypeData) => r.id} />}
       </div>
       <PaginationFooter currentPage={currentPage} totalPages={totalPages} onPageChange={goToPage} onNextPage={nextPage} onPrevPage={prevPage} />
     </div>
@@ -69,10 +88,10 @@ const _renderMobileList = (props: MasterPaymentTypeProps): React.ReactElement =>
     <div className="md:hidden space-y-6 mt-10">
       <div className="relative mb-3">
         <span className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-brand-text-medium scale-125"><Icons.Search /></span>
-        <input type="text" placeholder="Search" className="w-full pl-12 pr-6 py-3.5 bg-brand-gray-light border-none rounded-full text-xl font-medium focus:outline-none focus:ring-1 focus:ring-brand-blue/20 placeholder:text-brand-text-medium text-brand-text-dark" />
+        <input type="text" aria-label="Search payment type" placeholder="Search" onChange={(event) => props.setSearchTerm(event.target.value)} className="w-full pl-12 pr-6 py-3.5 bg-brand-gray-light border-none rounded-full text-xl font-medium focus:outline-none focus:ring-1 focus:ring-brand-blue/20 placeholder:text-brand-text-medium text-brand-text-dark" />
       </div>
       <div className="scale-100 origin-top">
-        <MobileList data={getMobileListData()} />
+        {_renderListState(props) ?? <MobileList data={getMobileListData()} />}
       </div>
       <div className="pt-4 flex items-center justify-between">
         <PaginationHeader pageSize={pageSize} totalCount={totalCount} onPageSizeChange={changePageSize} className="shrink-0" />

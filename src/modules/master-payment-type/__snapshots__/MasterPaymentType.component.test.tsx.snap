@@ -90,6 +90,7 @@ exports[`MasterPaymentType Component MasterPaymentTypeComponent Snapshots defaul
             />
           </span>
           <input
+            aria-label="Search payment type"
             class="w-full pl-12 pr-6 py-3.5 bg-brand-gray-light border-none rounded-full text-xl font-medium focus:outline-none focus:ring-1 focus:ring-brand-blue/20 placeholder:text-brand-text-medium text-brand-text-dark"
             placeholder="Search"
             type="text"
@@ -130,6 +131,7 @@ exports[`MasterPaymentType Component MasterPaymentTypeComponent Snapshots defaul
               />
             </div>
             <input
+              aria-label="Search payment type"
               class="w-64 pl-10 pr-4 py-2 bg-brand-gray-light border-none rounded-lg text-sm focus:outline-none placeholder:text-brand-text-medium text-brand-text-dark"
               placeholder="Search payment type"
               type="text"
@@ -310,6 +312,7 @@ exports[`MasterPaymentType Component MasterPaymentTypeComponent Snapshots more o
             />
           </span>
           <input
+            aria-label="Search payment type"
             class="w-full pl-12 pr-6 py-3.5 bg-brand-gray-light border-none rounded-full text-xl font-medium focus:outline-none focus:ring-1 focus:ring-brand-blue/20 placeholder:text-brand-text-medium text-brand-text-dark"
             placeholder="Search"
             type="text"
@@ -350,6 +353,7 @@ exports[`MasterPaymentType Component MasterPaymentTypeComponent Snapshots more o
               />
             </div>
             <input
+              aria-label="Search payment type"
               class="w-64 pl-10 pr-4 py-2 bg-brand-gray-light border-none rounded-lg text-sm focus:outline-none placeholder:text-brand-text-medium text-brand-text-dark"
               placeholder="Search payment type"
               type="text"
