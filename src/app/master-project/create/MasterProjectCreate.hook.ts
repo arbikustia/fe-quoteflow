@@ -2,7 +2,7 @@ import type * as React from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-import { useCreateProjectMutation } from "@/modules/master-project/MasterProject.api";
+import { useCreateProjectMutation } from "@/services/master-project.service";
 import type { MasterProjectCreateFormState } from "@/modules/master-project/MasterProject.type";
 
 /**

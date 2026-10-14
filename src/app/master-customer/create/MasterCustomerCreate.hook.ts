@@ -2,7 +2,7 @@ import type * as React from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-import { useCreateCustomerMutation } from "@/modules/master-customer/MasterCustomer.api";
+import { useCreateCustomerMutation } from "@/services/master-customer.service";
 import type { MasterCustomerCreateFormState } from "@/modules/master-customer/MasterCustomer.type";
 
 /**

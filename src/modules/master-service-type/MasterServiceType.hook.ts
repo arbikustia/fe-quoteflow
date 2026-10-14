@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-import { _mapServiceType, useCreateServiceTypeMutation, useGetServiceTypesQuery } from "./MasterServiceType.api";
+import { mapServiceType, useCreateServiceTypeMutation, useGetServiceTypesQuery } from "@/services/master-service-type.service";
 import type {
   MasterServiceTypeContainerState,
   MasterServiceTypeNavigation,
@@ -49,7 +49,7 @@ const _deriveServiceTypeListState = (
     isLoading: false,
     errorMessage: null,
     isMissingData: false,
-    paginatedData: response.data.map(_mapServiceType),
+    paginatedData: response.data.map(mapServiceType),
     totalPages: response.total_pages,
     totalCount: response.total_count,
     hasNext: response.has_next,

@@ -3,7 +3,7 @@ import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
 import MasterCustomerCreateContainer from "./MasterCustomerCreate.container";
-import { useCreateCustomerMutation } from "@/modules/master-customer/MasterCustomer.api";
+import { useCreateCustomerMutation } from "@/services/master-customer.service";
 
 const mocks = vi.hoisted(() => ({
   mutate: vi.fn(),

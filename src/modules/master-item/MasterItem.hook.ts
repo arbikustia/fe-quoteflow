@@ -7,10 +7,10 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import {
-  _mapItem,
+  mapItem,
   useCreateItemMutation,
   useGetItemsQuery,
-} from "./MasterItem.api";
+} from "@/services/master-item.service";
 import type {
   ConfirmModalState,
   ItemCreatePayload,
@@ -222,7 +222,7 @@ const _deriveItemListState = (
     return _createMissingPayloadState();
   }
 
-  const items = itemList.map(_mapItem);
+  const items = itemList.map(mapItem);
 
   return _createSuccessState(items, response.total_pages, response.total_count);
 };

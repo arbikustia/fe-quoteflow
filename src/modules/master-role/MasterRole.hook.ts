@@ -2,7 +2,7 @@ import type * as React from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-import { _mapRole, useCreateRoleMutation, useGetRolesQuery } from "./MasterRole.api";
+import { mapRole, useCreateRoleMutation, useGetRolesQuery } from "@/services/master-role.service";
 import type {
   MasterRoleContainerState,
   MasterRoleCreateFormState,
@@ -72,7 +72,7 @@ const _deriveRoleListState = (queryResult: ReturnType<typeof useGetRolesQuery>):
     isLoading: false,
     errorMessage: null,
     isMissingData: false,
-    paginatedData: data.data.map(_mapRole),
+    paginatedData: data.data.map(mapRole),
     totalPages: data.total_pages,
     totalCount: data.total_count,
   };

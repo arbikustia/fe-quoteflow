@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-import { _mapProject, useGetProjectsQuery } from "./MasterProject.api";
+import { mapProject, useGetProjectsQuery } from "@/services/master-project.service";
 import type {
   MasterProjectContainerState,
   MasterProjectNavigation,
@@ -74,7 +74,7 @@ const _deriveProjectListState = (queryResult: ReturnType<typeof useGetProjectsQu
     return _createMissingPayloadState();
   }
 
-  const projects = projectList.map(_mapProject);
+  const projects = projectList.map(mapProject);
 
   return _createSuccessState(projects, response.total_pages, response.total_count);
 };

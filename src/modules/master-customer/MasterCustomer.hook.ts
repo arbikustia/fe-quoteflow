@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-import { _mapCustomer, useGetCustomersQuery } from "./MasterCustomer.api";
+import { mapCustomer, useGetCustomersQuery } from "@/services/master-customer.service";
 import type {
   CustomerData,
   CustomerListApiState,
@@ -74,7 +74,7 @@ const _deriveCustomerListState = (queryResult: ReturnType<typeof useGetCustomers
     return _createMissingPayloadState();
   }
 
-  const customers = customerList.map(_mapCustomer);
+  const customers = customerList.map(mapCustomer);
 
   return _createSuccessState(customers, response.total_pages, response.total_count);
 };

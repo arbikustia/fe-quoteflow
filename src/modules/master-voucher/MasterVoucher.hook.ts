@@ -3,7 +3,7 @@ import type * as React from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-import { _mapVoucher, useCreateVoucherMutation, useGetVouchersQuery } from "./MasterVoucher.api";
+import { mapVoucher, useCreateVoucherMutation, useGetVouchersQuery } from "@/services/master-voucher.service";
 import type {
   MasterVoucherContainerState,
   MasterVoucherCreateFormState,
@@ -65,7 +65,7 @@ const _deriveVoucherListState = (
     isLoading: false,
     errorMessage: null,
     isMissingData: false,
-    paginatedData: response.data.map(_mapVoucher),
+    paginatedData: response.data.map(mapVoucher),
     totalPages: response.total_pages,
     totalCount: response.total_count,
     hasNext: response.has_next,

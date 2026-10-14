@@ -2,7 +2,7 @@ import type * as React from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-import { _mapCategory, useCreateCategoryMutation, useGetAllCategoriesQuery, useGetCategoriesQuery } from "./MasterCategory.api";
+import { mapCategory, useCreateCategoryMutation, useGetAllCategoriesQuery, useGetCategoriesQuery } from "@/services/master-category.service";
 import type {
   BaseCategoryState,
   CategoryAllItem,
@@ -56,7 +56,7 @@ const _deriveCategoryListState = (queryResult: ReturnType<typeof useGetCategorie
 
   if (!categoryList) return _createMissingPayloadState();
 
-  return _createSuccessState(categoryList.map(_mapCategory), response.total_pages, response.total_count);
+  return _createSuccessState(categoryList.map(mapCategory), response.total_pages, response.total_count);
 };
 
 /**
