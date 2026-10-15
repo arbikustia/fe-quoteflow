@@ -1,1 +1,0 @@
-export { mapCategory as _mapCategory, masterCategoryService as masterCategoryApi, useCreateCategoryMutation, useGetAllCategoriesQuery, useGetCategoriesQuery } from "@/services/master-category.service";

@@ -1,0 +1,1723 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`MasterCustomerDetailComponent Snapshots should render customer detail 1`] = `
+<DocumentFragment>
+  <div
+    class="flex h-full min-h-0 w-full bg-background-page overflow-hidden font-sans text-text-primary relative items-stretch"
+  >
+    <div
+      class="hidden lg:flex h-full min-h-0 shrink-0 self-stretch"
+    >
+      <aside
+        aria-label="Sidebar"
+        class="w-[290px] h-full min-h-0 self-stretch bg-sidebar-background border border-border-default flex flex-col shrink-0 overflow-hidden transition-[width] duration-[250ms] ease-in-out"
+        style="border-radius: 12px;"
+      >
+        <div
+          class="h-[56px] mb-16 flex items-center shrink-0 px-4"
+        >
+          <img
+            alt="Sonicline"
+            class="h-8 w-auto object-contain"
+            src="/src/assets/Sonicline.png"
+          />
+        </div>
+        <div
+          class="flex-1 overflow-y-auto overflow-x-hidden px-4 space-y-5 scrollbar-thin"
+        >
+          <div>
+            <p
+              class="px-2 mb-2 text-[15px] font-semibold tracking-widest uppercase text-text-tertiary"
+            >
+              Menu
+            </p>
+            <nav
+              aria-label="Menu"
+              class="space-y-1"
+            >
+              <div>
+                <button
+                  aria-expanded="false"
+                  class="w-full min-h-14 py-3 flex items-center gap-3 rounded-[8px] px-4 text-left transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring/30 text-text-secondary hover:bg-background-elevated hover:text-text-primary"
+                  type="button"
+                >
+                  <span
+                    class="shrink-0 [&_svg]:h-5 [&_svg]:w-5 text-text-tertiary"
+                  >
+                    <svg
+                      fill="none"
+                      height="20"
+                      stroke="currentColor"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="1.8"
+                      viewBox="0 0 24 24"
+                      width="20"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <ellipse
+                        cx="12"
+                        cy="5"
+                        rx="9"
+                        ry="3"
+                      />
+                      <path
+                        d="M3 5V19A9 3 0 0 0 21 19V5"
+                      />
+                      <path
+                        d="M3 12A9 3 0 0 0 21 12"
+                      />
+                    </svg>
+                  </span>
+                  <span
+                    class="flex-1 truncate text-xl leading-none font-normal"
+                  >
+                    Master Data
+                  </span>
+                  <span
+                    class="shrink-0 text-text-tertiary transition-transform duration-200 "
+                  >
+                    <svg
+                      fill="none"
+                      height="14"
+                      stroke="currentColor"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      viewBox="0 0 24 24"
+                      width="14"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="m6 9 6 6 6-6"
+                      />
+                    </svg>
+                  </span>
+                </button>
+              </div>
+            </nav>
+          </div>
+        </div>
+        <div
+          class="shrink-0 border-t border-border-default p-3"
+        >
+          <button
+            aria-checked="false"
+            aria-label="Toggle dark theme"
+            class="mb-2 flex h-9 w-full items-center rounded-[8px] bg-background-subtle text-text-secondary transition-colors hover:bg-action-primary-subtle focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring gap-3 px-3"
+            role="switch"
+            type="button"
+          >
+            <span
+              aria-hidden="true"
+              class="shrink-0"
+            >
+              <svg
+                fill="none"
+                height="20"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="1.8"
+                viewBox="0 0 24 24"
+                width="20"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"
+                />
+              </svg>
+            </span>
+            <span
+              class="flex-1 text-left text-[13px] font-medium"
+            >
+              Dark theme
+            </span>
+          </button>
+          <button
+            aria-expanded="false"
+            aria-haspopup="menu"
+            class="w-full flex items-center rounded-[10px] transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring/30 hover:bg-background-elevated gap-3 p-2"
+            type="button"
+          >
+            <span
+              aria-hidden="true"
+              class="w-8 h-8 rounded-full bg-action-primary-subtle text-action-primary flex items-center justify-center text-[12px] font-semibold shrink-0"
+            >
+              DR
+            </span>
+            <span
+              class="flex-1 min-w-0 text-left"
+            >
+              <span
+                class="block truncate text-[13px] font-semibold leading-4 text-text-primary"
+              >
+                Dianne Russell
+              </span>
+              <span
+                class="block truncate text-[11px] leading-4 text-text-tertiary"
+              >
+                dianne.russell@gmail.com
+              </span>
+            </span>
+            <span
+              class="shrink-0 text-text-tertiary transition-transform duration-200 "
+            >
+              <svg
+                fill="none"
+                height="14"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+                width="14"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="m6 9 6 6 6-6"
+                />
+              </svg>
+            </span>
+          </button>
+        </div>
+      </aside>
+    </div>
+    <div
+      class="flex-1 flex flex-col min-w-0 min-h-0 overflow-hidden relative bg-background-page"
+    >
+      <div
+        class="lg:hidden flex items-center gap-3 p-4 border-b border-border-default bg-background-surface shrink-0"
+      >
+        <div
+          class="w-8 h-8 rounded-full bg-action-primary flex items-center justify-center"
+        >
+          <span
+            class="text-text-inverse font-bold"
+          >
+            Q
+          </span>
+        </div>
+        <span
+          class="font-bold text-text-primary"
+        >
+          QuoteFlow
+        </span>
+      </div>
+      <div
+        class="hidden lg:block shrink-0"
+      >
+        <header
+          class="h-20 flex items-center justify-between px-8 border-b border-brand-gray-light sticky top-0 z-10 transition-all"
+        >
+          <div
+            class="flex items-center gap-4 flex-1"
+          >
+            <button
+              aria-expanded="true"
+              aria-label="Close sidebar"
+              class="flex h-10 w-10 items-center justify-center rounded-[8px] border border-border-default bg-background-surface text-text-secondary hover:bg-background-subtle hover:text-text-primary transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring/30"
+              type="button"
+            >
+              <svg
+                fill="none"
+                height="20"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="1.8"
+                viewBox="0 0 24 24"
+                width="20"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <line
+                  x1="4"
+                  x2="20"
+                  y1="6"
+                  y2="6"
+                />
+                <line
+                  x1="4"
+                  x2="20"
+                  y1="12"
+                  y2="12"
+                />
+                <line
+                  x1="4"
+                  x2="20"
+                  y1="18"
+                  y2="18"
+                />
+              </svg>
+            </button>
+            <div
+              class="relative group hidden md:block max-w-lg flex-1"
+            >
+              <div
+                class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-brand-text-medium"
+              >
+                <svg
+                  fill="none"
+                  height="18"
+                  stroke="currentColor"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="1.8"
+                  viewBox="0 0 24 24"
+                  width="18"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <circle
+                    cx="11"
+                    cy="11"
+                    r="8"
+                  />
+                  <path
+                    d="m21 21-4.3-4.3"
+                  />
+                </svg>
+              </div>
+              <input
+                class="w-full pl-10 pr-12 py-2.5 bg-brand-white border border-brand-gray-light rounded-lg text-sm font-medium focus:outline-none focus:ring-1 focus:ring-brand-blue focus:border-brand-blue transition-all placeholder:text-brand-text-medium text-brand-text-dark"
+                placeholder="Search anything"
+                type="text"
+              />
+              <div
+                class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none"
+              >
+                <span
+                  class="text-[10px] font-medium text-brand-text-medium bg-brand-gray-light px-1.5 py-0.5 rounded border border-brand-gray-light"
+                >
+                  ⌘K
+                </span>
+              </div>
+            </div>
+          </div>
+          <div
+            class="flex items-center gap-5"
+          >
+            <button
+              class="flex items-center gap-2.5 px-1.5 py-1.5 pr-3 rounded-full bg-brand-white border border-brand-gray-light hover:bg-brand-gray-light transition-all focus:outline-none"
+            >
+              <div
+                class="w-8 h-8 rounded-full overflow-hidden"
+              >
+                <img
+                  alt="User Avatar"
+                  class="w-full h-full object-cover"
+                  src="https://ui-avatars.com/api/?name=Admin+User&background=random"
+                />
+              </div>
+              <span
+                class="text-sm font-bold text-brand-text-dark"
+              >
+                Admin User
+              </span>
+              <div
+                class="text-brand-text-medium"
+              >
+                <svg
+                  fill="none"
+                  height="14"
+                  stroke="currentColor"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  viewBox="0 0 24 24"
+                  width="14"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="m6 9 6 6 6-6"
+                  />
+                </svg>
+              </div>
+            </button>
+          </div>
+        </header>
+      </div>
+      <main
+        class="flex-1 overflow-y-auto p-4 lg:p-8 pb-20 lg:pb-8 relative z-0"
+      >
+        <div
+          class="flex flex-col h-full pb-18 lg:pb-0 px-3 lg:px-0 lg:-mt-4 relative"
+        >
+          <div
+            class="flex items-center justify-between py-2 mb-1 lg:mb-4 relative"
+          >
+            <button
+              aria-label="Back"
+              class="w-11 h-11 rounded-full bg-background-surface hover:bg-background-subtle border border-border-default active:scale-95 transition-all flex items-center justify-center text-text-primary shrink-0"
+              type="button"
+            >
+              <svg
+                aria-hidden="true"
+                fill="none"
+                height="20"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2.4"
+                viewBox="0 0 24 24"
+                width="20"
+              >
+                <path
+                  d="M19 12H5"
+                />
+                <path
+                  d="M12 19 5 12l7-7"
+                />
+              </svg>
+            </button>
+            <h1
+              class="flex-1 text-center text-[17px] font-semibold text-text-primary tracking-tight px-2 truncate"
+            >
+              Detail Customer
+            </h1>
+            <div
+              class="relative shrink-0"
+            >
+              <button
+                aria-expanded="false"
+                aria-haspopup="menu"
+                aria-label="More options"
+                class="w-11 h-11 rounded-full bg-background-surface hover:bg-background-subtle border border-border-default active:scale-95 transition-all flex items-center justify-center text-text-primary"
+                type="button"
+              >
+                <svg
+                  aria-hidden="true"
+                  fill="currentColor"
+                  height="20"
+                  viewBox="0 0 24 24"
+                  width="20"
+                >
+                  <circle
+                    cx="5"
+                    cy="12"
+                    r="1.8"
+                  />
+                  <circle
+                    cx="12"
+                    cy="12"
+                    r="1.8"
+                  />
+                  <circle
+                    cx="19"
+                    cy="12"
+                    r="1.8"
+                  />
+                </svg>
+              </button>
+            </div>
+          </div>
+          <div
+            class="pb-24 space-y-4"
+          >
+            <div
+              class="bg-background-surface rounded-3xl p-5 border border-border-default shadow-xs"
+            >
+              <div
+                class="flex-1 min-w-0 text-center py-2"
+              >
+                <h2
+                  class="text-[20px] font-bold text-text-primary leading-tight truncate mb-2"
+                >
+                  PT Mega Jaya Abadi
+                </h2>
+                <span
+                  class="inline-flex items-center rounded-full px-3 py-1 text-[13px] font-semibold bg-green-100 text-green-700"
+                >
+                  active
+                </span>
+              </div>
+            </div>
+            <div
+              class="bg-background-surface rounded-3xl border border-border-default shadow-xs overflow-hidden"
+            >
+              <div
+                class="px-5 pt-5 pb-3"
+              >
+                <h3
+                  class="text-[12px] font-bold text-text-tertiary tracking-widest uppercase"
+                >
+                  Customer Details
+                </h3>
+              </div>
+              <dl
+                class="divide-y divide-border-default"
+              >
+                <div
+                  class="flex items-center justify-between gap-4 px-5 py-4"
+                >
+                  <dt
+                    class="text-[13px] font-medium text-text-secondary shrink-0"
+                  >
+                    Customer ID
+                  </dt>
+                  <dd
+                    class="font-semibold text-text-primary text-[15px] text-right truncate"
+                  >
+                    1
+                  </dd>
+                </div>
+                <div
+                  class="flex items-center justify-between gap-4 px-5 py-4"
+                >
+                  <dt
+                    class="text-[13px] font-medium text-text-secondary shrink-0"
+                  >
+                    Phone
+                  </dt>
+                  <dd
+                    class="font-semibold text-text-primary text-[15px] text-right"
+                  >
+                    081234567890
+                  </dd>
+                </div>
+                <div
+                  class="flex gap-4 px-5 py-4"
+                >
+                  <dt
+                    class="text-[13px] font-medium text-text-secondary shrink-0 w-[92px] pt-0.5"
+                  >
+                    Address
+                  </dt>
+                  <dd
+                    class="font-semibold text-text-primary text-[15px] text-right flex-1 leading-snug"
+                  >
+                    Jl. Sudirman No. 45, Jakarta Pusat
+                  </dd>
+                </div>
+              </dl>
+            </div>
+            <div
+              class="bg-background-surface rounded-3xl border border-border-default shadow-xs overflow-hidden"
+            >
+              <div
+                class="px-5 pt-5 pb-1"
+              >
+                <h3
+                  class="text-[12px] font-bold text-text-tertiary tracking-widest uppercase"
+                >
+                  Record Info
+                </h3>
+              </div>
+              <div
+                class="grid grid-cols-2 divide-x divide-border-default"
+              >
+                <div
+                  class="px-5 py-4"
+                >
+                  <p
+                    class="text-[13px] font-medium text-text-secondary mb-1"
+                  >
+                    Created By
+                  </p>
+                  <p
+                    class="font-semibold text-text-primary text-[15px] truncate"
+                  >
+                    Admin
+                  </p>
+                </div>
+                <div
+                  class="px-5 py-4"
+                >
+                  <p
+                    class="text-[13px] font-medium text-text-secondary mb-1"
+                  >
+                    Created At
+                  </p>
+                  <p
+                    class="font-semibold text-text-primary text-[15px]"
+                  >
+                    2024-01-15 10:30
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`MasterCustomerDetailComponent Snapshots should render customer detail actions 1`] = `
+<DocumentFragment>
+  <div
+    class="flex h-full min-h-0 w-full bg-background-page overflow-hidden font-sans text-text-primary relative items-stretch"
+  >
+    <div
+      class="hidden lg:flex h-full min-h-0 shrink-0 self-stretch"
+    >
+      <aside
+        aria-label="Sidebar"
+        class="w-[290px] h-full min-h-0 self-stretch bg-sidebar-background border border-border-default flex flex-col shrink-0 overflow-hidden transition-[width] duration-[250ms] ease-in-out"
+        style="border-radius: 12px;"
+      >
+        <div
+          class="h-[56px] mb-16 flex items-center shrink-0 px-4"
+        >
+          <img
+            alt="Sonicline"
+            class="h-8 w-auto object-contain"
+            src="/src/assets/Sonicline.png"
+          />
+        </div>
+        <div
+          class="flex-1 overflow-y-auto overflow-x-hidden px-4 space-y-5 scrollbar-thin"
+        >
+          <div>
+            <p
+              class="px-2 mb-2 text-[15px] font-semibold tracking-widest uppercase text-text-tertiary"
+            >
+              Menu
+            </p>
+            <nav
+              aria-label="Menu"
+              class="space-y-1"
+            >
+              <div>
+                <button
+                  aria-expanded="false"
+                  class="w-full min-h-14 py-3 flex items-center gap-3 rounded-[8px] px-4 text-left transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring/30 text-text-secondary hover:bg-background-elevated hover:text-text-primary"
+                  type="button"
+                >
+                  <span
+                    class="shrink-0 [&_svg]:h-5 [&_svg]:w-5 text-text-tertiary"
+                  >
+                    <svg
+                      fill="none"
+                      height="20"
+                      stroke="currentColor"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="1.8"
+                      viewBox="0 0 24 24"
+                      width="20"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <ellipse
+                        cx="12"
+                        cy="5"
+                        rx="9"
+                        ry="3"
+                      />
+                      <path
+                        d="M3 5V19A9 3 0 0 0 21 19V5"
+                      />
+                      <path
+                        d="M3 12A9 3 0 0 0 21 12"
+                      />
+                    </svg>
+                  </span>
+                  <span
+                    class="flex-1 truncate text-xl leading-none font-normal"
+                  >
+                    Master Data
+                  </span>
+                  <span
+                    class="shrink-0 text-text-tertiary transition-transform duration-200 "
+                  >
+                    <svg
+                      fill="none"
+                      height="14"
+                      stroke="currentColor"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      viewBox="0 0 24 24"
+                      width="14"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="m6 9 6 6 6-6"
+                      />
+                    </svg>
+                  </span>
+                </button>
+              </div>
+            </nav>
+          </div>
+        </div>
+        <div
+          class="shrink-0 border-t border-border-default p-3"
+        >
+          <button
+            aria-checked="false"
+            aria-label="Toggle dark theme"
+            class="mb-2 flex h-9 w-full items-center rounded-[8px] bg-background-subtle text-text-secondary transition-colors hover:bg-action-primary-subtle focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring gap-3 px-3"
+            role="switch"
+            type="button"
+          >
+            <span
+              aria-hidden="true"
+              class="shrink-0"
+            >
+              <svg
+                fill="none"
+                height="20"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="1.8"
+                viewBox="0 0 24 24"
+                width="20"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"
+                />
+              </svg>
+            </span>
+            <span
+              class="flex-1 text-left text-[13px] font-medium"
+            >
+              Dark theme
+            </span>
+          </button>
+          <button
+            aria-expanded="false"
+            aria-haspopup="menu"
+            class="w-full flex items-center rounded-[10px] transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring/30 hover:bg-background-elevated gap-3 p-2"
+            type="button"
+          >
+            <span
+              aria-hidden="true"
+              class="w-8 h-8 rounded-full bg-action-primary-subtle text-action-primary flex items-center justify-center text-[12px] font-semibold shrink-0"
+            >
+              DR
+            </span>
+            <span
+              class="flex-1 min-w-0 text-left"
+            >
+              <span
+                class="block truncate text-[13px] font-semibold leading-4 text-text-primary"
+              >
+                Dianne Russell
+              </span>
+              <span
+                class="block truncate text-[11px] leading-4 text-text-tertiary"
+              >
+                dianne.russell@gmail.com
+              </span>
+            </span>
+            <span
+              class="shrink-0 text-text-tertiary transition-transform duration-200 "
+            >
+              <svg
+                fill="none"
+                height="14"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+                width="14"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="m6 9 6 6 6-6"
+                />
+              </svg>
+            </span>
+          </button>
+        </div>
+      </aside>
+    </div>
+    <div
+      class="flex-1 flex flex-col min-w-0 min-h-0 overflow-hidden relative bg-background-page"
+    >
+      <div
+        class="lg:hidden flex items-center gap-3 p-4 border-b border-border-default bg-background-surface shrink-0"
+      >
+        <div
+          class="w-8 h-8 rounded-full bg-action-primary flex items-center justify-center"
+        >
+          <span
+            class="text-text-inverse font-bold"
+          >
+            Q
+          </span>
+        </div>
+        <span
+          class="font-bold text-text-primary"
+        >
+          QuoteFlow
+        </span>
+      </div>
+      <div
+        class="hidden lg:block shrink-0"
+      >
+        <header
+          class="h-20 flex items-center justify-between px-8 border-b border-brand-gray-light sticky top-0 z-10 transition-all"
+        >
+          <div
+            class="flex items-center gap-4 flex-1"
+          >
+            <button
+              aria-expanded="true"
+              aria-label="Close sidebar"
+              class="flex h-10 w-10 items-center justify-center rounded-[8px] border border-border-default bg-background-surface text-text-secondary hover:bg-background-subtle hover:text-text-primary transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring/30"
+              type="button"
+            >
+              <svg
+                fill="none"
+                height="20"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="1.8"
+                viewBox="0 0 24 24"
+                width="20"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <line
+                  x1="4"
+                  x2="20"
+                  y1="6"
+                  y2="6"
+                />
+                <line
+                  x1="4"
+                  x2="20"
+                  y1="12"
+                  y2="12"
+                />
+                <line
+                  x1="4"
+                  x2="20"
+                  y1="18"
+                  y2="18"
+                />
+              </svg>
+            </button>
+            <div
+              class="relative group hidden md:block max-w-lg flex-1"
+            >
+              <div
+                class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-brand-text-medium"
+              >
+                <svg
+                  fill="none"
+                  height="18"
+                  stroke="currentColor"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="1.8"
+                  viewBox="0 0 24 24"
+                  width="18"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <circle
+                    cx="11"
+                    cy="11"
+                    r="8"
+                  />
+                  <path
+                    d="m21 21-4.3-4.3"
+                  />
+                </svg>
+              </div>
+              <input
+                class="w-full pl-10 pr-12 py-2.5 bg-brand-white border border-brand-gray-light rounded-lg text-sm font-medium focus:outline-none focus:ring-1 focus:ring-brand-blue focus:border-brand-blue transition-all placeholder:text-brand-text-medium text-brand-text-dark"
+                placeholder="Search anything"
+                type="text"
+              />
+              <div
+                class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none"
+              >
+                <span
+                  class="text-[10px] font-medium text-brand-text-medium bg-brand-gray-light px-1.5 py-0.5 rounded border border-brand-gray-light"
+                >
+                  ⌘K
+                </span>
+              </div>
+            </div>
+          </div>
+          <div
+            class="flex items-center gap-5"
+          >
+            <button
+              class="flex items-center gap-2.5 px-1.5 py-1.5 pr-3 rounded-full bg-brand-white border border-brand-gray-light hover:bg-brand-gray-light transition-all focus:outline-none"
+            >
+              <div
+                class="w-8 h-8 rounded-full overflow-hidden"
+              >
+                <img
+                  alt="User Avatar"
+                  class="w-full h-full object-cover"
+                  src="https://ui-avatars.com/api/?name=Admin+User&background=random"
+                />
+              </div>
+              <span
+                class="text-sm font-bold text-brand-text-dark"
+              >
+                Admin User
+              </span>
+              <div
+                class="text-brand-text-medium"
+              >
+                <svg
+                  fill="none"
+                  height="14"
+                  stroke="currentColor"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  viewBox="0 0 24 24"
+                  width="14"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="m6 9 6 6 6-6"
+                  />
+                </svg>
+              </div>
+            </button>
+          </div>
+        </header>
+      </div>
+      <main
+        class="flex-1 overflow-y-auto p-4 lg:p-8 pb-20 lg:pb-8 relative z-0"
+      >
+        <div
+          class="flex flex-col h-full pb-18 lg:pb-0 px-3 lg:px-0 lg:-mt-4 relative"
+        >
+          <div
+            class="flex items-center justify-between py-2 mb-1 lg:mb-4 relative"
+          >
+            <button
+              aria-label="Back"
+              class="w-11 h-11 rounded-full bg-background-surface hover:bg-background-subtle border border-border-default active:scale-95 transition-all flex items-center justify-center text-text-primary shrink-0"
+              type="button"
+            >
+              <svg
+                aria-hidden="true"
+                fill="none"
+                height="20"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2.4"
+                viewBox="0 0 24 24"
+                width="20"
+              >
+                <path
+                  d="M19 12H5"
+                />
+                <path
+                  d="M12 19 5 12l7-7"
+                />
+              </svg>
+            </button>
+            <h1
+              class="flex-1 text-center text-[17px] font-semibold text-text-primary tracking-tight px-2 truncate"
+            >
+              Detail Customer
+            </h1>
+            <div
+              class="relative shrink-0"
+            >
+              <button
+                aria-expanded="true"
+                aria-haspopup="menu"
+                aria-label="More options"
+                class="w-11 h-11 rounded-full bg-background-surface hover:bg-background-subtle border border-border-default active:scale-95 transition-all flex items-center justify-center text-text-primary"
+                type="button"
+              >
+                <svg
+                  aria-hidden="true"
+                  fill="currentColor"
+                  height="20"
+                  viewBox="0 0 24 24"
+                  width="20"
+                >
+                  <circle
+                    cx="5"
+                    cy="12"
+                    r="1.8"
+                  />
+                  <circle
+                    cx="12"
+                    cy="12"
+                    r="1.8"
+                  />
+                  <circle
+                    cx="19"
+                    cy="12"
+                    r="1.8"
+                  />
+                </svg>
+              </button>
+              <button
+                aria-label="Close menu"
+                class="fixed inset-0 z-10 cursor-default"
+                tabindex="-1"
+                type="button"
+              />
+              <div
+                class="absolute right-0 top-[calc(100%+8px)] z-20 w-40 rounded-2xl border border-border-default bg-background-surface py-2 shadow-xl overflow-hidden"
+                role="menu"
+              >
+                <button
+                  class="w-full px-4 py-2 text-left text-sm font-medium text-text-primary hover:bg-background-subtle"
+                  role="menuitem"
+                  type="button"
+                >
+                  Edit
+                </button>
+                <button
+                  class="w-full px-4 py-2 text-left text-sm font-medium text-red-600 hover:bg-red-50"
+                  role="menuitem"
+                  type="button"
+                >
+                  Delete
+                </button>
+              </div>
+            </div>
+          </div>
+          <div
+            class="pb-24 space-y-4"
+          >
+            <div
+              class="bg-background-surface rounded-3xl p-5 border border-border-default shadow-xs"
+            >
+              <div
+                class="flex-1 min-w-0 text-center py-2"
+              >
+                <h2
+                  class="text-[20px] font-bold text-text-primary leading-tight truncate mb-2"
+                >
+                  PT Mega Jaya Abadi
+                </h2>
+                <span
+                  class="inline-flex items-center rounded-full px-3 py-1 text-[13px] font-semibold bg-green-100 text-green-700"
+                >
+                  active
+                </span>
+              </div>
+            </div>
+            <div
+              class="bg-background-surface rounded-3xl border border-border-default shadow-xs overflow-hidden"
+            >
+              <div
+                class="px-5 pt-5 pb-3"
+              >
+                <h3
+                  class="text-[12px] font-bold text-text-tertiary tracking-widest uppercase"
+                >
+                  Customer Details
+                </h3>
+              </div>
+              <dl
+                class="divide-y divide-border-default"
+              >
+                <div
+                  class="flex items-center justify-between gap-4 px-5 py-4"
+                >
+                  <dt
+                    class="text-[13px] font-medium text-text-secondary shrink-0"
+                  >
+                    Customer ID
+                  </dt>
+                  <dd
+                    class="font-semibold text-text-primary text-[15px] text-right truncate"
+                  >
+                    1
+                  </dd>
+                </div>
+                <div
+                  class="flex items-center justify-between gap-4 px-5 py-4"
+                >
+                  <dt
+                    class="text-[13px] font-medium text-text-secondary shrink-0"
+                  >
+                    Phone
+                  </dt>
+                  <dd
+                    class="font-semibold text-text-primary text-[15px] text-right"
+                  >
+                    081234567890
+                  </dd>
+                </div>
+                <div
+                  class="flex gap-4 px-5 py-4"
+                >
+                  <dt
+                    class="text-[13px] font-medium text-text-secondary shrink-0 w-[92px] pt-0.5"
+                  >
+                    Address
+                  </dt>
+                  <dd
+                    class="font-semibold text-text-primary text-[15px] text-right flex-1 leading-snug"
+                  >
+                    Jl. Sudirman No. 45, Jakarta Pusat
+                  </dd>
+                </div>
+              </dl>
+            </div>
+            <div
+              class="bg-background-surface rounded-3xl border border-border-default shadow-xs overflow-hidden"
+            >
+              <div
+                class="px-5 pt-5 pb-1"
+              >
+                <h3
+                  class="text-[12px] font-bold text-text-tertiary tracking-widest uppercase"
+                >
+                  Record Info
+                </h3>
+              </div>
+              <div
+                class="grid grid-cols-2 divide-x divide-border-default"
+              >
+                <div
+                  class="px-5 py-4"
+                >
+                  <p
+                    class="text-[13px] font-medium text-text-secondary mb-1"
+                  >
+                    Created By
+                  </p>
+                  <p
+                    class="font-semibold text-text-primary text-[15px] truncate"
+                  >
+                    Admin
+                  </p>
+                </div>
+                <div
+                  class="px-5 py-4"
+                >
+                  <p
+                    class="text-[13px] font-medium text-text-secondary mb-1"
+                  >
+                    Created At
+                  </p>
+                  <p
+                    class="font-semibold text-text-primary text-[15px]"
+                  >
+                    2024-01-15 10:30
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`MasterCustomerDetailComponent Snapshots should render delete confirmation 1`] = `
+<DocumentFragment>
+  <div
+    class="flex h-full min-h-0 w-full bg-background-page overflow-hidden font-sans text-text-primary relative items-stretch"
+  >
+    <div
+      class="hidden lg:flex h-full min-h-0 shrink-0 self-stretch"
+    >
+      <aside
+        aria-label="Sidebar"
+        class="w-[290px] h-full min-h-0 self-stretch bg-sidebar-background border border-border-default flex flex-col shrink-0 overflow-hidden transition-[width] duration-[250ms] ease-in-out"
+        style="border-radius: 12px;"
+      >
+        <div
+          class="h-[56px] mb-16 flex items-center shrink-0 px-4"
+        >
+          <img
+            alt="Sonicline"
+            class="h-8 w-auto object-contain"
+            src="/src/assets/Sonicline.png"
+          />
+        </div>
+        <div
+          class="flex-1 overflow-y-auto overflow-x-hidden px-4 space-y-5 scrollbar-thin"
+        >
+          <div>
+            <p
+              class="px-2 mb-2 text-[15px] font-semibold tracking-widest uppercase text-text-tertiary"
+            >
+              Menu
+            </p>
+            <nav
+              aria-label="Menu"
+              class="space-y-1"
+            >
+              <div>
+                <button
+                  aria-expanded="false"
+                  class="w-full min-h-14 py-3 flex items-center gap-3 rounded-[8px] px-4 text-left transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring/30 text-text-secondary hover:bg-background-elevated hover:text-text-primary"
+                  type="button"
+                >
+                  <span
+                    class="shrink-0 [&_svg]:h-5 [&_svg]:w-5 text-text-tertiary"
+                  >
+                    <svg
+                      fill="none"
+                      height="20"
+                      stroke="currentColor"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="1.8"
+                      viewBox="0 0 24 24"
+                      width="20"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <ellipse
+                        cx="12"
+                        cy="5"
+                        rx="9"
+                        ry="3"
+                      />
+                      <path
+                        d="M3 5V19A9 3 0 0 0 21 19V5"
+                      />
+                      <path
+                        d="M3 12A9 3 0 0 0 21 12"
+                      />
+                    </svg>
+                  </span>
+                  <span
+                    class="flex-1 truncate text-xl leading-none font-normal"
+                  >
+                    Master Data
+                  </span>
+                  <span
+                    class="shrink-0 text-text-tertiary transition-transform duration-200 "
+                  >
+                    <svg
+                      fill="none"
+                      height="14"
+                      stroke="currentColor"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      viewBox="0 0 24 24"
+                      width="14"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="m6 9 6 6 6-6"
+                      />
+                    </svg>
+                  </span>
+                </button>
+              </div>
+            </nav>
+          </div>
+        </div>
+        <div
+          class="shrink-0 border-t border-border-default p-3"
+        >
+          <button
+            aria-checked="false"
+            aria-label="Toggle dark theme"
+            class="mb-2 flex h-9 w-full items-center rounded-[8px] bg-background-subtle text-text-secondary transition-colors hover:bg-action-primary-subtle focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring gap-3 px-3"
+            role="switch"
+            type="button"
+          >
+            <span
+              aria-hidden="true"
+              class="shrink-0"
+            >
+              <svg
+                fill="none"
+                height="20"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="1.8"
+                viewBox="0 0 24 24"
+                width="20"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"
+                />
+              </svg>
+            </span>
+            <span
+              class="flex-1 text-left text-[13px] font-medium"
+            >
+              Dark theme
+            </span>
+          </button>
+          <button
+            aria-expanded="false"
+            aria-haspopup="menu"
+            class="w-full flex items-center rounded-[10px] transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring/30 hover:bg-background-elevated gap-3 p-2"
+            type="button"
+          >
+            <span
+              aria-hidden="true"
+              class="w-8 h-8 rounded-full bg-action-primary-subtle text-action-primary flex items-center justify-center text-[12px] font-semibold shrink-0"
+            >
+              DR
+            </span>
+            <span
+              class="flex-1 min-w-0 text-left"
+            >
+              <span
+                class="block truncate text-[13px] font-semibold leading-4 text-text-primary"
+              >
+                Dianne Russell
+              </span>
+              <span
+                class="block truncate text-[11px] leading-4 text-text-tertiary"
+              >
+                dianne.russell@gmail.com
+              </span>
+            </span>
+            <span
+              class="shrink-0 text-text-tertiary transition-transform duration-200 "
+            >
+              <svg
+                fill="none"
+                height="14"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+                width="14"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="m6 9 6 6 6-6"
+                />
+              </svg>
+            </span>
+          </button>
+        </div>
+      </aside>
+    </div>
+    <div
+      class="flex-1 flex flex-col min-w-0 min-h-0 overflow-hidden relative bg-background-page"
+    >
+      <div
+        class="lg:hidden flex items-center gap-3 p-4 border-b border-border-default bg-background-surface shrink-0"
+      >
+        <div
+          class="w-8 h-8 rounded-full bg-action-primary flex items-center justify-center"
+        >
+          <span
+            class="text-text-inverse font-bold"
+          >
+            Q
+          </span>
+        </div>
+        <span
+          class="font-bold text-text-primary"
+        >
+          QuoteFlow
+        </span>
+      </div>
+      <div
+        class="hidden lg:block shrink-0"
+      >
+        <header
+          class="h-20 flex items-center justify-between px-8 border-b border-brand-gray-light sticky top-0 z-10 transition-all"
+        >
+          <div
+            class="flex items-center gap-4 flex-1"
+          >
+            <button
+              aria-expanded="true"
+              aria-label="Close sidebar"
+              class="flex h-10 w-10 items-center justify-center rounded-[8px] border border-border-default bg-background-surface text-text-secondary hover:bg-background-subtle hover:text-text-primary transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring/30"
+              type="button"
+            >
+              <svg
+                fill="none"
+                height="20"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="1.8"
+                viewBox="0 0 24 24"
+                width="20"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <line
+                  x1="4"
+                  x2="20"
+                  y1="6"
+                  y2="6"
+                />
+                <line
+                  x1="4"
+                  x2="20"
+                  y1="12"
+                  y2="12"
+                />
+                <line
+                  x1="4"
+                  x2="20"
+                  y1="18"
+                  y2="18"
+                />
+              </svg>
+            </button>
+            <div
+              class="relative group hidden md:block max-w-lg flex-1"
+            >
+              <div
+                class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-brand-text-medium"
+              >
+                <svg
+                  fill="none"
+                  height="18"
+                  stroke="currentColor"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="1.8"
+                  viewBox="0 0 24 24"
+                  width="18"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <circle
+                    cx="11"
+                    cy="11"
+                    r="8"
+                  />
+                  <path
+                    d="m21 21-4.3-4.3"
+                  />
+                </svg>
+              </div>
+              <input
+                class="w-full pl-10 pr-12 py-2.5 bg-brand-white border border-brand-gray-light rounded-lg text-sm font-medium focus:outline-none focus:ring-1 focus:ring-brand-blue focus:border-brand-blue transition-all placeholder:text-brand-text-medium text-brand-text-dark"
+                placeholder="Search anything"
+                type="text"
+              />
+              <div
+                class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none"
+              >
+                <span
+                  class="text-[10px] font-medium text-brand-text-medium bg-brand-gray-light px-1.5 py-0.5 rounded border border-brand-gray-light"
+                >
+                  ⌘K
+                </span>
+              </div>
+            </div>
+          </div>
+          <div
+            class="flex items-center gap-5"
+          >
+            <button
+              class="flex items-center gap-2.5 px-1.5 py-1.5 pr-3 rounded-full bg-brand-white border border-brand-gray-light hover:bg-brand-gray-light transition-all focus:outline-none"
+            >
+              <div
+                class="w-8 h-8 rounded-full overflow-hidden"
+              >
+                <img
+                  alt="User Avatar"
+                  class="w-full h-full object-cover"
+                  src="https://ui-avatars.com/api/?name=Admin+User&background=random"
+                />
+              </div>
+              <span
+                class="text-sm font-bold text-brand-text-dark"
+              >
+                Admin User
+              </span>
+              <div
+                class="text-brand-text-medium"
+              >
+                <svg
+                  fill="none"
+                  height="14"
+                  stroke="currentColor"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  viewBox="0 0 24 24"
+                  width="14"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="m6 9 6 6 6-6"
+                  />
+                </svg>
+              </div>
+            </button>
+          </div>
+        </header>
+      </div>
+      <main
+        class="flex-1 overflow-y-auto p-4 lg:p-8 pb-20 lg:pb-8 relative z-0"
+      >
+        <div
+          class="flex flex-col h-full pb-18 lg:pb-0 px-3 lg:px-0 lg:-mt-4 relative"
+        >
+          <div
+            class="flex items-center justify-between py-2 mb-1 lg:mb-4 relative"
+          >
+            <button
+              aria-label="Back"
+              class="w-11 h-11 rounded-full bg-background-surface hover:bg-background-subtle border border-border-default active:scale-95 transition-all flex items-center justify-center text-text-primary shrink-0"
+              type="button"
+            >
+              <svg
+                aria-hidden="true"
+                fill="none"
+                height="20"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2.4"
+                viewBox="0 0 24 24"
+                width="20"
+              >
+                <path
+                  d="M19 12H5"
+                />
+                <path
+                  d="M12 19 5 12l7-7"
+                />
+              </svg>
+            </button>
+            <h1
+              class="flex-1 text-center text-[17px] font-semibold text-text-primary tracking-tight px-2 truncate"
+            >
+              Detail Customer
+            </h1>
+            <div
+              class="relative shrink-0"
+            >
+              <button
+                aria-expanded="false"
+                aria-haspopup="menu"
+                aria-label="More options"
+                class="w-11 h-11 rounded-full bg-background-surface hover:bg-background-subtle border border-border-default active:scale-95 transition-all flex items-center justify-center text-text-primary"
+                type="button"
+              >
+                <svg
+                  aria-hidden="true"
+                  fill="currentColor"
+                  height="20"
+                  viewBox="0 0 24 24"
+                  width="20"
+                >
+                  <circle
+                    cx="5"
+                    cy="12"
+                    r="1.8"
+                  />
+                  <circle
+                    cx="12"
+                    cy="12"
+                    r="1.8"
+                  />
+                  <circle
+                    cx="19"
+                    cy="12"
+                    r="1.8"
+                  />
+                </svg>
+              </button>
+            </div>
+          </div>
+          <div
+            class="pb-24 space-y-4"
+          >
+            <div
+              class="bg-background-surface rounded-3xl p-5 border border-border-default shadow-xs"
+            >
+              <div
+                class="flex-1 min-w-0 text-center py-2"
+              >
+                <h2
+                  class="text-[20px] font-bold text-text-primary leading-tight truncate mb-2"
+                >
+                  PT Mega Jaya Abadi
+                </h2>
+                <span
+                  class="inline-flex items-center rounded-full px-3 py-1 text-[13px] font-semibold bg-green-100 text-green-700"
+                >
+                  active
+                </span>
+              </div>
+            </div>
+            <div
+              class="bg-background-surface rounded-3xl border border-border-default shadow-xs overflow-hidden"
+            >
+              <div
+                class="px-5 pt-5 pb-3"
+              >
+                <h3
+                  class="text-[12px] font-bold text-text-tertiary tracking-widest uppercase"
+                >
+                  Customer Details
+                </h3>
+              </div>
+              <dl
+                class="divide-y divide-border-default"
+              >
+                <div
+                  class="flex items-center justify-between gap-4 px-5 py-4"
+                >
+                  <dt
+                    class="text-[13px] font-medium text-text-secondary shrink-0"
+                  >
+                    Customer ID
+                  </dt>
+                  <dd
+                    class="font-semibold text-text-primary text-[15px] text-right truncate"
+                  >
+                    1
+                  </dd>
+                </div>
+                <div
+                  class="flex items-center justify-between gap-4 px-5 py-4"
+                >
+                  <dt
+                    class="text-[13px] font-medium text-text-secondary shrink-0"
+                  >
+                    Phone
+                  </dt>
+                  <dd
+                    class="font-semibold text-text-primary text-[15px] text-right"
+                  >
+                    081234567890
+                  </dd>
+                </div>
+                <div
+                  class="flex gap-4 px-5 py-4"
+                >
+                  <dt
+                    class="text-[13px] font-medium text-text-secondary shrink-0 w-[92px] pt-0.5"
+                  >
+                    Address
+                  </dt>
+                  <dd
+                    class="font-semibold text-text-primary text-[15px] text-right flex-1 leading-snug"
+                  >
+                    Jl. Sudirman No. 45, Jakarta Pusat
+                  </dd>
+                </div>
+              </dl>
+            </div>
+            <div
+              class="bg-background-surface rounded-3xl border border-border-default shadow-xs overflow-hidden"
+            >
+              <div
+                class="px-5 pt-5 pb-1"
+              >
+                <h3
+                  class="text-[12px] font-bold text-text-tertiary tracking-widest uppercase"
+                >
+                  Record Info
+                </h3>
+              </div>
+              <div
+                class="grid grid-cols-2 divide-x divide-border-default"
+              >
+                <div
+                  class="px-5 py-4"
+                >
+                  <p
+                    class="text-[13px] font-medium text-text-secondary mb-1"
+                  >
+                    Created By
+                  </p>
+                  <p
+                    class="font-semibold text-text-primary text-[15px] truncate"
+                  >
+                    Admin
+                  </p>
+                </div>
+                <div
+                  class="px-5 py-4"
+                >
+                  <p
+                    class="text-[13px] font-medium text-text-secondary mb-1"
+                  >
+                    Created At
+                  </p>
+                  <p
+                    class="font-semibold text-text-primary text-[15px]"
+                  >
+                    2024-01-15 10:30
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            class="fixed inset-0 bg-black/60 z-50 flex items-center justify-center p-6 backdrop-blur-sm"
+          >
+            <div
+              class="bg-background-surface rounded-3xl w-full max-w-sm p-6 shadow-2xl"
+            >
+              <div
+                class="w-14 h-14 bg-red-100 rounded-full flex items-center justify-center mb-4 mx-auto text-red-600"
+              >
+                <svg
+                  fill="none"
+                  height="28"
+                  stroke="currentColor"
+                  stroke-width="2.5"
+                  viewBox="0 0 24 24"
+                  width="28"
+                >
+                  <path
+                    d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"
+                  />
+                  <line
+                    x1="12"
+                    x2="12"
+                    y1="9"
+                    y2="13"
+                  />
+                  <line
+                    x1="12"
+                    x2="12.01"
+                    y1="17"
+                    y2="17"
+                  />
+                </svg>
+              </div>
+              <h3
+                class="text-[22px] font-bold text-center text-text-primary mb-2"
+              >
+                Delete Customer?
+              </h3>
+              <p
+                class="text-[14px] text-text-secondary text-center mb-8 font-medium"
+              >
+                Are you sure you want to delete 
+                <span
+                  class="text-text-primary font-bold"
+                >
+                  PT Mega Jaya Abadi
+                </span>
+                ?
+              </p>
+              <div
+                class="flex gap-3"
+              >
+                <button
+                  class="flex-1 py-3.5 bg-background-subtle text-text-primary font-bold rounded-2xl hover:bg-border-default transition-colors"
+                  type="button"
+                >
+                  Cancel
+                </button>
+                <button
+                  class="flex-1 py-3.5 bg-red-600 text-white font-bold rounded-2xl hover:bg-red-700 transition-colors shadow-md"
+                  type="button"
+                >
+                  Yes, Delete
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+</DocumentFragment>
+`;

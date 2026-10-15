@@ -200,6 +200,16 @@
     font: inherit;
   }
 
+  .login-password-input::-ms-reveal,
+  .login-password-input::-ms-clear {
+    display: none;
+  }
+
+  .login-password-input::-webkit-credentials-auto-fill-button {
+    visibility: hidden;
+    pointer-events: none;
+  }
+
   :focus-visible {
     outline: 2px solid var(--focus-ring);
     outline-offset: 2px;
@@ -213,4 +223,9 @@
   flex-direction: column;
   zoom: 0.67;
   overflow: hidden;
+}
+
+.login-page-viewport {
+  height: calc(100svh / 0.67);
+  min-height: calc(100svh / 0.67);
 }

@@ -5,7 +5,7 @@ exports[`SidebarComponent matches snapshot 1`] = `
   <aside
     aria-label="Sidebar"
     class="w-[290px] h-full min-h-0 self-stretch bg-sidebar-background border border-border-default flex flex-col shrink-0 overflow-hidden transition-[width] duration-[250ms] ease-in-out"
-    style="border-radius: 12px;"
+    style="border-radius: 0;"
   >
     <div
       class="h-[56px] mb-16 flex items-center shrink-0 px-4"

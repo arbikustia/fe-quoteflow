@@ -1,0 +1,74 @@
+import type { ChangeEvent, SyntheticEvent } from 'react';
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+
+import type { LoginPageState } from './LoginPage.type';
+
+/**
+ * Custom hook for login page state and handlers
+ * @returns {LoginPageState} login page state and handlers
+ */
+export const useLoginPageState = (): LoginPageState => {
+  const navigate = useNavigate();
+  const [identifier, setIdentifier] = useState<string>('');
+  const [password, setPassword] = useState<string>('');
+  const [isPasswordVisible, setIsPasswordVisible] = useState<boolean>(false);
+  const [isRemembered, setIsRemembered] = useState<boolean>(false);
+
+  /**
+   * Handle identifier input change
+   * @param {ChangeEvent<HTMLInputElement>} event - change event
+   * @returns {void}
+   */
+  const handleIdentifierChange = (event: ChangeEvent<HTMLInputElement>): void => {
+    setIdentifier(event.target.value);
+  };
+
+  /**
+   * Handle password input change
+   * @param {ChangeEvent<HTMLInputElement>} event - change event
+   * @returns {void}
+   */
+  const handlePasswordChange = (event: ChangeEvent<HTMLInputElement>): void => {
+    setPassword(event.target.value);
+  };
+
+  /**
+   * Toggle password visibility state
+   * @returns {void}
+   */
+  const handleTogglePasswordVisibility = (): void => {
+    setIsPasswordVisible((prev: boolean): boolean => !prev);
+  };
+
+  /**
+   * Handle remember me checkbox change
+   * @param {ChangeEvent<HTMLInputElement>} event - change event
+   * @returns {void}
+   */
+  const handleRememberedChange = (event: ChangeEvent<HTMLInputElement>): void => {
+    setIsRemembered(event.target.checked);
+  };
+
+  /**
+   * Handle form submit
+   * @param {SyntheticEvent<HTMLFormElement>} event - form event
+   * @returns {void}
+   */
+  const handleSubmit = (event: SyntheticEvent<HTMLFormElement>): void => {
+    event.preventDefault();
+    navigate('/home');
+  };
+
+  return {
+    identifier,
+    password,
+    isPasswordVisible,
+    isRemembered,
+    handleIdentifierChange,
+    handlePasswordChange,
+    handleTogglePasswordVisibility,
+    handleRememberedChange,
+    handleSubmit,
+  };
+};

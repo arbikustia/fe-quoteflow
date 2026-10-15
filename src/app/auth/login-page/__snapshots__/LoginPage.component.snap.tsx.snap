@@ -1,0 +1,1156 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`LoginPageComponent matches snapshot 1`] = `
+<DocumentFragment>
+  <div
+    class="login-page-viewport w-full flex items-center justify-center bg-[#0d0932] p-0 font-sans overflow-hidden"
+  >
+    <div
+      class="absolute inset-0 bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(120,119,198,0.3),rgba(255,255,255,0))] pointer-events-none"
+    />
+    <div
+      class="relative w-full h-full bg-[#f9fafb] shadow-2xl flex flex-col lg:flex-row overflow-hidden z-10"
+    >
+      <div
+        class="w-full lg:w-1/2 h-full flex flex-col justify-between p-6 sm:p-10 lg:p-12 xl:p-16 bg-[#f9fafb] overflow-y-auto"
+      >
+        <div
+          class="flex lg:justify-start w-full"
+        >
+          <img
+            alt="Sonicline Logo"
+            class="h-12 sm:h-14 lg:h-16 w-auto object-contain"
+            src="/src/assets/Sonicline.png"
+          />
+        </div>
+        <div
+          class="lg:hidden w-full max-w-[280px] sm:max-w-xs mx-auto mt-4 mb-2"
+        >
+          <div
+            class="relative w-full max-w-[280px] py-1 mx-auto flex items-center justify-center"
+          >
+            <style>
+              
+      @keyframes gearFloat {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-5px); }
+      }
+      @keyframes tallyPulse {
+        0%, 100% { opacity: 1; filter: drop-shadow(0 0 3px #ef4444); }
+        50% { opacity: 0.25; filter: none; }
+      }
+      @keyframes beamShimmer {
+        0%, 100% { opacity: 0.10; }
+        50% { opacity: 0.22; }
+      }
+      .gear-float { animation: gearFloat 4.5s ease-in-out infinite; }
+      .tally-pulse { animation: tallyPulse 1.8s ease-in-out infinite; }
+      .beam-shimmer { animation: beamShimmer 3.5s ease-in-out infinite; }
+    
+            </style>
+            <div
+              class="absolute w-48 h-48 rounded-full bg-gradient-to-tr from-[#3550D7]/15 to-[#FF6E02]/10 blur-3xl pointer-events-none"
+            />
+            <svg
+              class="w-full h-auto drop-shadow-sm select-none"
+              fill="none"
+              viewBox="0 0 520 300"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <ellipse
+                cx="250"
+                cy="272"
+                fill="#E2E8F0"
+                rx="195"
+                ry="12"
+              />
+              <g
+                opacity="0.65"
+                stroke="#CBD5E1"
+                stroke-dasharray="3 3"
+                stroke-width="1"
+              >
+                <line
+                  x1="35"
+                  x2="485"
+                  y1="238"
+                  y2="238"
+                />
+                <line
+                  x1="65"
+                  x2="455"
+                  y1="264"
+                  y2="264"
+                />
+                <line
+                  x1="105"
+                  x2="415"
+                  y1="288"
+                  y2="288"
+                />
+                <line
+                  x1="105"
+                  x2="150"
+                  y1="238"
+                  y2="288"
+                />
+                <line
+                  x1="415"
+                  x2="370"
+                  y1="238"
+                  y2="288"
+                />
+              </g>
+              <g
+                class="gear-float"
+                transform="translate(44, 96)"
+              >
+                <rect
+                  fill="#0F172A"
+                  height="64"
+                  rx="9"
+                  width="94"
+                  x="26"
+                  y="36"
+                />
+                <rect
+                  fill="#334155"
+                  height="44"
+                  rx="5"
+                  width="70"
+                  x="36"
+                  y="46"
+                />
+                <circle
+                  cx="20"
+                  cy="68"
+                  fill="#1E293B"
+                  r="23"
+                  stroke="#3550D7"
+                  stroke-width="4"
+                />
+                <circle
+                  cx="20"
+                  cy="68"
+                  fill="#38BDF8"
+                  opacity="0.75"
+                  r="13"
+                />
+                <path
+                  d="M 44 36 V 20 Q 44 15 50 15 H 102 Q 108 15 108 20 V 36"
+                  fill="none"
+                  stroke="#475569"
+                  stroke-width="6"
+                />
+                <rect
+                  fill="#38BDF8"
+                  height="21"
+                  opacity="0.8"
+                  rx="2"
+                  width="30"
+                  x="48"
+                  y="56"
+                />
+                <circle
+                  class="tally-pulse"
+                  cx="108"
+                  cy="48"
+                  fill="#EF4444"
+                  r="4"
+                />
+                <rect
+                  fill="#64748B"
+                  height="8"
+                  rx="3"
+                  width="105"
+                  x="25"
+                  y="101"
+                />
+              </g>
+              <g
+                transform="translate(48, 204)"
+              >
+                <rect
+                  fill="#0F172A"
+                  height="60"
+                  rx="7"
+                  stroke="#334155"
+                  stroke-width="2"
+                  width="72"
+                />
+                <rect
+                  fill="#1E293B"
+                  height="43"
+                  rx="4"
+                  width="54"
+                  x="9"
+                  y="8"
+                />
+                <circle
+                  cx="36"
+                  cy="22"
+                  fill="#475569"
+                  r="8"
+                  stroke="#94A3B8"
+                  stroke-width="1.5"
+                />
+                <circle
+                  cx="36"
+                  cy="42"
+                  fill="#334155"
+                  r="12"
+                  stroke="#64748B"
+                  stroke-width="1.5"
+                />
+                <circle
+                  cx="36"
+                  cy="42"
+                  fill="#0F172A"
+                  r="5"
+                />
+                <rect
+                  fill="#475569"
+                  height="8"
+                  rx="2"
+                  width="12"
+                  x="30"
+                  y="-7"
+                />
+                <rect
+                  fill="#FF6E02"
+                  height="8"
+                  rx="2"
+                  width="4"
+                  x="10"
+                  y="28"
+                />
+              </g>
+              <g
+                transform="translate(196, 190)"
+              >
+                <path
+                  d="M 15 20 Q 15 8 27 8 H 91 Q 103 8 103 20 V 61 H 15 Z"
+                  fill="#F8FAFC"
+                  stroke="#64748B"
+                  stroke-width="2"
+                />
+                <path
+                  d="M 15 20 H 103"
+                  stroke="#CBD5E1"
+                  stroke-width="2"
+                />
+                <circle
+                  cx="78"
+                  cy="37"
+                  fill="#1E293B"
+                  r="15"
+                  stroke="#3550D7"
+                  stroke-width="3"
+                />
+                <circle
+                  cx="78"
+                  cy="37"
+                  fill="#38BDF8"
+                  opacity="0.8"
+                  r="7"
+                />
+                <rect
+                  fill="#E2E8F0"
+                  height="12"
+                  rx="3"
+                  width="28"
+                  x="27"
+                  y="31"
+                />
+                <circle
+                  cx="33"
+                  cy="62"
+                  fill="#475569"
+                  r="4"
+                />
+                <circle
+                  cx="89"
+                  cy="62"
+                  fill="#475569"
+                  r="4"
+                />
+                <path
+                  class="beam-shimmer"
+                  d="M 18 30 L -18 15 L -18 50 Z"
+                  fill="#38BDF8"
+                  opacity="0.12"
+                />
+              </g>
+              <g
+                transform="translate(274, 22)"
+              >
+                <rect
+                  fill="#FFFFFF"
+                  height="92"
+                  rx="12"
+                  stroke="#E2E8F0"
+                  stroke-width="1.5"
+                  width="202"
+                />
+                <rect
+                  fill="#EEF2FF"
+                  height="42"
+                  rx="8"
+                  width="42"
+                  x="12"
+                  y="13"
+                />
+                <rect
+                  fill="#3550D7"
+                  height="16"
+                  rx="3"
+                  width="24"
+                  x="21"
+                  y="25"
+                />
+                <circle
+                  cx="33"
+                  cy="33"
+                  fill="#38BDF8"
+                  r="5"
+                />
+                <text
+                  fill="#0F172A"
+                  font-family="sans-serif"
+                  font-size="12"
+                  font-weight="700"
+                  x="66"
+                  y="29"
+                >
+                  Kamera Pro
+                </text>
+                <text
+                  fill="#64748B"
+                  font-family="sans-serif"
+                  font-size="10"
+                  x="66"
+                  y="45"
+                >
+                  12 Jun • 2 unit
+                </text>
+                <rect
+                  fill="#ECFDF5"
+                  height="19"
+                  rx="9.5"
+                  width="62"
+                  x="66"
+                  y="57"
+                />
+                <circle
+                  cx="76"
+                  cy="66.5"
+                  fill="#10B981"
+                  r="3"
+                />
+                <text
+                  fill="#047857"
+                  font-family="sans-serif"
+                  font-size="9"
+                  font-weight="600"
+                  x="84"
+                  y="70"
+                >
+                  Tersedia
+                </text>
+                <rect
+                  fill="#FFF7ED"
+                  height="19"
+                  rx="9.5"
+                  width="52"
+                  x="136"
+                  y="57"
+                />
+                <text
+                  fill="#C2410C"
+                  font-family="sans-serif"
+                  font-size="9"
+                  font-weight="600"
+                  x="144"
+                  y="70"
+                >
+                  2 unit
+                </text>
+              </g>
+              <g
+                transform="translate(326, 126)"
+              >
+                <rect
+                  fill="#FFFFFF"
+                  height="58"
+                  rx="11"
+                  stroke="#E2E8F0"
+                  stroke-width="1.5"
+                  width="150"
+                />
+                <rect
+                  fill="#FFF7ED"
+                  height="34"
+                  rx="7"
+                  width="34"
+                  x="10"
+                  y="10"
+                />
+                <path
+                  d="M 18 29 H 36 L 33 20 H 21 Z"
+                  fill="#FF6E02"
+                />
+                <text
+                  fill="#0F172A"
+                  font-family="sans-serif"
+                  font-size="11"
+                  font-weight="700"
+                  x="55"
+                  y="24"
+                >
+                  Speaker Aktif
+                </text>
+                <text
+                  fill="#64748B"
+                  font-family="sans-serif"
+                  font-size="9"
+                  x="55"
+                  y="39"
+                >
+                  Kembali 14 Jun
+                </text>
+                <circle
+                  cx="134"
+                  cy="18"
+                  fill="#3550D7"
+                  r="5"
+                />
+              </g>
+              <g
+                transform="translate(136, 136)"
+              >
+                <circle
+                  cx="0"
+                  cy="0"
+                  fill="#3550D7"
+                  r="9"
+                />
+                <path
+                  d="M -4 0 L 0 4 L 5 -4"
+                  fill="none"
+                  stroke="#FFFFFF"
+                  stroke-width="1.5"
+                />
+                <line
+                  stroke="#3550D7"
+                  stroke-dasharray="4 3"
+                  stroke-width="2"
+                  x1="10"
+                  x2="48"
+                  y1="0"
+                  y2="0"
+                />
+                <circle
+                  cx="58"
+                  cy="0"
+                  fill="#FF6E02"
+                  r="9"
+                />
+                <rect
+                  fill="#FFFFFF"
+                  height="8"
+                  rx="1"
+                  width="8"
+                  x="54"
+                  y="-4"
+                />
+                <line
+                  stroke="#FF6E02"
+                  stroke-dasharray="4 3"
+                  stroke-width="2"
+                  x1="68"
+                  x2="106"
+                  y1="0"
+                  y2="0"
+                />
+                <circle
+                  cx="116"
+                  cy="0"
+                  fill="#10B981"
+                  r="9"
+                />
+                <path
+                  d="M 112 0 L 116 4 L 121 -4"
+                  fill="none"
+                  stroke="#FFFFFF"
+                  stroke-width="1.5"
+                />
+                <text
+                  fill="#64748B"
+                  font-family="sans-serif"
+                  font-size="9"
+                  x="-17"
+                  y="23"
+                >
+                  Pesan
+                </text>
+                <text
+                  fill="#64748B"
+                  font-family="sans-serif"
+                  font-size="9"
+                  x="38"
+                  y="23"
+                >
+                  Sewa
+                </text>
+                <text
+                  fill="#64748B"
+                  font-family="sans-serif"
+                  font-size="9"
+                  x="96"
+                  y="23"
+                >
+                  Kembali
+                </text>
+              </g>
+            </svg>
+          </div>
+        </div>
+        <div
+          class="w-full max-w-md mx-auto my-auto py-4 sm:py-6 lg:py-8"
+        >
+          <div
+            class="mb-6 sm:mb-8 text-center lg:text-left"
+          >
+            <h1
+              class="text-2xl sm:text-3xl font-bold tracking-tight text-[#111827] mb-2"
+            >
+              Selamat datang kembali
+            </h1>
+            <p
+              class="text-sm sm:text-base text-[#4b5563]"
+            >
+              Masuk untuk mengelola bisnis rental Anda.
+            </p>
+          </div>
+          <form
+            class="space-y-4 sm:space-y-5"
+          >
+            <div
+              class="w-full"
+            >
+              <label
+                class="block text-sm font-semibold text-[#1f2937] mb-2 text-left"
+                for="identifier"
+              >
+                Email atau nama pengguna
+              </label>
+              <input
+                class="w-full h-12 px-4 rounded-xl border border-[#d1d5db] bg-white text-base text-[#111827] placeholder:text-[#9ca3af] focus:border-[#3550D7] focus:outline-none focus:ring-2 focus:ring-[#3550D7]/25 transition-all"
+                id="identifier"
+                placeholder="nama@sonicline.co.id"
+                required=""
+                type="text"
+                value="user@sonicline.co.id"
+              />
+            </div>
+            <div
+              class="w-full"
+            >
+              <label
+                class="block text-sm font-semibold text-[#1f2937] mb-2 text-left"
+                for="password"
+              >
+                Kata sandi
+              </label>
+              <div
+                class="relative w-full"
+              >
+                <input
+                  class="login-password-input w-full h-12 px-4 pr-12 rounded-xl border border-[#d1d5db] bg-white text-base text-[#111827] placeholder:text-[#9ca3af] focus:border-[#3550D7] focus:outline-none focus:ring-2 focus:ring-[#3550D7]/25 transition-all"
+                  id="password"
+                  placeholder="••••••••"
+                  required=""
+                  type="password"
+                  value="password"
+                />
+                <button
+                  aria-label="Tampilkan kata sandi"
+                  class="absolute right-3 top-1/2 -translate-y-1/2 text-[#6b7280] hover:text-[#111827] focus:outline-none p-1.5 cursor-pointer"
+                  type="button"
+                >
+                  <svg
+                    fill="none"
+                    height="20"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    viewBox="0 0 24 24"
+                    width="20"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"
+                    />
+                    <circle
+                      cx="12"
+                      cy="12"
+                      r="3"
+                    />
+                  </svg>
+                </button>
+              </div>
+            </div>
+            <div
+              class="flex items-center justify-between pt-1 w-full"
+            >
+              <label
+                class="flex items-center gap-2.5 cursor-pointer text-sm font-medium text-[#4b5563] select-none"
+              >
+                <input
+                  checked=""
+                  class="h-4 w-4 rounded border-[#d1d5db] text-[#3550D7] focus:ring-[#3550D7]/30 cursor-pointer"
+                  type="checkbox"
+                />
+                <span>
+                  Ingat saya
+                </span>
+              </label>
+              <a
+                class="text-sm font-semibold text-[#3550D7] hover:text-[#2D43B8] transition-colors"
+                href="#"
+              >
+                Lupa kata sandi?
+              </a>
+            </div>
+            <button
+              class="w-full h-12 rounded-xl bg-[#3550D7] hover:bg-[#2D43B8] active:bg-[#293A91] text-white text-base font-semibold shadow-md transition-all flex items-center justify-center mt-2 cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-[#3550D7]"
+              type="submit"
+            >
+              Masuk
+            </button>
+          </form>
+        </div>
+        <div
+          class="text-xs text-[#9ca3af] text-center lg:text-left mt-4"
+        >
+          © 2026 PT Sonicline Multimedia. Hak cipta dilindungi.
+        </div>
+      </div>
+      <div
+        class="hidden lg:flex lg:w-1/2 h-full relative bg-[#F8FAFC] flex-col justify-between p-10 xl:p-14 overflow-hidden select-none border-l border-slate-200/90"
+      >
+        <div
+          class="absolute inset-0 bg-[linear-gradient(to_right,#E2E8F0_1px,transparent_1px),linear-gradient(to_bottom,#E2E8F0_1px,transparent_1px)] bg-[size:3.5rem_3.5rem] [mask-image:radial-gradient(ellipse_75%_65%_at_50%_50%,#000_70%,transparent_100%)] opacity-70 pointer-events-none"
+        />
+        <div
+          class="relative z-10 my-auto w-full"
+        >
+          <div
+            class="relative w-full max-w-[480px] xl:max-w-[520px] my-auto py-4 mx-auto flex items-center justify-center"
+          >
+            <style>
+              
+      @keyframes gearFloat {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-5px); }
+      }
+      @keyframes tallyPulse {
+        0%, 100% { opacity: 1; filter: drop-shadow(0 0 3px #ef4444); }
+        50% { opacity: 0.25; filter: none; }
+      }
+      @keyframes beamShimmer {
+        0%, 100% { opacity: 0.10; }
+        50% { opacity: 0.22; }
+      }
+      .gear-float { animation: gearFloat 4.5s ease-in-out infinite; }
+      .tally-pulse { animation: tallyPulse 1.8s ease-in-out infinite; }
+      .beam-shimmer { animation: beamShimmer 3.5s ease-in-out infinite; }
+    
+            </style>
+            <div
+              class="absolute w-80 h-80 rounded-full bg-gradient-to-tr from-[#3550D7]/15 to-[#FF6E02]/10 blur-3xl pointer-events-none"
+            />
+            <svg
+              class="w-full h-auto drop-shadow-sm select-none"
+              fill="none"
+              viewBox="0 0 520 300"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <ellipse
+                cx="250"
+                cy="272"
+                fill="#E2E8F0"
+                rx="195"
+                ry="12"
+              />
+              <g
+                opacity="0.65"
+                stroke="#CBD5E1"
+                stroke-dasharray="3 3"
+                stroke-width="1"
+              >
+                <line
+                  x1="35"
+                  x2="485"
+                  y1="238"
+                  y2="238"
+                />
+                <line
+                  x1="65"
+                  x2="455"
+                  y1="264"
+                  y2="264"
+                />
+                <line
+                  x1="105"
+                  x2="415"
+                  y1="288"
+                  y2="288"
+                />
+                <line
+                  x1="105"
+                  x2="150"
+                  y1="238"
+                  y2="288"
+                />
+                <line
+                  x1="415"
+                  x2="370"
+                  y1="238"
+                  y2="288"
+                />
+              </g>
+              <g
+                class="gear-float"
+                transform="translate(44, 96)"
+              >
+                <rect
+                  fill="#0F172A"
+                  height="64"
+                  rx="9"
+                  width="94"
+                  x="26"
+                  y="36"
+                />
+                <rect
+                  fill="#334155"
+                  height="44"
+                  rx="5"
+                  width="70"
+                  x="36"
+                  y="46"
+                />
+                <circle
+                  cx="20"
+                  cy="68"
+                  fill="#1E293B"
+                  r="23"
+                  stroke="#3550D7"
+                  stroke-width="4"
+                />
+                <circle
+                  cx="20"
+                  cy="68"
+                  fill="#38BDF8"
+                  opacity="0.75"
+                  r="13"
+                />
+                <path
+                  d="M 44 36 V 20 Q 44 15 50 15 H 102 Q 108 15 108 20 V 36"
+                  fill="none"
+                  stroke="#475569"
+                  stroke-width="6"
+                />
+                <rect
+                  fill="#38BDF8"
+                  height="21"
+                  opacity="0.8"
+                  rx="2"
+                  width="30"
+                  x="48"
+                  y="56"
+                />
+                <circle
+                  class="tally-pulse"
+                  cx="108"
+                  cy="48"
+                  fill="#EF4444"
+                  r="4"
+                />
+                <rect
+                  fill="#64748B"
+                  height="8"
+                  rx="3"
+                  width="105"
+                  x="25"
+                  y="101"
+                />
+              </g>
+              <g
+                transform="translate(48, 204)"
+              >
+                <rect
+                  fill="#0F172A"
+                  height="60"
+                  rx="7"
+                  stroke="#334155"
+                  stroke-width="2"
+                  width="72"
+                />
+                <rect
+                  fill="#1E293B"
+                  height="43"
+                  rx="4"
+                  width="54"
+                  x="9"
+                  y="8"
+                />
+                <circle
+                  cx="36"
+                  cy="22"
+                  fill="#475569"
+                  r="8"
+                  stroke="#94A3B8"
+                  stroke-width="1.5"
+                />
+                <circle
+                  cx="36"
+                  cy="42"
+                  fill="#334155"
+                  r="12"
+                  stroke="#64748B"
+                  stroke-width="1.5"
+                />
+                <circle
+                  cx="36"
+                  cy="42"
+                  fill="#0F172A"
+                  r="5"
+                />
+                <rect
+                  fill="#475569"
+                  height="8"
+                  rx="2"
+                  width="12"
+                  x="30"
+                  y="-7"
+                />
+                <rect
+                  fill="#FF6E02"
+                  height="8"
+                  rx="2"
+                  width="4"
+                  x="10"
+                  y="28"
+                />
+              </g>
+              <g
+                transform="translate(196, 190)"
+              >
+                <path
+                  d="M 15 20 Q 15 8 27 8 H 91 Q 103 8 103 20 V 61 H 15 Z"
+                  fill="#F8FAFC"
+                  stroke="#64748B"
+                  stroke-width="2"
+                />
+                <path
+                  d="M 15 20 H 103"
+                  stroke="#CBD5E1"
+                  stroke-width="2"
+                />
+                <circle
+                  cx="78"
+                  cy="37"
+                  fill="#1E293B"
+                  r="15"
+                  stroke="#3550D7"
+                  stroke-width="3"
+                />
+                <circle
+                  cx="78"
+                  cy="37"
+                  fill="#38BDF8"
+                  opacity="0.8"
+                  r="7"
+                />
+                <rect
+                  fill="#E2E8F0"
+                  height="12"
+                  rx="3"
+                  width="28"
+                  x="27"
+                  y="31"
+                />
+                <circle
+                  cx="33"
+                  cy="62"
+                  fill="#475569"
+                  r="4"
+                />
+                <circle
+                  cx="89"
+                  cy="62"
+                  fill="#475569"
+                  r="4"
+                />
+                <path
+                  class="beam-shimmer"
+                  d="M 18 30 L -18 15 L -18 50 Z"
+                  fill="#38BDF8"
+                  opacity="0.12"
+                />
+              </g>
+              <g
+                transform="translate(274, 22)"
+              >
+                <rect
+                  fill="#FFFFFF"
+                  height="92"
+                  rx="12"
+                  stroke="#E2E8F0"
+                  stroke-width="1.5"
+                  width="202"
+                />
+                <rect
+                  fill="#EEF2FF"
+                  height="42"
+                  rx="8"
+                  width="42"
+                  x="12"
+                  y="13"
+                />
+                <rect
+                  fill="#3550D7"
+                  height="16"
+                  rx="3"
+                  width="24"
+                  x="21"
+                  y="25"
+                />
+                <circle
+                  cx="33"
+                  cy="33"
+                  fill="#38BDF8"
+                  r="5"
+                />
+                <text
+                  fill="#0F172A"
+                  font-family="sans-serif"
+                  font-size="12"
+                  font-weight="700"
+                  x="66"
+                  y="29"
+                >
+                  Kamera Pro
+                </text>
+                <text
+                  fill="#64748B"
+                  font-family="sans-serif"
+                  font-size="10"
+                  x="66"
+                  y="45"
+                >
+                  12 Jun • 2 unit
+                </text>
+                <rect
+                  fill="#ECFDF5"
+                  height="19"
+                  rx="9.5"
+                  width="62"
+                  x="66"
+                  y="57"
+                />
+                <circle
+                  cx="76"
+                  cy="66.5"
+                  fill="#10B981"
+                  r="3"
+                />
+                <text
+                  fill="#047857"
+                  font-family="sans-serif"
+                  font-size="9"
+                  font-weight="600"
+                  x="84"
+                  y="70"
+                >
+                  Tersedia
+                </text>
+                <rect
+                  fill="#FFF7ED"
+                  height="19"
+                  rx="9.5"
+                  width="52"
+                  x="136"
+                  y="57"
+                />
+                <text
+                  fill="#C2410C"
+                  font-family="sans-serif"
+                  font-size="9"
+                  font-weight="600"
+                  x="144"
+                  y="70"
+                >
+                  2 unit
+                </text>
+              </g>
+              <g
+                transform="translate(326, 126)"
+              >
+                <rect
+                  fill="#FFFFFF"
+                  height="58"
+                  rx="11"
+                  stroke="#E2E8F0"
+                  stroke-width="1.5"
+                  width="150"
+                />
+                <rect
+                  fill="#FFF7ED"
+                  height="34"
+                  rx="7"
+                  width="34"
+                  x="10"
+                  y="10"
+                />
+                <path
+                  d="M 18 29 H 36 L 33 20 H 21 Z"
+                  fill="#FF6E02"
+                />
+                <text
+                  fill="#0F172A"
+                  font-family="sans-serif"
+                  font-size="11"
+                  font-weight="700"
+                  x="55"
+                  y="24"
+                >
+                  Speaker Aktif
+                </text>
+                <text
+                  fill="#64748B"
+                  font-family="sans-serif"
+                  font-size="9"
+                  x="55"
+                  y="39"
+                >
+                  Kembali 14 Jun
+                </text>
+                <circle
+                  cx="134"
+                  cy="18"
+                  fill="#3550D7"
+                  r="5"
+                />
+              </g>
+              <g
+                transform="translate(136, 136)"
+              >
+                <circle
+                  cx="0"
+                  cy="0"
+                  fill="#3550D7"
+                  r="9"
+                />
+                <path
+                  d="M -4 0 L 0 4 L 5 -4"
+                  fill="none"
+                  stroke="#FFFFFF"
+                  stroke-width="1.5"
+                />
+                <line
+                  stroke="#3550D7"
+                  stroke-dasharray="4 3"
+                  stroke-width="2"
+                  x1="10"
+                  x2="48"
+                  y1="0"
+                  y2="0"
+                />
+                <circle
+                  cx="58"
+                  cy="0"
+                  fill="#FF6E02"
+                  r="9"
+                />
+                <rect
+                  fill="#FFFFFF"
+                  height="8"
+                  rx="1"
+                  width="8"
+                  x="54"
+                  y="-4"
+                />
+                <line
+                  stroke="#FF6E02"
+                  stroke-dasharray="4 3"
+                  stroke-width="2"
+                  x1="68"
+                  x2="106"
+                  y1="0"
+                  y2="0"
+                />
+                <circle
+                  cx="116"
+                  cy="0"
+                  fill="#10B981"
+                  r="9"
+                />
+                <path
+                  d="M 112 0 L 116 4 L 121 -4"
+                  fill="none"
+                  stroke="#FFFFFF"
+                  stroke-width="1.5"
+                />
+                <text
+                  fill="#64748B"
+                  font-family="sans-serif"
+                  font-size="9"
+                  x="-17"
+                  y="23"
+                >
+                  Pesan
+                </text>
+                <text
+                  fill="#64748B"
+                  font-family="sans-serif"
+                  font-size="9"
+                  x="38"
+                  y="23"
+                >
+                  Sewa
+                </text>
+                <text
+                  fill="#64748B"
+                  font-family="sans-serif"
+                  font-size="9"
+                  x="96"
+                  y="23"
+                >
+                  Kembali
+                </text>
+              </g>
+            </svg>
+          </div>
+        </div>
+        <div
+          class="relative z-10 space-y-2 pt-4"
+        >
+          <h3
+            class="text-xl xl:text-2xl font-bold tracking-tight text-[#0F172A]"
+          >
+            Kelola rental lebih mudah, dari pemesanan hingga pengembalian.
+          </h3>
+          <p
+            class="text-sm text-slate-600 leading-relaxed max-w-lg"
+          >
+            Pantau ketersediaan barang, transaksi, pelanggan, dan jadwal rental dalam satu sistem terintegrasi.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;

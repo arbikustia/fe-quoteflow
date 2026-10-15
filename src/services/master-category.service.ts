@@ -1,8 +1,23 @@
 import { apiRtkClient } from "@/libs/ApiRtkServices/apiRtkClient";
-import type { CategoryAllResponse, CategoryCreatePayload, CategoryCreateResponse, CategoryData, CategoryListParams, CategoryListResponse } from "@/modules/master-category/MasterCategory.type";
+import type {
+  CategoryAllResponse,
+  CategoryCreatePayload,
+  CategoryCreateResponse,
+  CategoryData,
+  CategoryListParams,
+  CategoryListResponse,
+} from "@/modules/master-category/MasterCategory.type";
 
-/** Map API category model to UI model. */
-export const mapCategory = (category: CategoryListResponse["data"][number]): CategoryData => ({
+const CATEGORY_TAG = "Category";
+
+/**
+ * Map API category model to UI model.
+ * @param {CategoryListResponse["data"][number]} category - API category model
+ * @returns {CategoryData} Category UI model
+ */
+export const mapCategory = (
+  category: CategoryListResponse["data"][number],
+): CategoryData => ({
   id: category.id,
   categoryName: category.category_name,
   status: category.status === 1 ? "active" : "inactive",
@@ -10,13 +25,45 @@ export const mapCategory = (category: CategoryListResponse["data"][number]): Cat
   createBy: category.created_by ?? "",
 });
 
+/** RTK Query endpoints for master category data. */
 export const masterCategoryService = apiRtkClient.injectEndpoints({
   endpoints: (builder) => ({
-    getCategories: builder.query<CategoryListResponse, CategoryListParams>({ query: (params) => ({ url: "/api/category/paged", method: "GET", params: { PageNumber: params.pageNumber, PageSize: params.pageSize, SearchTerm: params.searchTerm } }), providesTags: ["Category"] }),
-    createCategory: builder.mutation<CategoryCreateResponse, CategoryCreatePayload>({ query: (body) => ({ url: "/api/category", method: "POST", data: body }), invalidatesTags: ["Category"] }),
-    getAllCategories: builder.query<CategoryAllResponse, void>({ query: () => ({ url: "/api/category/get-all-category", method: "GET" }), providesTags: ["Category"] }),
+    getCategories: builder.query<CategoryListResponse, CategoryListParams>({
+      query: (params) => ({
+        url: "/api/category/paged",
+        method: "GET",
+        params: {
+          PageNumber: params.pageNumber,
+          PageSize: params.pageSize,
+          SearchTerm: params.searchTerm,
+        },
+      }),
+      providesTags: [CATEGORY_TAG],
+    }),
+    createCategory: builder.mutation<
+      CategoryCreateResponse,
+      CategoryCreatePayload
+    >({
+      query: (body) => ({
+        url: "/api/category",
+        method: "POST",
+        data: body,
+      }),
+      invalidatesTags: [CATEGORY_TAG],
+    }),
+    getAllCategories: builder.query<CategoryAllResponse, void>({
+      query: () => ({
+        url: "/api/category/get-all-category",
+        method: "GET",
+      }),
+      providesTags: [CATEGORY_TAG],
+    }),
   }),
   overrideExisting: false,
 });
 
-export const { useGetCategoriesQuery, useCreateCategoryMutation, useGetAllCategoriesQuery } = masterCategoryService;
+export const {
+  useGetCategoriesQuery,
+  useCreateCategoryMutation,
+  useGetAllCategoriesQuery,
+} = masterCategoryService;

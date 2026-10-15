@@ -1,7 +1,11 @@
-import LoginPage from "./components";
+import type { ReactElement } from 'react';
 
-const Login = () => {
-  return <LoginPage />;
-};
+import LoginPageContainer from './LoginPage.container';
 
-export default Login;
+/**
+ * Login Page wrapper
+ * @returns {ReactElement} login container
+ */
+export default function Login(): ReactElement {
+  return <LoginPageContainer />;
+}

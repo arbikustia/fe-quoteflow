@@ -98,17 +98,19 @@ export const MasterCustomerCreateForm = (props: MasterCustomerCreateFormState): 
   return (
     <div className="flex-1 w-full min-h-full bg-background-page font-sans pb-10 relative overflow-y-auto">
       {_renderMobileBack(goBack)}
-      <div className="px-6 mt-2 lg:px-0 lg:mt-0 lg:max-w-3xl">
+      <div className="px-6 mt-2 lg:px-8 lg:mt-0 w-full">
         {_renderHeaderSection(goBack)}
-        <form onSubmit={handleSubmit} className="flex flex-col rounded-2xl lg:border lg:border-border-default lg:bg-background-surface lg:p-6">
-          {_renderNameField(props)}
-          {_renderPhoneField(props)}
-          {_renderAddressField(props)}
-          {errorMessage && <p role="alert" className="mb-4 text-[13px] font-medium text-red-600">{errorMessage}</p>}
-          {successMessage && <p role="status" className="mb-4 text-[13px] font-medium text-green-700">{successMessage}</p>}
-          <button type="submit" disabled={isSubmitting} className="w-full bg-action-primary text-text-inverse rounded-xl py-3 text-[15px] font-bold tracking-wide shadow-sm hover:bg-action-primary-hover transition-all mt-2 disabled:opacity-60">
-            {isSubmitting ? "Creating…" : "Create Customer"}
-          </button>
+        <form onSubmit={handleSubmit} className="grid w-full grid-cols-1 gap-x-6 gap-y-1 rounded-2xl border border-border-default bg-background-surface p-5 shadow-sm sm:p-6 lg:grid-cols-2 lg:p-8">
+          <div>{_renderNameField(props)}</div>
+          <div>{_renderPhoneField(props)}</div>
+          <div className="lg:col-span-2">{_renderAddressField(props)}</div>
+          {errorMessage && <p role="alert" className="lg:col-span-2 mb-2 rounded-lg border border-red-200 bg-red-50 px-3 py-2 text-[13px] font-medium text-red-700">{errorMessage}</p>}
+          {successMessage && <p role="status" className="lg:col-span-2 mb-2 rounded-lg border border-green-200 bg-green-50 px-3 py-2 text-[13px] font-medium text-green-700">{successMessage}</p>}
+          <div className="lg:col-span-2 mt-2 border-t border-border-default pt-5">
+            <button type="submit" disabled={isSubmitting} className="w-full bg-action-primary text-text-inverse rounded-xl py-3 text-[15px] font-bold tracking-wide shadow-sm hover:bg-action-primary-hover transition-all disabled:opacity-60">
+              {isSubmitting ? "Creating…" : "Create Customer"}
+            </button>
+          </div>
         </form>
       </div>
     </div>

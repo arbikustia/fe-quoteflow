@@ -35,7 +35,7 @@ export const SidebarComponent = (props: SidebarProps): React.ReactElement => {
   return (
     <aside
       className={`${isCollapsed ? "w-[84px]" : "w-[290px]"} h-full min-h-0 self-stretch bg-sidebar-background border border-border-default flex flex-col shrink-0 overflow-hidden transition-[width] duration-[250ms] ease-in-out`}
-      style={{ borderRadius: 12 }}
+      style={{ borderRadius: 0 }}
       aria-label="Sidebar"
     >
       {/* Header — logo only (sidebar toggle lives in navbar) */}

@@ -3,9 +3,9 @@ import { useLocation } from "react-router-dom";
 
 import GlobalHeader from "./GlobalHeader";
 import MobileNavigate from "../../components/MobileNavigate";
+import NavbarContainer from "../../components/Navbar/index";
 import SidebarContainer from "../../components/Sidebar/index";
 import { useSidebarCollapse } from "../../hooks/useSidebarCollapse";
-import NavbarContainer from "../../components/Navbar/index";
 
 export type ResponsiveLayoutProps = {
   readonly children: React.ReactNode;
@@ -34,7 +34,7 @@ export const ResponsiveLayout = ({
   const isMasterSubRoute = path.startsWith("/master-") && path !== "/master-main";
 
   return (
-    <div className="flex h-full min-h-0 w-full bg-brand-white overflow-hidden font-sans text-brand-text-dark relative items-stretch">
+    <div className="flex h-screen min-h-screen lg:h-svh lg:min-h-svh w-full bg-brand-white overflow-hidden font-sans text-brand-text-dark relative items-stretch">
       {/* Desktop Sidebar */}
       <div className="hidden lg:flex h-full min-h-0 shrink-0 self-stretch">
         <SidebarContainer isCollapsed={isSidebarCollapsed} />
