@@ -1,3 +1,5 @@
 export type NavbarProps = {
-  pageTitle?: string;
+  readonly pageTitle?: string;
+  readonly isSidebarCollapsed: boolean;
+  readonly onToggleSidebar: () => void;
 };

@@ -15,8 +15,7 @@ jest.mock("../../components/MobileList", () => ({
 }));
 
 jest.mock("../../components/Pagination", () => ({
-  PaginationFooter: () => <div data-testid="pagination-footer" />,
-  PaginationHeader: () => <div data-testid="pagination-header" />,
+  Pagination: () => <div data-testid="pagination" />,
 }));
 
 jest.mock("../../components/Table", () => () => <div data-testid="table" />);

@@ -1,8 +1,9 @@
 import React from "react";
 import { useLocation } from "react-router-dom";
 
-import Navbar from "../components/Navbar/index";
-import Sidebar from "../components/Sidebar/index";
+import SidebarContainer from "../components/Sidebar/index";
+import { useSidebarCollapse } from "../hooks/useSidebarCollapse";
+import NavbarContainer from "../components/Navbar/index";
 
 export type LayoutProps = {
   readonly children: React.ReactNode;
@@ -16,12 +17,13 @@ export type LayoutProps = {
  */
 export default function Layout({ children }: LayoutProps): React.ReactElement {
   const { pathname } = useLocation();
+  const { isSidebarCollapsed, onToggleSidebarCollapsed } = useSidebarCollapse();
   const isMasterRoute = pathname.startsWith("/master");
 
   return (
     <div className="flex h-full min-h-0 w-full bg-background-page overflow-hidden font-sans text-text-primary relative items-stretch">
       <div className="hidden lg:flex h-full min-h-0 shrink-0 self-stretch">
-        <Sidebar />
+        <SidebarContainer isCollapsed={isSidebarCollapsed} />
       </div>
 
       <div className="flex-1 flex flex-col min-w-0 min-h-0 overflow-hidden relative bg-background-page">
@@ -35,7 +37,7 @@ export default function Layout({ children }: LayoutProps): React.ReactElement {
         )}
 
         <div className="hidden lg:block shrink-0">
-          <Navbar />
+          <NavbarContainer isSidebarCollapsed={isSidebarCollapsed} onToggleSidebar={onToggleSidebarCollapsed} />
         </div>
 
         <main className="flex-1 overflow-y-auto p-4 lg:p-8 pb-20 lg:pb-8 relative z-0">

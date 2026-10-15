@@ -5,7 +5,7 @@ import { ItemDetailModal } from "./components/ItemDetailModal.component";
 import type { BaseDesktopOrderState, DesktopOrderProps, OrderHeaderProps, OrderTableContainerProps, OrderTabsProps, OrderToolbarProps, TabType } from "./DesktopOrder.type";
 import ConfirmModal from "../../../components/ConfirmModal";
 import { Icons } from "../../../components/Icons";
-import { PaginationFooter, PaginationHeader } from "../../../components/Pagination";
+import { Pagination } from "../../../components/Pagination";
 import Table from "../../../components/Table";
 
 /**
@@ -90,7 +90,6 @@ const OrderToolbar = ({ pageSize, totalCount, changePageSize }: OrderToolbarProp
           className="w-64 pl-10 pr-4 py-2 bg-brand-gray-light border-none rounded-lg text-sm font-medium focus:outline-none focus:ring-1 focus:ring-brand-gray-light text-brand-text-dark placeholder:text-brand-text-medium"
         />
       </div>
-      <PaginationHeader pageSize={pageSize} totalCount={totalCount} onPageSizeChange={_handlePageSizeChange} />
     </div>
   );
 };
@@ -113,7 +112,7 @@ const OrderTableContainer = ({ paginatedData, columns, currentPage, totalPages, 
       <Table data={paginatedData} columns={columns} keyExtractor={(row) => row.id} />
     </div>
 
-    <PaginationFooter currentPage={currentPage} totalPages={totalPages} onPageChange={goToPage} onNextPage={nextPage} onPrevPage={prevPage} />
+    <Pagination currentPage={currentPage} totalPages={totalPages} pageSize={pageSize} onPageChange={goToPage} onPageSizeChange={changePageSize} />
   </>
 );
 

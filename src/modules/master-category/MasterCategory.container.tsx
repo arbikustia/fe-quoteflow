@@ -1,4 +1,5 @@
-import * as React from "react";
+import type { ReactElement } from "react";
+import { useMemo } from "react";
 
 import { getColumns } from "./MasterCategory.columns";
 import { MasterCategoryComponent } from "./MasterCategory.component";
@@ -9,19 +10,19 @@ import {
 import type { CategoryData } from "./MasterCategory.type";
 
 /**
- * Master Category Container
- * @returns {React.ReactElement} Container element
+ * Master Category Container.
+ * @returns {ReactElement} Container element
  */
-const MasterCategoryContainer = (): React.ReactElement => {
+const MasterCategoryContainer = (): ReactElement => {
   const { goBack, goCreate, goEdit, goDetail } = useMasterCategoryNavigation();
   const { pagination, isMoreOpen, toggleMore, handleCloseMore, goDelete } = useMasterCategoryContainerState();
-  const goDeleteRow = (category: CategoryData): void => goEdit(category);
-  const columns = getColumns({
+  
+  const columns = useMemo(() => getColumns({
     currentPage: pagination.currentPage,
     pageSize: pagination.pageSize,
     onEdit: goEdit,
-    onDelete: goDeleteRow,
-  });
+    onDelete: (_data: CategoryData) => {},
+  }), [pagination.currentPage, pagination.pageSize, goEdit]);
 
   return (
     <MasterCategoryComponent

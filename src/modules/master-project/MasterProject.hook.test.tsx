@@ -12,8 +12,8 @@ jest.mock("react-router-dom", () => {
   };
 });
 
-jest.mock("./MasterProject.api", () => {
-  const actual = jest.requireActual("./MasterProject.api");
+jest.mock("@/services/master-project.service", () => {
+  const actual = jest.requireActual("@/services/master-project.service");
   return {
     ...actual,
     useGetProjectsQuery: jest.fn(),
@@ -65,7 +65,7 @@ describe("MasterProject Navigation Hook", () => {
 });
 
 describe("MasterProject Pagination Hook", () => {
-  const mockUseGetProjectsQuery = require("./MasterProject.api").useGetProjectsQuery;
+  const mockUseGetProjectsQuery = require("@/services/master-project.service").useGetProjectsQuery;
 
   beforeEach(() => {
     jest.clearAllMocks();
@@ -223,7 +223,7 @@ describe("MasterProject Pagination Hook", () => {
 });
 
 describe("MasterProject Container State Hook", () => {
-  const mockUseGetProjectsQuery = require("./MasterProject.api").useGetProjectsQuery;
+  const mockUseGetProjectsQuery = require("@/services/master-project.service").useGetProjectsQuery;
 
   beforeEach(() => {
     jest.clearAllMocks();
@@ -271,7 +271,7 @@ describe("MasterProject Container State Hook", () => {
 
 describe("_mapProject function", () => {
   it("should map API project to UI model correctly", () => {
-    const { _mapProject } = require("./MasterProject.api");
+    const { mapProject } = require("@/services/master-project.service");
 
     const apiProject = {
       id: "P001",
@@ -282,7 +282,7 @@ describe("_mapProject function", () => {
       created_by: "Admin",
     };
 
-    const mapped = _mapProject(apiProject);
+    const mapped = mapProject(apiProject);
 
     expect(mapped).toEqual({
       id: "P001",
@@ -296,7 +296,7 @@ describe("_mapProject function", () => {
   });
 
   it("should map inactive status correctly", () => {
-    const { _mapProject } = require("./MasterProject.api");
+    const { mapProject } = require("@/services/master-project.service");
 
     const apiProject = {
       id: "P002",
@@ -307,7 +307,7 @@ describe("_mapProject function", () => {
       created_by: null,
     };
 
-    const mapped = _mapProject(apiProject);
+    const mapped = mapProject(apiProject);
 
     expect(mapped).toEqual({
       id: "P002",

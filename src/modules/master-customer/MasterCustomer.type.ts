@@ -1,5 +1,3 @@
-import type * as React from "react";
-
 import type { TableColumn } from "../../components/Table";
 import type { ApiEnvelope, PaginatedResponse } from "../../types/api.type";
 
@@ -112,27 +110,3 @@ export type GetColumnsParams = {
   readonly onEdit: (customer: CustomerData) => void;
 };
 
-export type InputFieldProps = {
-  readonly label: string;
-  readonly placeholder: string;
-  readonly value: string;
-  readonly required?: boolean;
-  readonly icon: React.ReactNode;
-  readonly type?: string;
-  readonly multiline?: boolean;
-  readonly onChange: (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
-};
-
-export type MasterCustomerCreateFormState = {
-  readonly name: string;
-  readonly address: string;
-  readonly phoneNumber: string;
-  readonly isSubmitting: boolean;
-  readonly errorMessage: string | null;
-  readonly successMessage: string | null;
-  readonly handleNameChange: (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
-  readonly handlePhoneNumberChange: (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
-  readonly handleAddressChange: (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
-  readonly handleSubmit: (event: React.SyntheticEvent) => void;
-  readonly goBack: () => void;
-};

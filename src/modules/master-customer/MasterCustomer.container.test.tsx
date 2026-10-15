@@ -1,61 +1,57 @@
-import { fireEvent, render, screen } from "@testing-library/react";
+import { beforeEach, describe, expect, it, jest } from "@jest/globals";
+import { render, screen } from "@testing-library/react";
+import "@testing-library/jest-dom";
 import { BrowserRouter } from "react-router-dom";
 
 import MasterCustomerContainer from "./MasterCustomer.container";
-import { useGetCustomersQuery } from "./MasterCustomer.api";
+import * as hooks from "./MasterCustomer.hook";
 
-vi.mock("./MasterCustomer.api", () => ({
-  useGetCustomersQuery: vi.fn(),
-  useCreateCustomerMutation: vi.fn(),
-  _mapCustomer: (customer: { readonly id: string; readonly name: string; readonly address: string | null; readonly phone_number: string | null; readonly status: number; readonly created_at: string | null; readonly created_by: string | null }) => ({
-    id: customer.id,
-    name: customer.name,
-    address: customer.address ?? "",
-    phoneNumber: customer.phone_number ?? "",
-    status: customer.status === 1 ? "active" : "inactive",
-    createAt: customer.created_at ?? "",
-    createBy: customer.created_by ?? "",
-  }),
+jest.mock("./MasterCustomer.hook", () => ({
+  useMasterCustomerNavigation: jest.fn(),
+  useMasterCustomerContainerState: jest.fn(),
 }));
 
-// Mock the component to avoid rendering the full UI
 jest.mock("./MasterCustomer.component", () => ({
-  MasterCustomerComponent: (props: any) => (
-    <div data-testid="mock-component" {...props} />
+  MasterCustomerComponent: (props: { readonly currentPage: number }) => (
+    <div data-testid="mock-component" data-page={props.currentPage} />
   ),
 }));
 
-const mockQueryResult = {
-  data: {
-    status: true,
-    messages: null,
-    data: {
-      data: [
-        {
-          id: "1",
-          name: "PT Mega Jaya Abadi",
-          address: "Jl. Sudirman No. 45",
-          phone_number: "081234567890",
-          status: 1,
-          created_at: "2024-01-15 10:30",
-          created_by: "Admin",
-        },
-      ],
-      page_number: 1,
-      total_pages: 2,
-      page_size: 10,
-      total_count: 11,
-      has_previous: false,
-      has_next: true,
-    },
-  },
-  error: undefined,
-  isLoading: false,
-};
-
 describe("MasterCustomer Container", () => {
-  it("should render component while query resolves from API", () => {
-    vi.mocked(useGetCustomersQuery).mockReturnValue(mockQueryResult as ReturnType<typeof useGetCustomersQuery>);
+  beforeEach(() => {
+    jest.clearAllMocks();
+  });
+
+  it("should render component with hook state and columns", () => {
+    jest.mocked(hooks.useMasterCustomerNavigation).mockReturnValue({
+      goBack: jest.fn(),
+      goCreate: jest.fn(),
+      goEdit: jest.fn(),
+      goDetail: jest.fn(),
+    });
+
+    jest.mocked(hooks.useMasterCustomerContainerState).mockReturnValue({
+      pagination: {
+        currentPage: 1,
+        totalPages: 2,
+        pageSize: 10,
+        paginatedData: [],
+        totalCount: 0,
+        isLoading: false,
+        errorMessage: null,
+        isEmpty: true,
+        isMissingData: false,
+        goToPage: jest.fn(),
+        nextPage: jest.fn(),
+        prevPage: jest.fn(),
+        changePageSize: jest.fn(),
+        setSearchTerm: jest.fn(),
+      },
+      isMoreOpen: false,
+      toggleMore: jest.fn(),
+      handleCloseMore: jest.fn(),
+      goDelete: jest.fn(),
+    });
 
     render(
       <BrowserRouter>
@@ -64,20 +60,5 @@ describe("MasterCustomer Container", () => {
     );
 
     expect(screen.getByTestId("mock-component")).toBeInTheDocument();
-    expect(useGetCustomersQuery).toHaveBeenCalledWith({ pageNumber: 1, pageSize: 10, searchTerm: "" });
-  });
-
-  it("should refetch with search term when search input changes", () => {
-    vi.mocked(useGetCustomersQuery).mockReturnValue(mockQueryResult as ReturnType<typeof useGetCustomersQuery>);
-
-    render(
-      <BrowserRouter>
-        <MasterCustomerContainer />
-      </BrowserRouter>,
-    );
-
-    fireEvent.change(screen.getByLabelText("Search customer"), { target: { value: "mega" } });
-
-    expect(useGetCustomersQuery).toHaveBeenLastCalledWith({ pageNumber: 1, pageSize: 10, searchTerm: "mega" });
   });
 });

@@ -1,1 +1,1 @@
-export { default } from './MasterVoucher.wrapper';
+export { default } from "./MasterVoucher.container";

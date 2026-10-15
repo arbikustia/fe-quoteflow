@@ -19,7 +19,6 @@ export const SidebarComponent = (props: SidebarProps): React.ReactElement => {
     openMenus,
     onToggleMenu,
     isCollapsed,
-    onToggleCollapsed,
     isProfileOpen,
     onToggleProfile,
     theme,
@@ -35,45 +34,17 @@ export const SidebarComponent = (props: SidebarProps): React.ReactElement => {
 
   return (
     <aside
-      className={`${isCollapsed ? "w-[76px]" : "w-[260px]"} h-full min-h-0 self-stretch bg-sidebar-background border border-border-default flex flex-col shrink-0 overflow-hidden transition-[width] duration-[250ms] ease-in-out`}
+      className={`${isCollapsed ? "w-[84px]" : "w-[290px]"} h-full min-h-0 self-stretch bg-sidebar-background border border-border-default flex flex-col shrink-0 overflow-hidden transition-[width] duration-[250ms] ease-in-out`}
       style={{ borderRadius: 12 }}
       aria-label="Sidebar"
     >
-      {/* Header — logo only (image contains brand) */}
-      <div className={`h-[56px] flex items-center shrink-0 ${isCollapsed ? "justify-center px-2" : "px-4"}`}>
-        <button
-          type="button"
-          onClick={onToggleCollapsed}
-          aria-label={isCollapsed ? "Expand sidebar" : "Collapse sidebar"}
-          aria-expanded={!isCollapsed}
-          className="flex items-center justify-center shrink-0 focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring/30 rounded-[8px]"
-        >
-          <img
-            src={isCollapsed ? LogoCollapsed : SoniclineLogo}
-            alt="Sonicline"
-            className={`${isCollapsed ? "w-8 h-8 rounded-[8px] object-contain" : "h-8 w-auto object-contain"}`}
-          />
-        </button>
-      </div>
-
-      {/* Search */}
-      <div className={`shrink-0 ${isCollapsed ? "px-2" : "px-4"} pb-4`}>
-        <div
-          role="search"
-          className={`h-10 bg-background-subtle flex items-center text-text-tertiary ${isCollapsed ? "justify-center px-0 rounded-[8px]" : "gap-2 px-3 rounded-[8px]"}`}
-        >
-          <span className="shrink-0 flex items-center justify-center" aria-hidden>
-            <Icons.Search />
-          </span>
-          {!isCollapsed && (
-            <>
-              <span className="flex-1 text-left text-[13px] text-text-tertiary truncate">Search</span>
-              <span className="shrink-0 text-[11px] leading-none bg-background-surface px-1.5 py-1 rounded-[6px] border border-border-default text-text-secondary font-medium">
-                ⌘ K
-              </span>
-            </>
-          )}
-        </div>
+      {/* Header — logo only (sidebar toggle lives in navbar) */}
+      <div className={`h-[56px] mb-16 flex items-center shrink-0 ${isCollapsed ? "justify-center px-2" : "px-4"}`}>
+        <img
+          src={isCollapsed ? LogoCollapsed : SoniclineLogo}
+          alt="Sonicline"
+          className={`${isCollapsed ? "w-8 h-8 rounded-[8px] object-contain" : "h-8 w-auto object-contain"}`}
+        />
       </div>
 
       {/* Navigation — scrollable */}
@@ -81,7 +52,7 @@ export const SidebarComponent = (props: SidebarProps): React.ReactElement => {
         {sections.map((section) => (
           <div key={section.title}>
             {!isCollapsed && (
-              <p className="px-2 mb-2 text-[12px] font-semibold tracking-widest uppercase text-text-tertiary">
+              <p className="px-2 mb-2 text-[15px] font-semibold tracking-widest uppercase text-text-tertiary">
                 {section.title}
               </p>
             )}
@@ -106,7 +77,7 @@ export const SidebarComponent = (props: SidebarProps): React.ReactElement => {
                           onClick={() => onToggleMenu(item.name)}
                           aria-expanded={isMenuOpen}
                           aria-label={item.name}
-                          className={`w-full h-9 flex items-center justify-center rounded-[6px] transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-border-focus ${isActive || isMenuOpen ? "bg-background-subtle text-text-primary" : "text-text-tertiary hover:bg-background-elevated hover:text-text-primary"}`}
+                          className={`w-full h-11 flex items-center justify-center rounded-[8px] transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-border-focus ${isActive || isMenuOpen ? "bg-background-subtle text-text-primary" : "text-text-tertiary hover:bg-background-elevated hover:text-text-primary"}`}
                         >
                           <item.icon />
                           {item.badge !== undefined && (
@@ -118,7 +89,7 @@ export const SidebarComponent = (props: SidebarProps): React.ReactElement => {
                         {/* tooltip */}
                         <span
                           role="tooltip"
-                          className="pointer-events-none absolute left-[calc(100%+10px)] top-1/2 -translate-y-1/2 whitespace-nowrap rounded-[6px] bg-text-primary px-2.5 py-1.5 text-[12px] font-medium text-background-surface opacity-0 group-hover:opacity-100 group-focus-within:opacity-100 transition-opacity shadow-lg z-20"
+                          className="pointer-events-none absolute left-[calc(100%+10px)] top-1/2 -translate-y-1/2 whitespace-nowrap rounded-[6px] bg-text-primary px-2.5 py-1.5 text-[15px] font-medium text-background-surface opacity-0 group-hover:opacity-100 group-focus-within:opacity-100 transition-opacity shadow-lg z-20"
                         >
                           {item.name}
                         </span>
@@ -132,7 +103,7 @@ export const SidebarComponent = (props: SidebarProps): React.ReactElement => {
                                 <Link
                                   key={child.name}
                                   to={child.path}
-                                  className={`flex h-8 items-center rounded-[6px] px-3 text-[14px] transition-colors ${childActive ? "bg-background-subtle text-text-primary font-medium" : "text-text-secondary hover:bg-background-elevated hover:text-text-primary"}`}
+                                  className={`flex h-9 items-center rounded-[6px] px-3 text-base transition-colors ${childActive ? "bg-background-subtle text-text-primary font-medium" : "text-text-secondary hover:bg-background-elevated hover:text-text-primary"}`}
                                 >
                                   {child.name}
                                 </Link>
@@ -161,7 +132,7 @@ export const SidebarComponent = (props: SidebarProps): React.ReactElement => {
                       </Link>
                       <span
                         role="tooltip"
-                        className="pointer-events-none absolute left-[calc(100%+10px)] top-1/2 -translate-y-1/2 whitespace-nowrap rounded-[6px] bg-text-primary px-2.5 py-1.5 text-[12px] font-medium text-background-surface opacity-0 group-hover:opacity-100 group-focus-within:opacity-100 transition-opacity shadow-lg z-20"
+                        className="pointer-events-none absolute left-[calc(100%+10px)] top-1/2 -translate-y-1/2 whitespace-nowrap rounded-[6px] bg-text-primary px-2.5 py-1.5 text-[15px] font-medium text-background-surface opacity-0 group-hover:opacity-100 group-focus-within:opacity-100 transition-opacity shadow-lg z-20"
                       >
                         {item.name}
                       </span>
@@ -177,12 +148,12 @@ export const SidebarComponent = (props: SidebarProps): React.ReactElement => {
                         type="button"
                         onClick={() => onToggleMenu(item.name)}
                         aria-expanded={isMenuOpen}
-                        className={`w-full h-9 flex items-center gap-3 rounded-[6px] px-3 text-left transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring/30 ${isActive || isMenuOpen ? "bg-background-subtle text-text-primary" : "text-text-secondary hover:bg-background-elevated hover:text-text-primary"}`}
+                        className={`w-full min-h-14 py-3 flex items-center gap-3 rounded-[8px] px-4 text-left transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring/30 ${isActive || isMenuOpen ? "bg-background-subtle text-text-primary" : "text-text-secondary hover:bg-background-elevated hover:text-text-primary"}`}
                       >
                         <span className={`shrink-0 [&_svg]:h-5 [&_svg]:w-5 ${isActive || isMenuOpen ? "text-text-primary" : "text-text-tertiary"}`}>
                           <item.icon />
                         </span>
-                        <span className={`flex-1 truncate text-[14px] leading-none ${isActive || isMenuOpen ? "font-medium text-text-primary" : "font-normal"}`}>{item.name}</span>
+                        <span className={`flex-1 truncate text-xl leading-none ${isActive || isMenuOpen ? "font-medium text-text-primary" : "font-normal"}`}>{item.name}</span>
                         {item.badge !== undefined && (
                           <span className="shrink-0 min-w-[20px] h-5 px-1.5 flex items-center justify-center rounded-full bg-action-primary-subtle text-action-primary text-[11px] font-semibold leading-none">
                             {item.badge}
@@ -201,7 +172,7 @@ export const SidebarComponent = (props: SidebarProps): React.ReactElement => {
                                 key={child.name}
                                 to={child.path}
                                 aria-current={childActive ? "page" : undefined}
-                                className={`flex h-8 items-center rounded-[6px] px-3 text-[13px] transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring/30 ${childActive ? "bg-background-subtle text-text-primary font-medium" : "text-text-secondary hover:bg-background-elevated hover:text-text-primary"}`}
+                                className={`flex h-9 items-center rounded-[6px] px-3 text-lg transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring/30 ${childActive ? "bg-background-subtle text-text-primary font-medium" : "text-text-secondary hover:bg-background-elevated hover:text-text-primary"}`}
                               >
                                 {child.name}
                               </Link>
@@ -223,7 +194,7 @@ export const SidebarComponent = (props: SidebarProps): React.ReactElement => {
                     <span className={`shrink-0 [&_svg]:h-5 [&_svg]:w-5 ${isActive ? "text-text-primary" : "text-text-tertiary"}`}>
                       <item.icon />
                     </span>
-                    <span className={`flex-1 truncate text-[14px] leading-none ${isActive ? "font-medium text-text-primary" : "font-normal"}`}>{item.name}</span>
+                    <span className={`flex-1 truncate text-lg leading-none ${isActive ? "font-medium text-text-primary" : "font-normal"}`}>{item.name}</span>
                     {item.badge !== undefined && (
                       <span className="shrink-0 min-w-[20px] h-5 px-1.5 flex items-center justify-center rounded-full bg-action-primary-subtle text-action-primary text-[11px] font-semibold leading-none">
                         {item.badge}

@@ -13,7 +13,6 @@ describe("SidebarComponent Test", () => {
     openMenus: [] as readonly string[],
     onToggleMenu: jest.fn(),
     isCollapsed: false,
-    onToggleCollapsed: jest.fn(),
     isProfileOpen: false,
     onToggleProfile: jest.fn(),
     theme: "light",
@@ -24,22 +23,6 @@ describe("SidebarComponent Test", () => {
     render(React.createElement(MemoryRouter, null, React.createElement(SidebarComponent, defaultProps)));
 
     expect(screen.getByText("Master Data")).toBeDefined();
-  });
-
-  it("should call onToggleCollapsed when logo button is clicked", () => {
-    const onToggleCollapsed = jest.fn();
-
-    render(
-      React.createElement(
-        MemoryRouter,
-        null,
-        React.createElement(SidebarComponent, { ...defaultProps, onToggleCollapsed }),
-      ),
-    );
-
-    fireEvent.click(screen.getByRole("button", { name: /Collapse sidebar/i }));
-
-    expect(onToggleCollapsed).toHaveBeenCalled();
   });
 
   it("should call onToggleTheme when theme switch is clicked", () => {

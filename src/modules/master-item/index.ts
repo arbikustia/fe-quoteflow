@@ -1,1 +1,1 @@
-export { default } from './MasterItem.wrapper';
+export { default } from "./MasterItem.container";

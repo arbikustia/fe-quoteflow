@@ -3,8 +3,9 @@ import { useLocation } from "react-router-dom";
 
 import GlobalHeader from "./GlobalHeader";
 import MobileNavigate from "../../components/MobileNavigate";
-import Navbar from "../../components/Navbar/index";
-import Sidebar from "../../components/Sidebar/index";
+import SidebarContainer from "../../components/Sidebar/index";
+import { useSidebarCollapse } from "../../hooks/useSidebarCollapse";
+import NavbarContainer from "../../components/Navbar/index";
 
 export type ResponsiveLayoutProps = {
   readonly children: React.ReactNode;
@@ -28,6 +29,7 @@ export const ResponsiveLayout = ({
 }: ResponsiveLayoutProps): React.ReactElement => {
   const location = useLocation();
   const path = location.pathname;
+  const { isSidebarCollapsed, onToggleSidebarCollapsed } = useSidebarCollapse();
 
   const isMasterSubRoute = path.startsWith("/master-") && path !== "/master-main";
 
@@ -35,7 +37,7 @@ export const ResponsiveLayout = ({
     <div className="flex h-full min-h-0 w-full bg-brand-white overflow-hidden font-sans text-brand-text-dark relative items-stretch">
       {/* Desktop Sidebar */}
       <div className="hidden lg:flex h-full min-h-0 shrink-0 self-stretch">
-        <Sidebar />
+        <SidebarContainer isCollapsed={isSidebarCollapsed} />
       </div>
 
       <div className="flex-1 flex flex-col min-w-0 min-h-0 overflow-hidden relative bg-brand-white">
@@ -46,7 +48,7 @@ export const ResponsiveLayout = ({
 
         {/* Desktop Navbar - hidden lg:block */}
         <div className="hidden lg:block shrink-0">
-          <Navbar />
+          <NavbarContainer isSidebarCollapsed={isSidebarCollapsed} onToggleSidebar={onToggleSidebarCollapsed} />
         </div>
 
         {/* Content Area - responsive padding */}

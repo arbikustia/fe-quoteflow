@@ -2,7 +2,7 @@ import * as React from "react";
 import { FiDownload } from "react-icons/fi";
 
 import { Icons } from "@/components/Icons";
-import { PaginationFooter, PaginationHeader } from "@/components/Pagination";
+import { Pagination } from "@/components/Pagination";
 import Table, { type TableColumn } from "@/components/Table";
 
 import Layout from "@/app/layout";
@@ -94,7 +94,6 @@ const DesktopReportToolbar = (props: DesktopReportProps): React.ReactElement => 
         className="w-64 pl-10 pr-4 py-2 bg-brand-gray-light border-none rounded-lg text-sm font-medium focus:outline-none focus:ring-1 focus:ring-brand-gray-light text-brand-text-dark placeholder:text-brand-text-medium"
       />
     </div>
-    <PaginationHeader pageSize={props.pageSize} totalCount={props.totalCount} onPageSizeChange={props.changePageSize} />
   </div>
 );
 
@@ -118,7 +117,7 @@ export const DesktopReportComponent = (props: DesktopReportProps): React.ReactEl
         <div className="flex-1 overflow-auto">
           <Table data={props.paginatedData} columns={getDesktopReportColumns(props.currentPage, props.pageSize)} keyExtractor={(row): string => row.id} />
         </div>
-        <PaginationFooter currentPage={props.currentPage} totalPages={props.totalPages} onPageChange={props.goToPage} onNextPage={props.nextPage} onPrevPage={props.prevPage} />
+        <Pagination currentPage={props.currentPage} totalPages={props.totalPages} pageSize={props.pageSize} onPageChange={props.goToPage} onPageSizeChange={props.changePageSize} />
       </div>
     </div>
   </Layout>

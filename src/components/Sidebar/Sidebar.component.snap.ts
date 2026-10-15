@@ -4,7 +4,6 @@ import { NAVIGATION_CONFIG } from "./Sidebar.config";
 import test from "../../libs/unit-test";
 
 const mockOnToggleMenu = jest.fn();
-const mockOnToggleCollapsed = jest.fn();
 const mockOnToggleProfile = jest.fn();
 const mockOnToggleTheme = jest.fn();
 
@@ -16,7 +15,6 @@ const configs = [
       openMenus: [],
       onToggleMenu: mockOnToggleMenu,
       isCollapsed: false,
-      onToggleCollapsed: mockOnToggleCollapsed,
       isProfileOpen: false,
       onToggleProfile: mockOnToggleProfile,
       theme: "light" as const,

@@ -1,103 +1,196 @@
-import type { SyntheticEvent } from "react";
+import type { ChangeEvent, ReactElement, SyntheticEvent } from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
+import SoniclineLogo from "../../../../assets/Sonicline.png";
+
+/**
+ * Render visual panel showing branded graphic and quotation preview.
+ * @returns {ReactElement} visual panel node
+ */
+const _renderVisualPanel = (): ReactElement => (
+  <div className="hidden lg:flex lg:w-1/2 lg:h-full relative bg-[#0B1324] flex-col justify-between p-12 xl:p-16 overflow-hidden select-none border-l border-border-default">
+    {/* Decorative lighting */}
+    <div className="absolute -top-32 -right-32 w-96 h-96 bg-[#3550D7]/30 rounded-full blur-3xl pointer-events-none" />
+    <div className="absolute -bottom-32 -left-32 w-96 h-96 bg-[#FF6E02]/20 rounded-full blur-3xl pointer-events-none" />
+
+    {/* Top badge */}
+    <div className="relative z-10 flex items-center justify-between">
+      <span className="inline-flex items-center gap-2 rounded-full border border-action-primary/40 bg-action-primary/10 px-3.5 py-1 text-xs font-semibold uppercase tracking-wider text-[#A5B4FC]">
+        <span className="h-2 w-2 rounded-full bg-action-primary animate-pulse" />
+        QuoteFlow Platform
+      </span>
+      <span className="text-xs text-text-tertiary">v1.0 Enterprise</span>
+    </div>
+
+    {/* Center visual graphic: Quotation preview card */}
+    <div className="relative z-10 my-auto py-8">
+      <div className="mx-auto max-w-md rounded-2xl border border-white/10 bg-white/5 p-6 backdrop-blur-xl shadow-2xl space-y-5">
+        <div className="flex items-center justify-between border-b border-white/10 pb-4">
+          <div>
+            <p className="text-xs text-slate-400 font-medium">Active Quotation</p>
+            <p className="text-base font-bold text-white tracking-tight">QT-2026-0889</p>
+          </div>
+          <span className="inline-flex items-center rounded-full bg-emerald-500/20 px-3 py-1 text-xs font-semibold text-emerald-400 border border-emerald-500/30">
+            Approved
+          </span>
+        </div>
+
+        <div className="space-y-3">
+          <div className="flex items-center justify-between text-sm">
+            <span className="text-slate-400">Customer</span>
+            <span className="font-semibold text-white">PT Nusantara Citra Media</span>
+          </div>
+          <div className="flex items-center justify-between text-sm">
+            <span className="text-slate-400">Rental Period</span>
+            <span className="font-medium text-slate-200">24 Oct - 28 Oct 2026</span>
+          </div>
+          <div className="flex items-center justify-between text-sm">
+            <span className="text-slate-400">Equipment</span>
+            <span className="font-medium text-slate-200">LED Videotron P3.9 + Audio Rig</span>
+          </div>
+        </div>
+
+        <div className="rounded-xl bg-white/5 p-4 flex items-center justify-between border border-white/5">
+          <span className="text-xs font-medium text-slate-400">Estimated Total</span>
+          <span className="text-lg font-bold text-white tracking-tight">Rp 48.500.000</span>
+        </div>
+      </div>
+    </div>
+
+    {/* Bottom summary text */}
+    <div className="relative z-10">
+      <h3 className="text-2xl font-bold tracking-tight text-white mb-2">
+        Rental & Quotation Workflow Simplified
+      </h3>
+      <p className="text-sm text-slate-400 leading-relaxed max-w-lg">
+        Accelerate quotation creation, monitor multi-tier approvals, and oversee inventory dispatch for Sonicline Multimedia operations.
+      </p>
+    </div>
+  </div>
+);
+
 /**
  * Render Login Page
- * @returns {React.ReactElement} node
+ * @returns {ReactElement} node
  */
-export default function LoginPage(): React.ReactElement {
+export default function LoginPage(): ReactElement {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+  const handleEmailChange = (event: ChangeEvent<HTMLInputElement>): void => {
+    setEmail(event.target.value);
+  };
+
+  const handlePasswordChange = (event: ChangeEvent<HTMLInputElement>): void => {
+    setPassword(event.target.value);
+  };
+
   /**
-   * Handle submit
-   * @param {SyntheticEvent} e - event
+   * Handle login form submit
+   * @param {SyntheticEvent} event - form event
    * @returns {void}
    */
-  const handleSubmit = (e: SyntheticEvent): void => {
-    e.preventDefault();
-    // Simulate login and redirect to home or home-mobile based on screen size
+  const handleSubmit = (event: SyntheticEvent): void => {
+    event.preventDefault();
     navigate("/home");
   };
 
   return (
-    <div className="flex-1 h-full w-full flex items-center justify-center bg-brand-gray-light overflow-hidden relative">
-      {/* Massive soft background gradients */}
-      <div className="absolute top-0 left-0 w-[80vw] h-[80vw] max-w-200 max-h-200 bg-brand-orange-light rounded-full mix-blend-multiply filter blur-[100px] opacity-70 -translate-x-1/4 -translate-y-1/4"></div>
-      <div className="absolute bottom-0 right-0 w-[80vw] h-[80vw] max-w-200 max-h-200 bg-brand-blue-light rounded-full mix-blend-multiply filter blur-[100px] opacity-70 translate-x-1/4 translate-y-1/4"></div>
-      <div className="absolute top-1/2 left-1/2 w-[60vw] h-[60vw] max-w-150 max-h-150 bg-brand-white rounded-full filter blur-[120px] opacity-50 -translate-x-1/2 -translate-y-1/2"></div>
-
-      <div className="relative w-full max-w-md p-8 sm:p-10 mx-4 bg-brand-white/90 backdrop-blur-2xl border border-brand-white/60 rounded-3xl shadow-[0_20px_40px_-15px_rgba(0,0,0,0.1)] z-10">
-        <div className="text-center mb-10">
-          <h1 className="text-4xl font-semibold text-brand-text-dark mb-3">
-            Welcome Back
-          </h1>
-          <p className="text-brand-text-medium text-sm">
-            Please enter your details to sign in.
-          </p>
+    <div className="h-full min-h-full w-full flex flex-col lg:flex-row bg-background-page font-sans text-text-primary overflow-y-auto lg:overflow-hidden">
+      {/* Form Side */}
+      <div className="w-full min-h-full lg:w-1/2 lg:h-full flex flex-col justify-between p-6 sm:p-12 lg:p-16 xl:p-20 bg-background-surface z-10">
+        {/* Brand header */}
+        <div className="flex items-center gap-3">
+          <img
+            src={SoniclineLogo}
+            alt="Sonicline Logo"
+            className="h-8 w-auto object-contain"
+          />
         </div>
 
-        <form onSubmit={handleSubmit} className="space-y-5">
-          <div>
-            <label className="block text-sm font-semibold text-brand-text-dark mb-2 text-center">
-              Email
-            </label>
-            <input
-              type="email"
-              required
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              className="w-full px-5 py-3 rounded-xl bg-brand-white border border-brand-gray-light focus:ring-2 focus:ring-brand-blue transition-all outline-none text-brand-text-dark placeholder:text-brand-text-medium shadow-[inset_0_2px_4px_rgba(0,0,0,0.02)]"
-              placeholder="Enter your email"
-            />
+        {/* Form Container */}
+        <div className="w-full max-w-md mx-auto my-auto py-8">
+          <div className="mb-8">
+            <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-text-primary mb-2">
+              Sign In to QuoteFlow
+            </h1>
+            <p className="text-sm text-text-secondary">
+              Enter your credentials to access your dashboard.
+            </p>
           </div>
 
-          <div>
-            <label className="block text-sm font-semibold text-brand-text-dark mb-2 text-center">
-              Password
-            </label>
-            <input
-              type="password"
-              required
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              className="w-full px-5 py-3 rounded-xl bg-brand-white border border-brand-gray-light focus:ring-2 focus:ring-brand-orange transition-all outline-none text-brand-text-dark placeholder:text-brand-text-medium shadow-[inset_0_2px_4px_rgba(0,0,0,0.02)]"
-              placeholder="••••••••"
-            />
-          </div>
-
-          <div className="flex items-center justify-between pt-2">
-            <div className="flex items-center">
-              <input
-                id="remember-me"
-                type="checkbox"
-                className="h-4 w-4 text-brand-blue focus:ring-brand-orange border-gray-300 rounded cursor-pointer"
-              />
+          <form onSubmit={handleSubmit} className="space-y-5">
+            <div>
               <label
-                htmlFor="remember-me"
-                className="ml-2 block text-sm text-brand-text-medium cursor-pointer select-none"
+                htmlFor="email"
+                className="block text-sm font-semibold text-text-primary mb-2"
               >
+                Email
+              </label>
+              <input
+                id="email"
+                type="email"
+                required
+                value={email}
+                onChange={handleEmailChange}
+                placeholder="name@sonicline.co.id"
+                className="w-full h-11 px-4 rounded-xl border border-border-default bg-background-surface text-base text-text-primary placeholder:text-text-tertiary focus:border-border-focus focus:outline-none focus:ring-2 focus:ring-focus-ring/30 transition-colors"
+              />
+            </div>
+
+            <div>
+              <label
+                htmlFor="password"
+                className="block text-sm font-semibold text-text-primary mb-2"
+              >
+                Password
+              </label>
+              <input
+                id="password"
+                type="password"
+                required
+                value={password}
+                onChange={handlePasswordChange}
+                placeholder="••••••••"
+                className="w-full h-11 px-4 rounded-xl border border-border-default bg-background-surface text-base text-text-primary placeholder:text-text-tertiary focus:border-border-focus focus:outline-none focus:ring-2 focus:ring-focus-ring/30 transition-colors"
+              />
+            </div>
+
+            <div className="flex items-center justify-between pt-1">
+              <label className="flex items-center gap-2 cursor-pointer text-sm text-text-secondary select-none">
+                <input
+                  type="checkbox"
+                  className="h-4 w-4 rounded border-border-default text-action-primary focus:ring-focus-ring/30"
+                />
                 Remember me
               </label>
+              <a
+                href="#"
+                className="text-sm font-semibold text-action-primary hover:text-action-primary-hover transition-colors"
+              >
+                Forgot password?
+              </a>
             </div>
-            <a
-              href="#"
-              className="text-sm font-semibold text-brand-blue hover:text-brand-blue-dark transition-colors"
-            >
-              Forgot password?
-            </a>
-          </div>
 
-          <button
-            type="submit"
-            className="w-full flex justify-center py-3.5 px-4 mt-6 border border-transparent rounded-xl shadow-md text-sm font-bold text-brand-white bg-linear-to-r from-[#D7A37E] to-[#7B8FE1] hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-brand-blue transition-all transform hover:scale-[1.02] active:scale-[0.98]"
-          >
-            Sign In
-          </button>
-        </form>
+            <button
+              type="submit"
+              className="w-full h-11 rounded-xl bg-action-primary hover:bg-action-primary-hover active:bg-action-primary-pressed text-white text-sm font-semibold shadow-sm transition-colors flex items-center justify-center mt-2 cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring"
+            >
+              Sign In
+            </button>
+          </form>
+        </div>
+
+        {/* Footer */}
+        <div className="text-xs text-text-tertiary">
+          © 2026 PT Sonicline Multimedia. All rights reserved.
+        </div>
       </div>
+
+      {/* Visual Panel Side */}
+      {_renderVisualPanel()}
     </div>
   );
 }

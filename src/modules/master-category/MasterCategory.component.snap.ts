@@ -1,66 +1,51 @@
 import test from "@/libs/unit-test";
 
-import { MasterCategoryComponent } from "./MasterCategory.component";
-import type { CategoryData } from "./MasterCategory.type";
-import type { TableColumn } from "../../components/Table";
+import type { TableColumn } from "@/components/Table";
 
-const mockCategories: CategoryData[] = [
-  {
-    id: "1",
-    categoryName: "Audio System",
-    status: "active",
-    createAt: "2024-02-01",
-    createBy: "Admin",
-  },
-];
+import { MasterCategoryComponent } from "./MasterCategory.component";
+import type { CategoryData, MasterCategoryProps } from "./MasterCategory.type";
+
+const mockCategories: CategoryData[] = [{ id: "1", categoryName: "Audio System", status: "active", createAt: "2024-02-01", createBy: "Admin" }];
 const mockColumns: TableColumn<CategoryData>[] = [{ key: "categoryName", header: "Name" }];
+const defaultProps: MasterCategoryProps = {
+  paginatedData: mockCategories,
+  columns: mockColumns,
+  currentPage: 1,
+  totalPages: 1,
+  pageSize: 5,
+  totalCount: 1,
+  isLoading: false,
+  errorMessage: null,
+  isEmpty: false,
+  isMissingData: false,
+  isMoreOpen: false,
+  goToPage: (): void => {},
+  nextPage: (): void => {},
+  prevPage: (): void => {},
+  changePageSize: (): void => {},
+  setSearchTerm: (): void => {},
+  onCreate: (): void => {},
+  onEdit: (): void => {},
+  onRowClick: (): void => {},
+  onBack: (): void => {},
+  onMore: (): void => {},
+  onCloseMore: (): void => {},
+  onDelete: (): void => {},
+};
 
 const configs = [
+  { props: defaultProps, desc: "should render category list" },
   {
     props: {
-      paginatedData: mockCategories,
-      columns: mockColumns,
-      currentPage: 1,
-      totalPages: 1,
-      pageSize: 5,
-      totalCount: 1,
-      goToPage: (): void => {},
-      nextPage: (): void => {},
-      prevPage: (): void => {},
-      changePageSize: (): void => {},
-      onCreate: (): void => {},
-      onEdit: (): void => {},
-      onRowClick: (): void => {},
-      onBack: (): void => {},
-      onMore: (): void => {},
-      isMoreOpen: false,
-      onCloseMore: (): void => {},
-      onDelete: (): void => {},
-    },
-    desc: "Should Render MasterCategoryComponent with default props",
-  },
-  {
-    props: {
-      paginatedData: [] as CategoryData[],
-      columns: [] as TableColumn<CategoryData>[],
-      currentPage: 1,
-      totalPages: 1,
-      pageSize: 5,
+      ...defaultProps,
+      paginatedData: [],
       totalCount: 0,
-      goToPage: (): void => {},
-      nextPage: (): void => {},
-      prevPage: (): void => {},
-      changePageSize: (): void => {},
-      onCreate: (): void => {},
-      onEdit: (): void => {},
-      onRowClick: (): void => {},
-      onBack: (): void => {},
-      isMoreOpen: false,
+      isEmpty: true,
     },
-    desc: "Should Render MasterCategoryComponent with empty data",
+    desc: "should render empty category list",
   },
 ];
 
-it("MasterCategoryComponent matches snapshot", () => {
+it("should match MasterCategoryComponent snapshots", () => {
   test.assertSnapshots(MasterCategoryComponent, configs);
 });

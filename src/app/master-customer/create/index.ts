@@ -1,1 +1,1 @@
-export { default } from "./MasterCustomerCreate.container";
+export { default } from "@/modules/master-customer/create";

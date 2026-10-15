@@ -7,8 +7,8 @@ import type { ServiceTypeData } from "./MasterServiceType.type";
 const mockServiceTypeApi = jest.fn();
 const mockCreateServiceType = jest.fn();
 
-jest.mock("./MasterServiceType.api", () => ({
-  _mapServiceType: (serviceType: { readonly id: string; readonly name: string; readonly price: number; readonly is_active: boolean; readonly status: number; readonly created_at: string | null; readonly created_by?: string | null }) => ({
+jest.mock("@/services/master-service-type.service", () => ({
+  mapServiceType: (serviceType: { readonly id: string; readonly name: string; readonly price: number; readonly is_active: boolean; readonly status: number; readonly created_at: string | null; readonly created_by?: string | null }) => ({
     id: serviceType.id,
     name: serviceType.name,
     price: serviceType.price,

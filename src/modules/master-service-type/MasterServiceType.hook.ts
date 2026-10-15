@@ -3,7 +3,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-import { mapServiceType, useCreateServiceTypeMutation, useGetServiceTypesQuery } from "@/services/master-service-type.service";
 import type {
   MasterServiceTypeContainerState,
   MasterServiceTypeNavigation,
@@ -12,6 +11,8 @@ import type {
   ServiceTypeListApiState,
   ServiceTypeListResponse,
 } from "./MasterServiceType.type";
+
+import { mapServiceType, useCreateServiceTypeMutation, useGetServiceTypesQuery } from "@/services/master-service-type.service";
 
 /**
  * Navigation hook.

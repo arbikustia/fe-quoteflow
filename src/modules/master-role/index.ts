@@ -1,1 +1,1 @@
-export { default } from './MasterRole.wrapper';
+export { default } from "./MasterRole.container";

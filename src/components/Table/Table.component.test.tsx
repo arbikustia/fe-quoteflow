@@ -79,7 +79,7 @@ describe("TableComponent", () => {
         onPageSizeChange={onPageSizeChange}
       />
     );
-    fireEvent.click(screen.getByRole("button", { name: "Next page" }));
+    fireEvent.click(screen.getByRole("button", { name: /Next/i }));
     fireEvent.change(screen.getByRole("combobox"), { target: { value: "10" } });
 
     expect(onPageChange).toHaveBeenCalledWith(2);

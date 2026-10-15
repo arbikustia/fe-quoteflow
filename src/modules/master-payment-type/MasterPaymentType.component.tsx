@@ -4,7 +4,7 @@ import Layout from "../../app/layout";
 import { Icons } from "../../components/Icons";
 import type { MobileListItemProps } from "../../components/MobileList";
 import { MobileList } from "../../components/MobileList";
-import { PaginationFooter, PaginationHeader } from "../../components/Pagination";
+import { Pagination } from "../../components/Pagination";
 import Table from "../../components/Table";
 
 import type { MasterPaymentTypeProps,PaymentTypeData } from "./MasterPaymentType.type";
@@ -15,7 +15,7 @@ import type { MasterPaymentTypeProps,PaymentTypeData } from "./MasterPaymentType
  * @returns {React.ReactElement} The desktop table element
  */
 const _renderDesktopTable = (props: MasterPaymentTypeProps): React.ReactElement => {
-  const { paginatedData, columns, currentPage, totalPages, goToPage, nextPage, prevPage, pageSize, totalCount, changePageSize, onRowClick } = props;
+  const { paginatedData, columns, currentPage, totalPages, goToPage, pageSize, changePageSize, onRowClick } = props;
 
   return (
     <div className="hidden md:flex bg-brand-white rounded-xl border border-brand-gray-light shadow-sm flex-col flex-1 overflow-hidden mt-6">
@@ -24,12 +24,11 @@ const _renderDesktopTable = (props: MasterPaymentTypeProps): React.ReactElement 
           <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-brand-text-medium"><Icons.Search /></div>
           <input type="text" placeholder="Search payment type" className="w-64 pl-10 pr-4 py-2 bg-brand-gray-light border-none rounded-lg text-sm focus:outline-none placeholder:text-brand-text-medium text-brand-text-dark" />
         </div>
-        <PaginationHeader pageSize={pageSize} totalCount={totalCount} onPageSizeChange={changePageSize} />
       </div>
       <div className="flex-1 overflow-auto">
         <Table data={paginatedData} columns={columns} onRowClick={onRowClick} keyExtractor={(r: PaymentTypeData) => r.id} />
       </div>
-      <PaginationFooter currentPage={currentPage} totalPages={totalPages} onPageChange={goToPage} onNextPage={nextPage} onPrevPage={prevPage} />
+      <Pagination currentPage={currentPage} totalPages={totalPages} pageSize={pageSize} onPageChange={goToPage} onPageSizeChange={changePageSize} />
     </div>
   );
 };
@@ -40,7 +39,7 @@ const _renderDesktopTable = (props: MasterPaymentTypeProps): React.ReactElement 
  * @returns {React.ReactElement} The mobile list element
  */
 const _renderMobileList = (props: MasterPaymentTypeProps): React.ReactElement => {
-  const { paginatedData, currentPage, totalPages, goToPage, nextPage, prevPage, pageSize, totalCount, changePageSize, onRowClick } = props;
+  const { paginatedData, currentPage, totalPages, goToPage, pageSize, changePageSize, onRowClick } = props;
 
   /**
    * Get mobile list data
@@ -75,8 +74,7 @@ const _renderMobileList = (props: MasterPaymentTypeProps): React.ReactElement =>
         <MobileList data={getMobileListData()} />
       </div>
       <div className="pt-4 flex items-center justify-between">
-        <PaginationHeader pageSize={pageSize} totalCount={totalCount} onPageSizeChange={changePageSize} className="shrink-0" />
-        <PaginationFooter currentPage={currentPage} totalPages={totalPages} onPageChange={goToPage} onNextPage={nextPage} onPrevPage={prevPage} />
+        <Pagination currentPage={currentPage} totalPages={totalPages} pageSize={pageSize} onPageChange={goToPage} onPageSizeChange={changePageSize} />
       </div>
     </div>
   );

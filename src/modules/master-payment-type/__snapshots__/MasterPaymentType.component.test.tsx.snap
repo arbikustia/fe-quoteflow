@@ -106,10 +106,7 @@ exports[`MasterPaymentType Component MasterPaymentTypeComponent Snapshots defaul
           class="pt-4 flex items-center justify-between"
         >
           <div
-            data-testid="pagination-header"
-          />
-          <div
-            data-testid="pagination-footer"
+            data-testid="pagination"
           />
         </div>
       </div>
@@ -135,9 +132,6 @@ exports[`MasterPaymentType Component MasterPaymentTypeComponent Snapshots defaul
               type="text"
             />
           </div>
-          <div
-            data-testid="pagination-header"
-          />
         </div>
         <div
           class="flex-1 overflow-auto"
@@ -147,7 +141,7 @@ exports[`MasterPaymentType Component MasterPaymentTypeComponent Snapshots defaul
           />
         </div>
         <div
-          data-testid="pagination-footer"
+          data-testid="pagination"
         />
       </div>
     </div>
@@ -326,10 +320,7 @@ exports[`MasterPaymentType Component MasterPaymentTypeComponent Snapshots more o
           class="pt-4 flex items-center justify-between"
         >
           <div
-            data-testid="pagination-header"
-          />
-          <div
-            data-testid="pagination-footer"
+            data-testid="pagination"
           />
         </div>
       </div>
@@ -355,9 +346,6 @@ exports[`MasterPaymentType Component MasterPaymentTypeComponent Snapshots more o
               type="text"
             />
           </div>
-          <div
-            data-testid="pagination-header"
-          />
         </div>
         <div
           class="flex-1 overflow-auto"
@@ -367,7 +355,7 @@ exports[`MasterPaymentType Component MasterPaymentTypeComponent Snapshots more o
           />
         </div>
         <div
-          data-testid="pagination-footer"
+          data-testid="pagination"
         />
       </div>
     </div>

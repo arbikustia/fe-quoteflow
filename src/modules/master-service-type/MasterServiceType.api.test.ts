@@ -1,4 +1,4 @@
-import { _mapServiceType } from "./MasterServiceType.api";
+import { mapServiceType } from "@/services/master-service-type.service";
 import type { ApiServiceType } from "./MasterServiceType.type";
 
 const activeServiceType: ApiServiceType = {
@@ -14,7 +14,7 @@ const activeServiceType: ApiServiceType = {
 
 describe("MasterServiceType.api", () => {
   it("should map active API model to UI model", () => {
-    const result = _mapServiceType(activeServiceType);
+    const result = mapServiceType(activeServiceType);
 
     expect(result).toEqual({
       id: "st-1",
@@ -36,7 +36,7 @@ describe("MasterServiceType.api", () => {
       created_by: null,
     };
 
-    const result = _mapServiceType(inactiveServiceType);
+    const result = mapServiceType(inactiveServiceType);
 
     expect(result.status).toBe("inactive");
     expect(result.isActive).toBe(false);

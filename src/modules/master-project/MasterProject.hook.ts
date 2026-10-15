@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-import { mapProject, useGetProjectsQuery } from "@/services/master-project.service";
 import type {
   MasterProjectContainerState,
   MasterProjectNavigation,
@@ -10,6 +9,8 @@ import type {
   ProjectListApiState,
   ProjectListResponse,
 } from "./MasterProject.type";
+
+import { mapProject, useGetProjectsQuery } from "@/services/master-project.service";
 
 /**
  * Hook for master project navigation.

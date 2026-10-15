@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-import { mapCustomer, useGetCustomersQuery } from "@/services/master-customer.service";
 import type {
   CustomerData,
   CustomerListApiState,
@@ -10,6 +9,8 @@ import type {
   MasterCustomerNavigation,
   MasterCustomerPagination,
 } from "./MasterCustomer.type";
+
+import { mapCustomer, useGetCustomersQuery } from "@/services/master-customer.service";
 
 /**
  * Hook for master customer navigation.

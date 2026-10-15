@@ -1,13 +1,13 @@
 import { act, renderHook } from "@testing-library/react";
 
 import { MOCK_VOUCHERS } from "../../fixture/master-voucher";
-import { useGetVouchersQuery } from "./MasterVoucher.api";
+import { useGetVouchersQuery } from "@/services/master-voucher.service";
 import { useMasterVoucherContainerState, useMasterVoucherNavigation } from "./MasterVoucher.hook";
 
 const mockNavigate = jest.fn();
 
-jest.mock("./MasterVoucher.api", () => ({
-  _mapVoucher: (voucher: { readonly id: string; readonly name: string; readonly code: string; readonly discount_percent: number; readonly status: number; readonly created_at: string | null }) => ({
+jest.mock("@/services/master-voucher.service", () => ({
+  mapVoucher: (voucher: { readonly id: string; readonly name: string; readonly code: string; readonly discount_percent: number; readonly status: number; readonly created_at: string | null }) => ({
     id: voucher.id,
     name: voucher.name,
     code: voucher.code,
@@ -73,11 +73,9 @@ describe("MasterVoucher hook", () => {
       ...emptyResponse,
       data: {
         ...emptyResponse.data,
-        data: {
-          ...emptyResponse.data.data,
-          data: [{ id: "1", name: "Discount", code: "DISC10", discount_percent: 10, status: 1, created_at: "2026-10-13", updated_at: null }],
-          total_count: 1,
-        },
+        data: [
+          { id: "1", name: "Discount", code: "DISC10", discount_percent: 10, status: 1, created_at: "2026-10-13", updated_at: null },
+        ],
       },
     } as ReturnType<typeof useGetVouchersQuery>);
 

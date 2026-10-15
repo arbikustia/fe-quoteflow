@@ -5,7 +5,7 @@ import Layout from "../../app/layout";
 import { Icons } from "../../components/Icons";
 import { MobileList } from "../../components/MobileList";
 import type { MobileListItemProps } from "../../components/MobileList/MobileList.component";
-import { PaginationFooter, PaginationHeader } from "../../components/Pagination";
+import { Pagination } from "../../components/Pagination";
 import Table from "../../components/Table";
 
 import type { ItemActionProps, ItemData, MasterItemProps } from "./MasterItem.type";
@@ -187,7 +187,7 @@ const _formatMobileData = (paginatedData: readonly ItemData[], onRowClick: (row:
  * @returns {React.ReactElement} mobile list view
  */
 const _renderMobileList = (props: MasterItemProps): React.ReactElement => {
-  const { paginatedData, onRowClick, pageSize, totalCount, changePageSize, currentPage, totalPages, goToPage, nextPage, prevPage, setSearchTerm } = props;
+  const { paginatedData, onRowClick, pageSize, changePageSize, currentPage, totalPages, goToPage, setSearchTerm } = props;
 
   /**
    * Handle search input change
@@ -206,8 +206,7 @@ const _renderMobileList = (props: MasterItemProps): React.ReactElement => {
         {_renderListState(props) ?? <MobileList data={_formatMobileData(paginatedData, onRowClick)} />}
       </div>
       <div className="pt-4 flex items-center justify-between">
-        <PaginationHeader pageSize={pageSize} totalCount={totalCount} onPageSizeChange={changePageSize} className="shrink-0" />
-        <PaginationFooter currentPage={currentPage} totalPages={totalPages} onPageChange={goToPage} onNextPage={nextPage} onPrevPage={prevPage} className="border-t-0 p-0" />
+        <Pagination currentPage={currentPage} totalPages={totalPages} pageSize={pageSize} onPageChange={goToPage} onPageSizeChange={changePageSize} />
       </div>
     </div>
   );
@@ -219,7 +218,7 @@ const _renderMobileList = (props: MasterItemProps): React.ReactElement => {
  * @returns {React.ReactElement} desktop table view
  */
 const _renderDesktopTable = (props: MasterItemProps): React.ReactElement => {
-  const { paginatedData, columns, onRowClick, pageSize, totalCount, changePageSize, currentPage, totalPages, goToPage, nextPage, prevPage, setSearchTerm } = props;
+  const { paginatedData, columns, onRowClick, pageSize, changePageSize, currentPage, totalPages, goToPage, setSearchTerm } = props;
 
   /**
    * Handle search input change
@@ -235,12 +234,11 @@ const _renderDesktopTable = (props: MasterItemProps): React.ReactElement => {
           <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-brand-text-medium"><Icons.Search /></div>
           <input type="text" placeholder="Search item" onChange={handleSearchChange} className="w-64 pl-10 pr-4 py-2 bg-brand-gray-light border-none rounded-lg text-sm focus:outline-none text-brand-text-dark placeholder:text-brand-text-medium" />
         </div>
-        <PaginationHeader pageSize={pageSize} totalCount={totalCount} onPageSizeChange={changePageSize} />
       </div>
       <div className="flex-1 overflow-auto">
         {_renderListState(props) ?? <Table data={paginatedData} columns={columns} onRowClick={onRowClick} keyExtractor={(r: ItemData) => r.id} />}
       </div>
-      <PaginationFooter currentPage={currentPage} totalPages={totalPages} onPageChange={goToPage} onNextPage={nextPage} onPrevPage={prevPage} />
+      <Pagination currentPage={currentPage} totalPages={totalPages} pageSize={pageSize} onPageChange={goToPage} onPageSizeChange={changePageSize} />
     </div>
   );
 };

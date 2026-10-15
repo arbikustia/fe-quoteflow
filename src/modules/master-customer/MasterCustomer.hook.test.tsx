@@ -1,15 +1,18 @@
+import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { act, renderHook } from "@testing-library/react";
 
 import { MOCK_CUSTOMERS } from "../../fixture/master-customer";
 import { useMasterCustomerContainerState, useMasterCustomerNavigation } from "./MasterCustomer.hook";
 
-const mocks = vi.hoisted(() => ({
-  navigate: vi.fn(),
-  useGetCustomersQuery: vi.fn(),
+const mockNavigate = jest.fn();
+const mockUseGetCustomersQuery = jest.fn();
+
+jest.mock("react-router-dom", () => ({
+  useNavigate: () => mockNavigate,
 }));
 
-vi.mock("./MasterCustomer.api", () => ({
-  _mapCustomer: (customer: { readonly id: string; readonly name: string; readonly address: string | null; readonly phone_number: string | null; readonly status: number; readonly created_at: string | null; readonly created_by: string | null }) => ({
+jest.mock("@/services/master-customer.service", () => ({
+  mapCustomer: (customer: { readonly id: string; readonly name: string; readonly address: string | null; readonly phone_number: string | null; readonly status: number; readonly created_at: string | null; readonly created_by: string | null }) => ({
     id: customer.id,
     name: customer.name,
     address: customer.address ?? "",
@@ -18,34 +21,24 @@ vi.mock("./MasterCustomer.api", () => ({
     createAt: customer.created_at ?? "",
     createBy: customer.created_by ?? "",
   }),
-  useGetCustomersQuery: mocks.useGetCustomersQuery,
+  useGetCustomersQuery: (...args: unknown[]) => mockUseGetCustomersQuery(...args),
 }));
-
-const mockNavigate = jest.fn();
-jest.mock("react-router-dom", () => ({
-  useNavigate: () => mockNavigate,
-}));
-
-const successfulEmptyResponse = {
-  data: {
-    status: true,
-    messages: null,
-    data: {
-      data: [],
-      page_number: 1,
-      total_pages: 1,
-      total_count: 0,
-      has_previous: false,
-      has_next: false,
-    },
-  },
-  error: undefined,
-  isLoading: false,
-};
 
 describe("MasterCustomer hook", () => {
   beforeEach(() => {
     jest.clearAllMocks();
+    mockUseGetCustomersQuery.mockReturnValue({
+      data: {
+        data: [],
+        page_number: 1,
+        total_pages: 1,
+        total_count: 0,
+        has_previous: false,
+        has_next: false,
+      },
+      error: undefined,
+      isLoading: false,
+    });
   });
 
   describe("useMasterCustomerNavigation", () => {
@@ -53,17 +46,17 @@ describe("MasterCustomer hook", () => {
       const { result } = renderHook(() => useMasterCustomerNavigation());
 
       act(() => { result.current.goBack(); });
-      expect(mocks.navigate).toHaveBeenCalledWith(-1);
+      expect(mockNavigate).toHaveBeenCalledWith(-1);
 
       act(() => { result.current.goCreate(); });
-      expect(mocks.navigate).toHaveBeenCalledWith("/master-customer/create");
+      expect(mockNavigate).toHaveBeenCalledWith("/master-customer/create");
 
       const mockCustomer = MOCK_CUSTOMERS[0];
       act(() => { result.current.goEdit(mockCustomer); });
-      expect(mocks.navigate).toHaveBeenCalledWith(`/master-customer/edit/${mockCustomer.id}`);
+      expect(mockNavigate).toHaveBeenCalledWith(`/master-customer/edit/${mockCustomer.id}`);
 
       act(() => { result.current.goDetail(mockCustomer); });
-      expect(mocks.navigate).toHaveBeenCalledWith(`/master-customer/detail/${mockCustomer.id}`);
+      expect(mockNavigate).toHaveBeenCalledWith(`/master-customer/detail/${mockCustomer.id}`);
     });
   });
 
@@ -79,22 +72,22 @@ describe("MasterCustomer hook", () => {
       expect(result.current.pagination.isMissingData).toBe(false);
     });
 
-    it("should expose failed envelope message", () => {
-      mocks.useGetCustomersQuery.mockReturnValue({
-        data: { status: false, messages: ["Customer request failed."], data: null },
+    it("should expose missing response state", () => {
+      mockUseGetCustomersQuery.mockReturnValue({
+        data: undefined,
         error: undefined,
         isLoading: false,
       });
 
       const { result } = renderHook(() => useMasterCustomerContainerState());
 
-      expect(result.current.pagination.errorMessage).toBe("Customer request failed.");
+      expect(result.current.pagination.errorMessage).toBe("No response received from server.");
       expect(result.current.pagination.isEmpty).toBe(false);
-      expect(result.current.pagination.isMissingData).toBe(false);
+      expect(result.current.pagination.isMissingData).toBe(true);
     });
 
     it("should expose missing payload state", () => {
-      mocks.useGetCustomersQuery.mockReturnValue({
+      mockUseGetCustomersQuery.mockReturnValue({
         data: { status: true, messages: null, data: null },
         error: undefined,
         isLoading: false,
@@ -108,7 +101,7 @@ describe("MasterCustomer hook", () => {
     });
 
     it("should expose transport error state", () => {
-      mocks.useGetCustomersQuery.mockReturnValue({
+      mockUseGetCustomersQuery.mockReturnValue({
         data: undefined,
         error: { status: 500, data: "Server error" },
         isLoading: false,

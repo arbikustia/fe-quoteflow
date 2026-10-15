@@ -1,1 +1,1 @@
-export { default } from './MasterPaymentType.wrapper';
+export { default } from "./MasterPaymentType.container";

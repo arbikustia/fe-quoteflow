@@ -3,6 +3,10 @@ import { MemoryRouter } from "react-router-dom";
 import { MasterRoleComponent } from "./MasterRole.component";
 import type { MasterRoleProps, RoleData } from "./MasterRole.type";
 
+jest.mock("../../components/Pagination", () => ({
+  Pagination: () => <div data-testid="pagination" />,
+}));
+
 const mockRole: RoleData = {
   id: "1",
   roleName: "Admin",
@@ -18,6 +22,11 @@ const defaultProps: MasterRoleProps = {
   totalPages: 2,
   pageSize: 10,
   totalCount: 15,
+  isLoading: false,
+  errorMessage: null,
+  isEmpty: false,
+  isMissingData: false,
+  setSearchTerm: jest.fn(),
   goToPage: jest.fn(),
   nextPage: jest.fn(),
   prevPage: jest.fn(),

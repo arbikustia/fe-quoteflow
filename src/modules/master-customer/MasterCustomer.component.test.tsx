@@ -4,9 +4,12 @@ import { BrowserRouter } from "react-router-dom";
 import { MasterCustomerComponent } from "./MasterCustomer.component";
 import { MOCK_CUSTOMERS } from "../../fixture/master-customer";
 
-// Mock the icons to simplify snapshots
+jest.mock("../../components/Pagination", () => ({
+  Pagination: () => <div data-testid="pagination" />,
+}));
 jest.mock("react-icons/fi", () => ({
   FiEdit2: () => <div data-testid="edit-icon" />,
+  FiSearch: () => <div data-testid="search-icon" />,
 }));
 jest.mock("../../components/Icons", () => ({
   Icons: {

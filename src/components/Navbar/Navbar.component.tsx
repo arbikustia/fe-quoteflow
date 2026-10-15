@@ -1,19 +1,31 @@
 import * as React from "react";
 
 import { Icons } from "../Icons";
-
+import type { NavbarProps } from "./Navbar.type";
 
 /**
  * Render Navbar Component
  * @param {NavbarProps} props - navbar component props
  * @returns {React.ReactElement} - NavbarComponent
  */
-export const NavbarComponent = (): React.ReactElement => {
+export const NavbarComponent = (props: NavbarProps): React.ReactElement => {
+  const { isSidebarCollapsed, onToggleSidebar } = props;
+
   return (
     <header className="h-20 flex items-center justify-between px-8 border-b border-brand-gray-light sticky top-0 z-10 transition-all">
-      <div className="flex-1">
+      <div className="flex items-center gap-4 flex-1">
+        <button
+          type="button"
+          onClick={onToggleSidebar}
+          aria-label={isSidebarCollapsed ? "Open sidebar" : "Close sidebar"}
+          aria-expanded={!isSidebarCollapsed}
+          className="flex h-10 w-10 items-center justify-center rounded-[8px] border border-border-default bg-background-surface text-text-secondary hover:bg-background-subtle hover:text-text-primary transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring/30"
+        >
+          <Icons.Menu />
+        </button>
+
         {/* Search Bar */}
-        <div className="relative group hidden md:block max-w-lg">
+        <div className="relative group hidden md:block max-w-lg flex-1">
           <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-brand-text-medium">
             <Icons.Search />
           </div>

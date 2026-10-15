@@ -1,1 +1,1 @@
-export { default } from "./MasterProjectCreate.container";
+export { default } from "@/modules/master-project/create";

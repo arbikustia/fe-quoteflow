@@ -1,41 +1,39 @@
-import { _mapRole, masterRoleApi } from "./MasterRole.api";
+import { mapRole, masterRoleService } from "@/services/master-role.service";
 import type { RoleListResponse } from "./MasterRole.type";
 
 const mockApiRole: RoleListResponse["data"][number] = {
   id: "role-1",
-  role_name: "Admin",
-  status: 1,
-  created_at: "2024-01-01",
-  created_by: "System",
+  role: "Admin",
+  last_created: "2024-01-01",
 };
 
 describe("MasterRole API", () => {
   it("should map active API role to UI role", () => {
-    const result = _mapRole(mockApiRole);
+    const result = mapRole(mockApiRole);
 
     expect(result).toEqual({
       id: "role-1",
       roleName: "Admin",
       status: "active",
       createAt: "2024-01-01",
-      createBy: "System",
+      createBy: "",
     });
   });
 
-  it("should map inactive API role and explicit empty nullable fields", () => {
-    const result = _mapRole({ ...mockApiRole, status: 0, created_at: null, created_by: null });
+  it("should map API role with null created_at", () => {
+    const result = mapRole({ ...mockApiRole, last_created: null });
 
     expect(result).toEqual({
       id: "role-1",
       roleName: "Admin",
-      status: "inactive",
+      status: "active",
       createAt: "",
       createBy: "",
     });
   });
 
   it("should expose get roles and create role endpoints", () => {
-    expect(masterRoleApi.endpoints.getRoles).toBeDefined();
-    expect(masterRoleApi.endpoints.createRole).toBeDefined();
+    expect(masterRoleService.endpoints.getRoles).toBeDefined();
+    expect(masterRoleService.endpoints.createRole).toBeDefined();
   });
 });

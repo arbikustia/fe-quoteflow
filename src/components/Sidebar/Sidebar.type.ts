@@ -18,6 +18,10 @@ export type NavigationSection = {
   readonly items: readonly NavigationItem[];
 };
 
+export type SidebarContainerProps = {
+  readonly isCollapsed?: boolean;
+};
+
 export type SidebarProps = {
   readonly navigation: readonly NavigationItem[] | readonly NavigationSection[];
   readonly sections?: readonly NavigationSection[];
@@ -25,7 +29,6 @@ export type SidebarProps = {
   readonly openMenus: readonly string[];
   readonly onToggleMenu: (menuName: string) => void;
   readonly isCollapsed: boolean;
-  readonly onToggleCollapsed: () => void;
   readonly isProfileOpen: boolean;
   readonly onToggleProfile: () => void;
   readonly theme: "light" | "dark";

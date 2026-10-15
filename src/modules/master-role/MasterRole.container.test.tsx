@@ -5,13 +5,13 @@ import { getColumns } from "./MasterRole.columns";
 import MasterRoleContainer from "./MasterRole.container";
 import type { RoleData } from "./MasterRole.type";
 
-jest.mock("./MasterRole.api", () => ({
-  _mapRole: (role: { readonly id: string; readonly role_name: string; readonly status: number; readonly created_at: string | null; readonly created_by: string | null }) => ({
+jest.mock("@/services/master-role.service", () => ({
+  mapRole: (role: { readonly id: string; readonly role: string; readonly last_created: string | null }) => ({
     id: role.id,
-    roleName: role.role_name,
-    status: role.status === 1 ? "active" : "inactive",
-    createAt: role.created_at ?? "",
-    createBy: role.created_by ?? "",
+    roleName: role.role,
+    status: "active",
+    createAt: role.last_created ?? "",
+    createBy: "",
   }),
   useGetRolesQuery: jest.fn(() => ({
     data: { data: [], total_pages: 0, total_count: 0, has_next: false, has_previous: false, page_number: 1 },

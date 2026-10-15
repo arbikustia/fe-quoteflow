@@ -2,13 +2,13 @@ import { render, screen, fireEvent } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
 import { getColumns } from "./MasterVoucher.columns";
 import MasterVoucherContainer from "./MasterVoucher.container";
-import { useGetVouchersQuery } from "./MasterVoucher.api";
+import { useGetVouchersQuery } from "@/services/master-voucher.service";
 import type { VoucherData } from "./MasterVoucher.type";
 
-jest.mock("./MasterVoucher.api", () => ({
+jest.mock("@/services/master-voucher.service", () => ({
   useGetVouchersQuery: jest.fn(),
   useCreateVoucherMutation: jest.fn(),
-  _mapVoucher: (voucher: { readonly id: string; readonly name: string; readonly code: string; readonly discount_percent: number; readonly status: number; readonly created_at: string | null }) => ({
+  mapVoucher: (voucher: { readonly id: string; readonly name: string; readonly code: string; readonly discount_percent: number; readonly status: number; readonly created_at: string | null }) => ({
     id: voucher.id,
     name: voucher.name,
     code: voucher.code,

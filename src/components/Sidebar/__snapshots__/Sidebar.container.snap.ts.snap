@@ -4,75 +4,24 @@ exports[`SidebarContainer matches snapshot 1`] = `
 <DocumentFragment>
   <aside
     aria-label="Sidebar"
-    class="w-[260px] h-full min-h-0 self-stretch bg-sidebar-background border border-border-default flex flex-col shrink-0 overflow-hidden transition-[width] duration-[250ms] ease-in-out"
+    class="w-[290px] h-full min-h-0 self-stretch bg-sidebar-background border border-border-default flex flex-col shrink-0 overflow-hidden transition-[width] duration-[250ms] ease-in-out"
     style="border-radius: 12px;"
   >
     <div
-      class="h-[56px] flex items-center shrink-0 px-4"
+      class="h-[56px] mb-16 flex items-center shrink-0 px-4"
     >
-      <button
-        aria-expanded="true"
-        aria-label="Collapse sidebar"
-        class="flex items-center justify-center shrink-0 focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring/30 rounded-[8px]"
-        type="button"
-      >
-        <img
-          alt="Sonicline"
-          class="h-8 w-auto object-contain"
-          src="/src/assets/Sonicline.png"
-        />
-      </button>
-    </div>
-    <div
-      class="shrink-0 px-4 pb-4"
-    >
-      <div
-        class="h-10 bg-background-subtle flex items-center text-text-tertiary gap-2 px-3 rounded-[8px]"
-        role="search"
-      >
-        <span
-          aria-hidden="true"
-          class="shrink-0 flex items-center justify-center"
-        >
-          <svg
-            fill="none"
-            height="18"
-            stroke="currentColor"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="1.8"
-            viewBox="0 0 24 24"
-            width="18"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <circle
-              cx="11"
-              cy="11"
-              r="8"
-            />
-            <path
-              d="m21 21-4.3-4.3"
-            />
-          </svg>
-        </span>
-        <span
-          class="flex-1 text-left text-[13px] text-text-tertiary truncate"
-        >
-          Search
-        </span>
-        <span
-          class="shrink-0 text-[11px] leading-none bg-background-surface px-1.5 py-1 rounded-[6px] border border-border-default text-text-secondary font-medium"
-        >
-          ⌘ K
-        </span>
-      </div>
+      <img
+        alt="Sonicline"
+        class="h-8 w-auto object-contain"
+        src="/src/assets/Sonicline.png"
+      />
     </div>
     <div
       class="flex-1 overflow-y-auto overflow-x-hidden px-4 space-y-5 scrollbar-thin"
     >
       <div>
         <p
-          class="px-2 mb-2 text-[12px] font-semibold tracking-widest uppercase text-text-tertiary"
+          class="px-2 mb-2 text-[15px] font-semibold tracking-widest uppercase text-text-tertiary"
         >
           Menu
         </p>
@@ -83,7 +32,7 @@ exports[`SidebarContainer matches snapshot 1`] = `
           <div>
             <button
               aria-expanded="false"
-              class="w-full h-9 flex items-center gap-3 rounded-[6px] px-3 text-left transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring/30 text-text-secondary hover:bg-background-elevated hover:text-text-primary"
+              class="w-full min-h-14 py-3 flex items-center gap-3 rounded-[8px] px-4 text-left transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring/30 text-text-secondary hover:bg-background-elevated hover:text-text-primary"
               type="button"
             >
               <span
@@ -115,7 +64,7 @@ exports[`SidebarContainer matches snapshot 1`] = `
                 </svg>
               </span>
               <span
-                class="flex-1 truncate text-[14px] leading-none font-normal"
+                class="flex-1 truncate text-xl leading-none font-normal"
               >
                 Master Data
               </span>

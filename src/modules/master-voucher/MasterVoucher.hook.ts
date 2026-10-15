@@ -1,9 +1,8 @@
-/* eslint-disable jsdoc/require-jsdoc */
+/* eslint-disable max-lines-per-function, jsdoc/require-jsdoc */
 import type * as React from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-import { mapVoucher, useCreateVoucherMutation, useGetVouchersQuery } from "@/services/master-voucher.service";
 import type {
   MasterVoucherContainerState,
   MasterVoucherCreateFormState,
@@ -13,6 +12,8 @@ import type {
   VoucherListApiState,
   VoucherListResponse,
 } from "./MasterVoucher.type";
+
+import { mapVoucher, useCreateVoucherMutation, useGetVouchersQuery } from "@/services/master-voucher.service";
 
 /**
  * Provide master voucher navigation.
@@ -113,6 +114,7 @@ export const useMasterVoucherCreateForm = (): MasterVoucherCreateFormState => {
         const message = Array.isArray(response.messages)
           ? response.messages.join(" ")
           : (response.messages ?? "Failed to create voucher.");
+
         setErrorMessage(message);
 
         return;

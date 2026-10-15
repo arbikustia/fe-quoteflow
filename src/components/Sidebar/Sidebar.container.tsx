@@ -4,18 +4,19 @@ import { useTheme } from "../../store/theme.hook";
 import { SidebarComponent } from "./Sidebar.component";
 import { NAVIGATION_SECTIONS } from "./Sidebar.config";
 import { useSidebarState } from "./Sidebar.hook";
+import type { SidebarContainerProps } from "./Sidebar.type";
 
 /**
  * Render Sidebar Container
+ * @param {SidebarContainerProps} props - container props
  * @returns {React.ReactElement} - Sidebar Container
  */
-const SidebarContainer = (): React.ReactElement => {
+const SidebarContainer = (props: SidebarContainerProps = {}): React.ReactElement => {
+  const { isCollapsed = false } = props;
   const {
     currentPath,
     openMenus,
     onToggleMenu,
-    isCollapsed,
-    onToggleCollapsed,
     isProfileOpen,
     onToggleProfile,
   } = useSidebarState();
@@ -28,7 +29,6 @@ const SidebarContainer = (): React.ReactElement => {
       openMenus={openMenus}
       onToggleMenu={onToggleMenu}
       isCollapsed={isCollapsed}
-      onToggleCollapsed={onToggleCollapsed}
       isProfileOpen={isProfileOpen}
       onToggleProfile={onToggleProfile}
       theme={theme}

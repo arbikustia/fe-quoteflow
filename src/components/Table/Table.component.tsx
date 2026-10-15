@@ -1,9 +1,9 @@
 import * as React from "react";
 import { FiEdit2, FiEye,FiTrash2 } from "react-icons/fi";
 
-import type { TableColumn, TableProps } from "./Table.type";
+import { Pagination } from "../Pagination";
 
-const DEFAULT_PAGE_SIZES: readonly number[] = [5, 10, 20, 50, 100];
+import type { TableColumn, TableProps } from "./Table.type";
 
 const _getCellValue = <T extends object>(row: T, key: string): React.ReactNode => {
   const entry = Object.entries(row).find(([name]) => name === key);
@@ -146,7 +146,7 @@ const _renderDesktopBody = <T extends object,>(props: TableProps<T>): React.Reac
           {columns.map((col) => (
             <td
               key={col.key}
-              className={`px-4 py-3 border-b border-border-default ${getAlignClass(col.align)} ${getStickyClass(col.sticky)}`}
+              className={`px-5 py-4 border-b border-border-default text-base ${getAlignClass(col.align)} ${getStickyClass(col.sticky)}`}
             >
               {_renderCellContent(col, row, index)}
             </td>
@@ -162,13 +162,13 @@ const _renderDesktopTable = <T extends object,>(props: TableProps<T>): React.Rea
 
   return (
     <div className="w-full overflow-x-auto">
-      <table className="w-full min-w-max whitespace-nowrap">
+      <table className="w-full min-w-max border-separate border-spacing-0 whitespace-nowrap">
         <thead>
-          <tr className="bg-table-header border-b border-border-default">
-            {columns.map((col) => (
+          <tr>
+            {columns.map((col, index) => (
               <th
                 key={col.key}
-                className={`px-4 py-3 text-xs font-semibold text-text-secondary uppercase tracking-wider ${getAlignClass(col.align)} ${getStickyHeaderClass(col.sticky)}`}
+                className={`bg-table-header px-5 py-4 text-[13px] font-bold text-text-secondary uppercase tracking-widest ${index === 0 ? "rounded-l-xl" : ""} ${index === columns.length - 1 ? "rounded-r-xl" : ""} ${getAlignClass(col.align)} ${getStickyHeaderClass(col.sticky)}`}
                 style={{ width: col.width }}
               >
                 {col.header}
@@ -298,106 +298,33 @@ const _renderMobileCard = <T extends object,>(props: TableProps<T>): React.React
   );
 };
 
-const _renderPagination = <T extends object,>(props: TableProps<T>): React.ReactElement | null => {
-  const {
-    currentPage,
-    totalPages,
-    pageSize,
-    totalCount,
-    onPageChange,
-    onPageSizeChange,
-  } = props;
-
-  if (currentPage === undefined || totalPages === undefined || pageSize === undefined || totalCount === undefined) {
-    return null;
-  }
-
-  if (totalPages <= 1 && !onPageSizeChange) {
-    return null;
-  }
-
-  const pages = Array.from({ length: totalPages }, (_, i) => i + 1);
-
-  return (
-    <div className="flex flex-col sm:flex-row items-center justify-between gap-4 p-4 border-t border-border-default">
-      <div className="flex items-center gap-3 text-sm text-text-tertiary">
-        <span>Showing</span>
-        {onPageSizeChange && (
-          <select
-            value={pageSize}
-            onChange={(e) => onPageSizeChange(Number(e.target.value))}
-            className="border border-border-default rounded px-2 py-1 bg-background-surface font-medium text-text-primary focus:outline-none focus:ring-1 focus:ring-action-primary"
-          >
-            {DEFAULT_PAGE_SIZES.map((size) => (
-              <option key={size} value={size}>
-                {size}
-              </option>
-            ))}
-          </select>
-        )}
-        {!onPageSizeChange && <span className="font-medium text-text-primary">{pageSize}</span>}
-        <span>of {totalCount} results</span>
-      </div>
-      <div className="flex items-center justify-center gap-1.5 text-sm text-text-tertiary font-medium">
-        <button
-          onClick={() => onPageChange?.(currentPage - 1)}
-          disabled={currentPage === 1}
-          className={`p-1.5 rounded transition-colors ${
-            currentPage === 1
-              ? "text-text-disabled cursor-not-allowed"
-              : "text-text-tertiary hover:text-text-primary hover:bg-background-subtle"
-          }`}
-          aria-label="Previous page"
-        >
-          {"<"}
-        </button>
-        {pages.map((page) => (
-          <button
-            key={page}
-            onClick={() => onPageChange?.(page)}
-            className={`w-8 h-8 flex items-center justify-center rounded-lg transition-colors ${
-              currentPage === page
-                ? "bg-action-primary text-text-inverse font-bold"
-                : "hover:bg-background-subtle text-text-primary"
-            }`}
-            aria-label={`Page ${page}`}
-            aria-current={currentPage === page ? "page" : undefined}
-          >
-            {page}
-          </button>
-        ))}
-        <button
-          onClick={() => onPageChange?.(currentPage + 1)}
-          disabled={currentPage === totalPages}
-          className={`p-1.5 rounded transition-colors ${
-            currentPage === totalPages
-              ? "text-text-disabled cursor-not-allowed"
-              : "text-text-tertiary hover:text-text-primary hover:bg-background-subtle"
-          }`}
-          aria-label="Next page"
-        >
-          {">"}
-        </button>
-      </div>
-    </div>
-  );
-};
-
 /**
  * Render Table Component
  * @param {TableProps<T>} props - table component props
  * @returns {React.ReactElement} element
  */
 export const TableComponent = <T extends object,>(props: TableProps<T>): React.ReactElement => {
+  const { currentPage, totalPages, pageSize, onPageChange, onPageSizeChange } = props;
+  const hasPagination = currentPage !== undefined && totalPages !== undefined && pageSize !== undefined && onPageChange !== undefined && onPageSizeChange !== undefined;
+
   return (
-    <div className="flex flex-col bg-background-surface rounded-xl border border-border-default shadow-sm overflow-hidden">
+    <div className="flex flex-col bg-transparent overflow-hidden">
       <div className="hidden md:flex flex-1 overflow-auto">
         {_renderDesktopTable(props)}
       </div>
-      <div className="md:hidden">
+      <div className="md:hidden bg-background-surface rounded-xl border border-border-default shadow-sm overflow-hidden">
         {_renderMobileCard(props)}
       </div>
-      {_renderPagination(props)}
+      {hasPagination && (
+        <Pagination
+          currentPage={currentPage}
+          totalPages={totalPages}
+          pageSize={pageSize}
+          onPageChange={onPageChange}
+          onPageSizeChange={onPageSizeChange}
+          className="mt-2"
+        />
+      )}
     </div>
   );
 };

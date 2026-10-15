@@ -1,16 +1,41 @@
-import * as React from "react";
+import type { ChangeEvent, ReactElement } from "react";
+
+import { Icons } from "@/components/Icons";
+import Table from "@/components/Table";
+
+import Layout from "@/app/layout";
 
 import type { MasterCategoryProps } from "./MasterCategory.type";
-import Layout from "../../app/layout";
-import { Icons } from "../../components/Icons";
-import Table from "../../components/Table";
 
 /**
- * Render Master Category Component
- * @param {MasterCategoryProps} props - category props
- * @returns {React.ReactElement} - component
+ * Resolve empty table message.
+ * @param {MasterCategoryProps} props - Component props
+ * @returns {string} Empty table message
  */
-export const MasterCategoryComponent = (props: MasterCategoryProps): React.ReactElement => {
+const _getEmptyText = (props: MasterCategoryProps): string => {
+  const { isMissingData, errorMessage, isEmpty } = props;
+
+  if (isMissingData) {
+    return "Category data is unavailable. Please try again.";
+  }
+
+  if (errorMessage) {
+    return errorMessage;
+  }
+
+  if (isEmpty) {
+    return "No categories found.";
+  }
+
+  return "No data available.";
+};
+
+/**
+ * Master Category pure UI component.
+ * @param {MasterCategoryProps} props - Category props
+ * @returns {ReactElement} Category list
+ */
+export const MasterCategoryComponent = (props: MasterCategoryProps): ReactElement => {
   const {
     onBack,
     paginatedData,
@@ -28,67 +53,42 @@ export const MasterCategoryComponent = (props: MasterCategoryProps): React.React
     onCloseMore,
     onDelete,
     isLoading,
-    isEmpty,
-    isMissingData,
-    errorMessage,
     setSearchTerm,
   } = props;
-  const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>): void => setSearchTerm(event.target.value);
-
-  let emptyText = "No data available";
-
-  if (isMissingData) {
-    emptyText = "Category data is unavailable. Please try again.";
-  } else if (errorMessage) {
-    emptyText = errorMessage;
-  } else if (isEmpty) {
-    emptyText = "No categories found.";
-  }
+  const emptyText = _getEmptyText(props);
+  const handleSearchChange = (event: ChangeEvent<HTMLInputElement>): void => { setSearchTerm(event.target.value); };
+  const handleCreate = (): void => {
+    onCloseMore();
+    onCreate();
+  };
+  const handleDelete = (): void => {
+    onCloseMore();
+    onDelete();
+  };
 
   return (
-    <Layout pageTitle="Category List">
-      <div className="flex flex-col h-full pb-18 lg:pb-0 px-3 lg:px-0 lg:-mt-4 relative">
-        <div className="flex items-center justify-between py-2 mb-1 lg:mb-4 relative">
-          <button type="button" onClick={onBack} aria-label="Back" className="w-11 h-11 rounded-full bg-[#F4F4F5] hover:bg-[#E9E9EB] active:scale-95 transition-all flex items-center justify-center text-black shrink-0"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.4} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M19 12H5" /><path d="M12 19 5 12l7-7" /></svg></button>
-          <h1 className="flex-1 text-center text-[17px] font-semibold text-black tracking-tight px-2 truncate">
-            Category List
-          </h1>
+    <Layout pageTitle="Category list">
+      <div className="relative flex h-full flex-col px-3 pb-18 lg:-mt-4 lg:px-0 lg:pb-0">
+        <div className="relative mb-4 flex items-center justify-between py-2">
+          <button type="button" onClick={onBack} aria-label="Back" className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-border-default bg-background-surface text-text-primary transition-colors hover:bg-background-subtle">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.4} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M19 12H5" /><path d="M12 19 5 12l7-7" /></svg>
+          </button>
+          <h1 className="flex-1 truncate px-2 text-center text-lg font-semibold text-text-primary">Category list</h1>
           <div className="relative shrink-0">
-            <button
-              type="button"
-              onClick={onMore}
-              aria-label="More options"
-              aria-expanded={isMoreOpen}
-              aria-haspopup="menu"
-              className="w-11 h-11 rounded-full bg-[#F4F4F5] hover:bg-[#E9E9EB] active:scale-95 transition-all flex items-center justify-center text-black"
-            >
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                <circle cx="5" cy="12" r="1.8" />
-                <circle cx="12" cy="12" r="1.8" />
-                <circle cx="19" cy="12" r="1.8" />
-              </svg>
+            <button type="button" onClick={onMore} aria-label="More options" aria-expanded={isMoreOpen} aria-haspopup="menu" className="flex h-11 w-11 items-center justify-center rounded-full border border-border-default bg-background-surface text-text-primary transition-colors hover:bg-background-subtle">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><circle cx="5" cy="12" r="1.8" /><circle cx="12" cy="12" r="1.8" /><circle cx="19" cy="12" r="1.8" /></svg>
             </button>
             {isMoreOpen && (
               <>
                 <button type="button" aria-label="Close menu" onClick={onCloseMore} className="fixed inset-0 z-10 cursor-default" tabIndex={-1} />
-                <div role="menu" className="absolute right-0 top-[calc(100%+8px)] z-20 w-52 rounded-2xl border border-gray-100 bg-white py-2 shadow-xl overflow-hidden">
-                  <button
-                    role="menuitem"
-                    type="button"
-                    onClick={() => { onCloseMore?.(); onCreate(); }}
-                    className="w-full flex items-center gap-3 px-4 py-3 text-left text-[14px] font-medium text-gray-800 hover:bg-gray-50 transition-colors"
-                  >
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M12 5v14" /><path d="M5 12h14" /></svg>
-                    New Category
+                <div role="menu" className="absolute right-0 z-20 mt-2 w-52 overflow-hidden rounded-xl border border-border-default bg-background-surface py-2 shadow-medium">
+                  <button role="menuitem" type="button" onClick={handleCreate} className="flex w-full items-center gap-3 px-4 py-3 text-left text-sm font-medium text-text-primary hover:bg-background-subtle">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M12 5v14" /><path d="M5 12h14" /></svg>
+                    New category
                   </button>
-                  <div className="mx-3 my-1 h-px bg-gray-100" role="separator" />
-                  <button
-                    role="menuitem"
-                    type="button"
-                    onClick={() => { onDelete?.(); }}
-                    className="w-full flex items-center gap-3 px-4 py-3 text-left text-[14px] font-medium text-red-600 hover:bg-red-50 transition-colors"
-                  >
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><polyline points="3 6 5 6 21 6" /><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" /></svg>
+                  <div className="mx-3 my-1 h-px bg-border-default" role="separator" />
+                  <button role="menuitem" type="button" onClick={handleDelete} className="flex w-full items-center gap-3 px-4 py-3 text-left text-sm font-medium text-red-600 hover:bg-red-50">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><polyline points="3 6 5 6 21 6" /><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" /></svg>
                     Delete
                   </button>
                 </div>
@@ -96,34 +96,12 @@ export const MasterCategoryComponent = (props: MasterCategoryProps): React.React
             )}
           </div>
         </div>
-
-        <div className="flex flex-col gap-4 mt-4">
+        <div className="mt-4 flex flex-col gap-4">
           <div className="relative">
-            <span className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-text-tertiary">
-              <Icons.Search />
-            </span>
-            <input
-              type="text"
-              placeholder="Search category"
-              onChange={handleSearchChange}
-              className="w-full sm:w-64 pl-10 pr-4 py-2 bg-background-surface border border-border-default rounded-lg text-sm focus:outline-none focus:ring-1 focus:ring-action-primary text-text-primary placeholder:text-text-tertiary"
-            />
+            <span className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3 text-text-tertiary"><Icons.Search /></span>
+            <input type="search" aria-label="Search category" placeholder="Search category" onChange={handleSearchChange} className="w-full rounded-lg border border-border-strong bg-background-surface py-2 pl-10 pr-4 text-sm text-text-primary outline-none focus:border-border-focus focus:ring-2 focus:ring-focus-ring sm:w-64" />
           </div>
-
-          <Table
-            data={paginatedData}
-            columns={columns}
-            onRowClick={onRowClick}
-            keyExtractor={(r) => r.id}
-            currentPage={currentPage}
-            totalPages={totalPages}
-            pageSize={pageSize}
-            totalCount={totalCount}
-            onPageChange={goToPage}
-            onPageSizeChange={changePageSize}
-            emptyText={emptyText}
-            isLoading={isLoading}
-          />
+          <Table data={paginatedData} columns={columns} onRowClick={onRowClick} keyExtractor={(category) => category.id} currentPage={currentPage} totalPages={totalPages} pageSize={pageSize} totalCount={totalCount} onPageChange={goToPage} onPageSizeChange={changePageSize} emptyText={emptyText} isLoading={isLoading} />
         </div>
       </div>
     </Layout>

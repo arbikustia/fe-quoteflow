@@ -1,1 +1,1 @@
-export { default } from "./MasterServiceType.wrapper";
+export { default } from "./MasterServiceType.container";

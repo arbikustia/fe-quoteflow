@@ -4,8 +4,8 @@ import { getColumns } from "./MasterProject.columns";
 import MasterProjectContainer from "./MasterProject.container";
 import type { ProjectData } from "./MasterProject.type";
 
-jest.mock("./MasterProject.api", () => ({
-  _mapProject: jest.fn(),
+jest.mock("@/services/master-project.service", () => ({
+  mapProject: jest.fn(),
   useGetProjectsQuery: jest.fn(() => ({
     data: { data: [], total_pages: 1, total_count: 0, has_next: false, has_previous: false, page_number: 1 },
     error: undefined,

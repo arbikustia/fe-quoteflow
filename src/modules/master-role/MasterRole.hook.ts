@@ -2,7 +2,6 @@ import type * as React from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-import { mapRole, useCreateRoleMutation, useGetRolesQuery } from "@/services/master-role.service";
 import type {
   MasterRoleContainerState,
   MasterRoleCreateFormState,
@@ -11,6 +10,8 @@ import type {
   RoleData,
   RoleListApiState,
 } from "./MasterRole.type";
+
+import { mapRole, useCreateRoleMutation, useGetRolesQuery } from "@/services/master-role.service";
 
 /**
  * Navigation hook

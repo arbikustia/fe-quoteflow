@@ -4,7 +4,7 @@ import Layout from "../../app/layout";
 import { Icons } from "../../components/Icons";
 import { MobileList } from "../../components/MobileList";
 import type { MobileListItemProps } from "../../components/MobileList/MobileList.component";
-import { PaginationFooter, PaginationHeader } from "../../components/Pagination";
+import { Pagination } from "../../components/Pagination";
 import Table from "../../components/Table";
 
 import type { MasterProjectProps, ProjectData } from "./MasterProject.type";
@@ -145,7 +145,7 @@ const _formatMobileData = (
  * @returns {React.ReactElement} Mobile list section
  */
 const _renderMobileList = (props: MasterProjectProps): React.ReactElement => {
-  const { paginatedData, onRowClick, pageSize, totalCount, changePageSize, currentPage, totalPages, goToPage, nextPage, prevPage } = props;
+  const { paginatedData, onRowClick, pageSize, changePageSize, currentPage, totalPages, goToPage } = props;
   const mobileData = _formatMobileData(paginatedData, onRowClick);
 
   return (
@@ -158,8 +158,7 @@ const _renderMobileList = (props: MasterProjectProps): React.ReactElement => {
         {_renderListState(props) ?? <MobileList data={mobileData} />}
       </div>
       <div className="pt-4 flex items-center justify-between">
-        <PaginationHeader pageSize={pageSize} totalCount={totalCount} onPageSizeChange={changePageSize} className="shrink-0" />
-        <PaginationFooter currentPage={currentPage} totalPages={totalPages} onPageChange={goToPage} onNextPage={nextPage} onPrevPage={prevPage} />
+        <Pagination currentPage={currentPage} totalPages={totalPages} pageSize={pageSize} onPageChange={goToPage} onPageSizeChange={changePageSize} />
       </div>
     </div>
   );
@@ -178,7 +177,7 @@ const _extractKey = (r: ProjectData): string => r.id;
  * @returns {React.ReactElement} Desktop table section
  */
 const _renderDesktopTable = (props: MasterProjectProps): React.ReactElement => {
-  const { paginatedData, columns, onRowClick, pageSize, totalCount, changePageSize, currentPage, totalPages, goToPage, nextPage, prevPage } = props;
+  const { paginatedData, columns, onRowClick, pageSize, changePageSize, currentPage, totalPages, goToPage } = props;
 
   return (
     <div className="hidden md:flex bg-brand-white rounded-xl border border-brand-gray-light shadow-sm flex-col flex-1 overflow-hidden mt-6">
@@ -187,12 +186,11 @@ const _renderDesktopTable = (props: MasterProjectProps): React.ReactElement => {
           <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-brand-text-medium"><Icons.Search /></div>
           <input type="text" placeholder="Search project" className="w-64 pl-10 pr-4 py-2 bg-brand-gray-light border-none rounded-lg text-sm focus:outline-none text-brand-text-dark placeholder:text-brand-text-medium" />
         </div>
-        <PaginationHeader pageSize={pageSize} totalCount={totalCount} onPageSizeChange={changePageSize} />
       </div>
       <div className="flex-1 overflow-auto">
         {_renderListState(props) ?? <Table data={paginatedData} columns={columns} onRowClick={onRowClick} keyExtractor={_extractKey} />}
       </div>
-      <PaginationFooter currentPage={currentPage} totalPages={totalPages} onPageChange={goToPage} onNextPage={nextPage} onPrevPage={prevPage} />
+      <Pagination currentPage={currentPage} totalPages={totalPages} pageSize={pageSize} onPageChange={goToPage} onPageSizeChange={changePageSize} />
     </div>
   );
 };

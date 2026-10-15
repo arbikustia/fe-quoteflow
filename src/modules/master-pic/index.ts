@@ -1,1 +1,1 @@
-export { default } from './MasterPic.wrapper';
+export { default } from "./MasterPic.container";

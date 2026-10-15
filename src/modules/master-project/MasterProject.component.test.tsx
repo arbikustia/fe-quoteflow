@@ -3,6 +3,10 @@ import { MemoryRouter } from "react-router-dom";
 import { MasterProjectComponent } from "./MasterProject.component";
 import type { MasterProjectProps, ProjectData } from "./MasterProject.type";
 
+jest.mock("../../components/Pagination", () => ({
+  Pagination: () => <div data-testid="pagination" />,
+}));
+
 const mockProject: ProjectData = {
   id: "1",
   name: "Website Revamp",

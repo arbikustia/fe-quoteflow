@@ -4,7 +4,7 @@ import Layout from "../../app/layout";
 import { Icons } from "../../components/Icons";
 import { MobileList } from "../../components/MobileList";
 import type { MobileListItemProps } from "../../components/MobileList/MobileList.component";
-import { PaginationFooter, PaginationHeader } from "../../components/Pagination";
+import { Pagination } from "../../components/Pagination";
 import Table from "../../components/Table";
 
 import type { MasterPicProps, PicData } from "./MasterPic.type";
@@ -80,7 +80,7 @@ const _renderHeader = (props: MasterPicProps): React.ReactElement => (
  * @returns {React.ReactElement} mobile list
  */
 const _renderMobileList = (props: MasterPicProps): React.ReactElement => {
-  const { paginatedData, onRowClick, pageSize, totalCount, changePageSize, currentPage, totalPages, goToPage, nextPage, prevPage } = props;
+  const { paginatedData, onRowClick, pageSize, changePageSize, currentPage, totalPages, goToPage } = props;
 
   /**
    * Get mobile list data
@@ -115,8 +115,7 @@ const _renderMobileList = (props: MasterPicProps): React.ReactElement => {
         <MobileList data={getMobileListData()} />
       </div>
       <div className="pt-4 flex items-center justify-between">
-        <PaginationHeader pageSize={pageSize} totalCount={totalCount} onPageSizeChange={changePageSize} className="shrink-0" />
-        <PaginationFooter currentPage={currentPage} totalPages={totalPages} onPageChange={goToPage} onNextPage={nextPage} onPrevPage={prevPage} />
+        <Pagination currentPage={currentPage} totalPages={totalPages} pageSize={pageSize} onPageChange={goToPage} onPageSizeChange={changePageSize} />
       </div>
     </div>
   );
@@ -128,7 +127,7 @@ const _renderMobileList = (props: MasterPicProps): React.ReactElement => {
  * @returns {React.ReactElement} desktop table
  */
 const _renderDesktopTable = (props: MasterPicProps): React.ReactElement => {
-  const { paginatedData, columns, onRowClick, pageSize, totalCount, changePageSize, currentPage, totalPages, goToPage, nextPage, prevPage } = props;
+  const { paginatedData, columns, onRowClick, pageSize, changePageSize, currentPage, totalPages, goToPage } = props;
 
   /**
    * Extract unique key from row data
@@ -144,12 +143,11 @@ const _renderDesktopTable = (props: MasterPicProps): React.ReactElement => {
           <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-brand-text-medium"><Icons.Search /></div>
           <input type="text" placeholder="Search PIC" className="w-64 pl-10 pr-4 py-2 bg-brand-gray-light border-none rounded-lg text-sm focus:outline-none placeholder:text-brand-text-medium text-brand-text-dark" />
         </div>
-        <PaginationHeader pageSize={pageSize} totalCount={totalCount} onPageSizeChange={changePageSize} />
       </div>
       <div className="flex-1 overflow-auto">
         <Table data={paginatedData} columns={columns} onRowClick={onRowClick} keyExtractor={keyExtractor} />
       </div>
-      <PaginationFooter currentPage={currentPage} totalPages={totalPages} onPageChange={goToPage} onNextPage={nextPage} onPrevPage={prevPage} />
+      <Pagination currentPage={currentPage} totalPages={totalPages} pageSize={pageSize} onPageChange={goToPage} onPageSizeChange={changePageSize} />
     </div>
   );
 };

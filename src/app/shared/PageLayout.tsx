@@ -30,7 +30,7 @@ export const PageLayout = ({ title, breadcrumbs, actions = [], onBack, children,
       <div className="hidden items-start justify-between gap-4 lg:flex">
         <div className="min-w-0">
           {breadcrumbs && breadcrumbs.length > 0 && (
-            <nav aria-label="Breadcrumb" className="mb-2 flex flex-wrap items-center gap-2 text-sm text-text-tertiary">
+            <nav aria-label="Breadcrumb" className="mb-2 flex flex-wrap items-center gap-2 text-[15px] font-medium text-text-secondary">
               {breadcrumbs.map((breadcrumb: string, index: number) => (
                 <React.Fragment key={breadcrumb}>
                   {index > 0 && <span aria-hidden="true">/</span>}
