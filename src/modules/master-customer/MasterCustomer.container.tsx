@@ -9,7 +9,7 @@ import { useMasterCustomerContainerState, useMasterCustomerNavigation } from "./
  * @returns {React.ReactElement} Container element
  */
 const MasterCustomerContainer = (): React.ReactElement => {
-  const { goBack, goCreate, goEdit, goDetail } = useMasterCustomerNavigation();
+  const { goBack, goCreate, goEdit } = useMasterCustomerNavigation();
   const { pagination, isMoreOpen, toggleMore, handleCloseMore, goDelete } = useMasterCustomerContainerState();
 
   const columns = getColumns({
@@ -26,7 +26,6 @@ const MasterCustomerContainer = (): React.ReactElement => {
       onBack={goBack}
       onCreate={goCreate}
       onEdit={goEdit}
-      onRowClick={goDetail}
       onMore={toggleMore}
       onCloseMore={handleCloseMore}
       onDelete={goDelete}

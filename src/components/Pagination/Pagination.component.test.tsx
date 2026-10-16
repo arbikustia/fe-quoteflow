@@ -17,7 +17,7 @@ describe("Pagination Component", () => {
       />
     );
 
-    expect(screen.getByText("10 Documents")).toBeInTheDocument();
+    expect(screen.getByRole("option", { name: "10" })).toBeInTheDocument();
     expect(screen.getByRole("button", { name: "1" })).toBeInTheDocument();
     expect(screen.getByRole("button", { name: "10" })).toBeInTheDocument();
 

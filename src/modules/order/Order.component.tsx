@@ -44,7 +44,7 @@ const _renderMobileCard = (order: QuoteData): React.ReactElement => (
 const _renderMobileToolbar = (props: OrderProps): React.ReactElement => {
   const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>): void => props.setSearchTerm(event.target.value);
 
-  return <div className="flex w-full items-center justify-between gap-3 bg-transparent"><div className="flex-1"><SearchFilter placeholder="Search order" onChange={handleSearchChange} /></div><button type="button" onClick={props.openCreateModal} className="shrink-0 rounded-xl bg-brand-blue px-4 py-2.5 text-sm font-semibold text-brand-white shadow-sm transition-colors hover:bg-brand-blue/90">Create Order</button></div>;
+  return <div className="flex w-full items-center justify-between gap-3 bg-transparent"><div className="flex-1"><SearchFilter placeholder="Search order" onChange={handleSearchChange} /></div><button type="button" onClick={props.openCreateModal} className="shrink-0 rounded-xl bg-brand-blue h-14 px-5 text-sm font-semibold text-brand-white shadow-sm transition-colors hover:bg-brand-blue/90">Create Order</button></div>;
 };
 
 /** Render mobile cards. */
@@ -53,7 +53,7 @@ const _renderMobileCards = (props: OrderProps): React.ReactElement => (
     {_renderMobileToolbar(props)}
     {_renderTabs(props)}
     <div className="min-w-0 space-y-3">{_renderListState(props) ?? props.paginatedData.map(_renderMobileCard)}</div>
-    <Pagination currentPage={props.currentPage} totalPages={props.totalPages} pageSize={props.pageSize} onPageChange={props.goToPage} onPageSizeChange={props.changePageSize} totalItems={props.totalCount} isCompact={true} className="mt-2 w-full rounded-2xl border border-border-default bg-background-surface px-4 py-3 shadow-xs" />
+    <Pagination currentPage={props.currentPage} totalPages={props.totalPages} pageSize={props.pageSize} onPageChange={props.goToPage} onPageSizeChange={props.changePageSize} totalItems={props.totalCount} isCompact={true} className="mt-2 w-full rounded-2xl border border-border-default bg-background-surface h-14 px-5 shadow-xs" />
   </div>
 );
 
@@ -63,7 +63,7 @@ const _renderDesktopTable = (props: OrderProps): React.ReactElement => {
 
   return (
     <div className="hidden lg:px-6 md:flex bg-brand-white rounded-4xl border border-brand-gray-light shadow-xs flex-col flex-1 overflow-hidden mt-6">
-      <div className="flex items-center justify-between gap-4 py-6"><SearchFilter placeholder="Search order" onChange={handleSearchChange} /><button type="button" onClick={props.openCreateModal} className="rounded-xl bg-brand-blue px-5 py-2.5 text-sm font-semibold text-brand-white shadow-sm transition-colors hover:bg-brand-blue/90">Create Order</button></div>
+      <div className="flex items-center justify-between gap-4 py-6"><SearchFilter placeholder="Search order" onChange={handleSearchChange} /><button type="button" onClick={props.openCreateModal} className="rounded-xl bg-brand-blue h-14 px-6 text-sm font-semibold text-brand-white shadow-sm transition-colors hover:bg-brand-blue/90">Create Order</button></div>
       {_renderTabs(props)}
       <div className="flex-1 overflow-auto">{_renderListState(props) ?? <Table data={props.paginatedData} columns={props.columns} keyExtractor={(row) => row.id} />}</div>
       <Pagination currentPage={props.currentPage} totalPages={props.totalPages} pageSize={props.pageSize} onPageChange={props.goToPage} onPageSizeChange={props.changePageSize} totalItems={props.totalCount} />

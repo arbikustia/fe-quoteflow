@@ -21,9 +21,12 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots default stat
               aria-label="Breadcrumb"
               class="mb-2 flex flex-wrap items-center gap-2 text-[15px] font-medium text-text-secondary"
             >
-              <span>
+              <button
+                class="cursor-pointer hover:text-text-primary"
+                type="button"
+              >
                 Master
-              </span>
+              </button>
               <span
                 aria-hidden="true"
               >
@@ -34,34 +37,43 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots default stat
               </span>
             </nav>
             <h1
-              class="truncate text-2xl font-bold tracking-tight text-text-primary"
+              class="truncate text-4xl font-semibold leading-tight tracking-tight text-text-primary"
             >
               Customer List
             </h1>
           </div>
         </div>
         <div
-          class="flex items-center justify-between gap-3 lg:hidden"
+          class="flex items-center justify-between px-2 gap-3 lg:hidden"
         >
           <button
             aria-label="Back"
-            class="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg border border-border-default text-text-primary hover:bg-background-subtle"
+            class="flex h-14 w-14 shrink-0 items-center justify-center rounded-full border border-border-default text-text-primary bg-white hover:bg-background-subtle transition-colors shadow-sm"
             type="button"
           >
-            <span
+            <svg
               aria-hidden="true"
+              class="w-6 h-6"
+              fill="none"
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2.5"
+              viewBox="0 0 24 24"
             >
-              ←
-            </span>
+              <path
+                d="M19 12H5M12 19l-7-7 7-7"
+              />
+            </svg>
           </button>
           <h1
-            class="min-w-0 flex-1 truncate text-center text-lg font-semibold text-text-primary"
+            class="min-w-0 flex-1 truncate text-center text-3xl font-semibold tracking-tight text-text-primary"
           >
             Customer List
           </h1>
           <span
             aria-hidden="true"
-            class="h-10 w-10 shrink-0"
+            class="h-12 w-12 shrink-0"
           />
         </div>
       </header>
@@ -93,14 +105,14 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots default stat
                   />
                   <input
                     aria-label="Search customer"
-                    class="h-11 w-full rounded-xl border border-border-default bg-background-surface pl-12 pr-4 text-base font-medium text-text-primary outline-none transition-colors placeholder:font-normal placeholder:text-text-tertiary hover:border-border-strong focus:border-border-focus focus:ring-2 focus:ring-focus-ring/30"
+                    class="h-14 w-full rounded-xl border border-border-default bg-background-surface pl-12 pr-4 text-base font-medium text-text-primary outline-none transition-colors placeholder:font-normal placeholder:text-text-tertiary hover:border-border-strong focus:border-border-focus focus:ring-2 focus:ring-focus-ring/30"
                     placeholder="Search customer"
                     type="search"
                   />
                 </label>
               </div>
               <button
-                class="shrink-0 rounded-xl bg-brand-blue px-4 py-2.5 text-sm font-semibold text-brand-white shadow-sm hover:bg-brand-blue/90 transition-colors"
+                class="shrink-0 rounded-xl bg-brand-blue h-14 px-5 text-sm font-semibold text-brand-white shadow-sm hover:bg-brand-blue/90 transition-colors"
                 type="button"
               >
                 Create Customer
@@ -110,7 +122,7 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots default stat
               class="min-w-0 space-y-3"
             >
               <div
-                class="bg-background-surface rounded-2xl border border-border-default p-4 shadow-xs flex flex-col gap-3 active:bg-background-subtle/50 transition-colors cursor-pointer"
+                class="bg-background-surface rounded-2xl border border-border-default p-4 shadow-xs flex flex-col gap-3 transition-colors active:bg-background-subtle/50 cursor-pointer"
                 role="button"
                 tabindex="0"
               >
@@ -199,7 +211,7 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots default stat
                   <span
                     class="flex items-center gap-1"
                   >
-                    Lihat detail
+                    Lihat detail 
                     <div
                       data-testid="chevron-right-icon"
                     />
@@ -207,7 +219,7 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots default stat
                 </div>
               </div>
               <div
-                class="bg-background-surface rounded-2xl border border-border-default p-4 shadow-xs flex flex-col gap-3 active:bg-background-subtle/50 transition-colors cursor-pointer"
+                class="bg-background-surface rounded-2xl border border-border-default p-4 shadow-xs flex flex-col gap-3 transition-colors active:bg-background-subtle/50 cursor-pointer"
                 role="button"
                 tabindex="0"
               >
@@ -296,7 +308,7 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots default stat
                   <span
                     class="flex items-center gap-1"
                   >
-                    Lihat detail
+                    Lihat detail 
                     <div
                       data-testid="chevron-right-icon"
                     />
@@ -304,7 +316,7 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots default stat
                 </div>
               </div>
               <div
-                class="bg-background-surface rounded-2xl border border-border-default p-4 shadow-xs flex flex-col gap-3 active:bg-background-subtle/50 transition-colors cursor-pointer"
+                class="bg-background-surface rounded-2xl border border-border-default p-4 shadow-xs flex flex-col gap-3 transition-colors active:bg-background-subtle/50 cursor-pointer"
                 role="button"
                 tabindex="0"
               >
@@ -393,7 +405,7 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots default stat
                   <span
                     class="flex items-center gap-1"
                   >
-                    Lihat detail
+                    Lihat detail 
                     <div
                       data-testid="chevron-right-icon"
                     />
@@ -401,7 +413,7 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots default stat
                 </div>
               </div>
               <div
-                class="bg-background-surface rounded-2xl border border-border-default p-4 shadow-xs flex flex-col gap-3 active:bg-background-subtle/50 transition-colors cursor-pointer"
+                class="bg-background-surface rounded-2xl border border-border-default p-4 shadow-xs flex flex-col gap-3 transition-colors active:bg-background-subtle/50 cursor-pointer"
                 role="button"
                 tabindex="0"
               >
@@ -490,7 +502,7 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots default stat
                   <span
                     class="flex items-center gap-1"
                   >
-                    Lihat detail
+                    Lihat detail 
                     <div
                       data-testid="chevron-right-icon"
                     />
@@ -498,7 +510,7 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots default stat
                 </div>
               </div>
               <div
-                class="bg-background-surface rounded-2xl border border-border-default p-4 shadow-xs flex flex-col gap-3 active:bg-background-subtle/50 transition-colors cursor-pointer"
+                class="bg-background-surface rounded-2xl border border-border-default p-4 shadow-xs flex flex-col gap-3 transition-colors active:bg-background-subtle/50 cursor-pointer"
                 role="button"
                 tabindex="0"
               >
@@ -587,7 +599,7 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots default stat
                   <span
                     class="flex items-center gap-1"
                   >
-                    Lihat detail
+                    Lihat detail 
                     <div
                       data-testid="chevron-right-icon"
                     />
@@ -595,7 +607,7 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots default stat
                 </div>
               </div>
               <div
-                class="bg-background-surface rounded-2xl border border-border-default p-4 shadow-xs flex flex-col gap-3 active:bg-background-subtle/50 transition-colors cursor-pointer"
+                class="bg-background-surface rounded-2xl border border-border-default p-4 shadow-xs flex flex-col gap-3 transition-colors active:bg-background-subtle/50 cursor-pointer"
                 role="button"
                 tabindex="0"
               >
@@ -684,7 +696,7 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots default stat
                   <span
                     class="flex items-center gap-1"
                   >
-                    Lihat detail
+                    Lihat detail 
                     <div
                       data-testid="chevron-right-icon"
                     />
@@ -692,7 +704,7 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots default stat
                 </div>
               </div>
               <div
-                class="bg-background-surface rounded-2xl border border-border-default p-4 shadow-xs flex flex-col gap-3 active:bg-background-subtle/50 transition-colors cursor-pointer"
+                class="bg-background-surface rounded-2xl border border-border-default p-4 shadow-xs flex flex-col gap-3 transition-colors active:bg-background-subtle/50 cursor-pointer"
                 role="button"
                 tabindex="0"
               >
@@ -781,7 +793,7 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots default stat
                   <span
                     class="flex items-center gap-1"
                   >
-                    Lihat detail
+                    Lihat detail 
                     <div
                       data-testid="chevron-right-icon"
                     />
@@ -789,7 +801,7 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots default stat
                 </div>
               </div>
               <div
-                class="bg-background-surface rounded-2xl border border-border-default p-4 shadow-xs flex flex-col gap-3 active:bg-background-subtle/50 transition-colors cursor-pointer"
+                class="bg-background-surface rounded-2xl border border-border-default p-4 shadow-xs flex flex-col gap-3 transition-colors active:bg-background-subtle/50 cursor-pointer"
                 role="button"
                 tabindex="0"
               >
@@ -878,7 +890,7 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots default stat
                   <span
                     class="flex items-center gap-1"
                   >
-                    Lihat detail
+                    Lihat detail 
                     <div
                       data-testid="chevron-right-icon"
                     />
@@ -886,7 +898,7 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots default stat
                 </div>
               </div>
               <div
-                class="bg-background-surface rounded-2xl border border-border-default p-4 shadow-xs flex flex-col gap-3 active:bg-background-subtle/50 transition-colors cursor-pointer"
+                class="bg-background-surface rounded-2xl border border-border-default p-4 shadow-xs flex flex-col gap-3 transition-colors active:bg-background-subtle/50 cursor-pointer"
                 role="button"
                 tabindex="0"
               >
@@ -975,7 +987,7 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots default stat
                   <span
                     class="flex items-center gap-1"
                   >
-                    Lihat detail
+                    Lihat detail 
                     <div
                       data-testid="chevron-right-icon"
                     />
@@ -983,7 +995,7 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots default stat
                 </div>
               </div>
               <div
-                class="bg-background-surface rounded-2xl border border-border-default p-4 shadow-xs flex flex-col gap-3 active:bg-background-subtle/50 transition-colors cursor-pointer"
+                class="bg-background-surface rounded-2xl border border-border-default p-4 shadow-xs flex flex-col gap-3 transition-colors active:bg-background-subtle/50 cursor-pointer"
                 role="button"
                 tabindex="0"
               >
@@ -1072,7 +1084,7 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots default stat
                   <span
                     class="flex items-center gap-1"
                   >
-                    Lihat detail
+                    Lihat detail 
                     <div
                       data-testid="chevron-right-icon"
                     />
@@ -1103,13 +1115,13 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots default stat
                 />
                 <input
                   aria-label="Search customer"
-                  class="h-11 w-full rounded-xl border border-border-default bg-background-surface pl-12 pr-4 text-base font-medium text-text-primary outline-none transition-colors placeholder:font-normal placeholder:text-text-tertiary hover:border-border-strong focus:border-border-focus focus:ring-2 focus:ring-focus-ring/30"
+                  class="h-14 w-full rounded-xl border border-border-default bg-background-surface pl-12 pr-4 text-base font-medium text-text-primary outline-none transition-colors placeholder:font-normal placeholder:text-text-tertiary hover:border-border-strong focus:border-border-focus focus:ring-2 focus:ring-focus-ring/30"
                   placeholder="Search customer"
                   type="search"
                 />
               </label>
               <button
-                class="rounded-xl bg-brand-blue px-5 py-2.5 text-sm font-semibold text-brand-white shadow-sm transition-colors hover:bg-brand-blue/90 focus:outline-none focus:ring-2 focus:ring-brand-blue/30"
+                class="rounded-xl bg-brand-blue h-14 px-6 text-sm font-semibold text-brand-white shadow-sm transition-colors hover:bg-brand-blue/90 focus:outline-none focus:ring-2 focus:ring-brand-blue/30"
                 type="button"
               >
                 Create Customer
@@ -1168,7 +1180,7 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots default stat
                         class="divide-y divide-border-default"
                       >
                         <tr
-                          class="hover:bg-background-subtle/50 transition-colors cursor-pointer"
+                          class="hover:bg-background-subtle/50 transition-colors "
                         >
                           <td
                             class="px-5 py-4 border-b border-border-default text-base text-left "
@@ -1198,7 +1210,7 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots default stat
                           />
                         </tr>
                         <tr
-                          class="hover:bg-background-subtle/50 transition-colors cursor-pointer"
+                          class="hover:bg-background-subtle/50 transition-colors "
                         >
                           <td
                             class="px-5 py-4 border-b border-border-default text-base text-left "
@@ -1228,7 +1240,7 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots default stat
                           />
                         </tr>
                         <tr
-                          class="hover:bg-background-subtle/50 transition-colors cursor-pointer"
+                          class="hover:bg-background-subtle/50 transition-colors "
                         >
                           <td
                             class="px-5 py-4 border-b border-border-default text-base text-left "
@@ -1258,7 +1270,7 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots default stat
                           />
                         </tr>
                         <tr
-                          class="hover:bg-background-subtle/50 transition-colors cursor-pointer"
+                          class="hover:bg-background-subtle/50 transition-colors "
                         >
                           <td
                             class="px-5 py-4 border-b border-border-default text-base text-left "
@@ -1288,7 +1300,7 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots default stat
                           />
                         </tr>
                         <tr
-                          class="hover:bg-background-subtle/50 transition-colors cursor-pointer"
+                          class="hover:bg-background-subtle/50 transition-colors "
                         >
                           <td
                             class="px-5 py-4 border-b border-border-default text-base text-left "
@@ -1318,7 +1330,7 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots default stat
                           />
                         </tr>
                         <tr
-                          class="hover:bg-background-subtle/50 transition-colors cursor-pointer"
+                          class="hover:bg-background-subtle/50 transition-colors "
                         >
                           <td
                             class="px-5 py-4 border-b border-border-default text-base text-left "
@@ -1348,7 +1360,7 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots default stat
                           />
                         </tr>
                         <tr
-                          class="hover:bg-background-subtle/50 transition-colors cursor-pointer"
+                          class="hover:bg-background-subtle/50 transition-colors "
                         >
                           <td
                             class="px-5 py-4 border-b border-border-default text-base text-left "
@@ -1378,7 +1390,7 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots default stat
                           />
                         </tr>
                         <tr
-                          class="hover:bg-background-subtle/50 transition-colors cursor-pointer"
+                          class="hover:bg-background-subtle/50 transition-colors "
                         >
                           <td
                             class="px-5 py-4 border-b border-border-default text-base text-left "
@@ -1408,7 +1420,7 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots default stat
                           />
                         </tr>
                         <tr
-                          class="hover:bg-background-subtle/50 transition-colors cursor-pointer"
+                          class="hover:bg-background-subtle/50 transition-colors "
                         >
                           <td
                             class="px-5 py-4 border-b border-border-default text-base text-left "
@@ -1438,7 +1450,7 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots default stat
                           />
                         </tr>
                         <tr
-                          class="hover:bg-background-subtle/50 transition-colors cursor-pointer"
+                          class="hover:bg-background-subtle/50 transition-colors "
                         >
                           <td
                             class="px-5 py-4 border-b border-border-default text-base text-left "
@@ -1478,54 +1490,34 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots default stat
                     class="bg-background-surface overflow-hidden divide-y divide-border-default"
                   >
                     <div
-                      class="flex flex-col gap-3 px-4 py-4 bg-transparent cursor-pointer active:bg-background-subtle/50 transition-colors"
-                      role="button"
-                      tabindex="0"
+                      class="flex flex-col gap-3 px-4 py-4 bg-transparent transition-colors "
                     />
                     <div
-                      class="flex flex-col gap-3 px-4 py-4 bg-transparent cursor-pointer active:bg-background-subtle/50 transition-colors"
-                      role="button"
-                      tabindex="0"
+                      class="flex flex-col gap-3 px-4 py-4 bg-transparent transition-colors "
                     />
                     <div
-                      class="flex flex-col gap-3 px-4 py-4 bg-transparent cursor-pointer active:bg-background-subtle/50 transition-colors"
-                      role="button"
-                      tabindex="0"
+                      class="flex flex-col gap-3 px-4 py-4 bg-transparent transition-colors "
                     />
                     <div
-                      class="flex flex-col gap-3 px-4 py-4 bg-transparent cursor-pointer active:bg-background-subtle/50 transition-colors"
-                      role="button"
-                      tabindex="0"
+                      class="flex flex-col gap-3 px-4 py-4 bg-transparent transition-colors "
                     />
                     <div
-                      class="flex flex-col gap-3 px-4 py-4 bg-transparent cursor-pointer active:bg-background-subtle/50 transition-colors"
-                      role="button"
-                      tabindex="0"
+                      class="flex flex-col gap-3 px-4 py-4 bg-transparent transition-colors "
                     />
                     <div
-                      class="flex flex-col gap-3 px-4 py-4 bg-transparent cursor-pointer active:bg-background-subtle/50 transition-colors"
-                      role="button"
-                      tabindex="0"
+                      class="flex flex-col gap-3 px-4 py-4 bg-transparent transition-colors "
                     />
                     <div
-                      class="flex flex-col gap-3 px-4 py-4 bg-transparent cursor-pointer active:bg-background-subtle/50 transition-colors"
-                      role="button"
-                      tabindex="0"
+                      class="flex flex-col gap-3 px-4 py-4 bg-transparent transition-colors "
                     />
                     <div
-                      class="flex flex-col gap-3 px-4 py-4 bg-transparent cursor-pointer active:bg-background-subtle/50 transition-colors"
-                      role="button"
-                      tabindex="0"
+                      class="flex flex-col gap-3 px-4 py-4 bg-transparent transition-colors "
                     />
                     <div
-                      class="flex flex-col gap-3 px-4 py-4 bg-transparent cursor-pointer active:bg-background-subtle/50 transition-colors"
-                      role="button"
-                      tabindex="0"
+                      class="flex flex-col gap-3 px-4 py-4 bg-transparent transition-colors "
                     />
                     <div
-                      class="flex flex-col gap-3 px-4 py-4 bg-transparent cursor-pointer active:bg-background-subtle/50 transition-colors"
-                      role="button"
-                      tabindex="0"
+                      class="flex flex-col gap-3 px-4 py-4 bg-transparent transition-colors "
                     />
                   </div>
                 </div>
@@ -1563,9 +1555,12 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots more open st
               aria-label="Breadcrumb"
               class="mb-2 flex flex-wrap items-center gap-2 text-[15px] font-medium text-text-secondary"
             >
-              <span>
+              <button
+                class="cursor-pointer hover:text-text-primary"
+                type="button"
+              >
                 Master
-              </span>
+              </button>
               <span
                 aria-hidden="true"
               >
@@ -1576,34 +1571,43 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots more open st
               </span>
             </nav>
             <h1
-              class="truncate text-2xl font-bold tracking-tight text-text-primary"
+              class="truncate text-4xl font-semibold leading-tight tracking-tight text-text-primary"
             >
               Customer List
             </h1>
           </div>
         </div>
         <div
-          class="flex items-center justify-between gap-3 lg:hidden"
+          class="flex items-center justify-between px-2 gap-3 lg:hidden"
         >
           <button
             aria-label="Back"
-            class="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg border border-border-default text-text-primary hover:bg-background-subtle"
+            class="flex h-14 w-14 shrink-0 items-center justify-center rounded-full border border-border-default text-text-primary bg-white hover:bg-background-subtle transition-colors shadow-sm"
             type="button"
           >
-            <span
+            <svg
               aria-hidden="true"
+              class="w-6 h-6"
+              fill="none"
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2.5"
+              viewBox="0 0 24 24"
             >
-              ←
-            </span>
+              <path
+                d="M19 12H5M12 19l-7-7 7-7"
+              />
+            </svg>
           </button>
           <h1
-            class="min-w-0 flex-1 truncate text-center text-lg font-semibold text-text-primary"
+            class="min-w-0 flex-1 truncate text-center text-3xl font-semibold tracking-tight text-text-primary"
           >
             Customer List
           </h1>
           <span
             aria-hidden="true"
-            class="h-10 w-10 shrink-0"
+            class="h-12 w-12 shrink-0"
           />
         </div>
       </header>
@@ -1635,14 +1639,14 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots more open st
                   />
                   <input
                     aria-label="Search customer"
-                    class="h-11 w-full rounded-xl border border-border-default bg-background-surface pl-12 pr-4 text-base font-medium text-text-primary outline-none transition-colors placeholder:font-normal placeholder:text-text-tertiary hover:border-border-strong focus:border-border-focus focus:ring-2 focus:ring-focus-ring/30"
+                    class="h-14 w-full rounded-xl border border-border-default bg-background-surface pl-12 pr-4 text-base font-medium text-text-primary outline-none transition-colors placeholder:font-normal placeholder:text-text-tertiary hover:border-border-strong focus:border-border-focus focus:ring-2 focus:ring-focus-ring/30"
                     placeholder="Search customer"
                     type="search"
                   />
                 </label>
               </div>
               <button
-                class="shrink-0 rounded-xl bg-brand-blue px-4 py-2.5 text-sm font-semibold text-brand-white shadow-sm hover:bg-brand-blue/90 transition-colors"
+                class="shrink-0 rounded-xl bg-brand-blue h-14 px-5 text-sm font-semibold text-brand-white shadow-sm hover:bg-brand-blue/90 transition-colors"
                 type="button"
               >
                 Create Customer
@@ -1652,7 +1656,7 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots more open st
               class="min-w-0 space-y-3"
             >
               <div
-                class="bg-background-surface rounded-2xl border border-border-default p-4 shadow-xs flex flex-col gap-3 active:bg-background-subtle/50 transition-colors cursor-pointer"
+                class="bg-background-surface rounded-2xl border border-border-default p-4 shadow-xs flex flex-col gap-3 transition-colors active:bg-background-subtle/50 cursor-pointer"
                 role="button"
                 tabindex="0"
               >
@@ -1741,7 +1745,7 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots more open st
                   <span
                     class="flex items-center gap-1"
                   >
-                    Lihat detail
+                    Lihat detail 
                     <div
                       data-testid="chevron-right-icon"
                     />
@@ -1749,7 +1753,7 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots more open st
                 </div>
               </div>
               <div
-                class="bg-background-surface rounded-2xl border border-border-default p-4 shadow-xs flex flex-col gap-3 active:bg-background-subtle/50 transition-colors cursor-pointer"
+                class="bg-background-surface rounded-2xl border border-border-default p-4 shadow-xs flex flex-col gap-3 transition-colors active:bg-background-subtle/50 cursor-pointer"
                 role="button"
                 tabindex="0"
               >
@@ -1838,7 +1842,7 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots more open st
                   <span
                     class="flex items-center gap-1"
                   >
-                    Lihat detail
+                    Lihat detail 
                     <div
                       data-testid="chevron-right-icon"
                     />
@@ -1846,7 +1850,7 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots more open st
                 </div>
               </div>
               <div
-                class="bg-background-surface rounded-2xl border border-border-default p-4 shadow-xs flex flex-col gap-3 active:bg-background-subtle/50 transition-colors cursor-pointer"
+                class="bg-background-surface rounded-2xl border border-border-default p-4 shadow-xs flex flex-col gap-3 transition-colors active:bg-background-subtle/50 cursor-pointer"
                 role="button"
                 tabindex="0"
               >
@@ -1935,7 +1939,7 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots more open st
                   <span
                     class="flex items-center gap-1"
                   >
-                    Lihat detail
+                    Lihat detail 
                     <div
                       data-testid="chevron-right-icon"
                     />
@@ -1943,7 +1947,7 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots more open st
                 </div>
               </div>
               <div
-                class="bg-background-surface rounded-2xl border border-border-default p-4 shadow-xs flex flex-col gap-3 active:bg-background-subtle/50 transition-colors cursor-pointer"
+                class="bg-background-surface rounded-2xl border border-border-default p-4 shadow-xs flex flex-col gap-3 transition-colors active:bg-background-subtle/50 cursor-pointer"
                 role="button"
                 tabindex="0"
               >
@@ -2032,7 +2036,7 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots more open st
                   <span
                     class="flex items-center gap-1"
                   >
-                    Lihat detail
+                    Lihat detail 
                     <div
                       data-testid="chevron-right-icon"
                     />
@@ -2040,7 +2044,7 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots more open st
                 </div>
               </div>
               <div
-                class="bg-background-surface rounded-2xl border border-border-default p-4 shadow-xs flex flex-col gap-3 active:bg-background-subtle/50 transition-colors cursor-pointer"
+                class="bg-background-surface rounded-2xl border border-border-default p-4 shadow-xs flex flex-col gap-3 transition-colors active:bg-background-subtle/50 cursor-pointer"
                 role="button"
                 tabindex="0"
               >
@@ -2129,7 +2133,7 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots more open st
                   <span
                     class="flex items-center gap-1"
                   >
-                    Lihat detail
+                    Lihat detail 
                     <div
                       data-testid="chevron-right-icon"
                     />
@@ -2137,7 +2141,7 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots more open st
                 </div>
               </div>
               <div
-                class="bg-background-surface rounded-2xl border border-border-default p-4 shadow-xs flex flex-col gap-3 active:bg-background-subtle/50 transition-colors cursor-pointer"
+                class="bg-background-surface rounded-2xl border border-border-default p-4 shadow-xs flex flex-col gap-3 transition-colors active:bg-background-subtle/50 cursor-pointer"
                 role="button"
                 tabindex="0"
               >
@@ -2226,7 +2230,7 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots more open st
                   <span
                     class="flex items-center gap-1"
                   >
-                    Lihat detail
+                    Lihat detail 
                     <div
                       data-testid="chevron-right-icon"
                     />
@@ -2234,7 +2238,7 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots more open st
                 </div>
               </div>
               <div
-                class="bg-background-surface rounded-2xl border border-border-default p-4 shadow-xs flex flex-col gap-3 active:bg-background-subtle/50 transition-colors cursor-pointer"
+                class="bg-background-surface rounded-2xl border border-border-default p-4 shadow-xs flex flex-col gap-3 transition-colors active:bg-background-subtle/50 cursor-pointer"
                 role="button"
                 tabindex="0"
               >
@@ -2323,7 +2327,7 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots more open st
                   <span
                     class="flex items-center gap-1"
                   >
-                    Lihat detail
+                    Lihat detail 
                     <div
                       data-testid="chevron-right-icon"
                     />
@@ -2331,7 +2335,7 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots more open st
                 </div>
               </div>
               <div
-                class="bg-background-surface rounded-2xl border border-border-default p-4 shadow-xs flex flex-col gap-3 active:bg-background-subtle/50 transition-colors cursor-pointer"
+                class="bg-background-surface rounded-2xl border border-border-default p-4 shadow-xs flex flex-col gap-3 transition-colors active:bg-background-subtle/50 cursor-pointer"
                 role="button"
                 tabindex="0"
               >
@@ -2420,7 +2424,7 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots more open st
                   <span
                     class="flex items-center gap-1"
                   >
-                    Lihat detail
+                    Lihat detail 
                     <div
                       data-testid="chevron-right-icon"
                     />
@@ -2428,7 +2432,7 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots more open st
                 </div>
               </div>
               <div
-                class="bg-background-surface rounded-2xl border border-border-default p-4 shadow-xs flex flex-col gap-3 active:bg-background-subtle/50 transition-colors cursor-pointer"
+                class="bg-background-surface rounded-2xl border border-border-default p-4 shadow-xs flex flex-col gap-3 transition-colors active:bg-background-subtle/50 cursor-pointer"
                 role="button"
                 tabindex="0"
               >
@@ -2517,7 +2521,7 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots more open st
                   <span
                     class="flex items-center gap-1"
                   >
-                    Lihat detail
+                    Lihat detail 
                     <div
                       data-testid="chevron-right-icon"
                     />
@@ -2525,7 +2529,7 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots more open st
                 </div>
               </div>
               <div
-                class="bg-background-surface rounded-2xl border border-border-default p-4 shadow-xs flex flex-col gap-3 active:bg-background-subtle/50 transition-colors cursor-pointer"
+                class="bg-background-surface rounded-2xl border border-border-default p-4 shadow-xs flex flex-col gap-3 transition-colors active:bg-background-subtle/50 cursor-pointer"
                 role="button"
                 tabindex="0"
               >
@@ -2614,7 +2618,7 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots more open st
                   <span
                     class="flex items-center gap-1"
                   >
-                    Lihat detail
+                    Lihat detail 
                     <div
                       data-testid="chevron-right-icon"
                     />
@@ -2645,13 +2649,13 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots more open st
                 />
                 <input
                   aria-label="Search customer"
-                  class="h-11 w-full rounded-xl border border-border-default bg-background-surface pl-12 pr-4 text-base font-medium text-text-primary outline-none transition-colors placeholder:font-normal placeholder:text-text-tertiary hover:border-border-strong focus:border-border-focus focus:ring-2 focus:ring-focus-ring/30"
+                  class="h-14 w-full rounded-xl border border-border-default bg-background-surface pl-12 pr-4 text-base font-medium text-text-primary outline-none transition-colors placeholder:font-normal placeholder:text-text-tertiary hover:border-border-strong focus:border-border-focus focus:ring-2 focus:ring-focus-ring/30"
                   placeholder="Search customer"
                   type="search"
                 />
               </label>
               <button
-                class="rounded-xl bg-brand-blue px-5 py-2.5 text-sm font-semibold text-brand-white shadow-sm transition-colors hover:bg-brand-blue/90 focus:outline-none focus:ring-2 focus:ring-brand-blue/30"
+                class="rounded-xl bg-brand-blue h-14 px-6 text-sm font-semibold text-brand-white shadow-sm transition-colors hover:bg-brand-blue/90 focus:outline-none focus:ring-2 focus:ring-brand-blue/30"
                 type="button"
               >
                 Create Customer
@@ -2710,7 +2714,7 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots more open st
                         class="divide-y divide-border-default"
                       >
                         <tr
-                          class="hover:bg-background-subtle/50 transition-colors cursor-pointer"
+                          class="hover:bg-background-subtle/50 transition-colors "
                         >
                           <td
                             class="px-5 py-4 border-b border-border-default text-base text-left "
@@ -2740,7 +2744,7 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots more open st
                           />
                         </tr>
                         <tr
-                          class="hover:bg-background-subtle/50 transition-colors cursor-pointer"
+                          class="hover:bg-background-subtle/50 transition-colors "
                         >
                           <td
                             class="px-5 py-4 border-b border-border-default text-base text-left "
@@ -2770,7 +2774,7 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots more open st
                           />
                         </tr>
                         <tr
-                          class="hover:bg-background-subtle/50 transition-colors cursor-pointer"
+                          class="hover:bg-background-subtle/50 transition-colors "
                         >
                           <td
                             class="px-5 py-4 border-b border-border-default text-base text-left "
@@ -2800,7 +2804,7 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots more open st
                           />
                         </tr>
                         <tr
-                          class="hover:bg-background-subtle/50 transition-colors cursor-pointer"
+                          class="hover:bg-background-subtle/50 transition-colors "
                         >
                           <td
                             class="px-5 py-4 border-b border-border-default text-base text-left "
@@ -2830,7 +2834,7 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots more open st
                           />
                         </tr>
                         <tr
-                          class="hover:bg-background-subtle/50 transition-colors cursor-pointer"
+                          class="hover:bg-background-subtle/50 transition-colors "
                         >
                           <td
                             class="px-5 py-4 border-b border-border-default text-base text-left "
@@ -2860,7 +2864,7 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots more open st
                           />
                         </tr>
                         <tr
-                          class="hover:bg-background-subtle/50 transition-colors cursor-pointer"
+                          class="hover:bg-background-subtle/50 transition-colors "
                         >
                           <td
                             class="px-5 py-4 border-b border-border-default text-base text-left "
@@ -2890,7 +2894,7 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots more open st
                           />
                         </tr>
                         <tr
-                          class="hover:bg-background-subtle/50 transition-colors cursor-pointer"
+                          class="hover:bg-background-subtle/50 transition-colors "
                         >
                           <td
                             class="px-5 py-4 border-b border-border-default text-base text-left "
@@ -2920,7 +2924,7 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots more open st
                           />
                         </tr>
                         <tr
-                          class="hover:bg-background-subtle/50 transition-colors cursor-pointer"
+                          class="hover:bg-background-subtle/50 transition-colors "
                         >
                           <td
                             class="px-5 py-4 border-b border-border-default text-base text-left "
@@ -2950,7 +2954,7 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots more open st
                           />
                         </tr>
                         <tr
-                          class="hover:bg-background-subtle/50 transition-colors cursor-pointer"
+                          class="hover:bg-background-subtle/50 transition-colors "
                         >
                           <td
                             class="px-5 py-4 border-b border-border-default text-base text-left "
@@ -2980,7 +2984,7 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots more open st
                           />
                         </tr>
                         <tr
-                          class="hover:bg-background-subtle/50 transition-colors cursor-pointer"
+                          class="hover:bg-background-subtle/50 transition-colors "
                         >
                           <td
                             class="px-5 py-4 border-b border-border-default text-base text-left "
@@ -3020,54 +3024,34 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots more open st
                     class="bg-background-surface overflow-hidden divide-y divide-border-default"
                   >
                     <div
-                      class="flex flex-col gap-3 px-4 py-4 bg-transparent cursor-pointer active:bg-background-subtle/50 transition-colors"
-                      role="button"
-                      tabindex="0"
+                      class="flex flex-col gap-3 px-4 py-4 bg-transparent transition-colors "
                     />
                     <div
-                      class="flex flex-col gap-3 px-4 py-4 bg-transparent cursor-pointer active:bg-background-subtle/50 transition-colors"
-                      role="button"
-                      tabindex="0"
+                      class="flex flex-col gap-3 px-4 py-4 bg-transparent transition-colors "
                     />
                     <div
-                      class="flex flex-col gap-3 px-4 py-4 bg-transparent cursor-pointer active:bg-background-subtle/50 transition-colors"
-                      role="button"
-                      tabindex="0"
+                      class="flex flex-col gap-3 px-4 py-4 bg-transparent transition-colors "
                     />
                     <div
-                      class="flex flex-col gap-3 px-4 py-4 bg-transparent cursor-pointer active:bg-background-subtle/50 transition-colors"
-                      role="button"
-                      tabindex="0"
+                      class="flex flex-col gap-3 px-4 py-4 bg-transparent transition-colors "
                     />
                     <div
-                      class="flex flex-col gap-3 px-4 py-4 bg-transparent cursor-pointer active:bg-background-subtle/50 transition-colors"
-                      role="button"
-                      tabindex="0"
+                      class="flex flex-col gap-3 px-4 py-4 bg-transparent transition-colors "
                     />
                     <div
-                      class="flex flex-col gap-3 px-4 py-4 bg-transparent cursor-pointer active:bg-background-subtle/50 transition-colors"
-                      role="button"
-                      tabindex="0"
+                      class="flex flex-col gap-3 px-4 py-4 bg-transparent transition-colors "
                     />
                     <div
-                      class="flex flex-col gap-3 px-4 py-4 bg-transparent cursor-pointer active:bg-background-subtle/50 transition-colors"
-                      role="button"
-                      tabindex="0"
+                      class="flex flex-col gap-3 px-4 py-4 bg-transparent transition-colors "
                     />
                     <div
-                      class="flex flex-col gap-3 px-4 py-4 bg-transparent cursor-pointer active:bg-background-subtle/50 transition-colors"
-                      role="button"
-                      tabindex="0"
+                      class="flex flex-col gap-3 px-4 py-4 bg-transparent transition-colors "
                     />
                     <div
-                      class="flex flex-col gap-3 px-4 py-4 bg-transparent cursor-pointer active:bg-background-subtle/50 transition-colors"
-                      role="button"
-                      tabindex="0"
+                      class="flex flex-col gap-3 px-4 py-4 bg-transparent transition-colors "
                     />
                     <div
-                      class="flex flex-col gap-3 px-4 py-4 bg-transparent cursor-pointer active:bg-background-subtle/50 transition-colors"
-                      role="button"
-                      tabindex="0"
+                      class="flex flex-col gap-3 px-4 py-4 bg-transparent transition-colors "
                     />
                   </div>
                 </div>

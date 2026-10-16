@@ -13,6 +13,13 @@ export type ApiCustomer = {
 
 export type CustomerListResponse = PaginatedResponse<ApiCustomer>;
 export type CustomerCreateResponse = ApiEnvelope<ApiCustomer | null>;
+export type CustomerUpdatePayload = {
+  readonly id: string;
+  readonly name: string;
+  readonly address: string;
+  readonly phone_number: string;
+};
+export type CustomerDetailResponse = ApiEnvelope<ApiCustomer | null>;
 
 export type CustomerListParams = {
   readonly pageNumber: number;
@@ -32,7 +39,7 @@ export type CustomerData = {
 
 export type CustomerMobileCardProps = {
   readonly customer: CustomerData;
-  readonly onRowClick: (customer: CustomerData) => void;
+  readonly onRowClick?: (customer: CustomerData) => void;
   readonly onEdit: (customer: CustomerData) => void;
 };
 
@@ -103,7 +110,7 @@ export type MasterCustomerProps = {
   readonly setSearchTerm: (searchTerm: string) => void;
   readonly onCreate: () => void;
   readonly onEdit: (customer: CustomerData) => void;
-  readonly onRowClick: (customer: CustomerData) => void;
+  readonly onRowClick?: (customer: CustomerData) => void;
   readonly onBack: () => void;
   readonly onMore: () => void;
   readonly onCloseMore: () => void;

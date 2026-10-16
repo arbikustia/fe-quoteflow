@@ -53,7 +53,7 @@ describe("MasterCustomer hook", () => {
 
       const mockCustomer = MOCK_CUSTOMERS[0];
       act(() => { result.current.goEdit(mockCustomer); });
-      expect(mockNavigate).toHaveBeenCalledWith(`/master-customer/edit/${mockCustomer.id}`);
+      expect(mockNavigate).toHaveBeenCalledWith(`/master-customer/edit/${mockCustomer.id}`, { state: { customer: mockCustomer } });
 
       act(() => { result.current.goDetail(mockCustomer); });
       expect(mockNavigate).toHaveBeenCalledWith(`/master-customer/detail/${mockCustomer.id}`);

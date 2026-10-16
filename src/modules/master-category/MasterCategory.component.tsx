@@ -35,10 +35,10 @@ const _renderDesktopTable = (props: MasterCategoryProps): React.ReactElement => 
     <div className="hidden lg:flex rounded-4xl border border-brand-gray-light bg-brand-white px-6 shadow-xs md:flex-1 md:flex-col md:overflow-hidden md:mt-6">
       <div className="flex items-center justify-between gap-4 border-brand-gray-light py-6">
         <SearchFilter placeholder="Search category" onChange={handleSearchChange} />
-        <button type="button" onClick={onCreate} className="rounded-xl bg-brand-blue px-5 py-2.5 text-sm font-semibold text-brand-white shadow-sm transition-colors hover:bg-brand-blue/90 focus:outline-none focus:ring-2 focus:ring-brand-blue/30">Create Category</button>
+        <button type="button" onClick={onCreate} className="rounded-xl bg-brand-blue h-14 px-6 text-sm font-semibold text-brand-white shadow-sm transition-colors hover:bg-brand-blue/90 focus:outline-none focus:ring-2 focus:ring-brand-blue/30">Create Category</button>
       </div>
       <div className="flex-1 overflow-auto">
-        {_renderListState(props) ?? <Table data={paginatedData} columns={columns} onRowClick={onRowClick} keyExtractor={(row: CategoryData) => row.id} />}
+        {_renderListState(props) ?? <Table data={paginatedData} columns={columns} isDetail onRowClick={onRowClick} keyExtractor={(row: CategoryData) => row.id} />}
       </div>
       <Pagination currentPage={currentPage} totalPages={totalPages} pageSize={pageSize} onPageChange={goToPage} onPageSizeChange={changePageSize} totalItems={totalCount} />
     </div>
@@ -60,11 +60,11 @@ export const MasterCategoryComponent = (props: MasterCategoryProps): React.React
         <div className="flex h-full flex-col px-3 pb-18 lg:-mt-4 lg:px-0 lg:pb-0">
           <div className="flex items-center justify-between gap-3 pt-2 lg:hidden">
             <div className="flex-1"><SearchFilter placeholder="Search category" onChange={handleSearchChange} /></div>
-            <button type="button" onClick={onCreate} className="shrink-0 rounded-xl bg-brand-blue px-4 py-2.5 text-sm font-semibold text-brand-white">Create Category</button>
+            <button type="button" onClick={onCreate} className="shrink-0 rounded-xl bg-brand-blue h-14 px-5 text-sm font-semibold text-brand-white">Create Category</button>
           </div>
           <div className="mt-3 lg:hidden">
-            {_renderListState(props) ?? <Table data={paginatedData} columns={columns} onRowClick={onRowClick} keyExtractor={(row: CategoryData) => row.id} />}
-            <Pagination currentPage={currentPage} totalPages={totalPages} pageSize={pageSize} onPageChange={goToPage} onPageSizeChange={changePageSize} totalItems={totalCount} className="mt-2 w-full rounded-2xl border border-border-default bg-background-surface px-4 py-3 shadow-xs" />
+            {_renderListState(props) ?? <Table data={paginatedData} columns={columns} isDetail onRowClick={onRowClick} keyExtractor={(row: CategoryData) => row.id} />}
+            <Pagination currentPage={currentPage} totalPages={totalPages} pageSize={pageSize} onPageChange={goToPage} onPageSizeChange={changePageSize} totalItems={totalCount} className="mt-2 w-full rounded-2xl border border-border-default bg-background-surface h-14 px-5 shadow-xs" />
           </div>
           {_renderDesktopTable(props)}
         </div>

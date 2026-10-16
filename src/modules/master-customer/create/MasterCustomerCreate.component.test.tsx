@@ -8,6 +8,8 @@ const createProps = (): MasterCustomerCreateFormState => ({
   name: "",
   address: "",
   phoneNumber: "",
+  isEditMode: false,
+  isLoadingInitialData: false,
   isSubmitting: false,
   errorMessage: null,
   successMessage: null,

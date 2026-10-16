@@ -400,9 +400,12 @@ exports[`MasterUserContainer matches snapshot 1`] = `
                   aria-label="Breadcrumb"
                   class="mb-2 flex flex-wrap items-center gap-2 text-[15px] font-medium text-text-secondary"
                 >
-                  <span>
+                  <button
+                    class="cursor-pointer hover:text-text-primary"
+                    type="button"
+                  >
                     Master
-                  </span>
+                  </button>
                   <span
                     aria-hidden="true"
                   >
@@ -413,7 +416,7 @@ exports[`MasterUserContainer matches snapshot 1`] = `
                   </span>
                 </nav>
                 <h1
-                  class="truncate text-2xl font-bold tracking-tight text-text-primary"
+                  class="truncate text-4xl font-semibold leading-tight tracking-tight text-text-primary"
                 >
                   User List
                 </h1>
@@ -494,14 +497,14 @@ exports[`MasterUserContainer matches snapshot 1`] = `
                       </svg>
                       <input
                         aria-label="Search user"
-                        class="h-11 w-full rounded-xl border border-border-default bg-background-surface pl-12 pr-4 text-base font-medium text-text-primary outline-none transition-colors placeholder:font-normal placeholder:text-text-tertiary hover:border-border-strong focus:border-border-focus focus:ring-2 focus:ring-focus-ring/30"
+                        class="h-14 w-full rounded-xl border border-border-default bg-background-surface pl-12 pr-4 text-base font-medium text-text-primary outline-none transition-colors placeholder:font-normal placeholder:text-text-tertiary hover:border-border-strong focus:border-border-focus focus:ring-2 focus:ring-focus-ring/30"
                         placeholder="Search user"
                         type="search"
                       />
                     </label>
                   </div>
                   <button
-                    class="shrink-0 rounded-xl bg-brand-blue px-4 py-2.5 text-sm font-semibold text-brand-white"
+                    class="shrink-0 rounded-xl bg-brand-blue h-14 px-5 text-sm font-semibold text-brand-white"
                     type="button"
                   >
                     Create User
@@ -1062,115 +1065,114 @@ exports[`MasterUserContainer matches snapshot 1`] = `
                   </div>
                 </div>
                 <div
-                  class="flex flex-col gap-3 py-4 mt-2 w-full rounded-2xl border border-border-default bg-background-surface px-4 py-3 shadow-xs"
+                  class="flex flex-col gap-3 py-4 mt-2 w-full rounded-2xl border border-border-default bg-background-surface h-14 px-5 shadow-xs"
                 >
                   <div
-                    class="flex flex-wrap items-center gap-3 sm:justify-between"
+                    class="flex flex-wrap items-center gap-3 justify-between"
                   >
                     <p
-                      class="basis-full whitespace-nowrap text-sm text-text-secondary sm:basis-auto"
+                      class="whitespace-nowrap text-sm text-text-secondary basis-auto"
                     >
-                      Menampilkan 1–5 dari 9 pelanggan
+                      Show 5/5 data
                     </p>
-                    <select
-                      aria-label="Documents per page"
-                      class="w-[180px] shrink-0 cursor-pointer rounded-xl border border-border-default bg-background-surface px-4 py-2.5 text-base font-semibold text-text-primary focus:outline-none sm:min-w-[140px] sm:w-auto"
-                    >
-                      <option
-                        value="5"
-                      >
-                        5 Documents
-                      </option>
-                      <option
-                        value="10"
-                      >
-                        10 Documents
-                      </option>
-                      <option
-                        value="20"
-                      >
-                        20 Documents
-                      </option>
-                      <option
-                        value="50"
-                      >
-                        50 Documents
-                      </option>
-                      <option
-                        value="100"
-                      >
-                        100 Documents
-                      </option>
-                    </select>
                     <div
-                      class="ml-auto flex shrink-0 items-center justify-end gap-2"
+                      class="flex w-full items-center justify-between gap-2 sm:w-auto sm:justify-start"
                     >
-                      <button
-                        class="flex items-center gap-2 px-4 py-2.5 border border-border-default rounded-xl text-base font-semibold transition-colors text-text-disabled cursor-not-allowed bg-background-disabled"
-                        disabled=""
+                      <select
+                        aria-label="Documents per page"
+                        class="px-3 py-2 text-sm shrink-0 cursor-pointer rounded-xl border border-border-default bg-background-surface font-semibold text-text-primary focus:outline-none"
                       >
-                        <svg
-                          class="w-5 h-5"
-                          fill="none"
-                          height="1em"
-                          stroke="currentColor"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          stroke-width="2"
-                          viewBox="0 0 24 24"
-                          width="1em"
-                          xmlns="http://www.w3.org/2000/svg"
+                        <option
+                          value="5"
                         >
-                          <polyline
-                            points="15 18 9 12 15 6"
-                          />
-                        </svg>
-                        <span
-                          class="hidden sm:inline"
+                          5
+                        </option>
+                        <option
+                          value="10"
                         >
-                          Previous
-                        </span>
-                      </button>
+                          10
+                        </option>
+                        <option
+                          value="20"
+                        >
+                          20
+                        </option>
+                        <option
+                          value="50"
+                        >
+                          50
+                        </option>
+                        <option
+                          value="100"
+                        >
+                          100
+                        </option>
+                      </select>
                       <div
-                        class="flex min-w-0 items-center justify-center gap-1 overflow-x-auto"
+                        class="flex shrink-0 items-center justify-end gap-1 sm:gap-2"
                       >
                         <button
-                          aria-current="page"
-                          class="flex h-10 w-10 items-center justify-center rounded-xl text-base font-semibold transition-colors bg-background-subtle text-text-primary shadow-sm"
+                          class="flex items-center gap-1 sm:gap-2 px-3 sm:px-4 py-2 sm:py-2.5 border border-border-default rounded-xl text-sm sm:text-base font-semibold transition-colors text-text-disabled cursor-not-allowed bg-background-disabled"
+                          disabled=""
                         >
-                          1
+                          <svg
+                            class="w-4 h-4 sm:w-5 sm:h-5"
+                            fill="none"
+                            height="1em"
+                            stroke="currentColor"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            viewBox="0 0 24 24"
+                            width="1em"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <polyline
+                              points="15 18 9 12 15 6"
+                            />
+                          </svg>
+                          <span
+                            class="hidden sm:inline"
+                          >
+                            Previous
+                          </span>
                         </button>
-                        <button
-                          class="flex h-10 w-10 items-center justify-center rounded-xl text-base font-semibold transition-colors cursor-pointer text-text-secondary hover:bg-background-subtle/50"
+                        <div
+                          class="flex min-w-0 items-center justify-center gap-1 overflow-x-auto"
                         >
-                          2
+                          <button
+                            aria-current="page"
+                            class="flex h-8 w-8 sm:h-10 sm:w-10 items-center justify-center rounded-xl text-sm sm:text-base font-semibold transition-colors bg-background-subtle text-text-primary shadow-sm"
+                          >
+                            1
+                          </button>
+                        </div>
+                        <button
+                          class="flex items-center gap-1 sm:gap-2 px-3 sm:px-4 py-2 sm:py-2.5 border border-border-default rounded-xl text-sm sm:text-base font-semibold transition-colors text-text-primary hover:bg-background-subtle bg-background-surface cursor-pointer"
+                        >
+                          <span
+                            class="hidden sm:inline"
+                          >
+                            Next
+                          </span>
+                          <svg
+                            class="w-4 h-4 sm:w-5 sm:h-5"
+                            fill="none"
+                            height="1em"
+                            stroke="currentColor"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            viewBox="0 0 24 24"
+                            width="1em"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <polyline
+                              points="9 18 15 12 9 6"
+                            />
+                          </svg>
                         </button>
                       </div>
-                      <button
-                        class="flex items-center gap-2 px-4 py-2.5 border border-border-default rounded-xl text-base font-semibold transition-colors text-text-primary hover:bg-background-subtle bg-background-surface cursor-pointer"
-                      >
-                        <span
-                          class="hidden sm:inline"
-                        >
-                          Next
-                        </span>
-                        <svg
-                          class="w-5 h-5"
-                          fill="none"
-                          height="1em"
-                          stroke="currentColor"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          stroke-width="2"
-                          viewBox="0 0 24 24"
-                          width="1em"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <polyline
-                            points="9 18 15 12 9 6"
-                          />
-                        </svg>
-                      </button>
                     </div>
                   </div>
                 </div>
@@ -1216,13 +1218,13 @@ exports[`MasterUserContainer matches snapshot 1`] = `
                     </svg>
                     <input
                       aria-label="Search user"
-                      class="h-11 w-full rounded-xl border border-border-default bg-background-surface pl-12 pr-4 text-base font-medium text-text-primary outline-none transition-colors placeholder:font-normal placeholder:text-text-tertiary hover:border-border-strong focus:border-border-focus focus:ring-2 focus:ring-focus-ring/30"
+                      class="h-14 w-full rounded-xl border border-border-default bg-background-surface pl-12 pr-4 text-base font-medium text-text-primary outline-none transition-colors placeholder:font-normal placeholder:text-text-tertiary hover:border-border-strong focus:border-border-focus focus:ring-2 focus:ring-focus-ring/30"
                       placeholder="Search user"
                       type="search"
                     />
                   </label>
                   <button
-                    class="rounded-xl bg-brand-blue px-5 py-2.5 text-sm font-semibold text-brand-white"
+                    class="rounded-xl bg-brand-blue h-14 px-6 text-sm font-semibold text-brand-white"
                     type="button"
                   >
                     Create User
@@ -1621,7 +1623,7 @@ exports[`MasterUserContainer matches snapshot 1`] = `
                         class="bg-background-surface overflow-hidden divide-y divide-border-default"
                       >
                         <div
-                          class="flex flex-col gap-3 px-4 py-4 bg-transparent cursor-pointer active:bg-background-subtle/50 transition-colors"
+                          class="flex flex-col gap-3 px-4 py-4 bg-transparent transition-colors cursor-pointer active:bg-background-subtle/50"
                           role="button"
                           tabindex="0"
                         >
@@ -1641,7 +1643,7 @@ exports[`MasterUserContainer matches snapshot 1`] = `
                           </div>
                         </div>
                         <div
-                          class="flex flex-col gap-3 px-4 py-4 bg-transparent cursor-pointer active:bg-background-subtle/50 transition-colors"
+                          class="flex flex-col gap-3 px-4 py-4 bg-transparent transition-colors cursor-pointer active:bg-background-subtle/50"
                           role="button"
                           tabindex="0"
                         >
@@ -1661,7 +1663,7 @@ exports[`MasterUserContainer matches snapshot 1`] = `
                           </div>
                         </div>
                         <div
-                          class="flex flex-col gap-3 px-4 py-4 bg-transparent cursor-pointer active:bg-background-subtle/50 transition-colors"
+                          class="flex flex-col gap-3 px-4 py-4 bg-transparent transition-colors cursor-pointer active:bg-background-subtle/50"
                           role="button"
                           tabindex="0"
                         >
@@ -1681,7 +1683,7 @@ exports[`MasterUserContainer matches snapshot 1`] = `
                           </div>
                         </div>
                         <div
-                          class="flex flex-col gap-3 px-4 py-4 bg-transparent cursor-pointer active:bg-background-subtle/50 transition-colors"
+                          class="flex flex-col gap-3 px-4 py-4 bg-transparent transition-colors cursor-pointer active:bg-background-subtle/50"
                           role="button"
                           tabindex="0"
                         >
@@ -1701,7 +1703,7 @@ exports[`MasterUserContainer matches snapshot 1`] = `
                           </div>
                         </div>
                         <div
-                          class="flex flex-col gap-3 px-4 py-4 bg-transparent cursor-pointer active:bg-background-subtle/50 transition-colors"
+                          class="flex flex-col gap-3 px-4 py-4 bg-transparent transition-colors cursor-pointer active:bg-background-subtle/50"
                           role="button"
                           tabindex="0"
                         >
@@ -1731,109 +1733,113 @@ exports[`MasterUserContainer matches snapshot 1`] = `
                     class="flex flex-wrap items-center gap-3 sm:justify-between"
                   >
                     <p
-                      class="basis-full whitespace-nowrap text-sm text-text-secondary sm:basis-auto"
+                      class="whitespace-nowrap text-sm text-text-secondary basis-full sm:basis-auto"
                     >
-                      Menampilkan 1–5 dari 9 pelanggan
+                      Show 5/5 data
                     </p>
-                    <select
-                      aria-label="Documents per page"
-                      class="w-[180px] shrink-0 cursor-pointer rounded-xl border border-border-default bg-background-surface px-4 py-2.5 text-base font-semibold text-text-primary focus:outline-none sm:min-w-[140px] sm:w-auto"
-                    >
-                      <option
-                        value="5"
-                      >
-                        5 Documents
-                      </option>
-                      <option
-                        value="10"
-                      >
-                        10 Documents
-                      </option>
-                      <option
-                        value="20"
-                      >
-                        20 Documents
-                      </option>
-                      <option
-                        value="50"
-                      >
-                        50 Documents
-                      </option>
-                      <option
-                        value="100"
-                      >
-                        100 Documents
-                      </option>
-                    </select>
                     <div
-                      class="ml-auto flex shrink-0 items-center justify-end gap-2"
+                      class="flex w-full items-center justify-between gap-2 sm:w-auto sm:justify-start"
                     >
-                      <button
-                        class="flex items-center gap-2 px-4 py-2.5 border border-border-default rounded-xl text-base font-semibold transition-colors text-text-disabled cursor-not-allowed bg-background-disabled"
-                        disabled=""
+                      <select
+                        aria-label="Documents per page"
+                        class="w-[180px] px-4 py-2.5 text-base sm:min-w-[100px] sm:w-auto shrink-0 cursor-pointer rounded-xl border border-border-default bg-background-surface font-semibold text-text-primary focus:outline-none"
                       >
-                        <svg
-                          class="w-5 h-5"
-                          fill="none"
-                          height="1em"
-                          stroke="currentColor"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          stroke-width="2"
-                          viewBox="0 0 24 24"
-                          width="1em"
-                          xmlns="http://www.w3.org/2000/svg"
+                        <option
+                          value="5"
                         >
-                          <polyline
-                            points="15 18 9 12 15 6"
-                          />
-                        </svg>
-                        <span
-                          class="hidden sm:inline"
+                          5
+                        </option>
+                        <option
+                          value="10"
                         >
-                          Previous
-                        </span>
-                      </button>
+                          10
+                        </option>
+                        <option
+                          value="20"
+                        >
+                          20
+                        </option>
+                        <option
+                          value="50"
+                        >
+                          50
+                        </option>
+                        <option
+                          value="100"
+                        >
+                          100
+                        </option>
+                      </select>
                       <div
-                        class="flex min-w-0 items-center justify-center gap-1 overflow-x-auto"
+                        class="flex shrink-0 items-center justify-end gap-1 sm:gap-2"
                       >
                         <button
-                          aria-current="page"
-                          class="flex h-10 w-10 items-center justify-center rounded-xl text-base font-semibold transition-colors bg-background-subtle text-text-primary shadow-sm"
+                          class="flex items-center gap-1 sm:gap-2 px-3 sm:px-4 py-2 sm:py-2.5 border border-border-default rounded-xl text-sm sm:text-base font-semibold transition-colors text-text-disabled cursor-not-allowed bg-background-disabled"
+                          disabled=""
                         >
-                          1
+                          <svg
+                            class="w-4 h-4 sm:w-5 sm:h-5"
+                            fill="none"
+                            height="1em"
+                            stroke="currentColor"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            viewBox="0 0 24 24"
+                            width="1em"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <polyline
+                              points="15 18 9 12 15 6"
+                            />
+                          </svg>
+                          <span
+                            class="hidden sm:inline"
+                          >
+                            Previous
+                          </span>
                         </button>
-                        <button
-                          class="flex h-10 w-10 items-center justify-center rounded-xl text-base font-semibold transition-colors cursor-pointer text-text-secondary hover:bg-background-subtle/50"
+                        <div
+                          class="flex min-w-0 items-center justify-center gap-1 overflow-x-auto"
                         >
-                          2
+                          <button
+                            aria-current="page"
+                            class="flex h-8 w-8 sm:h-10 sm:w-10 items-center justify-center rounded-xl text-sm sm:text-base font-semibold transition-colors bg-background-subtle text-text-primary shadow-sm"
+                          >
+                            1
+                          </button>
+                          <button
+                            class="flex h-8 w-8 sm:h-10 sm:w-10 items-center justify-center rounded-xl text-sm sm:text-base font-semibold transition-colors cursor-pointer text-text-secondary hover:bg-background-subtle/50"
+                          >
+                            2
+                          </button>
+                        </div>
+                        <button
+                          class="flex items-center gap-1 sm:gap-2 px-3 sm:px-4 py-2 sm:py-2.5 border border-border-default rounded-xl text-sm sm:text-base font-semibold transition-colors text-text-primary hover:bg-background-subtle bg-background-surface cursor-pointer"
+                        >
+                          <span
+                            class="hidden sm:inline"
+                          >
+                            Next
+                          </span>
+                          <svg
+                            class="w-4 h-4 sm:w-5 sm:h-5"
+                            fill="none"
+                            height="1em"
+                            stroke="currentColor"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            viewBox="0 0 24 24"
+                            width="1em"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <polyline
+                              points="9 18 15 12 9 6"
+                            />
+                          </svg>
                         </button>
                       </div>
-                      <button
-                        class="flex items-center gap-2 px-4 py-2.5 border border-border-default rounded-xl text-base font-semibold transition-colors text-text-primary hover:bg-background-subtle bg-background-surface cursor-pointer"
-                      >
-                        <span
-                          class="hidden sm:inline"
-                        >
-                          Next
-                        </span>
-                        <svg
-                          class="w-5 h-5"
-                          fill="none"
-                          height="1em"
-                          stroke="currentColor"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          stroke-width="2"
-                          viewBox="0 0 24 24"
-                          width="1em"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <polyline
-                            points="9 18 15 12 9 6"
-                          />
-                        </svg>
-                      </button>
                     </div>
                   </div>
                 </div>

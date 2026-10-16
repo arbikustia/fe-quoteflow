@@ -7,6 +7,7 @@ const ENDPOINT = {
   MASTER_CUSTOMER: {
     PAGED: "/api/customer/paged",
     CREATE: "/api/customer",
+    DETAIL: "/api/customer",
   },
   MASTER_SERVICE_TYPE: {
     PAGED: "/api/service-type/paged",

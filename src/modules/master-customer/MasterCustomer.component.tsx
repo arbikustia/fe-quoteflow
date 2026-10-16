@@ -50,13 +50,13 @@ const _renderDesktopTable = (props: MasterCustomerProps): React.ReactElement => 
         <button
           type="button"
           onClick={onCreate}
-          className="rounded-xl bg-brand-blue px-5 py-2.5 text-sm font-semibold text-brand-white shadow-sm transition-colors hover:bg-brand-blue/90 focus:outline-none focus:ring-2 focus:ring-brand-blue/30"
+          className="rounded-xl bg-brand-blue h-14 px-6 text-sm font-semibold text-brand-white shadow-sm transition-colors hover:bg-brand-blue/90 focus:outline-none focus:ring-2 focus:ring-brand-blue/30"
         >
           Create Customer
         </button>
       </div>
       <div className="flex-1 overflow-auto">
-        {_renderListState(props) ?? <Table data={paginatedData} columns={columns} onRowClick={onRowClick} keyExtractor={(r: CustomerData) => r.id} />}
+        {_renderListState(props) ?? <Table data={paginatedData} columns={columns} isDetail={false} onRowClick={onRowClick} keyExtractor={(r: CustomerData) => r.id} />}
       </div>
       <Pagination currentPage={currentPage} totalPages={totalPages} pageSize={pageSize} onPageChange={goToPage} onPageSizeChange={changePageSize} totalItems={totalCount} />
     </div>
@@ -87,7 +87,7 @@ const _renderMobileCards = (props: MasterCustomerProps): React.ReactElement => {
         onPageSizeChange={changePageSize}
         totalItems={totalCount}
         isCompact={true}
-        className="w-full rounded-2xl border border-border-default bg-background-surface px-4 py-3 shadow-xs mt-2"
+        className="mt-2 w-full rounded-2xl border border-border-default bg-background-surface px-4 py-3 shadow-xs"
       />
     </div>
   );
@@ -112,7 +112,7 @@ const _renderMobileToolbar = (onCreate: MasterCustomerProps["onCreate"], setSear
       <div className="flex-1">
         <SearchFilter placeholder="Search customer" onChange={handleSearchChange} />
       </div>
-      <button type="button" onClick={onCreate} className="shrink-0 rounded-xl bg-brand-blue px-4 py-2.5 text-sm font-semibold text-brand-white shadow-sm hover:bg-brand-blue/90 transition-colors">
+      <button type="button" onClick={onCreate} className="shrink-0 rounded-xl bg-brand-blue h-14 px-5 text-sm font-semibold text-brand-white shadow-sm hover:bg-brand-blue/90 transition-colors">
         Create Customer
       </button>
     </div>

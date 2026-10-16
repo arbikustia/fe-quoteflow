@@ -21,9 +21,12 @@ exports[`MasterPaymentType Component MasterPaymentTypeComponent Snapshots defaul
               aria-label="Breadcrumb"
               class="mb-2 flex flex-wrap items-center gap-2 text-[15px] font-medium text-text-secondary"
             >
-              <span>
+              <button
+                class="cursor-pointer hover:text-text-primary"
+                type="button"
+              >
                 Master
-              </span>
+              </button>
               <span
                 aria-hidden="true"
               >
@@ -34,7 +37,7 @@ exports[`MasterPaymentType Component MasterPaymentTypeComponent Snapshots defaul
               </span>
             </nav>
             <h1
-              class="truncate text-2xl font-bold tracking-tight text-text-primary"
+              class="truncate text-4xl font-semibold leading-tight tracking-tight text-text-primary"
             >
               Payment Type List
             </h1>
@@ -115,14 +118,14 @@ exports[`MasterPaymentType Component MasterPaymentTypeComponent Snapshots defaul
                   </svg>
                   <input
                     aria-label="Search payment type"
-                    class="h-11 w-full rounded-xl border border-border-default bg-background-surface pl-12 pr-4 text-base font-medium text-text-primary outline-none transition-colors placeholder:font-normal placeholder:text-text-tertiary hover:border-border-strong focus:border-border-focus focus:ring-2 focus:ring-focus-ring/30"
+                    class="h-14 w-full rounded-xl border border-border-default bg-background-surface pl-12 pr-4 text-base font-medium text-text-primary outline-none transition-colors placeholder:font-normal placeholder:text-text-tertiary hover:border-border-strong focus:border-border-focus focus:ring-2 focus:ring-focus-ring/30"
                     placeholder="Search payment type"
                     type="search"
                   />
                 </label>
               </div>
               <button
-                class="shrink-0 rounded-xl bg-brand-blue px-4 py-2.5 text-sm font-semibold text-brand-white"
+                class="shrink-0 rounded-xl bg-brand-blue h-14 px-5 text-sm font-semibold text-brand-white"
                 type="button"
               >
                 Create Payment Type
@@ -399,13 +402,13 @@ exports[`MasterPaymentType Component MasterPaymentTypeComponent Snapshots defaul
                 </svg>
                 <input
                   aria-label="Search payment type"
-                  class="h-11 w-full rounded-xl border border-border-default bg-background-surface pl-12 pr-4 text-base font-medium text-text-primary outline-none transition-colors placeholder:font-normal placeholder:text-text-tertiary hover:border-border-strong focus:border-border-focus focus:ring-2 focus:ring-focus-ring/30"
+                  class="h-14 w-full rounded-xl border border-border-default bg-background-surface pl-12 pr-4 text-base font-medium text-text-primary outline-none transition-colors placeholder:font-normal placeholder:text-text-tertiary hover:border-border-strong focus:border-border-focus focus:ring-2 focus:ring-focus-ring/30"
                   placeholder="Search payment type"
                   type="search"
                 />
               </label>
               <button
-                class="rounded-xl bg-brand-blue px-5 py-2.5 text-sm font-semibold text-brand-white"
+                class="rounded-xl bg-brand-blue h-14 px-6 text-sm font-semibold text-brand-white"
                 type="button"
               >
                 Create Payment Type
@@ -450,9 +453,12 @@ exports[`MasterPaymentType Component MasterPaymentTypeComponent Snapshots more o
               aria-label="Breadcrumb"
               class="mb-2 flex flex-wrap items-center gap-2 text-[15px] font-medium text-text-secondary"
             >
-              <span>
+              <button
+                class="cursor-pointer hover:text-text-primary"
+                type="button"
+              >
                 Master
-              </span>
+              </button>
               <span
                 aria-hidden="true"
               >
@@ -463,7 +469,7 @@ exports[`MasterPaymentType Component MasterPaymentTypeComponent Snapshots more o
               </span>
             </nav>
             <h1
-              class="truncate text-2xl font-bold tracking-tight text-text-primary"
+              class="truncate text-4xl font-semibold leading-tight tracking-tight text-text-primary"
             >
               Payment Type List
             </h1>
@@ -544,14 +550,14 @@ exports[`MasterPaymentType Component MasterPaymentTypeComponent Snapshots more o
                   </svg>
                   <input
                     aria-label="Search payment type"
-                    class="h-11 w-full rounded-xl border border-border-default bg-background-surface pl-12 pr-4 text-base font-medium text-text-primary outline-none transition-colors placeholder:font-normal placeholder:text-text-tertiary hover:border-border-strong focus:border-border-focus focus:ring-2 focus:ring-focus-ring/30"
+                    class="h-14 w-full rounded-xl border border-border-default bg-background-surface pl-12 pr-4 text-base font-medium text-text-primary outline-none transition-colors placeholder:font-normal placeholder:text-text-tertiary hover:border-border-strong focus:border-border-focus focus:ring-2 focus:ring-focus-ring/30"
                     placeholder="Search payment type"
                     type="search"
                   />
                 </label>
               </div>
               <button
-                class="shrink-0 rounded-xl bg-brand-blue px-4 py-2.5 text-sm font-semibold text-brand-white"
+                class="shrink-0 rounded-xl bg-brand-blue h-14 px-5 text-sm font-semibold text-brand-white"
                 type="button"
               >
                 Create Payment Type
@@ -828,13 +834,13 @@ exports[`MasterPaymentType Component MasterPaymentTypeComponent Snapshots more o
                 </svg>
                 <input
                   aria-label="Search payment type"
-                  class="h-11 w-full rounded-xl border border-border-default bg-background-surface pl-12 pr-4 text-base font-medium text-text-primary outline-none transition-colors placeholder:font-normal placeholder:text-text-tertiary hover:border-border-strong focus:border-border-focus focus:ring-2 focus:ring-focus-ring/30"
+                  class="h-14 w-full rounded-xl border border-border-default bg-background-surface pl-12 pr-4 text-base font-medium text-text-primary outline-none transition-colors placeholder:font-normal placeholder:text-text-tertiary hover:border-border-strong focus:border-border-focus focus:ring-2 focus:ring-focus-ring/30"
                   placeholder="Search payment type"
                   type="search"
                 />
               </label>
               <button
-                class="rounded-xl bg-brand-blue px-5 py-2.5 text-sm font-semibold text-brand-white"
+                class="rounded-xl bg-brand-blue h-14 px-6 text-sm font-semibold text-brand-white"
                 type="button"
               >
                 Create Payment Type

@@ -107,7 +107,7 @@ export const DesktopReportComponent = (props: DesktopReportProps): React.ReactEl
     <div className="flex flex-col h-full">
       <div className="flex justify-between items-center mb-6">
         <span className="text-2xl font-bold text-brand-text-dark">Completed Orders DesktopReport</span>
-        <button className="px-5 py-2.5 bg-brand-blue text-brand-white font-medium rounded-lg hover:bg-brand-blue-dark transition-all text-sm cursor-pointer flex items-center gap-2">
+        <button className="h-14 px-6 bg-brand-blue text-brand-white font-medium rounded-lg hover:bg-brand-blue-dark transition-all text-sm cursor-pointer flex items-center gap-2">
           <FiDownload className="w-4 h-4" /> Export DesktopReport
         </button>
       </div>

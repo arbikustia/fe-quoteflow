@@ -67,13 +67,24 @@ export const CustomerMobileCard = ({ customer, onRowClick, onEdit }: CustomerMob
    * Handle card click
    * @returns {void}
    */
-  const handleClick = (): void => onRowClick(customer);
+  const handleClick = (): void => {
+    onRowClick?.(customer);
+  };
 
   return (
-    <div onClick={handleClick} className="bg-background-surface rounded-2xl border border-border-default p-4 shadow-xs flex flex-col gap-3 active:bg-background-subtle/50 transition-colors cursor-pointer" role="button" tabIndex={0}>
+    <div
+      onClick={onRowClick ? handleClick : undefined}
+      className={`bg-background-surface rounded-2xl border border-border-default p-4 shadow-xs flex flex-col gap-3 transition-colors ${onRowClick ? "active:bg-background-subtle/50 cursor-pointer" : ""}`}
+      role={onRowClick ? "button" : undefined}
+      tabIndex={onRowClick ? 0 : undefined}
+    >
       {_renderHeader(customer, onEdit)}
       {_renderDetails(customer)}
-      <div className="flex items-center justify-end text-xs font-medium text-brand-blue pt-1"><span className="flex items-center gap-1">Lihat detail <FiChevronRight className="w-3.5 h-3.5" /></span></div>
+      {onRowClick && (
+        <div className="flex items-center justify-end text-xs font-medium text-brand-blue pt-1">
+          <span className="flex items-center gap-1">Lihat detail <FiChevronRight className="w-3.5 h-3.5" /></span>
+        </div>
+      )}
     </div>
   );
 };

@@ -156,10 +156,10 @@ const _renderDeleteModal = (props: MasterPaymentMethodDetailState): ReactElement
           Delete <span className="font-semibold text-text-primary">{paymentMethod.name}</span>? This action cannot be undone.
         </p>
         <div className="flex gap-3">
-          <button type="button" onClick={closeDeleteModal} className="flex-1 rounded-lg bg-background-subtle px-4 py-3 text-sm font-medium text-text-primary hover:bg-border-default">
+          <button type="button" onClick={closeDeleteModal} className="flex-1 rounded-lg bg-background-subtle h-14 px-5 text-sm font-medium text-text-primary hover:bg-border-default">
             Cancel
           </button>
-          <button type="button" onClick={handleDelete} className="flex-1 rounded-lg bg-red-600 px-4 py-3 text-sm font-medium text-white hover:bg-red-700">
+          <button type="button" onClick={handleDelete} className="flex-1 rounded-lg bg-red-600 h-14 px-5 text-sm font-medium text-white hover:bg-red-700">
             Delete
           </button>
         </div>

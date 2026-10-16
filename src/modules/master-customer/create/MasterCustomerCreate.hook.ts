@@ -1,11 +1,11 @@
 import type { ChangeEvent, Dispatch, SetStateAction, SyntheticEvent } from "react";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 
 import type { MasterCustomerCreateFormState } from "./MasterCustomerCreate.type";
 
 import type { CustomerCreateResponse } from "@/modules/master-customer/MasterCustomer.type";
-import { useCreateCustomerMutation } from "@/services/master-customer.service";
+import { useCreateCustomerMutation, useGetCustomerByIdQuery, useUpdateCustomerMutation } from "@/services/master-customer.service";
 
 /**
  * Format backend messages into a display string.
@@ -30,13 +30,17 @@ const _useInputChange = (setter: Dispatch<SetStateAction<string>>): ((event: Cha
 );
 
 /**
- * Hook managing submission logic.
- * @param {string} name - Name input
- * @param {string} address - Address input
- * @param {string} phoneNumber - Phone input
+ * Handle form submission logic for create or update.
+ * @param {string | undefined} id - Customer ID
+ * @param {boolean} isEditMode - Edit mode flag
+ * @param {string} name - Name
+ * @param {string} address - Address
+ * @param {string} phoneNumber - Phone number
  * @returns {{ readonly isSubmitting: boolean; readonly errorMessage: string | null; readonly successMessage: string | null; readonly handleSubmit: (event: SyntheticEvent) => Promise<void>; }} Submission state
  */
-const useCustomerSubmission = (
+const _useCustomerSubmission = (
+  id: string | undefined,
+  isEditMode: boolean,
   name: string,
   address: string,
   phoneNumber: string,
@@ -47,14 +51,17 @@ const useCustomerSubmission = (
   readonly handleSubmit: (event: SyntheticEvent) => Promise<void>;
 } => {
   const navigate = useNavigate();
-  const [createCustomer, { isLoading: isSubmitting }] = useCreateCustomerMutation();
+  const [createCustomer, { isLoading: isCreating }] = useCreateCustomerMutation();
+  const [updateCustomer, { isLoading: isUpdating }] = useUpdateCustomerMutation();
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
 
+  const isSubmitting = isCreating || isUpdating;
+
   /**
-   * Submit customer form.
-   * @param {SyntheticEvent} event - Form submit event
-   * @returns {Promise<void>} Submission result
+   * Submit form.
+   * @param {SyntheticEvent} event - Event
+   * @returns {Promise<void>} Promise
    */
   const handleSubmit = async (event: SyntheticEvent): Promise<void> => {
     event.preventDefault();
@@ -62,7 +69,13 @@ const useCustomerSubmission = (
     setSuccessMessage(null);
 
     try {
-      const response: CustomerCreateResponse = await createCustomer({ name, address, phone_number: phoneNumber }).unwrap();
+      let response: CustomerCreateResponse;
+
+      if (isEditMode && id) {
+        response = await updateCustomer({ id, name, address, phone_number: phoneNumber }).unwrap();
+      } else {
+        response = await createCustomer({ name, address, phone_number: phoneNumber }).unwrap();
+      }
 
       if (!response.status) {
         setErrorMessage(_formatMessages(response.messages));
@@ -70,10 +83,10 @@ const useCustomerSubmission = (
         return;
       }
 
-      setSuccessMessage("Customer created successfully.");
+      setSuccessMessage(isEditMode ? "Customer updated successfully." : "Customer created successfully.");
       navigate("/master-customer");
     } catch {
-      setErrorMessage("Unable to create customer. Please try again.");
+      setErrorMessage(isEditMode ? "Unable to update customer. Please try again." : "Unable to create customer. Please try again.");
     }
   };
 
@@ -81,22 +94,46 @@ const useCustomerSubmission = (
 };
 
 /**
- * Hook managing master customer create form state and submission.
- * @returns {MasterCustomerCreateFormState} Form state and handlers
+ * Hook managing master customer form state.
+ * @returns {MasterCustomerCreateFormState} Form state
  */
 export const useMasterCustomerCreate = (): MasterCustomerCreateFormState => {
   const navigate = useNavigate();
-  const [name, setName] = useState("");
-  const [address, setAddress] = useState("");
-  const [phoneNumber, setPhoneNumber] = useState("");
+  const location = useLocation();
+  const { id } = useParams<{ readonly id?: string }>();
+  const isEditMode = Boolean(id);
+  const routeCustomer = location.state?.customer;
+
+  const { data: customerDetail, isLoading: isLoadingDetail } = useGetCustomerByIdQuery(id ?? "", {
+    skip: !isEditMode || !id || Boolean(routeCustomer),
+  });
+
+  const customerItem = customerDetail?.status && customerDetail.data ? (Array.isArray(customerDetail.data) ? customerDetail.data[0] : customerDetail.data) : null;
+  const initialName = routeCustomer?.name ?? customerItem?.name ?? "";
+  const initialAddress = routeCustomer?.address ?? customerItem?.address ?? "";
+  const initialPhoneNumber = routeCustomer?.phoneNumber ?? customerItem?.phone_number ?? "";
+
+  const [name, setName] = useState(initialName);
+  const [address, setAddress] = useState(initialAddress);
+  const [phoneNumber, setPhoneNumber] = useState(initialPhoneNumber);
+  const [initializedId, setInitializedId] = useState<string | null>(routeCustomer?.id ?? null);
+  const isLoadingInitialData = isLoadingDetail && !routeCustomer;
+
+  if (customerItem && customerItem.id !== initializedId) {
+    setInitializedId(customerItem.id);
+    setName(customerItem.name ?? "");
+    setAddress(customerItem.address ?? "");
+    setPhoneNumber(customerItem.phone_number ?? "");
+  }
 
   const handleNameChange = _useInputChange(setName);
   const handlePhoneNumberChange = _useInputChange(setPhoneNumber);
   const handleAddressChange = _useInputChange(setAddress);
-  const submission = useCustomerSubmission(name, address, phoneNumber);
+  const submission = _useCustomerSubmission(id, isEditMode, name, address, phoneNumber);
 
   /**
-   *
+   * Go back.
+   * @returns {void}
    */
   const goBack = (): void => { navigate(-1); };
 
@@ -104,6 +141,8 @@ export const useMasterCustomerCreate = (): MasterCustomerCreateFormState => {
     name,
     address,
     phoneNumber,
+    isEditMode,
+    isLoadingInitialData,
     handleNameChange,
     handlePhoneNumberChange,
     handleAddressChange,

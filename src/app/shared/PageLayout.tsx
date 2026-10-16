@@ -2,6 +2,21 @@ import * as React from "react";
 
 import type { PageLayoutAction, PageLayoutProps } from "./PageLayout.type";
 
+const _renderBackIcon = (): React.ReactElement => (
+  <svg
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2.5"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    className="w-6 h-6"
+    aria-hidden="true"
+  >
+    <path d="M19 12H5M12 19l-7-7 7-7" />
+  </svg>
+);
+
 /**
  * Render action menu items.
  * @param {PageLayoutAction[]} actions - page actions
@@ -34,12 +49,18 @@ export const PageLayout = ({ title, breadcrumbs, actions = [], onBack, children,
               {breadcrumbs.map((breadcrumb: string, index: number) => (
                 <React.Fragment key={breadcrumb}>
                   {index > 0 && <span aria-hidden="true">/</span>}
-                  <span>{breadcrumb}</span>
+                  {index === 0 ? (
+                    <button type="button" onClick={onBack} className="cursor-pointer hover:text-text-primary">
+                      {breadcrumb}
+                    </button>
+                  ) : (
+                    <span>{breadcrumb}</span>
+                  )}
                 </React.Fragment>
               ))}
             </nav>
           )}
-          <h1 className="truncate text-2xl font-bold tracking-tight text-text-primary">{title}</h1>
+          <h1 className="truncate text-4xl font-semibold leading-tight tracking-tight text-text-primary">{title}</h1>
         </div>
         {actions.length > 0 && (
           <details className="relative shrink-0">
@@ -53,21 +74,21 @@ export const PageLayout = ({ title, breadcrumbs, actions = [], onBack, children,
         )}
       </div>
 
-      <div className="flex items-center justify-between gap-3 lg:hidden">
-        <button type="button" onClick={onBack} aria-label="Back" className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg border border-border-default text-text-primary hover:bg-background-subtle">
-          <span aria-hidden="true">←</span>
+      <div className="flex items-center justify-between px-2 gap-3 lg:hidden">
+        <button type="button" onClick={onBack} aria-label="Back" className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full border border-border-default text-text-primary bg-white hover:bg-background-subtle transition-colors shadow-sm">
+          {_renderBackIcon()}
         </button>
-        <h1 className="min-w-0 flex-1 truncate text-center text-lg font-semibold text-text-primary">{title}</h1>
+        <h1 className="min-w-0 flex-1 truncate text-center text-3xl font-semibold tracking-tight text-text-primary">{title}</h1>
         {actions.length > 0 ? (
           <details className="relative shrink-0">
-            <summary className="flex h-10 w-10 cursor-pointer list-none items-center justify-center rounded-lg border border-border-default text-text-secondary hover:bg-background-subtle" aria-label="More options">
+            <summary className="flex h-12 w-12 cursor-pointer list-none items-center justify-center rounded-2xl border border-border-default text-text-secondary hover:bg-background-subtle" aria-label="More options">
               <span aria-hidden="true">•••</span>
             </summary>
-            <div role="menu" className="absolute right-0 top-12 z-20 w-48 overflow-hidden rounded-lg border border-border-default bg-background-surface py-1 shadow-lg">
+            <div role="menu" className="absolute right-0 top-14 z-20 w-48 overflow-hidden rounded-lg border border-border-default bg-background-surface py-1 shadow-lg">
               {_renderActions(actions)}
             </div>
           </details>
-        ) : <span className="h-10 w-10 shrink-0" aria-hidden="true" />}
+        ) : <span className="h-12 w-12 shrink-0" aria-hidden="true" />}
       </div>
     </header>
     <main className="min-w-0 flex-1">{children}</main>

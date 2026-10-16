@@ -7,6 +7,8 @@ const props: MasterCustomerCreateFormState = {
   name: "PT Mega Jaya Abadi",
   address: "Jl. Sudirman No. 45, Jakarta Pusat",
   phoneNumber: "081234567890",
+  isEditMode: false,
+  isLoadingInitialData: false,
   isSubmitting: false,
   errorMessage: null,
   successMessage: null,

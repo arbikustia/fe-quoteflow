@@ -400,9 +400,12 @@ exports[`MasterRoleComponent matches snapshot 1`] = `
                   aria-label="Breadcrumb"
                   class="mb-2 flex flex-wrap items-center gap-2 text-[15px] font-medium text-text-secondary"
                 >
-                  <span>
+                  <button
+                    class="cursor-pointer hover:text-text-primary"
+                    type="button"
+                  >
                     Master
-                  </span>
+                  </button>
                   <span
                     aria-hidden="true"
                   >
@@ -413,7 +416,7 @@ exports[`MasterRoleComponent matches snapshot 1`] = `
                   </span>
                 </nav>
                 <h1
-                  class="truncate text-2xl font-bold tracking-tight text-text-primary"
+                  class="truncate text-4xl font-semibold leading-tight tracking-tight text-text-primary"
                 >
                   Role List
                 </h1>
@@ -494,14 +497,14 @@ exports[`MasterRoleComponent matches snapshot 1`] = `
                       </svg>
                       <input
                         aria-label="Search role"
-                        class="h-11 w-full rounded-xl border border-border-default bg-background-surface pl-12 pr-4 text-base font-medium text-text-primary outline-none transition-colors placeholder:font-normal placeholder:text-text-tertiary hover:border-border-strong focus:border-border-focus focus:ring-2 focus:ring-focus-ring/30"
+                        class="h-14 w-full rounded-xl border border-border-default bg-background-surface pl-12 pr-4 text-base font-medium text-text-primary outline-none transition-colors placeholder:font-normal placeholder:text-text-tertiary hover:border-border-strong focus:border-border-focus focus:ring-2 focus:ring-focus-ring/30"
                         placeholder="Search role"
                         type="search"
                       />
                     </label>
                   </div>
                   <button
-                    class="shrink-0 rounded-xl bg-brand-blue px-4 py-2.5 text-sm font-semibold text-brand-white"
+                    class="shrink-0 rounded-xl bg-brand-blue h-14 px-5 text-sm font-semibold text-brand-white"
                     type="button"
                   >
                     Create Role
@@ -601,7 +604,7 @@ exports[`MasterRoleComponent matches snapshot 1`] = `
                     <div
                       class="flex justify-end text-xs font-medium text-brand-blue"
                     >
-                      Lihat detail
+                      Lihat detail 
                       <svg
                         class="ml-1 h-3.5 w-3.5"
                         fill="none"
@@ -666,13 +669,13 @@ exports[`MasterRoleComponent matches snapshot 1`] = `
                     </svg>
                     <input
                       aria-label="Search role"
-                      class="h-11 w-full rounded-xl border border-border-default bg-background-surface pl-12 pr-4 text-base font-medium text-text-primary outline-none transition-colors placeholder:font-normal placeholder:text-text-tertiary hover:border-border-strong focus:border-border-focus focus:ring-2 focus:ring-focus-ring/30"
+                      class="h-14 w-full rounded-xl border border-border-default bg-background-surface pl-12 pr-4 text-base font-medium text-text-primary outline-none transition-colors placeholder:font-normal placeholder:text-text-tertiary hover:border-border-strong focus:border-border-focus focus:ring-2 focus:ring-focus-ring/30"
                       placeholder="Search role"
                       type="search"
                     />
                   </label>
                   <button
-                    class="rounded-xl bg-brand-blue px-5 py-2.5 text-sm font-semibold text-brand-white"
+                    class="rounded-xl bg-brand-blue h-14 px-6 text-sm font-semibold text-brand-white"
                     type="button"
                   >
                     Create Role
@@ -725,7 +728,7 @@ exports[`MasterRoleComponent matches snapshot 1`] = `
                         class="bg-background-surface overflow-hidden divide-y divide-border-default"
                       >
                         <div
-                          class="flex flex-col gap-3 px-4 py-4 bg-transparent cursor-pointer active:bg-background-subtle/50 transition-colors"
+                          class="flex flex-col gap-3 px-4 py-4 bg-transparent transition-colors cursor-pointer active:bg-background-subtle/50"
                           role="button"
                           tabindex="0"
                         />
@@ -1146,9 +1149,12 @@ exports[`MasterRoleComponent matches snapshot with empty data and closed menu 1`
                   aria-label="Breadcrumb"
                   class="mb-2 flex flex-wrap items-center gap-2 text-[15px] font-medium text-text-secondary"
                 >
-                  <span>
+                  <button
+                    class="cursor-pointer hover:text-text-primary"
+                    type="button"
+                  >
                     Master
-                  </span>
+                  </button>
                   <span
                     aria-hidden="true"
                   >
@@ -1159,7 +1165,7 @@ exports[`MasterRoleComponent matches snapshot with empty data and closed menu 1`
                   </span>
                 </nav>
                 <h1
-                  class="truncate text-2xl font-bold tracking-tight text-text-primary"
+                  class="truncate text-4xl font-semibold leading-tight tracking-tight text-text-primary"
                 >
                   Role List
                 </h1>
@@ -1240,14 +1246,14 @@ exports[`MasterRoleComponent matches snapshot with empty data and closed menu 1`
                       </svg>
                       <input
                         aria-label="Search role"
-                        class="h-11 w-full rounded-xl border border-border-default bg-background-surface pl-12 pr-4 text-base font-medium text-text-primary outline-none transition-colors placeholder:font-normal placeholder:text-text-tertiary hover:border-border-strong focus:border-border-focus focus:ring-2 focus:ring-focus-ring/30"
+                        class="h-14 w-full rounded-xl border border-border-default bg-background-surface pl-12 pr-4 text-base font-medium text-text-primary outline-none transition-colors placeholder:font-normal placeholder:text-text-tertiary hover:border-border-strong focus:border-border-focus focus:ring-2 focus:ring-focus-ring/30"
                         placeholder="Search role"
                         type="search"
                       />
                     </label>
                   </div>
                   <button
-                    class="shrink-0 rounded-xl bg-brand-blue px-4 py-2.5 text-sm font-semibold text-brand-white"
+                    class="shrink-0 rounded-xl bg-brand-blue h-14 px-5 text-sm font-semibold text-brand-white"
                     type="button"
                   >
                     Create Role
@@ -1301,13 +1307,13 @@ exports[`MasterRoleComponent matches snapshot with empty data and closed menu 1`
                     </svg>
                     <input
                       aria-label="Search role"
-                      class="h-11 w-full rounded-xl border border-border-default bg-background-surface pl-12 pr-4 text-base font-medium text-text-primary outline-none transition-colors placeholder:font-normal placeholder:text-text-tertiary hover:border-border-strong focus:border-border-focus focus:ring-2 focus:ring-focus-ring/30"
+                      class="h-14 w-full rounded-xl border border-border-default bg-background-surface pl-12 pr-4 text-base font-medium text-text-primary outline-none transition-colors placeholder:font-normal placeholder:text-text-tertiary hover:border-border-strong focus:border-border-focus focus:ring-2 focus:ring-focus-ring/30"
                       placeholder="Search role"
                       type="search"
                     />
                   </label>
                   <button
-                    class="rounded-xl bg-brand-blue px-5 py-2.5 text-sm font-semibold text-brand-white"
+                    class="rounded-xl bg-brand-blue h-14 px-6 text-sm font-semibold text-brand-white"
                     type="button"
                   >
                     Create Role

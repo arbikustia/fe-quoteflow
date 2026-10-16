@@ -35,7 +35,9 @@ export const useMasterCustomerNavigation = (): MasterCustomerNavigation => {
    * @param {CustomerData} customer - The customer data
    * @returns {void}
    */
-  const goEdit = (customer: CustomerData): void => { navigate(`/master-customer/edit/${customer.id}`); };
+  const goEdit = (customer: CustomerData): void => {
+    navigate(`/master-customer/edit/${customer.id}`, { state: { customer } });
+  };
   /**
    * Navigate to detail page
    * @param {CustomerData} customer - The customer data

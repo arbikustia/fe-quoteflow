@@ -81,7 +81,7 @@ export const CategoryDetailModal = ({ isOpen, onClose, quote }: CategoryDetailMo
         <div className="px-6 py-4 border-t border-brand-gray-light bg-brand-gray-light flex justify-end">
           <button 
             onClick={onClose}
-            className="px-5 py-2.5 bg-brand-blue text-brand-white font-medium rounded-lg hover:bg-brand-blue-dark transition-colors text-sm cursor-pointer shadow-sm"
+            className="h-14 px-6 bg-brand-blue text-brand-white font-medium rounded-lg hover:bg-brand-blue-dark transition-colors text-sm cursor-pointer shadow-sm"
           >
             Close
           </button>

@@ -10,75 +10,24 @@ exports[`DesktopReportContainer matches snapshot 1`] = `
     >
       <aside
         aria-label="Sidebar"
-        class="w-[260px] h-full min-h-0 self-stretch bg-sidebar-background border border-border-default flex flex-col shrink-0 overflow-hidden transition-[width] duration-[250ms] ease-in-out"
-        style="border-radius: 12px;"
+        class="w-[290px] h-full min-h-0 self-stretch bg-sidebar-background border border-border-default flex flex-col shrink-0 overflow-hidden transition-[width] duration-[250ms] ease-in-out"
+        style="border-radius: 0;"
       >
         <div
-          class="h-[56px] flex items-center shrink-0 px-4"
+          class="h-[56px] mb-16 flex items-center shrink-0 px-4"
         >
-          <button
-            aria-expanded="true"
-            aria-label="Collapse sidebar"
-            class="flex items-center justify-center shrink-0 focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring/30 rounded-[8px]"
-            type="button"
-          >
-            <img
-              alt="Sonicline"
-              class="h-8 w-auto object-contain"
-              src="/src/assets/Sonicline.png"
-            />
-          </button>
-        </div>
-        <div
-          class="shrink-0 px-4 pb-4"
-        >
-          <div
-            class="h-10 bg-background-subtle flex items-center text-text-tertiary gap-2 px-3 rounded-[8px]"
-            role="search"
-          >
-            <span
-              aria-hidden="true"
-              class="shrink-0 flex items-center justify-center"
-            >
-              <svg
-                fill="none"
-                height="18"
-                stroke="currentColor"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="1.8"
-                viewBox="0 0 24 24"
-                width="18"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <circle
-                  cx="11"
-                  cy="11"
-                  r="8"
-                />
-                <path
-                  d="m21 21-4.3-4.3"
-                />
-              </svg>
-            </span>
-            <span
-              class="flex-1 text-left text-[13px] text-text-tertiary truncate"
-            >
-              Search
-            </span>
-            <span
-              class="shrink-0 text-[11px] leading-none bg-background-surface px-1.5 py-1 rounded-[6px] border border-border-default text-text-secondary font-medium"
-            >
-              ⌘ K
-            </span>
-          </div>
+          <img
+            alt="Sonicline"
+            class="h-8 w-auto object-contain"
+            src="/src/assets/Sonicline.png"
+          />
         </div>
         <div
           class="flex-1 overflow-y-auto overflow-x-hidden px-4 space-y-5 scrollbar-thin"
         >
           <div>
             <p
-              class="px-2 mb-2 text-[12px] font-semibold tracking-widest uppercase text-text-tertiary"
+              class="px-2 mb-2 text-[15px] font-semibold tracking-widest uppercase text-text-tertiary"
             >
               Menu
             </p>
@@ -86,10 +35,55 @@ exports[`DesktopReportContainer matches snapshot 1`] = `
               aria-label="Menu"
               class="space-y-1"
             >
+              <a
+                class="h-9 flex items-center gap-3 rounded-[6px] px-3 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring/30 text-text-secondary hover:bg-background-elevated hover:text-text-primary"
+                data-discover="true"
+                href="/order"
+              >
+                <span
+                  class="shrink-0 [&_svg]:h-5 [&_svg]:w-5 text-text-tertiary"
+                >
+                  <svg
+                    fill="none"
+                    height="20"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="1.8"
+                    viewBox="0 0 24 24"
+                    width="20"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"
+                    />
+                    <polyline
+                      points="14 2 14 8 20 8"
+                    />
+                    <line
+                      x1="16"
+                      x2="8"
+                      y1="13"
+                      y2="13"
+                    />
+                    <line
+                      x1="16"
+                      x2="8"
+                      y1="17"
+                      y2="17"
+                    />
+                  </svg>
+                </span>
+                <span
+                  class="flex-1 truncate text-lg leading-none font-normal"
+                >
+                  Order
+                </span>
+              </a>
               <div>
                 <button
                   aria-expanded="false"
-                  class="w-full h-9 flex items-center gap-3 rounded-[6px] px-3 text-left transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring/30 text-text-secondary hover:bg-background-elevated hover:text-text-primary"
+                  class="w-full min-h-14 py-3 flex items-center gap-3 rounded-[8px] px-4 text-left transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring/30 text-text-secondary hover:bg-background-elevated hover:text-text-primary"
                   type="button"
                 >
                   <span
@@ -121,7 +115,7 @@ exports[`DesktopReportContainer matches snapshot 1`] = `
                     </svg>
                   </span>
                   <span
-                    class="flex-1 truncate text-[14px] leading-none font-normal"
+                    class="flex-1 truncate text-xl leading-none font-normal"
                   >
                     Master Data
                   </span>
@@ -262,10 +256,47 @@ exports[`DesktopReportContainer matches snapshot 1`] = `
           class="h-20 flex items-center justify-between px-8 border-b border-brand-gray-light sticky top-0 z-10 transition-all"
         >
           <div
-            class="flex-1"
+            class="flex items-center gap-4 flex-1"
           >
+            <button
+              aria-expanded="true"
+              aria-label="Close sidebar"
+              class="flex h-10 w-10 items-center justify-center rounded-[8px] border border-border-default bg-background-surface text-text-secondary hover:bg-background-subtle hover:text-text-primary transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring/30"
+              type="button"
+            >
+              <svg
+                fill="none"
+                height="20"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="1.8"
+                viewBox="0 0 24 24"
+                width="20"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <line
+                  x1="4"
+                  x2="20"
+                  y1="6"
+                  y2="6"
+                />
+                <line
+                  x1="4"
+                  x2="20"
+                  y1="12"
+                  y2="12"
+                />
+                <line
+                  x1="4"
+                  x2="20"
+                  y1="18"
+                  y2="18"
+                />
+              </svg>
+            </button>
             <div
-              class="relative group hidden md:block max-w-lg"
+              class="relative group hidden md:block max-w-lg flex-1"
             >
               <div
                 class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-brand-text-medium"
@@ -365,7 +396,7 @@ exports[`DesktopReportContainer matches snapshot 1`] = `
               Completed Orders DesktopReport
             </span>
             <button
-              class="px-5 py-2.5 bg-brand-blue text-brand-white font-medium rounded-lg hover:bg-brand-blue-dark transition-all text-sm cursor-pointer flex items-center gap-2"
+              class="h-14 px-6 bg-brand-blue text-brand-white font-medium rounded-lg hover:bg-brand-blue-dark transition-all text-sm cursor-pointer flex items-center gap-2"
             >
               <svg
                 class="w-4 h-4"
@@ -434,47 +465,12 @@ exports[`DesktopReportContainer matches snapshot 1`] = `
                   type="text"
                 />
               </div>
-              <div
-                class="flex items-center gap-3 text-sm text-brand-text-medium "
-              >
-                Showing
-                <select
-                  class="border border-brand-gray-light rounded px-2 py-1 bg-brand-white font-medium text-brand-text-dark focus:outline-none"
-                >
-                  <option
-                    value="5"
-                  >
-                    5
-                  </option>
-                  <option
-                    value="10"
-                  >
-                    10
-                  </option>
-                  <option
-                    value="20"
-                  >
-                    20
-                  </option>
-                  <option
-                    value="50"
-                  >
-                    50
-                  </option>
-                  <option
-                    value="100"
-                  >
-                    100
-                  </option>
-                </select>
-                of 3 results
-              </div>
             </div>
             <div
               class="flex-1 overflow-auto"
             >
               <div
-                class="flex flex-col bg-background-surface rounded-xl border border-border-default shadow-sm overflow-hidden"
+                class="flex flex-col bg-transparent overflow-hidden"
               >
                 <div
                   class="hidden md:flex flex-1 overflow-auto"
@@ -483,44 +479,42 @@ exports[`DesktopReportContainer matches snapshot 1`] = `
                     class="w-full overflow-x-auto"
                   >
                     <table
-                      class="w-full min-w-max whitespace-nowrap"
+                      class="w-full min-w-max border-separate border-spacing-0 whitespace-nowrap"
                     >
                       <thead>
-                        <tr
-                          class="bg-table-header border-b border-border-default"
-                        >
+                        <tr>
                           <th
-                            class="px-4 py-3 text-xs font-semibold text-text-secondary uppercase tracking-wider text-center "
+                            class="bg-table-header px-5 py-4 text-[13px] font-bold text-text-secondary uppercase tracking-widest rounded-l-xl  text-center "
                           >
                             No
                           </th>
                           <th
-                            class="px-4 py-3 text-xs font-semibold text-text-secondary uppercase tracking-wider text-left "
+                            class="bg-table-header px-5 py-4 text-[13px] font-bold text-text-secondary uppercase tracking-widest   text-left "
                           >
                             Event Name
                           </th>
                           <th
-                            class="px-4 py-3 text-xs font-semibold text-text-secondary uppercase tracking-wider text-left "
+                            class="bg-table-header px-5 py-4 text-[13px] font-bold text-text-secondary uppercase tracking-widest   text-left "
                           >
                             Location
                           </th>
                           <th
-                            class="px-4 py-3 text-xs font-semibold text-text-secondary uppercase tracking-wider text-left "
+                            class="bg-table-header px-5 py-4 text-[13px] font-bold text-text-secondary uppercase tracking-widest   text-left "
                           >
                             Start Date
                           </th>
                           <th
-                            class="px-4 py-3 text-xs font-semibold text-text-secondary uppercase tracking-wider text-left "
+                            class="bg-table-header px-5 py-4 text-[13px] font-bold text-text-secondary uppercase tracking-widest   text-left "
                           >
                             End Date
                           </th>
                           <th
-                            class="px-4 py-3 text-xs font-semibold text-text-secondary uppercase tracking-wider text-left "
+                            class="bg-table-header px-5 py-4 text-[13px] font-bold text-text-secondary uppercase tracking-widest   text-left "
                           >
                             Status
                           </th>
                           <th
-                            class="px-4 py-3 text-xs font-semibold text-text-secondary uppercase tracking-wider text-center "
+                            class="bg-table-header px-5 py-4 text-[13px] font-bold text-text-secondary uppercase tracking-widest  rounded-r-xl text-center "
                           >
                             Action
                           </th>
@@ -533,7 +527,7 @@ exports[`DesktopReportContainer matches snapshot 1`] = `
                           class="hover:bg-background-subtle/50 transition-colors "
                         >
                           <td
-                            class="px-4 py-3 border-b border-border-default text-center "
+                            class="px-5 py-4 border-b border-border-default text-base text-center "
                           >
                             <span
                               class="text-brand-text-medium font-medium text-sm"
@@ -542,27 +536,27 @@ exports[`DesktopReportContainer matches snapshot 1`] = `
                             </span>
                           </td>
                           <td
-                            class="px-4 py-3 border-b border-border-default text-left "
+                            class="px-5 py-4 border-b border-border-default text-base text-left "
                           >
                             Tech Summit 2026
                           </td>
                           <td
-                            class="px-4 py-3 border-b border-border-default text-left "
+                            class="px-5 py-4 border-b border-border-default text-base text-left "
                           >
                             BNDCC Bali
                           </td>
                           <td
-                            class="px-4 py-3 border-b border-border-default text-left "
+                            class="px-5 py-4 border-b border-border-default text-base text-left "
                           >
                             2026-08-10
                           </td>
                           <td
-                            class="px-4 py-3 border-b border-border-default text-left "
+                            class="px-5 py-4 border-b border-border-default text-base text-left "
                           >
                             2026-08-12
                           </td>
                           <td
-                            class="px-4 py-3 border-b border-border-default text-left "
+                            class="px-5 py-4 border-b border-border-default text-base text-left "
                           >
                             <span
                               class="px-3 py-1 rounded-full text-xs font-bold bg-brand-blue-light text-brand-blue"
@@ -571,7 +565,7 @@ exports[`DesktopReportContainer matches snapshot 1`] = `
                             </span>
                           </td>
                           <td
-                            class="px-4 py-3 border-b border-border-default text-center "
+                            class="px-5 py-4 border-b border-border-default text-base text-center "
                           >
                             <div
                               class="flex items-center justify-center gap-2"
@@ -613,7 +607,7 @@ exports[`DesktopReportContainer matches snapshot 1`] = `
                           class="hover:bg-background-subtle/50 transition-colors "
                         >
                           <td
-                            class="px-4 py-3 border-b border-border-default text-center "
+                            class="px-5 py-4 border-b border-border-default text-base text-center "
                           >
                             <span
                               class="text-brand-text-medium font-medium text-sm"
@@ -622,27 +616,27 @@ exports[`DesktopReportContainer matches snapshot 1`] = `
                             </span>
                           </td>
                           <td
-                            class="px-4 py-3 border-b border-border-default text-left "
+                            class="px-5 py-4 border-b border-border-default text-base text-left "
                           >
                             Youth Camp GPdI 2026
                           </td>
                           <td
-                            class="px-4 py-3 border-b border-border-default text-left "
+                            class="px-5 py-4 border-b border-border-default text-base text-left "
                           >
                             Kebun Pines, Cikole, Lembang - Bandung
                           </td>
                           <td
-                            class="px-4 py-3 border-b border-border-default text-left "
+                            class="px-5 py-4 border-b border-border-default text-base text-left "
                           >
                             2026-06-30
                           </td>
                           <td
-                            class="px-4 py-3 border-b border-border-default text-left "
+                            class="px-5 py-4 border-b border-border-default text-base text-left "
                           >
                             2026-07-02
                           </td>
                           <td
-                            class="px-4 py-3 border-b border-border-default text-left "
+                            class="px-5 py-4 border-b border-border-default text-base text-left "
                           >
                             <span
                               class="px-3 py-1 rounded-full text-xs font-bold bg-brand-blue-light text-brand-blue"
@@ -651,7 +645,7 @@ exports[`DesktopReportContainer matches snapshot 1`] = `
                             </span>
                           </td>
                           <td
-                            class="px-4 py-3 border-b border-border-default text-center "
+                            class="px-5 py-4 border-b border-border-default text-base text-center "
                           >
                             <div
                               class="flex items-center justify-center gap-2"
@@ -693,7 +687,7 @@ exports[`DesktopReportContainer matches snapshot 1`] = `
                           class="hover:bg-background-subtle/50 transition-colors "
                         >
                           <td
-                            class="px-4 py-3 border-b border-border-default text-center "
+                            class="px-5 py-4 border-b border-border-default text-base text-center "
                           >
                             <span
                               class="text-brand-text-medium font-medium text-sm"
@@ -702,27 +696,27 @@ exports[`DesktopReportContainer matches snapshot 1`] = `
                             </span>
                           </td>
                           <td
-                            class="px-4 py-3 border-b border-border-default text-left "
+                            class="px-5 py-4 border-b border-border-default text-base text-left "
                           >
                             Government Seminar
                           </td>
                           <td
-                            class="px-4 py-3 border-b border-border-default text-left "
+                            class="px-5 py-4 border-b border-border-default text-base text-left "
                           >
                             Hotel Indonesia Kempinski
                           </td>
                           <td
-                            class="px-4 py-3 border-b border-border-default text-left "
+                            class="px-5 py-4 border-b border-border-default text-base text-left "
                           >
                             2026-08-25
                           </td>
                           <td
-                            class="px-4 py-3 border-b border-border-default text-left "
+                            class="px-5 py-4 border-b border-border-default text-base text-left "
                           >
                             2026-08-26
                           </td>
                           <td
-                            class="px-4 py-3 border-b border-border-default text-left "
+                            class="px-5 py-4 border-b border-border-default text-base text-left "
                           >
                             <span
                               class="px-3 py-1 rounded-full text-xs font-bold bg-brand-blue-light text-brand-blue"
@@ -731,7 +725,7 @@ exports[`DesktopReportContainer matches snapshot 1`] = `
                             </span>
                           </td>
                           <td
-                            class="px-4 py-3 border-b border-border-default text-center "
+                            class="px-5 py-4 border-b border-border-default text-base text-center "
                           >
                             <div
                               class="flex items-center justify-center gap-2"
@@ -774,44 +768,131 @@ exports[`DesktopReportContainer matches snapshot 1`] = `
                   </div>
                 </div>
                 <div
-                  class="md:hidden"
+                  class="md:hidden bg-background-surface rounded-xl border border-border-default shadow-sm overflow-hidden"
                 >
                   <div
                     class="bg-background-surface overflow-hidden divide-y divide-border-default"
                   >
                     <div
-                      class="flex flex-col gap-3 px-4 py-4 bg-transparent cursor-pointer active:bg-background-subtle/50 transition-colors"
+                      class="flex flex-col gap-3 px-4 py-4 bg-transparent transition-colors "
                     />
                     <div
-                      class="flex flex-col gap-3 px-4 py-4 bg-transparent cursor-pointer active:bg-background-subtle/50 transition-colors"
+                      class="flex flex-col gap-3 px-4 py-4 bg-transparent transition-colors "
                     />
                     <div
-                      class="flex flex-col gap-3 px-4 py-4 bg-transparent cursor-pointer active:bg-background-subtle/50 transition-colors"
+                      class="flex flex-col gap-3 px-4 py-4 bg-transparent transition-colors "
                     />
                   </div>
                 </div>
               </div>
             </div>
             <div
-              class="flex items-center justify-center gap-2 text-sm text-brand-text-medium font-medium "
+              class="flex flex-col gap-3 py-4 "
             >
-              <button
-                class="p-1 rounded text-gray-300 cursor-not-allowed"
-                disabled=""
+              <div
+                class="flex flex-wrap items-center gap-3 sm:justify-between"
               >
-                &lt;
-              </button>
-              <button
-                class="w-8 h-8 flex items-center justify-center rounded-lg transition-colors bg-brand-blue text-brand-white font-bold"
-              >
-                1
-              </button>
-              <button
-                class="p-1 rounded text-gray-300 cursor-not-allowed"
-                disabled=""
-              >
-                &gt;
-              </button>
+                <div
+                  class="flex w-full items-center justify-between gap-2 sm:w-auto sm:justify-start"
+                >
+                  <select
+                    aria-label="Documents per page"
+                    class="w-[180px] px-4 py-2.5 text-base sm:min-w-[100px] sm:w-auto shrink-0 cursor-pointer rounded-xl border border-border-default bg-background-surface font-semibold text-text-primary focus:outline-none"
+                  >
+                    <option
+                      value="5"
+                    >
+                      5
+                    </option>
+                    <option
+                      value="10"
+                    >
+                      10
+                    </option>
+                    <option
+                      value="20"
+                    >
+                      20
+                    </option>
+                    <option
+                      value="50"
+                    >
+                      50
+                    </option>
+                    <option
+                      value="100"
+                    >
+                      100
+                    </option>
+                  </select>
+                  <div
+                    class="flex shrink-0 items-center justify-end gap-1 sm:gap-2"
+                  >
+                    <button
+                      class="flex items-center gap-1 sm:gap-2 px-3 sm:px-4 py-2 sm:py-2.5 border border-border-default rounded-xl text-sm sm:text-base font-semibold transition-colors text-text-disabled cursor-not-allowed bg-background-disabled"
+                      disabled=""
+                    >
+                      <svg
+                        class="w-4 h-4 sm:w-5 sm:h-5"
+                        fill="none"
+                        height="1em"
+                        stroke="currentColor"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        viewBox="0 0 24 24"
+                        width="1em"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <polyline
+                          points="15 18 9 12 15 6"
+                        />
+                      </svg>
+                      <span
+                        class="hidden sm:inline"
+                      >
+                        Previous
+                      </span>
+                    </button>
+                    <div
+                      class="flex min-w-0 items-center justify-center gap-1 overflow-x-auto"
+                    >
+                      <button
+                        aria-current="page"
+                        class="flex h-8 w-8 sm:h-10 sm:w-10 items-center justify-center rounded-xl text-sm sm:text-base font-semibold transition-colors bg-background-subtle text-text-primary shadow-sm"
+                      >
+                        1
+                      </button>
+                    </div>
+                    <button
+                      class="flex items-center gap-1 sm:gap-2 px-3 sm:px-4 py-2 sm:py-2.5 border border-border-default rounded-xl text-sm sm:text-base font-semibold transition-colors text-text-disabled cursor-not-allowed bg-background-disabled"
+                      disabled=""
+                    >
+                      <span
+                        class="hidden sm:inline"
+                      >
+                        Next
+                      </span>
+                      <svg
+                        class="w-4 h-4 sm:w-5 sm:h-5"
+                        fill="none"
+                        height="1em"
+                        stroke="currentColor"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        viewBox="0 0 24 24"
+                        width="1em"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <polyline
+                          points="9 18 15 12 9 6"
+                        />
+                      </svg>
+                    </button>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>

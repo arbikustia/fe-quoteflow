@@ -21,9 +21,12 @@ exports[`MasterPaymentMethod.component MasterPaymentMethodComponent Snapshots de
               aria-label="Breadcrumb"
               class="mb-2 flex flex-wrap items-center gap-2 text-[15px] font-medium text-text-secondary"
             >
-              <span>
+              <button
+                class="cursor-pointer hover:text-text-primary"
+                type="button"
+              >
                 Master
-              </span>
+              </button>
               <span
                 aria-hidden="true"
               >
@@ -34,7 +37,7 @@ exports[`MasterPaymentMethod.component MasterPaymentMethodComponent Snapshots de
               </span>
             </nav>
             <h1
-              class="truncate text-2xl font-bold tracking-tight text-text-primary"
+              class="truncate text-4xl font-semibold leading-tight tracking-tight text-text-primary"
             >
               Payment Method List
             </h1>
@@ -115,14 +118,14 @@ exports[`MasterPaymentMethod.component MasterPaymentMethodComponent Snapshots de
                   </svg>
                   <input
                     aria-label="Search payment method"
-                    class="h-11 w-full rounded-xl border border-border-default bg-background-surface pl-12 pr-4 text-base font-medium text-text-primary outline-none transition-colors placeholder:font-normal placeholder:text-text-tertiary hover:border-border-strong focus:border-border-focus focus:ring-2 focus:ring-focus-ring/30"
+                    class="h-14 w-full rounded-xl border border-border-default bg-background-surface pl-12 pr-4 text-base font-medium text-text-primary outline-none transition-colors placeholder:font-normal placeholder:text-text-tertiary hover:border-border-strong focus:border-border-focus focus:ring-2 focus:ring-focus-ring/30"
                     placeholder="Search payment method"
                     type="search"
                   />
                 </label>
               </div>
               <button
-                class="shrink-0 rounded-xl bg-brand-blue px-4 py-2.5 text-sm font-semibold text-brand-white"
+                class="shrink-0 rounded-xl bg-brand-blue h-14 px-5 text-sm font-semibold text-brand-white"
                 type="button"
               >
                 Create Payment Method
@@ -409,13 +412,13 @@ exports[`MasterPaymentMethod.component MasterPaymentMethodComponent Snapshots de
                 </svg>
                 <input
                   aria-label="Search payment method"
-                  class="h-11 w-full rounded-xl border border-border-default bg-background-surface pl-12 pr-4 text-base font-medium text-text-primary outline-none transition-colors placeholder:font-normal placeholder:text-text-tertiary hover:border-border-strong focus:border-border-focus focus:ring-2 focus:ring-focus-ring/30"
+                  class="h-14 w-full rounded-xl border border-border-default bg-background-surface pl-12 pr-4 text-base font-medium text-text-primary outline-none transition-colors placeholder:font-normal placeholder:text-text-tertiary hover:border-border-strong focus:border-border-focus focus:ring-2 focus:ring-focus-ring/30"
                   placeholder="Search payment method"
                   type="search"
                 />
               </label>
               <button
-                class="rounded-xl bg-brand-blue px-5 py-2.5 text-sm font-semibold text-brand-white"
+                class="rounded-xl bg-brand-blue h-14 px-6 text-sm font-semibold text-brand-white"
                 type="button"
               >
                 Create Payment Method
@@ -460,9 +463,12 @@ exports[`MasterPaymentMethod.component MasterPaymentMethodComponent Snapshots mo
               aria-label="Breadcrumb"
               class="mb-2 flex flex-wrap items-center gap-2 text-[15px] font-medium text-text-secondary"
             >
-              <span>
+              <button
+                class="cursor-pointer hover:text-text-primary"
+                type="button"
+              >
                 Master
-              </span>
+              </button>
               <span
                 aria-hidden="true"
               >
@@ -473,7 +479,7 @@ exports[`MasterPaymentMethod.component MasterPaymentMethodComponent Snapshots mo
               </span>
             </nav>
             <h1
-              class="truncate text-2xl font-bold tracking-tight text-text-primary"
+              class="truncate text-4xl font-semibold leading-tight tracking-tight text-text-primary"
             >
               Payment Method List
             </h1>
@@ -554,14 +560,14 @@ exports[`MasterPaymentMethod.component MasterPaymentMethodComponent Snapshots mo
                   </svg>
                   <input
                     aria-label="Search payment method"
-                    class="h-11 w-full rounded-xl border border-border-default bg-background-surface pl-12 pr-4 text-base font-medium text-text-primary outline-none transition-colors placeholder:font-normal placeholder:text-text-tertiary hover:border-border-strong focus:border-border-focus focus:ring-2 focus:ring-focus-ring/30"
+                    class="h-14 w-full rounded-xl border border-border-default bg-background-surface pl-12 pr-4 text-base font-medium text-text-primary outline-none transition-colors placeholder:font-normal placeholder:text-text-tertiary hover:border-border-strong focus:border-border-focus focus:ring-2 focus:ring-focus-ring/30"
                     placeholder="Search payment method"
                     type="search"
                   />
                 </label>
               </div>
               <button
-                class="shrink-0 rounded-xl bg-brand-blue px-4 py-2.5 text-sm font-semibold text-brand-white"
+                class="shrink-0 rounded-xl bg-brand-blue h-14 px-5 text-sm font-semibold text-brand-white"
                 type="button"
               >
                 Create Payment Method
@@ -848,13 +854,13 @@ exports[`MasterPaymentMethod.component MasterPaymentMethodComponent Snapshots mo
                 </svg>
                 <input
                   aria-label="Search payment method"
-                  class="h-11 w-full rounded-xl border border-border-default bg-background-surface pl-12 pr-4 text-base font-medium text-text-primary outline-none transition-colors placeholder:font-normal placeholder:text-text-tertiary hover:border-border-strong focus:border-border-focus focus:ring-2 focus:ring-focus-ring/30"
+                  class="h-14 w-full rounded-xl border border-border-default bg-background-surface pl-12 pr-4 text-base font-medium text-text-primary outline-none transition-colors placeholder:font-normal placeholder:text-text-tertiary hover:border-border-strong focus:border-border-focus focus:ring-2 focus:ring-focus-ring/30"
                   placeholder="Search payment method"
                   type="search"
                 />
               </label>
               <button
-                class="rounded-xl bg-brand-blue px-5 py-2.5 text-sm font-semibold text-brand-white"
+                class="rounded-xl bg-brand-blue h-14 px-6 text-sm font-semibold text-brand-white"
                 type="button"
               >
                 Create Payment Method

@@ -108,8 +108,8 @@ const _renderDeleteModal = (props: MasterCategoryDetailState): ReactElement | nu
         <h3 id="delete-category-title" className="mb-2 text-center text-xl font-semibold text-text-primary">Delete category?</h3>
         <p className="mb-8 text-center text-sm text-text-secondary">Delete <span className="font-semibold text-text-primary">{category.categoryName}</span>? This action cannot be undone.</p>
         <div className="flex gap-3">
-          <button type="button" onClick={closeDeleteModal} className="flex-1 rounded-lg bg-background-subtle px-4 py-3 text-sm font-medium text-text-primary hover:bg-border-default">Cancel</button>
-          <button type="button" onClick={handleDelete} className="flex-1 rounded-lg bg-red-600 px-4 py-3 text-sm font-medium text-white hover:bg-red-700">Delete</button>
+          <button type="button" onClick={closeDeleteModal} className="flex-1 rounded-lg bg-background-subtle h-14 px-5 text-sm font-medium text-text-primary hover:bg-border-default">Cancel</button>
+          <button type="button" onClick={handleDelete} className="flex-1 rounded-lg bg-red-600 h-14 px-5 text-sm font-medium text-white hover:bg-red-700">Delete</button>
         </div>
       </div>
     </div>

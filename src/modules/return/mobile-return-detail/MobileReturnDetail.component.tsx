@@ -28,7 +28,7 @@ const MobileReturnDetailToast = ({ showToast }: { showToast: boolean }): ReactEl
   if (!showToast) return null;
 
   return (
-    <div className="fixed top-24 left-1/2 -translate-x-1/2 bg-[#4a7246] text-white px-5 py-3 rounded-xl shadow-[0_10px_40px_rgba(74,114,70,0.3)] flex items-center gap-3 z-50 animate-in fade-in slide-in-from-top-5 duration-300">
+    <div className="fixed top-24 left-1/2 -translate-x-1/2 bg-[#4a7246] text-white h-14 px-6 rounded-xl shadow-[0_10px_40px_rgba(74,114,70,0.3)] flex items-center gap-3 z-50 animate-in fade-in slide-in-from-top-5 duration-300">
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
       <span className="font-bold text-[14px]">Return saved successfully!</span>
     </div>

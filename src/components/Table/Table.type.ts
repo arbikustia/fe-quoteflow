@@ -27,6 +27,7 @@ export type TableProps<T extends object> = {
   readonly columns: readonly TableColumn<T>[];
   readonly keyExtractor: (row: T) => string | number;
   readonly onRowClick?: (row: T) => void;
+  readonly isDetail?: boolean;
   readonly currentPage?: number;
   readonly totalPages?: number;
   readonly pageSize?: number;

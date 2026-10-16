@@ -109,7 +109,7 @@ const renderActionButton = <T,>(
 );
 
 const _renderDesktopBody = <T extends object,>(props: TableProps<T>): React.ReactElement => {
-  const { data, columns, keyExtractor, onRowClick, isLoading, emptyText } = props;
+  const { data, columns, keyExtractor, onRowClick, isDetail = true, isLoading, emptyText } = props;
 
   if (isLoading) {
     return (
@@ -140,8 +140,8 @@ const _renderDesktopBody = <T extends object,>(props: TableProps<T>): React.Reac
       {data.map((row, index) => (
         <tr
           key={keyExtractor(row)}
-          onClick={() => onRowClick?.(row)}
-          className={`hover:bg-background-subtle/50 transition-colors ${onRowClick ? "cursor-pointer" : ""}`}
+          onClick={isDetail ? (): void => onRowClick?.(row) : undefined}
+          className={`hover:bg-background-subtle/50 transition-colors ${isDetail && onRowClick ? "cursor-pointer" : ""}`}
         >
           {columns.map((col) => (
             <td
@@ -185,7 +185,7 @@ const _renderDesktopTable = <T extends object,>(props: TableProps<T>): React.Rea
 };
 
 const _renderMobileCard = <T extends object,>(props: TableProps<T>): React.ReactElement => {
-  const { data, columns, keyExtractor, onRowClick, emptyText, isLoading } = props;
+  const { data, columns, keyExtractor, onRowClick, isDetail = true, emptyText, isLoading } = props;
   const primaryColumns = columns.filter((col) => col.mobile?.primary);
 
   if (isLoading) {
@@ -209,16 +209,16 @@ const _renderMobileCard = <T extends object,>(props: TableProps<T>): React.React
       {data.map((row) => (
         <div
           key={keyExtractor(row)}
-          onClick={() => onRowClick?.(row)}
-          onKeyDown={(e: React.KeyboardEvent) => {
-            if ((e.key === "Enter" || e.key === " ") && onRowClick) {
+          onClick={isDetail ? (): void => onRowClick?.(row) : undefined}
+          onKeyDown={(e: React.KeyboardEvent): void => {
+            if (isDetail && (e.key === "Enter" || e.key === " ") && onRowClick) {
               e.preventDefault();
               onRowClick(row);
             }
           }}
-          className="flex flex-col gap-3 px-4 py-4 bg-transparent cursor-pointer active:bg-background-subtle/50 transition-colors"
-          role={onRowClick ? "button" : undefined}
-          tabIndex={onRowClick ? 0 : undefined}
+          className={`flex flex-col gap-3 px-4 py-4 bg-transparent transition-colors ${isDetail && onRowClick ? "cursor-pointer active:bg-background-subtle/50" : ""}`}
+          role={isDetail && onRowClick ? "button" : undefined}
+          tabIndex={isDetail && onRowClick ? 0 : undefined}
         >
           {primaryColumns.map((col) => (
             <div
