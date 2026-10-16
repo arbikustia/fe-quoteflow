@@ -6,7 +6,7 @@ import { Pagination } from "@/components/Pagination";
 import Table, { type TableColumn } from "@/components/Table";
 
 import Layout from "@/app/layout";
-import type { QuoteData } from "@/modules/order/desktop-order/DesktopOrder.type";
+import type { QuoteData } from "@/modules/order/Order.type";
 import { generateQuotePDF } from "@/utils/pdfGenerator";
 
 import type { DesktopReportProps } from "./DesktopReport.type";

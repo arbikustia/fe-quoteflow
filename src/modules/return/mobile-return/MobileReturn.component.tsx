@@ -1,7 +1,7 @@
 import type { ReactElement } from "react";
 
 import type { MobileReturnProps } from "./MobileReturn.type";
-import type { QuoteData } from "../../order/desktop-order/DesktopOrder.type";
+import type { QuoteData } from "../../order/Order.type";
 
 /**
  * Format date to Month Day (e.g. Jan 01)

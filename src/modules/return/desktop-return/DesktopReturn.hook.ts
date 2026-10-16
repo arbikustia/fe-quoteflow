@@ -6,7 +6,7 @@ import type {
   DesktopReturnProps,
   OnSearchOptions,
 } from "./DesktopReturn.type";
-import type { QuoteData } from "../../order/desktop-order/DesktopOrder.type";
+import type { QuoteData } from "../../order/Order.type";
 import { MOCK_QUOTES } from "../../../fixture/quotes";
 
 /**

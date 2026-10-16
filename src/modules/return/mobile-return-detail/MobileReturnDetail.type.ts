@@ -1,6 +1,6 @@
 import type { ChangeEvent } from "react";
 
-import type { QuoteData } from "../../order/desktop-order/DesktopOrder.type";
+import type { QuoteData } from "../../order/Order.type";
 
 export type MobileReturnDetailProps = {
   order: QuoteData;

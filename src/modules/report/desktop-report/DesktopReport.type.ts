@@ -1,4 +1,4 @@
-import type { QuoteData } from "@/modules/order/desktop-order/DesktopOrder.type";
+import type { QuoteData } from "@/modules/order/Order.type";
 
 export type DesktopReportProps = {
   completedOrders: QuoteData[];

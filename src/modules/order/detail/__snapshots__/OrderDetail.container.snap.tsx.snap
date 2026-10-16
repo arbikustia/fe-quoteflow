@@ -1,0 +1,863 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`OrderDetailContainer Snapshots Should Render OrderDetailContainer 1`] = `
+<DocumentFragment>
+  <div
+    class="flex-1 w-full min-h-full bg-[#f8f9fb] font-sans pb-10 relative overflow-y-auto"
+  >
+    <div
+      class="px-6 pt-10 pb-4 flex items-center justify-between sticky top-0 bg-[#f8f9fb]/90 backdrop-blur-sm z-20"
+    >
+      <button
+        class="flex items-center gap-3 text-gray-600 hover:text-gray-900 transition-colors group"
+        type="button"
+      >
+        <div
+          class="w-10 h-10 rounded-full bg-white shadow-sm flex items-center justify-center text-[#1a233a] group-hover:bg-gray-50 transition-colors"
+        >
+          <svg
+            fill="none"
+            height="20"
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="3"
+            viewBox="0 0 24 24"
+            width="20"
+          >
+            <polyline
+              points="15 18 9 12 15 6"
+            />
+          </svg>
+        </div>
+        <span
+          class="font-bold text-[15px]"
+        >
+          Back
+        </span>
+      </button>
+      <div
+        class="flex items-center gap-3"
+      >
+        <button
+          class="w-10 h-10 rounded-full bg-white shadow-sm flex items-center justify-center text-[#4a7246] hover:bg-gray-50 transition-colors"
+          title="Download PDF"
+          type="button"
+        >
+          <svg
+            fill="none"
+            height="18"
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2.5"
+            viewBox="0 0 24 24"
+            width="18"
+          >
+            <path
+              d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"
+            />
+            <polyline
+              points="7 10 12 15 17 10"
+            />
+            <line
+              x1="12"
+              x2="12"
+              y1="15"
+              y2="3"
+            />
+          </svg>
+        </button>
+        <button
+          class="w-10 h-10 rounded-full bg-white shadow-sm flex items-center justify-center text-[#4a64b8] hover:bg-gray-50 transition-colors"
+          title="Edit Order"
+          type="button"
+        >
+          <svg
+            fill="none"
+            height="18"
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2.5"
+            viewBox="0 0 24 24"
+            width="18"
+          >
+            <path
+              d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"
+            />
+            <path
+              d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"
+            />
+          </svg>
+        </button>
+        <button
+          class="w-10 h-10 rounded-full bg-[#fde8e8] shadow-sm flex items-center justify-center text-[#bd4040] hover:bg-red-200 transition-colors"
+          title="Delete Order"
+          type="button"
+        >
+          <svg
+            fill="none"
+            height="18"
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2.5"
+            viewBox="0 0 24 24"
+            width="18"
+          >
+            <polyline
+              points="3 6 5 6 21 6"
+            />
+            <path
+              d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2-2v2"
+            />
+          </svg>
+        </button>
+      </div>
+    </div>
+    <div
+      class="px-6 mt-2"
+    >
+      <div
+        class="mb-6"
+      >
+        <div
+          class="flex items-center justify-between mb-2"
+        >
+          <h2
+            class="text-[28px] font-extrabold text-gray-900 tracking-tight"
+          >
+            Q-999
+          </h2>
+          <div
+            class="rounded-full px-3 py-1.5 text-[11px] font-bold tracking-wider uppercase text-[#a87b1e] bg-[#fdf2c8]"
+          >
+            Pending Payment
+          </div>
+        </div>
+        <p
+          class="text-[14px] text-gray-500 font-medium leading-relaxed"
+        >
+          Here are the complete details for this order.
+        </p>
+      </div>
+      <div
+        class="bg-white border border-gray-100 rounded-4xl p-6 shadow-[0_4px_15px_rgba(0,0,0,0.02)] mb-6"
+      >
+        <div
+          class="flex flex-col gap-5"
+        >
+          <div>
+            <span
+              class="block text-[11px] font-bold text-gray-400 uppercase tracking-widest mb-1"
+            >
+              Client Name
+            </span>
+            <span
+              class="text-[15px] font-bold text-gray-800"
+            >
+              Massive Equipment Rental
+            </span>
+          </div>
+          <div>
+            <span
+              class="block text-[11px] font-bold text-gray-400 uppercase tracking-widest mb-1"
+            >
+              Event Location
+            </span>
+            <span
+              class="text-[15px] font-bold text-gray-800"
+            >
+              Jakarta International Stadium
+            </span>
+          </div>
+          <div
+            class="flex items-center gap-6"
+          >
+            <div>
+              <span
+                class="block text-[11px] font-bold text-gray-400 uppercase tracking-widest mb-1"
+              >
+                Start Date
+              </span>
+              <span
+                class="text-[14px] font-bold text-gray-800"
+              >
+                2026-11-20
+              </span>
+            </div>
+            <div>
+              <span
+                class="block text-[11px] font-bold text-gray-400 uppercase tracking-widest mb-1"
+              >
+                End Date
+              </span>
+              <span
+                class="text-[14px] font-bold text-gray-800"
+              >
+                2026-11-22
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="bg-white border border-gray-100 rounded-4xl p-6 shadow-[0_4px_15px_rgba(0,0,0,0.02)] mb-8"
+      >
+        <div
+          class="flex items-center justify-between mb-5"
+        >
+          <label
+            class="block text-[12px] font-bold text-gray-400 tracking-widest uppercase"
+          >
+            Ordered Items
+          </label>
+          <span
+            class="text-[12px] font-bold text-[#4a64b8] bg-[#daeaf3] px-3 py-1 rounded-full"
+          >
+            1 Items Total
+          </span>
+        </div>
+        <div
+          class="flex flex-col gap-6"
+        >
+          <div>
+            <h4
+              class="text-[11px] font-bold text-[#4a7246] uppercase tracking-wider mb-3 px-1"
+            >
+              Audio System, Lighting System, Visual & Display, Staging & Rigging, Power Generator
+            </h4>
+            <div
+              class="flex flex-col gap-3"
+            >
+              <div
+                class="flex flex-col p-4 bg-[#f8f9fb] rounded-2xl border border-gray-100"
+              >
+                <div
+                  class="flex items-center justify-between mb-3"
+                >
+                  <span
+                    class="text-[14px] font-bold text-gray-800"
+                  >
+                    LED Screen P3.9
+                  </span>
+                  <span
+                    class="text-[13px] font-bold text-[#4a64b8] bg-white px-2 py-0.5 rounded-lg border border-gray-200"
+                  >
+                    Qty: 1
+                  </span>
+                </div>
+                <div
+                  class="bg-white border border-gray-200 rounded-xl p-3 text-[12px] text-gray-600 font-medium"
+                >
+                  <span
+                    class="text-[10px] font-bold text-gray-400 uppercase tracking-wider block mb-1"
+                  >
+                    Remark
+                  </span>
+                  Please handle with care during transport.
+                </div>
+              </div>
+              <div
+                class="flex flex-col p-4 bg-[#f8f9fb] rounded-2xl border border-gray-100"
+              >
+                <div
+                  class="flex items-center justify-between mb-3"
+                >
+                  <span
+                    class="text-[14px] font-bold text-gray-800"
+                  >
+                    Digital Audio Mixer 32 Ch
+                  </span>
+                  <span
+                    class="text-[13px] font-bold text-[#4a64b8] bg-white px-2 py-0.5 rounded-lg border border-gray-200"
+                  >
+                    Qty: 1
+                  </span>
+                </div>
+              </div>
+              <div
+                class="flex flex-col p-4 bg-[#f8f9fb] rounded-2xl border border-gray-100"
+              >
+                <div
+                  class="flex items-center justify-between mb-3"
+                >
+                  <span
+                    class="text-[14px] font-bold text-gray-800"
+                  >
+                    Wireless Microphone
+                  </span>
+                  <span
+                    class="text-[13px] font-bold text-[#4a64b8] bg-white px-2 py-0.5 rounded-lg border border-gray-200"
+                  >
+                    Qty: 1
+                  </span>
+                </div>
+              </div>
+              <div
+                class="flex flex-col p-4 bg-[#f8f9fb] rounded-2xl border border-gray-100"
+              >
+                <div
+                  class="flex items-center justify-between mb-3"
+                >
+                  <span
+                    class="text-[14px] font-bold text-gray-800"
+                  >
+                    Par LED 54x3W RGBW
+                  </span>
+                  <span
+                    class="text-[13px] font-bold text-[#4a64b8] bg-white px-2 py-0.5 rounded-lg border border-gray-200"
+                  >
+                    Qty: 1
+                  </span>
+                </div>
+              </div>
+              <div
+                class="flex flex-col p-4 bg-[#f8f9fb] rounded-2xl border border-gray-100"
+              >
+                <div
+                  class="flex items-center justify-between mb-3"
+                >
+                  <span
+                    class="text-[14px] font-bold text-gray-800"
+                  >
+                    Line Array Speaker
+                  </span>
+                  <span
+                    class="text-[13px] font-bold text-[#4a64b8] bg-white px-2 py-0.5 rounded-lg border border-gray-200"
+                  >
+                    Qty: 1
+                  </span>
+                </div>
+              </div>
+              <div
+                class="flex flex-col p-4 bg-[#f8f9fb] rounded-2xl border border-gray-100"
+              >
+                <div
+                  class="flex items-center justify-between mb-3"
+                >
+                  <span
+                    class="text-[14px] font-bold text-gray-800"
+                  >
+                    Subwoofer 18"
+                  </span>
+                  <span
+                    class="text-[13px] font-bold text-[#4a64b8] bg-white px-2 py-0.5 rounded-lg border border-gray-200"
+                  >
+                    Qty: 1
+                  </span>
+                </div>
+              </div>
+              <div
+                class="flex flex-col p-4 bg-[#f8f9fb] rounded-2xl border border-gray-100"
+              >
+                <div
+                  class="flex items-center justify-between mb-3"
+                >
+                  <span
+                    class="text-[14px] font-bold text-gray-800"
+                  >
+                    Aluminium Truss 3m
+                  </span>
+                  <span
+                    class="text-[13px] font-bold text-[#4a64b8] bg-white px-2 py-0.5 rounded-lg border border-gray-200"
+                  >
+                    Qty: 1
+                  </span>
+                </div>
+              </div>
+              <div
+                class="flex flex-col p-4 bg-[#f8f9fb] rounded-2xl border border-gray-100"
+              >
+                <div
+                  class="flex items-center justify-between mb-3"
+                >
+                  <span
+                    class="text-[14px] font-bold text-gray-800"
+                  >
+                    Genset 100 KVA
+                  </span>
+                  <span
+                    class="text-[13px] font-bold text-[#4a64b8] bg-white px-2 py-0.5 rounded-lg border border-gray-200"
+                  >
+                    Qty: 1
+                  </span>
+                </div>
+              </div>
+              <div
+                class="flex flex-col p-4 bg-[#f8f9fb] rounded-2xl border border-gray-100"
+              >
+                <div
+                  class="flex items-center justify-between mb-3"
+                >
+                  <span
+                    class="text-[14px] font-bold text-gray-800"
+                  >
+                    Chain Hoist 1 Ton
+                  </span>
+                  <span
+                    class="text-[13px] font-bold text-[#4a64b8] bg-white px-2 py-0.5 rounded-lg border border-gray-200"
+                  >
+                    Qty: 1
+                  </span>
+                </div>
+              </div>
+              <div
+                class="flex flex-col p-4 bg-[#f8f9fb] rounded-2xl border border-gray-100"
+              >
+                <div
+                  class="flex items-center justify-between mb-3"
+                >
+                  <span
+                    class="text-[14px] font-bold text-gray-800"
+                  >
+                    Moving Head Beam 230W
+                  </span>
+                  <span
+                    class="text-[13px] font-bold text-[#4a64b8] bg-white px-2 py-0.5 rounded-lg border border-gray-200"
+                  >
+                    Qty: 1
+                  </span>
+                </div>
+              </div>
+              <div
+                class="flex flex-col p-4 bg-[#f8f9fb] rounded-2xl border border-gray-100"
+              >
+                <div
+                  class="flex items-center justify-between mb-3"
+                >
+                  <span
+                    class="text-[14px] font-bold text-gray-800"
+                  >
+                    Stage Deck 1x2m
+                  </span>
+                  <span
+                    class="text-[13px] font-bold text-[#4a64b8] bg-white px-2 py-0.5 rounded-lg border border-gray-200"
+                  >
+                    Qty: 1
+                  </span>
+                </div>
+              </div>
+              <div
+                class="flex flex-col p-4 bg-[#f8f9fb] rounded-2xl border border-gray-100"
+              >
+                <div
+                  class="flex items-center justify-between mb-3"
+                >
+                  <span
+                    class="text-[14px] font-bold text-gray-800"
+                  >
+                    Monitor Speaker 15"
+                  </span>
+                  <span
+                    class="text-[13px] font-bold text-[#4a64b8] bg-white px-2 py-0.5 rounded-lg border border-gray-200"
+                  >
+                    Qty: 1
+                  </span>
+                </div>
+              </div>
+              <div
+                class="flex flex-col p-4 bg-[#f8f9fb] rounded-2xl border border-gray-100"
+              >
+                <div
+                  class="flex items-center justify-between mb-3"
+                >
+                  <span
+                    class="text-[14px] font-bold text-gray-800"
+                  >
+                    Drum Kit Tama
+                  </span>
+                  <span
+                    class="text-[13px] font-bold text-[#4a64b8] bg-white px-2 py-0.5 rounded-lg border border-gray-200"
+                  >
+                    Qty: 1
+                  </span>
+                </div>
+              </div>
+              <div
+                class="flex flex-col p-4 bg-[#f8f9fb] rounded-2xl border border-gray-100"
+              >
+                <div
+                  class="flex items-center justify-between mb-3"
+                >
+                  <span
+                    class="text-[14px] font-bold text-gray-800"
+                  >
+                    Guitar Amp Marshall
+                  </span>
+                  <span
+                    class="text-[13px] font-bold text-[#4a64b8] bg-white px-2 py-0.5 rounded-lg border border-gray-200"
+                  >
+                    Qty: 1
+                  </span>
+                </div>
+              </div>
+              <div
+                class="flex flex-col p-4 bg-[#f8f9fb] rounded-2xl border border-gray-100"
+              >
+                <div
+                  class="flex items-center justify-between mb-3"
+                >
+                  <span
+                    class="text-[14px] font-bold text-gray-800"
+                  >
+                    Bass Amp Ampeg
+                  </span>
+                  <span
+                    class="text-[13px] font-bold text-[#4a64b8] bg-white px-2 py-0.5 rounded-lg border border-gray-200"
+                  >
+                    Qty: 1
+                  </span>
+                </div>
+              </div>
+              <div
+                class="flex flex-col p-4 bg-[#f8f9fb] rounded-2xl border border-gray-100"
+              >
+                <div
+                  class="flex items-center justify-between mb-3"
+                >
+                  <span
+                    class="text-[14px] font-bold text-gray-800"
+                  >
+                    Keyboard Roland
+                  </span>
+                  <span
+                    class="text-[13px] font-bold text-[#4a64b8] bg-white px-2 py-0.5 rounded-lg border border-gray-200"
+                  >
+                    Qty: 1
+                  </span>
+                </div>
+              </div>
+              <div
+                class="flex flex-col p-4 bg-[#f8f9fb] rounded-2xl border border-gray-100"
+              >
+                <div
+                  class="flex items-center justify-between mb-3"
+                >
+                  <span
+                    class="text-[14px] font-bold text-gray-800"
+                  >
+                    Keyboard Yamaha
+                  </span>
+                  <span
+                    class="text-[13px] font-bold text-[#4a64b8] bg-white px-2 py-0.5 rounded-lg border border-gray-200"
+                  >
+                    Qty: 1
+                  </span>
+                </div>
+              </div>
+              <div
+                class="flex flex-col p-4 bg-[#f8f9fb] rounded-2xl border border-gray-100"
+              >
+                <div
+                  class="flex items-center justify-between mb-3"
+                >
+                  <span
+                    class="text-[14px] font-bold text-gray-800"
+                  >
+                    Mic Stand
+                  </span>
+                  <span
+                    class="text-[13px] font-bold text-[#4a64b8] bg-white px-2 py-0.5 rounded-lg border border-gray-200"
+                  >
+                    Qty: 1
+                  </span>
+                </div>
+              </div>
+              <div
+                class="flex flex-col p-4 bg-[#f8f9fb] rounded-2xl border border-gray-100"
+              >
+                <div
+                  class="flex items-center justify-between mb-3"
+                >
+                  <span
+                    class="text-[14px] font-bold text-gray-800"
+                  >
+                    Speaker Stand
+                  </span>
+                  <span
+                    class="text-[13px] font-bold text-[#4a64b8] bg-white px-2 py-0.5 rounded-lg border border-gray-200"
+                  >
+                    Qty: 1
+                  </span>
+                </div>
+              </div>
+              <div
+                class="flex flex-col p-4 bg-[#f8f9fb] rounded-2xl border border-gray-100"
+              >
+                <div
+                  class="flex items-center justify-between mb-3"
+                >
+                  <span
+                    class="text-[14px] font-bold text-gray-800"
+                  >
+                    XLR Cable 10m
+                  </span>
+                  <span
+                    class="text-[13px] font-bold text-[#4a64b8] bg-white px-2 py-0.5 rounded-lg border border-gray-200"
+                  >
+                    Qty: 1
+                  </span>
+                </div>
+              </div>
+              <div
+                class="flex flex-col p-4 bg-[#f8f9fb] rounded-2xl border border-gray-100"
+              >
+                <div
+                  class="flex items-center justify-between mb-3"
+                >
+                  <span
+                    class="text-[14px] font-bold text-gray-800"
+                  >
+                    Power Cable 50m
+                  </span>
+                  <span
+                    class="text-[13px] font-bold text-[#4a64b8] bg-white px-2 py-0.5 rounded-lg border border-gray-200"
+                  >
+                    Qty: 1
+                  </span>
+                </div>
+              </div>
+              <div
+                class="flex flex-col p-4 bg-[#f8f9fb] rounded-2xl border border-gray-100"
+              >
+                <div
+                  class="flex items-center justify-between mb-3"
+                >
+                  <span
+                    class="text-[14px] font-bold text-gray-800"
+                  >
+                    Fog Machine 1500W
+                  </span>
+                  <span
+                    class="text-[13px] font-bold text-[#4a64b8] bg-white px-2 py-0.5 rounded-lg border border-gray-200"
+                  >
+                    Qty: 1
+                  </span>
+                </div>
+              </div>
+              <div
+                class="flex flex-col p-4 bg-[#f8f9fb] rounded-2xl border border-gray-100"
+              >
+                <div
+                  class="flex items-center justify-between mb-3"
+                >
+                  <span
+                    class="text-[14px] font-bold text-gray-800"
+                  >
+                    Hazer Machine
+                  </span>
+                  <span
+                    class="text-[13px] font-bold text-[#4a64b8] bg-white px-2 py-0.5 rounded-lg border border-gray-200"
+                  >
+                    Qty: 1
+                  </span>
+                </div>
+              </div>
+              <div
+                class="flex flex-col p-4 bg-[#f8f9fb] rounded-2xl border border-gray-100"
+              >
+                <div
+                  class="flex items-center justify-between mb-3"
+                >
+                  <span
+                    class="text-[14px] font-bold text-gray-800"
+                  >
+                    Follow Spot 2500W
+                  </span>
+                  <span
+                    class="text-[13px] font-bold text-[#4a64b8] bg-white px-2 py-0.5 rounded-lg border border-gray-200"
+                  >
+                    Qty: 1
+                  </span>
+                </div>
+              </div>
+              <div
+                class="flex flex-col p-4 bg-[#f8f9fb] rounded-2xl border border-gray-100"
+              >
+                <div
+                  class="flex items-center justify-between mb-3"
+                >
+                  <span
+                    class="text-[14px] font-bold text-gray-800"
+                  >
+                    Laser RGB 3W
+                  </span>
+                  <span
+                    class="text-[13px] font-bold text-[#4a64b8] bg-white px-2 py-0.5 rounded-lg border border-gray-200"
+                  >
+                    Qty: 1
+                  </span>
+                </div>
+              </div>
+              <div
+                class="flex flex-col p-4 bg-[#f8f9fb] rounded-2xl border border-gray-100"
+              >
+                <div
+                  class="flex items-center justify-between mb-3"
+                >
+                  <span
+                    class="text-[14px] font-bold text-gray-800"
+                  >
+                    DJ Controller Pioneer
+                  </span>
+                  <span
+                    class="text-[13px] font-bold text-[#4a64b8] bg-white px-2 py-0.5 rounded-lg border border-gray-200"
+                  >
+                    Qty: 1
+                  </span>
+                </div>
+              </div>
+              <div
+                class="flex flex-col p-4 bg-[#f8f9fb] rounded-2xl border border-gray-100"
+              >
+                <div
+                  class="flex items-center justify-between mb-3"
+                >
+                  <span
+                    class="text-[14px] font-bold text-gray-800"
+                  >
+                    CDJ 2000 Nexus
+                  </span>
+                  <span
+                    class="text-[13px] font-bold text-[#4a64b8] bg-white px-2 py-0.5 rounded-lg border border-gray-200"
+                  >
+                    Qty: 1
+                  </span>
+                </div>
+              </div>
+              <div
+                class="flex flex-col p-4 bg-[#f8f9fb] rounded-2xl border border-gray-100"
+              >
+                <div
+                  class="flex items-center justify-between mb-3"
+                >
+                  <span
+                    class="text-[14px] font-bold text-gray-800"
+                  >
+                    DJM 900 Nexus
+                  </span>
+                  <span
+                    class="text-[13px] font-bold text-[#4a64b8] bg-white px-2 py-0.5 rounded-lg border border-gray-200"
+                  >
+                    Qty: 1
+                  </span>
+                </div>
+              </div>
+              <div
+                class="flex flex-col p-4 bg-[#f8f9fb] rounded-2xl border border-gray-100"
+              >
+                <div
+                  class="flex items-center justify-between mb-3"
+                >
+                  <span
+                    class="text-[14px] font-bold text-gray-800"
+                  >
+                    Lighting Console Avolites
+                  </span>
+                  <span
+                    class="text-[13px] font-bold text-[#4a64b8] bg-white px-2 py-0.5 rounded-lg border border-gray-200"
+                  >
+                    Qty: 1
+                  </span>
+                </div>
+              </div>
+              <div
+                class="flex flex-col p-4 bg-[#f8f9fb] rounded-2xl border border-gray-100"
+              >
+                <div
+                  class="flex items-center justify-between mb-3"
+                >
+                  <span
+                    class="text-[14px] font-bold text-gray-800"
+                  >
+                    Audio Matrix Processor
+                  </span>
+                  <span
+                    class="text-[13px] font-bold text-[#4a64b8] bg-white px-2 py-0.5 rounded-lg border border-gray-200"
+                  >
+                    Qty: 1
+                  </span>
+                </div>
+              </div>
+              <div
+                class="flex flex-col p-4 bg-[#f8f9fb] rounded-2xl border border-gray-100"
+              >
+                <div
+                  class="flex items-center justify-between mb-3"
+                >
+                  <span
+                    class="text-[14px] font-bold text-gray-800"
+                  >
+                    Rigging Tower 6m
+                  </span>
+                  <span
+                    class="text-[13px] font-bold text-[#4a64b8] bg-white px-2 py-0.5 rounded-lg border border-gray-200"
+                  >
+                    Qty: 1
+                  </span>
+                </div>
+              </div>
+              <div
+                class="flex flex-col p-4 bg-[#f8f9fb] rounded-2xl border border-gray-100"
+              >
+                <div
+                  class="flex items-center justify-between mb-3"
+                >
+                  <span
+                    class="text-[14px] font-bold text-gray-800"
+                  >
+                    Scaffolding 1.9m
+                  </span>
+                  <span
+                    class="text-[13px] font-bold text-[#4a64b8] bg-white px-2 py-0.5 rounded-lg border border-gray-200"
+                  >
+                    Qty: 1
+                  </span>
+                </div>
+              </div>
+              <div
+                class="flex flex-col p-4 bg-[#f8f9fb] rounded-2xl border border-gray-100"
+              >
+                <div
+                  class="flex items-center justify-between mb-3"
+                >
+                  <span
+                    class="text-[14px] font-bold text-gray-800"
+                  >
+                    Barricade 1m
+                  </span>
+                  <span
+                    class="text-[13px] font-bold text-[#4a64b8] bg-white px-2 py-0.5 rounded-lg border border-gray-200"
+                  >
+                    Qty: 1
+                  </span>
+                </div>
+              </div>
+              <div
+                class="flex flex-col p-4 bg-[#f8f9fb] rounded-2xl border border-gray-100"
+              >
+                <div
+                  class="flex items-center justify-between mb-3"
+                >
+                  <span
+                    class="text-[14px] font-bold text-gray-800"
+                  >
+                    Carpet Black 1x10m
+                  </span>
+                  <span
+                    class="text-[13px] font-bold text-[#4a64b8] bg-white px-2 py-0.5 rounded-lg border border-gray-200"
+                  >
+                    Qty: 1
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;

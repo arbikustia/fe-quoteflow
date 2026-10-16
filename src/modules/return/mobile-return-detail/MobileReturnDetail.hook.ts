@@ -5,7 +5,7 @@ import type {
   MobileReturnDetailProps,
   UseItemFilesReturn,
 } from "./MobileReturnDetail.type";
-import type { QuoteData } from "../../order/desktop-order/DesktopOrder.type";
+import type { QuoteData } from "../../order/Order.type";
 import { MOCK_QUOTES } from "../../../fixture/quotes";
 import { generateQuotePDF } from "../../../utils/pdfGenerator";
 

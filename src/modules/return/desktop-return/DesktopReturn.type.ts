@@ -1,6 +1,6 @@
 import type { ChangeEvent, Dispatch, SetStateAction, SyntheticEvent } from "react";
 
-import type { QuoteData } from "../../order/desktop-order/DesktopOrder.type";
+import type { QuoteData } from "../../order/Order.type";
 
 export type DesktopReturnItemsData = Record<
   string,
