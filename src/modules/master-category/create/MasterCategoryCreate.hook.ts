@@ -1,9 +1,9 @@
 import type { ChangeEvent, Dispatch, SetStateAction, SyntheticEvent } from "react";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 
 import type { CategoryCreateResponse } from "@/modules/master-category/MasterCategory.type";
-import { useCreateCategoryMutation } from "@/services/master-category.service";
+import { useCreateCategoryMutation, useUpdateCategoryMutation } from "@/services/master-category.service";
 
 import type { MasterCategoryCreateFormState } from "./MasterCategoryCreate.type";
 
@@ -21,7 +21,7 @@ const _formatMessages = (messages: string[] | string | null): string => {
 };
 
 /**
- * Helper creating input change handler.
+ * Create input change handler.
  * @param {Dispatch<SetStateAction<string>>} setter - State setter
  * @returns {(event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void} Change handler
  */
@@ -30,22 +30,25 @@ const _useInputChange = (setter: Dispatch<SetStateAction<string>>): ((event: Cha
 );
 
 /**
- * Hook managing submission logic.
- * @param {string} name - Name input
- * @returns {{ readonly isSubmitting: boolean; readonly errorMessage: string | null; readonly successMessage: string | null; readonly handleSubmit: (event: SyntheticEvent) => Promise<void>; }} Submission state
+ * Hook managing master category create and update form state.
+ * @returns {MasterCategoryCreateFormState} Form state and handlers
  */
-const useCategorySubmission = (
-  name: string,
-): {
-  readonly isSubmitting: boolean;
-  readonly errorMessage: string | null;
-  readonly successMessage: string | null;
-  readonly handleSubmit: (event: SyntheticEvent) => Promise<void>;
-} => {
+export const useMasterCategoryCreate = (): MasterCategoryCreateFormState => {
   const navigate = useNavigate();
-  const [createCategory, { isLoading: isSubmitting }] = useCreateCategoryMutation();
+  const location = useLocation();
+  const { id } = useParams<{ readonly id?: string }>();
+  const isEditMode = Boolean(id);
+  const routeCategory = location.state?.category;
+  const [name, setName] = useState(routeCategory?.categoryName ?? "");
+  const [createCategory, { isLoading: isCreating }] = useCreateCategoryMutation();
+  const [updateCategory, { isLoading: isUpdating }] = useUpdateCategoryMutation();
+  const [isActive, setIsActive] = useState(routeCategory?.status === "active");
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
+  const isSubmitting = isCreating || isUpdating;
+
+  const handleNameChange = _useInputChange(setName);
+  const handleStatusChange = (): void => { setIsActive((currentIsActive) => !currentIsActive); };
 
   /**
    * Submit category form.
@@ -58,7 +61,13 @@ const useCategorySubmission = (
     setSuccessMessage(null);
 
     try {
-      const response: CategoryCreateResponse = await createCategory({ category_name: name }).unwrap();
+      let response: CategoryCreateResponse;
+
+      if (isEditMode && id) {
+        response = await updateCategory({ id, category_name: name, status: isActive ? 1 : 0 }).unwrap();
+      } else {
+        response = await createCategory({ category_name: name, status: 1 }).unwrap();
+      }
 
       if (!response.status) {
         setErrorMessage(_formatMessages(response.messages));
@@ -66,33 +75,29 @@ const useCategorySubmission = (
         return;
       }
 
-      setSuccessMessage("Category created successfully.");
+      setSuccessMessage(isEditMode ? "Category updated successfully." : "Category created successfully.");
       navigate("/master-category");
     } catch {
-      setErrorMessage("Unable to create category. Please try again.");
+      setErrorMessage(isEditMode ? "Unable to update category. Please try again." : "Unable to create category. Please try again.");
     }
   };
 
-  return { isSubmitting, errorMessage, successMessage, handleSubmit };
-};
-
-/**
- * Hook managing master category create form state and submission.
- * @returns {MasterCategoryCreateFormState} Form state and handlers
- */
-export const useMasterCategoryCreate = (): MasterCategoryCreateFormState => {
-  const navigate = useNavigate();
-  const [name, setName] = useState("");
-
-  const handleNameChange = _useInputChange(setName);
-  const submission = useCategorySubmission(name);
-
+  /**
+   * Go back.
+   * @returns {void} No return value
+   */
   const goBack = (): void => { navigate(-1); };
 
   return {
     name,
+    isActive,
+    isEditMode,
+    isSubmitting,
+    errorMessage,
+    successMessage,
     handleNameChange,
+    handleStatusChange,
+    handleSubmit,
     goBack,
-    ...submission,
   };
 };

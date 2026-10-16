@@ -29,9 +29,13 @@ export const useMasterPaymentMethodDetail = (): MasterPaymentMethodDetailState =
   const menuState = useDetailMenuState();
   const paymentMethod: PaymentMethodData | null = MOCK_PAYMENT_METHODS.find((item) => item.id === id) ?? null;
   const goBack = (): void => { navigate(-1); };
-  const goEdit = (): void => { menuState.closeMore();
+  const goEdit = (): void => {
+    menuState.closeMore();
 
- if (paymentMethod) navigate(`/master-payment-method/edit/${paymentMethod.id}`); };
+    if (paymentMethod) {
+      navigate(`/master-payment-method/edit/${paymentMethod.id}`, { state: { paymentMethod } });
+    }
+  };
   const handleDelete = (): void => { menuState.closeDeleteModal(); navigate("/master-payment-method"); };
 
   return { paymentMethod, goBack, goEdit, handleDelete, ...menuState };

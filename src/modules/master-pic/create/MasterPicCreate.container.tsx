@@ -12,7 +12,7 @@ import Layout from "@/app/layout";
 const MasterPicCreateContainer = (): ReactElement => {
   const state = useMasterPicCreate();
 
-  return <Layout pageTitle={state.isEdit ? "Edit PIC" : "New PIC"}><MasterPicCreateForm {...state} /></Layout>;
+  return <Layout pageTitle={state.isEditMode ? "Edit PIC" : "New PIC"}><MasterPicCreateForm {...state} /></Layout>;
 };
 
 export default MasterPicCreateContainer;

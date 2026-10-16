@@ -29,9 +29,13 @@ export const useMasterServiceTypeDetail = (): MasterServiceTypeDetailState => {
   const menuState = useDetailMenuState();
   const serviceType: ServiceTypeData | null = MOCK_SERVICE_TYPES.find((item) => item.id === id) ?? null;
   const goBack = (): void => { navigate(-1); };
-  const goEdit = (): void => { menuState.closeMore();
+  const goEdit = (): void => {
+    menuState.closeMore();
 
- if (serviceType) navigate(`/master-service-type/edit/${serviceType.id}`); };
+    if (serviceType) {
+      navigate(`/master-service-type/edit/${serviceType.id}`, { state: { serviceType } });
+    }
+  };
   const handleDelete = (): void => { menuState.closeDeleteModal(); navigate("/master-service-type"); };
 
   return { serviceType, goBack, goEdit, handleDelete, ...menuState };

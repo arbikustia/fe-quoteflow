@@ -29,9 +29,13 @@ export const useMasterPaymentTypeDetail = (): MasterPaymentTypeDetailState => {
   const menuState = useDetailMenuState();
   const paymentType: PaymentTypeData | null = MOCK_PAYMENT_TYPES.find((item) => item.id === id) ?? null;
   const goBack = (): void => { navigate(-1); };
-  const goEdit = (): void => { menuState.closeMore();
+  const goEdit = (): void => {
+    menuState.closeMore();
 
- if (paymentType) navigate(`/master-payment-type/edit/${paymentType.id}`); };
+    if (paymentType) {
+      navigate(`/master-payment-type/edit/${paymentType.id}`, { state: { paymentType } });
+    }
+  };
   const handleDelete = (): void => { menuState.closeDeleteModal(); navigate("/master-payment-type"); };
 
   return { paymentType, goBack, goEdit, handleDelete, ...menuState };

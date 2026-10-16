@@ -29,9 +29,13 @@ export const useMasterPicDetail = (): MasterPicDetailState => {
   const menuState = useDetailMenuState();
   const pic: PicData | null = MOCK_PICS.find((item) => item.id === id) ?? null;
   const goBack = (): void => { navigate(-1); };
-  const goEdit = (): void => { menuState.closeMore();
+  const goEdit = (): void => {
+    menuState.closeMore();
 
- if (pic) navigate(`/master-pic/edit/${pic.id}`); };
+    if (pic) {
+      navigate(`/master-pic/edit/${pic.id}`, { state: { pic } });
+    }
+  };
   const handleDelete = (): void => { menuState.closeDeleteModal(); navigate("/master-pic"); };
 
   return { pic, goBack, goEdit, handleDelete, ...menuState };

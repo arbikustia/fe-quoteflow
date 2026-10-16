@@ -1,8 +1,7 @@
-import { useMemo, useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-import { MOCK_PICS } from "../../fixture/master-pic";
-import { usePagination } from "../../hooks/usePagination";
+import { mapPic, useGetPicsQuery } from "@/services/master-pic.service";
 
 import type { MasterPicContainerState, MasterPicNavigation, MasterPicPagination, PicData } from "./MasterPic.type";
 
@@ -11,20 +10,48 @@ export const useMasterPicNavigation = (): MasterPicNavigation => {
   const navigate = useNavigate();
   const goBack = (): void => { navigate(-1); };
   const goCreate = (): void => { navigate("/master-pic/create"); };
-  const goEdit = (pic: PicData): void => { navigate(`/master-pic/edit/${pic.id}`); };
+  const goEdit = (pic: PicData): void => {
+    navigate(`/master-pic/edit/${pic.id}`, { state: { pic } });
+  };
   const goDetail = (pic: PicData): void => { navigate(`/master-pic/detail/${pic.id}`); };
 
   return { goBack, goCreate, goEdit, goDetail };
 };
 
-/** Hook for local PIC search and pagination. */
+/** Hook for API PIC search and pagination. */
 export const useMasterPicPagination = (): MasterPicPagination => {
+  const [currentPage, setCurrentPage] = useState(1);
+  const [pageSize, setPageSize] = useState(10);
   const [searchTerm, setSearchTerm] = useState("");
-  const filteredData = useMemo(() => MOCK_PICS.filter((pic) => pic.name.toLowerCase().includes(searchTerm.toLowerCase())), [searchTerm]);
-  const pagination = usePagination(filteredData, 10);
-  const handleSearchTerm = (value: string): void => { setSearchTerm(value); };
+  const { data, isLoading, isError } = useGetPicsQuery({
+    PageNumber: currentPage,
+    PageSize: pageSize,
+    SearchTerm: searchTerm || undefined,
+  });
+  const paginatedData = data?.data.map(mapPic) ?? [];
+  const totalCount = data?.total_count ?? 0;
+  const totalPages = Math.max(1, data?.total_pages ?? 1);
+  const goToPage = (page: number): void => { setCurrentPage(Math.max(1, Math.min(page, totalPages))); };
+  const changePageSize = (size: number): void => { setPageSize(size); setCurrentPage(1); };
+  const nextPage = (): void => { goToPage(currentPage + 1); };
+  const prevPage = (): void => { goToPage(currentPage - 1); };
+  const handleSearchTerm = (value: string): void => { setSearchTerm(value); setCurrentPage(1); };
 
-  return { ...pagination, setSearchTerm: handleSearchTerm, isEmpty: filteredData.length === 0 };
+  return {
+    currentPage,
+    totalPages,
+    pageSize,
+    paginatedData,
+    totalCount,
+    isEmpty: !isLoading && paginatedData.length === 0,
+    isLoading,
+    isError,
+    goToPage,
+    nextPage,
+    prevPage,
+    changePageSize,
+    setSearchTerm: handleSearchTerm,
+  };
 };
 
 /** Hook for master PIC container state. */

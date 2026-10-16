@@ -1,43 +1,75 @@
-/* eslint-disable jsdoc/require-returns, jsdoc/require-param-type, jsdoc/require-param-description */
 import { useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 
-import { MOCK_USERS } from "@/fixture/master-user";
+import { useCreateUserMutation, useGetUserByIdQuery, useUpdateUserMutation } from "@/services/master-user.service";
 
 import type { MasterUserCreateFormState } from "./MasterUserCreate.type";
 
 /** Manage user create/edit form. */
 export const useMasterUserCreateForm = (): MasterUserCreateFormState => {
   const navigate = useNavigate();
-  const { id } = useParams<{ readonly id: string }>();
-  const existing = id ? (MOCK_USERS.find((user) => user.id === id) ?? null) : null;
-  const [username, setUsername] = useState(existing?.username ?? "");
+  const location = useLocation();
+  const { id } = useParams<{ readonly id?: string }>();
+  const isEditMode = Boolean(id);
+  const routeUser = location.state?.user;
+  const { data: detailData } = useGetUserByIdQuery(id ?? "", { skip: !id || Boolean(routeUser) });
+  const detailUser = detailData?.data && !Array.isArray(detailData.data) ? detailData.data : null;
+  const existingName = routeUser?.username ?? detailUser?.username ?? "";
+  const existingEmail = routeUser?.email ?? detailUser?.email ?? "";
+  const existingRole = routeUser?.role ?? detailUser?.role?.[0] ?? "User";
+
+  const [username, setUsername] = useState(existingName);
+  const [email, setEmail] = useState(existingEmail);
   const [password, setPassword] = useState("");
-  const [role, setRole] = useState<"Admin" | "User">(existing?.role ?? "User");
-  /**
-   *
-   * @param event
-   */
+  const [role, setRole] = useState(existingRole);
+  const [isActive, setIsActive] = useState(true);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [createUser, { isLoading: isCreating }] = useCreateUserMutation();
+  const [updateUser, { isLoading: isUpdating }] = useUpdateUserMutation();
+
   const handleUsernameChange = (event: React.ChangeEvent<HTMLInputElement>): void => { setUsername(event.target.value); };
-  /**
-   *
-   * @param event
-   */
+  const handleEmailChange = (event: React.ChangeEvent<HTMLInputElement>): void => { setEmail(event.target.value); };
   const handlePasswordChange = (event: React.ChangeEvent<HTMLInputElement>): void => { setPassword(event.target.value); };
-  /**
-   *
-   * @param event
-   */
-  const handleRoleChange = (event: React.ChangeEvent<HTMLSelectElement>): void => { setRole(event.target.value as "Admin" | "User"); };
-  /**
-   *
-   * @param event
-   */
-  const handleSubmit = (event: React.SyntheticEvent): void => { event.preventDefault(); navigate("/master-user"); };
-  /**
-   *
-   */
+  const handleRoleChange = (event: React.ChangeEvent<HTMLSelectElement>): void => { setRole(event.target.value); };
+  const handleStatusChange = (): void => { setIsActive((previous) => !previous); };
+
+  const handleSubmit = async (event: React.SyntheticEvent): Promise<void> => {
+    event.preventDefault();
+    setErrorMessage(null);
+
+    try {
+      const response = isEditMode && id
+        ? await updateUser({ id, username, email, password, role: [role], status: isActive ? 1 : 0 }).unwrap()
+        : await createUser({ username, email, password, role: [role], status: 1 }).unwrap();
+
+      if (!response.status) {
+        setErrorMessage("User request failed.");
+        return;
+      }
+
+      navigate("/master-user");
+    } catch {
+      setErrorMessage(isEditMode ? "Unable to update user. Please try again." : "Unable to create user. Please try again.");
+    }
+  };
+
   const goBack = (): void => { navigate(-1); };
 
-  return { username, password, role, isEdit: existing !== null, handleUsernameChange, handlePasswordChange, handleRoleChange, handleSubmit, goBack };
+  return {
+    username,
+    email,
+    password,
+    role,
+    isActive,
+    isEditMode,
+    isSubmitting: isCreating || isUpdating,
+    errorMessage,
+    handleUsernameChange,
+    handleEmailChange,
+    handlePasswordChange,
+    handleRoleChange,
+    handleStatusChange,
+    handleSubmit,
+    goBack,
+  };
 };

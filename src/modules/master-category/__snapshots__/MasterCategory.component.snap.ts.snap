@@ -423,27 +423,36 @@ exports[`should match MasterCategoryComponent snapshots 1`] = `
               </div>
             </div>
             <div
-              class="flex items-center justify-between gap-3 lg:hidden"
+              class="flex items-center justify-between px-2 gap-3 lg:hidden"
             >
               <button
                 aria-label="Back"
-                class="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg border border-border-default text-text-primary hover:bg-background-subtle"
+                class="flex h-14 w-14 shrink-0 items-center justify-center rounded-full border border-border-default text-text-primary bg-white hover:bg-background-subtle transition-colors shadow-sm"
                 type="button"
               >
-                <span
+                <svg
                   aria-hidden="true"
+                  class="w-6 h-6"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2.5"
+                  viewBox="0 0 24 24"
                 >
-                  ←
-                </span>
+                  <path
+                    d="M19 12H5M12 19l-7-7 7-7"
+                  />
+                </svg>
               </button>
               <h1
-                class="min-w-0 flex-1 truncate text-center text-lg font-semibold text-text-primary"
+                class="min-w-0 flex-1 truncate text-center text-3xl font-semibold tracking-tight text-text-primary"
               >
                 Category List
               </h1>
               <span
                 aria-hidden="true"
-                class="h-10 w-10 shrink-0"
+                class="h-12 w-12 shrink-0"
               />
             </div>
           </header>
@@ -565,16 +574,16 @@ exports[`should match MasterCategoryComponent snapshots 1`] = `
                   class="flex flex-col gap-3 py-4 mt-2 w-full rounded-2xl border border-border-default bg-background-surface h-14 px-5 shadow-xs"
                 >
                   <div
-                    class="flex flex-wrap items-center gap-3 sm:justify-between"
+                    class="flex w-full items-center justify-between gap-2 overflow-x-auto"
                   >
-                    <p
-                      class="whitespace-nowrap text-sm text-text-secondary basis-full sm:basis-auto"
-                    >
-                      Show 1/5 data
-                    </p>
                     <div
-                      class="flex w-full items-center justify-between gap-2 sm:w-auto sm:justify-start"
+                      class="flex shrink-0 items-center gap-1.5 sm:gap-2"
                     >
+                      <p
+                        class="whitespace-nowrap text-xs sm:text-sm text-text-secondary"
+                      >
+                        Show 1/5 data
+                      </p>
                       <select
                         aria-label="Documents per page"
                         class="w-[180px] px-4 py-2.5 text-base sm:min-w-[100px] sm:w-auto shrink-0 cursor-pointer rounded-xl border border-border-default bg-background-surface font-semibold text-text-primary focus:outline-none"
@@ -605,72 +614,72 @@ exports[`should match MasterCategoryComponent snapshots 1`] = `
                           100
                         </option>
                       </select>
+                    </div>
+                    <div
+                      class="flex shrink-0 items-center justify-end gap-1 sm:gap-2"
+                    >
+                      <button
+                        class="flex items-center gap-2 px-2.5 sm:px-4 py-1.5 sm:py-2.5 border border-border-default rounded-xl text-base font-semibold transition-colors text-text-disabled cursor-not-allowed bg-background-disabled"
+                        disabled=""
+                      >
+                        <svg
+                          class="w-3.5 h-5 sm:w-5 sm:h-5"
+                          fill="none"
+                          height="1em"
+                          stroke="currentColor"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                          viewBox="0 0 24 24"
+                          width="1em"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <polyline
+                            points="15 18 9 12 15 6"
+                          />
+                        </svg>
+                        <span
+                          class="hidden sm:inline"
+                        >
+                          Previous
+                        </span>
+                      </button>
                       <div
-                        class="flex shrink-0 items-center justify-end gap-1 sm:gap-2"
+                        class="flex min-w-0 items-center justify-center gap-1"
                       >
                         <button
-                          class="flex items-center gap-1 sm:gap-2 px-3 sm:px-4 py-2 sm:py-2.5 border border-border-default rounded-xl text-sm sm:text-base font-semibold transition-colors text-text-disabled cursor-not-allowed bg-background-disabled"
-                          disabled=""
+                          aria-current="page"
+                          class="flex h-10 w-10 items-center justify-center rounded-xl text-base font-semibold transition-colors bg-background-subtle text-text-primary shadow-sm"
                         >
-                          <svg
-                            class="w-4 h-4 sm:w-5 sm:h-5"
-                            fill="none"
-                            height="1em"
-                            stroke="currentColor"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            stroke-width="2"
-                            viewBox="0 0 24 24"
-                            width="1em"
-                            xmlns="http://www.w3.org/2000/svg"
-                          >
-                            <polyline
-                              points="15 18 9 12 15 6"
-                            />
-                          </svg>
-                          <span
-                            class="hidden sm:inline"
-                          >
-                            Previous
-                          </span>
-                        </button>
-                        <div
-                          class="flex min-w-0 items-center justify-center gap-1 overflow-x-auto"
-                        >
-                          <button
-                            aria-current="page"
-                            class="flex h-8 w-8 sm:h-10 sm:w-10 items-center justify-center rounded-xl text-sm sm:text-base font-semibold transition-colors bg-background-subtle text-text-primary shadow-sm"
-                          >
-                            1
-                          </button>
-                        </div>
-                        <button
-                          class="flex items-center gap-1 sm:gap-2 px-3 sm:px-4 py-2 sm:py-2.5 border border-border-default rounded-xl text-sm sm:text-base font-semibold transition-colors text-text-disabled cursor-not-allowed bg-background-disabled"
-                          disabled=""
-                        >
-                          <span
-                            class="hidden sm:inline"
-                          >
-                            Next
-                          </span>
-                          <svg
-                            class="w-4 h-4 sm:w-5 sm:h-5"
-                            fill="none"
-                            height="1em"
-                            stroke="currentColor"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            stroke-width="2"
-                            viewBox="0 0 24 24"
-                            width="1em"
-                            xmlns="http://www.w3.org/2000/svg"
-                          >
-                            <polyline
-                              points="9 18 15 12 9 6"
-                            />
-                          </svg>
+                          1
                         </button>
                       </div>
+                      <button
+                        class="flex items-center gap-2 px-2.5 sm:px-4 py-1.5 sm:py-2.5 border border-border-default rounded-xl text-base font-semibold transition-colors text-text-disabled cursor-not-allowed bg-background-disabled"
+                        disabled=""
+                      >
+                        <span
+                          class="hidden sm:inline"
+                        >
+                          Next
+                        </span>
+                        <svg
+                          class="w-3.5 h-5 sm:w-5 sm:h-5"
+                          fill="none"
+                          height="1em"
+                          stroke="currentColor"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                          viewBox="0 0 24 24"
+                          width="1em"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <polyline
+                            points="9 18 15 12 9 6"
+                          />
+                        </svg>
+                      </button>
                     </div>
                   </div>
                 </div>
@@ -787,16 +796,16 @@ exports[`should match MasterCategoryComponent snapshots 1`] = `
                   class="flex flex-col gap-3 py-4 "
                 >
                   <div
-                    class="flex flex-wrap items-center gap-3 sm:justify-between"
+                    class="flex w-full items-center justify-between gap-2 overflow-x-auto"
                   >
-                    <p
-                      class="whitespace-nowrap text-sm text-text-secondary basis-full sm:basis-auto"
-                    >
-                      Show 1/5 data
-                    </p>
                     <div
-                      class="flex w-full items-center justify-between gap-2 sm:w-auto sm:justify-start"
+                      class="flex shrink-0 items-center gap-1.5 sm:gap-2"
                     >
+                      <p
+                        class="whitespace-nowrap text-xs sm:text-sm text-text-secondary"
+                      >
+                        Show 1/5 data
+                      </p>
                       <select
                         aria-label="Documents per page"
                         class="w-[180px] px-4 py-2.5 text-base sm:min-w-[100px] sm:w-auto shrink-0 cursor-pointer rounded-xl border border-border-default bg-background-surface font-semibold text-text-primary focus:outline-none"
@@ -827,72 +836,72 @@ exports[`should match MasterCategoryComponent snapshots 1`] = `
                           100
                         </option>
                       </select>
+                    </div>
+                    <div
+                      class="flex shrink-0 items-center justify-end gap-1 sm:gap-2"
+                    >
+                      <button
+                        class="flex items-center gap-2 px-2.5 sm:px-4 py-1.5 sm:py-2.5 border border-border-default rounded-xl text-base font-semibold transition-colors text-text-disabled cursor-not-allowed bg-background-disabled"
+                        disabled=""
+                      >
+                        <svg
+                          class="w-3.5 h-5 sm:w-5 sm:h-5"
+                          fill="none"
+                          height="1em"
+                          stroke="currentColor"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                          viewBox="0 0 24 24"
+                          width="1em"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <polyline
+                            points="15 18 9 12 15 6"
+                          />
+                        </svg>
+                        <span
+                          class="hidden sm:inline"
+                        >
+                          Previous
+                        </span>
+                      </button>
                       <div
-                        class="flex shrink-0 items-center justify-end gap-1 sm:gap-2"
+                        class="flex min-w-0 items-center justify-center gap-1"
                       >
                         <button
-                          class="flex items-center gap-1 sm:gap-2 px-3 sm:px-4 py-2 sm:py-2.5 border border-border-default rounded-xl text-sm sm:text-base font-semibold transition-colors text-text-disabled cursor-not-allowed bg-background-disabled"
-                          disabled=""
+                          aria-current="page"
+                          class="flex h-10 w-10 items-center justify-center rounded-xl text-base font-semibold transition-colors bg-background-subtle text-text-primary shadow-sm"
                         >
-                          <svg
-                            class="w-4 h-4 sm:w-5 sm:h-5"
-                            fill="none"
-                            height="1em"
-                            stroke="currentColor"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            stroke-width="2"
-                            viewBox="0 0 24 24"
-                            width="1em"
-                            xmlns="http://www.w3.org/2000/svg"
-                          >
-                            <polyline
-                              points="15 18 9 12 15 6"
-                            />
-                          </svg>
-                          <span
-                            class="hidden sm:inline"
-                          >
-                            Previous
-                          </span>
-                        </button>
-                        <div
-                          class="flex min-w-0 items-center justify-center gap-1 overflow-x-auto"
-                        >
-                          <button
-                            aria-current="page"
-                            class="flex h-8 w-8 sm:h-10 sm:w-10 items-center justify-center rounded-xl text-sm sm:text-base font-semibold transition-colors bg-background-subtle text-text-primary shadow-sm"
-                          >
-                            1
-                          </button>
-                        </div>
-                        <button
-                          class="flex items-center gap-1 sm:gap-2 px-3 sm:px-4 py-2 sm:py-2.5 border border-border-default rounded-xl text-sm sm:text-base font-semibold transition-colors text-text-disabled cursor-not-allowed bg-background-disabled"
-                          disabled=""
-                        >
-                          <span
-                            class="hidden sm:inline"
-                          >
-                            Next
-                          </span>
-                          <svg
-                            class="w-4 h-4 sm:w-5 sm:h-5"
-                            fill="none"
-                            height="1em"
-                            stroke="currentColor"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            stroke-width="2"
-                            viewBox="0 0 24 24"
-                            width="1em"
-                            xmlns="http://www.w3.org/2000/svg"
-                          >
-                            <polyline
-                              points="9 18 15 12 9 6"
-                            />
-                          </svg>
+                          1
                         </button>
                       </div>
+                      <button
+                        class="flex items-center gap-2 px-2.5 sm:px-4 py-1.5 sm:py-2.5 border border-border-default rounded-xl text-base font-semibold transition-colors text-text-disabled cursor-not-allowed bg-background-disabled"
+                        disabled=""
+                      >
+                        <span
+                          class="hidden sm:inline"
+                        >
+                          Next
+                        </span>
+                        <svg
+                          class="w-3.5 h-5 sm:w-5 sm:h-5"
+                          fill="none"
+                          height="1em"
+                          stroke="currentColor"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                          viewBox="0 0 24 24"
+                          width="1em"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <polyline
+                            points="9 18 15 12 9 6"
+                          />
+                        </svg>
+                      </button>
                     </div>
                   </div>
                 </div>
@@ -1329,27 +1338,36 @@ exports[`should match MasterCategoryComponent snapshots 2`] = `
               </div>
             </div>
             <div
-              class="flex items-center justify-between gap-3 lg:hidden"
+              class="flex items-center justify-between px-2 gap-3 lg:hidden"
             >
               <button
                 aria-label="Back"
-                class="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg border border-border-default text-text-primary hover:bg-background-subtle"
+                class="flex h-14 w-14 shrink-0 items-center justify-center rounded-full border border-border-default text-text-primary bg-white hover:bg-background-subtle transition-colors shadow-sm"
                 type="button"
               >
-                <span
+                <svg
                   aria-hidden="true"
+                  class="w-6 h-6"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2.5"
+                  viewBox="0 0 24 24"
                 >
-                  ←
-                </span>
+                  <path
+                    d="M19 12H5M12 19l-7-7 7-7"
+                  />
+                </svg>
               </button>
               <h1
-                class="min-w-0 flex-1 truncate text-center text-lg font-semibold text-text-primary"
+                class="min-w-0 flex-1 truncate text-center text-3xl font-semibold tracking-tight text-text-primary"
               >
                 Category List
               </h1>
               <span
                 aria-hidden="true"
-                class="h-10 w-10 shrink-0"
+                class="h-12 w-12 shrink-0"
               />
             </div>
           </header>
@@ -1425,16 +1443,16 @@ exports[`should match MasterCategoryComponent snapshots 2`] = `
                   class="flex flex-col gap-3 py-4 mt-2 w-full rounded-2xl border border-border-default bg-background-surface h-14 px-5 shadow-xs"
                 >
                   <div
-                    class="flex flex-wrap items-center gap-3 sm:justify-between"
+                    class="flex w-full items-center justify-between gap-2 overflow-x-auto"
                   >
-                    <p
-                      class="whitespace-nowrap text-sm text-text-secondary basis-full sm:basis-auto"
-                    >
-                      Show 0/5 data
-                    </p>
                     <div
-                      class="flex w-full items-center justify-between gap-2 sm:w-auto sm:justify-start"
+                      class="flex shrink-0 items-center gap-1.5 sm:gap-2"
                     >
+                      <p
+                        class="whitespace-nowrap text-xs sm:text-sm text-text-secondary"
+                      >
+                        Show 0/5 data
+                      </p>
                       <select
                         aria-label="Documents per page"
                         class="w-[180px] px-4 py-2.5 text-base sm:min-w-[100px] sm:w-auto shrink-0 cursor-pointer rounded-xl border border-border-default bg-background-surface font-semibold text-text-primary focus:outline-none"
@@ -1465,72 +1483,72 @@ exports[`should match MasterCategoryComponent snapshots 2`] = `
                           100
                         </option>
                       </select>
+                    </div>
+                    <div
+                      class="flex shrink-0 items-center justify-end gap-1 sm:gap-2"
+                    >
+                      <button
+                        class="flex items-center gap-2 px-2.5 sm:px-4 py-1.5 sm:py-2.5 border border-border-default rounded-xl text-base font-semibold transition-colors text-text-disabled cursor-not-allowed bg-background-disabled"
+                        disabled=""
+                      >
+                        <svg
+                          class="w-3.5 h-5 sm:w-5 sm:h-5"
+                          fill="none"
+                          height="1em"
+                          stroke="currentColor"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                          viewBox="0 0 24 24"
+                          width="1em"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <polyline
+                            points="15 18 9 12 15 6"
+                          />
+                        </svg>
+                        <span
+                          class="hidden sm:inline"
+                        >
+                          Previous
+                        </span>
+                      </button>
                       <div
-                        class="flex shrink-0 items-center justify-end gap-1 sm:gap-2"
+                        class="flex min-w-0 items-center justify-center gap-1"
                       >
                         <button
-                          class="flex items-center gap-1 sm:gap-2 px-3 sm:px-4 py-2 sm:py-2.5 border border-border-default rounded-xl text-sm sm:text-base font-semibold transition-colors text-text-disabled cursor-not-allowed bg-background-disabled"
-                          disabled=""
+                          aria-current="page"
+                          class="flex h-10 w-10 items-center justify-center rounded-xl text-base font-semibold transition-colors bg-background-subtle text-text-primary shadow-sm"
                         >
-                          <svg
-                            class="w-4 h-4 sm:w-5 sm:h-5"
-                            fill="none"
-                            height="1em"
-                            stroke="currentColor"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            stroke-width="2"
-                            viewBox="0 0 24 24"
-                            width="1em"
-                            xmlns="http://www.w3.org/2000/svg"
-                          >
-                            <polyline
-                              points="15 18 9 12 15 6"
-                            />
-                          </svg>
-                          <span
-                            class="hidden sm:inline"
-                          >
-                            Previous
-                          </span>
-                        </button>
-                        <div
-                          class="flex min-w-0 items-center justify-center gap-1 overflow-x-auto"
-                        >
-                          <button
-                            aria-current="page"
-                            class="flex h-8 w-8 sm:h-10 sm:w-10 items-center justify-center rounded-xl text-sm sm:text-base font-semibold transition-colors bg-background-subtle text-text-primary shadow-sm"
-                          >
-                            1
-                          </button>
-                        </div>
-                        <button
-                          class="flex items-center gap-1 sm:gap-2 px-3 sm:px-4 py-2 sm:py-2.5 border border-border-default rounded-xl text-sm sm:text-base font-semibold transition-colors text-text-disabled cursor-not-allowed bg-background-disabled"
-                          disabled=""
-                        >
-                          <span
-                            class="hidden sm:inline"
-                          >
-                            Next
-                          </span>
-                          <svg
-                            class="w-4 h-4 sm:w-5 sm:h-5"
-                            fill="none"
-                            height="1em"
-                            stroke="currentColor"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            stroke-width="2"
-                            viewBox="0 0 24 24"
-                            width="1em"
-                            xmlns="http://www.w3.org/2000/svg"
-                          >
-                            <polyline
-                              points="9 18 15 12 9 6"
-                            />
-                          </svg>
+                          1
                         </button>
                       </div>
+                      <button
+                        class="flex items-center gap-2 px-2.5 sm:px-4 py-1.5 sm:py-2.5 border border-border-default rounded-xl text-base font-semibold transition-colors text-text-disabled cursor-not-allowed bg-background-disabled"
+                        disabled=""
+                      >
+                        <span
+                          class="hidden sm:inline"
+                        >
+                          Next
+                        </span>
+                        <svg
+                          class="w-3.5 h-5 sm:w-5 sm:h-5"
+                          fill="none"
+                          height="1em"
+                          stroke="currentColor"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                          viewBox="0 0 24 24"
+                          width="1em"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <polyline
+                            points="9 18 15 12 9 6"
+                          />
+                        </svg>
+                      </button>
                     </div>
                   </div>
                 </div>
@@ -1601,16 +1619,16 @@ exports[`should match MasterCategoryComponent snapshots 2`] = `
                   class="flex flex-col gap-3 py-4 "
                 >
                   <div
-                    class="flex flex-wrap items-center gap-3 sm:justify-between"
+                    class="flex w-full items-center justify-between gap-2 overflow-x-auto"
                   >
-                    <p
-                      class="whitespace-nowrap text-sm text-text-secondary basis-full sm:basis-auto"
-                    >
-                      Show 0/5 data
-                    </p>
                     <div
-                      class="flex w-full items-center justify-between gap-2 sm:w-auto sm:justify-start"
+                      class="flex shrink-0 items-center gap-1.5 sm:gap-2"
                     >
+                      <p
+                        class="whitespace-nowrap text-xs sm:text-sm text-text-secondary"
+                      >
+                        Show 0/5 data
+                      </p>
                       <select
                         aria-label="Documents per page"
                         class="w-[180px] px-4 py-2.5 text-base sm:min-w-[100px] sm:w-auto shrink-0 cursor-pointer rounded-xl border border-border-default bg-background-surface font-semibold text-text-primary focus:outline-none"
@@ -1641,72 +1659,72 @@ exports[`should match MasterCategoryComponent snapshots 2`] = `
                           100
                         </option>
                       </select>
+                    </div>
+                    <div
+                      class="flex shrink-0 items-center justify-end gap-1 sm:gap-2"
+                    >
+                      <button
+                        class="flex items-center gap-2 px-2.5 sm:px-4 py-1.5 sm:py-2.5 border border-border-default rounded-xl text-base font-semibold transition-colors text-text-disabled cursor-not-allowed bg-background-disabled"
+                        disabled=""
+                      >
+                        <svg
+                          class="w-3.5 h-5 sm:w-5 sm:h-5"
+                          fill="none"
+                          height="1em"
+                          stroke="currentColor"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                          viewBox="0 0 24 24"
+                          width="1em"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <polyline
+                            points="15 18 9 12 15 6"
+                          />
+                        </svg>
+                        <span
+                          class="hidden sm:inline"
+                        >
+                          Previous
+                        </span>
+                      </button>
                       <div
-                        class="flex shrink-0 items-center justify-end gap-1 sm:gap-2"
+                        class="flex min-w-0 items-center justify-center gap-1"
                       >
                         <button
-                          class="flex items-center gap-1 sm:gap-2 px-3 sm:px-4 py-2 sm:py-2.5 border border-border-default rounded-xl text-sm sm:text-base font-semibold transition-colors text-text-disabled cursor-not-allowed bg-background-disabled"
-                          disabled=""
+                          aria-current="page"
+                          class="flex h-10 w-10 items-center justify-center rounded-xl text-base font-semibold transition-colors bg-background-subtle text-text-primary shadow-sm"
                         >
-                          <svg
-                            class="w-4 h-4 sm:w-5 sm:h-5"
-                            fill="none"
-                            height="1em"
-                            stroke="currentColor"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            stroke-width="2"
-                            viewBox="0 0 24 24"
-                            width="1em"
-                            xmlns="http://www.w3.org/2000/svg"
-                          >
-                            <polyline
-                              points="15 18 9 12 15 6"
-                            />
-                          </svg>
-                          <span
-                            class="hidden sm:inline"
-                          >
-                            Previous
-                          </span>
-                        </button>
-                        <div
-                          class="flex min-w-0 items-center justify-center gap-1 overflow-x-auto"
-                        >
-                          <button
-                            aria-current="page"
-                            class="flex h-8 w-8 sm:h-10 sm:w-10 items-center justify-center rounded-xl text-sm sm:text-base font-semibold transition-colors bg-background-subtle text-text-primary shadow-sm"
-                          >
-                            1
-                          </button>
-                        </div>
-                        <button
-                          class="flex items-center gap-1 sm:gap-2 px-3 sm:px-4 py-2 sm:py-2.5 border border-border-default rounded-xl text-sm sm:text-base font-semibold transition-colors text-text-disabled cursor-not-allowed bg-background-disabled"
-                          disabled=""
-                        >
-                          <span
-                            class="hidden sm:inline"
-                          >
-                            Next
-                          </span>
-                          <svg
-                            class="w-4 h-4 sm:w-5 sm:h-5"
-                            fill="none"
-                            height="1em"
-                            stroke="currentColor"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            stroke-width="2"
-                            viewBox="0 0 24 24"
-                            width="1em"
-                            xmlns="http://www.w3.org/2000/svg"
-                          >
-                            <polyline
-                              points="9 18 15 12 9 6"
-                            />
-                          </svg>
+                          1
                         </button>
                       </div>
+                      <button
+                        class="flex items-center gap-2 px-2.5 sm:px-4 py-1.5 sm:py-2.5 border border-border-default rounded-xl text-base font-semibold transition-colors text-text-disabled cursor-not-allowed bg-background-disabled"
+                        disabled=""
+                      >
+                        <span
+                          class="hidden sm:inline"
+                        >
+                          Next
+                        </span>
+                        <svg
+                          class="w-3.5 h-5 sm:w-5 sm:h-5"
+                          fill="none"
+                          height="1em"
+                          stroke="currentColor"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                          viewBox="0 0 24 24"
+                          width="1em"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <polyline
+                            points="9 18 15 12 9 6"
+                          />
+                        </svg>
+                      </button>
                     </div>
                   </div>
                 </div>

@@ -1,28 +1,173 @@
 import type { ReactElement } from "react";
 
-import type { MasterPaymentTypeCreateState } from "./MasterPaymentTypeCreate.type";
+import type { MasterPaymentTypeCreateFormState } from "./MasterPaymentTypeCreate.type";
 
 /**
- * Render payment type form.
- * @param {MasterPaymentTypeCreateState} props - Form state
- * @returns {ReactElement} Form
+ * Render status switch field.
+ * @param {MasterPaymentTypeCreateFormState} props - Form state
+ * @returns {ReactElement | null} Status field
  */
-export const MasterPaymentTypeCreateForm = (props: MasterPaymentTypeCreateState): ReactElement => {
-  const { name, isEdit, handleNameChange, handleSubmit, goBack } = props;
+const _renderStatusField = (props: MasterPaymentTypeCreateFormState): ReactElement | null => {
+  if (!props.isEditMode) return null;
 
   return (
-    <div className="w-full min-h-full bg-background-surface px-6 pb-10 pt-10">
-      <button type="button" onClick={goBack} className="mb-8 flex items-center gap-3 text-text-secondary hover:text-text-primary">
-        <span className="flex h-10 w-10 items-center justify-center rounded-full bg-background-subtle">←</span>
-        <span className="font-bold text-sm">Back</span>
+    <div className="flex items-center justify-between rounded-xl border border-border-default bg-background-surface px-4 py-3.5">
+      <div className="flex flex-col">
+        <span className="text-sm font-semibold text-text-primary">Status</span>
+        <span className="text-xs text-text-secondary">Toggle active or inactive status</span>
+      </div>
+      <button
+        type="button"
+        role="switch"
+        aria-checked={props.isActive}
+        onClick={props.handleStatusChange}
+        className={`relative inline-flex h-6 w-11 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-brand-blue/30 ${
+          props.isActive ? "bg-brand-blue" : "bg-brand-gray-light"
+        }`}
+      >
+        <span
+          className={`pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow-lg transition ${
+            props.isActive ? "translate-x-5" : "translate-x-0"
+          }`}
+        />
       </button>
-      <h2 className="text-2xl font-extrabold tracking-tight">{isEdit ? "Edit Payment Type" : "New Payment Type"}</h2>
-      <p className="mb-8 mt-2 text-sm font-medium text-text-secondary">Fill in payment type details below.</p>
-      <form onSubmit={handleSubmit} className="flex flex-col">
-        <label className="mb-2 pl-3 text-xs font-bold uppercase tracking-widest text-text-secondary" htmlFor="payment-type-name">Payment Type Name</label>
-        <input id="payment-type-name" type="text" required value={name} onChange={handleNameChange} className="mb-5 w-full rounded-3xl border border-border-default bg-background-subtle px-5 py-4 text-sm font-semibold text-text-primary outline-none focus:ring-2 focus:ring-action-primary" />
-        <button type="submit" className="mt-2 w-full rounded-full bg-action-primary py-4 text-base font-bold tracking-wide text-text-inverse shadow-medium hover:bg-action-primary-hover">{isEdit ? "Update Payment Type" : "Create Payment Type"}</button>
-      </form>
+    </div>
+  );
+};
+
+/**
+ * Render mobile back bar.
+ * @param {() => void} goBack - Back action
+ * @returns {ReactElement} Back bar
+ */
+const _renderMobileBack = (goBack: () => void): ReactElement => (
+  <div className="sticky top-0 z-20 flex items-center bg-background-page/90 px-6 pt-6 lg:px-0 lg:pt-0">
+    <button
+      type="button"
+      onClick={goBack}
+      className="group flex items-center gap-3 text-text-secondary transition-colors hover:text-text-primary lg:hidden"
+    >
+      <div className="flex h-10 w-10 items-center justify-center rounded-full bg-background-surface text-text-primary shadow-sm transition-colors group-hover:bg-background-subtle">
+        <svg
+          width="20"
+          height="20"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="3"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          aria-hidden="true"
+        >
+          <polyline points="15 18 9 12 15 6" />
+        </svg>
+      </div>
+      <span className="text-[15px] font-bold">Back</span>
+    </button>
+  </div>
+);
+
+/**
+ * Render form header.
+ * @param {boolean} isEditMode - Edit mode flag
+ * @param {() => void} goBack - Back action
+ * @returns {ReactElement} Header
+ */
+const _renderHeader = (isEditMode: boolean, goBack: () => void): ReactElement => {
+  const title = isEditMode ? "Edit Payment Type" : "New Payment Type";
+
+  return (
+    <>
+      <nav aria-label="Breadcrumb" className="mb-3 hidden items-center gap-2 text-sm font-medium text-text-secondary lg:flex">
+        <button type="button" onClick={goBack} className="cursor-pointer hover:text-text-primary">
+          Master Payment Type
+        </button>
+        <span aria-hidden="true">/</span>
+        <span className="text-text-primary">{title}</span>
+      </nav>
+      <div className="my-6 pl-1">
+        <h2 className="text-4xl font-semibold leading-tight tracking-tight text-text-primary">{title}</h2>
+        <p className="mt-3 text-sm font-medium text-text-secondary opacity-70">
+          {isEditMode ? "Update the payment type details below." : "Fill in the payment type details below."}
+        </p>
+      </div>
+    </>
+  );
+};
+
+/**
+ * Render payment type create/edit form.
+ * @param {MasterPaymentTypeCreateFormState} props - Form state
+ * @returns {ReactElement} Form
+ */
+export const MasterPaymentTypeCreateForm = (props: MasterPaymentTypeCreateFormState): ReactElement => {
+  const {
+    name,
+    isEditMode,
+    isLoadingInitialData,
+    isSubmitting,
+    errorMessage,
+    successMessage,
+    handleNameChange,
+    handleSubmit,
+    goBack,
+  } = props;
+
+  const buttonText = isEditMode ? "Update Payment Type" : "Create Payment Type";
+  const submittingText = isEditMode ? "Updating…" : "Creating…";
+  const fieldClass =
+    "w-full rounded-xl border border-border-default bg-background-surface px-4 py-3 text-[15px] text-text-primary shadow-xs outline-none transition-all placeholder:text-text-tertiary/60 focus:border-border-focus focus:ring-2 focus:ring-focus-ring/30";
+
+  return (
+    <div className="flex h-full w-full flex-col bg-background-page pb-6 font-sans">
+      {_renderMobileBack(goBack)}
+      <div className="mt-2 flex min-h-0 w-full flex-1 flex-col px-6 lg:mt-0 lg:px-0">
+        {_renderHeader(isEditMode, goBack)}
+        {isLoadingInitialData ? (
+          <p className="py-12 text-center text-sm text-text-secondary">Loading payment type data…</p>
+        ) : (
+          <form
+            onSubmit={handleSubmit}
+            className="flex min-h-0 flex-1 flex-col justify-between rounded-4xl border border-border-default bg-background-surface p-6 shadow-xs sm:p-8"
+          >
+            <div className="space-y-4">
+              <div>
+                <label htmlFor="payment-type-name" className="mb-1.5 block text-xs font-bold uppercase tracking-wider text-text-secondary">
+                  Payment Type Name
+                </label>
+                <input
+                  id="payment-type-name"
+                  value={name}
+                  onChange={handleNameChange}
+                  placeholder="e.g. Full Payment"
+                  required
+                  className={fieldClass}
+                />
+              </div>
+              {_renderStatusField(props)}
+              {errorMessage !== null && (
+                <p role="alert" className="rounded-lg border border-red-200 bg-red-50 px-3 py-2 text-[13px] font-medium text-red-700">
+                  {errorMessage}
+                </p>
+              )}
+              {successMessage !== null && (
+                <p role="status" className="rounded-lg border border-green-200 bg-green-50 px-3 py-2 text-[13px] font-medium text-green-700">
+                  {successMessage}
+                </p>
+              )}
+            </div>
+            <div className="mt-6 flex justify-end border-t border-border-default pt-5">
+              <button
+                type="submit"
+                disabled={isSubmitting}
+                className="h-14 cursor-pointer rounded-xl bg-action-primary px-8 text-sm font-semibold tracking-wide text-text-inverse shadow-xs transition-all hover:bg-action-primary-hover disabled:opacity-60"
+              >
+                {isSubmitting ? submittingText : buttonText}
+              </button>
+            </div>
+          </form>
+        )}
+      </div>
     </div>
   );
 };

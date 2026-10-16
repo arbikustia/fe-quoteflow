@@ -1,10 +1,9 @@
-import { useMemo, useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-import { MOCK_USERS } from "../../fixture/master-user";
-import { usePagination } from "../../hooks/usePagination";
+import { mapUser, useGetUsersQuery } from "@/services/master-user.service";
 
-import type { MasterUserContainerState, MasterUserNavigation, UserData } from "./MasterUser.type";
+import type { MasterUserContainerState, MasterUserNavigation, MasterUserPagination, UserData } from "./MasterUser.type";
 
 // Deprecated: modal state moved to page pattern. Kept as stub for backwards compat.
 /**
@@ -42,7 +41,7 @@ export const useMasterUserNavigation = (): MasterUserNavigation => {
    * @returns {void} void
    */
   const goEdit = (c: UserData): void => {
-    navigate(`/master-user/edit/${c.id}`);
+    navigate(`/master-user/edit/${c.id}`, { state: { user: c } });
   };
 
   /**
@@ -63,14 +62,58 @@ export const useMasterUserNavigation = (): MasterUserNavigation => {
  */
 export const useMasterUserContainerState = (): MasterUserContainerState => {
   const navigation = useMasterUserNavigation();
+  const [currentPage, setCurrentPage] = useState(1);
+  const [pageSize, setPageSize] = useState(10);
   const [searchTerm, setSearchTerm] = useState("");
-  const filteredUsers = useMemo(() => MOCK_USERS.filter((user) => `${user.username} ${user.role}`.toLowerCase().includes(searchTerm.toLowerCase())), [searchTerm]);
-  const basePagination = usePagination(filteredUsers);
-  const pagination = {
-    ...basePagination,
-    isEmpty: filteredUsers.length === 0,
-    setSearchTerm: (value: string): void => { setSearchTerm(value); },
+
+  const { data, isLoading, isError } = useGetUsersQuery({
+    PageNumber: currentPage,
+    PageSize: pageSize,
+    SearchTerm: searchTerm || undefined,
+  });
+
+  const paginatedData = data?.data.map(mapUser) ?? [];
+  const totalCount = data?.total_count ?? 0;
+  const totalPages = Math.max(1, data?.total_pages ?? 1);
+
+  const goToPage = (page: number): void => {
+    setCurrentPage(Math.max(1, Math.min(page, totalPages)));
   };
+
+  const changePageSize = (size: number): void => {
+    setPageSize(size);
+    setCurrentPage(1);
+  };
+
+  const nextPage = (): void => {
+    goToPage(currentPage + 1);
+  };
+
+  const prevPage = (): void => {
+    goToPage(currentPage - 1);
+  };
+
+  const handleSearchTerm = (value: string): void => {
+    setSearchTerm(value);
+    setCurrentPage(1);
+  };
+
+  const pagination: MasterUserPagination = {
+    currentPage,
+    totalPages,
+    pageSize,
+    paginatedData,
+    totalCount,
+    isEmpty: !isLoading && paginatedData.length === 0,
+    isLoading,
+    isError,
+    goToPage,
+    nextPage,
+    prevPage,
+    changePageSize,
+    setSearchTerm: handleSearchTerm,
+  };
+
   const [isMoreOpen, setIsMoreOpen] = useState(false);
 
   /**

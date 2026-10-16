@@ -18,6 +18,7 @@ export type CustomerUpdatePayload = {
   readonly name: string;
   readonly address: string;
   readonly phone_number: string;
+  readonly status: number;
 };
 export type CustomerDetailResponse = ApiEnvelope<ApiCustomer | null>;
 
@@ -57,6 +58,7 @@ export type CustomerCreatePayload = {
   readonly name: string;
   readonly address: string;
   readonly phone_number: string;
+  readonly status: number;
 };
 
 export type MasterCustomerNavigation = {

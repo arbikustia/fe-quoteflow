@@ -4,7 +4,9 @@ export type MasterCustomerCreateFormState = {
   readonly name: string;
   readonly address: string;
   readonly phoneNumber: string;
+  readonly isActive: boolean;
   readonly isEditMode: boolean;
+  readonly handleStatusChange: () => void;
   readonly isLoadingInitialData: boolean;
   readonly isSubmitting: boolean;
   readonly errorMessage: string | null;

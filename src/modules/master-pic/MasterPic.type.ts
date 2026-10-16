@@ -1,5 +1,4 @@
 import type { TableColumn } from "../../components/Table";
-import type { PaginationResult } from "../../hooks/usePagination";
 import type { MasterBase } from "../../types/master";
 
 export type PicData = MasterBase & {
@@ -13,8 +12,19 @@ export type MasterPicNavigation = {
   readonly goDetail: (pic: PicData) => void;
 };
 
-export type MasterPicPagination = PaginationResult<PicData> & {
+export type MasterPicPagination = {
+  readonly currentPage: number;
+  readonly totalPages: number;
+  readonly pageSize: number;
+  readonly paginatedData: PicData[];
+  readonly totalCount: number;
   readonly isEmpty: boolean;
+  readonly isLoading: boolean;
+  readonly isError: boolean;
+  readonly goToPage: (page: number) => void;
+  readonly nextPage: () => void;
+  readonly prevPage: () => void;
+  readonly changePageSize: (size: number) => void;
   readonly setSearchTerm: (searchTerm: string) => void;
 };
 
@@ -37,6 +47,8 @@ export type MasterPicProps = {
   readonly changePageSize: (size: number) => void;
   readonly totalCount: number;
   readonly isEmpty: boolean;
+  readonly isLoading: boolean;
+  readonly isError: boolean;
   readonly setSearchTerm: (searchTerm: string) => void;
   readonly columns: TableColumn<PicData>[];
   readonly onCreate: () => void;

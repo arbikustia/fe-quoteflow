@@ -10,7 +10,10 @@ import Table from "../../components/Table";
 import type { MasterPaymentTypeProps, PaymentTypeData } from "./MasterPaymentType.type";
 
 const _renderListState = (props: MasterPaymentTypeProps): React.ReactElement | null => {
-  if (props.isEmpty) return <p className="py-10 text-center text-sm text-brand-text-medium">No payment types found.</p>;
+  if (props.isLoading) return <p className="py-10 text-center text-sm text-text-secondary">Loading payment types…</p>;
+  if (props.isMissingData) return <p className="py-10 text-center text-sm text-red-600">Payment type data is unavailable. Please try again.</p>;
+  if (props.errorMessage) return <p className="py-10 text-center text-sm text-red-600">{props.errorMessage}</p>;
+  if (props.isEmpty) return <p className="py-10 text-center text-sm text-text-secondary">No payment types found.</p>;
 
   return null;
 };

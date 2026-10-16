@@ -36,6 +36,7 @@ const _useInputChange = (setter: Dispatch<SetStateAction<string>>): ((event: Cha
  * @param {string} name - Name
  * @param {string} address - Address
  * @param {string} phoneNumber - Phone number
+ * @param {boolean} isActive - Active status
  * @returns {{ readonly isSubmitting: boolean; readonly errorMessage: string | null; readonly successMessage: string | null; readonly handleSubmit: (event: SyntheticEvent) => Promise<void>; }} Submission state
  */
 const _useCustomerSubmission = (
@@ -44,6 +45,7 @@ const _useCustomerSubmission = (
   name: string,
   address: string,
   phoneNumber: string,
+  isActive: boolean,
 ): {
   readonly isSubmitting: boolean;
   readonly errorMessage: string | null;
@@ -72,9 +74,9 @@ const _useCustomerSubmission = (
       let response: CustomerCreateResponse;
 
       if (isEditMode && id) {
-        response = await updateCustomer({ id, name, address, phone_number: phoneNumber }).unwrap();
+        response = await updateCustomer({ id, name, address, phone_number: phoneNumber, status: isActive ? 1 : 0 }).unwrap();
       } else {
-        response = await createCustomer({ name, address, phone_number: phoneNumber }).unwrap();
+        response = await createCustomer({ name, address, phone_number: phoneNumber, status: 1 }).unwrap();
       }
 
       if (!response.status) {
@@ -112,10 +114,12 @@ export const useMasterCustomerCreate = (): MasterCustomerCreateFormState => {
   const initialName = routeCustomer?.name ?? customerItem?.name ?? "";
   const initialAddress = routeCustomer?.address ?? customerItem?.address ?? "";
   const initialPhoneNumber = routeCustomer?.phoneNumber ?? customerItem?.phone_number ?? "";
+  const initialIsActive = routeCustomer ? routeCustomer.status === "active" : customerItem?.status === 1;
 
   const [name, setName] = useState(initialName);
   const [address, setAddress] = useState(initialAddress);
   const [phoneNumber, setPhoneNumber] = useState(initialPhoneNumber);
+  const [isActive, setIsActive] = useState(initialIsActive);
   const [initializedId, setInitializedId] = useState<string | null>(routeCustomer?.id ?? null);
   const isLoadingInitialData = isLoadingDetail && !routeCustomer;
 
@@ -124,12 +128,14 @@ export const useMasterCustomerCreate = (): MasterCustomerCreateFormState => {
     setName(customerItem.name ?? "");
     setAddress(customerItem.address ?? "");
     setPhoneNumber(customerItem.phone_number ?? "");
+    setIsActive(customerItem.status === 1);
   }
 
   const handleNameChange = _useInputChange(setName);
   const handlePhoneNumberChange = _useInputChange(setPhoneNumber);
   const handleAddressChange = _useInputChange(setAddress);
-  const submission = _useCustomerSubmission(id, isEditMode, name, address, phoneNumber);
+  const handleStatusChange = (): void => { setIsActive((currentIsActive) => !currentIsActive); };
+  const submission = _useCustomerSubmission(id, isEditMode, name, address, phoneNumber, isActive);
 
   /**
    * Go back.
@@ -141,11 +147,13 @@ export const useMasterCustomerCreate = (): MasterCustomerCreateFormState => {
     name,
     address,
     phoneNumber,
+    isActive,
     isEditMode,
     isLoadingInitialData,
     handleNameChange,
     handlePhoneNumberChange,
     handleAddressChange,
+    handleStatusChange,
     goBack,
     ...submission,
   };

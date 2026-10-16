@@ -11,7 +11,10 @@ import type { MasterPaymentMethodProps, PaymentMethodData } from "./MasterPaymen
 
 /** Render list state. */
 const _renderListState = (props: MasterPaymentMethodProps): React.ReactElement | null => {
-  if (props.isEmpty) return <p className="py-10 text-center text-sm text-brand-text-medium">No payment methods found.</p>;
+  if (props.isLoading) return <p className="py-10 text-center text-sm text-text-secondary">Loading payment methods…</p>;
+  if (props.isMissingData) return <p className="py-10 text-center text-sm text-red-600">Payment method data is unavailable. Please try again.</p>;
+  if (props.errorMessage) return <p className="py-10 text-center text-sm text-red-600">{props.errorMessage}</p>;
+  if (props.isEmpty) return <p className="py-10 text-center text-sm text-text-secondary">No payment methods found.</p>;
 
   return null;
 };

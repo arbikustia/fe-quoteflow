@@ -22,7 +22,9 @@ export const useMasterServiceTypeNavigation = (): MasterServiceTypeNavigation =>
   const navigate = useNavigate();
   const goBack = (): void => { navigate(-1); };
   const goCreate = (): void => { navigate("/master-service-type/create"); };
-  const goEdit = (serviceType: ServiceTypeData): void => { navigate(`/master-service-type/edit/${serviceType.id}`); };
+  const goEdit = (serviceType: ServiceTypeData): void => {
+    navigate(`/master-service-type/edit/${serviceType.id}`, { state: { serviceType } });
+  };
   const goDetail = (serviceType: ServiceTypeData): void => { navigate(`/master-service-type/detail/${serviceType.id}`); };
 
   return { goBack, goCreate, goEdit, goDetail };

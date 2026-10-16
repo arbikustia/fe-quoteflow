@@ -173,7 +173,7 @@ export const useMasterItemNavigation = (): MasterItemNavigation => {
    * @returns {void} void
    */
   const goEdit = (item: ItemData): void => {
-    navigate(`/master-item/edit/${item.id}`);
+    navigate(`/master-item/edit/${item.id}`, { state: { item } });
   };
 
   /**

@@ -141,6 +141,7 @@ describe("MasterCustomerCreate integration", () => {
         name: "Existing PT Customer",
         address: "Existing Address Jl. Sudirman",
         phone_number: "081999888777",
+        status: 1,
       });
       expect(mocks.navigate).toHaveBeenCalledWith("/master-customer");
     });

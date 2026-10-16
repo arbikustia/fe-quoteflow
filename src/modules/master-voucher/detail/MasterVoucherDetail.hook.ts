@@ -25,9 +25,11 @@ export const useMasterVoucherDetail = (): MasterVoucherDetailState => {
   const menuState = useDetailMenuState();
   const voucher: VoucherData | null = MOCK_VOUCHERS.find((item) => item.id === id) ?? null;
   const goBack = (): void => { navigate(-1); };
-  const goEdit = (): void => { menuState.closeMore();
+  const goEdit = (): void => {
+    menuState.closeMore();
 
- if (voucher) navigate(`/master-voucher/edit/${voucher.id}`); };
+    if (voucher) navigate(`/master-voucher/edit/${voucher.id}`, { state: { voucher } });
+  };
   const handleDelete = (): void => { menuState.closeDeleteModal(); navigate("/master-voucher"); };
 
   return { voucher, goBack, goEdit, handleDelete, ...menuState };

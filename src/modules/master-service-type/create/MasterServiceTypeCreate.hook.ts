@@ -1,12 +1,10 @@
 /* eslint-disable max-lines-per-function, jsdoc/require-jsdoc */
 import { useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
-
-import { MOCK_SERVICE_TYPES } from "@/fixture/master-service-type";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 
 import type { MasterServiceTypeCreateFormState } from "./MasterServiceTypeCreate.type";
 
-import { useCreateServiceTypeMutation } from "@/services/master-service-type.service";
+import { useCreateServiceTypeMutation, useUpdateServiceTypeMutation } from "@/services/master-service-type.service";
 
 /**
  * Hook for master service type create/edit form.
@@ -14,16 +12,19 @@ import { useCreateServiceTypeMutation } from "@/services/master-service-type.ser
  */
 export const useMasterServiceTypeCreateForm = (): MasterServiceTypeCreateFormState => {
   const navigate = useNavigate();
+  const location = useLocation();
   const { id } = useParams<{ readonly id: string }>();
-  const existing = id ? (MOCK_SERVICE_TYPES.find((c) => c.id === id) ?? null) : null;
-  const isEdit = existing !== null;
+  const isEditMode = Boolean(id);
+  const routeServiceType = location.state?.serviceType;
 
-  const [serviceName, setServiceName] = useState(existing?.name ?? "");
-  const [price, setPrice] = useState(existing ? String(existing.price) : "");
-  const [isActive, setIsActive] = useState(existing ? existing.isActive : true);
+  const [serviceName, setServiceName] = useState(routeServiceType?.name ?? "");
+  const [price, setPrice] = useState(routeServiceType ? String(routeServiceType.price) : "");
+  const [isActive, setIsActive] = useState(routeServiceType ? routeServiceType.status === "active" : true);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
-  const [createServiceType, { isLoading: isSubmitting }] = useCreateServiceTypeMutation();
+  const [createServiceType, { isLoading: isCreating }] = useCreateServiceTypeMutation();
+  const [updateServiceType, { isLoading: isUpdating }] = useUpdateServiceTypeMutation();
+  const isSubmitting = isCreating || isUpdating;
 
   const handleServiceNameChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
     setServiceName(event.target.value);
@@ -33,8 +34,8 @@ export const useMasterServiceTypeCreateForm = (): MasterServiceTypeCreateFormSta
     setPrice(event.target.value);
   };
 
-  const handleIsActiveChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
-    setIsActive(event.target.checked);
+  const handleStatusChange = (): void => {
+    setIsActive((currentIsActive) => !currentIsActive);
   };
 
   const handleSubmit = async (event: React.SyntheticEvent): Promise<void> => {
@@ -42,11 +43,19 @@ export const useMasterServiceTypeCreateForm = (): MasterServiceTypeCreateFormSta
     setErrorMessage(null);
 
     try {
-      const response = await createServiceType({
+      const payload = {
         name: serviceName,
         price: Number(price) || 0,
-        is_active: isActive,
-      }).unwrap();
+        status: isEditMode ? (isActive ? 1 : 0) : 1,
+      };
+
+      let response;
+
+      if (isEditMode && id) {
+        response = await updateServiceType({ ...payload, id }).unwrap();
+      } else {
+        response = await createServiceType(payload).unwrap();
+      }
 
       if (!response.status) {
         const message = Array.isArray(response.messages)
@@ -72,12 +81,12 @@ export const useMasterServiceTypeCreateForm = (): MasterServiceTypeCreateFormSta
     serviceName,
     price,
     isActive,
+    isEditMode,
     isSubmitting,
-    isEdit,
     errorMessage,
     handleServiceNameChange,
     handlePriceChange,
-    handleIsActiveChange,
+    handleStatusChange,
     handleSubmit,
     goBack,
   };

@@ -1,7 +1,7 @@
 /* eslint-disable max-lines-per-function, jsdoc/require-jsdoc */
 import type * as React from "react";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 
 import type {
   MasterVoucherContainerState,
@@ -13,7 +13,7 @@ import type {
   VoucherListResponse,
 } from "./MasterVoucher.type";
 
-import { mapVoucher, useCreateVoucherMutation, useGetVouchersQuery } from "@/services/master-voucher.service";
+import { mapVoucher, useCreateVoucherMutation, useGetVouchersQuery, useUpdateVoucherMutation } from "@/services/master-voucher.service";
 
 /**
  * Provide master voucher navigation.
@@ -24,7 +24,9 @@ export const useMasterVoucherNavigation = (): MasterVoucherNavigation => {
 
   const goBack = (): void => { navigate(-1); };
   const goCreate = (): void => { navigate("/master-voucher/create"); };
-  const goEdit = (voucher: VoucherData): void => { navigate(`/master-voucher/edit/${voucher.id}`); };
+  const goEdit = (voucher: VoucherData): void => {
+    navigate(`/master-voucher/edit/${voucher.id}`, { state: { voucher } });
+  };
   const goDetail = (voucher: VoucherData): void => { navigate(`/master-voucher/detail/${voucher.id}`); };
 
   return { goBack, goCreate, goEdit, goDetail };
@@ -86,29 +88,43 @@ export const useMasterVoucherCreate = (): ReturnType<typeof useCreateVoucherMuta
  */
 export const useMasterVoucherCreateForm = (): MasterVoucherCreateFormState => {
   const navigate = useNavigate();
-  const [name, setName] = useState("");
-  const [code, setCode] = useState("");
-  const [discountPercent, setDiscountPercent] = useState("");
-  const [status, setStatus] = useState("1");
+  const location = useLocation();
+  const { id } = useParams<{ readonly id?: string }>();
+  const isEditMode = Boolean(id);
+  const routeVoucher = location.state?.voucher;
+  const [name, setName] = useState(routeVoucher?.name ?? "");
+  const [code, setCode] = useState(routeVoucher?.code ?? "");
+  const [discountPercent, setDiscountPercent] = useState(routeVoucher?.discountPercent?.toString() ?? "");
+  const [isActive, setIsActive] = useState(routeVoucher?.status ? routeVoucher.status === "active" : true);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
-  const [createVoucher, { isLoading: isSubmitting }] = useCreateVoucherMutation();
+  const [createVoucher, { isLoading: isCreating }] = useCreateVoucherMutation();
+  const [updateVoucher, { isLoading: isUpdating }] = useUpdateVoucherMutation();
+  const isSubmitting = isCreating || isUpdating;
 
   const handleNameChange = (event: React.ChangeEvent<HTMLInputElement>): void => setName(event.target.value);
   const handleCodeChange = (event: React.ChangeEvent<HTMLInputElement>): void => setCode(event.target.value);
   const handleDiscountChange = (event: React.ChangeEvent<HTMLInputElement>): void => setDiscountPercent(event.target.value);
-  const handleStatusChange = (event: React.ChangeEvent<HTMLSelectElement>): void => setStatus(event.target.value);
+  const handleStatusChange = (): void => setIsActive((currentIsActive) => !currentIsActive);
 
   const handleSubmit = async (event: React.SyntheticEvent): Promise<void> => {
     event.preventDefault();
     setErrorMessage(null);
 
     try {
-      const response = await createVoucher({
+      const payload = {
         name,
         code,
         discount_percent: Number(discountPercent),
-        status: Number(status),
-      }).unwrap();
+        status: 1,
+      };
+
+      let response;
+
+      if (isEditMode && id) {
+        response = await updateVoucher({ ...payload, status: isActive ? 1 : 0, id }).unwrap();
+      } else {
+        response = await createVoucher(payload).unwrap();
+      }
 
       if (!response.status) {
         const message = Array.isArray(response.messages)
@@ -134,7 +150,8 @@ export const useMasterVoucherCreateForm = (): MasterVoucherCreateFormState => {
     name,
     code,
     discountPercent,
-    status,
+    isActive,
+    isEditMode,
     isSubmitting,
     errorMessage,
     handleNameChange,

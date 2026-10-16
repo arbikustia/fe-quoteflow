@@ -11,6 +11,8 @@ import type { MasterUserProps, UserData } from "./MasterUser.type";
 
 /** Render user list state. */
 const _renderListState = (props: MasterUserProps): React.ReactElement | null => {
+  if (props.isLoading) return <p className="py-10 text-center text-sm text-text-secondary">Loading users…</p>;
+  if (props.isError) return <p role="alert" className="py-10 text-center text-sm text-red-700">Unable to load users.</p>;
   if (props.isEmpty) return <p className="py-10 text-center text-sm text-brand-text-medium">No users found.</p>;
 
   return null;

@@ -1,41 +1,110 @@
 import type { ReactElement } from "react";
 
-import type { MasterPaymentMethodCreateState } from "./MasterPaymentMethodCreate.type";
+import type { MasterPaymentMethodCreateFormState } from "./MasterPaymentMethodCreate.type";
 
 /**
- * Render create payment method form
- * @param {MasterPaymentMethodCreateState} props - form state
- * @returns {ReactElement} form
+ * Render status switch field.
+ * @param {MasterPaymentMethodCreateFormState} props - Form state
+ * @returns {ReactElement | null} Status field
  */
-export const MasterPaymentMethodCreateForm = (props: MasterPaymentMethodCreateState): ReactElement => {
-  const { name, description, isEdit, handleNameChange, handleDescriptionChange, handleSubmit, goBack } = props;
+const _renderStatusField = (props: MasterPaymentMethodCreateFormState): ReactElement | null => {
+  if (!props.isEditMode) return null;
 
   return (
-    <div className="flex-1 w-full min-h-full bg-background-surface font-sans pb-10 relative overflow-y-auto">
-      <div className="px-6 pt-10 pb-4 flex items-center sticky top-0 z-20 bg-background-surface">
-        <button type="button" onClick={goBack} className="flex items-center gap-3 text-text-secondary hover:text-text-primary transition-colors">
-          <div className="w-10 h-10 rounded-full bg-background-subtle shadow-sm flex items-center justify-center text-text-primary">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3"><polyline points="15 18 9 12 15 6"></polyline></svg>
-          </div>
-          <span className="font-bold text-sm">Back</span>
-        </button>
+    <div className="flex items-center justify-between rounded-xl border border-border-default bg-background-surface px-4 py-3.5 lg:col-span-2">
+      <div className="flex flex-col">
+        <span className="text-sm font-semibold text-text-primary">Status</span>
+        <span className="text-xs text-text-secondary">Toggle active or inactive status</span>
       </div>
-      <div className="px-6 mt-2">
-        <div className="mb-8 pl-1">
-          <h2 className="text-2xl font-extrabold tracking-tight">{isEdit ? "Edit Payment Method" : "New Payment Method"}</h2>
-          <p className="text-sm text-text-secondary mt-2 font-medium">Fill in the details below.</p>
-        </div>
-        <form onSubmit={handleSubmit} className="flex flex-col">
-          <div className="mb-5">
-            <label className="block text-xs font-bold text-text-secondary mb-2 pl-3 tracking-widest uppercase">Payment Method Name</label>
-            <input type="text" required value={name} onChange={handleNameChange} className="w-full bg-background-subtle border border-border-default rounded-3xl py-4 px-5 text-sm font-semibold text-text-primary outline-none focus:ring-2 focus:ring-action-primary transition-all" />
-          </div>
-          <div className="mb-5">
-            <label className="block text-xs font-bold text-text-secondary mb-2 pl-3 tracking-widest uppercase">Description</label>
-            <textarea required value={description} onChange={handleDescriptionChange} rows={3} className="w-full bg-background-subtle border border-border-default rounded-3xl py-4 px-5 text-sm font-semibold text-text-primary outline-none focus:ring-2 focus:ring-action-primary transition-all resize-none" />
-          </div>
-          <button type="submit" className="w-full bg-action-primary text-text-inverse rounded-full py-4 text-base font-bold tracking-wide shadow-medium hover:bg-action-primary-hover transition-all mt-2">{isEdit ? "Update Payment Method" : "Create Payment Method"}</button>
-        </form>
+      <button
+        type="button"
+        role="switch"
+        aria-checked={props.isActive}
+        onClick={props.handleStatusChange}
+        className={`relative inline-flex h-6 w-11 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-brand-blue/30 ${props.isActive ? "bg-brand-blue" : "bg-brand-gray-light"}`}
+      >
+        <span className={`pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow-lg transition ${props.isActive ? "translate-x-5" : "translate-x-0"}`} />
+      </button>
+    </div>
+  );
+};
+
+/**
+ * Render mobile back bar.
+ * @param {() => void} goBack - Back action
+ * @returns {ReactElement} Back bar
+ */
+const _renderMobileBack = (goBack: () => void): ReactElement => (
+  <div className="sticky top-0 z-20 flex items-center bg-background-page/90 px-6 pt-6 lg:px-0 lg:pt-0">
+    <button type="button" onClick={goBack} className="group flex items-center gap-3 text-text-secondary transition-colors hover:text-text-primary lg:hidden">
+      <div className="flex h-10 w-10 items-center justify-center rounded-full bg-background-surface text-text-primary shadow-sm transition-colors group-hover:bg-background-subtle">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><polyline points="15 18 9 12 15 6" /></svg>
+      </div>
+      <span className="text-[15px] font-bold">Back</span>
+    </button>
+  </div>
+);
+
+/**
+ * Render form header.
+ * @param {boolean} isEditMode - Edit mode flag
+ * @param {() => void} goBack - Back action
+ * @returns {ReactElement} Header
+ */
+const _renderHeader = (isEditMode: boolean, goBack: () => void): ReactElement => {
+  const title = isEditMode ? "Edit Payment Method" : "New Payment Method";
+
+  return (
+    <>
+      <nav aria-label="Breadcrumb" className="mb-3 hidden items-center gap-2 text-sm font-medium text-text-secondary lg:flex">
+        <button type="button" onClick={goBack} className="cursor-pointer hover:text-text-primary">Master Payment Method</button>
+        <span aria-hidden="true">/</span>
+        <span className="text-text-primary">{title}</span>
+      </nav>
+      <div className="my-6 pl-1">
+        <h2 className="text-4xl font-semibold leading-tight tracking-tight text-text-primary">{title}</h2>
+        <p className="mt-3 text-sm font-medium text-text-secondary opacity-70">{isEditMode ? "Update the payment method details below." : "Fill in the payment method details below."}</p>
+      </div>
+    </>
+  );
+};
+
+/**
+ * Render payment method create/edit form.
+ * @param {MasterPaymentMethodCreateFormState} props - Form state
+ * @returns {ReactElement} Form
+ */
+export const MasterPaymentMethodCreateForm = (props: MasterPaymentMethodCreateFormState): ReactElement => {
+  const { name, description, isEditMode, isLoadingInitialData, isSubmitting, errorMessage, successMessage, handleNameChange, handleDescriptionChange, handleSubmit, goBack } = props;
+  const buttonText = isEditMode ? "Update Payment Method" : "Create Payment Method";
+  const submittingText = isEditMode ? "Updating…" : "Creating…";
+  const fieldClass = "w-full rounded-xl border border-border-default bg-background-surface px-4 py-3 text-[15px] text-text-primary shadow-xs outline-none transition-all placeholder:text-text-tertiary/60 focus:border-border-focus focus:ring-2 focus:ring-focus-ring/30";
+
+  return (
+    <div className="flex h-full w-full flex-col bg-background-page pb-6 font-sans">
+      {_renderMobileBack(goBack)}
+      <div className="mt-2 flex min-h-0 w-full flex-1 flex-col px-6 lg:mt-0 lg:px-0">
+        {_renderHeader(isEditMode, goBack)}
+        {isLoadingInitialData ? <p className="py-12 text-center text-sm text-text-secondary">Loading payment method data…</p> : (
+          <form onSubmit={handleSubmit} className="flex min-h-0 flex-1 flex-col justify-between rounded-4xl border border-border-default bg-background-surface p-6 shadow-xs sm:p-8">
+            <div className="grid w-full grid-cols-1 gap-x-6 gap-y-4 lg:grid-cols-2">
+              <div className="lg:col-span-2">
+                <label htmlFor="payment-method-name" className="mb-1.5 block text-xs font-bold uppercase tracking-wider text-text-secondary">Payment Method Name</label>
+                <input id="payment-method-name" value={name} onChange={handleNameChange} placeholder="e.g. Bank Transfer" required className={fieldClass} />
+              </div>
+              <div className="lg:col-span-2">
+                <label htmlFor="payment-method-description" className="mb-1.5 block text-xs font-bold uppercase tracking-wider text-text-secondary">Description</label>
+                <textarea id="payment-method-description" value={description} onChange={handleDescriptionChange} placeholder="Describe this payment method" rows={4} required className={`${fieldClass} resize-none`} />
+              </div>
+              {_renderStatusField(props)}
+              {errorMessage !== null && <p role="alert" className="rounded-lg border border-red-200 bg-red-50 px-3 py-2 text-[13px] font-medium text-red-700 lg:col-span-2">{errorMessage}</p>}
+              {successMessage !== null && <p role="status" className="rounded-lg border border-green-200 bg-green-50 px-3 py-2 text-[13px] font-medium text-green-700 lg:col-span-2">{successMessage}</p>}
+            </div>
+            <div className="mt-6 flex justify-end border-t border-border-default pt-5">
+              <button type="submit" disabled={isSubmitting} className="h-14 cursor-pointer rounded-xl bg-action-primary px-8 text-sm font-semibold tracking-wide text-text-inverse shadow-xs transition-all hover:bg-action-primary-hover disabled:opacity-60">{isSubmitting ? submittingText : buttonText}</button>
+            </div>
+          </form>
+        )}
       </div>
     </div>
   );

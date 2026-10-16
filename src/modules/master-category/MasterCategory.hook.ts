@@ -27,7 +27,7 @@ export const useMasterCategoryNavigation = (): MasterCategoryNavigation => {
   const navigate = useNavigate();
   const goBack = (): void => { navigate(-1); };
   const goCreate = (): void => { navigate("/master-category/create"); };
-  const goEdit = (category: CategoryData): void => { navigate(`/master-category/edit/${category.id}`); };
+  const goEdit = (category: CategoryData): void => { navigate(`/master-category/edit/${category.id}`, { state: { category } }); };
   const goDetail = (category: CategoryData): void => { navigate(`/master-category/detail/${category.id}`); };
 
   return { goBack, goCreate, goEdit, goDetail };
@@ -216,7 +216,7 @@ export const useMasterCategoryCreate = (): MasterCategoryCreateFormState => {
     setSuccessMessage(null);
 
     try {
-      const response = await createCategory({ category_name: name }).unwrap();
+      const response = await createCategory({ category_name: name, status: 1 }).unwrap();
 
       if (!response.status) {
         setErrorMessage(Array.isArray(response.messages) ? response.messages.join(" ") : (response.messages ?? "Category request failed."));

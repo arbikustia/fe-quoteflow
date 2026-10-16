@@ -7,8 +7,22 @@ export type PaymentMethodData = MasterBase & {
   readonly description: string;
 };
 
+export type PaymentMethodListApiState = {
+  readonly isLoading: boolean;
+  readonly errorMessage: string | null;
+  readonly isMissingData: boolean;
+  readonly paginatedData: PaymentMethodData[];
+  readonly totalPages: number;
+  readonly totalCount: number;
+  readonly hasNext: boolean;
+  readonly hasPrevious: boolean;
+};
+
 export type MasterPaymentMethodProps = {
   readonly currentPage: number;
+  readonly isLoading: boolean;
+  readonly errorMessage: string | null;
+  readonly isMissingData: boolean;
   readonly totalPages: number;
   readonly pageSize: number;
   readonly paginatedData: PaymentMethodData[];
@@ -44,11 +58,14 @@ export type MasterPaymentMethodNavigation = {
 };
 
 export type MasterPaymentMethodPagination = PaginationResult<PaymentMethodData> & {
+  readonly isLoading: boolean;
+  readonly errorMessage: string | null;
+  readonly isMissingData: boolean;
   readonly isEmpty: boolean;
   readonly setSearchTerm: (searchTerm: string) => void;
 };
 
-export type MasterPaymentMethodContainerState = {
+export type MasterPaymentMethodContainerState = MasterPaymentMethodNavigation & {
   readonly pagination: MasterPaymentMethodPagination;
   readonly isMoreOpen: boolean;
   readonly toggleMore: () => void;

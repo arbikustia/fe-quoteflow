@@ -8,32 +8,19 @@ import type { InputFieldProps } from "./InputField.type";
  * @returns {ReactElement} Field element
  */
 export const InputField = (props: InputFieldProps): ReactElement => {
-  const { label, icon, value, required, placeholder, onChange, multiline } = props;
+  const { label, placeholder, value, required, onChange } = props;
 
   return (
-    <div className="mb-5">
-      <label className="block text-[12px] font-bold text-text-tertiary mb-2 pl-3 tracking-widest uppercase">{label}</label>
-      <div className="relative">
-        <div className="absolute left-4 top-4 text-text-tertiary">{icon}</div>
-        {multiline ? (
-          <textarea
-            value={value}
-            required={required}
-            placeholder={placeholder}
-            onChange={onChange}
-            rows={3}
-            className="w-full bg-background-surface border border-border-strong rounded-2xl py-3.5 pl-12 pr-5 text-[15px] font-semibold text-text-primary shadow-xs outline-none focus:border-border-focus focus:ring-4 focus:ring-focus-ring/25 transition-all resize-none"
-          />
-        ) : (
-          <input
-            value={value}
-            required={required}
-            placeholder={placeholder}
-            onChange={onChange}
-            className="w-full bg-background-surface border border-border-strong rounded-2xl py-3.5 pl-12 pr-5 text-[15px] font-semibold text-text-primary shadow-xs outline-none focus:border-border-focus focus:ring-4 focus:ring-focus-ring/25 transition-all"
-          />
-        )}
-      </div>
+    <div className="mb-4">
+      <label className="mb-1.5 block text-xs font-bold uppercase tracking-wider text-text-secondary">{label}</label>
+      <input
+        type="text"
+        placeholder={placeholder}
+        value={value}
+        required={required}
+        onChange={onChange}
+        className="w-full rounded-xl border border-border-default bg-background-surface px-4 py-3 text-[15px] font-normal text-text-primary shadow-xs outline-none transition-all placeholder:font-normal placeholder:text-text-tertiary/60 focus:border-border-focus focus:ring-2 focus:ring-focus-ring/30"
+      />
     </div>
   );
 };

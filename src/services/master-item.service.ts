@@ -1,8 +1,20 @@
-import { apiRtkClient } from "@/libs/ApiRtkServices/apiRtkClient";
 import ENDPOINT from "@/constant/endpoint.const";
-import type { ApiItem, ItemCreatePayload, ItemCreateResponse, ItemData, ItemListParams, ItemListResponse } from "@/modules/master-item/MasterItem.type";
+import { apiRtkClient } from "@/libs/ApiRtkServices/apiRtkClient";
+import type {
+  ApiItem,
+  ItemCreatePayload,
+  ItemCreateResponse,
+  ItemData,
+  ItemListParams,
+  ItemListResponse,
+  ItemUpdatePayload,
+} from "@/modules/master-item/MasterItem.type";
 
-/** Map API item model to UI model. */
+/**
+ * Map API item model to UI model.
+ * @param {ApiItem} item - API item model
+ * @returns {ItemData} UI item model
+ */
 export const mapItem = (item: ApiItem): ItemData => ({
   id: item.id,
   name: item.name,
@@ -28,8 +40,25 @@ export const masterItemService = apiRtkClient.injectEndpoints({
       query: (body) => ({ url: ENDPOINT.MASTER_ITEM.CREATE, method: "POST", data: body }),
       invalidatesTags: ["Item"],
     }),
+    updateItem: builder.mutation<ItemCreateResponse, ItemUpdatePayload>({
+      query: (body) => ({
+        url: `${ENDPOINT.MASTER_ITEM.CREATE}/${body.id}`,
+        method: "PUT",
+        data: {
+          name: body.name,
+          category_id: body.category_id,
+          price: body.price,
+          stock: body.stock,
+          image: body.image,
+          duration: body.duration,
+          remark: body.remark,
+          status: body.status,
+        },
+      }),
+      invalidatesTags: ["Item"],
+    }),
   }),
   overrideExisting: false,
 });
 
-export const { useGetItemsQuery, useGetAllItemsQuery, useCreateItemMutation } = masterItemService;
+export const { useGetItemsQuery, useGetAllItemsQuery, useCreateItemMutation, useUpdateItemMutation } = masterItemService;

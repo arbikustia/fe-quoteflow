@@ -1,4 +1,4 @@
-import type { ReactElement } from "react";
+import * as React from "react";
 
 import { MasterPaymentMethodCreateForm } from "./MasterPaymentMethodCreate.component";
 import { useMasterPaymentMethodCreate } from "./MasterPaymentMethodCreate.hook";
@@ -6,13 +6,17 @@ import { useMasterPaymentMethodCreate } from "./MasterPaymentMethodCreate.hook";
 import Layout from "@/app/layout";
 
 /**
- * Render create container.
- * @returns {ReactElement} container
+ * Master Payment Method Create Container.
+ * @returns {React.ReactElement} Container component
  */
-const MasterPaymentMethodCreateContainer = (): ReactElement => {
-  const state = useMasterPaymentMethodCreate();
+const MasterPaymentMethodCreateContainer = (): React.ReactElement => {
+  const formState = useMasterPaymentMethodCreate();
 
-  return <Layout pageTitle={state.isEdit ? "Edit Payment Method" : "New Payment Method"}><MasterPaymentMethodCreateForm {...state} /></Layout>;
+  return (
+    <Layout>
+      <MasterPaymentMethodCreateForm {...formState} />
+    </Layout>
+  );
 };
 
 export default MasterPaymentMethodCreateContainer;

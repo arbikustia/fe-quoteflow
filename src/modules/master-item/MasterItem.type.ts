@@ -38,6 +38,11 @@ export type ItemCreatePayload = {
   readonly image: string;
   readonly duration: number;
   readonly remark: string;
+  readonly status: number;
+};
+
+export type ItemUpdatePayload = ItemCreatePayload & {
+  readonly id: string;
 };
 
 export type MasterItemCreateState = {

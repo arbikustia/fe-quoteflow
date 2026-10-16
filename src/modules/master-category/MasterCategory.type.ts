@@ -41,6 +41,11 @@ export type CategoryListApiState = {
 
 export type CategoryCreatePayload = {
   readonly category_name: string;
+  readonly status: number;
+};
+
+export type CategoryUpdatePayload = CategoryCreatePayload & {
+  readonly id: string;
 };
 
 export type CategoryAllItem = {
@@ -152,10 +157,13 @@ export type InputFieldProps = {
 
 export type MasterCategoryCreateFormState = {
   readonly name: string;
+  readonly isActive?: boolean;
+  readonly isEditMode?: boolean;
   readonly isSubmitting: boolean;
   readonly errorMessage: string | null;
   readonly successMessage: string | null;
   readonly handleNameChange: (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
+  readonly handleStatusChange?: () => void;
   readonly handleSubmit: (event: React.SyntheticEvent) => void;
   readonly goBack: () => void;
 };

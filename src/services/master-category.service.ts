@@ -5,6 +5,7 @@ import type {
   CategoryAllResponse,
   CategoryCreatePayload,
   CategoryCreateResponse,
+  CategoryUpdatePayload,
   CategoryData,
   CategoryListParams,
   CategoryListResponse,
@@ -53,6 +54,14 @@ export const masterCategoryService = apiRtkClient.injectEndpoints({
       }),
       invalidatesTags: [CATEGORY_TAG],
     }),
+    updateCategory: builder.mutation<CategoryCreateResponse, CategoryUpdatePayload>({
+      query: (body) => ({
+        url: `${ENDPOINT.MASTER_CATEGORY.CREATE}/${body.id}`,
+        method: "PUT",
+        data: { category_name: body.category_name, status: body.status },
+      }),
+      invalidatesTags: [CATEGORY_TAG],
+    }),
     getAllCategories: builder.query<CategoryAllResponse, void>({
       query: () => ({
         url: ENDPOINT.MASTER_CATEGORY.ALL,
@@ -67,5 +76,6 @@ export const masterCategoryService = apiRtkClient.injectEndpoints({
 export const {
   useGetCategoriesQuery,
   useCreateCategoryMutation,
+  useUpdateCategoryMutation,
   useGetAllCategoriesQuery,
 } = masterCategoryService;

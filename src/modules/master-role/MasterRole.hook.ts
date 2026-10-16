@@ -1,6 +1,6 @@
 import type * as React from "react";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 
 import type {
   MasterRoleContainerState,
@@ -11,7 +11,7 @@ import type {
   RoleListApiState,
 } from "./MasterRole.type";
 
-import { mapRole, useCreateRoleMutation, useGetRolesQuery } from "@/services/master-role.service";
+import { mapRole, useCreateRoleMutation, useGetRolesQuery, useUpdateRoleMutation } from "@/services/master-role.service";
 
 /**
  * Navigation hook
@@ -37,7 +37,7 @@ export const useMasterRoleNavigation = (): MasterRoleNavigation => {
    * @param {RoleData} role - role data
    * @returns {void} void
    */
-  const goEdit = (role: RoleData): void => { navigate(`/master-role/edit/${role.id}`); };
+  const goEdit = (role: RoleData): void => { navigate(`/master-role/edit/${role.id}`, { state: { role } }); };
 
   /**
    * Navigate to detail
@@ -198,9 +198,16 @@ export const useMasterRolePagination = (): MasterRolePagination => {
  */
 export const useMasterRoleCreateForm = (): MasterRoleCreateFormState => {
   const navigate = useNavigate();
-  const [roleName, setRoleName] = useState("");
+  const location = useLocation();
+  const { id } = useParams<{ readonly id?: string }>();
+  const isEditMode = Boolean(id);
+  const routeRole = location.state?.role;
+  const [roleName, setRoleName] = useState(routeRole?.roleName ?? "");
+  const [isActive, setIsActive] = useState(routeRole?.status === "active");
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
-  const [createRole, { isLoading: isSubmitting }] = useCreateRoleMutation();
+  const [createRole, { isLoading: isCreating }] = useCreateRoleMutation();
+  const [updateRole, { isLoading: isUpdating }] = useUpdateRoleMutation();
+  const isSubmitting = isCreating || isUpdating;
 
   /**
    * Handle role name change.
@@ -209,6 +216,10 @@ export const useMasterRoleCreateForm = (): MasterRoleCreateFormState => {
    */
   const handleRoleNameChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
     setRoleName(event.target.value);
+  };
+
+  const handleStatusChange = (): void => {
+    setIsActive((currentIsActive) => !currentIsActive);
   };
 
   /**
@@ -221,7 +232,9 @@ export const useMasterRoleCreateForm = (): MasterRoleCreateFormState => {
     setErrorMessage(null);
 
     try {
-      const response = await createRole({ role: roleName }).unwrap();
+      const response = isEditMode && id
+        ? await updateRole({ id, role: roleName, status: isActive ? 1 : 0 }).unwrap()
+        : await createRole({ role: roleName, status: 1 }).unwrap();
 
       if (!response.status) {
         const message = Array.isArray(response.messages)
@@ -247,7 +260,7 @@ export const useMasterRoleCreateForm = (): MasterRoleCreateFormState => {
     navigate(-1);
   };
 
-  return { roleName, isSubmitting, errorMessage, handleRoleNameChange, handleSubmit, goBack };
+  return { roleName, isActive, isEditMode, isSubmitting, errorMessage, handleRoleNameChange, handleStatusChange, handleSubmit, goBack };
 };
 
 /**

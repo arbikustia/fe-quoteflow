@@ -22,12 +22,32 @@ const ENDPOINT = {
     PAGED: "/api/voucher/paged",
     CREATE: "/api/voucher",
   },
+  MASTER_PAYMENT_METHOD: {
+    PAGED: "/api/payment-method/paged",
+    CREATE: "/api/payment-method",
+    DETAIL: "/api/payment-method",
+  },
+  MASTER_PAYMENT_TYPE: {
+    PAGED: "/api/payment-type/paged",
+    CREATE: "/api/payment-type",
+    DETAIL: "/api/payment-type",
+  },
+  MASTER_PIC: {
+    PAGED: "/api/pic/paged",
+    CREATE: "/api/pic",
+    DETAIL: "/api/pic",
+  },
+  MASTER_USER: {
+    PAGED: "/api/users/paged",
+    CREATE: "/api/users",
+    DETAIL: "/api/users",
+  },
   MASTER_PROJECT: {
     PAGED: "/api/project/paged",
     CREATE: "/api/project",
   },
   MASTER_ROLE: {
-    LIST: "/api/role/list-role",
+    LIST: "/api/role/paged",
     CREATE: "/api/role",
   },
 } as const;

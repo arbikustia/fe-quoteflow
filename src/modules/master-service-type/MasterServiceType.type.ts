@@ -23,7 +23,11 @@ export type ServiceTypeListResponse = PaginatedResponse<ApiServiceType>;
 export type ServiceTypeCreatePayload = {
   readonly name: string;
   readonly price: number;
-  readonly is_active: boolean;
+  readonly status: number;
+};
+
+export type ServiceTypeUpdatePayload = ServiceTypeCreatePayload & {
+  readonly id: string;
 };
 export type ServiceTypeCreateResponse = ApiEnvelope<ApiServiceType | null>;
 

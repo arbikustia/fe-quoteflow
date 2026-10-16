@@ -2,49 +2,32 @@ import * as React from "react";
 
 import { getColumns } from "./MasterPaymentMethod.columns";
 import { MasterPaymentMethodComponent } from "./MasterPaymentMethod.component";
-import { 
-  useMasterPaymentMethodContainerState, 
-  useMasterPaymentMethodNavigation 
-} from "./MasterPaymentMethod.hook";
+import { useMasterPaymentMethodContainerState } from "./MasterPaymentMethod.hook";
 
 /**
- * Master Payment Method Container
- * @returns {React.ReactElement} container component
+ * Master Payment Method Container.
+ * @returns {React.ReactElement} Container component
  */
 const MasterPaymentMethodContainer = (): React.ReactElement => {
-  const { 
-    goBack, 
-    goCreate, 
-    goEdit, 
-    goDetail 
-  } = useMasterPaymentMethodNavigation();
-
-  const {
-    pagination,
-    isMoreOpen,
-    toggleMore,
-    goDelete,
-    handleCloseMore
-  } = useMasterPaymentMethodContainerState();
-
+  const containerState = useMasterPaymentMethodContainerState();
   const columns = getColumns({
-    currentPage: pagination.currentPage,
-    pageSize: pagination.pageSize,
-    onEdit: goEdit,
+    currentPage: containerState.pagination.currentPage,
+    pageSize: containerState.pagination.pageSize,
+    onEdit: containerState.goEdit,
   });
 
   return (
     <MasterPaymentMethodComponent
-      {...pagination}
+      {...containerState.pagination}
       columns={columns}
-      onBack={goBack}
-      onCreate={goCreate}
-      onEdit={goEdit}
-      onRowClick={goDetail}
-      onMore={toggleMore}
-      isMoreOpen={isMoreOpen}
-      onCloseMore={handleCloseMore}
-      onDelete={goDelete}
+      onBack={containerState.goBack}
+      onCreate={containerState.goCreate}
+      onEdit={containerState.goEdit}
+      onRowClick={containerState.goDetail}
+      onMore={containerState.toggleMore}
+      isMoreOpen={containerState.isMoreOpen}
+      onCloseMore={containerState.handleCloseMore}
+      onDelete={containerState.goDelete}
     />
   );
 };

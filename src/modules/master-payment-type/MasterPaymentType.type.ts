@@ -6,6 +6,17 @@ export type PaymentTypeData = MasterBase & {
   readonly name: string;
 };
 
+export type PaymentTypeListApiState = {
+  readonly isLoading: boolean;
+  readonly errorMessage: string | null;
+  readonly isMissingData: boolean;
+  readonly paginatedData: PaymentTypeData[];
+  readonly totalPages: number;
+  readonly totalCount: number;
+  readonly hasNext: boolean;
+  readonly hasPrevious: boolean;
+};
+
 export type MasterPaymentTypeNavigation = {
   readonly goBack: () => void;
   readonly goCreate: () => void;
@@ -14,11 +25,14 @@ export type MasterPaymentTypeNavigation = {
 };
 
 export type MasterPaymentTypePagination = PaginationResult<PaymentTypeData> & {
+  readonly isLoading: boolean;
+  readonly errorMessage: string | null;
+  readonly isMissingData: boolean;
   readonly isEmpty: boolean;
   readonly setSearchTerm: (searchTerm: string) => void;
 };
 
-export type MasterPaymentTypeContainerState = {
+export type MasterPaymentTypeContainerState = MasterPaymentTypeNavigation & {
   readonly pagination: MasterPaymentTypePagination;
   readonly isMoreOpen: boolean;
   readonly toggleMore: () => void;
@@ -31,12 +45,15 @@ export type MasterPaymentTypeProps = {
   readonly totalPages: number;
   readonly pageSize: number;
   readonly paginatedData: PaymentTypeData[];
+  readonly totalCount: number;
+  readonly isLoading: boolean;
+  readonly errorMessage: string | null;
+  readonly isMissingData: boolean;
+  readonly isEmpty: boolean;
   readonly goToPage: (page: number) => void;
   readonly nextPage: () => void;
   readonly prevPage: () => void;
   readonly changePageSize: (size: number) => void;
-  readonly totalCount: number;
-  readonly isEmpty: boolean;
   readonly setSearchTerm: (searchTerm: string) => void;
   readonly columns: TableColumn<PaymentTypeData>[];
   readonly onCreate: () => void;

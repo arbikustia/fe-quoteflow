@@ -2,8 +2,9 @@ import type { TableColumn } from "../../components/Table";
 import type { MasterBase } from "../../types/master";
 
 export type UserData = MasterBase & {
-  username: string;
-  role: "Admin" | "User";
+  readonly username: string;
+  readonly email?: string;
+  readonly role: "Admin" | "User";
 };
 
 export type MasterUserProps = {
@@ -17,6 +18,8 @@ export type MasterUserProps = {
   readonly changePageSize: (size: number) => void;
   readonly totalCount: number;
   readonly columns: readonly TableColumn<UserData>[];
+  readonly isLoading: boolean;
+  readonly isError: boolean;
   onCreate: () => void;
   onEdit: (user: UserData) => void;
   onRowClick: (user: UserData) => void;
@@ -48,12 +51,14 @@ export type MasterUserPagination = {
   readonly totalPages: number;
   readonly pageSize: number;
   readonly paginatedData: readonly UserData[];
+  readonly totalCount: number;
+  readonly isEmpty: boolean;
+  readonly isLoading: boolean;
+  readonly isError: boolean;
   readonly goToPage: (page: number) => void;
   readonly nextPage: () => void;
   readonly prevPage: () => void;
   readonly changePageSize: (size: number) => void;
-  readonly totalCount: number;
-  readonly isEmpty: boolean;
   readonly setSearchTerm: (searchTerm: string) => void;
 };
 

@@ -10,6 +10,8 @@ import Table from "../../components/Table";
 import type { MasterPicProps, PicData } from "./MasterPic.type";
 
 const _renderListState = (props: MasterPicProps): React.ReactElement | null => {
+  if (props.isLoading) return <p className="py-10 text-center text-sm text-text-secondary">Loading PICs…</p>;
+  if (props.isError) return <p role="alert" className="py-10 text-center text-sm text-red-700">Unable to load PICs.</p>;
   if (props.isEmpty) return <p className="py-10 text-center text-sm text-brand-text-medium">No PICs found.</p>;
 
   return null;
