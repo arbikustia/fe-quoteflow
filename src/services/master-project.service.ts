@@ -1,4 +1,5 @@
 import { apiRtkClient } from "@/libs/ApiRtkServices/apiRtkClient";
+import ENDPOINT from "@/constant/endpoint.const";
 import type { ProjectCreatePayload, ProjectCreateResponse, ProjectData, ProjectListParams, ProjectListResponse } from "@/modules/master-project/MasterProject.type";
 
 /** Map API project model to UI model. */
@@ -15,11 +16,11 @@ export const mapProject = (project: ProjectListResponse["data"][number]): Projec
 export const masterProjectService = apiRtkClient.injectEndpoints({
   endpoints: (builder) => ({
     getProjects: builder.query<ProjectListResponse, ProjectListParams>({
-      query: (params) => ({ url: "/api/project/paged", method: "GET", params: { PageNumber: params.pageNumber, PageSize: params.pageSize, SearchTerm: params.searchTerm } }),
+      query: (params) => ({ url: ENDPOINT.MASTER_PROJECT.PAGED, method: "GET", params: { PageNumber: params.pageNumber, PageSize: params.pageSize, SearchTerm: params.searchTerm } }),
       providesTags: ["Project"],
     }),
     createProject: builder.mutation<ProjectCreateResponse, ProjectCreatePayload>({
-      query: (body) => ({ url: "/api/project", method: "POST", data: body }),
+      query: (body) => ({ url: ENDPOINT.MASTER_PROJECT.CREATE, method: "POST", data: body }),
       invalidatesTags: ["Project"],
     }),
   }),

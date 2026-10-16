@@ -28,14 +28,13 @@ const emptyResponse = {
   data: {
     status: true,
     messages: null,
-    data: {
-      data: [],
-      page_number: 1,
-      total_pages: 1,
-      total_count: 0,
-      has_previous: false,
-      has_next: false,
-    },
+    data: [],
+    page_number: 1,
+    page_size: 10,
+    total_pages: 1,
+    total_count: 0,
+    has_previous: false,
+    has_next: false,
   },
   error: undefined,
   isLoading: false,
@@ -76,6 +75,7 @@ describe("MasterVoucher hook", () => {
         data: [
           { id: "1", name: "Discount", code: "DISC10", discount_percent: 10, status: 1, created_at: "2026-10-13", updated_at: null },
         ],
+        total_count: 1,
       },
     } as ReturnType<typeof useGetVouchersQuery>);
 

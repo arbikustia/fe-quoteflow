@@ -61,8 +61,8 @@ export const getColumns = ({ currentPage, pageSize, onEdit }: GetColumnsParams):
 
   return [
     { key: "no", header: "No", align: "center", render: renderNo },
-    { key: "name", header: "Payment Method" },
-    { key: "description", header: "Description" },
+    { key: "name", header: "Payment Method", mobile: { primary: true } },
+    { key: "description", header: "Description", mobile: { primary: true } },
     { key: "status", header: "Status", align: "center", render: renderStatus },
     { key: "createAt", header: "Created At" },
     { key: "actions", header: "Action", align: "center", render: renderActions },

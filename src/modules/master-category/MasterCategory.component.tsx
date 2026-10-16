@@ -1,109 +1,74 @@
-import type { ChangeEvent, ReactElement } from "react";
+import * as React from "react";
 
-import { Icons } from "@/components/Icons";
-import Table from "@/components/Table";
+import Layout from "../../app/layout";
+import { PageLayout } from "../../app/shared/PageLayout";
+import { Pagination } from "../../components/Pagination";
+import { SearchFilter } from "../../components/SearchFilter";
+import Table from "../../components/Table";
 
-import Layout from "@/app/layout";
-
-import type { MasterCategoryProps } from "./MasterCategory.type";
+import type { CategoryData, MasterCategoryProps } from "./MasterCategory.type";
 
 /**
- * Resolve empty table message.
+ * Render category list state.
  * @param {MasterCategoryProps} props - Component props
- * @returns {string} Empty table message
+ * @returns {React.ReactElement | null} State element
  */
-const _getEmptyText = (props: MasterCategoryProps): string => {
-  const { isMissingData, errorMessage, isEmpty } = props;
+const _renderListState = (props: MasterCategoryProps): React.ReactElement | null => {
+  if (props.isLoading) return <p className="py-10 text-center text-sm text-brand-text-medium">Loading categories…</p>;
+  if (props.isMissingData) return <p className="py-10 text-center text-sm text-red-600">Category data is unavailable. Please try again.</p>;
+  if (props.errorMessage) return <p className="py-10 text-center text-sm text-red-600">{props.errorMessage}</p>;
+  if (props.isEmpty) return <p className="py-10 text-center text-sm text-brand-text-medium">No categories found.</p>;
 
-  if (isMissingData) {
-    return "Category data is unavailable. Please try again.";
-  }
-
-  if (errorMessage) {
-    return errorMessage;
-  }
-
-  if (isEmpty) {
-    return "No categories found.";
-  }
-
-  return "No data available.";
+  return null;
 };
 
 /**
- * Master Category pure UI component.
- * @param {MasterCategoryProps} props - Category props
- * @returns {ReactElement} Category list
+ * Render desktop category table.
+ * @param {MasterCategoryProps} props - Component props
+ * @returns {React.ReactElement} Desktop table
  */
-export const MasterCategoryComponent = (props: MasterCategoryProps): ReactElement => {
-  const {
-    onBack,
-    paginatedData,
-    columns,
-    currentPage,
-    totalPages,
-    goToPage,
-    pageSize,
-    totalCount,
-    changePageSize,
-    onCreate,
-    onRowClick,
-    onMore,
-    isMoreOpen,
-    onCloseMore,
-    onDelete,
-    isLoading,
-    setSearchTerm,
-  } = props;
-  const emptyText = _getEmptyText(props);
-  const handleSearchChange = (event: ChangeEvent<HTMLInputElement>): void => { setSearchTerm(event.target.value); };
-  const handleCreate = (): void => {
-    onCloseMore();
-    onCreate();
-  };
-  const handleDelete = (): void => {
-    onCloseMore();
-    onDelete();
-  };
+const _renderDesktopTable = (props: MasterCategoryProps): React.ReactElement => {
+  const { paginatedData, columns, currentPage, totalPages, goToPage, pageSize, changePageSize, onRowClick, onCreate, setSearchTerm, totalCount } = props;
+  const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>): void => setSearchTerm(event.target.value);
 
   return (
-    <Layout pageTitle="Category list">
-      <div className="relative flex h-full flex-col px-3 pb-18 lg:-mt-4 lg:px-0 lg:pb-0">
-        <div className="relative mb-4 flex items-center justify-between py-2">
-          <button type="button" onClick={onBack} aria-label="Back" className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-border-default bg-background-surface text-text-primary transition-colors hover:bg-background-subtle">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.4} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M19 12H5" /><path d="M12 19 5 12l7-7" /></svg>
-          </button>
-          <h1 className="flex-1 truncate px-2 text-center text-lg font-semibold text-text-primary">Category list</h1>
-          <div className="relative shrink-0">
-            <button type="button" onClick={onMore} aria-label="More options" aria-expanded={isMoreOpen} aria-haspopup="menu" className="flex h-11 w-11 items-center justify-center rounded-full border border-border-default bg-background-surface text-text-primary transition-colors hover:bg-background-subtle">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><circle cx="5" cy="12" r="1.8" /><circle cx="12" cy="12" r="1.8" /><circle cx="19" cy="12" r="1.8" /></svg>
-            </button>
-            {isMoreOpen && (
-              <>
-                <button type="button" aria-label="Close menu" onClick={onCloseMore} className="fixed inset-0 z-10 cursor-default" tabIndex={-1} />
-                <div role="menu" className="absolute right-0 z-20 mt-2 w-52 overflow-hidden rounded-xl border border-border-default bg-background-surface py-2 shadow-medium">
-                  <button role="menuitem" type="button" onClick={handleCreate} className="flex w-full items-center gap-3 px-4 py-3 text-left text-sm font-medium text-text-primary hover:bg-background-subtle">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M12 5v14" /><path d="M5 12h14" /></svg>
-                    New category
-                  </button>
-                  <div className="mx-3 my-1 h-px bg-border-default" role="separator" />
-                  <button role="menuitem" type="button" onClick={handleDelete} className="flex w-full items-center gap-3 px-4 py-3 text-left text-sm font-medium text-red-600 hover:bg-red-50">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><polyline points="3 6 5 6 21 6" /><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" /></svg>
-                    Delete
-                  </button>
-                </div>
-              </>
-            )}
-          </div>
-        </div>
-        <div className="mt-4 flex flex-col gap-4">
-          <div className="relative">
-            <span className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3 text-text-tertiary"><Icons.Search /></span>
-            <input type="search" aria-label="Search category" placeholder="Search category" onChange={handleSearchChange} className="w-full rounded-lg border border-border-strong bg-background-surface py-2 pl-10 pr-4 text-sm text-text-primary outline-none focus:border-border-focus focus:ring-2 focus:ring-focus-ring sm:w-64" />
-          </div>
-          <Table data={paginatedData} columns={columns} onRowClick={onRowClick} keyExtractor={(category) => category.id} currentPage={currentPage} totalPages={totalPages} pageSize={pageSize} totalCount={totalCount} onPageChange={goToPage} onPageSizeChange={changePageSize} emptyText={emptyText} isLoading={isLoading} />
-        </div>
+    <div className="hidden lg:flex rounded-4xl border border-brand-gray-light bg-brand-white px-6 shadow-xs md:flex-1 md:flex-col md:overflow-hidden md:mt-6">
+      <div className="flex items-center justify-between gap-4 border-brand-gray-light py-6">
+        <SearchFilter placeholder="Search category" onChange={handleSearchChange} />
+        <button type="button" onClick={onCreate} className="rounded-xl bg-brand-blue px-5 py-2.5 text-sm font-semibold text-brand-white shadow-sm transition-colors hover:bg-brand-blue/90 focus:outline-none focus:ring-2 focus:ring-brand-blue/30">Create Category</button>
       </div>
+      <div className="flex-1 overflow-auto">
+        {_renderListState(props) ?? <Table data={paginatedData} columns={columns} onRowClick={onRowClick} keyExtractor={(row: CategoryData) => row.id} />}
+      </div>
+      <Pagination currentPage={currentPage} totalPages={totalPages} pageSize={pageSize} onPageChange={goToPage} onPageSizeChange={changePageSize} totalItems={totalCount} />
+    </div>
+  );
+};
+
+/**
+ * Master Category component.
+ * @param {MasterCategoryProps} props - Component props
+ * @returns {React.ReactElement} Category page
+ */
+export const MasterCategoryComponent = (props: MasterCategoryProps): React.ReactElement => {
+  const { paginatedData, columns, currentPage, totalPages, goToPage, pageSize, changePageSize, onRowClick, onCreate, setSearchTerm, totalCount, onBack } = props;
+  const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>): void => setSearchTerm(event.target.value);
+
+  return (
+    <Layout pageTitle="Category List">
+      <PageLayout title="Category List" breadcrumbs={["Master", "Master Category"]} onBack={onBack}>
+        <div className="flex h-full flex-col px-3 pb-18 lg:-mt-4 lg:px-0 lg:pb-0">
+          <div className="flex items-center justify-between gap-3 pt-2 lg:hidden">
+            <div className="flex-1"><SearchFilter placeholder="Search category" onChange={handleSearchChange} /></div>
+            <button type="button" onClick={onCreate} className="shrink-0 rounded-xl bg-brand-blue px-4 py-2.5 text-sm font-semibold text-brand-white">Create Category</button>
+          </div>
+          <div className="mt-3 lg:hidden">
+            {_renderListState(props) ?? <Table data={paginatedData} columns={columns} onRowClick={onRowClick} keyExtractor={(row: CategoryData) => row.id} />}
+            <Pagination currentPage={currentPage} totalPages={totalPages} pageSize={pageSize} onPageChange={goToPage} onPageSizeChange={changePageSize} totalItems={totalCount} className="mt-2 w-full rounded-2xl border border-border-default bg-background-surface px-4 py-3 shadow-xs" />
+          </div>
+          {_renderDesktopTable(props)}
+        </div>
+      </PageLayout>
     </Layout>
   );
 };

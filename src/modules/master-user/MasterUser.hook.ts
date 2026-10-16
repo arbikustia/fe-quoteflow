@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { MOCK_USERS } from "../../fixture/master-user";
@@ -63,7 +63,14 @@ export const useMasterUserNavigation = (): MasterUserNavigation => {
  */
 export const useMasterUserContainerState = (): MasterUserContainerState => {
   const navigation = useMasterUserNavigation();
-  const pagination = usePagination(MOCK_USERS);
+  const [searchTerm, setSearchTerm] = useState("");
+  const filteredUsers = useMemo(() => MOCK_USERS.filter((user) => `${user.username} ${user.role}`.toLowerCase().includes(searchTerm.toLowerCase())), [searchTerm]);
+  const basePagination = usePagination(filteredUsers);
+  const pagination = {
+    ...basePagination,
+    isEmpty: filteredUsers.length === 0,
+    setSearchTerm: (value: string): void => { setSearchTerm(value); },
+  };
   const [isMoreOpen, setIsMoreOpen] = useState(false);
 
   /**

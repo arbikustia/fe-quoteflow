@@ -61,7 +61,7 @@ export const getColumns = ({ currentPage, pageSize, onEdit }: GetColumnsParams):
 
   return [
     { key: "no", header: "No", align: "center", render: renderNo },
-    { key: "name", header: "PIC Name" },
+    { key: "name", header: "PIC Name", mobile: { primary: true } },
     { key: "status", header: "Status", align: "center", render: renderStatus },
     { key: "createAt", header: "Created At" },
     { key: "actions", header: "Action", align: "center", render: renderActions },

@@ -1,4 +1,5 @@
 import { apiRtkClient } from "@/libs/ApiRtkServices/apiRtkClient";
+import ENDPOINT from "@/constant/endpoint.const";
 import type { RoleCreatePayload, RoleCreateResponse, RoleData, RoleListParams, RoleListResponse } from "@/modules/master-role/MasterRole.type";
 
 /** Map API role model to UI model. */
@@ -12,8 +13,8 @@ export const mapRole = (role: RoleListResponse["data"][number]): RoleData => ({
 
 export const masterRoleService = apiRtkClient.injectEndpoints({
   endpoints: (builder) => ({
-    getRoles: builder.query<RoleListResponse, RoleListParams>({ query: (params) => ({ url: "/api/role/list-role", method: "GET", params: { page_number: params.pageNumber, page_size: params.pageSize, search_term: params.searchTerm } }), providesTags: ["Role"] }),
-    createRole: builder.mutation<RoleCreateResponse, RoleCreatePayload>({ query: (body) => ({ url: "/api/role", method: "POST", data: body }), invalidatesTags: ["Role"] }),
+    getRoles: builder.query<RoleListResponse, RoleListParams>({ query: (params) => ({ url: ENDPOINT.MASTER_ROLE.LIST, method: "GET", params: { PageNumber: params.pageNumber, PageSize: params.pageSize, SearchTerm: params.searchTerm } }), providesTags: ["Role"] }),
+    createRole: builder.mutation<RoleCreateResponse, RoleCreatePayload>({ query: (body) => ({ url: ENDPOINT.MASTER_ROLE.CREATE, method: "POST", data: body }), invalidatesTags: ["Role"] }),
   }),
   overrideExisting: false,
 });

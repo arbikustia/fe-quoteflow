@@ -10,22 +10,23 @@ import { useMasterItemContainerState } from "./MasterItem.hook";
  */
 const MasterItemContainer = (): React.ReactElement => {
   const containerState = useMasterItemContainerState();
+  const navigation = containerState;
+  const pagination = containerState.pagination;
 
   const columns = getColumns({
-    currentPage: containerState.pagination.currentPage,
-    pageSize: containerState.pagination.pageSize,
-    onEdit: containerState.goEdit,
-    onConfirm: containerState.handleConfirm,
+    currentPage: pagination.currentPage,
+    pageSize: pagination.pageSize,
+    onEdit: navigation.goEdit,
   });
 
   return (
     <MasterItemComponent
-      {...containerState.pagination}
+      {...pagination}
       columns={columns}
-      onBack={containerState.goBack}
-      onCreate={containerState.goCreate}
-      onEdit={containerState.goEdit}
-      onRowClick={containerState.goDetail}
+      onBack={navigation.goBack}
+      onCreate={navigation.goCreate}
+      onEdit={navigation.goEdit}
+      onRowClick={navigation.goDetail}
       onMore={containerState.toggleMore}
       isMoreOpen={containerState.isMoreOpen}
       onCloseMore={containerState.handleCloseMore}

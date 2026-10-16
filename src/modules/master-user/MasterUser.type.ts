@@ -43,18 +43,22 @@ export type MasterUserNavigation = {
 };
 
 /** Container state hook return type */
+export type MasterUserPagination = {
+  readonly currentPage: number;
+  readonly totalPages: number;
+  readonly pageSize: number;
+  readonly paginatedData: readonly UserData[];
+  readonly goToPage: (page: number) => void;
+  readonly nextPage: () => void;
+  readonly prevPage: () => void;
+  readonly changePageSize: (size: number) => void;
+  readonly totalCount: number;
+  readonly isEmpty: boolean;
+  readonly setSearchTerm: (searchTerm: string) => void;
+};
+
 export type MasterUserContainerState = MasterUserNavigation & {
-  readonly pagination: {
-    readonly currentPage: number;
-    readonly totalPages: number;
-    readonly pageSize: number;
-    readonly paginatedData: readonly UserData[];
-    readonly goToPage: (page: number) => void;
-    readonly nextPage: () => void;
-    readonly prevPage: () => void;
-    readonly changePageSize: (size: number) => void;
-    readonly totalCount: number;
-  };
+  readonly pagination: MasterUserPagination;
   readonly isMoreOpen: boolean;
   readonly toggleMore: () => void;
   readonly goDelete: () => void;

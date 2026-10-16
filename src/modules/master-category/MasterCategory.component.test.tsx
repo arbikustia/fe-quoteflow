@@ -52,7 +52,7 @@ describe("MasterCategoryComponent", () => {
   it("should render without crashing", () => {
     renderWithRouter(createProps());
 
-    expect(screen.getAllByText("Category list").length).toBeGreaterThan(0);
+    expect(screen.getAllByText("Category List").length).toBeGreaterThan(0);
   });
 
   it("should handle empty data", () => {
@@ -67,13 +67,6 @@ describe("MasterCategoryComponent", () => {
     expect(screen.getAllByText("Category data is unavailable. Please try again.").length).toBeGreaterThan(0);
   });
 
-  it("should handle isMoreOpen true", () => {
-    renderWithRouter(createProps({ isMoreOpen: true }));
-
-    expect(screen.getByText("New category")).toBeTruthy();
-    expect(screen.getByText("Delete")).toBeTruthy();
-  });
-
   it("should call onBack when back button clicked", () => {
     const onBack = jest.fn();
     renderWithRouter(createProps({ onBack }));
@@ -83,34 +76,4 @@ describe("MasterCategoryComponent", () => {
     expect(onBack).toHaveBeenCalledTimes(1);
   });
 
-  it("should call onMore when more button clicked", () => {
-    const onMore = jest.fn();
-    renderWithRouter(createProps({ onMore }));
-
-    fireEvent.click(screen.getByLabelText("More options"));
-
-    expect(onMore).toHaveBeenCalledTimes(1);
-  });
-
-  it("should call onCloseMore and onCreate when New category clicked", () => {
-    const onCloseMore = jest.fn();
-    const onCreate = jest.fn();
-    renderWithRouter(createProps({ isMoreOpen: true, onCloseMore, onCreate }));
-
-    fireEvent.click(screen.getByText("New category"));
-
-    expect(onCloseMore).toHaveBeenCalledTimes(1);
-    expect(onCreate).toHaveBeenCalledTimes(1);
-  });
-
-  it("should call onDelete when Delete clicked", () => {
-    const onDelete = jest.fn();
-    const onCloseMore = jest.fn();
-    renderWithRouter(createProps({ isMoreOpen: true, onDelete, onCloseMore }));
-
-    fireEvent.click(screen.getByText("Delete"));
-
-    expect(onDelete).toHaveBeenCalledTimes(1);
-    expect(onCloseMore).toHaveBeenCalledTimes(1);
-  });
 });

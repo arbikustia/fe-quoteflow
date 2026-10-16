@@ -11,7 +11,7 @@ exports[`MasterCustomerDetailComponent should match snapshot for default state 1
       <aside
         aria-label="Sidebar"
         class="w-[290px] h-full min-h-0 self-stretch bg-sidebar-background border border-border-default flex flex-col shrink-0 overflow-hidden transition-[width] duration-[250ms] ease-in-out"
-        style="border-radius: 12px;"
+        style="border-radius: 0;"
       >
         <div
           class="h-[56px] mb-16 flex items-center shrink-0 px-4"
@@ -35,6 +35,51 @@ exports[`MasterCustomerDetailComponent should match snapshot for default state 1
               aria-label="Menu"
               class="space-y-1"
             >
+              <a
+                class="h-9 flex items-center gap-3 rounded-[6px] px-3 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring/30 text-text-secondary hover:bg-background-elevated hover:text-text-primary"
+                data-discover="true"
+                href="/order"
+              >
+                <span
+                  class="shrink-0 [&_svg]:h-5 [&_svg]:w-5 text-text-tertiary"
+                >
+                  <svg
+                    fill="none"
+                    height="20"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="1.8"
+                    viewBox="0 0 24 24"
+                    width="20"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"
+                    />
+                    <polyline
+                      points="14 2 14 8 20 8"
+                    />
+                    <line
+                      x1="16"
+                      x2="8"
+                      y1="13"
+                      y2="13"
+                    />
+                    <line
+                      x1="16"
+                      x2="8"
+                      y1="17"
+                      y2="17"
+                    />
+                  </svg>
+                </span>
+                <span
+                  class="flex-1 truncate text-lg leading-none font-normal"
+                >
+                  Order
+                </span>
+              </a>
               <div>
                 <button
                   aria-expanded="false"

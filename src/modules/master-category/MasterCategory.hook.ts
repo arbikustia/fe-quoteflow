@@ -49,31 +49,12 @@ const _deriveCategoryListState = (queryResult: ReturnType<typeof useGetCategorie
 
   if (!response) return _createMissingResponseState();
 
-  if (!response.status) {
-    return _createEnvelopeErrorState(response.messages);
-  }
-
   const categoryList = response.data;
 
   if (!categoryList) return _createMissingPayloadState();
 
   return _createSuccessState(categoryList.map(mapCategory), response.total_pages, response.total_count);
 };
-
-/**
- * Create envelope error state.
- * @param {ApiMessages} messages - Backend messages
- * @returns {CategoryListApiState} Envelope error state
- */
-const _createEnvelopeErrorState = (messages: string[] | string | null): CategoryListApiState => ({
-  isLoading: false,
-  errorMessage: Array.isArray(messages) ? messages.join(" ") : (messages ?? "Category request failed."),
-  isEnvelopeError: true,
-  isMissingData: false,
-  paginatedData: [],
-  totalPages: 0,
-  totalCount: 0,
-});
 
 /**
  * Create loading state.
@@ -160,12 +141,8 @@ export const useMasterCategoryPagination = (): MasterCategoryPagination => {
   const derived = _deriveCategoryListState(queryResult);
 
   const goToPage = (page: number): void => setCurrentPage(Math.max(1, Math.min(page, derived.totalPages)));
-  const nextPage = (): void => {
-    if (!derived.isLoading && !derived.errorMessage && queryResult.data?.has_next) goToPage(currentPage + 1);
-  };
-  const prevPage = (): void => {
-    if (!derived.isLoading && !derived.errorMessage && queryResult.data?.has_previous) goToPage(currentPage - 1);
-  };
+  const nextPage = (): void => { if (!derived.isLoading && !derived.errorMessage && derived.paginatedData.length > 0 && queryResult.data?.has_next) goToPage(currentPage + 1); };
+  const prevPage = (): void => { if (!derived.isLoading && !derived.errorMessage && derived.paginatedData.length > 0 && queryResult.data?.has_previous) goToPage(currentPage - 1); };
   const changePageSize = (size: number): void => { setPageSize(size); setCurrentPage(1); };
   const handleSearchTerm = (value: string): void => { setSearchTerm(value); setCurrentPage(1); };
 

@@ -1,4 +1,5 @@
 import { apiRtkClient } from "@/libs/ApiRtkServices/apiRtkClient";
+import ENDPOINT from "@/constant/endpoint.const";
 import type { ServiceTypeCreatePayload, ServiceTypeCreateResponse, ServiceTypeData, ServiceTypeListParams, ServiceTypeListResponse } from "@/modules/master-service-type/MasterServiceType.type";
 
 /** Map API service type model to UI model. */
@@ -14,8 +15,8 @@ export const mapServiceType = (serviceType: ServiceTypeListResponse["data"][numb
 
 export const masterServiceTypeService = apiRtkClient.injectEndpoints({
   endpoints: (builder) => ({
-    getServiceTypes: builder.query<ServiceTypeListResponse, ServiceTypeListParams>({ query: (params) => ({ url: "/api/service-type/paged", method: "GET", params: { PageNumber: params.pageNumber, PageSize: params.pageSize, SearchTerm: params.searchTerm } }), providesTags: ["ServiceType"] }),
-    createServiceType: builder.mutation<ServiceTypeCreateResponse, ServiceTypeCreatePayload>({ query: (body) => ({ url: "/api/service-type", method: "POST", data: body }), invalidatesTags: ["ServiceType"] }),
+    getServiceTypes: builder.query<ServiceTypeListResponse, ServiceTypeListParams>({ query: (params) => ({ url: ENDPOINT.MASTER_SERVICE_TYPE.PAGED, method: "GET", params: { PageNumber: params.pageNumber, PageSize: params.pageSize, SearchTerm: params.searchTerm } }), providesTags: ["ServiceType"] }),
+    createServiceType: builder.mutation<ServiceTypeCreateResponse, ServiceTypeCreatePayload>({ query: (body) => ({ url: ENDPOINT.MASTER_SERVICE_TYPE.CREATE, method: "POST", data: body }), invalidatesTags: ["ServiceType"] }),
   }),
   overrideExisting: false,
 });

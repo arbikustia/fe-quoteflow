@@ -260,7 +260,9 @@ const useOrderTabs = (): { activeTab: TabType, setActiveTab: (t: TabType) => voi
 const DesktopOrderContainer = (): React.ReactElement => {
   const state = useDesktopOrderState();
   const { activeTab, setActiveTab, statusCounts, filteredQuotes } = useOrderTabs();
-  const pagination = usePagination(filteredQuotes);
+  const [searchTerm, setSearchTerm] = React.useState("");
+  const searchedQuotes = React.useMemo(() => filteredQuotes.filter((quote) => `${quote.name} ${quote.location}`.toLowerCase().includes(searchTerm.toLowerCase())), [filteredQuotes, searchTerm]);
+  const pagination = usePagination(searchedQuotes);
 
   const columns = React.useMemo(() => getColumns({
     currentPage: pagination.currentPage,
@@ -279,6 +281,7 @@ const DesktopOrderContainer = (): React.ReactElement => {
       setActiveTab={setActiveTab}
       statusCounts={statusCounts}
       TABS={TABS}
+      setSearchTerm={setSearchTerm}
       columns={columns}
     />
   );

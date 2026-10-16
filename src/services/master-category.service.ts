@@ -1,4 +1,6 @@
 import { apiRtkClient } from "@/libs/ApiRtkServices/apiRtkClient";
+
+import ENDPOINT from "@/constant/endpoint.const";
 import type {
   CategoryAllResponse,
   CategoryCreatePayload,
@@ -30,7 +32,7 @@ export const masterCategoryService = apiRtkClient.injectEndpoints({
   endpoints: (builder) => ({
     getCategories: builder.query<CategoryListResponse, CategoryListParams>({
       query: (params) => ({
-        url: "/api/category/paged",
+        url: ENDPOINT.MASTER_CATEGORY.PAGED,
         method: "GET",
         params: {
           PageNumber: params.pageNumber,
@@ -45,7 +47,7 @@ export const masterCategoryService = apiRtkClient.injectEndpoints({
       CategoryCreatePayload
     >({
       query: (body) => ({
-        url: "/api/category",
+        url: ENDPOINT.MASTER_CATEGORY.CREATE,
         method: "POST",
         data: body,
       }),
@@ -53,7 +55,7 @@ export const masterCategoryService = apiRtkClient.injectEndpoints({
     }),
     getAllCategories: builder.query<CategoryAllResponse, void>({
       query: () => ({
-        url: "/api/category/get-all-category",
+        url: ENDPOINT.MASTER_CATEGORY.ALL,
         method: "GET",
       }),
       providesTags: [CATEGORY_TAG],

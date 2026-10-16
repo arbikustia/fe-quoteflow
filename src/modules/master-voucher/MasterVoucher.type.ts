@@ -96,6 +96,7 @@ export type MasterVoucherPagination = {
   readonly nextPage: () => void;
   readonly prevPage: () => void;
   readonly changePageSize: (size: number) => void;
+  readonly setSearchTerm: (searchTerm: string) => void;
 };
 
 export type MasterVoucherContainerState = MasterVoucherNavigation & {
@@ -117,6 +118,7 @@ export type MasterVoucherProps = {
   readonly nextPage: () => void;
   readonly prevPage: () => void;
   readonly changePageSize: (size: number) => void;
+  readonly setSearchTerm: (searchTerm: string) => void;
   readonly isLoading: boolean;
   readonly errorMessage: string | null;
   readonly isEmpty: boolean;

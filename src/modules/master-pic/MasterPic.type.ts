@@ -13,8 +13,13 @@ export type MasterPicNavigation = {
   readonly goDetail: (pic: PicData) => void;
 };
 
+export type MasterPicPagination = PaginationResult<PicData> & {
+  readonly isEmpty: boolean;
+  readonly setSearchTerm: (searchTerm: string) => void;
+};
+
 export type MasterPicContainerState = {
-  readonly pagination: PaginationResult<PicData>;
+  readonly pagination: MasterPicPagination;
   readonly isMoreOpen: boolean;
   readonly toggleMore: () => void;
   readonly goDelete: () => void;
@@ -31,6 +36,8 @@ export type MasterPicProps = {
   readonly prevPage: () => void;
   readonly changePageSize: (size: number) => void;
   readonly totalCount: number;
+  readonly isEmpty: boolean;
+  readonly setSearchTerm: (searchTerm: string) => void;
   readonly columns: TableColumn<PicData>[];
   readonly onCreate: () => void;
   readonly onEdit: (pic: PicData) => void;

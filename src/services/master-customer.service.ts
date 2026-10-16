@@ -1,5 +1,6 @@
 import { apiRtkClient } from "@/libs/ApiRtkServices/apiRtkClient";
 
+import ENDPOINT from "@/constant/endpoint.const";
 import type {
   ApiCustomer,
   CustomerCreatePayload,
@@ -16,9 +17,7 @@ const CUSTOMER_TAG = "Customer";
  * @param {ApiCustomer} customer - API customer model
  * @returns {CustomerData} Customer UI model
  */
-export const mapCustomer = (
-  customer: ApiCustomer,
-): CustomerData => ({
+export const mapCustomer = (customer: ApiCustomer): CustomerData => ({
   id: customer.id,
   name: customer.name,
   address: customer.address ?? "",
@@ -32,7 +31,7 @@ export const masterCustomerService = apiRtkClient.injectEndpoints({
   endpoints: (builder) => ({
     getCustomers: builder.query<CustomerListResponse, CustomerListParams>({
       query: (params) => ({
-        url: "/api/customer/paged",
+        url: ENDPOINT.MASTER_CUSTOMER.PAGED,
         method: "GET",
         params: {
           PageNumber: params.pageNumber,
@@ -46,7 +45,11 @@ export const masterCustomerService = apiRtkClient.injectEndpoints({
       CustomerCreateResponse,
       CustomerCreatePayload
     >({
-      query: (body) => ({ url: "/api/customer", method: "POST", data: body }),
+      query: (body) => ({
+        url: ENDPOINT.MASTER_CUSTOMER.CREATE,
+        method: "POST",
+        data: body,
+      }),
       invalidatesTags: [CUSTOMER_TAG],
     }),
   }),

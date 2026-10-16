@@ -1,7 +1,7 @@
 import type * as React from "react";
 
 import type { TableColumn } from "../../components/Table";
-import type { ApiEnvelope } from "../../types/api.type";
+import type { ApiEnvelope, PaginatedResponse } from "../../types/api.type";
 
 export type ApiCategory = {
   readonly id: string;
@@ -12,17 +12,7 @@ export type ApiCategory = {
   readonly updated_at: string | null;
 };
 
-export type CategoryListResponse = {
-  readonly status: boolean;
-  readonly messages: string[] | string | null;
-  readonly data: ApiCategory[];
-  readonly page_number: number;
-  readonly total_pages: number;
-  readonly page_size: number;
-  readonly total_count: number;
-  readonly has_previous: boolean;
-  readonly has_next: boolean;
-};
+export type CategoryListResponse = PaginatedResponse<ApiCategory>;
 export type CategoryCreateResponse = ApiEnvelope<ApiCategory | null>;
 
 export type CategoryListParams = {

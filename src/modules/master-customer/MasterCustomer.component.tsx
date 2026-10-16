@@ -2,24 +2,12 @@ import * as React from "react";
 
 import Layout from "../../app/layout";
 import { PageLayout } from "../../app/shared/PageLayout";
-import type { MobileListItemProps } from "../../components/MobileList";
-import { MobileList } from "../../components/MobileList";
 import { Pagination } from "../../components/Pagination";
 import { SearchFilter } from "../../components/SearchFilter";
 import Table from "../../components/Table";
 
+import { CustomerMobileCard } from "./CustomerMobileCard.helpers";
 import type { CustomerData, MasterCustomerProps } from "./MasterCustomer.type";
-
-/**
- * Render status badge
- * @param {CustomerData} row - The row data
- * @returns {React.ReactElement} The status badge element
- */
-const _renderStatusBadge = (row: CustomerData): React.ReactElement => (
-  <span className={`inline-flex items-center rounded-full px-3 py-1 text-sm font-medium whitespace-nowrap ${row.status === "active" ? "bg-green-100 text-green-700" : "bg-red-100 text-red-700"}`}>
-    {row.status}
-  </span>
-);
 
 /**
  * Render loading, empty, and error states.
@@ -46,7 +34,7 @@ const _renderListState = (props: MasterCustomerProps): React.ReactElement | null
  * @returns {React.ReactElement} The desktop table element
  */
 const _renderDesktopTable = (props: MasterCustomerProps): React.ReactElement => {
-  const { paginatedData, columns, currentPage, totalPages, goToPage, pageSize, changePageSize, onRowClick, onCreate, setSearchTerm } = props;
+  const { paginatedData, columns, currentPage, totalPages, goToPage, pageSize, changePageSize, onRowClick, onCreate, setSearchTerm, totalCount } = props;
 
   /**
    * Handle search input change
@@ -70,19 +58,48 @@ const _renderDesktopTable = (props: MasterCustomerProps): React.ReactElement => 
       <div className="flex-1 overflow-auto">
         {_renderListState(props) ?? <Table data={paginatedData} columns={columns} onRowClick={onRowClick} keyExtractor={(r: CustomerData) => r.id} />}
       </div>
-      <Pagination currentPage={currentPage} totalPages={totalPages} pageSize={pageSize} onPageChange={goToPage} onPageSizeChange={changePageSize} />
+      <Pagination currentPage={currentPage} totalPages={totalPages} pageSize={pageSize} onPageChange={goToPage} onPageSizeChange={changePageSize} totalItems={totalCount} />
     </div>
   );
 };
 
 /**
- * Render mobile list view
+ * Render mobile customer cards list view
  * @param {MasterCustomerProps} props - The component props
  * @returns {React.ReactElement} The mobile list element
  */
-const _renderMobileList = (props: MasterCustomerProps): React.ReactElement => {
-  const { paginatedData, currentPage, totalPages, goToPage, pageSize, changePageSize, onRowClick, setSearchTerm } = props;
+const _renderMobileCards = (props: MasterCustomerProps): React.ReactElement => {
+  const { paginatedData, currentPage, totalPages, goToPage, pageSize, changePageSize, onRowClick, onCreate, setSearchTerm, totalCount, onEdit } = props;
 
+  return (
+    <div className="lg:hidden flex min-w-0 flex-col gap-4 pt-2 pb-16">
+      {_renderMobileToolbar(onCreate, setSearchTerm)}
+      <div className="min-w-0 space-y-3">
+        {_renderListState(props) ?? paginatedData.map((customer) => (
+          <CustomerMobileCard key={customer.id} customer={customer} onRowClick={onRowClick} onEdit={onEdit} />
+        ))}
+      </div>
+      <Pagination
+        currentPage={currentPage}
+        totalPages={totalPages}
+        pageSize={pageSize}
+        onPageChange={goToPage}
+        onPageSizeChange={changePageSize}
+        totalItems={totalCount}
+        isCompact={true}
+        className="w-full rounded-2xl border border-border-default bg-background-surface px-4 py-3 shadow-xs mt-2"
+      />
+    </div>
+  );
+};
+
+/**
+ * Render mobile search and create controls.
+ * @param {MasterCustomerProps["onCreate"]} onCreate - Create callback
+ * @param {MasterCustomerProps["setSearchTerm"]} setSearchTerm - Search callback
+ * @returns {React.ReactElement} Toolbar node
+ */
+const _renderMobileToolbar = (onCreate: MasterCustomerProps["onCreate"], setSearchTerm: MasterCustomerProps["setSearchTerm"]): React.ReactElement => {
   /**
    * Handle search input change
    * @param {React.ChangeEvent<HTMLInputElement>} event - The change event
@@ -90,35 +107,14 @@ const _renderMobileList = (props: MasterCustomerProps): React.ReactElement => {
    */
   const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>): void => setSearchTerm(event.target.value);
 
-  /**
-   * Get mobile list data
-   * @returns {MobileListItemProps[]} The formatted mobile list data
-   */
-  const getMobileListData = (): MobileListItemProps[] => paginatedData.map((row) => ({
-    title: row.name,
-    meta: row.address,
-    hideImage: true,
-    titleClassName: "text-xl font-semibold text-brand-text-dark leading-snug truncate",
-    metaClassName: "text-base font-normal text-brand-text-medium/80 truncate",
-    badge: _renderStatusBadge(row),
-    /**
-     * Handle row click
-     * @returns {void}
-     */
-    onClick: (): void => onRowClick(row),
-  }));
-
   return (
-    <div className="md:hidden space-y-6 mt-10">
-      <div className="p-4">
+    <div className="flex w-full items-center justify-between gap-3 bg-transparent">
+      <div className="flex-1">
         <SearchFilter placeholder="Search customer" onChange={handleSearchChange} />
       </div>
-      <div className="scale-100 origin-top">
-        {_renderListState(props) ?? <MobileList data={getMobileListData()} />}
-      </div>
-      <div className="pt-4 flex items-center justify-between">
-        <Pagination currentPage={currentPage} totalPages={totalPages} pageSize={pageSize} onPageChange={goToPage} onPageSizeChange={changePageSize} />
-      </div>
+      <button type="button" onClick={onCreate} className="shrink-0 rounded-xl bg-brand-blue px-4 py-2.5 text-sm font-semibold text-brand-white shadow-sm hover:bg-brand-blue/90 transition-colors">
+        Create Customer
+      </button>
     </div>
   );
 };
@@ -139,7 +135,7 @@ export const MasterCustomerComponent = (props: MasterCustomerProps): React.React
         onBack={onBack}
       >
         <div className="flex flex-col h-full pb-18 lg:pb-0 px-3 lg:px-0 lg:-mt-4 relative">
-          {_renderMobileList(props)}
+          {_renderMobileCards(props)}
           {_renderDesktopTable(props)}
         </div>
       </PageLayout>

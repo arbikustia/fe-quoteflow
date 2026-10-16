@@ -8,8 +8,12 @@ jest.mock("../../components/Pagination", () => ({
   Pagination: () => <div data-testid="pagination" />,
 }));
 jest.mock("react-icons/fi", () => ({
+  FiChevronRight: () => <div data-testid="chevron-right-icon" />,
   FiEdit2: () => <div data-testid="edit-icon" />,
+  FiMapPin: () => <div data-testid="map-pin-icon" />,
+  FiPhone: () => <div data-testid="phone-icon" />,
   FiSearch: () => <div data-testid="search-icon" />,
+  FiUser: () => <div data-testid="user-icon" />,
 }));
 jest.mock("../../components/Icons", () => ({
   Icons: {
@@ -36,6 +40,11 @@ describe("MasterCustomer Component", () => {
       { key: "actions", header: "Action" },
     ],
     isMoreOpen: false,
+    isLoading: false,
+    errorMessage: null,
+    isEmpty: false,
+    isMissingData: false,
+    setSearchTerm: jest.fn(),
     goToPage: jest.fn(),
     nextPage: jest.fn(),
     prevPage: jest.fn(),

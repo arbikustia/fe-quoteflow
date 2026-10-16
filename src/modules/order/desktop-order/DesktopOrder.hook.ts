@@ -134,6 +134,10 @@ export const useDesktopOrderState = (): BaseDesktopOrderState => {
     navigate("/order/create");
   };
 
+  const onBack = (): void => {
+    void navigate(-1);
+  };
+
   /**
    * Handle open edit modal
    * @param {QuoteData} quote - current quote
@@ -147,6 +151,7 @@ export const useDesktopOrderState = (): BaseDesktopOrderState => {
     ...viewState,
     ...confirmState,
     openCreateModal,
+    onBack,
     openEditModal,
   };
 };

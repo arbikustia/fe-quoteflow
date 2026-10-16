@@ -2,13 +2,13 @@ import { fireEvent, render, screen } from "@testing-library/react";
 import { BrowserRouter, MemoryRouter } from "react-router-dom";
 import { getColumns } from "./MasterItem.columns";
 import MasterItemContainer from "./MasterItem.container";
-import { useGetItemsQuery } from "./MasterItem.api";
+import { useGetItemsQuery } from "@/services/master-item.service";
 import type { ItemData } from "./MasterItem.type";
 
-jest.mock("./MasterItem.api", () => ({
+jest.mock("@/services/master-item.service", () => ({
   useGetItemsQuery: jest.fn(),
   useCreateItemMutation: jest.fn(),
-  _mapItem: (item: {
+  mapItem: (item: {
     readonly id: string;
     readonly name: string;
     readonly category_id: string | null;
@@ -38,8 +38,6 @@ jest.mock("./MasterItem.api", () => ({
 
 const mockQueryResult = {
   data: {
-    status: true,
-    messages: null,
     data: [
       {
         id: "1",
@@ -78,7 +76,7 @@ describe("MasterItem Container", () => {
       </BrowserRouter>,
     );
 
-    expect(screen.getAllByText("Line Array Speaker")).toHaveLength(2);
+    expect(screen.getAllByText("Line Array Speaker")).toHaveLength(3);
     expect(useGetItemsQuery).toHaveBeenCalledWith({
       pageNumber: 1,
       pageSize: 10,
@@ -97,7 +95,7 @@ describe("MasterItem Container", () => {
       </BrowserRouter>,
     );
 
-    fireEvent.change(screen.getByPlaceholderText("Search item"), {
+    fireEvent.change(screen.getAllByPlaceholderText("Search item")[0], {
       target: { value: "speaker" },
     });
 
@@ -111,7 +109,6 @@ describe("MasterItem Container", () => {
 
 describe("getColumns", () => {
   const mockOnEdit = jest.fn();
-  const mockOnConfirm = jest.fn();
   const base: ItemData = {
     id: "1",
     name: "Speaker",
@@ -144,7 +141,6 @@ describe("getColumns", () => {
       currentPage: 1,
       pageSize: 5,
       onEdit: mockOnEdit,
-      onConfirm: mockOnConfirm,
     });
     expect(cols).toHaveLength(10);
     expect(cols.map((c) => c.key)).toEqual([
@@ -166,7 +162,6 @@ describe("getColumns", () => {
       currentPage: 2,
       pageSize: 5,
       onEdit: mockOnEdit,
-      onConfirm: mockOnConfirm,
     });
     const noCol = cols.find((c) => c.key === "no")!;
     const el = (noCol.render as any)(base, 0) as any;
@@ -182,7 +177,6 @@ describe("getColumns", () => {
       currentPage: 1,
       pageSize: 5,
       onEdit: mockOnEdit,
-      onConfirm: mockOnConfirm,
     });
     const statusCol = cols.find((c) => c.key === "status")!;
     const activeEl = (statusCol.render as any)(base) as any;
@@ -200,7 +194,6 @@ describe("getColumns", () => {
       currentPage: 1,
       pageSize: 5,
       onEdit: mockOnEdit,
-      onConfirm: mockOnConfirm,
     });
     const priceCol = cols.find((c) => c.key === "price")!;
     expect((priceCol.render as any)(base)).toBe(
@@ -210,17 +203,13 @@ describe("getColumns", () => {
 
   it("actions column calls onEdit with stopPropagation", () => {
     const onEdit = jest.fn();
-    const onConfirm = jest.fn();
-    const cols = getColumns({ currentPage: 1, pageSize: 5, onEdit, onConfirm });
+    const cols = getColumns({ currentPage: 1, pageSize: 5, onEdit });
     const actionsCol = cols.find((c) => c.key === "actions")!;
     const el = (actionsCol.render as any)(base) as any;
     const { container } = render(<MemoryRouter>{el}</MemoryRouter>);
-    const btns = container.querySelectorAll("button");
-    expect(btns.length).toBe(2);
-    fireEvent.click(btns[0]);
+    const button = container.querySelector("button")!;
+    fireEvent.click(button);
     expect(onEdit).toHaveBeenCalledWith(base);
-    fireEvent.click(btns[1]);
-    expect(onConfirm).toHaveBeenCalledWith(base);
   });
 
   it("image column renders img", () => {
@@ -228,7 +217,6 @@ describe("getColumns", () => {
       currentPage: 1,
       pageSize: 5,
       onEdit: mockOnEdit,
-      onConfirm: mockOnConfirm,
     });
     const imgCol = cols.find((c) => c.key === "image")!;
     const el = (imgCol.render as any)(base) as any;

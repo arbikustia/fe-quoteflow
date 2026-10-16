@@ -1,14 +1,14 @@
 import { act, renderHook } from "@testing-library/react";
 
-import { useGetItemsQuery } from "./MasterItem.api";
+import { useGetItemsQuery } from "@/services/master-item.service";
 import { useMasterItemContainerState, useMasterItemNavigation, useMasterItemState } from "./MasterItem.hook";
 import type { ItemData } from "./MasterItem.type";
 
 const mockNavigate = jest.fn();
 const mockedGetItemsQuery = jest.mocked(useGetItemsQuery);
 
-jest.mock("./MasterItem.api", () => ({
-  _mapItem: (item: {
+jest.mock("@/services/master-item.service", () => ({
+  mapItem: (item: {
     readonly id: string;
     readonly name: string;
     readonly category_id: string | null;
@@ -34,6 +34,7 @@ jest.mock("./MasterItem.api", () => ({
     createBy: item.created_by ?? "",
   }),
   useGetItemsQuery: jest.fn(),
+  useCreateItemMutation: jest.fn(),
 }));
 
 jest.mock("react-router-dom", () => ({

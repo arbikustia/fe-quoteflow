@@ -68,7 +68,7 @@ const _getBasicColumns = (currentPage: number, pageSize: number): TableColumn<Us
       align: "center",
       render: renderNoWrapper,
     },
-    { key: "username", header: "Username" },
+    { key: "username", header: "Username", mobile: { primary: true } },
     {
       key: "role",
       header: "Role",

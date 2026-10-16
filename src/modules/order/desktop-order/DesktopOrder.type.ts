@@ -31,6 +31,7 @@ export type BaseDesktopOrderState = {
   openConfirmModal: (quote: QuoteData) => void;
   closeConfirmModal: () => void;
   onConfirmDelete: () => void;
+  onBack: () => void;
 };
 
 export type OrderTabsProps = {
@@ -44,6 +45,7 @@ export type OrderToolbarProps = {
   pageSize: number;
   totalCount: number;
   changePageSize: (size: number) => void;
+  setSearchTerm: (searchTerm: string) => void;
 };
 
 export type OrderHeaderProps = {
@@ -69,7 +71,7 @@ export type GetColumnsParams = {
   openConfirmModal: (quote: QuoteData) => void;
 };
 
-export type DesktopOrderProps = BaseDesktopOrderState & OrderTabsProps & {
+export type DesktopOrderProps = BaseDesktopOrderState & OrderTabsProps & OrderToolbarProps & {
   columns: TableColumn<QuoteData>[];
   paginatedData: QuoteData[];
   currentPage: number;

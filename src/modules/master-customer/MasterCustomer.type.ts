@@ -30,6 +30,12 @@ export type CustomerData = {
   readonly createBy: string;
 };
 
+export type CustomerMobileCardProps = {
+  readonly customer: CustomerData;
+  readonly onRowClick: (customer: CustomerData) => void;
+  readonly onEdit: (customer: CustomerData) => void;
+};
+
 export type CustomerListApiState = {
   readonly isLoading: boolean;
   readonly errorMessage: string | null;

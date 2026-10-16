@@ -57,11 +57,12 @@ const _getBasicColumns = (currentPage: number, pageSize: number): TableColumn<Ro
       align: "center",
       render: renderNoWrapper,
     },
-    { key: "roleName", header: "Role Name" },
+    { key: "roleName", header: "Role Name", mobile: { primary: true } },
     {
       key: "status",
       header: "Status",
       align: "center",
+      mobile: { primary: true, render: _renderStatus },
       render: _renderStatus,
     },
     {

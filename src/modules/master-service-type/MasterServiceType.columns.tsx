@@ -72,10 +72,11 @@ const _getBasicColumns = (currentPage: number, pageSize: number): TableColumn<Se
       align: "center",
       render: renderNoWrapper,
     },
-    { key: "name", header: "Service Name" },
+    { key: "name", header: "Service Name", mobile: { primary: true } },
     {
       key: "price",
       header: "Price",
+      mobile: { primary: true, render: _renderPrice },
       render: _renderPrice,
     },
     {

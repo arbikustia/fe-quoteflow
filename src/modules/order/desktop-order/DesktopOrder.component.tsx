@@ -1,6 +1,8 @@
 import * as React from "react";
 
 import { CategoryDetailModal } from "./components/CategoryDetailModal.component";
+import { PageLayout } from "../../../app/shared/PageLayout";
+import { SearchFilter } from "../../../components/SearchFilter";
 import { ItemDetailModal } from "./components/ItemDetailModal.component";
 import type { BaseDesktopOrderState, DesktopOrderProps, OrderHeaderProps, OrderTableContainerProps, OrderTabsProps, OrderToolbarProps, TabType } from "./DesktopOrder.type";
 import ConfirmModal from "../../../components/ConfirmModal";
@@ -71,25 +73,11 @@ const OrderTabs = ({ activeTab, setActiveTab, statusCounts, TABS }: OrderTabsPro
  * @param {OrderToolbarProps} props - component props
  * @returns {React.ReactElement} - Toolbar
  */
-const OrderToolbar = ({ pageSize, totalCount, changePageSize }: OrderToolbarProps): React.ReactElement => {
-  /**
-   *
-   * @param size
-   */
-  const _handlePageSizeChange = (size: number): void => changePageSize(size);
-
+const OrderToolbar = ({ setSearchTerm }: OrderToolbarProps): React.ReactElement => {
+  const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>): void => setSearchTerm(event.target.value);
   return (
     <div className="flex items-center justify-between p-4 px-6 border-b border-brand-gray-light">
-      <div className="relative">
-        <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-brand-text-medium">
-          <Icons.Search />
-        </div>
-        <input
-          type="text"
-          placeholder="Search order"
-          className="w-64 pl-10 pr-4 py-2 bg-brand-gray-light border-none rounded-lg text-sm font-medium focus:outline-none focus:ring-1 focus:ring-brand-gray-light text-brand-text-dark placeholder:text-brand-text-medium"
-        />
-      </div>
+      <SearchFilter placeholder="Search order" onChange={handleSearchChange} />
     </div>
   );
 };
@@ -106,12 +94,11 @@ const OrderToolbar = ({ pageSize, totalCount, changePageSize }: OrderToolbarProp
  * @param {() => void} props.prevPage - prev page handler
  * @returns {React.ReactElement} - TableContainer
  */
-const OrderTableContainer = ({ paginatedData, columns, currentPage, totalPages, goToPage, nextPage, prevPage }: Omit<OrderTableContainerProps, keyof OrderTabsProps | keyof OrderToolbarProps>): React.ReactElement => (
+const OrderTableContainer = ({ paginatedData, columns, currentPage, totalPages, pageSize, goToPage, changePageSize }: Omit<OrderTableContainerProps, keyof OrderTabsProps | "totalCount" | "setSearchTerm">): React.ReactElement => (
   <>
     <div className="flex-1 overflow-auto">
       <Table data={paginatedData} columns={columns} keyExtractor={(row) => row.id} />
     </div>
-
     <Pagination currentPage={currentPage} totalPages={totalPages} pageSize={pageSize} onPageChange={goToPage} onPageSizeChange={changePageSize} />
   </>
 );
@@ -149,23 +136,27 @@ const OrderModals = (props: BaseDesktopOrderState): React.ReactElement => (
  */
 export const DesktopOrderComponent = (props: DesktopOrderProps): React.ReactElement => {
   return (
-    <div className="flex flex-col h-full">
-      <OrderHeader openCreateModal={props.openCreateModal} />
+    <PageLayout title="Order List" breadcrumbs={["Order", "Order List"]} onBack={props.onBack}>
+        <div className="flex flex-col h-full px-3 lg:px-0 lg:-mt-4">
+          <OrderHeader openCreateModal={props.openCreateModal} />
 
       <div className="bg-brand-white rounded-xl border border-brand-gray-light shadow-sm flex flex-col flex-1 overflow-hidden">
         <OrderTabs activeTab={props.activeTab} setActiveTab={props.setActiveTab} statusCounts={props.statusCounts} TABS={props.TABS} />
-        <OrderToolbar pageSize={props.pageSize} totalCount={props.totalCount} changePageSize={props.changePageSize} />
+        <OrderToolbar pageSize={props.pageSize} totalCount={props.totalCount} changePageSize={props.changePageSize} setSearchTerm={props.setSearchTerm} />
         <OrderTableContainer
           paginatedData={props.paginatedData}
           columns={props.columns}
           currentPage={props.currentPage}
           totalPages={props.totalPages}
+          pageSize={props.pageSize}
+          changePageSize={props.changePageSize}
           goToPage={props.goToPage}
           nextPage={props.nextPage}
           prevPage={props.prevPage}
         />
       </div>
-      <OrderModals {...props} />
-    </div>
+          <OrderModals {...props} />
+        </div>
+      </PageLayout>
   );
 };

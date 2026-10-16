@@ -11,7 +11,7 @@ exports[`MasterRoleComponent matches snapshot 1`] = `
       <aside
         aria-label="Sidebar"
         class="w-[290px] h-full min-h-0 self-stretch bg-sidebar-background border border-border-default flex flex-col shrink-0 overflow-hidden transition-[width] duration-[250ms] ease-in-out"
-        style="border-radius: 12px;"
+        style="border-radius: 0;"
       >
         <div
           class="h-[56px] mb-16 flex items-center shrink-0 px-4"
@@ -35,6 +35,51 @@ exports[`MasterRoleComponent matches snapshot 1`] = `
               aria-label="Menu"
               class="space-y-1"
             >
+              <a
+                class="h-9 flex items-center gap-3 rounded-[6px] px-3 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring/30 text-text-secondary hover:bg-background-elevated hover:text-text-primary"
+                data-discover="true"
+                href="/order"
+              >
+                <span
+                  class="shrink-0 [&_svg]:h-5 [&_svg]:w-5 text-text-tertiary"
+                >
+                  <svg
+                    fill="none"
+                    height="20"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="1.8"
+                    viewBox="0 0 24 24"
+                    width="20"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"
+                    />
+                    <polyline
+                      points="14 2 14 8 20 8"
+                    />
+                    <line
+                      x1="16"
+                      x2="8"
+                      y1="13"
+                      y2="13"
+                    />
+                    <line
+                      x1="16"
+                      x2="8"
+                      y1="17"
+                      y2="17"
+                    />
+                  </svg>
+                </span>
+                <span
+                  class="flex-1 truncate text-lg leading-none font-normal"
+                >
+                  Order
+                </span>
+              </a>
               <div>
                 <button
                   aria-expanded="false"
@@ -340,256 +385,360 @@ exports[`MasterRoleComponent matches snapshot 1`] = `
         class="flex-1 overflow-y-auto p-4 lg:p-8 pb-20 lg:pb-8 relative z-0"
       >
         <div
-          class="flex flex-col h-full pb-18 lg:pb-0 px-3 lg:px-0 lg:-mt-4 relative"
+          class="flex min-h-full flex-col"
         >
-          <div
-            class="flex items-center justify-between py-2 mb-1 lg:mb-4 relative"
+          <header
+            class="mb-6 shrink-0"
           >
-            <button
-              aria-label="Back"
-              class="w-11 h-11 rounded-full bg-[#F4F4F5] hover:bg-[#E9E9EB] active:scale-95 transition-all flex items-center justify-center text-black shrink-0"
-              type="button"
-            >
-              <svg
-                aria-hidden="true"
-                fill="none"
-                height="20"
-                stroke="currentColor"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2.4"
-                viewBox="0 0 24 24"
-                width="20"
-              >
-                <path
-                  d="M19 12H5"
-                />
-                <path
-                  d="M12 19 5 12l7-7"
-                />
-              </svg>
-            </button>
-            <h1
-              class="flex-1 text-center text-[17px] font-semibold text-black tracking-tight px-2 truncate"
-            >
-              Role List
-            </h1>
             <div
-              class="relative shrink-0"
+              class="hidden items-start justify-between gap-4 lg:flex"
+            >
+              <div
+                class="min-w-0"
+              >
+                <nav
+                  aria-label="Breadcrumb"
+                  class="mb-2 flex flex-wrap items-center gap-2 text-[15px] font-medium text-text-secondary"
+                >
+                  <span>
+                    Master
+                  </span>
+                  <span
+                    aria-hidden="true"
+                  >
+                    /
+                  </span>
+                  <span>
+                    Master Role
+                  </span>
+                </nav>
+                <h1
+                  class="truncate text-2xl font-bold tracking-tight text-text-primary"
+                >
+                  Role List
+                </h1>
+              </div>
+            </div>
+            <div
+              class="flex items-center justify-between gap-3 lg:hidden"
             >
               <button
-                aria-expanded="false"
-                aria-haspopup="menu"
-                aria-label="More options"
-                class="w-11 h-11 rounded-full bg-[#F4F4F5] hover:bg-[#E9E9EB] active:scale-95 transition-all flex items-center justify-center text-black"
+                aria-label="Back"
+                class="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg border border-border-default text-text-primary hover:bg-background-subtle"
                 type="button"
               >
-                <svg
+                <span
                   aria-hidden="true"
-                  fill="currentColor"
-                  height="20"
-                  viewBox="0 0 24 24"
-                  width="20"
                 >
-                  <circle
-                    cx="5"
-                    cy="12"
-                    r="1.8"
-                  />
-                  <circle
-                    cx="12"
-                    cy="12"
-                    r="1.8"
-                  />
-                  <circle
-                    cx="19"
-                    cy="12"
-                    r="1.8"
-                  />
-                </svg>
+                  ←
+                </span>
               </button>
-            </div>
-          </div>
-          <div
-            class="md:hidden space-y-6 mt-10"
-          >
-            <div
-              class="relative mb-3"
-            >
-              <span
-                class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-brand-text-medium scale-125"
+              <h1
+                class="min-w-0 flex-1 truncate text-center text-lg font-semibold text-text-primary"
               >
-                <svg
-                  fill="none"
-                  height="18"
-                  stroke="currentColor"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="1.8"
-                  viewBox="0 0 24 24"
-                  width="18"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <circle
-                    cx="11"
-                    cy="11"
-                    r="8"
-                  />
-                  <path
-                    d="m21 21-4.3-4.3"
-                  />
-                </svg>
-              </span>
-              <input
-                class="w-full pl-12 pr-6 py-3.5 bg-brand-gray-light border-none rounded-full text-xl font-medium focus:outline-none focus:ring-1 focus:ring-brand-blue/20 text-brand-text-dark placeholder:text-brand-text-medium"
-                placeholder="Search"
-                type="text"
+                Role List
+              </h1>
+              <span
+                aria-hidden="true"
+                class="h-10 w-10 shrink-0"
               />
             </div>
+          </header>
+          <main
+            class="min-w-0 flex-1"
+          >
             <div
-              class="scale-100 origin-top"
+              class="flex h-full flex-col px-3 pb-18 lg:-mt-4 lg:px-0 lg:pb-0"
             >
               <div
-                class="bg-transparent overflow-hidden divide-y divide-brand-gray-light"
+                class="lg:hidden flex min-w-0 flex-col gap-4 pt-2 pb-16"
               >
                 <div
-                  class="flex items-center gap-4 px-0 py-4 bg-transparent border-b border-brand-gray-light last:border-b-0 active:bg-brand-gray-light/20 transition-colors cursor-pointer"
-                  role="button"
-                  tabindex="0"
+                  class="flex items-center gap-3"
                 >
                   <div
-                    class="flex-1 min-w-0 space-y-1"
+                    class="flex-1"
                   >
-                    <p
-                      class="text-xl font-semibold text-brand-text-dark leading-snug truncate"
+                    <label
+                      class="relative block w-full sm:w-72 "
                     >
-                      Admin
-                    </p>
-                    <p
-                      class="text-base font-normal text-brand-text-medium/80 truncate"
-                    >
-                      Created by System
-                    </p>
+                      <span
+                        class="sr-only"
+                      >
+                        Search role
+                      </span>
+                      <svg
+                        aria-hidden="true"
+                        class="pointer-events-none absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-text-tertiary"
+                        fill="none"
+                        height="1em"
+                        stroke="currentColor"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        viewBox="0 0 24 24"
+                        width="1em"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <circle
+                          cx="11"
+                          cy="11"
+                          r="8"
+                        />
+                        <line
+                          x1="21"
+                          x2="16.65"
+                          y1="21"
+                          y2="16.65"
+                        />
+                      </svg>
+                      <input
+                        aria-label="Search role"
+                        class="h-11 w-full rounded-xl border border-border-default bg-background-surface pl-12 pr-4 text-base font-medium text-text-primary outline-none transition-colors placeholder:font-normal placeholder:text-text-tertiary hover:border-border-strong focus:border-border-focus focus:ring-2 focus:ring-focus-ring/30"
+                        placeholder="Search role"
+                        type="search"
+                      />
+                    </label>
                   </div>
+                  <button
+                    class="shrink-0 rounded-xl bg-brand-blue px-4 py-2.5 text-sm font-semibold text-brand-white"
+                    type="button"
+                  >
+                    Create Role
+                  </button>
+                </div>
+                <div
+                  class="min-w-0 space-y-3"
+                >
                   <div
-                    class="shrink-0"
+                    class="flex cursor-pointer flex-col gap-3 rounded-2xl border border-border-default bg-background-surface p-4 shadow-xs active:bg-background-subtle/50"
+                    role="button"
+                    tabindex="0"
+                  >
+                    <div
+                      class="flex items-start justify-between gap-3"
+                    >
+                      <div
+                        class="flex min-w-0 items-center gap-2.5"
+                      >
+                        <div
+                          class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-brand-blue/10 text-brand-blue"
+                        >
+                          <svg
+                            class="h-5 w-5"
+                            fill="none"
+                            height="1em"
+                            stroke="currentColor"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            viewBox="0 0 24 24"
+                            width="1em"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path
+                              d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"
+                            />
+                            <circle
+                              cx="12"
+                              cy="7"
+                              r="4"
+                            />
+                          </svg>
+                        </div>
+                        <div
+                          class="min-w-0"
+                        >
+                          <h4
+                            class="truncate text-base font-semibold text-text-primary"
+                          >
+                            Admin
+                          </h4>
+                          <span
+                            class="text-xs text-text-tertiary"
+                          >
+                            ID: 1
+                          </span>
+                        </div>
+                      </div>
+                      <div
+                        class="flex shrink-0 items-center gap-2"
+                      >
+                        <span
+                          class="rounded-full px-2.5 py-0.5 text-xs font-semibold bg-green-100 text-green-700"
+                        >
+                          active
+                        </span>
+                        <button
+                          aria-label="Edit role"
+                          class="rounded-lg p-1.5 text-text-tertiary hover:bg-background-subtle hover:text-brand-blue"
+                          type="button"
+                        >
+                          <svg
+                            class="h-4 w-4"
+                            fill="none"
+                            height="1em"
+                            stroke="currentColor"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            viewBox="0 0 24 24"
+                            width="1em"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path
+                              d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"
+                            />
+                          </svg>
+                        </button>
+                      </div>
+                    </div>
+                    <div
+                      class="border-t border-border-default/60 pt-2 text-sm text-text-secondary"
+                    >
+                      Created: 2024-01-01
+                    </div>
+                    <div
+                      class="flex justify-end text-xs font-medium text-brand-blue"
+                    >
+                      Lihat detail
+                      <svg
+                        class="ml-1 h-3.5 w-3.5"
+                        fill="none"
+                        height="1em"
+                        stroke="currentColor"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        viewBox="0 0 24 24"
+                        width="1em"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <polyline
+                          points="9 18 15 12 9 6"
+                        />
+                      </svg>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  data-testid="pagination"
+                />
+              </div>
+              <div
+                class="hidden lg:flex rounded-4xl border border-brand-gray-light bg-brand-white px-6 shadow-xs md:flex-1 md:flex-col md:overflow-hidden md:mt-6"
+              >
+                <div
+                  class="flex items-center justify-between gap-4 py-6"
+                >
+                  <label
+                    class="relative block w-full sm:w-72 "
                   >
                     <span
-                      class="inline-flex items-center rounded-full px-3 py-1 text-sm font-medium whitespace-nowrap bg-green-100 text-green-700"
+                      class="sr-only"
                     >
-                      active
+                      Search role
                     </span>
+                    <svg
+                      aria-hidden="true"
+                      class="pointer-events-none absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-text-tertiary"
+                      fill="none"
+                      height="1em"
+                      stroke="currentColor"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      viewBox="0 0 24 24"
+                      width="1em"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <circle
+                        cx="11"
+                        cy="11"
+                        r="8"
+                      />
+                      <line
+                        x1="21"
+                        x2="16.65"
+                        y1="21"
+                        y2="16.65"
+                      />
+                    </svg>
+                    <input
+                      aria-label="Search role"
+                      class="h-11 w-full rounded-xl border border-border-default bg-background-surface pl-12 pr-4 text-base font-medium text-text-primary outline-none transition-colors placeholder:font-normal placeholder:text-text-tertiary hover:border-border-strong focus:border-border-focus focus:ring-2 focus:ring-focus-ring/30"
+                      placeholder="Search role"
+                      type="search"
+                    />
+                  </label>
+                  <button
+                    class="rounded-xl bg-brand-blue px-5 py-2.5 text-sm font-semibold text-brand-white"
+                    type="button"
+                  >
+                    Create Role
+                  </button>
+                </div>
+                <div
+                  class="flex-1 overflow-auto"
+                >
+                  <div
+                    class="flex flex-col bg-transparent overflow-hidden"
+                  >
+                    <div
+                      class="hidden md:flex flex-1 overflow-auto"
+                    >
+                      <div
+                        class="w-full overflow-x-auto"
+                      >
+                        <table
+                          class="w-full min-w-max border-separate border-spacing-0 whitespace-nowrap"
+                        >
+                          <thead>
+                            <tr>
+                              <th
+                                class="bg-table-header px-5 py-4 text-[13px] font-bold text-text-secondary uppercase tracking-widest rounded-l-xl rounded-r-xl text-left "
+                              >
+                                Role Name
+                              </th>
+                            </tr>
+                          </thead>
+                          <tbody
+                            class="divide-y divide-border-default"
+                          >
+                            <tr
+                              class="hover:bg-background-subtle/50 transition-colors cursor-pointer"
+                            >
+                              <td
+                                class="px-5 py-4 border-b border-border-default text-base text-left "
+                              >
+                                Admin
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                    <div
+                      class="md:hidden bg-background-surface rounded-xl border border-border-default shadow-sm overflow-hidden"
+                    >
+                      <div
+                        class="bg-background-surface overflow-hidden divide-y divide-border-default"
+                      >
+                        <div
+                          class="flex flex-col gap-3 px-4 py-4 bg-transparent cursor-pointer active:bg-background-subtle/50 transition-colors"
+                          role="button"
+                          tabindex="0"
+                        />
+                      </div>
+                    </div>
                   </div>
                 </div>
-              </div>
-            </div>
-            <div
-              class="pt-4 flex items-center justify-between"
-            >
-              <div
-                data-testid="pagination"
-              />
-            </div>
-          </div>
-          <div
-            class="hidden md:flex bg-brand-white rounded-xl border border-brand-gray-light shadow-sm flex-col flex-1 overflow-hidden mt-6"
-          >
-            <div
-              class="flex items-center justify-between p-5 px-6 border-b border-brand-gray-light"
-            >
-              <div
-                class="relative"
-              >
                 <div
-                  class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-brand-text-medium"
-                >
-                  <svg
-                    fill="none"
-                    height="18"
-                    stroke="currentColor"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="1.8"
-                    viewBox="0 0 24 24"
-                    width="18"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <circle
-                      cx="11"
-                      cy="11"
-                      r="8"
-                    />
-                    <path
-                      d="m21 21-4.3-4.3"
-                    />
-                  </svg>
-                </div>
-                <input
-                  class="w-64 pl-10 pr-4 py-2 bg-brand-gray-light border-none rounded-lg text-sm focus:outline-none text-brand-text-dark placeholder:text-brand-text-medium"
-                  placeholder="Search role"
-                  type="text"
+                  data-testid="pagination"
                 />
               </div>
             </div>
-            <div
-              class="flex-1 overflow-auto"
-            >
-              <div
-                class="flex flex-col bg-transparent overflow-hidden"
-              >
-                <div
-                  class="hidden md:flex flex-1 overflow-auto"
-                >
-                  <div
-                    class="w-full overflow-x-auto"
-                  >
-                    <table
-                      class="w-full min-w-max border-separate border-spacing-0 whitespace-nowrap"
-                    >
-                      <thead>
-                        <tr>
-                          <th
-                            class="bg-table-header px-5 py-4 text-[13px] font-bold text-text-secondary uppercase tracking-widest rounded-l-xl rounded-r-xl text-left "
-                          >
-                            Role Name
-                          </th>
-                        </tr>
-                      </thead>
-                      <tbody
-                        class="divide-y divide-border-default"
-                      >
-                        <tr
-                          class="hover:bg-background-subtle/50 transition-colors cursor-pointer"
-                        >
-                          <td
-                            class="px-5 py-4 border-b border-border-default text-base text-left "
-                          >
-                            Admin
-                          </td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
-                <div
-                  class="md:hidden bg-background-surface rounded-xl border border-border-default shadow-sm overflow-hidden"
-                >
-                  <div
-                    class="bg-background-surface overflow-hidden divide-y divide-border-default"
-                  >
-                    <div
-                      class="flex flex-col gap-3 px-4 py-4 bg-transparent cursor-pointer active:bg-background-subtle/50 transition-colors"
-                      role="button"
-                      tabindex="0"
-                    />
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div
-              data-testid="pagination"
-            />
-          </div>
+          </main>
         </div>
       </main>
     </div>
@@ -608,7 +757,7 @@ exports[`MasterRoleComponent matches snapshot with empty data and closed menu 1`
       <aside
         aria-label="Sidebar"
         class="w-[290px] h-full min-h-0 self-stretch bg-sidebar-background border border-border-default flex flex-col shrink-0 overflow-hidden transition-[width] duration-[250ms] ease-in-out"
-        style="border-radius: 12px;"
+        style="border-radius: 0;"
       >
         <div
           class="h-[56px] mb-16 flex items-center shrink-0 px-4"
@@ -632,6 +781,51 @@ exports[`MasterRoleComponent matches snapshot with empty data and closed menu 1`
               aria-label="Menu"
               class="space-y-1"
             >
+              <a
+                class="h-9 flex items-center gap-3 rounded-[6px] px-3 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring/30 text-text-secondary hover:bg-background-elevated hover:text-text-primary"
+                data-discover="true"
+                href="/order"
+              >
+                <span
+                  class="shrink-0 [&_svg]:h-5 [&_svg]:w-5 text-text-tertiary"
+                >
+                  <svg
+                    fill="none"
+                    height="20"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="1.8"
+                    viewBox="0 0 24 24"
+                    width="20"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"
+                    />
+                    <polyline
+                      points="14 2 14 8 20 8"
+                    />
+                    <line
+                      x1="16"
+                      x2="8"
+                      y1="13"
+                      y2="13"
+                    />
+                    <line
+                      x1="16"
+                      x2="8"
+                      y1="17"
+                      y2="17"
+                    />
+                  </svg>
+                </span>
+                <span
+                  class="flex-1 truncate text-lg leading-none font-normal"
+                >
+                  Order
+                </span>
+              </a>
               <div>
                 <button
                   aria-expanded="false"
@@ -937,223 +1131,244 @@ exports[`MasterRoleComponent matches snapshot with empty data and closed menu 1`
         class="flex-1 overflow-y-auto p-4 lg:p-8 pb-20 lg:pb-8 relative z-0"
       >
         <div
-          class="flex flex-col h-full pb-18 lg:pb-0 px-3 lg:px-0 lg:-mt-4 relative"
+          class="flex min-h-full flex-col"
         >
-          <div
-            class="flex items-center justify-between py-2 mb-1 lg:mb-4 relative"
+          <header
+            class="mb-6 shrink-0"
           >
-            <button
-              aria-label="Back"
-              class="w-11 h-11 rounded-full bg-[#F4F4F5] hover:bg-[#E9E9EB] active:scale-95 transition-all flex items-center justify-center text-black shrink-0"
-              type="button"
-            >
-              <svg
-                aria-hidden="true"
-                fill="none"
-                height="20"
-                stroke="currentColor"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2.4"
-                viewBox="0 0 24 24"
-                width="20"
-              >
-                <path
-                  d="M19 12H5"
-                />
-                <path
-                  d="M12 19 5 12l7-7"
-                />
-              </svg>
-            </button>
-            <h1
-              class="flex-1 text-center text-[17px] font-semibold text-black tracking-tight px-2 truncate"
-            >
-              Role List
-            </h1>
             <div
-              class="relative shrink-0"
+              class="hidden items-start justify-between gap-4 lg:flex"
+            >
+              <div
+                class="min-w-0"
+              >
+                <nav
+                  aria-label="Breadcrumb"
+                  class="mb-2 flex flex-wrap items-center gap-2 text-[15px] font-medium text-text-secondary"
+                >
+                  <span>
+                    Master
+                  </span>
+                  <span
+                    aria-hidden="true"
+                  >
+                    /
+                  </span>
+                  <span>
+                    Master Role
+                  </span>
+                </nav>
+                <h1
+                  class="truncate text-2xl font-bold tracking-tight text-text-primary"
+                >
+                  Role List
+                </h1>
+              </div>
+            </div>
+            <div
+              class="flex items-center justify-between gap-3 lg:hidden"
             >
               <button
-                aria-expanded="false"
-                aria-haspopup="menu"
-                aria-label="More options"
-                class="w-11 h-11 rounded-full bg-[#F4F4F5] hover:bg-[#E9E9EB] active:scale-95 transition-all flex items-center justify-center text-black"
+                aria-label="Back"
+                class="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg border border-border-default text-text-primary hover:bg-background-subtle"
                 type="button"
               >
-                <svg
+                <span
                   aria-hidden="true"
-                  fill="currentColor"
-                  height="20"
-                  viewBox="0 0 24 24"
-                  width="20"
                 >
-                  <circle
-                    cx="5"
-                    cy="12"
-                    r="1.8"
-                  />
-                  <circle
-                    cx="12"
-                    cy="12"
-                    r="1.8"
-                  />
-                  <circle
-                    cx="19"
-                    cy="12"
-                    r="1.8"
-                  />
-                </svg>
+                  ←
+                </span>
               </button>
-            </div>
-          </div>
-          <div
-            class="md:hidden space-y-6 mt-10"
-          >
-            <div
-              class="relative mb-3"
-            >
+              <h1
+                class="min-w-0 flex-1 truncate text-center text-lg font-semibold text-text-primary"
+              >
+                Role List
+              </h1>
               <span
-                class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-brand-text-medium scale-125"
-              >
-                <svg
-                  fill="none"
-                  height="18"
-                  stroke="currentColor"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="1.8"
-                  viewBox="0 0 24 24"
-                  width="18"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <circle
-                    cx="11"
-                    cy="11"
-                    r="8"
-                  />
-                  <path
-                    d="m21 21-4.3-4.3"
-                  />
-                </svg>
-              </span>
-              <input
-                class="w-full pl-12 pr-6 py-3.5 bg-brand-gray-light border-none rounded-full text-xl font-medium focus:outline-none focus:ring-1 focus:ring-brand-blue/20 text-brand-text-dark placeholder:text-brand-text-medium"
-                placeholder="Search"
-                type="text"
+                aria-hidden="true"
+                class="h-10 w-10 shrink-0"
               />
             </div>
-            <div
-              class="scale-100 origin-top"
-            >
-              <div
-                class="py-12 text-center text-base text-brand-text-medium font-medium"
-              >
-                No data available
-              </div>
-            </div>
-            <div
-              class="pt-4 flex items-center justify-between"
-            >
-              <div
-                data-testid="pagination"
-              />
-            </div>
-          </div>
-          <div
-            class="hidden md:flex bg-brand-white rounded-xl border border-brand-gray-light shadow-sm flex-col flex-1 overflow-hidden mt-6"
+          </header>
+          <main
+            class="min-w-0 flex-1"
           >
             <div
-              class="flex items-center justify-between p-5 px-6 border-b border-brand-gray-light"
+              class="flex h-full flex-col px-3 pb-18 lg:-mt-4 lg:px-0 lg:pb-0"
             >
               <div
-                class="relative"
+                class="lg:hidden flex min-w-0 flex-col gap-4 pt-2 pb-16"
               >
                 <div
-                  class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-brand-text-medium"
+                  class="flex items-center gap-3"
                 >
-                  <svg
-                    fill="none"
-                    height="18"
-                    stroke="currentColor"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="1.8"
-                    viewBox="0 0 24 24"
-                    width="18"
-                    xmlns="http://www.w3.org/2000/svg"
+                  <div
+                    class="flex-1"
                   >
-                    <circle
-                      cx="11"
-                      cy="11"
-                      r="8"
-                    />
-                    <path
-                      d="m21 21-4.3-4.3"
-                    />
-                  </svg>
+                    <label
+                      class="relative block w-full sm:w-72 "
+                    >
+                      <span
+                        class="sr-only"
+                      >
+                        Search role
+                      </span>
+                      <svg
+                        aria-hidden="true"
+                        class="pointer-events-none absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-text-tertiary"
+                        fill="none"
+                        height="1em"
+                        stroke="currentColor"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        viewBox="0 0 24 24"
+                        width="1em"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <circle
+                          cx="11"
+                          cy="11"
+                          r="8"
+                        />
+                        <line
+                          x1="21"
+                          x2="16.65"
+                          y1="21"
+                          y2="16.65"
+                        />
+                      </svg>
+                      <input
+                        aria-label="Search role"
+                        class="h-11 w-full rounded-xl border border-border-default bg-background-surface pl-12 pr-4 text-base font-medium text-text-primary outline-none transition-colors placeholder:font-normal placeholder:text-text-tertiary hover:border-border-strong focus:border-border-focus focus:ring-2 focus:ring-focus-ring/30"
+                        placeholder="Search role"
+                        type="search"
+                      />
+                    </label>
+                  </div>
+                  <button
+                    class="shrink-0 rounded-xl bg-brand-blue px-4 py-2.5 text-sm font-semibold text-brand-white"
+                    type="button"
+                  >
+                    Create Role
+                  </button>
                 </div>
-                <input
-                  class="w-64 pl-10 pr-4 py-2 bg-brand-gray-light border-none rounded-lg text-sm focus:outline-none text-brand-text-dark placeholder:text-brand-text-medium"
-                  placeholder="Search role"
-                  type="text"
+                <div
+                  class="min-w-0 space-y-3"
+                />
+                <div
+                  data-testid="pagination"
+                />
+              </div>
+              <div
+                class="hidden lg:flex rounded-4xl border border-brand-gray-light bg-brand-white px-6 shadow-xs md:flex-1 md:flex-col md:overflow-hidden md:mt-6"
+              >
+                <div
+                  class="flex items-center justify-between gap-4 py-6"
+                >
+                  <label
+                    class="relative block w-full sm:w-72 "
+                  >
+                    <span
+                      class="sr-only"
+                    >
+                      Search role
+                    </span>
+                    <svg
+                      aria-hidden="true"
+                      class="pointer-events-none absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-text-tertiary"
+                      fill="none"
+                      height="1em"
+                      stroke="currentColor"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      viewBox="0 0 24 24"
+                      width="1em"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <circle
+                        cx="11"
+                        cy="11"
+                        r="8"
+                      />
+                      <line
+                        x1="21"
+                        x2="16.65"
+                        y1="21"
+                        y2="16.65"
+                      />
+                    </svg>
+                    <input
+                      aria-label="Search role"
+                      class="h-11 w-full rounded-xl border border-border-default bg-background-surface pl-12 pr-4 text-base font-medium text-text-primary outline-none transition-colors placeholder:font-normal placeholder:text-text-tertiary hover:border-border-strong focus:border-border-focus focus:ring-2 focus:ring-focus-ring/30"
+                      placeholder="Search role"
+                      type="search"
+                    />
+                  </label>
+                  <button
+                    class="rounded-xl bg-brand-blue px-5 py-2.5 text-sm font-semibold text-brand-white"
+                    type="button"
+                  >
+                    Create Role
+                  </button>
+                </div>
+                <div
+                  class="flex-1 overflow-auto"
+                >
+                  <div
+                    class="flex flex-col bg-transparent overflow-hidden"
+                  >
+                    <div
+                      class="hidden md:flex flex-1 overflow-auto"
+                    >
+                      <div
+                        class="w-full overflow-x-auto"
+                      >
+                        <table
+                          class="w-full min-w-max border-separate border-spacing-0 whitespace-nowrap"
+                        >
+                          <thead>
+                            <tr>
+                              <th
+                                class="bg-table-header px-5 py-4 text-[13px] font-bold text-text-secondary uppercase tracking-widest rounded-l-xl rounded-r-xl text-left "
+                              >
+                                Role Name
+                              </th>
+                            </tr>
+                          </thead>
+                          <tbody
+                            class="divide-y divide-border-default"
+                          >
+                            <tr>
+                              <td
+                                class="px-4 py-8 text-center text-text-tertiary font-medium"
+                                colspan="1"
+                              >
+                                No data available
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                    <div
+                      class="md:hidden bg-background-surface rounded-xl border border-border-default shadow-sm overflow-hidden"
+                    >
+                      <div
+                        class="py-12 text-center text-base text-text-tertiary font-medium"
+                      >
+                        No data available
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  data-testid="pagination"
                 />
               </div>
             </div>
-            <div
-              class="flex-1 overflow-auto"
-            >
-              <div
-                class="flex flex-col bg-transparent overflow-hidden"
-              >
-                <div
-                  class="hidden md:flex flex-1 overflow-auto"
-                >
-                  <div
-                    class="w-full overflow-x-auto"
-                  >
-                    <table
-                      class="w-full min-w-max border-separate border-spacing-0 whitespace-nowrap"
-                    >
-                      <thead>
-                        <tr>
-                          <th
-                            class="bg-table-header px-5 py-4 text-[13px] font-bold text-text-secondary uppercase tracking-widest rounded-l-xl rounded-r-xl text-left "
-                          >
-                            Role Name
-                          </th>
-                        </tr>
-                      </thead>
-                      <tbody
-                        class="divide-y divide-border-default"
-                      >
-                        <tr>
-                          <td
-                            class="px-4 py-8 text-center text-text-tertiary font-medium"
-                            colspan="1"
-                          >
-                            No data available
-                          </td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
-                <div
-                  class="md:hidden bg-background-surface rounded-xl border border-border-default shadow-sm overflow-hidden"
-                >
-                  <div
-                    class="py-12 text-center text-base text-text-tertiary font-medium"
-                  >
-                    No data available
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div
-              data-testid="pagination"
-            />
-          </div>
+          </main>
         </div>
       </main>
     </div>

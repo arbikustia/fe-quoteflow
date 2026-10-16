@@ -5,4 +5,6 @@ export type PaginationProps = {
   readonly onPageChange: (page: number) => void;
   readonly onPageSizeChange: (size: number) => void;
   readonly className?: string;
+  readonly totalItems?: number;
+  readonly isCompact?: boolean;
 };

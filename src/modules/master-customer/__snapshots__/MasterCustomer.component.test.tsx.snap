@@ -72,335 +72,1017 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots default stat
           class="flex flex-col h-full pb-18 lg:pb-0 px-3 lg:px-0 lg:-mt-4 relative"
         >
           <div
-            class="md:hidden space-y-6 mt-10"
+            class="lg:hidden flex min-w-0 flex-col gap-4 pt-2 pb-16"
           >
             <div
-              class="p-4"
-            >
-              <label
-                class="relative block w-full sm:w-72 "
-              >
-                <span
-                  class="sr-only"
-                >
-                  Search customer
-                </span>
-                <div
-                  data-testid="search-icon"
-                />
-                <input
-                  aria-label="Search customer"
-                  class="h-11 w-full rounded-xl border border-border-default bg-background-surface pl-12 pr-4 text-base font-medium text-text-primary outline-none transition-colors placeholder:font-normal placeholder:text-text-tertiary hover:border-border-strong focus:border-border-focus focus:ring-2 focus:ring-focus-ring/30"
-                  placeholder="Search customer"
-                  type="search"
-                />
-              </label>
-            </div>
-            <div
-              class="scale-100 origin-top"
+              class="flex w-full items-center justify-between gap-3 bg-transparent"
             >
               <div
-                class="bg-transparent overflow-hidden divide-y divide-brand-gray-light"
+                class="flex-1"
+              >
+                <label
+                  class="relative block w-full sm:w-72 "
+                >
+                  <span
+                    class="sr-only"
+                  >
+                    Search customer
+                  </span>
+                  <div
+                    data-testid="search-icon"
+                  />
+                  <input
+                    aria-label="Search customer"
+                    class="h-11 w-full rounded-xl border border-border-default bg-background-surface pl-12 pr-4 text-base font-medium text-text-primary outline-none transition-colors placeholder:font-normal placeholder:text-text-tertiary hover:border-border-strong focus:border-border-focus focus:ring-2 focus:ring-focus-ring/30"
+                    placeholder="Search customer"
+                    type="search"
+                  />
+                </label>
+              </div>
+              <button
+                class="shrink-0 rounded-xl bg-brand-blue px-4 py-2.5 text-sm font-semibold text-brand-white shadow-sm hover:bg-brand-blue/90 transition-colors"
+                type="button"
+              >
+                Create Customer
+              </button>
+            </div>
+            <div
+              class="min-w-0 space-y-3"
+            >
+              <div
+                class="bg-background-surface rounded-2xl border border-border-default p-4 shadow-xs flex flex-col gap-3 active:bg-background-subtle/50 transition-colors cursor-pointer"
+                role="button"
+                tabindex="0"
               >
                 <div
-                  class="flex items-center gap-4 px-0 py-4 bg-transparent border-b border-brand-gray-light last:border-b-0 active:bg-brand-gray-light/20 transition-colors cursor-pointer"
-                  role="button"
-                  tabindex="0"
+                  class="flex items-start justify-between gap-2"
                 >
                   <div
-                    class="flex-1 min-w-0 space-y-1"
+                    class="flex items-center gap-2.5 min-w-0"
                   >
-                    <p
-                      class="text-xl font-semibold text-brand-text-dark leading-snug truncate"
+                    <div
+                      class="w-10 h-10 rounded-xl bg-brand-blue/10 text-brand-blue font-bold flex items-center justify-center shrink-0 text-sm"
                     >
-                      PT Mega Jaya Abadi
-                    </p>
-                    <p
-                      class="text-base font-normal text-brand-text-medium/80 truncate"
+                      P
+                    </div>
+                    <div
+                      class="min-w-0"
+                    >
+                      <h4
+                        class="text-base font-semibold text-text-primary truncate"
+                      >
+                        PT Mega Jaya Abadi
+                      </h4>
+                      <span
+                        class="text-xs text-text-tertiary flex items-center gap-1 mt-0.5"
+                      >
+                        <div
+                          data-testid="user-icon"
+                        />
+                        <span>
+                          ID: 1
+                        </span>
+                      </span>
+                    </div>
+                  </div>
+                  <div
+                    class="flex items-center gap-2 shrink-0"
+                  >
+                    <span
+                      class="inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold bg-green-100 text-green-700"
+                    >
+                      active
+                    </span>
+                    <button
+                      aria-label="Edit customer"
+                      class="p-1.5 text-text-tertiary hover:text-brand-blue hover:bg-background-subtle rounded-lg transition-colors cursor-pointer"
+                      title="Edit"
+                      type="button"
+                    >
+                      <div
+                        data-testid="edit-icon"
+                      />
+                    </button>
+                  </div>
+                </div>
+                <div
+                  class="grid grid-cols-1 gap-1.5 pt-2 border-t border-border-default/60 text-sm text-text-secondary"
+                >
+                  <div
+                    class="flex items-center gap-2 truncate"
+                  >
+                    <div
+                      data-testid="map-pin-icon"
+                    />
+                    <span
+                      class="truncate"
                     >
                       Jl. Sudirman No. 45, Jakarta Pusat
-                    </p>
+                    </span>
                   </div>
                   <div
-                    class="shrink-0"
+                    class="flex items-center gap-2 truncate"
                   >
+                    <div
+                      data-testid="phone-icon"
+                    />
                     <span
-                      class="inline-flex items-center rounded-full px-3 py-1 text-sm font-medium whitespace-nowrap bg-green-100 text-green-700"
+                      class="truncate"
                     >
-                      active
+                      081234567890
                     </span>
                   </div>
                 </div>
                 <div
-                  class="flex items-center gap-4 px-0 py-4 bg-transparent border-b border-brand-gray-light last:border-b-0 active:bg-brand-gray-light/20 transition-colors cursor-pointer"
-                  role="button"
-                  tabindex="0"
+                  class="flex items-center justify-end text-xs font-medium text-brand-blue pt-1"
+                >
+                  <span
+                    class="flex items-center gap-1"
+                  >
+                    Lihat detail
+                    <div
+                      data-testid="chevron-right-icon"
+                    />
+                  </span>
+                </div>
+              </div>
+              <div
+                class="bg-background-surface rounded-2xl border border-border-default p-4 shadow-xs flex flex-col gap-3 active:bg-background-subtle/50 transition-colors cursor-pointer"
+                role="button"
+                tabindex="0"
+              >
+                <div
+                  class="flex items-start justify-between gap-2"
                 >
                   <div
-                    class="flex-1 min-w-0 space-y-1"
+                    class="flex items-center gap-2.5 min-w-0"
                   >
-                    <p
-                      class="text-xl font-semibold text-brand-text-dark leading-snug truncate"
+                    <div
+                      class="w-10 h-10 rounded-xl bg-brand-blue/10 text-brand-blue font-bold flex items-center justify-center shrink-0 text-sm"
                     >
-                      CV Sinar Terang
-                    </p>
-                    <p
-                      class="text-base font-normal text-brand-text-medium/80 truncate"
+                      C
+                    </div>
+                    <div
+                      class="min-w-0"
+                    >
+                      <h4
+                        class="text-base font-semibold text-text-primary truncate"
+                      >
+                        CV Sinar Terang
+                      </h4>
+                      <span
+                        class="text-xs text-text-tertiary flex items-center gap-1 mt-0.5"
+                      >
+                        <div
+                          data-testid="user-icon"
+                        />
+                        <span>
+                          ID: 2
+                        </span>
+                      </span>
+                    </div>
+                  </div>
+                  <div
+                    class="flex items-center gap-2 shrink-0"
+                  >
+                    <span
+                      class="inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold bg-green-100 text-green-700"
+                    >
+                      active
+                    </span>
+                    <button
+                      aria-label="Edit customer"
+                      class="p-1.5 text-text-tertiary hover:text-brand-blue hover:bg-background-subtle rounded-lg transition-colors cursor-pointer"
+                      title="Edit"
+                      type="button"
+                    >
+                      <div
+                        data-testid="edit-icon"
+                      />
+                    </button>
+                  </div>
+                </div>
+                <div
+                  class="grid grid-cols-1 gap-1.5 pt-2 border-t border-border-default/60 text-sm text-text-secondary"
+                >
+                  <div
+                    class="flex items-center gap-2 truncate"
+                  >
+                    <div
+                      data-testid="map-pin-icon"
+                    />
+                    <span
+                      class="truncate"
                     >
                       Jl. Gatot Subroto No. 12, Bandung
-                    </p>
+                    </span>
                   </div>
                   <div
-                    class="shrink-0"
+                    class="flex items-center gap-2 truncate"
                   >
+                    <div
+                      data-testid="phone-icon"
+                    />
                     <span
-                      class="inline-flex items-center rounded-full px-3 py-1 text-sm font-medium whitespace-nowrap bg-green-100 text-green-700"
+                      class="truncate"
                     >
-                      active
+                      081298765432
                     </span>
                   </div>
                 </div>
                 <div
-                  class="flex items-center gap-4 px-0 py-4 bg-transparent border-b border-brand-gray-light last:border-b-0 active:bg-brand-gray-light/20 transition-colors cursor-pointer"
-                  role="button"
-                  tabindex="0"
+                  class="flex items-center justify-end text-xs font-medium text-brand-blue pt-1"
+                >
+                  <span
+                    class="flex items-center gap-1"
+                  >
+                    Lihat detail
+                    <div
+                      data-testid="chevron-right-icon"
+                    />
+                  </span>
+                </div>
+              </div>
+              <div
+                class="bg-background-surface rounded-2xl border border-border-default p-4 shadow-xs flex flex-col gap-3 active:bg-background-subtle/50 transition-colors cursor-pointer"
+                role="button"
+                tabindex="0"
+              >
+                <div
+                  class="flex items-start justify-between gap-2"
                 >
                   <div
-                    class="flex-1 min-w-0 space-y-1"
+                    class="flex items-center gap-2.5 min-w-0"
                   >
-                    <p
-                      class="text-xl font-semibold text-brand-text-dark leading-snug truncate"
+                    <div
+                      class="w-10 h-10 rounded-xl bg-brand-blue/10 text-brand-blue font-bold flex items-center justify-center shrink-0 text-sm"
                     >
-                      Budi Santoso
-                    </p>
-                    <p
-                      class="text-base font-normal text-brand-text-medium/80 truncate"
+                      B
+                    </div>
+                    <div
+                      class="min-w-0"
+                    >
+                      <h4
+                        class="text-base font-semibold text-text-primary truncate"
+                      >
+                        Budi Santoso
+                      </h4>
+                      <span
+                        class="text-xs text-text-tertiary flex items-center gap-1 mt-0.5"
+                      >
+                        <div
+                          data-testid="user-icon"
+                        />
+                        <span>
+                          ID: 3
+                        </span>
+                      </span>
+                    </div>
+                  </div>
+                  <div
+                    class="flex items-center gap-2 shrink-0"
+                  >
+                    <span
+                      class="inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold bg-red-100 text-red-700"
+                    >
+                      inactive
+                    </span>
+                    <button
+                      aria-label="Edit customer"
+                      class="p-1.5 text-text-tertiary hover:text-brand-blue hover:bg-background-subtle rounded-lg transition-colors cursor-pointer"
+                      title="Edit"
+                      type="button"
+                    >
+                      <div
+                        data-testid="edit-icon"
+                      />
+                    </button>
+                  </div>
+                </div>
+                <div
+                  class="grid grid-cols-1 gap-1.5 pt-2 border-t border-border-default/60 text-sm text-text-secondary"
+                >
+                  <div
+                    class="flex items-center gap-2 truncate"
+                  >
+                    <div
+                      data-testid="map-pin-icon"
+                    />
+                    <span
+                      class="truncate"
                     >
                       Jl. Diponegoro No. 88, Surabaya
-                    </p>
+                    </span>
                   </div>
                   <div
-                    class="shrink-0"
+                    class="flex items-center gap-2 truncate"
                   >
+                    <div
+                      data-testid="phone-icon"
+                    />
                     <span
-                      class="inline-flex items-center rounded-full px-3 py-1 text-sm font-medium whitespace-nowrap bg-red-100 text-red-700"
+                      class="truncate"
                     >
-                      inactive
+                      085612345678
                     </span>
                   </div>
                 </div>
                 <div
-                  class="flex items-center gap-4 px-0 py-4 bg-transparent border-b border-brand-gray-light last:border-b-0 active:bg-brand-gray-light/20 transition-colors cursor-pointer"
-                  role="button"
-                  tabindex="0"
+                  class="flex items-center justify-end text-xs font-medium text-brand-blue pt-1"
+                >
+                  <span
+                    class="flex items-center gap-1"
+                  >
+                    Lihat detail
+                    <div
+                      data-testid="chevron-right-icon"
+                    />
+                  </span>
+                </div>
+              </div>
+              <div
+                class="bg-background-surface rounded-2xl border border-border-default p-4 shadow-xs flex flex-col gap-3 active:bg-background-subtle/50 transition-colors cursor-pointer"
+                role="button"
+                tabindex="0"
+              >
+                <div
+                  class="flex items-start justify-between gap-2"
                 >
                   <div
-                    class="flex-1 min-w-0 space-y-1"
+                    class="flex items-center gap-2.5 min-w-0"
                   >
-                    <p
-                      class="text-xl font-semibold text-brand-text-dark leading-snug truncate"
+                    <div
+                      class="w-10 h-10 rounded-xl bg-brand-blue/10 text-brand-blue font-bold flex items-center justify-center shrink-0 text-sm"
                     >
-                      PT Nusantara Prima
-                    </p>
-                    <p
-                      class="text-base font-normal text-brand-text-medium/80 truncate"
+                      P
+                    </div>
+                    <div
+                      class="min-w-0"
+                    >
+                      <h4
+                        class="text-base font-semibold text-text-primary truncate"
+                      >
+                        PT Nusantara Prima
+                      </h4>
+                      <span
+                        class="text-xs text-text-tertiary flex items-center gap-1 mt-0.5"
+                      >
+                        <div
+                          data-testid="user-icon"
+                        />
+                        <span>
+                          ID: 4
+                        </span>
+                      </span>
+                    </div>
+                  </div>
+                  <div
+                    class="flex items-center gap-2 shrink-0"
+                  >
+                    <span
+                      class="inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold bg-green-100 text-green-700"
+                    >
+                      active
+                    </span>
+                    <button
+                      aria-label="Edit customer"
+                      class="p-1.5 text-text-tertiary hover:text-brand-blue hover:bg-background-subtle rounded-lg transition-colors cursor-pointer"
+                      title="Edit"
+                      type="button"
+                    >
+                      <div
+                        data-testid="edit-icon"
+                      />
+                    </button>
+                  </div>
+                </div>
+                <div
+                  class="grid grid-cols-1 gap-1.5 pt-2 border-t border-border-default/60 text-sm text-text-secondary"
+                >
+                  <div
+                    class="flex items-center gap-2 truncate"
+                  >
+                    <div
+                      data-testid="map-pin-icon"
+                    />
+                    <span
+                      class="truncate"
                     >
                       Jl. M.H. Thamrin No. 9, Jakarta Pusat
-                    </p>
+                    </span>
                   </div>
                   <div
-                    class="shrink-0"
+                    class="flex items-center gap-2 truncate"
                   >
+                    <div
+                      data-testid="phone-icon"
+                    />
                     <span
-                      class="inline-flex items-center rounded-full px-3 py-1 text-sm font-medium whitespace-nowrap bg-green-100 text-green-700"
+                      class="truncate"
                     >
-                      active
+                      081377889900
                     </span>
                   </div>
                 </div>
                 <div
-                  class="flex items-center gap-4 px-0 py-4 bg-transparent border-b border-brand-gray-light last:border-b-0 active:bg-brand-gray-light/20 transition-colors cursor-pointer"
-                  role="button"
-                  tabindex="0"
+                  class="flex items-center justify-end text-xs font-medium text-brand-blue pt-1"
+                >
+                  <span
+                    class="flex items-center gap-1"
+                  >
+                    Lihat detail
+                    <div
+                      data-testid="chevron-right-icon"
+                    />
+                  </span>
+                </div>
+              </div>
+              <div
+                class="bg-background-surface rounded-2xl border border-border-default p-4 shadow-xs flex flex-col gap-3 active:bg-background-subtle/50 transition-colors cursor-pointer"
+                role="button"
+                tabindex="0"
+              >
+                <div
+                  class="flex items-start justify-between gap-2"
                 >
                   <div
-                    class="flex-1 min-w-0 space-y-1"
+                    class="flex items-center gap-2.5 min-w-0"
                   >
-                    <p
-                      class="text-xl font-semibold text-brand-text-dark leading-snug truncate"
+                    <div
+                      class="w-10 h-10 rounded-xl bg-brand-blue/10 text-brand-blue font-bold flex items-center justify-center shrink-0 text-sm"
                     >
-                      Dewi Lestari
-                    </p>
-                    <p
-                      class="text-base font-normal text-brand-text-medium/80 truncate"
+                      D
+                    </div>
+                    <div
+                      class="min-w-0"
+                    >
+                      <h4
+                        class="text-base font-semibold text-text-primary truncate"
+                      >
+                        Dewi Lestari
+                      </h4>
+                      <span
+                        class="text-xs text-text-tertiary flex items-center gap-1 mt-0.5"
+                      >
+                        <div
+                          data-testid="user-icon"
+                        />
+                        <span>
+                          ID: 5
+                        </span>
+                      </span>
+                    </div>
+                  </div>
+                  <div
+                    class="flex items-center gap-2 shrink-0"
+                  >
+                    <span
+                      class="inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold bg-green-100 text-green-700"
+                    >
+                      active
+                    </span>
+                    <button
+                      aria-label="Edit customer"
+                      class="p-1.5 text-text-tertiary hover:text-brand-blue hover:bg-background-subtle rounded-lg transition-colors cursor-pointer"
+                      title="Edit"
+                      type="button"
+                    >
+                      <div
+                        data-testid="edit-icon"
+                      />
+                    </button>
+                  </div>
+                </div>
+                <div
+                  class="grid grid-cols-1 gap-1.5 pt-2 border-t border-border-default/60 text-sm text-text-secondary"
+                >
+                  <div
+                    class="flex items-center gap-2 truncate"
+                  >
+                    <div
+                      data-testid="map-pin-icon"
+                    />
+                    <span
+                      class="truncate"
                     >
                       Jl. Malioboro No. 23, Yogyakarta
-                    </p>
+                    </span>
                   </div>
                   <div
-                    class="shrink-0"
+                    class="flex items-center gap-2 truncate"
                   >
+                    <div
+                      data-testid="phone-icon"
+                    />
                     <span
-                      class="inline-flex items-center rounded-full px-3 py-1 text-sm font-medium whitespace-nowrap bg-green-100 text-green-700"
+                      class="truncate"
                     >
-                      active
+                      087811223344
                     </span>
                   </div>
                 </div>
                 <div
-                  class="flex items-center gap-4 px-0 py-4 bg-transparent border-b border-brand-gray-light last:border-b-0 active:bg-brand-gray-light/20 transition-colors cursor-pointer"
-                  role="button"
-                  tabindex="0"
+                  class="flex items-center justify-end text-xs font-medium text-brand-blue pt-1"
+                >
+                  <span
+                    class="flex items-center gap-1"
+                  >
+                    Lihat detail
+                    <div
+                      data-testid="chevron-right-icon"
+                    />
+                  </span>
+                </div>
+              </div>
+              <div
+                class="bg-background-surface rounded-2xl border border-border-default p-4 shadow-xs flex flex-col gap-3 active:bg-background-subtle/50 transition-colors cursor-pointer"
+                role="button"
+                tabindex="0"
+              >
+                <div
+                  class="flex items-start justify-between gap-2"
                 >
                   <div
-                    class="flex-1 min-w-0 space-y-1"
+                    class="flex items-center gap-2.5 min-w-0"
                   >
-                    <p
-                      class="text-xl font-semibold text-brand-text-dark leading-snug truncate"
+                    <div
+                      class="w-10 h-10 rounded-xl bg-brand-blue/10 text-brand-blue font-bold flex items-center justify-center shrink-0 text-sm"
                     >
-                      CV Berkah Mandiri
-                    </p>
-                    <p
-                      class="text-base font-normal text-brand-text-medium/80 truncate"
+                      C
+                    </div>
+                    <div
+                      class="min-w-0"
+                    >
+                      <h4
+                        class="text-base font-semibold text-text-primary truncate"
+                      >
+                        CV Berkah Mandiri
+                      </h4>
+                      <span
+                        class="text-xs text-text-tertiary flex items-center gap-1 mt-0.5"
+                      >
+                        <div
+                          data-testid="user-icon"
+                        />
+                        <span>
+                          ID: 6
+                        </span>
+                      </span>
+                    </div>
+                  </div>
+                  <div
+                    class="flex items-center gap-2 shrink-0"
+                  >
+                    <span
+                      class="inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold bg-red-100 text-red-700"
+                    >
+                      inactive
+                    </span>
+                    <button
+                      aria-label="Edit customer"
+                      class="p-1.5 text-text-tertiary hover:text-brand-blue hover:bg-background-subtle rounded-lg transition-colors cursor-pointer"
+                      title="Edit"
+                      type="button"
+                    >
+                      <div
+                        data-testid="edit-icon"
+                      />
+                    </button>
+                  </div>
+                </div>
+                <div
+                  class="grid grid-cols-1 gap-1.5 pt-2 border-t border-border-default/60 text-sm text-text-secondary"
+                >
+                  <div
+                    class="flex items-center gap-2 truncate"
+                  >
+                    <div
+                      data-testid="map-pin-icon"
+                    />
+                    <span
+                      class="truncate"
                     >
                       Jl. Pemuda No. 101, Semarang
-                    </p>
+                    </span>
                   </div>
                   <div
-                    class="shrink-0"
+                    class="flex items-center gap-2 truncate"
                   >
+                    <div
+                      data-testid="phone-icon"
+                    />
                     <span
-                      class="inline-flex items-center rounded-full px-3 py-1 text-sm font-medium whitespace-nowrap bg-red-100 text-red-700"
+                      class="truncate"
                     >
-                      inactive
+                      082155667788
                     </span>
                   </div>
                 </div>
                 <div
-                  class="flex items-center gap-4 px-0 py-4 bg-transparent border-b border-brand-gray-light last:border-b-0 active:bg-brand-gray-light/20 transition-colors cursor-pointer"
-                  role="button"
-                  tabindex="0"
+                  class="flex items-center justify-end text-xs font-medium text-brand-blue pt-1"
+                >
+                  <span
+                    class="flex items-center gap-1"
+                  >
+                    Lihat detail
+                    <div
+                      data-testid="chevron-right-icon"
+                    />
+                  </span>
+                </div>
+              </div>
+              <div
+                class="bg-background-surface rounded-2xl border border-border-default p-4 shadow-xs flex flex-col gap-3 active:bg-background-subtle/50 transition-colors cursor-pointer"
+                role="button"
+                tabindex="0"
+              >
+                <div
+                  class="flex items-start justify-between gap-2"
                 >
                   <div
-                    class="flex-1 min-w-0 space-y-1"
+                    class="flex items-center gap-2.5 min-w-0"
                   >
-                    <p
-                      class="text-xl font-semibold text-brand-text-dark leading-snug truncate"
+                    <div
+                      class="w-10 h-10 rounded-xl bg-brand-blue/10 text-brand-blue font-bold flex items-center justify-center shrink-0 text-sm"
                     >
-                      PT Cipta Karya Solusi
-                    </p>
-                    <p
-                      class="text-base font-normal text-brand-text-medium/80 truncate"
+                      P
+                    </div>
+                    <div
+                      class="min-w-0"
+                    >
+                      <h4
+                        class="text-base font-semibold text-text-primary truncate"
+                      >
+                        PT Cipta Karya Solusi
+                      </h4>
+                      <span
+                        class="text-xs text-text-tertiary flex items-center gap-1 mt-0.5"
+                      >
+                        <div
+                          data-testid="user-icon"
+                        />
+                        <span>
+                          ID: 7
+                        </span>
+                      </span>
+                    </div>
+                  </div>
+                  <div
+                    class="flex items-center gap-2 shrink-0"
+                  >
+                    <span
+                      class="inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold bg-green-100 text-green-700"
+                    >
+                      active
+                    </span>
+                    <button
+                      aria-label="Edit customer"
+                      class="p-1.5 text-text-tertiary hover:text-brand-blue hover:bg-background-subtle rounded-lg transition-colors cursor-pointer"
+                      title="Edit"
+                      type="button"
+                    >
+                      <div
+                        data-testid="edit-icon"
+                      />
+                    </button>
+                  </div>
+                </div>
+                <div
+                  class="grid grid-cols-1 gap-1.5 pt-2 border-t border-border-default/60 text-sm text-text-secondary"
+                >
+                  <div
+                    class="flex items-center gap-2 truncate"
+                  >
+                    <div
+                      data-testid="map-pin-icon"
+                    />
+                    <span
+                      class="truncate"
                     >
                       Jl. Raya Bogor KM 28, Depok
-                    </p>
+                    </span>
                   </div>
                   <div
-                    class="shrink-0"
+                    class="flex items-center gap-2 truncate"
                   >
+                    <div
+                      data-testid="phone-icon"
+                    />
                     <span
-                      class="inline-flex items-center rounded-full px-3 py-1 text-sm font-medium whitespace-nowrap bg-green-100 text-green-700"
+                      class="truncate"
                     >
-                      active
+                      081900112233
                     </span>
                   </div>
                 </div>
                 <div
-                  class="flex items-center gap-4 px-0 py-4 bg-transparent border-b border-brand-gray-light last:border-b-0 active:bg-brand-gray-light/20 transition-colors cursor-pointer"
-                  role="button"
-                  tabindex="0"
+                  class="flex items-center justify-end text-xs font-medium text-brand-blue pt-1"
+                >
+                  <span
+                    class="flex items-center gap-1"
+                  >
+                    Lihat detail
+                    <div
+                      data-testid="chevron-right-icon"
+                    />
+                  </span>
+                </div>
+              </div>
+              <div
+                class="bg-background-surface rounded-2xl border border-border-default p-4 shadow-xs flex flex-col gap-3 active:bg-background-subtle/50 transition-colors cursor-pointer"
+                role="button"
+                tabindex="0"
+              >
+                <div
+                  class="flex items-start justify-between gap-2"
                 >
                   <div
-                    class="flex-1 min-w-0 space-y-1"
+                    class="flex items-center gap-2.5 min-w-0"
                   >
-                    <p
-                      class="text-xl font-semibold text-brand-text-dark leading-snug truncate"
+                    <div
+                      class="w-10 h-10 rounded-xl bg-brand-blue/10 text-brand-blue font-bold flex items-center justify-center shrink-0 text-sm"
                     >
-                      Ahmad Fauzi
-                    </p>
-                    <p
-                      class="text-base font-normal text-brand-text-medium/80 truncate"
+                      A
+                    </div>
+                    <div
+                      class="min-w-0"
+                    >
+                      <h4
+                        class="text-base font-semibold text-text-primary truncate"
+                      >
+                        Ahmad Fauzi
+                      </h4>
+                      <span
+                        class="text-xs text-text-tertiary flex items-center gap-1 mt-0.5"
+                      >
+                        <div
+                          data-testid="user-icon"
+                        />
+                        <span>
+                          ID: 8
+                        </span>
+                      </span>
+                    </div>
+                  </div>
+                  <div
+                    class="flex items-center gap-2 shrink-0"
+                  >
+                    <span
+                      class="inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold bg-green-100 text-green-700"
+                    >
+                      active
+                    </span>
+                    <button
+                      aria-label="Edit customer"
+                      class="p-1.5 text-text-tertiary hover:text-brand-blue hover:bg-background-subtle rounded-lg transition-colors cursor-pointer"
+                      title="Edit"
+                      type="button"
+                    >
+                      <div
+                        data-testid="edit-icon"
+                      />
+                    </button>
+                  </div>
+                </div>
+                <div
+                  class="grid grid-cols-1 gap-1.5 pt-2 border-t border-border-default/60 text-sm text-text-secondary"
+                >
+                  <div
+                    class="flex items-center gap-2 truncate"
+                  >
+                    <div
+                      data-testid="map-pin-icon"
+                    />
+                    <span
+                      class="truncate"
                     >
                       Jl. Ahmad Yani No. 50, Medan
-                    </p>
+                    </span>
                   </div>
                   <div
-                    class="shrink-0"
+                    class="flex items-center gap-2 truncate"
                   >
+                    <div
+                      data-testid="phone-icon"
+                    />
                     <span
-                      class="inline-flex items-center rounded-full px-3 py-1 text-sm font-medium whitespace-nowrap bg-green-100 text-green-700"
+                      class="truncate"
                     >
-                      active
+                      085244332211
                     </span>
                   </div>
                 </div>
                 <div
-                  class="flex items-center gap-4 px-0 py-4 bg-transparent border-b border-brand-gray-light last:border-b-0 active:bg-brand-gray-light/20 transition-colors cursor-pointer"
-                  role="button"
-                  tabindex="0"
+                  class="flex items-center justify-end text-xs font-medium text-brand-blue pt-1"
+                >
+                  <span
+                    class="flex items-center gap-1"
+                  >
+                    Lihat detail
+                    <div
+                      data-testid="chevron-right-icon"
+                    />
+                  </span>
+                </div>
+              </div>
+              <div
+                class="bg-background-surface rounded-2xl border border-border-default p-4 shadow-xs flex flex-col gap-3 active:bg-background-subtle/50 transition-colors cursor-pointer"
+                role="button"
+                tabindex="0"
+              >
+                <div
+                  class="flex items-start justify-between gap-2"
                 >
                   <div
-                    class="flex-1 min-w-0 space-y-1"
+                    class="flex items-center gap-2.5 min-w-0"
                   >
-                    <p
-                      class="text-xl font-semibold text-brand-text-dark leading-snug truncate"
+                    <div
+                      class="w-10 h-10 rounded-xl bg-brand-blue/10 text-brand-blue font-bold flex items-center justify-center shrink-0 text-sm"
                     >
-                      PT Global Indo Medika
-                    </p>
-                    <p
-                      class="text-base font-normal text-brand-text-medium/80 truncate"
+                      P
+                    </div>
+                    <div
+                      class="min-w-0"
                     >
-                      Jl. HR Rasuna Said Kav. C-22, Jakarta Selatan
-                    </p>
+                      <h4
+                        class="text-base font-semibold text-text-primary truncate"
+                      >
+                        PT Global Indo Medika
+                      </h4>
+                      <span
+                        class="text-xs text-text-tertiary flex items-center gap-1 mt-0.5"
+                      >
+                        <div
+                          data-testid="user-icon"
+                        />
+                        <span>
+                          ID: 9
+                        </span>
+                      </span>
+                    </div>
                   </div>
                   <div
-                    class="shrink-0"
+                    class="flex items-center gap-2 shrink-0"
                   >
                     <span
-                      class="inline-flex items-center rounded-full px-3 py-1 text-sm font-medium whitespace-nowrap bg-red-100 text-red-700"
+                      class="inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold bg-red-100 text-red-700"
                     >
                       inactive
                     </span>
+                    <button
+                      aria-label="Edit customer"
+                      class="p-1.5 text-text-tertiary hover:text-brand-blue hover:bg-background-subtle rounded-lg transition-colors cursor-pointer"
+                      title="Edit"
+                      type="button"
+                    >
+                      <div
+                        data-testid="edit-icon"
+                      />
+                    </button>
                   </div>
                 </div>
                 <div
-                  class="flex items-center gap-4 px-0 py-4 bg-transparent border-b border-brand-gray-light last:border-b-0 active:bg-brand-gray-light/20 transition-colors cursor-pointer"
-                  role="button"
-                  tabindex="0"
+                  class="grid grid-cols-1 gap-1.5 pt-2 border-t border-border-default/60 text-sm text-text-secondary"
                 >
                   <div
-                    class="flex-1 min-w-0 space-y-1"
+                    class="flex items-center gap-2 truncate"
                   >
-                    <p
-                      class="text-xl font-semibold text-brand-text-dark leading-snug truncate"
+                    <div
+                      data-testid="map-pin-icon"
+                    />
+                    <span
+                      class="truncate"
                     >
-                      Siti Rahmawati
-                    </p>
-                    <p
-                      class="text-base font-normal text-brand-text-medium/80 truncate"
-                    >
-                      Jl. Gajah Mada No. 14, Denpasar
-                    </p>
+                      Jl. HR Rasuna Said Kav. C-22, Jakarta Selatan
+                    </span>
                   </div>
                   <div
-                    class="shrink-0"
+                    class="flex items-center gap-2 truncate"
+                  >
+                    <div
+                      data-testid="phone-icon"
+                    />
+                    <span
+                      class="truncate"
+                    >
+                      081199887766
+                    </span>
+                  </div>
+                </div>
+                <div
+                  class="flex items-center justify-end text-xs font-medium text-brand-blue pt-1"
+                >
+                  <span
+                    class="flex items-center gap-1"
+                  >
+                    Lihat detail
+                    <div
+                      data-testid="chevron-right-icon"
+                    />
+                  </span>
+                </div>
+              </div>
+              <div
+                class="bg-background-surface rounded-2xl border border-border-default p-4 shadow-xs flex flex-col gap-3 active:bg-background-subtle/50 transition-colors cursor-pointer"
+                role="button"
+                tabindex="0"
+              >
+                <div
+                  class="flex items-start justify-between gap-2"
+                >
+                  <div
+                    class="flex items-center gap-2.5 min-w-0"
+                  >
+                    <div
+                      class="w-10 h-10 rounded-xl bg-brand-blue/10 text-brand-blue font-bold flex items-center justify-center shrink-0 text-sm"
+                    >
+                      S
+                    </div>
+                    <div
+                      class="min-w-0"
+                    >
+                      <h4
+                        class="text-base font-semibold text-text-primary truncate"
+                      >
+                        Siti Rahmawati
+                      </h4>
+                      <span
+                        class="text-xs text-text-tertiary flex items-center gap-1 mt-0.5"
+                      >
+                        <div
+                          data-testid="user-icon"
+                        />
+                        <span>
+                          ID: 10
+                        </span>
+                      </span>
+                    </div>
+                  </div>
+                  <div
+                    class="flex items-center gap-2 shrink-0"
                   >
                     <span
-                      class="inline-flex items-center rounded-full px-3 py-1 text-sm font-medium whitespace-nowrap bg-green-100 text-green-700"
+                      class="inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold bg-green-100 text-green-700"
                     >
                       active
                     </span>
+                    <button
+                      aria-label="Edit customer"
+                      class="p-1.5 text-text-tertiary hover:text-brand-blue hover:bg-background-subtle rounded-lg transition-colors cursor-pointer"
+                      title="Edit"
+                      type="button"
+                    >
+                      <div
+                        data-testid="edit-icon"
+                      />
+                    </button>
                   </div>
+                </div>
+                <div
+                  class="grid grid-cols-1 gap-1.5 pt-2 border-t border-border-default/60 text-sm text-text-secondary"
+                >
+                  <div
+                    class="flex items-center gap-2 truncate"
+                  >
+                    <div
+                      data-testid="map-pin-icon"
+                    />
+                    <span
+                      class="truncate"
+                    >
+                      Jl. Gajah Mada No. 14, Denpasar
+                    </span>
+                  </div>
+                  <div
+                    class="flex items-center gap-2 truncate"
+                  >
+                    <div
+                      data-testid="phone-icon"
+                    />
+                    <span
+                      class="truncate"
+                    >
+                      083812349988
+                    </span>
+                  </div>
+                </div>
+                <div
+                  class="flex items-center justify-end text-xs font-medium text-brand-blue pt-1"
+                >
+                  <span
+                    class="flex items-center gap-1"
+                  >
+                    Lihat detail
+                    <div
+                      data-testid="chevron-right-icon"
+                    />
+                  </span>
                 </div>
               </div>
             </div>
             <div
-              class="pt-4 flex items-center justify-between"
-            >
-              <div
-                data-testid="pagination"
-              />
-            </div>
+              data-testid="pagination"
+            />
           </div>
           <div
             class="hidden lg:px-6 md:flex bg-brand-white rounded-4xl border border-brand-gray-light shadow-xs flex-col flex-1 overflow-hidden mt-6"
@@ -932,335 +1614,1017 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots more open st
           class="flex flex-col h-full pb-18 lg:pb-0 px-3 lg:px-0 lg:-mt-4 relative"
         >
           <div
-            class="md:hidden space-y-6 mt-10"
+            class="lg:hidden flex min-w-0 flex-col gap-4 pt-2 pb-16"
           >
             <div
-              class="p-4"
-            >
-              <label
-                class="relative block w-full sm:w-72 "
-              >
-                <span
-                  class="sr-only"
-                >
-                  Search customer
-                </span>
-                <div
-                  data-testid="search-icon"
-                />
-                <input
-                  aria-label="Search customer"
-                  class="h-11 w-full rounded-xl border border-border-default bg-background-surface pl-12 pr-4 text-base font-medium text-text-primary outline-none transition-colors placeholder:font-normal placeholder:text-text-tertiary hover:border-border-strong focus:border-border-focus focus:ring-2 focus:ring-focus-ring/30"
-                  placeholder="Search customer"
-                  type="search"
-                />
-              </label>
-            </div>
-            <div
-              class="scale-100 origin-top"
+              class="flex w-full items-center justify-between gap-3 bg-transparent"
             >
               <div
-                class="bg-transparent overflow-hidden divide-y divide-brand-gray-light"
+                class="flex-1"
+              >
+                <label
+                  class="relative block w-full sm:w-72 "
+                >
+                  <span
+                    class="sr-only"
+                  >
+                    Search customer
+                  </span>
+                  <div
+                    data-testid="search-icon"
+                  />
+                  <input
+                    aria-label="Search customer"
+                    class="h-11 w-full rounded-xl border border-border-default bg-background-surface pl-12 pr-4 text-base font-medium text-text-primary outline-none transition-colors placeholder:font-normal placeholder:text-text-tertiary hover:border-border-strong focus:border-border-focus focus:ring-2 focus:ring-focus-ring/30"
+                    placeholder="Search customer"
+                    type="search"
+                  />
+                </label>
+              </div>
+              <button
+                class="shrink-0 rounded-xl bg-brand-blue px-4 py-2.5 text-sm font-semibold text-brand-white shadow-sm hover:bg-brand-blue/90 transition-colors"
+                type="button"
+              >
+                Create Customer
+              </button>
+            </div>
+            <div
+              class="min-w-0 space-y-3"
+            >
+              <div
+                class="bg-background-surface rounded-2xl border border-border-default p-4 shadow-xs flex flex-col gap-3 active:bg-background-subtle/50 transition-colors cursor-pointer"
+                role="button"
+                tabindex="0"
               >
                 <div
-                  class="flex items-center gap-4 px-0 py-4 bg-transparent border-b border-brand-gray-light last:border-b-0 active:bg-brand-gray-light/20 transition-colors cursor-pointer"
-                  role="button"
-                  tabindex="0"
+                  class="flex items-start justify-between gap-2"
                 >
                   <div
-                    class="flex-1 min-w-0 space-y-1"
+                    class="flex items-center gap-2.5 min-w-0"
                   >
-                    <p
-                      class="text-xl font-semibold text-brand-text-dark leading-snug truncate"
+                    <div
+                      class="w-10 h-10 rounded-xl bg-brand-blue/10 text-brand-blue font-bold flex items-center justify-center shrink-0 text-sm"
                     >
-                      PT Mega Jaya Abadi
-                    </p>
-                    <p
-                      class="text-base font-normal text-brand-text-medium/80 truncate"
+                      P
+                    </div>
+                    <div
+                      class="min-w-0"
+                    >
+                      <h4
+                        class="text-base font-semibold text-text-primary truncate"
+                      >
+                        PT Mega Jaya Abadi
+                      </h4>
+                      <span
+                        class="text-xs text-text-tertiary flex items-center gap-1 mt-0.5"
+                      >
+                        <div
+                          data-testid="user-icon"
+                        />
+                        <span>
+                          ID: 1
+                        </span>
+                      </span>
+                    </div>
+                  </div>
+                  <div
+                    class="flex items-center gap-2 shrink-0"
+                  >
+                    <span
+                      class="inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold bg-green-100 text-green-700"
+                    >
+                      active
+                    </span>
+                    <button
+                      aria-label="Edit customer"
+                      class="p-1.5 text-text-tertiary hover:text-brand-blue hover:bg-background-subtle rounded-lg transition-colors cursor-pointer"
+                      title="Edit"
+                      type="button"
+                    >
+                      <div
+                        data-testid="edit-icon"
+                      />
+                    </button>
+                  </div>
+                </div>
+                <div
+                  class="grid grid-cols-1 gap-1.5 pt-2 border-t border-border-default/60 text-sm text-text-secondary"
+                >
+                  <div
+                    class="flex items-center gap-2 truncate"
+                  >
+                    <div
+                      data-testid="map-pin-icon"
+                    />
+                    <span
+                      class="truncate"
                     >
                       Jl. Sudirman No. 45, Jakarta Pusat
-                    </p>
+                    </span>
                   </div>
                   <div
-                    class="shrink-0"
+                    class="flex items-center gap-2 truncate"
                   >
+                    <div
+                      data-testid="phone-icon"
+                    />
                     <span
-                      class="inline-flex items-center rounded-full px-3 py-1 text-sm font-medium whitespace-nowrap bg-green-100 text-green-700"
+                      class="truncate"
                     >
-                      active
+                      081234567890
                     </span>
                   </div>
                 </div>
                 <div
-                  class="flex items-center gap-4 px-0 py-4 bg-transparent border-b border-brand-gray-light last:border-b-0 active:bg-brand-gray-light/20 transition-colors cursor-pointer"
-                  role="button"
-                  tabindex="0"
+                  class="flex items-center justify-end text-xs font-medium text-brand-blue pt-1"
+                >
+                  <span
+                    class="flex items-center gap-1"
+                  >
+                    Lihat detail
+                    <div
+                      data-testid="chevron-right-icon"
+                    />
+                  </span>
+                </div>
+              </div>
+              <div
+                class="bg-background-surface rounded-2xl border border-border-default p-4 shadow-xs flex flex-col gap-3 active:bg-background-subtle/50 transition-colors cursor-pointer"
+                role="button"
+                tabindex="0"
+              >
+                <div
+                  class="flex items-start justify-between gap-2"
                 >
                   <div
-                    class="flex-1 min-w-0 space-y-1"
+                    class="flex items-center gap-2.5 min-w-0"
                   >
-                    <p
-                      class="text-xl font-semibold text-brand-text-dark leading-snug truncate"
+                    <div
+                      class="w-10 h-10 rounded-xl bg-brand-blue/10 text-brand-blue font-bold flex items-center justify-center shrink-0 text-sm"
                     >
-                      CV Sinar Terang
-                    </p>
-                    <p
-                      class="text-base font-normal text-brand-text-medium/80 truncate"
+                      C
+                    </div>
+                    <div
+                      class="min-w-0"
+                    >
+                      <h4
+                        class="text-base font-semibold text-text-primary truncate"
+                      >
+                        CV Sinar Terang
+                      </h4>
+                      <span
+                        class="text-xs text-text-tertiary flex items-center gap-1 mt-0.5"
+                      >
+                        <div
+                          data-testid="user-icon"
+                        />
+                        <span>
+                          ID: 2
+                        </span>
+                      </span>
+                    </div>
+                  </div>
+                  <div
+                    class="flex items-center gap-2 shrink-0"
+                  >
+                    <span
+                      class="inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold bg-green-100 text-green-700"
+                    >
+                      active
+                    </span>
+                    <button
+                      aria-label="Edit customer"
+                      class="p-1.5 text-text-tertiary hover:text-brand-blue hover:bg-background-subtle rounded-lg transition-colors cursor-pointer"
+                      title="Edit"
+                      type="button"
+                    >
+                      <div
+                        data-testid="edit-icon"
+                      />
+                    </button>
+                  </div>
+                </div>
+                <div
+                  class="grid grid-cols-1 gap-1.5 pt-2 border-t border-border-default/60 text-sm text-text-secondary"
+                >
+                  <div
+                    class="flex items-center gap-2 truncate"
+                  >
+                    <div
+                      data-testid="map-pin-icon"
+                    />
+                    <span
+                      class="truncate"
                     >
                       Jl. Gatot Subroto No. 12, Bandung
-                    </p>
+                    </span>
                   </div>
                   <div
-                    class="shrink-0"
+                    class="flex items-center gap-2 truncate"
                   >
+                    <div
+                      data-testid="phone-icon"
+                    />
                     <span
-                      class="inline-flex items-center rounded-full px-3 py-1 text-sm font-medium whitespace-nowrap bg-green-100 text-green-700"
+                      class="truncate"
                     >
-                      active
+                      081298765432
                     </span>
                   </div>
                 </div>
                 <div
-                  class="flex items-center gap-4 px-0 py-4 bg-transparent border-b border-brand-gray-light last:border-b-0 active:bg-brand-gray-light/20 transition-colors cursor-pointer"
-                  role="button"
-                  tabindex="0"
+                  class="flex items-center justify-end text-xs font-medium text-brand-blue pt-1"
+                >
+                  <span
+                    class="flex items-center gap-1"
+                  >
+                    Lihat detail
+                    <div
+                      data-testid="chevron-right-icon"
+                    />
+                  </span>
+                </div>
+              </div>
+              <div
+                class="bg-background-surface rounded-2xl border border-border-default p-4 shadow-xs flex flex-col gap-3 active:bg-background-subtle/50 transition-colors cursor-pointer"
+                role="button"
+                tabindex="0"
+              >
+                <div
+                  class="flex items-start justify-between gap-2"
                 >
                   <div
-                    class="flex-1 min-w-0 space-y-1"
+                    class="flex items-center gap-2.5 min-w-0"
                   >
-                    <p
-                      class="text-xl font-semibold text-brand-text-dark leading-snug truncate"
+                    <div
+                      class="w-10 h-10 rounded-xl bg-brand-blue/10 text-brand-blue font-bold flex items-center justify-center shrink-0 text-sm"
                     >
-                      Budi Santoso
-                    </p>
-                    <p
-                      class="text-base font-normal text-brand-text-medium/80 truncate"
+                      B
+                    </div>
+                    <div
+                      class="min-w-0"
+                    >
+                      <h4
+                        class="text-base font-semibold text-text-primary truncate"
+                      >
+                        Budi Santoso
+                      </h4>
+                      <span
+                        class="text-xs text-text-tertiary flex items-center gap-1 mt-0.5"
+                      >
+                        <div
+                          data-testid="user-icon"
+                        />
+                        <span>
+                          ID: 3
+                        </span>
+                      </span>
+                    </div>
+                  </div>
+                  <div
+                    class="flex items-center gap-2 shrink-0"
+                  >
+                    <span
+                      class="inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold bg-red-100 text-red-700"
+                    >
+                      inactive
+                    </span>
+                    <button
+                      aria-label="Edit customer"
+                      class="p-1.5 text-text-tertiary hover:text-brand-blue hover:bg-background-subtle rounded-lg transition-colors cursor-pointer"
+                      title="Edit"
+                      type="button"
+                    >
+                      <div
+                        data-testid="edit-icon"
+                      />
+                    </button>
+                  </div>
+                </div>
+                <div
+                  class="grid grid-cols-1 gap-1.5 pt-2 border-t border-border-default/60 text-sm text-text-secondary"
+                >
+                  <div
+                    class="flex items-center gap-2 truncate"
+                  >
+                    <div
+                      data-testid="map-pin-icon"
+                    />
+                    <span
+                      class="truncate"
                     >
                       Jl. Diponegoro No. 88, Surabaya
-                    </p>
+                    </span>
                   </div>
                   <div
-                    class="shrink-0"
+                    class="flex items-center gap-2 truncate"
                   >
+                    <div
+                      data-testid="phone-icon"
+                    />
                     <span
-                      class="inline-flex items-center rounded-full px-3 py-1 text-sm font-medium whitespace-nowrap bg-red-100 text-red-700"
+                      class="truncate"
                     >
-                      inactive
+                      085612345678
                     </span>
                   </div>
                 </div>
                 <div
-                  class="flex items-center gap-4 px-0 py-4 bg-transparent border-b border-brand-gray-light last:border-b-0 active:bg-brand-gray-light/20 transition-colors cursor-pointer"
-                  role="button"
-                  tabindex="0"
+                  class="flex items-center justify-end text-xs font-medium text-brand-blue pt-1"
+                >
+                  <span
+                    class="flex items-center gap-1"
+                  >
+                    Lihat detail
+                    <div
+                      data-testid="chevron-right-icon"
+                    />
+                  </span>
+                </div>
+              </div>
+              <div
+                class="bg-background-surface rounded-2xl border border-border-default p-4 shadow-xs flex flex-col gap-3 active:bg-background-subtle/50 transition-colors cursor-pointer"
+                role="button"
+                tabindex="0"
+              >
+                <div
+                  class="flex items-start justify-between gap-2"
                 >
                   <div
-                    class="flex-1 min-w-0 space-y-1"
+                    class="flex items-center gap-2.5 min-w-0"
                   >
-                    <p
-                      class="text-xl font-semibold text-brand-text-dark leading-snug truncate"
+                    <div
+                      class="w-10 h-10 rounded-xl bg-brand-blue/10 text-brand-blue font-bold flex items-center justify-center shrink-0 text-sm"
                     >
-                      PT Nusantara Prima
-                    </p>
-                    <p
-                      class="text-base font-normal text-brand-text-medium/80 truncate"
+                      P
+                    </div>
+                    <div
+                      class="min-w-0"
+                    >
+                      <h4
+                        class="text-base font-semibold text-text-primary truncate"
+                      >
+                        PT Nusantara Prima
+                      </h4>
+                      <span
+                        class="text-xs text-text-tertiary flex items-center gap-1 mt-0.5"
+                      >
+                        <div
+                          data-testid="user-icon"
+                        />
+                        <span>
+                          ID: 4
+                        </span>
+                      </span>
+                    </div>
+                  </div>
+                  <div
+                    class="flex items-center gap-2 shrink-0"
+                  >
+                    <span
+                      class="inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold bg-green-100 text-green-700"
+                    >
+                      active
+                    </span>
+                    <button
+                      aria-label="Edit customer"
+                      class="p-1.5 text-text-tertiary hover:text-brand-blue hover:bg-background-subtle rounded-lg transition-colors cursor-pointer"
+                      title="Edit"
+                      type="button"
+                    >
+                      <div
+                        data-testid="edit-icon"
+                      />
+                    </button>
+                  </div>
+                </div>
+                <div
+                  class="grid grid-cols-1 gap-1.5 pt-2 border-t border-border-default/60 text-sm text-text-secondary"
+                >
+                  <div
+                    class="flex items-center gap-2 truncate"
+                  >
+                    <div
+                      data-testid="map-pin-icon"
+                    />
+                    <span
+                      class="truncate"
                     >
                       Jl. M.H. Thamrin No. 9, Jakarta Pusat
-                    </p>
+                    </span>
                   </div>
                   <div
-                    class="shrink-0"
+                    class="flex items-center gap-2 truncate"
                   >
+                    <div
+                      data-testid="phone-icon"
+                    />
                     <span
-                      class="inline-flex items-center rounded-full px-3 py-1 text-sm font-medium whitespace-nowrap bg-green-100 text-green-700"
+                      class="truncate"
                     >
-                      active
+                      081377889900
                     </span>
                   </div>
                 </div>
                 <div
-                  class="flex items-center gap-4 px-0 py-4 bg-transparent border-b border-brand-gray-light last:border-b-0 active:bg-brand-gray-light/20 transition-colors cursor-pointer"
-                  role="button"
-                  tabindex="0"
+                  class="flex items-center justify-end text-xs font-medium text-brand-blue pt-1"
+                >
+                  <span
+                    class="flex items-center gap-1"
+                  >
+                    Lihat detail
+                    <div
+                      data-testid="chevron-right-icon"
+                    />
+                  </span>
+                </div>
+              </div>
+              <div
+                class="bg-background-surface rounded-2xl border border-border-default p-4 shadow-xs flex flex-col gap-3 active:bg-background-subtle/50 transition-colors cursor-pointer"
+                role="button"
+                tabindex="0"
+              >
+                <div
+                  class="flex items-start justify-between gap-2"
                 >
                   <div
-                    class="flex-1 min-w-0 space-y-1"
+                    class="flex items-center gap-2.5 min-w-0"
                   >
-                    <p
-                      class="text-xl font-semibold text-brand-text-dark leading-snug truncate"
+                    <div
+                      class="w-10 h-10 rounded-xl bg-brand-blue/10 text-brand-blue font-bold flex items-center justify-center shrink-0 text-sm"
                     >
-                      Dewi Lestari
-                    </p>
-                    <p
-                      class="text-base font-normal text-brand-text-medium/80 truncate"
+                      D
+                    </div>
+                    <div
+                      class="min-w-0"
+                    >
+                      <h4
+                        class="text-base font-semibold text-text-primary truncate"
+                      >
+                        Dewi Lestari
+                      </h4>
+                      <span
+                        class="text-xs text-text-tertiary flex items-center gap-1 mt-0.5"
+                      >
+                        <div
+                          data-testid="user-icon"
+                        />
+                        <span>
+                          ID: 5
+                        </span>
+                      </span>
+                    </div>
+                  </div>
+                  <div
+                    class="flex items-center gap-2 shrink-0"
+                  >
+                    <span
+                      class="inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold bg-green-100 text-green-700"
+                    >
+                      active
+                    </span>
+                    <button
+                      aria-label="Edit customer"
+                      class="p-1.5 text-text-tertiary hover:text-brand-blue hover:bg-background-subtle rounded-lg transition-colors cursor-pointer"
+                      title="Edit"
+                      type="button"
+                    >
+                      <div
+                        data-testid="edit-icon"
+                      />
+                    </button>
+                  </div>
+                </div>
+                <div
+                  class="grid grid-cols-1 gap-1.5 pt-2 border-t border-border-default/60 text-sm text-text-secondary"
+                >
+                  <div
+                    class="flex items-center gap-2 truncate"
+                  >
+                    <div
+                      data-testid="map-pin-icon"
+                    />
+                    <span
+                      class="truncate"
                     >
                       Jl. Malioboro No. 23, Yogyakarta
-                    </p>
+                    </span>
                   </div>
                   <div
-                    class="shrink-0"
+                    class="flex items-center gap-2 truncate"
                   >
+                    <div
+                      data-testid="phone-icon"
+                    />
                     <span
-                      class="inline-flex items-center rounded-full px-3 py-1 text-sm font-medium whitespace-nowrap bg-green-100 text-green-700"
+                      class="truncate"
                     >
-                      active
+                      087811223344
                     </span>
                   </div>
                 </div>
                 <div
-                  class="flex items-center gap-4 px-0 py-4 bg-transparent border-b border-brand-gray-light last:border-b-0 active:bg-brand-gray-light/20 transition-colors cursor-pointer"
-                  role="button"
-                  tabindex="0"
+                  class="flex items-center justify-end text-xs font-medium text-brand-blue pt-1"
+                >
+                  <span
+                    class="flex items-center gap-1"
+                  >
+                    Lihat detail
+                    <div
+                      data-testid="chevron-right-icon"
+                    />
+                  </span>
+                </div>
+              </div>
+              <div
+                class="bg-background-surface rounded-2xl border border-border-default p-4 shadow-xs flex flex-col gap-3 active:bg-background-subtle/50 transition-colors cursor-pointer"
+                role="button"
+                tabindex="0"
+              >
+                <div
+                  class="flex items-start justify-between gap-2"
                 >
                   <div
-                    class="flex-1 min-w-0 space-y-1"
+                    class="flex items-center gap-2.5 min-w-0"
                   >
-                    <p
-                      class="text-xl font-semibold text-brand-text-dark leading-snug truncate"
+                    <div
+                      class="w-10 h-10 rounded-xl bg-brand-blue/10 text-brand-blue font-bold flex items-center justify-center shrink-0 text-sm"
                     >
-                      CV Berkah Mandiri
-                    </p>
-                    <p
-                      class="text-base font-normal text-brand-text-medium/80 truncate"
+                      C
+                    </div>
+                    <div
+                      class="min-w-0"
+                    >
+                      <h4
+                        class="text-base font-semibold text-text-primary truncate"
+                      >
+                        CV Berkah Mandiri
+                      </h4>
+                      <span
+                        class="text-xs text-text-tertiary flex items-center gap-1 mt-0.5"
+                      >
+                        <div
+                          data-testid="user-icon"
+                        />
+                        <span>
+                          ID: 6
+                        </span>
+                      </span>
+                    </div>
+                  </div>
+                  <div
+                    class="flex items-center gap-2 shrink-0"
+                  >
+                    <span
+                      class="inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold bg-red-100 text-red-700"
+                    >
+                      inactive
+                    </span>
+                    <button
+                      aria-label="Edit customer"
+                      class="p-1.5 text-text-tertiary hover:text-brand-blue hover:bg-background-subtle rounded-lg transition-colors cursor-pointer"
+                      title="Edit"
+                      type="button"
+                    >
+                      <div
+                        data-testid="edit-icon"
+                      />
+                    </button>
+                  </div>
+                </div>
+                <div
+                  class="grid grid-cols-1 gap-1.5 pt-2 border-t border-border-default/60 text-sm text-text-secondary"
+                >
+                  <div
+                    class="flex items-center gap-2 truncate"
+                  >
+                    <div
+                      data-testid="map-pin-icon"
+                    />
+                    <span
+                      class="truncate"
                     >
                       Jl. Pemuda No. 101, Semarang
-                    </p>
+                    </span>
                   </div>
                   <div
-                    class="shrink-0"
+                    class="flex items-center gap-2 truncate"
                   >
+                    <div
+                      data-testid="phone-icon"
+                    />
                     <span
-                      class="inline-flex items-center rounded-full px-3 py-1 text-sm font-medium whitespace-nowrap bg-red-100 text-red-700"
+                      class="truncate"
                     >
-                      inactive
+                      082155667788
                     </span>
                   </div>
                 </div>
                 <div
-                  class="flex items-center gap-4 px-0 py-4 bg-transparent border-b border-brand-gray-light last:border-b-0 active:bg-brand-gray-light/20 transition-colors cursor-pointer"
-                  role="button"
-                  tabindex="0"
+                  class="flex items-center justify-end text-xs font-medium text-brand-blue pt-1"
+                >
+                  <span
+                    class="flex items-center gap-1"
+                  >
+                    Lihat detail
+                    <div
+                      data-testid="chevron-right-icon"
+                    />
+                  </span>
+                </div>
+              </div>
+              <div
+                class="bg-background-surface rounded-2xl border border-border-default p-4 shadow-xs flex flex-col gap-3 active:bg-background-subtle/50 transition-colors cursor-pointer"
+                role="button"
+                tabindex="0"
+              >
+                <div
+                  class="flex items-start justify-between gap-2"
                 >
                   <div
-                    class="flex-1 min-w-0 space-y-1"
+                    class="flex items-center gap-2.5 min-w-0"
                   >
-                    <p
-                      class="text-xl font-semibold text-brand-text-dark leading-snug truncate"
+                    <div
+                      class="w-10 h-10 rounded-xl bg-brand-blue/10 text-brand-blue font-bold flex items-center justify-center shrink-0 text-sm"
                     >
-                      PT Cipta Karya Solusi
-                    </p>
-                    <p
-                      class="text-base font-normal text-brand-text-medium/80 truncate"
+                      P
+                    </div>
+                    <div
+                      class="min-w-0"
+                    >
+                      <h4
+                        class="text-base font-semibold text-text-primary truncate"
+                      >
+                        PT Cipta Karya Solusi
+                      </h4>
+                      <span
+                        class="text-xs text-text-tertiary flex items-center gap-1 mt-0.5"
+                      >
+                        <div
+                          data-testid="user-icon"
+                        />
+                        <span>
+                          ID: 7
+                        </span>
+                      </span>
+                    </div>
+                  </div>
+                  <div
+                    class="flex items-center gap-2 shrink-0"
+                  >
+                    <span
+                      class="inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold bg-green-100 text-green-700"
+                    >
+                      active
+                    </span>
+                    <button
+                      aria-label="Edit customer"
+                      class="p-1.5 text-text-tertiary hover:text-brand-blue hover:bg-background-subtle rounded-lg transition-colors cursor-pointer"
+                      title="Edit"
+                      type="button"
+                    >
+                      <div
+                        data-testid="edit-icon"
+                      />
+                    </button>
+                  </div>
+                </div>
+                <div
+                  class="grid grid-cols-1 gap-1.5 pt-2 border-t border-border-default/60 text-sm text-text-secondary"
+                >
+                  <div
+                    class="flex items-center gap-2 truncate"
+                  >
+                    <div
+                      data-testid="map-pin-icon"
+                    />
+                    <span
+                      class="truncate"
                     >
                       Jl. Raya Bogor KM 28, Depok
-                    </p>
+                    </span>
                   </div>
                   <div
-                    class="shrink-0"
+                    class="flex items-center gap-2 truncate"
                   >
+                    <div
+                      data-testid="phone-icon"
+                    />
                     <span
-                      class="inline-flex items-center rounded-full px-3 py-1 text-sm font-medium whitespace-nowrap bg-green-100 text-green-700"
+                      class="truncate"
                     >
-                      active
+                      081900112233
                     </span>
                   </div>
                 </div>
                 <div
-                  class="flex items-center gap-4 px-0 py-4 bg-transparent border-b border-brand-gray-light last:border-b-0 active:bg-brand-gray-light/20 transition-colors cursor-pointer"
-                  role="button"
-                  tabindex="0"
+                  class="flex items-center justify-end text-xs font-medium text-brand-blue pt-1"
+                >
+                  <span
+                    class="flex items-center gap-1"
+                  >
+                    Lihat detail
+                    <div
+                      data-testid="chevron-right-icon"
+                    />
+                  </span>
+                </div>
+              </div>
+              <div
+                class="bg-background-surface rounded-2xl border border-border-default p-4 shadow-xs flex flex-col gap-3 active:bg-background-subtle/50 transition-colors cursor-pointer"
+                role="button"
+                tabindex="0"
+              >
+                <div
+                  class="flex items-start justify-between gap-2"
                 >
                   <div
-                    class="flex-1 min-w-0 space-y-1"
+                    class="flex items-center gap-2.5 min-w-0"
                   >
-                    <p
-                      class="text-xl font-semibold text-brand-text-dark leading-snug truncate"
+                    <div
+                      class="w-10 h-10 rounded-xl bg-brand-blue/10 text-brand-blue font-bold flex items-center justify-center shrink-0 text-sm"
                     >
-                      Ahmad Fauzi
-                    </p>
-                    <p
-                      class="text-base font-normal text-brand-text-medium/80 truncate"
+                      A
+                    </div>
+                    <div
+                      class="min-w-0"
+                    >
+                      <h4
+                        class="text-base font-semibold text-text-primary truncate"
+                      >
+                        Ahmad Fauzi
+                      </h4>
+                      <span
+                        class="text-xs text-text-tertiary flex items-center gap-1 mt-0.5"
+                      >
+                        <div
+                          data-testid="user-icon"
+                        />
+                        <span>
+                          ID: 8
+                        </span>
+                      </span>
+                    </div>
+                  </div>
+                  <div
+                    class="flex items-center gap-2 shrink-0"
+                  >
+                    <span
+                      class="inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold bg-green-100 text-green-700"
+                    >
+                      active
+                    </span>
+                    <button
+                      aria-label="Edit customer"
+                      class="p-1.5 text-text-tertiary hover:text-brand-blue hover:bg-background-subtle rounded-lg transition-colors cursor-pointer"
+                      title="Edit"
+                      type="button"
+                    >
+                      <div
+                        data-testid="edit-icon"
+                      />
+                    </button>
+                  </div>
+                </div>
+                <div
+                  class="grid grid-cols-1 gap-1.5 pt-2 border-t border-border-default/60 text-sm text-text-secondary"
+                >
+                  <div
+                    class="flex items-center gap-2 truncate"
+                  >
+                    <div
+                      data-testid="map-pin-icon"
+                    />
+                    <span
+                      class="truncate"
                     >
                       Jl. Ahmad Yani No. 50, Medan
-                    </p>
+                    </span>
                   </div>
                   <div
-                    class="shrink-0"
+                    class="flex items-center gap-2 truncate"
                   >
+                    <div
+                      data-testid="phone-icon"
+                    />
                     <span
-                      class="inline-flex items-center rounded-full px-3 py-1 text-sm font-medium whitespace-nowrap bg-green-100 text-green-700"
+                      class="truncate"
                     >
-                      active
+                      085244332211
                     </span>
                   </div>
                 </div>
                 <div
-                  class="flex items-center gap-4 px-0 py-4 bg-transparent border-b border-brand-gray-light last:border-b-0 active:bg-brand-gray-light/20 transition-colors cursor-pointer"
-                  role="button"
-                  tabindex="0"
+                  class="flex items-center justify-end text-xs font-medium text-brand-blue pt-1"
+                >
+                  <span
+                    class="flex items-center gap-1"
+                  >
+                    Lihat detail
+                    <div
+                      data-testid="chevron-right-icon"
+                    />
+                  </span>
+                </div>
+              </div>
+              <div
+                class="bg-background-surface rounded-2xl border border-border-default p-4 shadow-xs flex flex-col gap-3 active:bg-background-subtle/50 transition-colors cursor-pointer"
+                role="button"
+                tabindex="0"
+              >
+                <div
+                  class="flex items-start justify-between gap-2"
                 >
                   <div
-                    class="flex-1 min-w-0 space-y-1"
+                    class="flex items-center gap-2.5 min-w-0"
                   >
-                    <p
-                      class="text-xl font-semibold text-brand-text-dark leading-snug truncate"
+                    <div
+                      class="w-10 h-10 rounded-xl bg-brand-blue/10 text-brand-blue font-bold flex items-center justify-center shrink-0 text-sm"
                     >
-                      PT Global Indo Medika
-                    </p>
-                    <p
-                      class="text-base font-normal text-brand-text-medium/80 truncate"
+                      P
+                    </div>
+                    <div
+                      class="min-w-0"
                     >
-                      Jl. HR Rasuna Said Kav. C-22, Jakarta Selatan
-                    </p>
+                      <h4
+                        class="text-base font-semibold text-text-primary truncate"
+                      >
+                        PT Global Indo Medika
+                      </h4>
+                      <span
+                        class="text-xs text-text-tertiary flex items-center gap-1 mt-0.5"
+                      >
+                        <div
+                          data-testid="user-icon"
+                        />
+                        <span>
+                          ID: 9
+                        </span>
+                      </span>
+                    </div>
                   </div>
                   <div
-                    class="shrink-0"
+                    class="flex items-center gap-2 shrink-0"
                   >
                     <span
-                      class="inline-flex items-center rounded-full px-3 py-1 text-sm font-medium whitespace-nowrap bg-red-100 text-red-700"
+                      class="inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold bg-red-100 text-red-700"
                     >
                       inactive
                     </span>
+                    <button
+                      aria-label="Edit customer"
+                      class="p-1.5 text-text-tertiary hover:text-brand-blue hover:bg-background-subtle rounded-lg transition-colors cursor-pointer"
+                      title="Edit"
+                      type="button"
+                    >
+                      <div
+                        data-testid="edit-icon"
+                      />
+                    </button>
                   </div>
                 </div>
                 <div
-                  class="flex items-center gap-4 px-0 py-4 bg-transparent border-b border-brand-gray-light last:border-b-0 active:bg-brand-gray-light/20 transition-colors cursor-pointer"
-                  role="button"
-                  tabindex="0"
+                  class="grid grid-cols-1 gap-1.5 pt-2 border-t border-border-default/60 text-sm text-text-secondary"
                 >
                   <div
-                    class="flex-1 min-w-0 space-y-1"
+                    class="flex items-center gap-2 truncate"
                   >
-                    <p
-                      class="text-xl font-semibold text-brand-text-dark leading-snug truncate"
+                    <div
+                      data-testid="map-pin-icon"
+                    />
+                    <span
+                      class="truncate"
                     >
-                      Siti Rahmawati
-                    </p>
-                    <p
-                      class="text-base font-normal text-brand-text-medium/80 truncate"
-                    >
-                      Jl. Gajah Mada No. 14, Denpasar
-                    </p>
+                      Jl. HR Rasuna Said Kav. C-22, Jakarta Selatan
+                    </span>
                   </div>
                   <div
-                    class="shrink-0"
+                    class="flex items-center gap-2 truncate"
+                  >
+                    <div
+                      data-testid="phone-icon"
+                    />
+                    <span
+                      class="truncate"
+                    >
+                      081199887766
+                    </span>
+                  </div>
+                </div>
+                <div
+                  class="flex items-center justify-end text-xs font-medium text-brand-blue pt-1"
+                >
+                  <span
+                    class="flex items-center gap-1"
+                  >
+                    Lihat detail
+                    <div
+                      data-testid="chevron-right-icon"
+                    />
+                  </span>
+                </div>
+              </div>
+              <div
+                class="bg-background-surface rounded-2xl border border-border-default p-4 shadow-xs flex flex-col gap-3 active:bg-background-subtle/50 transition-colors cursor-pointer"
+                role="button"
+                tabindex="0"
+              >
+                <div
+                  class="flex items-start justify-between gap-2"
+                >
+                  <div
+                    class="flex items-center gap-2.5 min-w-0"
+                  >
+                    <div
+                      class="w-10 h-10 rounded-xl bg-brand-blue/10 text-brand-blue font-bold flex items-center justify-center shrink-0 text-sm"
+                    >
+                      S
+                    </div>
+                    <div
+                      class="min-w-0"
+                    >
+                      <h4
+                        class="text-base font-semibold text-text-primary truncate"
+                      >
+                        Siti Rahmawati
+                      </h4>
+                      <span
+                        class="text-xs text-text-tertiary flex items-center gap-1 mt-0.5"
+                      >
+                        <div
+                          data-testid="user-icon"
+                        />
+                        <span>
+                          ID: 10
+                        </span>
+                      </span>
+                    </div>
+                  </div>
+                  <div
+                    class="flex items-center gap-2 shrink-0"
                   >
                     <span
-                      class="inline-flex items-center rounded-full px-3 py-1 text-sm font-medium whitespace-nowrap bg-green-100 text-green-700"
+                      class="inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold bg-green-100 text-green-700"
                     >
                       active
                     </span>
+                    <button
+                      aria-label="Edit customer"
+                      class="p-1.5 text-text-tertiary hover:text-brand-blue hover:bg-background-subtle rounded-lg transition-colors cursor-pointer"
+                      title="Edit"
+                      type="button"
+                    >
+                      <div
+                        data-testid="edit-icon"
+                      />
+                    </button>
                   </div>
+                </div>
+                <div
+                  class="grid grid-cols-1 gap-1.5 pt-2 border-t border-border-default/60 text-sm text-text-secondary"
+                >
+                  <div
+                    class="flex items-center gap-2 truncate"
+                  >
+                    <div
+                      data-testid="map-pin-icon"
+                    />
+                    <span
+                      class="truncate"
+                    >
+                      Jl. Gajah Mada No. 14, Denpasar
+                    </span>
+                  </div>
+                  <div
+                    class="flex items-center gap-2 truncate"
+                  >
+                    <div
+                      data-testid="phone-icon"
+                    />
+                    <span
+                      class="truncate"
+                    >
+                      083812349988
+                    </span>
+                  </div>
+                </div>
+                <div
+                  class="flex items-center justify-end text-xs font-medium text-brand-blue pt-1"
+                >
+                  <span
+                    class="flex items-center gap-1"
+                  >
+                    Lihat detail
+                    <div
+                      data-testid="chevron-right-icon"
+                    />
+                  </span>
                 </div>
               </div>
             </div>
             <div
-              class="pt-4 flex items-center justify-between"
-            >
-              <div
-                data-testid="pagination"
-              />
-            </div>
+              data-testid="pagination"
+            />
           </div>
           <div
             class="hidden lg:px-6 md:flex bg-brand-white rounded-4xl border border-brand-gray-light shadow-xs flex-col flex-1 overflow-hidden mt-6"

@@ -17,6 +17,8 @@ export type MasterPaymentMethodProps = {
   readonly prevPage: () => void;
   readonly changePageSize: (size: number) => void;
   readonly totalCount: number;
+  readonly isEmpty: boolean;
+  readonly setSearchTerm: (searchTerm: string) => void;
   readonly columns: TableColumn<PaymentMethodData>[];
   readonly onCreate: () => void;
   readonly onEdit: (paymentMethod: PaymentMethodData) => void;
@@ -41,8 +43,13 @@ export type MasterPaymentMethodNavigation = {
   readonly goDetail: (p: PaymentMethodData) => void;
 };
 
+export type MasterPaymentMethodPagination = PaginationResult<PaymentMethodData> & {
+  readonly isEmpty: boolean;
+  readonly setSearchTerm: (searchTerm: string) => void;
+};
+
 export type MasterPaymentMethodContainerState = {
-  readonly pagination: PaginationResult<PaymentMethodData>;
+  readonly pagination: MasterPaymentMethodPagination;
   readonly isMoreOpen: boolean;
   readonly toggleMore: () => void;
   readonly goDelete: () => void;

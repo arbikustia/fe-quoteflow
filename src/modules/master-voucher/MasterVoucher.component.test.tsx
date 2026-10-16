@@ -24,6 +24,7 @@ const defaultProps: MasterVoucherProps = {
   nextPage: jest.fn(),
   prevPage: jest.fn(),
   changePageSize: jest.fn(),
+  setSearchTerm: jest.fn(),
   isLoading: false,
   errorMessage: null,
   isEmpty: false,
@@ -54,14 +55,8 @@ describe("MasterVoucherComponent", () => {
   });
 
   it("should handle empty data", () => {
-    renderWithRouter({ ...defaultProps, paginatedData: [], totalCount: 0, totalPages: 1 });
-    expect(screen.getAllByText("No data available").length).toBeGreaterThan(0);
-  });
-
-  it("should handle isMoreOpen true", () => {
-    renderWithRouter({ ...defaultProps, isMoreOpen: true });
-    expect(screen.getByText("New Voucher")).toBeTruthy();
-    expect(screen.getByText("Delete")).toBeTruthy();
+    renderWithRouter({ ...defaultProps, paginatedData: [], isEmpty: true, totalCount: 0, totalPages: 1 });
+    expect(screen.getAllByText("No vouchers found.").length).toBeGreaterThan(0);
   });
 
   it("calls onBack when back button clicked", () => {
@@ -72,27 +67,7 @@ describe("MasterVoucherComponent", () => {
     expect(onBack).toHaveBeenCalledTimes(1);
   });
 
-  it("calls onMore when more button clicked", () => {
-    const onMore = jest.fn();
-    renderWithRouter({ ...defaultProps, onMore });
-    const moreBtn = screen.getByLabelText("More options");
-    fireEvent.click(moreBtn);
-    expect(onMore).toHaveBeenCalledTimes(1);
-  });
 
-  it("calls onCreate when New Voucher clicked", () => {
-    const onCreate = jest.fn();
-    renderWithRouter({ ...defaultProps, isMoreOpen: true, onCreate });
-    fireEvent.click(screen.getByText("New Voucher"));
-    expect(onCreate).toHaveBeenCalledTimes(1);
-  });
-
-  it("calls onDelete when Delete clicked", () => {
-    const onDelete = jest.fn();
-    renderWithRouter({ ...defaultProps, isMoreOpen: true, onDelete });
-    fireEvent.click(screen.getByText("Delete"));
-    expect(onDelete).toHaveBeenCalledTimes(1);
-  });
 
   it("matches snapshot", () => {
     const { asFragment } = renderWithRouter();

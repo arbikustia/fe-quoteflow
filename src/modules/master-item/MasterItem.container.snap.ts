@@ -16,8 +16,8 @@ const mockApiItem = {
   created_by: "Admin",
 };
 
-jest.mock("./MasterItem.api", () => ({
-  _mapItem: jest.fn(() => ({
+jest.mock("@/services/master-item.service", () => ({
+  mapItem: jest.fn(() => ({
     id: "1",
     name: "Line Array Speaker",
     categoryId: "Audio System",

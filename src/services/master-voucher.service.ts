@@ -1,4 +1,5 @@
 import { apiRtkClient } from "@/libs/ApiRtkServices/apiRtkClient";
+import ENDPOINT from "@/constant/endpoint.const";
 import type { ApiVoucher, VoucherCreatePayload, VoucherCreateResponse, VoucherData, VoucherListParams, VoucherListResponse } from "@/modules/master-voucher/MasterVoucher.type";
 
 /** Map API voucher model to UI model. */
@@ -14,8 +15,8 @@ export const mapVoucher = (voucher: ApiVoucher): VoucherData => ({
 
 export const masterVoucherService = apiRtkClient.injectEndpoints({
   endpoints: (builder) => ({
-    getVouchers: builder.query<VoucherListResponse, VoucherListParams>({ query: (params) => ({ url: "/api/voucher/paged", method: "GET", params: { PageNumber: params.pageNumber, PageSize: params.pageSize, SearchTerm: params.searchTerm } }), providesTags: ["Voucher"] }),
-    createVoucher: builder.mutation<VoucherCreateResponse, VoucherCreatePayload>({ query: (body) => ({ url: "/api/voucher", method: "POST", data: body }), invalidatesTags: ["Voucher"] }),
+    getVouchers: builder.query<VoucherListResponse, VoucherListParams>({ query: (params) => ({ url: ENDPOINT.MASTER_VOUCHER.PAGED, method: "GET", params: { PageNumber: params.pageNumber, PageSize: params.pageSize, SearchTerm: params.searchTerm } }), providesTags: ["Voucher"] }),
+    createVoucher: builder.mutation<VoucherCreateResponse, VoucherCreatePayload>({ query: (body) => ({ url: ENDPOINT.MASTER_VOUCHER.CREATE, method: "POST", data: body }), invalidatesTags: ["Voucher"] }),
   }),
   overrideExisting: false,
 });

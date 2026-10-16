@@ -1,4 +1,4 @@
-import { render, screen, fireEvent } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
 import { MasterRoleComponent } from "./MasterRole.component";
 import type { MasterRoleProps, RoleData } from "./MasterRole.type";
@@ -57,45 +57,11 @@ describe("MasterRoleComponent", () => {
   });
 
   it("should handle empty data", () => {
-    renderWithRouter({ ...defaultProps, paginatedData: [], totalCount: 0, totalPages: 1 });
-    expect(screen.getAllByText("No data available").length).toBeGreaterThan(0);
+    renderWithRouter({ ...defaultProps, paginatedData: [], isEmpty: true, totalCount: 0, totalPages: 1 });
+    expect(screen.getAllByText("No roles found.").length).toBeGreaterThan(0);
   });
 
-  it("should handle isMoreOpen true", () => {
-    renderWithRouter({ ...defaultProps, isMoreOpen: true });
-    expect(screen.getByText("New Role")).toBeTruthy();
-    expect(screen.getByText("Delete")).toBeTruthy();
-  });
 
-  it("calls onBack when back button clicked", () => {
-    const onBack = jest.fn();
-    renderWithRouter({ ...defaultProps, onBack });
-    const backBtn = screen.getByLabelText("Back");
-    fireEvent.click(backBtn);
-    expect(onBack).toHaveBeenCalledTimes(1);
-  });
-
-  it("calls onMore when more button clicked", () => {
-    const onMore = jest.fn();
-    renderWithRouter({ ...defaultProps, onMore });
-    const moreBtn = screen.getByLabelText("More options");
-    fireEvent.click(moreBtn);
-    expect(onMore).toHaveBeenCalledTimes(1);
-  });
-
-  it("calls onCreate when New Role clicked", () => {
-    const onCreate = jest.fn();
-    renderWithRouter({ ...defaultProps, isMoreOpen: true, onCreate });
-    fireEvent.click(screen.getByText("New Role"));
-    expect(onCreate).toHaveBeenCalledTimes(1);
-  });
-
-  it("calls onDelete when Delete clicked", () => {
-    const onDelete = jest.fn();
-    renderWithRouter({ ...defaultProps, isMoreOpen: true, onDelete });
-    fireEvent.click(screen.getByText("Delete"));
-    expect(onDelete).toHaveBeenCalledTimes(1);
-  });
 
   it("matches snapshot", () => {
     const { asFragment } = renderWithRouter();

@@ -64,8 +64,8 @@ const _getBasicColumns = (currentPage: number, pageSize: number): TableColumn<Vo
       align: "center",
       render: renderNoWrapper,
     },
-    { key: "code", header: "Voucher Code" },
-    { key: "discountPercent", header: "Discount (%)", align: "center", render: renderDiscount },
+    { key: "code", header: "Voucher Code", mobile: { primary: true } },
+    { key: "discountPercent", header: "Discount (%)", align: "center", render: renderDiscount, mobile: { primary: true } },
     {
       key: "status",
       header: "Status",

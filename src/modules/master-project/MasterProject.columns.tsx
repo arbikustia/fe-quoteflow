@@ -2,7 +2,6 @@ import * as React from "react";
 import { FiEdit2 } from "react-icons/fi";
 
 import type { TableColumn } from "../../components/Table";
-import { MOCK_ITEMS } from "../../fixture/master-item";
 
 import type { GetColumnsParams, ProjectData } from "./MasterProject.type";
 
@@ -25,20 +24,9 @@ const _renderNo = (_row: ProjectData, index: number, currentPage: number, pageSi
  * @param {ProjectData} row - data
  * @returns {React.ReactElement} div
  */
-const _renderItems = (row: ProjectData): React.ReactElement => {
-  const names = row.items.map((it) => {
-    const found = MOCK_ITEMS.find((m) => m.id === it.itemId);
-
-    return found ? found.name + " x" + it.qty : it.itemId + " x" + it.qty;
-  });
-
-  return (
-    <div className="flex flex-col">
-      <span className="text-xs font-bold text-brand-blue">{row.items.length} item(s)</span>
-      <span className="text-xs text-brand-text-medium truncate max-w-[220px]">{names.join(", ")}</span>
-    </div>
-  );
-};
+const _renderItems = (row: ProjectData): React.ReactElement => (
+  <span className="text-xs font-bold text-brand-blue">{row.items.length} item(s)</span>
+);
 
 /**
  * Render Status
@@ -73,7 +61,7 @@ const _getBasicColumns = (currentPage: number, pageSize: number): TableColumn<Pr
       align: "center",
       render: renderNoWrapper,
     },
-    { key: "name", header: "Project Name" },
+    { key: "name", header: "Project Name", mobile: { primary: true } },
     {
       key: "items",
       header: "Items",

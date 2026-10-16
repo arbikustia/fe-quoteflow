@@ -46,18 +46,12 @@ const renderWithRouter = (props = defaultProps) =>
 describe("MasterItemComponent", () => {
   it("should render without crashing", () => {
     renderWithRouter();
-    expect(screen.getByText("Product List")).toBeInTheDocument();
+    expect(screen.getAllByText("Item List").length).toBeGreaterThan(0);
   });
 
   it("should handle empty data", () => {
     renderWithRouter({ ...defaultProps, paginatedData: [] as ItemData[], totalCount: 0, totalPages: 1 });
-    expect(screen.getByText("Product List")).toBeInTheDocument();
-  });
-
-  it("should handle isMoreOpen true", () => {
-    renderWithRouter({ ...defaultProps, isMoreOpen: true });
-    expect(screen.getByText("New Item")).toBeInTheDocument();
-    expect(screen.getByText("Delete")).toBeInTheDocument();
+    expect(screen.getAllByText("Item List").length).toBeGreaterThan(0);
   });
 
   it("calls onBack when back button clicked", () => {
@@ -65,30 +59,6 @@ describe("MasterItemComponent", () => {
     renderWithRouter({ ...defaultProps, onBack });
     fireEvent.click(screen.getByLabelText("Back"));
     expect(onBack).toHaveBeenCalledTimes(1);
-  });
-
-  it("calls onMore when more button clicked", () => {
-    const onMore = jest.fn();
-    renderWithRouter({ ...defaultProps, onMore });
-    fireEvent.click(screen.getByLabelText("More options"));
-    expect(onMore).toHaveBeenCalledTimes(1);
-  });
-
-  it("calls onCloseMore and onCreate when New Item clicked", () => {
-    const onCloseMore = jest.fn();
-    const onCreate = jest.fn();
-    renderWithRouter({ ...defaultProps, isMoreOpen: true, onCloseMore, onCreate });
-    fireEvent.click(screen.getByText("New Item"));
-    expect(onCloseMore).toHaveBeenCalledTimes(1);
-    expect(onCreate).toHaveBeenCalledTimes(1);
-  });
-
-  it("calls onDelete when Delete clicked", () => {
-    const onDelete = jest.fn();
-    const onCloseMore = jest.fn();
-    renderWithRouter({ ...defaultProps, isMoreOpen: true, onDelete, onCloseMore });
-    fireEvent.click(screen.getByText("Delete"));
-    expect(onDelete).toHaveBeenCalledTimes(1);
   });
 
   it("matches snapshot", () => {

@@ -153,7 +153,8 @@ export const useMasterVoucherCreateForm = (): MasterVoucherCreateFormState => {
 export const useMasterVoucherPagination = (): MasterVoucherPagination => {
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize, setPageSize] = useState(10);
-  const queryResult = useGetVouchersQuery({ pageNumber: currentPage, pageSize, searchTerm: "" });
+  const [searchTerm, setSearchTerm] = useState("");
+  const queryResult = useGetVouchersQuery({ pageNumber: currentPage, pageSize, searchTerm });
   const derived = _deriveVoucherListState(queryResult);
 
   const goToPage = (page: number): void => {
@@ -184,6 +185,7 @@ export const useMasterVoucherPagination = (): MasterVoucherPagination => {
     nextPage,
     prevPage,
     changePageSize,
+    setSearchTerm,
   };
 };
 

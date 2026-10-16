@@ -4,7 +4,7 @@
  */
 
 import type { TableColumn } from "../../components/Table";
-import type { ApiEnvelope } from "../../types/api.type";
+import type { ApiEnvelope, PaginatedResponse } from "../../types/api.type";
 import type { MasterBase } from "../../types/master";
 
 export type ApiItem = {
@@ -21,17 +21,7 @@ export type ApiItem = {
   readonly created_by: string | null;
 };
 
-export type ItemListResponse = {
-  readonly status: boolean;
-  readonly messages: string[] | string | null;
-  readonly data: ApiItem[];
-  readonly page_number: number;
-  readonly total_pages: number;
-  readonly page_size: number;
-  readonly total_count: number;
-  readonly has_previous: boolean;
-  readonly has_next: boolean;
-};
+export type ItemListResponse = PaginatedResponse<ApiItem>;
 export type ItemCreateResponse = ApiEnvelope<ApiItem | null>;
 
 export type ItemListParams = {
@@ -82,9 +72,9 @@ export type MasterItemProps = {
   readonly onEdit: (item: ItemData) => void;
   readonly onRowClick: (item: ItemData) => void;
   readonly onMore?: () => void;
-  readonly isMoreOpen?: boolean;
-  readonly onCloseMore?: () => void;
-  readonly onDelete?: () => void;
+  readonly isMoreOpen: boolean;
+  readonly onCloseMore: () => void;
+  readonly onDelete: () => void;
   readonly onBack: () => void;
   readonly isLoading: boolean;
   readonly errorMessage: string | null;
@@ -143,7 +133,6 @@ export type GetColumnsParams = {
   readonly currentPage: number;
   readonly pageSize: number;
   readonly onEdit: (item: ItemData) => void;
-  readonly onConfirm: (item: ItemData) => void;
 };
 
 /** Navigation hook return type */
