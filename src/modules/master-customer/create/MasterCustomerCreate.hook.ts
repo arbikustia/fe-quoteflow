@@ -2,6 +2,7 @@ import type { ChangeEvent, Dispatch, SetStateAction, SyntheticEvent } from "reac
 import { useState } from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 
+import { parsePhoneInput } from "./MasterCustomerCreate.helpers";
 import type { MasterCustomerCreateFormState } from "./MasterCustomerCreate.type";
 
 import type { CustomerCreateResponse } from "@/modules/master-customer/MasterCustomer.type";
@@ -132,7 +133,9 @@ export const useMasterCustomerCreate = (): MasterCustomerCreateFormState => {
   }
 
   const handleNameChange = _useInputChange(setName);
-  const handlePhoneNumberChange = _useInputChange(setPhoneNumber);
+  const handlePhoneNumberChange = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>): void => {
+    setPhoneNumber(parsePhoneInput(event.target.value));
+  };
   const handleAddressChange = _useInputChange(setAddress);
   const handleStatusChange = (): void => { setIsActive((currentIsActive) => !currentIsActive); };
   const submission = _useCustomerSubmission(id, isEditMode, name, address, phoneNumber, isActive);

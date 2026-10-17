@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 
+import { validatePicFields } from "./MasterPicCreate.helpers";
 import type { MasterPicCreateState } from "./MasterPicCreate.type";
 import type { PicCreateResponse } from "@/services/master-pic.service";
 import { useCreatePicMutation, useGetPicByIdQuery, useUpdatePicMutation } from "@/services/master-pic.service";
@@ -62,6 +63,13 @@ export const useMasterPicCreate = (): MasterPicCreateState => {
   const handleSubmit = async (event: React.SyntheticEvent): Promise<void> => {
     event.preventDefault();
     setErrorMessage(null);
+
+    const validationError = validatePicFields(name);
+    if (validationError) {
+      setErrorMessage(validationError);
+
+      return;
+    }
 
     try {
       let response: PicCreateResponse;

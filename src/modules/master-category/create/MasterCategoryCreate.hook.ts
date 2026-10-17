@@ -60,6 +60,12 @@ export const useMasterCategoryCreate = (): MasterCategoryCreateFormState => {
     setErrorMessage(null);
     setSuccessMessage(null);
 
+    if (!name.trim()) {
+      setErrorMessage("Category name is required.");
+
+      return;
+    }
+
     try {
       let response: CategoryCreateResponse;
 

@@ -18,7 +18,7 @@ export type MasterItemCreateFormState = {
   readonly errorMessage: string | null;
   readonly categories: readonly CategoryAllItem[];
   readonly handleNameChange: (event: ChangeEvent<HTMLInputElement>) => void;
-  readonly handleCategoryChange: (event: ChangeEvent<HTMLSelectElement>) => void;
+  readonly handleCategoryChange: (value: string) => void;
   readonly handlePriceChange: (event: ChangeEvent<HTMLInputElement>) => void;
   readonly handleStockChange: (event: ChangeEvent<HTMLInputElement>) => void;
   readonly handleImageChange: (event: ChangeEvent<HTMLInputElement>) => void;

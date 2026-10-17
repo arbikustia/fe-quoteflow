@@ -13,7 +13,7 @@ const MasterCustomerCreateContainer = (): ReactElement => {
   const formState = useMasterCustomerCreate();
 
   return (
-    <Layout>
+    <Layout mobileWhiteBackground={true}>
       <MasterCustomerCreateForm {...formState} />
     </Layout>
   );

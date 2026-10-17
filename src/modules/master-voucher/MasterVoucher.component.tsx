@@ -1,5 +1,4 @@
 import * as React from "react";
-import { FiChevronRight, FiEdit2, FiTag } from "react-icons/fi";
 
 import Layout from "../../app/layout";
 import { PageLayout } from "../../app/shared/PageLayout";
@@ -17,19 +16,30 @@ const _renderListState = (props: MasterVoucherProps): React.ReactElement | null 
   return null;
 };
 
-const _renderVoucherCard = (voucher: VoucherData, onRowClick: MasterVoucherProps["onRowClick"], onEdit: MasterVoucherProps["onEdit"]): React.ReactElement => {
-  const handleEdit = (event: React.MouseEvent): void => { event.stopPropagation(); onEdit(voucher); };
-  return <div role="button" tabIndex={0} onClick={() => onRowClick(voucher)} className="flex cursor-pointer flex-col gap-3 rounded-2xl border border-border-default bg-background-surface p-4 shadow-xs active:bg-background-subtle/50"><div className="flex items-start justify-between gap-3"><div className="flex min-w-0 items-center gap-2.5"><div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-brand-blue/10 text-brand-blue"><FiTag className="h-5 w-5" /></div><div className="min-w-0"><h4 className="truncate text-base font-semibold text-text-primary">{voucher.code}</h4><span className="text-xs text-text-tertiary">Discount {voucher.discountPercent}%</span></div></div><div className="flex shrink-0 items-center gap-2"><span className={`rounded-full px-2.5 py-0.5 text-xs font-semibold ${voucher.status === "active" ? "bg-green-100 text-green-700" : "bg-red-100 text-red-700"}`}>{voucher.status}</span><button type="button" aria-label="Edit voucher" onClick={handleEdit} className="rounded-lg p-1.5 text-text-tertiary hover:bg-background-subtle hover:text-brand-blue"><FiEdit2 className="h-4 w-4" /></button></div></div><div className="border-t border-border-default/60 pt-2 text-sm text-text-secondary">Created: {voucher.createAt || "-"}</div><div className="flex justify-end text-xs font-medium text-brand-blue">Lihat detail <FiChevronRight className="ml-1 h-3.5 w-3.5" /></div></div>;
-};
+const _renderVoucherCard = (voucher: VoucherData, onEdit: MasterVoucherProps["onEdit"]): React.ReactElement => (
+  <div role="button" tabIndex={0} onClick={() => onEdit(voucher)} className="flex cursor-pointer flex-col gap-4 rounded-3xl border border-border-default bg-background-surface p-5 transition-all hover:border-border-strong active:bg-background-subtle/50">
+    <div className="flex items-start justify-between gap-3">
+      <h4 className="min-w-0 truncate text-base font-semibold text-text-primary">{voucher.code}</h4>
+      <span className={`shrink-0 rounded-full px-3 py-1 text-xs font-semibold uppercase tracking-wider ${voucher.status === "active" ? "bg-green-100 text-green-700" : "bg-red-100 text-red-700"}`}>{voucher.status}</span>
+    </div>
+    <div className="grid grid-cols-2 gap-2 rounded-xl bg-background-subtle/60 p-3 text-sm">
+      <div><p className="text-xs text-text-tertiary">Discount</p><p className="font-medium text-text-primary">{voucher.discountPercent}%</p></div>
+      <div><p className="text-xs text-text-tertiary">Created</p><p className="truncate font-medium text-text-primary">{voucher.createAt || "-"}</p></div>
+    </div>
+  </div>
+);
 
 const _renderMobile = (props: MasterVoucherProps): React.ReactElement => {
   const handleSearch = (event: React.ChangeEvent<HTMLInputElement>): void => props.setSearchTerm(event.target.value);
-  return <div className="lg:hidden flex min-w-0 flex-col gap-4 pt-2 pb-16"><div className="flex items-center gap-3"><div className="flex-1"><SearchFilter placeholder="Search voucher" onChange={handleSearch} /></div><button type="button" onClick={props.onCreate} className="shrink-0 rounded-xl bg-brand-blue h-14 px-5 text-sm font-semibold text-brand-white">Create Voucher</button></div><div className="min-w-0 space-y-3">{_renderListState(props) ?? props.paginatedData.map((voucher) => <React.Fragment key={voucher.id}>{_renderVoucherCard(voucher, props.onRowClick, props.onEdit)}</React.Fragment>)}</div><Pagination currentPage={props.currentPage} totalPages={props.totalPages} pageSize={props.pageSize} onPageChange={props.goToPage} onPageSizeChange={props.changePageSize} totalItems={props.totalCount} isCompact className="mt-2 w-full rounded-2xl border border-border-default bg-background-surface h-14 px-5 shadow-xs" /></div>;
+  return <div className="flex min-w-0 flex-col gap-4 pt-2 pb-16 lg:hidden"><SearchFilter placeholder="Search voucher" onChange={handleSearch} isRoundedFull={true} className="w-full sm:w-full" /><div className="min-w-0 space-y-3">{_renderListState(props) ?? props.paginatedData.map((voucher) => <React.Fragment key={voucher.id}>{_renderVoucherCard(voucher, props.onEdit)}</React.Fragment>)}</div><Pagination currentPage={props.currentPage} totalPages={props.totalPages} pageSize={props.pageSize} onPageChange={props.goToPage} onPageSizeChange={props.changePageSize} totalItems={props.totalCount} isCompact className="mt-2 w-full rounded-2xl border border-border-default bg-background-surface px-4 py-3 shadow-xs" /></div>;
 };
 
 const _renderDesktop = (props: MasterVoucherProps): React.ReactElement => {
   const handleSearch = (event: React.ChangeEvent<HTMLInputElement>): void => props.setSearchTerm(event.target.value);
-  return <div className="hidden lg:flex rounded-4xl border border-brand-gray-light bg-brand-white px-6 shadow-xs md:flex-1 md:flex-col md:overflow-hidden md:mt-6"><div className="flex items-center justify-between gap-4 py-6"><SearchFilter placeholder="Search voucher" onChange={handleSearch} /><button type="button" onClick={props.onCreate} className="rounded-xl bg-brand-blue h-14 px-6 text-sm font-semibold text-brand-white">Create Voucher</button></div><div className="flex-1 overflow-auto">{_renderListState(props) ?? <Table data={props.paginatedData} columns={props.columns} onRowClick={props.onRowClick} keyExtractor={(row: VoucherData) => row.id} />}</div><Pagination currentPage={props.currentPage} totalPages={props.totalPages} pageSize={props.pageSize} onPageChange={props.goToPage} onPageSizeChange={props.changePageSize} totalItems={props.totalCount} /></div>;
+  return <div className="hidden lg:flex rounded-4xl border border-brand-gray-light bg-brand-white px-6 shadow-xs md:flex-1 md:flex-col md:overflow-hidden md:mt-6"><div className="flex items-center justify-between gap-4 py-6"><SearchFilter placeholder="Search voucher" onChange={handleSearch} /><button type="button" onClick={props.onCreate} className="rounded-xl bg-brand-blue h-14 px-6 text-sm font-semibold text-brand-white">Create Voucher</button></div><div className="flex-1 overflow-auto">{_renderListState(props) ?? <Table data={props.paginatedData} columns={props.columns} isDetail={false} onRowClick={props.onRowClick} keyExtractor={(row: VoucherData) => row.id} />}</div><Pagination currentPage={props.currentPage} totalPages={props.totalPages} pageSize={props.pageSize} onPageChange={props.goToPage} onPageSizeChange={props.changePageSize} totalItems={props.totalCount} /></div>;
 };
 
-export const MasterVoucherComponent = (props: MasterVoucherProps): React.ReactElement => <Layout pageTitle="Voucher List"><PageLayout title="Voucher List" breadcrumbs={["Master", "Master Voucher"]} onBack={props.onBack}><div className="flex h-full flex-col px-3 pb-18 lg:-mt-4 lg:px-0 lg:pb-0">{_renderMobile(props)}{_renderDesktop(props)}</div></PageLayout></Layout>;
+export const MasterVoucherComponent = (props: MasterVoucherProps): React.ReactElement => {
+  const createButton = <button type="button" onClick={props.onCreate} className="h-14 rounded-full border-2 border-brand-blue bg-background-surface px-6 text-sm font-bold text-brand-blue transition-colors hover:bg-action-primary-subtle focus:outline-none focus:ring-2 focus:ring-focus-ring/30">Create New</button>;
+  return <Layout pageTitle="Voucher List" mobileWhiteBackground={true}><PageLayout title="Voucher List" breadcrumbs={["Master", "Master Voucher"]} headerRight={createButton} mobileHeaderClassName="px-6" onBack={props.onBack}><div className="relative flex h-full flex-col bg-background-surface px-6 pb-18 lg:-mt-4 lg:bg-transparent lg:px-0 lg:pb-0">{_renderMobile(props)}{_renderDesktop(props)}</div></PageLayout></Layout>;
+};

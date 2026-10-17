@@ -3,42 +3,34 @@
 exports[`MasterCustomerCreateForm Snapshots should render customer create form 1`] = `
 <DocumentFragment>
   <div
-    class="flex h-full w-full flex-col bg-background-page font-sans pb-6"
+    class="flex h-full w-full flex-col bg-background-surface font-sans pb-6 lg:bg-background-page"
   >
     <div
-      class="px-6 pt-6 lg:px-0 lg:pt-0 flex items-center sticky top-0 bg-background-page/90 backdrop-blur-sm z-20"
+      class="sticky top-0 z-20 flex items-center bg-background-surface px-6 pt-6 lg:hidden"
     >
       <button
-        class="flex items-center gap-3 text-text-secondary hover:text-text-primary transition-colors group lg:hidden"
+        aria-label="Back"
+        class="flex h-14 w-14 shrink-0 items-center justify-center rounded-full border border-border-default bg-background-surface text-text-primary transition-colors hover:bg-background-subtle"
         type="button"
       >
-        <div
-          class="w-10 h-10 rounded-full bg-background-surface shadow-sm flex items-center justify-center text-text-primary group-hover:bg-background-subtle transition-colors"
+        <svg
+          aria-hidden="true"
+          class="h-6 w-6"
+          fill="none"
+          stroke="currentColor"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2.5"
+          viewBox="0 0 24 24"
         >
-          <svg
-            fill="none"
-            height="20"
-            stroke="currentColor"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="3"
-            viewBox="0 0 24 24"
-            width="20"
-          >
-            <polyline
-              points="15 18 9 12 15 6"
-            />
-          </svg>
-        </div>
-        <span
-          class="font-bold text-[15px]"
-        >
-          Back
-        </span>
+          <path
+            d="M19 12H5M12 19l-7-7 7-7"
+          />
+        </svg>
       </button>
     </div>
     <div
-      class="flex flex-1 flex-col px-6 mt-2 lg:px-0 lg:mt-0 w-full min-h-0"
+      class="mt-2 flex min-h-0 w-full flex-1 flex-col px-6 lg:mt-0 lg:px-0"
     >
       <nav
         aria-label="Breadcrumb"
@@ -76,7 +68,7 @@ exports[`MasterCustomerCreateForm Snapshots should render customer create form 1
         </p>
       </div>
       <form
-        class="flex flex-1 flex-col justify-between rounded-4xl border border-brand-gray-light bg-brand-white p-6 shadow-xs sm:p-8 min-h-0"
+        class="flex min-h-0 flex-1 flex-col justify-between border-0 bg-transparent p-0 shadow-none lg:rounded-4xl lg:border lg:border-brand-gray-light lg:bg-brand-white lg:p-8 lg:shadow-xs"
       >
         <div
           class="grid w-full grid-cols-1 gap-x-6 gap-y-1 lg:grid-cols-2"
@@ -89,6 +81,12 @@ exports[`MasterCustomerCreateForm Snapshots should render customer create form 1
                 class="block text-[12px] font-bold text-text-secondary mb-1.5 uppercase tracking-wider"
               >
                 Customer Name
+                <span
+                  aria-hidden="true"
+                  class="ml-1 text-danger"
+                >
+                  *
+                </span>
               </label>
               <input
                 class="w-full bg-background-surface border border-border-default rounded-xl py-3 px-4 text-[15px] font-normal text-text-primary shadow-xs outline-none focus:border-border-focus focus:ring-2 focus:ring-focus-ring/30 transition-all placeholder:text-text-tertiary/60 placeholder:font-normal"
@@ -107,12 +105,21 @@ exports[`MasterCustomerCreateForm Snapshots should render customer create form 1
                 class="block text-[12px] font-bold text-text-secondary mb-1.5 uppercase tracking-wider"
               >
                 Phone Number
+                <span
+                  aria-hidden="true"
+                  class="ml-1 text-danger"
+                >
+                  *
+                </span>
               </label>
               <input
                 class="w-full bg-background-surface border border-border-default rounded-xl py-3 px-4 text-[15px] font-normal text-text-primary shadow-xs outline-none focus:border-border-focus focus:ring-2 focus:ring-focus-ring/30 transition-all placeholder:text-text-tertiary/60 placeholder:font-normal"
-                placeholder="0812..."
+                inputmode="numeric"
+                pattern="[0-9]{6,15}"
+                placeholder="0812... atau 628..."
                 required=""
-                type="text"
+                title="Use 6–15 digits only. Allowed examples: 0812..., 628..., or 12..."
+                type="tel"
                 value="081234567890"
               />
             </div>
@@ -127,6 +134,12 @@ exports[`MasterCustomerCreateForm Snapshots should render customer create form 1
                 class="block text-[12px] font-bold text-text-secondary mb-1.5 uppercase tracking-wider"
               >
                 Address
+                <span
+                  aria-hidden="true"
+                  class="ml-1 text-danger"
+                >
+                  *
+                </span>
               </label>
               <textarea
                 class="w-full bg-background-surface border border-border-default rounded-xl py-3 px-4 text-[15px] font-normal text-text-primary shadow-xs outline-none focus:border-border-focus focus:ring-2 focus:ring-focus-ring/30 transition-all placeholder:text-text-tertiary/60 placeholder:font-normal resize-none"
@@ -140,10 +153,10 @@ exports[`MasterCustomerCreateForm Snapshots should render customer create form 1
           </div>
         </div>
         <div
-          class="mt-6 flex justify-end border-t border-border-default pt-5"
+          class="mt-8 flex justify-end border-t border-border-default/60 pt-5 lg:mt-6 lg:border-border-default"
         >
           <button
-            class="h-14 px-8 bg-action-primary text-text-inverse rounded-xl text-sm font-semibold tracking-wide shadow-xs hover:bg-action-primary-hover transition-all disabled:opacity-60 cursor-pointer"
+            class="h-14 w-full cursor-pointer rounded-xl bg-action-primary px-8 text-sm font-semibold tracking-wide text-text-inverse shadow-xs transition-all hover:bg-action-primary-hover disabled:opacity-60 sm:w-auto"
             type="submit"
           >
             Create Customer
@@ -158,42 +171,34 @@ exports[`MasterCustomerCreateForm Snapshots should render customer create form 1
 exports[`MasterCustomerCreateForm Snapshots should render customer create form while submitting 1`] = `
 <DocumentFragment>
   <div
-    class="flex h-full w-full flex-col bg-background-page font-sans pb-6"
+    class="flex h-full w-full flex-col bg-background-surface font-sans pb-6 lg:bg-background-page"
   >
     <div
-      class="px-6 pt-6 lg:px-0 lg:pt-0 flex items-center sticky top-0 bg-background-page/90 backdrop-blur-sm z-20"
+      class="sticky top-0 z-20 flex items-center bg-background-surface px-6 pt-6 lg:hidden"
     >
       <button
-        class="flex items-center gap-3 text-text-secondary hover:text-text-primary transition-colors group lg:hidden"
+        aria-label="Back"
+        class="flex h-14 w-14 shrink-0 items-center justify-center rounded-full border border-border-default bg-background-surface text-text-primary transition-colors hover:bg-background-subtle"
         type="button"
       >
-        <div
-          class="w-10 h-10 rounded-full bg-background-surface shadow-sm flex items-center justify-center text-text-primary group-hover:bg-background-subtle transition-colors"
+        <svg
+          aria-hidden="true"
+          class="h-6 w-6"
+          fill="none"
+          stroke="currentColor"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2.5"
+          viewBox="0 0 24 24"
         >
-          <svg
-            fill="none"
-            height="20"
-            stroke="currentColor"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="3"
-            viewBox="0 0 24 24"
-            width="20"
-          >
-            <polyline
-              points="15 18 9 12 15 6"
-            />
-          </svg>
-        </div>
-        <span
-          class="font-bold text-[15px]"
-        >
-          Back
-        </span>
+          <path
+            d="M19 12H5M12 19l-7-7 7-7"
+          />
+        </svg>
       </button>
     </div>
     <div
-      class="flex flex-1 flex-col px-6 mt-2 lg:px-0 lg:mt-0 w-full min-h-0"
+      class="mt-2 flex min-h-0 w-full flex-1 flex-col px-6 lg:mt-0 lg:px-0"
     >
       <nav
         aria-label="Breadcrumb"
@@ -231,7 +236,7 @@ exports[`MasterCustomerCreateForm Snapshots should render customer create form w
         </p>
       </div>
       <form
-        class="flex flex-1 flex-col justify-between rounded-4xl border border-brand-gray-light bg-brand-white p-6 shadow-xs sm:p-8 min-h-0"
+        class="flex min-h-0 flex-1 flex-col justify-between border-0 bg-transparent p-0 shadow-none lg:rounded-4xl lg:border lg:border-brand-gray-light lg:bg-brand-white lg:p-8 lg:shadow-xs"
       >
         <div
           class="grid w-full grid-cols-1 gap-x-6 gap-y-1 lg:grid-cols-2"
@@ -244,6 +249,12 @@ exports[`MasterCustomerCreateForm Snapshots should render customer create form w
                 class="block text-[12px] font-bold text-text-secondary mb-1.5 uppercase tracking-wider"
               >
                 Customer Name
+                <span
+                  aria-hidden="true"
+                  class="ml-1 text-danger"
+                >
+                  *
+                </span>
               </label>
               <input
                 class="w-full bg-background-surface border border-border-default rounded-xl py-3 px-4 text-[15px] font-normal text-text-primary shadow-xs outline-none focus:border-border-focus focus:ring-2 focus:ring-focus-ring/30 transition-all placeholder:text-text-tertiary/60 placeholder:font-normal"
@@ -262,12 +273,21 @@ exports[`MasterCustomerCreateForm Snapshots should render customer create form w
                 class="block text-[12px] font-bold text-text-secondary mb-1.5 uppercase tracking-wider"
               >
                 Phone Number
+                <span
+                  aria-hidden="true"
+                  class="ml-1 text-danger"
+                >
+                  *
+                </span>
               </label>
               <input
                 class="w-full bg-background-surface border border-border-default rounded-xl py-3 px-4 text-[15px] font-normal text-text-primary shadow-xs outline-none focus:border-border-focus focus:ring-2 focus:ring-focus-ring/30 transition-all placeholder:text-text-tertiary/60 placeholder:font-normal"
-                placeholder="0812..."
+                inputmode="numeric"
+                pattern="[0-9]{6,15}"
+                placeholder="0812... atau 628..."
                 required=""
-                type="text"
+                title="Use 6–15 digits only. Allowed examples: 0812..., 628..., or 12..."
+                type="tel"
                 value="081234567890"
               />
             </div>
@@ -282,6 +302,12 @@ exports[`MasterCustomerCreateForm Snapshots should render customer create form w
                 class="block text-[12px] font-bold text-text-secondary mb-1.5 uppercase tracking-wider"
               >
                 Address
+                <span
+                  aria-hidden="true"
+                  class="ml-1 text-danger"
+                >
+                  *
+                </span>
               </label>
               <textarea
                 class="w-full bg-background-surface border border-border-default rounded-xl py-3 px-4 text-[15px] font-normal text-text-primary shadow-xs outline-none focus:border-border-focus focus:ring-2 focus:ring-focus-ring/30 transition-all placeholder:text-text-tertiary/60 placeholder:font-normal resize-none"
@@ -295,10 +321,10 @@ exports[`MasterCustomerCreateForm Snapshots should render customer create form w
           </div>
         </div>
         <div
-          class="mt-6 flex justify-end border-t border-border-default pt-5"
+          class="mt-8 flex justify-end border-t border-border-default/60 pt-5 lg:mt-6 lg:border-border-default"
         >
           <button
-            class="h-14 px-8 bg-action-primary text-text-inverse rounded-xl text-sm font-semibold tracking-wide shadow-xs hover:bg-action-primary-hover transition-all disabled:opacity-60 cursor-pointer"
+            class="h-14 w-full cursor-pointer rounded-xl bg-action-primary px-8 text-sm font-semibold tracking-wide text-text-inverse shadow-xs transition-all hover:bg-action-primary-hover disabled:opacity-60 sm:w-auto"
             disabled=""
             type="submit"
           >

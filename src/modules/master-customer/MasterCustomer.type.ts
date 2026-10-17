@@ -40,8 +40,9 @@ export type CustomerData = {
 
 export type CustomerMobileCardProps = {
   readonly customer: CustomerData;
-  readonly onRowClick?: (customer: CustomerData) => void;
+  readonly isDetail?: boolean;
   readonly onEdit: (customer: CustomerData) => void;
+  readonly onDetail: (customer: CustomerData) => void;
 };
 
 export type CustomerListApiState = {
@@ -112,6 +113,8 @@ export type MasterCustomerProps = {
   readonly setSearchTerm: (searchTerm: string) => void;
   readonly onCreate: () => void;
   readonly onEdit: (customer: CustomerData) => void;
+  readonly onDetail: (customer: CustomerData) => void;
+  readonly isDetail?: boolean;
   readonly onRowClick?: (customer: CustomerData) => void;
   readonly onBack: () => void;
   readonly onMore: () => void;

@@ -69,14 +69,14 @@ const _renderDesktopTable = (props: MasterCustomerProps): React.ReactElement => 
  * @returns {React.ReactElement} The mobile list element
  */
 const _renderMobileCards = (props: MasterCustomerProps): React.ReactElement => {
-  const { paginatedData, currentPage, totalPages, goToPage, pageSize, changePageSize, onRowClick, onCreate, setSearchTerm, totalCount, onEdit } = props;
+  const { paginatedData, currentPage, totalPages, goToPage, pageSize, changePageSize, setSearchTerm, totalCount, onEdit, onDetail, isDetail } = props;
 
   return (
     <div className="lg:hidden flex min-w-0 flex-col gap-4 pt-2 pb-16">
-      {_renderMobileToolbar(onCreate, setSearchTerm)}
+      <div className="w-full">{_renderMobileSearch(setSearchTerm)}</div>
       <div className="min-w-0 space-y-3">
         {_renderListState(props) ?? paginatedData.map((customer) => (
-          <CustomerMobileCard key={customer.id} customer={customer} onRowClick={onRowClick} onEdit={onEdit} />
+          <CustomerMobileCard key={customer.id} customer={customer} isDetail={isDetail} onEdit={onEdit} onDetail={onDetail} />
         ))}
       </div>
       <Pagination
@@ -94,29 +94,14 @@ const _renderMobileCards = (props: MasterCustomerProps): React.ReactElement => {
 };
 
 /**
- * Render mobile search and create controls.
- * @param {MasterCustomerProps["onCreate"]} onCreate - Create callback
+ * Render mobile search.
  * @param {MasterCustomerProps["setSearchTerm"]} setSearchTerm - Search callback
- * @returns {React.ReactElement} Toolbar node
+ * @returns {React.ReactElement} Search field
  */
-const _renderMobileToolbar = (onCreate: MasterCustomerProps["onCreate"], setSearchTerm: MasterCustomerProps["setSearchTerm"]): React.ReactElement => {
-  /**
-   * Handle search input change
-   * @param {React.ChangeEvent<HTMLInputElement>} event - The change event
-   * @returns {void}
-   */
+const _renderMobileSearch = (setSearchTerm: MasterCustomerProps["setSearchTerm"]): React.ReactElement => {
   const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>): void => setSearchTerm(event.target.value);
 
-  return (
-    <div className="flex w-full items-center justify-between gap-3 bg-transparent">
-      <div className="flex-1">
-        <SearchFilter placeholder="Search customer" onChange={handleSearchChange} />
-      </div>
-      <button type="button" onClick={onCreate} className="shrink-0 rounded-xl bg-brand-blue h-14 px-5 text-sm font-semibold text-brand-white shadow-sm hover:bg-brand-blue/90 transition-colors">
-        Create Customer
-      </button>
-    </div>
-  );
+  return <SearchFilter placeholder="Search customer" onChange={handleSearchChange} isRoundedFull={true} className="w-full sm:w-full" />;
 };
 
 /**
@@ -125,16 +110,27 @@ const _renderMobileToolbar = (onCreate: MasterCustomerProps["onCreate"], setSear
  * @returns {React.ReactElement} The component
  */
 export const MasterCustomerComponent = (props: MasterCustomerProps): React.ReactElement => {
-  const { onBack } = props;
+  const { onBack, onCreate } = props;
+  const createButton = (
+    <button
+      type="button"
+      onClick={onCreate}
+      className="h-14 rounded-full border-2 border-brand-blue bg-background-surface px-6 text-sm font-bold text-brand-blue transition-colors hover:bg-action-primary-subtle focus:outline-none focus:ring-2 focus:ring-focus-ring/30"
+    >
+      Create New
+    </button>
+  );
 
   return (
-    <Layout pageTitle="Customer List">
+    <Layout pageTitle="Customer List" mobileWhiteBackground={true}>
       <PageLayout
         title="Customer List"
         breadcrumbs={["Master", "Master Customer"]}
+        headerRight={createButton}
+        mobileHeaderClassName="px-6"
         onBack={onBack}
       >
-        <div className="flex flex-col h-full pb-18 lg:pb-0 px-3 lg:px-0 lg:-mt-4 relative">
+        <div className="relative flex h-full flex-col bg-background-surface px-6 pb-18 lg:-mt-4 lg:bg-transparent lg:px-0 lg:pb-0">
           {_renderMobileCards(props)}
           {_renderDesktopTable(props)}
         </div>

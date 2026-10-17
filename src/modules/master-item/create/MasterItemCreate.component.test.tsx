@@ -40,7 +40,9 @@ describe("MasterItemCreateForm", () => {
     render(<MasterItemCreateForm {...createProps()} />);
 
     expect(screen.getByLabelText("Item name")).toBeTruthy();
-    expect(screen.getByLabelText("Category")).toBeTruthy();
+    const categorySelect = screen.getByRole("combobox", { name: "Category" });
+    expect(categorySelect).toBeTruthy();
+    fireEvent.click(categorySelect);
     expect(screen.getByRole("option", { name: "Audio System" })).toBeTruthy();
     expect(screen.getByRole("button", { name: "Create Item" })).toBeTruthy();
     expect(screen.queryByRole("switch")).toBeNull();
@@ -51,6 +53,17 @@ describe("MasterItemCreateForm", () => {
 
     expect(screen.getByRole("switch")).toBeTruthy();
     expect(screen.getByRole("button", { name: "Update Item" })).toBeTruthy();
+  });
+
+  it("should render formatted price value and handle price input", () => {
+    const handlePriceChange = jest.fn();
+    render(<MasterItemCreateForm {...createProps({ price: "1500000", handlePriceChange })} />);
+
+    const priceInput = screen.getByLabelText("Price") as HTMLInputElement;
+    expect(priceInput.value).toBe("Rp 1.500.000");
+
+    fireEvent.change(priceInput, { target: { value: "Rp 2.000.000" } });
+    expect(handlePriceChange).toHaveBeenCalledTimes(1);
   });
 
   it("should submit form through handleSubmit", () => {

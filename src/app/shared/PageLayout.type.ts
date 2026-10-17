@@ -10,6 +10,8 @@ export type PageLayoutProps = {
   readonly title: string;
   readonly breadcrumbs?: string[];
   readonly actions?: PageLayoutAction[];
+  readonly headerRight?: React.ReactNode;
+  readonly mobileHeaderClassName?: string;
   readonly onBack: () => void;
   readonly children: React.ReactNode;
   readonly footer?: React.ReactNode;

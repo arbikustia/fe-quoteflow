@@ -229,7 +229,7 @@ exports[`MasterItemComponent matches snapshot 1`] = `
       </aside>
     </div>
     <div
-      class="flex-1 flex flex-col min-w-0 min-h-0 overflow-hidden relative bg-background-page"
+      class="flex-1 flex flex-col min-w-0 min-h-0 overflow-hidden relative bg-background-page bg-background-surface lg:bg-background-page"
     >
       <div
         class="lg:hidden flex items-center gap-3 p-4 border-b border-border-default bg-background-surface shrink-0"
@@ -423,308 +423,243 @@ exports[`MasterItemComponent matches snapshot 1`] = `
               </div>
             </div>
             <div
-              class="flex items-center justify-between gap-3 lg:hidden"
+              class="flex items-center justify-between gap-3 lg:hidden px-6"
             >
-              <button
-                aria-label="Back"
-                class="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg border border-border-default text-text-primary hover:bg-background-subtle"
-                type="button"
+              <div
+                class="flex items-center gap-3 min-w-0 flex-1"
               >
-                <span
-                  aria-hidden="true"
+                <button
+                  aria-label="Back"
+                  class="flex h-14 w-14 shrink-0 items-center justify-center rounded-full border border-border-default text-text-primary bg-white hover:bg-background-subtle transition-colors"
+                  type="button"
                 >
-                  ←
-                </span>
-              </button>
-              <h1
-                class="min-w-0 flex-1 truncate text-center text-lg font-semibold text-text-primary"
+                  <svg
+                    aria-hidden="true"
+                    class="w-6 h-6"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2.5"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      d="M19 12H5M12 19l-7-7 7-7"
+                    />
+                  </svg>
+                </button>
+                <h1
+                  class="min-w-0 truncate text-left text-3xl font-semibold tracking-tight text-text-primary"
+                >
+                  Item List
+                </h1>
+              </div>
+              <div
+                class="shrink-0"
               >
-                Item List
-              </h1>
-              <span
-                aria-hidden="true"
-                class="h-10 w-10 shrink-0"
-              />
+                <button
+                  class="h-14 rounded-full border-2 border-brand-blue bg-background-surface px-6 text-sm font-bold text-brand-blue transition-colors hover:bg-action-primary-subtle focus:outline-none focus:ring-2 focus:ring-focus-ring/30"
+                  type="button"
+                >
+                  Create New
+                </button>
+              </div>
             </div>
           </header>
           <main
             class="min-w-0 flex-1"
           >
             <div
-              class="flex h-full flex-col px-3 pb-18 lg:-mt-4 lg:px-0 lg:pb-0"
+              class="relative flex h-full flex-col bg-background-surface px-6 pb-18 lg:-mt-4 lg:bg-transparent lg:px-0 lg:pb-0"
             >
               <div
-                class="lg:hidden flex min-w-0 flex-col gap-4 pt-2 pb-16"
+                class="flex min-w-0 flex-col gap-4 pt-2 pb-16 lg:hidden"
               >
-                <div
-                  class="flex items-center gap-3"
+                <label
+                  class="relative block w-full sm:w-72 w-full sm:w-full"
                 >
-                  <div
-                    class="flex-1"
+                  <span
+                    class="sr-only"
                   >
-                    <label
-                      class="relative block w-full sm:w-72 "
-                    >
-                      <span
-                        class="sr-only"
-                      >
-                        Search item
-                      </span>
-                      <svg
-                        aria-hidden="true"
-                        class="pointer-events-none absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-text-tertiary"
-                        fill="none"
-                        height="1em"
-                        stroke="currentColor"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
-                        viewBox="0 0 24 24"
-                        width="1em"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <circle
-                          cx="11"
-                          cy="11"
-                          r="8"
-                        />
-                        <line
-                          x1="21"
-                          x2="16.65"
-                          y1="21"
-                          y2="16.65"
-                        />
-                      </svg>
-                      <input
-                        aria-label="Search item"
-                        class="h-14 w-full rounded-xl border border-border-default bg-background-surface pl-12 pr-4 text-base font-medium text-text-primary outline-none transition-colors placeholder:font-normal placeholder:text-text-tertiary hover:border-border-strong focus:border-border-focus focus:ring-2 focus:ring-focus-ring/30"
-                        placeholder="Search item"
-                        type="search"
-                      />
-                    </label>
-                  </div>
-                  <button
-                    class="shrink-0 rounded-xl bg-brand-blue h-14 px-5 text-sm font-semibold text-brand-white"
-                    type="button"
+                    Search item
+                  </span>
+                  <svg
+                    aria-hidden="true"
+                    class="pointer-events-none absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-text-tertiary"
+                    fill="none"
+                    height="1em"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    viewBox="0 0 24 24"
+                    width="1em"
+                    xmlns="http://www.w3.org/2000/svg"
                   >
-                    Create Item
-                  </button>
-                </div>
+                    <circle
+                      cx="11"
+                      cy="11"
+                      r="8"
+                    />
+                    <line
+                      x1="21"
+                      x2="16.65"
+                      y1="21"
+                      y2="16.65"
+                    />
+                  </svg>
+                  <input
+                    aria-label="Search item"
+                    class="h-14 w-full rounded-full border border-border-default bg-background-surface pl-12 pr-4 text-base font-medium text-text-primary outline-none transition-colors placeholder:font-normal placeholder:text-text-tertiary hover:border-border-strong focus:border-border-focus focus:ring-2 focus:ring-focus-ring/30"
+                    placeholder="Search item"
+                    type="search"
+                  />
+                </label>
                 <div
                   class="min-w-0 space-y-3"
                 >
                   <div
-                    class="rounded-2xl border border-border-default bg-background-surface p-4 shadow-xs"
+                    class="flex cursor-pointer flex-col gap-4 rounded-3xl border border-border-default bg-background-surface p-5 transition-all hover:border-border-strong active:bg-background-subtle/50"
                     role="button"
                     tabindex="0"
                   >
                     <div
                       class="flex items-start justify-between gap-3"
                     >
-                      <div
-                        class="flex min-w-0 items-center gap-3"
+                      <h4
+                        class="min-w-0 truncate text-base font-semibold text-text-primary"
                       >
-                        <img
-                          alt="Speaker"
-                          class="h-10 w-10 shrink-0 rounded-xl object-cover"
-                          src="https://example.com/a.jpg"
-                        />
-                        <div
-                          class="min-w-0"
-                        >
-                          <h4
-                            class="truncate text-base font-semibold text-text-primary"
-                          >
-                            Speaker
-                          </h4>
-                          <span
-                            class="text-xs text-text-tertiary"
-                          >
-                            ID: 1
-                          </span>
-                        </div>
-                      </div>
-                      <div
-                        class="flex shrink-0 items-center gap-2"
-                      >
-                        <span
-                          class="rounded-full px-2.5 py-0.5 text-xs font-semibold bg-green-100 text-green-700"
-                        >
-                          active
-                        </span>
-                        <button
-                          aria-label="Edit item"
-                          class="rounded-lg p-1.5 text-text-tertiary hover:bg-background-subtle hover:text-brand-blue"
-                          type="button"
-                        >
-                          <svg
-                            class="h-4 w-4"
-                            fill="none"
-                            height="1em"
-                            stroke="currentColor"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            stroke-width="2"
-                            viewBox="0 0 24 24"
-                            width="1em"
-                            xmlns="http://www.w3.org/2000/svg"
-                          >
-                            <path
-                              d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"
-                            />
-                          </svg>
-                        </button>
-                      </div>
-                    </div>
-                    <div
-                      class="mt-3 grid grid-cols-2 gap-1 border-t border-border-default/60 pt-3 text-sm text-text-secondary"
-                    >
+                        Speaker
+                      </h4>
                       <span
-                        class="truncate"
+                        class="shrink-0 rounded-full px-3 py-1 text-xs font-semibold uppercase tracking-wider bg-green-100 text-green-700"
                       >
-                        Category: Audio
-                      </span>
-                      <span
-                        class="text-right"
-                      >
-                        Stock: 12
-                      </span>
-                      <span>
-                        Rp 5.000.000
-                      </span>
-                      <span
-                        class="text-right"
-                      >
-                        Duration: 3
+                        active
                       </span>
                     </div>
                     <div
-                      class="flex justify-end pt-2 text-xs font-medium text-brand-blue"
+                      class="grid grid-cols-2 gap-2 rounded-xl bg-background-subtle/60 p-3 text-sm"
                     >
-                      Lihat detail 
-                      <svg
-                        class="ml-1 h-3.5 w-3.5"
-                        fill="none"
-                        height="1em"
-                        stroke="currentColor"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
-                        viewBox="0 0 24 24"
-                        width="1em"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <polyline
-                          points="9 18 15 12 9 6"
-                        />
-                      </svg>
+                      <div>
+                        <p
+                          class="text-xs text-text-tertiary"
+                        >
+                          Category
+                        </p>
+                        <p
+                          class="truncate font-medium text-text-primary"
+                        >
+                          Audio
+                        </p>
+                      </div>
+                      <div>
+                        <p
+                          class="text-xs text-text-tertiary"
+                        >
+                          Stock
+                        </p>
+                        <p
+                          class="font-medium text-text-primary"
+                        >
+                          12
+                        </p>
+                      </div>
+                      <div>
+                        <p
+                          class="text-xs text-text-tertiary"
+                        >
+                          Price
+                        </p>
+                        <p
+                          class="truncate font-medium text-text-primary"
+                        >
+                          Rp 5.000.000
+                        </p>
+                      </div>
+                      <div>
+                        <p
+                          class="text-xs text-text-tertiary"
+                        >
+                          Duration
+                        </p>
+                        <p
+                          class="font-medium text-text-primary"
+                        >
+                          3 days
+                        </p>
+                      </div>
                     </div>
                   </div>
                   <div
-                    class="rounded-2xl border border-border-default bg-background-surface p-4 shadow-xs"
+                    class="flex cursor-pointer flex-col gap-4 rounded-3xl border border-border-default bg-background-surface p-5 transition-all hover:border-border-strong active:bg-background-subtle/50"
                     role="button"
                     tabindex="0"
                   >
                     <div
                       class="flex items-start justify-between gap-3"
                     >
-                      <div
-                        class="flex min-w-0 items-center gap-3"
+                      <h4
+                        class="min-w-0 truncate text-base font-semibold text-text-primary"
                       >
-                        <img
-                          alt="Light"
-                          class="h-10 w-10 shrink-0 rounded-xl object-cover"
-                          src="https://example.com/b.jpg"
-                        />
-                        <div
-                          class="min-w-0"
-                        >
-                          <h4
-                            class="truncate text-base font-semibold text-text-primary"
-                          >
-                            Light
-                          </h4>
-                          <span
-                            class="text-xs text-text-tertiary"
-                          >
-                            ID: 2
-                          </span>
-                        </div>
-                      </div>
-                      <div
-                        class="flex shrink-0 items-center gap-2"
-                      >
-                        <span
-                          class="rounded-full px-2.5 py-0.5 text-xs font-semibold bg-red-100 text-red-700"
-                        >
-                          inactive
-                        </span>
-                        <button
-                          aria-label="Edit item"
-                          class="rounded-lg p-1.5 text-text-tertiary hover:bg-background-subtle hover:text-brand-blue"
-                          type="button"
-                        >
-                          <svg
-                            class="h-4 w-4"
-                            fill="none"
-                            height="1em"
-                            stroke="currentColor"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            stroke-width="2"
-                            viewBox="0 0 24 24"
-                            width="1em"
-                            xmlns="http://www.w3.org/2000/svg"
-                          >
-                            <path
-                              d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"
-                            />
-                          </svg>
-                        </button>
-                      </div>
-                    </div>
-                    <div
-                      class="mt-3 grid grid-cols-2 gap-1 border-t border-border-default/60 pt-3 text-sm text-text-secondary"
-                    >
+                        Light
+                      </h4>
                       <span
-                        class="truncate"
+                        class="shrink-0 rounded-full px-3 py-1 text-xs font-semibold uppercase tracking-wider bg-red-100 text-red-700"
                       >
-                        Category: Lighting
-                      </span>
-                      <span
-                        class="text-right"
-                      >
-                        Stock: 5
-                      </span>
-                      <span>
-                        Rp 600.000
-                      </span>
-                      <span
-                        class="text-right"
-                      >
-                        Duration: 1
+                        inactive
                       </span>
                     </div>
                     <div
-                      class="flex justify-end pt-2 text-xs font-medium text-brand-blue"
+                      class="grid grid-cols-2 gap-2 rounded-xl bg-background-subtle/60 p-3 text-sm"
                     >
-                      Lihat detail 
-                      <svg
-                        class="ml-1 h-3.5 w-3.5"
-                        fill="none"
-                        height="1em"
-                        stroke="currentColor"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
-                        viewBox="0 0 24 24"
-                        width="1em"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <polyline
-                          points="9 18 15 12 9 6"
-                        />
-                      </svg>
+                      <div>
+                        <p
+                          class="text-xs text-text-tertiary"
+                        >
+                          Category
+                        </p>
+                        <p
+                          class="truncate font-medium text-text-primary"
+                        >
+                          Lighting
+                        </p>
+                      </div>
+                      <div>
+                        <p
+                          class="text-xs text-text-tertiary"
+                        >
+                          Stock
+                        </p>
+                        <p
+                          class="font-medium text-text-primary"
+                        >
+                          5
+                        </p>
+                      </div>
+                      <div>
+                        <p
+                          class="text-xs text-text-tertiary"
+                        >
+                          Price
+                        </p>
+                        <p
+                          class="truncate font-medium text-text-primary"
+                        >
+                          Rp 600.000
+                        </p>
+                      </div>
+                      <div>
+                        <p
+                          class="text-xs text-text-tertiary"
+                        >
+                          Duration
+                        </p>
+                        <p
+                          class="font-medium text-text-primary"
+                        >
+                          1 days
+                        </p>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -732,19 +667,19 @@ exports[`MasterItemComponent matches snapshot 1`] = `
                   class="flex flex-col gap-3 py-4 mt-2 w-full rounded-2xl border border-border-default bg-background-surface px-4 py-3 shadow-xs"
                 >
                   <div
-                    class="flex flex-wrap items-center gap-3 justify-between"
+                    class="flex w-full items-center justify-between gap-2 overflow-x-auto"
                   >
-                    <p
-                      class="whitespace-nowrap text-sm text-text-secondary basis-auto"
-                    >
-                      Show 5/5 data
-                    </p>
                     <div
-                      class="flex w-full items-center justify-between gap-2 sm:w-auto sm:justify-start"
+                      class="flex shrink-0 items-center gap-1.5 sm:gap-2"
                     >
+                      <p
+                        class="whitespace-nowrap text-xs sm:text-sm text-text-secondary"
+                      >
+                        Show 5/5 data
+                      </p>
                       <select
                         aria-label="Documents per page"
-                        class="px-3 py-2 text-sm shrink-0 cursor-pointer rounded-xl border border-border-default bg-background-surface font-semibold text-text-primary focus:outline-none"
+                        class="px-4 py-2.5 text-base shrink-0 cursor-pointer rounded-xl border border-border-default bg-background-surface font-semibold text-text-primary focus:outline-none"
                       >
                         <option
                           value="5"
@@ -772,71 +707,71 @@ exports[`MasterItemComponent matches snapshot 1`] = `
                           100
                         </option>
                       </select>
+                    </div>
+                    <div
+                      class="flex shrink-0 items-center justify-end gap-1 sm:gap-2"
+                    >
+                      <button
+                        class="flex items-center gap-2 p-2.5 border border-border-default rounded-xl text-base font-semibold transition-colors text-text-disabled cursor-not-allowed bg-background-disabled"
+                        disabled=""
+                      >
+                        <svg
+                          class="w-3.5 h-5 sm:w-5 sm:h-5"
+                          fill="none"
+                          height="1em"
+                          stroke="currentColor"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                          viewBox="0 0 24 24"
+                          width="1em"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <polyline
+                            points="15 18 9 12 15 6"
+                          />
+                        </svg>
+                        <span
+                          class="hidden"
+                        >
+                          Previous
+                        </span>
+                      </button>
                       <div
-                        class="flex shrink-0 items-center justify-end gap-1 sm:gap-2"
+                        class="flex min-w-0 items-center justify-center gap-1"
                       >
                         <button
-                          class="flex items-center gap-1 sm:gap-2 px-3 sm:px-4 py-2 sm:py-2.5 border border-border-default rounded-xl text-sm sm:text-base font-semibold transition-colors text-text-disabled cursor-not-allowed bg-background-disabled"
-                          disabled=""
+                          aria-current="page"
+                          class="flex h-10 w-10 items-center justify-center rounded-xl text-base font-semibold transition-colors bg-background-subtle text-text-primary shadow-sm"
                         >
-                          <svg
-                            class="w-4 h-4 sm:w-5 sm:h-5"
-                            fill="none"
-                            height="1em"
-                            stroke="currentColor"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            stroke-width="2"
-                            viewBox="0 0 24 24"
-                            width="1em"
-                            xmlns="http://www.w3.org/2000/svg"
-                          >
-                            <polyline
-                              points="15 18 9 12 15 6"
-                            />
-                          </svg>
-                          <span
-                            class="hidden sm:inline"
-                          >
-                            Previous
-                          </span>
-                        </button>
-                        <div
-                          class="flex min-w-0 items-center justify-center gap-1 overflow-x-auto"
-                        >
-                          <button
-                            aria-current="page"
-                            class="flex h-8 w-8 sm:h-10 sm:w-10 items-center justify-center rounded-xl text-sm sm:text-base font-semibold transition-colors bg-background-subtle text-text-primary shadow-sm"
-                          >
-                            1
-                          </button>
-                        </div>
-                        <button
-                          class="flex items-center gap-1 sm:gap-2 px-3 sm:px-4 py-2 sm:py-2.5 border border-border-default rounded-xl text-sm sm:text-base font-semibold transition-colors text-text-primary hover:bg-background-subtle bg-background-surface cursor-pointer"
-                        >
-                          <span
-                            class="hidden sm:inline"
-                          >
-                            Next
-                          </span>
-                          <svg
-                            class="w-4 h-4 sm:w-5 sm:h-5"
-                            fill="none"
-                            height="1em"
-                            stroke="currentColor"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            stroke-width="2"
-                            viewBox="0 0 24 24"
-                            width="1em"
-                            xmlns="http://www.w3.org/2000/svg"
-                          >
-                            <polyline
-                              points="9 18 15 12 9 6"
-                            />
-                          </svg>
+                          1
                         </button>
                       </div>
+                      <button
+                        class="flex items-center gap-2 p-2.5 border border-border-default rounded-xl text-base font-semibold transition-colors text-text-primary hover:bg-background-subtle bg-background-surface cursor-pointer"
+                      >
+                        <span
+                          class="hidden"
+                        >
+                          Next
+                        </span>
+                        <svg
+                          class="w-3.5 h-5 sm:w-5 sm:h-5"
+                          fill="none"
+                          height="1em"
+                          stroke="currentColor"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                          viewBox="0 0 24 24"
+                          width="1em"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <polyline
+                            points="9 18 15 12 9 6"
+                          />
+                        </svg>
+                      </button>
                     </div>
                   </div>
                 </div>
@@ -967,16 +902,16 @@ exports[`MasterItemComponent matches snapshot 1`] = `
                   class="flex flex-col gap-3 py-4 "
                 >
                   <div
-                    class="flex flex-wrap items-center gap-3 sm:justify-between"
+                    class="flex w-full items-center justify-between gap-2 overflow-x-auto"
                   >
-                    <p
-                      class="whitespace-nowrap text-sm text-text-secondary basis-full sm:basis-auto"
-                    >
-                      Show 5/5 data
-                    </p>
                     <div
-                      class="flex w-full items-center justify-between gap-2 sm:w-auto sm:justify-start"
+                      class="flex shrink-0 items-center gap-1.5 sm:gap-2"
                     >
+                      <p
+                        class="whitespace-nowrap text-xs sm:text-sm text-text-secondary"
+                      >
+                        Show 5/5 data
+                      </p>
                       <select
                         aria-label="Documents per page"
                         class="w-[180px] px-4 py-2.5 text-base sm:min-w-[100px] sm:w-auto shrink-0 cursor-pointer rounded-xl border border-border-default bg-background-surface font-semibold text-text-primary focus:outline-none"
@@ -1007,76 +942,76 @@ exports[`MasterItemComponent matches snapshot 1`] = `
                           100
                         </option>
                       </select>
+                    </div>
+                    <div
+                      class="flex shrink-0 items-center justify-end gap-1 sm:gap-2"
+                    >
+                      <button
+                        class="flex items-center gap-2 px-2.5 sm:px-4 py-1.5 sm:py-2.5 border border-border-default rounded-xl text-base font-semibold transition-colors text-text-disabled cursor-not-allowed bg-background-disabled"
+                        disabled=""
+                      >
+                        <svg
+                          class="w-3.5 h-5 sm:w-5 sm:h-5"
+                          fill="none"
+                          height="1em"
+                          stroke="currentColor"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                          viewBox="0 0 24 24"
+                          width="1em"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <polyline
+                            points="15 18 9 12 15 6"
+                          />
+                        </svg>
+                        <span
+                          class="hidden sm:inline"
+                        >
+                          Previous
+                        </span>
+                      </button>
                       <div
-                        class="flex shrink-0 items-center justify-end gap-1 sm:gap-2"
+                        class="flex min-w-0 items-center justify-center gap-1"
                       >
                         <button
-                          class="flex items-center gap-1 sm:gap-2 px-3 sm:px-4 py-2 sm:py-2.5 border border-border-default rounded-xl text-sm sm:text-base font-semibold transition-colors text-text-disabled cursor-not-allowed bg-background-disabled"
-                          disabled=""
+                          aria-current="page"
+                          class="flex h-10 w-10 items-center justify-center rounded-xl text-base font-semibold transition-colors bg-background-subtle text-text-primary shadow-sm"
                         >
-                          <svg
-                            class="w-4 h-4 sm:w-5 sm:h-5"
-                            fill="none"
-                            height="1em"
-                            stroke="currentColor"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            stroke-width="2"
-                            viewBox="0 0 24 24"
-                            width="1em"
-                            xmlns="http://www.w3.org/2000/svg"
-                          >
-                            <polyline
-                              points="15 18 9 12 15 6"
-                            />
-                          </svg>
-                          <span
-                            class="hidden sm:inline"
-                          >
-                            Previous
-                          </span>
+                          1
                         </button>
-                        <div
-                          class="flex min-w-0 items-center justify-center gap-1 overflow-x-auto"
-                        >
-                          <button
-                            aria-current="page"
-                            class="flex h-8 w-8 sm:h-10 sm:w-10 items-center justify-center rounded-xl text-sm sm:text-base font-semibold transition-colors bg-background-subtle text-text-primary shadow-sm"
-                          >
-                            1
-                          </button>
-                          <button
-                            class="flex h-8 w-8 sm:h-10 sm:w-10 items-center justify-center rounded-xl text-sm sm:text-base font-semibold transition-colors cursor-pointer text-text-secondary hover:bg-background-subtle/50"
-                          >
-                            2
-                          </button>
-                        </div>
                         <button
-                          class="flex items-center gap-1 sm:gap-2 px-3 sm:px-4 py-2 sm:py-2.5 border border-border-default rounded-xl text-sm sm:text-base font-semibold transition-colors text-text-primary hover:bg-background-subtle bg-background-surface cursor-pointer"
+                          class="flex h-10 w-10 items-center justify-center rounded-xl text-base font-semibold transition-colors cursor-pointer text-text-secondary hover:bg-background-subtle/50"
                         >
-                          <span
-                            class="hidden sm:inline"
-                          >
-                            Next
-                          </span>
-                          <svg
-                            class="w-4 h-4 sm:w-5 sm:h-5"
-                            fill="none"
-                            height="1em"
-                            stroke="currentColor"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            stroke-width="2"
-                            viewBox="0 0 24 24"
-                            width="1em"
-                            xmlns="http://www.w3.org/2000/svg"
-                          >
-                            <polyline
-                              points="9 18 15 12 9 6"
-                            />
-                          </svg>
+                          2
                         </button>
                       </div>
+                      <button
+                        class="flex items-center gap-2 px-2.5 sm:px-4 py-1.5 sm:py-2.5 border border-border-default rounded-xl text-base font-semibold transition-colors text-text-primary hover:bg-background-subtle bg-background-surface cursor-pointer"
+                      >
+                        <span
+                          class="hidden sm:inline"
+                        >
+                          Next
+                        </span>
+                        <svg
+                          class="w-3.5 h-5 sm:w-5 sm:h-5"
+                          fill="none"
+                          height="1em"
+                          stroke="currentColor"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                          viewBox="0 0 24 24"
+                          width="1em"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <polyline
+                            points="9 18 15 12 9 6"
+                          />
+                        </svg>
+                      </button>
                     </div>
                   </div>
                 </div>
@@ -1319,7 +1254,7 @@ exports[`MasterItemComponent matches snapshot with empty data and closed menu 1`
       </aside>
     </div>
     <div
-      class="flex-1 flex flex-col min-w-0 min-h-0 overflow-hidden relative bg-background-page"
+      class="flex-1 flex flex-col min-w-0 min-h-0 overflow-hidden relative bg-background-page bg-background-surface lg:bg-background-page"
     >
       <div
         class="lg:hidden flex items-center gap-3 p-4 border-b border-border-default bg-background-surface shrink-0"
@@ -1513,93 +1448,98 @@ exports[`MasterItemComponent matches snapshot with empty data and closed menu 1`
               </div>
             </div>
             <div
-              class="flex items-center justify-between gap-3 lg:hidden"
+              class="flex items-center justify-between gap-3 lg:hidden px-6"
             >
-              <button
-                aria-label="Back"
-                class="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg border border-border-default text-text-primary hover:bg-background-subtle"
-                type="button"
+              <div
+                class="flex items-center gap-3 min-w-0 flex-1"
               >
-                <span
-                  aria-hidden="true"
+                <button
+                  aria-label="Back"
+                  class="flex h-14 w-14 shrink-0 items-center justify-center rounded-full border border-border-default text-text-primary bg-white hover:bg-background-subtle transition-colors"
+                  type="button"
                 >
-                  ←
-                </span>
-              </button>
-              <h1
-                class="min-w-0 flex-1 truncate text-center text-lg font-semibold text-text-primary"
+                  <svg
+                    aria-hidden="true"
+                    class="w-6 h-6"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2.5"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      d="M19 12H5M12 19l-7-7 7-7"
+                    />
+                  </svg>
+                </button>
+                <h1
+                  class="min-w-0 truncate text-left text-3xl font-semibold tracking-tight text-text-primary"
+                >
+                  Item List
+                </h1>
+              </div>
+              <div
+                class="shrink-0"
               >
-                Item List
-              </h1>
-              <span
-                aria-hidden="true"
-                class="h-10 w-10 shrink-0"
-              />
+                <button
+                  class="h-14 rounded-full border-2 border-brand-blue bg-background-surface px-6 text-sm font-bold text-brand-blue transition-colors hover:bg-action-primary-subtle focus:outline-none focus:ring-2 focus:ring-focus-ring/30"
+                  type="button"
+                >
+                  Create New
+                </button>
+              </div>
             </div>
           </header>
           <main
             class="min-w-0 flex-1"
           >
             <div
-              class="flex h-full flex-col px-3 pb-18 lg:-mt-4 lg:px-0 lg:pb-0"
+              class="relative flex h-full flex-col bg-background-surface px-6 pb-18 lg:-mt-4 lg:bg-transparent lg:px-0 lg:pb-0"
             >
               <div
-                class="lg:hidden flex min-w-0 flex-col gap-4 pt-2 pb-16"
+                class="flex min-w-0 flex-col gap-4 pt-2 pb-16 lg:hidden"
               >
-                <div
-                  class="flex items-center gap-3"
+                <label
+                  class="relative block w-full sm:w-72 w-full sm:w-full"
                 >
-                  <div
-                    class="flex-1"
+                  <span
+                    class="sr-only"
                   >
-                    <label
-                      class="relative block w-full sm:w-72 "
-                    >
-                      <span
-                        class="sr-only"
-                      >
-                        Search item
-                      </span>
-                      <svg
-                        aria-hidden="true"
-                        class="pointer-events-none absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-text-tertiary"
-                        fill="none"
-                        height="1em"
-                        stroke="currentColor"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
-                        viewBox="0 0 24 24"
-                        width="1em"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <circle
-                          cx="11"
-                          cy="11"
-                          r="8"
-                        />
-                        <line
-                          x1="21"
-                          x2="16.65"
-                          y1="21"
-                          y2="16.65"
-                        />
-                      </svg>
-                      <input
-                        aria-label="Search item"
-                        class="h-14 w-full rounded-xl border border-border-default bg-background-surface pl-12 pr-4 text-base font-medium text-text-primary outline-none transition-colors placeholder:font-normal placeholder:text-text-tertiary hover:border-border-strong focus:border-border-focus focus:ring-2 focus:ring-focus-ring/30"
-                        placeholder="Search item"
-                        type="search"
-                      />
-                    </label>
-                  </div>
-                  <button
-                    class="shrink-0 rounded-xl bg-brand-blue h-14 px-5 text-sm font-semibold text-brand-white"
-                    type="button"
+                    Search item
+                  </span>
+                  <svg
+                    aria-hidden="true"
+                    class="pointer-events-none absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-text-tertiary"
+                    fill="none"
+                    height="1em"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    viewBox="0 0 24 24"
+                    width="1em"
+                    xmlns="http://www.w3.org/2000/svg"
                   >
-                    Create Item
-                  </button>
-                </div>
+                    <circle
+                      cx="11"
+                      cy="11"
+                      r="8"
+                    />
+                    <line
+                      x1="21"
+                      x2="16.65"
+                      y1="21"
+                      y2="16.65"
+                    />
+                  </svg>
+                  <input
+                    aria-label="Search item"
+                    class="h-14 w-full rounded-full border border-border-default bg-background-surface pl-12 pr-4 text-base font-medium text-text-primary outline-none transition-colors placeholder:font-normal placeholder:text-text-tertiary hover:border-border-strong focus:border-border-focus focus:ring-2 focus:ring-focus-ring/30"
+                    placeholder="Search item"
+                    type="search"
+                  />
+                </label>
                 <div
                   class="min-w-0 space-y-3"
                 />
@@ -1607,19 +1547,19 @@ exports[`MasterItemComponent matches snapshot with empty data and closed menu 1`
                   class="flex flex-col gap-3 py-4 mt-2 w-full rounded-2xl border border-border-default bg-background-surface px-4 py-3 shadow-xs"
                 >
                   <div
-                    class="flex flex-wrap items-center gap-3 justify-between"
+                    class="flex w-full items-center justify-between gap-2 overflow-x-auto"
                   >
-                    <p
-                      class="whitespace-nowrap text-sm text-text-secondary basis-auto"
-                    >
-                      Show 0/5 data
-                    </p>
                     <div
-                      class="flex w-full items-center justify-between gap-2 sm:w-auto sm:justify-start"
+                      class="flex shrink-0 items-center gap-1.5 sm:gap-2"
                     >
+                      <p
+                        class="whitespace-nowrap text-xs sm:text-sm text-text-secondary"
+                      >
+                        Show 0/5 data
+                      </p>
                       <select
                         aria-label="Documents per page"
-                        class="px-3 py-2 text-sm shrink-0 cursor-pointer rounded-xl border border-border-default bg-background-surface font-semibold text-text-primary focus:outline-none"
+                        class="px-4 py-2.5 text-base shrink-0 cursor-pointer rounded-xl border border-border-default bg-background-surface font-semibold text-text-primary focus:outline-none"
                       >
                         <option
                           value="5"
@@ -1647,72 +1587,72 @@ exports[`MasterItemComponent matches snapshot with empty data and closed menu 1`
                           100
                         </option>
                       </select>
+                    </div>
+                    <div
+                      class="flex shrink-0 items-center justify-end gap-1 sm:gap-2"
+                    >
+                      <button
+                        class="flex items-center gap-2 p-2.5 border border-border-default rounded-xl text-base font-semibold transition-colors text-text-disabled cursor-not-allowed bg-background-disabled"
+                        disabled=""
+                      >
+                        <svg
+                          class="w-3.5 h-5 sm:w-5 sm:h-5"
+                          fill="none"
+                          height="1em"
+                          stroke="currentColor"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                          viewBox="0 0 24 24"
+                          width="1em"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <polyline
+                            points="15 18 9 12 15 6"
+                          />
+                        </svg>
+                        <span
+                          class="hidden"
+                        >
+                          Previous
+                        </span>
+                      </button>
                       <div
-                        class="flex shrink-0 items-center justify-end gap-1 sm:gap-2"
+                        class="flex min-w-0 items-center justify-center gap-1"
                       >
                         <button
-                          class="flex items-center gap-1 sm:gap-2 px-3 sm:px-4 py-2 sm:py-2.5 border border-border-default rounded-xl text-sm sm:text-base font-semibold transition-colors text-text-disabled cursor-not-allowed bg-background-disabled"
-                          disabled=""
+                          aria-current="page"
+                          class="flex h-10 w-10 items-center justify-center rounded-xl text-base font-semibold transition-colors bg-background-subtle text-text-primary shadow-sm"
                         >
-                          <svg
-                            class="w-4 h-4 sm:w-5 sm:h-5"
-                            fill="none"
-                            height="1em"
-                            stroke="currentColor"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            stroke-width="2"
-                            viewBox="0 0 24 24"
-                            width="1em"
-                            xmlns="http://www.w3.org/2000/svg"
-                          >
-                            <polyline
-                              points="15 18 9 12 15 6"
-                            />
-                          </svg>
-                          <span
-                            class="hidden sm:inline"
-                          >
-                            Previous
-                          </span>
-                        </button>
-                        <div
-                          class="flex min-w-0 items-center justify-center gap-1 overflow-x-auto"
-                        >
-                          <button
-                            aria-current="page"
-                            class="flex h-8 w-8 sm:h-10 sm:w-10 items-center justify-center rounded-xl text-sm sm:text-base font-semibold transition-colors bg-background-subtle text-text-primary shadow-sm"
-                          >
-                            1
-                          </button>
-                        </div>
-                        <button
-                          class="flex items-center gap-1 sm:gap-2 px-3 sm:px-4 py-2 sm:py-2.5 border border-border-default rounded-xl text-sm sm:text-base font-semibold transition-colors text-text-disabled cursor-not-allowed bg-background-disabled"
-                          disabled=""
-                        >
-                          <span
-                            class="hidden sm:inline"
-                          >
-                            Next
-                          </span>
-                          <svg
-                            class="w-4 h-4 sm:w-5 sm:h-5"
-                            fill="none"
-                            height="1em"
-                            stroke="currentColor"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            stroke-width="2"
-                            viewBox="0 0 24 24"
-                            width="1em"
-                            xmlns="http://www.w3.org/2000/svg"
-                          >
-                            <polyline
-                              points="9 18 15 12 9 6"
-                            />
-                          </svg>
+                          1
                         </button>
                       </div>
+                      <button
+                        class="flex items-center gap-2 p-2.5 border border-border-default rounded-xl text-base font-semibold transition-colors text-text-disabled cursor-not-allowed bg-background-disabled"
+                        disabled=""
+                      >
+                        <span
+                          class="hidden"
+                        >
+                          Next
+                        </span>
+                        <svg
+                          class="w-3.5 h-5 sm:w-5 sm:h-5"
+                          fill="none"
+                          height="1em"
+                          stroke="currentColor"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                          viewBox="0 0 24 24"
+                          width="1em"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <polyline
+                            points="9 18 15 12 9 6"
+                          />
+                        </svg>
+                      </button>
                     </div>
                   </div>
                 </div>
@@ -1824,16 +1764,16 @@ exports[`MasterItemComponent matches snapshot with empty data and closed menu 1`
                   class="flex flex-col gap-3 py-4 "
                 >
                   <div
-                    class="flex flex-wrap items-center gap-3 sm:justify-between"
+                    class="flex w-full items-center justify-between gap-2 overflow-x-auto"
                   >
-                    <p
-                      class="whitespace-nowrap text-sm text-text-secondary basis-full sm:basis-auto"
-                    >
-                      Show 0/5 data
-                    </p>
                     <div
-                      class="flex w-full items-center justify-between gap-2 sm:w-auto sm:justify-start"
+                      class="flex shrink-0 items-center gap-1.5 sm:gap-2"
                     >
+                      <p
+                        class="whitespace-nowrap text-xs sm:text-sm text-text-secondary"
+                      >
+                        Show 0/5 data
+                      </p>
                       <select
                         aria-label="Documents per page"
                         class="w-[180px] px-4 py-2.5 text-base sm:min-w-[100px] sm:w-auto shrink-0 cursor-pointer rounded-xl border border-border-default bg-background-surface font-semibold text-text-primary focus:outline-none"
@@ -1864,72 +1804,72 @@ exports[`MasterItemComponent matches snapshot with empty data and closed menu 1`
                           100
                         </option>
                       </select>
+                    </div>
+                    <div
+                      class="flex shrink-0 items-center justify-end gap-1 sm:gap-2"
+                    >
+                      <button
+                        class="flex items-center gap-2 px-2.5 sm:px-4 py-1.5 sm:py-2.5 border border-border-default rounded-xl text-base font-semibold transition-colors text-text-disabled cursor-not-allowed bg-background-disabled"
+                        disabled=""
+                      >
+                        <svg
+                          class="w-3.5 h-5 sm:w-5 sm:h-5"
+                          fill="none"
+                          height="1em"
+                          stroke="currentColor"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                          viewBox="0 0 24 24"
+                          width="1em"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <polyline
+                            points="15 18 9 12 15 6"
+                          />
+                        </svg>
+                        <span
+                          class="hidden sm:inline"
+                        >
+                          Previous
+                        </span>
+                      </button>
                       <div
-                        class="flex shrink-0 items-center justify-end gap-1 sm:gap-2"
+                        class="flex min-w-0 items-center justify-center gap-1"
                       >
                         <button
-                          class="flex items-center gap-1 sm:gap-2 px-3 sm:px-4 py-2 sm:py-2.5 border border-border-default rounded-xl text-sm sm:text-base font-semibold transition-colors text-text-disabled cursor-not-allowed bg-background-disabled"
-                          disabled=""
+                          aria-current="page"
+                          class="flex h-10 w-10 items-center justify-center rounded-xl text-base font-semibold transition-colors bg-background-subtle text-text-primary shadow-sm"
                         >
-                          <svg
-                            class="w-4 h-4 sm:w-5 sm:h-5"
-                            fill="none"
-                            height="1em"
-                            stroke="currentColor"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            stroke-width="2"
-                            viewBox="0 0 24 24"
-                            width="1em"
-                            xmlns="http://www.w3.org/2000/svg"
-                          >
-                            <polyline
-                              points="15 18 9 12 15 6"
-                            />
-                          </svg>
-                          <span
-                            class="hidden sm:inline"
-                          >
-                            Previous
-                          </span>
-                        </button>
-                        <div
-                          class="flex min-w-0 items-center justify-center gap-1 overflow-x-auto"
-                        >
-                          <button
-                            aria-current="page"
-                            class="flex h-8 w-8 sm:h-10 sm:w-10 items-center justify-center rounded-xl text-sm sm:text-base font-semibold transition-colors bg-background-subtle text-text-primary shadow-sm"
-                          >
-                            1
-                          </button>
-                        </div>
-                        <button
-                          class="flex items-center gap-1 sm:gap-2 px-3 sm:px-4 py-2 sm:py-2.5 border border-border-default rounded-xl text-sm sm:text-base font-semibold transition-colors text-text-disabled cursor-not-allowed bg-background-disabled"
-                          disabled=""
-                        >
-                          <span
-                            class="hidden sm:inline"
-                          >
-                            Next
-                          </span>
-                          <svg
-                            class="w-4 h-4 sm:w-5 sm:h-5"
-                            fill="none"
-                            height="1em"
-                            stroke="currentColor"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            stroke-width="2"
-                            viewBox="0 0 24 24"
-                            width="1em"
-                            xmlns="http://www.w3.org/2000/svg"
-                          >
-                            <polyline
-                              points="9 18 15 12 9 6"
-                            />
-                          </svg>
+                          1
                         </button>
                       </div>
+                      <button
+                        class="flex items-center gap-2 px-2.5 sm:px-4 py-1.5 sm:py-2.5 border border-border-default rounded-xl text-base font-semibold transition-colors text-text-disabled cursor-not-allowed bg-background-disabled"
+                        disabled=""
+                      >
+                        <span
+                          class="hidden sm:inline"
+                        >
+                          Next
+                        </span>
+                        <svg
+                          class="w-3.5 h-5 sm:w-5 sm:h-5"
+                          fill="none"
+                          height="1em"
+                          stroke="currentColor"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                          viewBox="0 0 24 24"
+                          width="1em"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <polyline
+                            points="9 18 15 12 9 6"
+                          />
+                        </svg>
+                      </button>
                     </div>
                   </div>
                 </div>

@@ -1,6 +1,7 @@
 import * as React from 'react';
 
 import { NavbarComponent } from './Navbar.component';
+import { useRealtimeClock } from './Navbar.hook';
 import type { NavbarProps } from './Navbar.type';
 
 /**
@@ -9,9 +10,9 @@ import type { NavbarProps } from './Navbar.type';
  * @returns {React.ReactElement} - Navbar Container
  */
 const NavbarContainer = (props: NavbarProps): React.ReactElement => {
-  return (
-    <NavbarComponent {...props} />
-  );
+  const currentTime = useRealtimeClock();
+
+  return <NavbarComponent {...props} currentTime={currentTime} />;
 };
 
 export default NavbarContainer;

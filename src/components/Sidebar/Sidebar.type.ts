@@ -5,6 +5,11 @@ export type NavigationChild = {
   readonly path: string;
 };
 
+export type MasterNavigationItem = NavigationChild & {
+  readonly description: string;
+  readonly icon: () => ReactNode;
+};
+
 export type NavigationItem = {
   readonly name: string;
   readonly path?: string;

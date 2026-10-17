@@ -14,7 +14,7 @@ const MasterRoleCreateContainer = (): ReactElement => {
   const formState = useMasterRoleCreateForm();
 
   return (
-    <Layout>
+    <Layout mobileWhiteBackground={true}>
       <MasterRoleCreateComponent {...formState} />
     </Layout>
   );

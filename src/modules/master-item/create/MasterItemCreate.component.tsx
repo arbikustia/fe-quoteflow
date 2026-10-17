@@ -1,5 +1,7 @@
 import type { ReactElement } from "react";
 
+import { Select } from "@/components/Select";
+import { formatRupiahInput } from "./MasterItemCreate.helpers";
 import type { MasterItemCreateFormState } from "./MasterItemCreate.type";
 
 /**
@@ -29,12 +31,9 @@ const _renderStatusField = (props: MasterItemCreateFormState): ReactElement | nu
  * @returns {ReactElement} Bar element
  */
 const _renderMobileBack = (goBack: () => void): ReactElement => (
-  <div className="sticky top-0 z-20 flex items-center bg-background-page/90 px-6 pt-6 lg:px-0 lg:pt-0">
-    <button type="button" onClick={goBack} className="group flex items-center gap-3 text-text-secondary transition-colors hover:text-text-primary lg:hidden">
-      <div className="flex h-10 w-10 items-center justify-center rounded-full bg-background-surface text-text-primary shadow-sm transition-colors group-hover:bg-background-subtle">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><polyline points="15 18 9 12 15 6" /></svg>
-      </div>
-      <span className="text-[15px] font-bold">Back</span>
+  <div className="sticky top-0 z-20 flex items-center bg-background-surface px-6 lg:hidden">
+    <button type="button" onClick={goBack} aria-label="Back" className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full border border-border-default bg-background-surface text-text-primary transition-colors hover:bg-background-subtle">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="h-6 w-6" aria-hidden="true"><path d="M19 12H5M12 19l-7-7 7-7" /></svg>
     </button>
   </div>
 );
@@ -77,36 +76,49 @@ export const MasterItemCreateForm = (props: MasterItemCreateFormState): ReactEle
   const fieldClass = "w-full rounded-xl border border-border-default bg-background-surface px-4 py-3 text-[15px] font-normal text-text-primary shadow-xs outline-none transition-all placeholder:font-normal placeholder:text-text-tertiary/60 focus:border-border-focus focus:ring-2 focus:ring-focus-ring/30";
 
   return (
-    <div className="flex h-full w-full flex-col bg-background-page pb-6 font-sans">
+    <div className="flex h-full w-full flex-col bg-background-surface pb-6 font-sans lg:bg-background-page">
       {_renderMobileBack(goBack)}
       <div className="mt-2 flex min-h-0 w-full flex-1 flex-col px-6 lg:mt-0 lg:px-0">
         {_renderHeaderSection(isEditMode, goBack)}
-        <form onSubmit={handleSubmit} className="flex min-h-0 flex-1 flex-col justify-between rounded-4xl border border-border-default bg-background-surface p-6 shadow-xs sm:p-8">
+        <form onSubmit={handleSubmit} className="flex min-h-0 flex-1 flex-col justify-between border-0 bg-transparent p-0 shadow-none lg:rounded-4xl lg:border lg:border-border-default lg:bg-background-surface lg:p-8 lg:shadow-xs">
           <div className="space-y-4">
             <div>
-              <label className="mb-1.5 block text-xs font-bold uppercase tracking-wider text-text-secondary">Item Name</label>
+              <label className="mb-1.5 block text-xs font-bold uppercase tracking-wider text-text-secondary">
+                Item Name <span aria-hidden="true" className="text-red-600">*</span>
+              </label>
               <input type="text" aria-label="Item name" placeholder="e.g. Wireless Microphone" required value={name} onChange={handleNameChange} className={fieldClass} />
             </div>
             <div>
-              <label className="mb-1.5 block text-xs font-bold uppercase tracking-wider text-text-secondary">Category</label>
-              <select aria-label="Category" required value={categoryId} disabled={isCategoryLoading} onChange={handleCategoryChange} className={fieldClass}>
-                <option value="" disabled>{isCategoryLoading ? "Loading categories..." : "Select category"}</option>
-                {categories.map((category) => <option key={category.id} value={category.id}>{category.category_name}</option>)}
-              </select>
+              <Select
+                id="item-category"
+                label="Category"
+                required
+                value={categoryId}
+                disabled={isCategoryLoading}
+                placeholder={isCategoryLoading ? "Loading categories..." : "Select category"}
+                options={categories.map((cat) => ({ value: cat.id, label: cat.category_name }))}
+                onChange={handleCategoryChange}
+                errorMessage={categoryError}
+              />
             </div>
-            {categoryError && <p role="alert" className="text-[13px] font-medium text-red-600">{categoryError}</p>}
             <div className="grid gap-4 sm:grid-cols-2">
               <div>
-                <label className="mb-1.5 block text-xs font-bold uppercase tracking-wider text-text-secondary">Price</label>
-                <input type="number" aria-label="Price" placeholder="0" min="0" required value={price} onChange={handlePriceChange} className={fieldClass} />
+                <label className="mb-1.5 block text-xs font-bold uppercase tracking-wider text-text-secondary">
+                  Price <span aria-hidden="true" className="text-red-600">*</span>
+                </label>
+                <input type="text" inputMode="numeric" aria-label="Price" placeholder="Rp 0" required value={formatRupiahInput(price)} onChange={handlePriceChange} className={fieldClass} />
               </div>
               <div>
-                <label className="mb-1.5 block text-xs font-bold uppercase tracking-wider text-text-secondary">Stock</label>
+                <label className="mb-1.5 block text-xs font-bold uppercase tracking-wider text-text-secondary">
+                  Stock <span aria-hidden="true" className="text-red-600">*</span>
+                </label>
                 <input type="number" aria-label="Stock" placeholder="0" min="0" required value={stock} onChange={handleStockChange} className={fieldClass} />
               </div>
             </div>
             <div>
-              <label className="mb-1.5 block text-xs font-bold uppercase tracking-wider text-text-secondary">Duration (Days)</label>
+              <label className="mb-1.5 block text-xs font-bold uppercase tracking-wider text-text-secondary">
+                Duration (Days) <span aria-hidden="true" className="text-red-600">*</span>
+              </label>
               <input type="number" aria-label="Duration" placeholder="1" min="0" required value={duration} onChange={handleDurationChange} className={fieldClass} />
             </div>
             <div>
@@ -120,8 +132,8 @@ export const MasterItemCreateForm = (props: MasterItemCreateFormState): ReactEle
             {_renderStatusField(props)}
             {errorMessage && <p role="alert" className="rounded-lg border border-red-200 bg-red-50 px-3 py-2 text-[13px] font-medium text-red-700">{errorMessage}</p>}
           </div>
-          <div className="mt-6 flex justify-end border-t border-border-default pt-5">
-            <button type="submit" disabled={isSubmitting} className="h-14 cursor-pointer rounded-xl bg-action-primary px-8 text-sm font-semibold tracking-wide text-text-inverse shadow-xs transition-all hover:bg-action-primary-hover disabled:opacity-60">
+          <div className="mt-8 flex justify-end border-t border-border-default/60 pt-5 lg:mt-6 lg:border-border-default">
+            <button type="submit" disabled={isSubmitting} className="h-14 w-full cursor-pointer rounded-xl bg-action-primary px-8 text-sm font-semibold tracking-wide text-text-inverse shadow-xs transition-all hover:bg-action-primary-hover disabled:opacity-60 sm:w-auto">
               {isSubmitting ? submittingText : buttonText}
             </button>
           </div>

@@ -12,7 +12,10 @@ export const InputField = (props: InputFieldProps): ReactElement => {
 
   return (
     <div className="mb-4">
-      <label className="mb-1.5 block text-xs font-bold uppercase tracking-wider text-text-secondary">{label}</label>
+      <label className="mb-1.5 block text-xs font-bold uppercase tracking-wider text-text-secondary">
+        {label}
+        {required && <span aria-hidden="true" className="ml-1 text-red-600">*</span>}
+      </label>
       <input
         type="text"
         placeholder={placeholder}

@@ -1,5 +1,6 @@
 import * as React from "react";
 
+import Layout from "@/app/layout";
 import type { InputFieldProps, MasterProjectCreateFormState } from "@/modules/master-project/MasterProject.type";
 
 /**
@@ -35,34 +36,37 @@ export const MasterProjectCreateForm = (props: MasterProjectCreateFormState): Re
   const { name, remark, isActive, isSubmitting, errorMessage, successMessage, handleNameChange, handleRemarkChange, toggleStatus, handleSubmit, goBack } = props;
 
   return (
-    <div className="flex-1 w-full min-h-full bg-[#f8f9fb] font-sans pb-10 relative overflow-y-auto">
-      <div className="px-6 pt-10 pb-4 flex items-center sticky top-0 bg-[#f8f9fb]/90 backdrop-blur-sm z-20">
-        <button type="button" onClick={goBack} className="flex items-center gap-3 text-gray-600 hover:text-gray-900 transition-colors group">
-          <div className="w-10 h-10 rounded-full bg-white shadow-sm flex items-center justify-center text-[#1a233a] group-hover:bg-gray-50 transition-colors">
-            <span aria-hidden="true">‹</span>
-          </div>
-          <span className="font-bold text-[15px]">Back</span>
-        </button>
-      </div>
-      <div className="px-6 mt-2">
-        <div className="mb-8 pl-1">
-          <h2 className="text-[28px] font-extrabold text-gray-900 tracking-tight">New Project</h2>
-          <p className="text-[14px] text-gray-500 mt-2 font-medium">Fill in project details below.</p>
+    <Layout mobileWhiteBackground={true}>
+      <div className="flex h-full min-h-full w-full flex-col bg-background-surface pb-6 font-sans lg:bg-background-page">
+        <div className="sticky top-0 z-20 flex items-center bg-background-surface px-6 lg:hidden">
+          <button type="button" onClick={goBack} aria-label="Back" className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full border border-border-default bg-background-surface text-text-primary transition-colors hover:bg-background-subtle">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="h-6 w-6" aria-hidden="true"><path d="M19 12H5M12 19l-7-7 7-7" /></svg>
+          </button>
         </div>
-        <form onSubmit={handleSubmit} className="flex flex-col">
-          {_renderInputField({ label: "Project Name", placeholder: "e.g. Wedding Gala - Grand Ballroom", value: name, required: true, onChange: handleNameChange, icon: <span aria-hidden="true">▣</span> })}
-          {_renderInputField({ label: "Remark", placeholder: "e.g. Full setup including staging", value: remark, multiline: true, onChange: handleRemarkChange, icon: <span aria-hidden="true">▤</span> })}
-          <div className="mb-5 flex items-center justify-between rounded-3xl bg-white border border-gray-100 px-5 py-4 shadow-[0_4px_15px_rgba(0,0,0,0.02)]">
-            <span className="text-[15px] font-semibold text-gray-800">Active</span>
-            <button type="button" role="switch" aria-checked={isActive} onClick={toggleStatus} className={`relative h-7 w-12 rounded-full transition-colors ${isActive ? "bg-brand-blue" : "bg-gray-300"}`}>
-              <span className={`absolute top-1 h-5 w-5 rounded-full bg-white shadow transition-transform ${isActive ? "translate-x-6" : "translate-x-1"}`} />
-            </button>
+        <div className="mt-2 px-6 lg:px-0">
+          <div className="mb-8 pl-1">
+            <h2 className="text-4xl font-semibold leading-tight tracking-tight text-text-primary">New Project</h2>
+            <p className="mt-3 text-sm font-medium text-text-secondary opacity-70">Fill in project details below.</p>
           </div>
-          {errorMessage && <p role="alert" className="mb-4 text-[13px] font-medium text-red-600">{errorMessage}</p>}
-          {successMessage && <p role="status" className="mb-4 text-[13px] font-medium text-green-700">{successMessage}</p>}
-          <button type="submit" disabled={isSubmitting} className="w-full bg-[#1a233a] text-white rounded-full py-4 text-[16px] font-bold tracking-wide shadow-[0_10px_20px_rgba(26,35,58,0.15)] hover:bg-black transition-all mt-2 disabled:opacity-60">{isSubmitting ? "Creating…" : "Create Project"}</button>
-        </form>
+          <form onSubmit={handleSubmit} className="flex flex-col lg:rounded-4xl lg:border lg:border-border-default lg:bg-background-surface lg:p-8 lg:shadow-xs">
+            {_renderInputField({ label: "Project Name", placeholder: "e.g. Wedding Gala - Grand Ballroom", value: name, required: true, onChange: handleNameChange, icon: <span aria-hidden="true">▣</span> })}
+            {_renderInputField({ label: "Remark", placeholder: "e.g. Full setup including staging", value: remark, multiline: true, onChange: handleRemarkChange, icon: <span aria-hidden="true">▤</span> })}
+            <div className="mb-5 flex items-center justify-between rounded-2xl border border-border-default bg-background-surface p-4">
+              <span className="text-sm font-semibold text-text-primary">Active</span>
+              <button type="button" role="switch" aria-checked={isActive} onClick={toggleStatus} className={`relative h-7 w-12 rounded-full transition-colors ${isActive ? "bg-action-primary" : "bg-neutral-300"}`}>
+                <span className={`absolute top-1 h-5 w-5 rounded-full bg-white shadow transition-transform ${isActive ? "translate-x-6" : "translate-x-1"}`} />
+              </button>
+            </div>
+            {errorMessage && <p role="alert" className="mb-4 text-xs font-medium text-feedback-error">{errorMessage}</p>}
+            {successMessage && <p role="status" className="mb-4 text-xs font-medium text-feedback-success">{successMessage}</p>}
+            <div className="mt-8 flex justify-end border-t border-border-default/60 pt-5 lg:mt-6 lg:border-border-default">
+              <button type="submit" disabled={isSubmitting} className="h-14 w-full cursor-pointer rounded-xl bg-action-primary px-8 text-sm font-semibold tracking-wide text-text-inverse shadow-xs transition-all hover:bg-action-primary-hover disabled:opacity-60 sm:w-auto">
+                {isSubmitting ? "Creating…" : "Create Project"}
+              </button>
+            </div>
+          </form>
+        </div>
       </div>
-    </div>
+    </Layout>
   );
 };

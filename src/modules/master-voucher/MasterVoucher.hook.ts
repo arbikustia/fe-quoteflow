@@ -14,6 +14,7 @@ import type {
 } from "./MasterVoucher.type";
 
 import { mapVoucher, useCreateVoucherMutation, useGetVouchersQuery, useUpdateVoucherMutation } from "@/services/master-voucher.service";
+import { generateSecureVoucherCode, validateTypedVoucherCode } from "./create/MasterVoucherCreate.helpers";
 
 /**
  * Provide master voucher navigation.
@@ -92,8 +93,12 @@ export const useMasterVoucherCreateForm = (): MasterVoucherCreateFormState => {
   const { id } = useParams<{ readonly id?: string }>();
   const isEditMode = Boolean(id);
   const routeVoucher = location.state?.voucher;
+  const initialMode = isEditMode ? "type" : "generate";
+  const [codeMode, setCodeMode] = useState<"generate" | "type">(initialMode);
   const [name, setName] = useState(routeVoucher?.name ?? "");
-  const [code, setCode] = useState(routeVoucher?.code ?? "");
+  const [code, setCode] = useState(() => (
+    routeVoucher?.code ?? (initialMode === "generate" ? generateSecureVoucherCode() : "")
+  ));
   const [discountPercent, setDiscountPercent] = useState(routeVoucher?.discountPercent?.toString() ?? "");
   const [isActive, setIsActive] = useState(routeVoucher?.status ? routeVoucher.status === "active" : true);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
@@ -103,6 +108,11 @@ export const useMasterVoucherCreateForm = (): MasterVoucherCreateFormState => {
 
   const handleNameChange = (event: React.ChangeEvent<HTMLInputElement>): void => setName(event.target.value);
   const handleCodeChange = (event: React.ChangeEvent<HTMLInputElement>): void => setCode(event.target.value);
+  const handleCodeModeChange = (event: React.ChangeEvent<HTMLSelectElement>): void => {
+    const nextMode = event.target.value === "type" ? "type" : "generate";
+    setCodeMode(nextMode);
+    setCode(nextMode === "generate" ? generateSecureVoucherCode() : "");
+  };
   const handleDiscountChange = (event: React.ChangeEvent<HTMLInputElement>): void => setDiscountPercent(event.target.value);
   const handleStatusChange = (): void => setIsActive((currentIsActive) => !currentIsActive);
 
@@ -110,10 +120,20 @@ export const useMasterVoucherCreateForm = (): MasterVoucherCreateFormState => {
     event.preventDefault();
     setErrorMessage(null);
 
+    const finalCode = (codeMode === "generate" ? (code || generateSecureVoucherCode()) : code).trim().toUpperCase();
+
+    if (codeMode === "type") {
+      const validationError = validateTypedVoucherCode(finalCode);
+      if (validationError) {
+        setErrorMessage(validationError);
+        return;
+      }
+    }
+
     try {
       const payload = {
         name,
-        code,
+        code: finalCode,
         discount_percent: Number(discountPercent),
         status: 1,
       };
@@ -149,6 +169,7 @@ export const useMasterVoucherCreateForm = (): MasterVoucherCreateFormState => {
   return {
     name,
     code,
+    codeMode,
     discountPercent,
     isActive,
     isEditMode,
@@ -156,6 +177,7 @@ export const useMasterVoucherCreateForm = (): MasterVoucherCreateFormState => {
     errorMessage,
     handleNameChange,
     handleCodeChange,
+    handleCodeModeChange,
     handleDiscountChange,
     handleStatusChange,
     handleSubmit,

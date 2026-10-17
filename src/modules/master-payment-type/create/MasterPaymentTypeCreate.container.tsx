@@ -12,7 +12,11 @@ import Layout from "@/app/layout";
 const MasterPaymentTypeCreateContainer = (): ReactElement => {
   const state = useMasterPaymentTypeCreate();
 
-  return <Layout pageTitle={state.isEdit ? "Edit Payment Type" : "New Payment Type"}><MasterPaymentTypeCreateForm {...state} /></Layout>;
+  return (
+    <Layout pageTitle={state.isEditMode ? "Edit Payment Type" : "New Payment Type"} mobileWhiteBackground={true}>
+      <MasterPaymentTypeCreateForm {...state} />
+    </Layout>
+  );
 };
 
 export default MasterPaymentTypeCreateContainer;

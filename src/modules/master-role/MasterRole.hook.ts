@@ -231,6 +231,12 @@ export const useMasterRoleCreateForm = (): MasterRoleCreateFormState => {
     event.preventDefault();
     setErrorMessage(null);
 
+    if (!roleName.trim()) {
+      setErrorMessage("Role name is required.");
+
+      return;
+    }
+
     try {
       const response = isEditMode && id
         ? await updateRole({ id, role: roleName, status: isActive ? 1 : 0 }).unwrap()

@@ -2,6 +2,7 @@ import type { ChangeEvent, Dispatch, SetStateAction, SyntheticEvent } from "reac
 import { useState } from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 
+import { validatePaymentMethodFields } from "./MasterPaymentMethodCreate.helpers";
 import type { MasterPaymentMethodCreateFormState } from "./MasterPaymentMethodCreate.type";
 import type { PaymentMethodCreateResponse } from "@/services/master-payment-method.service";
 import {
@@ -69,6 +70,13 @@ const _usePaymentMethodSubmission = (
     event.preventDefault();
     setErrorMessage(null);
     setSuccessMessage(null);
+
+    const validationError = validatePaymentMethodFields(name, description);
+    if (validationError) {
+      setErrorMessage(validationError);
+
+      return;
+    }
 
     try {
       let response: PaymentMethodCreateResponse;

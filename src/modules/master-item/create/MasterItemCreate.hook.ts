@@ -6,6 +6,7 @@ import { useCategorySelectOptions } from "@/modules/master-category/MasterCatego
 import type { ItemCreateResponse } from "@/modules/master-item/MasterItem.type";
 import { useCreateItemMutation, useUpdateItemMutation } from "@/services/master-item.service";
 
+import { parseRupiahInput, validateRequiredItemFields } from "./MasterItemCreate.helpers";
 import type { MasterItemCreateFormState } from "./MasterItemCreate.type";
 
 /**
@@ -46,8 +47,8 @@ export const useMasterItemCreateForm = (): MasterItemCreateFormState => {
   const isSubmitting = isCreating || isUpdating;
 
   const handleNameChange = (event: ChangeEvent<HTMLInputElement>): void => { setName(event.target.value); };
-  const handleCategoryChange = (event: ChangeEvent<HTMLSelectElement>): void => { setCategoryId(event.target.value); };
-  const handlePriceChange = (event: ChangeEvent<HTMLInputElement>): void => { setPrice(event.target.value); };
+  const handleCategoryChange = (value: string): void => { setCategoryId(value); };
+  const handlePriceChange = (event: ChangeEvent<HTMLInputElement>): void => { setPrice(parseRupiahInput(event.target.value)); };
   const handleStockChange = (event: ChangeEvent<HTMLInputElement>): void => { setStock(event.target.value); };
   const handleImageChange = (event: ChangeEvent<HTMLInputElement>): void => { setImage(event.target.value); };
   const handleDurationChange = (event: ChangeEvent<HTMLInputElement>): void => { setDuration(event.target.value); };
@@ -62,6 +63,13 @@ export const useMasterItemCreateForm = (): MasterItemCreateFormState => {
   const handleSubmit = async (event: SyntheticEvent): Promise<void> => {
     event.preventDefault();
     setErrorMessage(null);
+
+    const validationError = validateRequiredItemFields({ name, categoryId, price, stock, duration });
+    if (validationError) {
+      setErrorMessage(validationError);
+
+      return;
+    }
 
     try {
       const payload = { name, category_id: categoryId, price: Number(price), stock: Number(stock), image, duration: Number(duration), remark, status: isEditMode ? (isActive ? 1 : 0) : 1 };

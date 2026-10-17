@@ -46,7 +46,7 @@ const renderCreatePage = (): void => {
  */
 const fillCreateForm = (): void => {
   fireEvent.change(screen.getByPlaceholderText("e.g. PT Mega Jaya Abadi"), { target: { value: "Test Customer" } });
-  fireEvent.change(screen.getByPlaceholderText("0812..."), { target: { value: "081234567890" } });
+  fireEvent.change(screen.getByPlaceholderText("0812... atau 628..."), { target: { value: "081234567890" } });
   fireEvent.change(screen.getByPlaceholderText("e.g. Jl. Sudirman No. 45"), { target: { value: "Test Address" } });
 };
 

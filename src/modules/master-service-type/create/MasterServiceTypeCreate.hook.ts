@@ -2,6 +2,7 @@
 import { useState } from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 
+import { parseRupiahInput } from "./MasterServiceTypeCreate.helpers";
 import type { MasterServiceTypeCreateFormState } from "./MasterServiceTypeCreate.type";
 
 import { useCreateServiceTypeMutation, useUpdateServiceTypeMutation } from "@/services/master-service-type.service";
@@ -31,7 +32,7 @@ export const useMasterServiceTypeCreateForm = (): MasterServiceTypeCreateFormSta
   };
 
   const handlePriceChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
-    setPrice(event.target.value);
+    setPrice(parseRupiahInput(event.target.value));
   };
 
   const handleStatusChange = (): void => {

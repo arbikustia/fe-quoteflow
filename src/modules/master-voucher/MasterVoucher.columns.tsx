@@ -1,5 +1,5 @@
 import * as React from "react";
-import { FiEdit2 } from "react-icons/fi";
+import { FiDownload, FiEdit2 } from "react-icons/fi";
 
 import type { TableColumn } from "../../components/Table";
 
@@ -64,6 +64,7 @@ const _getBasicColumns = (currentPage: number, pageSize: number): TableColumn<Vo
       align: "center",
       render: renderNoWrapper,
     },
+    { key: "name", header: "Name" },
     { key: "code", header: "Voucher Code", mobile: { primary: true } },
     { key: "discountPercent", header: "Discount (%)", align: "center", render: renderDiscount, mobile: { primary: true } },
     {
@@ -85,7 +86,7 @@ const _getBasicColumns = (currentPage: number, pageSize: number): TableColumn<Vo
  * @param {GetColumnsParams} params - params
  * @returns {TableColumn<VoucherData>[]} columns
  */
-export const getColumns = ({ currentPage, pageSize, onEdit }: GetColumnsParams): TableColumn<VoucherData>[] => {
+export const getColumns = ({ currentPage, pageSize, onEdit, onDownload }: GetColumnsParams): TableColumn<VoucherData>[] => {
   /**
    * Render actions
    * @param {VoucherData} row - row
@@ -102,14 +103,32 @@ export const getColumns = ({ currentPage, pageSize, onEdit }: GetColumnsParams):
       onEdit(row);
     };
 
+    const handleDownload = (event: React.MouseEvent): void => {
+      event.stopPropagation();
+      onDownload?.(row);
+    };
+
     return (
-      <button
-        onClick={handleClick}
-        className="p-1.5 text-brand-text-medium hover:text-brand-blue hover:bg-brand-blue-light rounded-lg transition-colors cursor-pointer"
-        title="Edit"
-      >
-        <FiEdit2 className="w-4 h-4" />
-      </button>
+      <div className="flex items-center justify-center gap-2">
+        <button
+          type="button"
+          onClick={handleDownload}
+          className="cursor-pointer rounded-lg p-1.5 text-brand-text-medium transition-colors hover:bg-brand-blue-light hover:text-brand-blue"
+          title="Download voucher"
+          aria-label={`Download voucher ${row.code}`}
+        >
+          <FiDownload className="h-4 w-4" />
+        </button>
+        <button
+          type="button"
+          onClick={handleClick}
+          className="cursor-pointer rounded-lg p-1.5 text-brand-text-medium transition-colors hover:bg-brand-blue-light hover:text-brand-blue"
+          title="Edit"
+          aria-label={`Edit voucher ${row.code}`}
+        >
+          <FiEdit2 className="h-4 w-4" />
+        </button>
+      </div>
     );
   };
 

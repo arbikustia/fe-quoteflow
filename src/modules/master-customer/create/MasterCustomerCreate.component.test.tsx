@@ -8,7 +8,9 @@ const createProps = (): MasterCustomerCreateFormState => ({
   name: "",
   address: "",
   phoneNumber: "",
+  isActive: true,
   isEditMode: false,
+  handleStatusChange: jest.fn(),
   isLoadingInitialData: false,
   isSubmitting: false,
   errorMessage: null,
@@ -27,7 +29,18 @@ describe("MasterCustomerCreateForm", () => {
     expect(screen.getByText("Customer Name")).toBeTruthy();
     expect(screen.getByText("Phone Number")).toBeTruthy();
     expect(screen.getByText("Address")).toBeTruthy();
+    expect(screen.getAllByText("*")).toHaveLength(3);
     expect(screen.getByRole("button", { name: "Create Customer" })).toBeTruthy();
+  });
+
+  it("should configure phone field with pattern and tel attributes", () => {
+    render(<MasterCustomerCreateForm {...createProps()} />);
+
+    const phoneInput = screen.getByPlaceholderText("0812... atau 628...");
+    expect(phoneInput.getAttribute("type")).toBe("tel");
+    expect(phoneInput.getAttribute("inputmode")).toBe("numeric");
+    expect(phoneInput.getAttribute("pattern")).toBe("[0-9]{6,15}");
+    expect(phoneInput.getAttribute("required")).toBe("");
   });
 
   it("should submit form using provided handler", () => {

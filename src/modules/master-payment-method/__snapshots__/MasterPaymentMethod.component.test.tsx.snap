@@ -44,326 +44,167 @@ exports[`MasterPaymentMethod.component MasterPaymentMethodComponent Snapshots de
           </div>
         </div>
         <div
-          class="flex items-center justify-between gap-3 lg:hidden"
+          class="flex items-center justify-between gap-3 lg:hidden px-6"
         >
-          <button
-            aria-label="Back"
-            class="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg border border-border-default text-text-primary hover:bg-background-subtle"
-            type="button"
+          <div
+            class="flex items-center gap-3 min-w-0 flex-1"
           >
-            <span
-              aria-hidden="true"
+            <button
+              aria-label="Back"
+              class="flex h-14 w-14 shrink-0 items-center justify-center rounded-full border border-border-default text-text-primary bg-white hover:bg-background-subtle transition-colors"
+              type="button"
             >
-              ←
-            </span>
-          </button>
-          <h1
-            class="min-w-0 flex-1 truncate text-center text-lg font-semibold text-text-primary"
+              <svg
+                aria-hidden="true"
+                class="w-6 h-6"
+                fill="none"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2.5"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  d="M19 12H5M12 19l-7-7 7-7"
+                />
+              </svg>
+            </button>
+            <h1
+              class="min-w-0 truncate text-left text-3xl font-semibold tracking-tight text-text-primary"
+            >
+              Payment Method List
+            </h1>
+          </div>
+          <div
+            class="shrink-0"
           >
-            Payment Method List
-          </h1>
-          <span
-            aria-hidden="true"
-            class="h-10 w-10 shrink-0"
-          />
+            <button
+              class="h-14 rounded-full border-2 border-brand-blue bg-background-surface px-6 text-sm font-bold text-brand-blue transition-colors hover:bg-action-primary-subtle focus:outline-none focus:ring-2 focus:ring-focus-ring/30"
+              type="button"
+            >
+              Create New
+            </button>
+          </div>
         </div>
       </header>
       <main
         class="min-w-0 flex-1"
       >
         <div
-          class="flex h-full flex-col px-3 pb-18 lg:-mt-4 lg:px-0 lg:pb-0"
+          class="relative flex h-full flex-col bg-background-surface px-6 pb-18 lg:-mt-4 lg:bg-transparent lg:px-0 lg:pb-0"
         >
           <div
-            class="lg:hidden flex min-w-0 flex-col gap-4 pt-2 pb-16"
+            class="flex min-w-0 flex-col gap-4 pt-2 pb-16 lg:hidden"
           >
-            <div
-              class="flex items-center gap-3"
+            <label
+              class="relative block w-full sm:w-72 w-full sm:w-full"
             >
-              <div
-                class="flex-1"
+              <span
+                class="sr-only"
               >
-                <label
-                  class="relative block w-full sm:w-72 "
-                >
-                  <span
-                    class="sr-only"
-                  >
-                    Search payment method
-                  </span>
-                  <svg
-                    aria-hidden="true"
-                    class="pointer-events-none absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-text-tertiary"
-                    fill="none"
-                    height="1em"
-                    stroke="currentColor"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    viewBox="0 0 24 24"
-                    width="1em"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <circle
-                      cx="11"
-                      cy="11"
-                      r="8"
-                    />
-                    <line
-                      x1="21"
-                      x2="16.65"
-                      y1="21"
-                      y2="16.65"
-                    />
-                  </svg>
-                  <input
-                    aria-label="Search payment method"
-                    class="h-14 w-full rounded-xl border border-border-default bg-background-surface pl-12 pr-4 text-base font-medium text-text-primary outline-none transition-colors placeholder:font-normal placeholder:text-text-tertiary hover:border-border-strong focus:border-border-focus focus:ring-2 focus:ring-focus-ring/30"
-                    placeholder="Search payment method"
-                    type="search"
-                  />
-                </label>
-              </div>
-              <button
-                class="shrink-0 rounded-xl bg-brand-blue h-14 px-5 text-sm font-semibold text-brand-white"
-                type="button"
+                Search payment method
+              </span>
+              <svg
+                aria-hidden="true"
+                class="pointer-events-none absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-text-tertiary"
+                fill="none"
+                height="1em"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+                width="1em"
+                xmlns="http://www.w3.org/2000/svg"
               >
-                Create Payment Method
-              </button>
-            </div>
+                <circle
+                  cx="11"
+                  cy="11"
+                  r="8"
+                />
+                <line
+                  x1="21"
+                  x2="16.65"
+                  y1="21"
+                  y2="16.65"
+                />
+              </svg>
+              <input
+                aria-label="Search payment method"
+                class="h-14 w-full rounded-full border border-border-default bg-background-surface pl-12 pr-4 text-base font-medium text-text-primary outline-none transition-colors placeholder:font-normal placeholder:text-text-tertiary hover:border-border-strong focus:border-border-focus focus:ring-2 focus:ring-focus-ring/30"
+                placeholder="Search payment method"
+                type="search"
+              />
+            </label>
             <div
               class="min-w-0 space-y-3"
             >
               <div
-                class="flex cursor-pointer flex-col gap-3 rounded-2xl border border-border-default bg-background-surface p-4 shadow-xs active:bg-background-subtle/50"
+                class="flex cursor-pointer flex-col gap-4 rounded-3xl border border-border-default bg-background-surface p-5 transition-all hover:border-border-strong active:bg-background-subtle/50"
                 role="button"
                 tabindex="0"
               >
                 <div
                   class="flex items-start justify-between gap-3"
                 >
-                  <div
-                    class="flex min-w-0 items-center gap-2.5"
+                  <h4
+                    class="min-w-0 truncate text-base font-semibold text-text-primary"
                   >
-                    <div
-                      class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-brand-blue/10 text-brand-blue"
-                    >
-                      <svg
-                        class="h-5 w-5"
-                        fill="none"
-                        height="1em"
-                        stroke="currentColor"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
-                        viewBox="0 0 24 24"
-                        width="1em"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <rect
-                          height="16"
-                          rx="2"
-                          ry="2"
-                          width="22"
-                          x="1"
-                          y="4"
-                        />
-                        <line
-                          x1="1"
-                          x2="23"
-                          y1="10"
-                          y2="10"
-                        />
-                      </svg>
-                    </div>
-                    <div
-                      class="min-w-0"
-                    >
-                      <h4
-                        class="truncate text-base font-semibold text-text-primary"
-                      >
-                        Transfer Bank
-                      </h4>
-                      <span
-                        class="text-xs text-text-tertiary"
-                      >
-                        2023-10-06
-                      </span>
-                    </div>
-                  </div>
-                  <div
-                    class="flex shrink-0 items-center gap-2"
+                    Transfer Bank
+                  </h4>
+                  <span
+                    class="shrink-0 rounded-full px-3 py-1 text-xs font-semibold uppercase tracking-wider bg-green-100 text-green-700"
                   >
-                    <span
-                      class="rounded-full px-2.5 py-0.5 text-xs font-semibold bg-green-100 text-green-700"
-                    >
-                      active
-                    </span>
-                    <button
-                      aria-label="Edit payment method"
-                      class="rounded-lg p-1.5 text-text-tertiary hover:bg-background-subtle hover:text-brand-blue"
-                      type="button"
-                    >
-                      <svg
-                        class="h-4 w-4"
-                        fill="none"
-                        height="1em"
-                        stroke="currentColor"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
-                        viewBox="0 0 24 24"
-                        width="1em"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"
-                        />
-                      </svg>
-                    </button>
-                  </div>
+                    active
+                  </span>
                 </div>
                 <div
-                  class="border-t border-border-default/60 pt-2 text-sm text-text-secondary"
+                  class="rounded-xl bg-background-subtle/60 p-3 text-sm"
                 >
-                  Transfer to bank account
-                </div>
-                <div
-                  class="flex justify-end text-xs font-medium text-brand-blue"
-                >
-                  Lihat detail 
-                  <svg
-                    class="ml-1 h-3.5 w-3.5"
-                    fill="none"
-                    height="1em"
-                    stroke="currentColor"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    viewBox="0 0 24 24"
-                    width="1em"
-                    xmlns="http://www.w3.org/2000/svg"
+                  <p
+                    class="text-xs text-text-tertiary"
                   >
-                    <polyline
-                      points="9 18 15 12 9 6"
-                    />
-                  </svg>
+                    Description
+                  </p>
+                  <p
+                    class="mt-1 font-medium text-text-primary"
+                  >
+                    Transfer to bank account
+                  </p>
                 </div>
               </div>
               <div
-                class="flex cursor-pointer flex-col gap-3 rounded-2xl border border-border-default bg-background-surface p-4 shadow-xs active:bg-background-subtle/50"
+                class="flex cursor-pointer flex-col gap-4 rounded-3xl border border-border-default bg-background-surface p-5 transition-all hover:border-border-strong active:bg-background-subtle/50"
                 role="button"
                 tabindex="0"
               >
                 <div
                   class="flex items-start justify-between gap-3"
                 >
-                  <div
-                    class="flex min-w-0 items-center gap-2.5"
+                  <h4
+                    class="min-w-0 truncate text-base font-semibold text-text-primary"
                   >
-                    <div
-                      class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-brand-blue/10 text-brand-blue"
-                    >
-                      <svg
-                        class="h-5 w-5"
-                        fill="none"
-                        height="1em"
-                        stroke="currentColor"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
-                        viewBox="0 0 24 24"
-                        width="1em"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <rect
-                          height="16"
-                          rx="2"
-                          ry="2"
-                          width="22"
-                          x="1"
-                          y="4"
-                        />
-                        <line
-                          x1="1"
-                          x2="23"
-                          y1="10"
-                          y2="10"
-                        />
-                      </svg>
-                    </div>
-                    <div
-                      class="min-w-0"
-                    >
-                      <h4
-                        class="truncate text-base font-semibold text-text-primary"
-                      >
-                        Credit Card
-                      </h4>
-                      <span
-                        class="text-xs text-text-tertiary"
-                      >
-                        2023-10-06
-                      </span>
-                    </div>
-                  </div>
-                  <div
-                    class="flex shrink-0 items-center gap-2"
+                    Credit Card
+                  </h4>
+                  <span
+                    class="shrink-0 rounded-full px-3 py-1 text-xs font-semibold uppercase tracking-wider bg-red-100 text-red-700"
                   >
-                    <span
-                      class="rounded-full px-2.5 py-0.5 text-xs font-semibold bg-red-100 text-red-700"
-                    >
-                      inactive
-                    </span>
-                    <button
-                      aria-label="Edit payment method"
-                      class="rounded-lg p-1.5 text-text-tertiary hover:bg-background-subtle hover:text-brand-blue"
-                      type="button"
-                    >
-                      <svg
-                        class="h-4 w-4"
-                        fill="none"
-                        height="1em"
-                        stroke="currentColor"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
-                        viewBox="0 0 24 24"
-                        width="1em"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"
-                        />
-                      </svg>
-                    </button>
-                  </div>
+                    inactive
+                  </span>
                 </div>
                 <div
-                  class="border-t border-border-default/60 pt-2 text-sm text-text-secondary"
+                  class="rounded-xl bg-background-subtle/60 p-3 text-sm"
                 >
-                  Pay with credit card
-                </div>
-                <div
-                  class="flex justify-end text-xs font-medium text-brand-blue"
-                >
-                  Lihat detail 
-                  <svg
-                    class="ml-1 h-3.5 w-3.5"
-                    fill="none"
-                    height="1em"
-                    stroke="currentColor"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    viewBox="0 0 24 24"
-                    width="1em"
-                    xmlns="http://www.w3.org/2000/svg"
+                  <p
+                    class="text-xs text-text-tertiary"
                   >
-                    <polyline
-                      points="9 18 15 12 9 6"
-                    />
-                  </svg>
+                    Description
+                  </p>
+                  <p
+                    class="mt-1 font-medium text-text-primary"
+                  >
+                    Pay with credit card
+                  </p>
                 </div>
               </div>
             </div>
@@ -372,7 +213,7 @@ exports[`MasterPaymentMethod.component MasterPaymentMethodComponent Snapshots de
             />
           </div>
           <div
-            class="hidden lg:flex rounded-4xl border border-brand-gray-light bg-brand-white px-6 shadow-xs md:flex-1 md:flex-col md:overflow-hidden md:mt-6"
+            class="hidden rounded-4xl border border-brand-gray-light bg-brand-white px-6 shadow-xs md:mt-6 md:flex-1 md:flex-col md:overflow-hidden lg:flex"
           >
             <div
               class="flex items-center justify-between gap-4 py-6"
@@ -418,7 +259,7 @@ exports[`MasterPaymentMethod.component MasterPaymentMethodComponent Snapshots de
                 />
               </label>
               <button
-                class="rounded-xl bg-brand-blue h-14 px-6 text-sm font-semibold text-brand-white"
+                class="h-14 rounded-xl bg-brand-blue px-6 text-sm font-semibold text-brand-white"
                 type="button"
               >
                 Create Payment Method
@@ -486,326 +327,167 @@ exports[`MasterPaymentMethod.component MasterPaymentMethodComponent Snapshots mo
           </div>
         </div>
         <div
-          class="flex items-center justify-between gap-3 lg:hidden"
+          class="flex items-center justify-between gap-3 lg:hidden px-6"
         >
-          <button
-            aria-label="Back"
-            class="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg border border-border-default text-text-primary hover:bg-background-subtle"
-            type="button"
+          <div
+            class="flex items-center gap-3 min-w-0 flex-1"
           >
-            <span
-              aria-hidden="true"
+            <button
+              aria-label="Back"
+              class="flex h-14 w-14 shrink-0 items-center justify-center rounded-full border border-border-default text-text-primary bg-white hover:bg-background-subtle transition-colors"
+              type="button"
             >
-              ←
-            </span>
-          </button>
-          <h1
-            class="min-w-0 flex-1 truncate text-center text-lg font-semibold text-text-primary"
+              <svg
+                aria-hidden="true"
+                class="w-6 h-6"
+                fill="none"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2.5"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  d="M19 12H5M12 19l-7-7 7-7"
+                />
+              </svg>
+            </button>
+            <h1
+              class="min-w-0 truncate text-left text-3xl font-semibold tracking-tight text-text-primary"
+            >
+              Payment Method List
+            </h1>
+          </div>
+          <div
+            class="shrink-0"
           >
-            Payment Method List
-          </h1>
-          <span
-            aria-hidden="true"
-            class="h-10 w-10 shrink-0"
-          />
+            <button
+              class="h-14 rounded-full border-2 border-brand-blue bg-background-surface px-6 text-sm font-bold text-brand-blue transition-colors hover:bg-action-primary-subtle focus:outline-none focus:ring-2 focus:ring-focus-ring/30"
+              type="button"
+            >
+              Create New
+            </button>
+          </div>
         </div>
       </header>
       <main
         class="min-w-0 flex-1"
       >
         <div
-          class="flex h-full flex-col px-3 pb-18 lg:-mt-4 lg:px-0 lg:pb-0"
+          class="relative flex h-full flex-col bg-background-surface px-6 pb-18 lg:-mt-4 lg:bg-transparent lg:px-0 lg:pb-0"
         >
           <div
-            class="lg:hidden flex min-w-0 flex-col gap-4 pt-2 pb-16"
+            class="flex min-w-0 flex-col gap-4 pt-2 pb-16 lg:hidden"
           >
-            <div
-              class="flex items-center gap-3"
+            <label
+              class="relative block w-full sm:w-72 w-full sm:w-full"
             >
-              <div
-                class="flex-1"
+              <span
+                class="sr-only"
               >
-                <label
-                  class="relative block w-full sm:w-72 "
-                >
-                  <span
-                    class="sr-only"
-                  >
-                    Search payment method
-                  </span>
-                  <svg
-                    aria-hidden="true"
-                    class="pointer-events-none absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-text-tertiary"
-                    fill="none"
-                    height="1em"
-                    stroke="currentColor"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    viewBox="0 0 24 24"
-                    width="1em"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <circle
-                      cx="11"
-                      cy="11"
-                      r="8"
-                    />
-                    <line
-                      x1="21"
-                      x2="16.65"
-                      y1="21"
-                      y2="16.65"
-                    />
-                  </svg>
-                  <input
-                    aria-label="Search payment method"
-                    class="h-14 w-full rounded-xl border border-border-default bg-background-surface pl-12 pr-4 text-base font-medium text-text-primary outline-none transition-colors placeholder:font-normal placeholder:text-text-tertiary hover:border-border-strong focus:border-border-focus focus:ring-2 focus:ring-focus-ring/30"
-                    placeholder="Search payment method"
-                    type="search"
-                  />
-                </label>
-              </div>
-              <button
-                class="shrink-0 rounded-xl bg-brand-blue h-14 px-5 text-sm font-semibold text-brand-white"
-                type="button"
+                Search payment method
+              </span>
+              <svg
+                aria-hidden="true"
+                class="pointer-events-none absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-text-tertiary"
+                fill="none"
+                height="1em"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+                width="1em"
+                xmlns="http://www.w3.org/2000/svg"
               >
-                Create Payment Method
-              </button>
-            </div>
+                <circle
+                  cx="11"
+                  cy="11"
+                  r="8"
+                />
+                <line
+                  x1="21"
+                  x2="16.65"
+                  y1="21"
+                  y2="16.65"
+                />
+              </svg>
+              <input
+                aria-label="Search payment method"
+                class="h-14 w-full rounded-full border border-border-default bg-background-surface pl-12 pr-4 text-base font-medium text-text-primary outline-none transition-colors placeholder:font-normal placeholder:text-text-tertiary hover:border-border-strong focus:border-border-focus focus:ring-2 focus:ring-focus-ring/30"
+                placeholder="Search payment method"
+                type="search"
+              />
+            </label>
             <div
               class="min-w-0 space-y-3"
             >
               <div
-                class="flex cursor-pointer flex-col gap-3 rounded-2xl border border-border-default bg-background-surface p-4 shadow-xs active:bg-background-subtle/50"
+                class="flex cursor-pointer flex-col gap-4 rounded-3xl border border-border-default bg-background-surface p-5 transition-all hover:border-border-strong active:bg-background-subtle/50"
                 role="button"
                 tabindex="0"
               >
                 <div
                   class="flex items-start justify-between gap-3"
                 >
-                  <div
-                    class="flex min-w-0 items-center gap-2.5"
+                  <h4
+                    class="min-w-0 truncate text-base font-semibold text-text-primary"
                   >
-                    <div
-                      class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-brand-blue/10 text-brand-blue"
-                    >
-                      <svg
-                        class="h-5 w-5"
-                        fill="none"
-                        height="1em"
-                        stroke="currentColor"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
-                        viewBox="0 0 24 24"
-                        width="1em"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <rect
-                          height="16"
-                          rx="2"
-                          ry="2"
-                          width="22"
-                          x="1"
-                          y="4"
-                        />
-                        <line
-                          x1="1"
-                          x2="23"
-                          y1="10"
-                          y2="10"
-                        />
-                      </svg>
-                    </div>
-                    <div
-                      class="min-w-0"
-                    >
-                      <h4
-                        class="truncate text-base font-semibold text-text-primary"
-                      >
-                        Transfer Bank
-                      </h4>
-                      <span
-                        class="text-xs text-text-tertiary"
-                      >
-                        2023-10-06
-                      </span>
-                    </div>
-                  </div>
-                  <div
-                    class="flex shrink-0 items-center gap-2"
+                    Transfer Bank
+                  </h4>
+                  <span
+                    class="shrink-0 rounded-full px-3 py-1 text-xs font-semibold uppercase tracking-wider bg-green-100 text-green-700"
                   >
-                    <span
-                      class="rounded-full px-2.5 py-0.5 text-xs font-semibold bg-green-100 text-green-700"
-                    >
-                      active
-                    </span>
-                    <button
-                      aria-label="Edit payment method"
-                      class="rounded-lg p-1.5 text-text-tertiary hover:bg-background-subtle hover:text-brand-blue"
-                      type="button"
-                    >
-                      <svg
-                        class="h-4 w-4"
-                        fill="none"
-                        height="1em"
-                        stroke="currentColor"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
-                        viewBox="0 0 24 24"
-                        width="1em"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"
-                        />
-                      </svg>
-                    </button>
-                  </div>
+                    active
+                  </span>
                 </div>
                 <div
-                  class="border-t border-border-default/60 pt-2 text-sm text-text-secondary"
+                  class="rounded-xl bg-background-subtle/60 p-3 text-sm"
                 >
-                  Transfer to bank account
-                </div>
-                <div
-                  class="flex justify-end text-xs font-medium text-brand-blue"
-                >
-                  Lihat detail 
-                  <svg
-                    class="ml-1 h-3.5 w-3.5"
-                    fill="none"
-                    height="1em"
-                    stroke="currentColor"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    viewBox="0 0 24 24"
-                    width="1em"
-                    xmlns="http://www.w3.org/2000/svg"
+                  <p
+                    class="text-xs text-text-tertiary"
                   >
-                    <polyline
-                      points="9 18 15 12 9 6"
-                    />
-                  </svg>
+                    Description
+                  </p>
+                  <p
+                    class="mt-1 font-medium text-text-primary"
+                  >
+                    Transfer to bank account
+                  </p>
                 </div>
               </div>
               <div
-                class="flex cursor-pointer flex-col gap-3 rounded-2xl border border-border-default bg-background-surface p-4 shadow-xs active:bg-background-subtle/50"
+                class="flex cursor-pointer flex-col gap-4 rounded-3xl border border-border-default bg-background-surface p-5 transition-all hover:border-border-strong active:bg-background-subtle/50"
                 role="button"
                 tabindex="0"
               >
                 <div
                   class="flex items-start justify-between gap-3"
                 >
-                  <div
-                    class="flex min-w-0 items-center gap-2.5"
+                  <h4
+                    class="min-w-0 truncate text-base font-semibold text-text-primary"
                   >
-                    <div
-                      class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-brand-blue/10 text-brand-blue"
-                    >
-                      <svg
-                        class="h-5 w-5"
-                        fill="none"
-                        height="1em"
-                        stroke="currentColor"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
-                        viewBox="0 0 24 24"
-                        width="1em"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <rect
-                          height="16"
-                          rx="2"
-                          ry="2"
-                          width="22"
-                          x="1"
-                          y="4"
-                        />
-                        <line
-                          x1="1"
-                          x2="23"
-                          y1="10"
-                          y2="10"
-                        />
-                      </svg>
-                    </div>
-                    <div
-                      class="min-w-0"
-                    >
-                      <h4
-                        class="truncate text-base font-semibold text-text-primary"
-                      >
-                        Credit Card
-                      </h4>
-                      <span
-                        class="text-xs text-text-tertiary"
-                      >
-                        2023-10-06
-                      </span>
-                    </div>
-                  </div>
-                  <div
-                    class="flex shrink-0 items-center gap-2"
+                    Credit Card
+                  </h4>
+                  <span
+                    class="shrink-0 rounded-full px-3 py-1 text-xs font-semibold uppercase tracking-wider bg-red-100 text-red-700"
                   >
-                    <span
-                      class="rounded-full px-2.5 py-0.5 text-xs font-semibold bg-red-100 text-red-700"
-                    >
-                      inactive
-                    </span>
-                    <button
-                      aria-label="Edit payment method"
-                      class="rounded-lg p-1.5 text-text-tertiary hover:bg-background-subtle hover:text-brand-blue"
-                      type="button"
-                    >
-                      <svg
-                        class="h-4 w-4"
-                        fill="none"
-                        height="1em"
-                        stroke="currentColor"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
-                        viewBox="0 0 24 24"
-                        width="1em"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"
-                        />
-                      </svg>
-                    </button>
-                  </div>
+                    inactive
+                  </span>
                 </div>
                 <div
-                  class="border-t border-border-default/60 pt-2 text-sm text-text-secondary"
+                  class="rounded-xl bg-background-subtle/60 p-3 text-sm"
                 >
-                  Pay with credit card
-                </div>
-                <div
-                  class="flex justify-end text-xs font-medium text-brand-blue"
-                >
-                  Lihat detail 
-                  <svg
-                    class="ml-1 h-3.5 w-3.5"
-                    fill="none"
-                    height="1em"
-                    stroke="currentColor"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    viewBox="0 0 24 24"
-                    width="1em"
-                    xmlns="http://www.w3.org/2000/svg"
+                  <p
+                    class="text-xs text-text-tertiary"
                   >
-                    <polyline
-                      points="9 18 15 12 9 6"
-                    />
-                  </svg>
+                    Description
+                  </p>
+                  <p
+                    class="mt-1 font-medium text-text-primary"
+                  >
+                    Pay with credit card
+                  </p>
                 </div>
               </div>
             </div>
@@ -814,7 +496,7 @@ exports[`MasterPaymentMethod.component MasterPaymentMethodComponent Snapshots mo
             />
           </div>
           <div
-            class="hidden lg:flex rounded-4xl border border-brand-gray-light bg-brand-white px-6 shadow-xs md:flex-1 md:flex-col md:overflow-hidden md:mt-6"
+            class="hidden rounded-4xl border border-brand-gray-light bg-brand-white px-6 shadow-xs md:mt-6 md:flex-1 md:flex-col md:overflow-hidden lg:flex"
           >
             <div
               class="flex items-center justify-between gap-4 py-6"
@@ -860,7 +542,7 @@ exports[`MasterPaymentMethod.component MasterPaymentMethodComponent Snapshots mo
                 />
               </label>
               <button
-                class="rounded-xl bg-brand-blue h-14 px-6 text-sm font-semibold text-brand-white"
+                class="h-14 rounded-xl bg-brand-blue px-6 text-sm font-semibold text-brand-white"
                 type="button"
               >
                 Create Payment Method

@@ -2,6 +2,8 @@ import * as React from "react";
 
 import { getColumns } from "./MasterVoucher.columns";
 import { MasterVoucherComponent } from "./MasterVoucher.component";
+import { downloadVoucherTemplate } from "./MasterVoucherDownload.helpers";
+import type { VoucherData } from "./MasterVoucher.type";
 import { useMasterVoucherContainerState } from "./MasterVoucher.hook";
 
 /**
@@ -10,11 +12,17 @@ import { useMasterVoucherContainerState } from "./MasterVoucher.hook";
  */
 const MasterVoucherContainer = (): React.ReactElement => {
   const containerState = useMasterVoucherContainerState();
+  const handleDownload = (voucher: VoucherData): void => {
+    void downloadVoucherTemplate(voucher).catch(() => {
+      window.alert("Unable to download voucher template.");
+    });
+  };
 
   const columns = getColumns({
     currentPage: containerState.pagination.currentPage,
     pageSize: containerState.pagination.pageSize,
     onEdit: containerState.goEdit,
+    onDownload: handleDownload,
   });
 
   return (

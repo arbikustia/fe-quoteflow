@@ -9,10 +9,10 @@ import type { NavbarProps } from "./Navbar.type";
  * @returns {React.ReactElement} - NavbarComponent
  */
 export const NavbarComponent = (props: NavbarProps): React.ReactElement => {
-  const { isSidebarCollapsed, onToggleSidebar } = props;
+  const { isSidebarCollapsed, onToggleSidebar, currentTime } = props;
 
   return (
-    <header className="h-20 flex items-center justify-between px-8 border-b border-brand-gray-light sticky top-0 z-10 transition-all">
+    <header className="h-20 flex items-center justify-between px-8 bg-background-surface border-b border-brand-gray-light sticky top-0 z-10 transition-all">
       <div className="flex items-center gap-4 flex-1">
         <button
           type="button"
@@ -21,7 +21,7 @@ export const NavbarComponent = (props: NavbarProps): React.ReactElement => {
           aria-expanded={!isSidebarCollapsed}
           className="flex h-10 w-10 items-center justify-center rounded-[8px] border border-border-default bg-background-surface text-text-secondary hover:bg-background-subtle hover:text-text-primary transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring/30"
         >
-          <Icons.Menu />
+          <Icons.SidebarToggle />
         </button>
 
         {/* Search Bar */}
@@ -42,18 +42,9 @@ export const NavbarComponent = (props: NavbarProps): React.ReactElement => {
         </div>
       </div>
 
-      <div className="flex items-center gap-5">
-        {/* User Dropdown Trigger */}
-        <button className="flex items-center gap-2.5 px-1.5 py-1.5 pr-3 rounded-full bg-brand-white border border-brand-gray-light hover:bg-brand-gray-light transition-all focus:outline-none">
-          <div className="w-8 h-8 rounded-full overflow-hidden">
-            <img src="https://ui-avatars.com/api/?name=Admin+User&background=random" alt="User Avatar" className="w-full h-full object-cover" />
-          </div>
-          <span className="text-sm font-bold text-brand-text-dark">Admin User</span>
-          <div className="text-brand-text-medium">
-            <Icons.ChevronDown />
-          </div>
-        </button>
-      </div>
+      <time data-testid="navbar-realtime-clock" className="text-lg tracking-wide font-semibold text-text-primary tabular-nums sm:text-3xl">
+        {currentTime}
+      </time>
     </header>
   );
 };

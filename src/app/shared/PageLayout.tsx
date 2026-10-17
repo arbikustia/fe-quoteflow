@@ -39,7 +39,7 @@ const _renderActions = (actions: PageLayoutAction[]): React.ReactElement[] => ac
  * @param {PageLayoutProps} props - page layout props
  * @returns {React.ReactElement} page layout
  */
-export const PageLayout = ({ title, breadcrumbs, actions = [], onBack, children, footer }: PageLayoutProps): React.ReactElement => (
+export const PageLayout = ({ title, breadcrumbs, actions = [], headerRight, mobileHeaderClassName = "px-2", onBack, children, footer }: PageLayoutProps): React.ReactElement => (
   <div className="flex min-h-full flex-col">
     <header className="mb-6 shrink-0">
       <div className="hidden items-start justify-between gap-4 lg:flex">
@@ -74,12 +74,16 @@ export const PageLayout = ({ title, breadcrumbs, actions = [], onBack, children,
         )}
       </div>
 
-      <div className="flex items-center justify-between px-2 gap-3 lg:hidden">
-        <button type="button" onClick={onBack} aria-label="Back" className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full border border-border-default text-text-primary bg-white hover:bg-background-subtle transition-colors shadow-sm">
-          {_renderBackIcon()}
-        </button>
-        <h1 className="min-w-0 flex-1 truncate text-center text-3xl font-semibold tracking-tight text-text-primary">{title}</h1>
-        {actions.length > 0 ? (
+      <div className={`flex items-center justify-between gap-3 lg:hidden ${mobileHeaderClassName}`}>
+        <div className="flex items-center gap-3 min-w-0 flex-1">
+          <button type="button" onClick={onBack} aria-label="Back" className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full border border-border-default text-text-primary bg-white hover:bg-background-subtle transition-colors">
+            {_renderBackIcon()}
+          </button>
+          <h1 className="min-w-0 truncate text-left text-3xl font-semibold tracking-tight text-text-primary">{title}</h1>
+        </div>
+        {headerRight ? (
+          <div className="shrink-0">{headerRight}</div>
+        ) : actions.length > 0 ? (
           <details className="relative shrink-0">
             <summary className="flex h-12 w-12 cursor-pointer list-none items-center justify-center rounded-2xl border border-border-default text-text-secondary hover:bg-background-subtle" aria-label="More options">
               <span aria-hidden="true">•••</span>

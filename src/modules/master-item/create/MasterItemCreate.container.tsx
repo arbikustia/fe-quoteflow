@@ -10,7 +10,7 @@ import Layout from "@/app/layout";
 const MasterItemCreateContainer = (): ReactElement => {
   const formState = useMasterItemCreateForm();
 
-  return <Layout><MasterItemCreateForm {...formState} /></Layout>;
+  return <Layout mobileWhiteBackground={true}><MasterItemCreateForm {...formState} /></Layout>;
 };
 
 export default MasterItemCreateContainer;

@@ -41,28 +41,16 @@ const _renderStatusField = (props: MasterPicCreateState): ReactElement | null =>
  * @returns {ReactElement} Back bar
  */
 const _renderMobileBack = (goBack: () => void): ReactElement => (
-  <div className="sticky top-0 z-20 flex items-center bg-background-page/90 px-6 pt-6 lg:px-0 lg:pt-0">
+  <div className="sticky top-0 z-20 flex items-center bg-background-surface px-6 lg:hidden">
     <button
       type="button"
       onClick={goBack}
-      className="group flex items-center gap-3 text-text-secondary transition-colors hover:text-text-primary lg:hidden"
+      aria-label="Back"
+      className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full border border-border-default bg-background-surface text-text-primary transition-colors hover:bg-background-subtle"
     >
-      <div className="flex h-10 w-10 items-center justify-center rounded-full bg-background-surface text-text-primary shadow-sm transition-colors group-hover:bg-background-subtle">
-        <svg
-          width="20"
-          height="20"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="3"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          aria-hidden="true"
-        >
-          <polyline points="15 18 9 12 15 6" />
-        </svg>
-      </div>
-      <span className="text-[15px] font-bold">Back</span>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="h-6 w-6" aria-hidden="true">
+        <path d="M19 12H5M12 19l-7-7 7-7" />
+      </svg>
     </button>
   </div>
 );
@@ -118,7 +106,7 @@ export const MasterPicCreateForm = (props: MasterPicCreateState): ReactElement =
     "w-full rounded-xl border border-border-default bg-background-surface px-4 py-3 text-[15px] text-text-primary shadow-xs outline-none transition-all placeholder:text-text-tertiary/60 focus:border-border-focus focus:ring-2 focus:ring-focus-ring/30";
 
   return (
-    <div className="flex h-full w-full flex-col bg-background-page pb-6 font-sans">
+    <div className="flex h-full w-full flex-col bg-background-surface pb-6 font-sans lg:bg-background-page">
       {_renderMobileBack(goBack)}
       <div className="mt-2 flex min-h-0 w-full flex-1 flex-col px-6 lg:mt-0 lg:px-0">
         {_renderHeader(isEditMode, goBack)}
@@ -127,12 +115,12 @@ export const MasterPicCreateForm = (props: MasterPicCreateState): ReactElement =
         ) : (
           <form
             onSubmit={handleSubmit}
-            className="flex min-h-0 flex-1 flex-col justify-between rounded-4xl border border-border-default bg-background-surface p-6 shadow-xs sm:p-8"
+            className="flex min-h-0 flex-1 flex-col justify-between border-0 bg-transparent p-0 shadow-none lg:rounded-4xl lg:border lg:border-border-default lg:bg-background-surface lg:p-8 lg:shadow-xs"
           >
             <div className="space-y-4">
               <div>
                 <label htmlFor="pic-name" className="mb-1.5 block text-xs font-bold uppercase tracking-wider text-text-secondary">
-                  PIC Name
+                  PIC Name <span aria-hidden="true" className="text-red-600">*</span>
                 </label>
                 <input
                   id="pic-name"
@@ -150,11 +138,11 @@ export const MasterPicCreateForm = (props: MasterPicCreateState): ReactElement =
                 </p>
               )}
             </div>
-            <div className="mt-6 flex justify-end border-t border-border-default pt-5">
+            <div className="mt-8 flex justify-end border-t border-border-default/60 pt-5 lg:mt-6 lg:border-border-default">
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="h-14 cursor-pointer rounded-xl bg-action-primary px-8 text-sm font-semibold tracking-wide text-text-inverse shadow-xs transition-all hover:bg-action-primary-hover disabled:opacity-60"
+                className="h-14 w-full cursor-pointer rounded-xl bg-action-primary px-8 text-sm font-semibold tracking-wide text-text-inverse shadow-xs transition-all hover:bg-action-primary-hover disabled:opacity-60 sm:w-auto"
               >
                 {isSubmitting ? submittingText : buttonText}
               </button>

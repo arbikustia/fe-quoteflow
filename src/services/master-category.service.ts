@@ -5,10 +5,10 @@ import type {
   CategoryAllResponse,
   CategoryCreatePayload,
   CategoryCreateResponse,
-  CategoryUpdatePayload,
   CategoryData,
   CategoryListParams,
   CategoryListResponse,
+  CategoryUpdatePayload,
 } from "@/modules/master-category/MasterCategory.type";
 
 const CATEGORY_TAG = "Category";
@@ -54,7 +54,10 @@ export const masterCategoryService = apiRtkClient.injectEndpoints({
       }),
       invalidatesTags: [CATEGORY_TAG],
     }),
-    updateCategory: builder.mutation<CategoryCreateResponse, CategoryUpdatePayload>({
+    updateCategory: builder.mutation<
+      CategoryCreateResponse,
+      CategoryUpdatePayload
+    >({
       query: (body) => ({
         url: `${ENDPOINT.MASTER_CATEGORY.CREATE}/${body.id}`,
         method: "PUT",

@@ -8,6 +8,7 @@ import NavbarContainer from "../components/Navbar/index";
 export type LayoutProps = {
   readonly children: React.ReactNode;
   readonly pageTitle?: string;
+  readonly mobileWhiteBackground?: boolean;
 };
 
 /**
@@ -15,18 +16,18 @@ export type LayoutProps = {
  * @param {LayoutProps} props - props
  * @returns {React.ReactElement} node
  */
-export default function Layout({ children }: LayoutProps): React.ReactElement {
+export default function Layout({ children, mobileWhiteBackground = false }: LayoutProps): React.ReactElement {
   const { pathname } = useLocation();
   const { isSidebarCollapsed, onToggleSidebarCollapsed } = useSidebarCollapse();
   const isMasterRoute = pathname.startsWith("/master");
 
   return (
-    <div className="flex h-full min-h-0 w-full bg-background-page overflow-hidden font-sans text-text-primary relative items-stretch">
+    <div className="flex h-full min-h-0 w-full bg-background-page overflow-hidden font-sans text-text-primary relative items-stretch transition-colors duration-200">
       <div className="hidden lg:flex h-full min-h-0 shrink-0 self-stretch">
         <SidebarContainer isCollapsed={isSidebarCollapsed} />
       </div>
 
-      <div className="flex-1 flex flex-col min-w-0 min-h-0 overflow-hidden relative bg-background-page">
+      <div className={`flex-1 flex flex-col min-w-0 min-h-0 overflow-hidden relative bg-background-page transition-colors duration-200${mobileWhiteBackground ? " bg-background-surface lg:bg-background-page" : ""}`}>
         {!isMasterRoute && (
           <div className="lg:hidden flex items-center gap-3 p-4 border-b border-border-default bg-background-surface shrink-0">
             <div className="w-8 h-8 rounded-full bg-action-primary flex items-center justify-center">

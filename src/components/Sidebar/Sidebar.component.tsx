@@ -4,7 +4,8 @@ import { Link } from "react-router-dom";
 import type { NavigationItem, SidebarProps } from "./Sidebar.type";
 import { Icons } from "../Icons";
 import LogoCollapsed from "../../assets/logo.png";
-import SoniclineLogo from "../../assets/Sonicline.png";
+import SoniclineDarkLogo from "../../assets/Sonicline-dark.png";
+import SoniclineLightLogo from "../../assets/Sonicline-light.png";
 
 /**
  * Reusable sidebar — supports expanded/collapsed, badges, children, tooltips, profile dropdown.
@@ -39,11 +40,11 @@ export const SidebarComponent = (props: SidebarProps): React.ReactElement => {
       aria-label="Sidebar"
     >
       {/* Header — logo only (sidebar toggle lives in navbar) */}
-      <div className={`h-[56px] mb-16 flex items-center shrink-0 ${isCollapsed ? "justify-center px-2" : "px-4"}`}>
+      <div className={`h-[72px] mb-16 flex items-center shrink-0 ${isCollapsed ? "justify-center px-2" : "px-4"}`}>
         <img
-          src={isCollapsed ? LogoCollapsed : SoniclineLogo}
+          src={isCollapsed ? LogoCollapsed : theme === "light" ? SoniclineDarkLogo : SoniclineLightLogo}
           alt="Sonicline"
-          className={`${isCollapsed ? "w-8 h-8 rounded-[8px] object-contain" : "h-8 w-auto object-contain"}`}
+          className={`${isCollapsed ? "h-11 w-11 rounded-[8px] object-contain" : "h-12 w-auto object-contain"}`}
         />
       </div>
 

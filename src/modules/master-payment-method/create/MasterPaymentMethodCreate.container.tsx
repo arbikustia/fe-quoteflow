@@ -13,7 +13,7 @@ const MasterPaymentMethodCreateContainer = (): React.ReactElement => {
   const formState = useMasterPaymentMethodCreate();
 
   return (
-    <Layout>
+    <Layout mobileWhiteBackground={true}>
       <MasterPaymentMethodCreateForm {...formState} />
     </Layout>
   );
