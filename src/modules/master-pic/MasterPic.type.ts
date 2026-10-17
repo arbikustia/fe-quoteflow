@@ -1,8 +1,35 @@
 import type { TableColumn } from "../../components/Table";
-import type { MasterBase } from "../../types/master";
+import type { ApiEnvelope, ApiQueryParams, PaginatedResponse } from "../../types/api.type";
 
-export type PicData = MasterBase & {
+export type ApiPic = {
+  readonly id: string;
+  readonly name: string | null;
+  readonly status: number;
+  readonly created_by: string | null;
+  readonly created_at: string | null;
+  readonly updated_at: string | null;
+};
+
+export type PicListResponse = PaginatedResponse<ApiPic>;
+export type PicDetailResponse = ApiEnvelope<ApiPic | ApiPic[] | null>;
+export type PicCreateResponse = ApiEnvelope<ApiPic | null>;
+export type PicListParams = ApiQueryParams;
+
+export type PicCreatePayload = {
   readonly name: string;
+  readonly status: number;
+};
+
+export type PicUpdatePayload = PicCreatePayload & {
+  readonly id: string;
+};
+
+export type PicData = {
+  readonly id: string;
+  readonly name: string | null;
+  readonly status: "active" | "inactive";
+  readonly createAt: string | null;
+  readonly createBy: string | null;
 };
 
 export type MasterPicNavigation = {

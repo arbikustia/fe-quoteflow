@@ -21,7 +21,7 @@ describe("MasterVoucher API", () => {
       discountPercent: 10,
       status: "active",
       createAt: "2026-10-13T10:00:00Z",
-      createBy: "",
+      createBy: null,
     });
   });
 

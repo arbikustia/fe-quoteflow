@@ -1,6 +1,6 @@
 import type { ReactElement } from "react";
 
-import { useMasterRoleCreateForm } from "../MasterRole.hook";
+import { useMasterRoleCreateForm } from "./MasterRoleCreate.hook";
 
 import Layout from "@/app/layout";
 

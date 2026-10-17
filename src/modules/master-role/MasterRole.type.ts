@@ -11,6 +11,27 @@ export type ApiRole = {
 
 export type RoleListResponse = PaginatedResponse<ApiRole>;
 export type RoleCreateResponse = ApiEnvelope<ApiRole | null>;
+export type RoleDetailResponse = ApiEnvelope<ApiRole | ApiRole[] | null>;
+
+export type RoleSubmissionParams = {
+  readonly id: string | undefined;
+  readonly isEditMode: boolean;
+  readonly roleName: string;
+  readonly isActive: boolean;
+};
+
+export type RoleSubmissionState = {
+  readonly isSubmitting: boolean;
+  readonly errorMessage: string | null;
+  readonly handleSubmit: (event: React.SyntheticEvent) => Promise<void>;
+};
+
+export type RoleFormFieldsState = {
+  readonly roleName: string;
+  readonly isActive: boolean;
+  readonly handleRoleNameChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  readonly handleStatusChange: () => void;
+};
 
 export type RoleListParams = {
   readonly pageNumber: number;
@@ -22,8 +43,8 @@ export type RoleData = {
   readonly id: string;
   readonly roleName: string;
   readonly status: "active" | "inactive";
-  readonly createAt: string;
-  readonly createBy: string;
+  readonly createAt: string | null;
+  readonly createBy: string | null;
 };
 
 export type RoleListApiState = {

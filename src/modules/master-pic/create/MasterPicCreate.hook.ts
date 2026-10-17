@@ -3,7 +3,9 @@ import { useLocation, useNavigate, useParams } from "react-router-dom";
 
 import { validatePicFields } from "./MasterPicCreate.helpers";
 import type { MasterPicCreateState } from "./MasterPicCreate.type";
-import type { PicCreateResponse } from "@/services/master-pic.service";
+
+import type { PicCreateResponse } from "../MasterPic.type";
+
 import { useCreatePicMutation, useGetPicByIdQuery, useUpdatePicMutation } from "@/services/master-pic.service";
 
 /** Format backend messages into string. */

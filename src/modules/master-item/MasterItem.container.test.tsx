@@ -38,6 +38,8 @@ jest.mock("@/services/master-item.service", () => ({
 
 const mockQueryResult = {
   data: {
+    status: true,
+    messages: null,
     data: [
       {
         id: "1",
@@ -62,6 +64,7 @@ const mockQueryResult = {
   },
   error: undefined,
   isLoading: false,
+  refetch: jest.fn(),
 };
 
 describe("MasterItem Container", () => {

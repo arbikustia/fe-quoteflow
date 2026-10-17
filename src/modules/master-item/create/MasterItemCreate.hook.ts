@@ -2,12 +2,24 @@ import type { ChangeEvent, SyntheticEvent } from "react";
 import { useState } from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 
-import { useCategorySelectOptions } from "@/modules/master-category/MasterCategory.hook";
-import type { ItemCreateResponse } from "@/modules/master-item/MasterItem.type";
-import { useCreateItemMutation, useUpdateItemMutation } from "@/services/master-item.service";
+import {
+  parseRupiahInput,
+  validateRequiredItemFields,
+} from "./MasterItemCreate.helpers";
+import type {
+  ItemFormFieldsState,
+  ItemRouteState,
+  ItemSubmissionParams,
+  ItemSubmissionState,
+  MasterItemCreateFormState,
+} from "./MasterItemCreate.type";
 
-import { parseRupiahInput, validateRequiredItemFields } from "./MasterItemCreate.helpers";
-import type { MasterItemCreateFormState } from "./MasterItemCreate.type";
+import { useCategorySelectOptions } from "@/modules/master-category/MasterCategory.hook";
+import type { ItemCreatePayload, ItemCreateResponse } from "@/modules/master-item/MasterItem.type";
+import {
+  useCreateItemMutation,
+  useUpdateItemMutation,
+} from "@/services/master-item.service";
 
 /**
  * Format backend messages into a display string.
@@ -23,18 +35,12 @@ const _formatMessages = (messages: string[] | string | null): string => {
 };
 
 /**
- * Manage master item create and update form state.
- * @returns {MasterItemCreateFormState} Form state
+ * Manage item form input states.
+ * @param {ItemRouteState} routeState - Route state
+ * @returns {ItemFormFieldsState} Field states and handlers
  */
-export const useMasterItemCreateForm = (): MasterItemCreateFormState => {
-  const navigate = useNavigate();
-  const location = useLocation();
-  const { id } = useParams<{ readonly id?: string }>();
-  const isEditMode = Boolean(id);
-  const routeItem = location.state?.item;
-  const { categories, isLoading: isCategoryLoading, errorMessage: categoryError } = useCategorySelectOptions();
-  const [createItem, { isLoading: isCreating }] = useCreateItemMutation();
-  const [updateItem, { isLoading: isUpdating }] = useUpdateItemMutation();
+const useItemFormFields = (routeState: ItemRouteState): ItemFormFieldsState => {
+  const routeItem = routeState.item;
   const [name, setName] = useState(routeItem?.name ?? "");
   const [categoryId, setCategoryId] = useState(routeItem?.categoryId ?? "");
   const [price, setPrice] = useState(routeItem?.price?.toString() ?? "");
@@ -43,28 +49,126 @@ export const useMasterItemCreateForm = (): MasterItemCreateFormState => {
   const [duration, setDuration] = useState(routeItem?.duration?.toString() ?? "");
   const [remark, setRemark] = useState(routeItem?.remark ?? "");
   const [isActive, setIsActive] = useState(routeItem?.status === "active");
-  const [errorMessage, setErrorMessage] = useState<string | null>(null);
-  const isSubmitting = isCreating || isUpdating;
 
+  /**
+   * Update name.
+   * @param {ChangeEvent<HTMLInputElement>} event - Input event
+   * @returns {void}
+   */
   const handleNameChange = (event: ChangeEvent<HTMLInputElement>): void => { setName(event.target.value); };
+
+  /**
+   * Update category.
+   * @param {string} value - Category ID
+   * @returns {void}
+   */
   const handleCategoryChange = (value: string): void => { setCategoryId(value); };
+
+  /**
+   * Update price.
+   * @param {ChangeEvent<HTMLInputElement>} event - Input event
+   * @returns {void}
+   */
   const handlePriceChange = (event: ChangeEvent<HTMLInputElement>): void => { setPrice(parseRupiahInput(event.target.value)); };
+
+  /**
+   * Update stock.
+   * @param {ChangeEvent<HTMLInputElement>} event - Input event
+   * @returns {void}
+   */
   const handleStockChange = (event: ChangeEvent<HTMLInputElement>): void => { setStock(event.target.value); };
+
+  /**
+   * Update image.
+   * @param {ChangeEvent<HTMLInputElement>} event - Input event
+   * @returns {void}
+   */
   const handleImageChange = (event: ChangeEvent<HTMLInputElement>): void => { setImage(event.target.value); };
+
+  /**
+   * Update duration.
+   * @param {ChangeEvent<HTMLInputElement>} event - Input event
+   * @returns {void}
+   */
   const handleDurationChange = (event: ChangeEvent<HTMLInputElement>): void => { setDuration(event.target.value); };
+
+  /**
+   * Update remark.
+   * @param {ChangeEvent<HTMLInputElement>} event - Input event
+   * @returns {void}
+   */
   const handleRemarkChange = (event: ChangeEvent<HTMLInputElement>): void => { setRemark(event.target.value); };
-  const handleStatusChange = (): void => { setIsActive((currentIsActive) => !currentIsActive); };
+
+  /**
+   * Toggle status.
+   * @returns {void}
+   */
+  const handleStatusChange = (): void => { setIsActive((current) => !current); };
+
+  return {
+    name, categoryId, price, stock, image, duration, remark, isActive,
+    handleNameChange, handleCategoryChange, handlePriceChange, handleStockChange,
+    handleImageChange, handleDurationChange, handleRemarkChange, handleStatusChange,
+  };
+};
+
+/**
+ * Send create or update mutation.
+ * @param {ItemSubmissionParams} params - Submission parameters
+ * @returns {Promise<ItemCreateResponse>} Mutation response
+ */
+const _sendItemMutation = (params: ItemSubmissionParams): Promise<ItemCreateResponse> => {
+  const { id, isEditMode, fields, createItem, updateItem } = params;
+  let status = 1;
+
+  if (isEditMode) {
+    status = fields.isActive ? 1 : 0;
+  }
+
+  const payload: ItemCreatePayload = {
+    name: fields.name,
+    category_id: fields.categoryId,
+    price: Number(fields.price),
+    stock: Number(fields.stock),
+    image: fields.image,
+    duration: Number(fields.duration),
+    remark: fields.remark,
+    status,
+  };
+
+  if (isEditMode && id) {
+    return updateItem({ ...payload, id }).unwrap();
+  }
+
+  return createItem(payload).unwrap();
+};
+
+/**
+ * Manage item form submission logic.
+ * @param {ItemSubmissionParams} params - Submission parameters
+ * @returns {ItemSubmissionState} Submission state
+ */
+const useItemSubmission = (params: ItemSubmissionParams): ItemSubmissionState => {
+  const navigate = useNavigate();
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   /**
    * Submit item form.
-   * @param {SyntheticEvent} event - Form submit event
+   * @param {SyntheticEvent} event - Submit event
    * @returns {Promise<void>} Submission result
    */
   const handleSubmit = async (event: SyntheticEvent): Promise<void> => {
     event.preventDefault();
     setErrorMessage(null);
 
-    const validationError = validateRequiredItemFields({ name, categoryId, price, stock, duration });
+    const validationError = validateRequiredItemFields({
+      name: params.fields.name,
+      categoryId: params.fields.categoryId,
+      price: params.fields.price,
+      stock: params.fields.stock,
+      duration: params.fields.duration,
+    });
+
     if (validationError) {
       setErrorMessage(validationError);
 
@@ -72,14 +176,7 @@ export const useMasterItemCreateForm = (): MasterItemCreateFormState => {
     }
 
     try {
-      const payload = { name, category_id: categoryId, price: Number(price), stock: Number(stock), image, duration: Number(duration), remark, status: isEditMode ? (isActive ? 1 : 0) : 1 };
-      let response: ItemCreateResponse;
-
-      if (isEditMode && id) {
-        response = await updateItem({ ...payload, id }).unwrap();
-      } else {
-        response = await createItem(payload).unwrap();
-      }
+      const response = await _sendItemMutation(params);
 
       if (!response.status) {
         setErrorMessage(_formatMessages(response.messages));
@@ -89,40 +186,42 @@ export const useMasterItemCreateForm = (): MasterItemCreateFormState => {
 
       navigate("/master-item");
     } catch {
-      setErrorMessage(isEditMode ? "Unable to update item. Please try again." : "Unable to create item. Please try again.");
+      setErrorMessage(params.isEditMode ? "Unable to update item. Please try again." : "Unable to create item. Please try again.");
     }
   };
 
+  return { errorMessage, handleSubmit };
+};
+
+/**
+ * Manage master item create and update form state.
+ * @returns {MasterItemCreateFormState} Form state
+ */
+export const useMasterItemCreateForm = (): MasterItemCreateFormState => {
+  const navigate = useNavigate();
+  const location = useLocation();
+  const { id } = useParams<{ id?: string }>();
+  const isEditMode = Boolean(id);
+  const routeState = (location.state as ItemRouteState) ?? {};
+  const fields = useItemFormFields(routeState);
+  const categoryState = useCategorySelectOptions();
+  const [createItem, { isLoading: isCreating }] = useCreateItemMutation();
+  const [updateItem, { isLoading: isUpdating }] = useUpdateItemMutation();
+  const submission = useItemSubmission({ id, isEditMode, fields, createItem, updateItem });
   /**
-   * Navigate back.
-   * @returns {void} No return value
+   *
    */
   const goBack = (): void => { navigate(-1); };
 
   return {
-    name,
-    categoryId,
-    price,
-    stock,
-    image,
-    duration,
-    remark,
-    isActive,
+    ...fields,
     isEditMode,
-    isSubmitting,
-    isCategoryLoading,
-    categoryError,
-    errorMessage,
-    categories,
-    handleNameChange,
-    handleCategoryChange,
-    handlePriceChange,
-    handleStockChange,
-    handleImageChange,
-    handleDurationChange,
-    handleRemarkChange,
-    handleStatusChange,
-    handleSubmit,
+    isSubmitting: isCreating || isUpdating,
+    isCategoryLoading: categoryState.isLoading,
+    categoryError: categoryState.errorMessage,
+    categories: categoryState.categories,
+    errorMessage: submission.errorMessage,
+    handleSubmit: submission.handleSubmit,
     goBack,
   };
 };

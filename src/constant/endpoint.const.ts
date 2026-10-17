@@ -2,6 +2,7 @@ const ENDPOINT = {
   MASTER_CATEGORY: {
     PAGED: "/api/category/paged",
     CREATE: "/api/category",
+    DETAIL: "/api/category",
     ALL: "/api/category/get-all-category",
   },
   MASTER_CUSTOMER: {
@@ -17,10 +18,12 @@ const ENDPOINT = {
     PAGED: "/api/item/paged",
     ALL: "/api/item/get-all-item",
     CREATE: "/api/item",
+    DETAIL: "/api/item",
   },
   MASTER_VOUCHER: {
     PAGED: "/api/voucher/paged",
     CREATE: "/api/voucher",
+    DETAIL: "/api/voucher",
   },
   MASTER_PAYMENT_METHOD: {
     PAGED: "/api/payment-method/paged",
@@ -49,6 +52,7 @@ const ENDPOINT = {
   MASTER_ROLE: {
     LIST: "/api/role/paged",
     CREATE: "/api/role",
+    DETAIL: "/api/role",
   },
 } as const;
 

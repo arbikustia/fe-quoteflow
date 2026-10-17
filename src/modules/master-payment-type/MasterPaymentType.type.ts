@@ -1,9 +1,35 @@
+import type * as React from "react";
+
 import type { TableColumn } from "../../components/Table";
 import type { PaginationResult } from "../../hooks/usePagination";
-import type { MasterBase } from "../../types/master";
 
-export type PaymentTypeData = MasterBase & {
+export type PaymentTypeData = {
+  readonly id: string;
+  readonly name: string | null;
+  readonly status: "active" | "inactive";
+  readonly createAt: string | null;
+  readonly createBy: string | null;
+};
+
+export type PaymentTypeSubmissionParams = {
+  readonly id: string | undefined;
+  readonly isEditMode: boolean;
   readonly name: string;
+  readonly isActive: boolean;
+};
+
+export type PaymentTypeSubmissionState = {
+  readonly isSubmitting: boolean;
+  readonly errorMessage: string | null;
+  readonly successMessage: string | null;
+  readonly handleSubmit: (event: React.SyntheticEvent) => Promise<void>;
+};
+
+export type PaymentTypeFormFieldsState = {
+  readonly name: string;
+  readonly isActive: boolean;
+  readonly handleNameChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  readonly handleStatusChange: () => void;
 };
 
 export type PaymentTypeListApiState = {

@@ -1,10 +1,54 @@
 import type { TableColumn } from "../../components/Table";
-import type { MasterBase } from "../../types/master";
+import type { ApiEnvelope, ApiQueryParams, PaginatedResponse } from "../../types/api.type";
 
-export type UserData = MasterBase & {
+export type ApiUser = {
+  readonly id: string;
+  readonly username: string | null;
+  readonly email: string | null;
+  readonly password: string | null;
+  readonly role: string[] | null;
+  readonly last_created: string | null;
+};
+
+export type UserListResponse = PaginatedResponse<ApiUser>;
+export type UserDetailResponse = ApiEnvelope<ApiUser | ApiUser[] | null>;
+export type UserCreateResponse = ApiEnvelope<ApiUser | null>;
+export type UserListParams = ApiQueryParams;
+
+export type UserCreatePayload = {
   readonly username: string;
-  readonly email?: string;
-  readonly role: "Admin" | "User";
+  readonly email?: string | null;
+  readonly password?: string;
+  readonly role?: readonly string[];
+  readonly status?: number;
+};
+
+export type UserUpdatePayload = {
+  readonly id: string;
+  readonly username?: string;
+  readonly email?: string | null;
+  readonly password?: string;
+  readonly role?: readonly string[];
+  readonly status?: number;
+};
+
+export type UserData = {
+  readonly id: string;
+  readonly username: string | null;
+  readonly email: string | null;
+  readonly role: string | null;
+  readonly status: "active" | "inactive";
+  readonly createAt: string | null;
+  readonly createBy: string | null;
+};
+
+export type UserListApiState = {
+  readonly paginatedData: UserData[];
+  readonly totalPages: number;
+  readonly totalCount: number;
+  readonly isLoading: boolean;
+  readonly isError: boolean;
+  readonly isMissingData: boolean;
 };
 
 export type MasterUserProps = {

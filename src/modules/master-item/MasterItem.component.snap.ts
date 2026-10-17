@@ -6,11 +6,17 @@ import type { TableColumn } from "../../components/Table";
 import { MasterItemComponent } from "./MasterItem.component";
 import type { ItemData } from "./MasterItem.type";
 
+jest.useFakeTimers();
+jest.setSystemTime(new Date("2026-10-18T00:31:00+07:00"));
+
+afterAll(() => jest.useRealTimers());
+
 const mockItems: ItemData[] = [
   {
     id: "1",
     name: "Speaker",
     categoryId: "audio-uuid",
+    categoryName: "Audio System",
     price: 5000000,
     stock: 12,
     image: "https://example.com/a.jpg",
@@ -74,6 +80,8 @@ const configs = [
       onRowClick: jest.fn(),
       onBack: jest.fn(),
       isMoreOpen: false,
+      onCloseMore: jest.fn(),
+      onDelete: jest.fn(),
     },
     desc: "Should Render MasterItemComponent with empty data",
   },

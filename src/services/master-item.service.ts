@@ -1,10 +1,12 @@
-import ENDPOINT from "@/constant/endpoint.const";
 import { apiRtkClient } from "@/libs/ApiRtkServices/apiRtkClient";
+
+import ENDPOINT from "@/constant/endpoint.const";
 import type {
   ApiItem,
   ItemCreatePayload,
   ItemCreateResponse,
   ItemData,
+  ItemDetailResponse,
   ItemListParams,
   ItemListResponse,
   ItemUpdatePayload,
@@ -18,16 +20,16 @@ import type {
 export const mapItem = (item: ApiItem): ItemData => ({
   id: item.id,
   name: item.name,
-  categoryId: item.category_id ?? "",
-  categoryName: item.category_name ?? "",
+  categoryId: item.category_id,
+  categoryName: item.category_name ?? null,
   price: item.price ?? 0,
   stock: item.stock ?? 0,
-  image: item.image ?? "",
+  image: item.image,
   duration: item.duration ?? 0,
-  remark: item.remark ?? "",
+  remark: item.remark,
   status: item.status === 1 ? "active" : "inactive",
-  createAt: item.created_at ?? "",
-  createBy: item.created_by ?? "",
+  createAt: item.created_at,
+  createBy: item.created_by,
 });
 
 export const masterItemService = apiRtkClient.injectEndpoints({
@@ -37,6 +39,10 @@ export const masterItemService = apiRtkClient.injectEndpoints({
       providesTags: ["Item"],
     }),
     getAllItems: builder.query<ItemListResponse, void>({ query: () => ({ url: ENDPOINT.MASTER_ITEM.ALL, method: "GET" }), providesTags: ["Item"] }),
+    getItemById: builder.query<ItemDetailResponse, string>({
+      query: (id) => ({ url: `${ENDPOINT.MASTER_ITEM.DETAIL}/${id}`, method: "GET" }),
+      providesTags: (_result, _error, id) => [{ type: "Item", id }],
+    }),
     createItem: builder.mutation<ItemCreateResponse, ItemCreatePayload>({
       query: (body) => ({ url: ENDPOINT.MASTER_ITEM.CREATE, method: "POST", data: body }),
       invalidatesTags: ["Item"],
@@ -62,4 +68,10 @@ export const masterItemService = apiRtkClient.injectEndpoints({
   overrideExisting: false,
 });
 
-export const { useGetItemsQuery, useGetAllItemsQuery, useCreateItemMutation, useUpdateItemMutation } = masterItemService;
+export const {
+  useGetItemsQuery,
+  useGetAllItemsQuery,
+  useGetItemByIdQuery,
+  useCreateItemMutation,
+  useUpdateItemMutation,
+} = masterItemService;

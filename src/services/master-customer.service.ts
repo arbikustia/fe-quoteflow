@@ -1,14 +1,15 @@
-import ENDPOINT from "@/constant/endpoint.const";
 import { apiRtkClient } from "@/libs/ApiRtkServices/apiRtkClient";
+
+import ENDPOINT from "@/constant/endpoint.const";
 import type {
   ApiCustomer,
   CustomerCreatePayload,
   CustomerCreateResponse,
   CustomerData,
   CustomerDetailResponse,
-  CustomerUpdatePayload,
   CustomerListParams,
   CustomerListResponse,
+  CustomerUpdatePayload,
 } from "@/modules/master-customer/MasterCustomer.type";
 
 const CUSTOMER_TAG = "Customer";
@@ -21,11 +22,11 @@ const CUSTOMER_TAG = "Customer";
 export const mapCustomer = (customer: ApiCustomer): CustomerData => ({
   id: customer.id,
   name: customer.name,
-  address: customer.address ?? "",
-  phoneNumber: customer.phone_number ?? "",
+  address: customer.address,
+  phoneNumber: customer.phone_number,
   status: customer.status === 1 ? "active" : "inactive",
-  createAt: customer.created_at ?? "",
-  createBy: customer.created_by ?? "",
+  createAt: customer.created_at,
+  createBy: customer.created_by,
 });
 
 export const masterCustomerService = apiRtkClient.injectEndpoints({
@@ -42,20 +43,42 @@ export const masterCustomerService = apiRtkClient.injectEndpoints({
       }),
       providesTags: [CUSTOMER_TAG],
     }),
-    createCustomer: builder.mutation<CustomerCreateResponse, CustomerCreatePayload>({
-      query: (body) => ({ url: ENDPOINT.MASTER_CUSTOMER.CREATE, method: "POST", data: body }),
+    createCustomer: builder.mutation<
+      CustomerCreateResponse,
+      CustomerCreatePayload
+    >({
+      query: (body) => ({
+        url: ENDPOINT.MASTER_CUSTOMER.CREATE,
+        method: "POST",
+        data: body,
+      }),
       invalidatesTags: [CUSTOMER_TAG],
     }),
     getCustomerById: builder.query<CustomerDetailResponse, string>({
-      query: (id) => ({ url: `${ENDPOINT.MASTER_CUSTOMER.DETAIL}/${id}`, method: "GET" }),
+      query: (id) => ({
+        url: `${ENDPOINT.MASTER_CUSTOMER.DETAIL}/${id}`,
+        method: "GET",
+      }),
       providesTags: [CUSTOMER_TAG],
     }),
-    updateCustomer: builder.mutation<CustomerCreateResponse, CustomerUpdatePayload>({
-      query: (body) => ({ url: `${ENDPOINT.MASTER_CUSTOMER.DETAIL}/${body.id}`, method: "PUT", data: body }),
+    updateCustomer: builder.mutation<
+      CustomerCreateResponse,
+      CustomerUpdatePayload
+    >({
+      query: (body) => ({
+        url: `${ENDPOINT.MASTER_CUSTOMER.DETAIL}/${body.id}`,
+        method: "PUT",
+        data: body,
+      }),
       invalidatesTags: [CUSTOMER_TAG],
     }),
   }),
   overrideExisting: false,
 });
 
-export const { useGetCustomersQuery, useCreateCustomerMutation, useGetCustomerByIdQuery, useUpdateCustomerMutation } = masterCustomerService;
+export const {
+  useGetCustomersQuery,
+  useCreateCustomerMutation,
+  useGetCustomerByIdQuery,
+  useUpdateCustomerMutation,
+} = masterCustomerService;

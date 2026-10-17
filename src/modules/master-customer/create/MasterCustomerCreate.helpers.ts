@@ -1,4 +1,4 @@
-const NON_DIGIT_PATTERN = /\D/g;
+import { NON_DIGIT_PATTERN } from "@/constant/regex.const";
 
 /**
  * Filter phone input value to keep numbers only.

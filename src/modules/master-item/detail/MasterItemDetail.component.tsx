@@ -1,4 +1,3 @@
-/* eslint-disable jsdoc/require-param-type, jsdoc/require-param-description, jsdoc/require-returns */
 import type { ReactElement } from "react";
 
 import type { ItemData } from "../MasterItem.type";
@@ -8,14 +7,16 @@ import type { MasterItemDetailState } from "./MasterItemDetail.type";
 import Layout from "@/app/layout";
 
 /**
- * Format item price. @param {number} price - Price @returns {string} Currency
- * @param price
+ * Format item price.
+ * @param {number} price - Price value
+ * @returns {string} Currency string
  */
 const _formatPrice = (price: number): string => new Intl.NumberFormat("id-ID", { style: "currency", currency: "IDR", minimumFractionDigits: 0 }).format(price);
 
 /**
- * Render item details. @param {ItemData} item - Item @returns {ReactElement} Details
- * @param item
+ * Render item details.
+ * @param {ItemData} item - Item data
+ * @returns {ReactElement} Details element
  */
 const _renderDetails = (item: ItemData): ReactElement => (
   <div className="space-y-4">
@@ -31,8 +32,9 @@ const _renderDetails = (item: ItemData): ReactElement => (
 );
 
 /**
- * Render item detail UI. @param {MasterItemDetailState} props - State @returns {ReactElement} Page
- * @param props
+ * Render item detail UI.
+ * @param {MasterItemDetailState} props - Detail state
+ * @returns {ReactElement} Detail page
  */
 export const MasterItemDetailComponent = (props: MasterItemDetailState): ReactElement => {
   const { item, isMoreOpen, isDeleteModalOpen, goBack, toggleMore, closeMore, goEdit, openDeleteModal, closeDeleteModal, handleDelete } = props;

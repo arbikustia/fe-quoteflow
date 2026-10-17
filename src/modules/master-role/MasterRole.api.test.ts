@@ -16,7 +16,7 @@ describe("MasterRole API", () => {
       roleName: "Admin",
       status: "active",
       createAt: "2024-01-01",
-      createBy: "",
+      createBy: null,
     });
   });
 
@@ -27,8 +27,8 @@ describe("MasterRole API", () => {
       id: "role-1",
       roleName: "Admin",
       status: "active",
-      createAt: "",
-      createBy: "",
+      createAt: null,
+      createBy: null,
     });
   });
 

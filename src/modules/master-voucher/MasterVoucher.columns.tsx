@@ -33,7 +33,7 @@ const _renderStatus = (row: VoucherData): React.ReactElement => (
  * @param {VoucherData} row - user data
  * @returns {string} string
  */
-const _renderDate = (row: VoucherData): string => row.createAt;
+const _renderDate = (row: VoucherData): string => row.createAt ?? "-";
 
 /**
  * Get Basic Columns
@@ -103,6 +103,10 @@ export const getColumns = ({ currentPage, pageSize, onEdit, onDownload }: GetCol
       onEdit(row);
     };
 
+    /**
+     *
+     * @param event
+     */
     const handleDownload = (event: React.MouseEvent): void => {
       event.stopPropagation();
       onDownload?.(row);

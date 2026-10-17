@@ -2,10 +2,12 @@ import { apiRtkClient } from "@/libs/ApiRtkServices/apiRtkClient";
 
 import ENDPOINT from "@/constant/endpoint.const";
 import type {
+  ApiCategory,
   CategoryAllResponse,
   CategoryCreatePayload,
   CategoryCreateResponse,
   CategoryData,
+  CategoryDetailResponse,
   CategoryListParams,
   CategoryListResponse,
   CategoryUpdatePayload,
@@ -15,17 +17,17 @@ const CATEGORY_TAG = "Category";
 
 /**
  * Map API category model to UI model.
- * @param {CategoryListResponse["data"][number]} category - API category model
+ * @param {ApiCategory} category - API category model
  * @returns {CategoryData} Category UI model
  */
 export const mapCategory = (
-  category: CategoryListResponse["data"][number],
+  category: ApiCategory,
 ): CategoryData => ({
   id: category.id,
   categoryName: category.category_name,
   status: category.status === 1 ? "active" : "inactive",
-  createAt: category.created_at ?? "",
-  createBy: category.created_by ?? "",
+  createAt: category.created_at,
+  createBy: category.created_by,
 });
 
 /** RTK Query endpoints for master category data. */
@@ -54,6 +56,13 @@ export const masterCategoryService = apiRtkClient.injectEndpoints({
       }),
       invalidatesTags: [CATEGORY_TAG],
     }),
+    getCategoryById: builder.query<CategoryDetailResponse, string>({
+      query: (id) => ({
+        url: `${ENDPOINT.MASTER_CATEGORY.DETAIL}/${id}`,
+        method: "GET",
+      }),
+      providesTags: [CATEGORY_TAG],
+    }),
     updateCategory: builder.mutation<
       CategoryCreateResponse,
       CategoryUpdatePayload
@@ -79,6 +88,7 @@ export const masterCategoryService = apiRtkClient.injectEndpoints({
 export const {
   useGetCategoriesQuery,
   useCreateCategoryMutation,
+  useGetCategoryByIdQuery,
   useUpdateCategoryMutation,
   useGetAllCategoriesQuery,
 } = masterCategoryService;

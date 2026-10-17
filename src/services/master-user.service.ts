@@ -1,48 +1,26 @@
-import ENDPOINT from "@/constant/endpoint.const";
 import { apiRtkClient } from "@/libs/ApiRtkServices/apiRtkClient";
-import type { UserData } from "@/modules/master-user/MasterUser.type";
-import type { ApiEnvelope, ApiQueryParams, PaginatedResponse } from "@/types/api.type";
 
-export type ApiUser = {
-  readonly id: string;
-  readonly username: string | null;
-  readonly email: string | null;
-  readonly password: string | null;
-  readonly role: string[] | null;
-  readonly last_created: string | null;
-};
-
-export type UserListResponse = PaginatedResponse<ApiUser>;
-export type UserDetailResponse = ApiEnvelope<ApiUser | ApiUser[] | null>;
-export type UserCreateResponse = ApiEnvelope<ApiUser | null>;
-export type UserListParams = ApiQueryParams;
-
-export type UserCreatePayload = {
-  readonly username: string;
-  readonly email?: string | null;
-  readonly password?: string;
-  readonly role?: readonly string[];
-  readonly status?: number;
-};
-
-export type UserUpdatePayload = {
-  readonly id: string;
-  readonly username?: string;
-  readonly email?: string | null;
-  readonly password?: string;
-  readonly role?: readonly string[];
-  readonly status?: number;
-};
+import ENDPOINT from "@/constant/endpoint.const";
+import type {
+  ApiUser,
+  UserCreatePayload,
+  UserCreateResponse,
+  UserData,
+  UserDetailResponse,
+  UserListParams,
+  UserListResponse,
+  UserUpdatePayload,
+} from "@/modules/master-user/MasterUser.type";
 
 /** Map API user model to UI model. */
 export const mapUser = (item: ApiUser): UserData => ({
   id: item.id,
-  username: item.username ?? "",
-  email: item.email ?? "",
-  role: (item.role?.[0] as "Admin" | "User") ?? "User",
+  username: item.username,
+  email: item.email,
+  role: item.role?.[0] ?? null,
   status: "active",
-  createAt: item.last_created ?? "",
-  createBy: "",
+  createAt: item.last_created,
+  createBy: null,
 });
 
 export const masterUserService = apiRtkClient.injectEndpoints({

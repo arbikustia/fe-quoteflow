@@ -1,8 +1,8 @@
 import * as React from "react";
 import { FiEdit2 } from "react-icons/fi";
 
-import type { TableColumn } from "../../components/Table";
 import type { CategoryData, GetColumnsParams } from "./MasterCategory.type";
+import type { TableColumn } from "../../components/Table";
 
 /**
  * Get columns for master category table.

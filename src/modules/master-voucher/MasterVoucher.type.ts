@@ -25,6 +25,36 @@ export type VoucherListResponse = {
   readonly messages: string[] | string | null;
 };
 export type VoucherCreateResponse = ApiEnvelope<ApiVoucher | null>;
+export type VoucherDetailResponse = ApiEnvelope<ApiVoucher | ApiVoucher[] | null>;
+
+export type VoucherSubmissionParams = {
+  readonly id: string | undefined;
+  readonly isEditMode: boolean;
+  readonly name: string;
+  readonly code: string;
+  readonly codeMode: "generate" | "type";
+  readonly discountPercent: string;
+  readonly isActive: boolean;
+};
+
+export type VoucherSubmissionState = {
+  readonly isSubmitting: boolean;
+  readonly errorMessage: string | null;
+  readonly handleSubmit: (event: React.SyntheticEvent) => Promise<void>;
+};
+
+export type VoucherFormFieldsState = {
+  readonly name: string;
+  readonly code: string;
+  readonly codeMode: "generate" | "type";
+  readonly discountPercent: string;
+  readonly isActive: boolean;
+  readonly handleNameChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  readonly handleCodeChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  readonly handleCodeModeChange: (event: React.ChangeEvent<HTMLSelectElement>) => void;
+  readonly handleDiscountChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  readonly handleStatusChange: () => void;
+};
 
 export type VoucherListParams = {
   readonly pageNumber: number;
@@ -67,8 +97,8 @@ export type VoucherData = {
   readonly code: string;
   readonly discountPercent: number;
   readonly status: "active" | "inactive";
-  readonly createAt: string;
-  readonly createBy: string;
+  readonly createAt: string | null;
+  readonly createBy: string | null;
 };
 
 export type VoucherListApiState = {

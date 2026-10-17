@@ -51,6 +51,7 @@ describe("MasterCustomer Component", () => {
     changePageSize: jest.fn(),
     onCreate: jest.fn(),
     onEdit: jest.fn(),
+    onDetail: jest.fn(),
     onRowClick: jest.fn(),
     onBack: jest.fn(),
     onMore: jest.fn(),

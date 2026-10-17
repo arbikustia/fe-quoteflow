@@ -1,6 +1,7 @@
 import { apiRtkClient } from "@/libs/ApiRtkServices/apiRtkClient";
+
 import ENDPOINT from "@/constant/endpoint.const";
-import type { ApiVoucher, VoucherCreatePayload, VoucherCreateResponse, VoucherData, VoucherListParams, VoucherListResponse, VoucherUpdatePayload } from "@/modules/master-voucher/MasterVoucher.type";
+import type { ApiVoucher, VoucherCreatePayload, VoucherCreateResponse, VoucherData, VoucherDetailResponse, VoucherListParams, VoucherListResponse, VoucherUpdatePayload } from "@/modules/master-voucher/MasterVoucher.type";
 
 /** Map API voucher model to UI model. */
 export const mapVoucher = (voucher: ApiVoucher): VoucherData => ({
@@ -9,13 +10,14 @@ export const mapVoucher = (voucher: ApiVoucher): VoucherData => ({
   code: voucher.code,
   discountPercent: voucher.discount_percent,
   status: voucher.status === 1 ? "active" : "inactive",
-  createAt: voucher.created_at ?? "",
-  createBy: "",
+  createAt: voucher.created_at,
+  createBy: null,
 });
 
 export const masterVoucherService = apiRtkClient.injectEndpoints({
   endpoints: (builder) => ({
     getVouchers: builder.query<VoucherListResponse, VoucherListParams>({ query: (params) => ({ url: ENDPOINT.MASTER_VOUCHER.PAGED, method: "GET", params: { PageNumber: params.pageNumber, PageSize: params.pageSize, SearchTerm: params.searchTerm } }), providesTags: ["Voucher"] }),
+    getVoucherById: builder.query<VoucherDetailResponse, string>({ query: (id) => ({ url: `${ENDPOINT.MASTER_VOUCHER.DETAIL}/${id}`, method: "GET" }) }),
     createVoucher: builder.mutation<VoucherCreateResponse, VoucherCreatePayload>({ query: (body) => ({ url: ENDPOINT.MASTER_VOUCHER.CREATE, method: "POST", data: body }), invalidatesTags: ["Voucher"] }),
     updateVoucher: builder.mutation<VoucherCreateResponse, VoucherUpdatePayload>({
       query: (body) => ({
@@ -29,4 +31,4 @@ export const masterVoucherService = apiRtkClient.injectEndpoints({
   overrideExisting: false,
 });
 
-export const { useGetVouchersQuery, useCreateVoucherMutation, useUpdateVoucherMutation } = masterVoucherService;
+export const { useGetVouchersQuery, useGetVoucherByIdQuery, useCreateVoucherMutation, useUpdateVoucherMutation } = masterVoucherService;

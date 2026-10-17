@@ -20,16 +20,16 @@ describe("MasterItem API", () => {
     expect(_mapItem(apiItem)).toEqual({
       id: "item-1",
       name: "Speaker",
-      categoryId: "",
-      categoryName: "",
+      categoryId: null,
+      categoryName: null,
       price: 0,
       stock: 0,
-      image: "",
+      image: null,
       duration: 0,
-      remark: "",
+      remark: null,
       status: "active",
-      createAt: "",
-      createBy: "",
+      createAt: null,
+      createBy: null,
     });
   });
 

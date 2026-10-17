@@ -29,8 +29,8 @@ describe("MasterCustomerDetailComponent", () => {
 
     expect(screen.getByText(mockCustomer.name)).toBeTruthy();
     expect(screen.getByText(mockCustomer.id)).toBeTruthy();
-    expect(screen.getByText(mockCustomer.phoneNumber)).toBeTruthy();
-    expect(screen.getByText(mockCustomer.address)).toBeTruthy();
+    expect(screen.getByText(mockCustomer.phoneNumber ?? "")).toBeTruthy();
+    expect(screen.getByText(mockCustomer.address ?? "")).toBeTruthy();
   });
 
   it("should render not found state when customer is null", () => {

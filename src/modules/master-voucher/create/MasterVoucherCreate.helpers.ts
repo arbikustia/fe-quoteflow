@@ -17,6 +17,7 @@ export const generateSecureVoucherCode = (): string => {
   }
 
   let suffix = "";
+
   while (suffix.length < CODE_RANDOM_LENGTH) {
     crypto.getRandomValues(bytes);
 
@@ -36,6 +37,7 @@ export const generateSecureVoucherCode = (): string => {
  */
 export const validateTypedVoucherCode = (code: string): string | null => {
   const trimmed = code.trim();
+
   if (!trimmed) {
     return "Voucher code is required.";
   }

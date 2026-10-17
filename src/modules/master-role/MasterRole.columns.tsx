@@ -33,7 +33,7 @@ const _renderStatus = (row: RoleData): React.ReactElement => (
  * @param {RoleData} row - user data
  * @returns {string} string
  */
-const _renderDate = (row: RoleData): string => row.createAt;
+const _renderDate = (row: RoleData): string => row.createAt ?? "-";
 
 /**
  * Get Basic Columns

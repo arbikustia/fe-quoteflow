@@ -2,6 +2,11 @@ import test from "@/libs/unit-test";
 
 import MasterItemContainer from "./MasterItem.container";
 
+jest.useFakeTimers();
+jest.setSystemTime(new Date("2026-10-18T00:31:00+07:00"));
+
+afterAll(() => jest.useRealTimers());
+
 const mockApiItem = {
   id: "1",
   name: "Line Array Speaker",

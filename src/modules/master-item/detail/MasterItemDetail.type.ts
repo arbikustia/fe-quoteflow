@@ -1,14 +1,17 @@
 import type { ItemData } from "../MasterItem.type";
 
-export type MasterItemDetailState = {
-  readonly item: ItemData | null;
-  readonly isMoreOpen: boolean;
-  readonly isDeleteModalOpen: boolean;
-  readonly goBack: () => void;
-  readonly toggleMore: () => void;
-  readonly closeMore: () => void;
-  readonly goEdit: () => void;
-  readonly openDeleteModal: () => void;
-  readonly closeDeleteModal: () => void;
-  readonly handleDelete: () => void;
+export type MasterItemDetailMenuState = {
+  isMoreOpen: boolean;
+  isDeleteModalOpen: boolean;
+  toggleMore: () => void;
+  closeMore: () => void;
+  openDeleteModal: () => void;
+  closeDeleteModal: () => void;
+};
+
+export type MasterItemDetailState = MasterItemDetailMenuState & {
+  item: ItemData | null;
+  goBack: () => void;
+  goEdit: () => void;
+  handleDelete: () => void;
 };

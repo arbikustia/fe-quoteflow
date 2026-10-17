@@ -33,10 +33,10 @@ export type PaymentTypeUpdatePayload = PaymentTypeCreatePayload & {
  */
 export const mapPaymentType = (item: ApiPaymentType): PaymentTypeData => ({
   id: item.id,
-  name: item.name ?? "",
+  name: item.name,
   status: item.status === 1 ? "active" : "inactive",
-  createAt: item.created_at ?? "",
-  createBy: item.created_by ?? "",
+  createAt: item.created_at,
+  createBy: item.created_by ?? null,
 });
 
 export const masterPaymentTypeService = apiRtkClient.injectEndpoints({

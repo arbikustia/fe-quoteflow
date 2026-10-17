@@ -1,7 +1,9 @@
 import { apiRtkClient } from "@/libs/ApiRtkServices/apiRtkClient";
+
 import ENDPOINT from "@/constant/endpoint.const";
-import type { ApiEnvelope, PaginatedResponse, ApiQueryParams } from "@/types/api.type";
 import type { PaymentMethodData } from "@/modules/master-payment-method/MasterPaymentMethod.type";
+
+import type { ApiEnvelope, ApiQueryParams,PaginatedResponse } from "@/types/api.type";
 
 export type ApiPaymentMethod = {
   readonly id: string;
@@ -36,11 +38,11 @@ export type PaymentMethodUpdatePayload = PaymentMethodCreatePayload & {
  */
 export const mapPaymentMethod = (item: ApiPaymentMethod): PaymentMethodData => ({
   id: item.id,
-  name: item.name ?? "",
-  description: item.description ?? "",
+  name: item.name,
+  description: item.description,
   status: item.status === 1 ? "active" : "inactive",
-  createAt: item.created_at ?? "",
-  createBy: item.created_by ?? "",
+  createAt: item.created_at,
+  createBy: item.created_by ?? null,
 });
 
 export const masterPaymentMethodService = apiRtkClient.injectEndpoints({

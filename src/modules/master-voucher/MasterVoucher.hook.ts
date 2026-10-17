@@ -3,6 +3,7 @@ import type * as React from "react";
 import { useState } from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 
+import { generateSecureVoucherCode, validateTypedVoucherCode } from "./create/MasterVoucherCreate.helpers";
 import type {
   MasterVoucherContainerState,
   MasterVoucherCreateFormState,
@@ -14,7 +15,6 @@ import type {
 } from "./MasterVoucher.type";
 
 import { mapVoucher, useCreateVoucherMutation, useGetVouchersQuery, useUpdateVoucherMutation } from "@/services/master-voucher.service";
-import { generateSecureVoucherCode, validateTypedVoucherCode } from "./create/MasterVoucherCreate.helpers";
 
 /**
  * Provide master voucher navigation.
@@ -110,6 +110,7 @@ export const useMasterVoucherCreateForm = (): MasterVoucherCreateFormState => {
   const handleCodeChange = (event: React.ChangeEvent<HTMLInputElement>): void => setCode(event.target.value);
   const handleCodeModeChange = (event: React.ChangeEvent<HTMLSelectElement>): void => {
     const nextMode = event.target.value === "type" ? "type" : "generate";
+
     setCodeMode(nextMode);
     setCode(nextMode === "generate" ? generateSecureVoucherCode() : "");
   };
@@ -124,8 +125,10 @@ export const useMasterVoucherCreateForm = (): MasterVoucherCreateFormState => {
 
     if (codeMode === "type") {
       const validationError = validateTypedVoucherCode(finalCode);
+
       if (validationError) {
         setErrorMessage(validationError);
+
         return;
       }
     }

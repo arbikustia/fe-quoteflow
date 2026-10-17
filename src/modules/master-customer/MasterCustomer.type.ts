@@ -31,11 +31,11 @@ export type CustomerListParams = {
 export type CustomerData = {
   readonly id: string;
   readonly name: string;
-  readonly address: string;
-  readonly phoneNumber: string;
+  readonly address: string | null;
+  readonly phoneNumber: string | null;
   readonly status: "active" | "inactive";
-  readonly createAt: string;
-  readonly createBy: string;
+  readonly createAt: string | null;
+  readonly createBy: string | null;
 };
 
 export type CustomerMobileCardProps = {

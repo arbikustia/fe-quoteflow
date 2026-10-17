@@ -54,6 +54,7 @@ const successfulEmptyResponse = {
   },
   error: undefined,
   isLoading: false,
+  refetch: jest.fn(),
 };
 
 describe("MasterItem hook", () => {
@@ -91,6 +92,7 @@ describe("MasterItem hook", () => {
         id: "1",
         name: "Speaker",
         categoryId: "Audio",
+        categoryName: "Audio",
         price: 5000000,
         stock: 12,
         image: "https://example.com/a.jpg",
@@ -115,6 +117,7 @@ describe("MasterItem hook", () => {
         id: "1",
         name: "Speaker",
         categoryId: "Audio",
+        categoryName: "Audio",
         price: 5000000,
         stock: 12,
         image: "https://example.com/a.jpg",
@@ -139,6 +142,7 @@ describe("MasterItem hook", () => {
         id: "1",
         name: "Speaker",
         categoryId: "Audio",
+        categoryName: "Audio",
         price: 5000000,
         stock: 12,
         image: "https://example.com/a.jpg",
@@ -172,6 +176,7 @@ describe("MasterItem hook", () => {
         id: "1",
         name: "Speaker",
         categoryId: "Audio",
+        categoryName: "Audio",
         price: 5000000,
         stock: 12,
         image: "https://example.com/a.jpg",
@@ -182,10 +187,14 @@ describe("MasterItem hook", () => {
         createBy: "Admin",
       };
       act(() => { result.current.goEdit(mockItem); });
-      expect(mockNavigate).toHaveBeenCalledWith(`/master-item/edit/${mockItem.id}`);
+      expect(mockNavigate).toHaveBeenCalledWith(`/master-item/edit/${mockItem.id}`, {
+        state: { item: mockItem },
+      });
 
       act(() => { result.current.goDetail(mockItem); });
       expect(mockNavigate).toHaveBeenCalledWith(`/master-item/detail/${mockItem.id}`);
+
+      expect(mockNavigate).toHaveBeenCalledTimes(4);
     });
   });
 
@@ -205,9 +214,8 @@ describe("MasterItem hook", () => {
 
     it("should expose failed envelope message", () => {
       mockedGetItemsQuery.mockReturnValue({
+        ...successfulEmptyResponse,
         data: { status: false, messages: ["Item request failed."], data: null },
-        error: undefined,
-        isLoading: false,
       });
 
       const { result } = renderHook(() => useMasterItemContainerState());
@@ -219,9 +227,17 @@ describe("MasterItem hook", () => {
 
     it("should expose missing payload state", () => {
       mockedGetItemsQuery.mockReturnValue({
-        data: { status: true, messages: null, data: null },
-        error: undefined,
-        isLoading: false,
+        ...successfulEmptyResponse,
+        data: {
+          status: true,
+          messages: null,
+          data: null,
+          page_number: 1,
+          total_pages: 0,
+          total_count: 0,
+          has_previous: false,
+          has_next: false,
+        },
       });
 
       const { result } = renderHook(() => useMasterItemContainerState());
@@ -233,6 +249,7 @@ describe("MasterItem hook", () => {
 
     it("should expose transport error state", () => {
       mockedGetItemsQuery.mockReturnValue({
+        ...successfulEmptyResponse,
         data: undefined,
         error: { status: 500, data: "Server error" },
         isLoading: false,

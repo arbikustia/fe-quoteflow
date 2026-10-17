@@ -3,7 +3,7 @@
 exports[`MasterItemComponent matches snapshot 1`] = `
 <DocumentFragment>
   <div
-    class="flex h-full min-h-0 w-full bg-background-page overflow-hidden font-sans text-text-primary relative items-stretch"
+    class="flex h-full min-h-0 w-full bg-background-page overflow-hidden font-sans text-text-primary relative items-stretch transition-colors duration-200"
   >
     <div
       class="hidden lg:flex h-full min-h-0 shrink-0 self-stretch"
@@ -14,12 +14,12 @@ exports[`MasterItemComponent matches snapshot 1`] = `
         style="border-radius: 0;"
       >
         <div
-          class="h-[56px] mb-16 flex items-center shrink-0 px-4"
+          class="h-[72px] mb-16 flex items-center shrink-0 px-4"
         >
           <img
             alt="Sonicline"
-            class="h-8 w-auto object-contain"
-            src="/src/assets/Sonicline.png"
+            class="h-12 w-auto object-contain"
+            src="/src/assets/Sonicline-dark.png"
           />
         </div>
         <div
@@ -229,7 +229,7 @@ exports[`MasterItemComponent matches snapshot 1`] = `
       </aside>
     </div>
     <div
-      class="flex-1 flex flex-col min-w-0 min-h-0 overflow-hidden relative bg-background-page bg-background-surface lg:bg-background-page"
+      class="flex-1 flex flex-col min-w-0 min-h-0 overflow-hidden relative bg-background-page transition-colors duration-200 bg-background-surface lg:bg-background-page"
     >
       <div
         class="lg:hidden flex items-center gap-3 p-4 border-b border-border-default bg-background-surface shrink-0"
@@ -253,7 +253,7 @@ exports[`MasterItemComponent matches snapshot 1`] = `
         class="hidden lg:block shrink-0"
       >
         <header
-          class="h-20 flex items-center justify-between px-8 border-b border-brand-gray-light sticky top-0 z-10 transition-all"
+          class="h-20 flex items-center justify-between px-8 bg-background-surface border-b border-brand-gray-light sticky top-0 z-10 transition-all"
         >
           <div
             class="flex items-center gap-4 flex-1"
@@ -275,23 +275,15 @@ exports[`MasterItemComponent matches snapshot 1`] = `
                 width="20"
                 xmlns="http://www.w3.org/2000/svg"
               >
-                <line
-                  x1="4"
-                  x2="20"
-                  y1="6"
-                  y2="6"
+                <rect
+                  height="18"
+                  rx="3"
+                  width="18"
+                  x="3"
+                  y="3"
                 />
-                <line
-                  x1="4"
-                  x2="20"
-                  y1="12"
-                  y2="12"
-                />
-                <line
-                  x1="4"
-                  x2="20"
-                  y1="18"
-                  y2="18"
+                <path
+                  d="M9 3v18"
                 />
               </svg>
             </button>
@@ -338,47 +330,12 @@ exports[`MasterItemComponent matches snapshot 1`] = `
               </div>
             </div>
           </div>
-          <div
-            class="flex items-center gap-5"
+          <time
+            class="text-lg tracking-wide font-semibold text-text-primary tabular-nums sm:text-3xl"
+            data-testid="navbar-realtime-clock"
           >
-            <button
-              class="flex items-center gap-2.5 px-1.5 py-1.5 pr-3 rounded-full bg-brand-white border border-brand-gray-light hover:bg-brand-gray-light transition-all focus:outline-none"
-            >
-              <div
-                class="w-8 h-8 rounded-full overflow-hidden"
-              >
-                <img
-                  alt="User Avatar"
-                  class="w-full h-full object-cover"
-                  src="https://ui-avatars.com/api/?name=Admin+User&background=random"
-                />
-              </div>
-              <span
-                class="text-sm font-bold text-brand-text-dark"
-              >
-                Admin User
-              </span>
-              <div
-                class="text-brand-text-medium"
-              >
-                <svg
-                  fill="none"
-                  height="14"
-                  stroke="currentColor"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  viewBox="0 0 24 24"
-                  width="14"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="m6 9 6 6 6-6"
-                  />
-                </svg>
-              </div>
-            </button>
-          </div>
+            18-10-2026 00:31:00
+          </time>
         </header>
       </div>
       <main
@@ -857,7 +814,7 @@ exports[`MasterItemComponent matches snapshot 1`] = `
                             class="divide-y divide-border-default"
                           >
                             <tr
-                              class="hover:bg-background-subtle/50 transition-colors cursor-pointer"
+                              class="hover:bg-background-subtle/50 transition-colors "
                             >
                               <td
                                 class="px-5 py-4 border-b border-border-default text-base text-left "
@@ -866,7 +823,7 @@ exports[`MasterItemComponent matches snapshot 1`] = `
                               </td>
                             </tr>
                             <tr
-                              class="hover:bg-background-subtle/50 transition-colors cursor-pointer"
+                              class="hover:bg-background-subtle/50 transition-colors "
                             >
                               <td
                                 class="px-5 py-4 border-b border-border-default text-base text-left "
@@ -885,14 +842,10 @@ exports[`MasterItemComponent matches snapshot 1`] = `
                         class="bg-background-surface overflow-hidden divide-y divide-border-default"
                       >
                         <div
-                          class="flex flex-col gap-3 px-4 py-4 bg-transparent transition-colors cursor-pointer active:bg-background-subtle/50"
-                          role="button"
-                          tabindex="0"
+                          class="flex flex-col gap-3 px-4 py-4 bg-transparent transition-colors "
                         />
                         <div
-                          class="flex flex-col gap-3 px-4 py-4 bg-transparent transition-colors cursor-pointer active:bg-background-subtle/50"
-                          role="button"
-                          tabindex="0"
+                          class="flex flex-col gap-3 px-4 py-4 bg-transparent transition-colors "
                         />
                       </div>
                     </div>
@@ -1028,7 +981,7 @@ exports[`MasterItemComponent matches snapshot 1`] = `
 exports[`MasterItemComponent matches snapshot with empty data and closed menu 1`] = `
 <DocumentFragment>
   <div
-    class="flex h-full min-h-0 w-full bg-background-page overflow-hidden font-sans text-text-primary relative items-stretch"
+    class="flex h-full min-h-0 w-full bg-background-page overflow-hidden font-sans text-text-primary relative items-stretch transition-colors duration-200"
   >
     <div
       class="hidden lg:flex h-full min-h-0 shrink-0 self-stretch"
@@ -1039,12 +992,12 @@ exports[`MasterItemComponent matches snapshot with empty data and closed menu 1`
         style="border-radius: 0;"
       >
         <div
-          class="h-[56px] mb-16 flex items-center shrink-0 px-4"
+          class="h-[72px] mb-16 flex items-center shrink-0 px-4"
         >
           <img
             alt="Sonicline"
-            class="h-8 w-auto object-contain"
-            src="/src/assets/Sonicline.png"
+            class="h-12 w-auto object-contain"
+            src="/src/assets/Sonicline-dark.png"
           />
         </div>
         <div
@@ -1254,7 +1207,7 @@ exports[`MasterItemComponent matches snapshot with empty data and closed menu 1`
       </aside>
     </div>
     <div
-      class="flex-1 flex flex-col min-w-0 min-h-0 overflow-hidden relative bg-background-page bg-background-surface lg:bg-background-page"
+      class="flex-1 flex flex-col min-w-0 min-h-0 overflow-hidden relative bg-background-page transition-colors duration-200 bg-background-surface lg:bg-background-page"
     >
       <div
         class="lg:hidden flex items-center gap-3 p-4 border-b border-border-default bg-background-surface shrink-0"
@@ -1278,7 +1231,7 @@ exports[`MasterItemComponent matches snapshot with empty data and closed menu 1`
         class="hidden lg:block shrink-0"
       >
         <header
-          class="h-20 flex items-center justify-between px-8 border-b border-brand-gray-light sticky top-0 z-10 transition-all"
+          class="h-20 flex items-center justify-between px-8 bg-background-surface border-b border-brand-gray-light sticky top-0 z-10 transition-all"
         >
           <div
             class="flex items-center gap-4 flex-1"
@@ -1300,23 +1253,15 @@ exports[`MasterItemComponent matches snapshot with empty data and closed menu 1`
                 width="20"
                 xmlns="http://www.w3.org/2000/svg"
               >
-                <line
-                  x1="4"
-                  x2="20"
-                  y1="6"
-                  y2="6"
+                <rect
+                  height="18"
+                  rx="3"
+                  width="18"
+                  x="3"
+                  y="3"
                 />
-                <line
-                  x1="4"
-                  x2="20"
-                  y1="12"
-                  y2="12"
-                />
-                <line
-                  x1="4"
-                  x2="20"
-                  y1="18"
-                  y2="18"
+                <path
+                  d="M9 3v18"
                 />
               </svg>
             </button>
@@ -1363,47 +1308,12 @@ exports[`MasterItemComponent matches snapshot with empty data and closed menu 1`
               </div>
             </div>
           </div>
-          <div
-            class="flex items-center gap-5"
+          <time
+            class="text-lg tracking-wide font-semibold text-text-primary tabular-nums sm:text-3xl"
+            data-testid="navbar-realtime-clock"
           >
-            <button
-              class="flex items-center gap-2.5 px-1.5 py-1.5 pr-3 rounded-full bg-brand-white border border-brand-gray-light hover:bg-brand-gray-light transition-all focus:outline-none"
-            >
-              <div
-                class="w-8 h-8 rounded-full overflow-hidden"
-              >
-                <img
-                  alt="User Avatar"
-                  class="w-full h-full object-cover"
-                  src="https://ui-avatars.com/api/?name=Admin+User&background=random"
-                />
-              </div>
-              <span
-                class="text-sm font-bold text-brand-text-dark"
-              >
-                Admin User
-              </span>
-              <div
-                class="text-brand-text-medium"
-              >
-                <svg
-                  fill="none"
-                  height="14"
-                  stroke="currentColor"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  viewBox="0 0 24 24"
-                  width="14"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="m6 9 6 6 6-6"
-                  />
-                </svg>
-              </div>
-            </button>
-          </div>
+            18-10-2026 00:31:00
+          </time>
         </header>
       </div>
       <main

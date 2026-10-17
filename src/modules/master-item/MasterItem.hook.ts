@@ -6,6 +6,8 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
+import { createPaginationHandlers } from "@/utils/pagination.helpers";
+
 import type {
   ConfirmModalState,
   ItemCreatePayload,
@@ -131,15 +133,17 @@ export const useMasterItemState = (): ModalState & ConfirmModalState => {
  * @returns {MasterItemCreateState} Create action and loading state
  */
 export const useMasterItemCreate = (): MasterItemCreateState => {
-  const [createItemRequest, { isLoading: isCreating }] = useCreateItemMutation();
+  const [createItemRequest, { isLoading: isCreating }] =
+    useCreateItemMutation();
 
   /**
    * Submit item creation payload.
    * @param {ItemCreatePayload} payload - Item creation payload
    * @returns {Promise<ItemCreateResponse>} Created item response
    */
-  const createItem = (payload: ItemCreatePayload): Promise<ItemCreateResponse> =>
-    createItemRequest(payload).unwrap();
+  const createItem = (
+    payload: ItemCreatePayload,
+  ): Promise<ItemCreateResponse> => createItemRequest(payload).unwrap();
 
   return { createItem, isCreating };
 };
@@ -213,6 +217,10 @@ const _deriveItemListState = (
     return _createMissingResponseState();
   }
 
+  if (!response.status) {
+    return _createEnvelopeErrorState(response.messages);
+  }
+
   const itemList = response.data;
 
   if (!itemList) {
@@ -244,6 +252,22 @@ const _createLoadingState = (): ItemListApiState => ({
 const _createErrorState = (): ItemListApiState => ({
   isLoading: false,
   errorMessage: "Unable to load items.",
+  isMissingData: false,
+  paginatedData: [],
+  totalPages: 0,
+  totalCount: 0,
+});
+
+/**
+ * Create API envelope error state.
+ * @param {string | string[] | null | undefined} messages - API error messages
+ * @returns {ItemListApiState} Error state
+ */
+const _createEnvelopeErrorState = (
+  messages: string | string[] | null | undefined,
+): ItemListApiState => ({
+  isLoading: false,
+  errorMessage: typeof messages === "string" ? messages : (messages?.join(" ") ?? "Unable to load items."),
   isMissingData: false,
   paginatedData: [],
   totalPages: 0,
@@ -300,113 +324,77 @@ const _createSuccessState = (
  * Hook for API-backed master item pagination.
  * @returns {ItemListApiState & { goToPage, nextPage, prevPage, changePageSize, setSearchTerm, isEmpty }} Pagination state and handlers
  */
-// eslint-disable-next-line max-lines-per-function
 export const useMasterItemPagination = (): MasterItemPagination => {
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize, setPageSize] = useState(10);
   const [searchTerm, setSearchTerm] = useState("");
-
-  /**
-   * Fetch items with current pagination and search
-   */
-  const queryResult = useGetItemsQuery({
-    pageNumber: currentPage,
-    pageSize,
-    searchTerm,
-  });
+  const queryResult = useGetItemsQuery({ pageNumber: currentPage, pageSize, searchTerm });
   const derived = _deriveItemListState(queryResult);
-
-  /**
-   * Handle page change
-   * @param {number} page - The new page number
-   * @returns {void}
-   */
-  const goToPage = (page: number): void => {
-    setCurrentPage(Math.max(1, Math.min(page, derived.totalPages)));
-  };
-
-  /**
-   * Handle next page
-   * @returns {void}
-   */
-  const nextPage = (): void => {
-    if (
-      !derived.isLoading &&
-      !derived.errorMessage &&
-      derived.paginatedData.length > 0 &&
-      queryResult.data?.has_next
-    ) {
-      goToPage(currentPage + 1);
-    }
-  };
-
-  /**
-   * Handle prev page
-   * @returns {void}
-   */
-  const prevPage = (): void => {
-    if (
-      !derived.isLoading &&
-      !derived.errorMessage &&
-      derived.paginatedData.length > 0 &&
-      queryResult.data?.has_previous
-    ) {
-      goToPage(currentPage - 1);
-    }
-  };
-
-  /**
-   * Handle page size change
-   * @param {number} size - The new page size
-   * @returns {void}
-   */
-  const changePageSize = (size: number): void => {
-    setPageSize(size);
-    setCurrentPage(1);
-  };
-
-  /**
-   * Handle search term change
-   * @param {string} value - The search term
-   * @returns {void}
-   */
-  const handleSearchTerm = (value: string): void => {
-    setSearchTerm(value);
-    setCurrentPage(1);
-  };
+  const canPaginate = !derived.isLoading && !derived.errorMessage && derived.paginatedData.length > 0;
+  const handlers = createPaginationHandlers({
+    currentPage,
+    totalPages: derived.totalPages,
+    hasNext: queryResult.data?.has_next,
+    hasPrevious: queryResult.data?.has_previous,
+    canPaginate,
+    setCurrentPage,
+    setPageSize,
+    setSearchTerm,
+  });
 
   return {
     currentPage,
-    totalPages: derived.totalPages,
     pageSize,
-    paginatedData: derived.paginatedData,
-    totalCount: derived.totalCount,
-    isLoading: derived.isLoading,
-    errorMessage: derived.errorMessage,
-    isMissingData: derived.isMissingData,
+    ...derived,
     isEmpty: !derived.isLoading && !derived.errorMessage && !derived.isMissingData && derived.paginatedData.length === 0,
-    goToPage,
-    nextPage,
-    prevPage,
-    changePageSize,
-    setSearchTerm: handleSearchTerm,
+    goToPage: handlers.goToPage,
+    nextPage: handlers.nextPage,
+    prevPage: handlers.prevPage,
+    changePageSize: handlers.changePageSize,
+    setSearchTerm: handlers.handleSearchTerm,
   };
 };
 
-const useMasterItemMenuState = (): Pick<MasterItemContainerState, "isMoreOpen" | "toggleMore" | "goDelete" | "handleCloseMore" | "handleConfirm"> => {
+/**
+ * @returns {Pick<MasterItemContainerState, "isMoreOpen" | "toggleMore" | "goDelete" | "handleCloseMore" | "handleConfirm">} Menu state
+ */
+const useMasterItemMenuState = (): Pick<
+  MasterItemContainerState,
+  "isMoreOpen" | "toggleMore" | "goDelete" | "handleCloseMore" | "handleConfirm"
+> => {
   const [isMoreOpen, setIsMoreOpen] = useState(false);
+  /**
+   * Toggle more menu.
+   * @returns {void} No return value
+   */
   const toggleMore = (): void => setIsMoreOpen((previous) => !previous);
+  /**
+   * Close more menu.
+   * @returns {void} No return value
+   */
   const handleCloseMore = (): void => setIsMoreOpen(false);
+  /**
+   * Close menu before delete flow.
+   * @returns {void} No return value
+   */
   const goDelete = (): void => handleCloseMore();
+  /**
+   * Confirm delete action.
+   * @returns {void} No return value
+   */
   const handleConfirm = (): void => {};
+
   return { isMoreOpen, toggleMore, handleCloseMore, goDelete, handleConfirm };
 };
 
+/**
+ * Manage Master Item container state.
+ * @returns {MasterItemContainerState} Container state
+ */
 export const useMasterItemContainerState = (): MasterItemContainerState => {
   const navigation = useMasterItemNavigation();
   const pagination = useMasterItemPagination();
   const menu = useMasterItemMenuState();
+
   return { ...navigation, pagination, ...menu };
 };
-
-

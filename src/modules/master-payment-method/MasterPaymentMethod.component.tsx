@@ -15,8 +15,11 @@ import type { MasterPaymentMethodProps, PaymentMethodData } from "./MasterPaymen
  */
 const _renderListState = (props: MasterPaymentMethodProps): React.ReactElement | null => {
   if (props.isLoading) return <p className="py-10 text-center text-sm text-text-secondary">Loading payment methods…</p>;
+
   if (props.isMissingData) return <p className="py-10 text-center text-sm text-red-600">Payment method data is unavailable. Please try again.</p>;
+
   if (props.errorMessage) return <p className="py-10 text-center text-sm text-red-600">{props.errorMessage}</p>;
+
   if (props.isEmpty) return <p className="py-10 text-center text-sm text-text-secondary">No payment methods found.</p>;
 
   return null;
@@ -29,7 +32,14 @@ const _renderListState = (props: MasterPaymentMethodProps): React.ReactElement |
  * @returns {React.ReactElement} Card element
  */
 const _renderPaymentMethodCard = (paymentMethod: PaymentMethodData, onEdit: MasterPaymentMethodProps["onEdit"]): React.ReactElement => {
+  /**
+   *
+   */
   const handleCardClick = (): void => onEdit(paymentMethod);
+  /**
+   *
+   * @param event
+   */
   const handleCardKeyDown = (event: React.KeyboardEvent<HTMLDivElement>): void => {
     if (event.key === "Enter" || event.key === " ") handleCardClick();
   };
@@ -63,6 +73,10 @@ const _renderPaymentMethodCard = (paymentMethod: PaymentMethodData, onEdit: Mast
  */
 const _renderMobile = (props: MasterPaymentMethodProps): React.ReactElement => {
   const { paginatedData, currentPage, totalPages, pageSize, totalCount, goToPage, changePageSize, setSearchTerm, onEdit } = props;
+  /**
+   *
+   * @param event
+   */
   const handleSearch = (event: React.ChangeEvent<HTMLInputElement>): void => setSearchTerm(event.target.value);
 
   return (
@@ -94,7 +108,15 @@ const _renderMobile = (props: MasterPaymentMethodProps): React.ReactElement => {
  */
 const _renderDesktop = (props: MasterPaymentMethodProps): React.ReactElement => {
   const { paginatedData, columns, currentPage, totalPages, pageSize, totalCount, goToPage, changePageSize, setSearchTerm, onCreate, onRowClick } = props;
+  /**
+   *
+   * @param event
+   */
   const handleSearch = (event: React.ChangeEvent<HTMLInputElement>): void => setSearchTerm(event.target.value);
+  /**
+   *
+   * @param row
+   */
   const keyExtractor = (row: PaymentMethodData): string => row.id;
 
   return (

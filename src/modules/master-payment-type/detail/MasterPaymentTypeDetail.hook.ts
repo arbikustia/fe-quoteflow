@@ -1,13 +1,17 @@
-/* eslint-disable jsdoc/require-jsdoc */
 import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-
-import { MOCK_PAYMENT_TYPES } from "@/fixture/master-payment-type";
 
 import type { PaymentTypeData } from "../MasterPaymentType.type";
 
 import type { MasterPaymentTypeDetailMenuState, MasterPaymentTypeDetailState } from "./MasterPaymentTypeDetail.type";
 
+import type { PaymentTypeDetailResponse } from "@/services/master-payment-type.service";
+import { mapPaymentType, useGetPaymentTypeByIdQuery } from "@/services/master-payment-type.service";
+
+/**
+ * Manage menu state for master payment type detail.
+ * @returns {MasterPaymentTypeDetailMenuState} Menu state and handlers
+ */
 const useDetailMenuState = (): MasterPaymentTypeDetailMenuState => {
   const [isMoreOpen, setIsMoreOpen] = useState(false);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
@@ -20,6 +24,21 @@ const useDetailMenuState = (): MasterPaymentTypeDetailMenuState => {
 };
 
 /**
+ * Resolve payment type detail from query response.
+ * @param {PaymentTypeDetailResponse | undefined} response - API response
+ * @returns {PaymentTypeData | null} Payment type or null
+ */
+const _resolvePaymentType = (response: PaymentTypeDetailResponse | undefined): PaymentTypeData | null => {
+  if (!response?.status || !response.data) {
+    return null;
+  }
+
+  const item = Array.isArray(response.data) ? response.data[0] : response.data;
+
+  return item ? mapPaymentType(item) : null;
+};
+
+/**
  * Manage payment type detail state.
  * @returns {MasterPaymentTypeDetailState} Detail state
  */
@@ -27,7 +46,9 @@ export const useMasterPaymentTypeDetail = (): MasterPaymentTypeDetailState => {
   const navigate = useNavigate();
   const { id } = useParams<{ readonly id: string }>();
   const menuState = useDetailMenuState();
-  const paymentType: PaymentTypeData | null = MOCK_PAYMENT_TYPES.find((item) => item.id === id) ?? null;
+  const { data: detailResponse } = useGetPaymentTypeByIdQuery(id ?? "", { skip: !id });
+  const paymentType: PaymentTypeData | null = _resolvePaymentType(detailResponse);
+
   const goBack = (): void => { navigate(-1); };
   const goEdit = (): void => {
     menuState.closeMore();
@@ -36,7 +57,10 @@ export const useMasterPaymentTypeDetail = (): MasterPaymentTypeDetailState => {
       navigate(`/master-payment-type/edit/${paymentType.id}`, { state: { paymentType } });
     }
   };
-  const handleDelete = (): void => { menuState.closeDeleteModal(); navigate("/master-payment-type"); };
+  const handleDelete = (): void => {
+    menuState.closeDeleteModal();
+    navigate("/master-payment-type");
+  };
 
   return { paymentType, goBack, goEdit, handleDelete, ...menuState };
 };

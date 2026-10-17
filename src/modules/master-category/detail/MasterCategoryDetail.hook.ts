@@ -1,19 +1,23 @@
 import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
-import { MOCK_CATEGORIES } from "@/fixture/master-category";
+import { mapCategory, useGetCategoryByIdQuery } from "@/services/master-category.service";
 
 import type { MasterCategoryDetailMenuState, MasterCategoryDetailState } from "./MasterCategoryDetail.type";
-import type { CategoryData } from "../MasterCategory.type";
+import type { CategoryData, CategoryDetailResponse } from "../MasterCategory.type";
 
 /**
- * Resolve a category from the current route ID.
- * @param {string | undefined} id - Route category ID
- * @returns {CategoryData | null} Matching category or null
+ * Resolve category API response to UI category data.
+ * @param {CategoryDetailResponse | undefined} response - Category API response
+ * @returns {CategoryData | null} Category data or null
  */
-const _getCategory = (id: string | undefined): CategoryData | null => (
-  MOCK_CATEGORIES.find((category) => category.id === id) ?? null
-);
+const _getCategory = (response: CategoryDetailResponse | undefined): CategoryData | null => {
+  if (!response?.status || !response.data) {
+    return null;
+  }
+
+  return mapCategory(response.data);
+};
 
 /**
  * Hook to manage detail action menu state.
@@ -41,7 +45,8 @@ const useDetailMenuState = (): MasterCategoryDetailMenuState => {
 export const useMasterCategoryDetail = (): MasterCategoryDetailState => {
   const navigate = useNavigate();
   const { id } = useParams<{ readonly id: string }>();
-  const category = _getCategory(id);
+  const { data: categoryResponse } = useGetCategoryByIdQuery(id ?? "", { skip: !id });
+  const category = _getCategory(categoryResponse);
   const menuState = useDetailMenuState();
   const { closeMore, closeDeleteModal } = menuState;
 

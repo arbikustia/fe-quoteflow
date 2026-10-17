@@ -1,8 +1,7 @@
-import type * as React from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-import { mapCategory, useCreateCategoryMutation, useGetAllCategoriesQuery, useGetCategoriesQuery } from "@/services/master-category.service";
+import { mapCategory, useGetAllCategoriesQuery, useGetCategoriesQuery } from "@/services/master-category.service";
 
 import type {
   BaseCategoryState,
@@ -13,7 +12,6 @@ import type {
   CategorySelectState,
   ConfirmModalState,
   MasterCategoryContainerState,
-  MasterCategoryCreateFormState,
   MasterCategoryNavigation,
   MasterCategoryPagination,
   ModalState,
@@ -196,43 +194,6 @@ const useConfirmModalState = (): ConfirmModalState => {
   const onConfirmDelete = (): void => { closeConfirmModal(); };
 
   return { isConfirmModalOpen, deletingCategory, openConfirmModal, closeConfirmModal, onConfirmDelete };
-};
-
-/**
- * Hook managing category creation form and API submission.
- * @returns {MasterCategoryCreateFormState} Form state and handlers
- */
-export const useMasterCategoryCreate = (): MasterCategoryCreateFormState => {
-  const navigate = useNavigate();
-  const [name, setName] = useState("");
-  const [createCategory, { isLoading: isSubmitting }] = useCreateCategoryMutation();
-  const [errorMessage, setErrorMessage] = useState<string | null>(null);
-  const [successMessage, setSuccessMessage] = useState<string | null>(null);
-
-  const handleNameChange = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>): void => setName(event.target.value);
-  const handleSubmit = async (event: React.SyntheticEvent): Promise<void> => {
-    event.preventDefault();
-    setErrorMessage(null);
-    setSuccessMessage(null);
-
-    try {
-      const response = await createCategory({ category_name: name, status: 1 }).unwrap();
-
-      if (!response.status) {
-        setErrorMessage(Array.isArray(response.messages) ? response.messages.join(" ") : (response.messages ?? "Category request failed."));
-
-        return;
-      }
-
-      setSuccessMessage("Category created successfully.");
-      navigate("/master-category");
-    } catch {
-      setErrorMessage("Unable to create category. Please try again.");
-    }
-  };
-  const goBack = (): void => { navigate(-1); };
-
-  return { name, isSubmitting, errorMessage, successMessage, handleNameChange, handleSubmit, goBack };
 };
 
 /**

@@ -1,1 +1,1 @@
-export { default } from "./MasterCustomer.wrapper";
+export { default } from "./MasterCustomer.container";

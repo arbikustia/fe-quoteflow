@@ -69,6 +69,11 @@ const _renderStatusField = (props: MasterCustomerCreateFormState): ReactElement 
     </div>
   );
 };
+/**
+ * Render address field.
+ * @param {MasterCustomerCreateFormState} props - Form state
+ * @returns {ReactElement} Field element
+ */
 const _renderAddressField = (props: MasterCustomerCreateFormState): ReactElement => (
   <InputField
     label="Address"
@@ -127,14 +132,35 @@ const _renderHeaderSection = (isEditMode: boolean, goBack: () => void): ReactEle
 };
 
 /**
+ * Render submit button section
+ * @param {boolean} isSubmitting - Submitting state
+ * @param {boolean} isEditMode - Edit mode flag
+ * @returns {ReactElement} Submit section
+ */
+const _renderSubmitSection = (isSubmitting: boolean, isEditMode: boolean): ReactElement => {
+  const buttonText = isEditMode ? "Update Customer" : "Create Customer";
+  const submittingText = isEditMode ? "Updating…" : "Creating…";
+
+  return (
+    <div className="mt-8 flex justify-end border-t border-border-default/60 pt-5 lg:mt-6 lg:border-border-default">
+      <button
+        type="submit"
+        disabled={isSubmitting}
+        className="h-14 w-full cursor-pointer rounded-xl bg-action-primary px-8 text-sm font-semibold tracking-wide text-text-inverse shadow-xs transition-all hover:bg-action-primary-hover disabled:opacity-60 sm:w-auto"
+      >
+        {isSubmitting ? submittingText : buttonText}
+      </button>
+    </div>
+  );
+};
+
+/**
  * Master Customer Create Form
  * @param {MasterCustomerCreateFormState} props - Form props
  * @returns {ReactElement} Create form
  */
 export const MasterCustomerCreateForm = (props: MasterCustomerCreateFormState): ReactElement => {
   const { isEditMode, isLoadingInitialData, isSubmitting, errorMessage, successMessage, handleSubmit, goBack } = props;
-  const buttonText = isEditMode ? "Update Customer" : "Create Customer";
-  const submittingText = isEditMode ? "Updating…" : "Creating…";
 
   return (
     <div className="flex h-full w-full flex-col bg-background-surface font-sans pb-6 lg:bg-background-page">
@@ -153,15 +179,7 @@ export const MasterCustomerCreateForm = (props: MasterCustomerCreateFormState): 
               {errorMessage && <p role="alert" className="mb-2 rounded-lg border border-red-200 bg-red-50 px-3 py-2 text-[13px] font-medium text-red-700 lg:col-span-2">{errorMessage}</p>}
               {successMessage && <p role="status" className="mb-2 rounded-lg border border-green-200 bg-green-50 px-3 py-2 text-[13px] font-medium text-green-700 lg:col-span-2">{successMessage}</p>}
             </div>
-            <div className="mt-8 flex justify-end border-t border-border-default/60 pt-5 lg:mt-6 lg:border-border-default">
-              <button
-                type="submit"
-                disabled={isSubmitting}
-                className="h-14 w-full cursor-pointer rounded-xl bg-action-primary px-8 text-sm font-semibold tracking-wide text-text-inverse shadow-xs transition-all hover:bg-action-primary-hover disabled:opacity-60 sm:w-auto"
-              >
-                {isSubmitting ? submittingText : buttonText}
-              </button>
-            </div>
+            {_renderSubmitSection(isSubmitting, isEditMode)}
           </form>
         )}
       </div>

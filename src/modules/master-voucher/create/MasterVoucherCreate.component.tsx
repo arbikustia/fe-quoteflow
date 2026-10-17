@@ -1,7 +1,8 @@
 import type { ReactElement } from "react";
 
-import Layout from "@/app/layout";
 import type { MasterVoucherCreateFormState } from "./MasterVoucherCreate.type";
+
+import Layout from "@/app/layout";
 
 /**
  * Render status switch field (edit mode only).

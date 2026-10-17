@@ -1,17 +1,15 @@
-import type * as React from "react";
 import { useState } from "react";
-import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import type {
   MasterRoleContainerState,
-  MasterRoleCreateFormState,
   MasterRoleNavigation,
   MasterRolePagination,
   RoleData,
   RoleListApiState,
 } from "./MasterRole.type";
 
-import { mapRole, useCreateRoleMutation, useGetRolesQuery, useUpdateRoleMutation } from "@/services/master-role.service";
+import { mapRole, useCreateRoleMutation, useGetRolesQuery } from "@/services/master-role.service";
 
 /**
  * Navigation hook
@@ -192,82 +190,7 @@ export const useMasterRolePagination = (): MasterRolePagination => {
   };
 };
 
-/**
- * Hook for master role create form.
- * @returns {MasterRoleCreateFormState} role create form state
- */
-export const useMasterRoleCreateForm = (): MasterRoleCreateFormState => {
-  const navigate = useNavigate();
-  const location = useLocation();
-  const { id } = useParams<{ readonly id?: string }>();
-  const isEditMode = Boolean(id);
-  const routeRole = location.state?.role;
-  const [roleName, setRoleName] = useState(routeRole?.roleName ?? "");
-  const [isActive, setIsActive] = useState(routeRole?.status === "active");
-  const [errorMessage, setErrorMessage] = useState<string | null>(null);
-  const [createRole, { isLoading: isCreating }] = useCreateRoleMutation();
-  const [updateRole, { isLoading: isUpdating }] = useUpdateRoleMutation();
-  const isSubmitting = isCreating || isUpdating;
-
-  /**
-   * Handle role name change.
-   * @param {React.ChangeEvent<HTMLInputElement>} event - Input event
-   * @returns {void} void
-   */
-  const handleRoleNameChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
-    setRoleName(event.target.value);
-  };
-
-  const handleStatusChange = (): void => {
-    setIsActive((currentIsActive) => !currentIsActive);
-  };
-
-  /**
-   * Submit role creation request.
-   * @param {React.SyntheticEvent} event - Form event
-   * @returns {Promise<void>} Submission result
-   */
-  const handleSubmit = async (event: React.SyntheticEvent): Promise<void> => {
-    event.preventDefault();
-    setErrorMessage(null);
-
-    if (!roleName.trim()) {
-      setErrorMessage("Role name is required.");
-
-      return;
-    }
-
-    try {
-      const response = isEditMode && id
-        ? await updateRole({ id, role: roleName, status: isActive ? 1 : 0 }).unwrap()
-        : await createRole({ role: roleName, status: 1 }).unwrap();
-
-      if (!response.status) {
-        const message = Array.isArray(response.messages)
-          ? response.messages.join(" ")
-          : (response.messages ?? "Failed to create role.");
-
-        setErrorMessage(message);
-
-        return;
-      }
-
-      navigate("/master-role");
-    } catch {
-      setErrorMessage("Unable to create role. Please try again.");
-    }
-  };
-
-  /**
-   * Navigate back from role form.
-   * @returns {void} void
-   */
-  const goBack = (): void => {
-    navigate(-1);
-  };
-
-  return { roleName, isActive, isEditMode, isSubmitting, errorMessage, handleRoleNameChange, handleStatusChange, handleSubmit, goBack };
-};
+export { useMasterRoleCreateForm } from "./create/MasterRoleCreate.hook";
 
 /**
  * Hook for master role create mutation.

@@ -39,7 +39,6 @@ const _renderDetails = (customer: CustomerData): React.ReactElement => (
 /**
  * Render card header actions.
  * @param {CustomerData} customer - Customer data
- * @param {CustomerMobileCardProps["onEdit"]} onEdit - Edit callback
  * @returns {React.ReactElement} Header node
  */
 const _renderHeader = (customer: CustomerData): React.ReactElement => (
@@ -58,17 +57,17 @@ const _renderHeader = (customer: CustomerData): React.ReactElement => (
  * @param {CustomerMobileCardProps} props - Props for card
  * @returns {React.ReactElement} Card node
  */
-export const CustomerMobileCard = ({ customer, isDetail = false, onEdit, onDetail }: CustomerMobileCardProps): React.ReactElement => {
+export const CustomerMobileCard = (props: CustomerMobileCardProps): React.ReactElement => {
+  const { customer, isDetail = false, onEdit, onDetail } = props;
+
   /**
    * Handle card click
    * @returns {void}
    */
   const handleClick = (): void => {
-    if (isDetail) {
-      onDetail(customer);
-    } else {
-      onEdit(customer);
-    }
+    const handleAction = isDetail ? onDetail : onEdit;
+
+    handleAction(customer);
   };
 
   return (

@@ -24,7 +24,7 @@ const _renderNo = (_: UserData, index: number, currentPage: number, pageSize: nu
  */
 const _renderRole = (row: UserData): React.ReactElement => (
   <span className={`font-bold ${row.role === "Admin" ? "text-brand-blue" : "text-brand-text-medium"}`}>
-    {row.role}
+    {row.role ?? "-"}
   </span>
 );
 
@@ -44,7 +44,7 @@ const _renderStatus = (row: UserData): React.ReactElement => (
  * @param {UserData} row - user data
  * @returns {string} string
  */
-const _renderDate = (row: UserData): string => row.createAt;
+const _renderDate = (row: UserData): string => row.createAt ?? "-";
 
 /**
  * Get Basic Columns

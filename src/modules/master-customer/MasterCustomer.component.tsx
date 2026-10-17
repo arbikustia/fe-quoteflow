@@ -99,6 +99,11 @@ const _renderMobileCards = (props: MasterCustomerProps): React.ReactElement => {
  * @returns {React.ReactElement} Search field
  */
 const _renderMobileSearch = (setSearchTerm: MasterCustomerProps["setSearchTerm"]): React.ReactElement => {
+  /**
+   * Handle mobile search input.
+   * @param {React.ChangeEvent<HTMLInputElement>} event - Search change event
+   * @returns {void}
+   */
   const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>): void => setSearchTerm(event.target.value);
 
   return <SearchFilter placeholder="Search customer" onChange={handleSearchChange} isRoundedFull={true} className="w-full sm:w-full" />;

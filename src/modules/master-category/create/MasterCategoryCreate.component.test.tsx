@@ -37,7 +37,12 @@ describe("MasterCategoryCreateForm", () => {
     const props = createProps();
     render(<MasterCategoryCreateForm {...props} />);
 
-    fireEvent.submit(screen.getByRole("button", { name: "Create Category" }).closest("form")!);
+    const button = screen.getByRole("button", { name: "Create Category" });
+    const form = button.closest("form");
+
+    if (form) {
+      fireEvent.submit(form);
+    }
 
     expect(props.handleSubmit).toHaveBeenCalledTimes(1);
   });

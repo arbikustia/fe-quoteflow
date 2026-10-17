@@ -1,20 +1,24 @@
 import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
-import { MOCK_CUSTOMERS } from "@/fixture/master-customer";
-
-import type { CustomerData } from "../MasterCustomer.type";
+import type { CustomerData, CustomerDetailResponse } from "../MasterCustomer.type";
 
 import type { MasterCustomerDetailMenuState, MasterCustomerDetailState } from "./MasterCustomerDetail.type";
 
+import { mapCustomer, useGetCustomerByIdQuery } from "@/services/master-customer.service";
+
 /**
- * Resolve a customer from the current route ID.
- * @param {string | undefined} id - Route customer ID
- * @returns {CustomerData | null} Matching customer or null
+ * Resolve customer API response to UI customer data.
+ * @param {CustomerDetailResponse | undefined} response - Customer API response
+ * @returns {CustomerData | null} Customer data or null
  */
-const _getCustomer = (id: string | undefined): CustomerData | null => (
-  MOCK_CUSTOMERS.find((item) => item.id === id) ?? null
-);
+const _getCustomer = (response: CustomerDetailResponse | undefined): CustomerData | null => {
+  if (!response?.status || !response.data) {
+    return null;
+  }
+
+  return Array.isArray(response.data) ? mapCustomer(response.data[0]) : mapCustomer(response.data);
+};
 
 /**
  * Hook to manage detail action menu state.
@@ -46,7 +50,8 @@ const useDetailMenuState = (): MasterCustomerDetailMenuState => {
 export const useMasterCustomerDetail = (): MasterCustomerDetailState => {
   const navigate = useNavigate();
   const { id } = useParams<{ readonly id: string }>();
-  const customer = _getCustomer(id);
+  const { data: customerResponse } = useGetCustomerByIdQuery(id ?? "", { skip: !id });
+  const customer = _getCustomer(customerResponse);
   const menuState = useDetailMenuState();
   const { closeMore, closeDeleteModal } = menuState;
 

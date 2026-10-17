@@ -25,7 +25,14 @@ export const getVoucherDownloadFilename = (voucher: VoucherData): string =>
 const _loadImage = (source: string): Promise<HTMLImageElement> =>
   new Promise((resolve, reject) => {
     const image = new Image();
+
+    /**
+     *
+     */
     image.onload = (): void => resolve(image);
+    /**
+     *
+     */
     image.onerror = (): void =>
       reject(new Error("Voucher template could not be loaded."));
     image.src = source;
@@ -45,10 +52,12 @@ export const downloadVoucherTemplate = async (
     document.fonts.ready,
   ]);
   const canvas = document.createElement("canvas");
+
   canvas.width = VOUCHER_WIDTH;
   canvas.height = VOUCHER_HEIGHT;
 
   const context = canvas.getContext("2d");
+
   if (!context) {
     throw new Error("Voucher image canvas is unavailable.");
   }
@@ -57,6 +66,7 @@ export const downloadVoucherTemplate = async (
 
   // Template branding, background, ornaments, and layout remain untouched.
   const discountText = `${voucher.discountPercent}%`;
+
   context.fillStyle = PALE_BLUE;
   context.fillRect(900, 290, 650, 225);
   context.fillStyle = NAVY;
@@ -66,6 +76,7 @@ export const downloadVoucherTemplate = async (
   context.fillText(discountText, 1230, 480);
 
   const underlineWidth = Math.ceil(context.measureText(discountText).width);
+
   context.fillStyle = ORANGE;
   context.fillRect(1230 - underlineWidth / 2, 500, underlineWidth, 7);
 
@@ -97,11 +108,13 @@ export const downloadVoucherTemplate = async (
   const codeFontSize = renderedCodeWidth > codeWidth
     ? Math.floor((86 * codeWidth) / renderedCodeWidth)
     : 86;
+
   context.font = `900 ${codeFontSize}px Poppins, Arial, sans-serif`;
   context.fillText(codeText, codeCenter, 647);
   context.restore();
 
   const link = document.createElement("a");
+
   link.href = canvas.toDataURL("image/jpeg", 0.95);
   link.download = getVoucherDownloadFilename(voucher);
   link.click();

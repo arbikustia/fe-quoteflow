@@ -1,10 +1,12 @@
-/* eslint-disable jsdoc/require-returns */
 import type { ReactElement } from "react";
 
 import { MasterItemDetailComponent } from "./MasterItemDetail.component";
 import { useMasterItemDetail } from "./MasterItemDetail.hook";
 
-/** Item detail page. @returns {ReactElement} Page */
+/**
+ * Render Master Item detail container.
+ * @returns {ReactElement} Item detail page element
+ */
 const MasterItemDetailContainer = (): ReactElement => {
   const detailState = useMasterItemDetail();
 

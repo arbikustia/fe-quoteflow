@@ -1,12 +1,11 @@
 import * as React from "react";
 
+import type { CategoryData, MasterCategoryProps } from "./MasterCategory.type";
 import Layout from "../../app/layout";
 import { PageLayout } from "../../app/shared/PageLayout";
 import { Pagination } from "../../components/Pagination";
 import { SearchFilter } from "../../components/SearchFilter";
 import Table from "../../components/Table";
-
-import type { CategoryData, MasterCategoryProps } from "./MasterCategory.type";
 
 const _renderListState = (props: MasterCategoryProps): React.ReactElement | null => {
   if (props.isLoading) return <p className="py-10 text-center text-sm text-brand-text-medium">Loading categories…</p>;

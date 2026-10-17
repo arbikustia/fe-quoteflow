@@ -5,169 +5,194 @@
 
 import type { TableColumn } from "../../components/Table";
 import type { ApiEnvelope, PaginatedResponse } from "../../types/api.type";
-import type { MasterBase } from "../../types/master";
 
 export type ApiItem = {
-  readonly id: string;
-  readonly name: string;
-  readonly category_id: string | null;
-  readonly category_name?: string | null;
-  readonly price: number | null;
-  readonly stock: number | null;
-  readonly image: string | null;
-  readonly duration: number | null;
-  readonly remark: string | null;
-  readonly status: number;
-  readonly created_at: string | null;
-  readonly created_by: string | null;
+  id: string;
+  name: string;
+  category_id: string | null;
+  category_name?: string | null;
+  price: number | null;
+  stock: number | null;
+  image: string | null;
+  duration: number | null;
+  remark: string | null;
+  status: number;
+  created_at: string | null;
+  created_by: string | null;
 };
 
-export type ItemListResponse = PaginatedResponse<ApiItem>;
+export type ItemListResponse = ApiEnvelope<ApiItem[] | null> & PaginatedResponse<ApiItem>;
 export type ItemCreateResponse = ApiEnvelope<ApiItem | null>;
+export type ItemDetailResponse = ApiEnvelope<ApiItem | null>;
 
 export type ItemListParams = {
-  readonly pageNumber: number;
-  readonly pageSize: number;
-  readonly searchTerm: string;
+  pageNumber: number;
+  pageSize: number;
+  searchTerm: string;
 };
 
 export type ItemCreatePayload = {
-  readonly name: string;
-  readonly category_id: string;
-  readonly price: number;
-  readonly stock: number;
-  readonly image: string;
-  readonly duration: number;
-  readonly remark: string;
-  readonly status: number;
+  name: string;
+  category_id: string;
+  price: number;
+  stock: number;
+  image: string;
+  duration: number;
+  remark: string;
+  status: number;
 };
 
 export type ItemUpdatePayload = ItemCreatePayload & {
-  readonly id: string;
+  id: string;
 };
 
 export type MasterItemCreateState = {
-  readonly createItem: (payload: ItemCreatePayload) => Promise<ItemCreateResponse>;
-  readonly isCreating: boolean;
+  createItem: (payload: ItemCreatePayload) => Promise<ItemCreateResponse>;
+  isCreating: boolean;
 };
 
 /** Item data structure */
-export type ItemData = MasterBase & {
-  readonly name: string;
-  readonly categoryId: string;
-  readonly categoryName: string;
-  readonly price: number;
-  readonly stock: number;
-  readonly image: string;
-  readonly duration: number;
-  readonly remark: string;
+export type ItemData = {
+  id: string;
+  name: string;
+  categoryId: string | null;
+  categoryName: string | null;
+  price: number;
+  stock: number;
+  image: string | null;
+  duration: number;
+  remark: string | null;
+  status: "active" | "inactive";
+  createAt: string | null;
+  createBy: string | null;
 };
 
 /** Master Item component props */
 export type MasterItemProps = {
-  readonly currentPage: number;
-  readonly totalPages: number;
-  readonly pageSize: number;
-  readonly paginatedData: readonly ItemData[];
-  readonly goToPage: (page: number) => void;
-  readonly nextPage: () => void;
-  readonly prevPage: () => void;
-  readonly changePageSize: (size: number) => void;
-  readonly totalCount: number;
-  readonly columns: readonly TableColumn<ItemData>[];
-  readonly onCreate: () => void;
-  readonly onEdit: (item: ItemData) => void;
-  readonly onRowClick: (item: ItemData) => void;
-  readonly onMore?: () => void;
-  readonly isMoreOpen: boolean;
-  readonly onCloseMore: () => void;
-  readonly onDelete: () => void;
-  readonly onBack: () => void;
-  readonly isLoading: boolean;
-  readonly errorMessage: string | null;
-  readonly isEmpty: boolean;
-  readonly isMissingData: boolean;
-  readonly setSearchTerm: (searchTerm: string) => void;
+  currentPage: number;
+  totalPages: number;
+  pageSize: number;
+  paginatedData: ItemData[];
+  goToPage: (page: number) => void;
+  nextPage: () => void;
+  prevPage: () => void;
+  changePageSize: (size: number) => void;
+  totalCount: number;
+  columns: TableColumn<ItemData>[];
+  onCreate: () => void;
+  onEdit: (item: ItemData) => void;
+  onRowClick: (item: ItemData) => void;
+  onMore?: () => void;
+  isMoreOpen: boolean;
+  onCloseMore: () => void;
+  onDelete: () => void;
+  onBack: () => void;
+  isLoading: boolean;
+  errorMessage: string | null;
+  isEmpty: boolean;
+  isMissingData: boolean;
+  setSearchTerm: (searchTerm: string) => void;
 };
 
 /** Toolbar props */
 export type ItemToolbarProps = {
-  readonly pageSize: number;
-  readonly totalCount: number;
-  readonly changePageSize: (size: number) => void;
+  pageSize: number;
+  totalCount: number;
+  changePageSize: (size: number) => void;
 };
 
 /** API list state */
 export type ItemListApiState = {
-  readonly isLoading: boolean;
-  readonly errorMessage: string | null;
-  readonly isMissingData: boolean;
-  readonly paginatedData: readonly ItemData[];
-  readonly totalPages: number;
-  readonly totalCount: number;
+  isLoading: boolean;
+  errorMessage: string | null;
+  isMissingData: boolean;
+  paginatedData: ItemData[];
+  totalPages: number;
+  totalCount: number;
 };
 
 /** Action buttons props */
 export type ItemActionProps = {
-  readonly row: ItemData;
-  readonly onEdit: (item: ItemData) => void;
-  readonly onConfirm: (item: ItemData) => void;
+  row: ItemData;
+  onEdit: (item: ItemData) => void;
+  onConfirm: (item: ItemData) => void;
 };
 
 /** Modal state */
 export type ModalState = {
-  readonly isModalOpen: boolean;
-  readonly editingItem: ItemData | null;
-  readonly openCreateModal: () => void;
-  readonly openEditModal: (item: ItemData) => void;
-  readonly closeModal: () => void;
+  isModalOpen: boolean;
+  editingItem: ItemData | null;
+  openCreateModal: () => void;
+  openEditModal: (item: ItemData) => void;
+  closeModal: () => void;
 };
 
 /** Confirm modal state */
 export type ConfirmModalState = {
-  readonly isConfirmModalOpen: boolean;
-  readonly deletingItem: ItemData | null;
-  readonly openConfirmModal: (item: ItemData) => void;
-  readonly closeConfirmModal: () => void;
-  readonly onConfirmDelete: () => void;
+  isConfirmModalOpen: boolean;
+  deletingItem: ItemData | null;
+  openConfirmModal: (item: ItemData) => void;
+  closeConfirmModal: () => void;
+  onConfirmDelete: () => void;
 };
 
 /** Base item state */
 export type BaseItemState = ModalState & ConfirmModalState;
 
+/** Mobile item card props */
+export type MobileItemCardProps = {
+  item: ItemData;
+  onEdit: (item: ItemData) => void;
+};
+
+/** Required item fields. */
+export type RequiredItemFields = {
+  name: string;
+  categoryId: string;
+  price: string;
+  stock: string;
+  duration: string;
+};
+
+/** Action button props */
+export type ActionButtonProps = {
+  row: ItemData;
+  onEdit: (item: ItemData) => void;
+};
+
 /** GetColumns params */
 export type GetColumnsParams = {
-  readonly currentPage: number;
-  readonly pageSize: number;
-  readonly onEdit: (item: ItemData) => void;
+  currentPage: number;
+  pageSize: number;
+  onEdit: (item: ItemData) => void;
 };
 
 /** Navigation hook return type */
 export type MasterItemNavigation = {
-  readonly goBack: () => void;
-  readonly goCreate: () => void;
-  readonly goEdit: (item: ItemData) => void;
-  readonly goDetail: (item: ItemData) => void;
+  goBack: () => void;
+  goCreate: () => void;
+  goEdit: (item: ItemData) => void;
+  goDetail: (item: ItemData) => void;
 };
 
 /** Master item pagination state */
 export type MasterItemPagination = ItemListApiState & {
-  readonly currentPage: number;
-  readonly pageSize: number;
-  readonly isEmpty: boolean;
-  readonly goToPage: (page: number) => void;
-  readonly nextPage: () => void;
-  readonly prevPage: () => void;
-  readonly changePageSize: (size: number) => void;
-  readonly setSearchTerm: (searchTerm: string) => void;
+  currentPage: number;
+  pageSize: number;
+  isEmpty: boolean;
+  goToPage: (page: number) => void;
+  nextPage: () => void;
+  prevPage: () => void;
+  changePageSize: (size: number) => void;
+  setSearchTerm: (searchTerm: string) => void;
 };
 
 /** Container state hook return type */
 export type MasterItemContainerState = MasterItemNavigation & {
-  readonly pagination: MasterItemPagination;
-  readonly isMoreOpen: boolean;
-  readonly toggleMore: () => void;
-  readonly goDelete: () => void;
-  readonly handleCloseMore: () => void;
-  readonly handleConfirm: () => void;
+  pagination: MasterItemPagination;
+  isMoreOpen: boolean;
+  toggleMore: () => void;
+  goDelete: () => void;
+  handleCloseMore: () => void;
+  handleConfirm: () => void;
 };

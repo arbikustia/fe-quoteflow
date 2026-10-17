@@ -1,66 +1,64 @@
-/* eslint-disable jsdoc/require-param-type, jsdoc/require-param-description, jsdoc/require-returns */
 import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
-import { MOCK_ITEMS } from "@/fixture/master-item";
-
 import type { ItemData } from "../MasterItem.type";
 
-import type { MasterItemDetailState } from "./MasterItemDetail.type";
+import type { MasterItemDetailMenuState, MasterItemDetailState } from "./MasterItemDetail.type";
+
+import { mapItem, useGetItemByIdQuery } from "@/services/master-item.service";
 
 /**
- * Resolve item from route ID. @param {string | undefined} id - Route ID @returns {ItemData | null} Item
- * @param id
+ * Manage item detail menu and modal state.
+ * @returns {MasterItemDetailMenuState} Menu state and handlers
  */
-const _getItem = (id: string | undefined): ItemData | null => MOCK_ITEMS.find((item) => item.id === id) ?? null;
-
-/** Manage item detail state and actions. @returns {MasterItemDetailState} Detail state */
-export const useMasterItemDetail = (): MasterItemDetailState => {
-  const navigate = useNavigate();
-  const { id } = useParams<{ readonly id: string }>();
+const useDetailMenuState = (): MasterItemDetailMenuState => {
   const [isMoreOpen, setIsMoreOpen] = useState(false);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
-  const item = _getItem(id);
-  /**
-   *
-   */
-  const goBack = (): void => { navigate(-1); };
-  /**
-   *
-   */
+  /** Toggle more menu. @returns {void} No return value */
   const toggleMore = (): void => { setIsMoreOpen((previous) => !previous); };
-  /**
-   *
-   */
+  /** Close more menu. @returns {void} No return value */
   const closeMore = (): void => { setIsMoreOpen(false); };
-  /**
-   *
-   */
+  /** Open delete confirmation. @returns {void} No return value */
+  const openDeleteModal = (): void => { closeMore(); setIsDeleteModalOpen(true); };
+  /** Close delete confirmation. @returns {void} No return value */
+  const closeDeleteModal = (): void => { setIsDeleteModalOpen(false); };
+
+  return { isMoreOpen, isDeleteModalOpen, toggleMore, closeMore, openDeleteModal, closeDeleteModal };
+};
+
+/**
+ * Resolve API response item.
+ * @param {Parameters<typeof mapItem>[0] | null | undefined} item - API item
+ * @returns {ItemData | null} Item data or null
+ */
+const _getItem = (item: Parameters<typeof mapItem>[0] | null | undefined): ItemData | null => (item ? mapItem(item) : null);
+
+/**
+ * Manage item detail state and actions.
+ * @returns {MasterItemDetailState} Detail state
+ */
+export const useMasterItemDetail = (): MasterItemDetailState => {
+  const navigate = useNavigate();
+  const { id } = useParams<{ id: string }>();
+  const menuState = useDetailMenuState();
+  const { data: itemResponse } = useGetItemByIdQuery(id ?? "", { skip: !id });
+  const item = _getItem(itemResponse?.data);
+
+  /** Navigate back. @returns {void} No return value */
+  const goBack = (): void => { navigate(-1); };
+  /** Navigate to edit page. @returns {void} No return value */
   const goEdit = (): void => {
-    closeMore();
+    menuState.closeMore();
 
     if (item) {
       navigate(`/master-item/edit/${item.id}`);
     }
   };
-  /**
-   *
-   */
-  const openDeleteModal = (): void => {
-    closeMore();
-    setIsDeleteModalOpen(true);
-  };
-  /**
-   *
-   */
-  const closeDeleteModal = (): void => { setIsDeleteModalOpen(false); };
-  /**
-   *
-   */
+  /** Complete delete flow. @returns {void} No return value */
   const handleDelete = (): void => {
-    closeDeleteModal();
+    menuState.closeDeleteModal();
     navigate("/master-item");
   };
 
-  return { item, isMoreOpen, isDeleteModalOpen, goBack, toggleMore, closeMore, goEdit, openDeleteModal, closeDeleteModal, handleDelete };
+  return { item, goBack, goEdit, handleDelete, ...menuState };
 };
