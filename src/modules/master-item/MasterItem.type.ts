@@ -11,6 +11,7 @@ export type ApiItem = {
   readonly id: string;
   readonly name: string;
   readonly category_id: string | null;
+  readonly category_name?: string | null;
   readonly price: number | null;
   readonly stock: number | null;
   readonly image: string | null;
@@ -54,6 +55,7 @@ export type MasterItemCreateState = {
 export type ItemData = MasterBase & {
   readonly name: string;
   readonly categoryId: string;
+  readonly categoryName: string;
   readonly price: number;
   readonly stock: number;
   readonly image: string;

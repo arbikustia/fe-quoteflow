@@ -17,9 +17,9 @@ export const masterRoleService = apiRtkClient.injectEndpoints({
     createRole: builder.mutation<RoleCreateResponse, RoleCreatePayload>({ query: (body) => ({ url: ENDPOINT.MASTER_ROLE.CREATE, method: "POST", data: body }), invalidatesTags: ["Role"] }),
     updateRole: builder.mutation<RoleCreateResponse, RoleUpdatePayload>({
       query: (body) => ({
-        url: ENDPOINT.MASTER_ROLE.CREATE,
+        url: `${ENDPOINT.MASTER_ROLE.CREATE}/${body.id}`,
         method: "PUT",
-        data: body,
+        data: { role: body.role, status: body.status },
       }),
       invalidatesTags: ["Role"],
     }),

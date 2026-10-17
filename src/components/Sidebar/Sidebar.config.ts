@@ -6,7 +6,6 @@ export const MASTER_DATA_ITEMS: readonly MasterNavigationItem[] = [
   { name: "Category", description: "Manage product and item categories", icon: Icons.Dashboard, path: "/master-category" },
   { name: "Item", description: "Manage items and inventory data", icon: Icons.Database, path: "/master-item" },
   { name: "Project", description: "Manage project items and details", icon: Icons.Database, path: "/master-project" },
-  { name: "Service Type", description: "Manage service types and pricing", icon: Icons.Report, path: "/master-service-type" },
   { name: "Payment Method", description: "Manage available payment methods", icon: Icons.Report, path: "/master-payment-method" },
   { name: "Payment Type", description: "Manage payment types categorization", icon: Icons.Report, path: "/master-payment-type" },
   { name: "Voucher", description: "Manage discount codes and vouchers", icon: Icons.Quotes, path: "/master-voucher" },

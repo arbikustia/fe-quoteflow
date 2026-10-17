@@ -29,7 +29,7 @@ const _renderItemCard = (item: ItemData, onEdit: MasterItemProps["onEdit"]): Rea
       <span className={`shrink-0 rounded-full px-3 py-1 text-xs font-semibold uppercase tracking-wider ${item.status === "active" ? "bg-green-100 text-green-700" : "bg-red-100 text-red-700"}`}>{item.status}</span>
     </div>
     <div className="grid grid-cols-2 gap-2 rounded-xl bg-background-subtle/60 p-3 text-sm">
-      <div><p className="text-xs text-text-tertiary">Category</p><p className="truncate font-medium text-text-primary">{item.categoryId || "-"}</p></div>
+      <div><p className="text-xs text-text-tertiary">Category</p><p className="truncate font-medium text-text-primary">{item.categoryName || "-"}</p></div>
       <div><p className="text-xs text-text-tertiary">Stock</p><p className="font-medium text-text-primary">{item.stock}</p></div>
       <div><p className="text-xs text-text-tertiary">Price</p><p className="truncate font-medium text-text-primary">Rp {item.price.toLocaleString("id-ID")}</p></div>
       <div><p className="text-xs text-text-tertiary">Duration</p><p className="font-medium text-text-primary">{item.duration} days</p></div>

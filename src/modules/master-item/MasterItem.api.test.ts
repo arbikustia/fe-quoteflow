@@ -21,6 +21,7 @@ describe("MasterItem API", () => {
       id: "item-1",
       name: "Speaker",
       categoryId: "",
+      categoryName: "",
       price: 0,
       stock: 0,
       image: "",

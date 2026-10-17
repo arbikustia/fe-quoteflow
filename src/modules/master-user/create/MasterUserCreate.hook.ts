@@ -21,6 +21,7 @@ export const useMasterUserCreateForm = (): MasterUserCreateFormState => {
   const [username, setUsername] = useState(existingName);
   const [email, setEmail] = useState(existingEmail);
   const [password, setPassword] = useState("");
+  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const [role, setRole] = useState(existingRole);
   const [isActive, setIsActive] = useState(true);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
@@ -30,6 +31,7 @@ export const useMasterUserCreateForm = (): MasterUserCreateFormState => {
   const handleUsernameChange = (event: React.ChangeEvent<HTMLInputElement>): void => { setUsername(event.target.value); };
   const handleEmailChange = (event: React.ChangeEvent<HTMLInputElement>): void => { setEmail(event.target.value); };
   const handlePasswordChange = (event: React.ChangeEvent<HTMLInputElement>): void => { setPassword(event.target.value); };
+  const handleTogglePasswordVisibility = (): void => { setIsPasswordVisible((previous) => !previous); };
   const handleRoleChange = (event: React.ChangeEvent<HTMLSelectElement>): void => { setRole(event.target.value); };
   const handleStatusChange = (): void => { setIsActive((previous) => !previous); };
 
@@ -59,6 +61,7 @@ export const useMasterUserCreateForm = (): MasterUserCreateFormState => {
     username,
     email,
     password,
+    isPasswordVisible,
     role,
     isActive,
     isEditMode,
@@ -67,6 +70,7 @@ export const useMasterUserCreateForm = (): MasterUserCreateFormState => {
     handleUsernameChange,
     handleEmailChange,
     handlePasswordChange,
+    handleTogglePasswordVisibility,
     handleRoleChange,
     handleStatusChange,
     handleSubmit,

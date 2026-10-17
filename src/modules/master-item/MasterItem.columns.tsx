@@ -10,7 +10,7 @@ export const getColumns = ({ currentPage, pageSize, onEdit }: GetColumnsParams):
   { key: "no", header: "No", align: "center", render: (_row, index) => <span className="text-sm">{(currentPage - 1) * pageSize + index + 1}</span> },
   { key: "image", header: "Image", align: "center", render: (row) => row.image ? <img src={row.image} alt={row.name} className="mx-auto h-10 w-10 rounded-lg object-cover" /> : <span>-</span> },
   { key: "name", header: "Item Name", mobile: { primary: true } },
-  { key: "categoryId", header: "Category" },
+  { key: "categoryName", header: "Category" },
   { key: "price", header: "Price", render: (row) => `Rp ${row.price.toLocaleString("id-ID")}` },
   { key: "stock", header: "Stock", align: "center" },
   { key: "duration", header: "Duration", align: "center" },

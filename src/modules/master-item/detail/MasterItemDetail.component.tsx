@@ -19,7 +19,7 @@ const _formatPrice = (price: number): string => new Intl.NumberFormat("id-ID", {
  */
 const _renderDetails = (item: ItemData): ReactElement => (
   <div className="space-y-4">
-    <div className="rounded-xl border border-border-default bg-background-surface p-5 text-center shadow-small"><h2 className="text-xl font-semibold">{item.name}</h2><p className="mt-1 text-sm text-text-secondary">{item.categoryId || "No category"}</p></div>
+    <div className="rounded-xl border border-border-default bg-background-surface p-5 text-center shadow-small"><h2 className="text-xl font-semibold">{item.name}</h2><p className="mt-1 text-sm text-text-secondary">{item.categoryName || "No category"}</p></div>
     <dl className="divide-y divide-border-default overflow-hidden rounded-xl border border-border-default bg-background-surface shadow-small">
       <div className="flex justify-between px-5 py-4"><dt className="text-text-secondary">Item ID</dt><dd className="font-medium">{item.id}</dd></div>
       <div className="flex justify-between px-5 py-4"><dt className="text-text-secondary">Price</dt><dd className="font-medium">{_formatPrice(item.price)}</dd></div>

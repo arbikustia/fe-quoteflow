@@ -3,7 +3,7 @@
 exports[`MasterRoleContainer matches snapshot 1`] = `
 <DocumentFragment>
   <div
-    class="flex h-full min-h-0 w-full bg-background-page overflow-hidden font-sans text-text-primary relative items-stretch"
+    class="flex h-full min-h-0 w-full bg-background-page overflow-hidden font-sans text-text-primary relative items-stretch transition-colors duration-200"
   >
     <div
       class="hidden lg:flex h-full min-h-0 shrink-0 self-stretch"
@@ -14,12 +14,12 @@ exports[`MasterRoleContainer matches snapshot 1`] = `
         style="border-radius: 0;"
       >
         <div
-          class="h-[56px] mb-16 flex items-center shrink-0 px-4"
+          class="h-[72px] mb-16 flex items-center shrink-0 px-4"
         >
           <img
             alt="Sonicline"
-            class="h-8 w-auto object-contain"
-            src="/src/assets/Sonicline.png"
+            class="h-12 w-auto object-contain"
+            src="/src/assets/Sonicline-dark.png"
           />
         </div>
         <div
@@ -229,7 +229,7 @@ exports[`MasterRoleContainer matches snapshot 1`] = `
       </aside>
     </div>
     <div
-      class="flex-1 flex flex-col min-w-0 min-h-0 overflow-hidden relative bg-background-page"
+      class="flex-1 flex flex-col min-w-0 min-h-0 overflow-hidden relative bg-background-page transition-colors duration-200 bg-background-surface lg:bg-background-page"
     >
       <div
         class="lg:hidden flex items-center gap-3 p-4 border-b border-border-default bg-background-surface shrink-0"
@@ -253,7 +253,7 @@ exports[`MasterRoleContainer matches snapshot 1`] = `
         class="hidden lg:block shrink-0"
       >
         <header
-          class="h-20 flex items-center justify-between px-8 border-b border-brand-gray-light sticky top-0 z-10 transition-all"
+          class="h-20 flex items-center justify-between px-8 bg-background-surface border-b border-brand-gray-light sticky top-0 z-10 transition-all"
         >
           <div
             class="flex items-center gap-4 flex-1"
@@ -275,23 +275,15 @@ exports[`MasterRoleContainer matches snapshot 1`] = `
                 width="20"
                 xmlns="http://www.w3.org/2000/svg"
               >
-                <line
-                  x1="4"
-                  x2="20"
-                  y1="6"
-                  y2="6"
+                <rect
+                  height="18"
+                  rx="3"
+                  width="18"
+                  x="3"
+                  y="3"
                 />
-                <line
-                  x1="4"
-                  x2="20"
-                  y1="12"
-                  y2="12"
-                />
-                <line
-                  x1="4"
-                  x2="20"
-                  y1="18"
-                  y2="18"
+                <path
+                  d="M9 3v18"
                 />
               </svg>
             </button>
@@ -338,47 +330,12 @@ exports[`MasterRoleContainer matches snapshot 1`] = `
               </div>
             </div>
           </div>
-          <div
-            class="flex items-center gap-5"
+          <time
+            class="text-lg tracking-wide font-semibold text-text-primary tabular-nums sm:text-3xl"
+            data-testid="navbar-realtime-clock"
           >
-            <button
-              class="flex items-center gap-2.5 px-1.5 py-1.5 pr-3 rounded-full bg-brand-white border border-brand-gray-light hover:bg-brand-gray-light transition-all focus:outline-none"
-            >
-              <div
-                class="w-8 h-8 rounded-full overflow-hidden"
-              >
-                <img
-                  alt="User Avatar"
-                  class="w-full h-full object-cover"
-                  src="https://ui-avatars.com/api/?name=Admin+User&background=random"
-                />
-              </div>
-              <span
-                class="text-sm font-bold text-brand-text-dark"
-              >
-                Admin User
-              </span>
-              <div
-                class="text-brand-text-medium"
-              >
-                <svg
-                  fill="none"
-                  height="14"
-                  stroke="currentColor"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  viewBox="0 0 24 24"
-                  width="14"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="m6 9 6 6 6-6"
-                  />
-                </svg>
-              </div>
-            </button>
-          </div>
+            17-10-2026 21:47:15
+          </time>
         </header>
       </div>
       <main
@@ -423,93 +380,98 @@ exports[`MasterRoleContainer matches snapshot 1`] = `
               </div>
             </div>
             <div
-              class="flex items-center justify-between gap-3 lg:hidden"
+              class="flex items-center justify-between gap-3 lg:hidden px-6"
             >
-              <button
-                aria-label="Back"
-                class="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg border border-border-default text-text-primary hover:bg-background-subtle"
-                type="button"
+              <div
+                class="flex items-center gap-3 min-w-0 flex-1"
               >
-                <span
-                  aria-hidden="true"
+                <button
+                  aria-label="Back"
+                  class="flex h-14 w-14 shrink-0 items-center justify-center rounded-full border border-border-default text-text-primary bg-white hover:bg-background-subtle transition-colors"
+                  type="button"
                 >
-                  ←
-                </span>
-              </button>
-              <h1
-                class="min-w-0 flex-1 truncate text-center text-lg font-semibold text-text-primary"
+                  <svg
+                    aria-hidden="true"
+                    class="w-6 h-6"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2.5"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      d="M19 12H5M12 19l-7-7 7-7"
+                    />
+                  </svg>
+                </button>
+                <h1
+                  class="min-w-0 truncate text-left text-3xl font-semibold tracking-tight text-text-primary"
+                >
+                  Role List
+                </h1>
+              </div>
+              <div
+                class="shrink-0"
               >
-                Role List
-              </h1>
-              <span
-                aria-hidden="true"
-                class="h-10 w-10 shrink-0"
-              />
+                <button
+                  class="h-14 rounded-full border-2 border-brand-blue bg-background-surface px-6 text-sm font-bold text-brand-blue transition-colors hover:bg-action-primary-subtle focus:outline-none focus:ring-2 focus:ring-focus-ring/30"
+                  type="button"
+                >
+                  Create New
+                </button>
+              </div>
             </div>
           </header>
           <main
             class="min-w-0 flex-1"
           >
             <div
-              class="flex h-full flex-col px-3 pb-18 lg:-mt-4 lg:px-0 lg:pb-0"
+              class="relative flex h-full flex-col bg-background-surface px-6 pb-18 lg:-mt-4 lg:bg-transparent lg:px-0 lg:pb-0"
             >
               <div
-                class="lg:hidden flex min-w-0 flex-col gap-4 pt-2 pb-16"
+                class="flex min-w-0 flex-col gap-4 pt-2 pb-16 lg:hidden"
               >
-                <div
-                  class="flex items-center gap-3"
+                <label
+                  class="relative block w-full sm:w-72 w-full sm:w-full"
                 >
-                  <div
-                    class="flex-1"
+                  <span
+                    class="sr-only"
                   >
-                    <label
-                      class="relative block w-full sm:w-72 "
-                    >
-                      <span
-                        class="sr-only"
-                      >
-                        Search role
-                      </span>
-                      <svg
-                        aria-hidden="true"
-                        class="pointer-events-none absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-text-tertiary"
-                        fill="none"
-                        height="1em"
-                        stroke="currentColor"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
-                        viewBox="0 0 24 24"
-                        width="1em"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <circle
-                          cx="11"
-                          cy="11"
-                          r="8"
-                        />
-                        <line
-                          x1="21"
-                          x2="16.65"
-                          y1="21"
-                          y2="16.65"
-                        />
-                      </svg>
-                      <input
-                        aria-label="Search role"
-                        class="h-14 w-full rounded-xl border border-border-default bg-background-surface pl-12 pr-4 text-base font-medium text-text-primary outline-none transition-colors placeholder:font-normal placeholder:text-text-tertiary hover:border-border-strong focus:border-border-focus focus:ring-2 focus:ring-focus-ring/30"
-                        placeholder="Search role"
-                        type="search"
-                      />
-                    </label>
-                  </div>
-                  <button
-                    class="shrink-0 rounded-xl bg-brand-blue h-14 px-5 text-sm font-semibold text-brand-white"
-                    type="button"
+                    Search role
+                  </span>
+                  <svg
+                    aria-hidden="true"
+                    class="pointer-events-none absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-text-tertiary"
+                    fill="none"
+                    height="1em"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    viewBox="0 0 24 24"
+                    width="1em"
+                    xmlns="http://www.w3.org/2000/svg"
                   >
-                    Create Role
-                  </button>
-                </div>
+                    <circle
+                      cx="11"
+                      cy="11"
+                      r="8"
+                    />
+                    <line
+                      x1="21"
+                      x2="16.65"
+                      y1="21"
+                      y2="16.65"
+                    />
+                  </svg>
+                  <input
+                    aria-label="Search role"
+                    class="h-14 w-full rounded-full border border-border-default bg-background-surface pl-12 pr-4 text-base font-medium text-text-primary outline-none transition-colors placeholder:font-normal placeholder:text-text-tertiary hover:border-border-strong focus:border-border-focus focus:ring-2 focus:ring-focus-ring/30"
+                    placeholder="Search role"
+                    type="search"
+                  />
+                </label>
                 <div
                   class="min-w-0 space-y-3"
                 >
@@ -520,22 +482,22 @@ exports[`MasterRoleContainer matches snapshot 1`] = `
                   </p>
                 </div>
                 <div
-                  class="flex flex-col gap-3 py-4 mt-2 w-full rounded-2xl border border-border-default bg-background-surface h-14 px-5 shadow-xs"
+                  class="flex flex-col gap-3 py-4 mt-2 w-full rounded-2xl border border-border-default bg-background-surface px-4 py-3 shadow-xs"
                 >
                   <div
-                    class="flex flex-wrap items-center gap-3 justify-between"
+                    class="flex w-full items-center justify-between gap-2 overflow-x-auto"
                   >
-                    <p
-                      class="whitespace-nowrap text-sm text-text-secondary basis-auto"
-                    >
-                      Show 0/10 data
-                    </p>
                     <div
-                      class="flex w-full items-center justify-between gap-2 sm:w-auto sm:justify-start"
+                      class="flex shrink-0 items-center gap-1.5 sm:gap-2"
                     >
+                      <p
+                        class="whitespace-nowrap text-xs sm:text-sm text-text-secondary"
+                      >
+                        Show 0/10 data
+                      </p>
                       <select
                         aria-label="Documents per page"
-                        class="px-3 py-2 text-sm shrink-0 cursor-pointer rounded-xl border border-border-default bg-background-surface font-semibold text-text-primary focus:outline-none"
+                        class="px-4 py-2.5 text-base shrink-0 cursor-pointer rounded-xl border border-border-default bg-background-surface font-semibold text-text-primary focus:outline-none"
                       >
                         <option
                           value="5"
@@ -563,71 +525,71 @@ exports[`MasterRoleContainer matches snapshot 1`] = `
                           100
                         </option>
                       </select>
+                    </div>
+                    <div
+                      class="flex shrink-0 items-center justify-end gap-1 sm:gap-2"
+                    >
+                      <button
+                        class="flex items-center gap-2 p-2.5 border border-border-default rounded-xl text-base font-semibold transition-colors text-text-disabled cursor-not-allowed bg-background-disabled"
+                        disabled=""
+                      >
+                        <svg
+                          class="w-3.5 h-5 sm:w-5 sm:h-5"
+                          fill="none"
+                          height="1em"
+                          stroke="currentColor"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                          viewBox="0 0 24 24"
+                          width="1em"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <polyline
+                            points="15 18 9 12 15 6"
+                          />
+                        </svg>
+                        <span
+                          class="hidden"
+                        >
+                          Previous
+                        </span>
+                      </button>
                       <div
-                        class="flex shrink-0 items-center justify-end gap-1 sm:gap-2"
+                        class="flex min-w-0 items-center justify-center gap-1"
                       >
                         <button
-                          class="flex items-center gap-1 sm:gap-2 px-3 sm:px-4 py-2 sm:py-2.5 border border-border-default rounded-xl text-sm sm:text-base font-semibold transition-colors text-text-disabled cursor-not-allowed bg-background-disabled"
-                          disabled=""
+                          aria-current="page"
+                          class="flex h-10 w-10 items-center justify-center rounded-xl text-base font-semibold transition-colors bg-background-subtle text-text-primary shadow-sm"
                         >
-                          <svg
-                            class="w-4 h-4 sm:w-5 sm:h-5"
-                            fill="none"
-                            height="1em"
-                            stroke="currentColor"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            stroke-width="2"
-                            viewBox="0 0 24 24"
-                            width="1em"
-                            xmlns="http://www.w3.org/2000/svg"
-                          >
-                            <polyline
-                              points="15 18 9 12 15 6"
-                            />
-                          </svg>
-                          <span
-                            class="hidden sm:inline"
-                          >
-                            Previous
-                          </span>
-                        </button>
-                        <div
-                          class="flex min-w-0 items-center justify-center gap-1 overflow-x-auto"
-                        >
-                          <button
-                            aria-current="page"
-                            class="flex h-8 w-8 sm:h-10 sm:w-10 items-center justify-center rounded-xl text-sm sm:text-base font-semibold transition-colors bg-background-subtle text-text-primary shadow-sm"
-                          >
-                            1
-                          </button>
-                        </div>
-                        <button
-                          class="flex items-center gap-1 sm:gap-2 px-3 sm:px-4 py-2 sm:py-2.5 border border-border-default rounded-xl text-sm sm:text-base font-semibold transition-colors text-text-primary hover:bg-background-subtle bg-background-surface cursor-pointer"
-                        >
-                          <span
-                            class="hidden sm:inline"
-                          >
-                            Next
-                          </span>
-                          <svg
-                            class="w-4 h-4 sm:w-5 sm:h-5"
-                            fill="none"
-                            height="1em"
-                            stroke="currentColor"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            stroke-width="2"
-                            viewBox="0 0 24 24"
-                            width="1em"
-                            xmlns="http://www.w3.org/2000/svg"
-                          >
-                            <polyline
-                              points="9 18 15 12 9 6"
-                            />
-                          </svg>
+                          1
                         </button>
                       </div>
+                      <button
+                        class="flex items-center gap-2 p-2.5 border border-border-default rounded-xl text-base font-semibold transition-colors text-text-primary hover:bg-background-subtle bg-background-surface cursor-pointer"
+                      >
+                        <span
+                          class="hidden"
+                        >
+                          Next
+                        </span>
+                        <svg
+                          class="w-3.5 h-5 sm:w-5 sm:h-5"
+                          fill="none"
+                          height="1em"
+                          stroke="currentColor"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                          viewBox="0 0 24 24"
+                          width="1em"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <polyline
+                            points="9 18 15 12 9 6"
+                          />
+                        </svg>
+                      </button>
                     </div>
                   </div>
                 </div>
@@ -698,16 +660,16 @@ exports[`MasterRoleContainer matches snapshot 1`] = `
                   class="flex flex-col gap-3 py-4 "
                 >
                   <div
-                    class="flex flex-wrap items-center gap-3 sm:justify-between"
+                    class="flex w-full items-center justify-between gap-2 overflow-x-auto"
                   >
-                    <p
-                      class="whitespace-nowrap text-sm text-text-secondary basis-full sm:basis-auto"
-                    >
-                      Show 0/10 data
-                    </p>
                     <div
-                      class="flex w-full items-center justify-between gap-2 sm:w-auto sm:justify-start"
+                      class="flex shrink-0 items-center gap-1.5 sm:gap-2"
                     >
+                      <p
+                        class="whitespace-nowrap text-xs sm:text-sm text-text-secondary"
+                      >
+                        Show 0/10 data
+                      </p>
                       <select
                         aria-label="Documents per page"
                         class="w-[180px] px-4 py-2.5 text-base sm:min-w-[100px] sm:w-auto shrink-0 cursor-pointer rounded-xl border border-border-default bg-background-surface font-semibold text-text-primary focus:outline-none"
@@ -738,64 +700,64 @@ exports[`MasterRoleContainer matches snapshot 1`] = `
                           100
                         </option>
                       </select>
-                      <div
-                        class="flex shrink-0 items-center justify-end gap-1 sm:gap-2"
+                    </div>
+                    <div
+                      class="flex shrink-0 items-center justify-end gap-1 sm:gap-2"
+                    >
+                      <button
+                        class="flex items-center gap-2 px-2.5 sm:px-4 py-1.5 sm:py-2.5 border border-border-default rounded-xl text-base font-semibold transition-colors text-text-disabled cursor-not-allowed bg-background-disabled"
+                        disabled=""
                       >
-                        <button
-                          class="flex items-center gap-1 sm:gap-2 px-3 sm:px-4 py-2 sm:py-2.5 border border-border-default rounded-xl text-sm sm:text-base font-semibold transition-colors text-text-disabled cursor-not-allowed bg-background-disabled"
-                          disabled=""
+                        <svg
+                          class="w-3.5 h-5 sm:w-5 sm:h-5"
+                          fill="none"
+                          height="1em"
+                          stroke="currentColor"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                          viewBox="0 0 24 24"
+                          width="1em"
+                          xmlns="http://www.w3.org/2000/svg"
                         >
-                          <svg
-                            class="w-4 h-4 sm:w-5 sm:h-5"
-                            fill="none"
-                            height="1em"
-                            stroke="currentColor"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            stroke-width="2"
-                            viewBox="0 0 24 24"
-                            width="1em"
-                            xmlns="http://www.w3.org/2000/svg"
-                          >
-                            <polyline
-                              points="15 18 9 12 15 6"
-                            />
-                          </svg>
-                          <span
-                            class="hidden sm:inline"
-                          >
-                            Previous
-                          </span>
-                        </button>
-                        <div
-                          class="flex min-w-0 items-center justify-center gap-1 overflow-x-auto"
-                        />
-                        <button
-                          class="flex items-center gap-1 sm:gap-2 px-3 sm:px-4 py-2 sm:py-2.5 border border-border-default rounded-xl text-sm sm:text-base font-semibold transition-colors text-text-primary hover:bg-background-subtle bg-background-surface cursor-pointer"
+                          <polyline
+                            points="15 18 9 12 15 6"
+                          />
+                        </svg>
+                        <span
+                          class="hidden sm:inline"
                         >
-                          <span
-                            class="hidden sm:inline"
-                          >
-                            Next
-                          </span>
-                          <svg
-                            class="w-4 h-4 sm:w-5 sm:h-5"
-                            fill="none"
-                            height="1em"
-                            stroke="currentColor"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            stroke-width="2"
-                            viewBox="0 0 24 24"
-                            width="1em"
-                            xmlns="http://www.w3.org/2000/svg"
-                          >
-                            <polyline
-                              points="9 18 15 12 9 6"
-                            />
-                          </svg>
-                        </button>
-                      </div>
+                          Previous
+                        </span>
+                      </button>
+                      <div
+                        class="flex min-w-0 items-center justify-center gap-1"
+                      />
+                      <button
+                        class="flex items-center gap-2 px-2.5 sm:px-4 py-1.5 sm:py-2.5 border border-border-default rounded-xl text-base font-semibold transition-colors text-text-primary hover:bg-background-subtle bg-background-surface cursor-pointer"
+                      >
+                        <span
+                          class="hidden sm:inline"
+                        >
+                          Next
+                        </span>
+                        <svg
+                          class="w-3.5 h-5 sm:w-5 sm:h-5"
+                          fill="none"
+                          height="1em"
+                          stroke="currentColor"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                          viewBox="0 0 24 24"
+                          width="1em"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <polyline
+                            points="9 18 15 12 9 6"
+                          />
+                        </svg>
+                      </button>
                     </div>
                   </div>
                 </div>

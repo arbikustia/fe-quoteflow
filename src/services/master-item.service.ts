@@ -19,6 +19,7 @@ export const mapItem = (item: ApiItem): ItemData => ({
   id: item.id,
   name: item.name,
   categoryId: item.category_id ?? "",
+  categoryName: item.category_name ?? "",
   price: item.price ?? 0,
   stock: item.stock ?? 0,
   image: item.image ?? "",

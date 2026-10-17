@@ -35,5 +35,6 @@ describe("MasterRole API", () => {
   it("should expose get roles and create role endpoints", () => {
     expect(masterRoleService.endpoints.getRoles).toBeDefined();
     expect(masterRoleService.endpoints.createRole).toBeDefined();
+    expect(masterRoleService.endpoints.updateRole).toBeDefined();
   });
 });

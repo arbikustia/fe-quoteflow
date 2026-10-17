@@ -70,7 +70,7 @@ describe("MasterRole Navigation Hook", () => {
     const detailRole: RoleData = { id: "2", roleName: "Viewer", status: "inactive", createAt: "", createBy: "" };
 
     act(() => result.current.goEdit(editRole));
-    expect(mockNavigate).toHaveBeenCalledWith("/master-role/edit/1");
+    expect(mockNavigate).toHaveBeenCalledWith("/master-role/edit/1", { state: { role: editRole } });
 
     act(() => result.current.goDetail(detailRole));
     expect(mockNavigate).toHaveBeenCalledWith("/master-role/detail/2");
