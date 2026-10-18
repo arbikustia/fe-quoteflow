@@ -33,12 +33,14 @@ const _renderListState = (props: MasterPaymentMethodProps): React.ReactElement |
  */
 const _renderPaymentMethodCard = (paymentMethod: PaymentMethodData, onEdit: MasterPaymentMethodProps["onEdit"]): React.ReactElement => {
   /**
-   *
+   * Open payment method editing.
+   * @returns {void} No return value
    */
   const handleCardClick = (): void => onEdit(paymentMethod);
   /**
-   *
-   * @param event
+   * Open editing from supported keyboard keys.
+   * @param {React.KeyboardEvent<HTMLDivElement>} event - Keyboard event
+   * @returns {void} No return value
    */
   const handleCardKeyDown = (event: React.KeyboardEvent<HTMLDivElement>): void => {
     if (event.key === "Enter" || event.key === " ") handleCardClick();
@@ -74,8 +76,9 @@ const _renderPaymentMethodCard = (paymentMethod: PaymentMethodData, onEdit: Mast
 const _renderMobile = (props: MasterPaymentMethodProps): React.ReactElement => {
   const { paginatedData, currentPage, totalPages, pageSize, totalCount, goToPage, changePageSize, setSearchTerm, onEdit } = props;
   /**
-   *
-   * @param event
+   * Update search term.
+   * @param {React.ChangeEvent<HTMLInputElement>} event - Search input event
+   * @returns {void} No return value
    */
   const handleSearch = (event: React.ChangeEvent<HTMLInputElement>): void => setSearchTerm(event.target.value);
 
@@ -109,13 +112,15 @@ const _renderMobile = (props: MasterPaymentMethodProps): React.ReactElement => {
 const _renderDesktop = (props: MasterPaymentMethodProps): React.ReactElement => {
   const { paginatedData, columns, currentPage, totalPages, pageSize, totalCount, goToPage, changePageSize, setSearchTerm, onCreate, onRowClick } = props;
   /**
-   *
-   * @param event
+   * Update search term.
+   * @param {React.ChangeEvent<HTMLInputElement>} event - Search input event
+   * @returns {void} No return value
    */
   const handleSearch = (event: React.ChangeEvent<HTMLInputElement>): void => setSearchTerm(event.target.value);
   /**
-   *
-   * @param row
+   * Extract payment method row key.
+   * @param {PaymentMethodData} row - Payment method row
+   * @returns {string} Payment method ID
    */
   const keyExtractor = (row: PaymentMethodData): string => row.id;
 

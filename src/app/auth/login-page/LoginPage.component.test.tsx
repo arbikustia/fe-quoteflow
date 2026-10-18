@@ -9,6 +9,8 @@ const renderLoginPage = (): void => {
       password=""
       isPasswordVisible={false}
       isRemembered={false}
+      isSubmitting={false}
+      errorMessage={null}
       onIdentifierChange={jest.fn()}
       onPasswordChange={jest.fn()}
       onTogglePasswordVisibility={jest.fn()}
@@ -39,6 +41,8 @@ describe('LoginPageComponent', () => {
         password="secret"
         isPasswordVisible={false}
         isRemembered={false}
+        isSubmitting={false}
+        errorMessage={null}
         onIdentifierChange={jest.fn()}
         onPasswordChange={jest.fn()}
         onTogglePasswordVisibility={handleTogglePasswordVisibility}

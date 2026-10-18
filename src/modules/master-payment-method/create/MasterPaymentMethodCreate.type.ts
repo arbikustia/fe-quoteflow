@@ -1,17 +1,17 @@
 import type * as React from "react";
 
 export type MasterPaymentMethodCreateFormState = {
-  readonly name: string;
-  readonly description: string;
-  readonly isActive: boolean;
-  readonly isEditMode: boolean;
-  readonly isLoadingInitialData: boolean;
-  readonly isSubmitting: boolean;
-  readonly errorMessage: string | null;
-  readonly successMessage: string | null;
-  readonly handleNameChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  readonly handleDescriptionChange: (event: React.ChangeEvent<HTMLTextAreaElement>) => void;
-  readonly handleStatusChange: () => void;
-  readonly handleSubmit: (event: React.SyntheticEvent) => Promise<void>;
-  readonly goBack: () => void;
+  name: string;
+  description: string;
+  isActive: boolean;
+  isEditMode: boolean;
+  isLoadingInitialData: boolean;
+  isSubmitting: boolean;
+  errorMessage: string | null;
+  successMessage: string | null;
+  handleNameChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  handleDescriptionChange: (event: React.ChangeEvent<HTMLTextAreaElement>) => void;
+  handleStatusChange: () => void;
+  handleSubmit: (event: React.SyntheticEvent) => Promise<void>;
+  goBack: () => void;
 };

@@ -2,12 +2,13 @@ import type { TableColumn } from "../../components/Table";
 import type { ApiEnvelope, ApiQueryParams, PaginatedResponse } from "../../types/api.type";
 
 export type ApiUser = {
-  readonly id: string;
-  readonly username: string | null;
-  readonly email: string | null;
-  readonly password: string | null;
-  readonly role: string[] | null;
-  readonly last_created: string | null;
+  id: string;
+  username: string | null;
+  email: string | null;
+  password: string | null;
+  role: string | string[] | null;
+  status?: number;
+  last_created: string | null;
 };
 
 export type UserListResponse = PaginatedResponse<ApiUser>;
@@ -16,54 +17,56 @@ export type UserCreateResponse = ApiEnvelope<ApiUser | null>;
 export type UserListParams = ApiQueryParams;
 
 export type UserCreatePayload = {
-  readonly username: string;
-  readonly email?: string | null;
-  readonly password?: string;
-  readonly role?: readonly string[];
-  readonly status?: number;
+  username: string;
+  email?: string | null;
+  password?: string;
+  role?: string[];
+  status?: number;
 };
 
 export type UserUpdatePayload = {
-  readonly id: string;
-  readonly username?: string;
-  readonly email?: string | null;
-  readonly password?: string;
-  readonly role?: readonly string[];
-  readonly status?: number;
+  id: string;
+  username?: string;
+  email?: string | null;
+  password?: string;
+  role?: string[];
+  status?: number;
 };
 
 export type UserData = {
-  readonly id: string;
-  readonly username: string | null;
-  readonly email: string | null;
-  readonly role: string | null;
-  readonly status: "active" | "inactive";
-  readonly createAt: string | null;
-  readonly createBy: string | null;
+  id: string;
+  username: string | null;
+  email: string | null;
+  role: string | null;
+  status: "active" | "inactive";
+  createAt: string | null;
+  createBy: string | null;
 };
 
 export type UserListApiState = {
-  readonly paginatedData: UserData[];
-  readonly totalPages: number;
-  readonly totalCount: number;
-  readonly isLoading: boolean;
-  readonly isError: boolean;
-  readonly isMissingData: boolean;
+  paginatedData: UserData[];
+  totalPages: number;
+  totalCount: number;
+  isLoading: boolean;
+  isError: boolean;
+  isMissingData: boolean;
 };
 
 export type MasterUserProps = {
-  readonly currentPage: number;
-  readonly totalPages: number;
-  readonly pageSize: number;
-  readonly paginatedData: readonly UserData[];
-  readonly goToPage: (page: number) => void;
-  readonly nextPage: () => void;
-  readonly prevPage: () => void;
-  readonly changePageSize: (size: number) => void;
-  readonly totalCount: number;
-  readonly columns: readonly TableColumn<UserData>[];
-  readonly isLoading: boolean;
-  readonly isError: boolean;
+  currentPage: number;
+  totalPages: number;
+  pageSize: number;
+  paginatedData: UserData[];
+  goToPage: (page: number) => void;
+  nextPage: () => void;
+  prevPage: () => void;
+  changePageSize: (size: number) => void;
+  totalCount: number;
+  columns: TableColumn<UserData>[];
+  isLoading: boolean;
+  isError: boolean;
+  isEmpty: boolean;
+  setSearchTerm: (searchTerm: string) => void;
   onCreate: () => void;
   onEdit: (user: UserData) => void;
   onRowClick: (user: UserData) => void;
@@ -83,33 +86,33 @@ export type GetColumnsParams = {
 
 /** Navigation hook return type */
 export type MasterUserNavigation = {
-  readonly goBack: () => void;
-  readonly goCreate: () => void;
-  readonly goEdit: (item: UserData) => void;
-  readonly goDetail: (item: UserData) => void;
+  goBack: () => void;
+  goCreate: () => void;
+  goEdit: (item: UserData) => void;
+  goDetail: (item: UserData) => void;
 };
 
 /** Container state hook return type */
 export type MasterUserPagination = {
-  readonly currentPage: number;
-  readonly totalPages: number;
-  readonly pageSize: number;
-  readonly paginatedData: readonly UserData[];
-  readonly totalCount: number;
-  readonly isEmpty: boolean;
-  readonly isLoading: boolean;
-  readonly isError: boolean;
-  readonly goToPage: (page: number) => void;
-  readonly nextPage: () => void;
-  readonly prevPage: () => void;
-  readonly changePageSize: (size: number) => void;
-  readonly setSearchTerm: (searchTerm: string) => void;
+  currentPage: number;
+  totalPages: number;
+  pageSize: number;
+  paginatedData: UserData[];
+  totalCount: number;
+  isEmpty: boolean;
+  isLoading: boolean;
+  isError: boolean;
+  goToPage: (page: number) => void;
+  nextPage: () => void;
+  prevPage: () => void;
+  changePageSize: (size: number) => void;
+  setSearchTerm: (searchTerm: string) => void;
 };
 
 export type MasterUserContainerState = MasterUserNavigation & {
-  readonly pagination: MasterUserPagination;
-  readonly isMoreOpen: boolean;
-  readonly toggleMore: () => void;
-  readonly goDelete: () => void;
-  readonly handleCloseMore: () => void;
+  pagination: MasterUserPagination;
+  isMoreOpen: boolean;
+  toggleMore: () => void;
+  goDelete: () => void;
+  handleCloseMore: () => void;
 };

@@ -24,6 +24,7 @@ export const SidebarComponent = (props: SidebarProps): React.ReactElement => {
     onToggleProfile,
     theme,
     onToggleTheme,
+    onLogout,
   } = props;
 
   // Normalize: if navigation items look like sections (has .title/.items), unwrap — otherwise wrap as single Menu section
@@ -223,6 +224,15 @@ export const SidebarComponent = (props: SidebarProps): React.ReactElement => {
             {theme === "dark" ? <Icons.Sun /> : <Icons.Moon />}
           </span>
           {!isCollapsed && <span className="flex-1 text-left text-[13px] font-medium">{theme === "dark" ? "Light theme" : "Dark theme"}</span>}
+        </button>
+        <button
+          type="button"
+          onClick={onLogout}
+          aria-label="Log out"
+          className={`mb-2 flex h-9 w-full items-center rounded-[8px] text-danger-strong transition-colors hover:bg-danger-subtle focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring ${isCollapsed ? "justify-center" : "gap-3 px-3"}`}
+        >
+          <span className="shrink-0" aria-hidden><Icons.LogOut /></span>
+          {!isCollapsed && <span className="flex-1 text-left text-[13px] font-medium">Log out</span>}
         </button>
         <button
           type="button"

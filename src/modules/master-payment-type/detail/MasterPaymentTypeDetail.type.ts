@@ -1,17 +1,17 @@
 import type { PaymentTypeData } from "../MasterPaymentType.type";
 
 export type MasterPaymentTypeDetailMenuState = {
-  readonly isMoreOpen: boolean;
-  readonly isDeleteModalOpen: boolean;
-  readonly toggleMore: () => void;
-  readonly closeMore: () => void;
-  readonly openDeleteModal: () => void;
-  readonly closeDeleteModal: () => void;
+  isMoreOpen: boolean;
+  isDeleteModalOpen: boolean;
+  toggleMore: () => void;
+  closeMore: () => void;
+  openDeleteModal: () => void;
+  closeDeleteModal: () => void;
 };
 
 export type MasterPaymentTypeDetailState = MasterPaymentTypeDetailMenuState & {
-  readonly paymentType: PaymentTypeData | null;
-  readonly goBack: () => void;
-  readonly goEdit: () => void;
-  readonly handleDelete: () => void;
+  paymentType: PaymentTypeData | null;
+  goBack: () => void;
+  goEdit: () => void;
+  handleDelete: () => void;
 };

@@ -6,7 +6,7 @@ exports[`MasterCustomerCreateForm Snapshots should render customer create form 1
     class="flex h-full w-full flex-col bg-background-surface font-sans pb-6 lg:bg-background-page"
   >
     <div
-      class="sticky top-0 z-20 flex items-center bg-background-surface px-6 pt-6 lg:hidden"
+      class="sticky top-0 z-20 flex items-center bg-background-surface px-6 lg:hidden"
     >
       <button
         aria-label="Back"
@@ -174,7 +174,7 @@ exports[`MasterCustomerCreateForm Snapshots should render customer create form w
     class="flex h-full w-full flex-col bg-background-surface font-sans pb-6 lg:bg-background-page"
   >
     <div
-      class="sticky top-0 z-20 flex items-center bg-background-surface px-6 pt-6 lg:hidden"
+      class="sticky top-0 z-20 flex items-center bg-background-surface px-6 lg:hidden"
     >
       <button
         aria-label="Back"

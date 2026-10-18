@@ -38,4 +38,5 @@ export type SidebarProps = {
   readonly onToggleProfile: () => void;
   readonly theme: "light" | "dark";
   readonly onToggleTheme: () => void;
+  readonly onLogout: () => void;
 };

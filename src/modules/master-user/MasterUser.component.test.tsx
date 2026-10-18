@@ -1,72 +1,54 @@
-import { render, screen, fireEvent } from "@testing-library/react";
-import { MemoryRouter } from "react-router-dom";
-import { MasterUserComponent } from "./MasterUser.component";
-import type { UserData } from "./MasterUser.type";
+import * as React from "react";
 
-const mockUsers: UserData[] = [
-  { id: "1", username: "admin1", role: "Admin", status: "active", createAt: "2024-01-01", createBy: "Admin" },
-  { id: "2", username: "user1", role: "User", status: "inactive", createAt: "2024-01-02", createBy: "Admin" },
+import test from "../../libs/unit-test";
+
+import { MasterUserComponent } from "./MasterUser.component";
+import type { MasterUserProps, UserData } from "./MasterUser.type";
+
+jest.mock("../../app/layout", () =>
+  ({ children }: { children: React.ReactNode }) => <div data-testid="layout">{children}</div>,
+);
+
+jest.mock("../../app/shared/PageLayout", () => ({
+  PageLayout: ({ children }: { children: React.ReactNode }) => <div data-testid="page-layout">{children}</div>,
+}));
+
+jest.mock("../../components/Pagination", () => ({
+  Pagination: () => <div data-testid="pagination" />,
+}));
+
+jest.mock("../../components/SearchFilter", () => ({
+  SearchFilter: () => <input data-testid="search-filter" />,
+}));
+
+jest.mock("../../components/Table", () => () => <div data-testid="table" />);
+
+const users: UserData[] = [
+  { id: "1", username: "admin1", email: null, role: "Admin", status: "active", createAt: "2024-01-01", createBy: "Admin" },
 ];
 
-const mockColumns: any[] = [{ key: "username", header: "Username" }];
-
-const defaultProps = {
-  paginatedData: mockUsers,
-  columns: mockColumns,
+const props: MasterUserProps = {
   currentPage: 1,
-  totalPages: 2,
-  pageSize: 5,
-  totalCount: 10,
+  totalPages: 1,
+  pageSize: 10,
+  paginatedData: users,
+  totalCount: 1,
+  columns: [],
+  isEmpty: false,
+  isLoading: false,
+  isError: false,
   goToPage: jest.fn(),
   nextPage: jest.fn(),
   prevPage: jest.fn(),
   changePageSize: jest.fn(),
+  setSearchTerm: jest.fn(),
   onCreate: jest.fn(),
   onEdit: jest.fn(),
   onRowClick: jest.fn(),
   onBack: jest.fn(),
-  onMore: jest.fn(),
-  isMoreOpen: false,
-  onCloseMore: jest.fn(),
-  onDelete: jest.fn(),
-  isEmpty: false,
-  setSearchTerm: jest.fn(),
 };
 
-const renderWithRouter = (props = defaultProps) =>
-  render(
-    <MemoryRouter>
-      <MasterUserComponent {...props} />
-    </MemoryRouter>
-  );
-
-describe("MasterUserComponent", () => {
-  it("should render without crashing", () => {
-    renderWithRouter();
-    expect(screen.getAllByText("User List").length).toBeGreaterThan(0);
-  });
-
-  it("should handle empty data", () => {
-    renderWithRouter({ ...defaultProps, paginatedData: [] as UserData[], isEmpty: true, totalCount: 0, totalPages: 1 });
-    expect(screen.getAllByText("No users found.").length).toBeGreaterThan(0);
-  });
-
-  it("calls onBack when back button clicked", () => {
-    const onBack = jest.fn();
-    renderWithRouter({ ...defaultProps, onBack });
-    fireEvent.click(screen.getByLabelText("Back"));
-    expect(onBack).toHaveBeenCalledTimes(1);
-  });
-
-
-
-  it("matches snapshot", () => {
-    const { asFragment } = renderWithRouter();
-    expect(asFragment()).toMatchSnapshot();
-  });
-
-  it("matches snapshot with empty data and closed menu", () => {
-    const { asFragment } = renderWithRouter({ ...defaultProps, paginatedData: [] as UserData[], totalCount: 0, totalPages: 1, isMoreOpen: false });
-    expect(asFragment()).toMatchSnapshot();
-  });
-});
+test.assertSnapshots(MasterUserComponent, [
+  { props, desc: "default state" },
+  { props: { ...props, paginatedData: [], isEmpty: true }, desc: "empty state" },
+]);

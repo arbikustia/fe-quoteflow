@@ -11,6 +11,9 @@ const createMockProps = (overrides?: Partial<MasterUserCreateFormState>): Master
   password: "SecretPassword123!",
   isPasswordVisible: false,
   role: "User",
+  roleOptions: [],
+  roleOptionsLoading: false,
+  roleOptionsError: null,
   isActive: true,
   isEditMode: false,
   isSubmitting: false,
@@ -78,5 +81,20 @@ describe("MasterUserCreateComponent", () => {
     expect(screen.getByLabelText(/Email/i).hasAttribute("required")).toBe(true);
     expect(screen.getByLabelText(/^Password/i).hasAttribute("required")).toBe(true);
     expect(screen.getByRole("combobox", { name: /Role/i }).hasAttribute("required")).toBe(true);
+  });
+
+  it("renders role options returned by API", () => {
+    render(
+      <MemoryRouter>
+        <MasterUserCreateComponent
+          {...createMockProps({
+            role: "kasir",
+            roleOptions: [{ id: "role-kasir", role: "kasir", status: 0 }],
+          })}
+        />
+      </MemoryRouter>
+    );
+
+    expect(screen.getByRole("option", { name: "kasir" }).getAttribute("value")).toBe("kasir");
   });
 });

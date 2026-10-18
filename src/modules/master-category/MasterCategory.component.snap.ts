@@ -2,6 +2,11 @@ import test from "@/libs/unit-test";
 
 import type { TableColumn } from "@/components/Table";
 
+jest.useFakeTimers();
+jest.setSystemTime(new Date("2026-10-18T01:01:00+07:00"));
+
+afterAll(() => jest.useRealTimers());
+
 import { MasterCategoryComponent } from "./MasterCategory.component";
 import type { CategoryData, MasterCategoryProps } from "./MasterCategory.type";
 

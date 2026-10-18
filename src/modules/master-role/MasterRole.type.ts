@@ -6,7 +6,26 @@ import type { ApiEnvelope, PaginatedResponse } from "../../types/api.type";
 export type ApiRole = {
   readonly id: string;
   readonly role: string;
+  readonly status: number;
   readonly last_created: string | null;
+};
+
+export type RoleOption = {
+  readonly id: string;
+  readonly role: string;
+  readonly status: number;
+};
+
+export type RoleSelectState = {
+  readonly roles: readonly RoleOption[];
+  readonly isLoading: boolean;
+  readonly errorMessage: string | null;
+};
+
+export type RoleAllResponse = {
+  readonly status: boolean;
+  readonly data: RoleOption[];
+  readonly messages: string[] | string | null;
 };
 
 export type RoleListResponse = PaginatedResponse<ApiRole>;

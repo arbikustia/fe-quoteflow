@@ -1,105 +1,130 @@
 import type * as React from "react";
 
+import type { ApiEnvelope, ApiQueryParams, PaginatedResponse } from "@/types/api.type";
+
 import type { TableColumn } from "../../components/Table";
 import type { PaginationResult } from "../../hooks/usePagination";
 
-export type PaymentMethodData = {
+export type ApiPaymentMethod = {
   readonly id: string;
   readonly name: string | null;
   readonly description: string | null;
-  readonly status: "active" | "inactive";
-  readonly createAt: string | null;
-  readonly createBy: string | null;
+  readonly status: number;
+  readonly created_at: string | null;
+  readonly updated_at: string | null;
+  readonly created_by?: string | null;
+};
+
+export type PaymentMethodListResponse = PaginatedResponse<ApiPaymentMethod>;
+export type PaymentMethodDetailResponse = ApiEnvelope<ApiPaymentMethod | ApiPaymentMethod[] | null>;
+export type PaymentMethodCreateResponse = ApiEnvelope<ApiPaymentMethod | null>;
+export type PaymentMethodListParams = ApiQueryParams;
+
+export type PaymentMethodCreatePayload = {
+  readonly name: string;
+  readonly description: string;
+  readonly status: number;
+};
+
+export type PaymentMethodUpdatePayload = PaymentMethodCreatePayload & {
+  readonly id: string;
+};
+
+export type PaymentMethodData = {
+  id: string;
+  name: string | null;
+  description: string | null;
+  status: "active" | "inactive";
+  createAt: string | null;
+  createBy: string | null;
 };
 
 export type PaymentMethodSubmissionParams = {
-  readonly id: string | undefined;
-  readonly isEditMode: boolean;
-  readonly name: string;
-  readonly description: string;
-  readonly isActive: boolean;
+  id: string | undefined;
+  isEditMode: boolean;
+  name: string;
+  description: string;
+  isActive: boolean;
 };
 
 export type PaymentMethodSubmissionState = {
-  readonly isSubmitting: boolean;
-  readonly errorMessage: string | null;
-  readonly successMessage: string | null;
-  readonly handleSubmit: (event: React.SyntheticEvent) => Promise<void>;
+  isSubmitting: boolean;
+  errorMessage: string | null;
+  successMessage: string | null;
+  handleSubmit: (event: React.SyntheticEvent) => Promise<void>;
 };
 
 export type PaymentMethodFormFieldsState = {
-  readonly name: string;
-  readonly description: string;
-  readonly isActive: boolean;
-  readonly handleNameChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  readonly handleDescriptionChange: (event: React.ChangeEvent<HTMLTextAreaElement>) => void;
-  readonly handleStatusChange: () => void;
+  name: string;
+  description: string;
+  isActive: boolean;
+  handleNameChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  handleDescriptionChange: (event: React.ChangeEvent<HTMLTextAreaElement>) => void;
+  handleStatusChange: () => void;
 };
 
-export type PaymentMethodDetailData = PaymentMethodData;
-
 export type PaymentMethodListApiState = {
-  readonly isLoading: boolean;
-  readonly errorMessage: string | null;
-  readonly isMissingData: boolean;
-  readonly paginatedData: PaymentMethodData[];
-  readonly totalPages: number;
-  readonly totalCount: number;
-  readonly hasNext: boolean;
-  readonly hasPrevious: boolean;
+  isLoading: boolean;
+  errorMessage: string | null;
+  isMissingData: boolean;
+  paginatedData: PaymentMethodData[];
+  totalPages: number;
+  totalCount: number;
+  hasNext: boolean;
+  hasPrevious: boolean;
 };
 
 export type MasterPaymentMethodProps = {
-  readonly currentPage: number;
-  readonly isLoading: boolean;
-  readonly errorMessage: string | null;
-  readonly isMissingData: boolean;
-  readonly totalPages: number;
-  readonly pageSize: number;
-  readonly paginatedData: PaymentMethodData[];
-  readonly goToPage: (page: number) => void;
-  readonly nextPage: () => void;
-  readonly prevPage: () => void;
-  readonly changePageSize: (size: number) => void;
-  readonly totalCount: number;
-  readonly isEmpty: boolean;
-  readonly setSearchTerm: (searchTerm: string) => void;
-  readonly columns: TableColumn<PaymentMethodData>[];
-  readonly onCreate: () => void;
-  readonly onEdit: (paymentMethod: PaymentMethodData) => void;
-  readonly onRowClick: (paymentMethod: PaymentMethodData) => void;
-  readonly onMore: () => void;
-  readonly isMoreOpen: boolean;
-  readonly onCloseMore: () => void;
-  readonly onDelete: () => void;
-  readonly onBack: () => void;
+  currentPage: number;
+  isLoading: boolean;
+  errorMessage: string | null;
+  isMissingData: boolean;
+  totalPages: number;
+  pageSize: number;
+  paginatedData: PaymentMethodData[];
+  goToPage: (page: number) => void;
+  nextPage: () => void;
+  prevPage: () => void;
+  changePageSize: (size: number) => void;
+  totalCount: number;
+  isEmpty: boolean;
+  setSearchTerm: (searchTerm: string) => void;
+  columns: TableColumn<PaymentMethodData>[];
+  onCreate: () => void;
+  onEdit: (paymentMethod: PaymentMethodData) => void;
+  onRowClick: (paymentMethod: PaymentMethodData) => void;
+  onMore: () => void;
+  isMoreOpen: boolean;
+  onCloseMore: () => void;
+  onDelete: () => void;
+  onBack: () => void;
 };
 
 export type GetColumnsParams = {
-  readonly currentPage: number;
-  readonly pageSize: number;
-  readonly onEdit: (paymentMethod: PaymentMethodData) => void;
+  currentPage: number;
+  pageSize: number;
+  onEdit: (paymentMethod: PaymentMethodData) => void;
 };
 
 export type MasterPaymentMethodNavigation = {
-  readonly goBack: () => void;
-  readonly goCreate: () => void;
-  readonly goEdit: (p: PaymentMethodData) => void;
-  readonly goDetail: (p: PaymentMethodData) => void;
+  goBack: () => void;
+  goCreate: () => void;
+  goEdit: (p: PaymentMethodData) => void;
+  goDetail: (p: PaymentMethodData) => void;
 };
 
 export type MasterPaymentMethodPagination = PaginationResult<PaymentMethodData> & {
-  readonly isLoading: boolean;
-  readonly errorMessage: string | null;
-  readonly isMissingData: boolean;
-  readonly isEmpty: boolean;
-  readonly setSearchTerm: (searchTerm: string) => void;
+  isLoading: boolean;
+  errorMessage: string | null;
+  isMissingData: boolean;
+  isEmpty: boolean;
+  setSearchTerm: (searchTerm: string) => void;
 };
 
 export type MasterPaymentMethodContainerState = MasterPaymentMethodNavigation & {
-  readonly pagination: MasterPaymentMethodPagination;
-  readonly isMoreOpen: boolean;
-  readonly toggleMore: () => void;
-  readonly goDelete: () => void;
-  readonly handleCloseMore: () => void;
+  pagination: MasterPaymentMethodPagination;
+  isMoreOpen: boolean;
+  toggleMore: () => void;
+  goDelete: () => void;
+  handleCloseMore: () => void;
 };

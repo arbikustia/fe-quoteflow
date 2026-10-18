@@ -3,7 +3,7 @@
 exports[`should match MasterCategoryComponent snapshots 1`] = `
 <DocumentFragment>
   <div
-    class="flex h-full min-h-0 w-full bg-background-page overflow-hidden font-sans text-text-primary relative items-stretch"
+    class="flex h-full min-h-0 w-full bg-background-page overflow-hidden font-sans text-text-primary relative items-stretch transition-colors duration-200"
   >
     <div
       class="hidden lg:flex h-full min-h-0 shrink-0 self-stretch"
@@ -14,12 +14,12 @@ exports[`should match MasterCategoryComponent snapshots 1`] = `
         style="border-radius: 0;"
       >
         <div
-          class="h-[56px] mb-16 flex items-center shrink-0 px-4"
+          class="h-[72px] mb-16 flex items-center shrink-0 px-4"
         >
           <img
             alt="Sonicline"
-            class="h-8 w-auto object-contain"
-            src="/src/assets/Sonicline.png"
+            class="h-12 w-auto object-contain"
+            src="/src/assets/Sonicline-dark.png"
           />
         </div>
         <div
@@ -229,7 +229,7 @@ exports[`should match MasterCategoryComponent snapshots 1`] = `
       </aside>
     </div>
     <div
-      class="flex-1 flex flex-col min-w-0 min-h-0 overflow-hidden relative bg-background-page"
+      class="flex-1 flex flex-col min-w-0 min-h-0 overflow-hidden relative bg-background-page transition-colors duration-200 bg-background-surface lg:bg-background-page"
     >
       <div
         class="lg:hidden flex items-center gap-3 p-4 border-b border-border-default bg-background-surface shrink-0"
@@ -253,7 +253,7 @@ exports[`should match MasterCategoryComponent snapshots 1`] = `
         class="hidden lg:block shrink-0"
       >
         <header
-          class="h-20 flex items-center justify-between px-8 border-b border-brand-gray-light sticky top-0 z-10 transition-all"
+          class="h-20 flex items-center justify-between px-8 bg-background-surface border-b border-brand-gray-light sticky top-0 z-10 transition-all"
         >
           <div
             class="flex items-center gap-4 flex-1"
@@ -275,23 +275,15 @@ exports[`should match MasterCategoryComponent snapshots 1`] = `
                 width="20"
                 xmlns="http://www.w3.org/2000/svg"
               >
-                <line
-                  x1="4"
-                  x2="20"
-                  y1="6"
-                  y2="6"
+                <rect
+                  height="18"
+                  rx="3"
+                  width="18"
+                  x="3"
+                  y="3"
                 />
-                <line
-                  x1="4"
-                  x2="20"
-                  y1="12"
-                  y2="12"
-                />
-                <line
-                  x1="4"
-                  x2="20"
-                  y1="18"
-                  y2="18"
+                <path
+                  d="M9 3v18"
                 />
               </svg>
             </button>
@@ -338,47 +330,12 @@ exports[`should match MasterCategoryComponent snapshots 1`] = `
               </div>
             </div>
           </div>
-          <div
-            class="flex items-center gap-5"
+          <time
+            class="text-lg tracking-wide font-semibold text-text-primary tabular-nums sm:text-3xl"
+            data-testid="navbar-realtime-clock"
           >
-            <button
-              class="flex items-center gap-2.5 px-1.5 py-1.5 pr-3 rounded-full bg-brand-white border border-brand-gray-light hover:bg-brand-gray-light transition-all focus:outline-none"
-            >
-              <div
-                class="w-8 h-8 rounded-full overflow-hidden"
-              >
-                <img
-                  alt="User Avatar"
-                  class="w-full h-full object-cover"
-                  src="https://ui-avatars.com/api/?name=Admin+User&background=random"
-                />
-              </div>
-              <span
-                class="text-sm font-bold text-brand-text-dark"
-              >
-                Admin User
-              </span>
-              <div
-                class="text-brand-text-medium"
-              >
-                <svg
-                  fill="none"
-                  height="14"
-                  stroke="currentColor"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  viewBox="0 0 24 24"
-                  width="14"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="m6 9 6 6 6-6"
-                  />
-                </svg>
-              </div>
-            </button>
-          </div>
+            18-10-2026 01:01:00
+          </time>
         </header>
       </div>
       <main
@@ -423,155 +380,138 @@ exports[`should match MasterCategoryComponent snapshots 1`] = `
               </div>
             </div>
             <div
-              class="flex items-center justify-between px-2 gap-3 lg:hidden"
+              class="flex items-center justify-between gap-3 lg:hidden px-6"
             >
-              <button
-                aria-label="Back"
-                class="flex h-14 w-14 shrink-0 items-center justify-center rounded-full border border-border-default text-text-primary bg-white hover:bg-background-subtle transition-colors shadow-sm"
-                type="button"
+              <div
+                class="flex items-center gap-3 min-w-0 flex-1"
               >
-                <svg
-                  aria-hidden="true"
-                  class="w-6 h-6"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2.5"
-                  viewBox="0 0 24 24"
+                <button
+                  aria-label="Back"
+                  class="flex h-14 w-14 shrink-0 items-center justify-center rounded-full border border-border-default text-text-primary bg-white hover:bg-background-subtle transition-colors"
+                  type="button"
                 >
-                  <path
-                    d="M19 12H5M12 19l-7-7 7-7"
-                  />
-                </svg>
-              </button>
-              <h1
-                class="min-w-0 flex-1 truncate text-center text-3xl font-semibold tracking-tight text-text-primary"
+                  <svg
+                    aria-hidden="true"
+                    class="w-6 h-6"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2.5"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      d="M19 12H5M12 19l-7-7 7-7"
+                    />
+                  </svg>
+                </button>
+                <h1
+                  class="min-w-0 truncate text-left text-3xl font-semibold tracking-tight text-text-primary"
+                >
+                  Category List
+                </h1>
+              </div>
+              <div
+                class="shrink-0"
               >
-                Category List
-              </h1>
-              <span
-                aria-hidden="true"
-                class="h-12 w-12 shrink-0"
-              />
+                <button
+                  class="h-14 rounded-full border-2 border-brand-blue bg-background-surface px-6 text-sm font-bold text-brand-blue transition-colors hover:bg-action-primary-subtle focus:outline-none focus:ring-2 focus:ring-focus-ring/30"
+                  type="button"
+                >
+                  Create New
+                </button>
+              </div>
             </div>
           </header>
           <main
             class="min-w-0 flex-1"
           >
             <div
-              class="flex h-full flex-col px-3 pb-18 lg:-mt-4 lg:px-0 lg:pb-0"
+              class="relative flex h-full flex-col bg-background-surface px-6 pb-18 lg:-mt-4 lg:bg-transparent lg:px-0 lg:pb-0"
             >
               <div
-                class="flex items-center justify-between gap-3 pt-2 lg:hidden"
+                class="flex min-w-0 flex-col gap-4 pt-2 pb-16 lg:hidden"
               >
-                <div
-                  class="flex-1"
+                <label
+                  class="relative block w-full sm:w-72 w-full sm:w-full"
                 >
-                  <label
-                    class="relative block w-full sm:w-72 "
+                  <span
+                    class="sr-only"
                   >
-                    <span
-                      class="sr-only"
-                    >
-                      Search category
-                    </span>
-                    <svg
-                      aria-hidden="true"
-                      class="pointer-events-none absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-text-tertiary"
-                      fill="none"
-                      height="1em"
-                      stroke="currentColor"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      viewBox="0 0 24 24"
-                      width="1em"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <circle
-                        cx="11"
-                        cy="11"
-                        r="8"
-                      />
-                      <line
-                        x1="21"
-                        x2="16.65"
-                        y1="21"
-                        y2="16.65"
-                      />
-                    </svg>
-                    <input
-                      aria-label="Search category"
-                      class="h-14 w-full rounded-xl border border-border-default bg-background-surface pl-12 pr-4 text-base font-medium text-text-primary outline-none transition-colors placeholder:font-normal placeholder:text-text-tertiary hover:border-border-strong focus:border-border-focus focus:ring-2 focus:ring-focus-ring/30"
-                      placeholder="Search category"
-                      type="search"
+                    Search category
+                  </span>
+                  <svg
+                    aria-hidden="true"
+                    class="pointer-events-none absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-text-tertiary"
+                    fill="none"
+                    height="1em"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    viewBox="0 0 24 24"
+                    width="1em"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <circle
+                      cx="11"
+                      cy="11"
+                      r="8"
                     />
-                  </label>
-                </div>
-                <button
-                  class="shrink-0 rounded-xl bg-brand-blue h-14 px-5 text-sm font-semibold text-brand-white"
-                  type="button"
-                >
-                  Create Category
-                </button>
-              </div>
-              <div
-                class="mt-3 lg:hidden"
-              >
+                    <line
+                      x1="21"
+                      x2="16.65"
+                      y1="21"
+                      y2="16.65"
+                    />
+                  </svg>
+                  <input
+                    aria-label="Search category"
+                    class="h-14 w-full rounded-full border border-border-default bg-background-surface pl-12 pr-4 text-base font-medium text-text-primary outline-none transition-colors placeholder:font-normal placeholder:text-text-tertiary hover:border-border-strong focus:border-border-focus focus:ring-2 focus:ring-focus-ring/30"
+                    placeholder="Search category"
+                    type="search"
+                  />
+                </label>
                 <div
-                  class="flex flex-col bg-transparent overflow-hidden"
+                  class="min-w-0 space-y-3"
                 >
                   <div
-                    class="hidden md:flex flex-1 overflow-auto"
+                    class="flex cursor-pointer flex-col gap-4 rounded-3xl border border-border-default bg-background-surface p-5 transition-all hover:border-border-strong active:bg-background-subtle/50"
+                    role="button"
+                    tabindex="0"
                   >
                     <div
-                      class="w-full overflow-x-auto"
+                      class="flex items-start justify-between gap-3"
                     >
-                      <table
-                        class="w-full min-w-max border-separate border-spacing-0 whitespace-nowrap"
+                      <h4
+                        class="min-w-0 truncate text-base font-semibold text-text-primary"
                       >
-                        <thead>
-                          <tr>
-                            <th
-                              class="bg-table-header px-5 py-4 text-[13px] font-bold text-text-secondary uppercase tracking-widest rounded-l-xl rounded-r-xl text-left "
-                            >
-                              Name
-                            </th>
-                          </tr>
-                        </thead>
-                        <tbody
-                          class="divide-y divide-border-default"
-                        >
-                          <tr
-                            class="hover:bg-background-subtle/50 transition-colors cursor-pointer"
-                          >
-                            <td
-                              class="px-5 py-4 border-b border-border-default text-base text-left "
-                            >
-                              Audio System
-                            </td>
-                          </tr>
-                        </tbody>
-                      </table>
+                        Audio System
+                      </h4>
+                      <span
+                        class="shrink-0 rounded-full px-3 py-1 text-xs font-semibold uppercase tracking-wider bg-green-100 text-green-700"
+                      >
+                        active
+                      </span>
                     </div>
-                  </div>
-                  <div
-                    class="md:hidden bg-background-surface rounded-xl border border-border-default shadow-sm overflow-hidden"
-                  >
                     <div
-                      class="bg-background-surface overflow-hidden divide-y divide-border-default"
+                      class="rounded-xl bg-background-subtle/60 p-3 text-sm"
                     >
-                      <div
-                        class="flex flex-col gap-3 px-4 py-4 bg-transparent transition-colors cursor-pointer active:bg-background-subtle/50"
-                        role="button"
-                        tabindex="0"
-                      />
+                      <p
+                        class="text-xs text-text-tertiary"
+                      >
+                        Created
+                      </p>
+                      <p
+                        class="font-medium text-text-primary"
+                      >
+                        2024-02-01
+                      </p>
                     </div>
                   </div>
                 </div>
                 <div
-                  class="flex flex-col gap-3 py-4 mt-2 w-full rounded-2xl border border-border-default bg-background-surface h-14 px-5 shadow-xs"
+                  class="flex flex-col gap-3 py-4 mt-2 w-full rounded-2xl border border-border-default bg-background-surface px-4 py-3 shadow-xs"
                 >
                   <div
                     class="flex w-full items-center justify-between gap-2 overflow-x-auto"
@@ -586,7 +526,7 @@ exports[`should match MasterCategoryComponent snapshots 1`] = `
                       </p>
                       <select
                         aria-label="Documents per page"
-                        class="w-[180px] px-4 py-2.5 text-base sm:min-w-[100px] sm:w-auto shrink-0 cursor-pointer rounded-xl border border-border-default bg-background-surface font-semibold text-text-primary focus:outline-none"
+                        class="px-4 py-2.5 text-base shrink-0 cursor-pointer rounded-xl border border-border-default bg-background-surface font-semibold text-text-primary focus:outline-none"
                       >
                         <option
                           value="5"
@@ -619,7 +559,7 @@ exports[`should match MasterCategoryComponent snapshots 1`] = `
                       class="flex shrink-0 items-center justify-end gap-1 sm:gap-2"
                     >
                       <button
-                        class="flex items-center gap-2 px-2.5 sm:px-4 py-1.5 sm:py-2.5 border border-border-default rounded-xl text-base font-semibold transition-colors text-text-disabled cursor-not-allowed bg-background-disabled"
+                        class="flex items-center gap-2 p-2.5 border border-border-default rounded-xl text-base font-semibold transition-colors text-text-disabled cursor-not-allowed bg-background-disabled"
                         disabled=""
                       >
                         <svg
@@ -639,7 +579,7 @@ exports[`should match MasterCategoryComponent snapshots 1`] = `
                           />
                         </svg>
                         <span
-                          class="hidden sm:inline"
+                          class="hidden"
                         >
                           Previous
                         </span>
@@ -655,11 +595,11 @@ exports[`should match MasterCategoryComponent snapshots 1`] = `
                         </button>
                       </div>
                       <button
-                        class="flex items-center gap-2 px-2.5 sm:px-4 py-1.5 sm:py-2.5 border border-border-default rounded-xl text-base font-semibold transition-colors text-text-disabled cursor-not-allowed bg-background-disabled"
+                        class="flex items-center gap-2 p-2.5 border border-border-default rounded-xl text-base font-semibold transition-colors text-text-disabled cursor-not-allowed bg-background-disabled"
                         disabled=""
                       >
                         <span
-                          class="hidden sm:inline"
+                          class="hidden"
                         >
                           Next
                         </span>
@@ -765,7 +705,7 @@ exports[`should match MasterCategoryComponent snapshots 1`] = `
                             class="divide-y divide-border-default"
                           >
                             <tr
-                              class="hover:bg-background-subtle/50 transition-colors cursor-pointer"
+                              class="hover:bg-background-subtle/50 transition-colors "
                             >
                               <td
                                 class="px-5 py-4 border-b border-border-default text-base text-left "
@@ -784,9 +724,7 @@ exports[`should match MasterCategoryComponent snapshots 1`] = `
                         class="bg-background-surface overflow-hidden divide-y divide-border-default"
                       >
                         <div
-                          class="flex flex-col gap-3 px-4 py-4 bg-transparent transition-colors cursor-pointer active:bg-background-subtle/50"
-                          role="button"
-                          tabindex="0"
+                          class="flex flex-col gap-3 px-4 py-4 bg-transparent transition-colors "
                         />
                       </div>
                     </div>
@@ -918,7 +856,7 @@ exports[`should match MasterCategoryComponent snapshots 1`] = `
 exports[`should match MasterCategoryComponent snapshots 2`] = `
 <DocumentFragment>
   <div
-    class="flex h-full min-h-0 w-full bg-background-page overflow-hidden font-sans text-text-primary relative items-stretch"
+    class="flex h-full min-h-0 w-full bg-background-page overflow-hidden font-sans text-text-primary relative items-stretch transition-colors duration-200"
   >
     <div
       class="hidden lg:flex h-full min-h-0 shrink-0 self-stretch"
@@ -929,12 +867,12 @@ exports[`should match MasterCategoryComponent snapshots 2`] = `
         style="border-radius: 0;"
       >
         <div
-          class="h-[56px] mb-16 flex items-center shrink-0 px-4"
+          class="h-[72px] mb-16 flex items-center shrink-0 px-4"
         >
           <img
             alt="Sonicline"
-            class="h-8 w-auto object-contain"
-            src="/src/assets/Sonicline.png"
+            class="h-12 w-auto object-contain"
+            src="/src/assets/Sonicline-dark.png"
           />
         </div>
         <div
@@ -1144,7 +1082,7 @@ exports[`should match MasterCategoryComponent snapshots 2`] = `
       </aside>
     </div>
     <div
-      class="flex-1 flex flex-col min-w-0 min-h-0 overflow-hidden relative bg-background-page"
+      class="flex-1 flex flex-col min-w-0 min-h-0 overflow-hidden relative bg-background-page transition-colors duration-200 bg-background-surface lg:bg-background-page"
     >
       <div
         class="lg:hidden flex items-center gap-3 p-4 border-b border-border-default bg-background-surface shrink-0"
@@ -1168,7 +1106,7 @@ exports[`should match MasterCategoryComponent snapshots 2`] = `
         class="hidden lg:block shrink-0"
       >
         <header
-          class="h-20 flex items-center justify-between px-8 border-b border-brand-gray-light sticky top-0 z-10 transition-all"
+          class="h-20 flex items-center justify-between px-8 bg-background-surface border-b border-brand-gray-light sticky top-0 z-10 transition-all"
         >
           <div
             class="flex items-center gap-4 flex-1"
@@ -1190,23 +1128,15 @@ exports[`should match MasterCategoryComponent snapshots 2`] = `
                 width="20"
                 xmlns="http://www.w3.org/2000/svg"
               >
-                <line
-                  x1="4"
-                  x2="20"
-                  y1="6"
-                  y2="6"
+                <rect
+                  height="18"
+                  rx="3"
+                  width="18"
+                  x="3"
+                  y="3"
                 />
-                <line
-                  x1="4"
-                  x2="20"
-                  y1="12"
-                  y2="12"
-                />
-                <line
-                  x1="4"
-                  x2="20"
-                  y1="18"
-                  y2="18"
+                <path
+                  d="M9 3v18"
                 />
               </svg>
             </button>
@@ -1253,47 +1183,12 @@ exports[`should match MasterCategoryComponent snapshots 2`] = `
               </div>
             </div>
           </div>
-          <div
-            class="flex items-center gap-5"
+          <time
+            class="text-lg tracking-wide font-semibold text-text-primary tabular-nums sm:text-3xl"
+            data-testid="navbar-realtime-clock"
           >
-            <button
-              class="flex items-center gap-2.5 px-1.5 py-1.5 pr-3 rounded-full bg-brand-white border border-brand-gray-light hover:bg-brand-gray-light transition-all focus:outline-none"
-            >
-              <div
-                class="w-8 h-8 rounded-full overflow-hidden"
-              >
-                <img
-                  alt="User Avatar"
-                  class="w-full h-full object-cover"
-                  src="https://ui-avatars.com/api/?name=Admin+User&background=random"
-                />
-              </div>
-              <span
-                class="text-sm font-bold text-brand-text-dark"
-              >
-                Admin User
-              </span>
-              <div
-                class="text-brand-text-medium"
-              >
-                <svg
-                  fill="none"
-                  height="14"
-                  stroke="currentColor"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  viewBox="0 0 24 24"
-                  width="14"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="m6 9 6 6 6-6"
-                  />
-                </svg>
-              </div>
-            </button>
-          </div>
+            18-10-2026 01:01:00
+          </time>
         </header>
       </div>
       <main
@@ -1338,109 +1233,109 @@ exports[`should match MasterCategoryComponent snapshots 2`] = `
               </div>
             </div>
             <div
-              class="flex items-center justify-between px-2 gap-3 lg:hidden"
+              class="flex items-center justify-between gap-3 lg:hidden px-6"
             >
-              <button
-                aria-label="Back"
-                class="flex h-14 w-14 shrink-0 items-center justify-center rounded-full border border-border-default text-text-primary bg-white hover:bg-background-subtle transition-colors shadow-sm"
-                type="button"
+              <div
+                class="flex items-center gap-3 min-w-0 flex-1"
               >
-                <svg
-                  aria-hidden="true"
-                  class="w-6 h-6"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2.5"
-                  viewBox="0 0 24 24"
+                <button
+                  aria-label="Back"
+                  class="flex h-14 w-14 shrink-0 items-center justify-center rounded-full border border-border-default text-text-primary bg-white hover:bg-background-subtle transition-colors"
+                  type="button"
                 >
-                  <path
-                    d="M19 12H5M12 19l-7-7 7-7"
-                  />
-                </svg>
-              </button>
-              <h1
-                class="min-w-0 flex-1 truncate text-center text-3xl font-semibold tracking-tight text-text-primary"
+                  <svg
+                    aria-hidden="true"
+                    class="w-6 h-6"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2.5"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      d="M19 12H5M12 19l-7-7 7-7"
+                    />
+                  </svg>
+                </button>
+                <h1
+                  class="min-w-0 truncate text-left text-3xl font-semibold tracking-tight text-text-primary"
+                >
+                  Category List
+                </h1>
+              </div>
+              <div
+                class="shrink-0"
               >
-                Category List
-              </h1>
-              <span
-                aria-hidden="true"
-                class="h-12 w-12 shrink-0"
-              />
+                <button
+                  class="h-14 rounded-full border-2 border-brand-blue bg-background-surface px-6 text-sm font-bold text-brand-blue transition-colors hover:bg-action-primary-subtle focus:outline-none focus:ring-2 focus:ring-focus-ring/30"
+                  type="button"
+                >
+                  Create New
+                </button>
+              </div>
             </div>
           </header>
           <main
             class="min-w-0 flex-1"
           >
             <div
-              class="flex h-full flex-col px-3 pb-18 lg:-mt-4 lg:px-0 lg:pb-0"
+              class="relative flex h-full flex-col bg-background-surface px-6 pb-18 lg:-mt-4 lg:bg-transparent lg:px-0 lg:pb-0"
             >
               <div
-                class="flex items-center justify-between gap-3 pt-2 lg:hidden"
+                class="flex min-w-0 flex-col gap-4 pt-2 pb-16 lg:hidden"
               >
-                <div
-                  class="flex-1"
+                <label
+                  class="relative block w-full sm:w-72 w-full sm:w-full"
                 >
-                  <label
-                    class="relative block w-full sm:w-72 "
+                  <span
+                    class="sr-only"
                   >
-                    <span
-                      class="sr-only"
-                    >
-                      Search category
-                    </span>
-                    <svg
-                      aria-hidden="true"
-                      class="pointer-events-none absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-text-tertiary"
-                      fill="none"
-                      height="1em"
-                      stroke="currentColor"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      viewBox="0 0 24 24"
-                      width="1em"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <circle
-                        cx="11"
-                        cy="11"
-                        r="8"
-                      />
-                      <line
-                        x1="21"
-                        x2="16.65"
-                        y1="21"
-                        y2="16.65"
-                      />
-                    </svg>
-                    <input
-                      aria-label="Search category"
-                      class="h-14 w-full rounded-xl border border-border-default bg-background-surface pl-12 pr-4 text-base font-medium text-text-primary outline-none transition-colors placeholder:font-normal placeholder:text-text-tertiary hover:border-border-strong focus:border-border-focus focus:ring-2 focus:ring-focus-ring/30"
-                      placeholder="Search category"
-                      type="search"
+                    Search category
+                  </span>
+                  <svg
+                    aria-hidden="true"
+                    class="pointer-events-none absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-text-tertiary"
+                    fill="none"
+                    height="1em"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    viewBox="0 0 24 24"
+                    width="1em"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <circle
+                      cx="11"
+                      cy="11"
+                      r="8"
                     />
-                  </label>
-                </div>
-                <button
-                  class="shrink-0 rounded-xl bg-brand-blue h-14 px-5 text-sm font-semibold text-brand-white"
-                  type="button"
-                >
-                  Create Category
-                </button>
-              </div>
-              <div
-                class="mt-3 lg:hidden"
-              >
-                <p
-                  class="py-10 text-center text-sm text-brand-text-medium"
-                >
-                  No categories found.
-                </p>
+                    <line
+                      x1="21"
+                      x2="16.65"
+                      y1="21"
+                      y2="16.65"
+                    />
+                  </svg>
+                  <input
+                    aria-label="Search category"
+                    class="h-14 w-full rounded-full border border-border-default bg-background-surface pl-12 pr-4 text-base font-medium text-text-primary outline-none transition-colors placeholder:font-normal placeholder:text-text-tertiary hover:border-border-strong focus:border-border-focus focus:ring-2 focus:ring-focus-ring/30"
+                    placeholder="Search category"
+                    type="search"
+                  />
+                </label>
                 <div
-                  class="flex flex-col gap-3 py-4 mt-2 w-full rounded-2xl border border-border-default bg-background-surface h-14 px-5 shadow-xs"
+                  class="min-w-0 space-y-3"
+                >
+                  <p
+                    class="py-10 text-center text-sm text-brand-text-medium"
+                  >
+                    No categories found.
+                  </p>
+                </div>
+                <div
+                  class="flex flex-col gap-3 py-4 mt-2 w-full rounded-2xl border border-border-default bg-background-surface px-4 py-3 shadow-xs"
                 >
                   <div
                     class="flex w-full items-center justify-between gap-2 overflow-x-auto"
@@ -1455,7 +1350,7 @@ exports[`should match MasterCategoryComponent snapshots 2`] = `
                       </p>
                       <select
                         aria-label="Documents per page"
-                        class="w-[180px] px-4 py-2.5 text-base sm:min-w-[100px] sm:w-auto shrink-0 cursor-pointer rounded-xl border border-border-default bg-background-surface font-semibold text-text-primary focus:outline-none"
+                        class="px-4 py-2.5 text-base shrink-0 cursor-pointer rounded-xl border border-border-default bg-background-surface font-semibold text-text-primary focus:outline-none"
                       >
                         <option
                           value="5"
@@ -1488,7 +1383,7 @@ exports[`should match MasterCategoryComponent snapshots 2`] = `
                       class="flex shrink-0 items-center justify-end gap-1 sm:gap-2"
                     >
                       <button
-                        class="flex items-center gap-2 px-2.5 sm:px-4 py-1.5 sm:py-2.5 border border-border-default rounded-xl text-base font-semibold transition-colors text-text-disabled cursor-not-allowed bg-background-disabled"
+                        class="flex items-center gap-2 p-2.5 border border-border-default rounded-xl text-base font-semibold transition-colors text-text-disabled cursor-not-allowed bg-background-disabled"
                         disabled=""
                       >
                         <svg
@@ -1508,7 +1403,7 @@ exports[`should match MasterCategoryComponent snapshots 2`] = `
                           />
                         </svg>
                         <span
-                          class="hidden sm:inline"
+                          class="hidden"
                         >
                           Previous
                         </span>
@@ -1524,11 +1419,11 @@ exports[`should match MasterCategoryComponent snapshots 2`] = `
                         </button>
                       </div>
                       <button
-                        class="flex items-center gap-2 px-2.5 sm:px-4 py-1.5 sm:py-2.5 border border-border-default rounded-xl text-base font-semibold transition-colors text-text-disabled cursor-not-allowed bg-background-disabled"
+                        class="flex items-center gap-2 p-2.5 border border-border-default rounded-xl text-base font-semibold transition-colors text-text-disabled cursor-not-allowed bg-background-disabled"
                         disabled=""
                       >
                         <span
-                          class="hidden sm:inline"
+                          class="hidden"
                         >
                           Next
                         </span>

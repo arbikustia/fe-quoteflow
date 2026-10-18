@@ -62,6 +62,27 @@ const _resolvePaymentMethodDetail = (response: PaymentMethodDetailResponse | und
 };
 
 /**
+ * Send create or update mutation to API.
+ * @param {PaymentMethodSubmissionParams} params - Submission parameters
+ * @param {ReturnType<typeof useCreatePaymentMethodMutation>[0]} createPaymentMethod - Create mutation trigger
+ * @param {ReturnType<typeof useUpdatePaymentMethodMutation>[0]} updatePaymentMethod - Update mutation trigger
+ * @returns {Promise<PaymentMethodCreateResponse>} API response
+ */
+const _sendPaymentMethodMutation = (
+  params: PaymentMethodSubmissionParams,
+  createPaymentMethod: ReturnType<typeof useCreatePaymentMethodMutation>[0],
+  updatePaymentMethod: ReturnType<typeof useUpdatePaymentMethodMutation>[0],
+): Promise<PaymentMethodCreateResponse> => {
+  const { id, isEditMode, name, description, isActive } = params;
+
+  if (isEditMode && id) {
+    return updatePaymentMethod({ id, name, description, status: isActive ? 1 : 0 }).unwrap();
+  }
+
+  return createPaymentMethod({ name, description, status: 1 }).unwrap();
+};
+
+/**
  * Handle form submission logic for create or update.
  * @param {PaymentMethodSubmissionParams} params - Submission parameters
  * @returns {PaymentMethodSubmissionState} Submission state
@@ -69,7 +90,7 @@ const _resolvePaymentMethodDetail = (response: PaymentMethodDetailResponse | und
 const usePaymentMethodSubmission = (
   params: PaymentMethodSubmissionParams,
 ): PaymentMethodSubmissionState => {
-  const { id, isEditMode, name, description, isActive } = params;
+  const { isEditMode, name, description } = params;
   const navigate = useNavigate();
   const [createPaymentMethod, { isLoading: isCreating }] = useCreatePaymentMethodMutation();
   const [updatePaymentMethod, { isLoading: isUpdating }] = useUpdatePaymentMethodMutation();
@@ -96,13 +117,7 @@ const usePaymentMethodSubmission = (
     }
 
     try {
-      let response: PaymentMethodCreateResponse;
-
-      if (isEditMode && id) {
-        response = await updatePaymentMethod({ id, name, description, status: isActive ? 1 : 0 }).unwrap();
-      } else {
-        response = await createPaymentMethod({ name, description, status: 1 }).unwrap();
-      }
+      const response = await _sendPaymentMethodMutation(params, createPaymentMethod, updatePaymentMethod);
 
       if (!response.status) {
         setErrorMessage(_formatMessages(response.messages));
@@ -121,6 +136,27 @@ const usePaymentMethodSubmission = (
 };
 
 /**
+ * Resolve initial active toggle state.
+ * @param {PaymentMethodData | undefined} routePaymentMethod - Route item
+ * @param {PaymentMethodData | null} apiItem - API item
+ * @returns {boolean} Initial active state
+ */
+const _resolveInitialIsActive = (
+  routePaymentMethod: PaymentMethodData | undefined,
+  apiItem: PaymentMethodData | null,
+): boolean => {
+  if (routePaymentMethod) {
+    return routePaymentMethod.status === "active";
+  }
+
+  if (apiItem) {
+    return apiItem.status === "active";
+  }
+
+  return true;
+};
+
+/**
  * Hook managing form fields and synchronization.
  * @param {PaymentMethodData | undefined} routePaymentMethod - Route payment method
  * @param {PaymentMethodData | null} apiItem - API fetched payment method
@@ -132,7 +168,7 @@ const usePaymentMethodFormFields = (
 ): PaymentMethodFormFieldsState => {
   const initialName = routePaymentMethod?.name ?? apiItem?.name ?? "";
   const initialDescription = routePaymentMethod?.description ?? apiItem?.description ?? "";
-  const initialIsActive = routePaymentMethod ? routePaymentMethod.status === "active" : (apiItem ? apiItem.status === "active" : true);
+  const initialIsActive = _resolveInitialIsActive(routePaymentMethod, apiItem);
 
   const [name, setName] = useState(initialName);
   const [description, setDescription] = useState(initialDescription);
@@ -149,7 +185,8 @@ const usePaymentMethodFormFields = (
   const handleNameChange = _createInputChangeHandler(setName);
   const handleDescriptionChange = _createInputChangeHandler(setDescription);
   /**
-   *
+   * Toggle active state.
+   * @returns {void} No return value
    */
   const handleStatusChange = (): void => { setIsActive((currentIsActive) => !currentIsActive); };
 

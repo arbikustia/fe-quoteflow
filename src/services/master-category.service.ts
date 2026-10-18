@@ -32,8 +32,16 @@ export const mapCategory = (
 
 /** RTK Query endpoints for master category data. */
 export const masterCategoryService = apiRtkClient.injectEndpoints({
+  /**
+   *
+   * @param builder
+   */
   endpoints: (builder) => ({
     getCategories: builder.query<CategoryListResponse, CategoryListParams>({
+      /**
+       *
+       * @param params
+       */
       query: (params) => ({
         url: ENDPOINT.MASTER_CATEGORY.PAGED,
         method: "GET",
@@ -49,6 +57,10 @@ export const masterCategoryService = apiRtkClient.injectEndpoints({
       CategoryCreateResponse,
       CategoryCreatePayload
     >({
+      /**
+       *
+       * @param body
+       */
       query: (body) => ({
         url: ENDPOINT.MASTER_CATEGORY.CREATE,
         method: "POST",
@@ -57,6 +69,10 @@ export const masterCategoryService = apiRtkClient.injectEndpoints({
       invalidatesTags: [CATEGORY_TAG],
     }),
     getCategoryById: builder.query<CategoryDetailResponse, string>({
+      /**
+       *
+       * @param id
+       */
       query: (id) => ({
         url: `${ENDPOINT.MASTER_CATEGORY.DETAIL}/${id}`,
         method: "GET",
@@ -67,6 +83,10 @@ export const masterCategoryService = apiRtkClient.injectEndpoints({
       CategoryCreateResponse,
       CategoryUpdatePayload
     >({
+      /**
+       *
+       * @param body
+       */
       query: (body) => ({
         url: `${ENDPOINT.MASTER_CATEGORY.CREATE}/${body.id}`,
         method: "PUT",
@@ -75,6 +95,9 @@ export const masterCategoryService = apiRtkClient.injectEndpoints({
       invalidatesTags: [CATEGORY_TAG],
     }),
     getAllCategories: builder.query<CategoryAllResponse, void>({
+      /**
+       *
+       */
       query: () => ({
         url: ENDPOINT.MASTER_CATEGORY.ALL,
         method: "GET",

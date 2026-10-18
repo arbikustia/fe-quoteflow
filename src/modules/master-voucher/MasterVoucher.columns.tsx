@@ -82,67 +82,62 @@ const _getBasicColumns = (currentPage: number, pageSize: number): TableColumn<Vo
 };
 
 /**
+ * Create voucher download handler.
+ * @param {VoucherData} row - Voucher row
+ * @param {((voucher: VoucherData) => void) | undefined} onDownload - Download handler
+ * @returns {(event: React.MouseEvent) => void} Click handler
+ */
+const _createDownloadHandler = (row: VoucherData, onDownload?: (voucher: VoucherData) => void): ((event: React.MouseEvent) => void) => (event: React.MouseEvent): void => {
+  event.stopPropagation();
+  onDownload?.(row);
+};
+
+/**
+ * Create voucher edit handler.
+ * @param {VoucherData} row - Voucher row
+ * @param {(voucher: VoucherData) => void} onEdit - Edit handler
+ * @returns {(event: React.MouseEvent) => void} Click handler
+ */
+const _createEditHandler = (row: VoucherData, onEdit: (voucher: VoucherData) => void): ((event: React.MouseEvent) => void) => (event: React.MouseEvent): void => {
+  event.stopPropagation();
+  onEdit(row);
+};
+
+/**
+ * Render voucher row action buttons.
+ * @param {VoucherData} row - Voucher row
+ * @param {(voucher: VoucherData) => void} onEdit - Edit handler
+ * @param {((voucher: VoucherData) => void) | undefined} onDownload - Download handler
+ * @returns {React.ReactElement} Action buttons element
+ */
+const _renderVoucherActions = (row: VoucherData, onEdit: (voucher: VoucherData) => void, onDownload?: (voucher: VoucherData) => void): React.ReactElement => {
+  const handleDownload = _createDownloadHandler(row, onDownload);
+  const handleEdit = _createEditHandler(row, onEdit);
+
+  return (
+    <div className="flex items-center justify-center gap-2">
+      <button type="button" onClick={handleDownload} className="cursor-pointer rounded-lg p-1.5 text-brand-text-medium transition-colors hover:bg-brand-blue-light hover:text-brand-blue" title="Download voucher" aria-label={`Download voucher ${row.code}`}><FiDownload className="h-4 w-4" /></button>
+      <button type="button" onClick={handleEdit} className="cursor-pointer rounded-lg p-1.5 text-brand-text-medium transition-colors hover:bg-brand-blue-light hover:text-brand-blue" title="Edit" aria-label={`Edit voucher ${row.code}`}><FiEdit2 className="h-4 w-4" /></button>
+    </div>
+  );
+};
+
+/**
  * Get Columns
  * @param {GetColumnsParams} params - params
  * @returns {TableColumn<VoucherData>[]} columns
  */
-export const getColumns = ({ currentPage, pageSize, onEdit, onDownload }: GetColumnsParams): TableColumn<VoucherData>[] => {
-  /**
-   * Render actions
-   * @param {VoucherData} row - row
-   * @returns {React.ReactElement} action
-   */
-  const renderActions = (row: VoucherData): React.ReactElement => {
+export const getColumns = ({ currentPage, pageSize, onEdit, onDownload }: GetColumnsParams): TableColumn<VoucherData>[] => [
+  ..._getBasicColumns(currentPage, pageSize),
+  {
+    key: "actions",
+    header: "Action",
+    align: "center",
     /**
-     * Handle click
-     * @param {React.MouseEvent} e - event
-     * @returns {void} void
+     * Render action buttons.
+     * @param {VoucherData} row - Voucher row
+     * @returns {React.ReactElement} Action buttons
      */
-    const handleClick = (e: React.MouseEvent): void => {
-      e.stopPropagation();
-      onEdit(row);
-    };
-
-    /**
-     *
-     * @param event
-     */
-    const handleDownload = (event: React.MouseEvent): void => {
-      event.stopPropagation();
-      onDownload?.(row);
-    };
-
-    return (
-      <div className="flex items-center justify-center gap-2">
-        <button
-          type="button"
-          onClick={handleDownload}
-          className="cursor-pointer rounded-lg p-1.5 text-brand-text-medium transition-colors hover:bg-brand-blue-light hover:text-brand-blue"
-          title="Download voucher"
-          aria-label={`Download voucher ${row.code}`}
-        >
-          <FiDownload className="h-4 w-4" />
-        </button>
-        <button
-          type="button"
-          onClick={handleClick}
-          className="cursor-pointer rounded-lg p-1.5 text-brand-text-medium transition-colors hover:bg-brand-blue-light hover:text-brand-blue"
-          title="Edit"
-          aria-label={`Edit voucher ${row.code}`}
-        >
-          <FiEdit2 className="h-4 w-4" />
-        </button>
-      </div>
-    );
-  };
-
-  return [
-    ..._getBasicColumns(currentPage, pageSize),
-    {
-      key: "actions",
-      header: "Action",
-      align: "center",
-      render: renderActions,
-    },
-  ];
-};
+    render: (row: VoucherData): React.ReactElement => _renderVoucherActions(row, onEdit, onDownload),
+  },
+];

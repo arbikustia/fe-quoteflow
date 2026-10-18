@@ -1,0 +1,490 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`MasterPicCreateForm Component MasterPicCreateForm Snapshots create mode default 1`] = `
+<DocumentFragment>
+  <div
+    class="flex h-full w-full flex-col bg-background-surface pb-6 font-sans lg:bg-background-page"
+  >
+    <div
+      class="sticky top-0 z-20 flex items-center bg-background-surface px-6 lg:hidden"
+    >
+      <button
+        aria-label="Back"
+        class="flex h-14 w-14 shrink-0 items-center justify-center rounded-full border border-border-default bg-background-surface text-text-primary transition-colors hover:bg-background-subtle"
+        type="button"
+      >
+        <svg
+          aria-hidden="true"
+          class="h-6 w-6"
+          fill="none"
+          stroke="currentColor"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2.5"
+          viewBox="0 0 24 24"
+        >
+          <path
+            d="M19 12H5M12 19l-7-7 7-7"
+          />
+        </svg>
+      </button>
+    </div>
+    <div
+      class="mt-2 flex min-h-0 w-full flex-1 flex-col px-6 lg:mt-0 lg:px-0"
+    >
+      <nav
+        aria-label="Breadcrumb"
+        class="mb-3 hidden items-center gap-2 text-sm font-medium text-text-secondary lg:flex"
+      >
+        <button
+          class="cursor-pointer hover:text-text-primary"
+          type="button"
+        >
+          Master PIC
+        </button>
+        <span
+          aria-hidden="true"
+        >
+          /
+        </span>
+        <span
+          class="text-text-primary"
+        >
+          New PIC
+        </span>
+      </nav>
+      <div
+        class="my-6 pl-1"
+      >
+        <h2
+          class="text-4xl font-semibold leading-tight tracking-tight text-text-primary"
+        >
+          New PIC
+        </h2>
+        <p
+          class="mt-3 text-sm font-medium text-text-secondary opacity-70"
+        >
+          Fill in the PIC details below.
+        </p>
+      </div>
+      <form
+        class="flex min-h-0 flex-1 flex-col justify-between border-0 bg-transparent p-0 shadow-none lg:rounded-4xl lg:border lg:border-border-default lg:bg-background-surface lg:p-8 lg:shadow-xs"
+      >
+        <div
+          class="space-y-4"
+        >
+          <div>
+            <label
+              class="mb-1.5 block text-xs font-bold uppercase tracking-wider text-text-secondary"
+              for="pic-name"
+            >
+              PIC Name 
+              <span
+                aria-hidden="true"
+                class="text-red-600"
+              >
+                *
+              </span>
+            </label>
+            <input
+              class="w-full rounded-xl border border-border-default bg-background-surface px-4 py-3 text-[15px] text-text-primary shadow-xs outline-none transition-all placeholder:text-text-tertiary/60 focus:border-border-focus focus:ring-2 focus:ring-focus-ring/30"
+              id="pic-name"
+              placeholder="e.g. John Doe"
+              required=""
+              value="John Doe"
+            />
+          </div>
+        </div>
+        <div
+          class="mt-8 flex justify-end border-t border-border-default/60 pt-5 lg:mt-6 lg:border-border-default"
+        >
+          <button
+            class="h-14 w-full cursor-pointer rounded-xl bg-action-primary px-8 text-sm font-semibold tracking-wide text-text-inverse shadow-xs transition-all hover:bg-action-primary-hover disabled:opacity-60 sm:w-auto"
+            type="submit"
+          >
+            Create PIC
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`MasterPicCreateForm Component MasterPicCreateForm Snapshots edit mode active 1`] = `
+<DocumentFragment>
+  <div
+    class="flex h-full w-full flex-col bg-background-surface pb-6 font-sans lg:bg-background-page"
+  >
+    <div
+      class="sticky top-0 z-20 flex items-center bg-background-surface px-6 lg:hidden"
+    >
+      <button
+        aria-label="Back"
+        class="flex h-14 w-14 shrink-0 items-center justify-center rounded-full border border-border-default bg-background-surface text-text-primary transition-colors hover:bg-background-subtle"
+        type="button"
+      >
+        <svg
+          aria-hidden="true"
+          class="h-6 w-6"
+          fill="none"
+          stroke="currentColor"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2.5"
+          viewBox="0 0 24 24"
+        >
+          <path
+            d="M19 12H5M12 19l-7-7 7-7"
+          />
+        </svg>
+      </button>
+    </div>
+    <div
+      class="mt-2 flex min-h-0 w-full flex-1 flex-col px-6 lg:mt-0 lg:px-0"
+    >
+      <nav
+        aria-label="Breadcrumb"
+        class="mb-3 hidden items-center gap-2 text-sm font-medium text-text-secondary lg:flex"
+      >
+        <button
+          class="cursor-pointer hover:text-text-primary"
+          type="button"
+        >
+          Master PIC
+        </button>
+        <span
+          aria-hidden="true"
+        >
+          /
+        </span>
+        <span
+          class="text-text-primary"
+        >
+          Edit PIC
+        </span>
+      </nav>
+      <div
+        class="my-6 pl-1"
+      >
+        <h2
+          class="text-4xl font-semibold leading-tight tracking-tight text-text-primary"
+        >
+          Edit PIC
+        </h2>
+        <p
+          class="mt-3 text-sm font-medium text-text-secondary opacity-70"
+        >
+          Update the PIC details below.
+        </p>
+      </div>
+      <form
+        class="flex min-h-0 flex-1 flex-col justify-between border-0 bg-transparent p-0 shadow-none lg:rounded-4xl lg:border lg:border-border-default lg:bg-background-surface lg:p-8 lg:shadow-xs"
+      >
+        <div
+          class="space-y-4"
+        >
+          <div>
+            <label
+              class="mb-1.5 block text-xs font-bold uppercase tracking-wider text-text-secondary"
+              for="pic-name"
+            >
+              PIC Name 
+              <span
+                aria-hidden="true"
+                class="text-red-600"
+              >
+                *
+              </span>
+            </label>
+            <input
+              class="w-full rounded-xl border border-border-default bg-background-surface px-4 py-3 text-[15px] text-text-primary shadow-xs outline-none transition-all placeholder:text-text-tertiary/60 focus:border-border-focus focus:ring-2 focus:ring-focus-ring/30"
+              id="pic-name"
+              placeholder="e.g. John Doe"
+              required=""
+              value="John Doe"
+            />
+          </div>
+          <div
+            class="flex items-center justify-between rounded-xl border border-border-default bg-background-surface px-4 py-3.5"
+          >
+            <div
+              class="flex flex-col"
+            >
+              <span
+                class="text-sm font-semibold text-text-primary"
+              >
+                Status
+              </span>
+              <span
+                class="text-xs text-text-secondary"
+              >
+                Toggle active or inactive status
+              </span>
+            </div>
+            <button
+              aria-checked="true"
+              class="relative inline-flex h-6 w-11 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-brand-blue/30 bg-brand-blue"
+              role="switch"
+              type="button"
+            >
+              <span
+                class="pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow-lg transition translate-x-5"
+              />
+            </button>
+          </div>
+        </div>
+        <div
+          class="mt-8 flex justify-end border-t border-border-default/60 pt-5 lg:mt-6 lg:border-border-default"
+        >
+          <button
+            class="h-14 w-full cursor-pointer rounded-xl bg-action-primary px-8 text-sm font-semibold tracking-wide text-text-inverse shadow-xs transition-all hover:bg-action-primary-hover disabled:opacity-60 sm:w-auto"
+            type="submit"
+          >
+            Update PIC
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`MasterPicCreateForm Component MasterPicCreateForm Snapshots loading initial data 1`] = `
+<DocumentFragment>
+  <p
+    class="py-12 text-center text-sm text-text-secondary"
+  >
+    Loading PIC data…
+  </p>
+</DocumentFragment>
+`;
+
+exports[`MasterPicCreateForm Component MasterPicCreateForm Snapshots submitting state 1`] = `
+<DocumentFragment>
+  <div
+    class="flex h-full w-full flex-col bg-background-surface pb-6 font-sans lg:bg-background-page"
+  >
+    <div
+      class="sticky top-0 z-20 flex items-center bg-background-surface px-6 lg:hidden"
+    >
+      <button
+        aria-label="Back"
+        class="flex h-14 w-14 shrink-0 items-center justify-center rounded-full border border-border-default bg-background-surface text-text-primary transition-colors hover:bg-background-subtle"
+        type="button"
+      >
+        <svg
+          aria-hidden="true"
+          class="h-6 w-6"
+          fill="none"
+          stroke="currentColor"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2.5"
+          viewBox="0 0 24 24"
+        >
+          <path
+            d="M19 12H5M12 19l-7-7 7-7"
+          />
+        </svg>
+      </button>
+    </div>
+    <div
+      class="mt-2 flex min-h-0 w-full flex-1 flex-col px-6 lg:mt-0 lg:px-0"
+    >
+      <nav
+        aria-label="Breadcrumb"
+        class="mb-3 hidden items-center gap-2 text-sm font-medium text-text-secondary lg:flex"
+      >
+        <button
+          class="cursor-pointer hover:text-text-primary"
+          type="button"
+        >
+          Master PIC
+        </button>
+        <span
+          aria-hidden="true"
+        >
+          /
+        </span>
+        <span
+          class="text-text-primary"
+        >
+          New PIC
+        </span>
+      </nav>
+      <div
+        class="my-6 pl-1"
+      >
+        <h2
+          class="text-4xl font-semibold leading-tight tracking-tight text-text-primary"
+        >
+          New PIC
+        </h2>
+        <p
+          class="mt-3 text-sm font-medium text-text-secondary opacity-70"
+        >
+          Fill in the PIC details below.
+        </p>
+      </div>
+      <form
+        class="flex min-h-0 flex-1 flex-col justify-between border-0 bg-transparent p-0 shadow-none lg:rounded-4xl lg:border lg:border-border-default lg:bg-background-surface lg:p-8 lg:shadow-xs"
+      >
+        <div
+          class="space-y-4"
+        >
+          <div>
+            <label
+              class="mb-1.5 block text-xs font-bold uppercase tracking-wider text-text-secondary"
+              for="pic-name"
+            >
+              PIC Name 
+              <span
+                aria-hidden="true"
+                class="text-red-600"
+              >
+                *
+              </span>
+            </label>
+            <input
+              class="w-full rounded-xl border border-border-default bg-background-surface px-4 py-3 text-[15px] text-text-primary shadow-xs outline-none transition-all placeholder:text-text-tertiary/60 focus:border-border-focus focus:ring-2 focus:ring-focus-ring/30"
+              id="pic-name"
+              placeholder="e.g. John Doe"
+              required=""
+              value="John Doe"
+            />
+          </div>
+        </div>
+        <div
+          class="mt-8 flex justify-end border-t border-border-default/60 pt-5 lg:mt-6 lg:border-border-default"
+        >
+          <button
+            class="h-14 w-full cursor-pointer rounded-xl bg-action-primary px-8 text-sm font-semibold tracking-wide text-text-inverse shadow-xs transition-all hover:bg-action-primary-hover disabled:opacity-60 sm:w-auto"
+            disabled=""
+            type="submit"
+          >
+            Creating…
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`MasterPicCreateForm Component MasterPicCreateForm Snapshots with error message 1`] = `
+<DocumentFragment>
+  <div
+    class="flex h-full w-full flex-col bg-background-surface pb-6 font-sans lg:bg-background-page"
+  >
+    <div
+      class="sticky top-0 z-20 flex items-center bg-background-surface px-6 lg:hidden"
+    >
+      <button
+        aria-label="Back"
+        class="flex h-14 w-14 shrink-0 items-center justify-center rounded-full border border-border-default bg-background-surface text-text-primary transition-colors hover:bg-background-subtle"
+        type="button"
+      >
+        <svg
+          aria-hidden="true"
+          class="h-6 w-6"
+          fill="none"
+          stroke="currentColor"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2.5"
+          viewBox="0 0 24 24"
+        >
+          <path
+            d="M19 12H5M12 19l-7-7 7-7"
+          />
+        </svg>
+      </button>
+    </div>
+    <div
+      class="mt-2 flex min-h-0 w-full flex-1 flex-col px-6 lg:mt-0 lg:px-0"
+    >
+      <nav
+        aria-label="Breadcrumb"
+        class="mb-3 hidden items-center gap-2 text-sm font-medium text-text-secondary lg:flex"
+      >
+        <button
+          class="cursor-pointer hover:text-text-primary"
+          type="button"
+        >
+          Master PIC
+        </button>
+        <span
+          aria-hidden="true"
+        >
+          /
+        </span>
+        <span
+          class="text-text-primary"
+        >
+          New PIC
+        </span>
+      </nav>
+      <div
+        class="my-6 pl-1"
+      >
+        <h2
+          class="text-4xl font-semibold leading-tight tracking-tight text-text-primary"
+        >
+          New PIC
+        </h2>
+        <p
+          class="mt-3 text-sm font-medium text-text-secondary opacity-70"
+        >
+          Fill in the PIC details below.
+        </p>
+      </div>
+      <form
+        class="flex min-h-0 flex-1 flex-col justify-between border-0 bg-transparent p-0 shadow-none lg:rounded-4xl lg:border lg:border-border-default lg:bg-background-surface lg:p-8 lg:shadow-xs"
+      >
+        <div
+          class="space-y-4"
+        >
+          <div>
+            <label
+              class="mb-1.5 block text-xs font-bold uppercase tracking-wider text-text-secondary"
+              for="pic-name"
+            >
+              PIC Name 
+              <span
+                aria-hidden="true"
+                class="text-red-600"
+              >
+                *
+              </span>
+            </label>
+            <input
+              class="w-full rounded-xl border border-border-default bg-background-surface px-4 py-3 text-[15px] text-text-primary shadow-xs outline-none transition-all placeholder:text-text-tertiary/60 focus:border-border-focus focus:ring-2 focus:ring-focus-ring/30"
+              id="pic-name"
+              placeholder="e.g. John Doe"
+              required=""
+              value="John Doe"
+            />
+          </div>
+          <p
+            class="rounded-lg border border-red-200 bg-red-50 px-3 py-2 text-[13px] font-medium text-red-700"
+            role="alert"
+          >
+            PIC Name is required
+          </p>
+        </div>
+        <div
+          class="mt-8 flex justify-end border-t border-border-default/60 pt-5 lg:mt-6 lg:border-border-default"
+        >
+          <button
+            class="h-14 w-full cursor-pointer rounded-xl bg-action-primary px-8 text-sm font-semibold tracking-wide text-text-inverse shadow-xs transition-all hover:bg-action-primary-hover disabled:opacity-60 sm:w-auto"
+            type="submit"
+          >
+            Create PIC
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</DocumentFragment>
+`;

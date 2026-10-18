@@ -5,8 +5,17 @@ import type { ApiEnvelope, PaginatedResponse } from "../../types/api.type";
 import type { MasterBase } from "../../types/master";
 
 export type ProjectItem = {
-  itemId: string;
+  item_id: string;
+  item_name?: string | null;
   qty: number;
+};
+
+export type ApiProjectItem = {
+  readonly id: string;
+  readonly item_id: string;
+  readonly item_name: string | null;
+  readonly qty: number;
+  readonly status: number;
 };
 
 export type ApiProject = {
@@ -16,10 +25,13 @@ export type ApiProject = {
   readonly status: number;
   readonly created_at: string | null;
   readonly created_by: string | null;
+  readonly items?: ApiProjectItem[] | null;
 };
 
+export type ProjectDetailResponse = ApiEnvelope<ApiProject | null>;
 export type ProjectListResponse = PaginatedResponse<ApiProject>;
 export type ProjectCreateResponse = ApiEnvelope<ApiProject | null>;
+export type ProjectUpdateResponse = ApiEnvelope<ApiProject | null>;
 
 export type ProjectListParams = {
   readonly pageNumber: number;
@@ -48,7 +60,26 @@ export type ProjectCreatePayload = {
   readonly name: string;
   readonly remark: string;
   readonly status: number;
+  readonly items: ProjectItem[];
 };
+
+export type ProjectUpdatePayload = ProjectCreatePayload & {
+  readonly id: string;
+};
+
+export type ProjectItemOption = {
+  readonly id: string;
+  readonly name: string;
+  readonly image: string;
+  readonly price: number;
+  readonly stock: number;
+};
+
+export type ProjectItemSelection = ProjectItemOption & {
+  readonly qty: number;
+};
+
+export type ProjectFormStep = 1 | 2 | 3;
 
 export type MasterProjectNavigation = {
   readonly goBack: () => void;
@@ -126,15 +157,22 @@ export type InputFieldProps = {
 };
 
 export type MasterProjectCreateFormState = {
+  readonly step: ProjectFormStep;
+  readonly items: readonly ProjectItemOption[];
+  readonly selectedItems: readonly ProjectItemSelection[];
+  readonly isItemsLoading: boolean;
+  readonly itemsError: string | null;
   readonly name: string;
   readonly remark: string;
-  readonly isActive: boolean;
   readonly isSubmitting: boolean;
   readonly errorMessage: string | null;
   readonly successMessage: string | null;
   readonly handleNameChange: (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
   readonly handleRemarkChange: (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
-  readonly toggleStatus: () => void;
+  readonly nextStep: () => void;
+  readonly previousStep: () => void;
+  readonly toggleItem: (item: ProjectItemOption) => void;
+  readonly updateItemQuantity: (itemId: string, quantity: number) => void;
   readonly handleSubmit: (event: React.SyntheticEvent) => void;
   readonly goBack: () => void;
 };

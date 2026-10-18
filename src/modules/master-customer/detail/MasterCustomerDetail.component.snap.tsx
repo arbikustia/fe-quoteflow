@@ -5,6 +5,11 @@ import { MOCK_CUSTOMERS } from "@/fixture/master-customer";
 import { MasterCustomerDetailComponent } from "./MasterCustomerDetail.component";
 import type { MasterCustomerDetailState } from "./MasterCustomerDetail.type";
 
+jest.useFakeTimers();
+jest.setSystemTime(new Date("2026-10-18T00:51:00+07:00"));
+
+afterAll(() => jest.useRealTimers());
+
 /**
  * Create default props for detail snapshot testing.
  * @returns {MasterCustomerDetailState} Mock detail state props

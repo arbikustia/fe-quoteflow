@@ -40,6 +40,15 @@ const defaultProps: MasterVoucherProps = {
 };
 
 describe("MasterVoucherComponent", () => {
+  beforeAll(() => {
+    jest.useFakeTimers();
+    jest.setSystemTime(new Date("2026-10-18T01:30:00+07:00"));
+  });
+
+  afterAll(() => {
+    jest.useRealTimers();
+  });
+
   const renderWithRouter = (props = defaultProps) => {
     return render(
       <MemoryRouter>

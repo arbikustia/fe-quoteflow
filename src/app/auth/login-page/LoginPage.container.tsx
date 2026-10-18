@@ -13,6 +13,8 @@ export default function LoginPageContainer(): ReactElement {
     password,
     isPasswordVisible,
     isRemembered,
+    isSubmitting,
+    errorMessage,
     handleIdentifierChange,
     handlePasswordChange,
     handleTogglePasswordVisibility,
@@ -26,6 +28,8 @@ export default function LoginPageContainer(): ReactElement {
       password={password}
       isPasswordVisible={isPasswordVisible}
       isRemembered={isRemembered}
+      isSubmitting={isSubmitting}
+      errorMessage={errorMessage}
       onIdentifierChange={handleIdentifierChange}
       onPasswordChange={handlePasswordChange}
       onTogglePasswordVisibility={handleTogglePasswordVisibility}

@@ -1,9 +1,17 @@
 import { renderHook, act } from "@testing-library/react";
 import { useMasterUserContainerState, useMasterUserNavigation } from "./MasterUser.hook";
 import type { UserData } from "./MasterUser.type";
+import { useGetUsersQuery } from "@/services/master-user.service";
 import * as ReactRouter from "react-router-dom";
 
-const mockUser: UserData = { id: "1", username: "admin1", role: "Admin", status: "active", createAt: "2024-01-01", createBy: "Admin" };
+jest.mock("@/services/master-user.service", () => ({
+  useGetUsersQuery: jest.fn(() => ({ data: { data: [], total_count: 0, total_pages: 1 }, isLoading: false, isError: false })),
+  mapUser: jest.fn(),
+}));
+
+const mockUseGetUsersQuery = jest.mocked(useGetUsersQuery);
+
+const mockUser: UserData = { id: "1", username: "admin1", email: null, role: "Admin", status: "active", createAt: "2024-01-01", createBy: "Admin" };
 
 jest.mock("react-router-dom", () => {
   const actual = jest.requireActual("react-router-dom");
@@ -14,6 +22,16 @@ jest.mock("react-router-dom", () => {
 });
 
 describe("useMasterUserNavigation", () => {
+  beforeEach(() => {
+    jest.clearAllMocks();
+    mockUseGetUsersQuery.mockReturnValue({
+      data: { status: true, messages: null, data: [], page_number: 1, page_size: 10, total_pages: 1, total_count: 0, has_previous: false, has_next: false },
+      isLoading: false,
+      isError: false,
+      refetch: jest.fn(),
+    });
+  });
+
   it("returns navigation handlers", () => {
     const navigateMock = jest.fn();
     jest.mocked(ReactRouter.useNavigate).mockReturnValue(navigateMock);
@@ -21,16 +39,16 @@ describe("useMasterUserNavigation", () => {
     const { result } = renderHook(() => useMasterUserNavigation());
     
     act(() => result.current.goBack());
-    expect(navigateMock).toHaveBeenCalledWith(-1);
+    expect(navigateMock).toHaveBeenNthCalledWith(1, -1);
 
     act(() => result.current.goCreate());
-    expect(navigateMock).toHaveBeenCalledWith("/master-user/create");
+    expect(navigateMock).toHaveBeenNthCalledWith(2, "/master-user/create");
 
     act(() => result.current.goEdit(mockUser));
-    expect(navigateMock).toHaveBeenCalledWith(`/master-user/edit/${mockUser.id}`);
+    expect(navigateMock).toHaveBeenNthCalledWith(3, `/master-user/edit/${mockUser.id}`, { state: { user: mockUser } });
 
     act(() => result.current.goDetail(mockUser));
-    expect(navigateMock).toHaveBeenCalledWith(`/master-user/detail/${mockUser.id}`);
+    expect(navigateMock).toHaveBeenNthCalledWith(4, `/master-user/detail/${mockUser.id}`);
   });
 });
 

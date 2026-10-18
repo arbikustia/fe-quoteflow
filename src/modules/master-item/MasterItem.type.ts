@@ -22,6 +22,7 @@ export type ApiItem = {
 };
 
 export type ItemListResponse = ApiEnvelope<ApiItem[] | null> & PaginatedResponse<ApiItem>;
+export type ItemAllResponse = ApiEnvelope<ApiItem[]>;
 export type ItemCreateResponse = ApiEnvelope<ApiItem | null>;
 export type ItemDetailResponse = ApiEnvelope<ApiItem | null>;
 
@@ -29,6 +30,13 @@ export type ItemListParams = {
   pageNumber: number;
   pageSize: number;
   searchTerm: string;
+};
+
+export type ImageUploadResponse = {
+  file_name: string;
+  content_type: string;
+  size: number;
+  url: string;
 };
 
 export type ItemCreatePayload = {

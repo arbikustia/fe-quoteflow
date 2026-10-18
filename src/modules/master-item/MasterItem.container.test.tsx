@@ -217,17 +217,19 @@ describe("getColumns", () => {
     expect(onEdit).toHaveBeenCalledWith(base);
   });
 
-  it("image column renders img", () => {
+  it("image column renders clickable file name", () => {
     const cols = getColumns({
       currentPage: 1,
       pageSize: 5,
       onEdit: mockOnEdit,
     });
-    const imgCol = cols.find((c) => c.key === "image")!;
-    const el = (imgCol.render as any)(base) as any;
-    const { container } = render(<MemoryRouter>{el}</MemoryRouter>);
-    const img = container.querySelector("img")!;
-    expect(img).toBeTruthy();
-    expect(img.getAttribute("src")).toBe(base.image);
+    const imageColumn = cols.find((column) => column.key === "image")!;
+    const element = (imageColumn.render as any)(base) as any;
+    const { container } = render(<MemoryRouter>{element}</MemoryRouter>);
+    const link = container.querySelector("a")!;
+    expect(link).toBeTruthy();
+    expect(link.textContent).toBe("a.jpg");
+    expect(link.getAttribute("href")).toBe(base.image);
+    expect(link.getAttribute("target")).toBe("_blank");
   });
 });

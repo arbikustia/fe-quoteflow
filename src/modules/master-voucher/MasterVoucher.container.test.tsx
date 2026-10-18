@@ -8,7 +8,7 @@ import type { VoucherData } from "./MasterVoucher.type";
 jest.mock("@/services/master-voucher.service", () => ({
   useGetVouchersQuery: jest.fn(),
   useCreateVoucherMutation: jest.fn(),
-  mapVoucher: (voucher: { readonly id: string; readonly name: string; readonly code: string; readonly discount_percent: number; readonly status: number; readonly created_at: string | null }) => ({
+  mapVoucher: (voucher: { id: string; name: string; code: string; discount_percent: number; status: number; created_at: string | null }) => ({
     id: voucher.id,
     name: voucher.name,
     code: voucher.code,
@@ -32,6 +32,15 @@ const mockVoucher: VoucherData = {
 };
 
 describe("MasterVoucherContainer", () => {
+  beforeAll(() => {
+    jest.useFakeTimers();
+    jest.setSystemTime(new Date("2026-10-18T01:30:00+07:00"));
+  });
+
+  afterAll(() => {
+    jest.useRealTimers();
+  });
+
   beforeEach(() => {
     mockUseGetVouchersQuery.mockReturnValue({
       data: {
@@ -75,13 +84,14 @@ describe("getColumns", () => {
   const columns = getColumns({ currentPage: 1, pageSize: 10, onEdit });
 
   it("returns columns correctly", () => {
-    expect(columns).toHaveLength(6);
+    expect(columns).toHaveLength(7);
     expect(columns[0].key).toBe("no");
-    expect(columns[1].key).toBe("code");
-    expect(columns[2].key).toBe("discountPercent");
-    expect(columns[3].key).toBe("status");
-    expect(columns[4].key).toBe("createAt");
-    expect(columns[5].key).toBe("actions");
+    expect(columns[1].key).toBe("name");
+    expect(columns[2].key).toBe("code");
+    expect(columns[3].key).toBe("discountPercent");
+    expect(columns[4].key).toBe("status");
+    expect(columns[5].key).toBe("createAt");
+    expect(columns[6].key).toBe("actions");
   });
 
   it("renders status column correctly", () => {
@@ -113,13 +123,11 @@ describe("getColumns", () => {
 
     if (actionsCol?.render) {
       const { container } = render(actionsCol.render(mockVoucher, 0));
-      const button = container.querySelector("button");
-      expect(button).toBeTruthy();
-      
-      if (button) {
-        fireEvent.click(button);
-        expect(onEdit).toHaveBeenCalledWith(mockVoucher);
-      }
+      const buttons = container.querySelectorAll("button");
+      expect(buttons.length).toBe(2);
+
+      fireEvent.click(buttons[1]);
+      expect(onEdit).toHaveBeenCalledWith(mockVoucher);
     }
   });
 });

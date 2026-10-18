@@ -65,26 +65,67 @@ const _renderHeaderSection = (isEditMode: boolean, goBack: () => void): ReactEle
 };
 
 /**
+ * Render code options and custom input when active.
+ * @param {MasterVoucherCreateFormState} props - Form state
+ * @param {string} fieldClass - Input class
+ * @returns {ReactElement} Code option element
+ */
+const _renderCodeOption = (props: MasterVoucherCreateFormState, fieldClass: string): ReactElement => (
+  <>
+    <div>
+      <label htmlFor="voucher-code-mode" className="mb-1.5 block text-xs font-bold uppercase tracking-wider text-text-secondary">
+        Code Option <span aria-hidden="true" className="text-red-600">*</span>
+      </label>
+      <select id="voucher-code-mode" value={props.codeMode} onChange={props.handleCodeModeChange} className={`${fieldClass} cursor-pointer`}>
+        <option value="generate">Generate Code</option>
+        <option value="type">Type Code</option>
+      </select>
+    </div>
+    {props.codeMode === "type" && (
+      <div>
+        <label htmlFor="voucher-code" className="mb-1.5 block text-xs font-bold uppercase tracking-wider text-text-secondary">
+          Voucher Code <span aria-hidden="true" className="text-red-600">*</span>
+        </label>
+        <input id="voucher-code" value={props.code} onChange={props.handleCodeChange} placeholder="Min 7, max 8 chars (alphanumeric)" maxLength={8} required className={`${fieldClass} uppercase`} />
+        <p className="mt-1 text-xs text-text-secondary">Code must be minimum 7 and maximum 8 alphanumeric characters.</p>
+      </div>
+    )}
+  </>
+);
+
+/**
+ * Render form input fields.
+ * @param {MasterVoucherCreateFormState} props - Form state
+ * @param {string} fieldClass - Input class
+ * @returns {ReactElement} Inputs container
+ */
+const _renderFormInputs = (props: MasterVoucherCreateFormState, fieldClass: string): ReactElement => (
+  <div className="space-y-4">
+    <div>
+      <label htmlFor="voucher-name" className="mb-1.5 block text-xs font-bold uppercase tracking-wider text-text-secondary">
+        Voucher Name <span aria-hidden="true" className="text-red-600">*</span>
+      </label>
+      <input id="voucher-name" value={props.name} onChange={props.handleNameChange} placeholder="e.g. Summer Promo" required className={fieldClass} />
+    </div>
+    {_renderCodeOption(props, fieldClass)}
+    <div>
+      <label htmlFor="discount-percent" className="mb-1.5 block text-xs font-bold uppercase tracking-wider text-text-secondary">
+        Discount (%) <span aria-hidden="true" className="text-red-600">*</span>
+      </label>
+      <input id="discount-percent" type="number" min="0" max="100" value={props.discountPercent} onChange={props.handleDiscountChange} placeholder="e.g. 10" required className={fieldClass} />
+    </div>
+    {_renderStatusField(props)}
+    {props.errorMessage !== null && <p role="alert" className="rounded-lg border border-red-200 bg-red-50 px-3 py-2 text-[13px] font-medium text-red-700">{props.errorMessage}</p>}
+  </div>
+);
+
+/**
  * Render master voucher create/edit form.
  * @param {MasterVoucherCreateFormState} props - Form state
  * @returns {ReactElement} Voucher form
  */
 export const MasterVoucherCreateComponent = (props: MasterVoucherCreateFormState): ReactElement => {
-  const {
-    name,
-    code,
-    codeMode,
-    discountPercent,
-    isSubmitting,
-    isEditMode,
-    errorMessage,
-    handleNameChange,
-    handleCodeChange,
-    handleCodeModeChange,
-    handleDiscountChange,
-    handleSubmit,
-    goBack,
-  } = props;
+  const { isSubmitting, isEditMode, handleSubmit, goBack } = props;
   const buttonText = isEditMode ? "Update Voucher" : "Create Voucher";
   const submittingText = isEditMode ? "Updating…" : "Creating…";
   const fieldClass = "w-full rounded-xl border border-border-default bg-background-surface px-4 py-3 text-[15px] font-normal text-text-primary shadow-xs outline-none transition-all placeholder:font-normal placeholder:text-text-tertiary/60 focus:border-border-focus focus:ring-2 focus:ring-focus-ring/30";
@@ -96,55 +137,7 @@ export const MasterVoucherCreateComponent = (props: MasterVoucherCreateFormState
         <div className="mt-2 flex min-h-0 w-full flex-1 flex-col px-6 lg:mt-0 lg:px-0">
           {_renderHeaderSection(isEditMode, goBack)}
           <form onSubmit={handleSubmit} className="flex min-h-0 flex-1 flex-col justify-between border-0 bg-transparent p-0 shadow-none lg:rounded-4xl lg:border lg:border-border-default lg:bg-background-surface lg:p-8 lg:shadow-xs">
-            <div className="space-y-4">
-              <div>
-                <label htmlFor="voucher-name" className="mb-1.5 block text-xs font-bold uppercase tracking-wider text-text-secondary">
-                  Voucher Name <span aria-hidden="true" className="text-red-600">*</span>
-                </label>
-                <input id="voucher-name" value={name} onChange={handleNameChange} placeholder="e.g. Summer Promo" required className={fieldClass} />
-              </div>
-              <div>
-                <label htmlFor="voucher-code-mode" className="mb-1.5 block text-xs font-bold uppercase tracking-wider text-text-secondary">
-                  Code Option <span aria-hidden="true" className="text-red-600">*</span>
-                </label>
-                <select
-                  id="voucher-code-mode"
-                  value={codeMode}
-                  onChange={handleCodeModeChange}
-                  className={`${fieldClass} cursor-pointer`}
-                >
-                  <option value="generate">Generate Code</option>
-                  <option value="type">Type Code</option>
-                </select>
-              </div>
-              {codeMode === "type" && (
-                <div>
-                  <label htmlFor="voucher-code" className="mb-1.5 block text-xs font-bold uppercase tracking-wider text-text-secondary">
-                    Voucher Code <span aria-hidden="true" className="text-red-600">*</span>
-                  </label>
-                  <input
-                    id="voucher-code"
-                    value={code}
-                    onChange={handleCodeChange}
-                    placeholder="Min 7, max 8 chars (alphanumeric)"
-                    maxLength={8}
-                    required
-                    className={`${fieldClass} uppercase`}
-                  />
-                  <p className="mt-1 text-xs text-text-secondary">
-                    Code must be minimum 7 and maximum 8 alphanumeric characters.
-                  </p>
-                </div>
-              )}
-              <div>
-                <label htmlFor="discount-percent" className="mb-1.5 block text-xs font-bold uppercase tracking-wider text-text-secondary">
-                  Discount (%) <span aria-hidden="true" className="text-red-600">*</span>
-                </label>
-                <input id="discount-percent" type="number" min="0" max="100" value={discountPercent} onChange={handleDiscountChange} placeholder="e.g. 10" required className={fieldClass} />
-              </div>
-              {_renderStatusField(props)}
-              {errorMessage !== null && <p role="alert" className="rounded-lg border border-red-200 bg-red-50 px-3 py-2 text-[13px] font-medium text-red-700">{errorMessage}</p>}
-            </div>
+            {_renderFormInputs(props, fieldClass)}
             <div className="mt-8 flex justify-end border-t border-border-default/60 pt-5 lg:mt-6 lg:border-border-default">
               <button type="submit" disabled={isSubmitting} className="h-14 w-full cursor-pointer rounded-xl bg-action-primary px-8 text-sm font-semibold tracking-wide text-text-inverse shadow-xs transition-all hover:bg-action-primary-hover disabled:opacity-60 sm:w-auto">{isSubmitting ? submittingText : buttonText}</button>
             </div>

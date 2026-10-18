@@ -55,7 +55,7 @@ const _resolveUser = (response: UserDetailResponse | undefined): UserData | null
  */
 export const useMasterUserDetail = (): MasterUserDetailState => {
   const navigate = useNavigate();
-  const { id } = useParams<{ readonly id: string }>();
+  const { id } = useParams<{ id: string }>();
   const menuState = useDetailMenuState();
   const { data: response } = useGetUserByIdQuery(id ?? "", { skip: !id });
   const user = _resolveUser(response);

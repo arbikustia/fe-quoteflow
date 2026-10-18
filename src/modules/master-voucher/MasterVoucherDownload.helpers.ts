@@ -27,16 +27,87 @@ const _loadImage = (source: string): Promise<HTMLImageElement> =>
     const image = new Image();
 
     /**
-     *
+     * Resolve on successful image load.
+     * @returns {void} No return value
      */
     image.onload = (): void => resolve(image);
     /**
-     *
+     * Reject on image load error.
+     * @returns {void} No return value
      */
     image.onerror = (): void =>
       reject(new Error("Voucher template could not be loaded."));
     image.src = source;
   });
+
+/**
+ * Draw voucher discount onto canvas.
+ * @param {CanvasRenderingContext2D} context - Canvas context
+ * @param {number} discountPercent - Discount value
+ * @returns {void} No return value
+ */
+const _drawVoucherDiscount = (
+  context: CanvasRenderingContext2D,
+  discountPercent: number,
+): void => {
+  const discountText = `${discountPercent}%`;
+
+  context.fillStyle = PALE_BLUE;
+  context.fillRect(900, 290, 650, 225);
+  context.fillStyle = NAVY;
+  context.font = "900 190px Poppins, Arial, sans-serif";
+  context.textAlign = "center";
+  context.textBaseline = "alphabetic";
+  context.fillText(discountText, 1230, 480);
+
+  const underlineWidth = Math.ceil(context.measureText(discountText).width);
+
+  context.fillStyle = ORANGE;
+  context.fillRect(1230 - underlineWidth / 2, 500, underlineWidth, 7);
+};
+
+/**
+ * Draw voucher code card onto canvas.
+ * @param {CanvasRenderingContext2D} context - Canvas context
+ * @param {string} code - Voucher code
+ * @returns {void} No return value
+ */
+const _drawVoucherCode = (
+  context: CanvasRenderingContext2D,
+  code: string,
+): void => {
+  const codeLeft = 995;
+  const codeTop = 534;
+  const codeRight = 1490;
+  const codeBottom = 660;
+  const codeWidth = codeRight - codeLeft;
+  const codeCenter = (codeLeft + codeRight) / 2;
+  const codeText = code.toUpperCase();
+
+  context.fillStyle = "#FFFFFF";
+  context.fillRect(codeLeft, codeTop, codeWidth, codeBottom - codeTop);
+  context.save();
+  context.beginPath();
+  context.rect(codeLeft, codeTop, codeWidth, codeBottom - codeTop);
+  context.clip();
+  context.textAlign = "center";
+  context.textBaseline = "alphabetic";
+
+  context.fillStyle = NAVY;
+  context.font = "700 24px Poppins, Arial, sans-serif";
+  context.fillText("KODE VOUCHER", codeCenter, 561);
+
+  context.fillStyle = CODE_ORANGE;
+  context.font = "900 86px Poppins, Arial, sans-serif";
+  const renderedCodeWidth = context.measureText(codeText).width;
+  const codeFontSize = renderedCodeWidth > codeWidth
+    ? Math.floor((86 * codeWidth) / renderedCodeWidth)
+    : 86;
+
+  context.font = `900 ${codeFontSize}px Poppins, Arial, sans-serif`;
+  context.fillText(codeText, codeCenter, 647);
+  context.restore();
+};
 
 /**
  * Download a 1600 x 800 JPEG from source template artwork.
@@ -63,55 +134,8 @@ export const downloadVoucherTemplate = async (
   }
 
   context.drawImage(template, 0, 0, VOUCHER_WIDTH, VOUCHER_HEIGHT);
-
-  // Template branding, background, ornaments, and layout remain untouched.
-  const discountText = `${voucher.discountPercent}%`;
-
-  context.fillStyle = PALE_BLUE;
-  context.fillRect(900, 290, 650, 225);
-  context.fillStyle = NAVY;
-  context.font = "900 190px Poppins, Arial, sans-serif";
-  context.textAlign = "center";
-  context.textBaseline = "alphabetic";
-  context.fillText(discountText, 1230, 480);
-
-  const underlineWidth = Math.ceil(context.measureText(discountText).width);
-
-  context.fillStyle = ORANGE;
-  context.fillRect(1230 - underlineWidth / 2, 500, underlineWidth, 7);
-
-  const codeLeft = 995;
-  const codeTop = 534;
-  const codeRight = 1490;
-  const codeBottom = 660;
-  const codeWidth = codeRight - codeLeft;
-  const codeCenter = (codeLeft + codeRight) / 2;
-  const codeText = voucher.code.toUpperCase();
-
-  // Preserve original orange frame and replace only white code-card interior.
-  context.fillStyle = "#FFFFFF";
-  context.fillRect(codeLeft, codeTop, codeWidth, codeBottom - codeTop);
-  context.save();
-  context.beginPath();
-  context.rect(codeLeft, codeTop, codeWidth, codeBottom - codeTop);
-  context.clip();
-  context.textAlign = "center";
-  context.textBaseline = "alphabetic";
-
-  context.fillStyle = NAVY;
-  context.font = "700 24px Poppins, Arial, sans-serif";
-  context.fillText("KODE VOUCHER", codeCenter, 561);
-
-  context.fillStyle = CODE_ORANGE;
-  context.font = "900 86px Poppins, Arial, sans-serif";
-  const renderedCodeWidth = context.measureText(codeText).width;
-  const codeFontSize = renderedCodeWidth > codeWidth
-    ? Math.floor((86 * codeWidth) / renderedCodeWidth)
-    : 86;
-
-  context.font = `900 ${codeFontSize}px Poppins, Arial, sans-serif`;
-  context.fillText(codeText, codeCenter, 647);
-  context.restore();
+  _drawVoucherDiscount(context, voucher.discountPercent);
+  _drawVoucherCode(context, voucher.code);
 
   const link = document.createElement("a");
 

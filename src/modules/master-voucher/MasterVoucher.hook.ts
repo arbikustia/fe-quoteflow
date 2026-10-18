@@ -1,12 +1,10 @@
-/* eslint-disable max-lines-per-function, jsdoc/require-jsdoc */
-import type * as React from "react";
 import { useState } from "react";
-import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
-import { generateSecureVoucherCode, validateTypedVoucherCode } from "./create/MasterVoucherCreate.helpers";
+import { createPaginationHandlers } from "@/utils/pagination.helpers";
+
 import type {
   MasterVoucherContainerState,
-  MasterVoucherCreateFormState,
   MasterVoucherNavigation,
   MasterVoucherPagination,
   VoucherData,
@@ -14,7 +12,7 @@ import type {
   VoucherListResponse,
 } from "./MasterVoucher.type";
 
-import { mapVoucher, useCreateVoucherMutation, useGetVouchersQuery, useUpdateVoucherMutation } from "@/services/master-voucher.service";
+import { mapVoucher, useGetVouchersQuery } from "@/services/master-voucher.service";
 
 /**
  * Provide master voucher navigation.
@@ -23,11 +21,27 @@ import { mapVoucher, useCreateVoucherMutation, useGetVouchersQuery, useUpdateVou
 export const useMasterVoucherNavigation = (): MasterVoucherNavigation => {
   const navigate = useNavigate();
 
+  /**
+   *
+   */
   const goBack = (): void => { navigate(-1); };
+  /**
+   *
+   */
   const goCreate = (): void => { navigate("/master-voucher/create"); };
+  /**
+   * Navigate to edit voucher page.
+   * @param {VoucherData} voucher - Voucher data
+   * @returns {void} No return value
+   */
   const goEdit = (voucher: VoucherData): void => {
     navigate(`/master-voucher/edit/${voucher.id}`, { state: { voucher } });
   };
+  /**
+   * Navigate to detail voucher page.
+   * @param {VoucherData} voucher - Voucher data
+   * @returns {void} No return value
+   */
   const goDetail = (voucher: VoucherData): void => { navigate(`/master-voucher/detail/${voucher.id}`); };
 
   return { goBack, goCreate, goEdit, goDetail };
@@ -78,117 +92,6 @@ const _deriveVoucherListState = (
 };
 
 /**
- * Provide voucher creation mutation.
- * @returns {ReturnType<typeof useCreateVoucherMutation>} Voucher mutation state
- */
-export const useMasterVoucherCreate = (): ReturnType<typeof useCreateVoucherMutation> => useCreateVoucherMutation();
-
-/**
- * Provide voucher creation form state.
- * @returns {MasterVoucherCreateFormState} Voucher form state
- */
-export const useMasterVoucherCreateForm = (): MasterVoucherCreateFormState => {
-  const navigate = useNavigate();
-  const location = useLocation();
-  const { id } = useParams<{ readonly id?: string }>();
-  const isEditMode = Boolean(id);
-  const routeVoucher = location.state?.voucher;
-  const initialMode = isEditMode ? "type" : "generate";
-  const [codeMode, setCodeMode] = useState<"generate" | "type">(initialMode);
-  const [name, setName] = useState(routeVoucher?.name ?? "");
-  const [code, setCode] = useState(() => (
-    routeVoucher?.code ?? (initialMode === "generate" ? generateSecureVoucherCode() : "")
-  ));
-  const [discountPercent, setDiscountPercent] = useState(routeVoucher?.discountPercent?.toString() ?? "");
-  const [isActive, setIsActive] = useState(routeVoucher?.status ? routeVoucher.status === "active" : true);
-  const [errorMessage, setErrorMessage] = useState<string | null>(null);
-  const [createVoucher, { isLoading: isCreating }] = useCreateVoucherMutation();
-  const [updateVoucher, { isLoading: isUpdating }] = useUpdateVoucherMutation();
-  const isSubmitting = isCreating || isUpdating;
-
-  const handleNameChange = (event: React.ChangeEvent<HTMLInputElement>): void => setName(event.target.value);
-  const handleCodeChange = (event: React.ChangeEvent<HTMLInputElement>): void => setCode(event.target.value);
-  const handleCodeModeChange = (event: React.ChangeEvent<HTMLSelectElement>): void => {
-    const nextMode = event.target.value === "type" ? "type" : "generate";
-
-    setCodeMode(nextMode);
-    setCode(nextMode === "generate" ? generateSecureVoucherCode() : "");
-  };
-  const handleDiscountChange = (event: React.ChangeEvent<HTMLInputElement>): void => setDiscountPercent(event.target.value);
-  const handleStatusChange = (): void => setIsActive((currentIsActive) => !currentIsActive);
-
-  const handleSubmit = async (event: React.SyntheticEvent): Promise<void> => {
-    event.preventDefault();
-    setErrorMessage(null);
-
-    const finalCode = (codeMode === "generate" ? (code || generateSecureVoucherCode()) : code).trim().toUpperCase();
-
-    if (codeMode === "type") {
-      const validationError = validateTypedVoucherCode(finalCode);
-
-      if (validationError) {
-        setErrorMessage(validationError);
-
-        return;
-      }
-    }
-
-    try {
-      const payload = {
-        name,
-        code: finalCode,
-        discount_percent: Number(discountPercent),
-        status: 1,
-      };
-
-      let response;
-
-      if (isEditMode && id) {
-        response = await updateVoucher({ ...payload, status: isActive ? 1 : 0, id }).unwrap();
-      } else {
-        response = await createVoucher(payload).unwrap();
-      }
-
-      if (!response.status) {
-        const message = Array.isArray(response.messages)
-          ? response.messages.join(" ")
-          : (response.messages ?? "Failed to create voucher.");
-
-        setErrorMessage(message);
-
-        return;
-      }
-
-      navigate("/master-voucher");
-    } catch {
-      setErrorMessage("Unable to create voucher. Please try again.");
-    }
-  };
-
-  const goBack = (): void => {
-    navigate(-1);
-  };
-
-  return {
-    name,
-    code,
-    codeMode,
-    discountPercent,
-    isActive,
-    isEditMode,
-    isSubmitting,
-    errorMessage,
-    handleNameChange,
-    handleCodeChange,
-    handleCodeModeChange,
-    handleDiscountChange,
-    handleStatusChange,
-    handleSubmit,
-    goBack,
-  };
-};
-
-/**
  * Provide API-backed voucher pagination.
  * @returns {MasterVoucherPagination} Voucher pagination state
  */
@@ -199,19 +102,16 @@ export const useMasterVoucherPagination = (): MasterVoucherPagination => {
   const queryResult = useGetVouchersQuery({ pageNumber: currentPage, pageSize, searchTerm });
   const derived = _deriveVoucherListState(queryResult);
 
-  const goToPage = (page: number): void => {
-    setCurrentPage(Math.max(1, Math.min(page, derived.totalPages)));
-  };
-  const nextPage = (): void => {
-    if (derived.hasNext) goToPage(currentPage + 1);
-  };
-  const prevPage = (): void => {
-    if (derived.hasPrevious) goToPage(currentPage - 1);
-  };
-  const changePageSize = (size: number): void => {
-    setPageSize(size);
-    setCurrentPage(1);
-  };
+  const handlers = createPaginationHandlers({
+    currentPage,
+    totalPages: derived.totalPages,
+    hasNext: derived.hasNext,
+    hasPrevious: derived.hasPrevious,
+    canPaginate: !derived.isLoading && !derived.errorMessage && derived.paginatedData.length > 0,
+    setCurrentPage,
+    setPageSize,
+    setSearchTerm,
+  });
 
   return {
     currentPage,
@@ -223,11 +123,11 @@ export const useMasterVoucherPagination = (): MasterVoucherPagination => {
     errorMessage: derived.errorMessage,
     isEmpty: !derived.isLoading && !derived.errorMessage && !derived.isMissingData && derived.paginatedData.length === 0,
     isMissingData: derived.isMissingData,
-    goToPage,
-    nextPage,
-    prevPage,
-    changePageSize,
-    setSearchTerm,
+    goToPage: handlers.goToPage,
+    nextPage: handlers.nextPage,
+    prevPage: handlers.prevPage,
+    changePageSize: handlers.changePageSize,
+    setSearchTerm: handlers.handleSearchTerm,
   };
 };
 
@@ -240,8 +140,17 @@ export const useMasterVoucherContainerState = (): MasterVoucherContainerState =>
   const pagination = useMasterVoucherPagination();
   const [isMoreOpen, setIsMoreOpen] = useState(false);
 
+  /**
+   *
+   */
   const toggleMore = (): void => { setIsMoreOpen((previous) => !previous); };
+  /**
+   *
+   */
   const handleCloseMore = (): void => { setIsMoreOpen(false); };
+  /**
+   *
+   */
   const goDelete = (): void => { handleCloseMore(); };
 
   return { ...navigation, pagination, isMoreOpen, toggleMore, goDelete, handleCloseMore };

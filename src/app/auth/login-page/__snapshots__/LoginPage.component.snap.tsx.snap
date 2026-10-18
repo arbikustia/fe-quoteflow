@@ -624,7 +624,7 @@ exports[`LoginPageComponent matches snapshot 1`] = `
               </a>
             </div>
             <button
-              class="w-full h-12 rounded-xl bg-[#3550D7] hover:bg-[#2D43B8] active:bg-[#293A91] text-white text-base font-semibold shadow-md transition-all flex items-center justify-center mt-2 cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-[#3550D7]"
+              class="w-full h-12 rounded-xl bg-[#3550D7] hover:bg-[#2D43B8] active:bg-[#293A91] text-white text-base font-semibold shadow-md transition-all flex items-center justify-center mt-2 cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-[#3550D7] disabled:cursor-not-allowed disabled:opacity-60"
               type="submit"
             >
               Masuk

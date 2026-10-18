@@ -163,6 +163,8 @@ export const LoginPageComponent = (props: LoginPageProps): ReactElement => {
     password,
     isPasswordVisible,
     isRemembered,
+    isSubmitting,
+    errorMessage,
     onIdentifierChange,
     onPasswordChange,
     onTogglePasswordVisibility,
@@ -274,11 +276,13 @@ export const LoginPageComponent = (props: LoginPageProps): ReactElement => {
                 </a>
               </div>
 
+              {errorMessage && <p role="alert" className="text-sm text-red-600">{errorMessage}</p>}
               <button
                 type="submit"
-                className="w-full h-12 rounded-xl bg-[#3550D7] hover:bg-[#2D43B8] active:bg-[#293A91] text-white text-base font-semibold shadow-md transition-all flex items-center justify-center mt-2 cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-[#3550D7]"
+                disabled={isSubmitting}
+                className="w-full h-12 rounded-xl bg-[#3550D7] hover:bg-[#2D43B8] active:bg-[#293A91] text-white text-base font-semibold shadow-md transition-all flex items-center justify-center mt-2 cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-[#3550D7] disabled:cursor-not-allowed disabled:opacity-60"
               >
-                Masuk
+                {isSubmitting ? "Memproses…" : "Masuk"}
               </button>
             </form>
           </div>

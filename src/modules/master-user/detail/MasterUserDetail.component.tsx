@@ -1,4 +1,3 @@
-/* eslint-disable jsdoc/require-returns, jsdoc/require-param-type, jsdoc/require-param-description */
 import type { ReactElement } from "react";
 
 import type { MasterUserDetailState } from "./MasterUserDetail.type";
@@ -7,7 +6,8 @@ import Layout from "@/app/layout";
 
 /**
  * Render master user detail.
- * @param props
+ * @param {MasterUserDetailState} props - Detail state
+ * @returns {ReactElement} Detail element
  */
 export const MasterUserDetailComponent = (props: MasterUserDetailState): ReactElement => {
   const { user, isMoreOpen, isDeleteModalOpen, goBack, toggleMore, goEdit, openDeleteModal, closeDeleteModal, handleDelete } = props;

@@ -1,7 +1,7 @@
 import type { ChangeEvent, SyntheticEvent } from "react";
 
 import type { CategoryAllItem } from "@/modules/master-category/MasterCategory.type";
-import type { ItemCreatePayload, ItemCreateResponse, ItemData, ItemUpdatePayload } from "@/modules/master-item/MasterItem.type";
+import type { ImageUploadResponse, ItemCreatePayload, ItemCreateResponse, ItemData, ItemUpdatePayload } from "@/modules/master-item/MasterItem.type";
 
 export type ItemFormFieldsState = {
   name: string;
@@ -9,6 +9,8 @@ export type ItemFormFieldsState = {
   price: string;
   stock: string;
   image: string;
+  isImageUploading: boolean;
+  imageUploadError: string | null;
   duration: string;
   remark: string;
   isActive: boolean;
@@ -21,6 +23,8 @@ export type ItemFormFieldsState = {
   handleRemarkChange: (event: ChangeEvent<HTMLInputElement>) => void;
   handleStatusChange: () => void;
 };
+
+export type ImageUploadMutation = (file: FormData) => { unwrap: () => Promise<ImageUploadResponse> };
 
 export type ItemSubmissionParams = {
   id: string | undefined;
@@ -40,7 +44,7 @@ export type ItemRouteState = {
 };
 
 export type ItemFormContentProps = Pick<MasterItemCreateFormState,
-  "name" | "categoryId" | "price" | "stock" | "image" | "duration" | "remark" |
+  "name" | "categoryId" | "price" | "stock" | "image" | "isImageUploading" | "imageUploadError" | "duration" | "remark" |
   "categories" | "isCategoryLoading" | "categoryError" | "handleNameChange" |
   "handleCategoryChange" | "handlePriceChange" | "handleStockChange" |
   "handleImageChange" | "handleDurationChange" | "handleRemarkChange"
@@ -52,6 +56,8 @@ export type MasterItemCreateFormState = {
   price: string;
   stock: string;
   image: string;
+  isImageUploading: boolean;
+  imageUploadError: string | null;
   duration: string;
   remark: string;
   isActive: boolean;

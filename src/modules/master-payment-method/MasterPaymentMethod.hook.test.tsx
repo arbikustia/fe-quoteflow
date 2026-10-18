@@ -1,6 +1,29 @@
 import { renderHook, act } from "@testing-library/react";
 import { useNavigate } from "react-router-dom";
+
+import type { PaymentMethodData } from "./MasterPaymentMethod.type";
 import { useMasterPaymentMethodContainerState, useMasterPaymentMethodNavigation } from "./MasterPaymentMethod.hook";
+
+jest.mock("@/services/master-payment-method.service", () => ({
+  useGetPaymentMethodsQuery: jest.fn(() => ({ data: undefined, error: undefined, isLoading: false })),
+  mapPaymentMethod: jest.fn((paymentMethod: PaymentMethodData): PaymentMethodData => paymentMethod),
+}));
+
+const paymentMethod: PaymentMethodData = {
+  id: "pm-1",
+  name: "Card",
+  description: null,
+  status: "active",
+  createAt: null,
+  createBy: null,
+};
+
+const renderContainerState = () => renderHook(() => useMasterPaymentMethodContainerState());
+
+const assertPaymentMethodNavigation = (mockNavigate: jest.Mock): void => {
+  expect(mockNavigate).toHaveBeenNthCalledWith(3, "/master-payment-method/edit/pm-1", { state: { paymentMethod } });
+  expect(mockNavigate).toHaveBeenNthCalledWith(4, "/master-payment-method/detail/pm-1");
+};
 
 jest.mock("react-router-dom", () => ({
   useNavigate: jest.fn(),
@@ -17,7 +40,7 @@ describe("MasterPaymentMethod.hook", () => {
       act(() => {
         result.current.goBack();
       });
-      expect(mockNavigate).toHaveBeenCalledWith(-1);
+      expect(mockNavigate).toHaveBeenNthCalledWith(1, -1);
 
       act(() => {
         result.current.goCreate();
@@ -25,20 +48,19 @@ describe("MasterPaymentMethod.hook", () => {
       expect(mockNavigate).toHaveBeenCalledWith("/master-payment-method/create");
 
       act(() => {
-        result.current.goEdit({ id: "pm-1" } as any);
+        result.current.goEdit(paymentMethod);
       });
-      expect(mockNavigate).toHaveBeenCalledWith("/master-payment-method/edit/pm-1");
 
       act(() => {
-        result.current.goDetail({ id: "pm-1" } as any);
+        result.current.goDetail(paymentMethod);
       });
-      expect(mockNavigate).toHaveBeenCalledWith("/master-payment-method/detail/pm-1");
+      assertPaymentMethodNavigation(mockNavigate);
     });
   });
 
   describe("useMasterPaymentMethodContainerState", () => {
     it("should manage container state correctly", () => {
-      const { result } = renderHook(() => useMasterPaymentMethodContainerState());
+      const { result } = renderContainerState();
 
       expect(result.current.isMoreOpen).toBe(false);
 

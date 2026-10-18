@@ -22,6 +22,13 @@ const _renderDetails = (project: ProjectData): ReactElement => (
       </dl>
     </div>
     <div className="overflow-hidden rounded-xl border border-border-default bg-background-surface shadow-small">
+      <div className="px-5 pb-3 pt-5"><h3 className="text-sm font-semibold text-text-primary">Items</h3></div>
+      <div className="divide-y divide-border-default">
+        {project.items.length === 0 && <p className="px-5 py-4 text-sm text-text-secondary">No items selected.</p>}
+        {project.items.map((item) => <div key={item.item_id} className="flex items-center justify-between px-5 py-4 text-sm"><span className="font-medium text-text-primary">{item.item_name ?? item.item_id}</span><span className="text-text-secondary">Qty: {item.qty}</span></div>)}
+      </div>
+    </div>
+    <div className="overflow-hidden rounded-xl border border-border-default bg-background-surface shadow-small">
       <div className="px-5 pb-3 pt-5"><h3 className="text-sm font-semibold text-text-primary">Record info</h3></div>
       <dl className="grid grid-cols-1 divide-y divide-border-default sm:grid-cols-2 sm:divide-x sm:divide-y-0">
         <div className="px-5 py-4"><dt className="mb-1 text-sm text-text-secondary">Created by</dt><dd className="truncate text-sm font-medium text-text-primary">{project.createBy}</dd></div>
@@ -32,10 +39,14 @@ const _renderDetails = (project: ProjectData): ReactElement => (
 );
 
 export const MasterProjectDetailComponent = (props: MasterProjectDetailState): ReactElement => {
-  const { project, isMoreOpen, isDeleteModalOpen, goBack, toggleMore, goEdit, openDeleteModal, closeDeleteModal, handleDelete } = props;
+  const { project, goBack, goEdit } = props;
 
-  if (!project) {
-    return <Layout pageTitle="Detail Project"><div className="flex h-full items-center justify-center py-20"><p className="text-text-secondary">Project not found</p></div></Layout>;
+  if (props.isLoading) {
+    return <Layout pageTitle="Detail Project"><div className="flex h-full items-center justify-center py-20"><p className="text-text-secondary">Loading project…</p></div></Layout>;
+  }
+
+  if (props.errorMessage || !project) {
+    return <Layout pageTitle="Detail Project"><div className="flex h-full items-center justify-center py-20"><p className="text-red-600">{props.errorMessage ?? "Project not found"}</p></div></Layout>;
   }
 
   return (
@@ -44,11 +55,10 @@ export const MasterProjectDetailComponent = (props: MasterProjectDetailState): R
         <div className="flex items-center justify-between py-2">
           <button type="button" onClick={goBack} className="h-11 rounded-lg border border-border-default px-4 text-sm font-medium">Back</button>
           <h1 className="text-lg font-semibold">Detail Project</h1>
-          <div className="relative"><button type="button" onClick={toggleMore} aria-label="More options" aria-expanded={isMoreOpen} className="h-11 rounded-lg border border-border-default px-4 text-sm font-medium">More</button>{isMoreOpen && <div role="menu" className="absolute right-0 z-20 mt-2 w-40 rounded-xl border border-border-default bg-background-surface py-2 shadow-medium"><button type="button" role="menuitem" onClick={goEdit} className="w-full px-4 py-2 text-left text-sm">Edit</button><button type="button" role="menuitem" onClick={openDeleteModal} className="w-full px-4 py-2 text-left text-sm text-red-600">Delete</button></div>}</div>
+          <button type="button" onClick={goEdit} className="h-11 rounded-lg border border-border-default px-4 text-sm font-medium">Edit</button>
         </div>
         {_renderDetails(project)}
       </div>
-      {isDeleteModalOpen && <div role="dialog" aria-modal="true" className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-6"><div className="w-full max-w-sm rounded-xl bg-background-surface p-6"><h3 className="mb-4 text-lg font-semibold">Delete project?</h3><div className="flex gap-3"><button type="button" onClick={closeDeleteModal} className="flex-1 rounded-lg bg-background-subtle p-3">Cancel</button><button type="button" onClick={handleDelete} className="flex-1 rounded-lg bg-red-600 p-3 text-white">Delete</button></div></div></div>}
     </Layout>
   );
 };

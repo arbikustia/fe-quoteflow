@@ -1,6 +1,7 @@
-import { MasterPicComponent } from "./MasterPic.component";
 import test from "../../libs/unit-test";
 import { getColumns } from "./MasterPic.columns";
+import { MasterPicComponent } from "./MasterPic.component";
+import type { MasterPicProps, PicData } from "./MasterPic.type";
 
 jest.mock("../../app/layout", () =>
   ({ children }: { children: React.ReactNode }) => <div data-testid="layout">{children}</div>,
@@ -21,19 +22,25 @@ jest.mock("../../components/Pagination", () => ({
 jest.mock("../../components/Table", () => () => <div data-testid="table" />);
 
 describe("MasterPic Component", () => {
-  const mockProps = {
+  const mockPaginatedData: PicData[] = [
+    { id: "1", name: "PIC 1", status: "active", createAt: "2024-01-01", createBy: "Admin" },
+    { id: "2", name: "PIC 2", status: "inactive", createAt: "2024-01-02", createBy: "Admin" },
+  ];
+
+  const mockProps: MasterPicProps = {
     currentPage: 1,
     totalPages: 1,
     pageSize: 10,
-    paginatedData: [
-      { id: "1", name: "PIC 1", status: "active", createAt: "2024-01-01", createBy: "Admin" },
-      { id: "2", name: "PIC 2", status: "inactive", createAt: "2024-01-02", createBy: "Admin" },
-    ] as any[],
+    paginatedData: mockPaginatedData,
     goToPage: jest.fn(),
     nextPage: jest.fn(),
     prevPage: jest.fn(),
     changePageSize: jest.fn(),
+    setSearchTerm: jest.fn(),
     totalCount: 2,
+    isEmpty: false,
+    isLoading: false,
+    isError: false,
     columns: getColumns({ currentPage: 1, pageSize: 10, onEdit: jest.fn() }),
     onCreate: jest.fn(),
     onEdit: jest.fn(),

@@ -55,7 +55,7 @@ const _resolvePic = (response: PicDetailResponse | undefined): PicData | null =>
  */
 export const useMasterPicDetail = (): MasterPicDetailState => {
   const navigate = useNavigate();
-  const { id } = useParams<{ readonly id: string }>();
+  const { id } = useParams<{ id: string }>();
   const menuState = useDetailMenuState();
   const { data: response } = useGetPicByIdQuery(id ?? "", { skip: !id });
   const pic = _resolvePic(response);

@@ -1,29 +1,25 @@
-import ENDPOINT from "@/constant/endpoint.const";
 import { apiRtkClient } from "@/libs/ApiRtkServices/apiRtkClient";
-import type { PaymentTypeData } from "@/modules/master-payment-type/MasterPaymentType.type";
-import type { ApiEnvelope, ApiQueryParams, PaginatedResponse } from "@/types/api.type";
 
-export type ApiPaymentType = {
-  readonly id: string;
-  readonly name: string | null;
-  readonly status: number;
-  readonly created_at: string | null;
-  readonly updated_at: string | null;
-  readonly created_by?: string | null;
-};
+import ENDPOINT from "@/constant/endpoint.const";
+import type {
+  ApiPaymentType,
+  PaymentTypeCreatePayload,
+  PaymentTypeCreateResponse,
+  PaymentTypeData,
+  PaymentTypeDetailResponse,
+  PaymentTypeListParams,
+  PaymentTypeListResponse,
+  PaymentTypeUpdatePayload,
+} from "@/modules/master-payment-type/MasterPaymentType.type";
 
-export type PaymentTypeListResponse = PaginatedResponse<ApiPaymentType>;
-export type PaymentTypeDetailResponse = ApiEnvelope<ApiPaymentType | ApiPaymentType[] | null>;
-export type PaymentTypeCreateResponse = ApiEnvelope<ApiPaymentType | null>;
-export type PaymentTypeListParams = ApiQueryParams;
-
-export type PaymentTypeCreatePayload = {
-  readonly name: string;
-  readonly status: number;
-};
-
-export type PaymentTypeUpdatePayload = PaymentTypeCreatePayload & {
-  readonly id: string;
+export type {
+  ApiPaymentType,
+  PaymentTypeCreatePayload,
+  PaymentTypeCreateResponse,
+  PaymentTypeDetailResponse,
+  PaymentTypeListParams,
+  PaymentTypeListResponse,
+  PaymentTypeUpdatePayload,
 };
 
 /**
@@ -40,8 +36,16 @@ export const mapPaymentType = (item: ApiPaymentType): PaymentTypeData => ({
 });
 
 export const masterPaymentTypeService = apiRtkClient.injectEndpoints({
+  /**
+   *
+   * @param builder
+   */
   endpoints: (builder) => ({
     getPaymentTypes: builder.query<PaymentTypeListResponse, PaymentTypeListParams>({
+      /**
+       *
+       * @param params
+       */
       query: (params) => ({
         url: ENDPOINT.MASTER_PAYMENT_TYPE.PAGED,
         method: "GET",
@@ -54,14 +58,26 @@ export const masterPaymentTypeService = apiRtkClient.injectEndpoints({
       providesTags: ["PaymentType"],
     }),
     createPaymentType: builder.mutation<PaymentTypeCreateResponse, PaymentTypeCreatePayload>({
+      /**
+       *
+       * @param body
+       */
       query: (body) => ({ url: ENDPOINT.MASTER_PAYMENT_TYPE.CREATE, method: "POST", data: body }),
       invalidatesTags: ["PaymentType"],
     }),
     getPaymentTypeById: builder.query<PaymentTypeDetailResponse, string>({
+      /**
+       *
+       * @param id
+       */
       query: (id) => ({ url: `${ENDPOINT.MASTER_PAYMENT_TYPE.DETAIL}/${id}`, method: "GET" }),
       providesTags: ["PaymentType"],
     }),
     updatePaymentType: builder.mutation<PaymentTypeCreateResponse, PaymentTypeUpdatePayload>({
+      /**
+       *
+       * @param body
+       */
       query: (body) => ({
         url: `${ENDPOINT.MASTER_PAYMENT_TYPE.DETAIL}/${body.id}`,
         method: "PUT",

@@ -55,7 +55,7 @@ const _resolveVoucher = (response: VoucherDetailResponse | undefined): VoucherDa
  */
 export const useMasterVoucherDetail = (): MasterVoucherDetailState => {
   const navigate = useNavigate();
-  const { id } = useParams<{ readonly id: string }>();
+  const { id } = useParams<{ id: string }>();
   const menuState = useDetailMenuState();
   const { data: response } = useGetVoucherByIdQuery(id ?? "", { skip: !id });
   const voucher = _resolveVoucher(response);

@@ -30,8 +30,16 @@ export const mapCustomer = (customer: ApiCustomer): CustomerData => ({
 });
 
 export const masterCustomerService = apiRtkClient.injectEndpoints({
+  /**
+   *
+   * @param builder
+   */
   endpoints: (builder) => ({
     getCustomers: builder.query<CustomerListResponse, CustomerListParams>({
+      /**
+       *
+       * @param params
+       */
       query: (params) => ({
         url: ENDPOINT.MASTER_CUSTOMER.PAGED,
         method: "GET",
@@ -47,6 +55,10 @@ export const masterCustomerService = apiRtkClient.injectEndpoints({
       CustomerCreateResponse,
       CustomerCreatePayload
     >({
+      /**
+       *
+       * @param body
+       */
       query: (body) => ({
         url: ENDPOINT.MASTER_CUSTOMER.CREATE,
         method: "POST",
@@ -55,6 +67,10 @@ export const masterCustomerService = apiRtkClient.injectEndpoints({
       invalidatesTags: [CUSTOMER_TAG],
     }),
     getCustomerById: builder.query<CustomerDetailResponse, string>({
+      /**
+       *
+       * @param id
+       */
       query: (id) => ({
         url: `${ENDPOINT.MASTER_CUSTOMER.DETAIL}/${id}`,
         method: "GET",
@@ -65,6 +81,10 @@ export const masterCustomerService = apiRtkClient.injectEndpoints({
       CustomerCreateResponse,
       CustomerUpdatePayload
     >({
+      /**
+       *
+       * @param body
+       */
       query: (body) => ({
         url: `${ENDPOINT.MASTER_CUSTOMER.DETAIL}/${body.id}`,
         method: "PUT",

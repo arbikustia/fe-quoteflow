@@ -7,7 +7,7 @@ import { useMasterVoucherContainerState, useMasterVoucherNavigation } from "./Ma
 const mockNavigate = jest.fn();
 
 jest.mock("@/services/master-voucher.service", () => ({
-  mapVoucher: (voucher: { readonly id: string; readonly name: string; readonly code: string; readonly discount_percent: number; readonly status: number; readonly created_at: string | null }) => ({
+  mapVoucher: (voucher: { id: string; name: string; code: string; discount_percent: number; status: number; created_at: string | null }) => ({
     id: voucher.id,
     name: voucher.name,
     code: voucher.code,
@@ -38,6 +38,7 @@ const emptyResponse = {
   },
   error: undefined,
   isLoading: false,
+  refetch: jest.fn(),
 };
 
 describe("MasterVoucher hook", () => {
@@ -50,13 +51,13 @@ describe("MasterVoucher hook", () => {
     const { result } = renderHook(() => useMasterVoucherNavigation());
 
     act(() => { result.current.goBack(); });
-    expect(mockNavigate).toHaveBeenCalledWith(-1);
+    expect(mockNavigate).toHaveBeenNthCalledWith(1, -1);
     act(() => { result.current.goCreate(); });
-    expect(mockNavigate).toHaveBeenCalledWith("/master-voucher/create");
+    expect(mockNavigate).toHaveBeenNthCalledWith(2, "/master-voucher/create");
     act(() => { result.current.goEdit(MOCK_VOUCHERS[0]); });
-    expect(mockNavigate).toHaveBeenCalledWith("/master-voucher/edit/1");
+    expect(mockNavigate).toHaveBeenNthCalledWith(3, "/master-voucher/edit/1", { state: { voucher: MOCK_VOUCHERS[0] } });
     act(() => { result.current.goDetail(MOCK_VOUCHERS[1]); });
-    expect(mockNavigate).toHaveBeenCalledWith("/master-voucher/detail/2");
+    expect(mockNavigate).toHaveBeenNthCalledWith(4, "/master-voucher/detail/2");
   });
 
   it("should expose empty API state", () => {

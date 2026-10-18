@@ -5,6 +5,11 @@ import { BrowserRouter } from "react-router-dom";
 import { MasterCustomerDetailComponent } from "./MasterCustomerDetail.component";
 import { MOCK_CUSTOMERS } from "@/fixture/master-customer";
 
+jest.useFakeTimers();
+jest.setSystemTime(new Date("2026-10-18T00:51:00+07:00"));
+
+afterAll(() => jest.useRealTimers());
+
 describe("MasterCustomerDetailComponent", () => {
   const mockCustomer = MOCK_CUSTOMERS[0];
   const defaultProps = {

@@ -15,7 +15,9 @@ import type { MasterPicProps, PicData } from "./MasterPic.type";
  */
 const _renderListState = (props: MasterPicProps): React.ReactElement | null => {
   if (props.isLoading) return <p className="py-10 text-center text-sm text-text-secondary">Loading PICs…</p>;
+
   if (props.isError) return <p role="alert" className="py-10 text-center text-sm text-red-700">Unable to load PICs.</p>;
+
   if (props.isEmpty) return <p className="py-10 text-center text-sm text-brand-text-medium">No PICs found.</p>;
 
   return null;
@@ -28,9 +30,23 @@ const _renderListState = (props: MasterPicProps): React.ReactElement | null => {
  * @returns {React.ReactElement} Card element
  */
 const _renderPicCard = (pic: PicData, onEdit: MasterPicProps["onEdit"]): React.ReactElement => {
-  const handleCardClick = (): void => onEdit(pic);
+  /**
+   * Handle card click.
+   * @returns {void} No return value
+   */
+  const handleCardClick = (): void => {
+    onEdit(pic);
+  };
+
+  /**
+   * Handle keyboard activation.
+   * @param {React.KeyboardEvent<HTMLDivElement>} event - Keyboard event
+   * @returns {void} No return value
+   */
   const handleCardKeyDown = (event: React.KeyboardEvent<HTMLDivElement>): void => {
-    if (event.key === "Enter" || event.key === " ") handleCardClick();
+    if (event.key === "Enter" || event.key === " ") {
+      handleCardClick();
+    }
   };
 
   return (
@@ -62,6 +78,11 @@ const _renderPicCard = (pic: PicData, onEdit: MasterPicProps["onEdit"]): React.R
  */
 const _renderMobile = (props: MasterPicProps): React.ReactElement => {
   const { paginatedData, currentPage, totalPages, pageSize, totalCount, goToPage, changePageSize, setSearchTerm, onEdit } = props;
+  /**
+   * Handle search input.
+   * @param {React.ChangeEvent<HTMLInputElement>} event - Search event
+   * @returns {void} No return value
+   */
   const handleSearch = (event: React.ChangeEvent<HTMLInputElement>): void => setSearchTerm(event.target.value);
 
   return (
@@ -91,7 +112,17 @@ const _renderMobile = (props: MasterPicProps): React.ReactElement => {
  */
 const _renderDesktop = (props: MasterPicProps): React.ReactElement => {
   const { paginatedData, columns, currentPage, totalPages, pageSize, totalCount, goToPage, changePageSize, setSearchTerm, onCreate, onRowClick } = props;
+  /**
+   * Handle search input.
+   * @param {React.ChangeEvent<HTMLInputElement>} event - Search event
+   * @returns {void} No return value
+   */
   const handleSearch = (event: React.ChangeEvent<HTMLInputElement>): void => setSearchTerm(event.target.value);
+  /**
+   * Extract PIC row key.
+   * @param {PicData} row - PIC row
+   * @returns {string} Row ID
+   */
   const keyExtractor = (row: PicData): string => row.id;
 
   return (

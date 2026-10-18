@@ -15,8 +15,11 @@ import type { MasterPaymentTypeProps, PaymentTypeData } from "./MasterPaymentTyp
  */
 const _renderListState = (props: MasterPaymentTypeProps): React.ReactElement | null => {
   if (props.isLoading) return <p className="py-10 text-center text-sm text-text-secondary">Loading payment types…</p>;
+
   if (props.isMissingData) return <p className="py-10 text-center text-sm text-red-600">Payment type data is unavailable. Please try again.</p>;
+
   if (props.errorMessage) return <p className="py-10 text-center text-sm text-red-600">{props.errorMessage}</p>;
+
   if (props.isEmpty) return <p className="py-10 text-center text-sm text-text-secondary">No payment types found.</p>;
 
   return null;
@@ -29,7 +32,16 @@ const _renderListState = (props: MasterPaymentTypeProps): React.ReactElement | n
  * @returns {React.ReactElement} Card element
  */
 const _renderPaymentTypeCard = (paymentType: PaymentTypeData, onEdit: MasterPaymentTypeProps["onEdit"]): React.ReactElement => {
+  /**
+   * Open payment type editing.
+   * @returns {void} No return value
+   */
   const handleCardClick = (): void => onEdit(paymentType);
+  /**
+   * Open editing from supported keyboard keys.
+   * @param {React.KeyboardEvent<HTMLDivElement>} event - Keyboard event
+   * @returns {void} No return value
+   */
   const handleCardKeyDown = (event: React.KeyboardEvent<HTMLDivElement>): void => {
     if (event.key === "Enter" || event.key === " ") handleCardClick();
   };
@@ -63,6 +75,11 @@ const _renderPaymentTypeCard = (paymentType: PaymentTypeData, onEdit: MasterPaym
  */
 const _renderMobile = (props: MasterPaymentTypeProps): React.ReactElement => {
   const { paginatedData, currentPage, totalPages, pageSize, totalCount, goToPage, changePageSize, setSearchTerm, onEdit } = props;
+  /**
+   * Update search term.
+   * @param {React.ChangeEvent<HTMLInputElement>} event - Search input event
+   * @returns {void} No return value
+   */
   const handleSearch = (event: React.ChangeEvent<HTMLInputElement>): void => setSearchTerm(event.target.value);
 
   return (
@@ -92,7 +109,17 @@ const _renderMobile = (props: MasterPaymentTypeProps): React.ReactElement => {
  */
 const _renderDesktop = (props: MasterPaymentTypeProps): React.ReactElement => {
   const { paginatedData, columns, currentPage, totalPages, pageSize, totalCount, goToPage, changePageSize, setSearchTerm, onCreate, onRowClick } = props;
+  /**
+   * Update search term.
+   * @param {React.ChangeEvent<HTMLInputElement>} event - Search input event
+   * @returns {void} No return value
+   */
   const handleSearch = (event: React.ChangeEvent<HTMLInputElement>): void => setSearchTerm(event.target.value);
+  /**
+   * Extract payment type row key.
+   * @param {PaymentTypeData} row - Payment type row
+   * @returns {string} Payment type ID
+   */
   const keyExtractor = (row: PaymentTypeData): string => row.id;
 
   return (

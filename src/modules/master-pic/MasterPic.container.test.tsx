@@ -1,19 +1,23 @@
-import { render } from "@testing-library/react";
-import MasterPicContainer from "./MasterPic.container";
-import { BrowserRouter } from "react-router-dom";
+import * as React from "react";
 
-jest.mock("./MasterPic.component", () => ({
-  MasterPicComponent: (props: any) => <div data-testid="master-pic-component" {...props} />
+import test from "../../libs/unit-test";
+
+import MasterPicContainer from "./MasterPic.container";
+
+jest.mock("./MasterPic.hook", () => ({
+  useMasterPicNavigation: jest.fn(() => ({ goBack: jest.fn(), goCreate: jest.fn(), goEdit: jest.fn(), goDetail: jest.fn() })),
+  useMasterPicContainerState: jest.fn(() => ({
+    pagination: {
+      currentPage: 1, totalPages: 1, pageSize: 10, paginatedData: [], totalCount: 0,
+      isEmpty: true, isLoading: false, isError: false, goToPage: jest.fn(), nextPage: jest.fn(),
+      prevPage: jest.fn(), changePageSize: jest.fn(), setSearchTerm: jest.fn(),
+    },
+    isMoreOpen: false, toggleMore: jest.fn(), goDelete: jest.fn(), handleCloseMore: jest.fn(),
+  })),
 }));
 
-describe("MasterPic Container", () => {
-  it("should render component with correct props", () => {
-    const { getByTestId } = render(
-      <BrowserRouter>
-        <MasterPicContainer />
-      </BrowserRouter>
-    );
+jest.mock("./MasterPic.component", () => ({
+  MasterPicComponent: (props: object) => React.createElement("div", { "data-testid": "master-pic-component", "data-props": JSON.stringify(props) }),
+}));
 
-    expect(getByTestId("master-pic-component")).toBeDefined();
-  });
-});
+test.assertSnapshots(MasterPicContainer, [{ props: {}, desc: "default state" }]);

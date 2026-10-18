@@ -84,78 +84,76 @@ const _renderHeader = (isEditMode: boolean, goBack: () => void): ReactElement =>
 };
 
 /**
+ * Render payment type name field.
+ * @param {MasterPaymentTypeCreateFormState} props - Form state
+ * @returns {ReactElement} Name field
+ */
+const _renderNameField = (props: MasterPaymentTypeCreateFormState): ReactElement => (
+  <div>
+    <label htmlFor="payment-type-name" className="mb-1.5 block text-xs font-bold uppercase tracking-wider text-text-secondary">
+      Payment Type Name <span className="text-red-600">*</span>
+    </label>
+    <input
+      id="payment-type-name"
+      value={props.name}
+      onChange={props.handleNameChange}
+      placeholder="e.g. Full Payment"
+      required
+      className="w-full rounded-xl border border-border-default bg-background-surface px-4 py-3 text-[15px] text-text-primary shadow-xs outline-none transition-all placeholder:text-text-tertiary/60 focus:border-border-focus focus:ring-2 focus:ring-focus-ring/30"
+    />
+  </div>
+);
+
+/**
+ * Render form messages.
+ * @param {MasterPaymentTypeCreateFormState} props - Form state
+ * @returns {ReactElement} Message group
+ */
+const _renderMessages = (props: MasterPaymentTypeCreateFormState): ReactElement => (
+  <>
+    {props.errorMessage !== null && <p role="alert" className="rounded-lg border border-red-200 bg-red-50 px-3 py-2 text-[13px] font-medium text-red-700">{props.errorMessage}</p>}
+    {props.successMessage !== null && <p role="status" className="rounded-lg border border-green-200 bg-green-50 px-3 py-2 text-[13px] font-medium text-green-700">{props.successMessage}</p>}
+  </>
+);
+
+/**
+ * Render payment type form body.
+ * @param {MasterPaymentTypeCreateFormState} props - Form state
+ * @returns {ReactElement} Form body
+ */
+const _renderForm = (props: MasterPaymentTypeCreateFormState): ReactElement => {
+  const buttonText = props.isEditMode ? "Update Payment Type" : "Create Payment Type";
+  const submittingText = props.isEditMode ? "Updating…" : "Creating…";
+
+  return (
+    <form onSubmit={props.handleSubmit} className="flex min-h-0 flex-1 flex-col justify-between border-0 bg-transparent p-0 shadow-none lg:rounded-4xl lg:border lg:border-border-default lg:bg-background-surface lg:p-8 lg:shadow-xs">
+      <div className="space-y-4">
+        {_renderNameField(props)}
+        {_renderStatusField(props)}
+        {_renderMessages(props)}
+      </div>
+      <div className="mt-8 flex justify-end border-t border-border-default/60 pt-5 lg:mt-6 lg:border-border-default">
+        <button type="submit" disabled={props.isSubmitting} className="h-14 w-full cursor-pointer rounded-xl bg-action-primary px-8 text-sm font-semibold tracking-wide text-text-inverse shadow-xs transition-all hover:bg-action-primary-hover disabled:opacity-60 sm:w-auto">
+          {props.isSubmitting ? submittingText : buttonText}
+        </button>
+      </div>
+    </form>
+  );
+};
+
+/**
  * Render payment type create/edit form.
  * @param {MasterPaymentTypeCreateFormState} props - Form state
  * @returns {ReactElement} Form
  */
-export const MasterPaymentTypeCreateForm = (props: MasterPaymentTypeCreateFormState): ReactElement => {
-  const {
-    name,
-    isEditMode,
-    isLoadingInitialData,
-    isSubmitting,
-    errorMessage,
-    successMessage,
-    handleNameChange,
-    handleSubmit,
-    goBack,
-  } = props;
-
-  const buttonText = isEditMode ? "Update Payment Type" : "Create Payment Type";
-  const submittingText = isEditMode ? "Updating…" : "Creating…";
-  const fieldClass =
-    "w-full rounded-xl border border-border-default bg-background-surface px-4 py-3 text-[15px] text-text-primary shadow-xs outline-none transition-all placeholder:text-text-tertiary/60 focus:border-border-focus focus:ring-2 focus:ring-focus-ring/30";
-
-  return (
-    <div className="flex h-full w-full flex-col bg-background-surface pb-6 font-sans lg:bg-background-page">
-      {_renderMobileBack(goBack)}
-      <div className="mt-2 flex min-h-0 w-full flex-1 flex-col px-6 lg:mt-0 lg:px-0">
-        {_renderHeader(isEditMode, goBack)}
-        {isLoadingInitialData ? (
-          <p className="py-12 text-center text-sm text-text-secondary">Loading payment type data…</p>
-        ) : (
-          <form
-            onSubmit={handleSubmit}
-            className="flex min-h-0 flex-1 flex-col justify-between border-0 bg-transparent p-0 shadow-none lg:rounded-4xl lg:border lg:border-border-default lg:bg-background-surface lg:p-8 lg:shadow-xs"
-          >
-            <div className="space-y-4">
-              <div>
-                <label htmlFor="payment-type-name" className="mb-1.5 block text-xs font-bold uppercase tracking-wider text-text-secondary">
-                  Payment Type Name <span className="text-red-600">*</span>
-                </label>
-                <input
-                  id="payment-type-name"
-                  value={name}
-                  onChange={handleNameChange}
-                  placeholder="e.g. Full Payment"
-                  required
-                  className={fieldClass}
-                />
-              </div>
-              {_renderStatusField(props)}
-              {errorMessage !== null && (
-                <p role="alert" className="rounded-lg border border-red-200 bg-red-50 px-3 py-2 text-[13px] font-medium text-red-700">
-                  {errorMessage}
-                </p>
-              )}
-              {successMessage !== null && (
-                <p role="status" className="rounded-lg border border-green-200 bg-green-50 px-3 py-2 text-[13px] font-medium text-green-700">
-                  {successMessage}
-                </p>
-              )}
-            </div>
-            <div className="mt-8 flex justify-end border-t border-border-default/60 pt-5 lg:mt-6 lg:border-border-default">
-              <button
-                type="submit"
-                disabled={isSubmitting}
-                className="h-14 w-full cursor-pointer rounded-xl bg-action-primary px-8 text-sm font-semibold tracking-wide text-text-inverse shadow-xs transition-all hover:bg-action-primary-hover disabled:opacity-60 sm:w-auto"
-              >
-                {isSubmitting ? submittingText : buttonText}
-              </button>
-            </div>
-          </form>
-        )}
-      </div>
+export const MasterPaymentTypeCreateForm = (props: MasterPaymentTypeCreateFormState): ReactElement => (
+  <div className="flex h-full w-full flex-col bg-background-surface pb-6 font-sans lg:bg-background-page">
+    {_renderMobileBack(props.goBack)}
+    <div className="mt-2 flex min-h-0 w-full flex-1 flex-col px-6 lg:mt-0 lg:px-0">
+      {_renderHeader(props.isEditMode, props.goBack)}
+      {props.isLoadingInitialData ? (
+        <p className="py-12 text-center text-sm text-text-secondary">Loading payment type data…</p>
+      ) : _renderForm(props)}
     </div>
-  );
-};
+  </div>
+);

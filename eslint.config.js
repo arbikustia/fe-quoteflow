@@ -162,6 +162,7 @@ export default defineConfig([
       "src/modules/master-payment-method/**/*.{ts,tsx}",
       "src/modules/master-pic/**/*.{ts,tsx}",
       "src/modules/master-payment-type/**/*.{ts,tsx}",
+      "src/services/**/*.{ts,tsx}",
     ],
     rules: {
       semi: ["error", "always"],
@@ -366,9 +367,9 @@ export default defineConfig([
     },
   },
 
-  // Relaxed rules for types files
+  // Relaxed rules for types and service files
   {
-    files: ["**/*.type.ts", "**/*.types.ts"],
+    files: ["**/*.type.ts", "**/*.types.ts", "src/services/**/*.{ts,tsx}"],
     rules: {
       "func-style": "off",
       "@typescript-eslint/explicit-function-return-type": "off",

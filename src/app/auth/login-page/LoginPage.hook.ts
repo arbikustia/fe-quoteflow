@@ -4,6 +4,8 @@ import { useNavigate } from 'react-router-dom';
 
 import type { LoginPageState } from './LoginPage.type';
 
+import { useAuthenticateMutation } from '@/services/authentication.service';
+
 /**
  * Custom hook for login page state and handlers
  * @returns {LoginPageState} login page state and handlers
@@ -14,6 +16,8 @@ export const useLoginPageState = (): LoginPageState => {
   const [password, setPassword] = useState<string>('');
   const [isPasswordVisible, setIsPasswordVisible] = useState<boolean>(false);
   const [isRemembered, setIsRemembered] = useState<boolean>(false);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [authenticate, { isLoading: isSubmitting }] = useAuthenticateMutation();
 
   /**
    * Handle identifier input change
@@ -55,20 +59,39 @@ export const useLoginPageState = (): LoginPageState => {
    * @param {SyntheticEvent<HTMLFormElement>} event - form event
    * @returns {void}
    */
-  const handleSubmit = (event: SyntheticEvent<HTMLFormElement>): void => {
+  const handleSubmit = async (event: SyntheticEvent<HTMLFormElement>): Promise<void> => {
     event.preventDefault();
-    navigate('/home');
-  };
+    setErrorMessage(null);
+
+    try {
+      const response = await authenticate({ username: identifier, password }).unwrap();
+
+      if (!response.status || !response.data) {
+        setErrorMessage(Array.isArray(response.messages) ? response.messages.join(" ") : response.messages ?? "Login failed.");
+
+        return;
+      }
+
+      localStorage.setItem("access_token", response.data.access_token);
+      localStorage.setItem("refresh_token", response.data.refresh_token);
+      navigate('/home');
+    } catch {
+      setErrorMessage("Username atau password salah.");
+    }
+  }; 
 
   return {
     identifier,
     password,
     isPasswordVisible,
     isRemembered,
+    isSubmitting,
+    errorMessage,
     handleIdentifierChange,
     handlePasswordChange,
     handleTogglePasswordVisibility,
     handleRememberedChange,
     handleSubmit,
-  };
+  }; 
 };
+

@@ -1,4 +1,3 @@
-/* eslint-disable jsdoc/require-jsdoc */
 import type { ReactElement } from "react";
 
 import type { PicData } from "../MasterPic.type";
@@ -7,6 +6,11 @@ import type { MasterPicDetailState } from "./MasterPicDetail.type";
 
 import Layout from "@/app/layout";
 
+/**
+ * Render PIC details card.
+ * @param {PicData} pic - PIC record
+ * @returns {ReactElement} Details view
+ */
 const _renderDetails = (pic: PicData): ReactElement => (
   <div className="space-y-4">
     <div className="rounded-xl border border-border-default bg-background-surface p-5 text-center shadow-small">
@@ -23,6 +27,11 @@ const _renderDetails = (pic: PicData): ReactElement => (
   </div>
 );
 
+/**
+ * Render Master PIC detail component.
+ * @param {MasterPicDetailState} props - Detail props
+ * @returns {ReactElement} Detail page
+ */
 export const MasterPicDetailComponent = (props: MasterPicDetailState): ReactElement => {
   const { pic, isMoreOpen, isDeleteModalOpen, goBack, toggleMore, goEdit, openDeleteModal, closeDeleteModal, handleDelete } = props;
 

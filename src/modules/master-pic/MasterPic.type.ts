@@ -2,12 +2,12 @@ import type { TableColumn } from "../../components/Table";
 import type { ApiEnvelope, ApiQueryParams, PaginatedResponse } from "../../types/api.type";
 
 export type ApiPic = {
-  readonly id: string;
-  readonly name: string | null;
-  readonly status: number;
-  readonly created_by: string | null;
-  readonly created_at: string | null;
-  readonly updated_at: string | null;
+  id: string;
+  name: string | null;
+  status: number;
+  created_by: string | null;
+  created_at: string | null;
+  updated_at: string | null;
 };
 
 export type PicListResponse = PaginatedResponse<ApiPic>;
@@ -16,80 +16,80 @@ export type PicCreateResponse = ApiEnvelope<ApiPic | null>;
 export type PicListParams = ApiQueryParams;
 
 export type PicCreatePayload = {
-  readonly name: string;
-  readonly status: number;
+  name: string;
+  status: number;
 };
 
 export type PicUpdatePayload = PicCreatePayload & {
-  readonly id: string;
+  id: string;
 };
 
 export type PicData = {
-  readonly id: string;
-  readonly name: string | null;
-  readonly status: "active" | "inactive";
-  readonly createAt: string | null;
-  readonly createBy: string | null;
+  id: string;
+  name: string | null;
+  status: "active" | "inactive";
+  createAt: string | null;
+  createBy: string | null;
 };
 
 export type MasterPicNavigation = {
-  readonly goBack: () => void;
-  readonly goCreate: () => void;
-  readonly goEdit: (pic: PicData) => void;
-  readonly goDetail: (pic: PicData) => void;
+  goBack: () => void;
+  goCreate: () => void;
+  goEdit: (pic: PicData) => void;
+  goDetail: (pic: PicData) => void;
 };
 
 export type MasterPicPagination = {
-  readonly currentPage: number;
-  readonly totalPages: number;
-  readonly pageSize: number;
-  readonly paginatedData: PicData[];
-  readonly totalCount: number;
-  readonly isEmpty: boolean;
-  readonly isLoading: boolean;
-  readonly isError: boolean;
-  readonly goToPage: (page: number) => void;
-  readonly nextPage: () => void;
-  readonly prevPage: () => void;
-  readonly changePageSize: (size: number) => void;
-  readonly setSearchTerm: (searchTerm: string) => void;
+  currentPage: number;
+  totalPages: number;
+  pageSize: number;
+  paginatedData: PicData[];
+  totalCount: number;
+  isEmpty: boolean;
+  isLoading: boolean;
+  isError: boolean;
+  goToPage: (page: number) => void;
+  nextPage: () => void;
+  prevPage: () => void;
+  changePageSize: (size: number) => void;
+  setSearchTerm: (searchTerm: string) => void;
 };
 
 export type MasterPicContainerState = {
-  readonly pagination: MasterPicPagination;
-  readonly isMoreOpen: boolean;
-  readonly toggleMore: () => void;
-  readonly goDelete: () => void;
-  readonly handleCloseMore: () => void;
+  pagination: MasterPicPagination;
+  isMoreOpen: boolean;
+  toggleMore: () => void;
+  goDelete: () => void;
+  handleCloseMore: () => void;
 };
 
 export type MasterPicProps = {
-  readonly currentPage: number;
-  readonly totalPages: number;
-  readonly pageSize: number;
-  readonly paginatedData: PicData[];
-  readonly goToPage: (page: number) => void;
-  readonly nextPage: () => void;
-  readonly prevPage: () => void;
-  readonly changePageSize: (size: number) => void;
-  readonly totalCount: number;
-  readonly isEmpty: boolean;
-  readonly isLoading: boolean;
-  readonly isError: boolean;
-  readonly setSearchTerm: (searchTerm: string) => void;
-  readonly columns: TableColumn<PicData>[];
-  readonly onCreate: () => void;
-  readonly onEdit: (pic: PicData) => void;
-  readonly onRowClick: (pic: PicData) => void;
-  readonly onMore: () => void;
-  readonly isMoreOpen: boolean;
-  readonly onCloseMore: () => void;
-  readonly onDelete: () => void;
-  readonly onBack: () => void;
+  currentPage: number;
+  totalPages: number;
+  pageSize: number;
+  paginatedData: PicData[];
+  goToPage: (page: number) => void;
+  nextPage: () => void;
+  prevPage: () => void;
+  changePageSize: (size: number) => void;
+  totalCount: number;
+  isEmpty: boolean;
+  isLoading: boolean;
+  isError: boolean;
+  setSearchTerm: (searchTerm: string) => void;
+  columns: TableColumn<PicData>[];
+  onCreate: () => void;
+  onEdit: (pic: PicData) => void;
+  onRowClick: (pic: PicData) => void;
+  onMore: () => void;
+  isMoreOpen: boolean;
+  onCloseMore: () => void;
+  onDelete: () => void;
+  onBack: () => void;
 };
 
 export type GetColumnsParams = {
-  readonly currentPage: number;
-  readonly pageSize: number;
-  readonly onEdit: (pic: PicData) => void;
+  currentPage: number;
+  pageSize: number;
+  onEdit: (pic: PicData) => void;
 };

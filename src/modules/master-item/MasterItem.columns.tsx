@@ -65,13 +65,19 @@ const _renderIndex = (currentPage: number, pageSize: number, index: number): Rea
  * @param {ItemData} row - Row item
  * @returns {ReactElement} Thumbnail element
  */
-const _renderImage = (row: ItemData): ReactElement => (
-  row.image ? (
-    <img src={row.image} alt={row.name} className="mx-auto h-10 w-10 rounded-lg object-cover" />
-  ) : (
-    <span>-</span>
-  )
-);
+const _renderImage = (row: ItemData): ReactElement => {
+  if (!row.image) {
+    return <span>-</span>;
+  }
+
+  const fileName = row.image.split("/").pop() ?? row.image;
+
+  return (
+    <a href={row.image} target="_blank" rel="noreferrer" className="text-sm text-brand-blue underline hover:text-brand-blue/80">
+      {fileName}
+    </a>
+  );
+};
 
 /**
  * Render formatted price.

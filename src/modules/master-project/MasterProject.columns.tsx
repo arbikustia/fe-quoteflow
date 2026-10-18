@@ -20,15 +20,6 @@ const _renderNo = (_row: ProjectData, index: number, currentPage: number, pageSi
 );
 
 /**
- * Render Items
- * @param {ProjectData} row - data
- * @returns {React.ReactElement} div
- */
-const _renderItems = (row: ProjectData): React.ReactElement => (
-  <span className="text-xs font-bold text-brand-blue">{row.items.length} item(s)</span>
-);
-
-/**
  * Render Status
  * @param {ProjectData} row - data
  * @returns {React.ReactElement} span
@@ -62,11 +53,6 @@ const _getBasicColumns = (currentPage: number, pageSize: number): TableColumn<Pr
       render: renderNoWrapper,
     },
     { key: "name", header: "Project Name", mobile: { primary: true } },
-    {
-      key: "items",
-      header: "Items",
-      render: _renderItems,
-    },
     { key: "remark", header: "Remark" },
     {
       key: "status",

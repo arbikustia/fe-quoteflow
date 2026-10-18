@@ -802,11 +802,14 @@ exports[`MasterItemContainer matches snapshot 1`] = `
                               <td
                                 class="px-5 py-4 border-b border-border-default text-base text-center "
                               >
-                                <img
-                                  alt="Line Array Speaker"
-                                  class="mx-auto h-10 w-10 rounded-lg object-cover"
-                                  src="https://example.com/a.jpg"
-                                />
+                                <a
+                                  class="text-sm text-brand-blue underline hover:text-brand-blue/80"
+                                  href="https://example.com/a.jpg"
+                                  rel="noreferrer"
+                                  target="_blank"
+                                >
+                                  a.jpg
+                                </a>
                               </td>
                               <td
                                 class="px-5 py-4 border-b border-border-default text-base text-left "

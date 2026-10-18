@@ -1,14 +1,28 @@
 import type * as React from "react";
 
+export type PicFormFieldsState = {
+  name: string;
+  isActive: boolean;
+  handleNameChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  handleStatusChange: () => void;
+};
+
+export type PicSubmissionParams = {
+  id?: string;
+  isEditMode: boolean;
+  name: string;
+  isActive: boolean;
+};
+
 export type MasterPicCreateState = {
-  readonly name: string;
-  readonly isActive: boolean;
-  readonly isEditMode: boolean;
-  readonly isLoadingInitialData: boolean;
-  readonly isSubmitting: boolean;
-  readonly errorMessage: string | null;
-  readonly handleNameChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  readonly handleStatusChange: () => void;
-  readonly handleSubmit: (event: React.SyntheticEvent) => Promise<void>;
-  readonly goBack: () => void;
+  name: string;
+  isActive: boolean;
+  isEditMode: boolean;
+  isLoadingInitialData: boolean;
+  isSubmitting: boolean;
+  errorMessage: string | null;
+  handleNameChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  handleStatusChange: () => void;
+  handleSubmit: (event: React.SyntheticEvent) => Promise<void>;
+  goBack: () => void;
 };

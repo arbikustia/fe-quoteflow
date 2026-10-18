@@ -153,8 +153,20 @@ const _renderNumericalInputs = (props: ItemFormContentProps): ReactElement => (
 const _renderExtraInputs = (props: ItemFormContentProps): ReactElement => (
   <>
     <div>
-      <label className="mb-1.5 block text-xs font-bold uppercase tracking-wider text-text-secondary">Image URL</label>
-      <input type="text" aria-label="Image URL" placeholder="https://..." value={props.image} onChange={props.handleImageChange} className={FIELD_CLASS} />
+      <label htmlFor="item-image" className="mb-1.5 block text-xs font-bold uppercase tracking-wider text-text-secondary">Upload Image</label>
+      <input id="item-image" type="file" accept="image/*" aria-label="Upload image" onChange={props.handleImageChange} disabled={props.isImageUploading} className={FIELD_CLASS} />
+      {props.isImageUploading && <p className="mt-2 text-xs text-text-secondary">Uploading image…</p>}
+      {props.imageUploadError !== null && <p role="alert" className="mt-2 text-xs text-red-700">{props.imageUploadError}</p>}
+      {props.image && (
+        <a
+          href={props.image}
+          target="_blank"
+          rel="noreferrer"
+          className="mt-2 block truncate text-xs font-medium text-brand-blue underline hover:text-brand-blue/80"
+        >
+          Uploaded: {props.image.split("/").pop()}
+        </a>
+      )}
     </div>
     <div>
       <label className="mb-1.5 block text-xs font-bold uppercase tracking-wider text-text-secondary">Remarks</label>

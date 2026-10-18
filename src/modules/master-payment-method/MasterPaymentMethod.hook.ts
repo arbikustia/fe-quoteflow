@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
+import { createPaginationHandlers } from "@/utils/pagination.helpers";
+
 import type {
   MasterPaymentMethodContainerState,
   MasterPaymentMethodNavigation,
@@ -18,23 +20,27 @@ import { mapPaymentMethod, useGetPaymentMethodsQuery } from "@/services/master-p
 export const useMasterPaymentMethodNavigation = (): MasterPaymentMethodNavigation => {
   const navigate = useNavigate();
   /**
-   *
+   * Navigate to previous page.
+   * @returns {void} No return value
    */
   const goBack = (): void => { navigate(-1); };
   /**
-   *
+   * Navigate to create page.
+   * @returns {void} No return value
    */
   const goCreate = (): void => { navigate("/master-payment-method/create"); };
   /**
-   *
-   * @param paymentMethod
+   * Navigate to edit page.
+   * @param {PaymentMethodData} paymentMethod - Payment method to edit
+   * @returns {void} No return value
    */
   const goEdit = (paymentMethod: PaymentMethodData): void => {
     navigate(`/master-payment-method/edit/${paymentMethod.id}`, { state: { paymentMethod } });
   };
   /**
-   *
-   * @param paymentMethod
+   * Navigate to detail page.
+   * @param {PaymentMethodData} paymentMethod - Payment method to inspect
+   * @returns {void} No return value
    */
   const goDetail = (paymentMethod: PaymentMethodData): void => { navigate(`/master-payment-method/detail/${paymentMethod.id}`); };
 
@@ -79,29 +85,16 @@ export const useMasterPaymentMethodPagination = (): MasterPaymentMethodPaginatio
   const [searchTerm, setSearchTerm] = useState("");
   const queryResult = useGetPaymentMethodsQuery({ PageNumber: currentPage, PageSize: pageSize, SearchTerm: searchTerm });
   const derived = _derivePaymentMethodListState(queryResult);
-  /**
-   *
-   * @param page
-   */
-  const goToPage = (page: number): void => setCurrentPage(Math.max(1, Math.min(page, derived.totalPages)));
-  /**
-   *
-   */
-  const nextPage = (): void => { if (derived.hasNext) goToPage(currentPage + 1); };
-  /**
-   *
-   */
-  const prevPage = (): void => { if (derived.hasPrevious) goToPage(currentPage - 1); };
-  /**
-   *
-   * @param size
-   */
-  const changePageSize = (size: number): void => { setPageSize(size); setCurrentPage(1); };
-  /**
-   *
-   * @param value
-   */
-  const handleSearchTerm = (value: string): void => { setSearchTerm(value); setCurrentPage(1); };
+  const handlers = createPaginationHandlers({
+    currentPage,
+    totalPages: derived.totalPages,
+    hasNext: derived.hasNext,
+    hasPrevious: derived.hasPrevious,
+    canPaginate: !derived.isLoading && !derived.errorMessage && derived.paginatedData.length > 0,
+    setCurrentPage,
+    setPageSize,
+    setSearchTerm,
+  });
 
   return {
     currentPage,
@@ -113,11 +106,11 @@ export const useMasterPaymentMethodPagination = (): MasterPaymentMethodPaginatio
     errorMessage: derived.errorMessage,
     isEmpty: !derived.isLoading && !derived.errorMessage && !derived.isMissingData && derived.paginatedData.length === 0,
     isMissingData: derived.isMissingData,
-    goToPage,
-    nextPage,
-    prevPage,
-    changePageSize,
-    setSearchTerm: handleSearchTerm,
+    goToPage: handlers.goToPage,
+    nextPage: handlers.nextPage,
+    prevPage: handlers.prevPage,
+    changePageSize: handlers.changePageSize,
+    setSearchTerm: handlers.handleSearchTerm,
   };
 };
 

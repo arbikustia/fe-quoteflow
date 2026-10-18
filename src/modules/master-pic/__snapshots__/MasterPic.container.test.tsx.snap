@@ -1,0 +1,10 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`MasterPicContainer Snapshots default state 1`] = `
+<DocumentFragment>
+  <div
+    data-props="{"currentPage":1,"totalPages":1,"pageSize":10,"paginatedData":[],"totalCount":0,"isEmpty":true,"isLoading":false,"isError":false,"columns":[{"key":"no","header":"No","align":"center"},{"key":"name","header":"PIC Name","mobile":{"primary":true}},{"key":"status","header":"Status","align":"center"},{"key":"createAt","header":"Created At"},{"key":"actions","header":"Action","align":"center"}],"isMoreOpen":false}"
+    data-testid="master-pic-component"
+  />
+</DocumentFragment>
+`;

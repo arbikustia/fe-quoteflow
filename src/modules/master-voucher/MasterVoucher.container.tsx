@@ -13,8 +13,9 @@ import { downloadVoucherTemplate } from "./MasterVoucherDownload.helpers";
 const MasterVoucherContainer = (): React.ReactElement => {
   const containerState = useMasterVoucherContainerState();
   /**
-   *
-   * @param voucher
+   * Handle voucher template download.
+   * @param {VoucherData} voucher - Voucher data to download
+   * @returns {void} No return value
    */
   const handleDownload = (voucher: VoucherData): void => {
     void downloadVoucherTemplate(voucher).catch(() => {

@@ -4,6 +4,7 @@ import type { RoleListResponse } from "./MasterRole.type";
 const mockApiRole: RoleListResponse["data"][number] = {
   id: "role-1",
   role: "Admin",
+  status: 1,
   last_created: "2024-01-01",
 };
 
@@ -20,13 +21,13 @@ describe("MasterRole API", () => {
     });
   });
 
-  it("should map API role with null created_at", () => {
-    const result = mapRole({ ...mockApiRole, last_created: null });
+  it("should map inactive API role to UI role", () => {
+    const result = mapRole({ ...mockApiRole, status: 0, last_created: null });
 
     expect(result).toEqual({
       id: "role-1",
       roleName: "Admin",
-      status: "active",
+      status: "inactive",
       createAt: null,
       createBy: null,
     });

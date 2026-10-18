@@ -1,17 +1,9 @@
 import type { ProjectData } from "../MasterProject.type";
 
-export type MasterProjectDetailMenuState = {
-  readonly isMoreOpen: boolean;
-  readonly isDeleteModalOpen: boolean;
-  readonly toggleMore: () => void;
-  readonly closeMore: () => void;
-  readonly openDeleteModal: () => void;
-  readonly closeDeleteModal: () => void;
-};
-
-export type MasterProjectDetailState = MasterProjectDetailMenuState & {
+export type MasterProjectDetailState = {
   readonly project: ProjectData | null;
+  readonly isLoading: boolean;
+  readonly errorMessage: string | null;
   readonly goBack: () => void;
   readonly goEdit: () => void;
-  readonly handleDelete: () => void;
 };

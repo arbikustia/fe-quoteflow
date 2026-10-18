@@ -1,6 +1,9 @@
 import * as React from "react";
-import { MasterPaymentMethodComponent } from "./MasterPaymentMethod.component";
+
 import test from "../../libs/unit-test";
+
+import { MasterPaymentMethodComponent } from "./MasterPaymentMethod.component";
+import type { MasterPaymentMethodProps, PaymentMethodData } from "./MasterPaymentMethod.type";
 
 jest.mock("../../app/layout", () =>
   ({ children }: { children: React.ReactNode }) => <div data-testid="layout">{children}</div>,
@@ -21,16 +24,22 @@ jest.mock("../../components/Pagination", () => ({
 jest.mock("../../components/Table", () => () => <div data-testid="table" />);
 
 describe("MasterPaymentMethod.component", () => {
-  const defaultProps = {
-    paginatedData: [
-      { id: "pm-1", name: "Transfer Bank", description: "Transfer to bank account", status: "active", createAt: "2023-10-06" },
-      { id: "pm-2", name: "Credit Card", description: "Pay with credit card", status: "inactive", createAt: "2023-10-06" },
-    ] as any[],
+  const paymentMethods: PaymentMethodData[] = [
+    { id: "pm-1", name: "Transfer Bank", description: "Transfer to bank account", status: "active", createAt: "2023-10-06", createBy: null },
+    { id: "pm-2", name: "Credit Card", description: "Pay with credit card", status: "inactive", createAt: "2023-10-06", createBy: null },
+  ];
+  const defaultProps: MasterPaymentMethodProps = {
+    paginatedData: paymentMethods,
     columns: [],
     currentPage: 1,
     totalPages: 5,
     pageSize: 10,
     totalCount: 50,
+    isLoading: false,
+    errorMessage: null,
+    isMissingData: false,
+    isEmpty: false,
+    setSearchTerm: jest.fn(),
     goToPage: jest.fn(),
     nextPage: jest.fn(),
     prevPage: jest.fn(),

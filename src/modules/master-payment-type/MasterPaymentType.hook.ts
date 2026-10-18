@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
+import { createPaginationHandlers } from "@/utils/pagination.helpers";
+
 import type {
   MasterPaymentTypeContainerState,
   MasterPaymentTypeNavigation,
@@ -17,11 +19,29 @@ import { mapPaymentType, useGetPaymentTypesQuery } from "@/services/master-payme
  */
 export const useMasterPaymentTypeNavigation = (): MasterPaymentTypeNavigation => {
   const navigate = useNavigate();
+  /**
+   * Navigate to previous page.
+   * @returns {void} No return value
+   */
   const goBack = (): void => { navigate(-1); };
+  /**
+   * Navigate to create page.
+   * @returns {void} No return value
+   */
   const goCreate = (): void => { navigate("/master-payment-type/create"); };
+  /**
+   * Navigate to edit page.
+   * @param {PaymentTypeData} paymentType - Payment type to edit
+   * @returns {void} No return value
+   */
   const goEdit = (paymentType: PaymentTypeData): void => {
     navigate(`/master-payment-type/edit/${paymentType.id}`, { state: { paymentType } });
   };
+  /**
+   * Navigate to detail page.
+   * @param {PaymentTypeData} paymentType - Payment type to inspect
+   * @returns {void} No return value
+   */
   const goDetail = (paymentType: PaymentTypeData): void => { navigate(`/master-payment-type/detail/${paymentType.id}`); };
 
   return { goBack, goCreate, goEdit, goDetail };
@@ -38,7 +58,9 @@ const _derivePaymentTypeListState = (
   const { data, error, isLoading } = queryResult;
 
   if (isLoading) return { isLoading: true, errorMessage: null, isMissingData: false, paginatedData: [], totalPages: 0, totalCount: 0, hasNext: false, hasPrevious: false };
+
   if (error) return { isLoading: false, errorMessage: "Unable to load payment types.", isMissingData: false, paginatedData: [], totalPages: 0, totalCount: 0, hasNext: false, hasPrevious: false };
+
   if (!data) return { isLoading: false, errorMessage: "No response received from server.", isMissingData: true, paginatedData: [], totalPages: 0, totalCount: 0, hasNext: false, hasPrevious: false };
 
   return {
@@ -63,11 +85,16 @@ export const useMasterPaymentTypePagination = (): MasterPaymentTypePagination =>
   const [searchTerm, setSearchTerm] = useState("");
   const queryResult = useGetPaymentTypesQuery({ PageNumber: currentPage, PageSize: pageSize, SearchTerm: searchTerm });
   const derived = _derivePaymentTypeListState(queryResult);
-  const goToPage = (page: number): void => setCurrentPage(Math.max(1, Math.min(page, derived.totalPages)));
-  const nextPage = (): void => { if (derived.hasNext) goToPage(currentPage + 1); };
-  const prevPage = (): void => { if (derived.hasPrevious) goToPage(currentPage - 1); };
-  const changePageSize = (size: number): void => { setPageSize(size); setCurrentPage(1); };
-  const handleSearchTerm = (value: string): void => { setSearchTerm(value); setCurrentPage(1); };
+  const handlers = createPaginationHandlers({
+    currentPage,
+    totalPages: derived.totalPages,
+    hasNext: derived.hasNext,
+    hasPrevious: derived.hasPrevious,
+    canPaginate: !derived.isLoading && !derived.errorMessage && derived.paginatedData.length > 0,
+    setCurrentPage,
+    setPageSize,
+    setSearchTerm,
+  });
 
   return {
     currentPage,
@@ -79,11 +106,11 @@ export const useMasterPaymentTypePagination = (): MasterPaymentTypePagination =>
     errorMessage: derived.errorMessage,
     isEmpty: !derived.isLoading && !derived.errorMessage && !derived.isMissingData && derived.paginatedData.length === 0,
     isMissingData: derived.isMissingData,
-    goToPage,
-    nextPage,
-    prevPage,
-    changePageSize,
-    setSearchTerm: handleSearchTerm,
+    goToPage: handlers.goToPage,
+    nextPage: handlers.nextPage,
+    prevPage: handlers.prevPage,
+    changePageSize: handlers.changePageSize,
+    setSearchTerm: handlers.handleSearchTerm,
   };
 };
 
@@ -95,8 +122,17 @@ export const useMasterPaymentTypeContainerState = (): MasterPaymentTypeContainer
   const pagination = useMasterPaymentTypePagination();
   const navigation = useMasterPaymentTypeNavigation();
   const [isMoreOpen, setIsMoreOpen] = useState(false);
+  /**
+   *
+   */
   const toggleMore = (): void => { setIsMoreOpen((previous) => !previous); };
+  /**
+   *
+   */
   const goDelete = (): void => { setIsMoreOpen(false); };
+  /**
+   *
+   */
   const handleCloseMore = (): void => { setIsMoreOpen(false); };
 
   return { ...navigation, pagination, isMoreOpen, toggleMore, goDelete, handleCloseMore };

@@ -2,17 +2,19 @@ import type { ChangeEvent, SyntheticEvent } from "react";
 import { useState } from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 
-import { generateSecureVoucherCode, validateTypedVoucherCode } from "./MasterVoucherCreate.helpers";
-import type { MasterVoucherCreateFormState } from "./MasterVoucherCreate.type";
-
 import type {
+  VoucherCreatePayload,
   VoucherCreateResponse,
   VoucherData,
   VoucherDetailResponse,
   VoucherFormFieldsState,
   VoucherSubmissionParams,
   VoucherSubmissionState,
+  VoucherUpdatePayload,
 } from "../MasterVoucher.type";
+
+import { generateSecureVoucherCode, validateTypedVoucherCode } from "./MasterVoucherCreate.helpers";
+import type { MasterVoucherCreateFormState } from "./MasterVoucherCreate.type";
 
 import {
   mapVoucher,
@@ -50,6 +52,46 @@ const _resolveVoucherDetail = (response: VoucherDetailResponse | undefined): Vou
 };
 
 /**
+ * Resolve voucher code value.
+ * @param {string} code - Typed code
+ * @param {"generate" | "type"} codeMode - Mode
+ * @returns {string} Voucher code
+ */
+const _getVoucherCode = (code: string, codeMode: "generate" | "type"): string => {
+  const finalCode = (codeMode === "generate" ? (code || generateSecureVoucherCode()) : code).trim().toUpperCase();
+
+  return finalCode;
+};
+
+/**
+ * Send voucher mutation.
+ * @param {VoucherSubmissionParams} params - Submission parameters
+ * @param {string} finalCode - Prepared code
+ * @param {(payload: VoucherCreatePayload) => { unwrap: () => Promise<VoucherCreateResponse> }} createVoucher - Create mutation
+ * @param {(payload: VoucherUpdatePayload) => { unwrap: () => Promise<VoucherCreateResponse> }} updateVoucher - Update mutation
+ * @returns {Promise<VoucherCreateResponse>} API response
+ */
+const _sendVoucherMutation = (
+  params: VoucherSubmissionParams,
+  finalCode: string,
+  createVoucher: (payload: VoucherCreatePayload) => { unwrap: () => Promise<VoucherCreateResponse> },
+  updateVoucher: (payload: VoucherUpdatePayload) => { unwrap: () => Promise<VoucherCreateResponse> },
+): Promise<VoucherCreateResponse> => {
+  const payload = {
+    name: params.name,
+    code: finalCode,
+    discount_percent: Number(params.discountPercent),
+    status: 1,
+  };
+
+  if (params.isEditMode && params.id) {
+    return updateVoucher({ ...payload, status: params.isActive ? 1 : 0, id: params.id }).unwrap();
+  }
+
+  return createVoucher(payload).unwrap();
+};
+
+/**
  * Handle form submission logic for voucher create or update.
  * @param {VoucherSubmissionParams} params - Submission parameters
  * @returns {VoucherSubmissionState} Submission state
@@ -57,7 +99,7 @@ const _resolveVoucherDetail = (response: VoucherDetailResponse | undefined): Vou
 const useVoucherSubmission = (
   params: VoucherSubmissionParams,
 ): VoucherSubmissionState => {
-  const { id, isEditMode, name, code, codeMode, discountPercent, isActive } = params;
+  const { code, codeMode } = params;
   const navigate = useNavigate();
   const [createVoucher, { isLoading: isCreating }] = useCreateVoucherMutation();
   const [updateVoucher, { isLoading: isUpdating }] = useUpdateVoucherMutation();
@@ -72,8 +114,7 @@ const useVoucherSubmission = (
   const handleSubmit = async (event: SyntheticEvent): Promise<void> => {
     event.preventDefault();
     setErrorMessage(null);
-
-    const finalCode = (codeMode === "generate" ? (code || generateSecureVoucherCode()) : code).trim().toUpperCase();
+    const finalCode = _getVoucherCode(code, codeMode);
 
     if (codeMode === "type") {
       const validationError = validateTypedVoucherCode(finalCode);
@@ -86,20 +127,7 @@ const useVoucherSubmission = (
     }
 
     try {
-      const payload = {
-        name,
-        code: finalCode,
-        discount_percent: Number(discountPercent),
-        status: 1,
-      };
-
-      let response: VoucherCreateResponse;
-
-      if (isEditMode && id) {
-        response = await updateVoucher({ ...payload, status: isActive ? 1 : 0, id }).unwrap();
-      } else {
-        response = await createVoucher(payload).unwrap();
-      }
+      const response = await _sendVoucherMutation(params, finalCode, createVoucher, updateVoucher);
 
       if (!response.status) {
         setErrorMessage(_formatMessages(response.messages));
@@ -114,6 +142,38 @@ const useVoucherSubmission = (
   };
 
   return { isSubmitting, errorMessage, handleSubmit };
+};
+
+/**
+ * Update form state with api voucher item.
+ * @param {VoucherData | null} apiItem - Fetched voucher item
+ * @param {string | null} initializedId - Previously initialized ID
+ * @param {(id: string | null) => void} setInitializedId - Set initialized ID
+ * @param {object} setters - Field state setters
+ * @param {(v: string) => void} setters.setName - Name setter
+ * @param {(v: string) => void} setters.setCode - Code setter
+ * @param {(v: string) => void} setters.setDiscountPercent - Discount setter
+ * @param {(v: boolean) => void} setters.setIsActive - Status setter
+ * @returns {void}
+ */
+const _syncApiVoucher = (
+  apiItem: VoucherData | null,
+  initializedId: string | null,
+  setInitializedId: (id: string | null) => void,
+  setters: {
+    setName: (v: string) => void;
+    setCode: (v: string) => void;
+    setDiscountPercent: (v: string) => void;
+    setIsActive: (v: boolean) => void;
+  },
+): void => {
+  if (apiItem && apiItem.id !== initializedId) {
+    setInitializedId(apiItem.id);
+    setters.setName(apiItem.name ?? "");
+    setters.setCode(apiItem.code ?? "");
+    setters.setDiscountPercent(apiItem.discountPercent?.toString() ?? "");
+    setters.setIsActive(apiItem.status === "active");
+  }
 };
 
 /**
@@ -138,23 +198,7 @@ const useVoucherFormFields = (
   const [isActive, setIsActive] = useState(routeVoucher?.status ? routeVoucher.status === "active" : true);
   const [initializedId, setInitializedId] = useState<string | null>(routeVoucher?.id ?? null);
 
-  if (apiItem && apiItem.id !== initializedId) {
-    setInitializedId(apiItem.id);
-    setName(apiItem.name ?? "");
-    setCode(apiItem.code ?? "");
-    setDiscountPercent(apiItem.discountPercent?.toString() ?? "");
-    setIsActive(apiItem.status === "active");
-  }
-
-  const handleNameChange = (e: ChangeEvent<HTMLInputElement>): void => { setName(e.target.value); };
-  const handleCodeChange = (e: ChangeEvent<HTMLInputElement>): void => { setCode(e.target.value); };
-  const handleCodeModeChange = (e: ChangeEvent<HTMLSelectElement>): void => {
-    const nextMode = e.target.value === "type" ? "type" : "generate";
-    setCodeMode(nextMode);
-    setCode(nextMode === "generate" ? generateSecureVoucherCode() : "");
-  };
-  const handleDiscountChange = (e: ChangeEvent<HTMLInputElement>): void => { setDiscountPercent(e.target.value); };
-  const handleStatusChange = (): void => { setIsActive((currentIsActive) => !currentIsActive); };
+  _syncApiVoucher(apiItem, initializedId, setInitializedId, { setName, setCode, setDiscountPercent, setIsActive });
 
   return {
     name,
@@ -162,11 +206,23 @@ const useVoucherFormFields = (
     codeMode,
     discountPercent,
     isActive,
-    handleNameChange,
-    handleCodeChange,
-    handleCodeModeChange,
-    handleDiscountChange,
-    handleStatusChange,
+    /** @param {ChangeEvent<HTMLInputElement>} e - Name event */
+    handleNameChange: (e: ChangeEvent<HTMLInputElement>): void => { setName(e.target.value); },
+    /** @param {ChangeEvent<HTMLInputElement>} e - Code event */
+    handleCodeChange: (e: ChangeEvent<HTMLInputElement>): void => { setCode(e.target.value); },
+    /** @param {ChangeEvent<HTMLSelectElement>} e - Code mode event */
+    handleCodeModeChange: (e: ChangeEvent<HTMLSelectElement>): void => {
+      const nextMode = e.target.value === "type" ? "type" : "generate";
+
+      setCodeMode(nextMode);
+      setCode(nextMode === "generate" ? generateSecureVoucherCode() : "");
+    },
+    /** @param {ChangeEvent<HTMLInputElement>} e - Discount event */
+    handleDiscountChange: (e: ChangeEvent<HTMLInputElement>): void => { setDiscountPercent(e.target.value); },
+    /**
+     *
+     */
+    handleStatusChange: (): void => { setIsActive((currentIsActive) => !currentIsActive); },
   };
 };
 
@@ -177,7 +233,7 @@ const useVoucherFormFields = (
 export const useMasterVoucherCreateForm = (): MasterVoucherCreateFormState => {
   const navigate = useNavigate();
   const location = useLocation();
-  const { id } = useParams<{ readonly id?: string }>();
+  const { id } = useParams<{ id?: string }>();
   const isEditMode = Boolean(id);
   const routeVoucher: VoucherData | undefined = location.state?.voucher;
 
@@ -189,6 +245,9 @@ export const useMasterVoucherCreateForm = (): MasterVoucherCreateFormState => {
   const formFields = useVoucherFormFields(routeVoucher, apiItem, isEditMode);
   const submission = useVoucherSubmission({ id, isEditMode, ...formFields });
 
+  /**
+   *
+   */
   const goBack = (): void => {
     navigate(-1);
   };

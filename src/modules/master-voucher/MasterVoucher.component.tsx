@@ -9,8 +9,9 @@ import Table from "../../components/Table";
 import type { MasterVoucherProps, VoucherData } from "./MasterVoucher.type";
 
 /**
- *
- * @param props
+ * Render voucher list state.
+ * @param {MasterVoucherProps} props - Component props
+ * @returns {React.ReactElement | null} List state
  */
 const _renderListState = (props: MasterVoucherProps): React.ReactElement | null => {
   if (props.isLoading) return <p className="py-10 text-center text-sm text-brand-text-medium">Loading vouchers…</p>;
@@ -25,12 +26,20 @@ const _renderListState = (props: MasterVoucherProps): React.ReactElement | null 
 };
 
 /**
- *
- * @param voucher
- * @param onEdit
+ * Render voucher mobile card.
+ * @param {VoucherData} voucher - Voucher row
+ * @param {MasterVoucherProps["onEdit"]} onEdit - Edit action
+ * @returns {React.ReactElement} Voucher card
  */
-const _renderVoucherCard = (voucher: VoucherData, onEdit: MasterVoucherProps["onEdit"]): React.ReactElement => (
-  <div role="button" tabIndex={0} onClick={() => onEdit(voucher)} className="flex cursor-pointer flex-col gap-4 rounded-3xl border border-border-default bg-background-surface p-5 transition-all hover:border-border-strong active:bg-background-subtle/50">
+const _renderVoucherCard = (voucher: VoucherData, onEdit: MasterVoucherProps["onEdit"]): React.ReactElement => {
+  /**
+   * Open voucher editing.
+   * @returns {void} No return value
+   */
+  const handleClick = (): void => onEdit(voucher);
+
+  return (
+  <div role="button" tabIndex={0} onClick={handleClick} className="flex cursor-pointer flex-col gap-4 rounded-3xl border border-border-default bg-background-surface p-5 transition-all hover:border-border-strong active:bg-background-subtle/50">
     <div className="flex items-start justify-between gap-3">
       <h4 className="min-w-0 truncate text-base font-semibold text-text-primary">{voucher.code}</h4>
       <span className={`shrink-0 rounded-full px-3 py-1 text-xs font-semibold uppercase tracking-wider ${voucher.status === "active" ? "bg-green-100 text-green-700" : "bg-red-100 text-red-700"}`}>{voucher.status}</span>
@@ -40,16 +49,19 @@ const _renderVoucherCard = (voucher: VoucherData, onEdit: MasterVoucherProps["on
       <div><p className="text-xs text-text-tertiary">Created</p><p className="truncate font-medium text-text-primary">{voucher.createAt || "-"}</p></div>
     </div>
   </div>
-);
+  );
+};
 
 /**
- *
- * @param props
+ * Render voucher mobile list.
+ * @param {MasterVoucherProps} props - Component props
+ * @returns {React.ReactElement} Mobile element
  */
 const _renderMobile = (props: MasterVoucherProps): React.ReactElement => {
   /**
-   *
-   * @param event
+   * Update search term.
+   * @param {React.ChangeEvent<HTMLInputElement>} event - Change event
+   * @returns {void} No return value
    */
   const handleSearch = (event: React.ChangeEvent<HTMLInputElement>): void => props.setSearchTerm(event.target.value);
 
@@ -57,13 +69,15 @@ const _renderMobile = (props: MasterVoucherProps): React.ReactElement => {
 };
 
 /**
- *
- * @param props
+ * Render voucher desktop table.
+ * @param {MasterVoucherProps} props - Component props
+ * @returns {React.ReactElement} Desktop element
  */
 const _renderDesktop = (props: MasterVoucherProps): React.ReactElement => {
   /**
-   *
-   * @param event
+   * Update search term.
+   * @param {React.ChangeEvent<HTMLInputElement>} event - Change event
+   * @returns {void} No return value
    */
   const handleSearch = (event: React.ChangeEvent<HTMLInputElement>): void => props.setSearchTerm(event.target.value);
 
@@ -71,8 +85,9 @@ const _renderDesktop = (props: MasterVoucherProps): React.ReactElement => {
 };
 
 /**
- *
- * @param props
+ * Render master voucher page component.
+ * @param {MasterVoucherProps} props - Component props
+ * @returns {React.ReactElement} Page element
  */
 export const MasterVoucherComponent = (props: MasterVoucherProps): React.ReactElement => {
   const createButton = <button type="button" onClick={props.onCreate} className="h-14 rounded-full border-2 border-brand-blue bg-background-surface px-6 text-sm font-bold text-brand-blue transition-colors hover:bg-action-primary-subtle focus:outline-none focus:ring-2 focus:ring-focus-ring/30">Create New</button>;

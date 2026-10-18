@@ -15,9 +15,25 @@ import { mapPaymentType, useGetPaymentTypeByIdQuery } from "@/services/master-pa
 const useDetailMenuState = (): MasterPaymentTypeDetailMenuState => {
   const [isMoreOpen, setIsMoreOpen] = useState(false);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+  /**
+   * Toggle more menu visibility.
+   * @returns {void} No return value
+   */
   const toggleMore = (): void => { setIsMoreOpen((prev) => !prev); };
+  /**
+   * Close more menu.
+   * @returns {void} No return value
+   */
   const closeMore = (): void => { setIsMoreOpen(false); };
+  /**
+   * Open delete modal.
+   * @returns {void} No return value
+   */
   const openDeleteModal = (): void => { closeMore(); setIsDeleteModalOpen(true); };
+  /**
+   * Close delete modal.
+   * @returns {void} No return value
+   */
   const closeDeleteModal = (): void => { setIsDeleteModalOpen(false); };
 
   return { isMoreOpen, isDeleteModalOpen, toggleMore, closeMore, openDeleteModal, closeDeleteModal };
@@ -44,12 +60,20 @@ const _resolvePaymentType = (response: PaymentTypeDetailResponse | undefined): P
  */
 export const useMasterPaymentTypeDetail = (): MasterPaymentTypeDetailState => {
   const navigate = useNavigate();
-  const { id } = useParams<{ readonly id: string }>();
+  const { id } = useParams<{ id: string }>();
   const menuState = useDetailMenuState();
   const { data: detailResponse } = useGetPaymentTypeByIdQuery(id ?? "", { skip: !id });
   const paymentType: PaymentTypeData | null = _resolvePaymentType(detailResponse);
 
+  /**
+   * Navigate back.
+   * @returns {void} No return value
+   */
   const goBack = (): void => { navigate(-1); };
+  /**
+   * Navigate to edit page.
+   * @returns {void} No return value
+   */
   const goEdit = (): void => {
     menuState.closeMore();
 
@@ -57,6 +81,10 @@ export const useMasterPaymentTypeDetail = (): MasterPaymentTypeDetailState => {
       navigate(`/master-payment-type/edit/${paymentType.id}`, { state: { paymentType } });
     }
   };
+  /**
+   * Handle deletion action.
+   * @returns {void} No return value
+   */
   const handleDelete = (): void => {
     menuState.closeDeleteModal();
     navigate("/master-payment-type");

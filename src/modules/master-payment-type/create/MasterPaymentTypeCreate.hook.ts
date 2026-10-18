@@ -2,15 +2,15 @@ import type { ChangeEvent, Dispatch, SetStateAction, SyntheticEvent } from "reac
 import { useState } from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 
-import { validatePaymentTypeFields } from "./MasterPaymentTypeCreate.helpers";
-import type { MasterPaymentTypeCreateFormState } from "./MasterPaymentTypeCreate.type";
-
 import type {
   PaymentTypeData,
   PaymentTypeFormFieldsState,
   PaymentTypeSubmissionParams,
   PaymentTypeSubmissionState,
 } from "../MasterPaymentType.type";
+
+import { validatePaymentTypeFields } from "./MasterPaymentTypeCreate.helpers";
+import type { MasterPaymentTypeCreateFormState } from "./MasterPaymentTypeCreate.type";
 
 import type { PaymentTypeCreateResponse, PaymentTypeDetailResponse } from "@/services/master-payment-type.service";
 import {
@@ -62,6 +62,27 @@ const _resolvePaymentTypeDetail = (response: PaymentTypeDetailResponse | undefin
 };
 
 /**
+ * Send create or update payment type mutation.
+ * @param {PaymentTypeSubmissionParams} params - Submission parameters
+ * @param {ReturnType<typeof useCreatePaymentTypeMutation>[0]} createPaymentType - Create trigger
+ * @param {ReturnType<typeof useUpdatePaymentTypeMutation>[0]} updatePaymentType - Update trigger
+ * @returns {Promise<PaymentTypeCreateResponse>} API response
+ */
+const _sendPaymentTypeMutation = (
+  params: PaymentTypeSubmissionParams,
+  createPaymentType: ReturnType<typeof useCreatePaymentTypeMutation>[0],
+  updatePaymentType: ReturnType<typeof useUpdatePaymentTypeMutation>[0],
+): Promise<PaymentTypeCreateResponse> => {
+  const { id, isEditMode, name, isActive } = params;
+
+  if (isEditMode && id) {
+    return updatePaymentType({ id, name, status: isActive ? 1 : 0 }).unwrap();
+  }
+
+  return createPaymentType({ name, status: 1 }).unwrap();
+};
+
+/**
  * Handle form submission logic for create or update.
  * @param {PaymentTypeSubmissionParams} params - Submission parameters
  * @returns {PaymentTypeSubmissionState} Submission state
@@ -69,7 +90,7 @@ const _resolvePaymentTypeDetail = (response: PaymentTypeDetailResponse | undefin
 const usePaymentTypeSubmission = (
   params: PaymentTypeSubmissionParams,
 ): PaymentTypeSubmissionState => {
-  const { id, isEditMode, name, isActive } = params;
+  const { isEditMode, name } = params;
   const navigate = useNavigate();
   const [createPaymentType, { isLoading: isCreating }] = useCreatePaymentTypeMutation();
   const [updatePaymentType, { isLoading: isUpdating }] = useUpdatePaymentTypeMutation();
@@ -96,13 +117,7 @@ const usePaymentTypeSubmission = (
     }
 
     try {
-      let response: PaymentTypeCreateResponse;
-
-      if (isEditMode && id) {
-        response = await updatePaymentType({ id, name, status: isActive ? 1 : 0 }).unwrap();
-      } else {
-        response = await createPaymentType({ name, status: 1 }).unwrap();
-      }
+      const response = await _sendPaymentTypeMutation(params, createPaymentType, updatePaymentType);
 
       if (!response.status) {
         setErrorMessage(_formatMessages(response.messages));
@@ -121,6 +136,27 @@ const usePaymentTypeSubmission = (
 };
 
 /**
+ * Resolve initial active state.
+ * @param {PaymentTypeData | undefined} routePaymentType - Route item
+ * @param {PaymentTypeData | null} apiItem - API item
+ * @returns {boolean} Initial active state
+ */
+const _resolveInitialIsActive = (
+  routePaymentType: PaymentTypeData | undefined,
+  apiItem: PaymentTypeData | null,
+): boolean => {
+  if (routePaymentType) {
+    return routePaymentType.status === "active";
+  }
+
+  if (apiItem) {
+    return apiItem.status === "active";
+  }
+
+  return true;
+};
+
+/**
  * Hook managing form fields and synchronization.
  * @param {PaymentTypeData | undefined} routePaymentType - Route payment type
  * @param {PaymentTypeData | null} apiItem - API fetched payment type
@@ -131,7 +167,7 @@ const usePaymentTypeFormFields = (
   apiItem: PaymentTypeData | null,
 ): PaymentTypeFormFieldsState => {
   const initialName = routePaymentType?.name ?? apiItem?.name ?? "";
-  const initialIsActive = routePaymentType ? routePaymentType.status === "active" : (apiItem ? apiItem.status === "active" : true);
+  const initialIsActive = _resolveInitialIsActive(routePaymentType, apiItem);
 
   const [name, setName] = useState(initialName);
   const [isActive, setIsActive] = useState(initialIsActive);
@@ -144,6 +180,10 @@ const usePaymentTypeFormFields = (
   }
 
   const handleNameChange = _createInputChangeHandler(setName);
+  /**
+   * Toggle active state.
+   * @returns {void} No return value
+   */
   const handleStatusChange = (): void => { setIsActive((currentIsActive) => !currentIsActive); };
 
   return { name, isActive, handleNameChange, handleStatusChange };

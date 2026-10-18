@@ -1,10 +1,26 @@
 import type { ChangeEvent, SyntheticEvent } from 'react';
 
+import type { ApiEnvelope } from '@/types/api.type';
+
+export type AuthenticationPayload = {
+  readonly username: string;
+  readonly password: string;
+};
+
+export type AuthenticationTokens = {
+  readonly access_token: string;
+  readonly refresh_token: string;
+};
+
+export type AuthenticationResponse = ApiEnvelope<AuthenticationTokens | null>;
+
 export type LoginPageProps = {
   identifier: string;
   password: string;
   isPasswordVisible: boolean;
   isRemembered: boolean;
+  isSubmitting: boolean;
+  errorMessage: string | null;
   onIdentifierChange: (event: ChangeEvent<HTMLInputElement>) => void;
   onPasswordChange: (event: ChangeEvent<HTMLInputElement>) => void;
   onTogglePasswordVisibility: () => void;
@@ -17,6 +33,8 @@ export type LoginPageState = {
   password: string;
   isPasswordVisible: boolean;
   isRemembered: boolean;
+  isSubmitting: boolean;
+  errorMessage: string | null;
   handleIdentifierChange: (event: ChangeEvent<HTMLInputElement>) => void;
   handlePasswordChange: (event: ChangeEvent<HTMLInputElement>) => void;
   handleTogglePasswordVisibility: () => void;

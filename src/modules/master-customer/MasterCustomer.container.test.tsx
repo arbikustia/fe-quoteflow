@@ -59,6 +59,6 @@ describe("MasterCustomer Container", () => {
       </BrowserRouter>,
     );
 
-    expect(screen.getByTestId("mock-component")).toBeInTheDocument();
+    expect(screen.getByTestId("mock-component")).toBeTruthy();
   });
 });

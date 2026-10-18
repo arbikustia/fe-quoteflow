@@ -21,12 +21,21 @@ describe("MasterPaymentMethod.container", () => {
     });
 
     jest.mocked(useMasterPaymentMethodContainerState).mockReturnValue({
+      goBack: jest.fn(),
+      goCreate: jest.fn(),
+      goEdit: jest.fn(),
+      goDetail: jest.fn(),
       pagination: {
         paginatedData: [],
         currentPage: 1,
         totalPages: 1,
         pageSize: 10,
         totalCount: 0,
+        isLoading: false,
+        errorMessage: null,
+        isMissingData: false,
+        isEmpty: false,
+        setSearchTerm: jest.fn(),
         goToPage: jest.fn(),
         nextPage: jest.fn(),
         prevPage: jest.fn(),
@@ -39,6 +48,6 @@ describe("MasterPaymentMethod.container", () => {
     });
 
     const { getByTestId } = render(<MasterPaymentMethodContainer />);
-    expect(getByTestId("component")).toBeInTheDocument();
+    expect(getByTestId("component")).toBeTruthy();
   });
 });

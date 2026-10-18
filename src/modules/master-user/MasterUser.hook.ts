@@ -1,53 +1,46 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
+import { createPaginationHandlers } from "@/utils/pagination.helpers";
+
+import type {
+  MasterUserContainerState,
+  MasterUserNavigation,
+  MasterUserPagination,
+  UserData,
+} from "./MasterUser.type";
+
 import { mapUser, useGetUsersQuery } from "@/services/master-user.service";
 
-import type { MasterUserContainerState, MasterUserNavigation, MasterUserPagination, UserData } from "./MasterUser.type";
-
-// Deprecated: modal state moved to page pattern. Kept as stub for backwards compat.
-/**
- * Hook for master user state
- * @returns {Record<string, never>} state
- */
-export const useMasterUserState = (): Record<string, never> => ({});
 
 /**
- * Navigation hook
- * @returns {MasterUserNavigation} navigation state
+ * Navigation hook.
+ * @returns {MasterUserNavigation} Navigation state
  */
 export const useMasterUserNavigation = (): MasterUserNavigation => {
   const navigate = useNavigate();
 
-  /**
-   * Navigate back
-   * @returns {void} void
-   */
+  /** Navigate back. */
   const goBack = (): void => {
     navigate(-1);
   };
 
-  /**
-   * Navigate to create
-   * @returns {void} void
-   */
+  /** Navigate to create. */
   const goCreate = (): void => {
     navigate("/master-user/create");
   };
 
   /**
-   * Navigate to edit
-   * @param {UserData} c - user data
-   * @returns {void} void
+   * Navigate to edit.
+   * @param {UserData} c - User data
    */
   const goEdit = (c: UserData): void => {
     navigate(`/master-user/edit/${c.id}`, { state: { user: c } });
   };
 
   /**
-   * Navigate to detail
-   * @param {UserData} c - user data
-   * @returns {void} void
+   * Navigate to detail.
+   * @param {UserData} c - User data
    */
   const goDetail = (c: UserData): void => {
     navigate(`/master-user/detail/${c.id}`);
@@ -57,95 +50,62 @@ export const useMasterUserNavigation = (): MasterUserNavigation => {
 };
 
 /**
- * Container state hook
- * @returns {MasterUserContainerState} container state
+ * Build user pagination data.
+ * @param {number} currentPage - Current page
+ * @param {number} pageSize - Items per page
+ * @param {string} searchTerm - Search term
+ * @returns {Pick<MasterUserPagination, "currentPage" | "pageSize" | "paginatedData" | "totalCount" | "totalPages" | "isLoading" | "isError" | "isEmpty">} User pagination data
  */
-export const useMasterUserContainerState = (): MasterUserContainerState => {
-  const navigation = useMasterUserNavigation();
-  const [currentPage, setCurrentPage] = useState(1);
-  const [pageSize, setPageSize] = useState(10);
-  const [searchTerm, setSearchTerm] = useState("");
-
-  const { data, isLoading, isError } = useGetUsersQuery({
-    PageNumber: currentPage,
-    PageSize: pageSize,
-    SearchTerm: searchTerm || undefined,
-  });
-
+const useUserPaginationData = (currentPage: number, pageSize: number, searchTerm: string): Pick<MasterUserPagination, "currentPage" | "pageSize" | "paginatedData" | "totalCount" | "totalPages" | "isLoading" | "isError" | "isEmpty"> => {
+  const { data, isLoading, isError } = useGetUsersQuery({ PageNumber: currentPage, PageSize: pageSize, SearchTerm: searchTerm || undefined });
   const paginatedData = data?.data.map(mapUser) ?? [];
   const totalCount = data?.total_count ?? 0;
   const totalPages = Math.max(1, data?.total_pages ?? 1);
 
-  const goToPage = (page: number): void => {
-    setCurrentPage(Math.max(1, Math.min(page, totalPages)));
-  };
+  return { currentPage, pageSize, paginatedData, totalCount, totalPages, isLoading, isError, isEmpty: !isLoading && paginatedData.length === 0 };
+};
 
-  const changePageSize = (size: number): void => {
-    setPageSize(size);
-    setCurrentPage(1);
-  };
+/**
+ * Manage pagination state for user list.
+ * @returns {MasterUserPagination} User pagination state
+ */
+export const useMasterUserPagination = (): MasterUserPagination => {
+  const [currentPage, setCurrentPage] = useState(1);
+  const [pageSize, setPageSize] = useState(10);
+  const [searchTerm, setSearchTerm] = useState("");
+  const pagination = useUserPaginationData(currentPage, pageSize, searchTerm);
+  const handlers = createPaginationHandlers({
+    currentPage, totalPages: pagination.totalPages, hasNext: currentPage < pagination.totalPages,
+    hasPrevious: currentPage > 1, canPaginate: !pagination.isLoading && !pagination.isError && pagination.paginatedData.length > 0,
+    setCurrentPage, setPageSize, setSearchTerm,
+  });
 
-  const nextPage = (): void => {
-    goToPage(currentPage + 1);
-  };
+  return { ...pagination, goToPage: handlers.goToPage, nextPage: handlers.nextPage, prevPage: handlers.prevPage, changePageSize: handlers.changePageSize, setSearchTerm: handlers.handleSearchTerm };
+};
 
-  const prevPage = (): void => {
-    goToPage(currentPage - 1);
-  };
-
-  const handleSearchTerm = (value: string): void => {
-    setSearchTerm(value);
-    setCurrentPage(1);
-  };
-
-  const pagination: MasterUserPagination = {
-    currentPage,
-    totalPages,
-    pageSize,
-    paginatedData,
-    totalCount,
-    isEmpty: !isLoading && paginatedData.length === 0,
-    isLoading,
-    isError,
-    goToPage,
-    nextPage,
-    prevPage,
-    changePageSize,
-    setSearchTerm: handleSearchTerm,
-  };
-
+/**
+ * Container state hook.
+ * @returns {MasterUserContainerState} Container state
+ */
+export const useMasterUserContainerState = (): MasterUserContainerState => {
+  const navigation = useMasterUserNavigation();
+  const pagination = useMasterUserPagination();
   const [isMoreOpen, setIsMoreOpen] = useState(false);
 
-  /**
-   * Toggle more
-   * @returns {void} void
-   */
+  /** Toggle more menu. */
   const toggleMore = (): void => {
-    setIsMoreOpen(!isMoreOpen);
+    setIsMoreOpen((previous) => !previous);
   };
 
-  /**
-   * Handle delete
-   * @returns {void} void
-   */
+  /** Handle delete. */
   const goDelete = (): void => {
     setIsMoreOpen(false);
   };
 
-  /**
-   * Close more menu
-   * @returns {void} void
-   */
+  /** Close more menu. */
   const handleCloseMore = (): void => {
     setIsMoreOpen(false);
   };
 
-  return {
-    ...navigation,
-    pagination,
-    isMoreOpen,
-    toggleMore,
-    goDelete,
-    handleCloseMore,
-  };
+  return { ...navigation, pagination, isMoreOpen, toggleMore, goDelete, handleCloseMore };
 };

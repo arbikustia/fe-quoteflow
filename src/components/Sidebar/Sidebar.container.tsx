@@ -1,4 +1,5 @@
 import * as React from "react";
+import { useNavigate } from "react-router-dom";
 
 import { useTheme } from "../../store/theme.hook";
 import { SidebarComponent } from "./Sidebar.component";
@@ -21,6 +22,12 @@ const SidebarContainer = (props: SidebarContainerProps = {}): React.ReactElement
     onToggleProfile,
   } = useSidebarState();
   const { theme, toggleTheme } = useTheme();
+  const navigate = useNavigate();
+  const handleLogout = (): void => {
+    localStorage.removeItem("access_token");
+    localStorage.removeItem("refresh_token");
+    navigate("/login", { replace: true });
+  };
 
   return (
     <SidebarComponent
@@ -33,6 +40,7 @@ const SidebarContainer = (props: SidebarContainerProps = {}): React.ReactElement
       onToggleProfile={onToggleProfile}
       theme={theme}
       onToggleTheme={toggleTheme}
+      onLogout={handleLogout}
     />
   );
 };

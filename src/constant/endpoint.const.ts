@@ -1,4 +1,5 @@
 const ENDPOINT = {
+  AUTHENTICATION: "/api/authentication",
   MASTER_CATEGORY: {
     PAGED: "/api/category/paged",
     CREATE: "/api/category",
@@ -13,6 +14,9 @@ const ENDPOINT = {
   MASTER_SERVICE_TYPE: {
     PAGED: "/api/service-type/paged",
     CREATE: "/api/service-type",
+  },
+  IMAGE: {
+    UPLOAD: "/api/image/upload",
   },
   MASTER_ITEM: {
     PAGED: "/api/item/paged",
@@ -48,9 +52,11 @@ const ENDPOINT = {
   MASTER_PROJECT: {
     PAGED: "/api/project/paged",
     CREATE: "/api/project",
+    DETAIL: "/api/project",
   },
   MASTER_ROLE: {
     LIST: "/api/role/paged",
+    ALL: "/api/role/get-all-role",
     CREATE: "/api/role",
     DETAIL: "/api/role",
   },
