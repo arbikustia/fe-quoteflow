@@ -131,9 +131,8 @@ const _renderRentalIllustration = (isCompact = false): ReactElement => (
  * @returns {ReactElement} visual panel node
  */
 const _renderVisualPanel = (): ReactElement => (
-  <div className="hidden lg:flex lg:w-1/2 h-full relative bg-[#F8FAFC] flex-col justify-between p-10 xl:p-14 overflow-hidden select-none border-l border-slate-200/90">
-    {/* Subtle technical background grid */}
-    <div className="absolute inset-0 bg-[linear-gradient(to_right,#E2E8F0_1px,transparent_1px),linear-gradient(to_bottom,#E2E8F0_1px,transparent_1px)] bg-[size:3.5rem_3.5rem] [mask-image:radial-gradient(ellipse_75%_65%_at_50%_50%,#000_70%,transparent_100%)] opacity-70 pointer-events-none" />
+  <div className="hidden lg:flex lg:w-1/2 h-full relative bg-background-page flex-col justify-between p-10 xl:p-14 overflow-hidden select-none border-l border-border-default">
+    <div className="absolute inset-0 bg-[linear-gradient(135deg,transparent_0%,transparent_58%,rgba(53,80,215,0.06)_58%,rgba(53,80,215,0.06)_100%)] pointer-events-none" />
 
     {/* Center 2D Visual */}
     <div className="relative z-10 my-auto w-full">
@@ -141,8 +140,8 @@ const _renderVisualPanel = (): ReactElement => (
     </div>
 
     {/* Bottom Headline & Description */}
-    <div className="relative z-10 space-y-2 pt-4">
-      <h3 className="text-xl xl:text-2xl font-bold tracking-tight text-[#0F172A]">
+    <div className="relative z-10 max-w-xl border-l-4 border-action-primary pl-5 pt-4">
+      <h3 className="text-xl xl:text-2xl font-bold tracking-tight text-text-primary">
         Kelola rental lebih mudah, dari pemesanan hingga pengembalian.
       </h3>
       <p className="text-sm text-slate-600 leading-relaxed max-w-lg">
@@ -173,33 +172,28 @@ export const LoginPageComponent = (props: LoginPageProps): ReactElement => {
   } = props;
 
   return (
-    <div className="login-page-viewport w-full flex items-center justify-center bg-[#0d0932] p-0 font-sans overflow-hidden">
-      {/* Perspective grid background for outer page */}
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(120,119,198,0.3),rgba(255,255,255,0))] pointer-events-none" />
-
-      {/* Main Container Card: Full height fit */}
-      <div className="relative w-full h-full bg-[#f9fafb] shadow-2xl flex flex-col lg:flex-row overflow-hidden z-10">
-        
-        {/* Left Side: Form Login */}
-        <div className="w-full lg:w-1/2 h-full flex flex-col justify-between p-6 sm:p-10 lg:p-12 xl:p-16 bg-[#f9fafb] overflow-y-auto">
+    <div className="login-page-viewport w-full flex items-center justify-center bg-background-page p-0 font-sans overflow-hidden">
+      <div className="relative w-full h-full bg-background-surface shadow-medium flex flex-col lg:flex-row overflow-hidden z-10">
+        <div className="w-full lg:w-1/2 h-full flex flex-col justify-between px-5 py-6 sm:px-10 sm:py-10 lg:p-12 xl:p-16 bg-background-surface overflow-y-auto">
           {/* Logo Section */}
-          <div className="flex lg:justify-start w-full">
+          <div className="flex items-center justify-between lg:justify-start w-full">
             <img
               src={SoniclineLogo}
               alt="Sonicline Logo"
-              className="h-12 sm:h-14 lg:h-16 w-auto object-contain"
+              className="h-10 sm:h-14 lg:h-16 w-auto object-contain"
             />
+            <span className="lg:hidden text-xs font-semibold uppercase tracking-[0.2em] text-text-tertiary">Rental workspace</span>
           </div>
 
           {/* Compact animated visual for mobile */}
-          <div className="lg:hidden w-full max-w-[280px] sm:max-w-xs mx-auto mt-4 mb-2">
+          <div className="lg:hidden w-full max-w-[260px] sm:max-w-xs mx-auto mt-5 mb-6">
             {_renderRentalIllustration(true)}
           </div>
 
           {/* Form Content */}
-          <div className="w-full max-w-md mx-auto my-auto py-4 sm:py-6 lg:py-8">
-            <div className="mb-6 sm:mb-8 text-center lg:text-left">
-              <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-[#111827] mb-2">
+          <div className="w-full max-w-md mx-auto py-3 sm:py-6 lg:my-auto lg:py-8">
+            <div className="mb-5 sm:mb-8 text-center lg:text-left">
+              <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-text-primary mb-2">
                 Selamat datang kembali
               </h1>
               <p className="text-sm sm:text-base text-[#4b5563]">
@@ -288,7 +282,7 @@ export const LoginPageComponent = (props: LoginPageProps): ReactElement => {
           </div>
 
           {/* Footer bottom */}
-          <div className="text-xs text-[#9ca3af] text-center lg:text-left mt-4">
+          <div className="mt-8 pb-[env(safe-area-inset-bottom)] text-center text-[11px] leading-4 text-text-tertiary lg:mt-4 lg:text-left">
             © 2026 PT Sonicline Multimedia. Hak cipta dilindungi.
           </div>
         </div>
