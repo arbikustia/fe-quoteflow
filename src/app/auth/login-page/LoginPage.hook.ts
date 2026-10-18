@@ -2,9 +2,9 @@ import type { ChangeEvent, SyntheticEvent } from 'react';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import type { LoginPageState } from './LoginPage.type';
-
 import { useAuthenticateMutation } from '@/services/authentication.service';
+
+import type { LoginPageState } from './LoginPage.type';
 
 /**
  * Custom hook for login page state and handlers
@@ -74,6 +74,7 @@ export const useLoginPageState = (): LoginPageState => {
 
       localStorage.setItem("access_token", response.data.access_token);
       localStorage.setItem("refresh_token", response.data.refresh_token);
+      document.cookie = `quoteflow_username=${encodeURIComponent(identifier)}; path=/; max-age=2592000; SameSite=Lax`;
       navigate('/home');
     } catch {
       setErrorMessage("Username atau password salah.");

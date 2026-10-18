@@ -1,11 +1,22 @@
 import * as React from "react";
 import { Link } from "react-router-dom";
 
-import type { NavigationItem, SidebarProps } from "./Sidebar.type";
-import { Icons } from "../Icons";
+/**
+ * Read saved username from cookie.
+ * @returns {string} Saved username or empty string
+ */
+const _getUsername = (): string => {
+  const cookie = document.cookie.split("; ").find((entry) => entry.startsWith("quoteflow_username="));
+
+  return cookie ? decodeURIComponent(cookie.split("=")[1] ?? "") : "";
+};
+
 import LogoCollapsed from "../../assets/logo.png";
 import SoniclineDarkLogo from "../../assets/Sonicline-dark.png";
 import SoniclineLightLogo from "../../assets/Sonicline-light.png";
+import { Icons } from "../Icons";
+
+import type { NavigationItem, SidebarProps } from "./Sidebar.type";
 
 /**
  * Reusable sidebar — supports expanded/collapsed, badges, children, tooltips, profile dropdown.
@@ -14,6 +25,8 @@ import SoniclineLightLogo from "../../assets/Sonicline-light.png";
  * @returns {React.ReactElement} node
  */
 export const SidebarComponent = (props: SidebarProps): React.ReactElement => {
+  const displayName = _getUsername() || "User";
+  const initials = displayName.slice(0, 2).toUpperCase();
   const {
     navigation,
     currentPath,
@@ -101,6 +114,7 @@ export const SidebarComponent = (props: SidebarProps): React.ReactElement => {
                             <p className="px-2 py-1 text-[11px] font-semibold uppercase tracking-widest text-text-tertiary">{item.name}</p>
                             {item.children!.map((child) => {
                               const childActive = currentPath === child.path || currentPath.startsWith(child.path + "/");
+
                               return (
                                 <Link
                                   key={child.name}
@@ -169,6 +183,7 @@ export const SidebarComponent = (props: SidebarProps): React.ReactElement => {
                         <div className="mt-1 ml-3 pl-3 border-l border-border-default/80 space-y-0.5">
                           {item.children!.map((child) => {
                             const childActive = currentPath === child.path || currentPath.startsWith(child.path + "/");
+
                             return (
                               <Link
                                 key={child.name}
@@ -242,13 +257,12 @@ export const SidebarComponent = (props: SidebarProps): React.ReactElement => {
           className={`w-full flex items-center rounded-[10px] transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring/30 hover:bg-background-elevated ${isCollapsed ? "justify-center p-1" : "gap-3 p-2"}`}
         >
           <span className="w-8 h-8 rounded-full bg-action-primary-subtle text-action-primary flex items-center justify-center text-[12px] font-semibold shrink-0" aria-hidden>
-            DR
+            {initials}
           </span>
           {!isCollapsed && (
             <>
               <span className="flex-1 min-w-0 text-left">
-                <span className="block truncate text-[13px] font-semibold leading-4 text-text-primary">Dianne Russell</span>
-                <span className="block truncate text-[11px] leading-4 text-text-tertiary">dianne.russell@gmail.com</span>
+                <span className="block truncate text-[13px] font-semibold leading-4 text-text-primary">{displayName}</span>
               </span>
               <span className={`shrink-0 text-text-tertiary transition-transform duration-200 ${isProfileOpen ? "rotate-180" : ""}`}>
                 <Icons.ChevronDown />
@@ -266,10 +280,9 @@ export const SidebarComponent = (props: SidebarProps): React.ReactElement => {
               className={`absolute z-20 w-[240px] rounded-[12px] border border-border-default bg-background-surface p-2 shadow-medium ${isCollapsed ? "left-[76px] bottom-2 ml-2" : "left-3 right-3 bottom-[calc(100%+8px)]"}`}
             >
               <div className={`flex items-center gap-3 px-3 py-2.5 ${isCollapsed ? "hidden" : ""}`}>
-                <span className="w-9 h-9 rounded-full bg-action-primary-subtle text-action-primary flex items-center justify-center text-[12px] font-semibold shrink-0">DR</span>
+                <span className="w-9 h-9 rounded-full bg-action-primary-subtle text-action-primary flex items-center justify-center text-[12px] font-semibold shrink-0">{initials}</span>
                 <span className="min-w-0">
-                  <span className="block truncate text-[13px] font-semibold text-text-primary">Dianne Russell</span>
-                  <span className="block truncate text-[11px] text-text-tertiary">dianne.russell@gmail.com</span>
+                  <span className="block truncate text-[13px] font-semibold text-text-primary">{displayName}</span>
                 </span>
               </div>
               <div className="my-1 h-px bg-border-default" role="separator" />
