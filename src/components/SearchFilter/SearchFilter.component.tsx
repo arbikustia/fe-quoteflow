@@ -15,7 +15,15 @@ export const SearchFilter = ({
   inputClassName = "",
   isRoundedFull = false,
   value,
-}: SearchFilterProps): React.ReactElement => (
+}: SearchFilterProps): React.ReactElement => {
+  const inputClassNames = [
+    "h-14 w-full",
+    isRoundedFull ? "rounded-full" : "rounded-xl",
+    "border border-border-default bg-background-surface pl-12 pr-4 text-base font-medium text-text-primary outline-none transition-colors placeholder:font-normal placeholder:text-text-tertiary hover:border-border-strong focus:border-border-focus focus:ring-2 focus:ring-focus-ring/30",
+    inputClassName,
+  ].filter(Boolean).join(" ");
+
+  return (
   <label className={`relative block w-full sm:w-72 ${className}`}>
     <span className="sr-only">{placeholder}</span>
     <FiSearch
@@ -28,7 +36,8 @@ export const SearchFilter = ({
       placeholder={placeholder}
       value={value}
       onChange={onChange}
-      className={`h-14 w-full ${isRoundedFull ? "rounded-full" : "rounded-xl"} border border-border-default bg-background-surface pl-12 pr-4 text-base font-medium text-text-primary outline-none transition-colors placeholder:font-normal placeholder:text-text-tertiary hover:border-border-strong focus:border-border-focus focus:ring-2 focus:ring-focus-ring/30${inputClassName ? ` ${inputClassName}` : ""}`}
+      className={inputClassNames}
     />
   </label>
-);
+  );
+};

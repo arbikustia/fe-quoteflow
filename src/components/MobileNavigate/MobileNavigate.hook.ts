@@ -28,6 +28,11 @@ export const _isTabActive = (tabId: string, path: string): boolean => {
  * @returns {MobileNavigateHookResult} resolved navigation item builder
  */
 export const useMobileNavigate = (currentPath: string): MobileNavigateHookResult => {
+  /**
+   * Resolve navigation items with active route state.
+   * @param {readonly MobileNavigateItem[]} items - navigation items
+   * @returns {readonly MobileNavigateResolvedItem[]} resolved navigation items
+   */
   const getItems = (
     items: readonly MobileNavigateItem[],
   ): readonly MobileNavigateResolvedItem[] => items.map((item) => ({

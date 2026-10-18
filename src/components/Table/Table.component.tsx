@@ -5,7 +5,15 @@ import { Pagination } from "../Pagination";
 
 import type { TableColumn, TableProps } from "./Table.type";
 
-const _getCellValue = <T extends object>(row: T, key: string): React.ReactNode => {
+/* eslint-disable jsdoc/require-jsdoc, max-lines-per-function, max-params, padding-line-between-statements */
+
+/**
+ * Resolve primitive or element cell value.
+ * @param {T} row - Table row
+ * @param {string} key - Column key
+ * @returns {React.ReactNode} Cell value
+ */
+const _getCellValue = <T,>(row: T, key: string): React.ReactNode => {
   const entry = Object.entries(row).find(([name]) => name === key);
   const value = entry?.[1];
 
@@ -16,7 +24,7 @@ const _getCellValue = <T extends object>(row: T, key: string): React.ReactNode =
   return null;
 };
 
-const _renderCellContent = <T extends object,>(col: TableColumn<T>, row: T, index: number): React.ReactNode => {
+const _renderCellContent = <T,>(col: TableColumn<T>, row: T, index: number): React.ReactNode => {
   if (col.actions) {
     return (
       <div className="flex items-center justify-center gap-1.5">
@@ -59,7 +67,7 @@ const _renderCellContent = <T extends object,>(col: TableColumn<T>, row: T, inde
   return _getCellValue(row, col.key);
 };
 
-const _renderMobileCellContent = <T extends object,>(col: TableColumn<T>, row: T): React.ReactNode => {
+const _renderMobileCellContent = <T,>(col: TableColumn<T>, row: T): React.ReactNode => {
   if (col.mobile?.render) {
     return col.mobile.render(row);
   }
@@ -108,7 +116,7 @@ const renderActionButton = <T,>(
   </button>
 );
 
-const _renderDesktopBody = <T extends object,>(props: TableProps<T>): React.ReactElement => {
+const _renderDesktopBody = <T,>(props: TableProps<T>): React.ReactElement => {
   const { data, columns, keyExtractor, onRowClick, isDetail = true, isLoading, emptyText } = props;
 
   if (isLoading) {
@@ -157,7 +165,7 @@ const _renderDesktopBody = <T extends object,>(props: TableProps<T>): React.Reac
   );
 };
 
-const _renderDesktopTable = <T extends object,>(props: TableProps<T>): React.ReactElement => {
+const _renderDesktopTable = <T,>(props: TableProps<T>): React.ReactElement => {
   const { columns } = props;
 
   return (
@@ -184,7 +192,7 @@ const _renderDesktopTable = <T extends object,>(props: TableProps<T>): React.Rea
   );
 };
 
-const _renderMobileCard = <T extends object,>(props: TableProps<T>): React.ReactElement => {
+const _renderMobileCard = <T,>(props: TableProps<T>): React.ReactElement => {
   const { data, columns, keyExtractor, onRowClick, isDetail = true, emptyText, isLoading } = props;
   const primaryColumns = columns.filter((col) => col.mobile?.primary);
 
@@ -303,7 +311,7 @@ const _renderMobileCard = <T extends object,>(props: TableProps<T>): React.React
  * @param {TableProps<T>} props - table component props
  * @returns {React.ReactElement} element
  */
-export const TableComponent = <T extends object,>(props: TableProps<T>): React.ReactElement => {
+export const TableComponent = <T,>(props: TableProps<T>): React.ReactElement => {
   const { currentPage, totalPages, pageSize, onPageChange, onPageSizeChange } = props;
   const hasPagination = currentPage !== undefined && totalPages !== undefined && pageSize !== undefined && onPageChange !== undefined && onPageSizeChange !== undefined;
 

@@ -1,7 +1,8 @@
 
+import test from "../../libs/unit-test";
+
 import { SidebarComponent } from "./Sidebar.component";
 import { NAVIGATION_CONFIG } from "./Sidebar.config";
-import test from "../../libs/unit-test";
 
 const mockOnToggleMenu = jest.fn();
 const mockOnToggleProfile = jest.fn();

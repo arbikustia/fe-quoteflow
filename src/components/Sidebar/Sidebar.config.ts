@@ -1,4 +1,5 @@
 import { Icons } from "../Icons";
+
 import type { MasterNavigationItem, NavigationItem, NavigationSection } from "./Sidebar.type";
 
 export const MASTER_DATA_ITEMS: readonly MasterNavigationItem[] = [

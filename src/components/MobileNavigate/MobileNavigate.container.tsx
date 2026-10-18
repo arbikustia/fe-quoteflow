@@ -17,6 +17,11 @@ const MobileNavigateContainer = (): React.ReactElement => {
   const { getItems } = useMobileNavigate(pathname);
   const items = getItems(MOBILE_NAVIGATE_ITEMS);
 
+  /**
+   * Navigate to valid route.
+   * @param {string} path - selected route path
+   * @returns {void} No return value
+   */
   const handleNavigate = (path: string): void => {
     if (path.startsWith("/")) {
       navigate(path);

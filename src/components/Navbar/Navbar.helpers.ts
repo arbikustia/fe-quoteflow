@@ -4,6 +4,11 @@
  * @returns {string} Formatted date string
  */
 export const formatRealtimeClock = (date: Date): string => {
+  /**
+   * Pad clock component with leading zero.
+   * @param {number} num - Clock component
+   * @returns {string} Padded component
+   */
   const pad = (num: number): string => num.toString().padStart(2, "0");
   const day = pad(date.getDate());
   const month = pad(date.getMonth() + 1);

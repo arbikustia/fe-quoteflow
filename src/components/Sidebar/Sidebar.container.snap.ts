@@ -1,10 +1,15 @@
 
-import SidebarContainer from "./Sidebar.container";
-import type { SidebarProps } from "./Sidebar.type";
 import test from "../../libs/unit-test";
 
+import SidebarContainer from "./Sidebar.container";
+import type { SidebarContainerProps, SidebarState } from "./Sidebar.type";
+
 jest.mock("./Sidebar.hook", () => ({
-  useSidebarState: (): unknown => ({
+  /**
+   * Mock sidebar state.
+   * @returns {SidebarState} Mock state
+   */
+  useSidebarState: (): SidebarState => ({
     currentPath: "/home",
     openMenus: [],
     onToggleMenu: jest.fn(),
@@ -12,10 +17,12 @@ jest.mock("./Sidebar.hook", () => ({
     onToggleCollapsed: jest.fn(),
     isProfileOpen: false,
     onToggleProfile: jest.fn(),
+    onCloseProfile: jest.fn(),
+    setOpenMenus: jest.fn(),
   }),
 }));
 
-const configs: { props: SidebarProps | Record<string, never>; desc: string }[] = [
+const configs: { props: SidebarContainerProps; desc: string }[] = [
   {
     props: {},
     desc: "Should Render SidebarContainer with default props",
@@ -23,5 +30,5 @@ const configs: { props: SidebarProps | Record<string, never>; desc: string }[] =
 ];
 
 it("SidebarContainer matches snapshot", () => {
-  test.assertSnapshots(SidebarContainer, configs as unknown as never);
+  test.assertSnapshots(SidebarContainer, configs);
 });

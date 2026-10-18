@@ -1,0 +1,59 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`ModalComponent snapshots should match open modal snapshot 1`] = `
+<DocumentFragment>
+  <div
+    class="fixed inset-0 z-50 flex items-center justify-center bg-overlay p-4 sm:p-6"
+  >
+    <button
+      aria-label="Close modal backdrop"
+      class="absolute inset-0 cursor-default"
+      type="button"
+    />
+    <div
+      aria-labelledby="modal-title"
+      aria-modal="true"
+      class="relative flex w-full max-w-2xl flex-col overflow-hidden rounded-xl border border-border-default bg-background-surface shadow-medium"
+      role="dialog"
+    >
+      <div
+        class="flex shrink-0 items-center justify-between border-b border-border-default px-6 py-4"
+      >
+        <h2
+          class="text-lg font-bold text-text-primary"
+          id="modal-title"
+        >
+          Modal title
+        </h2>
+        <button
+          aria-label="Close modal"
+          class="rounded-lg p-2 text-text-secondary transition-colors hover:bg-background-subtle hover:text-text-primary focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring"
+          type="button"
+        >
+          <svg
+            aria-hidden="true"
+            class="h-5 w-5"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              d="M6 18L18 6M6 6l12 12"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+            />
+          </svg>
+        </button>
+      </div>
+      <div
+        class="max-h-[80vh] overflow-y-auto p-6"
+      >
+        <p>
+          Modal content
+        </p>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;

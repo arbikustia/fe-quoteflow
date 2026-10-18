@@ -10,11 +10,11 @@ export const useRealtimeClock = (): string => {
   const [time, setTime] = React.useState<string>(() => formatRealtimeClock(new Date()));
 
   React.useEffect(() => {
-    const timer = setInterval(() => {
+    const timer = setInterval((): void => {
       setTime(formatRealtimeClock(new Date()));
     }, 1000);
 
-    return () => {
+    return (): void => {
       clearInterval(timer);
     };
   }, []);

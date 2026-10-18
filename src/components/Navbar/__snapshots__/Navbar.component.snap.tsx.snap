@@ -1,0 +1,92 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`NavbarComponent snapshots should match expanded sidebar snapshot 1`] = `
+<DocumentFragment>
+  <header
+    class="sticky top-0 z-10 flex h-20 items-center justify-between border-b border-border-default bg-background-surface px-8 transition-all"
+  >
+    <div
+      class="flex flex-1 items-center gap-4"
+    >
+      <button
+        aria-expanded="true"
+        aria-label="Close sidebar"
+        class="flex h-10 w-10 items-center justify-center rounded-lg border border-border-default bg-background-surface text-text-secondary transition-colors hover:bg-background-subtle hover:text-text-primary focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring/30"
+        type="button"
+      >
+        <svg
+          fill="none"
+          height="20"
+          stroke="currentColor"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="1.8"
+          viewBox="0 0 24 24"
+          width="20"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <rect
+            height="18"
+            rx="3"
+            width="18"
+            x="3"
+            y="3"
+          />
+          <path
+            d="M9 3v18"
+          />
+        </svg>
+      </button>
+      <div
+        class="group relative hidden max-w-lg flex-1 md:block"
+      >
+        <div
+          class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3 text-text-tertiary"
+        >
+          <svg
+            fill="none"
+            height="18"
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="1.8"
+            viewBox="0 0 24 24"
+            width="18"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <circle
+              cx="11"
+              cy="11"
+              r="8"
+            />
+            <path
+              d="m21 21-4.3-4.3"
+            />
+          </svg>
+        </div>
+        <input
+          aria-label="Search anything"
+          class="w-full rounded-lg border border-border-default bg-background-surface py-2.5 pl-10 pr-12 text-sm font-medium text-text-primary transition-all placeholder:text-text-tertiary focus:border-action-primary focus:outline-none focus:ring-1 focus:ring-action-primary"
+          placeholder="Search anything"
+          type="text"
+        />
+        <div
+          class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3"
+        >
+          <span
+            class="rounded border border-border-default bg-background-subtle px-1.5 py-0.5 text-[10px] font-medium text-text-tertiary"
+          >
+            ⌘K
+          </span>
+        </div>
+      </div>
+    </div>
+    <time
+      class="text-lg font-semibold tracking-wide text-text-primary tabular-nums sm:text-3xl"
+      data-testid="navbar-realtime-clock"
+    >
+      17-10-2026 08:05:09
+    </time>
+  </header>
+</DocumentFragment>
+`;

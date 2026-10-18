@@ -1,0 +1,96 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`ConfirmModalComponent snapshots should match open destructive modal snapshot 1`] = `
+<DocumentFragment>
+  <div
+    class="fixed inset-0 z-50 flex items-center justify-center bg-overlay p-4 sm:p-6"
+  >
+    <button
+      aria-label="Close confirmation modal"
+      class="absolute inset-0 cursor-default"
+      type="button"
+    />
+    <div
+      aria-describedby="confirm-modal-message"
+      aria-labelledby="confirm-modal-title"
+      aria-modal="true"
+      class="relative flex w-full max-w-md flex-col overflow-hidden rounded-xl border border-border-default bg-background-surface shadow-medium"
+      role="alertdialog"
+    >
+      <div
+        class="p-6"
+      >
+        <div
+          class="flex items-start gap-4"
+        >
+          <div
+            class="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-danger-subtle"
+          >
+            <svg
+              aria-hidden="true"
+              class="h-6 w-6 text-danger-strong"
+              fill="none"
+              height="1em"
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              viewBox="0 0 24 24"
+              width="1em"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"
+              />
+              <line
+                x1="12"
+                x2="12"
+                y1="9"
+                y2="13"
+              />
+              <line
+                x1="12"
+                x2="12.01"
+                y1="17"
+                y2="17"
+              />
+            </svg>
+          </div>
+          <div
+            class="mt-1 flex-1"
+          >
+            <h2
+              class="mb-2 text-lg font-bold text-text-primary"
+              id="confirm-modal-title"
+            >
+              Confirm logout
+            </h2>
+            <p
+              class="text-sm leading-relaxed text-text-secondary"
+              id="confirm-modal-message"
+            >
+              Are you sure you want to log out?
+            </p>
+          </div>
+        </div>
+      </div>
+      <div
+        class="flex justify-end gap-3 rounded-b-xl border-t border-border-default bg-background-subtle px-6 py-4"
+      >
+        <button
+          class="rounded-lg border border-border-default bg-background-surface px-4 py-2 text-sm font-semibold text-text-primary transition-colors hover:bg-background-elevated focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring"
+          type="button"
+        >
+          Cancel
+        </button>
+        <button
+          class="rounded-lg px-4 py-2 text-sm font-semibold text-text-inverse transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-1 bg-danger-default hover:bg-danger-strong focus-visible:ring-danger-default"
+          type="button"
+        >
+          Confirm
+        </button>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;

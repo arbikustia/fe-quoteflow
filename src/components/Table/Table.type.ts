@@ -1,17 +1,17 @@
 import type { ReactNode } from "react";
 
-export type TableActionHandlers<T extends object> = {
+export type TableActionHandlers<T> = {
   readonly view?: (row: T) => void;
   readonly edit?: (row: T) => void;
   readonly delete?: (row: T) => void;
 };
 
-export type TableMobileColumn<T extends object> = {
+export type TableMobileColumn<T> = {
   readonly primary?: boolean;
   readonly render?: (row: T) => ReactNode;
 };
 
-export type TableColumn<T extends object> = {
+export type TableColumn<T> = {
   readonly key: string;
   readonly header: ReactNode;
   readonly align?: "left" | "center" | "right";
@@ -22,7 +22,7 @@ export type TableColumn<T extends object> = {
   readonly render?: (row: T, index: number) => ReactNode;
 };
 
-export type TableProps<T extends object> = {
+export type TableProps<T> = {
   readonly data: readonly T[];
   readonly columns: readonly TableColumn<T>[];
   readonly keyExtractor: (row: T) => string | number;

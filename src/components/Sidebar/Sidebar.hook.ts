@@ -4,16 +4,18 @@ import { useLocation } from "react-router-dom";
 import { NAVIGATION_CONFIG } from "./Sidebar.config";
 
 /**
- * Sidebar state hook — collapsed, profile dropdown, open menus.
- * @returns {object} state + handlers
+ * Manage sidebar navigation and profile state.
+ * @returns {SidebarState} Sidebar state and handlers
  */
-export const useSidebarState = () => {
+// eslint-disable-next-line max-lines-per-function
+export const useSidebarState = (): SidebarState => {
   const location = useLocation();
   const [openMenus, setOpenMenus] = useState<readonly string[]>(() => {
     // auto-open menu if child matches path
     const activeSection = NAVIGATION_CONFIG.find((item: { readonly children?: readonly { readonly path: string }[] }) => 
       item.children?.some((child: { readonly path: string }) => location.pathname.startsWith(child.path))
     );
+
     return activeSection ? [activeSection.name] : [];
   });
   const [isCollapsed, setIsCollapsed] = useState<boolean>(false);

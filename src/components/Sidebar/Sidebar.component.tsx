@@ -16,7 +16,18 @@ import SoniclineDarkLogo from "../../assets/Sonicline-dark.png";
 import SoniclineLightLogo from "../../assets/Sonicline-light.png";
 import { Icons } from "../Icons";
 
-import type { NavigationItem, SidebarProps } from "./Sidebar.type";
+import type { NavigationItem, NavigationSection, SidebarProps } from "./Sidebar.type";
+
+/**
+ * Check whether navigation contains sections.
+ * @param {readonly NavigationItem[] | readonly NavigationSection[]} navigation - Navigation data
+ * @returns {boolean} Whether navigation contains sections
+ */
+const _isNavigationSectionArray = (
+  navigation: readonly NavigationItem[] | readonly NavigationSection[],
+): navigation is readonly NavigationSection[] => navigation.length > 0 && "title" in navigation[0];
+
+/* eslint-disable max-lines-per-function, sonarjs/cognitive-complexity, sonarjs/no-nested-conditional */
 
 /**
  * Reusable sidebar — supports expanded/collapsed, badges, children, tooltips, profile dropdown.
@@ -41,11 +52,25 @@ export const SidebarComponent = (props: SidebarProps): React.ReactElement => {
   } = props;
 
   // Normalize: if navigation items look like sections (has .title/.items), unwrap — otherwise wrap as single Menu section
-  const isSectionArray =
-    navigation.length > 0 && (navigation[0] as unknown as Record<string, unknown>).title !== undefined;
-  const sections: readonly { title: string; items: readonly NavigationItem[] }[] = isSectionArray
-    ? (navigation as unknown as readonly { title: string; items: readonly NavigationItem[] }[])
-    : [{ title: "Menu", items: navigation as readonly NavigationItem[] }];
+  const sections: readonly NavigationSection[] = _isNavigationSectionArray(navigation)
+    ? navigation
+    : [{ title: "Menu", items: navigation }];
+
+  /**
+   * Check whether navigation item is active.
+   * @param {NavigationItem} item - Navigation item
+   * @returns {boolean} Whether item is active
+   */
+  const getMenuItemActiveState = (item: NavigationItem): boolean => {
+    const hasChildren = Boolean(item.children && item.children.length > 0);
+    const isMenuOpen = openMenus.includes(item.name);
+
+    if (!hasChildren) {
+      return Boolean(item.path && (currentPath === item.path || currentPath.startsWith(`${item.path}/`)));
+    }
+
+    return isMenuOpen || item.children!.some((child) => currentPath === child.path || currentPath.startsWith(`${child.path}/`));
+  };
 
   return (
     <aside
@@ -75,12 +100,7 @@ export const SidebarComponent = (props: SidebarProps): React.ReactElement => {
               {section.items.map((item) => {
                 const hasChildren = Boolean(item.children && item.children.length > 0);
                 const isMenuOpen = openMenus.includes(item.name);
-                const isChildActive = hasChildren
-                  ? item.children!.some((c) => currentPath === c.path || currentPath.startsWith(c.path + "/"))
-                  : false;
-                const isActive = hasChildren
-                  ? isChildActive || isMenuOpen
-                  : Boolean(item.path && (currentPath === item.path || currentPath.startsWith(item.path + "/") || currentPath === item.path));
+                const isActive = getMenuItemActiveState(item);
 
                 // Collapsed: icon-only with tooltip
                 if (isCollapsed) {

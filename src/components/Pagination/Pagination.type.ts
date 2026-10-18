@@ -1,3 +1,10 @@
+export type PaginationNavigationProps = {
+  readonly currentPage: number;
+  readonly totalPages: number;
+  readonly isCompact: boolean;
+  readonly onPageChange: (page: number) => void;
+};
+
 export type PaginationProps = {
   readonly currentPage: number;
   readonly totalPages: number;

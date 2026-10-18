@@ -41,6 +41,11 @@ const _renderNavItem = (
 export const MobileNavigateComponent = (props: MobileNavigateProps): React.ReactElement | null => {
   const { items, onNavigate, isHidden } = props;
 
+  /**
+   * Navigate to selected tab.
+   * @param {React.MouseEvent<HTMLButtonElement>} event - button click event
+   * @returns {void} No return value
+   */
   const handleNavigate = (event: React.MouseEvent<HTMLButtonElement>): void => {
     const path = event.currentTarget.dataset.path;
 

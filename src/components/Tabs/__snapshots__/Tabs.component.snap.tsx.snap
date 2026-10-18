@@ -1,0 +1,32 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`Tabs snapshots should match tabs snapshot 1`] = `
+<DocumentFragment>
+  <div
+    class="flex items-center gap-6 overflow-x-auto border-b border-border-default"
+    role="tablist"
+  >
+    <button
+      aria-selected="true"
+      class="flex shrink-0 items-center gap-2 border-b-2 py-4 text-sm transition-colors border-action-primary font-semibold text-action-primary"
+      role="tab"
+      type="button"
+    >
+      All
+      <span
+        class="rounded-full px-1.5 py-0.5 text-[10px] bg-action-primary/10 text-action-primary"
+      >
+        3
+      </span>
+    </button>
+    <button
+      aria-selected="false"
+      class="flex shrink-0 items-center gap-2 border-b-2 py-4 text-sm transition-colors border-transparent font-medium text-text-secondary hover:text-text-primary"
+      role="tab"
+      type="button"
+    >
+      Active
+    </button>
+  </div>
+</DocumentFragment>
+`;

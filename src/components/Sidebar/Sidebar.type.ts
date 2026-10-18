@@ -1,4 +1,4 @@
-import type { ReactNode } from "react";
+import type { Dispatch, ReactNode, SetStateAction } from "react";
 
 export type NavigationChild = {
   readonly name: string;
@@ -21,6 +21,18 @@ export type NavigationItem = {
 export type NavigationSection = {
   readonly title: string;
   readonly items: readonly NavigationItem[];
+};
+
+export type SidebarState = {
+  readonly currentPath: string;
+  readonly openMenus: readonly string[];
+  readonly onToggleMenu: (menuName: string) => void;
+  readonly isCollapsed: boolean;
+  readonly onToggleCollapsed: () => void;
+  readonly isProfileOpen: boolean;
+  readonly onToggleProfile: () => void;
+  readonly onCloseProfile: () => void;
+  readonly setOpenMenus: Dispatch<SetStateAction<readonly string[]>>;
 };
 
 export type SidebarContainerProps = {

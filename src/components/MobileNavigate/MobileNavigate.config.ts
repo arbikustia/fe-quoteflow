@@ -1,5 +1,6 @@
-import type { MobileNavigateItem } from "./MobileNavigate.type";
 import { Icons } from "../Icons";
+
+import type { MobileNavigateItem } from "./MobileNavigate.type";
 
 /**
  * Static mobile navigation items configuration.

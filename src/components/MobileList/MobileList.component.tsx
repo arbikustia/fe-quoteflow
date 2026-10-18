@@ -6,100 +6,104 @@ import type { MobileListItemProps, MobileListProps } from "./MobileList.type";
 export type { MobileListItemProps, MobileListProps } from "./MobileList.type";
 
 /**
- * Single row card for mobile list.
- * @param {MobileListItemProps} props - card props
- * @returns {React.ReactElement}
+ * Render optional mobile list image or initial.
+ * @param {MobileListItemProps} props - Card props
+ * @returns {React.ReactElement | null} Image or initial
  */
-export const MobileListCard = (props: MobileListItemProps): React.ReactElement => {
-  const { title, subtitle, meta, imageUrl, fallbackInitial, hideImage, badge, hideEdit, titleClassName, subtitleClassName, metaClassName, onEdit, onClick } = props;
-  const showImage = !hideImage;
-  const initial = fallbackInitial ?? title.charAt(0).toUpperCase();
+const _renderImage = (props: MobileListItemProps): React.ReactElement | null => {
+  const { fallbackInitial, hideImage, imageUrl, title } = props;
+
+  if (hideImage) {
+    return null;
+  }
+
+  if (imageUrl) {
+    return <img src={imageUrl} alt={title} className="h-12 w-12 shrink-0 rounded-xl border border-border-default object-cover" loading="lazy" />;
+  }
+
+  return <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-action-primary-subtle text-base font-bold text-action-primary">{fallbackInitial ?? title.charAt(0).toUpperCase()}</div>;
+};
+
+/**
+ * Render mobile list text content.
+ * @param {MobileListItemProps} props - Card props
+ * @returns {React.ReactElement} Text content
+ */
+const _renderText = (props: MobileListItemProps): React.ReactElement => {
+  const { meta, metaClassName, subtitle, subtitleClassName, title, titleClassName } = props;
 
   return (
-    <div
-      onClick={onClick}
-      className="flex items-center gap-4 px-0 py-4 bg-transparent border-b border-brand-gray-light last:border-b-0 active:bg-brand-gray-light/20 transition-colors cursor-pointer"
-      role={onClick ? "button" : undefined}
-      tabIndex={onClick ? 0 : undefined}
-    >
-      {/* Thumbnail / Avatar (if provided and not hidden) */}
-      {showImage && (
-        imageUrl ? (
-          <img
-            src={imageUrl}
-            alt={title}
-            className="w-12 h-12 rounded-xl object-cover shrink-0 bg-brand-gray-light border border-brand-gray-light"
-            loading="lazy"
-            onError={(e): void => {
-              (e.target as HTMLImageElement).style.display = "none";
-            }}
-          />
-        ) : (
-          <div className="w-12 h-12 rounded-xl bg-brand-blue/10 text-brand-blue font-bold flex items-center justify-center shrink-0 text-base">
-            {initial}
-          </div>
-        )
-      )}
-
-      {/* Text Info Stack */}
-      <div className="flex-1 min-w-0 space-y-1">
-        <p className={titleClassName ?? "text-base font-normal text-brand-text-dark leading-snug truncate"}>
-          {title}
-        </p>
-        {subtitle && (
-          <p className={subtitleClassName ?? "text-sm font-normal text-brand-text-medium/80 truncate"}>
-            {subtitle}
-          </p>
-        )}
-        {meta && (
-          <p className={metaClassName ?? "text-xs font-normal text-brand-text-medium/80 truncate"}>
-            {meta}
-          </p>
-        )}
-      </div>
-
-      {/* Right side: badge or edit */}
-      {badge ? (
-        <div className="shrink-0">{badge}</div>
-      ) : (
-        onEdit &&
-        !hideEdit && (
-          <button
-            onClick={(e): void => {
-              e.stopPropagation();
-              onEdit();
-            }}
-            className="shrink-0 p-2 text-brand-blue hover:bg-brand-blue/10 rounded-lg transition-colors cursor-pointer"
-            aria-label="Edit"
-            title="Edit"
-          >
-            <FiEdit2 className="w-5 h-5" />
-          </button>
-        )
-      )}
+    <div className="min-w-0 flex-1 space-y-1">
+      <p className={titleClassName ?? "truncate text-base font-normal leading-snug text-text-primary"}>{title}</p>
+      {subtitle && <p className={subtitleClassName ?? "truncate text-sm font-normal text-text-secondary"}>{subtitle}</p>}
+      {meta && <p className={metaClassName ?? "truncate text-xs font-normal text-text-secondary"}>{meta}</p>}
     </div>
   );
 };
 
-export const MobileList = ({
-  data,
-  emptyText = "No data available",
-}: MobileListProps): React.ReactElement => {
-  if (data.length === 0) {
-    return (
-      <div className="py-12 text-center text-base text-brand-text-medium font-medium">
-        {emptyText}
-      </div>
-    );
+/**
+ * Render optional mobile list action.
+ * @param {MobileListItemProps} props - Card props
+ * @returns {React.ReactElement | null} Action element
+ */
+const _renderAction = (props: MobileListItemProps): React.ReactElement | null => {
+  const { badge, hideEdit, onEdit } = props;
+
+  if (badge) {
+    return <div className="shrink-0">{badge}</div>;
   }
 
+  if (!onEdit || hideEdit) {
+    return null;
+  }
+
+  /**
+   * Stop card click and edit item.
+   * @param {React.MouseEvent<HTMLButtonElement>} event - Edit button click event
+   * @returns {void} No return value
+   */
+  const handleEdit = (event: React.MouseEvent<HTMLButtonElement>): void => {
+    event.stopPropagation();
+    onEdit();
+  };
+
   return (
-    <div className="bg-transparent overflow-hidden divide-y divide-brand-gray-light">
-      {data.map((item, i) => (
-        <MobileListCard key={`${item.title}-${i}`} {...item} />
-      ))}
+    <button type="button" onClick={handleEdit} className="shrink-0 rounded-lg p-2 text-action-primary transition-colors hover:bg-action-primary-subtle" aria-label="Edit" title="Edit">
+      <FiEdit2 className="h-5 w-5" />
+    </button>
+  );
+};
+
+/**
+ * Render one mobile list card.
+ * @param {MobileListItemProps} props - Card props
+ * @returns {React.ReactElement} Mobile list card
+ */
+export const MobileListCard = (props: MobileListItemProps): React.ReactElement => {
+  const { onClick } = props;
+
+  return (
+    <div onClick={onClick} className="flex cursor-pointer items-center gap-4 border-b border-border-default bg-transparent px-0 py-4 transition-colors last:border-b-0 active:bg-background-subtle" role={onClick ? "button" : undefined} tabIndex={onClick ? 0 : undefined}>
+      {_renderImage(props)}
+      {_renderText(props)}
+      {_renderAction(props)}
     </div>
   );
+};
+
+/**
+ * Render mobile list or empty state.
+ * @param {MobileListProps} props - List props
+ * @returns {React.ReactElement} Mobile list
+ */
+export const MobileList = (props: MobileListProps): React.ReactElement => {
+  const { data, emptyText = "No data available" } = props;
+
+  if (data.length === 0) {
+    return <div className="py-12 text-center text-base font-medium text-text-secondary">{emptyText}</div>;
+  }
+
+  return <div className="divide-y divide-border-default overflow-hidden bg-transparent">{data.map((item, index) => <MobileListCard key={`${item.title}-${index}`} {...item} />)}</div>;
 };
 
 export default MobileList;

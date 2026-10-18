@@ -1,12 +1,24 @@
 import type { ReactElement } from "react";
 
-import type { TabsProps } from "./Tabs.type";
+import type { TabItem, TabsProps } from "./Tabs.type";
 
+/**
+ * Create tab click handler.
+ * @param {TabItem} item - Tab item
+ * @param {(id: string) => void} onChange - Tab change handler
+ * @returns {() => void} Tab click handler
+ */
+const _getTabClickHandler = (item: TabItem, onChange: (id: string) => void): (() => void) => (): void => onChange(item.id);
+
+/**
+ * Render tabs.
+ * @param {TabsProps} props - Tabs props
+ * @returns {ReactElement} Tabs component
+ */
 export const Tabs = ({ items, activeId, onChange }: TabsProps): ReactElement => (
   <div className="flex items-center gap-6 overflow-x-auto border-b border-border-default" role="tablist">
     {items.map((item) => {
       const isActive = item.id === activeId;
-      const handleClick = (): void => onChange(item.id);
 
       return (
         <button
@@ -14,7 +26,7 @@ export const Tabs = ({ items, activeId, onChange }: TabsProps): ReactElement => 
           type="button"
           role="tab"
           aria-selected={isActive}
-          onClick={handleClick}
+          onClick={_getTabClickHandler(item, onChange)}
           className={`flex shrink-0 items-center gap-2 border-b-2 py-4 text-sm transition-colors ${isActive ? "border-action-primary font-semibold text-action-primary" : "border-transparent font-medium text-text-secondary hover:text-text-primary"}`}
         >
           {item.icon}
