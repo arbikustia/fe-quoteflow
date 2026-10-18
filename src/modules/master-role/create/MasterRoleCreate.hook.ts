@@ -2,8 +2,6 @@ import type { ChangeEvent, SyntheticEvent } from "react";
 import { useState } from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 
-import type { MasterRoleCreateFormState } from "./MasterRoleCreate.type";
-
 import type {
   RoleCreateResponse,
   RoleData,
@@ -12,6 +10,8 @@ import type {
   RoleSubmissionParams,
   RoleSubmissionState,
 } from "../MasterRole.type";
+
+import type { MasterRoleCreateFormState } from "./MasterRoleCreate.type";
 
 import {
   mapRole,
@@ -38,14 +38,43 @@ const _formatMessages = (messages: string[] | string | null): string => {
  * @param {RoleDetailResponse | undefined} response - Detail response
  * @returns {RoleData | null} Role or null
  */
-const _resolveRoleDetail = (response: RoleDetailResponse | undefined): RoleData | null => {
+const _resolveRoleDetail = (
+  response: RoleDetailResponse | undefined,
+): RoleData | null => {
   if (!response?.status || !response.data) {
     return null;
   }
 
-  const rawItem = Array.isArray(response.data) ? response.data[0] : response.data;
+  const rawItem = Array.isArray(response.data)
+    ? response.data[0]
+    : response.data;
 
   return rawItem ? mapRole(rawItem) : null;
+};
+
+/**
+ * Send role create or update mutation.
+ * @param {RoleSubmissionParams} params - Submission parameters
+ * @param {ReturnType<typeof useCreateRoleMutation>[0]} createRole - Create trigger
+ * @param {ReturnType<typeof useUpdateRoleMutation>[0]} updateRole - Update trigger
+ * @returns {Promise<RoleCreateResponse>} Mutation response
+ */
+const _sendRoleMutation = (
+  params: RoleSubmissionParams,
+  createRole: ReturnType<typeof useCreateRoleMutation>[0],
+  updateRole: ReturnType<typeof useUpdateRoleMutation>[0],
+): Promise<RoleCreateResponse> => {
+  const { id, isEditMode, roleName, isActive } = params;
+
+  if (isEditMode && id) {
+    return updateRole({
+      id,
+      role: roleName,
+      status: isActive ? 1 : 0,
+    }).unwrap();
+  }
+
+  return createRole({ role: roleName, status: 1 }).unwrap();
 };
 
 /**
@@ -56,12 +85,11 @@ const _resolveRoleDetail = (response: RoleDetailResponse | undefined): RoleData 
 const useRoleSubmission = (
   params: RoleSubmissionParams,
 ): RoleSubmissionState => {
-  const { id, isEditMode, roleName, isActive } = params;
+  const { roleName, isEditMode } = params;
   const navigate = useNavigate();
   const [createRole, { isLoading: isCreating }] = useCreateRoleMutation();
   const [updateRole, { isLoading: isUpdating }] = useUpdateRoleMutation();
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
-  const isSubmitting = isCreating || isUpdating;
 
   /**
    * Submit role form.
@@ -79,13 +107,7 @@ const useRoleSubmission = (
     }
 
     try {
-      let response: RoleCreateResponse;
-
-      if (isEditMode && id) {
-        response = await updateRole({ id, role: roleName, status: isActive ? 1 : 0 }).unwrap();
-      } else {
-        response = await createRole({ role: roleName, status: 1 }).unwrap();
-      }
+      const response = await _sendRoleMutation(params, createRole, updateRole);
 
       if (!response.status) {
         setErrorMessage(_formatMessages(response.messages));
@@ -95,11 +117,36 @@ const useRoleSubmission = (
 
       navigate("/master-role");
     } catch {
-      setErrorMessage(isEditMode ? "Unable to update role. Please try again." : "Unable to create role. Please try again.");
+      setErrorMessage(
+        isEditMode
+          ? "Unable to update role. Please try again."
+          : "Unable to create role. Please try again.",
+      );
     }
   };
 
-  return { isSubmitting, errorMessage, handleSubmit };
+  return { isSubmitting: isCreating || isUpdating, errorMessage, handleSubmit };
+};
+
+/**
+ * Resolve initial role active status.
+ * @param {RoleData | undefined} routeRole - Route role
+ * @param {RoleData | null} apiItem - API fetched role
+ * @returns {boolean} Initial active status
+ */
+const _resolveInitialIsActive = (
+  routeRole: RoleData | undefined,
+  apiItem: RoleData | null,
+): boolean => {
+  if (routeRole) {
+    return routeRole.status === "active";
+  }
+
+  if (apiItem) {
+    return apiItem.status === "active";
+  }
+
+  return true;
 };
 
 /**
@@ -113,11 +160,13 @@ const useRoleFormFields = (
   apiItem: RoleData | null,
 ): RoleFormFieldsState => {
   const initialRoleName = routeRole?.roleName ?? apiItem?.roleName ?? "";
-  const initialIsActive = routeRole ? routeRole.status === "active" : (apiItem ? apiItem.status === "active" : true);
+  const initialIsActive = _resolveInitialIsActive(routeRole, apiItem);
 
   const [roleName, setRoleName] = useState(initialRoleName);
   const [isActive, setIsActive] = useState(initialIsActive);
-  const [initializedId, setInitializedId] = useState<string | null>(routeRole?.id ?? null);
+  const [initializedId, setInitializedId] = useState<string | null>(
+    routeRole?.id ?? null,
+  );
 
   if (apiItem && apiItem.id !== initializedId) {
     setInitializedId(apiItem.id);
@@ -125,8 +174,22 @@ const useRoleFormFields = (
     setIsActive(apiItem.status === "active");
   }
 
-  const handleRoleNameChange = (e: ChangeEvent<HTMLInputElement>): void => { setRoleName(e.target.value); };
-  const handleStatusChange = (): void => { setIsActive((current) => !current); };
+  /**
+   * Handle role name input change.
+   * @param {ChangeEvent<HTMLInputElement>} event - Input change event
+   * @returns {void} No return value
+   */
+  const handleRoleNameChange = (event: ChangeEvent<HTMLInputElement>): void => {
+    setRoleName(event.target.value);
+  };
+
+  /**
+   * Toggle role active status.
+   * @returns {void} No return value
+   */
+  const handleStatusChange = (): void => {
+    setIsActive((current) => !current);
+  };
 
   return { roleName, isActive, handleRoleNameChange, handleStatusChange };
 };
@@ -150,6 +213,10 @@ export const useMasterRoleCreateForm = (): MasterRoleCreateFormState => {
   const formFields = useRoleFormFields(routeRole, apiItem);
   const submission = useRoleSubmission({ id, isEditMode, ...formFields });
 
+  /**
+   * Navigate back to previous page.
+   * @returns {void} No return value
+   */
   const goBack = (): void => {
     navigate(-1);
   };

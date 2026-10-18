@@ -12,7 +12,7 @@ const fieldClass = "h-12 w-full rounded-xl border border-border-default bg-backg
  * @returns {ReactElement} Back button element
  */
 const _renderMobileBack = (goBack: () => void): ReactElement => (
-  <div className="sticky top-0 z-20 flex items-center bg-background-surface px-6 lg:hidden">
+  <div className="sticky top-0 z-20 flex items-center bg-background-surface px-0 lg:hidden">
     <button
       type="button"
       onClick={goBack}
@@ -203,7 +203,7 @@ export const MasterUserCreateComponent = (props: MasterUserCreateFormState): Rea
     <Layout pageTitle={title} mobileWhiteBackground={true}>
       <div className="flex h-full w-full flex-col bg-background-surface pb-6 font-sans lg:bg-background-page">
         {_renderMobileBack(goBack)}
-        <div className="mt-2 flex min-h-0 w-full flex-1 flex-col px-6 lg:mt-0 lg:px-0">
+        <div className="mt-2 flex min-h-0 w-full flex-1 flex-col px-0 lg:mt-0 lg:px-0">
           <nav aria-label="Breadcrumb" className="mb-3 hidden items-center gap-2 text-sm font-medium text-text-secondary lg:flex">
             <button type="button" onClick={goBack} className="cursor-pointer hover:text-text-primary">Master User</button>
             <span aria-hidden="true">/</span>

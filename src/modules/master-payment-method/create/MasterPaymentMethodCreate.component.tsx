@@ -35,7 +35,7 @@ const _renderStatusField = (props: MasterPaymentMethodCreateFormState): ReactEle
  * @returns {ReactElement} Back bar
  */
 const _renderMobileBack = (goBack: () => void): ReactElement => (
-  <div className="sticky top-0 z-20 flex items-center bg-background-surface px-6 lg:hidden">
+  <div className="sticky top-0 z-20 flex items-center bg-background-surface px-0 lg:hidden">
     <button type="button" onClick={goBack} aria-label="Back" className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full border border-border-default bg-background-surface text-text-primary transition-colors hover:bg-background-subtle">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="h-6 w-6" aria-hidden="true">
         <path d="M19 12H5M12 19l-7-7 7-7" />
@@ -82,7 +82,7 @@ export const MasterPaymentMethodCreateForm = (props: MasterPaymentMethodCreateFo
   return (
     <div className="flex h-full w-full flex-col bg-background-surface pb-6 font-sans lg:bg-background-page">
       {_renderMobileBack(goBack)}
-      <div className="mt-2 flex min-h-0 w-full flex-1 flex-col px-6 lg:mt-0 lg:px-0">
+      <div className="mt-2 flex min-h-0 w-full flex-1 flex-col px-0 lg:mt-0 lg:px-0">
         {_renderHeader(isEditMode, goBack)}
         {isLoadingInitialData ? <p className="py-12 text-center text-sm text-text-secondary">Loading payment method data…</p> : (
           <form onSubmit={handleSubmit} className="flex min-h-0 flex-1 flex-col justify-between border-0 bg-transparent p-0 shadow-none lg:rounded-4xl lg:border lg:border-border-default lg:bg-background-surface lg:p-8 lg:shadow-xs">

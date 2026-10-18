@@ -4,19 +4,16 @@ exports[`MobileNavigateContainer Test MobileNavigateContainer matches snapshot 1
 <DocumentFragment>
   <nav
     aria-label="Main mobile navigation"
-    class="fixed bottom-0 left-6 right-6 z-50 flex items-center justify-around rounded-t-[2rem] border border-border-default bg-background-elevated px-2 pb-[env(safe-area-inset-bottom)] pt-3 shadow-[0_16px_40px_rgba(15,23,42,0.18)] lg:hidden"
+    class="fixed bottom-4 left-4 right-4 z-50 rounded-3xl border border-border-default bg-white p-2 shadow-[0_12px_32px_rgba(15,23,42,0.16)] lg:hidden"
   >
-    <button
-      aria-label="Home"
-      class="relative flex h-14 w-14 flex-col items-center justify-center transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring text-text-tertiary hover:text-text-primary"
-      data-path="/home"
-      type="button"
+    <div
+      class="flex items-center gap-2"
     >
-      <div
-        class="absolute top-0 h-12 w-12 rounded-full bg-action-primary transition-all duration-300 scale-0 opacity-0"
-      />
-      <div
-        class="relative z-10 mb-3 transition-transform duration-300 scale-100"
+      <button
+        aria-label="Home"
+        class="relative flex min-w-0 flex-1 flex-col items-center justify-center gap-1 rounded-2xl px-1 py-2 transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring text-text-tertiary hover:bg-background-subtle hover:text-text-primary"
+        data-path="/home"
+        type="button"
       >
         <svg
           fill="none"
@@ -58,24 +55,17 @@ exports[`MobileNavigateContainer Test MobileNavigateContainer matches snapshot 1
             y="16"
           />
         </svg>
-      </div>
-      <span
-        class="absolute bottom-0.5 text-[11px] font-medium text-text-tertiary"
-      >
-        Home
-      </span>
-    </button>
-    <button
-      aria-label="Order"
-      class="relative flex h-14 w-14 flex-col items-center justify-center transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring text-text-tertiary hover:text-text-primary"
-      data-path="/order"
-      type="button"
-    >
-      <div
-        class="absolute top-0 h-12 w-12 rounded-full bg-action-primary transition-all duration-300 scale-0 opacity-0"
-      />
-      <div
-        class="relative z-10 mb-3 transition-transform duration-300 scale-100"
+        <span
+          class="text-[11px] font-semibold leading-4"
+        >
+          Home
+        </span>
+      </button>
+      <button
+        aria-label="Order"
+        class="relative flex min-w-0 flex-1 flex-col items-center justify-center gap-1 rounded-2xl px-1 py-2 transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring text-text-tertiary hover:bg-background-subtle hover:text-text-primary"
+        data-path="/order"
+        type="button"
       >
         <svg
           fill="none"
@@ -107,24 +97,17 @@ exports[`MobileNavigateContainer Test MobileNavigateContainer matches snapshot 1
             y2="17"
           />
         </svg>
-      </div>
-      <span
-        class="absolute bottom-0.5 text-[11px] font-medium text-text-tertiary"
-      >
-        Order
-      </span>
-    </button>
-    <button
-      aria-label="Return"
-      class="relative flex h-14 w-14 flex-col items-center justify-center transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring text-text-tertiary hover:text-text-primary"
-      data-path="/return"
-      type="button"
-    >
-      <div
-        class="absolute top-0 h-12 w-12 rounded-full bg-action-primary transition-all duration-300 scale-0 opacity-0"
-      />
-      <div
-        class="relative z-10 mb-3 transition-transform duration-300 scale-100"
+        <span
+          class="text-[11px] font-semibold leading-4"
+        >
+          Order
+        </span>
+      </button>
+      <button
+        aria-label="Return"
+        class="relative flex min-w-0 flex-1 flex-col items-center justify-center gap-1 rounded-2xl px-1 py-2 transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring text-text-tertiary hover:bg-background-subtle hover:text-text-primary"
+        data-path="/return"
+        type="button"
       >
         <svg
           fill="none"
@@ -163,24 +146,17 @@ exports[`MobileNavigateContainer Test MobileNavigateContainer matches snapshot 1
             y2="10"
           />
         </svg>
-      </div>
-      <span
-        class="absolute bottom-0.5 text-[11px] font-medium text-text-tertiary"
-      >
-        Return
-      </span>
-    </button>
-    <button
-      aria-label="Master"
-      class="relative flex h-14 w-14 flex-col items-center justify-center transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring text-text-tertiary hover:text-text-primary"
-      data-path="/master-main"
-      type="button"
-    >
-      <div
-        class="absolute top-0 h-12 w-12 rounded-full bg-action-primary transition-all duration-300 scale-0 opacity-0"
-      />
-      <div
-        class="relative z-10 mb-3 transition-transform duration-300 scale-100"
+        <span
+          class="text-[11px] font-semibold leading-4"
+        >
+          Return
+        </span>
+      </button>
+      <button
+        aria-label="Master"
+        class="relative flex min-w-0 flex-1 flex-col items-center justify-center gap-1 rounded-2xl px-1 py-2 transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring text-text-tertiary hover:bg-background-subtle hover:text-text-primary"
+        data-path="/master-main"
+        type="button"
       >
         <svg
           fill="none"
@@ -206,24 +182,17 @@ exports[`MobileNavigateContainer Test MobileNavigateContainer matches snapshot 1
             d="M3 12A9 3 0 0 0 21 12"
           />
         </svg>
-      </div>
-      <span
-        class="absolute bottom-0.5 text-[11px] font-medium text-text-tertiary"
-      >
-        Master
-      </span>
-    </button>
-    <button
-      aria-label="Report"
-      class="relative flex h-14 w-14 flex-col items-center justify-center transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring text-text-tertiary hover:text-text-primary"
-      data-path="/report/main"
-      type="button"
-    >
-      <div
-        class="absolute top-0 h-12 w-12 rounded-full bg-action-primary transition-all duration-300 scale-0 opacity-0"
-      />
-      <div
-        class="relative z-10 mb-3 transition-transform duration-300 scale-100"
+        <span
+          class="text-[11px] font-semibold leading-4"
+        >
+          Master
+        </span>
+      </button>
+      <button
+        aria-label="Report"
+        class="relative flex min-w-0 flex-1 flex-col items-center justify-center gap-1 rounded-2xl px-1 py-2 transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring text-text-tertiary hover:bg-background-subtle hover:text-text-primary"
+        data-path="/report/main"
+        type="button"
       >
         <svg
           fill="none"
@@ -255,13 +224,13 @@ exports[`MobileNavigateContainer Test MobileNavigateContainer matches snapshot 1
             y2="16"
           />
         </svg>
-      </div>
-      <span
-        class="absolute bottom-0.5 text-[11px] font-medium text-text-tertiary"
-      >
-        Report
-      </span>
-    </button>
+        <span
+          class="text-[11px] font-semibold leading-4"
+        >
+          Report
+        </span>
+      </button>
+    </div>
   </nav>
 </DocumentFragment>
 `;
@@ -270,19 +239,16 @@ exports[`MobileNavigateContainer Test MobileNavigateContainer matches snapshot 2
 <DocumentFragment>
   <nav
     aria-label="Main mobile navigation"
-    class="fixed bottom-0 left-6 right-6 z-50 flex items-center justify-around rounded-t-[2rem] border border-border-default bg-background-elevated px-2 pb-[env(safe-area-inset-bottom)] pt-3 shadow-[0_16px_40px_rgba(15,23,42,0.18)] lg:hidden"
+    class="fixed bottom-4 left-4 right-4 z-50 rounded-3xl border border-border-default bg-white p-2 shadow-[0_12px_32px_rgba(15,23,42,0.16)] lg:hidden"
   >
-    <button
-      aria-label="Home"
-      class="relative flex h-14 w-14 flex-col items-center justify-center transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring text-text-tertiary hover:text-text-primary"
-      data-path="/home"
-      type="button"
+    <div
+      class="flex items-center gap-2"
     >
-      <div
-        class="absolute top-0 h-12 w-12 rounded-full bg-action-primary transition-all duration-300 scale-0 opacity-0"
-      />
-      <div
-        class="relative z-10 mb-3 transition-transform duration-300 scale-100"
+      <button
+        aria-label="Home"
+        class="relative flex min-w-0 flex-1 flex-col items-center justify-center gap-1 rounded-2xl px-1 py-2 transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring text-text-tertiary hover:bg-background-subtle hover:text-text-primary"
+        data-path="/home"
+        type="button"
       >
         <svg
           fill="none"
@@ -324,24 +290,17 @@ exports[`MobileNavigateContainer Test MobileNavigateContainer matches snapshot 2
             y="16"
           />
         </svg>
-      </div>
-      <span
-        class="absolute bottom-0.5 text-[11px] font-medium text-text-tertiary"
-      >
-        Home
-      </span>
-    </button>
-    <button
-      aria-label="Order"
-      class="relative flex h-14 w-14 flex-col items-center justify-center transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring text-text-tertiary hover:text-text-primary"
-      data-path="/order"
-      type="button"
-    >
-      <div
-        class="absolute top-0 h-12 w-12 rounded-full bg-action-primary transition-all duration-300 scale-0 opacity-0"
-      />
-      <div
-        class="relative z-10 mb-3 transition-transform duration-300 scale-100"
+        <span
+          class="text-[11px] font-semibold leading-4"
+        >
+          Home
+        </span>
+      </button>
+      <button
+        aria-label="Order"
+        class="relative flex min-w-0 flex-1 flex-col items-center justify-center gap-1 rounded-2xl px-1 py-2 transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring text-text-tertiary hover:bg-background-subtle hover:text-text-primary"
+        data-path="/order"
+        type="button"
       >
         <svg
           fill="none"
@@ -373,24 +332,17 @@ exports[`MobileNavigateContainer Test MobileNavigateContainer matches snapshot 2
             y2="17"
           />
         </svg>
-      </div>
-      <span
-        class="absolute bottom-0.5 text-[11px] font-medium text-text-tertiary"
-      >
-        Order
-      </span>
-    </button>
-    <button
-      aria-label="Return"
-      class="relative flex h-14 w-14 flex-col items-center justify-center transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring text-text-tertiary hover:text-text-primary"
-      data-path="/return"
-      type="button"
-    >
-      <div
-        class="absolute top-0 h-12 w-12 rounded-full bg-action-primary transition-all duration-300 scale-0 opacity-0"
-      />
-      <div
-        class="relative z-10 mb-3 transition-transform duration-300 scale-100"
+        <span
+          class="text-[11px] font-semibold leading-4"
+        >
+          Order
+        </span>
+      </button>
+      <button
+        aria-label="Return"
+        class="relative flex min-w-0 flex-1 flex-col items-center justify-center gap-1 rounded-2xl px-1 py-2 transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring text-text-tertiary hover:bg-background-subtle hover:text-text-primary"
+        data-path="/return"
+        type="button"
       >
         <svg
           fill="none"
@@ -429,24 +381,17 @@ exports[`MobileNavigateContainer Test MobileNavigateContainer matches snapshot 2
             y2="10"
           />
         </svg>
-      </div>
-      <span
-        class="absolute bottom-0.5 text-[11px] font-medium text-text-tertiary"
-      >
-        Return
-      </span>
-    </button>
-    <button
-      aria-label="Master"
-      class="relative flex h-14 w-14 flex-col items-center justify-center transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring text-text-tertiary hover:text-text-primary"
-      data-path="/master-main"
-      type="button"
-    >
-      <div
-        class="absolute top-0 h-12 w-12 rounded-full bg-action-primary transition-all duration-300 scale-0 opacity-0"
-      />
-      <div
-        class="relative z-10 mb-3 transition-transform duration-300 scale-100"
+        <span
+          class="text-[11px] font-semibold leading-4"
+        >
+          Return
+        </span>
+      </button>
+      <button
+        aria-label="Master"
+        class="relative flex min-w-0 flex-1 flex-col items-center justify-center gap-1 rounded-2xl px-1 py-2 transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring text-text-tertiary hover:bg-background-subtle hover:text-text-primary"
+        data-path="/master-main"
+        type="button"
       >
         <svg
           fill="none"
@@ -472,24 +417,17 @@ exports[`MobileNavigateContainer Test MobileNavigateContainer matches snapshot 2
             d="M3 12A9 3 0 0 0 21 12"
           />
         </svg>
-      </div>
-      <span
-        class="absolute bottom-0.5 text-[11px] font-medium text-text-tertiary"
-      >
-        Master
-      </span>
-    </button>
-    <button
-      aria-label="Report"
-      class="relative flex h-14 w-14 flex-col items-center justify-center transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring text-text-tertiary hover:text-text-primary"
-      data-path="/report/main"
-      type="button"
-    >
-      <div
-        class="absolute top-0 h-12 w-12 rounded-full bg-action-primary transition-all duration-300 scale-0 opacity-0"
-      />
-      <div
-        class="relative z-10 mb-3 transition-transform duration-300 scale-100"
+        <span
+          class="text-[11px] font-semibold leading-4"
+        >
+          Master
+        </span>
+      </button>
+      <button
+        aria-label="Report"
+        class="relative flex min-w-0 flex-1 flex-col items-center justify-center gap-1 rounded-2xl px-1 py-2 transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring text-text-tertiary hover:bg-background-subtle hover:text-text-primary"
+        data-path="/report/main"
+        type="button"
       >
         <svg
           fill="none"
@@ -521,13 +459,13 @@ exports[`MobileNavigateContainer Test MobileNavigateContainer matches snapshot 2
             y2="16"
           />
         </svg>
-      </div>
-      <span
-        class="absolute bottom-0.5 text-[11px] font-medium text-text-tertiary"
-      >
-        Report
-      </span>
-    </button>
+        <span
+          class="text-[11px] font-semibold leading-4"
+        >
+          Report
+        </span>
+      </button>
+    </div>
   </nav>
 </DocumentFragment>
 `;
@@ -536,19 +474,16 @@ exports[`MobileNavigateContainer Test MobileNavigateContainer matches snapshot 3
 <DocumentFragment>
   <nav
     aria-label="Main mobile navigation"
-    class="fixed bottom-0 left-6 right-6 z-50 flex items-center justify-around rounded-t-[2rem] border border-border-default bg-background-elevated px-2 pb-[env(safe-area-inset-bottom)] pt-3 shadow-[0_16px_40px_rgba(15,23,42,0.18)] lg:hidden"
+    class="fixed bottom-4 left-4 right-4 z-50 rounded-3xl border border-border-default bg-white p-2 shadow-[0_12px_32px_rgba(15,23,42,0.16)] lg:hidden"
   >
-    <button
-      aria-label="Home"
-      class="relative flex h-14 w-14 flex-col items-center justify-center transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring text-text-tertiary hover:text-text-primary"
-      data-path="/home"
-      type="button"
+    <div
+      class="flex items-center gap-2"
     >
-      <div
-        class="absolute top-0 h-12 w-12 rounded-full bg-action-primary transition-all duration-300 scale-0 opacity-0"
-      />
-      <div
-        class="relative z-10 mb-3 transition-transform duration-300 scale-100"
+      <button
+        aria-label="Home"
+        class="relative flex min-w-0 flex-1 flex-col items-center justify-center gap-1 rounded-2xl px-1 py-2 transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring text-text-tertiary hover:bg-background-subtle hover:text-text-primary"
+        data-path="/home"
+        type="button"
       >
         <svg
           fill="none"
@@ -590,24 +525,17 @@ exports[`MobileNavigateContainer Test MobileNavigateContainer matches snapshot 3
             y="16"
           />
         </svg>
-      </div>
-      <span
-        class="absolute bottom-0.5 text-[11px] font-medium text-text-tertiary"
-      >
-        Home
-      </span>
-    </button>
-    <button
-      aria-label="Order"
-      class="relative flex h-14 w-14 flex-col items-center justify-center transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring text-text-tertiary hover:text-text-primary"
-      data-path="/order"
-      type="button"
-    >
-      <div
-        class="absolute top-0 h-12 w-12 rounded-full bg-action-primary transition-all duration-300 scale-0 opacity-0"
-      />
-      <div
-        class="relative z-10 mb-3 transition-transform duration-300 scale-100"
+        <span
+          class="text-[11px] font-semibold leading-4"
+        >
+          Home
+        </span>
+      </button>
+      <button
+        aria-label="Order"
+        class="relative flex min-w-0 flex-1 flex-col items-center justify-center gap-1 rounded-2xl px-1 py-2 transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring text-text-tertiary hover:bg-background-subtle hover:text-text-primary"
+        data-path="/order"
+        type="button"
       >
         <svg
           fill="none"
@@ -639,24 +567,17 @@ exports[`MobileNavigateContainer Test MobileNavigateContainer matches snapshot 3
             y2="17"
           />
         </svg>
-      </div>
-      <span
-        class="absolute bottom-0.5 text-[11px] font-medium text-text-tertiary"
-      >
-        Order
-      </span>
-    </button>
-    <button
-      aria-label="Return"
-      class="relative flex h-14 w-14 flex-col items-center justify-center transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring text-text-tertiary hover:text-text-primary"
-      data-path="/return"
-      type="button"
-    >
-      <div
-        class="absolute top-0 h-12 w-12 rounded-full bg-action-primary transition-all duration-300 scale-0 opacity-0"
-      />
-      <div
-        class="relative z-10 mb-3 transition-transform duration-300 scale-100"
+        <span
+          class="text-[11px] font-semibold leading-4"
+        >
+          Order
+        </span>
+      </button>
+      <button
+        aria-label="Return"
+        class="relative flex min-w-0 flex-1 flex-col items-center justify-center gap-1 rounded-2xl px-1 py-2 transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring text-text-tertiary hover:bg-background-subtle hover:text-text-primary"
+        data-path="/return"
+        type="button"
       >
         <svg
           fill="none"
@@ -695,24 +616,17 @@ exports[`MobileNavigateContainer Test MobileNavigateContainer matches snapshot 3
             y2="10"
           />
         </svg>
-      </div>
-      <span
-        class="absolute bottom-0.5 text-[11px] font-medium text-text-tertiary"
-      >
-        Return
-      </span>
-    </button>
-    <button
-      aria-label="Master"
-      class="relative flex h-14 w-14 flex-col items-center justify-center transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring text-text-tertiary hover:text-text-primary"
-      data-path="/master-main"
-      type="button"
-    >
-      <div
-        class="absolute top-0 h-12 w-12 rounded-full bg-action-primary transition-all duration-300 scale-0 opacity-0"
-      />
-      <div
-        class="relative z-10 mb-3 transition-transform duration-300 scale-100"
+        <span
+          class="text-[11px] font-semibold leading-4"
+        >
+          Return
+        </span>
+      </button>
+      <button
+        aria-label="Master"
+        class="relative flex min-w-0 flex-1 flex-col items-center justify-center gap-1 rounded-2xl px-1 py-2 transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring text-text-tertiary hover:bg-background-subtle hover:text-text-primary"
+        data-path="/master-main"
+        type="button"
       >
         <svg
           fill="none"
@@ -738,24 +652,17 @@ exports[`MobileNavigateContainer Test MobileNavigateContainer matches snapshot 3
             d="M3 12A9 3 0 0 0 21 12"
           />
         </svg>
-      </div>
-      <span
-        class="absolute bottom-0.5 text-[11px] font-medium text-text-tertiary"
-      >
-        Master
-      </span>
-    </button>
-    <button
-      aria-label="Report"
-      class="relative flex h-14 w-14 flex-col items-center justify-center transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring text-text-tertiary hover:text-text-primary"
-      data-path="/report/main"
-      type="button"
-    >
-      <div
-        class="absolute top-0 h-12 w-12 rounded-full bg-action-primary transition-all duration-300 scale-0 opacity-0"
-      />
-      <div
-        class="relative z-10 mb-3 transition-transform duration-300 scale-100"
+        <span
+          class="text-[11px] font-semibold leading-4"
+        >
+          Master
+        </span>
+      </button>
+      <button
+        aria-label="Report"
+        class="relative flex min-w-0 flex-1 flex-col items-center justify-center gap-1 rounded-2xl px-1 py-2 transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring text-text-tertiary hover:bg-background-subtle hover:text-text-primary"
+        data-path="/report/main"
+        type="button"
       >
         <svg
           fill="none"
@@ -787,13 +694,13 @@ exports[`MobileNavigateContainer Test MobileNavigateContainer matches snapshot 3
             y2="16"
           />
         </svg>
-      </div>
-      <span
-        class="absolute bottom-0.5 text-[11px] font-medium text-text-tertiary"
-      >
-        Report
-      </span>
-    </button>
+        <span
+          class="text-[11px] font-semibold leading-4"
+        >
+          Report
+        </span>
+      </button>
+    </div>
   </nav>
 </DocumentFragment>
 `;

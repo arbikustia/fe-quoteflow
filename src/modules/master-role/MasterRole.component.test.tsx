@@ -1,10 +1,32 @@
-import { render, screen } from "@testing-library/react";
-import { MemoryRouter } from "react-router-dom";
+import { fireEvent, render, screen } from "@testing-library/react";
+
 import { MasterRoleComponent } from "./MasterRole.component";
 import type { MasterRoleProps, RoleData } from "./MasterRole.type";
 
+jest.mock("../../app/layout", () => ({
+  __esModule: true,
+  default: ({ children }: { readonly children: React.ReactNode }) => <div data-testid="layout">{children}</div>,
+}));
+
+jest.mock("../../app/shared/PageLayout", () => ({
+  PageLayout: ({ children, headerRight, onBack }: { readonly children: React.ReactNode; readonly headerRight: React.ReactNode; readonly onBack: () => void }) => (
+    <section>
+      <button type="button" onClick={onBack}>Page Back</button>
+      {headerRight}
+      {children}
+    </section>
+  ),
+}));
+
 jest.mock("../../components/Pagination", () => ({
   Pagination: () => <div data-testid="pagination" />,
+}));
+
+jest.mock("../../components/Table", () => ({
+  __esModule: true,
+  default: ({ data, onRowClick }: { readonly data: readonly RoleData[]; readonly onRowClick: (role: RoleData) => void }) => (
+    <button type="button" onClick={() => onRowClick(data[0])}>Desktop role row</button>
+  ),
 }));
 
 const mockRole: RoleData = {
@@ -15,7 +37,7 @@ const mockRole: RoleData = {
   createBy: "System",
 };
 
-const defaultProps: MasterRoleProps = {
+const createProps = (overrides: Partial<MasterRoleProps> = {}): MasterRoleProps => ({
   paginatedData: [mockRole],
   columns: [{ key: "roleName", header: "Role Name" }],
   currentPage: 1,
@@ -35,41 +57,42 @@ const defaultProps: MasterRoleProps = {
   onEdit: jest.fn(),
   onRowClick: jest.fn(),
   onBack: jest.fn(),
-  onMore: jest.fn(),
-  isMoreOpen: false,
-  onCloseMore: jest.fn(),
-  onDelete: jest.fn(),
-};
+  ...overrides,
+});
 
 describe("MasterRoleComponent", () => {
-  const renderWithRouter = (props = defaultProps) => {
-    return render(
-      <MemoryRouter>
-        <MasterRoleComponent {...props} />
-      </MemoryRouter>
-    );
-  };
+  it("should render role data and forward list actions", () => {
+    const props = createProps();
+    render(<MasterRoleComponent {...props} />);
 
-  it("should render without crashing", () => {
-    renderWithRouter();
-    expect(screen.getAllByText("Role List").length).toBeGreaterThan(0);
-    expect(screen.getAllByText("Admin").length).toBeGreaterThan(0);
+    expect(screen.getByText("Admin")).toBeInTheDocument();
+    fireEvent.change(screen.getAllByRole("searchbox", { name: "Search role" })[0], { target: { value: "admin" } });
+    fireEvent.click(screen.getByText("Admin").closest('[role="button"]')!);
+    fireEvent.click(screen.getByRole("button", { name: "Desktop role row" }));
+    fireEvent.click(screen.getByRole("button", { name: "Create New" }));
+    fireEvent.click(screen.getByRole("button", { name: "Page Back" }));
+
+    expect(props.setSearchTerm).toHaveBeenCalledWith("admin");
+    expect(props.onEdit).toHaveBeenCalledWith(mockRole);
+    expect(props.onRowClick).toHaveBeenCalledWith(mockRole);
+    expect(props.onCreate).toHaveBeenCalled();
+    expect(props.onBack).toHaveBeenCalled();
   });
 
-  it("should handle empty data", () => {
-    renderWithRouter({ ...defaultProps, paginatedData: [], isEmpty: true, totalCount: 0, totalPages: 1 });
-    expect(screen.getAllByText("No roles found.").length).toBeGreaterThan(0);
+  it.each([
+    [{ isLoading: true }, "Loading roles…"],
+    [{ isMissingData: true }, "Role data is unavailable. Please try again."],
+    [{ errorMessage: "Unable to load roles." }, "Unable to load roles."],
+    [{ isEmpty: true, paginatedData: [] }, "No roles found."],
+  ])("should render list state", (overrides, message) => {
+    render(<MasterRoleComponent {...createProps(overrides)} />);
+
+    expect(screen.getAllByText(message)).toHaveLength(2);
   });
 
+  it("should match role list snapshot", () => {
+    const { asFragment } = render(<MasterRoleComponent {...createProps()} />);
 
-
-  it("matches snapshot", () => {
-    const { asFragment } = renderWithRouter();
-    expect(asFragment()).toMatchSnapshot();
-  });
-
-  it("matches snapshot with empty data and closed menu", () => {
-    const { asFragment } = renderWithRouter({ ...defaultProps, paginatedData: [] as RoleData[], totalCount: 0, totalPages: 1, isMoreOpen: false });
     expect(asFragment()).toMatchSnapshot();
   });
 });

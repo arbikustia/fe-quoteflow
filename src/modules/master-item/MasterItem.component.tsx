@@ -3,6 +3,7 @@ import * as React from "react";
 
 import Layout from "../../app/layout";
 import { PageLayout } from "../../app/shared/PageLayout";
+import { MasterDataCard } from "../../components/MasterDataCard";
 import { Pagination } from "../../components/Pagination";
 import { SearchFilter } from "../../components/SearchFilter";
 import Table from "../../components/Table";
@@ -35,62 +36,25 @@ const _renderListState = (props: MasterItemProps): ReactElement | null => {
 };
 
 /**
- * Render mobile item card metrics grid.
- * @param {ItemData} item - Item data
- * @returns {ReactElement} Metrics element
- */
-const _renderMobileMetrics = (item: ItemData): ReactElement => (
-  <div className="grid grid-cols-2 gap-2 rounded-xl bg-background-subtle/60 p-3 text-sm">
-    <div>
-      <p className="text-xs text-text-tertiary">Category</p>
-      <p className="truncate font-medium text-text-primary">{item.categoryName ?? "-"}</p>
-    </div>
-    <div>
-      <p className="text-xs text-text-tertiary">Stock</p>
-      <p className="font-medium text-text-primary">{item.stock}</p>
-    </div>
-    <div>
-      <p className="text-xs text-text-tertiary">Price</p>
-      <p className="truncate font-medium text-text-primary">Rp {item.price.toLocaleString("id-ID")}</p>
-    </div>
-    <div>
-      <p className="text-xs text-text-tertiary">Duration</p>
-      <p className="font-medium text-text-primary">{item.duration} days</p>
-    </div>
-  </div>
-);
-
-/**
  * Render mobile item card.
  * @param {MobileItemCardProps} props - Item card props
  * @returns {ReactElement} Mobile item card
  */
 const MobileItemCard = ({ item, onEdit }: MobileItemCardProps): ReactElement => {
   /**
-   * Handle card click.
-   * @returns {void}
+   *
    */
   const handleClick = (): void => {
     onEdit(item);
   };
 
-  const statusClass = item.status === "active" ? "bg-green-100 text-green-700" : "bg-red-100 text-red-700";
-
   return (
-    <div
-      role="button"
-      tabIndex={0}
-      onClick={handleClick}
-      className="flex cursor-pointer flex-col gap-4 rounded-3xl border border-border-default bg-background-surface p-5 transition-all hover:border-border-strong active:bg-background-subtle/50"
-    >
-      <div className="flex items-start justify-between gap-3">
-        <h4 className="min-w-0 truncate text-base font-semibold text-text-primary">{item.name}</h4>
-        <span className={`shrink-0 rounded-full px-3 py-1 text-xs font-semibold uppercase tracking-wider ${statusClass}`}>
-          {item.status}
-        </span>
-      </div>
-      {_renderMobileMetrics(item)}
-    </div>
+    <MasterDataCard title={item.name} status={item.status} onClick={handleClick}>
+      <span className="grid gap-2 text-sm text-text-secondary">
+        <span>{item.categoryName ?? "No category"}</span>
+        <span>Rp {item.price.toLocaleString("id-ID")} · {item.stock} unit · {item.duration} days</span>
+      </span>
+    </MasterDataCard>
   );
 };
 
@@ -238,10 +202,10 @@ export const MasterItemComponent = (props: MasterItemProps): ReactElement => {
         title="Item List"
         breadcrumbs={["Master", "Master Item"]}
         headerRight={createButton}
-        mobileHeaderClassName="px-6"
+        mobileHeaderClassName="px-0"
         onBack={props.onBack}
       >
-        <div className="relative flex h-full flex-col bg-background-surface px-6 pb-18 lg:-mt-4 lg:bg-transparent lg:px-0 lg:pb-0">
+        <div className="relative flex h-full flex-col bg-background-surface px-0 pb-18 lg:-mt-4 lg:bg-transparent lg:px-0 lg:pb-0">
           {_renderMobile(props)}
           {_renderDesktop(props)}
         </div>

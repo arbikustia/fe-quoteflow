@@ -41,7 +41,7 @@ const _renderStatusField = (props: MasterPaymentTypeCreateFormState): ReactEleme
  * @returns {ReactElement} Back bar
  */
 const _renderMobileBack = (goBack: () => void): ReactElement => (
-  <div className="sticky top-0 z-20 flex items-center bg-background-surface px-6 lg:hidden">
+  <div className="sticky top-0 z-20 flex items-center bg-background-surface px-0 lg:hidden">
     <button
       type="button"
       onClick={goBack}
@@ -149,7 +149,7 @@ const _renderForm = (props: MasterPaymentTypeCreateFormState): ReactElement => {
 export const MasterPaymentTypeCreateForm = (props: MasterPaymentTypeCreateFormState): ReactElement => (
   <div className="flex h-full w-full flex-col bg-background-surface pb-6 font-sans lg:bg-background-page">
     {_renderMobileBack(props.goBack)}
-    <div className="mt-2 flex min-h-0 w-full flex-1 flex-col px-6 lg:mt-0 lg:px-0">
+    <div className="mt-2 flex min-h-0 w-full flex-1 flex-col px-0 lg:mt-0 lg:px-0">
       {_renderHeader(props.isEditMode, props.goBack)}
       {props.isLoadingInitialData ? (
         <p className="py-12 text-center text-sm text-text-secondary">Loading payment type data…</p>

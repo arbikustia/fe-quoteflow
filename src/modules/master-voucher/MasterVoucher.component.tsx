@@ -2,6 +2,7 @@ import * as React from "react";
 
 import Layout from "../../app/layout";
 import { PageLayout } from "../../app/shared/PageLayout";
+import { MasterDataCard } from "../../components/MasterDataCard";
 import { Pagination } from "../../components/Pagination";
 import { SearchFilter } from "../../components/SearchFilter";
 import Table from "../../components/Table";
@@ -39,16 +40,12 @@ const _renderVoucherCard = (voucher: VoucherData, onEdit: MasterVoucherProps["on
   const handleClick = (): void => onEdit(voucher);
 
   return (
-  <div role="button" tabIndex={0} onClick={handleClick} className="flex cursor-pointer flex-col gap-4 rounded-3xl border border-border-default bg-background-surface p-5 transition-all hover:border-border-strong active:bg-background-subtle/50">
-    <div className="flex items-start justify-between gap-3">
-      <h4 className="min-w-0 truncate text-base font-semibold text-text-primary">{voucher.code}</h4>
-      <span className={`shrink-0 rounded-full px-3 py-1 text-xs font-semibold uppercase tracking-wider ${voucher.status === "active" ? "bg-green-100 text-green-700" : "bg-red-100 text-red-700"}`}>{voucher.status}</span>
-    </div>
-    <div className="grid grid-cols-2 gap-2 rounded-xl bg-background-subtle/60 p-3 text-sm">
-      <div><p className="text-xs text-text-tertiary">Discount</p><p className="font-medium text-text-primary">{voucher.discountPercent}%</p></div>
-      <div><p className="text-xs text-text-tertiary">Created</p><p className="truncate font-medium text-text-primary">{voucher.createAt || "-"}</p></div>
-    </div>
-  </div>
+    <MasterDataCard title={voucher.code} status={voucher.status} onClick={handleClick}>
+      <span className="grid gap-2 text-sm text-text-secondary">
+        <span>Discount {voucher.discountPercent}%</span>
+        <span>Created {voucher.createAt || "-"}</span>
+      </span>
+    </MasterDataCard>
   );
 };
 
@@ -92,5 +89,5 @@ const _renderDesktop = (props: MasterVoucherProps): React.ReactElement => {
 export const MasterVoucherComponent = (props: MasterVoucherProps): React.ReactElement => {
   const createButton = <button type="button" onClick={props.onCreate} className="h-14 rounded-full border-2 border-brand-blue bg-background-surface px-6 text-sm font-bold text-brand-blue transition-colors hover:bg-action-primary-subtle focus:outline-none focus:ring-2 focus:ring-focus-ring/30">Create New</button>;
 
-  return <Layout pageTitle="Voucher List" mobileWhiteBackground={true}><PageLayout title="Voucher List" breadcrumbs={["Master", "Master Voucher"]} headerRight={createButton} mobileHeaderClassName="px-6" onBack={props.onBack}><div className="relative flex h-full flex-col bg-background-surface px-6 pb-18 lg:-mt-4 lg:bg-transparent lg:px-0 lg:pb-0">{_renderMobile(props)}{_renderDesktop(props)}</div></PageLayout></Layout>;
+  return <Layout pageTitle="Voucher List" mobileWhiteBackground={true}><PageLayout title="Voucher List" breadcrumbs={["Master", "Master Voucher"]} headerRight={createButton} mobileHeaderClassName="px-0" onBack={props.onBack}><div className="relative flex h-full flex-col bg-background-surface px-0 pb-18 lg:-mt-4 lg:bg-transparent lg:px-0 lg:pb-0">{_renderMobile(props)}{_renderDesktop(props)}</div></PageLayout></Layout>;
 };

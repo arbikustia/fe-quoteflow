@@ -44,7 +44,7 @@ const _renderStatusField = (props: MasterItemCreateFormState): ReactElement | nu
  * @returns {ReactElement} Bar element
  */
 const _renderMobileBack = (goBack: () => void): ReactElement => (
-  <div className="sticky top-0 z-20 flex items-center bg-background-surface px-6 lg:hidden">
+  <div className="sticky top-0 z-20 flex items-center bg-background-surface px-0 lg:hidden">
     <button
       type="button"
       onClick={goBack}
@@ -206,7 +206,7 @@ const _renderFormActions = (isEditMode: boolean, isSubmitting: boolean): ReactEl
 export const MasterItemCreateForm = (props: MasterItemCreateFormState): ReactElement => (
   <div className="flex h-full w-full flex-col bg-background-surface pb-6 font-sans lg:bg-background-page">
     {_renderMobileBack(props.goBack)}
-    <div className="mt-2 flex min-h-0 w-full flex-1 flex-col px-6 lg:mt-0 lg:px-0">
+    <div className="mt-2 flex min-h-0 w-full flex-1 flex-col px-0 lg:mt-0 lg:px-0">
       {_renderHeaderSection(props.isEditMode, props.goBack)}
       <form onSubmit={props.handleSubmit} className="flex min-h-0 flex-1 flex-col justify-between border-0 bg-transparent p-0 shadow-none lg:rounded-4xl lg:border lg:border-border-default lg:bg-background-surface lg:p-8 lg:shadow-xs">
         <div className="space-y-4">

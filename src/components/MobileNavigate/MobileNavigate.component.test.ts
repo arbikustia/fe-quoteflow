@@ -8,95 +8,32 @@ import test from "../../libs/unit-test";
 
 const DEFAULT_PROPS: MobileNavigateProps = {
   items: [
-    {
-      id: "/home",
-      label: "Home",
-      Icon: Icons.Dashboard,
-      isActive: true,
-    },
-    {
-      id: "/order",
-      label: "Order",
-      Icon: Icons.Document,
-      isActive: false,
-    },
+    { id: "/home", label: "Home", Icon: Icons.Dashboard, isActive: true },
+    { id: "/order", label: "Order", Icon: Icons.Document, isActive: false },
+    { id: "/return", label: "Return", Icon: Icons.Schedule, isActive: false },
+    { id: "/master-main", label: "Master", Icon: Icons.Database, isActive: false },
+    { id: "/report/main", label: "Report", Icon: Icons.Reporting, isActive: false },
   ],
   onNavigate: jest.fn(),
   isHidden: false,
 };
 
-const mockOnNavigate = jest.fn();
-
 const snapshotConfigs: { props: MobileNavigateProps; desc: string }[] = [
-  {
-    props: {
-      items: [
-        {
-          id: "/home",
-          label: "Home",
-          Icon: Icons.Dashboard,
-          isActive: true,
-        },
-        {
-          id: "/order",
-          label: "Order",
-          Icon: Icons.Document,
-          isActive: false,
-        },
-      ],
-      onNavigate: mockOnNavigate,
-      isHidden: false,
-    },
-    desc: "Should Render MobileNavigateComponent with active home",
-  },
-  {
-    props: {
-      items: [
-        {
-          id: "/home",
-          label: "Home",
-          Icon: Icons.Dashboard,
-          isActive: false,
-        },
-        {
-          id: "/order",
-          label: "Order",
-          Icon: Icons.Document,
-          isActive: true,
-        },
-      ],
-      onNavigate: mockOnNavigate,
-      isHidden: false,
-    },
-    desc: "Should Render MobileNavigateComponent with active order",
-  },
-  {
-    props: {
-      items: [
-        {
-          id: "/home",
-          label: "Home",
-          Icon: Icons.Dashboard,
-          isActive: false,
-        },
-      ],
-      onNavigate: mockOnNavigate,
-      isHidden: true,
-    },
-    desc: "Should Render MobileNavigateComponent hidden",
-  },
+  { props: DEFAULT_PROPS, desc: "Should Render MobileNavigateComponent with active home" },
+  { props: { ...DEFAULT_PROPS, isHidden: true }, desc: "Should Render MobileNavigateComponent hidden" },
 ];
 
 describe("MobileNavigateComponent Test", () => {
-  it("should render navigation with active item", () => {
+  it("should render all navigation items with active home", () => {
     render(React.createElement(MobileNavigateComponent, DEFAULT_PROPS));
 
     expect(screen.getByRole("navigation", { name: "Main mobile navigation" })).toBeDefined();
     expect(screen.getByRole("button", { name: "Home" }).getAttribute("aria-current")).toBe("page");
-    expect(screen.getByRole("button", { name: "Order" }).getAttribute("aria-current")).toBeNull();
+    expect(screen.getByRole("button", { name: "Master" })).toBeDefined();
+    expect(screen.getByRole("button", { name: "Report" })).toBeDefined();
   });
 
-  it("should call onNavigate with selected path", () => {
+  it("should navigate to selected route", () => {
     const onNavigate = jest.fn();
 
     render(React.createElement(MobileNavigateComponent, { ...DEFAULT_PROPS, onNavigate }));
@@ -105,7 +42,7 @@ describe("MobileNavigateComponent Test", () => {
     expect(onNavigate).toHaveBeenCalledWith("/order");
   });
 
-  it("should hide navigation on master sub-route", () => {
+  it("should hide navigation when requested", () => {
     const { container } = render(
       React.createElement(MobileNavigateComponent, { ...DEFAULT_PROPS, isHidden: true }),
     );

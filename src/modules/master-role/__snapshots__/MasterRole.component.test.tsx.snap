@@ -1,1229 +1,178 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`MasterRoleComponent matches snapshot 1`] = `
+exports[`MasterRoleComponent should match role list snapshot 1`] = `
 <DocumentFragment>
   <div
-    class="flex h-full min-h-0 w-full bg-background-page overflow-hidden font-sans text-text-primary relative items-stretch transition-colors duration-200"
+    data-testid="layout"
   >
-    <div
-      class="hidden lg:flex h-full min-h-0 shrink-0 self-stretch"
-    >
-      <aside
-        aria-label="Sidebar"
-        class="w-[290px] h-full min-h-0 self-stretch bg-sidebar-background border border-border-default flex flex-col shrink-0 overflow-hidden transition-[width] duration-[250ms] ease-in-out"
-        style="border-radius: 0;"
+    <section>
+      <button
+        type="button"
+      >
+        Page Back
+      </button>
+      <button
+        class="h-14 rounded-full border-2 border-brand-blue bg-background-surface px-6 text-sm font-bold text-brand-blue transition-colors hover:bg-action-primary-subtle focus:outline-none focus:ring-2 focus:ring-focus-ring/30"
+        type="button"
+      >
+        Create New
+      </button>
+      <div
+        class="relative flex h-full flex-col bg-background-surface px-6 pb-18 lg:-mt-4 lg:bg-transparent lg:px-0 lg:pb-0"
       >
         <div
-          class="h-[72px] mb-16 flex items-center shrink-0 px-4"
+          class="flex min-w-0 flex-col gap-4 pb-16 pt-2 lg:hidden"
         >
-          <img
-            alt="Sonicline"
-            class="h-12 w-auto object-contain"
-            src="/src/assets/Sonicline-dark.png"
+          <label
+            class="relative block w-full sm:w-72 w-full sm:w-full"
+          >
+            <span
+              class="sr-only"
+            >
+              Search role
+            </span>
+            <svg
+              aria-hidden="true"
+              class="pointer-events-none absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-text-tertiary"
+              fill="none"
+              height="1em"
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              viewBox="0 0 24 24"
+              width="1em"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <circle
+                cx="11"
+                cy="11"
+                r="8"
+              />
+              <line
+                x1="21"
+                x2="16.65"
+                y1="21"
+                y2="16.65"
+              />
+            </svg>
+            <input
+              aria-label="Search role"
+              class="h-14 w-full rounded-full border border-border-default bg-background-surface pl-12 pr-4 text-base font-medium text-text-primary outline-none transition-colors placeholder:font-normal placeholder:text-text-tertiary hover:border-border-strong focus:border-border-focus focus:ring-2 focus:ring-focus-ring/30"
+              placeholder="Search role"
+              type="search"
+            />
+          </label>
+          <div
+            class="min-w-0 space-y-3"
+          >
+            <div
+              class="flex cursor-pointer flex-col gap-4 rounded-3xl border border-border-default bg-background-surface p-5 transition-all hover:border-border-strong active:bg-background-subtle/50"
+              role="button"
+              tabindex="0"
+            >
+              <div
+                class="flex items-start justify-between gap-3"
+              >
+                <h4
+                  class="min-w-0 truncate text-base font-semibold text-text-primary"
+                >
+                  Admin
+                </h4>
+                <span
+                  class="shrink-0 rounded-full px-3 py-1 text-xs font-semibold uppercase tracking-wider bg-green-100 text-green-700"
+                >
+                  active
+                </span>
+              </div>
+              <div
+                class="rounded-xl bg-background-subtle/60 p-3 text-sm"
+              >
+                <p
+                  class="text-xs text-text-tertiary"
+                >
+                  Created
+                </p>
+                <p
+                  class="font-medium text-text-primary"
+                >
+                  2024-01-01
+                </p>
+              </div>
+            </div>
+          </div>
+          <div
+            data-testid="pagination"
           />
         </div>
         <div
-          class="flex-1 overflow-y-auto overflow-x-hidden px-4 space-y-5 scrollbar-thin"
+          class="hidden rounded-4xl border border-brand-gray-light bg-brand-white px-6 shadow-xs lg:flex md:mt-6 md:flex-1 md:flex-col md:overflow-hidden"
         >
-          <div>
-            <p
-              class="px-2 mb-2 text-[15px] font-semibold tracking-widest uppercase text-text-tertiary"
-            >
-              Menu
-            </p>
-            <nav
-              aria-label="Menu"
-              class="space-y-1"
-            >
-              <a
-                class="h-9 flex items-center gap-3 rounded-[6px] px-3 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring/30 text-text-secondary hover:bg-background-elevated hover:text-text-primary"
-                data-discover="true"
-                href="/order"
-              >
-                <span
-                  class="shrink-0 [&_svg]:h-5 [&_svg]:w-5 text-text-tertiary"
-                >
-                  <svg
-                    fill="none"
-                    height="20"
-                    stroke="currentColor"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="1.8"
-                    viewBox="0 0 24 24"
-                    width="20"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"
-                    />
-                    <polyline
-                      points="14 2 14 8 20 8"
-                    />
-                    <line
-                      x1="16"
-                      x2="8"
-                      y1="13"
-                      y2="13"
-                    />
-                    <line
-                      x1="16"
-                      x2="8"
-                      y1="17"
-                      y2="17"
-                    />
-                  </svg>
-                </span>
-                <span
-                  class="flex-1 truncate text-lg leading-none font-normal"
-                >
-                  Order
-                </span>
-              </a>
-              <div>
-                <button
-                  aria-expanded="false"
-                  class="w-full min-h-14 py-3 flex items-center gap-3 rounded-[8px] px-4 text-left transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring/30 text-text-secondary hover:bg-background-elevated hover:text-text-primary"
-                  type="button"
-                >
-                  <span
-                    class="shrink-0 [&_svg]:h-5 [&_svg]:w-5 text-text-tertiary"
-                  >
-                    <svg
-                      fill="none"
-                      height="20"
-                      stroke="currentColor"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="1.8"
-                      viewBox="0 0 24 24"
-                      width="20"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <ellipse
-                        cx="12"
-                        cy="5"
-                        rx="9"
-                        ry="3"
-                      />
-                      <path
-                        d="M3 5V19A9 3 0 0 0 21 19V5"
-                      />
-                      <path
-                        d="M3 12A9 3 0 0 0 21 12"
-                      />
-                    </svg>
-                  </span>
-                  <span
-                    class="flex-1 truncate text-xl leading-none font-normal"
-                  >
-                    Master Data
-                  </span>
-                  <span
-                    class="shrink-0 text-text-tertiary transition-transform duration-200 "
-                  >
-                    <svg
-                      fill="none"
-                      height="14"
-                      stroke="currentColor"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      viewBox="0 0 24 24"
-                      width="14"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="m6 9 6 6 6-6"
-                      />
-                    </svg>
-                  </span>
-                </button>
-              </div>
-            </nav>
-          </div>
-        </div>
-        <div
-          class="shrink-0 border-t border-border-default p-3"
-        >
-          <button
-            aria-checked="false"
-            aria-label="Toggle dark theme"
-            class="mb-2 flex h-9 w-full items-center rounded-[8px] bg-background-subtle text-text-secondary transition-colors hover:bg-action-primary-subtle focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring gap-3 px-3"
-            role="switch"
-            type="button"
+          <div
+            class="flex items-center justify-between gap-4 py-6"
           >
-            <span
-              aria-hidden="true"
-              class="shrink-0"
-            >
-              <svg
-                fill="none"
-                height="20"
-                stroke="currentColor"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="1.8"
-                viewBox="0 0 24 24"
-                width="20"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"
-                />
-              </svg>
-            </span>
-            <span
-              class="flex-1 text-left text-[13px] font-medium"
-            >
-              Dark theme
-            </span>
-          </button>
-          <button
-            aria-expanded="false"
-            aria-haspopup="menu"
-            class="w-full flex items-center rounded-[10px] transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring/30 hover:bg-background-elevated gap-3 p-2"
-            type="button"
-          >
-            <span
-              aria-hidden="true"
-              class="w-8 h-8 rounded-full bg-action-primary-subtle text-action-primary flex items-center justify-center text-[12px] font-semibold shrink-0"
-            >
-              DR
-            </span>
-            <span
-              class="flex-1 min-w-0 text-left"
+            <label
+              class="relative block w-full sm:w-72 "
             >
               <span
-                class="block truncate text-[13px] font-semibold leading-4 text-text-primary"
+                class="sr-only"
               >
-                Dianne Russell
+                Search role
               </span>
-              <span
-                class="block truncate text-[11px] leading-4 text-text-tertiary"
-              >
-                dianne.russell@gmail.com
-              </span>
-            </span>
-            <span
-              class="shrink-0 text-text-tertiary transition-transform duration-200 "
-            >
               <svg
+                aria-hidden="true"
+                class="pointer-events-none absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-text-tertiary"
                 fill="none"
-                height="14"
+                height="1em"
                 stroke="currentColor"
                 stroke-linecap="round"
                 stroke-linejoin="round"
                 stroke-width="2"
                 viewBox="0 0 24 24"
-                width="14"
+                width="1em"
                 xmlns="http://www.w3.org/2000/svg"
               >
-                <path
-                  d="m6 9 6 6 6-6"
+                <circle
+                  cx="11"
+                  cy="11"
+                  r="8"
+                />
+                <line
+                  x1="21"
+                  x2="16.65"
+                  y1="21"
+                  y2="16.65"
                 />
               </svg>
-            </span>
-          </button>
-        </div>
-      </aside>
-    </div>
-    <div
-      class="flex-1 flex flex-col min-w-0 min-h-0 overflow-hidden relative bg-background-page transition-colors duration-200 bg-background-surface lg:bg-background-page"
-    >
-      <div
-        class="lg:hidden flex items-center gap-3 p-4 border-b border-border-default bg-background-surface shrink-0"
-      >
-        <div
-          class="w-8 h-8 rounded-full bg-action-primary flex items-center justify-center"
-        >
-          <span
-            class="text-text-inverse font-bold"
-          >
-            Q
-          </span>
-        </div>
-        <span
-          class="font-bold text-text-primary"
-        >
-          QuoteFlow
-        </span>
-      </div>
-      <div
-        class="hidden lg:block shrink-0"
-      >
-        <header
-          class="h-20 flex items-center justify-between px-8 bg-background-surface border-b border-brand-gray-light sticky top-0 z-10 transition-all"
-        >
-          <div
-            class="flex items-center gap-4 flex-1"
-          >
+              <input
+                aria-label="Search role"
+                class="h-14 w-full rounded-xl border border-border-default bg-background-surface pl-12 pr-4 text-base font-medium text-text-primary outline-none transition-colors placeholder:font-normal placeholder:text-text-tertiary hover:border-border-strong focus:border-border-focus focus:ring-2 focus:ring-focus-ring/30"
+                placeholder="Search role"
+                type="search"
+              />
+            </label>
             <button
-              aria-expanded="true"
-              aria-label="Close sidebar"
-              class="flex h-10 w-10 items-center justify-center rounded-[8px] border border-border-default bg-background-surface text-text-secondary hover:bg-background-subtle hover:text-text-primary transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring/30"
+              class="h-14 rounded-xl bg-brand-blue px-6 text-sm font-semibold text-brand-white"
               type="button"
             >
-              <svg
-                fill="none"
-                height="20"
-                stroke="currentColor"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="1.8"
-                viewBox="0 0 24 24"
-                width="20"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <rect
-                  height="18"
-                  rx="3"
-                  width="18"
-                  x="3"
-                  y="3"
-                />
-                <path
-                  d="M9 3v18"
-                />
-              </svg>
+              Create Role
             </button>
-            <div
-              class="relative group hidden md:block max-w-lg flex-1"
-            >
-              <div
-                class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-brand-text-medium"
-              >
-                <svg
-                  fill="none"
-                  height="18"
-                  stroke="currentColor"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="1.8"
-                  viewBox="0 0 24 24"
-                  width="18"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <circle
-                    cx="11"
-                    cy="11"
-                    r="8"
-                  />
-                  <path
-                    d="m21 21-4.3-4.3"
-                  />
-                </svg>
-              </div>
-              <input
-                class="w-full pl-10 pr-12 py-2.5 bg-brand-white border border-brand-gray-light rounded-lg text-sm font-medium focus:outline-none focus:ring-1 focus:ring-brand-blue focus:border-brand-blue transition-all placeholder:text-brand-text-medium text-brand-text-dark"
-                placeholder="Search anything"
-                type="text"
-              />
-              <div
-                class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none"
-              >
-                <span
-                  class="text-[10px] font-medium text-brand-text-medium bg-brand-gray-light px-1.5 py-0.5 rounded border border-brand-gray-light"
-                >
-                  ⌘K
-                </span>
-              </div>
-            </div>
           </div>
-          <time
-            class="text-lg tracking-wide font-semibold text-text-primary tabular-nums sm:text-3xl"
-            data-testid="navbar-realtime-clock"
+          <div
+            class="flex-1 overflow-auto"
           >
-            17-10-2026 21:47:15
-          </time>
-        </header>
-      </div>
-      <main
-        class="flex-1 overflow-y-auto p-4 lg:p-8 pb-20 lg:pb-8 relative z-0"
-      >
-        <div
-          class="flex min-h-full flex-col"
-        >
-          <header
-            class="mb-6 shrink-0"
-          >
-            <div
-              class="hidden items-start justify-between gap-4 lg:flex"
+            <button
+              type="button"
             >
-              <div
-                class="min-w-0"
-              >
-                <nav
-                  aria-label="Breadcrumb"
-                  class="mb-2 flex flex-wrap items-center gap-2 text-[15px] font-medium text-text-secondary"
-                >
-                  <button
-                    class="cursor-pointer hover:text-text-primary"
-                    type="button"
-                  >
-                    Master
-                  </button>
-                  <span
-                    aria-hidden="true"
-                  >
-                    /
-                  </span>
-                  <span>
-                    Master Role
-                  </span>
-                </nav>
-                <h1
-                  class="truncate text-4xl font-semibold leading-tight tracking-tight text-text-primary"
-                >
-                  Role List
-                </h1>
-              </div>
-            </div>
-            <div
-              class="flex items-center justify-between gap-3 lg:hidden px-6"
-            >
-              <div
-                class="flex items-center gap-3 min-w-0 flex-1"
-              >
-                <button
-                  aria-label="Back"
-                  class="flex h-14 w-14 shrink-0 items-center justify-center rounded-full border border-border-default text-text-primary bg-white hover:bg-background-subtle transition-colors"
-                  type="button"
-                >
-                  <svg
-                    aria-hidden="true"
-                    class="w-6 h-6"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2.5"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      d="M19 12H5M12 19l-7-7 7-7"
-                    />
-                  </svg>
-                </button>
-                <h1
-                  class="min-w-0 truncate text-left text-3xl font-semibold tracking-tight text-text-primary"
-                >
-                  Role List
-                </h1>
-              </div>
-              <div
-                class="shrink-0"
-              >
-                <button
-                  class="h-14 rounded-full border-2 border-brand-blue bg-background-surface px-6 text-sm font-bold text-brand-blue transition-colors hover:bg-action-primary-subtle focus:outline-none focus:ring-2 focus:ring-focus-ring/30"
-                  type="button"
-                >
-                  Create New
-                </button>
-              </div>
-            </div>
-          </header>
-          <main
-            class="min-w-0 flex-1"
-          >
-            <div
-              class="relative flex h-full flex-col bg-background-surface px-6 pb-18 lg:-mt-4 lg:bg-transparent lg:px-0 lg:pb-0"
-            >
-              <div
-                class="flex min-w-0 flex-col gap-4 pt-2 pb-16 lg:hidden"
-              >
-                <label
-                  class="relative block w-full sm:w-72 w-full sm:w-full"
-                >
-                  <span
-                    class="sr-only"
-                  >
-                    Search role
-                  </span>
-                  <svg
-                    aria-hidden="true"
-                    class="pointer-events-none absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-text-tertiary"
-                    fill="none"
-                    height="1em"
-                    stroke="currentColor"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    viewBox="0 0 24 24"
-                    width="1em"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <circle
-                      cx="11"
-                      cy="11"
-                      r="8"
-                    />
-                    <line
-                      x1="21"
-                      x2="16.65"
-                      y1="21"
-                      y2="16.65"
-                    />
-                  </svg>
-                  <input
-                    aria-label="Search role"
-                    class="h-14 w-full rounded-full border border-border-default bg-background-surface pl-12 pr-4 text-base font-medium text-text-primary outline-none transition-colors placeholder:font-normal placeholder:text-text-tertiary hover:border-border-strong focus:border-border-focus focus:ring-2 focus:ring-focus-ring/30"
-                    placeholder="Search role"
-                    type="search"
-                  />
-                </label>
-                <div
-                  class="min-w-0 space-y-3"
-                >
-                  <div
-                    class="flex cursor-pointer flex-col gap-4 rounded-3xl border border-border-default bg-background-surface p-5 transition-all hover:border-border-strong active:bg-background-subtle/50"
-                    role="button"
-                    tabindex="0"
-                  >
-                    <div
-                      class="flex items-start justify-between gap-3"
-                    >
-                      <h4
-                        class="min-w-0 truncate text-base font-semibold text-text-primary"
-                      >
-                        Admin
-                      </h4>
-                      <span
-                        class="shrink-0 rounded-full px-3 py-1 text-xs font-semibold uppercase tracking-wider bg-green-100 text-green-700"
-                      >
-                        active
-                      </span>
-                    </div>
-                    <div
-                      class="rounded-xl bg-background-subtle/60 p-3 text-sm"
-                    >
-                      <p
-                        class="text-xs text-text-tertiary"
-                      >
-                        Created
-                      </p>
-                      <p
-                        class="font-medium text-text-primary"
-                      >
-                        2024-01-01
-                      </p>
-                    </div>
-                  </div>
-                </div>
-                <div
-                  data-testid="pagination"
-                />
-              </div>
-              <div
-                class="hidden lg:flex rounded-4xl border border-brand-gray-light bg-brand-white px-6 shadow-xs md:flex-1 md:flex-col md:overflow-hidden md:mt-6"
-              >
-                <div
-                  class="flex items-center justify-between gap-4 py-6"
-                >
-                  <label
-                    class="relative block w-full sm:w-72 "
-                  >
-                    <span
-                      class="sr-only"
-                    >
-                      Search role
-                    </span>
-                    <svg
-                      aria-hidden="true"
-                      class="pointer-events-none absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-text-tertiary"
-                      fill="none"
-                      height="1em"
-                      stroke="currentColor"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      viewBox="0 0 24 24"
-                      width="1em"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <circle
-                        cx="11"
-                        cy="11"
-                        r="8"
-                      />
-                      <line
-                        x1="21"
-                        x2="16.65"
-                        y1="21"
-                        y2="16.65"
-                      />
-                    </svg>
-                    <input
-                      aria-label="Search role"
-                      class="h-14 w-full rounded-xl border border-border-default bg-background-surface pl-12 pr-4 text-base font-medium text-text-primary outline-none transition-colors placeholder:font-normal placeholder:text-text-tertiary hover:border-border-strong focus:border-border-focus focus:ring-2 focus:ring-focus-ring/30"
-                      placeholder="Search role"
-                      type="search"
-                    />
-                  </label>
-                  <button
-                    class="rounded-xl bg-brand-blue h-14 px-6 text-sm font-semibold text-brand-white"
-                    type="button"
-                  >
-                    Create Role
-                  </button>
-                </div>
-                <div
-                  class="flex-1 overflow-auto"
-                >
-                  <div
-                    class="flex flex-col bg-transparent overflow-hidden"
-                  >
-                    <div
-                      class="hidden md:flex flex-1 overflow-auto"
-                    >
-                      <div
-                        class="w-full overflow-x-auto"
-                      >
-                        <table
-                          class="w-full min-w-max border-separate border-spacing-0 whitespace-nowrap"
-                        >
-                          <thead>
-                            <tr>
-                              <th
-                                class="bg-table-header px-5 py-4 text-[13px] font-bold text-text-secondary uppercase tracking-widest rounded-l-xl rounded-r-xl text-left "
-                              >
-                                Role Name
-                              </th>
-                            </tr>
-                          </thead>
-                          <tbody
-                            class="divide-y divide-border-default"
-                          >
-                            <tr
-                              class="hover:bg-background-subtle/50 transition-colors "
-                            >
-                              <td
-                                class="px-5 py-4 border-b border-border-default text-base text-left "
-                              >
-                                Admin
-                              </td>
-                            </tr>
-                          </tbody>
-                        </table>
-                      </div>
-                    </div>
-                    <div
-                      class="md:hidden bg-background-surface rounded-xl border border-border-default shadow-sm overflow-hidden"
-                    >
-                      <div
-                        class="bg-background-surface overflow-hidden divide-y divide-border-default"
-                      >
-                        <div
-                          class="flex flex-col gap-3 px-4 py-4 bg-transparent transition-colors "
-                        />
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div
-                  data-testid="pagination"
-                />
-              </div>
-            </div>
-          </main>
-        </div>
-      </main>
-    </div>
-  </div>
-</DocumentFragment>
-`;
-
-exports[`MasterRoleComponent matches snapshot with empty data and closed menu 1`] = `
-<DocumentFragment>
-  <div
-    class="flex h-full min-h-0 w-full bg-background-page overflow-hidden font-sans text-text-primary relative items-stretch transition-colors duration-200"
-  >
-    <div
-      class="hidden lg:flex h-full min-h-0 shrink-0 self-stretch"
-    >
-      <aside
-        aria-label="Sidebar"
-        class="w-[290px] h-full min-h-0 self-stretch bg-sidebar-background border border-border-default flex flex-col shrink-0 overflow-hidden transition-[width] duration-[250ms] ease-in-out"
-        style="border-radius: 0;"
-      >
-        <div
-          class="h-[72px] mb-16 flex items-center shrink-0 px-4"
-        >
-          <img
-            alt="Sonicline"
-            class="h-12 w-auto object-contain"
-            src="/src/assets/Sonicline-dark.png"
+              Desktop role row
+            </button>
+          </div>
+          <div
+            data-testid="pagination"
           />
         </div>
-        <div
-          class="flex-1 overflow-y-auto overflow-x-hidden px-4 space-y-5 scrollbar-thin"
-        >
-          <div>
-            <p
-              class="px-2 mb-2 text-[15px] font-semibold tracking-widest uppercase text-text-tertiary"
-            >
-              Menu
-            </p>
-            <nav
-              aria-label="Menu"
-              class="space-y-1"
-            >
-              <a
-                class="h-9 flex items-center gap-3 rounded-[6px] px-3 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring/30 text-text-secondary hover:bg-background-elevated hover:text-text-primary"
-                data-discover="true"
-                href="/order"
-              >
-                <span
-                  class="shrink-0 [&_svg]:h-5 [&_svg]:w-5 text-text-tertiary"
-                >
-                  <svg
-                    fill="none"
-                    height="20"
-                    stroke="currentColor"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="1.8"
-                    viewBox="0 0 24 24"
-                    width="20"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"
-                    />
-                    <polyline
-                      points="14 2 14 8 20 8"
-                    />
-                    <line
-                      x1="16"
-                      x2="8"
-                      y1="13"
-                      y2="13"
-                    />
-                    <line
-                      x1="16"
-                      x2="8"
-                      y1="17"
-                      y2="17"
-                    />
-                  </svg>
-                </span>
-                <span
-                  class="flex-1 truncate text-lg leading-none font-normal"
-                >
-                  Order
-                </span>
-              </a>
-              <div>
-                <button
-                  aria-expanded="false"
-                  class="w-full min-h-14 py-3 flex items-center gap-3 rounded-[8px] px-4 text-left transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring/30 text-text-secondary hover:bg-background-elevated hover:text-text-primary"
-                  type="button"
-                >
-                  <span
-                    class="shrink-0 [&_svg]:h-5 [&_svg]:w-5 text-text-tertiary"
-                  >
-                    <svg
-                      fill="none"
-                      height="20"
-                      stroke="currentColor"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="1.8"
-                      viewBox="0 0 24 24"
-                      width="20"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <ellipse
-                        cx="12"
-                        cy="5"
-                        rx="9"
-                        ry="3"
-                      />
-                      <path
-                        d="M3 5V19A9 3 0 0 0 21 19V5"
-                      />
-                      <path
-                        d="M3 12A9 3 0 0 0 21 12"
-                      />
-                    </svg>
-                  </span>
-                  <span
-                    class="flex-1 truncate text-xl leading-none font-normal"
-                  >
-                    Master Data
-                  </span>
-                  <span
-                    class="shrink-0 text-text-tertiary transition-transform duration-200 "
-                  >
-                    <svg
-                      fill="none"
-                      height="14"
-                      stroke="currentColor"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      viewBox="0 0 24 24"
-                      width="14"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="m6 9 6 6 6-6"
-                      />
-                    </svg>
-                  </span>
-                </button>
-              </div>
-            </nav>
-          </div>
-        </div>
-        <div
-          class="shrink-0 border-t border-border-default p-3"
-        >
-          <button
-            aria-checked="false"
-            aria-label="Toggle dark theme"
-            class="mb-2 flex h-9 w-full items-center rounded-[8px] bg-background-subtle text-text-secondary transition-colors hover:bg-action-primary-subtle focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring gap-3 px-3"
-            role="switch"
-            type="button"
-          >
-            <span
-              aria-hidden="true"
-              class="shrink-0"
-            >
-              <svg
-                fill="none"
-                height="20"
-                stroke="currentColor"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="1.8"
-                viewBox="0 0 24 24"
-                width="20"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"
-                />
-              </svg>
-            </span>
-            <span
-              class="flex-1 text-left text-[13px] font-medium"
-            >
-              Dark theme
-            </span>
-          </button>
-          <button
-            aria-expanded="false"
-            aria-haspopup="menu"
-            class="w-full flex items-center rounded-[10px] transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring/30 hover:bg-background-elevated gap-3 p-2"
-            type="button"
-          >
-            <span
-              aria-hidden="true"
-              class="w-8 h-8 rounded-full bg-action-primary-subtle text-action-primary flex items-center justify-center text-[12px] font-semibold shrink-0"
-            >
-              DR
-            </span>
-            <span
-              class="flex-1 min-w-0 text-left"
-            >
-              <span
-                class="block truncate text-[13px] font-semibold leading-4 text-text-primary"
-              >
-                Dianne Russell
-              </span>
-              <span
-                class="block truncate text-[11px] leading-4 text-text-tertiary"
-              >
-                dianne.russell@gmail.com
-              </span>
-            </span>
-            <span
-              class="shrink-0 text-text-tertiary transition-transform duration-200 "
-            >
-              <svg
-                fill="none"
-                height="14"
-                stroke="currentColor"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                viewBox="0 0 24 24"
-                width="14"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="m6 9 6 6 6-6"
-                />
-              </svg>
-            </span>
-          </button>
-        </div>
-      </aside>
-    </div>
-    <div
-      class="flex-1 flex flex-col min-w-0 min-h-0 overflow-hidden relative bg-background-page transition-colors duration-200 bg-background-surface lg:bg-background-page"
-    >
-      <div
-        class="lg:hidden flex items-center gap-3 p-4 border-b border-border-default bg-background-surface shrink-0"
-      >
-        <div
-          class="w-8 h-8 rounded-full bg-action-primary flex items-center justify-center"
-        >
-          <span
-            class="text-text-inverse font-bold"
-          >
-            Q
-          </span>
-        </div>
-        <span
-          class="font-bold text-text-primary"
-        >
-          QuoteFlow
-        </span>
       </div>
-      <div
-        class="hidden lg:block shrink-0"
-      >
-        <header
-          class="h-20 flex items-center justify-between px-8 bg-background-surface border-b border-brand-gray-light sticky top-0 z-10 transition-all"
-        >
-          <div
-            class="flex items-center gap-4 flex-1"
-          >
-            <button
-              aria-expanded="true"
-              aria-label="Close sidebar"
-              class="flex h-10 w-10 items-center justify-center rounded-[8px] border border-border-default bg-background-surface text-text-secondary hover:bg-background-subtle hover:text-text-primary transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring/30"
-              type="button"
-            >
-              <svg
-                fill="none"
-                height="20"
-                stroke="currentColor"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="1.8"
-                viewBox="0 0 24 24"
-                width="20"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <rect
-                  height="18"
-                  rx="3"
-                  width="18"
-                  x="3"
-                  y="3"
-                />
-                <path
-                  d="M9 3v18"
-                />
-              </svg>
-            </button>
-            <div
-              class="relative group hidden md:block max-w-lg flex-1"
-            >
-              <div
-                class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-brand-text-medium"
-              >
-                <svg
-                  fill="none"
-                  height="18"
-                  stroke="currentColor"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="1.8"
-                  viewBox="0 0 24 24"
-                  width="18"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <circle
-                    cx="11"
-                    cy="11"
-                    r="8"
-                  />
-                  <path
-                    d="m21 21-4.3-4.3"
-                  />
-                </svg>
-              </div>
-              <input
-                class="w-full pl-10 pr-12 py-2.5 bg-brand-white border border-brand-gray-light rounded-lg text-sm font-medium focus:outline-none focus:ring-1 focus:ring-brand-blue focus:border-brand-blue transition-all placeholder:text-brand-text-medium text-brand-text-dark"
-                placeholder="Search anything"
-                type="text"
-              />
-              <div
-                class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none"
-              >
-                <span
-                  class="text-[10px] font-medium text-brand-text-medium bg-brand-gray-light px-1.5 py-0.5 rounded border border-brand-gray-light"
-                >
-                  ⌘K
-                </span>
-              </div>
-            </div>
-          </div>
-          <time
-            class="text-lg tracking-wide font-semibold text-text-primary tabular-nums sm:text-3xl"
-            data-testid="navbar-realtime-clock"
-          >
-            17-10-2026 21:47:15
-          </time>
-        </header>
-      </div>
-      <main
-        class="flex-1 overflow-y-auto p-4 lg:p-8 pb-20 lg:pb-8 relative z-0"
-      >
-        <div
-          class="flex min-h-full flex-col"
-        >
-          <header
-            class="mb-6 shrink-0"
-          >
-            <div
-              class="hidden items-start justify-between gap-4 lg:flex"
-            >
-              <div
-                class="min-w-0"
-              >
-                <nav
-                  aria-label="Breadcrumb"
-                  class="mb-2 flex flex-wrap items-center gap-2 text-[15px] font-medium text-text-secondary"
-                >
-                  <button
-                    class="cursor-pointer hover:text-text-primary"
-                    type="button"
-                  >
-                    Master
-                  </button>
-                  <span
-                    aria-hidden="true"
-                  >
-                    /
-                  </span>
-                  <span>
-                    Master Role
-                  </span>
-                </nav>
-                <h1
-                  class="truncate text-4xl font-semibold leading-tight tracking-tight text-text-primary"
-                >
-                  Role List
-                </h1>
-              </div>
-            </div>
-            <div
-              class="flex items-center justify-between gap-3 lg:hidden px-6"
-            >
-              <div
-                class="flex items-center gap-3 min-w-0 flex-1"
-              >
-                <button
-                  aria-label="Back"
-                  class="flex h-14 w-14 shrink-0 items-center justify-center rounded-full border border-border-default text-text-primary bg-white hover:bg-background-subtle transition-colors"
-                  type="button"
-                >
-                  <svg
-                    aria-hidden="true"
-                    class="w-6 h-6"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2.5"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      d="M19 12H5M12 19l-7-7 7-7"
-                    />
-                  </svg>
-                </button>
-                <h1
-                  class="min-w-0 truncate text-left text-3xl font-semibold tracking-tight text-text-primary"
-                >
-                  Role List
-                </h1>
-              </div>
-              <div
-                class="shrink-0"
-              >
-                <button
-                  class="h-14 rounded-full border-2 border-brand-blue bg-background-surface px-6 text-sm font-bold text-brand-blue transition-colors hover:bg-action-primary-subtle focus:outline-none focus:ring-2 focus:ring-focus-ring/30"
-                  type="button"
-                >
-                  Create New
-                </button>
-              </div>
-            </div>
-          </header>
-          <main
-            class="min-w-0 flex-1"
-          >
-            <div
-              class="relative flex h-full flex-col bg-background-surface px-6 pb-18 lg:-mt-4 lg:bg-transparent lg:px-0 lg:pb-0"
-            >
-              <div
-                class="flex min-w-0 flex-col gap-4 pt-2 pb-16 lg:hidden"
-              >
-                <label
-                  class="relative block w-full sm:w-72 w-full sm:w-full"
-                >
-                  <span
-                    class="sr-only"
-                  >
-                    Search role
-                  </span>
-                  <svg
-                    aria-hidden="true"
-                    class="pointer-events-none absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-text-tertiary"
-                    fill="none"
-                    height="1em"
-                    stroke="currentColor"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    viewBox="0 0 24 24"
-                    width="1em"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <circle
-                      cx="11"
-                      cy="11"
-                      r="8"
-                    />
-                    <line
-                      x1="21"
-                      x2="16.65"
-                      y1="21"
-                      y2="16.65"
-                    />
-                  </svg>
-                  <input
-                    aria-label="Search role"
-                    class="h-14 w-full rounded-full border border-border-default bg-background-surface pl-12 pr-4 text-base font-medium text-text-primary outline-none transition-colors placeholder:font-normal placeholder:text-text-tertiary hover:border-border-strong focus:border-border-focus focus:ring-2 focus:ring-focus-ring/30"
-                    placeholder="Search role"
-                    type="search"
-                  />
-                </label>
-                <div
-                  class="min-w-0 space-y-3"
-                />
-                <div
-                  data-testid="pagination"
-                />
-              </div>
-              <div
-                class="hidden lg:flex rounded-4xl border border-brand-gray-light bg-brand-white px-6 shadow-xs md:flex-1 md:flex-col md:overflow-hidden md:mt-6"
-              >
-                <div
-                  class="flex items-center justify-between gap-4 py-6"
-                >
-                  <label
-                    class="relative block w-full sm:w-72 "
-                  >
-                    <span
-                      class="sr-only"
-                    >
-                      Search role
-                    </span>
-                    <svg
-                      aria-hidden="true"
-                      class="pointer-events-none absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-text-tertiary"
-                      fill="none"
-                      height="1em"
-                      stroke="currentColor"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      viewBox="0 0 24 24"
-                      width="1em"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <circle
-                        cx="11"
-                        cy="11"
-                        r="8"
-                      />
-                      <line
-                        x1="21"
-                        x2="16.65"
-                        y1="21"
-                        y2="16.65"
-                      />
-                    </svg>
-                    <input
-                      aria-label="Search role"
-                      class="h-14 w-full rounded-xl border border-border-default bg-background-surface pl-12 pr-4 text-base font-medium text-text-primary outline-none transition-colors placeholder:font-normal placeholder:text-text-tertiary hover:border-border-strong focus:border-border-focus focus:ring-2 focus:ring-focus-ring/30"
-                      placeholder="Search role"
-                      type="search"
-                    />
-                  </label>
-                  <button
-                    class="rounded-xl bg-brand-blue h-14 px-6 text-sm font-semibold text-brand-white"
-                    type="button"
-                  >
-                    Create Role
-                  </button>
-                </div>
-                <div
-                  class="flex-1 overflow-auto"
-                >
-                  <div
-                    class="flex flex-col bg-transparent overflow-hidden"
-                  >
-                    <div
-                      class="hidden md:flex flex-1 overflow-auto"
-                    >
-                      <div
-                        class="w-full overflow-x-auto"
-                      >
-                        <table
-                          class="w-full min-w-max border-separate border-spacing-0 whitespace-nowrap"
-                        >
-                          <thead>
-                            <tr>
-                              <th
-                                class="bg-table-header px-5 py-4 text-[13px] font-bold text-text-secondary uppercase tracking-widest rounded-l-xl rounded-r-xl text-left "
-                              >
-                                Role Name
-                              </th>
-                            </tr>
-                          </thead>
-                          <tbody
-                            class="divide-y divide-border-default"
-                          >
-                            <tr>
-                              <td
-                                class="px-4 py-8 text-center text-text-tertiary font-medium"
-                                colspan="1"
-                              >
-                                No data available
-                              </td>
-                            </tr>
-                          </tbody>
-                        </table>
-                      </div>
-                    </div>
-                    <div
-                      class="md:hidden bg-background-surface rounded-xl border border-border-default shadow-sm overflow-hidden"
-                    >
-                      <div
-                        class="py-12 text-center text-base text-text-tertiary font-medium"
-                      >
-                        No data available
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div
-                  data-testid="pagination"
-                />
-              </div>
-            </div>
-          </main>
-        </div>
-      </main>
-    </div>
+    </section>
   </div>
 </DocumentFragment>
 `;

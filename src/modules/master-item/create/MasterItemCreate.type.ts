@@ -26,6 +26,14 @@ export type ItemFormFieldsState = {
 
 export type ImageUploadMutation = (file: FormData) => { unwrap: () => Promise<ImageUploadResponse> };
 
+export type ItemTextFieldsState = Omit<ItemFormFieldsState,
+  "image" | "isImageUploading" | "imageUploadError" | "handleImageChange"
+>;
+
+export type ItemImageFieldState = Pick<ItemFormFieldsState,
+  "image" | "isImageUploading" | "imageUploadError" | "handleImageChange"
+>;
+
 export type ItemSubmissionParams = {
   id: string | undefined;
   isEditMode: boolean;

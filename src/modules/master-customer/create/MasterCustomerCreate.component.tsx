@@ -91,7 +91,7 @@ const _renderAddressField = (props: MasterCustomerCreateFormState): ReactElement
  * @returns {ReactElement} Bar element
  */
 const _renderMobileBack = (goBack: () => void): ReactElement => (
-  <div className="sticky top-0 z-20 flex items-center bg-background-surface px-6 lg:hidden">
+  <div className="sticky top-0 z-20 flex items-center bg-background-surface px-0 lg:hidden">
     <button
       type="button"
       onClick={goBack}
@@ -165,7 +165,7 @@ export const MasterCustomerCreateForm = (props: MasterCustomerCreateFormState): 
   return (
     <div className="flex h-full w-full flex-col bg-background-surface font-sans pb-6 lg:bg-background-page">
       {_renderMobileBack(goBack)}
-      <div className="mt-2 flex min-h-0 w-full flex-1 flex-col px-6 lg:mt-0 lg:px-0">
+      <div className="mt-2 flex min-h-0 w-full flex-1 flex-col px-0 lg:mt-0 lg:px-0">
         {_renderHeaderSection(isEditMode, goBack)}
         {isLoadingInitialData ? (
           <p className="py-12 text-center text-sm text-text-secondary">Loading customer data…</p>

@@ -2,6 +2,7 @@ import * as React from "react";
 
 import Layout from "../../app/layout";
 import { PageLayout } from "../../app/shared/PageLayout";
+import { MasterDataCard } from "../../components/MasterDataCard";
 import { Pagination } from "../../components/Pagination";
 import { SearchFilter } from "../../components/SearchFilter";
 import Table from "../../components/Table";
@@ -17,8 +18,11 @@ const _renderListState = (props: MasterServiceTypeProps): React.ReactElement | n
   const { isLoading, isMissingData, errorMessage, isEmpty } = props;
 
   if (isLoading) return <p className="py-10 text-center text-sm text-brand-text-medium">Loading service types…</p>;
+
   if (isMissingData) return <p className="py-10 text-center text-sm text-red-600">Service type data is unavailable. Please try again.</p>;
+
   if (errorMessage) return <p className="py-10 text-center text-sm text-red-600">{errorMessage}</p>;
+
   if (isEmpty) return <p className="py-10 text-center text-sm text-brand-text-medium">No service types found.</p>;
 
   return null;
@@ -31,33 +35,19 @@ const _renderListState = (props: MasterServiceTypeProps): React.ReactElement | n
  * @returns {React.ReactElement} Card element
  */
 const _renderServiceTypeCard = (serviceType: ServiceTypeData, onEdit: MasterServiceTypeProps["onEdit"]): React.ReactElement => {
+  /**
+   * Open service type editing.
+   * @returns {void} No return value
+   */
   const handleEdit = (): void => onEdit(serviceType);
 
   return (
-    <div
-      role="button"
-      tabIndex={0}
-      onClick={handleEdit}
-      onKeyDown={(event): void => { if (event.key === "Enter" || event.key === " ") handleEdit(); }}
-      className="flex cursor-pointer flex-col gap-4 rounded-3xl border border-border-default bg-background-surface p-5 transition-all hover:border-border-strong active:bg-background-subtle/50"
-    >
-      <div className="flex items-start justify-between gap-3">
-        <h4 className="min-w-0 truncate text-base font-semibold text-text-primary">{serviceType.name}</h4>
-        <span className={`shrink-0 rounded-full px-3 py-1 text-xs font-semibold uppercase tracking-wider ${serviceType.status === "active" ? "bg-green-100 text-green-700" : "bg-red-100 text-red-700"}`}>
-          {serviceType.status}
-        </span>
-      </div>
-      <div className="grid grid-cols-2 gap-2 rounded-xl bg-background-subtle/60 p-3 text-sm">
-        <div>
-          <p className="text-xs text-text-tertiary">Price</p>
-          <p className="font-medium text-text-primary">Rp {serviceType.price.toLocaleString("id-ID")}</p>
-        </div>
-        <div>
-          <p className="text-xs text-text-tertiary">Availability</p>
-          <p className="font-medium text-text-primary">{serviceType.isActive ? "Active" : "Inactive"}</p>
-        </div>
-      </div>
-    </div>
+    <MasterDataCard title={serviceType.name} status={serviceType.status} onClick={handleEdit}>
+      <span className="grid gap-2 text-sm text-text-secondary">
+        <span>Rp {serviceType.price.toLocaleString("id-ID")}</span>
+        <span>{serviceType.isActive ? "Active" : "Inactive"}</span>
+      </span>
+    </MasterDataCard>
   );
 };
 
@@ -68,6 +58,11 @@ const _renderServiceTypeCard = (serviceType: ServiceTypeData, onEdit: MasterServ
  */
 const _renderMobile = (props: MasterServiceTypeProps): React.ReactElement => {
   const { paginatedData, currentPage, totalPages, pageSize, totalCount, goToPage, changePageSize, setSearchTerm, onEdit } = props;
+  /**
+   * Update service type search term.
+   * @param {React.ChangeEvent<HTMLInputElement>} event - Search input event
+   * @returns {void} No return value
+   */
   const handleSearch = (event: React.ChangeEvent<HTMLInputElement>): void => setSearchTerm(event.target.value);
 
   return (
@@ -97,6 +92,11 @@ const _renderMobile = (props: MasterServiceTypeProps): React.ReactElement => {
  */
 const _renderDesktop = (props: MasterServiceTypeProps): React.ReactElement => {
   const { paginatedData, columns, currentPage, totalPages, pageSize, totalCount, goToPage, changePageSize, setSearchTerm, onCreate, onRowClick } = props;
+  /**
+   * Update service type search term.
+   * @param {React.ChangeEvent<HTMLInputElement>} event - Search input event
+   * @returns {void} No return value
+   */
   const handleSearch = (event: React.ChangeEvent<HTMLInputElement>): void => setSearchTerm(event.target.value);
 
   return (
@@ -124,8 +124,8 @@ export const MasterServiceTypeComponent = (props: MasterServiceTypeProps): React
 
   return (
     <Layout pageTitle="Service Type List" mobileWhiteBackground={true}>
-      <PageLayout title="Service Type List" breadcrumbs={["Master", "Master Service Type"]} headerRight={createButton} mobileHeaderClassName="px-6" onBack={onBack}>
-        <div className="relative flex h-full flex-col bg-background-surface px-6 pb-18 lg:-mt-4 lg:bg-transparent lg:px-0 lg:pb-0">
+      <PageLayout title="Service Type List" breadcrumbs={["Master", "Master Service Type"]} headerRight={createButton} mobileHeaderClassName="px-0" onBack={onBack}>
+        <div className="relative flex h-full flex-col bg-background-surface px-0 pb-18 lg:-mt-4 lg:bg-transparent lg:px-0 lg:pb-0">
           {_renderMobile(props)}
           {_renderDesktop(props)}
         </div>

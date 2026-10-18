@@ -3,8 +3,7 @@ import { Icons } from "../Icons";
 import type { MobileNavigateItem } from "./MobileNavigate.type";
 
 /**
- * Static mobile navigation items configuration.
- * Order matches existing mobile navigation: Home, Order, Return, Master, Report.
+ * Static mobile navigation items.
  */
 export const MOBILE_NAVIGATE_ITEMS: readonly MobileNavigateItem[] = [
   {

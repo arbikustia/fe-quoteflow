@@ -44,7 +44,7 @@ const _renderDesktopTable = (props: MasterCustomerProps): React.ReactElement => 
   const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>): void => setSearchTerm(event.target.value);
 
   return (
-    <div className="hidden lg:px-6 md:flex bg-brand-white rounded-4xl border border-brand-gray-light shadow-xs flex-col flex-1 overflow-hidden mt-6">
+    <div className="hidden rounded-4xl border border-border-default bg-background-surface px-6 shadow-xs md:mt-6 md:flex md:flex-1 md:flex-col md:overflow-hidden lg:flex">
       <div className="flex items-center justify-between gap-4 py-6 border-brand-gray-light">
         <SearchFilter placeholder="Search customer" onChange={handleSearchChange} />
         <button
@@ -132,10 +132,10 @@ export const MasterCustomerComponent = (props: MasterCustomerProps): React.React
         title="Customer List"
         breadcrumbs={["Master", "Master Customer"]}
         headerRight={createButton}
-        mobileHeaderClassName="px-6"
+        mobileHeaderClassName="px-0"
         onBack={onBack}
       >
-        <div className="relative flex h-full flex-col bg-background-surface px-6 pb-18 lg:-mt-4 lg:bg-transparent lg:px-0 lg:pb-0">
+        <div className="relative flex h-full flex-col bg-background-surface px-0 pb-18 lg:-mt-4 lg:bg-transparent lg:px-0 lg:pb-0">
           {_renderMobileCards(props)}
           {_renderDesktopTable(props)}
         </div>

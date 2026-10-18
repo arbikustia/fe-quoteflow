@@ -30,7 +30,7 @@ describe("Pagination Component", () => {
     fireEvent.click(nextButton);
     expect(onPageChange).toHaveBeenCalledWith(2);
 
-    fireEvent.change(screen.getByRole("combobox"), { target: { value: "20" } });
+    fireEvent.change(screen.getByRole("combobox", { name: "Documents per page" }), { target: { value: "20" } });
     expect(onPageSizeChange).toHaveBeenCalledWith(20);
   });
 

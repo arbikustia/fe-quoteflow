@@ -6,7 +6,7 @@ exports[`MasterPicCreateForm Component MasterPicCreateForm Snapshots create mode
     class="flex h-full w-full flex-col bg-background-surface pb-6 font-sans lg:bg-background-page"
   >
     <div
-      class="sticky top-0 z-20 flex items-center bg-background-surface px-6 lg:hidden"
+      class="sticky top-0 z-20 flex items-center bg-background-surface px-0 lg:hidden"
     >
       <button
         aria-label="Back"
@@ -30,7 +30,7 @@ exports[`MasterPicCreateForm Component MasterPicCreateForm Snapshots create mode
       </button>
     </div>
     <div
-      class="mt-2 flex min-h-0 w-full flex-1 flex-col px-6 lg:mt-0 lg:px-0"
+      class="mt-2 flex min-h-0 w-full flex-1 flex-col px-0 lg:mt-0 lg:px-0"
     >
       <nav
         aria-label="Breadcrumb"
@@ -117,7 +117,7 @@ exports[`MasterPicCreateForm Component MasterPicCreateForm Snapshots edit mode a
     class="flex h-full w-full flex-col bg-background-surface pb-6 font-sans lg:bg-background-page"
   >
     <div
-      class="sticky top-0 z-20 flex items-center bg-background-surface px-6 lg:hidden"
+      class="sticky top-0 z-20 flex items-center bg-background-surface px-0 lg:hidden"
     >
       <button
         aria-label="Back"
@@ -141,7 +141,7 @@ exports[`MasterPicCreateForm Component MasterPicCreateForm Snapshots edit mode a
       </button>
     </div>
     <div
-      class="mt-2 flex min-h-0 w-full flex-1 flex-col px-6 lg:mt-0 lg:px-0"
+      class="mt-2 flex min-h-0 w-full flex-1 flex-col px-0 lg:mt-0 lg:px-0"
     >
       <nav
         aria-label="Breadcrumb"
@@ -266,7 +266,7 @@ exports[`MasterPicCreateForm Component MasterPicCreateForm Snapshots submitting 
     class="flex h-full w-full flex-col bg-background-surface pb-6 font-sans lg:bg-background-page"
   >
     <div
-      class="sticky top-0 z-20 flex items-center bg-background-surface px-6 lg:hidden"
+      class="sticky top-0 z-20 flex items-center bg-background-surface px-0 lg:hidden"
     >
       <button
         aria-label="Back"
@@ -290,7 +290,7 @@ exports[`MasterPicCreateForm Component MasterPicCreateForm Snapshots submitting 
       </button>
     </div>
     <div
-      class="mt-2 flex min-h-0 w-full flex-1 flex-col px-6 lg:mt-0 lg:px-0"
+      class="mt-2 flex min-h-0 w-full flex-1 flex-col px-0 lg:mt-0 lg:px-0"
     >
       <nav
         aria-label="Breadcrumb"
@@ -378,7 +378,7 @@ exports[`MasterPicCreateForm Component MasterPicCreateForm Snapshots with error 
     class="flex h-full w-full flex-col bg-background-surface pb-6 font-sans lg:bg-background-page"
   >
     <div
-      class="sticky top-0 z-20 flex items-center bg-background-surface px-6 lg:hidden"
+      class="sticky top-0 z-20 flex items-center bg-background-surface px-0 lg:hidden"
     >
       <button
         aria-label="Back"
@@ -402,7 +402,7 @@ exports[`MasterPicCreateForm Component MasterPicCreateForm Snapshots with error 
       </button>
     </div>
     <div
-      class="mt-2 flex min-h-0 w-full flex-1 flex-col px-6 lg:mt-0 lg:px-0"
+      class="mt-2 flex min-h-0 w-full flex-1 flex-col px-0 lg:mt-0 lg:px-0"
     >
       <nav
         aria-label="Breadcrumb"

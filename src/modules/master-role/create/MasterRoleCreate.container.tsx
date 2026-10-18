@@ -1,10 +1,9 @@
 import type { ReactElement } from "react";
 
+import { MasterRoleCreateComponent } from "./MasterRoleCreate.component";
 import { useMasterRoleCreateForm } from "./MasterRoleCreate.hook";
 
 import Layout from "@/app/layout";
-
-import { MasterRoleCreateComponent } from "./MasterRoleCreate.component";
 
 /**
  * Render Master Role Create Container.

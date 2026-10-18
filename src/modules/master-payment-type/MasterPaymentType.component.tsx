@@ -2,6 +2,7 @@ import * as React from "react";
 
 import Layout from "../../app/layout";
 import { PageLayout } from "../../app/shared/PageLayout";
+import { MasterDataCard } from "../../components/MasterDataCard";
 import { Pagination } from "../../components/Pagination";
 import { SearchFilter } from "../../components/SearchFilter";
 import Table from "../../components/Table";
@@ -37,34 +38,11 @@ const _renderPaymentTypeCard = (paymentType: PaymentTypeData, onEdit: MasterPaym
    * @returns {void} No return value
    */
   const handleCardClick = (): void => onEdit(paymentType);
-  /**
-   * Open editing from supported keyboard keys.
-   * @param {React.KeyboardEvent<HTMLDivElement>} event - Keyboard event
-   * @returns {void} No return value
-   */
-  const handleCardKeyDown = (event: React.KeyboardEvent<HTMLDivElement>): void => {
-    if (event.key === "Enter" || event.key === " ") handleCardClick();
-  };
 
   return (
-    <div
-      role="button"
-      tabIndex={0}
-      onClick={handleCardClick}
-      onKeyDown={handleCardKeyDown}
-      className="flex cursor-pointer flex-col gap-4 rounded-3xl border border-border-default bg-background-surface p-5 transition-all hover:border-border-strong active:bg-background-subtle/50"
-    >
-      <div className="flex items-start justify-between gap-3">
-        <h4 className="min-w-0 truncate text-base font-semibold text-text-primary">{paymentType.name}</h4>
-        <span className={`shrink-0 rounded-full px-3 py-1 text-xs font-semibold uppercase tracking-wider ${paymentType.status === "active" ? "bg-green-100 text-green-700" : "bg-red-100 text-red-700"}`}>
-          {paymentType.status}
-        </span>
-      </div>
-      <div className="rounded-xl bg-background-subtle/60 p-3 text-sm">
-        <p className="text-xs text-text-tertiary">Created</p>
-        <p className="mt-1 font-medium text-text-primary">{paymentType.createAt || "-"}</p>
-      </div>
-    </div>
+    <MasterDataCard title={paymentType.name} status={paymentType.status} onClick={handleCardClick}>
+      <span className="text-sm text-text-secondary">Created {paymentType.createAt ?? "-"}</span>
+    </MasterDataCard>
   );
 };
 
@@ -147,8 +125,8 @@ export const MasterPaymentTypeComponent = (props: MasterPaymentTypeProps): React
 
   return (
     <Layout pageTitle="Payment Type List" mobileWhiteBackground={true}>
-      <PageLayout title="Payment Type List" breadcrumbs={["Master", "Master Payment Type"]} headerRight={createButton} mobileHeaderClassName="px-6" onBack={onBack}>
-        <div className="relative flex h-full flex-col bg-background-surface px-6 pb-18 lg:-mt-4 lg:bg-transparent lg:px-0 lg:pb-0">
+      <PageLayout title="Payment Type List" breadcrumbs={["Master", "Master Payment Type"]} headerRight={createButton} mobileHeaderClassName="px-0" onBack={onBack}>
+        <div className="relative flex h-full flex-col bg-background-surface px-0 pb-18 lg:-mt-4 lg:bg-transparent lg:px-0 lg:pb-0">
           {_renderMobile(props)}
           {_renderDesktop(props)}
         </div>

@@ -1,4 +1,4 @@
-import { render } from "@testing-library/react";
+import { fireEvent, render, screen } from "@testing-library/react";
 import { BrowserRouter } from "react-router-dom";
 
 import { MasterCustomerComponent } from "./MasterCustomer.component";
@@ -66,6 +66,20 @@ describe("MasterCustomer Component", () => {
       </BrowserRouter>
     );
   };
+
+  it("should render customer card and open edit", () => {
+    renderComponent();
+
+    const customer = mockProps.paginatedData[0];
+    const customerName = screen.getAllByText(customer.name)[0];
+
+    expect(screen.getAllByText(customer.address ?? "No address provided")[0]).toBeInTheDocument();
+    expect(screen.getAllByText(customer.phoneNumber ?? "No phone number")[0]).toBeInTheDocument();
+
+    fireEvent.click(customerName.closest("button")!);
+
+    expect(mockProps.onEdit).toHaveBeenCalledWith(customer);
+  });
 
   describe("MasterCustomerComponent Snapshots", () => {
     it("default state", () => {

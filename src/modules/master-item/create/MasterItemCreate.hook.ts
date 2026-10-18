@@ -2,16 +2,15 @@ import type { ChangeEvent, SyntheticEvent } from "react";
 import { useState } from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 
-import {
-  parseRupiahInput,
-  validateRequiredItemFields,
-} from "./MasterItemCreate.helpers";
+import { parseRupiahInput, validateRequiredItemFields } from "./MasterItemCreate.helpers";
 import type {
   ImageUploadMutation,
   ItemFormFieldsState,
+  ItemImageFieldState,
   ItemRouteState,
   ItemSubmissionParams,
   ItemSubmissionState,
+  ItemTextFieldsState,
   MasterItemCreateFormState,
 } from "./MasterItemCreate.type";
 
@@ -37,58 +36,102 @@ const _formatMessages = (messages: string[] | string | null): string => {
 };
 
 /**
- * Manage item form input states.
+ * Manage item text form fields.
  * @param {ItemRouteState} routeState - Route state
- * @param uploadImage
- * @param isImageUploading
- * @returns {ItemFormFieldsState} Field states and handlers
+ * @returns {ItemTextFieldsState} Text fields and handlers
  */
-const useItemFormFields = (
-  routeState: ItemRouteState,
-  uploadImage: ImageUploadMutation,
-  isImageUploading: boolean,
-): ItemFormFieldsState => {
+const useItemTextFields = (routeState: ItemRouteState): ItemTextFieldsState => {
   const routeItem = routeState.item;
   const [name, setName] = useState(routeItem?.name ?? "");
   const [categoryId, setCategoryId] = useState(routeItem?.categoryId ?? "");
   const [price, setPrice] = useState(routeItem?.price?.toString() ?? "");
   const [stock, setStock] = useState(routeItem?.stock?.toString() ?? "");
-  const [image, setImage] = useState(routeItem?.image ?? "");
-  const [imageUploadError, setImageUploadError] = useState<string | null>(null);
   const [duration, setDuration] = useState(routeItem?.duration?.toString() ?? "");
   const [remark, setRemark] = useState(routeItem?.remark ?? "");
   const [isActive, setIsActive] = useState(routeItem?.status === "active");
 
   /**
-   * Update name.
+   * Update item name.
    * @param {ChangeEvent<HTMLInputElement>} event - Input event
-   * @returns {void}
+   * @returns {void} No return value
    */
-  const handleNameChange = (event: ChangeEvent<HTMLInputElement>): void => { setName(event.target.value); };
+  const handleNameChange = (event: ChangeEvent<HTMLInputElement>): void => {
+    setName(event.target.value);
+  };
 
   /**
    * Update category.
    * @param {string} value - Category ID
-   * @returns {void}
+   * @returns {void} No return value
    */
-  const handleCategoryChange = (value: string): void => { setCategoryId(value); };
+  const handleCategoryChange = (value: string): void => {
+    setCategoryId(value);
+  };
 
   /**
    * Update price.
    * @param {ChangeEvent<HTMLInputElement>} event - Input event
-   * @returns {void}
+   * @returns {void} No return value
    */
-  const handlePriceChange = (event: ChangeEvent<HTMLInputElement>): void => { setPrice(parseRupiahInput(event.target.value)); };
+  const handlePriceChange = (event: ChangeEvent<HTMLInputElement>): void => {
+    setPrice(parseRupiahInput(event.target.value));
+  };
 
   /**
    * Update stock.
    * @param {ChangeEvent<HTMLInputElement>} event - Input event
-   * @returns {void}
+   * @returns {void} No return value
    */
-  const handleStockChange = (event: ChangeEvent<HTMLInputElement>): void => { setStock(event.target.value); };
+  const handleStockChange = (event: ChangeEvent<HTMLInputElement>): void => {
+    setStock(event.target.value);
+  };
 
   /**
-   * Upload selected image and store its returned URL.
+   * Update duration.
+   * @param {ChangeEvent<HTMLInputElement>} event - Input event
+   * @returns {void} No return value
+   */
+  const handleDurationChange = (event: ChangeEvent<HTMLInputElement>): void => {
+    setDuration(event.target.value);
+  };
+
+  /**
+   * Update remark.
+   * @param {ChangeEvent<HTMLInputElement>} event - Input event
+   * @returns {void} No return value
+   */
+  const handleRemarkChange = (event: ChangeEvent<HTMLInputElement>): void => {
+    setRemark(event.target.value);
+  };
+
+  /**
+   * Toggle status.
+   * @returns {void} No return value
+   */
+  const handleStatusChange = (): void => {
+    setIsActive((current) => !current);
+  };
+
+  return { name, categoryId, price, stock, duration, remark, isActive, handleNameChange, handleCategoryChange, handlePriceChange, handleStockChange, handleDurationChange, handleRemarkChange, handleStatusChange };
+};
+
+/**
+ * Manage item image field.
+ * @param {ItemRouteState} routeState - Route state
+ * @param {ImageUploadMutation} uploadImage - Image upload mutation
+ * @param {boolean} isImageUploading - Image upload loading state
+ * @returns {ItemImageFieldState} Image field and handler
+ */
+const useItemImageField = (
+  routeState: ItemRouteState,
+  uploadImage: ImageUploadMutation,
+  isImageUploading: boolean,
+): ItemImageFieldState => {
+  const [image, setImage] = useState(routeState.item?.image ?? "");
+  const [imageUploadError, setImageUploadError] = useState<string | null>(null);
+
+  /**
+   * Upload selected image and store returned URL.
    * @param {ChangeEvent<HTMLInputElement>} event - File input event
    * @returns {Promise<void>} Upload result
    */
@@ -113,32 +156,24 @@ const useItemFormFields = (
     }
   };
 
-  /**
-   * Update duration.
-   * @param {ChangeEvent<HTMLInputElement>} event - Input event
-   * @returns {void}
-   */
-  const handleDurationChange = (event: ChangeEvent<HTMLInputElement>): void => { setDuration(event.target.value); };
-
-  /**
-   * Update remark.
-   * @param {ChangeEvent<HTMLInputElement>} event - Input event
-   * @returns {void}
-   */
-  const handleRemarkChange = (event: ChangeEvent<HTMLInputElement>): void => { setRemark(event.target.value); };
-
-  /**
-   * Toggle status.
-   * @returns {void}
-   */
-  const handleStatusChange = (): void => { setIsActive((current) => !current); };
-
-  return {
-    name, categoryId, price, stock, image, isImageUploading, imageUploadError, duration, remark, isActive,
-    handleNameChange, handleCategoryChange, handlePriceChange, handleStockChange,
-    handleImageChange, handleDurationChange, handleRemarkChange, handleStatusChange,
-  };
+  return { image, isImageUploading, imageUploadError, handleImageChange };
 };
+
+/**
+ * Manage item form input states.
+ * @param {ItemRouteState} routeState - Route state
+ * @param {ImageUploadMutation} uploadImage - Image upload mutation
+ * @param {boolean} isImageUploading - Image upload loading state
+ * @returns {ItemFormFieldsState} Field states and handlers
+ */
+const useItemFormFields = (
+  routeState: ItemRouteState,
+  uploadImage: ImageUploadMutation,
+  isImageUploading: boolean,
+): ItemFormFieldsState => ({
+  ...useItemTextFields(routeState),
+  ...useItemImageField(routeState, uploadImage, isImageUploading),
+});
 
 /**
  * Send create or update mutation.
@@ -147,12 +182,6 @@ const useItemFormFields = (
  */
 const _sendItemMutation = (params: ItemSubmissionParams): Promise<ItemCreateResponse> => {
   const { id, isEditMode, fields, createItem, updateItem } = params;
-  let status = 1;
-
-  if (isEditMode) {
-    status = fields.isActive ? 1 : 0;
-  }
-
   const payload: ItemCreatePayload = {
     name: fields.name,
     category_id: fields.categoryId,
@@ -161,7 +190,7 @@ const _sendItemMutation = (params: ItemSubmissionParams): Promise<ItemCreateResp
     image: fields.image,
     duration: Number(fields.duration),
     remark: fields.remark,
-    status,
+    status: isEditMode && !fields.isActive ? 0 : 1,
   };
 
   if (isEditMode && id) {
@@ -188,14 +217,7 @@ const useItemSubmission = (params: ItemSubmissionParams): ItemSubmissionState =>
   const handleSubmit = async (event: SyntheticEvent): Promise<void> => {
     event.preventDefault();
     setErrorMessage(null);
-
-    const validationError = validateRequiredItemFields({
-      name: params.fields.name,
-      categoryId: params.fields.categoryId,
-      price: params.fields.price,
-      stock: params.fields.stock,
-      duration: params.fields.duration,
-    });
+    const validationError = validateRequiredItemFields({ name: params.fields.name, categoryId: params.fields.categoryId, price: params.fields.price, stock: params.fields.stock, duration: params.fields.duration });
 
     if (validationError) {
       setErrorMessage(validationError);
@@ -237,20 +259,14 @@ export const useMasterItemCreateForm = (): MasterItemCreateFormState => {
   const [uploadImage, { isLoading: isImageUploading }] = useUploadImageMutation();
   const fields = useItemFormFields(routeState, uploadImage, isImageUploading);
   const submission = useItemSubmission({ id, isEditMode, fields, createItem, updateItem });
-  /**
-   *
-   */
-  const goBack = (): void => { navigate(-1); };
 
-  return {
-    ...fields,
-    isEditMode,
-    isSubmitting: isCreating || isUpdating,
-    isCategoryLoading: categoryState.isLoading,
-    categoryError: categoryState.errorMessage,
-    categories: categoryState.categories,
-    errorMessage: submission.errorMessage,
-    handleSubmit: submission.handleSubmit,
-    goBack,
+  /**
+   * Navigate back to previous page.
+   * @returns {void} No return value
+   */
+  const goBack = (): void => {
+    navigate(-1);
   };
+
+  return { ...fields, isEditMode, isSubmitting: isCreating || isUpdating, isCategoryLoading: categoryState.isLoading, categoryError: categoryState.errorMessage, categories: categoryState.categories, errorMessage: submission.errorMessage, handleSubmit: submission.handleSubmit, goBack };
 };

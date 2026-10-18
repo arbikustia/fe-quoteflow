@@ -2,6 +2,7 @@ import * as React from "react";
 
 import Layout from "../../app/layout";
 import { PageLayout } from "../../app/shared/PageLayout";
+import { MasterDataCard } from "../../components/MasterDataCard";
 import { Pagination } from "../../components/Pagination";
 import { SearchFilter } from "../../components/SearchFilter";
 import Table from "../../components/Table";
@@ -30,22 +31,12 @@ const _renderListState = (props: MasterUserProps): React.ReactElement | null => 
  * @returns {React.ReactElement} User card
  */
 const _renderUserCard = (user: UserData, onEdit: MasterUserProps["onEdit"]): React.ReactElement => (
-  <div
-    role="button"
-    tabIndex={0}
-    onClick={() => onEdit(user)}
-    className="flex cursor-pointer flex-col gap-4 rounded-3xl border border-border-default bg-background-surface p-5 transition-all hover:border-border-strong active:bg-background-subtle/50"
-  >
-    <div className="flex items-start justify-between gap-3">
-      <h4 className="min-w-0 truncate text-base font-semibold text-text-primary">{user.username}</h4>
-      <span className={`shrink-0 rounded-full px-3 py-1 text-xs font-semibold uppercase tracking-wider ${user.status === "active" ? "bg-green-100 text-green-700" : "bg-red-100 text-red-700"}`}>{user.status}</span>
-    </div>
-    <div className="rounded-xl bg-background-subtle/60 p-3 text-sm">
-      <p className="text-xs text-text-tertiary">Role</p>
-      <p className="font-medium text-text-primary">{user.role}</p>
-      {user.email && <><p className="mt-2 text-xs text-text-tertiary">Email</p><p className="truncate font-medium text-text-primary">{user.email}</p></>}
-    </div>
-  </div>
+  <MasterDataCard title={user.username} status={user.status} onClick={(): void => onEdit(user)}>
+    <span className="grid gap-2 text-sm text-text-secondary">
+      <span>{user.role || "No role"}</span>
+      {user.email && <span className="truncate">{user.email}</span>}
+    </span>
+  </MasterDataCard>
 );
 
 /**
@@ -98,5 +89,5 @@ const _renderDesktop = (props: MasterUserProps): React.ReactElement => {
 export const MasterUserComponent = (props: MasterUserProps): React.ReactElement => {
   const createButton = <button type="button" onClick={props.onCreate} className="h-14 rounded-full border-2 border-brand-blue bg-background-surface px-6 text-sm font-bold text-brand-blue transition-colors hover:bg-action-primary-subtle focus:outline-none focus:ring-2 focus:ring-focus-ring/30">Create New</button>;
 
-  return <Layout pageTitle="User List" mobileWhiteBackground={true}><PageLayout title="User List" breadcrumbs={["Master", "Master User"]} headerRight={createButton} mobileHeaderClassName="px-6" onBack={props.onBack}><div className="relative flex h-full flex-col bg-background-surface px-6 pb-18 lg:-mt-4 lg:bg-transparent lg:px-0 lg:pb-0">{_renderMobile(props)}{_renderDesktop(props)}</div></PageLayout></Layout>;
+  return <Layout pageTitle="User List" mobileWhiteBackground={true}><PageLayout title="User List" breadcrumbs={["Master", "Master User"]} headerRight={createButton} mobileHeaderClassName="px-0" onBack={props.onBack}><div className="relative flex h-full flex-col bg-background-surface px-0 pb-18 lg:-mt-4 lg:bg-transparent lg:px-0 lg:pb-0">{_renderMobile(props)}{_renderDesktop(props)}</div></PageLayout></Layout>;
 };

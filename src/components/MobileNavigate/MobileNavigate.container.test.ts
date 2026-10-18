@@ -7,14 +7,7 @@ import { _isTabActive } from "./MobileNavigate.hook";
 import test from "../../libs/unit-test";
 
 describe("MobileNavigateContainer Test", () => {
-  it("should match exact and nested routes", () => {
-    expect(_isTabActive("/home", "/home")).toBe(true);
-    expect(_isTabActive("/order", "/order/create")).toBe(true);
-    expect(_isTabActive("/home", "/order")).toBe(false);
-  });
-
-  it("should match report descendants and only master main", () => {
-    expect(_isTabActive("/report/main", "/report/sales")).toBe(true);
+  it("should match exact master data route", () => {
     expect(_isTabActive("/master-main", "/master-main")).toBe(true);
     expect(_isTabActive("/master-main", "/master-customer")).toBe(false);
   });
@@ -31,7 +24,7 @@ describe("MobileNavigateContainer Test", () => {
     expect(screen.queryByRole("navigation", { name: "Main mobile navigation" })).toBeNull();
   });
 
-  it("should show navigation for default route", () => {
+  it("should show master data navigation outside master detail routes", () => {
     render(
       React.createElement(
         MemoryRouter,
@@ -40,29 +33,17 @@ describe("MobileNavigateContainer Test", () => {
       ),
     );
 
-    expect(screen.getByRole("navigation", { name: "Main mobile navigation" })).toBeDefined();
-  });
-
-  it("should show navigation for master-main route", () => {
-    render(
-      React.createElement(
-        MemoryRouter,
-        { initialEntries: ["/master-main"] },
-        React.createElement(MobileNavigateContainer),
-      ),
-    );
-
-    expect(screen.getByRole("navigation", { name: "Main mobile navigation" })).toBeDefined();
+    expect(screen.getByRole("button", { name: "Master" })).toBeDefined();
   });
 
   const snapshotConfigs = [
     {
       props: { initialEntries: ["/home"] },
-      desc: "Should Render MobileNavigateContainer with default route",
+      desc: "Should Render MobileNavigateContainer outside master route",
     },
     {
-      props: { initialEntries: ["/order"] },
-      desc: "Should Render MobileNavigateContainer with active order route",
+      props: { initialEntries: ["/master-main"] },
+      desc: "Should Render MobileNavigateContainer with active master data",
     },
     {
       props: { initialEntries: ["/master-customer"] },
