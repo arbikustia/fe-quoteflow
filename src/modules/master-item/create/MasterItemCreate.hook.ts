@@ -39,6 +39,8 @@ const _formatMessages = (messages: string[] | string | null): string => {
 /**
  * Manage item form input states.
  * @param {ItemRouteState} routeState - Route state
+ * @param uploadImage
+ * @param isImageUploading
  * @returns {ItemFormFieldsState} Field states and handlers
  */
 const useItemFormFields = (
@@ -99,10 +101,12 @@ const useItemFormFields = (
 
     setImageUploadError(null);
     const formData = new FormData();
+
     formData.append("file", file);
 
     try {
       const response = await uploadImage(formData).unwrap();
+
       setImage(response.url);
     } catch {
       setImageUploadError("Unable to upload image. Please try again.");

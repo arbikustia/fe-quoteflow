@@ -146,6 +146,24 @@ const _renderDesktopToolbar = (
 ): ReactElement => (
   <div className="flex items-center justify-between gap-4 py-6">
     <SearchFilter placeholder="Search item" onChange={onSearch} />
+    <div className="flex items-center gap-3">
+    <button
+      type="button"
+      onClick={props.isMultiDownloadMode ? props.onDownloadSelected : props.onToggleMultiDownload}
+      disabled={props.isMultiDownloadMode && props.selectedItemIds.length === 0}
+      className="h-14 rounded-xl border border-brand-blue px-6 text-sm font-semibold text-brand-blue disabled:cursor-not-allowed disabled:opacity-50"
+      >
+      {props.isMultiDownloadMode ? `Download Multiple (${props.selectedItemIds.length})` : "Download Multiple"}
+    </button>
+    {props.isMultiDownloadMode && (
+      <button
+        type="button"
+        onClick={props.onCancelMultiDownload}
+        className="h-14 rounded-xl border border-border-default px-6 text-sm font-semibold text-text-primary"
+      >
+        Cancel
+      </button>
+    )}
     <button
       type="button"
       onClick={props.onCreate}
@@ -153,6 +171,7 @@ const _renderDesktopToolbar = (
     >
       Create Item
     </button>
+    </div>
   </div>
 );
 

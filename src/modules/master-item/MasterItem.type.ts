@@ -78,6 +78,13 @@ export type ItemData = {
 /** Master Item component props */
 export type MasterItemProps = {
   currentPage: number;
+  selectedItemIds: string[];
+  isMultiDownloadMode: boolean;
+  onToggleItem: (item: ItemData) => void;
+  onToggleMultiDownload: () => void;
+  onCancelMultiDownload: () => void;
+  onDownload: (item: ItemData, format: "image" | "pdf") => void;
+  onDownloadSelected: () => void;
   totalPages: number;
   pageSize: number;
   paginatedData: ItemData[];
@@ -166,13 +173,18 @@ export type RequiredItemFields = {
 export type ActionButtonProps = {
   row: ItemData;
   onEdit: (item: ItemData) => void;
+  onDownload: (item: ItemData, format: "image" | "pdf") => void;
 };
 
 /** GetColumns params */
 export type GetColumnsParams = {
   currentPage: number;
   pageSize: number;
+  isMultiDownloadMode: boolean;
+  selectedItemIds: string[];
+  onToggleItem: (item: ItemData) => void;
   onEdit: (item: ItemData) => void;
+  onDownload: (item: ItemData, format: "image" | "pdf") => void;
 };
 
 /** Navigation hook return type */
@@ -197,6 +209,13 @@ export type MasterItemPagination = ItemListApiState & {
 
 /** Container state hook return type */
 export type MasterItemContainerState = MasterItemNavigation & {
+  selectedItemIds: string[];
+  isMultiDownloadMode: boolean;
+  onToggleItem: (item: ItemData) => void;
+  onToggleMultiDownload: () => void;
+  onCancelMultiDownload: () => void;
+  onDownload: (item: ItemData, format: "image" | "pdf") => void;
+  onDownloadSelected: () => void;
   pagination: MasterItemPagination;
   isMoreOpen: boolean;
   toggleMore: () => void;

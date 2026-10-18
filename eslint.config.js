@@ -163,6 +163,7 @@ export default defineConfig([
       "src/modules/master-pic/**/*.{ts,tsx}",
       "src/modules/master-payment-type/**/*.{ts,tsx}",
       "src/services/**/*.{ts,tsx}",
+      "src/components/**/*.{ts,tsx}",
     ],
     rules: {
       semi: ["error", "always"],

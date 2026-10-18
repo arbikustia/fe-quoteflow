@@ -1,5 +1,5 @@
-import type { MouseEvent, ReactElement } from "react";
-import { FiEdit2 } from "react-icons/fi";
+import type { ChangeEvent, MouseEvent, ReactElement } from "react";
+import { FiDownload, FiEdit2 } from "react-icons/fi";
 
 import type { TableColumn } from "../../components/Table";
 
@@ -26,26 +26,46 @@ const _renderStatus = (row: ItemData): ReactElement => (
  * @returns {ReactElement} Edit button element
  */
 const _renderActionButton = (props: ActionButtonProps): ReactElement => {
-  const { row, onEdit } = props;
+  const { row, onEdit, onDownload } = props;
 
   /**
-   * Handle click button.
+   * Handle edit click.
    * @param {MouseEvent<HTMLButtonElement>} event - Click event
+   * @returns {void} No return value
    */
-  const handleClick = (event: MouseEvent<HTMLButtonElement>): void => {
+  const handleEdit = (event: MouseEvent<HTMLButtonElement>): void => {
     event.stopPropagation();
     onEdit(row);
   };
+  /**
+   * Handle format selection.
+   * @param {ChangeEvent<HTMLSelectElement>} event - Select event
+   * @returns {void} No return value
+   */
+  const handleDownload = (event: ChangeEvent<HTMLSelectElement>): void => {
+    event.stopPropagation();
+    const format = event.target.value;
+
+    if (format === "image" || format === "pdf") {
+      onDownload(row, format);
+      event.target.value = "";
+    }
+  };
 
   return (
-    <button
-      type="button"
-      onClick={handleClick}
-      className="rounded-lg p-1.5 text-brand-text-medium hover:bg-brand-blue-light hover:text-brand-blue"
-      title="Edit"
-    >
-      <FiEdit2 className="h-4 w-4" />
-    </button>
+    <div className="flex items-center justify-center gap-1">
+      <button type="button" onClick={handleEdit} className="rounded-lg p-1.5 text-brand-text-medium hover:bg-brand-blue-light hover:text-brand-blue" title="Edit">
+        <FiEdit2 className="h-4 w-4" />
+      </button>
+      <label className="flex items-center gap-1 rounded-lg p-1.5 text-brand-text-medium hover:bg-brand-blue-light hover:text-brand-blue" title="Download QR">
+        <FiDownload className="h-4 w-4" />
+        <select defaultValue="" onChange={handleDownload} className="cursor-pointer bg-transparent text-xs">
+          <option value="" disabled>Download</option>
+          <option value="image">Image</option>
+          <option value="pdf">PDF</option>
+        </select>
+      </label>
+    </div>
   );
 };
 
@@ -87,11 +107,41 @@ const _renderImage = (row: ItemData): ReactElement => {
 const _renderPrice = (row: ItemData): string => `Rp ${row.price.toLocaleString("id-ID")}`;
 
 /**
+ * Render selection checkbox.
+ * @param {ItemData} row - Row item
+ * @param {string[]} selectedItemIds - Selected IDs
+ * @param {(item: ItemData) => void} onToggleItem - Toggle callback
+ * @returns {ReactElement} Checkbox element
+ */
+const _renderSelection = (row: ItemData, selectedItemIds: string[], onToggleItem: (item: ItemData) => void): ReactElement => {
+  /**
+   * Toggle row checkbox.
+   * @returns {void} No return value
+   */
+  const handleToggle = (): void => onToggleItem(row);
+
+  return <input type="checkbox" aria-label={`Select ${row.name}`} checked={selectedItemIds.includes(row.id)} onChange={handleToggle} />;
+};
+
+/**
  * Build column configurations for Master Item table.
  * @param {GetColumnsParams} params - Column parameters
  * @returns {TableColumn<ItemData>[]} Column definitions
  */
-export const getColumns = ({ currentPage, pageSize, onEdit }: GetColumnsParams): TableColumn<ItemData>[] => [
+// ponytail: column list stays local; extract only when another item table shares it.
+// eslint-disable-next-line max-lines-per-function
+export const getColumns = ({ currentPage, pageSize, isMultiDownloadMode, selectedItemIds, onToggleItem, onEdit, onDownload }: GetColumnsParams): TableColumn<ItemData>[] => [
+  ...(isMultiDownloadMode ? [{
+    key: "select",
+    header: "",
+    align: "center" as const,
+    /**
+     * Render row selection.
+     * @param {ItemData} row - Row item
+     * @returns {ReactElement} Checkbox
+     */
+    render: (row: ItemData): ReactElement => _renderSelection(row, selectedItemIds, onToggleItem),
+  }] : []),
   {
     key: "no",
     header: "No",
@@ -130,6 +180,6 @@ export const getColumns = ({ currentPage, pageSize, onEdit }: GetColumnsParams):
      * @param {ItemData} row - Row item
      * @returns {ReactElement} Action element
      */
-    render: (row: ItemData): ReactElement => _renderActionButton({ row, onEdit }),
+    render: (row: ItemData): ReactElement => _renderActionButton({ row, onEdit, onDownload }),
   },
 ];

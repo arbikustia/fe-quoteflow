@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 
 import { createPaginationHandlers } from "@/utils/pagination.helpers";
 
+import { downloadItemQrImage, downloadItemQrPdf } from "./MasterItem.qr.helpers";
 import type {
   ConfirmModalState,
   ItemCreatePayload,
@@ -395,6 +396,55 @@ export const useMasterItemContainerState = (): MasterItemContainerState => {
   const navigation = useMasterItemNavigation();
   const pagination = useMasterItemPagination();
   const menu = useMasterItemMenuState();
+  const [selectedItemIds, setSelectedItemIds] = useState<string[]>([]);
+  const [isMultiDownloadMode, setIsMultiDownloadMode] = useState(false);
 
-  return { ...navigation, pagination, ...menu };
+  /**
+   * Toggle item selection.
+   * @param {ItemData} item - Selected item
+   * @returns {void} No return value
+   */
+  const onToggleItem = (item: ItemData): void => {
+    setSelectedItemIds((itemIds) => itemIds.includes(item.id) ? itemIds.filter((id) => id !== item.id) : [...itemIds, item.id]);
+  };
+  /**
+   * Enable multi-download selection mode.
+   * @returns {void} No return value
+   */
+  const onToggleMultiDownload = (): void => {
+    setIsMultiDownloadMode(true);
+  };
+  /**
+   * Hide multi-download checkboxes and clear selections.
+   * @returns {void} No return value
+   */
+  const onCancelMultiDownload = (): void => {
+    setSelectedItemIds([]);
+    setIsMultiDownloadMode(false);
+  };
+  /**
+   * Download one item in selected format.
+   * @param {ItemData} item - Item to download
+   * @param {"image" | "pdf"} format - Output format
+   * @returns {void} No return value
+   */
+  const onDownload = (item: ItemData, format: "image" | "pdf"): void => {
+    if (format === "image") {
+      void downloadItemQrImage(item);
+
+      return;
+    }
+
+    void downloadItemQrPdf([item]);
+  };
+  /** Download selected labels. */
+  const onDownloadSelected = (): void => {
+    const selectedItems = pagination.paginatedData.filter((item) => selectedItemIds.includes(item.id));
+
+    if (selectedItems.length > 0) {
+      void downloadItemQrPdf(selectedItems);
+    }
+  };
+
+  return { ...navigation, pagination, ...menu, selectedItemIds, isMultiDownloadMode, onToggleItem, onToggleMultiDownload, onCancelMultiDownload, onDownload, onDownloadSelected };
 };

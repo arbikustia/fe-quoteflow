@@ -1,7 +1,7 @@
 import { apiRtkClient } from "@/libs/ApiRtkServices/apiRtkClient";
 
-import ENDPOINT from "@/constant/endpoint.const";
 import type { AuthenticationPayload, AuthenticationResponse } from "@/app/auth/login-page/LoginPage.type";
+import ENDPOINT from "@/constant/endpoint.const";
 
 export const authenticationService = apiRtkClient.injectEndpoints({
   endpoints: (builder) => ({

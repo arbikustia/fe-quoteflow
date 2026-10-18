@@ -24,6 +24,7 @@ export const DatePicker = ({
     } catch {
       // Browser doesn't support or disallows showPicker
     }
+
     inputProps.onClick?.(event);
   };
 

@@ -16,12 +16,23 @@ const MasterItemContainer = (): React.ReactElement => {
   const columns = getColumns({
     currentPage: pagination.currentPage,
     pageSize: pagination.pageSize,
+    selectedItemIds: containerState.selectedItemIds,
+    isMultiDownloadMode: containerState.isMultiDownloadMode,
+    onToggleItem: containerState.onToggleItem,
     onEdit: navigation.goEdit,
+    onDownload: containerState.onDownload,
   });
 
   return (
     <MasterItemComponent
       {...pagination}
+      selectedItemIds={containerState.selectedItemIds}
+      isMultiDownloadMode={containerState.isMultiDownloadMode}
+      onToggleItem={containerState.onToggleItem}
+      onToggleMultiDownload={containerState.onToggleMultiDownload}
+      onCancelMultiDownload={containerState.onCancelMultiDownload}
+      onDownload={containerState.onDownload}
+      onDownloadSelected={containerState.onDownloadSelected}
       columns={columns}
       onBack={navigation.goBack}
       onCreate={navigation.goCreate}

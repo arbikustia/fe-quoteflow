@@ -1,4 +1,15 @@
-import type { ChangeEventHandler } from "react";
+import type { ChangeEventHandler, MouseEventHandler } from "react";
+
+export type DateInputProps = {
+  readonly ariaLabel: string;
+  readonly value?: string;
+  readonly onChange?: ChangeEventHandler<HTMLInputElement>;
+  readonly onClick: MouseEventHandler<HTMLInputElement>;
+  readonly min?: string;
+  readonly max?: string;
+  readonly disabled: boolean;
+  readonly compact: boolean;
+};
 
 export type DateRangePickerVariant = "split" | "compact";
 
