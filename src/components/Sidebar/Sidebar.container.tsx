@@ -1,21 +1,36 @@
 import * as React from "react";
-import { useNavigate } from "react-router-dom";
 
 import { useTheme } from "../../store/theme.hook";
 import ConfirmModal from "../ConfirmModal";
 
 import { SidebarComponent } from "./Sidebar.component";
 import { NAVIGATION_SECTIONS } from "./Sidebar.config";
-import { useSidebarState } from "./Sidebar.hook";
-import type { SidebarContainerProps } from "./Sidebar.type";
+import { useLogoutState, useSidebarState } from "./Sidebar.hook";
+import type { LogoutState, SidebarContainerProps } from "./Sidebar.type";
+
+/**
+ * Render logout confirmation modal.
+ * @param {LogoutState} props - logout modal state
+ * @returns {React.ReactElement} - ConfirmModal element
+ */
+const _renderLogoutConfirmModal = (props: LogoutState): React.ReactElement => (
+  <ConfirmModal
+    isOpen={props.isLogoutConfirmOpen}
+    onClose={props.closeLogoutConfirm}
+    onConfirm={props.confirmLogout}
+    title="Confirm logout"
+    message="Are you sure you want to log out?"
+    confirmText="Log out"
+    cancelText="Cancel"
+    isDestructive={true}
+  />
+);
 
 /**
  * Render Sidebar Container
  * @param {SidebarContainerProps} props - container props
  * @returns {React.ReactElement} - Sidebar Container
  */
-// ponytail: sidebar prop mapping stays local; extract when another layout shares it.
-// eslint-disable-next-line max-lines-per-function
 const SidebarContainer = (props: SidebarContainerProps = {}): React.ReactElement => {
   const { isCollapsed = false } = props;
   const {
@@ -26,27 +41,7 @@ const SidebarContainer = (props: SidebarContainerProps = {}): React.ReactElement
     onToggleProfile,
   } = useSidebarState();
   const { theme, toggleTheme } = useTheme();
-  const navigate = useNavigate();
-  const [isLogoutConfirmOpen, setIsLogoutConfirmOpen] = React.useState(false);
-  /**
-   * Open logout confirmation.
-   * @returns {void} No return value
-   */
-  const handleLogout = (): void => setIsLogoutConfirmOpen(true);
-  /**
-   * Close logout confirmation.
-   * @returns {void} No return value
-   */
-  const closeLogoutConfirm = (): void => setIsLogoutConfirmOpen(false);
-  /**
-   * Confirm logout and navigate to login.
-   * @returns {void} No return value
-   */
-  const confirmLogout = (): void => {
-    localStorage.removeItem("access_token");
-    localStorage.removeItem("refresh_token");
-    navigate("/login", { replace: true });
-  };
+  const logoutState = useLogoutState();
 
   return (
     <>
@@ -60,18 +55,9 @@ const SidebarContainer = (props: SidebarContainerProps = {}): React.ReactElement
         onToggleProfile={onToggleProfile}
         theme={theme}
         onToggleTheme={toggleTheme}
-        onLogout={handleLogout}
+        onLogout={logoutState.handleLogout}
       />
-      <ConfirmModal
-        isOpen={isLogoutConfirmOpen}
-        onClose={closeLogoutConfirm}
-        onConfirm={confirmLogout}
-        title="Confirm logout"
-        message="Are you sure you want to log out?"
-        confirmText="Log out"
-        cancelText="Cancel"
-        isDestructive={true}
-      />
+      {_renderLogoutConfirmModal(logoutState)}
     </>
   );
 };

@@ -37,6 +37,22 @@ export type UserSubmissionState = {
   handleSubmit: (event: SyntheticEvent) => Promise<void>;
 };
 
+export type UserFieldInputsState = {
+  username: string;
+  email: string;
+  password: string;
+  isPasswordVisible: boolean;
+  role: string;
+  isActive: boolean;
+  handleUsernameChange: (event: ChangeEvent<HTMLInputElement>) => void;
+  handleEmailChange: (event: ChangeEvent<HTMLInputElement>) => void;
+  handlePasswordChange: (event: ChangeEvent<HTMLInputElement>) => void;
+  handleTogglePasswordVisibility: () => void;
+  handleRoleChange: (event: ChangeEvent<HTMLSelectElement>) => void;
+  handleStatusChange: () => void;
+};
+
+
 export type MasterUserCreateFormState = {
   username: string;
   email: string;

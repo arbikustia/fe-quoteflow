@@ -1,4 +1,6 @@
-import type { ReactNode } from "react";
+import type { ReactElement, ReactNode } from "react";
+
+export type TableActionName = "view" | "edit" | "delete";
 
 export type TableActionHandlers<T> = {
   readonly view?: (row: T) => void;
@@ -36,4 +38,18 @@ export type TableProps<T> = {
   readonly onPageSizeChange?: (size: number) => void;
   readonly emptyText?: string;
   readonly isLoading?: boolean;
+};
+
+export type TableActionButtonProps<T> = {
+  readonly action: (row: T) => void;
+  readonly className: string;
+  readonly icon: ReactElement;
+  readonly label: string;
+  readonly row: T;
+};
+
+export type TableMobileRowProps<T> = {
+  readonly primaryColumns: readonly TableColumn<T>[];
+  readonly row: T;
+  readonly tableProps: TableProps<T>;
 };

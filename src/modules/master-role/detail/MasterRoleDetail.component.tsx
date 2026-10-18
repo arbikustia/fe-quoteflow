@@ -1,4 +1,3 @@
-/* eslint-disable jsdoc/require-jsdoc */
 import type { ReactElement } from "react";
 
 import type { RoleData } from "../MasterRole.type";
@@ -7,6 +6,11 @@ import type { MasterRoleDetailState } from "./MasterRoleDetail.type";
 
 import Layout from "@/app/layout";
 
+/**
+ * Render details section for role.
+ * @param {RoleData} role - Role details data
+ * @returns {ReactElement} Details elements
+ */
 const _renderDetails = (role: RoleData): ReactElement => (
   <div className="space-y-4">
     <div className="rounded-xl border border-border-default bg-background-surface p-5 text-center shadow-small">
@@ -30,6 +34,11 @@ const _renderDetails = (role: RoleData): ReactElement => (
   </div>
 );
 
+/**
+ * Master Role Detail pure UI component.
+ * @param {MasterRoleDetailState} props - Detail state and handlers
+ * @returns {ReactElement} Detail page
+ */
 export const MasterRoleDetailComponent = (props: MasterRoleDetailState): ReactElement => {
   const { role, isMoreOpen, isDeleteModalOpen, goBack, toggleMore, goEdit, openDeleteModal, closeDeleteModal, handleDelete } = props;
 

@@ -176,3 +176,44 @@ export type MasterProjectCreateFormState = {
   readonly handleSubmit: (event: React.SyntheticEvent) => void;
   readonly goBack: () => void;
 };
+
+export type ProjectSubmissionParams = {
+  id: string | undefined;
+  isEdit: boolean;
+  name: string;
+  remark: string;
+  selectedItems: readonly ProjectItemSelection[];
+  step: ProjectFormStep;
+  nextStep: () => void;
+};
+
+export type ProjectSubmissionState = {
+  isSubmitting: boolean;
+  errorMessage: string | null;
+  successMessage: string | null;
+  setErrorMessage: React.Dispatch<React.SetStateAction<string | null>>;
+  handleSubmit: (event: React.SyntheticEvent) => Promise<void>;
+};
+
+export type ProjectDraftFormState = {
+  step: ProjectFormStep;
+  name: string;
+  remark: string;
+  selectedItems: ProjectItemSelection[];
+  handleNameChange: (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
+  handleRemarkChange: (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
+  toggleItem: (item: ProjectItemOption) => void;
+  updateItemQuantity: (itemId: string, quantity: number) => void;
+  nextStep: () => void;
+  previousStep: () => void;
+};
+
+export type ProjectItemSelectionState = {
+  selectedItems: ProjectItemSelection[];
+  setSelectedItems: React.Dispatch<React.SetStateAction<ProjectItemSelection[]>>;
+  toggleItem: (item: ProjectItemOption) => void;
+  updateItemQuantity: (itemId: string, quantity: number) => void;
+};
+
+
+

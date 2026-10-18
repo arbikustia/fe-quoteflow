@@ -124,62 +124,75 @@ const _renderSelection = (row: ItemData, selectedItemIds: string[], onToggleItem
 };
 
 /**
- * Build column configurations for Master Item table.
- * @param {GetColumnsParams} params - Column parameters
- * @returns {TableColumn<ItemData>[]} Column definitions
+ * Render selection column when multi download is active.
+ * @param {boolean} isMultiDownloadMode - Multi download active
+ * @param {string[]} selectedItemIds - Selected IDs
+ * @param {(item: ItemData) => void} onToggleItem - Toggle callback
+ * @returns {TableColumn<ItemData>[]} Select column list
  */
-// ponytail: column list stays local; extract only when another item table shares it.
-// eslint-disable-next-line max-lines-per-function
-export const getColumns = ({ currentPage, pageSize, isMultiDownloadMode, selectedItemIds, onToggleItem, onEdit, onDownload }: GetColumnsParams): TableColumn<ItemData>[] => [
-  ...(isMultiDownloadMode ? [{
+const _getSelectColumn = (
+  isMultiDownloadMode: boolean,
+  selectedItemIds: string[],
+  onToggleItem: (item: ItemData) => void,
+): TableColumn<ItemData>[] => {
+  if (!isMultiDownloadMode) {
+    return [];
+  }
+
+  return [{
     key: "select",
     header: "",
-    align: "center" as const,
+    align: "center",
     /**
      * Render row selection.
      * @param {ItemData} row - Row item
      * @returns {ReactElement} Checkbox
      */
     render: (row: ItemData): ReactElement => _renderSelection(row, selectedItemIds, onToggleItem),
-  }] : []),
-  {
-    key: "no",
-    header: "No",
-    align: "center",
-    /**
-     * Render row index.
-     * @param {ItemData} _row - Row item
-     * @param {number} index - Index
-     * @returns {ReactElement} Node
-     */
-    render: (_row: ItemData, index: number): ReactElement => _renderIndex(currentPage, pageSize, index),
-  },
-  {
-    key: "image",
-    header: "Image",
-    align: "center",
-    render: _renderImage,
-  },
-  { key: "name", header: "Item Name", mobile: { primary: true } },
-  { key: "categoryName", header: "Category" },
-  {
-    key: "price",
-    header: "Price",
-    render: _renderPrice,
-  },
-  { key: "stock", header: "Stock", align: "center" },
-  { key: "duration", header: "Duration", align: "center" },
-  { key: "status", header: "Status", align: "center", render: _renderStatus },
-  { key: "remark", header: "Remark" },
-  {
-    key: "actions",
-    header: "Action",
-    align: "center",
-    /**
-     * Render action button.
-     * @param {ItemData} row - Row item
-     * @returns {ReactElement} Action element
-     */
-    render: (row: ItemData): ReactElement => _renderActionButton({ row, onEdit, onDownload }),
-  },
-];
+  }];
+};
+
+/**
+ * Build column configurations for Master Item table.
+ * @param {GetColumnsParams} params - Column parameters
+ * @returns {TableColumn<ItemData>[]} Column definitions
+ */
+// ponytail: column list stays local; extract only when another item table shares it.
+export const getColumns = (params: GetColumnsParams): TableColumn<ItemData>[] => {
+  const { currentPage, pageSize, isMultiDownloadMode, selectedItemIds, onToggleItem, onEdit, onDownload } = params;
+
+  return [
+    ..._getSelectColumn(isMultiDownloadMode, selectedItemIds, onToggleItem),
+    {
+      key: "no",
+      header: "No",
+      align: "center",
+      /**
+       * Render row index.
+       * @param {ItemData} _row - Row item
+       * @param {number} index - Index
+       * @returns {ReactElement} Node
+       */
+      render: (_row: ItemData, index: number): ReactElement => _renderIndex(currentPage, pageSize, index),
+    },
+    { key: "image", header: "Image", align: "center", render: _renderImage },
+    { key: "name", header: "Item Name", mobile: { primary: true } },
+    { key: "categoryName", header: "Category" },
+    { key: "price", header: "Price", render: _renderPrice },
+    { key: "stock", header: "Stock", align: "center" },
+    { key: "duration", header: "Duration", align: "center" },
+    { key: "status", header: "Status", align: "center", render: _renderStatus },
+    { key: "remark", header: "Remark" },
+    {
+      key: "actions",
+      header: "Action",
+      align: "center",
+      /**
+       * Render action button.
+       * @param {ItemData} row - Row item
+       * @returns {ReactElement} Action element
+       */
+      render: (row: ItemData): ReactElement => _renderActionButton({ row, onEdit, onDownload }),
+    },
+  ];
+};

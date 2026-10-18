@@ -79,7 +79,9 @@ describe("MasterServiceType.hook", () => {
       expect(mockNavigate).toHaveBeenCalledWith("/master-service-type/create");
 
       act(() => { result.current.goEdit(serviceType); });
-      expect(mockNavigate).toHaveBeenCalledWith("/master-service-type/edit/st-1");
+      expect(mockNavigate).toHaveBeenCalledWith("/master-service-type/edit/st-1", {
+        state: { serviceType },
+      });
 
       act(() => { result.current.goDetail(serviceType); });
       expect(mockNavigate).toHaveBeenCalledWith("/master-service-type/detail/st-1");

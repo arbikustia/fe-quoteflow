@@ -52,3 +52,31 @@ export type SidebarProps = {
   readonly onToggleTheme: () => void;
   readonly onLogout: () => void;
 };
+
+export type SidebarNavigationProps = Pick<SidebarProps, "currentPath" | "openMenus" | "onToggleMenu" | "isCollapsed"> & {
+  readonly sections: readonly NavigationSection[];
+};
+
+export type SidebarItemProps = Omit<SidebarNavigationProps, "sections"> & {
+  readonly item: NavigationItem;
+};
+
+export type SidebarProfileProps = Pick<SidebarProps, "isCollapsed" | "isProfileOpen" | "onToggleProfile" | "theme" | "onToggleTheme" | "onLogout"> & {
+  readonly displayName: string;
+  readonly initials: string;
+};
+
+export type SidebarLogoProps = Pick<SidebarProps, "isCollapsed" | "theme">;
+
+export type SidebarRenderProps = SidebarProps & {
+  readonly displayName: string;
+  readonly initials: string;
+  readonly sections: readonly NavigationSection[];
+};
+
+export type LogoutState = {
+  readonly isLogoutConfirmOpen: boolean;
+  readonly handleLogout: () => void;
+  readonly closeLogoutConfirm: () => void;
+  readonly confirmLogout: () => void;
+};

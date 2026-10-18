@@ -2,7 +2,7 @@
 import test from "../../libs/unit-test";
 
 import SidebarContainer from "./Sidebar.container";
-import type { SidebarContainerProps, SidebarState } from "./Sidebar.type";
+import type { LogoutState, SidebarContainerProps, SidebarState } from "./Sidebar.type";
 
 jest.mock("./Sidebar.hook", () => ({
   /**
@@ -19,6 +19,16 @@ jest.mock("./Sidebar.hook", () => ({
     onToggleProfile: jest.fn(),
     onCloseProfile: jest.fn(),
     setOpenMenus: jest.fn(),
+  }),
+  /**
+   * Mock logout state.
+   * @returns {LogoutState} Mock state
+   */
+  useLogoutState: (): LogoutState => ({
+    isLogoutConfirmOpen: false,
+    handleLogout: jest.fn(),
+    closeLogoutConfirm: jest.fn(),
+    confirmLogout: jest.fn(),
   }),
 }));
 

@@ -1,38 +1,34 @@
-import type { ChangeEvent, SyntheticEvent } from "react";
+import type {
+  ChangeEvent,
+  Dispatch,
+  SetStateAction,
+  SyntheticEvent,
+} from "react";
 import { useState } from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 
-import type { UserData, UserDetailResponse } from "../MasterUser.type";
+import type { UserData } from "../MasterUser.type";
 
+import {
+  getRoleOptionsError,
+  resolveUserDetail,
+  resolveUserSubmissionError,
+  sendUserMutation,
+} from "./MasterUserCreate.helpers";
 import type {
   MasterUserCreateFormState,
+  UserFieldInputsState,
   UserFormFieldsState,
   UserSubmissionParams,
   UserSubmissionState,
 } from "./MasterUserCreate.type";
 
+import { useGetAllRolesQuery } from "@/services/master-role.service";
 import {
-  mapUser,
   useCreateUserMutation,
   useGetUserByIdQuery,
   useUpdateUserMutation,
 } from "@/services/master-user.service";
-import { useGetAllRolesQuery } from "@/services/master-role.service";
-
-/**
- * Resolve detail response into single UI user.
- * @param {UserDetailResponse | undefined} response - Detail response
- * @returns {UserData | null} User or null
- */
-const _resolveUserDetail = (response: UserDetailResponse | undefined): UserData | null => {
-  if (!response?.status || !response.data) {
-    return null;
-  }
-
-  const rawItem = Array.isArray(response.data) ? response.data[0] : response.data;
-
-  return rawItem ? mapUser(rawItem) : null;
-};
 
 /**
  * Handle form submission logic for create or update.
@@ -42,12 +38,10 @@ const _resolveUserDetail = (response: UserDetailResponse | undefined): UserData 
 const useUserSubmission = (
   params: UserSubmissionParams,
 ): UserSubmissionState => {
-  const { id, isEditMode, username, email, password, role, isActive } = params;
   const navigate = useNavigate();
   const [createUser, { isLoading: isCreating }] = useCreateUserMutation();
   const [updateUser, { isLoading: isUpdating }] = useUpdateUserMutation();
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
-  const isSubmitting = isCreating || isUpdating;
 
   /**
    * Submit user form.
@@ -59,9 +53,7 @@ const useUserSubmission = (
     setErrorMessage(null);
 
     try {
-      const response = isEditMode && id
-        ? await updateUser({ id, username, email, role: [role], status: isActive ? 1 : 0 }).unwrap()
-        : await createUser({ username, email, password, role: [role], status: 1 }).unwrap();
+      const response = await sendUserMutation(params, createUser, updateUser);
 
       if (!response.status) {
         setErrorMessage("User request failed.");
@@ -71,11 +63,11 @@ const useUserSubmission = (
 
       navigate("/master-user");
     } catch {
-      setErrorMessage(isEditMode ? "Unable to update user. Please try again." : "Unable to create user. Please try again.");
+      setErrorMessage(resolveUserSubmissionError(params.isEditMode));
     }
   };
 
-  return { isSubmitting, errorMessage, handleSubmit };
+  return { isSubmitting: isCreating || isUpdating, errorMessage, handleSubmit };
 };
 
 /**
@@ -107,104 +99,149 @@ const _syncUserApiData = (
 };
 
 /**
- * Hook managing form fields and synchronization.
- * @param {UserData | undefined} routeUser - Route user
- * @param {UserData | null} apiItem - API fetched user
- * @param {UserFormFieldsState["roleOptions"]} roleOptions - Available roles
- * @param {boolean} roleOptionsLoading - Role request loading state
- * @param {string | null} roleOptionsError - Role request error
- * @returns {UserFormFieldsState} Form fields state
+ * Create input event handler for string state.
+ * @param {Dispatch<SetStateAction<string>>} setter - State setter
+ * @returns {(event: ChangeEvent<HTMLInputElement>) => void} Event handler
  */
-// Form fields share detail synchronization and role-option state.
-// eslint-disable-next-line max-lines-per-function, max-params
-const useUserFormFields = (
+const _createInputSetter = (
+  setter: Dispatch<SetStateAction<string>>,
+): ((event: ChangeEvent<HTMLInputElement>) => void) => (
+  (event: ChangeEvent<HTMLInputElement>): void => {
+    setter(event.target.value);
+  }
+);
+
+/**
+ * Resolve initial form values from route or api.
+ * @param {UserData | undefined} routeUser - Route user
+ * @param {UserData | null} apiItem - API user
+ * @returns {object} Initial values
+ */
+const _resolveInitialUserValues = (
   routeUser: UserData | undefined,
   apiItem: UserData | null,
-  roleOptions: UserFormFieldsState["roleOptions"],
-  roleOptionsLoading: boolean,
-  roleOptionsError: string | null,
-): UserFormFieldsState => {
-  const [username, setUsername] = useState(routeUser?.username ?? apiItem?.username ?? "");
-  const [email, setEmail] = useState(routeUser?.email ?? apiItem?.email ?? "");
+): {
+  username: string;
+  email: string;
+  role: string;
+  isActive: boolean;
+} => ({
+  username: routeUser?.username ?? apiItem?.username ?? "",
+  email: routeUser?.email ?? apiItem?.email ?? "",
+  role: routeUser?.role ?? apiItem?.role ?? "User",
+  isActive: (routeUser?.status ?? apiItem?.status) !== "inactive",
+});
+
+/**
+ * Hook managing password input and visibility.
+ * @returns {object} Password state and handlers
+ */
+const useUserPasswordInput = (): {
+  password: string;
+  isPasswordVisible: boolean;
+  handlePasswordChange: (event: ChangeEvent<HTMLInputElement>) => void;
+  handleTogglePasswordVisibility: () => void;
+} => {
   const [password, setPassword] = useState("");
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
-  const [role, setRole] = useState(routeUser?.role ?? apiItem?.role ?? "User");
-  const [isActive, setIsActive] = useState((routeUser?.status ?? apiItem?.status) !== "inactive");
-  const [initializedId, setInitializedId] = useState<string | null>(routeUser?.id ?? null);
-
-  _syncUserApiData(apiItem, initializedId, { setInitializedId, setUsername, setEmail, setRole });
-
-  /**
-   * Update username field.
-   * @param {ChangeEvent<HTMLInputElement>} event - Input event
-   */
-  const handleUsernameChange = (event: ChangeEvent<HTMLInputElement>): void => { setUsername(event.target.value); };
-  /**
-   * Update email field.
-   * @param {ChangeEvent<HTMLInputElement>} event - Input event
-   */
-  const handleEmailChange = (event: ChangeEvent<HTMLInputElement>): void => { setEmail(event.target.value); };
-  /**
-   * Update password field.
-   * @param {ChangeEvent<HTMLInputElement>} event - Input event
-   */
-  const handlePasswordChange = (event: ChangeEvent<HTMLInputElement>): void => { setPassword(event.target.value); };
-  /** Toggle password visibility. */
-  const handleTogglePasswordVisibility = (): void => { setIsPasswordVisible((prev) => !prev); };
-  /**
-   * Update role field.
-   * @param {ChangeEvent<HTMLSelectElement>} event - Select event
-   */
-  const handleRoleChange = (event: ChangeEvent<HTMLSelectElement>): void => { setRole(event.target.value); };
-  /** Toggle active state. */
-  const handleStatusChange = (): void => { setIsActive((prev) => !prev); };
 
   return {
-    username,
-    email,
     password,
     isPasswordVisible,
-    role,
-    roleOptions,
-    roleOptionsLoading,
-    roleOptionsError,
-    isActive,
-    handleUsernameChange,
-    handleEmailChange,
-    handlePasswordChange,
-    handleTogglePasswordVisibility,
-    handleRoleChange,
-    handleStatusChange,
+    handlePasswordChange: _createInputSetter(setPassword),
+    /**
+     *
+     */
+    handleTogglePasswordVisibility: (): void => {
+      setIsPasswordVisible((prev) => !prev);
+    },
   };
 };
 
 /**
- * Resolve role request error.
- * @param {boolean} hasRoleError - Whether request failed
- * @param {boolean | undefined} responseStatus - API response status
- * @returns {string | null} Error message
+ * Hook managing user form field input values.
+ * @param {UserData | undefined} routeUser - Route user
+ * @param {UserData | null} apiItem - API fetched user
+ * @returns {UserFieldInputsState} Form field states and handlers
  */
-const _getRoleOptionsError = (
-  hasRoleError: boolean,
-  responseStatus: boolean | undefined,
-): string | null => {
-  if (hasRoleError) {
-    return "Unable to load roles.";
-  }
+const useUserFieldInputs = (
+  routeUser: UserData | undefined,
+  apiItem: UserData | null,
+): UserFieldInputsState => {
+  const init = _resolveInitialUserValues(routeUser, apiItem);
+  const [username, setUsername] = useState(init.username);
+  const [email, setEmail] = useState(init.email);
+  const [role, setRole] = useState(init.role);
+  const [isActive, setIsActive] = useState(init.isActive);
+  const [initializedId, setInitializedId] = useState<string | null>(routeUser?.id ?? null);
+  const passwordState = useUserPasswordInput();
 
-  if (responseStatus === false) {
-    return "Role request failed.";
-  }
+  _syncUserApiData(apiItem, initializedId, {
+    setInitializedId,
+    setUsername,
+    setEmail,
+    setRole,
+  });
 
-  return null;
+  return {
+    username,
+    email,
+    role,
+    isActive,
+    ...passwordState,
+    handleUsernameChange: _createInputSetter(setUsername),
+    handleEmailChange: _createInputSetter(setEmail),
+    /**
+     * Handle role select change.
+     * @param {ChangeEvent<HTMLSelectElement>} event - Select event
+     * @returns {void} No return value
+     */
+    handleRoleChange: (event: ChangeEvent<HTMLSelectElement>): void => {
+      setRole(event.target.value);
+    },
+    /**
+     * Handle user status toggle.
+     * @returns {void} No return value
+     */
+    handleStatusChange: (): void => {
+      setIsActive((prev) => !prev);
+    },
+  };
+};
+
+/**
+ * Hook managing form fields and synchronization.
+ * @param {UserData | undefined} routeUser - Route user
+ * @param {UserData | null} apiItem - API fetched user
+ * @param {object} roleOptions - Role configuration options
+ * @param {UserFormFieldsState["roleOptions"]} roleOptions.options - Available roles
+ * @param {boolean} roleOptions.loading - Role request loading state
+ * @param {string | null} roleOptions.error - Role request error
+ * @returns {UserFormFieldsState} Form fields state
+ */
+const useUserFormFields = (
+  routeUser: UserData | undefined,
+  apiItem: UserData | null,
+  roleOptions: {
+    options: UserFormFieldsState["roleOptions"];
+    loading: boolean;
+    error: string | null;
+  },
+): UserFormFieldsState => {
+  const inputs = useUserFieldInputs(routeUser, apiItem);
+
+  return {
+    ...inputs,
+    roleOptions: roleOptions.options,
+    roleOptionsLoading: roleOptions.loading,
+    roleOptionsError: roleOptions.error,
+  };
 };
 
 /**
  * Manage master user create/edit form.
  * @returns {MasterUserCreateFormState} Form state
  */
-// Form coordinates detail, role options, submission, and navigation.
-// eslint-disable-next-line max-lines-per-function
 export const useMasterUserCreateForm = (): MasterUserCreateFormState => {
   const navigate = useNavigate();
   const location = useLocation();
@@ -216,29 +253,24 @@ export const useMasterUserCreateForm = (): MasterUserCreateFormState => {
     skip: !isEditMode || !id || Boolean(routeUser),
   });
 
-  const { data: roleResponse, error: roleError, isLoading: isRoleOptionsLoading } = useGetAllRolesQuery();
+  const {
+    data: roleResponse,
+    error: roleError,
+    isLoading: isRoleOptionsLoading,
+  } = useGetAllRolesQuery();
   const roleOptions = roleResponse?.status ? roleResponse.data : [];
-  const roleOptionsError = _getRoleOptionsError(Boolean(roleError), roleResponse?.status);
-  const apiItem = _resolveUserDetail(detailData);
-  const formFields = useUserFormFields(
-    routeUser,
-    apiItem,
-    roleOptions,
-    isRoleOptionsLoading,
-    roleOptionsError,
-  );
-  const submission = useUserSubmission({
-    id,
-    isEditMode,
-    username: formFields.username,
-    email: formFields.email,
-    password: formFields.password,
-    role: formFields.role,
-    isActive: formFields.isActive,
+  const roleOptionsError = getRoleOptionsError(Boolean(roleError), roleResponse?.status);
+  const apiItem = resolveUserDetail(detailData);
+  const formFields = useUserFormFields(routeUser, apiItem, {
+    options: roleOptions,
+    loading: isRoleOptionsLoading,
+    error: roleOptionsError,
   });
+  const submission = useUserSubmission({ id, isEditMode, ...formFields });
 
   /**
-   *
+   * Navigate back.
+   * @returns {void} No return value
    */
   const goBack = (): void => {
     navigate(-1);

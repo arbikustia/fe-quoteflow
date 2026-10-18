@@ -1,4 +1,3 @@
-/* eslint-disable jsdoc/require-jsdoc */
 import type { ReactElement } from "react";
 
 import type { ProjectData } from "../MasterProject.type";
@@ -7,6 +6,11 @@ import type { MasterProjectDetailState } from "./MasterProjectDetail.type";
 
 import Layout from "@/app/layout";
 
+/**
+ * Render details section for project.
+ * @param {ProjectData} project - Project details data
+ * @returns {ReactElement} Details elements
+ */
 const _renderDetails = (project: ProjectData): ReactElement => (
   <div className="space-y-4">
     <div className="rounded-xl border border-border-default bg-background-surface p-5 text-center shadow-small">
@@ -38,6 +42,11 @@ const _renderDetails = (project: ProjectData): ReactElement => (
   </div>
 );
 
+/**
+ * Master Project Detail pure UI component.
+ * @param {MasterProjectDetailState} props - Detail state and handlers
+ * @returns {ReactElement} Detail page
+ */
 export const MasterProjectDetailComponent = (props: MasterProjectDetailState): ReactElement => {
   const { project, goBack, goEdit } = props;
 

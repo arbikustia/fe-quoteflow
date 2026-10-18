@@ -14,6 +14,12 @@ jest.mock("./Sidebar.hook", () => ({
     isProfileOpen: false,
     onToggleProfile: jest.fn(),
   }),
+  useLogoutState: () => ({
+    isLogoutConfirmOpen: false,
+    handleLogout: jest.fn(),
+    closeLogoutConfirm: jest.fn(),
+    confirmLogout: jest.fn(),
+  }),
 }));
 
 jest.mock("../../store/theme.hook", () => ({

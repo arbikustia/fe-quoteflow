@@ -1,7 +1,7 @@
-/* eslint-disable jsdoc/require-jsdoc */
-
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+
+import { createPaginationHandlers } from "@/utils/pagination.helpers";
 
 import type {
   MasterServiceTypeContainerState,
@@ -12,7 +12,11 @@ import type {
   ServiceTypeListResponse,
 } from "./MasterServiceType.type";
 
-import { mapServiceType, useCreateServiceTypeMutation, useGetServiceTypesQuery } from "@/services/master-service-type.service";
+import {
+  mapServiceType,
+  useCreateServiceTypeMutation,
+  useGetServiceTypesQuery,
+} from "@/services/master-service-type.service";
 
 /**
  * Navigation hook.
@@ -20,15 +24,67 @@ import { mapServiceType, useCreateServiceTypeMutation, useGetServiceTypesQuery }
  */
 export const useMasterServiceTypeNavigation = (): MasterServiceTypeNavigation => {
   const navigate = useNavigate();
-  const goBack = (): void => { navigate(-1); };
-  const goCreate = (): void => { navigate("/master-service-type/create"); };
-  const goEdit = (serviceType: ServiceTypeData): void => {
-    navigate(`/master-service-type/edit/${serviceType.id}`, { state: { serviceType } });
+
+  /**
+   * Navigate back.
+   * @returns {void} No return value
+   */
+  const goBack = (): void => {
+    navigate(-1);
   };
-  const goDetail = (serviceType: ServiceTypeData): void => { navigate(`/master-service-type/detail/${serviceType.id}`); };
+
+  /**
+   * Navigate to create.
+   * @returns {void} No return value
+   */
+  const goCreate = (): void => {
+    navigate("/master-service-type/create");
+  };
+
+  /**
+   * Navigate to edit.
+   * @param {ServiceTypeData} serviceType - Service type data
+   * @returns {void} No return value
+   */
+  const goEdit = (serviceType: ServiceTypeData): void => {
+    navigate(`/master-service-type/edit/${serviceType.id}`, {
+      state: { serviceType },
+    });
+  };
+
+  /**
+   * Navigate to detail.
+   * @param {ServiceTypeData} serviceType - Service type data
+   * @returns {void} No return value
+   */
+  const goDetail = (serviceType: ServiceTypeData): void => {
+    navigate(`/master-service-type/detail/${serviceType.id}`);
+  };
 
   return { goBack, goCreate, goEdit, goDetail };
 };
+
+/**
+ * Create initial empty state for status conditions.
+ * @param {boolean} isLoading - Loading indicator
+ * @param {string | null} errorMessage - Error message
+ * @param {boolean} isMissingData - Missing data indicator
+ * @returns {ServiceTypeListApiState} State
+ */
+const _createInitialListState = (
+  isLoading: boolean,
+  errorMessage: string | null,
+  isMissingData: boolean,
+): ServiceTypeListApiState => ({
+  isLoading,
+  errorMessage,
+  isMissingData,
+  paginatedData: [],
+  totalPages: 0,
+  totalCount: 0,
+  hasNext: false,
+  hasPrevious: false,
+});
 
 /**
  * Derive list state from RTK Query result.
@@ -40,13 +96,19 @@ const _deriveServiceTypeListState = (
 ): ServiceTypeListApiState => {
   const { data, error, isLoading } = queryResult;
 
-  if (isLoading) return { isLoading: true, errorMessage: null, isMissingData: false, paginatedData: [], totalPages: 0, totalCount: 0, hasNext: false, hasPrevious: false };
+  if (isLoading) {
+    return _createInitialListState(true, null, false);
+  }
 
-  if (error) return { isLoading: false, errorMessage: "Unable to load service types.", isMissingData: false, paginatedData: [], totalPages: 0, totalCount: 0, hasNext: false, hasPrevious: false };
+  if (error) {
+    return _createInitialListState(false, "Unable to load service types.", false);
+  }
 
   const response: ServiceTypeListResponse | undefined = data;
 
-  if (!response) return { isLoading: false, errorMessage: "No response received from server.", isMissingData: true, paginatedData: [], totalPages: 0, totalCount: 0, hasNext: false, hasPrevious: false };
+  if (!response) {
+    return _createInitialListState(false, "No response received from server.", true);
+  }
 
   return {
     isLoading: false,
@@ -68,29 +130,37 @@ export const useMasterServiceTypePagination = (): MasterServiceTypePagination =>
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize, setPageSize] = useState(10);
   const [searchTerm, setSearchTerm] = useState("");
-  const queryResult = useGetServiceTypesQuery({ pageNumber: currentPage, pageSize, searchTerm });
+  const queryResult = useGetServiceTypesQuery({
+    pageNumber: currentPage,
+    pageSize,
+    searchTerm,
+  });
   const derived = _deriveServiceTypeListState(queryResult);
-  const goToPage = (page: number): void => setCurrentPage(Math.max(1, Math.min(page, derived.totalPages)));
-  const nextPage = (): void => { if (derived.hasNext) goToPage(currentPage + 1); };
-  const prevPage = (): void => { if (derived.hasPrevious) goToPage(currentPage - 1); };
-  const changePageSize = (size: number): void => { setPageSize(size); setCurrentPage(1); };
-  const handleSearchTerm = (value: string): void => { setSearchTerm(value); setCurrentPage(1); };
 
-  return {
+  const handlers = createPaginationHandlers({
     currentPage,
     totalPages: derived.totalPages,
+    hasNext: derived.hasNext,
+    hasPrevious: derived.hasPrevious,
+    canPaginate: !derived.isLoading && !derived.errorMessage && derived.paginatedData.length > 0,
+    setCurrentPage,
+    setPageSize,
+    setSearchTerm,
+  });
+
+  const isEmpty =
+    !derived.isLoading &&
+    !derived.errorMessage &&
+    !derived.isMissingData &&
+    derived.paginatedData.length === 0;
+
+  return {
+    ...derived,
+    ...handlers,
+    currentPage,
     pageSize,
-    paginatedData: derived.paginatedData,
-    totalCount: derived.totalCount,
-    isLoading: derived.isLoading,
-    errorMessage: derived.errorMessage,
-    isEmpty: !derived.isLoading && !derived.errorMessage && !derived.isMissingData && derived.paginatedData.length === 0,
-    isMissingData: derived.isMissingData,
-    goToPage,
-    nextPage,
-    prevPage,
-    changePageSize,
-    setSearchTerm: handleSearchTerm,
+    isEmpty,
+    setSearchTerm: handlers.handleSearchTerm,
   };
 };
 
@@ -104,9 +174,31 @@ export const useMasterServiceTypeContainerState = (): MasterServiceTypeContainer
 
   useCreateServiceTypeMutation();
   const [isMoreOpen, setIsMoreOpen] = useState(false);
-  const toggleMore = (): void => setIsMoreOpen((previous) => !previous);
-  const goDelete = (): void => setIsMoreOpen(false);
-  const handleCloseMore = (): void => setIsMoreOpen(false);
 
-  return { ...navigation, pagination, isMoreOpen, toggleMore, goDelete, handleCloseMore };
+  /**
+   * Toggle more menu.
+   * @returns {void} No return value
+   */
+  const toggleMore = (): void => { setIsMoreOpen((previous) => !previous); };
+
+  /**
+   * Delete action.
+   * @returns {void} No return value
+   */
+  const goDelete = (): void => { setIsMoreOpen(false); };
+
+  /**
+   * Close more menu.
+   * @returns {void} No return value
+   */
+  const handleCloseMore = (): void => { setIsMoreOpen(false); };
+
+  return {
+    ...navigation,
+    pagination,
+    isMoreOpen,
+    toggleMore,
+    goDelete,
+    handleCloseMore,
+  };
 };

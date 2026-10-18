@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
+import { createPaginationHandlers } from "@/utils/pagination.helpers";
+
 import type {
   MasterRoleContainerState,
   MasterRoleNavigation,
@@ -9,7 +11,11 @@ import type {
   RoleListApiState,
 } from "./MasterRole.type";
 
-import { mapRole, useCreateRoleMutation, useGetRolesQuery } from "@/services/master-role.service";
+import {
+  mapRole,
+  useCreateRoleMutation,
+  useGetRolesQuery,
+} from "@/services/master-role.service";
 
 /**
  * Navigation hook
@@ -22,27 +28,35 @@ export const useMasterRoleNavigation = (): MasterRoleNavigation => {
    * Navigate back
    * @returns {void} void
    */
-  const goBack = (): void => { navigate(-1); };
+  const goBack = (): void => {
+    navigate(-1);
+  };
 
   /**
    * Navigate to create
    * @returns {void} void
    */
-  const goCreate = (): void => { navigate("/master-role/create"); };
+  const goCreate = (): void => {
+    navigate("/master-role/create");
+  };
 
   /**
    * Navigate to edit
    * @param {RoleData} role - role data
    * @returns {void} void
    */
-  const goEdit = (role: RoleData): void => { navigate(`/master-role/edit/${role.id}`, { state: { role } }); };
+  const goEdit = (role: RoleData): void => {
+    navigate(`/master-role/edit/${role.id}`, { state: { role } });
+  };
 
   /**
    * Navigate to detail
    * @param {RoleData} role - role data
    * @returns {void} void
    */
-  const goDetail = (role: RoleData): void => { navigate(`/master-role/detail/${role.id}`); };
+  const goDetail = (role: RoleData): void => {
+    navigate(`/master-role/detail/${role.id}`);
+  };
 
   return { goBack, goCreate, goEdit, goDetail };
 };
@@ -52,7 +66,9 @@ export const useMasterRoleNavigation = (): MasterRoleNavigation => {
  * @param {ReturnType<typeof useGetRolesQuery>} queryResult - RTK Query result
  * @returns {RoleListApiState} derived role list state
  */
-const _deriveRoleListState = (queryResult: ReturnType<typeof useGetRolesQuery>): RoleListApiState => {
+const _deriveRoleListState = (
+  queryResult: ReturnType<typeof useGetRolesQuery>,
+): RoleListApiState => {
   const { data, error, isLoading } = queryResult;
 
   if (isLoading) {
@@ -120,8 +136,6 @@ const _createMissingResponseState = (): RoleListApiState => ({
  * Hook for API-backed master role pagination.
  * @returns {MasterRolePagination} role pagination state and handlers
  */
-// Pagination handlers stay together so state transitions remain atomic.
-// eslint-disable-next-line max-lines-per-function
 export const useMasterRolePagination = (): MasterRolePagination => {
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize, setPageSize] = useState(10);
@@ -129,64 +143,26 @@ export const useMasterRolePagination = (): MasterRolePagination => {
   const queryResult = useGetRolesQuery({ pageNumber: currentPage, pageSize, searchTerm });
   const derived = _deriveRoleListState(queryResult);
 
-  /**
-   * Handle page change
-   * @param {number} page - new page number
-   * @returns {void} void
-   */
-  const goToPage = (page: number): void => setCurrentPage(Math.max(1, Math.min(page, derived.totalPages)));
-
-  /**
-   * Handle next page
-   * @returns {void} void
-   */
-  const nextPage = (): void => {
-    if (!derived.isLoading && !derived.errorMessage && derived.paginatedData.length > 0 && queryResult.data?.has_next) goToPage(currentPage + 1);
-  };
-
-  /**
-   * Handle previous page
-   * @returns {void} void
-   */
-  const prevPage = (): void => {
-    if (!derived.isLoading && !derived.errorMessage && derived.paginatedData.length > 0 && queryResult.data?.has_previous) goToPage(currentPage - 1);
-  };
-
-  /**
-   * Handle page size change
-   * @param {number} size - new page size
-   * @returns {void} void
-   */
-  const changePageSize = (size: number): void => {
-    setPageSize(size);
-    setCurrentPage(1);
-  };
-
-  /**
-   * Handle search term change
-   * @param {string} value - search term
-   * @returns {void} void
-   */
-  const handleSearchTerm = (value: string): void => {
-    setSearchTerm(value);
-    setCurrentPage(1);
-  };
-
-  return {
+  const handlers = createPaginationHandlers({
     currentPage,
     totalPages: derived.totalPages,
+    hasNext: Boolean(queryResult.data?.has_next),
+    hasPrevious: Boolean(queryResult.data?.has_previous),
+    canPaginate: !derived.isLoading && !derived.errorMessage && derived.paginatedData.length > 0,
+    setCurrentPage,
+    setPageSize,
+    setSearchTerm,
+  });
+
+  const isEmpty = !derived.isLoading && !derived.errorMessage && !derived.isMissingData && derived.paginatedData.length === 0;
+
+  return {
+    ...derived,
+    ...handlers,
+    currentPage,
     pageSize,
-    paginatedData: derived.paginatedData,
-    totalCount: derived.totalCount,
-    isLoading: derived.isLoading,
-    errorMessage: derived.errorMessage,
-    isEmpty: !derived.isLoading && !derived.errorMessage && !derived.isMissingData && derived.paginatedData.length === 0,
-    isMissingData: derived.isMissingData,
-    goToPage,
-    nextPage,
-    prevPage,
-    changePageSize,
-    setSearchTerm: handleSearchTerm,
+    isEmpty,
+    setSearchTerm: handlers.handleSearchTerm,
   };
 };
 
@@ -196,7 +172,9 @@ export { useMasterRoleCreateForm } from "./create/MasterRoleCreate.hook";
  * Hook for master role create mutation.
  * @returns {ReturnType<typeof useCreateRoleMutation>} role create mutation
  */
-export const useMasterRoleCreateRole = (): ReturnType<typeof useCreateRoleMutation> => useCreateRoleMutation();
+export const useMasterRoleCreateRole = (): ReturnType<
+  typeof useCreateRoleMutation
+> => useCreateRoleMutation();
 
 /**
  * Container state hook
@@ -225,5 +203,12 @@ export const useMasterRoleContainerState = (): MasterRoleContainerState => {
    */
   const handleCloseMore = (): void => setIsMoreOpen(false);
 
-  return { ...navigation, pagination, isMoreOpen, toggleMore, goDelete, handleCloseMore };
+  return {
+    ...navigation,
+    pagination,
+    isMoreOpen,
+    toggleMore,
+    goDelete,
+    handleCloseMore,
+  };
 };

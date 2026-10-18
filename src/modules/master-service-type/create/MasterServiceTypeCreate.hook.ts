@@ -1,11 +1,134 @@
-/* eslint-disable max-lines-per-function, jsdoc/require-jsdoc */
+import type { ChangeEvent, SyntheticEvent } from "react";
 import { useState } from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 
-import { parseRupiahInput } from "./MasterServiceTypeCreate.helpers";
-import type { MasterServiceTypeCreateFormState } from "./MasterServiceTypeCreate.type";
+import type { ServiceTypeData } from "../MasterServiceType.type";
 
-import { useCreateServiceTypeMutation, useUpdateServiceTypeMutation } from "@/services/master-service-type.service";
+import {
+  formatServiceTypeMessages,
+  parseRupiahInput,
+  resolveServiceTypeStatus,
+} from "./MasterServiceTypeCreate.helpers";
+import type {
+  MasterServiceTypeCreateFormState,
+  ServiceTypeFormFieldsState,
+  ServiceTypeSubmissionValues,
+} from "./MasterServiceTypeCreate.type";
+
+import {
+  useCreateServiceTypeMutation,
+  useUpdateServiceTypeMutation,
+} from "@/services/master-service-type.service";
+
+/**
+ * Send create or update mutation for service type.
+ * @param {ServiceTypeSubmissionValues} params - Submission params
+ * @param {ReturnType<typeof useCreateServiceTypeMutation>[0]} createServiceType - Create trigger
+ * @param {ReturnType<typeof useUpdateServiceTypeMutation>[0]} updateServiceType - Update trigger
+ * @returns {Promise<{ status: boolean; messages: string[] | string | null }>} Mutation response
+ */
+const _sendServiceTypeMutation = (
+  params: ServiceTypeSubmissionValues,
+  createServiceType: ReturnType<typeof useCreateServiceTypeMutation>[0],
+  updateServiceType: ReturnType<typeof useUpdateServiceTypeMutation>[0],
+): Promise<{ status: boolean; messages: string[] | string | null }> => {
+  const { id, isEditMode, serviceName, price, isActive } = params;
+  const payload = {
+    name: serviceName,
+    price: Number(price) || 0,
+    status: resolveServiceTypeStatus(isEditMode, isActive),
+  };
+
+  return isEditMode && id
+    ? updateServiceType({ ...payload, id }).unwrap()
+    : createServiceType(payload).unwrap();
+};
+
+/**
+ * Execute form submission.
+ * @param {ServiceTypeSubmissionValues} params - Submission values
+ * @param {ReturnType<typeof useCreateServiceTypeMutation>[0]} createServiceType - Create trigger
+ * @param {ReturnType<typeof useUpdateServiceTypeMutation>[0]} updateServiceType - Update trigger
+ * @param {object} handlers - Handlers
+ * @param {(msg: string | null) => void} handlers.setErrorMessage - Error setter
+ * @param {(path: string) => void} handlers.navigate - Navigator
+ * @returns {Promise<void>} Async result
+ */
+const _executeSubmit = async (
+  params: ServiceTypeSubmissionValues,
+  createServiceType: ReturnType<typeof useCreateServiceTypeMutation>[0],
+  updateServiceType: ReturnType<typeof useUpdateServiceTypeMutation>[0],
+  handlers: {
+    setErrorMessage: (msg: string | null) => void;
+    navigate: (path: string) => void;
+  },
+): Promise<void> => {
+  try {
+    const response = await _sendServiceTypeMutation(
+      params,
+      createServiceType,
+      updateServiceType,
+    );
+
+    if (!response.status) {
+      handlers.setErrorMessage(formatServiceTypeMessages(response.messages));
+
+      return;
+    }
+
+    handlers.navigate("/master-service-type");
+  } catch {
+    handlers.setErrorMessage("Unable to save service type. Please try again.");
+  }
+};
+
+/**
+ * Manage service type form field states.
+ * @param {ServiceTypeData | undefined} routeServiceType - Route state item
+ * @returns {ServiceTypeFormFieldsState} Field states and handlers
+ */
+const useServiceTypeFields = (
+  routeServiceType: ServiceTypeData | undefined,
+): ServiceTypeFormFieldsState => {
+  const [serviceName, setServiceName] = useState(routeServiceType?.name ?? "");
+  const [price, setPrice] = useState(routeServiceType ? String(routeServiceType.price) : "");
+  const [isActive, setIsActive] = useState(routeServiceType ? routeServiceType.status === "active" : true);
+
+  /**
+   * Handle service name change.
+   * @param {ChangeEvent<HTMLInputElement>} event - Change event
+   * @returns {void} No return value
+   */
+  const handleServiceNameChange = (event: ChangeEvent<HTMLInputElement>): void => {
+    setServiceName(event.target.value);
+  };
+
+  /**
+   * Handle service price change.
+   * @param {ChangeEvent<HTMLInputElement>} event - Change event
+   * @returns {void} No return value
+   */
+  const handlePriceChange = (event: ChangeEvent<HTMLInputElement>): void => {
+    setPrice(parseRupiahInput(event.target.value));
+  };
+
+  /**
+   * Handle active status toggle.
+   * @returns {void} No return value
+   */
+  const handleStatusChange = (): void => {
+    setIsActive((currentIsActive) => !currentIsActive);
+  };
+
+  return {
+    serviceName,
+    price,
+    isActive,
+    handleServiceNameChange,
+    handlePriceChange,
+    handleStatusChange,
+  };
+};
 
 /**
  * Hook for master service type create/edit form.
@@ -16,78 +139,43 @@ export const useMasterServiceTypeCreateForm = (): MasterServiceTypeCreateFormSta
   const location = useLocation();
   const { id } = useParams<{ readonly id: string }>();
   const isEditMode = Boolean(id);
-  const routeServiceType = location.state?.serviceType;
+  const routeServiceType: ServiceTypeData | undefined = location.state?.serviceType;
 
-  const [serviceName, setServiceName] = useState(routeServiceType?.name ?? "");
-  const [price, setPrice] = useState(routeServiceType ? String(routeServiceType.price) : "");
-  const [isActive, setIsActive] = useState(routeServiceType ? routeServiceType.status === "active" : true);
+  const fields = useServiceTypeFields(routeServiceType);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   const [createServiceType, { isLoading: isCreating }] = useCreateServiceTypeMutation();
   const [updateServiceType, { isLoading: isUpdating }] = useUpdateServiceTypeMutation();
-  const isSubmitting = isCreating || isUpdating;
 
-  const handleServiceNameChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
-    setServiceName(event.target.value);
-  };
-
-  const handlePriceChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
-    setPrice(parseRupiahInput(event.target.value));
-  };
-
-  const handleStatusChange = (): void => {
-    setIsActive((currentIsActive) => !currentIsActive);
-  };
-
-  const handleSubmit = async (event: React.SyntheticEvent): Promise<void> => {
+  /**
+   * Handle form submission.
+   * @param {SyntheticEvent} event - Submit event
+   * @returns {Promise<void>} Async result
+   */
+  const handleSubmit = async (event: SyntheticEvent): Promise<void> => {
     event.preventDefault();
     setErrorMessage(null);
-
-    try {
-      const payload = {
-        name: serviceName,
-        price: Number(price) || 0,
-        status: isEditMode ? (isActive ? 1 : 0) : 1,
-      };
-
-      let response;
-
-      if (isEditMode && id) {
-        response = await updateServiceType({ ...payload, id }).unwrap();
-      } else {
-        response = await createServiceType(payload).unwrap();
-      }
-
-      if (!response.status) {
-        const message = Array.isArray(response.messages)
-          ? response.messages.join(" ")
-          : (response.messages ?? "Failed to save service type.");
-
-        setErrorMessage(message);
-
-        return;
-      }
-
-      navigate("/master-service-type");
-    } catch {
-      setErrorMessage("Unable to save service type. Please try again.");
-    }
+    await _executeSubmit(
+      { id, isEditMode, ...fields },
+      createServiceType,
+      updateServiceType,
+      { setErrorMessage, navigate },
+    );
   };
 
+  /**
+   * Navigate back.
+   * @returns {void} No return value
+   */
   const goBack = (): void => {
     navigate(-1);
   };
 
   return {
-    serviceName,
-    price,
-    isActive,
+    ...fields,
     isEditMode,
-    isSubmitting,
+    isSubmitting: isCreating || isUpdating,
     errorMessage,
-    handleServiceNameChange,
-    handlePriceChange,
-    handleStatusChange,
     handleSubmit,
     goBack,
   };

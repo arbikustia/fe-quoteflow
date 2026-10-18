@@ -1,4 +1,3 @@
-/* eslint-disable jsdoc/require-jsdoc */
 import type { ReactElement } from "react";
 
 import type { PaymentTypeData } from "../MasterPaymentType.type";
@@ -7,6 +6,11 @@ import type { MasterPaymentTypeDetailState } from "./MasterPaymentTypeDetail.typ
 
 import Layout from "@/app/layout";
 
+/**
+ * Render details section for payment type.
+ * @param {PaymentTypeData} item - Payment type data
+ * @returns {ReactElement} Details element
+ */
 const _renderDetails = (item: PaymentTypeData): ReactElement => (
   <div className="space-y-4">
     <div className="rounded-xl border border-border-default bg-background-surface p-5 text-center shadow-small">
@@ -25,6 +29,11 @@ const _renderDetails = (item: PaymentTypeData): ReactElement => (
   </div>
 );
 
+/**
+ * Master Payment Type Detail pure UI component.
+ * @param {MasterPaymentTypeDetailState} props - Detail state and handlers
+ * @returns {ReactElement} Detail page
+ */
 export const MasterPaymentTypeDetailComponent = (props: MasterPaymentTypeDetailState): ReactElement => {
   const { paymentType, isMoreOpen, isDeleteModalOpen, goBack, toggleMore, goEdit, openDeleteModal, closeDeleteModal, handleDelete } = props;
 

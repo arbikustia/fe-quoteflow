@@ -1,4 +1,3 @@
-/* eslint-disable max-lines-per-function, jsdoc/require-returns, jsdoc/require-param-type, jsdoc/require-param-description */
 import type { ReactElement } from "react";
 
 import type { PaymentMethodData } from "../MasterPaymentMethod.type";
@@ -20,26 +19,68 @@ const _renderNotFound = (): ReactElement => (
 );
 
 /**
- * Render detail header
+ * Render more dropdown menu options.
+ * @param {MasterPaymentMethodDetailState} props - Detail props
+ * @returns {ReactElement} Menu element
+ */
+const _renderMoreMenu = (props: MasterPaymentMethodDetailState): ReactElement => {
+  const { closeMore, goEdit, openDeleteModal } = props;
+
+  return (
+    <>
+      <button type="button" aria-label="Close menu" onClick={closeMore} className="fixed inset-0 z-10 cursor-default" tabIndex={-1} />
+      <div role="menu" className="absolute right-0 z-20 mt-2 w-40 overflow-hidden rounded-xl border border-border-default bg-background-surface py-2 shadow-medium">
+        <button
+          role="menuitem"
+          type="button"
+          onClick={goEdit}
+          className="w-full px-4 py-2 text-left text-sm font-medium text-text-primary hover:bg-background-subtle"
+        >
+          Edit
+        </button>
+        <button
+          role="menuitem"
+          type="button"
+          onClick={openDeleteModal}
+          className="w-full px-4 py-2 text-left text-sm font-medium text-red-600 hover:bg-red-50"
+        >
+          Delete
+        </button>
+      </div>
+    </>
+  );
+};
+
+/**
+ * Render detail back button.
+ * @param {() => void} goBack - Back navigation handler
+ * @returns {ReactElement} Back button
+ */
+const _renderBackButton = (goBack: () => void): ReactElement => (
+  <button
+    type="button"
+    onClick={goBack}
+    aria-label="Back"
+    className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-border-default bg-background-surface text-text-primary transition-colors hover:bg-background-subtle"
+  >
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.4} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <path d="M19 12H5" />
+      <path d="M12 19 5 12l7-7" />
+    </svg>
+  </button>
+);
+
+/**
+ * Render detail header.
  * @param {MasterPaymentMethodDetailState} props - Detail props
  * @returns {ReactElement} Header
  */
 const _renderHeader = (props: MasterPaymentMethodDetailState): ReactElement => {
-  const { goBack, toggleMore, isMoreOpen, closeMore, goEdit, openDeleteModal } = props;
+  const { goBack, toggleMore, isMoreOpen } = props;
 
   return (
     <div className="relative mb-4 flex items-center justify-between py-2">
-      <button
-        type="button"
-        onClick={goBack}
-        aria-label="Back"
-        className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-border-default bg-background-surface text-text-primary transition-colors hover:bg-background-subtle"
-      >
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.4} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-          <path d="M19 12H5" />
-          <path d="M12 19 5 12l7-7" />
-        </svg>
-      </button>
+      {_renderBackButton(goBack)}
       <h1 className="flex-1 truncate px-2 text-center text-lg font-semibold text-text-primary">
         Detail Payment Method
       </h1>
@@ -58,81 +99,86 @@ const _renderHeader = (props: MasterPaymentMethodDetailState): ReactElement => {
             <circle cx="19" cy="12" r="1.8" />
           </svg>
         </button>
-        {isMoreOpen && (
-          <>
-            <button type="button" aria-label="Close menu" onClick={closeMore} className="fixed inset-0 z-10 cursor-default" tabIndex={-1} />
-            <div role="menu" className="absolute right-0 z-20 mt-2 w-40 overflow-hidden rounded-xl border border-border-default bg-background-surface py-2 shadow-medium">
-              <button
-                role="menuitem"
-                type="button"
-                onClick={goEdit}
-                className="w-full px-4 py-2 text-left text-sm font-medium text-text-primary hover:bg-background-subtle"
-              >
-                Edit
-              </button>
-              <button
-                role="menuitem"
-                type="button"
-                onClick={openDeleteModal}
-                className="w-full px-4 py-2 text-left text-sm font-medium text-red-600 hover:bg-red-50"
-              >
-                Delete
-              </button>
-            </div>
-          </>
-        )}
+        {isMoreOpen && _renderMoreMenu(props)}
       </div>
     </div>
   );
 };
 
 /**
- * Render detail content
+ * Render detail overview card with status.
+ * @param {PaymentMethodData} item - Payment method
+ * @returns {ReactElement} Overview card
+ */
+const _renderOverviewCard = (item: PaymentMethodData): ReactElement => (
+  <div className="rounded-xl border border-border-default bg-background-surface p-5 text-center shadow-small">
+    <h2 className="mb-2 truncate text-xl font-semibold text-text-primary">{item.name}</h2>
+    <span className={`inline-flex rounded-full px-3 py-1 text-sm font-semibold ${item.status === "active" ? "bg-green-100 text-green-700" : "bg-red-100 text-red-700"}`}>
+      {item.status}
+    </span>
+  </div>
+);
+
+/**
+ * Render detail fields list.
+ * @param {PaymentMethodData} item - Payment method
+ * @returns {ReactElement} Details list
+ */
+const _renderFieldList = (item: PaymentMethodData): ReactElement => (
+  <div className="overflow-hidden rounded-xl border border-border-default bg-background-surface shadow-small">
+    <div className="px-5 pb-3 pt-5">
+      <h3 className="text-sm font-semibold text-text-primary">Payment Method details</h3>
+    </div>
+    <dl className="divide-y divide-border-default">
+      <div className="flex items-center justify-between gap-4 px-5 py-4">
+        <dt className="text-sm text-text-secondary">Name</dt>
+        <dd className="truncate text-right text-sm font-medium text-text-primary">{item.name}</dd>
+      </div>
+      <div className="flex items-center justify-between gap-4 px-5 py-4">
+        <dt className="text-sm text-text-secondary">Description</dt>
+        <dd className="truncate text-right text-sm font-medium text-text-primary">{item.description}</dd>
+      </div>
+      <div className="flex items-center justify-between gap-4 px-5 py-4">
+        <dt className="text-sm text-text-secondary">ID</dt>
+        <dd className="truncate text-right text-sm font-medium text-text-primary">{item.id}</dd>
+      </div>
+    </dl>
+  </div>
+);
+
+/**
+ * Render audit info card.
+ * @param {PaymentMethodData} item - Payment method
+ * @returns {ReactElement} Record info card
+ */
+const _renderRecordInfo = (item: PaymentMethodData): ReactElement => (
+  <div className="overflow-hidden rounded-xl border border-border-default bg-background-surface shadow-small">
+    <div className="px-5 pb-3 pt-5">
+      <h3 className="text-sm font-semibold text-text-primary">Record info</h3>
+    </div>
+    <dl className="grid grid-cols-1 divide-y divide-border-default sm:grid-cols-2 sm:divide-x sm:divide-y-0">
+      <div className="px-5 py-4">
+        <dt className="mb-1 text-sm text-text-secondary">Created by</dt>
+        <dd className="truncate text-sm font-medium text-text-primary">{item.createBy}</dd>
+      </div>
+      <div className="px-5 py-4">
+        <dt className="mb-1 text-sm text-text-secondary">Created at</dt>
+        <dd className="truncate text-sm font-medium text-text-primary">{item.createAt}</dd>
+      </div>
+    </dl>
+  </div>
+);
+
+/**
+ * Render detail content.
  * @param {PaymentMethodData} item - Payment method
  * @returns {ReactElement} Details
  */
 const _renderDetails = (item: PaymentMethodData): ReactElement => (
   <div className="space-y-4">
-    <div className="rounded-xl border border-border-default bg-background-surface p-5 text-center shadow-small">
-      <h2 className="mb-2 truncate text-xl font-semibold text-text-primary">{item.name}</h2>
-      <span className={`inline-flex rounded-full px-3 py-1 text-sm font-semibold ${item.status === "active" ? "bg-green-100 text-green-700" : "bg-red-100 text-red-700"}`}>
-        {item.status}
-      </span>
-    </div>
-    <div className="overflow-hidden rounded-xl border border-border-default bg-background-surface shadow-small">
-      <div className="px-5 pb-3 pt-5">
-        <h3 className="text-sm font-semibold text-text-primary">Payment Method details</h3>
-      </div>
-      <dl className="divide-y divide-border-default">
-        <div className="flex items-center justify-between gap-4 px-5 py-4">
-          <dt className="text-sm text-text-secondary">Name</dt>
-          <dd className="truncate text-right text-sm font-medium text-text-primary">{item.name}</dd>
-        </div>
-        <div className="flex items-center justify-between gap-4 px-5 py-4">
-          <dt className="text-sm text-text-secondary">Description</dt>
-          <dd className="truncate text-right text-sm font-medium text-text-primary">{item.description}</dd>
-        </div>
-        <div className="flex items-center justify-between gap-4 px-5 py-4">
-          <dt className="text-sm text-text-secondary">ID</dt>
-          <dd className="truncate text-right text-sm font-medium text-text-primary">{item.id}</dd>
-        </div>
-      </dl>
-    </div>
-    <div className="overflow-hidden rounded-xl border border-border-default bg-background-surface shadow-small">
-      <div className="px-5 pb-3 pt-5">
-        <h3 className="text-sm font-semibold text-text-primary">Record info</h3>
-      </div>
-      <dl className="grid grid-cols-1 divide-y divide-border-default sm:grid-cols-2 sm:divide-x sm:divide-y-0">
-        <div className="px-5 py-4">
-          <dt className="mb-1 text-sm text-text-secondary">Created by</dt>
-          <dd className="truncate text-sm font-medium text-text-primary">{item.createBy}</dd>
-        </div>
-        <div className="px-5 py-4">
-          <dt className="mb-1 text-sm text-text-secondary">Created at</dt>
-          <dd className="truncate text-sm font-medium text-text-primary">{item.createAt}</dd>
-        </div>
-      </dl>
-    </div>
+    {_renderOverviewCard(item)}
+    {_renderFieldList(item)}
+    {_renderRecordInfo(item)}
   </div>
 );
 
@@ -169,14 +215,9 @@ const _renderDeleteModal = (props: MasterPaymentMethodDetailState): ReactElement
 };
 
 /**
- * Master Payment Method Detail pure UI component
+ * Master Payment Method Detail pure UI component.
  * @param {MasterPaymentMethodDetailState} props - State and actions
  * @returns {ReactElement} Component
- */
- 
-/**
- *
- * @param props
  */
 export const MasterPaymentMethodDetailComponent = (props: MasterPaymentMethodDetailState): ReactElement => {
   const { paymentMethod } = props;
