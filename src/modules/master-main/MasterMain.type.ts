@@ -7,6 +7,7 @@ export type MasterMainCardProps = {
   readonly title: string;
   readonly description: string;
   readonly icon: React.ReactElement;
+  readonly image?: string;
   readonly path: string;
   readonly onClick?: () => void;
 };

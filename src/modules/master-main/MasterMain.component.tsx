@@ -8,7 +8,7 @@ import type { MasterMainCardProps } from "./MasterMain.type";
  * @returns {React.ReactElement} - card
  */
 export const MasterMainCard = (props: MasterMainCardProps): React.ReactElement => {
-  const { title, description, icon, onClick } = props;
+  const { title, description, icon, image, onClick } = props;
 
   return (
     <button
@@ -16,9 +16,18 @@ export const MasterMainCard = (props: MasterMainCardProps): React.ReactElement =
       onClick={onClick}
       className="group flex min-h-36 w-full items-start gap-4 rounded-2xl border border-border-default bg-background-surface p-5 text-left transition-colors hover:border-border-strong hover:bg-background-subtle/40 focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring/30"
     >
-      <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-action-primary-subtle text-action-primary transition-colors group-hover:bg-action-primary group-hover:text-white">
-        {icon}
-      </span>
+      {image ? (
+        <img
+          src={image}
+          alt=""
+          aria-hidden="true"
+          className="h-28 w-44 shrink-0 rounded-xl object-contain"
+        />
+      ) : (
+        <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-action-primary-subtle text-action-primary transition-colors group-hover:bg-action-primary group-hover:text-white">
+          {icon}
+        </span>
+      )}
       <span className="min-w-0 flex-1">
         <span className="block truncate text-lg font-semibold text-text-primary">{title}</span>
         <span className="mt-2 block text-sm leading-5 text-text-secondary">{description}</span>
@@ -55,6 +64,7 @@ export const MasterMainComponent = (props: {
             title={card.title}
             description={card.description}
             icon={card.icon}
+            image={card.image}
             path={card.path}
             onClick={() => onCardClick(card.path)}
           />

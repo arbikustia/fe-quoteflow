@@ -3,611 +3,333 @@
 exports[`MasterMainComponent matches snapshot 1`] = `
 <DocumentFragment>
   <div
-    class="flex flex-col h-fit p-5 mb-20"
+    class="flex flex-col gap-6 px-6 pb-20 lg:px-0"
   >
-    <div
-      class="mb-6"
-    >
-      <span
-        class="text-3xl font-bold text-brand-text-dark"
+    <div>
+      <h1
+        class="text-3xl font-bold text-text-primary"
       >
         Master Data
-      </span>
+      </h1>
+      <p
+        class="mt-2 text-sm text-text-secondary"
+      >
+        Manage core data used across QuoteFlow.
+      </p>
     </div>
     <div
-      class="grid grid-cols-1 md:grid-cols-3 gap-6"
+      class="grid grid-cols-1 gap-4 md:grid-cols-3"
     >
-      <div
-        class="bg-brand-white/80 backdrop-blur-xl p-6 rounded-2xl border border-brand-gray-light shadow-lg hover:shadow-md hover:border-brand-blue/35 transition-all cursor-pointer flex flex-row items-start text-left gap-4 group relative overflow-hidden"
+      <button
+        class="group flex min-h-36 w-full items-start gap-4 rounded-2xl border border-border-default bg-background-surface p-5 text-left transition-colors hover:border-border-strong hover:bg-background-subtle/40 focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring/30"
+        type="button"
       >
-        <div
-          class="absolute top-0 left-0 w-1 h-full bg-transparent group-hover:bg-brand-blue transition-colors"
+        <img
+          alt=""
+          aria-hidden="true"
+          class="h-28 w-44 shrink-0 rounded-xl object-contain"
+          src="/src/assets/customer-illustration.png"
         />
-        <div
-          class="p-16 bg-brand-blue-light/60 rounded-xl text-brand-blue group-hover:bg-brand-blue group-hover:text-brand-white transition-colors"
+        <span
+          class="min-w-0 flex-1"
         >
-          <svg
-            fill="none"
-            height="20"
-            stroke="currentColor"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="1.8"
-            viewBox="0 0 24 24"
-            width="20"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"
-            />
-            <circle
-              cx="9"
-              cy="7"
-              r="4"
-            />
-            <path
-              d="M22 21v-2a4 4 0 0 0-3-3.87"
-            />
-            <path
-              d="M16 3.13a4 4 0 0 1 0 7.75"
-            />
-          </svg>
-        </div>
-        <div>
-          <h3
-            class="text-2xl font-bold text-brand-text-dark mb-1 group-hover:text-brand-blue transition-colors"
+          <span
+            class="block truncate text-lg font-semibold text-text-primary"
           >
             Master Customer
-          </h3>
-          <p
-            class="text-sm leading-relaxed text-brand-text-medium"
+          </span>
+          <span
+            class="mt-2 block text-sm leading-5 text-text-secondary"
           >
             Manage customer profiles and contact info
-          </p>
-        </div>
-      </div>
-      <div
-        class="bg-brand-white/80 backdrop-blur-xl p-6 rounded-2xl border border-brand-gray-light shadow-lg hover:shadow-md hover:border-brand-blue/35 transition-all cursor-pointer flex flex-row items-start text-left gap-4 group relative overflow-hidden"
-      >
-        <div
-          class="absolute top-0 left-0 w-1 h-full bg-transparent group-hover:bg-brand-blue transition-colors"
-        />
-        <div
-          class="p-16 bg-brand-blue-light/60 rounded-xl text-brand-blue group-hover:bg-brand-blue group-hover:text-brand-white transition-colors"
+          </span>
+        </span>
+        <span
+          aria-hidden="true"
+          class="shrink-0 text-xl text-text-tertiary transition-transform group-hover:translate-x-1"
         >
-          <svg
-            fill="none"
-            height="20"
-            stroke="currentColor"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="1.8"
-            viewBox="0 0 24 24"
-            width="20"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <rect
-              height="9"
-              rx="1"
-              width="7"
-              x="3"
-              y="3"
-            />
-            <rect
-              height="5"
-              rx="1"
-              width="7"
-              x="14"
-              y="3"
-            />
-            <rect
-              height="9"
-              rx="1"
-              width="7"
-              x="14"
-              y="12"
-            />
-            <rect
-              height="5"
-              rx="1"
-              width="7"
-              x="3"
-              y="16"
-            />
-          </svg>
-        </div>
-        <div>
-          <h3
-            class="text-2xl font-bold text-brand-text-dark mb-1 group-hover:text-brand-blue transition-colors"
+          →
+        </span>
+      </button>
+      <button
+        class="group flex min-h-36 w-full items-start gap-4 rounded-2xl border border-border-default bg-background-surface p-5 text-left transition-colors hover:border-border-strong hover:bg-background-subtle/40 focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring/30"
+        type="button"
+      >
+        <img
+          alt=""
+          aria-hidden="true"
+          class="h-28 w-44 shrink-0 rounded-xl object-contain"
+          src="/src/assets/category-illustration.png"
+        />
+        <span
+          class="min-w-0 flex-1"
+        >
+          <span
+            class="block truncate text-lg font-semibold text-text-primary"
           >
             Master Category
-          </h3>
-          <p
-            class="text-sm leading-relaxed text-brand-text-medium"
+          </span>
+          <span
+            class="mt-2 block text-sm leading-5 text-text-secondary"
           >
             Manage product and item categories
-          </p>
-        </div>
-      </div>
-      <div
-        class="bg-brand-white/80 backdrop-blur-xl p-6 rounded-2xl border border-brand-gray-light shadow-lg hover:shadow-md hover:border-brand-blue/35 transition-all cursor-pointer flex flex-row items-start text-left gap-4 group relative overflow-hidden"
-      >
-        <div
-          class="absolute top-0 left-0 w-1 h-full bg-transparent group-hover:bg-brand-blue transition-colors"
-        />
-        <div
-          class="p-16 bg-brand-blue-light/60 rounded-xl text-brand-blue group-hover:bg-brand-blue group-hover:text-brand-white transition-colors"
+          </span>
+        </span>
+        <span
+          aria-hidden="true"
+          class="shrink-0 text-xl text-text-tertiary transition-transform group-hover:translate-x-1"
         >
-          <svg
-            fill="none"
-            height="20"
-            stroke="currentColor"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="1.8"
-            viewBox="0 0 24 24"
-            width="20"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <ellipse
-              cx="12"
-              cy="5"
-              rx="9"
-              ry="3"
-            />
-            <path
-              d="M3 5V19A9 3 0 0 0 21 19V5"
-            />
-            <path
-              d="M3 12A9 3 0 0 0 21 12"
-            />
-          </svg>
-        </div>
-        <div>
-          <h3
-            class="text-2xl font-bold text-brand-text-dark mb-1 group-hover:text-brand-blue transition-colors"
+          →
+        </span>
+      </button>
+      <button
+        class="group flex min-h-36 w-full items-start gap-4 rounded-2xl border border-border-default bg-background-surface p-5 text-left transition-colors hover:border-border-strong hover:bg-background-subtle/40 focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring/30"
+        type="button"
+      >
+        <img
+          alt=""
+          aria-hidden="true"
+          class="h-28 w-44 shrink-0 rounded-xl object-contain"
+          src="/src/assets/item-illustration.png"
+        />
+        <span
+          class="min-w-0 flex-1"
+        >
+          <span
+            class="block truncate text-lg font-semibold text-text-primary"
           >
             Master Item
-          </h3>
-          <p
-            class="text-sm leading-relaxed text-brand-text-medium"
+          </span>
+          <span
+            class="mt-2 block text-sm leading-5 text-text-secondary"
           >
             Manage items and inventory data
-          </p>
-        </div>
-      </div>
-      <div
-        class="bg-brand-white/80 backdrop-blur-xl p-6 rounded-2xl border border-brand-gray-light shadow-lg hover:shadow-md hover:border-brand-blue/35 transition-all cursor-pointer flex flex-row items-start text-left gap-4 group relative overflow-hidden"
-      >
-        <div
-          class="absolute top-0 left-0 w-1 h-full bg-transparent group-hover:bg-brand-blue transition-colors"
-        />
-        <div
-          class="p-16 bg-brand-blue-light/60 rounded-xl text-brand-blue group-hover:bg-brand-blue group-hover:text-brand-white transition-colors"
+          </span>
+        </span>
+        <span
+          aria-hidden="true"
+          class="shrink-0 text-xl text-text-tertiary transition-transform group-hover:translate-x-1"
         >
-          <svg
-            fill="none"
-            height="20"
-            stroke="currentColor"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="1.8"
-            viewBox="0 0 24 24"
-            width="20"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <ellipse
-              cx="12"
-              cy="5"
-              rx="9"
-              ry="3"
-            />
-            <path
-              d="M3 5V19A9 3 0 0 0 21 19V5"
-            />
-            <path
-              d="M3 12A9 3 0 0 0 21 12"
-            />
-          </svg>
-        </div>
-        <div>
-          <h3
-            class="text-2xl font-bold text-brand-text-dark mb-1 group-hover:text-brand-blue transition-colors"
+          →
+        </span>
+      </button>
+      <button
+        class="group flex min-h-36 w-full items-start gap-4 rounded-2xl border border-border-default bg-background-surface p-5 text-left transition-colors hover:border-border-strong hover:bg-background-subtle/40 focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring/30"
+        type="button"
+      >
+        <img
+          alt=""
+          aria-hidden="true"
+          class="h-28 w-44 shrink-0 rounded-xl object-contain"
+          src="/src/assets/project-illustration.png"
+        />
+        <span
+          class="min-w-0 flex-1"
+        >
+          <span
+            class="block truncate text-lg font-semibold text-text-primary"
           >
             Master Project
-          </h3>
-          <p
-            class="text-sm leading-relaxed text-brand-text-medium"
+          </span>
+          <span
+            class="mt-2 block text-sm leading-5 text-text-secondary"
           >
             Manage project items and details
-          </p>
-        </div>
-      </div>
-      <div
-        class="bg-brand-white/80 backdrop-blur-xl p-6 rounded-2xl border border-brand-gray-light shadow-lg hover:shadow-md hover:border-brand-blue/35 transition-all cursor-pointer flex flex-row items-start text-left gap-4 group relative overflow-hidden"
-      >
-        <div
-          class="absolute top-0 left-0 w-1 h-full bg-transparent group-hover:bg-brand-blue transition-colors"
-        />
-        <div
-          class="p-16 bg-brand-blue-light/60 rounded-xl text-brand-blue group-hover:bg-brand-blue group-hover:text-brand-white transition-colors"
+          </span>
+        </span>
+        <span
+          aria-hidden="true"
+          class="shrink-0 text-xl text-text-tertiary transition-transform group-hover:translate-x-1"
         >
-          <svg
-            fill="none"
-            height="20"
-            stroke="currentColor"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="1.8"
-            viewBox="0 0 24 24"
-            width="20"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"
-            />
-            <polyline
-              points="14 2 14 8 20 8"
-            />
-            <line
-              x1="16"
-              x2="8"
-              y1="13"
-              y2="13"
-            />
-            <line
-              x1="16"
-              x2="8"
-              y1="17"
-              y2="17"
-            />
-            <polyline
-              points="10 9 9 9 8 9"
-            />
-          </svg>
-        </div>
-        <div>
-          <h3
-            class="text-2xl font-bold text-brand-text-dark mb-1 group-hover:text-brand-blue transition-colors"
-          >
-            Master Service Type
-          </h3>
-          <p
-            class="text-sm leading-relaxed text-brand-text-medium"
-          >
-            Manage service types and pricing
-          </p>
-        </div>
-      </div>
-      <div
-        class="bg-brand-white/80 backdrop-blur-xl p-6 rounded-2xl border border-brand-gray-light shadow-lg hover:shadow-md hover:border-brand-blue/35 transition-all cursor-pointer flex flex-row items-start text-left gap-4 group relative overflow-hidden"
+          →
+        </span>
+      </button>
+      <button
+        class="group flex min-h-36 w-full items-start gap-4 rounded-2xl border border-border-default bg-background-surface p-5 text-left transition-colors hover:border-border-strong hover:bg-background-subtle/40 focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring/30"
+        type="button"
       >
-        <div
-          class="absolute top-0 left-0 w-1 h-full bg-transparent group-hover:bg-brand-blue transition-colors"
+        <img
+          alt=""
+          aria-hidden="true"
+          class="h-28 w-44 shrink-0 rounded-xl object-contain"
+          src="/src/assets/payment-method-illustration.png"
         />
-        <div
-          class="p-16 bg-brand-blue-light/60 rounded-xl text-brand-blue group-hover:bg-brand-blue group-hover:text-brand-white transition-colors"
+        <span
+          class="min-w-0 flex-1"
         >
-          <svg
-            fill="none"
-            height="20"
-            stroke="currentColor"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="1.8"
-            viewBox="0 0 24 24"
-            width="20"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"
-            />
-            <polyline
-              points="14 2 14 8 20 8"
-            />
-            <line
-              x1="16"
-              x2="8"
-              y1="13"
-              y2="13"
-            />
-            <line
-              x1="16"
-              x2="8"
-              y1="17"
-              y2="17"
-            />
-            <polyline
-              points="10 9 9 9 8 9"
-            />
-          </svg>
-        </div>
-        <div>
-          <h3
-            class="text-2xl font-bold text-brand-text-dark mb-1 group-hover:text-brand-blue transition-colors"
+          <span
+            class="block truncate text-lg font-semibold text-text-primary"
           >
             Master Payment Method
-          </h3>
-          <p
-            class="text-sm leading-relaxed text-brand-text-medium"
+          </span>
+          <span
+            class="mt-2 block text-sm leading-5 text-text-secondary"
           >
             Manage available payment methods
-          </p>
-        </div>
-      </div>
-      <div
-        class="bg-brand-white/80 backdrop-blur-xl p-6 rounded-2xl border border-brand-gray-light shadow-lg hover:shadow-md hover:border-brand-blue/35 transition-all cursor-pointer flex flex-row items-start text-left gap-4 group relative overflow-hidden"
-      >
-        <div
-          class="absolute top-0 left-0 w-1 h-full bg-transparent group-hover:bg-brand-blue transition-colors"
-        />
-        <div
-          class="p-16 bg-brand-blue-light/60 rounded-xl text-brand-blue group-hover:bg-brand-blue group-hover:text-brand-white transition-colors"
+          </span>
+        </span>
+        <span
+          aria-hidden="true"
+          class="shrink-0 text-xl text-text-tertiary transition-transform group-hover:translate-x-1"
         >
-          <svg
-            fill="none"
-            height="20"
-            stroke="currentColor"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="1.8"
-            viewBox="0 0 24 24"
-            width="20"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"
-            />
-            <polyline
-              points="14 2 14 8 20 8"
-            />
-            <line
-              x1="16"
-              x2="8"
-              y1="13"
-              y2="13"
-            />
-            <line
-              x1="16"
-              x2="8"
-              y1="17"
-              y2="17"
-            />
-            <polyline
-              points="10 9 9 9 8 9"
-            />
-          </svg>
-        </div>
-        <div>
-          <h3
-            class="text-2xl font-bold text-brand-text-dark mb-1 group-hover:text-brand-blue transition-colors"
+          →
+        </span>
+      </button>
+      <button
+        class="group flex min-h-36 w-full items-start gap-4 rounded-2xl border border-border-default bg-background-surface p-5 text-left transition-colors hover:border-border-strong hover:bg-background-subtle/40 focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring/30"
+        type="button"
+      >
+        <img
+          alt=""
+          aria-hidden="true"
+          class="h-28 w-44 shrink-0 rounded-xl object-contain"
+          src="/src/assets/payment-type-illustration.png"
+        />
+        <span
+          class="min-w-0 flex-1"
+        >
+          <span
+            class="block truncate text-lg font-semibold text-text-primary"
           >
             Master Payment Type
-          </h3>
-          <p
-            class="text-sm leading-relaxed text-brand-text-medium"
+          </span>
+          <span
+            class="mt-2 block text-sm leading-5 text-text-secondary"
           >
             Manage payment types categorization
-          </p>
-        </div>
-      </div>
-      <div
-        class="bg-brand-white/80 backdrop-blur-xl p-6 rounded-2xl border border-brand-gray-light shadow-lg hover:shadow-md hover:border-brand-blue/35 transition-all cursor-pointer flex flex-row items-start text-left gap-4 group relative overflow-hidden"
-      >
-        <div
-          class="absolute top-0 left-0 w-1 h-full bg-transparent group-hover:bg-brand-blue transition-colors"
-        />
-        <div
-          class="p-16 bg-brand-blue-light/60 rounded-xl text-brand-blue group-hover:bg-brand-blue group-hover:text-brand-white transition-colors"
+          </span>
+        </span>
+        <span
+          aria-hidden="true"
+          class="shrink-0 text-xl text-text-tertiary transition-transform group-hover:translate-x-1"
         >
-          <svg
-            fill="none"
-            height="20"
-            stroke="currentColor"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="1.8"
-            viewBox="0 0 24 24"
-            width="20"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"
-            />
-            <polyline
-              points="14 2 14 8 20 8"
-            />
-            <line
-              x1="16"
-              x2="8"
-              y1="13"
-              y2="13"
-            />
-            <line
-              x1="16"
-              x2="8"
-              y1="17"
-              y2="17"
-            />
-            <polyline
-              points="10 9 9 9 8 9"
-            />
-          </svg>
-        </div>
-        <div>
-          <h3
-            class="text-2xl font-bold text-brand-text-dark mb-1 group-hover:text-brand-blue transition-colors"
+          →
+        </span>
+      </button>
+      <button
+        class="group flex min-h-36 w-full items-start gap-4 rounded-2xl border border-border-default bg-background-surface p-5 text-left transition-colors hover:border-border-strong hover:bg-background-subtle/40 focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring/30"
+        type="button"
+      >
+        <img
+          alt=""
+          aria-hidden="true"
+          class="h-28 w-44 shrink-0 rounded-xl object-contain"
+          src="/src/assets/voucher-illustration.png"
+        />
+        <span
+          class="min-w-0 flex-1"
+        >
+          <span
+            class="block truncate text-lg font-semibold text-text-primary"
           >
             Master Voucher
-          </h3>
-          <p
-            class="text-sm leading-relaxed text-brand-text-medium"
+          </span>
+          <span
+            class="mt-2 block text-sm leading-5 text-text-secondary"
           >
             Manage discount codes and vouchers
-          </p>
-        </div>
-      </div>
-      <div
-        class="bg-brand-white/80 backdrop-blur-xl p-6 rounded-2xl border border-brand-gray-light shadow-lg hover:shadow-md hover:border-brand-blue/35 transition-all cursor-pointer flex flex-row items-start text-left gap-4 group relative overflow-hidden"
-      >
-        <div
-          class="absolute top-0 left-0 w-1 h-full bg-transparent group-hover:bg-brand-blue transition-colors"
-        />
-        <div
-          class="p-16 bg-brand-blue-light/60 rounded-xl text-brand-blue group-hover:bg-brand-blue group-hover:text-brand-white transition-colors"
+          </span>
+        </span>
+        <span
+          aria-hidden="true"
+          class="shrink-0 text-xl text-text-tertiary transition-transform group-hover:translate-x-1"
         >
-          <svg
-            fill="none"
-            height="20"
-            stroke="currentColor"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="1.8"
-            viewBox="0 0 24 24"
-            width="20"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <rect
-              height="9"
-              rx="1"
-              width="7"
-              x="3"
-              y="3"
-            />
-            <rect
-              height="5"
-              rx="1"
-              width="7"
-              x="14"
-              y="3"
-            />
-            <rect
-              height="9"
-              rx="1"
-              width="7"
-              x="14"
-              y="12"
-            />
-            <rect
-              height="5"
-              rx="1"
-              width="7"
-              x="3"
-              y="16"
-            />
-          </svg>
-        </div>
-        <div>
-          <h3
-            class="text-2xl font-bold text-brand-text-dark mb-1 group-hover:text-brand-blue transition-colors"
+          →
+        </span>
+      </button>
+      <button
+        class="group flex min-h-36 w-full items-start gap-4 rounded-2xl border border-border-default bg-background-surface p-5 text-left transition-colors hover:border-border-strong hover:bg-background-subtle/40 focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring/30"
+        type="button"
+      >
+        <img
+          alt=""
+          aria-hidden="true"
+          class="h-28 w-44 shrink-0 rounded-xl object-contain"
+          src="/src/assets/role-illustration.png"
+        />
+        <span
+          class="min-w-0 flex-1"
+        >
+          <span
+            class="block truncate text-lg font-semibold text-text-primary"
           >
             Master Role
-          </h3>
-          <p
-            class="text-sm leading-relaxed text-brand-text-medium"
+          </span>
+          <span
+            class="mt-2 block text-sm leading-5 text-text-secondary"
           >
             Manage user roles and access rights
-          </p>
-        </div>
-      </div>
-      <div
-        class="bg-brand-white/80 backdrop-blur-xl p-6 rounded-2xl border border-brand-gray-light shadow-lg hover:shadow-md hover:border-brand-blue/35 transition-all cursor-pointer flex flex-row items-start text-left gap-4 group relative overflow-hidden"
-      >
-        <div
-          class="absolute top-0 left-0 w-1 h-full bg-transparent group-hover:bg-brand-blue transition-colors"
-        />
-        <div
-          class="p-16 bg-brand-blue-light/60 rounded-xl text-brand-blue group-hover:bg-brand-blue group-hover:text-brand-white transition-colors"
+          </span>
+        </span>
+        <span
+          aria-hidden="true"
+          class="shrink-0 text-xl text-text-tertiary transition-transform group-hover:translate-x-1"
         >
-          <svg
-            fill="none"
-            height="20"
-            stroke="currentColor"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="1.8"
-            viewBox="0 0 24 24"
-            width="20"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"
-            />
-            <circle
-              cx="9"
-              cy="7"
-              r="4"
-            />
-            <path
-              d="M22 21v-2a4 4 0 0 0-3-3.87"
-            />
-            <path
-              d="M16 3.13a4 4 0 0 1 0 7.75"
-            />
-          </svg>
-        </div>
-        <div>
-          <h3
-            class="text-2xl font-bold text-brand-text-dark mb-1 group-hover:text-brand-blue transition-colors"
+          →
+        </span>
+      </button>
+      <button
+        class="group flex min-h-36 w-full items-start gap-4 rounded-2xl border border-border-default bg-background-surface p-5 text-left transition-colors hover:border-border-strong hover:bg-background-subtle/40 focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring/30"
+        type="button"
+      >
+        <img
+          alt=""
+          aria-hidden="true"
+          class="h-28 w-44 shrink-0 rounded-xl object-contain"
+          src="/src/assets/user-illustration.png"
+        />
+        <span
+          class="min-w-0 flex-1"
+        >
+          <span
+            class="block truncate text-lg font-semibold text-text-primary"
           >
             Master User
-          </h3>
-          <p
-            class="text-sm leading-relaxed text-brand-text-medium"
+          </span>
+          <span
+            class="mt-2 block text-sm leading-5 text-text-secondary"
           >
             Manage system users and their roles
-          </p>
-        </div>
-      </div>
-      <div
-        class="bg-brand-white/80 backdrop-blur-xl p-6 rounded-2xl border border-brand-gray-light shadow-lg hover:shadow-md hover:border-brand-blue/35 transition-all cursor-pointer flex flex-row items-start text-left gap-4 group relative overflow-hidden"
-      >
-        <div
-          class="absolute top-0 left-0 w-1 h-full bg-transparent group-hover:bg-brand-blue transition-colors"
-        />
-        <div
-          class="p-16 bg-brand-blue-light/60 rounded-xl text-brand-blue group-hover:bg-brand-blue group-hover:text-brand-white transition-colors"
+          </span>
+        </span>
+        <span
+          aria-hidden="true"
+          class="shrink-0 text-xl text-text-tertiary transition-transform group-hover:translate-x-1"
         >
-          <svg
-            fill="none"
-            height="20"
-            stroke="currentColor"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="1.8"
-            viewBox="0 0 24 24"
-            width="20"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"
-            />
-            <circle
-              cx="9"
-              cy="7"
-              r="4"
-            />
-            <path
-              d="M22 21v-2a4 4 0 0 0-3-3.87"
-            />
-            <path
-              d="M16 3.13a4 4 0 0 1 0 7.75"
-            />
-          </svg>
-        </div>
-        <div>
-          <h3
-            class="text-2xl font-bold text-brand-text-dark mb-1 group-hover:text-brand-blue transition-colors"
+          →
+        </span>
+      </button>
+      <button
+        class="group flex min-h-36 w-full items-start gap-4 rounded-2xl border border-border-default bg-background-surface p-5 text-left transition-colors hover:border-border-strong hover:bg-background-subtle/40 focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring/30"
+        type="button"
+      >
+        <img
+          alt=""
+          aria-hidden="true"
+          class="h-28 w-44 shrink-0 rounded-xl object-contain"
+          src="/src/assets/pic-illustration.png"
+        />
+        <span
+          class="min-w-0 flex-1"
+        >
+          <span
+            class="block truncate text-lg font-semibold text-text-primary"
           >
             Master PIC
-          </h3>
-          <p
-            class="text-sm leading-relaxed text-brand-text-medium"
+          </span>
+          <span
+            class="mt-2 block text-sm leading-5 text-text-secondary"
           >
             Manage person in charge data
-          </p>
-        </div>
-      </div>
+          </span>
+        </span>
+        <span
+          aria-hidden="true"
+          class="shrink-0 text-xl text-text-tertiary transition-transform group-hover:translate-x-1"
+        >
+          →
+        </span>
+      </button>
     </div>
   </div>
 </DocumentFragment>
