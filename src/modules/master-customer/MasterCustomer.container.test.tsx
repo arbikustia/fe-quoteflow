@@ -27,7 +27,6 @@ describe("MasterCustomer Container", () => {
       goBack: jest.fn(),
       goCreate: jest.fn(),
       goEdit: jest.fn(),
-      goDetail: jest.fn(),
     });
 
     jest.mocked(hooks.useMasterCustomerContainerState).mockReturnValue({

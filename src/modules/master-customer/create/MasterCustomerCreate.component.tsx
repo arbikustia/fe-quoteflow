@@ -172,6 +172,8 @@ export const MasterCustomerCreateForm = (props: MasterCustomerCreateFormState): 
 
   return (
     <div className="flex h-full w-full flex-col bg-background-surface font-sans pb-6 lg:bg-background-page">
+      {errorMessage && <AlertComponent type="error" message={errorMessage} toast closable />}
+      {successMessage && <AlertComponent type="success" message={successMessage} toast closable />}
       {_renderMobileBack(goBack)}
       <div className="mt-2 flex min-h-0 w-full flex-1 flex-col px-0 lg:mt-0 lg:px-0">
         {_renderHeaderSection(isEditMode, goBack)}
@@ -184,8 +186,6 @@ export const MasterCustomerCreateForm = (props: MasterCustomerCreateFormState): 
               <div>{_renderPhoneField(props)}</div>
               <div className="lg:col-span-2">{_renderAddressField(props)}</div>
               {_renderStatusField(props)}
-              {errorMessage && <AlertComponent type="error" message={errorMessage} className="mb-2 lg:col-span-2" />}
-              {successMessage && <AlertComponent type="success" message={successMessage} className="mb-2 lg:col-span-2" />}
             </div>
             {_renderSubmitSection(isSubmitting, isEditMode)}
           </form>

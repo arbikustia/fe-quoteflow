@@ -9,4 +9,5 @@ export type AlertProps = {
   readonly closable?: boolean;
   readonly onClose?: () => void;
   readonly className?: string;
+  readonly toast?: boolean;
 };

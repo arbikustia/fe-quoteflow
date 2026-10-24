@@ -1,14 +1,92 @@
 import * as React from "react";
+import { FiEdit2 } from "react-icons/fi";
 
 import Layout from "../../app/layout";
 import { PageLayout } from "../../app/shared/PageLayout";
 import { Pagination } from "../../components/Pagination";
 import { SearchFilter } from "../../components/SearchFilter";
 import { SkeletonComponent } from "../../components/Skeleton";
+import type { TableColumn } from "../../components/Table";
 import Table from "../../components/Table";
 
-import { CustomerMobileCard } from "./CustomerMobileCard.helpers";
+import { CustomerMobileCard, getCustomerRowNumber } from "./MasterCustomer.helpers";
 import type { CustomerData, MasterCustomerProps } from "./MasterCustomer.type";
+
+/**
+ * Render customer status cell.
+ * @param {CustomerData} row - Customer row data
+ * @returns {React.ReactElement} Status cell
+ */
+const _renderStatus = (row: CustomerData): React.ReactElement => (
+  <span className={`rounded-full px-3 py-1 text-xs font-bold uppercase ${row.status === "active" ? "bg-green-100 text-green-600" : "bg-red-100 text-red-600"}`}>
+    {row.status}
+  </span>
+);
+
+/**
+ * Render customer action cell.
+ * @param {CustomerData} row - Customer row data
+ * @param {(customer: CustomerData) => void} onEdit - Edit handler
+ * @returns {React.ReactElement} Action cell
+ */
+const _renderActions = (row: CustomerData, onEdit: (customer: CustomerData) => void): React.ReactElement => {
+  /**
+   * Handle edit button.
+   * @param {React.MouseEvent} event - Mouse event
+   * @returns {void} No return value
+   */
+  const handleEdit = (event: React.MouseEvent): void => {
+    event.stopPropagation();
+    onEdit(row);
+  };
+
+  return <button type="button" onClick={handleEdit} className="cursor-pointer rounded-lg p-1.5 text-brand-text-medium transition-colors hover:bg-brand-blue-light hover:text-brand-blue" title="Edit"><FiEdit2 className="h-4 w-4" /></button>;
+};
+
+/**
+ * Render customer row number cell.
+ * @param {CustomerData} _row - Customer row data
+ * @param {number} index - Zero-based row index
+ * @param {number} currentPage - Active page
+ * @param {number} pageSize - Active page size
+ * @returns {React.ReactElement} Number cell
+ */
+const _renderNumber = (_row: CustomerData, index: number, currentPage: number, pageSize: number): React.ReactElement => (
+  <span className="text-sm">{getCustomerRowNumber(currentPage, pageSize, index)}</span>
+);
+
+/**
+ * Build customer table columns.
+ * @param {number} currentPage - Active page
+ * @param {number} pageSize - Active page size
+ * @param {(customer: CustomerData) => void} onEdit - Edit handler
+ * @returns {TableColumn<CustomerData>[]} Customer columns
+ */
+const _getColumns = (currentPage: number, pageSize: number, onEdit: (customer: CustomerData) => void): TableColumn<CustomerData>[] => {
+  /**
+   * Render customer number.
+   * @param {CustomerData} row - Customer row data
+   * @param {number} index - Zero-based row index
+   * @returns {React.ReactElement} Number cell
+   */
+  const renderNumber = (row: CustomerData, index: number): React.ReactElement => _renderNumber(row, index, currentPage, pageSize);
+
+  /**
+   * Render customer action.
+   * @param {CustomerData} row - Customer row data
+   * @returns {React.ReactElement} Action cell
+   */
+  const renderAction = (row: CustomerData): React.ReactElement => _renderActions(row, onEdit);
+
+  return [
+    { key: "no", header: "No", align: "center", render: renderNumber },
+    { key: "name", header: "Customer Name" },
+    { key: "address", header: "Address" },
+    { key: "phoneNumber", header: "Phone Number" },
+    { key: "status", header: "Status", align: "center", render: _renderStatus },
+    { key: "actions", header: "Action", align: "center", render: renderAction },
+  ];
+};
 
 /**
  * Render loading, empty, and error states.
@@ -35,7 +113,8 @@ const _renderListState = (props: MasterCustomerProps): React.ReactElement | null
  * @returns {React.ReactElement} The desktop table element
  */
 const _renderDesktopTable = (props: MasterCustomerProps): React.ReactElement => {
-  const { paginatedData, columns, currentPage, totalPages, goToPage, pageSize, changePageSize, onRowClick, onCreate, setSearchTerm, totalCount } = props;
+  const { paginatedData, currentPage, totalPages, goToPage, pageSize, changePageSize, onRowClick, onCreate, setSearchTerm, totalCount, onEdit } = props;
+  const columns = _getColumns(currentPage, pageSize, onEdit);
 
   /**
    * Handle search input change
@@ -72,14 +151,14 @@ const _renderDesktopTable = (props: MasterCustomerProps): React.ReactElement => 
  * @returns {React.ReactElement} The mobile list element
  */
 const _renderMobileCards = (props: MasterCustomerProps): React.ReactElement => {
-  const { paginatedData, currentPage, totalPages, goToPage, pageSize, changePageSize, setSearchTerm, totalCount, onEdit, onDetail, isDetail } = props;
+  const { paginatedData, currentPage, totalPages, goToPage, pageSize, changePageSize, setSearchTerm, totalCount, onEdit } = props;
 
   return (
     <div className="lg:hidden flex min-w-0 flex-col gap-4 pt-2 pb-16">
       <div className="w-full">{_renderMobileSearch(setSearchTerm)}</div>
       <div className="min-w-0 space-y-3">
         {_renderListState(props) ?? paginatedData.map((customer) => (
-          <CustomerMobileCard key={customer.id} customer={customer} isDetail={isDetail} onEdit={onEdit} onDetail={onDetail} />
+          <CustomerMobileCard key={customer.id} customer={customer} onEdit={onEdit} />
         ))}
       </div>
       <Pagination

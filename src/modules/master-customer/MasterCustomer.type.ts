@@ -1,141 +1,133 @@
-import type { TableColumn } from "../../components/Table";
 import type { ApiEnvelope, PaginatedResponse } from "../../types/api.type";
 
 export type ApiCustomer = {
-  readonly id: string;
-  readonly name: string;
-  readonly address: string | null;
-  readonly phone_number: string | null;
-  readonly status: number;
-  readonly created_at: string | null;
-  readonly created_by: string | null;
+  id: string;
+  name: string;
+  address: string | null;
+  phone_number: string | null;
+  status: number;
+  created_at: string | null;
+  created_by: string | null;
 };
 
 export type CustomerAllResponse = {
-  readonly status: boolean;
-  readonly data: Array<{
-    readonly id: string;
-    readonly name: string;
-    readonly address: string;
-    readonly phone_number: string;
+  status: boolean;
+  data: Array<{
+    id: string;
+    name: string;
+    address: string;
+    phone_number: string;
   }>;
-  readonly messages: string[];
+  messages: string[];
 };
 
 export type CustomerListResponse = PaginatedResponse<ApiCustomer>;
 export type CustomerCreateResponse = ApiEnvelope<ApiCustomer | null>;
 export type CustomerUpdatePayload = {
-  readonly id: string;
-  readonly name: string;
-  readonly address: string;
-  readonly phone_number: string;
-  readonly status: number;
+  id: string;
+  name: string;
+  address: string;
+  phone_number: string;
+  status: number;
 };
 export type CustomerDetailResponse = ApiEnvelope<ApiCustomer | null>;
 
 export type CustomerListParams = {
-  readonly pageNumber: number;
-  readonly pageSize: number;
-  readonly searchTerm: string;
+  pageNumber: number;
+  pageSize: number;
+  searchTerm: string;
 };
 
 export type CustomerData = {
-  readonly id: string;
-  readonly name: string;
-  readonly address: string | null;
-  readonly phoneNumber: string | null;
-  readonly status: "active" | "inactive";
-  readonly createAt: string | null;
-  readonly createBy: string | null;
+  id: string;
+  name: string;
+  address: string | null;
+  phoneNumber: string | null;
+  status: "active" | "inactive";
+  createAt: string | null;
+  createBy: string | null;
 };
 
 export type CustomerMobileCardProps = {
-  readonly customer: CustomerData;
-  readonly isDetail?: boolean;
-  readonly onEdit: (customer: CustomerData) => void;
-  readonly onDetail: (customer: CustomerData) => void;
+  customer: CustomerData;
+  onEdit: (customer: CustomerData) => void;
 };
 
 export type CustomerListApiState = {
-  readonly isLoading: boolean;
-  readonly errorMessage: string | null;
-  readonly isEnvelopeError: boolean;
-  readonly isMissingData: boolean;
-  readonly paginatedData: CustomerData[];
-  readonly totalPages: number;
-  readonly totalCount: number;
+  isLoading: boolean;
+  errorMessage: string | null;
+  isEnvelopeError: boolean;
+  isMissingData: boolean;
+  paginatedData: CustomerData[];
+  totalPages: number;
+  totalCount: number;
 };
 
 export type CustomerCreatePayload = {
-  readonly name: string;
-  readonly address: string;
-  readonly phone_number: string;
-  readonly status: number;
+  name: string;
+  address: string;
+  phone_number: string;
+  status: number;
+};
+
+export type CustomerRouteState = {
+  successMessage?: string;
 };
 
 export type MasterCustomerNavigation = {
-  readonly goBack: () => void;
-  readonly goCreate: () => void;
-  readonly goEdit: (customer: CustomerData) => void;
-  readonly goDetail: (customer: CustomerData) => void;
+  goBack: () => void;
+  goCreate: () => void;
+  goEdit: (customer: CustomerData) => void;
 };
 
 export type MasterCustomerPagination = {
-  readonly currentPage: number;
-  readonly totalPages: number;
-  readonly pageSize: number;
-  readonly paginatedData: CustomerData[];
-  readonly totalCount: number;
-  readonly isLoading: boolean;
-  readonly errorMessage: string | null;
-  readonly isEmpty: boolean;
-  readonly isMissingData: boolean;
-  readonly goToPage: (page: number) => void;
-  readonly nextPage: () => void;
-  readonly prevPage: () => void;
-  readonly changePageSize: (size: number) => void;
-  readonly setSearchTerm: (searchTerm: string) => void;
+  currentPage: number;
+  totalPages: number;
+  pageSize: number;
+  paginatedData: CustomerData[];
+  totalCount: number;
+  isLoading: boolean;
+  errorMessage: string | null;
+  isEmpty: boolean;
+  isMissingData: boolean;
+  goToPage: (page: number) => void;
+  nextPage: () => void;
+  prevPage: () => void;
+  changePageSize: (size: number) => void;
+  setSearchTerm: (searchTerm: string) => void;
 };
 
 export type MasterCustomerContainerState = {
-  readonly pagination: MasterCustomerPagination;
-  readonly isMoreOpen: boolean;
-  readonly toggleMore: () => void;
-  readonly handleCloseMore: () => void;
-  readonly goDelete: () => void;
+  pagination: MasterCustomerPagination;
+  isMoreOpen: boolean;
+  toggleMore: () => void;
+  handleCloseMore: () => void;
+  goDelete: () => void;
 };
 
 export type MasterCustomerProps = {
-  readonly currentPage: number;
-  readonly totalPages: number;
-  readonly pageSize: number;
-  readonly paginatedData: CustomerData[];
-  readonly totalCount: number;
-  readonly columns: TableColumn<CustomerData>[];
-  readonly isMoreOpen: boolean;
-  readonly isLoading: boolean;
-  readonly errorMessage: string | null;
-  readonly isEmpty: boolean;
-  readonly isMissingData: boolean;
-  readonly goToPage: (page: number) => void;
-  readonly nextPage: () => void;
-  readonly prevPage: () => void;
-  readonly changePageSize: (size: number) => void;
-  readonly setSearchTerm: (searchTerm: string) => void;
-  readonly onCreate: () => void;
-  readonly onEdit: (customer: CustomerData) => void;
-  readonly onDetail: (customer: CustomerData) => void;
-  readonly isDetail?: boolean;
-  readonly onRowClick?: (customer: CustomerData) => void;
-  readonly onBack: () => void;
-  readonly onMore: () => void;
-  readonly onCloseMore: () => void;
-  readonly onDelete: () => void;
-};
-
-export type GetColumnsParams = {
-  readonly currentPage: number;
-  readonly pageSize: number;
-  readonly onEdit: (customer: CustomerData) => void;
+  currentPage: number;
+  totalPages: number;
+  pageSize: number;
+  paginatedData: CustomerData[];
+  totalCount: number;
+  isMoreOpen: boolean;
+  isLoading: boolean;
+  errorMessage: string | null;
+  isEmpty: boolean;
+  isMissingData: boolean;
+  goToPage: (page: number) => void;
+  nextPage: () => void;
+  prevPage: () => void;
+  changePageSize: (size: number) => void;
+  setSearchTerm: (searchTerm: string) => void;
+  onCreate: () => void;
+  successMessage?: string;
+  onEdit: (customer: CustomerData) => void;
+  onRowClick?: (customer: CustomerData) => void;
+  onBack: () => void;
+  onMore: () => void;
+  onCloseMore: () => void;
+  onDelete: () => void;
 };
 

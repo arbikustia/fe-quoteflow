@@ -7,7 +7,6 @@ import MasterCategoryCreate from "./app/master-category/create";
 import MasterCategoryDetail from "./app/master-category/detail";
 import MasterCustomer from "./app/master-customer";
 import MasterCustomerCreate from "./app/master-customer/create";
-import MasterCustomerDetail from "./app/master-customer/detail";
 import MasterItem from "./app/master-item";
 import MasterItemCreate from "./app/master-item/create";
 import MasterItemDetail from "./app/master-item/detail";
@@ -59,7 +58,6 @@ function App(): React.ReactElement {
         <Route path="/master-customer" element={<MasterCustomer />} />
         <Route path="/master-customer/create" element={<MasterCustomerCreate />} />
         <Route path="/master-customer/edit/:id" element={<MasterCustomerCreate />} />
-        <Route path="/master-customer/detail/:id" element={<MasterCustomerDetail />} />
         
         {/* Item */}
         <Route path="/master-item" element={<MasterItem />} />

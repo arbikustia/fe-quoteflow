@@ -1,36 +1,36 @@
 import * as React from "react";
+import { useLocation } from "react-router-dom";
 
-import { getColumns } from "./MasterCustomer.columns";
+import { AlertComponent } from "../../components/Alert";
+
 import { MasterCustomerComponent } from "./MasterCustomer.component";
 import { useMasterCustomerContainerState, useMasterCustomerNavigation } from "./MasterCustomer.hook";
+import type { CustomerRouteState } from "./MasterCustomer.type";
 
 /**
  * Master Customer Container
  * @returns {React.ReactElement} Container element
  */
 const MasterCustomerContainer = (): React.ReactElement => {
-  const { goBack, goCreate, goEdit, goDetail } = useMasterCustomerNavigation();
+  const location = useLocation();
+  const routeState: CustomerRouteState | null = location.state;
+  const { goBack, goCreate, goEdit } = useMasterCustomerNavigation();
   const { pagination, isMoreOpen, toggleMore, handleCloseMore, goDelete } = useMasterCustomerContainerState();
 
-  const columns = getColumns({
-    currentPage: pagination.currentPage,
-    pageSize: pagination.pageSize,
-    onEdit: goEdit,
-  });
-
   return (
-    <MasterCustomerComponent
-      {...pagination}
-      columns={columns}
-      isMoreOpen={isMoreOpen}
-      onBack={goBack}
-      onCreate={goCreate}
-      onEdit={goEdit}
-      onDetail={goDetail}
-      onMore={toggleMore}
-      onCloseMore={handleCloseMore}
-      onDelete={goDelete}
-    />
+    <>
+      {routeState?.successMessage && <AlertComponent type="success" message={routeState.successMessage} toast closable />}
+      <MasterCustomerComponent
+        {...pagination}
+        isMoreOpen={isMoreOpen}
+        onBack={goBack}
+        onCreate={goCreate}
+        onEdit={goEdit}
+        onMore={toggleMore}
+        onCloseMore={handleCloseMore}
+        onDelete={goDelete}
+      />
+    </>
   );
 };
 

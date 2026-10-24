@@ -210,8 +210,10 @@ const useCustomerSubmission = (params: CustomerSubmissionParams): CustomerSubmis
         return;
       }
 
-      setSuccessMessage(isEditMode ? "Customer updated successfully." : "Customer created successfully.");
-      navigate("/master-customer");
+      const successMessage = isEditMode ? "Customer updated successfully." : "Customer created successfully.";
+
+      setSuccessMessage(successMessage);
+      navigate("/master-customer", { state: { successMessage } });
     } catch {
       setErrorMessage(isEditMode ? "Unable to update customer. Please try again." : "Unable to create customer. Please try again.");
     }

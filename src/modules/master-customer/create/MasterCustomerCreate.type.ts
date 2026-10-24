@@ -2,63 +2,63 @@ import type { ChangeEvent, SyntheticEvent } from "react";
 import type { FieldErrors, UseFormRegister } from "react-hook-form";
 
 export type CustomerFormValues = {
-  readonly name: string;
-  readonly address: string;
-  readonly phoneNumber: string;
-  readonly isActive: boolean;
+  name: string;
+  address: string;
+  phoneNumber: string;
+  isActive: boolean;
 };
 
 export type CustomerFormValidation = {
-  readonly errors: FieldErrors<CustomerFormValues>;
-  readonly isSubmitted: boolean;
-  readonly getValues: () => CustomerFormValues;
-  readonly register: UseFormRegister<CustomerFormValues>;
-  readonly validateForm: () => Promise<boolean>;
+  errors: FieldErrors<CustomerFormValues>;
+  isSubmitted: boolean;
+  getValues: () => CustomerFormValues;
+  register: UseFormRegister<CustomerFormValues>;
+  validateForm: () => Promise<boolean>;
 };
 
 
 export type CustomerSubmissionParams = {
-  readonly id: string | undefined;
-  readonly isEditMode: boolean;
-  readonly isActive: boolean;
-  readonly getValues: () => CustomerFormValues;
-  readonly validateForm: () => Promise<boolean>;
+  id: string | undefined;
+  isEditMode: boolean;
+  isActive: boolean;
+  getValues: () => CustomerFormValues;
+  validateForm: () => Promise<boolean>;
 };
 
 export type CustomerSubmissionState = {
-  readonly isSubmitting: boolean;
-  readonly errorMessage: string | null;
-  readonly successMessage: string | null;
-  readonly handleSubmit: (event: SyntheticEvent) => Promise<void>;
+  isSubmitting: boolean;
+  errorMessage: string | null;
+  successMessage: string | null;
+  handleSubmit: (event: SyntheticEvent) => Promise<void>;
 };
 
 export type CustomerFormFields = {
-  readonly name: string;
-  readonly address: string;
-  readonly phoneNumber: string;
-  readonly isActive: boolean;
-  readonly handleNameChange: (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
-  readonly handlePhoneNumberChange: (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
-  readonly handleAddressChange: (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
-  readonly handleStatusChange: () => void;
+  name: string;
+  address: string;
+  phoneNumber: string;
+  isActive: boolean;
+  handleNameChange: (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
+  handlePhoneNumberChange: (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
+  handleAddressChange: (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
+  handleStatusChange: () => void;
 };
 
 export type MasterCustomerCreateFormState = {
-  readonly name: string;
-  readonly address: string;
-  readonly phoneNumber: string;
-  readonly isActive: boolean;
-  readonly isEditMode: boolean;
-  readonly handleStatusChange: () => void;
-  readonly isLoadingInitialData: boolean;
-  readonly isSubmitting: boolean;
-  readonly errorMessage: string | null;
-  readonly successMessage: string | null;
-  readonly errors: FieldErrors<CustomerFormValues>;
-  readonly isSubmitted: boolean;
-  readonly handleNameChange: (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
-  readonly handlePhoneNumberChange: (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
-  readonly handleAddressChange: (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
-  readonly handleSubmit: (event: SyntheticEvent) => void;
-  readonly goBack: () => void;
+  name: string;
+  address: string;
+  phoneNumber: string;
+  isActive: boolean;
+  isEditMode: boolean;
+  handleStatusChange: () => void;
+  isLoadingInitialData: boolean;
+  isSubmitting: boolean;
+  errorMessage: string | null;
+  successMessage: string | null;
+  errors: FieldErrors<CustomerFormValues>;
+  isSubmitted: boolean;
+  handleNameChange: (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
+  handlePhoneNumberChange: (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
+  handleAddressChange: (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
+  handleSubmit: (event: SyntheticEvent) => void;
+  goBack: () => void;
 };

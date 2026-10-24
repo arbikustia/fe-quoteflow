@@ -695,7 +695,7 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots default stat
                       <thead>
                         <tr>
                           <th
-                            class="bg-table-header px-5 py-4 text-[13px] font-bold text-text-secondary uppercase tracking-widest rounded-l-xl  text-left "
+                            class="bg-table-header px-5 py-4 text-[13px] font-bold text-text-secondary uppercase tracking-widest rounded-l-xl  text-center "
                           >
                             No
                           </th>
@@ -715,12 +715,12 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots default stat
                             Phone Number
                           </th>
                           <th
-                            class="bg-table-header px-5 py-4 text-[13px] font-bold text-text-secondary uppercase tracking-widest   text-left "
+                            class="bg-table-header px-5 py-4 text-[13px] font-bold text-text-secondary uppercase tracking-widest   text-center "
                           >
                             Status
                           </th>
                           <th
-                            class="bg-table-header px-5 py-4 text-[13px] font-bold text-text-secondary uppercase tracking-widest  rounded-r-xl text-left "
+                            class="bg-table-header px-5 py-4 text-[13px] font-bold text-text-secondary uppercase tracking-widest  rounded-r-xl text-center "
                           >
                             Action
                           </th>
@@ -733,8 +733,14 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots default stat
                           class="hover:bg-background-subtle/50 transition-colors "
                         >
                           <td
-                            class="px-5 py-4 border-b border-border-default text-base text-left "
-                          />
+                            class="px-5 py-4 border-b border-border-default text-base text-center "
+                          >
+                            <span
+                              class="text-sm"
+                            >
+                              1
+                            </span>
+                          </td>
                           <td
                             class="px-5 py-4 border-b border-border-default text-base text-left "
                           >
@@ -751,20 +757,40 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots default stat
                             081234567890
                           </td>
                           <td
-                            class="px-5 py-4 border-b border-border-default text-base text-left "
+                            class="px-5 py-4 border-b border-border-default text-base text-center "
                           >
-                            active
+                            <span
+                              class="rounded-full px-3 py-1 text-xs font-bold uppercase bg-green-100 text-green-600"
+                            >
+                              active
+                            </span>
                           </td>
                           <td
-                            class="px-5 py-4 border-b border-border-default text-base text-left "
-                          />
+                            class="px-5 py-4 border-b border-border-default text-base text-center "
+                          >
+                            <button
+                              class="cursor-pointer rounded-lg p-1.5 text-brand-text-medium transition-colors hover:bg-brand-blue-light hover:text-brand-blue"
+                              title="Edit"
+                              type="button"
+                            >
+                              <div
+                                data-testid="edit-icon"
+                              />
+                            </button>
+                          </td>
                         </tr>
                         <tr
                           class="hover:bg-background-subtle/50 transition-colors "
                         >
                           <td
-                            class="px-5 py-4 border-b border-border-default text-base text-left "
-                          />
+                            class="px-5 py-4 border-b border-border-default text-base text-center "
+                          >
+                            <span
+                              class="text-sm"
+                            >
+                              2
+                            </span>
+                          </td>
                           <td
                             class="px-5 py-4 border-b border-border-default text-base text-left "
                           >
@@ -781,20 +807,40 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots default stat
                             081298765432
                           </td>
                           <td
-                            class="px-5 py-4 border-b border-border-default text-base text-left "
+                            class="px-5 py-4 border-b border-border-default text-base text-center "
                           >
-                            active
+                            <span
+                              class="rounded-full px-3 py-1 text-xs font-bold uppercase bg-green-100 text-green-600"
+                            >
+                              active
+                            </span>
                           </td>
                           <td
-                            class="px-5 py-4 border-b border-border-default text-base text-left "
-                          />
+                            class="px-5 py-4 border-b border-border-default text-base text-center "
+                          >
+                            <button
+                              class="cursor-pointer rounded-lg p-1.5 text-brand-text-medium transition-colors hover:bg-brand-blue-light hover:text-brand-blue"
+                              title="Edit"
+                              type="button"
+                            >
+                              <div
+                                data-testid="edit-icon"
+                              />
+                            </button>
+                          </td>
                         </tr>
                         <tr
                           class="hover:bg-background-subtle/50 transition-colors "
                         >
                           <td
-                            class="px-5 py-4 border-b border-border-default text-base text-left "
-                          />
+                            class="px-5 py-4 border-b border-border-default text-base text-center "
+                          >
+                            <span
+                              class="text-sm"
+                            >
+                              3
+                            </span>
+                          </td>
                           <td
                             class="px-5 py-4 border-b border-border-default text-base text-left "
                           >
@@ -811,20 +857,40 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots default stat
                             085612345678
                           </td>
                           <td
-                            class="px-5 py-4 border-b border-border-default text-base text-left "
+                            class="px-5 py-4 border-b border-border-default text-base text-center "
                           >
-                            inactive
+                            <span
+                              class="rounded-full px-3 py-1 text-xs font-bold uppercase bg-red-100 text-red-600"
+                            >
+                              inactive
+                            </span>
                           </td>
                           <td
-                            class="px-5 py-4 border-b border-border-default text-base text-left "
-                          />
+                            class="px-5 py-4 border-b border-border-default text-base text-center "
+                          >
+                            <button
+                              class="cursor-pointer rounded-lg p-1.5 text-brand-text-medium transition-colors hover:bg-brand-blue-light hover:text-brand-blue"
+                              title="Edit"
+                              type="button"
+                            >
+                              <div
+                                data-testid="edit-icon"
+                              />
+                            </button>
+                          </td>
                         </tr>
                         <tr
                           class="hover:bg-background-subtle/50 transition-colors "
                         >
                           <td
-                            class="px-5 py-4 border-b border-border-default text-base text-left "
-                          />
+                            class="px-5 py-4 border-b border-border-default text-base text-center "
+                          >
+                            <span
+                              class="text-sm"
+                            >
+                              4
+                            </span>
+                          </td>
                           <td
                             class="px-5 py-4 border-b border-border-default text-base text-left "
                           >
@@ -841,20 +907,40 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots default stat
                             081377889900
                           </td>
                           <td
-                            class="px-5 py-4 border-b border-border-default text-base text-left "
+                            class="px-5 py-4 border-b border-border-default text-base text-center "
                           >
-                            active
+                            <span
+                              class="rounded-full px-3 py-1 text-xs font-bold uppercase bg-green-100 text-green-600"
+                            >
+                              active
+                            </span>
                           </td>
                           <td
-                            class="px-5 py-4 border-b border-border-default text-base text-left "
-                          />
+                            class="px-5 py-4 border-b border-border-default text-base text-center "
+                          >
+                            <button
+                              class="cursor-pointer rounded-lg p-1.5 text-brand-text-medium transition-colors hover:bg-brand-blue-light hover:text-brand-blue"
+                              title="Edit"
+                              type="button"
+                            >
+                              <div
+                                data-testid="edit-icon"
+                              />
+                            </button>
+                          </td>
                         </tr>
                         <tr
                           class="hover:bg-background-subtle/50 transition-colors "
                         >
                           <td
-                            class="px-5 py-4 border-b border-border-default text-base text-left "
-                          />
+                            class="px-5 py-4 border-b border-border-default text-base text-center "
+                          >
+                            <span
+                              class="text-sm"
+                            >
+                              5
+                            </span>
+                          </td>
                           <td
                             class="px-5 py-4 border-b border-border-default text-base text-left "
                           >
@@ -871,20 +957,40 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots default stat
                             087811223344
                           </td>
                           <td
-                            class="px-5 py-4 border-b border-border-default text-base text-left "
+                            class="px-5 py-4 border-b border-border-default text-base text-center "
                           >
-                            active
+                            <span
+                              class="rounded-full px-3 py-1 text-xs font-bold uppercase bg-green-100 text-green-600"
+                            >
+                              active
+                            </span>
                           </td>
                           <td
-                            class="px-5 py-4 border-b border-border-default text-base text-left "
-                          />
+                            class="px-5 py-4 border-b border-border-default text-base text-center "
+                          >
+                            <button
+                              class="cursor-pointer rounded-lg p-1.5 text-brand-text-medium transition-colors hover:bg-brand-blue-light hover:text-brand-blue"
+                              title="Edit"
+                              type="button"
+                            >
+                              <div
+                                data-testid="edit-icon"
+                              />
+                            </button>
+                          </td>
                         </tr>
                         <tr
                           class="hover:bg-background-subtle/50 transition-colors "
                         >
                           <td
-                            class="px-5 py-4 border-b border-border-default text-base text-left "
-                          />
+                            class="px-5 py-4 border-b border-border-default text-base text-center "
+                          >
+                            <span
+                              class="text-sm"
+                            >
+                              6
+                            </span>
+                          </td>
                           <td
                             class="px-5 py-4 border-b border-border-default text-base text-left "
                           >
@@ -901,20 +1007,40 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots default stat
                             082155667788
                           </td>
                           <td
-                            class="px-5 py-4 border-b border-border-default text-base text-left "
+                            class="px-5 py-4 border-b border-border-default text-base text-center "
                           >
-                            inactive
+                            <span
+                              class="rounded-full px-3 py-1 text-xs font-bold uppercase bg-red-100 text-red-600"
+                            >
+                              inactive
+                            </span>
                           </td>
                           <td
-                            class="px-5 py-4 border-b border-border-default text-base text-left "
-                          />
+                            class="px-5 py-4 border-b border-border-default text-base text-center "
+                          >
+                            <button
+                              class="cursor-pointer rounded-lg p-1.5 text-brand-text-medium transition-colors hover:bg-brand-blue-light hover:text-brand-blue"
+                              title="Edit"
+                              type="button"
+                            >
+                              <div
+                                data-testid="edit-icon"
+                              />
+                            </button>
+                          </td>
                         </tr>
                         <tr
                           class="hover:bg-background-subtle/50 transition-colors "
                         >
                           <td
-                            class="px-5 py-4 border-b border-border-default text-base text-left "
-                          />
+                            class="px-5 py-4 border-b border-border-default text-base text-center "
+                          >
+                            <span
+                              class="text-sm"
+                            >
+                              7
+                            </span>
+                          </td>
                           <td
                             class="px-5 py-4 border-b border-border-default text-base text-left "
                           >
@@ -931,20 +1057,40 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots default stat
                             081900112233
                           </td>
                           <td
-                            class="px-5 py-4 border-b border-border-default text-base text-left "
+                            class="px-5 py-4 border-b border-border-default text-base text-center "
                           >
-                            active
+                            <span
+                              class="rounded-full px-3 py-1 text-xs font-bold uppercase bg-green-100 text-green-600"
+                            >
+                              active
+                            </span>
                           </td>
                           <td
-                            class="px-5 py-4 border-b border-border-default text-base text-left "
-                          />
+                            class="px-5 py-4 border-b border-border-default text-base text-center "
+                          >
+                            <button
+                              class="cursor-pointer rounded-lg p-1.5 text-brand-text-medium transition-colors hover:bg-brand-blue-light hover:text-brand-blue"
+                              title="Edit"
+                              type="button"
+                            >
+                              <div
+                                data-testid="edit-icon"
+                              />
+                            </button>
+                          </td>
                         </tr>
                         <tr
                           class="hover:bg-background-subtle/50 transition-colors "
                         >
                           <td
-                            class="px-5 py-4 border-b border-border-default text-base text-left "
-                          />
+                            class="px-5 py-4 border-b border-border-default text-base text-center "
+                          >
+                            <span
+                              class="text-sm"
+                            >
+                              8
+                            </span>
+                          </td>
                           <td
                             class="px-5 py-4 border-b border-border-default text-base text-left "
                           >
@@ -961,20 +1107,40 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots default stat
                             085244332211
                           </td>
                           <td
-                            class="px-5 py-4 border-b border-border-default text-base text-left "
+                            class="px-5 py-4 border-b border-border-default text-base text-center "
                           >
-                            active
+                            <span
+                              class="rounded-full px-3 py-1 text-xs font-bold uppercase bg-green-100 text-green-600"
+                            >
+                              active
+                            </span>
                           </td>
                           <td
-                            class="px-5 py-4 border-b border-border-default text-base text-left "
-                          />
+                            class="px-5 py-4 border-b border-border-default text-base text-center "
+                          >
+                            <button
+                              class="cursor-pointer rounded-lg p-1.5 text-brand-text-medium transition-colors hover:bg-brand-blue-light hover:text-brand-blue"
+                              title="Edit"
+                              type="button"
+                            >
+                              <div
+                                data-testid="edit-icon"
+                              />
+                            </button>
+                          </td>
                         </tr>
                         <tr
                           class="hover:bg-background-subtle/50 transition-colors "
                         >
                           <td
-                            class="px-5 py-4 border-b border-border-default text-base text-left "
-                          />
+                            class="px-5 py-4 border-b border-border-default text-base text-center "
+                          >
+                            <span
+                              class="text-sm"
+                            >
+                              9
+                            </span>
+                          </td>
                           <td
                             class="px-5 py-4 border-b border-border-default text-base text-left "
                           >
@@ -991,20 +1157,40 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots default stat
                             081199887766
                           </td>
                           <td
-                            class="px-5 py-4 border-b border-border-default text-base text-left "
+                            class="px-5 py-4 border-b border-border-default text-base text-center "
                           >
-                            inactive
+                            <span
+                              class="rounded-full px-3 py-1 text-xs font-bold uppercase bg-red-100 text-red-600"
+                            >
+                              inactive
+                            </span>
                           </td>
                           <td
-                            class="px-5 py-4 border-b border-border-default text-base text-left "
-                          />
+                            class="px-5 py-4 border-b border-border-default text-base text-center "
+                          >
+                            <button
+                              class="cursor-pointer rounded-lg p-1.5 text-brand-text-medium transition-colors hover:bg-brand-blue-light hover:text-brand-blue"
+                              title="Edit"
+                              type="button"
+                            >
+                              <div
+                                data-testid="edit-icon"
+                              />
+                            </button>
+                          </td>
                         </tr>
                         <tr
                           class="hover:bg-background-subtle/50 transition-colors "
                         >
                           <td
-                            class="px-5 py-4 border-b border-border-default text-base text-left "
-                          />
+                            class="px-5 py-4 border-b border-border-default text-base text-center "
+                          >
+                            <span
+                              class="text-sm"
+                            >
+                              10
+                            </span>
+                          </td>
                           <td
                             class="px-5 py-4 border-b border-border-default text-base text-left "
                           >
@@ -1021,13 +1207,27 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots default stat
                             083812349988
                           </td>
                           <td
-                            class="px-5 py-4 border-b border-border-default text-base text-left "
+                            class="px-5 py-4 border-b border-border-default text-base text-center "
                           >
-                            active
+                            <span
+                              class="rounded-full px-3 py-1 text-xs font-bold uppercase bg-green-100 text-green-600"
+                            >
+                              active
+                            </span>
                           </td>
                           <td
-                            class="px-5 py-4 border-b border-border-default text-base text-left "
-                          />
+                            class="px-5 py-4 border-b border-border-default text-base text-center "
+                          >
+                            <button
+                              class="cursor-pointer rounded-lg p-1.5 text-brand-text-medium transition-colors hover:bg-brand-blue-light hover:text-brand-blue"
+                              title="Edit"
+                              type="button"
+                            >
+                              <div
+                                data-testid="edit-icon"
+                              />
+                            </button>
+                          </td>
                         </tr>
                       </tbody>
                     </table>
@@ -1779,7 +1979,7 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots more open st
                       <thead>
                         <tr>
                           <th
-                            class="bg-table-header px-5 py-4 text-[13px] font-bold text-text-secondary uppercase tracking-widest rounded-l-xl  text-left "
+                            class="bg-table-header px-5 py-4 text-[13px] font-bold text-text-secondary uppercase tracking-widest rounded-l-xl  text-center "
                           >
                             No
                           </th>
@@ -1799,12 +1999,12 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots more open st
                             Phone Number
                           </th>
                           <th
-                            class="bg-table-header px-5 py-4 text-[13px] font-bold text-text-secondary uppercase tracking-widest   text-left "
+                            class="bg-table-header px-5 py-4 text-[13px] font-bold text-text-secondary uppercase tracking-widest   text-center "
                           >
                             Status
                           </th>
                           <th
-                            class="bg-table-header px-5 py-4 text-[13px] font-bold text-text-secondary uppercase tracking-widest  rounded-r-xl text-left "
+                            class="bg-table-header px-5 py-4 text-[13px] font-bold text-text-secondary uppercase tracking-widest  rounded-r-xl text-center "
                           >
                             Action
                           </th>
@@ -1817,8 +2017,14 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots more open st
                           class="hover:bg-background-subtle/50 transition-colors "
                         >
                           <td
-                            class="px-5 py-4 border-b border-border-default text-base text-left "
-                          />
+                            class="px-5 py-4 border-b border-border-default text-base text-center "
+                          >
+                            <span
+                              class="text-sm"
+                            >
+                              1
+                            </span>
+                          </td>
                           <td
                             class="px-5 py-4 border-b border-border-default text-base text-left "
                           >
@@ -1835,20 +2041,40 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots more open st
                             081234567890
                           </td>
                           <td
-                            class="px-5 py-4 border-b border-border-default text-base text-left "
+                            class="px-5 py-4 border-b border-border-default text-base text-center "
                           >
-                            active
+                            <span
+                              class="rounded-full px-3 py-1 text-xs font-bold uppercase bg-green-100 text-green-600"
+                            >
+                              active
+                            </span>
                           </td>
                           <td
-                            class="px-5 py-4 border-b border-border-default text-base text-left "
-                          />
+                            class="px-5 py-4 border-b border-border-default text-base text-center "
+                          >
+                            <button
+                              class="cursor-pointer rounded-lg p-1.5 text-brand-text-medium transition-colors hover:bg-brand-blue-light hover:text-brand-blue"
+                              title="Edit"
+                              type="button"
+                            >
+                              <div
+                                data-testid="edit-icon"
+                              />
+                            </button>
+                          </td>
                         </tr>
                         <tr
                           class="hover:bg-background-subtle/50 transition-colors "
                         >
                           <td
-                            class="px-5 py-4 border-b border-border-default text-base text-left "
-                          />
+                            class="px-5 py-4 border-b border-border-default text-base text-center "
+                          >
+                            <span
+                              class="text-sm"
+                            >
+                              2
+                            </span>
+                          </td>
                           <td
                             class="px-5 py-4 border-b border-border-default text-base text-left "
                           >
@@ -1865,20 +2091,40 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots more open st
                             081298765432
                           </td>
                           <td
-                            class="px-5 py-4 border-b border-border-default text-base text-left "
+                            class="px-5 py-4 border-b border-border-default text-base text-center "
                           >
-                            active
+                            <span
+                              class="rounded-full px-3 py-1 text-xs font-bold uppercase bg-green-100 text-green-600"
+                            >
+                              active
+                            </span>
                           </td>
                           <td
-                            class="px-5 py-4 border-b border-border-default text-base text-left "
-                          />
+                            class="px-5 py-4 border-b border-border-default text-base text-center "
+                          >
+                            <button
+                              class="cursor-pointer rounded-lg p-1.5 text-brand-text-medium transition-colors hover:bg-brand-blue-light hover:text-brand-blue"
+                              title="Edit"
+                              type="button"
+                            >
+                              <div
+                                data-testid="edit-icon"
+                              />
+                            </button>
+                          </td>
                         </tr>
                         <tr
                           class="hover:bg-background-subtle/50 transition-colors "
                         >
                           <td
-                            class="px-5 py-4 border-b border-border-default text-base text-left "
-                          />
+                            class="px-5 py-4 border-b border-border-default text-base text-center "
+                          >
+                            <span
+                              class="text-sm"
+                            >
+                              3
+                            </span>
+                          </td>
                           <td
                             class="px-5 py-4 border-b border-border-default text-base text-left "
                           >
@@ -1895,20 +2141,40 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots more open st
                             085612345678
                           </td>
                           <td
-                            class="px-5 py-4 border-b border-border-default text-base text-left "
+                            class="px-5 py-4 border-b border-border-default text-base text-center "
                           >
-                            inactive
+                            <span
+                              class="rounded-full px-3 py-1 text-xs font-bold uppercase bg-red-100 text-red-600"
+                            >
+                              inactive
+                            </span>
                           </td>
                           <td
-                            class="px-5 py-4 border-b border-border-default text-base text-left "
-                          />
+                            class="px-5 py-4 border-b border-border-default text-base text-center "
+                          >
+                            <button
+                              class="cursor-pointer rounded-lg p-1.5 text-brand-text-medium transition-colors hover:bg-brand-blue-light hover:text-brand-blue"
+                              title="Edit"
+                              type="button"
+                            >
+                              <div
+                                data-testid="edit-icon"
+                              />
+                            </button>
+                          </td>
                         </tr>
                         <tr
                           class="hover:bg-background-subtle/50 transition-colors "
                         >
                           <td
-                            class="px-5 py-4 border-b border-border-default text-base text-left "
-                          />
+                            class="px-5 py-4 border-b border-border-default text-base text-center "
+                          >
+                            <span
+                              class="text-sm"
+                            >
+                              4
+                            </span>
+                          </td>
                           <td
                             class="px-5 py-4 border-b border-border-default text-base text-left "
                           >
@@ -1925,20 +2191,40 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots more open st
                             081377889900
                           </td>
                           <td
-                            class="px-5 py-4 border-b border-border-default text-base text-left "
+                            class="px-5 py-4 border-b border-border-default text-base text-center "
                           >
-                            active
+                            <span
+                              class="rounded-full px-3 py-1 text-xs font-bold uppercase bg-green-100 text-green-600"
+                            >
+                              active
+                            </span>
                           </td>
                           <td
-                            class="px-5 py-4 border-b border-border-default text-base text-left "
-                          />
+                            class="px-5 py-4 border-b border-border-default text-base text-center "
+                          >
+                            <button
+                              class="cursor-pointer rounded-lg p-1.5 text-brand-text-medium transition-colors hover:bg-brand-blue-light hover:text-brand-blue"
+                              title="Edit"
+                              type="button"
+                            >
+                              <div
+                                data-testid="edit-icon"
+                              />
+                            </button>
+                          </td>
                         </tr>
                         <tr
                           class="hover:bg-background-subtle/50 transition-colors "
                         >
                           <td
-                            class="px-5 py-4 border-b border-border-default text-base text-left "
-                          />
+                            class="px-5 py-4 border-b border-border-default text-base text-center "
+                          >
+                            <span
+                              class="text-sm"
+                            >
+                              5
+                            </span>
+                          </td>
                           <td
                             class="px-5 py-4 border-b border-border-default text-base text-left "
                           >
@@ -1955,20 +2241,40 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots more open st
                             087811223344
                           </td>
                           <td
-                            class="px-5 py-4 border-b border-border-default text-base text-left "
+                            class="px-5 py-4 border-b border-border-default text-base text-center "
                           >
-                            active
+                            <span
+                              class="rounded-full px-3 py-1 text-xs font-bold uppercase bg-green-100 text-green-600"
+                            >
+                              active
+                            </span>
                           </td>
                           <td
-                            class="px-5 py-4 border-b border-border-default text-base text-left "
-                          />
+                            class="px-5 py-4 border-b border-border-default text-base text-center "
+                          >
+                            <button
+                              class="cursor-pointer rounded-lg p-1.5 text-brand-text-medium transition-colors hover:bg-brand-blue-light hover:text-brand-blue"
+                              title="Edit"
+                              type="button"
+                            >
+                              <div
+                                data-testid="edit-icon"
+                              />
+                            </button>
+                          </td>
                         </tr>
                         <tr
                           class="hover:bg-background-subtle/50 transition-colors "
                         >
                           <td
-                            class="px-5 py-4 border-b border-border-default text-base text-left "
-                          />
+                            class="px-5 py-4 border-b border-border-default text-base text-center "
+                          >
+                            <span
+                              class="text-sm"
+                            >
+                              6
+                            </span>
+                          </td>
                           <td
                             class="px-5 py-4 border-b border-border-default text-base text-left "
                           >
@@ -1985,20 +2291,40 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots more open st
                             082155667788
                           </td>
                           <td
-                            class="px-5 py-4 border-b border-border-default text-base text-left "
+                            class="px-5 py-4 border-b border-border-default text-base text-center "
                           >
-                            inactive
+                            <span
+                              class="rounded-full px-3 py-1 text-xs font-bold uppercase bg-red-100 text-red-600"
+                            >
+                              inactive
+                            </span>
                           </td>
                           <td
-                            class="px-5 py-4 border-b border-border-default text-base text-left "
-                          />
+                            class="px-5 py-4 border-b border-border-default text-base text-center "
+                          >
+                            <button
+                              class="cursor-pointer rounded-lg p-1.5 text-brand-text-medium transition-colors hover:bg-brand-blue-light hover:text-brand-blue"
+                              title="Edit"
+                              type="button"
+                            >
+                              <div
+                                data-testid="edit-icon"
+                              />
+                            </button>
+                          </td>
                         </tr>
                         <tr
                           class="hover:bg-background-subtle/50 transition-colors "
                         >
                           <td
-                            class="px-5 py-4 border-b border-border-default text-base text-left "
-                          />
+                            class="px-5 py-4 border-b border-border-default text-base text-center "
+                          >
+                            <span
+                              class="text-sm"
+                            >
+                              7
+                            </span>
+                          </td>
                           <td
                             class="px-5 py-4 border-b border-border-default text-base text-left "
                           >
@@ -2015,20 +2341,40 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots more open st
                             081900112233
                           </td>
                           <td
-                            class="px-5 py-4 border-b border-border-default text-base text-left "
+                            class="px-5 py-4 border-b border-border-default text-base text-center "
                           >
-                            active
+                            <span
+                              class="rounded-full px-3 py-1 text-xs font-bold uppercase bg-green-100 text-green-600"
+                            >
+                              active
+                            </span>
                           </td>
                           <td
-                            class="px-5 py-4 border-b border-border-default text-base text-left "
-                          />
+                            class="px-5 py-4 border-b border-border-default text-base text-center "
+                          >
+                            <button
+                              class="cursor-pointer rounded-lg p-1.5 text-brand-text-medium transition-colors hover:bg-brand-blue-light hover:text-brand-blue"
+                              title="Edit"
+                              type="button"
+                            >
+                              <div
+                                data-testid="edit-icon"
+                              />
+                            </button>
+                          </td>
                         </tr>
                         <tr
                           class="hover:bg-background-subtle/50 transition-colors "
                         >
                           <td
-                            class="px-5 py-4 border-b border-border-default text-base text-left "
-                          />
+                            class="px-5 py-4 border-b border-border-default text-base text-center "
+                          >
+                            <span
+                              class="text-sm"
+                            >
+                              8
+                            </span>
+                          </td>
                           <td
                             class="px-5 py-4 border-b border-border-default text-base text-left "
                           >
@@ -2045,20 +2391,40 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots more open st
                             085244332211
                           </td>
                           <td
-                            class="px-5 py-4 border-b border-border-default text-base text-left "
+                            class="px-5 py-4 border-b border-border-default text-base text-center "
                           >
-                            active
+                            <span
+                              class="rounded-full px-3 py-1 text-xs font-bold uppercase bg-green-100 text-green-600"
+                            >
+                              active
+                            </span>
                           </td>
                           <td
-                            class="px-5 py-4 border-b border-border-default text-base text-left "
-                          />
+                            class="px-5 py-4 border-b border-border-default text-base text-center "
+                          >
+                            <button
+                              class="cursor-pointer rounded-lg p-1.5 text-brand-text-medium transition-colors hover:bg-brand-blue-light hover:text-brand-blue"
+                              title="Edit"
+                              type="button"
+                            >
+                              <div
+                                data-testid="edit-icon"
+                              />
+                            </button>
+                          </td>
                         </tr>
                         <tr
                           class="hover:bg-background-subtle/50 transition-colors "
                         >
                           <td
-                            class="px-5 py-4 border-b border-border-default text-base text-left "
-                          />
+                            class="px-5 py-4 border-b border-border-default text-base text-center "
+                          >
+                            <span
+                              class="text-sm"
+                            >
+                              9
+                            </span>
+                          </td>
                           <td
                             class="px-5 py-4 border-b border-border-default text-base text-left "
                           >
@@ -2075,20 +2441,40 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots more open st
                             081199887766
                           </td>
                           <td
-                            class="px-5 py-4 border-b border-border-default text-base text-left "
+                            class="px-5 py-4 border-b border-border-default text-base text-center "
                           >
-                            inactive
+                            <span
+                              class="rounded-full px-3 py-1 text-xs font-bold uppercase bg-red-100 text-red-600"
+                            >
+                              inactive
+                            </span>
                           </td>
                           <td
-                            class="px-5 py-4 border-b border-border-default text-base text-left "
-                          />
+                            class="px-5 py-4 border-b border-border-default text-base text-center "
+                          >
+                            <button
+                              class="cursor-pointer rounded-lg p-1.5 text-brand-text-medium transition-colors hover:bg-brand-blue-light hover:text-brand-blue"
+                              title="Edit"
+                              type="button"
+                            >
+                              <div
+                                data-testid="edit-icon"
+                              />
+                            </button>
+                          </td>
                         </tr>
                         <tr
                           class="hover:bg-background-subtle/50 transition-colors "
                         >
                           <td
-                            class="px-5 py-4 border-b border-border-default text-base text-left "
-                          />
+                            class="px-5 py-4 border-b border-border-default text-base text-center "
+                          >
+                            <span
+                              class="text-sm"
+                            >
+                              10
+                            </span>
+                          </td>
                           <td
                             class="px-5 py-4 border-b border-border-default text-base text-left "
                           >
@@ -2105,13 +2491,27 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots more open st
                             083812349988
                           </td>
                           <td
-                            class="px-5 py-4 border-b border-border-default text-base text-left "
+                            class="px-5 py-4 border-b border-border-default text-base text-center "
                           >
-                            active
+                            <span
+                              class="rounded-full px-3 py-1 text-xs font-bold uppercase bg-green-100 text-green-600"
+                            >
+                              active
+                            </span>
                           </td>
                           <td
-                            class="px-5 py-4 border-b border-border-default text-base text-left "
-                          />
+                            class="px-5 py-4 border-b border-border-default text-base text-center "
+                          >
+                            <button
+                              class="cursor-pointer rounded-lg p-1.5 text-brand-text-medium transition-colors hover:bg-brand-blue-light hover:text-brand-blue"
+                              title="Edit"
+                              type="button"
+                            >
+                              <div
+                                data-testid="edit-icon"
+                              />
+                            </button>
+                          </td>
                         </tr>
                       </tbody>
                     </table>

@@ -2,6 +2,8 @@ import { render } from "@testing-library/react";
 import React from "react";
 import { MemoryRouter } from "react-router-dom";
 
+export { act, fireEvent, render, renderHook, screen, waitFor } from "@testing-library/react";
+
 export type SnapshotConfig<T> = {
   readonly desc?: string;
   readonly props: T;

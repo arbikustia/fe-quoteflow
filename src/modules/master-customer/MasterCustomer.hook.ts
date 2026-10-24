@@ -38,14 +38,8 @@ export const useMasterCustomerNavigation = (): MasterCustomerNavigation => {
   const goEdit = (customer: CustomerData): void => {
     navigate(`/master-customer/edit/${customer.id}`, { state: { customer } });
   };
-  /**
-   * Navigate to detail page
-   * @param {CustomerData} customer - The customer data
-   * @returns {void}
-   */
-  const goDetail = (customer: CustomerData): void => { navigate(`/master-customer/detail/${customer.id}`); };
 
-  return { goBack, goCreate, goEdit, goDetail };
+  return { goBack, goCreate, goEdit };
 };
 
 /**

@@ -1,4 +1,4 @@
-import { render, screen } from "@testing-library/react";
+import { render, screen } from "@/libs/unit-test";
 
 import { AlertComponent } from "./Alert.component";
 
@@ -15,4 +15,10 @@ it("should close when closable alert is dismissed", (): void => {
 
   screen.getByRole("button", { name: "close" }).click();
   expect(onClose).toHaveBeenCalledTimes(1);
+});
+
+it("should render toast at top right", (): void => {
+  render(<AlertComponent type="success" message="Customer created successfully." toast />);
+
+  expect(screen.getByRole("alert").parentElement).toHaveClass("fixed", "right-4", "top-4");
 });

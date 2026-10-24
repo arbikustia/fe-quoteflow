@@ -1,5 +1,6 @@
 import { describe, expect, it, jest } from "@jest/globals";
-import { fireEvent, render, screen } from "@testing-library/react";
+
+import { fireEvent, render, screen } from "@/libs/unit-test";
 
 import { MasterCustomerCreateForm } from "./MasterCustomerCreate.component";
 import type { MasterCustomerCreateFormState } from "./MasterCustomerCreate.type";
@@ -59,5 +60,14 @@ describe("MasterCustomerCreateForm", () => {
 
     expect(screen.getByRole("button", { name: "Creating…" }).hasAttribute("disabled")).toBe(true);
     expect(screen.getByRole("alert").textContent).toBe("Duplicate customer");
+  });
+
+  it("should show success toast after customer creation", () => {
+    render(<MasterCustomerCreateForm {...createProps()} successMessage="Customer created successfully." />);
+
+    expect(screen.getByRole("alert").textContent).toContain("Customer created successfully.");
+    expect(screen.getByRole("alert").parentElement?.classList.contains("fixed")).toBe(true);
+    expect(screen.getByRole("alert").parentElement?.classList.contains("right-4")).toBe(true);
+    expect(screen.getByRole("alert").parentElement?.classList.contains("top-4")).toBe(true);
   });
 });
