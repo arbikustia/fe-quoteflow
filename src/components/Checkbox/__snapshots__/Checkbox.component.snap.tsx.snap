@@ -1,0 +1,24 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`CheckboxComponent Snapshots should render checked checkbox 1`] = `
+<DocumentFragment>
+  <label
+    class="ant-checkbox-wrapper ant-checkbox-wrapper-checked css-var-root ant-checkbox-css-var css-dev-only-do-not-override-eofgey"
+  >
+    <span
+      class="ant-checkbox ant-wave-target css-dev-only-do-not-override-eofgey ant-checkbox-checked"
+    >
+      <input
+        checked=""
+        class="ant-checkbox-input"
+        type="checkbox"
+      />
+    </span>
+    <span
+      class="ant-checkbox-label"
+    >
+      Remember me
+    </span>
+  </label>
+</DocumentFragment>
+`;

@@ -1,3 +1,5 @@
+import { ConfigProvider, theme as antdTheme } from "antd";
+import enUS from "antd/locale/en_US";
 import React, { useEffect } from "react";
 
 import { useAppSelector } from "./hooks";
@@ -26,5 +28,25 @@ export const ThemeProvider = ({ children }: ThemeProviderProps): React.ReactElem
     root.classList.toggle("light", theme === "light");
   }, [theme]);
 
-  return <>{children}</>;
+  return (
+    <ConfigProvider
+      locale={enUS}
+      theme={{
+        algorithm: theme === "dark" ? antdTheme.darkAlgorithm : antdTheme.defaultAlgorithm,
+        token: {
+          colorPrimary: theme === "dark" ? "#7188FA" : "#3550D7",
+          colorBgContainer: "var(--background-surface)",
+          colorBgElevated: "var(--background-elevated)",
+          colorBgLayout: "var(--background-page)",
+          colorText: "var(--text-primary)",
+          colorTextSecondary: "var(--text-secondary)",
+          colorBorder: "var(--border-default)",
+          fontFamily: "Poppins, ui-sans-serif, system-ui, sans-serif",
+          borderRadius: 8,
+        },
+      }}
+    >
+      {children}
+    </ConfigProvider>
+  );
 };

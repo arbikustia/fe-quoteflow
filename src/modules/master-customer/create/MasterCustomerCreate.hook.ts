@@ -1,10 +1,14 @@
-import type { ChangeEvent, Dispatch, SetStateAction, SyntheticEvent } from "react";
-import { useState } from "react";
+import type { ChangeEvent, SyntheticEvent } from "react";
+import { useEffect, useState } from "react";
+import type { UseFormRegister, UseFormReset } from "react-hook-form";
+import { useForm, useWatch } from "react-hook-form";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 
 import { parsePhoneInput } from "./MasterCustomerCreate.helpers";
 import type {
   CustomerFormFields,
+  CustomerFormValidation,
+  CustomerFormValues,
   CustomerSubmissionParams,
   CustomerSubmissionState,
   MasterCustomerCreateFormState,
@@ -26,14 +30,7 @@ const _formatMessages = (messages: string[] | string | null): string => {
   return messages ?? "Customer request failed.";
 };
 
-/**
- * Hook managing input change handlers.
- * @param {Dispatch<SetStateAction<string>>} setter - State setter
- * @returns {(event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void} Change handler
- */
-const _useInputChange = (setter: Dispatch<SetStateAction<string>>): ((event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void) => (
-  (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>): void => { setter(event.target.value); }
-);
+
 
 /**
  * Extract customer item from API detail payload.
@@ -76,47 +73,100 @@ const _getInitialFieldValues = (
 });
 
 /**
- * Hook managing form fields and input state.
- * @param {CustomerData | undefined} routeCustomer - Customer from router state
+ * Register customer validation rules.
+ * @param {UseFormRegister<CustomerFormValues>} register - Form register function
+ * @returns {void} No return value
+ */
+const _registerCustomerFields = (register: UseFormRegister<CustomerFormValues>): void => {
+  register("name", { required: "Customer name is required." });
+  register("address", { required: "Address is required." });
+  register("phoneNumber", { required: "Phone number is required.", pattern: { value: /^\d{6,15}$/, message: "Phone number must contain 6–15 digits." } });
+};
+
+/**
+ * Reset form when API customer arrives.
  * @param {ReturnType<typeof _resolveCustomerDetail>} customerItem - Customer from API
- * @returns {CustomerFormFields} Form fields and handlers
+ * @param {UseFormReset<CustomerFormValues>} reset - Form reset function
+ * @returns {void} No return value
+ */
+const useCustomerReset = (customerItem: ReturnType<typeof _resolveCustomerDetail>, reset: UseFormReset<CustomerFormValues>): void => {
+  useEffect((): void => {
+    if (customerItem) {
+      reset({ name: customerItem.name, address: customerItem.address ?? "", phoneNumber: customerItem.phone_number ?? "", isActive: customerItem.status === 1 });
+    }
+  }, [customerItem, reset]);
+};
+
+/**
+ * Manage customer form fields and validation state.
+ * @param {CustomerData | undefined} routeCustomer - Customer from route state
+ * @param {ReturnType<typeof _resolveCustomerDetail>} customerItem - Customer from API
+ * @returns {CustomerFormFields & CustomerFormValidation} Form state and handlers
  */
 const useCustomerFormFields = (
   routeCustomer: CustomerData | undefined,
   customerItem: ReturnType<typeof _resolveCustomerDetail>,
-): CustomerFormFields => {
+): CustomerFormFields & CustomerFormValidation => {
   const initial = _getInitialFieldValues(routeCustomer, customerItem);
-  const [name, setName] = useState(initial.name);
-  const [address, setAddress] = useState(initial.address);
-  const [phoneNumber, setPhoneNumber] = useState(initial.phoneNumber);
-  const [isActive, setIsActive] = useState(initial.isActive);
-  const [initializedId, setInitializedId] = useState<string | null>(routeCustomer?.id ?? null);
+  const { control: formControl, formState: { errors }, getValues, register, reset, setValue, trigger } = useForm<CustomerFormValues>({
+    defaultValues: { name: initial.name, address: initial.address, phoneNumber: initial.phoneNumber, isActive: initial.isActive },
+    mode: "onSubmit",
+    reValidateMode: "onChange",
+  });
 
-  if (customerItem && customerItem.id !== initializedId) {
-    setInitializedId(customerItem.id);
-    setName(customerItem.name);
-    setAddress(customerItem.address ?? "");
-    setPhoneNumber(customerItem.phone_number ?? "");
-    setIsActive(customerItem.status === 1);
-  }
+  _registerCustomerFields(register);
+  const [isSubmitted, setIsSubmitted] = useState(false);
+  const name = useWatch({ control: formControl, name: "name" });
+  const address = useWatch({ control: formControl, name: "address" });
+  const phoneNumber = useWatch({ control: formControl, name: "phoneNumber" });
+  const isActive = useWatch({ control: formControl, name: "isActive" });
 
-  const handleNameChange = _useInputChange(setName);
-  const handleAddressChange = _useInputChange(setAddress);
+  useCustomerReset(customerItem, reset);
+
   /**
-   * Handle phone number change.
+   * Handle customer name change.
+   * @param {ChangeEvent<HTMLInputElement | HTMLTextAreaElement>} event - Name change event
+   * @returns {void}
+   */
+  const handleNameChange = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>): void => {
+    setValue("name", event.target.value, { shouldValidate: Boolean(errors.name) });
+  };
+
+  /**
+   * Handle customer address change.
+   * @param {ChangeEvent<HTMLInputElement | HTMLTextAreaElement>} event - Address change event
+   * @returns {void}
+   */
+  const handleAddressChange = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>): void => {
+    setValue("address", event.target.value, { shouldValidate: Boolean(errors.address) });
+  };
+
+  /**
+   * Handle customer phone number change.
    * @param {ChangeEvent<HTMLInputElement | HTMLTextAreaElement>} event - Phone change event
    * @returns {void}
    */
   const handlePhoneNumberChange = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>): void => {
-    setPhoneNumber(parsePhoneInput(event.target.value));
+    setValue("phoneNumber", parsePhoneInput(event.target.value), { shouldValidate: Boolean(errors.phoneNumber) });
   };
+
   /**
-   * Handle status toggle.
+   * Toggle customer status.
    * @returns {void}
    */
-  const handleStatusChange = (): void => { setIsActive((current) => !current); };
+  const handleStatusChange = (): void => { setValue("isActive", !isActive, { shouldDirty: true }); };
 
-  return { name, address, phoneNumber, isActive, handleNameChange, handlePhoneNumberChange, handleAddressChange, handleStatusChange };
+  /**
+   * Validate customer fields.
+   * @returns {Promise<boolean>} Validation result
+   */
+  const validateForm = async (): Promise<boolean> => {
+    setIsSubmitted(true);
+
+    return await trigger();
+  };
+
+  return { name, address, phoneNumber, isActive, errors, isSubmitted, getValues, register, validateForm, handleNameChange, handlePhoneNumberChange, handleAddressChange, handleStatusChange };
 };
 
 /**
@@ -125,7 +175,7 @@ const useCustomerFormFields = (
  * @returns {CustomerSubmissionState} Submission state
  */
 const useCustomerSubmission = (params: CustomerSubmissionParams): CustomerSubmissionState => {
-  const { id, isEditMode, name, address, phoneNumber, isActive } = params;
+  const { id, isEditMode, isActive, getValues, validateForm } = params;
   const navigate = useNavigate();
   const [createCustomer, { isLoading: isCreating }] = useCreateCustomerMutation();
   const [updateCustomer, { isLoading: isUpdating }] = useUpdateCustomerMutation();
@@ -139,6 +189,13 @@ const useCustomerSubmission = (params: CustomerSubmissionParams): CustomerSubmis
    */
   const handleSubmit = async (event: SyntheticEvent): Promise<void> => {
     event.preventDefault();
+
+    if (!(await validateForm())) {
+      return;
+    }
+
+    const { name, address, phoneNumber } = getValues();
+
     setErrorMessage(null);
     setSuccessMessage(null);
 
@@ -180,8 +237,13 @@ export const useMasterCustomerCreate = (): MasterCustomerCreateFormState => {
 
   const customerItem = _resolveCustomerDetail(customerDetail);
   const formFields = useCustomerFormFields(routeCustomer, customerItem);
-  const { name, address, phoneNumber, isActive } = formFields;
-  const submission = useCustomerSubmission({ id, isEditMode, name, address, phoneNumber, isActive });
+  const submission = useCustomerSubmission({
+    id,
+    isEditMode,
+    isActive: formFields.isActive,
+    getValues: formFields.getValues,
+    validateForm: formFields.validateForm,
+  });
 
   /**
    * Go back.

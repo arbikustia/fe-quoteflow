@@ -4,6 +4,7 @@ import Layout from "../../app/layout";
 import { PageLayout } from "../../app/shared/PageLayout";
 import { Pagination } from "../../components/Pagination";
 import { SearchFilter } from "../../components/SearchFilter";
+import { SkeletonComponent } from "../../components/Skeleton";
 import Table from "../../components/Table";
 
 import { CustomerMobileCard } from "./CustomerMobileCard.helpers";
@@ -56,7 +57,9 @@ const _renderDesktopTable = (props: MasterCustomerProps): React.ReactElement => 
         </button>
       </div>
       <div className="flex-1 overflow-auto">
-        {_renderListState(props) ?? <Table data={paginatedData} columns={columns} isDetail={false} onRowClick={onRowClick} keyExtractor={(r: CustomerData) => r.id} />}
+        {props.isLoading ? (
+          <SkeletonComponent rows={5} columns={[{ width: "8%" }, { width: "28%" }, { width: "34%" }, { width: "20%" }, { width: "10%" }]} />
+        ) : _renderListState(props) ?? <Table data={paginatedData} columns={columns} isDetail={false} onRowClick={onRowClick} keyExtractor={(r: CustomerData) => r.id} />}
       </div>
       <Pagination currentPage={currentPage} totalPages={totalPages} pageSize={pageSize} onPageChange={goToPage} onPageSizeChange={changePageSize} totalItems={totalCount} />
     </div>

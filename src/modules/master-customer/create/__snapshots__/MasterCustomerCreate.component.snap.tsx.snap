@@ -6,7 +6,7 @@ exports[`MasterCustomerCreateForm Snapshots should render customer create form 1
     class="flex h-full w-full flex-col bg-background-surface font-sans pb-6 lg:bg-background-page"
   >
     <div
-      class="sticky top-0 z-20 flex items-center bg-background-surface px-6 lg:hidden"
+      class="sticky top-0 z-20 flex items-center bg-background-surface px-0 lg:hidden"
     >
       <button
         aria-label="Back"
@@ -30,7 +30,7 @@ exports[`MasterCustomerCreateForm Snapshots should render customer create form 1
       </button>
     </div>
     <div
-      class="mt-2 flex min-h-0 w-full flex-1 flex-col px-6 lg:mt-0 lg:px-0"
+      class="mt-2 flex min-h-0 w-full flex-1 flex-col px-0 lg:mt-0 lg:px-0"
     >
       <nav
         aria-label="Breadcrumb"
@@ -69,16 +69,18 @@ exports[`MasterCustomerCreateForm Snapshots should render customer create form 1
       </div>
       <form
         class="flex min-h-0 flex-1 flex-col justify-between border-0 bg-transparent p-0 shadow-none lg:rounded-4xl lg:border lg:border-brand-gray-light lg:bg-brand-white lg:p-8 lg:shadow-xs"
+        novalidate=""
       >
         <div
           class="grid w-full grid-cols-1 gap-x-6 gap-y-1 lg:grid-cols-2"
         >
           <div>
             <div
-              class="mb-4"
+              class="mb-4 "
             >
               <label
-                class="block text-[12px] font-bold text-text-secondary mb-1.5 uppercase tracking-wider"
+                class="mb-1.5 block text-xs font-bold uppercase tracking-wider text-text-secondary"
+                for="customer-name"
               >
                 Customer Name
                 <span
@@ -89,7 +91,9 @@ exports[`MasterCustomerCreateForm Snapshots should render customer create form 1
                 </span>
               </label>
               <input
-                class="w-full bg-background-surface border border-border-default rounded-xl py-3 px-4 text-[15px] font-normal text-text-primary shadow-xs outline-none focus:border-border-focus focus:ring-2 focus:ring-focus-ring/30 transition-all placeholder:text-text-tertiary/60 placeholder:font-normal"
+                aria-invalid="false"
+                class="ant-input ant-input-lg css-dev-only-do-not-override-eofgey ant-input-outlined h-14 w-full css-var-root ant-input-css-var"
+                id="customer-name"
                 placeholder="e.g. PT Mega Jaya Abadi"
                 required=""
                 type="text"
@@ -99,10 +103,11 @@ exports[`MasterCustomerCreateForm Snapshots should render customer create form 1
           </div>
           <div>
             <div
-              class="mb-4"
+              class="mb-4 "
             >
               <label
-                class="block text-[12px] font-bold text-text-secondary mb-1.5 uppercase tracking-wider"
+                class="mb-1.5 block text-xs font-bold uppercase tracking-wider text-text-secondary"
+                for="customer-phone"
               >
                 Phone Number
                 <span
@@ -113,7 +118,9 @@ exports[`MasterCustomerCreateForm Snapshots should render customer create form 1
                 </span>
               </label>
               <input
-                class="w-full bg-background-surface border border-border-default rounded-xl py-3 px-4 text-[15px] font-normal text-text-primary shadow-xs outline-none focus:border-border-focus focus:ring-2 focus:ring-focus-ring/30 transition-all placeholder:text-text-tertiary/60 placeholder:font-normal"
+                aria-invalid="false"
+                class="ant-input ant-input-lg css-dev-only-do-not-override-eofgey ant-input-outlined h-14 w-full css-var-root ant-input-css-var"
+                id="customer-phone"
                 inputmode="numeric"
                 pattern="[0-9]{6,15}"
                 placeholder="0812... atau 628..."
@@ -128,10 +135,11 @@ exports[`MasterCustomerCreateForm Snapshots should render customer create form 1
             class="lg:col-span-2"
           >
             <div
-              class="mb-4"
+              class="mb-4 "
             >
               <label
-                class="block text-[12px] font-bold text-text-secondary mb-1.5 uppercase tracking-wider"
+                class="mb-1.5 block text-xs font-bold uppercase tracking-wider text-text-secondary"
+                for="customer-address"
               >
                 Address
                 <span
@@ -142,7 +150,9 @@ exports[`MasterCustomerCreateForm Snapshots should render customer create form 1
                 </span>
               </label>
               <textarea
-                class="w-full bg-background-surface border border-border-default rounded-xl py-3 px-4 text-[15px] font-normal text-text-primary shadow-xs outline-none focus:border-border-focus focus:ring-2 focus:ring-focus-ring/30 transition-all placeholder:text-text-tertiary/60 placeholder:font-normal resize-none"
+                aria-invalid="false"
+                class="ant-input ant-input-lg css-dev-only-do-not-override-eofgey ant-input-outlined css-var-root ant-input-css-var"
+                id="customer-address"
                 placeholder="e.g. Jl. Sudirman No. 45"
                 required=""
                 rows="3"
@@ -174,7 +184,7 @@ exports[`MasterCustomerCreateForm Snapshots should render customer create form w
     class="flex h-full w-full flex-col bg-background-surface font-sans pb-6 lg:bg-background-page"
   >
     <div
-      class="sticky top-0 z-20 flex items-center bg-background-surface px-6 lg:hidden"
+      class="sticky top-0 z-20 flex items-center bg-background-surface px-0 lg:hidden"
     >
       <button
         aria-label="Back"
@@ -198,7 +208,7 @@ exports[`MasterCustomerCreateForm Snapshots should render customer create form w
       </button>
     </div>
     <div
-      class="mt-2 flex min-h-0 w-full flex-1 flex-col px-6 lg:mt-0 lg:px-0"
+      class="mt-2 flex min-h-0 w-full flex-1 flex-col px-0 lg:mt-0 lg:px-0"
     >
       <nav
         aria-label="Breadcrumb"
@@ -237,16 +247,18 @@ exports[`MasterCustomerCreateForm Snapshots should render customer create form w
       </div>
       <form
         class="flex min-h-0 flex-1 flex-col justify-between border-0 bg-transparent p-0 shadow-none lg:rounded-4xl lg:border lg:border-brand-gray-light lg:bg-brand-white lg:p-8 lg:shadow-xs"
+        novalidate=""
       >
         <div
           class="grid w-full grid-cols-1 gap-x-6 gap-y-1 lg:grid-cols-2"
         >
           <div>
             <div
-              class="mb-4"
+              class="mb-4 "
             >
               <label
-                class="block text-[12px] font-bold text-text-secondary mb-1.5 uppercase tracking-wider"
+                class="mb-1.5 block text-xs font-bold uppercase tracking-wider text-text-secondary"
+                for="customer-name"
               >
                 Customer Name
                 <span
@@ -257,7 +269,9 @@ exports[`MasterCustomerCreateForm Snapshots should render customer create form w
                 </span>
               </label>
               <input
-                class="w-full bg-background-surface border border-border-default rounded-xl py-3 px-4 text-[15px] font-normal text-text-primary shadow-xs outline-none focus:border-border-focus focus:ring-2 focus:ring-focus-ring/30 transition-all placeholder:text-text-tertiary/60 placeholder:font-normal"
+                aria-invalid="false"
+                class="ant-input ant-input-lg css-dev-only-do-not-override-eofgey ant-input-outlined h-14 w-full css-var-root ant-input-css-var"
+                id="customer-name"
                 placeholder="e.g. PT Mega Jaya Abadi"
                 required=""
                 type="text"
@@ -267,10 +281,11 @@ exports[`MasterCustomerCreateForm Snapshots should render customer create form w
           </div>
           <div>
             <div
-              class="mb-4"
+              class="mb-4 "
             >
               <label
-                class="block text-[12px] font-bold text-text-secondary mb-1.5 uppercase tracking-wider"
+                class="mb-1.5 block text-xs font-bold uppercase tracking-wider text-text-secondary"
+                for="customer-phone"
               >
                 Phone Number
                 <span
@@ -281,7 +296,9 @@ exports[`MasterCustomerCreateForm Snapshots should render customer create form w
                 </span>
               </label>
               <input
-                class="w-full bg-background-surface border border-border-default rounded-xl py-3 px-4 text-[15px] font-normal text-text-primary shadow-xs outline-none focus:border-border-focus focus:ring-2 focus:ring-focus-ring/30 transition-all placeholder:text-text-tertiary/60 placeholder:font-normal"
+                aria-invalid="false"
+                class="ant-input ant-input-lg css-dev-only-do-not-override-eofgey ant-input-outlined h-14 w-full css-var-root ant-input-css-var"
+                id="customer-phone"
                 inputmode="numeric"
                 pattern="[0-9]{6,15}"
                 placeholder="0812... atau 628..."
@@ -296,10 +313,11 @@ exports[`MasterCustomerCreateForm Snapshots should render customer create form w
             class="lg:col-span-2"
           >
             <div
-              class="mb-4"
+              class="mb-4 "
             >
               <label
-                class="block text-[12px] font-bold text-text-secondary mb-1.5 uppercase tracking-wider"
+                class="mb-1.5 block text-xs font-bold uppercase tracking-wider text-text-secondary"
+                for="customer-address"
               >
                 Address
                 <span
@@ -310,7 +328,9 @@ exports[`MasterCustomerCreateForm Snapshots should render customer create form w
                 </span>
               </label>
               <textarea
-                class="w-full bg-background-surface border border-border-default rounded-xl py-3 px-4 text-[15px] font-normal text-text-primary shadow-xs outline-none focus:border-border-focus focus:ring-2 focus:ring-focus-ring/30 transition-all placeholder:text-text-tertiary/60 placeholder:font-normal resize-none"
+                aria-invalid="false"
+                class="ant-input ant-input-lg css-dev-only-do-not-override-eofgey ant-input-outlined css-var-root ant-input-css-var"
+                id="customer-address"
                 placeholder="e.g. Jl. Sudirman No. 45"
                 required=""
                 rows="3"

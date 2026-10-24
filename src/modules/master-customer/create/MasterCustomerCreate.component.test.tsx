@@ -15,6 +15,8 @@ const createProps = (): MasterCustomerCreateFormState => ({
   isSubmitting: false,
   errorMessage: null,
   successMessage: null,
+  errors: {},
+  isSubmitted: false,
   handleNameChange: jest.fn(),
   handlePhoneNumberChange: jest.fn(),
   handleAddressChange: jest.fn(),

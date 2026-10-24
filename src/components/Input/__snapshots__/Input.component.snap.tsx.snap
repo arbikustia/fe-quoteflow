@@ -1,0 +1,30 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`should render a labelled Ant Design input 1`] = `
+<DocumentFragment>
+  <div
+    class="mb-4 "
+  >
+    <label
+      class="mb-1.5 block text-xs font-bold uppercase tracking-wider text-text-secondary"
+      for="name"
+    >
+      Name
+      <span
+        aria-hidden="true"
+        class="ml-1 text-danger"
+      >
+        *
+      </span>
+    </label>
+    <input
+      aria-invalid="false"
+      class="ant-input ant-input-lg css-dev-only-do-not-override-eofgey ant-input-outlined h-14 w-full css-var-root ant-input-css-var"
+      id="name"
+      required=""
+      type="text"
+      value=""
+    />
+  </div>
+</DocumentFragment>
+`;

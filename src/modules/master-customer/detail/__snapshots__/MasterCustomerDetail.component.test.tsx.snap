@@ -180,6 +180,46 @@ exports[`MasterCustomerDetailComponent should match snapshot for default state 1
             </span>
           </button>
           <button
+            aria-label="Log out"
+            class="mb-2 flex h-9 w-full items-center rounded-[8px] text-danger-strong transition-colors hover:bg-danger-subtle focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring gap-3 px-3"
+            type="button"
+          >
+            <span
+              aria-hidden="true"
+              class="shrink-0"
+            >
+              <svg
+                fill="none"
+                height="16"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="1.8"
+                viewBox="0 0 24 24"
+                width="16"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"
+                />
+                <polyline
+                  points="16 17 21 12 16 7"
+                />
+                <line
+                  x1="21"
+                  x2="9"
+                  y1="12"
+                  y2="12"
+                />
+              </svg>
+            </span>
+            <span
+              class="flex-1 text-left text-[13px] font-medium"
+            >
+              Log out
+            </span>
+          </button>
+          <button
             aria-expanded="false"
             aria-haspopup="menu"
             class="w-full flex items-center rounded-[10px] transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring/30 hover:bg-background-elevated gap-3 p-2"
@@ -189,7 +229,7 @@ exports[`MasterCustomerDetailComponent should match snapshot for default state 1
               aria-hidden="true"
               class="w-8 h-8 rounded-full bg-action-primary-subtle text-action-primary flex items-center justify-center text-[12px] font-semibold shrink-0"
             >
-              DR
+              US
             </span>
             <span
               class="flex-1 min-w-0 text-left"
@@ -197,12 +237,7 @@ exports[`MasterCustomerDetailComponent should match snapshot for default state 1
               <span
                 class="block truncate text-[13px] font-semibold leading-4 text-text-primary"
               >
-                Dianne Russell
-              </span>
-              <span
-                class="block truncate text-[11px] leading-4 text-text-tertiary"
-              >
-                dianne.russell@gmail.com
+                User
               </span>
             </span>
             <span
@@ -253,15 +288,15 @@ exports[`MasterCustomerDetailComponent should match snapshot for default state 1
         class="hidden lg:block shrink-0"
       >
         <header
-          class="h-20 flex items-center justify-between px-8 bg-background-surface border-b border-brand-gray-light sticky top-0 z-10 transition-all"
+          class="sticky top-0 z-10 flex h-20 items-center justify-between border-b border-border-default bg-background-surface px-8 transition-all"
         >
           <div
-            class="flex items-center gap-4 flex-1"
+            class="flex flex-1 items-center gap-4"
           >
             <button
               aria-expanded="true"
               aria-label="Close sidebar"
-              class="flex h-10 w-10 items-center justify-center rounded-[8px] border border-border-default bg-background-surface text-text-secondary hover:bg-background-subtle hover:text-text-primary transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring/30"
+              class="flex h-10 w-10 items-center justify-center rounded-lg border border-border-default bg-background-surface text-text-secondary transition-colors hover:bg-background-subtle hover:text-text-primary focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring/30"
               type="button"
             >
               <svg
@@ -288,10 +323,10 @@ exports[`MasterCustomerDetailComponent should match snapshot for default state 1
               </svg>
             </button>
             <div
-              class="relative group hidden md:block max-w-lg flex-1"
+              class="group relative hidden max-w-lg flex-1 md:block"
             >
               <div
-                class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-brand-text-medium"
+                class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3 text-text-tertiary"
               >
                 <svg
                   fill="none"
@@ -315,15 +350,16 @@ exports[`MasterCustomerDetailComponent should match snapshot for default state 1
                 </svg>
               </div>
               <input
-                class="w-full pl-10 pr-12 py-2.5 bg-brand-white border border-brand-gray-light rounded-lg text-sm font-medium focus:outline-none focus:ring-1 focus:ring-brand-blue focus:border-brand-blue transition-all placeholder:text-brand-text-medium text-brand-text-dark"
+                aria-label="Search anything"
+                class="w-full rounded-lg border border-border-default bg-background-surface py-2.5 pl-10 pr-12 text-sm font-medium text-text-primary transition-all placeholder:text-text-tertiary focus:border-action-primary focus:outline-none focus:ring-1 focus:ring-action-primary"
                 placeholder="Search anything"
                 type="text"
               />
               <div
-                class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none"
+                class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3"
               >
                 <span
-                  class="text-[10px] font-medium text-brand-text-medium bg-brand-gray-light px-1.5 py-0.5 rounded border border-brand-gray-light"
+                  class="rounded border border-border-default bg-background-subtle px-1.5 py-0.5 text-[10px] font-medium text-text-tertiary"
                 >
                   ⌘K
                 </span>
@@ -331,7 +367,7 @@ exports[`MasterCustomerDetailComponent should match snapshot for default state 1
             </div>
           </div>
           <time
-            class="text-lg tracking-wide font-semibold text-text-primary tabular-nums sm:text-3xl"
+            class="text-lg font-semibold tracking-wide text-text-primary tabular-nums sm:text-3xl"
             data-testid="navbar-realtime-clock"
           >
             18-10-2026 00:51:00

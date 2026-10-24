@@ -1,6 +1,8 @@
 import type { ChangeEvent, MouseEvent, ReactElement } from "react";
 import { FiDownload, FiEdit2 } from "react-icons/fi";
 
+import { CheckboxComponent } from "@/components/Checkbox";
+
 import type { TableColumn } from "../../components/Table";
 
 import type { ActionButtonProps, GetColumnsParams, ItemData } from "./MasterItem.type";
@@ -116,11 +118,12 @@ const _renderPrice = (row: ItemData): string => `Rp ${row.price.toLocaleString("
 const _renderSelection = (row: ItemData, selectedItemIds: string[], onToggleItem: (item: ItemData) => void): ReactElement => {
   /**
    * Toggle row checkbox.
+   * @param {boolean} _checked - New checked state
    * @returns {void} No return value
    */
-  const handleToggle = (): void => onToggleItem(row);
+  const handleToggle = (_checked: boolean): void => onToggleItem(row);
 
-  return <input type="checkbox" aria-label={`Select ${row.name}`} checked={selectedItemIds.includes(row.id)} onChange={handleToggle} />;
+  return <CheckboxComponent ariaLabel={`Select ${row.name}`} checked={selectedItemIds.includes(row.id)} onChange={handleToggle} />;
 };
 
 /**

@@ -1,0 +1,251 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`SkeletonComponent Snapshots should render default skeleton table 1`] = `
+<DocumentFragment>
+  <div
+    aria-label="Loading"
+    class="w-full overflow-hidden "
+    role="status"
+  >
+    <div
+      class="flex h-12 items-center gap-4 border-b border-border-default bg-background-subtle px-4"
+    >
+      <div
+        class="ant-skeleton ant-skeleton-element ant-skeleton-active css-dev-only-do-not-override-eofgey css-var-root"
+      >
+        <span
+          class="ant-skeleton-input ant-skeleton-input-sm"
+          style="width: 100%;"
+        />
+      </div>
+      <div
+        class="ant-skeleton ant-skeleton-element ant-skeleton-active css-dev-only-do-not-override-eofgey css-var-root"
+      >
+        <span
+          class="ant-skeleton-input ant-skeleton-input-sm"
+          style="width: 100%;"
+        />
+      </div>
+      <div
+        class="ant-skeleton ant-skeleton-element ant-skeleton-active css-dev-only-do-not-override-eofgey css-var-root"
+      >
+        <span
+          class="ant-skeleton-input ant-skeleton-input-sm"
+          style="width: 100%;"
+        />
+      </div>
+    </div>
+    <div
+      class="flex h-14 items-center gap-4 border-b border-border-default px-4"
+    >
+      <div
+        class="ant-skeleton ant-skeleton-element ant-skeleton-active css-dev-only-do-not-override-eofgey css-var-root"
+      >
+        <span
+          class="ant-skeleton-input ant-skeleton-input-sm"
+          style="width: 100%;"
+        />
+      </div>
+      <div
+        class="ant-skeleton ant-skeleton-element ant-skeleton-active css-dev-only-do-not-override-eofgey css-var-root"
+      >
+        <span
+          class="ant-skeleton-input ant-skeleton-input-sm"
+          style="width: 100%;"
+        />
+      </div>
+      <div
+        class="ant-skeleton ant-skeleton-element ant-skeleton-active css-dev-only-do-not-override-eofgey css-var-root"
+      >
+        <span
+          class="ant-skeleton-input ant-skeleton-input-sm"
+          style="width: 100%;"
+        />
+      </div>
+    </div>
+    <div
+      class="flex h-14 items-center gap-4 border-b border-border-default px-4"
+    >
+      <div
+        class="ant-skeleton ant-skeleton-element ant-skeleton-active css-dev-only-do-not-override-eofgey css-var-root"
+      >
+        <span
+          class="ant-skeleton-input ant-skeleton-input-sm"
+          style="width: 100%;"
+        />
+      </div>
+      <div
+        class="ant-skeleton ant-skeleton-element ant-skeleton-active css-dev-only-do-not-override-eofgey css-var-root"
+      >
+        <span
+          class="ant-skeleton-input ant-skeleton-input-sm"
+          style="width: 100%;"
+        />
+      </div>
+      <div
+        class="ant-skeleton ant-skeleton-element ant-skeleton-active css-dev-only-do-not-override-eofgey css-var-root"
+      >
+        <span
+          class="ant-skeleton-input ant-skeleton-input-sm"
+          style="width: 100%;"
+        />
+      </div>
+    </div>
+    <div
+      class="flex h-14 items-center gap-4 border-b border-border-default px-4"
+    >
+      <div
+        class="ant-skeleton ant-skeleton-element ant-skeleton-active css-dev-only-do-not-override-eofgey css-var-root"
+      >
+        <span
+          class="ant-skeleton-input ant-skeleton-input-sm"
+          style="width: 100%;"
+        />
+      </div>
+      <div
+        class="ant-skeleton ant-skeleton-element ant-skeleton-active css-dev-only-do-not-override-eofgey css-var-root"
+      >
+        <span
+          class="ant-skeleton-input ant-skeleton-input-sm"
+          style="width: 100%;"
+        />
+      </div>
+      <div
+        class="ant-skeleton ant-skeleton-element ant-skeleton-active css-dev-only-do-not-override-eofgey css-var-root"
+      >
+        <span
+          class="ant-skeleton-input ant-skeleton-input-sm"
+          style="width: 100%;"
+        />
+      </div>
+    </div>
+    <div
+      class="flex h-14 items-center gap-4 border-b border-border-default px-4"
+    >
+      <div
+        class="ant-skeleton ant-skeleton-element ant-skeleton-active css-dev-only-do-not-override-eofgey css-var-root"
+      >
+        <span
+          class="ant-skeleton-input ant-skeleton-input-sm"
+          style="width: 100%;"
+        />
+      </div>
+      <div
+        class="ant-skeleton ant-skeleton-element ant-skeleton-active css-dev-only-do-not-override-eofgey css-var-root"
+      >
+        <span
+          class="ant-skeleton-input ant-skeleton-input-sm"
+          style="width: 100%;"
+        />
+      </div>
+      <div
+        class="ant-skeleton ant-skeleton-element ant-skeleton-active css-dev-only-do-not-override-eofgey css-var-root"
+      >
+        <span
+          class="ant-skeleton-input ant-skeleton-input-sm"
+          style="width: 100%;"
+        />
+      </div>
+    </div>
+    <div
+      class="flex h-14 items-center gap-4 border-b border-border-default px-4"
+    >
+      <div
+        class="ant-skeleton ant-skeleton-element ant-skeleton-active css-dev-only-do-not-override-eofgey css-var-root"
+      >
+        <span
+          class="ant-skeleton-input ant-skeleton-input-sm"
+          style="width: 100%;"
+        />
+      </div>
+      <div
+        class="ant-skeleton ant-skeleton-element ant-skeleton-active css-dev-only-do-not-override-eofgey css-var-root"
+      >
+        <span
+          class="ant-skeleton-input ant-skeleton-input-sm"
+          style="width: 100%;"
+        />
+      </div>
+      <div
+        class="ant-skeleton ant-skeleton-element ant-skeleton-active css-dev-only-do-not-override-eofgey css-var-root"
+      >
+        <span
+          class="ant-skeleton-input ant-skeleton-input-sm"
+          style="width: 100%;"
+        />
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`SkeletonComponent Snapshots should render dynamic skeleton table 1`] = `
+<DocumentFragment>
+  <div
+    aria-label="Loading"
+    class="w-full overflow-hidden "
+    role="status"
+  >
+    <div
+      class="flex h-12 items-center gap-4 border-b border-border-default bg-background-subtle px-4"
+    >
+      <div
+        class="ant-skeleton ant-skeleton-element ant-skeleton-active css-dev-only-do-not-override-eofgey css-var-root"
+      >
+        <span
+          class="ant-skeleton-input ant-skeleton-input-sm"
+          style="width: 25%;"
+        />
+      </div>
+      <div
+        class="ant-skeleton ant-skeleton-element ant-skeleton-active css-dev-only-do-not-override-eofgey css-var-root"
+      >
+        <span
+          class="ant-skeleton-input ant-skeleton-input-sm"
+          style="width: 75%;"
+        />
+      </div>
+    </div>
+    <div
+      class="flex h-14 items-center gap-4 border-b border-border-default px-4"
+    >
+      <div
+        class="ant-skeleton ant-skeleton-element ant-skeleton-active css-dev-only-do-not-override-eofgey css-var-root"
+      >
+        <span
+          class="ant-skeleton-input ant-skeleton-input-sm"
+          style="width: 25%;"
+        />
+      </div>
+      <div
+        class="ant-skeleton ant-skeleton-element ant-skeleton-active css-dev-only-do-not-override-eofgey css-var-root"
+      >
+        <span
+          class="ant-skeleton-input ant-skeleton-input-sm"
+          style="width: 75%;"
+        />
+      </div>
+    </div>
+    <div
+      class="flex h-14 items-center gap-4 border-b border-border-default px-4"
+    >
+      <div
+        class="ant-skeleton ant-skeleton-element ant-skeleton-active css-dev-only-do-not-override-eofgey css-var-root"
+      >
+        <span
+          class="ant-skeleton-input ant-skeleton-input-sm"
+          style="width: 25%;"
+        />
+      </div>
+      <div
+        class="ant-skeleton ant-skeleton-element ant-skeleton-active css-dev-only-do-not-override-eofgey css-var-root"
+      >
+        <span
+          class="ant-skeleton-input ant-skeleton-input-sm"
+          style="width: 75%;"
+        />
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;

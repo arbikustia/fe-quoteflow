@@ -1,7 +1,18 @@
 import type { ReactElement } from "react";
+import type { FieldError } from "react-hook-form";
 
-import { InputField } from "./InputField.component";
+import { AlertComponent } from "@/components/Alert";
+import { InputComponent } from "@/components/Input";
+import { SwitchComponent } from "@/components/Switch";
+
 import type { MasterCustomerCreateFormState } from "./MasterCustomerCreate.type";
+
+/**
+ * Read validation message from React Hook Form.
+ * @param {FieldError | undefined} error - Field validation error
+ * @returns {string | null} Validation message
+ */
+const _getFieldError = (error: FieldError | undefined): string | null => error?.message?.toString() ?? null;
 
 /**
  * Render name field
@@ -9,11 +20,14 @@ import type { MasterCustomerCreateFormState } from "./MasterCustomerCreate.type"
  * @returns {ReactElement} Field element
  */
 const _renderNameField = (props: MasterCustomerCreateFormState): ReactElement => (
-  <InputField
+  <InputComponent
+    id="customer-name"
+    type="text"
     label="Customer Name"
     placeholder="e.g. PT Mega Jaya Abadi"
     value={props.name}
     required
+    errorMessage={props.isSubmitted && !props.name ? "Customer name is required." : _getFieldError(props.errors.name)}
     onChange={props.handleNameChange}
   />
 );
@@ -24,15 +38,17 @@ const _renderNameField = (props: MasterCustomerCreateFormState): ReactElement =>
  * @returns {ReactElement} Field element
  */
 const _renderPhoneField = (props: MasterCustomerCreateFormState): ReactElement => (
-  <InputField
+  <InputComponent
+    id="customer-phone"
+    type="tel"
     label="Phone Number"
     placeholder="0812... atau 628..."
     value={props.phoneNumber}
     required
-    type="tel"
     inputMode="numeric"
     pattern="[0-9]{6,15}"
     title="Use 6–15 digits only. Allowed examples: 0812..., 628..., or 12..."
+    errorMessage={props.isSubmitted && !props.phoneNumber ? "Phone number is required." : _getFieldError(props.errors.phoneNumber)}
     onChange={props.handlePhoneNumberChange}
   />
 );
@@ -51,21 +67,11 @@ const _renderStatusField = (props: MasterCustomerCreateFormState): ReactElement 
         <span className="text-sm font-semibold text-text-primary">Status</span>
         <span className="text-xs text-text-secondary">Toggle active or inactive status</span>
       </div>
-      <button
-        type="button"
-        role="switch"
-        aria-checked={props.isActive}
-        onClick={props.handleStatusChange}
-        className={`relative inline-flex h-6 w-11 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-brand-blue/30 ${
-          props.isActive ? "bg-brand-blue" : "bg-brand-gray-light"
-        }`}
-      >
-        <span
-          className={`pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow-lg ring-0 transition duration-250 ease-in-out ${
-            props.isActive ? "translate-x-5" : "translate-x-0"
-          }`}
-        />
-      </button>
+      <SwitchComponent
+        label="Customer status"
+        checked={props.isActive}
+        onChange={props.handleStatusChange}
+      />
     </div>
   );
 };
@@ -75,12 +81,14 @@ const _renderStatusField = (props: MasterCustomerCreateFormState): ReactElement 
  * @returns {ReactElement} Field element
  */
 const _renderAddressField = (props: MasterCustomerCreateFormState): ReactElement => (
-  <InputField
+  <InputComponent
+    id="customer-address"
+    type="textarea"
     label="Address"
     placeholder="e.g. Jl. Sudirman No. 45"
     value={props.address}
     required
-    multiline
+    errorMessage={props.isSubmitted && !props.address ? "Address is required." : _getFieldError(props.errors.address)}
     onChange={props.handleAddressChange}
   />
 );
@@ -170,14 +178,14 @@ export const MasterCustomerCreateForm = (props: MasterCustomerCreateFormState): 
         {isLoadingInitialData ? (
           <p className="py-12 text-center text-sm text-text-secondary">Loading customer data…</p>
         ) : (
-          <form onSubmit={handleSubmit} className="flex min-h-0 flex-1 flex-col justify-between border-0 bg-transparent p-0 shadow-none lg:rounded-4xl lg:border lg:border-brand-gray-light lg:bg-brand-white lg:p-8 lg:shadow-xs">
+          <form noValidate onSubmit={handleSubmit} className="flex min-h-0 flex-1 flex-col justify-between border-0 bg-transparent p-0 shadow-none lg:rounded-4xl lg:border lg:border-brand-gray-light lg:bg-brand-white lg:p-8 lg:shadow-xs">
             <div className="grid w-full grid-cols-1 gap-x-6 gap-y-1 lg:grid-cols-2">
               <div>{_renderNameField(props)}</div>
               <div>{_renderPhoneField(props)}</div>
               <div className="lg:col-span-2">{_renderAddressField(props)}</div>
               {_renderStatusField(props)}
-              {errorMessage && <p role="alert" className="mb-2 rounded-lg border border-red-200 bg-red-50 px-3 py-2 text-[13px] font-medium text-red-700 lg:col-span-2">{errorMessage}</p>}
-              {successMessage && <p role="status" className="mb-2 rounded-lg border border-green-200 bg-green-50 px-3 py-2 text-[13px] font-medium text-green-700 lg:col-span-2">{successMessage}</p>}
+              {errorMessage && <AlertComponent type="error" message={errorMessage} className="mb-2 lg:col-span-2" />}
+              {successMessage && <AlertComponent type="success" message={successMessage} className="mb-2 lg:col-span-2" />}
             </div>
             {_renderSubmitSection(isSubmitting, isEditMode)}
           </form>

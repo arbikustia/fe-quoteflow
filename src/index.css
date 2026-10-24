@@ -2,6 +2,7 @@
 @import "tailwindcss";
 
 @custom-variant dark (&:where(.dark, .dark *));
+@custom-variant lg (@media (hover: hover) and (pointer: fine));
 
 @theme inline {
   --font-sans: Poppins, ui-sans-serif, system-ui, sans-serif;
@@ -230,4 +231,9 @@
 .login-page-viewport {
   height: 100%;
   min-height: 100%;
+}
+
+.pagination-page-size-dropdown .ant-select-item-option-content {
+  font-size: 12px;
+  line-height: 18px;
 }

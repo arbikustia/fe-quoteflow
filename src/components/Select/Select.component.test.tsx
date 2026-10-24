@@ -23,7 +23,8 @@ describe("Select component", () => {
     );
 
     expect(screen.getByRole("combobox", { name: "Test Select" })).toBeTruthy();
-    expect(screen.getByText("Choose option")).toBeTruthy();
+    expect(screen.getByRole("combobox", { name: "Test Select" }).getAttribute("aria-label")).toBe("Test Select");
+    expect(screen.getByText("Test Select")).toBeTruthy();
   });
 
   it("should open dropdown and trigger onChange on option click", () => {
@@ -40,7 +41,7 @@ describe("Select component", () => {
     );
 
     const trigger = screen.getByRole("combobox");
-    fireEvent.click(trigger);
+    fireEvent.mouseDown(trigger);
 
     expect(screen.getByRole("listbox")).toBeTruthy();
     expect(screen.getByRole("option", { name: "Option One" })).toBeTruthy();

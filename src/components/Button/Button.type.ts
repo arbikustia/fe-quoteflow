@@ -4,7 +4,7 @@ export type ButtonVariant = "primary" | "secondary" | "tertiary" | "danger" | "g
 
 export type ButtonSize = "small" | "default" | "large";
 
-export type ButtonProps = Omit<ButtonHTMLAttributes<HTMLButtonElement>, "className"> & {
+export type ButtonProps = Omit<ButtonHTMLAttributes<HTMLButtonElement>, "className" | "color"> & {
   children: ReactNode;
   variant?: ButtonVariant;
   size?: ButtonSize;

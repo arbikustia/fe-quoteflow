@@ -1,6 +1,8 @@
 import type * as React from "react";
 import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
 
+import { Select } from "../Select";
+
 import type { PaginationNavigationProps, PaginationProps } from "./Pagination.type";
 
 const DEFAULT_PAGE_SIZES: readonly number[] = [5, 10, 20, 50, 100];
@@ -108,9 +110,17 @@ export const Pagination = (props: PaginationProps): React.ReactElement => {
       <div className="flex w-full items-center justify-between gap-2 overflow-x-auto">
         <div className="flex shrink-0 items-center gap-1.5 sm:gap-2">
           {visibleItems !== undefined && <p className="whitespace-nowrap text-xs text-text-secondary sm:text-sm">Show {visibleItems}/{pageSize} data</p>}
-          <select value={pageSize} onChange={(event): void => onPageSizeChange(Number(event.target.value))} aria-label="Documents per page" className={`${isCompact ? "px-4 py-2.5 text-base" : "w-[180px] px-4 py-2.5 text-base sm:w-auto sm:min-w-[100px]"} shrink-0 cursor-pointer rounded-xl border border-border-default bg-background-surface font-semibold text-text-primary focus:outline-none`}>
-            {DEFAULT_PAGE_SIZES.map((size) => <option key={size} value={size}>{size}</option>)}
-          </select>
+          <Select
+            id="documents-per-page"
+            label="Documents per page"
+            labelClassName="sr-only"
+            placeholder="Page size"
+            value={String(pageSize)}
+            options={DEFAULT_PAGE_SIZES.map((size) => ({ value: String(size), label: String(size) }))}
+            onChange={(value): void => onPageSizeChange(Number(value))}
+            className={`${isCompact ? "w-auto" : "w-[180px] sm:w-auto sm:min-w-[100px]"} shrink-0`}
+            popupClassName="pagination-page-size-dropdown"
+          />
         </div>
         {_renderNavigation({ currentPage, totalPages, isCompact, onPageChange })}
       </div>

@@ -23,4 +23,6 @@ export type SelectProps = {
   readonly disabled?: boolean;
   readonly errorMessage?: string | null;
   readonly className?: string;
+  readonly labelClassName?: string;
+  readonly popupClassName?: string;
 };

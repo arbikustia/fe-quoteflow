@@ -17,7 +17,8 @@ describe("Pagination Component", () => {
       />
     );
 
-    expect(screen.getByRole("option", { name: "10" })).toBeInTheDocument();
+    const pageSizeSelect = screen.getByRole("combobox", { name: "Documents per page" });
+    expect(pageSizeSelect).toBeInTheDocument();
     expect(screen.getByRole("button", { name: "1" })).toBeInTheDocument();
     expect(screen.getByRole("button", { name: "10" })).toBeInTheDocument();
 
@@ -30,7 +31,8 @@ describe("Pagination Component", () => {
     fireEvent.click(nextButton);
     expect(onPageChange).toHaveBeenCalledWith(2);
 
-    fireEvent.change(screen.getByRole("combobox", { name: "Documents per page" }), { target: { value: "20" } });
+    fireEvent.mouseDown(pageSizeSelect);
+    fireEvent.click(screen.getByRole("option", { name: "20" }));
     expect(onPageSizeChange).toHaveBeenCalledWith(20);
   });
 

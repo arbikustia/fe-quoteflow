@@ -30,7 +30,7 @@ describe("ButtonComponent", () => {
       </ButtonComponent>,
     );
 
-    const button = screen.getByRole("button", { name: "Create quotation" });
+    const button = screen.getByRole("button", { name: /Create quotation/ });
 
     fireEvent.click(button);
 

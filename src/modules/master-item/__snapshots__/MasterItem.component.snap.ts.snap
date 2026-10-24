@@ -180,6 +180,46 @@ exports[`MasterItemComponent matches snapshot 1`] = `
             </span>
           </button>
           <button
+            aria-label="Log out"
+            class="mb-2 flex h-9 w-full items-center rounded-[8px] text-danger-strong transition-colors hover:bg-danger-subtle focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring gap-3 px-3"
+            type="button"
+          >
+            <span
+              aria-hidden="true"
+              class="shrink-0"
+            >
+              <svg
+                fill="none"
+                height="16"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="1.8"
+                viewBox="0 0 24 24"
+                width="16"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"
+                />
+                <polyline
+                  points="16 17 21 12 16 7"
+                />
+                <line
+                  x1="21"
+                  x2="9"
+                  y1="12"
+                  y2="12"
+                />
+              </svg>
+            </span>
+            <span
+              class="flex-1 text-left text-[13px] font-medium"
+            >
+              Log out
+            </span>
+          </button>
+          <button
             aria-expanded="false"
             aria-haspopup="menu"
             class="w-full flex items-center rounded-[10px] transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring/30 hover:bg-background-elevated gap-3 p-2"
@@ -189,7 +229,7 @@ exports[`MasterItemComponent matches snapshot 1`] = `
               aria-hidden="true"
               class="w-8 h-8 rounded-full bg-action-primary-subtle text-action-primary flex items-center justify-center text-[12px] font-semibold shrink-0"
             >
-              DR
+              US
             </span>
             <span
               class="flex-1 min-w-0 text-left"
@@ -197,12 +237,7 @@ exports[`MasterItemComponent matches snapshot 1`] = `
               <span
                 class="block truncate text-[13px] font-semibold leading-4 text-text-primary"
               >
-                Dianne Russell
-              </span>
-              <span
-                class="block truncate text-[11px] leading-4 text-text-tertiary"
-              >
-                dianne.russell@gmail.com
+                User
               </span>
             </span>
             <span
@@ -253,15 +288,15 @@ exports[`MasterItemComponent matches snapshot 1`] = `
         class="hidden lg:block shrink-0"
       >
         <header
-          class="h-20 flex items-center justify-between px-8 bg-background-surface border-b border-brand-gray-light sticky top-0 z-10 transition-all"
+          class="sticky top-0 z-10 flex h-20 items-center justify-between border-b border-border-default bg-background-surface px-8 transition-all"
         >
           <div
-            class="flex items-center gap-4 flex-1"
+            class="flex flex-1 items-center gap-4"
           >
             <button
               aria-expanded="true"
               aria-label="Close sidebar"
-              class="flex h-10 w-10 items-center justify-center rounded-[8px] border border-border-default bg-background-surface text-text-secondary hover:bg-background-subtle hover:text-text-primary transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring/30"
+              class="flex h-10 w-10 items-center justify-center rounded-lg border border-border-default bg-background-surface text-text-secondary transition-colors hover:bg-background-subtle hover:text-text-primary focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring/30"
               type="button"
             >
               <svg
@@ -288,10 +323,10 @@ exports[`MasterItemComponent matches snapshot 1`] = `
               </svg>
             </button>
             <div
-              class="relative group hidden md:block max-w-lg flex-1"
+              class="group relative hidden max-w-lg flex-1 md:block"
             >
               <div
-                class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-brand-text-medium"
+                class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3 text-text-tertiary"
               >
                 <svg
                   fill="none"
@@ -315,15 +350,16 @@ exports[`MasterItemComponent matches snapshot 1`] = `
                 </svg>
               </div>
               <input
-                class="w-full pl-10 pr-12 py-2.5 bg-brand-white border border-brand-gray-light rounded-lg text-sm font-medium focus:outline-none focus:ring-1 focus:ring-brand-blue focus:border-brand-blue transition-all placeholder:text-brand-text-medium text-brand-text-dark"
+                aria-label="Search anything"
+                class="w-full rounded-lg border border-border-default bg-background-surface py-2.5 pl-10 pr-12 text-sm font-medium text-text-primary transition-all placeholder:text-text-tertiary focus:border-action-primary focus:outline-none focus:ring-1 focus:ring-action-primary"
                 placeholder="Search anything"
                 type="text"
               />
               <div
-                class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none"
+                class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3"
               >
                 <span
-                  class="text-[10px] font-medium text-brand-text-medium bg-brand-gray-light px-1.5 py-0.5 rounded border border-brand-gray-light"
+                  class="rounded border border-border-default bg-background-subtle px-1.5 py-0.5 text-[10px] font-medium text-text-tertiary"
                 >
                   ⌘K
                 </span>
@@ -331,7 +367,7 @@ exports[`MasterItemComponent matches snapshot 1`] = `
             </div>
           </div>
           <time
-            class="text-lg tracking-wide font-semibold text-text-primary tabular-nums sm:text-3xl"
+            class="text-lg font-semibold tracking-wide text-text-primary tabular-nums sm:text-3xl"
             data-testid="navbar-realtime-clock"
           >
             18-10-2026 00:31:00
@@ -380,7 +416,7 @@ exports[`MasterItemComponent matches snapshot 1`] = `
               </div>
             </div>
             <div
-              class="flex items-center justify-between gap-3 lg:hidden px-6"
+              class="flex items-center justify-between gap-3 lg:hidden px-0"
             >
               <div
                 class="flex items-center gap-3 min-w-0 flex-1"
@@ -427,7 +463,7 @@ exports[`MasterItemComponent matches snapshot 1`] = `
             class="min-w-0 flex-1"
           >
             <div
-              class="relative flex h-full flex-col bg-background-surface px-6 pb-18 lg:-mt-4 lg:bg-transparent lg:px-0 lg:pb-0"
+              class="relative flex h-full flex-col bg-background-surface px-0 pb-18 lg:-mt-4 lg:bg-transparent lg:px-0 lg:pb-0"
             >
               <div
                 class="flex min-w-0 flex-col gap-4 pt-2 pb-16 lg:hidden"
@@ -475,78 +511,54 @@ exports[`MasterItemComponent matches snapshot 1`] = `
                 <div
                   class="min-w-0 space-y-3"
                 >
-                  <div
-                    class="flex cursor-pointer flex-col gap-4 rounded-3xl border border-border-default bg-background-surface p-5 transition-all hover:border-border-strong active:bg-background-subtle/50"
-                    role="button"
-                    tabindex="0"
+                  <button
+                    class="group flex w-full items-start gap-4 rounded-2xl border border-border-default bg-background-surface p-5 text-left transition-colors hover:border-border-strong hover:bg-background-subtle/40 focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring/30 "
+                    type="button"
                   >
-                    <div
-                      class="flex items-start justify-between gap-3"
+                    <span
+                      class="min-w-0 flex-1"
                     >
-                      <h4
-                        class="min-w-0 truncate text-base font-semibold text-text-primary"
+                      <span
+                        class="mb-1 block text-xs font-medium uppercase tracking-wider text-text-tertiary"
+                      >
+                        Master data
+                      </span>
+                      <span
+                        class="block truncate text-base font-semibold text-text-primary"
                       >
                         Speaker
-                      </h4>
+                      </span>
                       <span
-                        class="shrink-0 rounded-full px-3 py-1 text-xs font-semibold uppercase tracking-wider bg-green-100 text-green-700"
+                        class="mt-3 block"
+                      >
+                        <span
+                          class="grid gap-2 text-sm text-text-secondary"
+                        >
+                          <span>
+                            Audio System
+                          </span>
+                          <span>
+                            Rp 5.000.000 · 12 unit · 3 days
+                          </span>
+                        </span>
+                      </span>
+                    </span>
+                    <span
+                      class="flex shrink-0 items-center gap-3"
+                    >
+                      <span
+                        class="rounded-full px-3 py-1 text-xs font-bold uppercase tracking-wider bg-success-subtle text-success-strong"
                       >
                         active
                       </span>
-                    </div>
-                    <div
-                      class="grid grid-cols-2 gap-2 rounded-xl bg-background-subtle/60 p-3 text-sm"
-                    >
-                      <div>
-                        <p
-                          class="text-xs text-text-tertiary"
-                        >
-                          Category
-                        </p>
-                        <p
-                          class="truncate font-medium text-text-primary"
-                        >
-                          Audio System
-                        </p>
-                      </div>
-                      <div>
-                        <p
-                          class="text-xs text-text-tertiary"
-                        >
-                          Stock
-                        </p>
-                        <p
-                          class="font-medium text-text-primary"
-                        >
-                          12
-                        </p>
-                      </div>
-                      <div>
-                        <p
-                          class="text-xs text-text-tertiary"
-                        >
-                          Price
-                        </p>
-                        <p
-                          class="truncate font-medium text-text-primary"
-                        >
-                          Rp 5.000.000
-                        </p>
-                      </div>
-                      <div>
-                        <p
-                          class="text-xs text-text-tertiary"
-                        >
-                          Duration
-                        </p>
-                        <p
-                          class="font-medium text-text-primary"
-                        >
-                          3 days
-                        </p>
-                      </div>
-                    </div>
-                  </div>
+                      <span
+                        aria-hidden="true"
+                        class="text-xl text-text-tertiary transition-transform group-hover:translate-x-1"
+                      >
+                        →
+                      </span>
+                    </span>
+                  </button>
                 </div>
                 <div
                   class="flex flex-col gap-3 py-4 mt-2 w-full rounded-2xl border border-border-default bg-background-surface px-4 py-3 shadow-xs"
@@ -558,50 +570,63 @@ exports[`MasterItemComponent matches snapshot 1`] = `
                       class="flex shrink-0 items-center gap-1.5 sm:gap-2"
                     >
                       <p
-                        class="whitespace-nowrap text-xs sm:text-sm text-text-secondary"
+                        class="whitespace-nowrap text-xs text-text-secondary sm:text-sm"
                       >
                         Show 1/5 data
                       </p>
-                      <select
-                        aria-label="Documents per page"
-                        class="px-4 py-2.5 text-base shrink-0 cursor-pointer rounded-xl border border-border-default bg-background-surface font-semibold text-text-primary focus:outline-none"
+                      <div
+                        class="relative w-auto shrink-0"
                       >
-                        <option
-                          value="5"
+                        <label
+                          class="mb-1.5 block text-xs font-bold uppercase tracking-wider text-text-secondary sr-only"
+                          for="documents-per-page"
                         >
-                          5
-                        </option>
-                        <option
-                          value="10"
+                          Documents per page
+                        </label>
+                        <button
+                          aria-controls="documents-per-page-listbox"
+                          aria-expanded="false"
+                          aria-haspopup="listbox"
+                          class="flex w-full cursor-pointer items-center justify-between rounded-xl border border-border-default bg-background-surface px-4 py-3 text-left text-[15px] font-normal text-text-primary shadow-xs outline-none transition-all hover:border-border-strong focus:border-border-focus focus:ring-2 focus:ring-focus-ring/30 disabled:cursor-not-allowed disabled:bg-background-disabled disabled:text-text-disabled"
+                          id="documents-per-page"
+                          role="combobox"
+                          type="button"
                         >
-                          10
-                        </option>
-                        <option
-                          value="20"
-                        >
-                          20
-                        </option>
-                        <option
-                          value="50"
-                        >
-                          50
-                        </option>
-                        <option
-                          value="100"
-                        >
-                          100
-                        </option>
-                      </select>
+                          <span
+                            class="text-text-primary"
+                          >
+                            5
+                          </span>
+                          <svg
+                            class="h-5 w-5 text-text-tertiary transition-transform duration-200 "
+                            fill="none"
+                            height="1em"
+                            stroke="currentColor"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            viewBox="0 0 24 24"
+                            width="1em"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <polyline
+                              points="6 9 12 15 18 9"
+                            />
+                          </svg>
+                        </button>
+                      </div>
                     </div>
                     <div
                       class="flex shrink-0 items-center justify-end gap-1 sm:gap-2"
                     >
                       <button
-                        class="flex items-center gap-2 p-2.5 border border-border-default rounded-xl text-base font-semibold transition-colors text-text-disabled cursor-not-allowed bg-background-disabled"
+                        aria-label="Previous"
+                        class="flex h-10 items-center justify-center gap-1 rounded-xl border border-border-default text-sm font-semibold transition-colors w-10 cursor-not-allowed bg-background-disabled text-text-disabled"
                         disabled=""
+                        type="button"
                       >
                         <svg
-                          class="w-3.5 h-5 sm:w-5 sm:h-5"
+                          class="h-5 w-3.5 sm:h-5 sm:w-5"
                           fill="none"
                           height="1em"
                           stroke="currentColor"
@@ -617,7 +642,7 @@ exports[`MasterItemComponent matches snapshot 1`] = `
                           />
                         </svg>
                         <span
-                          class="hidden"
+                          class="sr-only"
                         >
                           Previous
                         </span>
@@ -627,22 +652,25 @@ exports[`MasterItemComponent matches snapshot 1`] = `
                       >
                         <button
                           aria-current="page"
-                          class="flex h-10 w-10 items-center justify-center rounded-xl text-base font-semibold transition-colors bg-background-subtle text-text-primary shadow-sm"
+                          class="flex h-10 w-10 items-center justify-center rounded-xl text-sm font-semibold transition-colors bg-action-primary text-text-inverse shadow-sm"
+                          type="button"
                         >
                           1
                         </button>
                       </div>
                       <button
-                        class="flex items-center gap-2 p-2.5 border border-border-default rounded-xl text-base font-semibold transition-colors text-text-disabled cursor-not-allowed bg-background-disabled"
+                        aria-label="Next"
+                        class="flex h-10 items-center justify-center gap-1 rounded-xl border border-border-default text-sm font-semibold transition-colors w-10 cursor-not-allowed bg-background-disabled text-text-disabled"
                         disabled=""
+                        type="button"
                       >
                         <span
-                          class="hidden"
+                          class="sr-only"
                         >
                           Next
                         </span>
                         <svg
-                          class="w-3.5 h-5 sm:w-5 sm:h-5"
+                          class="h-5 w-3.5 sm:h-5 sm:w-5"
                           fill="none"
                           height="1em"
                           stroke="currentColor"
@@ -708,12 +736,22 @@ exports[`MasterItemComponent matches snapshot 1`] = `
                       type="search"
                     />
                   </label>
-                  <button
-                    class="rounded-xl bg-brand-blue h-14 px-6 text-sm font-semibold text-brand-white"
-                    type="button"
+                  <div
+                    class="flex items-center gap-3"
                   >
-                    Create Item
-                  </button>
+                    <button
+                      class="h-14 rounded-xl border border-brand-blue px-6 text-sm font-semibold text-brand-blue disabled:cursor-not-allowed disabled:opacity-50"
+                      type="button"
+                    >
+                      Download Multiple
+                    </button>
+                    <button
+                      class="rounded-xl bg-brand-blue h-14 px-6 text-sm font-semibold text-brand-white"
+                      type="button"
+                    >
+                      Create Item
+                    </button>
+                  </div>
                 </div>
                 <div
                   class="flex-1 overflow-auto"
@@ -778,50 +816,63 @@ exports[`MasterItemComponent matches snapshot 1`] = `
                       class="flex shrink-0 items-center gap-1.5 sm:gap-2"
                     >
                       <p
-                        class="whitespace-nowrap text-xs sm:text-sm text-text-secondary"
+                        class="whitespace-nowrap text-xs text-text-secondary sm:text-sm"
                       >
                         Show 1/5 data
                       </p>
-                      <select
-                        aria-label="Documents per page"
-                        class="w-[180px] px-4 py-2.5 text-base sm:min-w-[100px] sm:w-auto shrink-0 cursor-pointer rounded-xl border border-border-default bg-background-surface font-semibold text-text-primary focus:outline-none"
+                      <div
+                        class="relative w-[180px] sm:w-auto sm:min-w-[100px] shrink-0"
                       >
-                        <option
-                          value="5"
+                        <label
+                          class="mb-1.5 block text-xs font-bold uppercase tracking-wider text-text-secondary sr-only"
+                          for="documents-per-page"
                         >
-                          5
-                        </option>
-                        <option
-                          value="10"
+                          Documents per page
+                        </label>
+                        <button
+                          aria-controls="documents-per-page-listbox"
+                          aria-expanded="false"
+                          aria-haspopup="listbox"
+                          class="flex w-full cursor-pointer items-center justify-between rounded-xl border border-border-default bg-background-surface px-4 py-3 text-left text-[15px] font-normal text-text-primary shadow-xs outline-none transition-all hover:border-border-strong focus:border-border-focus focus:ring-2 focus:ring-focus-ring/30 disabled:cursor-not-allowed disabled:bg-background-disabled disabled:text-text-disabled"
+                          id="documents-per-page"
+                          role="combobox"
+                          type="button"
                         >
-                          10
-                        </option>
-                        <option
-                          value="20"
-                        >
-                          20
-                        </option>
-                        <option
-                          value="50"
-                        >
-                          50
-                        </option>
-                        <option
-                          value="100"
-                        >
-                          100
-                        </option>
-                      </select>
+                          <span
+                            class="text-text-primary"
+                          >
+                            5
+                          </span>
+                          <svg
+                            class="h-5 w-5 text-text-tertiary transition-transform duration-200 "
+                            fill="none"
+                            height="1em"
+                            stroke="currentColor"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            viewBox="0 0 24 24"
+                            width="1em"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <polyline
+                              points="6 9 12 15 18 9"
+                            />
+                          </svg>
+                        </button>
+                      </div>
                     </div>
                     <div
                       class="flex shrink-0 items-center justify-end gap-1 sm:gap-2"
                     >
                       <button
-                        class="flex items-center gap-2 px-2.5 sm:px-4 py-1.5 sm:py-2.5 border border-border-default rounded-xl text-base font-semibold transition-colors text-text-disabled cursor-not-allowed bg-background-disabled"
+                        aria-label="Previous"
+                        class="flex h-10 items-center justify-center gap-1 rounded-xl border border-border-default text-sm font-semibold transition-colors px-3 sm:px-4 cursor-not-allowed bg-background-disabled text-text-disabled"
                         disabled=""
+                        type="button"
                       >
                         <svg
-                          class="w-3.5 h-5 sm:w-5 sm:h-5"
+                          class="h-5 w-3.5 sm:h-5 sm:w-5"
                           fill="none"
                           height="1em"
                           stroke="currentColor"
@@ -847,14 +898,17 @@ exports[`MasterItemComponent matches snapshot 1`] = `
                       >
                         <button
                           aria-current="page"
-                          class="flex h-10 w-10 items-center justify-center rounded-xl text-base font-semibold transition-colors bg-background-subtle text-text-primary shadow-sm"
+                          class="flex h-10 w-10 items-center justify-center rounded-xl text-sm font-semibold transition-colors bg-action-primary text-text-inverse shadow-sm"
+                          type="button"
                         >
                           1
                         </button>
                       </div>
                       <button
-                        class="flex items-center gap-2 px-2.5 sm:px-4 py-1.5 sm:py-2.5 border border-border-default rounded-xl text-base font-semibold transition-colors text-text-disabled cursor-not-allowed bg-background-disabled"
+                        aria-label="Next"
+                        class="flex h-10 items-center justify-center gap-1 rounded-xl border border-border-default text-sm font-semibold transition-colors px-3 sm:px-4 cursor-not-allowed bg-background-disabled text-text-disabled"
                         disabled=""
+                        type="button"
                       >
                         <span
                           class="hidden sm:inline"
@@ -862,7 +916,7 @@ exports[`MasterItemComponent matches snapshot 1`] = `
                           Next
                         </span>
                         <svg
-                          class="w-3.5 h-5 sm:w-5 sm:h-5"
+                          class="h-5 w-3.5 sm:h-5 sm:w-5"
                           fill="none"
                           height="1em"
                           stroke="currentColor"
@@ -1071,6 +1125,46 @@ exports[`MasterItemComponent matches snapshot 2`] = `
             </span>
           </button>
           <button
+            aria-label="Log out"
+            class="mb-2 flex h-9 w-full items-center rounded-[8px] text-danger-strong transition-colors hover:bg-danger-subtle focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring gap-3 px-3"
+            type="button"
+          >
+            <span
+              aria-hidden="true"
+              class="shrink-0"
+            >
+              <svg
+                fill="none"
+                height="16"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="1.8"
+                viewBox="0 0 24 24"
+                width="16"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"
+                />
+                <polyline
+                  points="16 17 21 12 16 7"
+                />
+                <line
+                  x1="21"
+                  x2="9"
+                  y1="12"
+                  y2="12"
+                />
+              </svg>
+            </span>
+            <span
+              class="flex-1 text-left text-[13px] font-medium"
+            >
+              Log out
+            </span>
+          </button>
+          <button
             aria-expanded="false"
             aria-haspopup="menu"
             class="w-full flex items-center rounded-[10px] transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring/30 hover:bg-background-elevated gap-3 p-2"
@@ -1080,7 +1174,7 @@ exports[`MasterItemComponent matches snapshot 2`] = `
               aria-hidden="true"
               class="w-8 h-8 rounded-full bg-action-primary-subtle text-action-primary flex items-center justify-center text-[12px] font-semibold shrink-0"
             >
-              DR
+              US
             </span>
             <span
               class="flex-1 min-w-0 text-left"
@@ -1088,12 +1182,7 @@ exports[`MasterItemComponent matches snapshot 2`] = `
               <span
                 class="block truncate text-[13px] font-semibold leading-4 text-text-primary"
               >
-                Dianne Russell
-              </span>
-              <span
-                class="block truncate text-[11px] leading-4 text-text-tertiary"
-              >
-                dianne.russell@gmail.com
+                User
               </span>
             </span>
             <span
@@ -1144,15 +1233,15 @@ exports[`MasterItemComponent matches snapshot 2`] = `
         class="hidden lg:block shrink-0"
       >
         <header
-          class="h-20 flex items-center justify-between px-8 bg-background-surface border-b border-brand-gray-light sticky top-0 z-10 transition-all"
+          class="sticky top-0 z-10 flex h-20 items-center justify-between border-b border-border-default bg-background-surface px-8 transition-all"
         >
           <div
-            class="flex items-center gap-4 flex-1"
+            class="flex flex-1 items-center gap-4"
           >
             <button
               aria-expanded="true"
               aria-label="Close sidebar"
-              class="flex h-10 w-10 items-center justify-center rounded-[8px] border border-border-default bg-background-surface text-text-secondary hover:bg-background-subtle hover:text-text-primary transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring/30"
+              class="flex h-10 w-10 items-center justify-center rounded-lg border border-border-default bg-background-surface text-text-secondary transition-colors hover:bg-background-subtle hover:text-text-primary focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring/30"
               type="button"
             >
               <svg
@@ -1179,10 +1268,10 @@ exports[`MasterItemComponent matches snapshot 2`] = `
               </svg>
             </button>
             <div
-              class="relative group hidden md:block max-w-lg flex-1"
+              class="group relative hidden max-w-lg flex-1 md:block"
             >
               <div
-                class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-brand-text-medium"
+                class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3 text-text-tertiary"
               >
                 <svg
                   fill="none"
@@ -1206,15 +1295,16 @@ exports[`MasterItemComponent matches snapshot 2`] = `
                 </svg>
               </div>
               <input
-                class="w-full pl-10 pr-12 py-2.5 bg-brand-white border border-brand-gray-light rounded-lg text-sm font-medium focus:outline-none focus:ring-1 focus:ring-brand-blue focus:border-brand-blue transition-all placeholder:text-brand-text-medium text-brand-text-dark"
+                aria-label="Search anything"
+                class="w-full rounded-lg border border-border-default bg-background-surface py-2.5 pl-10 pr-12 text-sm font-medium text-text-primary transition-all placeholder:text-text-tertiary focus:border-action-primary focus:outline-none focus:ring-1 focus:ring-action-primary"
                 placeholder="Search anything"
                 type="text"
               />
               <div
-                class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none"
+                class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3"
               >
                 <span
-                  class="text-[10px] font-medium text-brand-text-medium bg-brand-gray-light px-1.5 py-0.5 rounded border border-brand-gray-light"
+                  class="rounded border border-border-default bg-background-subtle px-1.5 py-0.5 text-[10px] font-medium text-text-tertiary"
                 >
                   ⌘K
                 </span>
@@ -1222,7 +1312,7 @@ exports[`MasterItemComponent matches snapshot 2`] = `
             </div>
           </div>
           <time
-            class="text-lg tracking-wide font-semibold text-text-primary tabular-nums sm:text-3xl"
+            class="text-lg font-semibold tracking-wide text-text-primary tabular-nums sm:text-3xl"
             data-testid="navbar-realtime-clock"
           >
             18-10-2026 00:31:00
@@ -1271,7 +1361,7 @@ exports[`MasterItemComponent matches snapshot 2`] = `
               </div>
             </div>
             <div
-              class="flex items-center justify-between gap-3 lg:hidden px-6"
+              class="flex items-center justify-between gap-3 lg:hidden px-0"
             >
               <div
                 class="flex items-center gap-3 min-w-0 flex-1"
@@ -1318,7 +1408,7 @@ exports[`MasterItemComponent matches snapshot 2`] = `
             class="min-w-0 flex-1"
           >
             <div
-              class="relative flex h-full flex-col bg-background-surface px-6 pb-18 lg:-mt-4 lg:bg-transparent lg:px-0 lg:pb-0"
+              class="relative flex h-full flex-col bg-background-surface px-0 pb-18 lg:-mt-4 lg:bg-transparent lg:px-0 lg:pb-0"
             >
               <div
                 class="flex min-w-0 flex-col gap-4 pt-2 pb-16 lg:hidden"
@@ -1382,50 +1472,63 @@ exports[`MasterItemComponent matches snapshot 2`] = `
                       class="flex shrink-0 items-center gap-1.5 sm:gap-2"
                     >
                       <p
-                        class="whitespace-nowrap text-xs sm:text-sm text-text-secondary"
+                        class="whitespace-nowrap text-xs text-text-secondary sm:text-sm"
                       >
                         Show 0/5 data
                       </p>
-                      <select
-                        aria-label="Documents per page"
-                        class="px-4 py-2.5 text-base shrink-0 cursor-pointer rounded-xl border border-border-default bg-background-surface font-semibold text-text-primary focus:outline-none"
+                      <div
+                        class="relative w-auto shrink-0"
                       >
-                        <option
-                          value="5"
+                        <label
+                          class="mb-1.5 block text-xs font-bold uppercase tracking-wider text-text-secondary sr-only"
+                          for="documents-per-page"
                         >
-                          5
-                        </option>
-                        <option
-                          value="10"
+                          Documents per page
+                        </label>
+                        <button
+                          aria-controls="documents-per-page-listbox"
+                          aria-expanded="false"
+                          aria-haspopup="listbox"
+                          class="flex w-full cursor-pointer items-center justify-between rounded-xl border border-border-default bg-background-surface px-4 py-3 text-left text-[15px] font-normal text-text-primary shadow-xs outline-none transition-all hover:border-border-strong focus:border-border-focus focus:ring-2 focus:ring-focus-ring/30 disabled:cursor-not-allowed disabled:bg-background-disabled disabled:text-text-disabled"
+                          id="documents-per-page"
+                          role="combobox"
+                          type="button"
                         >
-                          10
-                        </option>
-                        <option
-                          value="20"
-                        >
-                          20
-                        </option>
-                        <option
-                          value="50"
-                        >
-                          50
-                        </option>
-                        <option
-                          value="100"
-                        >
-                          100
-                        </option>
-                      </select>
+                          <span
+                            class="text-text-primary"
+                          >
+                            5
+                          </span>
+                          <svg
+                            class="h-5 w-5 text-text-tertiary transition-transform duration-200 "
+                            fill="none"
+                            height="1em"
+                            stroke="currentColor"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            viewBox="0 0 24 24"
+                            width="1em"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <polyline
+                              points="6 9 12 15 18 9"
+                            />
+                          </svg>
+                        </button>
+                      </div>
                     </div>
                     <div
                       class="flex shrink-0 items-center justify-end gap-1 sm:gap-2"
                     >
                       <button
-                        class="flex items-center gap-2 p-2.5 border border-border-default rounded-xl text-base font-semibold transition-colors text-text-disabled cursor-not-allowed bg-background-disabled"
+                        aria-label="Previous"
+                        class="flex h-10 items-center justify-center gap-1 rounded-xl border border-border-default text-sm font-semibold transition-colors w-10 cursor-not-allowed bg-background-disabled text-text-disabled"
                         disabled=""
+                        type="button"
                       >
                         <svg
-                          class="w-3.5 h-5 sm:w-5 sm:h-5"
+                          class="h-5 w-3.5 sm:h-5 sm:w-5"
                           fill="none"
                           height="1em"
                           stroke="currentColor"
@@ -1441,7 +1544,7 @@ exports[`MasterItemComponent matches snapshot 2`] = `
                           />
                         </svg>
                         <span
-                          class="hidden"
+                          class="sr-only"
                         >
                           Previous
                         </span>
@@ -1451,22 +1554,25 @@ exports[`MasterItemComponent matches snapshot 2`] = `
                       >
                         <button
                           aria-current="page"
-                          class="flex h-10 w-10 items-center justify-center rounded-xl text-base font-semibold transition-colors bg-background-subtle text-text-primary shadow-sm"
+                          class="flex h-10 w-10 items-center justify-center rounded-xl text-sm font-semibold transition-colors bg-action-primary text-text-inverse shadow-sm"
+                          type="button"
                         >
                           1
                         </button>
                       </div>
                       <button
-                        class="flex items-center gap-2 p-2.5 border border-border-default rounded-xl text-base font-semibold transition-colors text-text-disabled cursor-not-allowed bg-background-disabled"
+                        aria-label="Next"
+                        class="flex h-10 items-center justify-center gap-1 rounded-xl border border-border-default text-sm font-semibold transition-colors w-10 cursor-not-allowed bg-background-disabled text-text-disabled"
                         disabled=""
+                        type="button"
                       >
                         <span
-                          class="hidden"
+                          class="sr-only"
                         >
                           Next
                         </span>
                         <svg
-                          class="w-3.5 h-5 sm:w-5 sm:h-5"
+                          class="h-5 w-3.5 sm:h-5 sm:w-5"
                           fill="none"
                           height="1em"
                           stroke="currentColor"
@@ -1532,12 +1638,22 @@ exports[`MasterItemComponent matches snapshot 2`] = `
                       type="search"
                     />
                   </label>
-                  <button
-                    class="rounded-xl bg-brand-blue h-14 px-6 text-sm font-semibold text-brand-white"
-                    type="button"
+                  <div
+                    class="flex items-center gap-3"
                   >
-                    Create Item
-                  </button>
+                    <button
+                      class="h-14 rounded-xl border border-brand-blue px-6 text-sm font-semibold text-brand-blue disabled:cursor-not-allowed disabled:opacity-50"
+                      type="button"
+                    >
+                      Download Multiple
+                    </button>
+                    <button
+                      class="rounded-xl bg-brand-blue h-14 px-6 text-sm font-semibold text-brand-white"
+                      type="button"
+                    >
+                      Create Item
+                    </button>
+                  </div>
                 </div>
                 <div
                   class="flex-1 overflow-auto"
@@ -1558,50 +1674,63 @@ exports[`MasterItemComponent matches snapshot 2`] = `
                       class="flex shrink-0 items-center gap-1.5 sm:gap-2"
                     >
                       <p
-                        class="whitespace-nowrap text-xs sm:text-sm text-text-secondary"
+                        class="whitespace-nowrap text-xs text-text-secondary sm:text-sm"
                       >
                         Show 0/5 data
                       </p>
-                      <select
-                        aria-label="Documents per page"
-                        class="w-[180px] px-4 py-2.5 text-base sm:min-w-[100px] sm:w-auto shrink-0 cursor-pointer rounded-xl border border-border-default bg-background-surface font-semibold text-text-primary focus:outline-none"
+                      <div
+                        class="relative w-[180px] sm:w-auto sm:min-w-[100px] shrink-0"
                       >
-                        <option
-                          value="5"
+                        <label
+                          class="mb-1.5 block text-xs font-bold uppercase tracking-wider text-text-secondary sr-only"
+                          for="documents-per-page"
                         >
-                          5
-                        </option>
-                        <option
-                          value="10"
+                          Documents per page
+                        </label>
+                        <button
+                          aria-controls="documents-per-page-listbox"
+                          aria-expanded="false"
+                          aria-haspopup="listbox"
+                          class="flex w-full cursor-pointer items-center justify-between rounded-xl border border-border-default bg-background-surface px-4 py-3 text-left text-[15px] font-normal text-text-primary shadow-xs outline-none transition-all hover:border-border-strong focus:border-border-focus focus:ring-2 focus:ring-focus-ring/30 disabled:cursor-not-allowed disabled:bg-background-disabled disabled:text-text-disabled"
+                          id="documents-per-page"
+                          role="combobox"
+                          type="button"
                         >
-                          10
-                        </option>
-                        <option
-                          value="20"
-                        >
-                          20
-                        </option>
-                        <option
-                          value="50"
-                        >
-                          50
-                        </option>
-                        <option
-                          value="100"
-                        >
-                          100
-                        </option>
-                      </select>
+                          <span
+                            class="text-text-primary"
+                          >
+                            5
+                          </span>
+                          <svg
+                            class="h-5 w-5 text-text-tertiary transition-transform duration-200 "
+                            fill="none"
+                            height="1em"
+                            stroke="currentColor"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            viewBox="0 0 24 24"
+                            width="1em"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <polyline
+                              points="6 9 12 15 18 9"
+                            />
+                          </svg>
+                        </button>
+                      </div>
                     </div>
                     <div
                       class="flex shrink-0 items-center justify-end gap-1 sm:gap-2"
                     >
                       <button
-                        class="flex items-center gap-2 px-2.5 sm:px-4 py-1.5 sm:py-2.5 border border-border-default rounded-xl text-base font-semibold transition-colors text-text-disabled cursor-not-allowed bg-background-disabled"
+                        aria-label="Previous"
+                        class="flex h-10 items-center justify-center gap-1 rounded-xl border border-border-default text-sm font-semibold transition-colors px-3 sm:px-4 cursor-not-allowed bg-background-disabled text-text-disabled"
                         disabled=""
+                        type="button"
                       >
                         <svg
-                          class="w-3.5 h-5 sm:w-5 sm:h-5"
+                          class="h-5 w-3.5 sm:h-5 sm:w-5"
                           fill="none"
                           height="1em"
                           stroke="currentColor"
@@ -1627,14 +1756,17 @@ exports[`MasterItemComponent matches snapshot 2`] = `
                       >
                         <button
                           aria-current="page"
-                          class="flex h-10 w-10 items-center justify-center rounded-xl text-base font-semibold transition-colors bg-background-subtle text-text-primary shadow-sm"
+                          class="flex h-10 w-10 items-center justify-center rounded-xl text-sm font-semibold transition-colors bg-action-primary text-text-inverse shadow-sm"
+                          type="button"
                         >
                           1
                         </button>
                       </div>
                       <button
-                        class="flex items-center gap-2 px-2.5 sm:px-4 py-1.5 sm:py-2.5 border border-border-default rounded-xl text-base font-semibold transition-colors text-text-disabled cursor-not-allowed bg-background-disabled"
+                        aria-label="Next"
+                        class="flex h-10 items-center justify-center gap-1 rounded-xl border border-border-default text-sm font-semibold transition-colors px-3 sm:px-4 cursor-not-allowed bg-background-disabled text-text-disabled"
                         disabled=""
+                        type="button"
                       >
                         <span
                           class="hidden sm:inline"
@@ -1642,7 +1774,7 @@ exports[`MasterItemComponent matches snapshot 2`] = `
                           Next
                         </span>
                         <svg
-                          class="w-3.5 h-5 sm:w-5 sm:h-5"
+                          class="h-5 w-3.5 sm:h-5 sm:w-5"
                           fill="none"
                           height="1em"
                           stroke="currentColor"

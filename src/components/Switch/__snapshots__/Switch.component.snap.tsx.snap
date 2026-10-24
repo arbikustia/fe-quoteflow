@@ -1,0 +1,27 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`SwitchComponent Snapshots should render checked switch 1`] = `
+<DocumentFragment>
+  <button
+    aria-checked="true"
+    aria-label="Customer status"
+    class="ant-switch css-dev-only-do-not-override-eofgey css-var-root ant-switch-checked"
+    role="switch"
+    type="button"
+  >
+    <div
+      class="ant-switch-handle"
+    />
+    <span
+      class="ant-switch-inner"
+    >
+      <span
+        class="ant-switch-inner-checked"
+      />
+      <span
+        class="ant-switch-inner-unchecked"
+      />
+    </span>
+  </button>
+</DocumentFragment>
+`;

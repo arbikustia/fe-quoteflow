@@ -3,15 +3,11 @@
 exports[`ButtonComponent Snapshot should render primary create button 1`] = `
 <DocumentFragment>
   <button
-    class="relative inline-flex items-center justify-center gap-2 rounded-medium border font-medium transition-colors duration-normal motion-reduce:transition-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus-ring disabled:cursor-not-allowed disabled:opacity-60 border-action-primary bg-action-primary text-text-inverse hover:bg-action-primary-hover active:bg-action-primary-pressed h-11 px-5 py-2.5 text-base"
+    class="ant-btn css-dev-only-do-not-override-eofgey css-var-root ant-btn-primary ant-btn-color-primary ant-btn-variant-solid relative inline-flex items-center justify-center gap-2 rounded-medium border font-medium transition-colors duration-normal motion-reduce:transition-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus-ring disabled:cursor-not-allowed disabled:opacity-60 border-action-primary bg-action-primary text-text-inverse hover:bg-action-primary-hover active:bg-action-primary-pressed h-11 px-5 py-2.5 text-base"
     type="button"
   >
-    <span
-      class="inline-flex items-center gap-2"
-    >
-      <span>
-        Create quotation
-      </span>
+    <span>
+      Create quotation
     </span>
   </button>
 </DocumentFragment>
@@ -20,15 +16,11 @@ exports[`ButtonComponent Snapshot should render primary create button 1`] = `
 exports[`ButtonComponent Snapshot should render secondary download button 1`] = `
 <DocumentFragment>
   <button
-    class="relative inline-flex items-center justify-center gap-2 rounded-medium border font-medium transition-colors duration-normal motion-reduce:transition-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus-ring disabled:cursor-not-allowed disabled:opacity-60 border-border-strong bg-background-surface text-text-primary hover:bg-background-subtle active:bg-background-disabled h-11 px-5 py-2.5 text-base"
+    class="ant-btn css-dev-only-do-not-override-eofgey css-var-root ant-btn-primary ant-btn-color-primary ant-btn-variant-solid relative inline-flex items-center justify-center gap-2 rounded-medium border font-medium transition-colors duration-normal motion-reduce:transition-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus-ring disabled:cursor-not-allowed disabled:opacity-60 border-border-strong bg-background-surface text-text-primary hover:bg-background-subtle active:bg-background-disabled h-11 px-5 py-2.5 text-base"
     type="button"
   >
-    <span
-      class="inline-flex items-center gap-2"
-    >
-      <span>
-        Download PDF
-      </span>
+    <span>
+      Download PDF
     </span>
   </button>
 </DocumentFragment>
