@@ -49,6 +49,7 @@ export const apiRtkClient = createApi({
     "PaymentType",
     "Pic",
     "User",
+    "Order",
   ],
   endpoints: () => ({}),
 });

@@ -8,11 +8,13 @@ const ENDPOINT = {
   },
   MASTER_CUSTOMER: {
     PAGED: "/api/customer/paged",
+    ALL: "/api/customer/get-all-customer",
     CREATE: "/api/customer",
     DETAIL: "/api/customer",
   },
   MASTER_SERVICE_TYPE: {
     PAGED: "/api/service-type/paged",
+    ALL: "/api/service-type/get-all-service-type",
     CREATE: "/api/service-type",
   },
   IMAGE: {
@@ -26,6 +28,7 @@ const ENDPOINT = {
   },
   MASTER_VOUCHER: {
     PAGED: "/api/voucher/paged",
+    ALL: "/api/voucher",
     CREATE: "/api/voucher",
     DETAIL: "/api/voucher",
   },
@@ -41,6 +44,7 @@ const ENDPOINT = {
   },
   MASTER_PIC: {
     PAGED: "/api/pic/paged",
+    ALL: "/api/pic/get-all-pic",
     CREATE: "/api/pic",
     DETAIL: "/api/pic",
   },
@@ -51,8 +55,15 @@ const ENDPOINT = {
   },
   MASTER_PROJECT: {
     PAGED: "/api/project/paged",
+    ALL: "/api/project",
     CREATE: "/api/project",
     DETAIL: "/api/project",
+  },
+  ORDER: {
+    PAGED: "/api/rental-transaction/paged",
+    DETAIL: "/api/rental-transaction",
+    CREATE: "/api/rental-transaction",
+    PROJECT_CREATE: "/api/rental-transaction/project",
   },
   MASTER_ROLE: {
     LIST: "/api/role/paged",

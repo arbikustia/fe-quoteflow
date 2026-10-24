@@ -4,6 +4,7 @@ import ENDPOINT from "@/constant/endpoint.const";
 import type {
   ApiCustomer,
   CustomerCreatePayload,
+  CustomerAllResponse,
   CustomerCreateResponse,
   CustomerData,
   CustomerDetailResponse,
@@ -35,6 +36,10 @@ export const masterCustomerService = apiRtkClient.injectEndpoints({
    * @param builder
    */
   endpoints: (builder) => ({
+    getAllCustomers: builder.query<CustomerAllResponse, void>({
+      query: () => ({ url: ENDPOINT.MASTER_CUSTOMER.ALL, method: "GET" }),
+      providesTags: [CUSTOMER_TAG],
+    }),
     getCustomers: builder.query<CustomerListResponse, CustomerListParams>({
       /**
        *
@@ -97,6 +102,7 @@ export const masterCustomerService = apiRtkClient.injectEndpoints({
 });
 
 export const {
+  useGetAllCustomersQuery,
   useGetCustomersQuery,
   useCreateCustomerMutation,
   useGetCustomerByIdQuery,

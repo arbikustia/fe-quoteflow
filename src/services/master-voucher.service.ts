@@ -1,7 +1,7 @@
 import { apiRtkClient } from "@/libs/ApiRtkServices/apiRtkClient";
 
 import ENDPOINT from "@/constant/endpoint.const";
-import type { ApiVoucher, VoucherCreatePayload, VoucherCreateResponse, VoucherData, VoucherDetailResponse, VoucherListParams, VoucherListResponse, VoucherUpdatePayload } from "@/modules/master-voucher/MasterVoucher.type";
+import type { ApiVoucher, VoucherAllResponse, VoucherCreatePayload, VoucherCreateResponse, VoucherData, VoucherDetailResponse, VoucherListParams, VoucherListResponse, VoucherUpdatePayload } from "@/modules/master-voucher/MasterVoucher.type";
 
 /**
  * Map API voucher model to UI model.
@@ -23,6 +23,10 @@ export const masterVoucherService = apiRtkClient.injectEndpoints({
    * @param builder
    */
   endpoints: (builder) => ({
+    getAllVouchers: builder.query<VoucherAllResponse, void>({
+      query: () => ({ url: ENDPOINT.MASTER_VOUCHER.ALL, method: "GET" }),
+      providesTags: ["Voucher"],
+    }),
     getVouchers: builder.query<VoucherListResponse, VoucherListParams>({ /**
      *
      * @param params
@@ -54,4 +58,4 @@ export const masterVoucherService = apiRtkClient.injectEndpoints({
   overrideExisting: false,
 });
 
-export const { useGetVouchersQuery, useGetVoucherByIdQuery, useCreateVoucherMutation, useUpdateVoucherMutation } = masterVoucherService;
+export const { useGetAllVouchersQuery, useGetVouchersQuery, useGetVoucherByIdQuery, useCreateVoucherMutation, useUpdateVoucherMutation } = masterVoucherService;

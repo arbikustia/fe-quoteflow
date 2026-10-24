@@ -19,6 +19,7 @@ export type ServiceTypeListParams = {
   readonly searchTerm: string;
 };
 
+export type ServiceTypeAllResponse = ApiEnvelope<ApiServiceType[]>;
 export type ServiceTypeListResponse = PaginatedResponse<ApiServiceType>;
 export type ServiceTypeCreatePayload = {
   readonly name: string;

@@ -3,860 +3,390 @@
 exports[`OrderDetailContainer Snapshots Should Render OrderDetailContainer 1`] = `
 <DocumentFragment>
   <div
-    class="flex-1 w-full min-h-full bg-[#f8f9fb] font-sans pb-10 relative overflow-y-auto"
+    class="flex h-full min-h-0 w-full bg-background-page overflow-hidden font-sans text-text-primary relative items-stretch transition-colors duration-200"
   >
     <div
-      class="px-6 pt-10 pb-4 flex items-center justify-between sticky top-0 bg-[#f8f9fb]/90 backdrop-blur-sm z-20"
+      class="hidden lg:flex h-full min-h-0 shrink-0 self-stretch"
     >
-      <button
-        class="flex items-center gap-3 text-gray-600 hover:text-gray-900 transition-colors group"
-        type="button"
+      <aside
+        aria-label="Sidebar"
+        class="w-[290px] h-full min-h-0 self-stretch bg-sidebar-background border border-border-default flex flex-col shrink-0 overflow-hidden transition-[width] duration-[250ms] ease-in-out"
+        style="border-radius: 0;"
       >
         <div
-          class="w-10 h-10 rounded-full bg-white shadow-sm flex items-center justify-center text-[#1a233a] group-hover:bg-gray-50 transition-colors"
+          class="h-[72px] mb-16 flex items-center shrink-0 px-4"
         >
-          <svg
-            fill="none"
-            height="20"
-            stroke="currentColor"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="3"
-            viewBox="0 0 24 24"
-            width="20"
-          >
-            <polyline
-              points="15 18 9 12 15 6"
-            />
-          </svg>
+          <img
+            alt="Sonicline"
+            class="h-12 w-auto object-contain"
+            src="/src/assets/Sonicline-dark.png"
+          />
         </div>
-        <span
-          class="font-bold text-[15px]"
+        <div
+          class="flex-1 overflow-y-auto overflow-x-hidden px-4 space-y-5 scrollbar-thin"
         >
-          Back
-        </span>
-      </button>
-      <div
-        class="flex items-center gap-3"
-      >
-        <button
-          class="w-10 h-10 rounded-full bg-white shadow-sm flex items-center justify-center text-[#4a7246] hover:bg-gray-50 transition-colors"
-          title="Download PDF"
-          type="button"
+          <div>
+            <p
+              class="px-2 mb-2 text-[15px] font-semibold tracking-widest uppercase text-text-tertiary"
+            >
+              Menu
+            </p>
+            <nav
+              aria-label="Menu"
+              class="space-y-1"
+            >
+              <a
+                class="h-9 flex items-center gap-3 rounded-[6px] px-3 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring/30 text-text-secondary hover:bg-background-elevated hover:text-text-primary"
+                data-discover="true"
+                href="/order"
+              >
+                <span
+                  class="shrink-0 [&_svg]:h-5 [&_svg]:w-5 text-text-tertiary"
+                >
+                  <svg
+                    fill="none"
+                    height="20"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="1.8"
+                    viewBox="0 0 24 24"
+                    width="20"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"
+                    />
+                    <polyline
+                      points="14 2 14 8 20 8"
+                    />
+                    <line
+                      x1="16"
+                      x2="8"
+                      y1="13"
+                      y2="13"
+                    />
+                    <line
+                      x1="16"
+                      x2="8"
+                      y1="17"
+                      y2="17"
+                    />
+                  </svg>
+                </span>
+                <span
+                  class="flex-1 truncate text-lg leading-none font-normal"
+                >
+                  Order
+                </span>
+              </a>
+              <div>
+                <button
+                  aria-expanded="false"
+                  class="w-full min-h-14 py-3 flex items-center gap-3 rounded-[8px] px-4 text-left transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring/30 text-text-secondary hover:bg-background-elevated hover:text-text-primary"
+                  type="button"
+                >
+                  <span
+                    class="shrink-0 [&_svg]:h-5 [&_svg]:w-5 text-text-tertiary"
+                  >
+                    <svg
+                      fill="none"
+                      height="20"
+                      stroke="currentColor"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="1.8"
+                      viewBox="0 0 24 24"
+                      width="20"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <ellipse
+                        cx="12"
+                        cy="5"
+                        rx="9"
+                        ry="3"
+                      />
+                      <path
+                        d="M3 5V19A9 3 0 0 0 21 19V5"
+                      />
+                      <path
+                        d="M3 12A9 3 0 0 0 21 12"
+                      />
+                    </svg>
+                  </span>
+                  <span
+                    class="flex-1 truncate text-xl leading-none font-normal"
+                  >
+                    Master Data
+                  </span>
+                  <span
+                    class="shrink-0 text-text-tertiary transition-transform duration-200 "
+                  >
+                    <svg
+                      fill="none"
+                      height="14"
+                      stroke="currentColor"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      viewBox="0 0 24 24"
+                      width="14"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="m6 9 6 6 6-6"
+                      />
+                    </svg>
+                  </span>
+                </button>
+              </div>
+            </nav>
+          </div>
+        </div>
+        <div
+          class="shrink-0 border-t border-border-default p-3"
         >
-          <svg
-            fill="none"
-            height="18"
-            stroke="currentColor"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2.5"
-            viewBox="0 0 24 24"
-            width="18"
+          <button
+            aria-checked="false"
+            aria-label="Toggle dark theme"
+            class="mb-2 flex h-9 w-full items-center rounded-[8px] bg-background-subtle text-text-secondary transition-colors hover:bg-action-primary-subtle focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring gap-3 px-3"
+            role="switch"
+            type="button"
           >
-            <path
-              d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"
-            />
-            <polyline
-              points="7 10 12 15 17 10"
-            />
-            <line
-              x1="12"
-              x2="12"
-              y1="15"
-              y2="3"
-            />
-          </svg>
-        </button>
-        <button
-          class="w-10 h-10 rounded-full bg-white shadow-sm flex items-center justify-center text-[#4a64b8] hover:bg-gray-50 transition-colors"
-          title="Edit Order"
-          type="button"
-        >
-          <svg
-            fill="none"
-            height="18"
-            stroke="currentColor"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2.5"
-            viewBox="0 0 24 24"
-            width="18"
+            <span
+              aria-hidden="true"
+              class="shrink-0"
+            >
+              <svg
+                fill="none"
+                height="20"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="1.8"
+                viewBox="0 0 24 24"
+                width="20"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"
+                />
+              </svg>
+            </span>
+            <span
+              class="flex-1 text-left text-[13px] font-medium"
+            >
+              Dark theme
+            </span>
+          </button>
+          <button
+            aria-label="Log out"
+            class="mb-2 flex h-9 w-full items-center rounded-[8px] text-danger-strong transition-colors hover:bg-danger-subtle focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring gap-3 px-3"
+            type="button"
           >
-            <path
-              d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"
-            />
-            <path
-              d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"
-            />
-          </svg>
-        </button>
-        <button
-          class="w-10 h-10 rounded-full bg-[#fde8e8] shadow-sm flex items-center justify-center text-[#bd4040] hover:bg-red-200 transition-colors"
-          title="Delete Order"
-          type="button"
-        >
-          <svg
-            fill="none"
-            height="18"
-            stroke="currentColor"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2.5"
-            viewBox="0 0 24 24"
-            width="18"
+            <span
+              aria-hidden="true"
+              class="shrink-0"
+            >
+              <svg
+                fill="none"
+                height="16"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="1.8"
+                viewBox="0 0 24 24"
+                width="16"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"
+                />
+                <polyline
+                  points="16 17 21 12 16 7"
+                />
+                <line
+                  x1="21"
+                  x2="9"
+                  y1="12"
+                  y2="12"
+                />
+              </svg>
+            </span>
+            <span
+              class="flex-1 text-left text-[13px] font-medium"
+            >
+              Log out
+            </span>
+          </button>
+          <button
+            aria-expanded="false"
+            aria-haspopup="menu"
+            class="w-full flex items-center rounded-[10px] transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring/30 hover:bg-background-elevated gap-3 p-2"
+            type="button"
           >
-            <polyline
-              points="3 6 5 6 21 6"
-            />
-            <path
-              d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2-2v2"
-            />
-          </svg>
-        </button>
-      </div>
+            <span
+              aria-hidden="true"
+              class="w-8 h-8 rounded-full bg-action-primary-subtle text-action-primary flex items-center justify-center text-[12px] font-semibold shrink-0"
+            >
+              US
+            </span>
+            <span
+              class="flex-1 min-w-0 text-left"
+            >
+              <span
+                class="block truncate text-[13px] font-semibold leading-4 text-text-primary"
+              >
+                User
+              </span>
+            </span>
+            <span
+              class="shrink-0 text-text-tertiary transition-transform duration-200 "
+            >
+              <svg
+                fill="none"
+                height="14"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+                width="14"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="m6 9 6 6 6-6"
+                />
+              </svg>
+            </span>
+          </button>
+        </div>
+      </aside>
     </div>
     <div
-      class="px-6 mt-2"
+      class="flex-1 flex flex-col min-w-0 min-h-0 overflow-hidden relative bg-background-page transition-colors duration-200"
     >
       <div
-        class="mb-6"
+        class="lg:hidden flex items-center gap-3 p-4 border-b border-border-default bg-background-surface shrink-0"
       >
         <div
-          class="flex items-center justify-between mb-2"
+          class="w-8 h-8 rounded-full bg-action-primary flex items-center justify-center"
         >
-          <h2
-            class="text-[28px] font-extrabold text-gray-900 tracking-tight"
-          >
-            Q-999
-          </h2>
-          <div
-            class="rounded-full px-3 py-1.5 text-[11px] font-bold tracking-wider uppercase text-[#a87b1e] bg-[#fdf2c8]"
-          >
-            Pending Payment
-          </div>
-        </div>
-        <p
-          class="text-[14px] text-gray-500 font-medium leading-relaxed"
-        >
-          Here are the complete details for this order.
-        </p>
-      </div>
-      <div
-        class="bg-white border border-gray-100 rounded-4xl p-6 shadow-[0_4px_15px_rgba(0,0,0,0.02)] mb-6"
-      >
-        <div
-          class="flex flex-col gap-5"
-        >
-          <div>
-            <span
-              class="block text-[11px] font-bold text-gray-400 uppercase tracking-widest mb-1"
-            >
-              Client Name
-            </span>
-            <span
-              class="text-[15px] font-bold text-gray-800"
-            >
-              Massive Equipment Rental
-            </span>
-          </div>
-          <div>
-            <span
-              class="block text-[11px] font-bold text-gray-400 uppercase tracking-widest mb-1"
-            >
-              Event Location
-            </span>
-            <span
-              class="text-[15px] font-bold text-gray-800"
-            >
-              Jakarta International Stadium
-            </span>
-          </div>
-          <div
-            class="flex items-center gap-6"
-          >
-            <div>
-              <span
-                class="block text-[11px] font-bold text-gray-400 uppercase tracking-widest mb-1"
-              >
-                Start Date
-              </span>
-              <span
-                class="text-[14px] font-bold text-gray-800"
-              >
-                2026-11-20
-              </span>
-            </div>
-            <div>
-              <span
-                class="block text-[11px] font-bold text-gray-400 uppercase tracking-widest mb-1"
-              >
-                End Date
-              </span>
-              <span
-                class="text-[14px] font-bold text-gray-800"
-              >
-                2026-11-22
-              </span>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div
-        class="bg-white border border-gray-100 rounded-4xl p-6 shadow-[0_4px_15px_rgba(0,0,0,0.02)] mb-8"
-      >
-        <div
-          class="flex items-center justify-between mb-5"
-        >
-          <label
-            class="block text-[12px] font-bold text-gray-400 tracking-widest uppercase"
-          >
-            Ordered Items
-          </label>
           <span
-            class="text-[12px] font-bold text-[#4a64b8] bg-[#daeaf3] px-3 py-1 rounded-full"
+            class="text-text-inverse font-bold"
           >
-            1 Items Total
+            Q
           </span>
         </div>
-        <div
-          class="flex flex-col gap-6"
+        <span
+          class="font-bold text-text-primary"
         >
-          <div>
-            <h4
-              class="text-[11px] font-bold text-[#4a7246] uppercase tracking-wider mb-3 px-1"
+          QuoteFlow
+        </span>
+      </div>
+      <div
+        class="hidden lg:block shrink-0"
+      >
+        <header
+          class="sticky top-0 z-10 flex h-20 items-center justify-between border-b border-border-default bg-background-surface px-8 transition-all"
+        >
+          <div
+            class="flex flex-1 items-center gap-4"
+          >
+            <button
+              aria-expanded="true"
+              aria-label="Close sidebar"
+              class="flex h-10 w-10 items-center justify-center rounded-lg border border-border-default bg-background-surface text-text-secondary transition-colors hover:bg-background-subtle hover:text-text-primary focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring/30"
+              type="button"
             >
-              Audio System, Lighting System, Visual & Display, Staging & Rigging, Power Generator
-            </h4>
+              <svg
+                fill="none"
+                height="20"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="1.8"
+                viewBox="0 0 24 24"
+                width="20"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <rect
+                  height="18"
+                  rx="3"
+                  width="18"
+                  x="3"
+                  y="3"
+                />
+                <path
+                  d="M9 3v18"
+                />
+              </svg>
+            </button>
             <div
-              class="flex flex-col gap-3"
+              class="group relative hidden max-w-lg flex-1 md:block"
             >
               <div
-                class="flex flex-col p-4 bg-[#f8f9fb] rounded-2xl border border-gray-100"
+                class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3 text-text-tertiary"
               >
-                <div
-                  class="flex items-center justify-between mb-3"
+                <svg
+                  fill="none"
+                  height="18"
+                  stroke="currentColor"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="1.8"
+                  viewBox="0 0 24 24"
+                  width="18"
+                  xmlns="http://www.w3.org/2000/svg"
                 >
-                  <span
-                    class="text-[14px] font-bold text-gray-800"
-                  >
-                    LED Screen P3.9
-                  </span>
-                  <span
-                    class="text-[13px] font-bold text-[#4a64b8] bg-white px-2 py-0.5 rounded-lg border border-gray-200"
-                  >
-                    Qty: 1
-                  </span>
-                </div>
-                <div
-                  class="bg-white border border-gray-200 rounded-xl p-3 text-[12px] text-gray-600 font-medium"
-                >
-                  <span
-                    class="text-[10px] font-bold text-gray-400 uppercase tracking-wider block mb-1"
-                  >
-                    Remark
-                  </span>
-                  Please handle with care during transport.
-                </div>
+                  <circle
+                    cx="11"
+                    cy="11"
+                    r="8"
+                  />
+                  <path
+                    d="m21 21-4.3-4.3"
+                  />
+                </svg>
               </div>
+              <input
+                aria-label="Search anything"
+                class="w-full rounded-lg border border-border-default bg-background-surface py-2.5 pl-10 pr-12 text-sm font-medium text-text-primary transition-all placeholder:text-text-tertiary focus:border-action-primary focus:outline-none focus:ring-1 focus:ring-action-primary"
+                placeholder="Search anything"
+                type="text"
+              />
               <div
-                class="flex flex-col p-4 bg-[#f8f9fb] rounded-2xl border border-gray-100"
+                class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3"
               >
-                <div
-                  class="flex items-center justify-between mb-3"
+                <span
+                  class="rounded border border-border-default bg-background-subtle px-1.5 py-0.5 text-[10px] font-medium text-text-tertiary"
                 >
-                  <span
-                    class="text-[14px] font-bold text-gray-800"
-                  >
-                    Digital Audio Mixer 32 Ch
-                  </span>
-                  <span
-                    class="text-[13px] font-bold text-[#4a64b8] bg-white px-2 py-0.5 rounded-lg border border-gray-200"
-                  >
-                    Qty: 1
-                  </span>
-                </div>
-              </div>
-              <div
-                class="flex flex-col p-4 bg-[#f8f9fb] rounded-2xl border border-gray-100"
-              >
-                <div
-                  class="flex items-center justify-between mb-3"
-                >
-                  <span
-                    class="text-[14px] font-bold text-gray-800"
-                  >
-                    Wireless Microphone
-                  </span>
-                  <span
-                    class="text-[13px] font-bold text-[#4a64b8] bg-white px-2 py-0.5 rounded-lg border border-gray-200"
-                  >
-                    Qty: 1
-                  </span>
-                </div>
-              </div>
-              <div
-                class="flex flex-col p-4 bg-[#f8f9fb] rounded-2xl border border-gray-100"
-              >
-                <div
-                  class="flex items-center justify-between mb-3"
-                >
-                  <span
-                    class="text-[14px] font-bold text-gray-800"
-                  >
-                    Par LED 54x3W RGBW
-                  </span>
-                  <span
-                    class="text-[13px] font-bold text-[#4a64b8] bg-white px-2 py-0.5 rounded-lg border border-gray-200"
-                  >
-                    Qty: 1
-                  </span>
-                </div>
-              </div>
-              <div
-                class="flex flex-col p-4 bg-[#f8f9fb] rounded-2xl border border-gray-100"
-              >
-                <div
-                  class="flex items-center justify-between mb-3"
-                >
-                  <span
-                    class="text-[14px] font-bold text-gray-800"
-                  >
-                    Line Array Speaker
-                  </span>
-                  <span
-                    class="text-[13px] font-bold text-[#4a64b8] bg-white px-2 py-0.5 rounded-lg border border-gray-200"
-                  >
-                    Qty: 1
-                  </span>
-                </div>
-              </div>
-              <div
-                class="flex flex-col p-4 bg-[#f8f9fb] rounded-2xl border border-gray-100"
-              >
-                <div
-                  class="flex items-center justify-between mb-3"
-                >
-                  <span
-                    class="text-[14px] font-bold text-gray-800"
-                  >
-                    Subwoofer 18"
-                  </span>
-                  <span
-                    class="text-[13px] font-bold text-[#4a64b8] bg-white px-2 py-0.5 rounded-lg border border-gray-200"
-                  >
-                    Qty: 1
-                  </span>
-                </div>
-              </div>
-              <div
-                class="flex flex-col p-4 bg-[#f8f9fb] rounded-2xl border border-gray-100"
-              >
-                <div
-                  class="flex items-center justify-between mb-3"
-                >
-                  <span
-                    class="text-[14px] font-bold text-gray-800"
-                  >
-                    Aluminium Truss 3m
-                  </span>
-                  <span
-                    class="text-[13px] font-bold text-[#4a64b8] bg-white px-2 py-0.5 rounded-lg border border-gray-200"
-                  >
-                    Qty: 1
-                  </span>
-                </div>
-              </div>
-              <div
-                class="flex flex-col p-4 bg-[#f8f9fb] rounded-2xl border border-gray-100"
-              >
-                <div
-                  class="flex items-center justify-between mb-3"
-                >
-                  <span
-                    class="text-[14px] font-bold text-gray-800"
-                  >
-                    Genset 100 KVA
-                  </span>
-                  <span
-                    class="text-[13px] font-bold text-[#4a64b8] bg-white px-2 py-0.5 rounded-lg border border-gray-200"
-                  >
-                    Qty: 1
-                  </span>
-                </div>
-              </div>
-              <div
-                class="flex flex-col p-4 bg-[#f8f9fb] rounded-2xl border border-gray-100"
-              >
-                <div
-                  class="flex items-center justify-between mb-3"
-                >
-                  <span
-                    class="text-[14px] font-bold text-gray-800"
-                  >
-                    Chain Hoist 1 Ton
-                  </span>
-                  <span
-                    class="text-[13px] font-bold text-[#4a64b8] bg-white px-2 py-0.5 rounded-lg border border-gray-200"
-                  >
-                    Qty: 1
-                  </span>
-                </div>
-              </div>
-              <div
-                class="flex flex-col p-4 bg-[#f8f9fb] rounded-2xl border border-gray-100"
-              >
-                <div
-                  class="flex items-center justify-between mb-3"
-                >
-                  <span
-                    class="text-[14px] font-bold text-gray-800"
-                  >
-                    Moving Head Beam 230W
-                  </span>
-                  <span
-                    class="text-[13px] font-bold text-[#4a64b8] bg-white px-2 py-0.5 rounded-lg border border-gray-200"
-                  >
-                    Qty: 1
-                  </span>
-                </div>
-              </div>
-              <div
-                class="flex flex-col p-4 bg-[#f8f9fb] rounded-2xl border border-gray-100"
-              >
-                <div
-                  class="flex items-center justify-between mb-3"
-                >
-                  <span
-                    class="text-[14px] font-bold text-gray-800"
-                  >
-                    Stage Deck 1x2m
-                  </span>
-                  <span
-                    class="text-[13px] font-bold text-[#4a64b8] bg-white px-2 py-0.5 rounded-lg border border-gray-200"
-                  >
-                    Qty: 1
-                  </span>
-                </div>
-              </div>
-              <div
-                class="flex flex-col p-4 bg-[#f8f9fb] rounded-2xl border border-gray-100"
-              >
-                <div
-                  class="flex items-center justify-between mb-3"
-                >
-                  <span
-                    class="text-[14px] font-bold text-gray-800"
-                  >
-                    Monitor Speaker 15"
-                  </span>
-                  <span
-                    class="text-[13px] font-bold text-[#4a64b8] bg-white px-2 py-0.5 rounded-lg border border-gray-200"
-                  >
-                    Qty: 1
-                  </span>
-                </div>
-              </div>
-              <div
-                class="flex flex-col p-4 bg-[#f8f9fb] rounded-2xl border border-gray-100"
-              >
-                <div
-                  class="flex items-center justify-between mb-3"
-                >
-                  <span
-                    class="text-[14px] font-bold text-gray-800"
-                  >
-                    Drum Kit Tama
-                  </span>
-                  <span
-                    class="text-[13px] font-bold text-[#4a64b8] bg-white px-2 py-0.5 rounded-lg border border-gray-200"
-                  >
-                    Qty: 1
-                  </span>
-                </div>
-              </div>
-              <div
-                class="flex flex-col p-4 bg-[#f8f9fb] rounded-2xl border border-gray-100"
-              >
-                <div
-                  class="flex items-center justify-between mb-3"
-                >
-                  <span
-                    class="text-[14px] font-bold text-gray-800"
-                  >
-                    Guitar Amp Marshall
-                  </span>
-                  <span
-                    class="text-[13px] font-bold text-[#4a64b8] bg-white px-2 py-0.5 rounded-lg border border-gray-200"
-                  >
-                    Qty: 1
-                  </span>
-                </div>
-              </div>
-              <div
-                class="flex flex-col p-4 bg-[#f8f9fb] rounded-2xl border border-gray-100"
-              >
-                <div
-                  class="flex items-center justify-between mb-3"
-                >
-                  <span
-                    class="text-[14px] font-bold text-gray-800"
-                  >
-                    Bass Amp Ampeg
-                  </span>
-                  <span
-                    class="text-[13px] font-bold text-[#4a64b8] bg-white px-2 py-0.5 rounded-lg border border-gray-200"
-                  >
-                    Qty: 1
-                  </span>
-                </div>
-              </div>
-              <div
-                class="flex flex-col p-4 bg-[#f8f9fb] rounded-2xl border border-gray-100"
-              >
-                <div
-                  class="flex items-center justify-between mb-3"
-                >
-                  <span
-                    class="text-[14px] font-bold text-gray-800"
-                  >
-                    Keyboard Roland
-                  </span>
-                  <span
-                    class="text-[13px] font-bold text-[#4a64b8] bg-white px-2 py-0.5 rounded-lg border border-gray-200"
-                  >
-                    Qty: 1
-                  </span>
-                </div>
-              </div>
-              <div
-                class="flex flex-col p-4 bg-[#f8f9fb] rounded-2xl border border-gray-100"
-              >
-                <div
-                  class="flex items-center justify-between mb-3"
-                >
-                  <span
-                    class="text-[14px] font-bold text-gray-800"
-                  >
-                    Keyboard Yamaha
-                  </span>
-                  <span
-                    class="text-[13px] font-bold text-[#4a64b8] bg-white px-2 py-0.5 rounded-lg border border-gray-200"
-                  >
-                    Qty: 1
-                  </span>
-                </div>
-              </div>
-              <div
-                class="flex flex-col p-4 bg-[#f8f9fb] rounded-2xl border border-gray-100"
-              >
-                <div
-                  class="flex items-center justify-between mb-3"
-                >
-                  <span
-                    class="text-[14px] font-bold text-gray-800"
-                  >
-                    Mic Stand
-                  </span>
-                  <span
-                    class="text-[13px] font-bold text-[#4a64b8] bg-white px-2 py-0.5 rounded-lg border border-gray-200"
-                  >
-                    Qty: 1
-                  </span>
-                </div>
-              </div>
-              <div
-                class="flex flex-col p-4 bg-[#f8f9fb] rounded-2xl border border-gray-100"
-              >
-                <div
-                  class="flex items-center justify-between mb-3"
-                >
-                  <span
-                    class="text-[14px] font-bold text-gray-800"
-                  >
-                    Speaker Stand
-                  </span>
-                  <span
-                    class="text-[13px] font-bold text-[#4a64b8] bg-white px-2 py-0.5 rounded-lg border border-gray-200"
-                  >
-                    Qty: 1
-                  </span>
-                </div>
-              </div>
-              <div
-                class="flex flex-col p-4 bg-[#f8f9fb] rounded-2xl border border-gray-100"
-              >
-                <div
-                  class="flex items-center justify-between mb-3"
-                >
-                  <span
-                    class="text-[14px] font-bold text-gray-800"
-                  >
-                    XLR Cable 10m
-                  </span>
-                  <span
-                    class="text-[13px] font-bold text-[#4a64b8] bg-white px-2 py-0.5 rounded-lg border border-gray-200"
-                  >
-                    Qty: 1
-                  </span>
-                </div>
-              </div>
-              <div
-                class="flex flex-col p-4 bg-[#f8f9fb] rounded-2xl border border-gray-100"
-              >
-                <div
-                  class="flex items-center justify-between mb-3"
-                >
-                  <span
-                    class="text-[14px] font-bold text-gray-800"
-                  >
-                    Power Cable 50m
-                  </span>
-                  <span
-                    class="text-[13px] font-bold text-[#4a64b8] bg-white px-2 py-0.5 rounded-lg border border-gray-200"
-                  >
-                    Qty: 1
-                  </span>
-                </div>
-              </div>
-              <div
-                class="flex flex-col p-4 bg-[#f8f9fb] rounded-2xl border border-gray-100"
-              >
-                <div
-                  class="flex items-center justify-between mb-3"
-                >
-                  <span
-                    class="text-[14px] font-bold text-gray-800"
-                  >
-                    Fog Machine 1500W
-                  </span>
-                  <span
-                    class="text-[13px] font-bold text-[#4a64b8] bg-white px-2 py-0.5 rounded-lg border border-gray-200"
-                  >
-                    Qty: 1
-                  </span>
-                </div>
-              </div>
-              <div
-                class="flex flex-col p-4 bg-[#f8f9fb] rounded-2xl border border-gray-100"
-              >
-                <div
-                  class="flex items-center justify-between mb-3"
-                >
-                  <span
-                    class="text-[14px] font-bold text-gray-800"
-                  >
-                    Hazer Machine
-                  </span>
-                  <span
-                    class="text-[13px] font-bold text-[#4a64b8] bg-white px-2 py-0.5 rounded-lg border border-gray-200"
-                  >
-                    Qty: 1
-                  </span>
-                </div>
-              </div>
-              <div
-                class="flex flex-col p-4 bg-[#f8f9fb] rounded-2xl border border-gray-100"
-              >
-                <div
-                  class="flex items-center justify-between mb-3"
-                >
-                  <span
-                    class="text-[14px] font-bold text-gray-800"
-                  >
-                    Follow Spot 2500W
-                  </span>
-                  <span
-                    class="text-[13px] font-bold text-[#4a64b8] bg-white px-2 py-0.5 rounded-lg border border-gray-200"
-                  >
-                    Qty: 1
-                  </span>
-                </div>
-              </div>
-              <div
-                class="flex flex-col p-4 bg-[#f8f9fb] rounded-2xl border border-gray-100"
-              >
-                <div
-                  class="flex items-center justify-between mb-3"
-                >
-                  <span
-                    class="text-[14px] font-bold text-gray-800"
-                  >
-                    Laser RGB 3W
-                  </span>
-                  <span
-                    class="text-[13px] font-bold text-[#4a64b8] bg-white px-2 py-0.5 rounded-lg border border-gray-200"
-                  >
-                    Qty: 1
-                  </span>
-                </div>
-              </div>
-              <div
-                class="flex flex-col p-4 bg-[#f8f9fb] rounded-2xl border border-gray-100"
-              >
-                <div
-                  class="flex items-center justify-between mb-3"
-                >
-                  <span
-                    class="text-[14px] font-bold text-gray-800"
-                  >
-                    DJ Controller Pioneer
-                  </span>
-                  <span
-                    class="text-[13px] font-bold text-[#4a64b8] bg-white px-2 py-0.5 rounded-lg border border-gray-200"
-                  >
-                    Qty: 1
-                  </span>
-                </div>
-              </div>
-              <div
-                class="flex flex-col p-4 bg-[#f8f9fb] rounded-2xl border border-gray-100"
-              >
-                <div
-                  class="flex items-center justify-between mb-3"
-                >
-                  <span
-                    class="text-[14px] font-bold text-gray-800"
-                  >
-                    CDJ 2000 Nexus
-                  </span>
-                  <span
-                    class="text-[13px] font-bold text-[#4a64b8] bg-white px-2 py-0.5 rounded-lg border border-gray-200"
-                  >
-                    Qty: 1
-                  </span>
-                </div>
-              </div>
-              <div
-                class="flex flex-col p-4 bg-[#f8f9fb] rounded-2xl border border-gray-100"
-              >
-                <div
-                  class="flex items-center justify-between mb-3"
-                >
-                  <span
-                    class="text-[14px] font-bold text-gray-800"
-                  >
-                    DJM 900 Nexus
-                  </span>
-                  <span
-                    class="text-[13px] font-bold text-[#4a64b8] bg-white px-2 py-0.5 rounded-lg border border-gray-200"
-                  >
-                    Qty: 1
-                  </span>
-                </div>
-              </div>
-              <div
-                class="flex flex-col p-4 bg-[#f8f9fb] rounded-2xl border border-gray-100"
-              >
-                <div
-                  class="flex items-center justify-between mb-3"
-                >
-                  <span
-                    class="text-[14px] font-bold text-gray-800"
-                  >
-                    Lighting Console Avolites
-                  </span>
-                  <span
-                    class="text-[13px] font-bold text-[#4a64b8] bg-white px-2 py-0.5 rounded-lg border border-gray-200"
-                  >
-                    Qty: 1
-                  </span>
-                </div>
-              </div>
-              <div
-                class="flex flex-col p-4 bg-[#f8f9fb] rounded-2xl border border-gray-100"
-              >
-                <div
-                  class="flex items-center justify-between mb-3"
-                >
-                  <span
-                    class="text-[14px] font-bold text-gray-800"
-                  >
-                    Audio Matrix Processor
-                  </span>
-                  <span
-                    class="text-[13px] font-bold text-[#4a64b8] bg-white px-2 py-0.5 rounded-lg border border-gray-200"
-                  >
-                    Qty: 1
-                  </span>
-                </div>
-              </div>
-              <div
-                class="flex flex-col p-4 bg-[#f8f9fb] rounded-2xl border border-gray-100"
-              >
-                <div
-                  class="flex items-center justify-between mb-3"
-                >
-                  <span
-                    class="text-[14px] font-bold text-gray-800"
-                  >
-                    Rigging Tower 6m
-                  </span>
-                  <span
-                    class="text-[13px] font-bold text-[#4a64b8] bg-white px-2 py-0.5 rounded-lg border border-gray-200"
-                  >
-                    Qty: 1
-                  </span>
-                </div>
-              </div>
-              <div
-                class="flex flex-col p-4 bg-[#f8f9fb] rounded-2xl border border-gray-100"
-              >
-                <div
-                  class="flex items-center justify-between mb-3"
-                >
-                  <span
-                    class="text-[14px] font-bold text-gray-800"
-                  >
-                    Scaffolding 1.9m
-                  </span>
-                  <span
-                    class="text-[13px] font-bold text-[#4a64b8] bg-white px-2 py-0.5 rounded-lg border border-gray-200"
-                  >
-                    Qty: 1
-                  </span>
-                </div>
-              </div>
-              <div
-                class="flex flex-col p-4 bg-[#f8f9fb] rounded-2xl border border-gray-100"
-              >
-                <div
-                  class="flex items-center justify-between mb-3"
-                >
-                  <span
-                    class="text-[14px] font-bold text-gray-800"
-                  >
-                    Barricade 1m
-                  </span>
-                  <span
-                    class="text-[13px] font-bold text-[#4a64b8] bg-white px-2 py-0.5 rounded-lg border border-gray-200"
-                  >
-                    Qty: 1
-                  </span>
-                </div>
-              </div>
-              <div
-                class="flex flex-col p-4 bg-[#f8f9fb] rounded-2xl border border-gray-100"
-              >
-                <div
-                  class="flex items-center justify-between mb-3"
-                >
-                  <span
-                    class="text-[14px] font-bold text-gray-800"
-                  >
-                    Carpet Black 1x10m
-                  </span>
-                  <span
-                    class="text-[13px] font-bold text-[#4a64b8] bg-white px-2 py-0.5 rounded-lg border border-gray-200"
-                  >
-                    Qty: 1
-                  </span>
-                </div>
+                  ⌘K
+                </span>
               </div>
             </div>
           </div>
-        </div>
+          <time
+            class="text-lg font-semibold tracking-wide text-text-primary tabular-nums sm:text-3xl"
+            data-testid="navbar-realtime-clock"
+          >
+            22-10-2026 18:45:00
+          </time>
+        </header>
       </div>
+      <main
+        class="flex-1 overflow-y-auto p-4 lg:p-8 pb-20 lg:pb-8 relative z-0"
+      >
+        <div
+          class="flex h-full flex-col px-3 lg:px-0 lg:-mt-4"
+        >
+          <p
+            class="py-20 text-center text-text-secondary"
+          >
+            Order not found.
+          </p>
+        </div>
+      </main>
     </div>
   </div>
 </DocumentFragment>

@@ -1,168 +1,62 @@
-import * as React from "react";
+import type { ReactElement } from "react";
+
+import Layout from "@/app/layout";
 
 import type { OrderDetailProps } from "./OrderDetail.type";
-import { generateQuotePDF } from "../../../utils/pdfGenerator";
 
-/**
- * Get status styles
- * @param {string} status - order status
- * @returns {string} css classes
- */
-const getStatusStyles = (status: string): string => {
-  if (status === "Confirmed" || status === "Completed") return "text-[#4a7246] bg-[#e7efdd]";
+const _formatDate = (value: string): string => value ? new Date(value).toLocaleString("id-ID") : "—";
+const _formatCurrency = (value: number): string => `Rp ${value.toLocaleString("id-ID")}`;
 
-  if (status === "Pending Payment") return "text-[#a87b1e] bg-[#fdf2c8]";
+const _renderState = (props: OrderDetailProps): ReactElement | null => {
+  if (props.isLoading) return <p className="py-20 text-center text-text-secondary">Loading order detail…</p>;
+  if (props.errorMessage) return <p className="py-20 text-center text-danger">{props.errorMessage}</p>;
+  if (!props.order) return <p className="py-20 text-center text-text-secondary">Order not found.</p>;
 
-  if (status === "Cancel") return "text-[#bd4040] bg-[#fde8e8]";
-
-  if (status === "On Rental") return "text-[#4a64b8] bg-[#daeaf3]";
-
-  return "text-gray-600 bg-gray-100";
+  return null;
 };
 
-/**
- * Header
- * @param {OrderDetailProps} p - props
- * @returns {React.ReactElement} comp
- */
-const Header = ({ onNavigateBack, order, onNavigateEdit, onOpenDeleteModal }: OrderDetailProps): React.ReactElement => (
-  <div className="px-6 pt-10 pb-4 flex items-center justify-between sticky top-0 bg-[#f8f9fb]/90 backdrop-blur-sm z-20">
-    <button type="button" onClick={onNavigateBack} className="flex items-center gap-3 text-gray-600 hover:text-gray-900 transition-colors group">
-      <div className="w-10 h-10 rounded-full bg-white shadow-sm flex items-center justify-center text-[#1a233a] group-hover:bg-gray-50 transition-colors">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
-      </div>
-      <span className="font-bold text-[15px]">Back</span>
-    </button>
-    <div className="flex items-center gap-3">
-      <button type="button" onClick={() => generateQuotePDF(order)} className="w-10 h-10 rounded-full bg-white shadow-sm flex items-center justify-center text-[#4a7246] hover:bg-gray-50 transition-colors" title="Download PDF">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
-      </button>
-      <button type="button" onClick={onNavigateEdit} className="w-10 h-10 rounded-full bg-white shadow-sm flex items-center justify-center text-[#4a64b8] hover:bg-gray-50 transition-colors" title="Edit Order">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
-      </button>
-      <button type="button" onClick={onOpenDeleteModal} className="w-10 h-10 rounded-full bg-[#fde8e8] shadow-sm flex items-center justify-center text-[#bd4040] hover:bg-red-200 transition-colors" title="Delete Order">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2-2v2"></path></svg>
-      </button>
-    </div>
-  </div>
-);
+export const OrderDetailComponent = (props: OrderDetailProps): ReactElement => {
+  const state = _renderState(props);
 
-/**
- * Order details overview
- * @param {object} p - props
- * @param {QuoteData} p.order - order
- * @returns {React.ReactElement} comp
- */
-const OrderOverview = ({ order }: { order: OrderDetailProps['order'] }): React.ReactElement => (
-  <>
-    <div className="mb-6">
-      <div className="flex items-center justify-between mb-2">
-        <h2 className="text-[28px] font-extrabold text-gray-900 tracking-tight">{order.id}</h2>
-        <div className={`rounded-full px-3 py-1.5 text-[11px] font-bold tracking-wider uppercase ${getStatusStyles(order.status || "")}`}>{order.status}</div>
-      </div>
-      <p className="text-[14px] text-gray-500 font-medium leading-relaxed">Here are the complete details for this order.</p>
-    </div>
-    <div className="bg-white border border-gray-100 rounded-4xl p-6 shadow-[0_4px_15px_rgba(0,0,0,0.02)] mb-6">
-      <div className="flex flex-col gap-5">
-        <div>
-          <span className="block text-[11px] font-bold text-gray-400 uppercase tracking-widest mb-1">Client Name</span>
-          <span className="text-[15px] font-bold text-gray-800">{order.name}</span>
-        </div>
-        <div>
-          <span className="block text-[11px] font-bold text-gray-400 uppercase tracking-widest mb-1">Event Location</span>
-          <span className="text-[15px] font-bold text-gray-800">{order.location}</span>
-        </div>
-        <div className="flex items-center gap-6">
-          <div>
-            <span className="block text-[11px] font-bold text-gray-400 uppercase tracking-widest mb-1">Start Date</span>
-            <span className="text-[14px] font-bold text-gray-800">{order.startDate}</span>
-          </div>
-          <div>
-            <span className="block text-[11px] font-bold text-gray-400 uppercase tracking-widest mb-1">End Date</span>
-            <span className="text-[14px] font-bold text-gray-800">{order.endDate}</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </>
-);
+  if (state) {
+    return <Layout pageTitle="Order Detail"><div className="flex h-full flex-col px-3 lg:px-0 lg:-mt-4">{state}</div></Layout>;
+  }
 
-/**
- * Ordered Items
- * @param {object} p - props
- * @param {QuoteData} p.order - order
- * @returns {React.ReactElement} comp
- */
-const OrderedItems = ({ order }: { order: OrderDetailProps['order'] }): React.ReactElement => (
-  <div className="bg-white border border-gray-100 rounded-4xl p-6 shadow-[0_4px_15px_rgba(0,0,0,0.02)] mb-8">
-    <div className="flex items-center justify-between mb-5">
-      <label className="block text-[12px] font-bold text-gray-400 tracking-widest uppercase">Ordered Items</label>
-      <span className="text-[12px] font-bold text-[#4a64b8] bg-[#daeaf3] px-3 py-1 rounded-full">{order.qty} Items Total</span>
-    </div>
-    <div className="flex flex-col gap-6">
-      <div>
-        <h4 className="text-[11px] font-bold text-[#4a7246] uppercase tracking-wider mb-3 px-1">{order.category}</h4>
-        <div className="flex flex-col gap-3">
-          {order.selectedItems.map((item: string, idx: number) => (
-            <div key={idx} className="flex flex-col p-4 bg-[#f8f9fb] rounded-2xl border border-gray-100">
-              <div className="flex items-center justify-between mb-3">
-                <span className="text-[14px] font-bold text-gray-800">{item}</span>
-                <span className="text-[13px] font-bold text-[#4a64b8] bg-white px-2 py-0.5 rounded-lg border border-gray-200">Qty: 1</span>
-              </div>
-              {idx === 0 && (
-                <div className="bg-white border border-gray-200 rounded-xl p-3 text-[12px] text-gray-600 font-medium">
-                  <span className="text-[10px] font-bold text-gray-400 uppercase tracking-wider block mb-1">Remark</span>
-                  Please handle with care during transport.
-                </div>
-              )}
-            </div>
-          ))}
-        </div>
-      </div>
-    </div>
-  </div>
-);
+  const order = props.order;
 
-/**
- * Delete Modal
- * @param {object} p - props
- * @param {boolean} p.isOpen - is open
- * @param {() => void} p.onClose - on close
- * @param {() => void} p.onDelete - on delete
- * @returns {React.ReactElement | null} comp
- */
-const DeleteModal = ({ isOpen, onClose, onDelete }: { isOpen: boolean, onClose: () => void, onDelete: () => void }): React.ReactElement | null => {
-  if (!isOpen) return null;
+  if (!order) return <Layout pageTitle="Order Detail"><div /></Layout>;
 
   return (
-    <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-6">
-      <div className="bg-white rounded-4xl p-8 w-full max-w-sm shadow-2xl transform scale-100 transition-transform">
-        <div className="w-16 h-16 rounded-full bg-[#fde8e8] text-[#bd4040] flex items-center justify-center mx-auto mb-5">
-          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+    <Layout pageTitle="Order Detail">
+      <div className="flex h-full flex-col px-3 pb-18 lg:-mt-4 lg:px-0 lg:pb-0">
+        <div className="flex items-center gap-3 py-2 lg:mb-4">
+          <button type="button" onClick={props.onNavigateBack} aria-label="Back" className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-border-default bg-background-surface text-text-primary hover:bg-background-subtle">
+            ←
+          </button>
+          <h1 className="truncate text-xl font-semibold text-text-primary">Order Detail</h1>
         </div>
-        <h3 className="text-[20px] font-extrabold text-gray-900 text-center mb-2">Delete Order</h3>
-        <p className="text-[14px] text-gray-500 text-center mb-8 font-medium">Are you sure you want to delete this order? This action cannot be undone.</p>
-        <div className="flex gap-4">
-          <button type="button" onClick={onClose} className="flex-1 bg-gray-100 text-gray-700 rounded-full py-3.5 text-[14px] font-bold hover:bg-gray-200 transition-colors">Cancel</button>
-          <button type="button" onClick={onDelete} className="flex-1 bg-[#bd4040] text-white rounded-full py-3.5 text-[14px] font-bold hover:bg-red-700 transition-colors shadow-lg shadow-red-200">Delete</button>
+        <div className="space-y-4 pb-24">
+          <section className="rounded-3xl border border-border-default bg-background-surface p-5 shadow-xs">
+            <h2 className="mb-4 text-lg font-semibold text-text-primary">{order.event_name}</h2>
+            <dl className="grid gap-4 sm:grid-cols-2">
+              <div><dt className="text-sm text-text-secondary">Customer</dt><dd className="font-semibold text-text-primary">{order.customer_name}</dd></div>
+              <div><dt className="text-sm text-text-secondary">Phone</dt><dd className="font-semibold text-text-primary">{order.customer_phone}</dd></div>
+              <div><dt className="text-sm text-text-secondary">Address</dt><dd className="font-semibold text-text-primary">{order.address}</dd></div>
+              <div><dt className="text-sm text-text-secondary">Service type</dt><dd className="font-semibold text-text-primary">{order.service_type_name}</dd></div>
+              <div><dt className="text-sm text-text-secondary">Start</dt><dd className="font-semibold text-text-primary">{_formatDate(order.start_at)}</dd></div>
+              <div><dt className="text-sm text-text-secondary">End</dt><dd className="font-semibold text-text-primary">{_formatDate(order.end_at)}</dd></div>
+            </dl>
+          </section>
+          <section className="overflow-hidden rounded-3xl border border-border-default bg-background-surface shadow-xs">
+            <div className="border-b border-border-default px-5 py-4"><h2 className="font-semibold text-text-primary">Rental items</h2></div>
+            <div className="overflow-x-auto"><table className="w-full min-w-[640px] text-left"><thead className="bg-table-header text-sm text-text-secondary"><tr><th className="px-5 py-3">Item</th><th className="px-5 py-3">Qty</th><th className="px-5 py-3">Price</th><th className="px-5 py-3">Subtotal</th><th className="px-5 py-3">Remark</th></tr></thead><tbody className="divide-y divide-border-default">{order.rental_transaction_items.map((item) => <tr key={item.item_id}><td className="px-5 py-3 font-medium text-text-primary">{item.item_name}</td><td className="px-5 py-3 text-text-secondary">{item.qty}</td><td className="px-5 py-3 text-text-secondary">{_formatCurrency(item.price)}</td><td className="px-5 py-3 text-text-secondary">{_formatCurrency(item.subtotal)}</td><td className="px-5 py-3 text-text-secondary">{item.remark}</td></tr>)}</tbody></table></div>
+          </section>
+          <section className="rounded-3xl border border-border-default bg-background-surface p-5 shadow-xs">
+            <h2 className="mb-4 font-semibold text-text-primary">Summary</h2>
+            <dl className="ml-auto max-w-sm space-y-3 text-sm"><div className="flex justify-between"><dt className="text-text-secondary">Subtotal</dt><dd className="font-medium text-text-primary">{_formatCurrency(order.subtotal)}</dd></div><div className="flex justify-between"><dt className="text-text-secondary">Service fee</dt><dd className="font-medium text-text-primary">{_formatCurrency(order.service_fee)}</dd></div><div className="flex justify-between"><dt className="text-text-secondary">Discount</dt><dd className="font-medium text-text-primary">{_formatCurrency(order.discount)}</dd></div><div className="flex justify-between border-t border-border-default pt-3 text-base"><dt className="font-semibold text-text-primary">Grand total</dt><dd className="font-bold text-action-primary">{_formatCurrency(order.grand_total)}</dd></div></dl>
+          </section>
         </div>
       </div>
-    </div>
+    </Layout>
   );
 };
-
-/**
- * OrderDetail Component
- * @param {OrderDetailProps} props - component props
- * @returns {React.ReactElement} component
- */
-export const OrderDetailComponent = (props: OrderDetailProps): React.ReactElement => (
-  <div className="flex-1 w-full min-h-full bg-[#f8f9fb] font-sans pb-10 relative overflow-y-auto">
-    <Header {...props} />
-    <div className="px-6 mt-2">
-      <OrderOverview order={props.order} />
-      <OrderedItems order={props.order} />
-    </div>
-    <DeleteModal isOpen={props.isDeleteModalOpen} onClose={props.onCloseDeleteModal} onDelete={props.onDeleteOrder} />
-  </div>
-);

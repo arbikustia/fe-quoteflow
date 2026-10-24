@@ -1,7 +1,7 @@
 import { apiRtkClient } from "@/libs/ApiRtkServices/apiRtkClient";
 
 import ENDPOINT from "@/constant/endpoint.const";
-import type { ProjectCreatePayload, ProjectCreateResponse, ProjectData, ProjectDetailResponse, ProjectListParams, ProjectListResponse, ProjectUpdatePayload, ProjectUpdateResponse } from "@/modules/master-project/MasterProject.type";
+import type { ProjectAllResponse, ProjectCreatePayload, ProjectCreateResponse, ProjectData, ProjectDetailResponse, ProjectListParams, ProjectListResponse, ProjectUpdatePayload, ProjectUpdateResponse } from "@/modules/master-project/MasterProject.type";
 
 /**
  * Map API project model to UI model.
@@ -23,6 +23,10 @@ export const masterProjectService = apiRtkClient.injectEndpoints({
    * @param builder
    */
   endpoints: (builder) => ({
+    getAllProjects: builder.query<ProjectAllResponse, void>({
+      query: () => ({ url: ENDPOINT.MASTER_PROJECT.ALL, method: "GET" }),
+      providesTags: ["Project"],
+    }),
     getProjects: builder.query<ProjectListResponse, ProjectListParams>({
       /**
        *
@@ -59,4 +63,4 @@ export const masterProjectService = apiRtkClient.injectEndpoints({
   overrideExisting: false,
 });
 
-export const { useGetProjectsQuery, useGetProjectByIdQuery, useCreateProjectMutation, useUpdateProjectMutation } = masterProjectService;
+export const { useGetAllProjectsQuery, useGetProjectsQuery, useGetProjectByIdQuery, useCreateProjectMutation, useUpdateProjectMutation } = masterProjectService;

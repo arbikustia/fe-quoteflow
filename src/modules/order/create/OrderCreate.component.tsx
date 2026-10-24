@@ -1,226 +1,71 @@
 import * as React from "react";
 
-import type { InputFieldProps, OrderCreateProps } from "./OrderCreate.type";
-import { MOCK_ORDER_ITEMS } from "../../../fixture/quotes";
+import Layout from "@/app/layout";
+import { PageLayout } from "@/app/shared/PageLayout";
+import { DateRangePicker } from "@/components/DateRangePicker";
+import { Select } from "@/components/Select";
 
-/**
- * Input field component
- * @param {InputFieldProps} props - The component props
- * @returns {React.ReactElement} The component
- */
-const InputField = ({ label, type = "text", placeholder, icon, ...props }: InputFieldProps): React.ReactElement => (
-  <div className="mb-5">
-    <label className="block text-[12px] font-bold text-gray-400 mb-2 pl-3 tracking-widest uppercase">{label}</label>
-    <div className="relative">
-      <div className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400">
-        {icon}
-      </div>
-      <input
-        type={type}
-        placeholder={placeholder}
-        defaultValue={props.defaultValue}
-        className="w-full bg-white border border-gray-100 rounded-3xl py-4 pl-12 pr-5 text-[15px] font-semibold text-gray-800 shadow-[0_4px_15px_rgba(0,0,0,0.02)] outline-none focus:border-[#daeaf3] focus:ring-4 focus:ring-[#daeaf3]/50 transition-all placeholder:text-gray-300"
-      />
-    </div>
-  </div>
-);
+import type { OrderItemPayload } from "../Order.type";
 
-/**
- * Header section component
- * @param {object} props - props
- * @param {boolean} [props.isEdit] - is edit
- * @param {() => void} props.onNavigateBack - on back
- * @returns {React.ReactElement} The component
- */
-const HeaderSection = (props: { isEdit?: boolean, onNavigateBack: () => void }): React.ReactElement => (
-  <>
-    <div className="px-6 pt-10 pb-4 flex items-center sticky top-0 bg-[#f8f9fb]/90 backdrop-blur-sm z-20">
-      <button type="button" onClick={props.onNavigateBack} className="flex items-center gap-3 text-gray-600 hover:text-gray-900 transition-colors group">
-        <div className="w-10 h-10 rounded-full bg-white shadow-sm flex items-center justify-center text-[#1a233a] group-hover:bg-gray-50 transition-colors">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
-        </div>
-        <span className="font-bold text-[15px]">Back</span>
-      </button>
-    </div>
-    <div className="px-6 mt-2">
-      <div className="mb-8 pl-1">
-        <h2 className="text-[28px] font-extrabold text-gray-900 tracking-tight">{props.isEdit ? "Edit Request" : "New Request"}</h2>
-        <p className="text-[14px] text-gray-500 mt-2 font-medium leading-relaxed">Fill in the complete event details and select the required equipment below.</p>
-      </div>
-    </div>
-  </>
-);
+import { calculateOrderTotals } from "./OrderCreate.helpers";
+import type { OrderCreateFormState, OrderCreateProps } from "./OrderCreate.type";
 
-/**
- * Basic info section
- * @param {OrderCreateProps} props - props
- * @returns {React.ReactElement} component
- */
-const BasicInfoSection = (props: OrderCreateProps): React.ReactElement => (
-  <>
-    <InputField 
-      label="Client Name" 
-      placeholder="e.g. Stevy Ditolla" 
-      defaultValue={props.existingOrder?.name}
-      icon={<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>} 
-    />
-    <InputField 
-      label="Event Location" 
-      placeholder="e.g. Grand Ballroom" 
-      defaultValue={props.existingOrder?.location}
-      icon={<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>} 
-    />
-    <div className="flex gap-4">
-      <div className="flex-1">
-        <InputField 
-          label="Start Date" type="date" placeholder="DD MMM YYYY" defaultValue={props.existingOrder?.startDate}
-          icon={<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>} 
-        />
-      </div>
-      <div className="flex-1">
-        <InputField 
-          label="End Date" type="date" placeholder="DD MMM YYYY" defaultValue={props.existingOrder?.endDate}
-          icon={<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>} 
-        />
-      </div>
-    </div>
-    <InputField 
-      label="Discount (%)" type="number" placeholder="e.g. 10" defaultValue={props.existingOrder?.discount}
-      icon={<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><line x1="19" y1="5" x2="5" y2="19"></line><circle cx="6.5" cy="6.5" r="2.5"></circle><circle cx="17.5" cy="17.5" r="2.5"></circle></svg>} 
-    />
-  </>
-);
+const TEXT_FIELDS: ReadonlyArray<{ field: keyof OrderCreateFormState; label: string; type?: string }> = [
+  { field: "customer_id", label: "Customer ID" },
+  { field: "customer_name", label: "Customer Name" }, { field: "customer_phone", label: "Customer Phone" }, { field: "event_name", label: "Event Name" },
+];
+const RUPIAH_FORMATTER = new Intl.NumberFormat("id-ID");
 
-/**
- * Category dropdown component
- * @param {OrderCreateProps} props - props
- * @returns {React.ReactElement} The component
- */
-const CategoryDropdown = ({ categoryRef, isCategoryOpen, onToggleCategoryOpen, selectedCategories, onToggleCategory }: OrderCreateProps): React.ReactElement => (
-  <div className="mb-6 mt-2 relative z-10" ref={categoryRef}>
-    <label className="block text-[12px] font-bold text-gray-400 mb-2 pl-3 tracking-widest uppercase">Service Category</label>
-    <div className="relative">
-      <div className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>
-      </div>
-      <div 
-        onClick={onToggleCategoryOpen}
-        className={`w-full bg-white border ${isCategoryOpen ? 'border-[#daeaf3] ring-4 ring-[#daeaf3]/50' : 'border-gray-100'} rounded-3xl py-4 pl-12 pr-10 text-[15px] font-semibold text-gray-800 shadow-[0_4px_15px_rgba(0,0,0,0.02)] cursor-pointer transition-all flex items-center`}
-      >
-        <span className="truncate">{selectedCategories.length > 0 ? selectedCategories.join(", ") : "Select category..."}</span>
-      </div>
-      <div className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className={`transition-transform duration-200 ${isCategoryOpen ? 'rotate-180' : ''}`}><polyline points="6 9 12 15 18 9"></polyline></svg>
-      </div>
-      {isCategoryOpen && (
-        <div className="absolute top-full left-0 right-0 mt-2 bg-white border border-gray-100 rounded-3xl shadow-xl p-3 flex flex-col gap-1 max-h-56 overflow-y-auto">
-          {Object.keys(MOCK_ORDER_ITEMS).map(cat => (
-            <label key={cat} className="flex items-center gap-3 p-3 hover:bg-gray-50 rounded-2xl cursor-pointer transition-colors">
-              <input 
-                type="checkbox" checked={selectedCategories.includes(cat)} onChange={() => onToggleCategory(cat)} 
-                className="w-5 h-5 rounded border-gray-300 text-[#4a64b8] focus:ring-[#daeaf3]"
-              />
-              <span className="text-[14px] font-semibold text-gray-800">{cat}</span>
-            </label>
-          ))}
-        </div>
-      )}
-    </div>
-  </div>
-);
+const _renderSelect = (props: OrderCreateProps): React.ReactElement => <Select id="order-customer" label="Customer" required value={props.form.customer_id} onChange={props.onCustomerChange} disabled={props.isCustomersLoading} placeholder={props.isCustomersLoading ? "Loading customers…" : "Select customer"} options={props.customers.map((customer) => ({ value: customer.id, label: `${customer.name} — ${customer.phone_number}` }))} />;
 
-/**
- * Item row component
- * @param {OrderCreateProps & { item: string, isChecked: boolean }} props - props
- * @returns {React.ReactElement} The component
- */
-const ItemRow = (props: OrderCreateProps & { item: string, isChecked: boolean }): React.ReactElement => {
-  const { item, isChecked, itemDetails, onToggleItem, onUpdateQty, onUpdateRemark } = props;
+const _renderRelationSelects = (props: OrderCreateProps): React.ReactElement => <><Select id="order-pic" label="PIC" required value={props.form.pic_id} onChange={props.onPicChange} disabled={props.isPicsLoading} placeholder={props.isPicsLoading ? "Loading PIC…" : "Select PIC"} options={props.pics.map((pic) => ({ value: pic.id, label: pic.name }))} /><Select id="order-service-type" label="Service Type" required value={props.form.service_type_id} onChange={props.onServiceTypeChange} disabled={props.isServiceTypesLoading} placeholder={props.isServiceTypesLoading ? "Loading service types…" : "Select service type"} options={props.serviceTypes.map((serviceType) => ({ value: serviceType.id, label: serviceType.name }))} /><Select id="order-voucher" label="Voucher" value={props.form.voucher_id} onChange={props.onVoucherChange} disabled={props.isVouchersLoading} placeholder={props.isVouchersLoading ? "Loading vouchers…" : "Select voucher"} options={props.vouchers.map((voucher) => ({ value: voucher.id, label: voucher.name }))} /></>;
 
-  return (
-    <div className={`flex flex-col p-3.5 rounded-2xl transition-colors ${isChecked ? 'bg-[#daeaf3]/20 border border-[#daeaf3]' : 'bg-[#f8f9fb] border border-transparent'}`}>
-      <label className="flex items-center gap-3 cursor-pointer">
-        <input type="checkbox" checked={isChecked} onChange={() => onToggleItem(item)} className="hidden" />
-        <div className={`w-5 h-5 rounded-md flex items-center justify-center transition-colors ${isChecked ? 'bg-[#daeaf3] text-[#4a64b8]' : 'bg-white border border-gray-200'}`}>
-          {isChecked && <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>}
-        </div>
-        <span className="text-[14px] font-semibold text-gray-800 flex-1">{item}</span>
-      </label>
+const _renderDateRange = (props: OrderCreateProps): React.ReactElement => {
+  const handleStartDateChange = (value: string): void => props.onChange("start_at", value);
+  const handleEndDateChange = (value: string): void => props.onChange("end_at", value);
 
-      {isChecked && (
-        <div className="mt-3 pt-3 border-t border-gray-200/60 flex flex-col gap-3">
-          <div className="flex items-center justify-between">
-            <span className="text-[11px] font-bold text-gray-500 uppercase tracking-widest pl-1">Quantity</span>
-            <div className="flex items-center bg-white rounded-xl shadow-sm border border-gray-100 p-0.5">
-              <button type="button" onClick={() => onUpdateQty(item, -1)} className="w-8 h-8 flex items-center justify-center text-[#4a64b8] bg-[#daeaf3]/30 hover:bg-[#daeaf3]/60 rounded-lg font-bold text-lg leading-none transition-colors">-</button>
-              <span className="w-10 text-center text-[14px] font-bold text-gray-800">{itemDetails[item]?.qty || 1}</span>
-              <button type="button" onClick={() => onUpdateQty(item, 1)} className="w-8 h-8 flex items-center justify-center text-[#4a64b8] bg-[#daeaf3]/30 hover:bg-[#daeaf3]/60 rounded-lg font-bold text-lg leading-none transition-colors">+</button>
-            </div>
-          </div>
-          <div className="relative">
-            <div className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
-            </div>
-            <input type="text" placeholder="Add remark..." value={itemDetails[item]?.remark || ""} onChange={(e) => onUpdateRemark(item, e.target.value)} className="w-full bg-white border border-gray-100 rounded-xl px-3 pl-9 py-2.5 text-[13px] font-medium text-gray-700 shadow-sm focus:outline-none focus:border-[#daeaf3] placeholder:text-gray-300 transition-colors" />
-          </div>
-        </div>
-      )}
-    </div>
-  );
+  return <DateRangePicker className="md:col-span-2" startDate={props.form.start_at} endDate={props.form.end_at} onStartDateChange={handleStartDateChange} onEndDateChange={handleEndDateChange} showTime />;
 };
 
-/**
- * Category items section component
- * @param {OrderCreateProps} props - props
- * @returns {React.ReactElement | null} The component
- */
-const CategoryItemsSection = (props: OrderCreateProps): React.ReactElement | null => {
-  if (props.selectedCategories.length === 0) return null;
+const _renderField = (props: OrderCreateProps, config: { field: keyof OrderCreateFormState; label: string; type?: string }): React.ReactElement => {
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>): void => props.onChange(config.field, config.type === "number" ? Number(event.target.value) : event.target.value);
 
-  return (
-    <div className="mb-8 flex flex-col gap-4">
-      <label className="block text-[12px] font-bold text-gray-400 mb-1 pl-3 tracking-widest uppercase">Select Items</label>
-      {props.selectedCategories.map(cat => (
-        <div key={cat} className="bg-white border border-gray-100 rounded-4xl p-5 shadow-[0_4px_15px_rgba(0,0,0,0.02)]">
-          <div className="relative mb-5 border-b border-gray-100 pb-5">
-            <div className="absolute left-3 top-[calc(50%-10px)] -translate-y-1/2 text-gray-400">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
-            </div>
-            <input 
-              type="text" placeholder={`Remark for ${cat}...`} value={props.categoryRemarks[cat] || ""}
-              onChange={(e) => props.onUpdateCategoryRemark(cat, e.target.value)}
-              className="w-full bg-[#f8f9fb] border border-transparent rounded-xl px-3 pl-9 py-2.5 text-[13px] font-medium text-gray-700 shadow-sm focus:outline-none focus:border-[#daeaf3] placeholder:text-gray-400 transition-colors" 
-            />
-          </div>
-          <h4 className="text-[11px] font-bold text-[#4a64b8] uppercase tracking-wider mb-4 px-1">{cat}</h4>
-          <div className="flex flex-col gap-2">
-            {MOCK_ORDER_ITEMS[cat].map(item => (
-              <ItemRow key={item} item={item} isChecked={props.selectedItems.includes(item)} {...props} />
-            ))}
-          </div>
-        </div>
-      ))}
-    </div>
-  );
+  return <label className="space-y-2"><span className="text-sm font-medium text-text-secondary">{config.label}</span><input required value={String(props.form[config.field])} onChange={handleChange} type={config.type ?? "text"} className="w-full rounded-xl border border-border-default bg-background-surface px-4 py-3 text-text-primary outline-none focus:border-border-focus focus:ring-2 focus:ring-focus-ring/30" /></label>;
 };
 
-/**
- * OrderCreate Component
- * @param {OrderCreateProps} props - component props
- * @returns {React.ReactElement} component
- */
-export const OrderCreateComponent = (props: OrderCreateProps): React.ReactElement => (
-  <div className="flex-1 w-full min-h-full bg-[#f8f9fb] font-sans pb-10 relative overflow-y-auto">
-    <HeaderSection isEdit={props.isEdit} onNavigateBack={props.onNavigateBack} />
-    <div className="px-6">
-      <form onSubmit={props.onSubmit} className="flex flex-col">
-        <BasicInfoSection {...props} />
-        <CategoryDropdown {...props} />
-        <CategoryItemsSection {...props} />
-        <button type="submit" className="w-full bg-[#1a233a] text-white rounded-full py-4.5 text-[16px] font-bold tracking-wide shadow-[0_10px_20px_rgba(26,35,58,0.15)] hover:bg-black transition-all transform hover:-translate-y-0.5 mt-2">
-          {props.isEdit ? "Update Order" : "Create Order"}
-        </button>
-      </form>
-    </div>
-  </div>
-);
+const _renderProjectCard = (props: OrderCreateProps, project: OrderCreateProps["projects"][number]): React.ReactElement => {
+  const isSelected = props.form.rental_transaction_items.some((item) => item.project_id === project.id);
+
+  return <button type="button" onClick={() => props.onToggleProject(project.id)} className={`flex min-h-24 w-full items-start gap-3 rounded-2xl border p-4 text-left transition-colors ${isSelected ? "border-action-primary bg-action-primary-subtle" : "border-border-default bg-background-surface"}`}><span className="min-w-0 flex-1"><strong className="block whitespace-normal break-words text-sm font-semibold text-text-primary">{project.name}</strong><small className="mt-1 block text-text-secondary">{project.items.map((item) => `${item.item_name ?? item.item_id} × ${item.qty}`).join(", ") || "No items"}</small></span><span aria-hidden="true" className={`flex h-6 w-6 shrink-0 items-center justify-center rounded-full border text-sm ${isSelected ? "border-action-primary bg-action-primary text-text-inverse" : "border-border-default text-transparent"}`}>✓</span></button>;
+};
+
+const _renderItemCard = (props: OrderCreateProps, option: OrderCreateProps["items"][number]): React.ReactElement => {
+  const selected = props.form.rental_transaction_items.find((item) => item.item_id === option.id);
+  return <div className={`relative min-h-24 rounded-2xl border p-4 transition-colors ${selected ? "border-action-primary bg-action-primary-subtle" : "border-border-default bg-background-surface"}`}><button type="button" onClick={() => props.onToggleItem(option.id)} aria-label={`Select ${option.name}`} className="absolute inset-0 z-0 rounded-2xl focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring/30" /><div className="relative z-10 flex items-start gap-3 pointer-events-none">{option.image ? <img src={option.image} alt="" className="h-12 w-12 shrink-0 rounded-lg object-cover" /> : <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-lg bg-background-subtle text-xs text-text-tertiary">No image</div>}<span className="min-w-0 flex-1"><strong className="block whitespace-normal break-words text-sm font-semibold text-text-primary">{option.name}</strong><small className="mt-1 block text-text-secondary">Stock: {option.stock ?? 0} · Rp {(option.price ?? 0).toLocaleString("id-ID")}</small></span>{selected && <div className="pointer-events-auto flex shrink-0 items-center gap-2"><label htmlFor={`order-qty-${option.id}`} className="text-xs text-text-secondary">Qty</label><input id={`order-qty-${option.id}`} type="number" min="1" max={option.stock ?? undefined} value={selected.qty} onChange={(event) => props.onItemChange(props.form.rental_transaction_items.indexOf(selected), "qty", Number(event.target.value))} className="w-20 rounded-lg border border-border-default bg-background-surface px-2 py-2 text-center text-sm" /></div>}{selected && <div className="pointer-events-auto ml-auto shrink-0"><label htmlFor={`order-remark-${option.id}`} className="sr-only">Remark</label><textarea id={`order-remark-${option.id}`} value={selected.remark} onChange={(event) => props.onItemChange(props.form.rental_transaction_items.indexOf(selected), "remark", event.target.value)} placeholder="Remark" rows={3} className="h-16 w-64 resize-none rounded-lg border border-border-default bg-background-surface px-3 py-2 text-sm" /></div>}<span aria-hidden="true" className={`flex h-6 w-6 shrink-0 self-start items-center justify-center rounded-full border text-sm ${selected ? "border-action-primary bg-action-primary text-text-inverse" : "border-border-default text-transparent"}`}>✓</span></div></div>;
+};
+
+/* Item details are rendered inline in each Master Project-style card. */
+const _renderItem = (props: OrderCreateProps, item: OrderItemPayload, index: number): React.ReactElement => {
+
+  const handleText = (field: keyof OrderItemPayload) => (event: React.ChangeEvent<HTMLInputElement>): void => props.onItemChange(index, field, event.target.value);
+  const handleNumber = (field: keyof OrderItemPayload) => (event: React.ChangeEvent<HTMLInputElement>): void => props.onItemChange(index, field, Number(event.target.value));
+  const handleRemove = (): void => props.onRemoveItem(index);
+
+  return <div key={`${index}-${item.item_id}`} className={`relative space-y-4 rounded-2xl border p-4 transition-colors ${item.item_id ? "border-action-primary bg-action-primary-subtle" : "border-border-default bg-background-surface"}`}><div className="flex items-center justify-between gap-3"><div className="flex min-w-0 items-center gap-3"><span className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-lg text-sm font-semibold ${item.item_id ? "bg-action-primary text-text-inverse" : "bg-background-subtle text-text-tertiary"}`}>{index + 1}</span><div><h3 className="font-semibold text-text-primary">{item.item_name || "Select item"}</h3><p className="mt-0.5 text-xs text-text-secondary">Set item, project, quantity, and price.</p></div></div>{props.form.rental_transaction_items.length > 1 && <button type="button" onClick={handleRemove} className="text-sm font-semibold text-danger">Remove</button>}</div><div className="grid gap-4 md:grid-cols-2"><Select id={`order-item-${index}`} label="Item" required value={item.item_id} onChange={(value) => props.onItemSelect(index, value)} disabled={props.isItemsLoading} placeholder={props.isItemsLoading ? "Loading items…" : "Select item"} options={props.items.map((option) => ({ value: option.id, label: option.name }))} /><Select id={`order-project-${index}`} label="Project" required value={item.project_id ?? ""} onChange={(value) => props.onProjectSelect(index, value)} disabled={props.isProjectsLoading} placeholder={props.isProjectsLoading ? "Loading projects…" : "Select project"} options={props.projects.map((project) => ({ value: project.id, label: project.name }))} /><input required value={item.item_name} onChange={handleText("item_name")} placeholder="Item name" className="rounded-xl border border-border-default bg-background-surface px-4 py-3" /><input required min={1} value={item.qty} onChange={handleNumber("qty")} type="number" placeholder="Qty" className="rounded-xl border border-border-default bg-background-surface px-4 py-3" /><input required min={0} value={item.price} onChange={handleNumber("price")} type="number" placeholder="Price" className="rounded-xl border border-border-default bg-background-surface px-4 py-3" /><input required min={0} value={item.subtotal} onChange={handleNumber("subtotal")} type="number" placeholder="Subtotal" className="rounded-xl border border-border-default bg-background-surface px-4 py-3" /><input value={item.remark} onChange={handleText("remark")} placeholder="Remark" className="rounded-xl border border-border-default bg-background-surface px-4 py-3 md:col-span-2" /></div></div>;
+};
+
+void _renderItem;
+
+export const OrderCreateComponent = (props: OrderCreateProps): React.ReactElement => {
+  const handleAddress = (event: React.ChangeEvent<HTMLTextAreaElement>): void => props.onChange("address", event.target.value);
+  const handleRemarks = (event: React.ChangeEvent<HTMLTextAreaElement>): void => props.onChange("remarks", event.target.value);
+
+  const pageTitle = props.isEdit ? "Edit Order" : "Create Order";
+  const submitLabel = props.isSubmitting ? "Saving…" : pageTitle;
+  const totals = calculateOrderTotals(props.form.rental_transaction_items.filter((item) => item.item_id), props.form.discount, props.form.service_fee);
+
+  const isLastStep = props.step === 3;
+  const stepTitles = ["Order Information", "Rental Items", "Review"];
+
+  return <Layout pageTitle={pageTitle}><PageLayout title={pageTitle} breadcrumbs={["Order", pageTitle]} onBack={props.onBack}><form onSubmit={props.onPreventSubmit} className="flex flex-col rounded-3xl border border-border-default bg-background-surface p-6 shadow-xs"><div className="mb-6 flex items-center gap-2">{stepTitles.map((title, index) => <React.Fragment key={title}><div className={`flex items-center gap-2 text-sm font-semibold ${props.step === index + 1 ? "text-action-primary" : "text-text-tertiary"}`}><span className={`flex h-8 w-8 items-center justify-center rounded-full ${props.step >= index + 1 ? "bg-action-primary text-text-inverse" : "border border-border-default"}`}>{index + 1}</span><span className="hidden sm:inline">{title}</span></div>{index < stepTitles.length - 1 && <span className="h-px flex-1 bg-border-default" />}</React.Fragment>)}</div><div className="pb-6">{props.step === 1 && <section className="space-y-4"><h2 className="text-lg font-semibold text-text-primary">Order information</h2><div className="grid gap-4 md:grid-cols-2">{_renderSelect(props)}{_renderField(props, { field: "customer_name", label: "Customer Name" })}{_renderField(props, { field: "customer_phone", label: "Customer Phone" })}{_renderRelationSelects(props)}{TEXT_FIELDS.filter((field) => field.field !== "customer_id" && field.field !== "customer_name" && field.field !== "customer_phone").map((field) => <React.Fragment key={field.field}>{_renderField(props, field)}</React.Fragment>)}{_renderDateRange(props)}<label className="space-y-2"><span className="text-sm font-medium text-text-secondary">Service Fee</span><div className="flex rounded-xl border border-border-default bg-background-surface focus-within:border-border-focus focus-within:ring-2 focus-within:ring-focus-ring/30"><span className="flex items-center border-r border-border-default px-4 text-text-secondary">Rp</span><input required inputMode="numeric" value={RUPIAH_FORMATTER.format(props.form.service_fee)} onChange={(event) => props.onChange("service_fee", Number(event.target.value.replace(/\D/g, "")))} className="w-full rounded-r-xl bg-transparent px-4 py-3 text-right tabular-nums text-text-primary outline-none" /></div></label></div><label className="block space-y-2"><span className="text-sm font-medium text-text-secondary">Address</span><textarea required value={props.form.address} onChange={handleAddress} className="min-h-24 w-full rounded-xl border border-border-default bg-background-surface px-4 py-3" /></label></section>}{props.step === 2 && <section className="space-y-4"><div className="flex items-center justify-between"><h2 className="text-lg font-semibold text-text-primary">Select items</h2><button type="button" onClick={props.onAddItem} className="rounded-xl border border-action-primary px-4 py-2 text-sm font-semibold text-action-primary">Add Item</button></div>{props.form.service_type_name.trim().toUpperCase() === "PROJECT" ? <div className="grid gap-4 md:grid-cols-2">{props.projects.map((project) => <React.Fragment key={project.id}>{_renderProjectCard(props, project)}</React.Fragment>)}</div> : <>{props.isItemsLoading && <p className="text-sm text-text-secondary">Loading items…</p>}<div className="grid gap-4 md:grid-cols-2">{props.items.map((item) => <React.Fragment key={item.id}>{_renderItemCard(props, item)}</React.Fragment>)}</div></>}</section>}{props.step === 3 && <section className="space-y-6"><h2 className="text-lg font-semibold text-text-primary">Review Order</h2><div className="grid gap-4 md:grid-cols-2"><div><p className="text-xs font-semibold uppercase tracking-wider text-text-secondary">Customer Information</p><dl className="mt-2 space-y-1 text-sm"><div className="flex gap-2"><dt className="text-text-secondary">Name:</dt><dd className="font-medium text-text-primary">{props.form.customer_name || "-"}</dd></div><div className="flex gap-2"><dt className="text-text-secondary">Phone:</dt><dd className="font-medium text-text-primary">{props.form.customer_phone || "-"}</dd></div><div className="flex gap-2"><dt className="text-text-secondary">Address:</dt><dd className="font-medium text-text-primary">{props.form.address || "-"}</dd></div></dl></div><div><p className="text-xs font-semibold uppercase tracking-wider text-text-secondary">Order Information</p><dl className="mt-2 space-y-1 text-sm"><div className="flex gap-2"><dt className="text-text-secondary">PIC:</dt><dd className="font-medium text-text-primary">{props.pics.find((pic) => pic.id === props.form.pic_id)?.name || "-"}</dd></div><div className="flex gap-2"><dt className="text-text-secondary">Event:</dt><dd className="font-medium text-text-primary">{props.form.event_name || "-"}</dd></div><div className="flex gap-2"><dt className="text-text-secondary">Start:</dt><dd className="font-medium text-text-primary">{props.form.start_at || "-"}</dd></div><div className="flex gap-2"><dt className="text-text-secondary">End:</dt><dd className="font-medium text-text-primary">{props.form.end_at || "-"}</dd></div></dl></div><div><p className="text-xs font-semibold uppercase tracking-wider text-text-secondary">Pricing</p><p className="mt-1 text-text-primary">Subtotal: Rp {totals.subtotal.toLocaleString("id-ID")}</p><p className="text-text-primary">Service Fee: Rp {props.form.service_fee.toLocaleString("id-ID")}</p><p className="text-text-primary">Discount: Rp {props.form.discount.toLocaleString("id-ID")}</p><p className="text-text-primary">Grand Total: Rp {totals.grandTotal.toLocaleString("id-ID")}</p></div></div><div><h3 className="mb-3 font-semibold text-text-primary">Rental Items</h3>{props.form.service_type_name.trim().toUpperCase() === "PROJECT" ? <div className="space-y-3">{props.projects.filter((project) => props.form.rental_transaction_items.some((item) => item.project_id === project.id)).map((project) => <section key={project.id} className="rounded-xl border border-border-default p-3"><h4 className="font-semibold text-text-primary">{project.name}</h4><div className="mt-2 space-y-2">{props.form.rental_transaction_items.filter((item) => item.project_id === project.id).map((item) => <div key={`${project.id}-${item.item_id}`} className="flex items-center justify-between text-sm"><span>{item.item_name}<span className="ml-2 text-text-secondary">Qty: {item.qty}</span>{item.remark && <span className="ml-2 text-text-secondary">· {item.remark}</span>}</span><span className="font-semibold text-text-primary">Rp {item.subtotal.toLocaleString("id-ID")}</span></div>)}</div></section>)}</div> : <div className="space-y-2">{props.form.rental_transaction_items.filter((item) => item.item_id).map((item) => <div key={`${item.item_id}-${item.remark}`} className="flex items-center justify-between rounded-xl border border-border-default p-3 text-sm"><span>{item.item_name}<span className="ml-2 text-text-secondary">Qty: {item.qty}</span>{item.remark && <span className="ml-2 text-text-secondary">· {item.remark}</span>}</span><span className="font-semibold text-text-primary">Rp {item.subtotal.toLocaleString("id-ID")}</span></div>)}</div>}</div><label className="block space-y-2"><span className="text-xs font-semibold uppercase tracking-wider text-text-secondary">Remarks</span><textarea value={props.form.remarks} onChange={handleRemarks} className="min-h-24 w-full rounded-xl border border-border-default bg-background-surface px-4 py-3" /></label></section>}{props.errorMessage && <p role="alert" className="mt-4 text-sm font-medium text-danger">{props.errorMessage}</p>}</div><div className="flex justify-between border-t border-border-default pt-5"><button type="button" disabled={props.step === 1} onClick={props.onPreviousStep} className="h-14 rounded-xl border border-border-default px-8 font-semibold text-text-primary disabled:cursor-not-allowed disabled:opacity-50">Back</button>{isLastStep ? <button disabled={props.isSubmitting} type="button" onClick={props.onSubmit} className="h-14 rounded-xl bg-action-primary px-8 font-semibold text-text-inverse disabled:cursor-not-allowed disabled:opacity-60">{submitLabel}</button> : <button type="button" onClick={props.onNextStep} className="h-14 rounded-xl bg-action-primary px-8 font-semibold text-text-inverse">Next</button>}</div></form></PageLayout></Layout>;
+};

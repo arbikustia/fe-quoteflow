@@ -1,32 +1,38 @@
 import { render, screen } from '@testing-library/react';
+import { MemoryRouter } from 'react-router-dom';
+
 import { OrderDetailComponent } from './OrderDetail.component';
 
+const order = {
+  id: "ORD-123",
+  service_type_id: "SERVICE-1",
+  service_type_name: "Delivery",
+  customer_name: "Test Customer",
+  customer_phone: "08123456789",
+  address: "Test Location",
+  event_name: "Test Event",
+  start_at: "2024-01-01T00:00:00Z",
+  end_at: "2024-01-02T00:00:00Z",
+  subtotal: 100000,
+  service_fee: 10000,
+  discount: 5000,
+  grand_total: 105000,
+  status: 1,
+  created_at: "2024-01-01T00:00:00Z",
+  updated_at: "2024-01-01T00:00:00Z",
+  rental_transaction_items: [{ item_id: "ITEM-1", item_name: "Spotlight", qty: 1, price: 100000, subtotal: 100000, remark: "Careful" }],
+  rental_transaction_project: [],
+};
+
 describe('OrderDetailComponent', () => {
-  it('should render successfully', () => {
+  it('should render API order detail', () => {
     render(
-      <OrderDetailComponent 
-        order={{
-          id: "ORD-123",
-          name: "Test Name",
-          location: "Test Location",
-          startDate: "2024-01-01",
-          endDate: "2024-01-02",
-          qty: 1,
-          category: "Lighting",
-          selectedItems: ["Spotlight"],
-          status: "Confirmed",
-          pph: 0,
-          discount: 0,
-          remark: "Test remark"
-        }}
-        isDeleteModalOpen={false}
-        onCloseDeleteModal={jest.fn()}
-        onOpenDeleteModal={jest.fn()}
-        onNavigateBack={jest.fn()}
-        onNavigateEdit={jest.fn()}
-        onDeleteOrder={jest.fn()}
-      />
+      <MemoryRouter>
+        <OrderDetailComponent order={order} isLoading={false} errorMessage={null} onNavigateBack={jest.fn()} />
+      </MemoryRouter>,
     );
-    expect(screen.getByText('ORD-123')).toBeTruthy();
+
+    expect(screen.getByText('Test Event')).toBeTruthy();
+    expect(screen.getByText('Spotlight')).toBeTruthy();
   });
 });

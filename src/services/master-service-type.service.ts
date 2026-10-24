@@ -1,7 +1,7 @@
 import { apiRtkClient } from "@/libs/ApiRtkServices/apiRtkClient";
 
 import ENDPOINT from "@/constant/endpoint.const";
-import type { ServiceTypeCreatePayload, ServiceTypeCreateResponse, ServiceTypeData, ServiceTypeListParams, ServiceTypeListResponse, ServiceTypeUpdatePayload } from "@/modules/master-service-type/MasterServiceType.type";
+import type { ServiceTypeAllResponse, ServiceTypeCreatePayload, ServiceTypeCreateResponse, ServiceTypeData, ServiceTypeListParams, ServiceTypeListResponse, ServiceTypeUpdatePayload } from "@/modules/master-service-type/MasterServiceType.type";
 
 /**
  * Map API service type model to UI model.
@@ -23,6 +23,7 @@ export const masterServiceTypeService = apiRtkClient.injectEndpoints({
    * @param builder
    */
   endpoints: (builder) => ({
+    getAllServiceTypes: builder.query<ServiceTypeAllResponse, void>({ query: () => ({ url: ENDPOINT.MASTER_SERVICE_TYPE.ALL, method: "GET" }), providesTags: ["ServiceType"] }),
     getServiceTypes: builder.query<ServiceTypeListResponse, ServiceTypeListParams>({ /**
      *
      * @param params
@@ -49,4 +50,4 @@ export const masterServiceTypeService = apiRtkClient.injectEndpoints({
   overrideExisting: false,
 });
 
-export const { useGetServiceTypesQuery, useCreateServiceTypeMutation, useUpdateServiceTypeMutation } = masterServiceTypeService;
+export const { useGetAllServiceTypesQuery, useGetServiceTypesQuery, useCreateServiceTypeMutation, useUpdateServiceTypeMutation } = masterServiceTypeService;

@@ -28,6 +28,7 @@ export type ApiProject = {
   readonly items?: ApiProjectItem[] | null;
 };
 
+export type ProjectAllResponse = ApiEnvelope<ApiProject[]>;
 export type ProjectDetailResponse = ApiEnvelope<ApiProject | null>;
 export type ProjectListResponse = PaginatedResponse<ApiProject>;
 export type ProjectCreateResponse = ApiEnvelope<ApiProject | null>;

@@ -3,6 +3,14 @@ import { fireEvent, render, screen } from "@testing-library/react";
 import { DateRangePicker } from "./DateRangePicker.component";
 
 describe("DateRangePicker", () => {
+  it("should render custom calendar buttons", (): void => {
+    render(<DateRangePicker showTime />);
+
+    fireEvent.click(screen.getByRole("button", { name: /Start Date/ }));
+
+    expect(screen.getByLabelText("Start time")).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "Previous month" })).toBeInTheDocument();
+  });
   it("should render label and start/end dates", (): void => {
     render(<DateRangePicker label="Period" startDate="2023-01-01" endDate="2023-01-31" onStartDateChange={jest.fn()} onEndDateChange={jest.fn()} />);
 

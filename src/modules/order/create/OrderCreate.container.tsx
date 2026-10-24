@@ -1,22 +1,12 @@
-import * as React from 'react';
+import * as React from "react";
 
-import { OrderCreateComponent } from './OrderCreate.component';
-import { useOrderCreateLogic } from './OrderCreate.hook';
-import type { QuoteData } from '../Order.type';
+import { OrderCreateComponent } from "./OrderCreate.component";
+import { useOrderCreateLogic } from "./OrderCreate.hook";
 
-/**
- * OrderCreate Container
- * @returns {React.ReactElement} The container component
- */
 const OrderCreateContainer = (): React.ReactElement => {
-  const logic = useOrderCreateLogic();
+  const props = useOrderCreateLogic();
 
-  return (
-    <OrderCreateComponent
-      {...logic}
-      existingOrder={logic.existingOrder as QuoteData}
-    />
-  );
+  return <OrderCreateComponent {...props} />;
 };
 
 export default OrderCreateContainer;

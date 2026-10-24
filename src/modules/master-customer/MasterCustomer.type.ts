@@ -11,6 +11,17 @@ export type ApiCustomer = {
   readonly created_by: string | null;
 };
 
+export type CustomerAllResponse = {
+  readonly status: boolean;
+  readonly data: Array<{
+    readonly id: string;
+    readonly name: string;
+    readonly address: string;
+    readonly phone_number: string;
+  }>;
+  readonly messages: string[];
+};
+
 export type CustomerListResponse = PaginatedResponse<ApiCustomer>;
 export type CustomerCreateResponse = ApiEnvelope<ApiCustomer | null>;
 export type CustomerUpdatePayload = {

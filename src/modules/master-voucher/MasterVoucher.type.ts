@@ -24,6 +24,7 @@ export type VoucherListResponse = {
   status: boolean;
   messages: string[] | string | null;
 };
+export type VoucherAllResponse = ApiEnvelope<ApiVoucher[]>;
 export type VoucherCreateResponse = ApiEnvelope<ApiVoucher | null>;
 export type VoucherDetailResponse = ApiEnvelope<ApiVoucher | ApiVoucher[] | null>;
 

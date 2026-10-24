@@ -1,5 +1,10 @@
 import { render } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
+
+jest.mock('@/services/order.service', () => ({
+  useGetOrderByIdQuery: (): { data: undefined; error: undefined; isLoading: boolean } => ({ data: undefined, error: undefined, isLoading: false }),
+}));
+
 import OrderDetailContainer from './OrderDetail.container';
 
 describe('OrderDetailContainer', () => {
@@ -7,8 +12,9 @@ describe('OrderDetailContainer', () => {
     const { container } = render(
       <MemoryRouter>
         <OrderDetailContainer />
-      </MemoryRouter>
+      </MemoryRouter>,
     );
+
     expect(container).toBeTruthy();
   });
 });

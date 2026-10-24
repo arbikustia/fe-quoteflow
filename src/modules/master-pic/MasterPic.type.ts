@@ -10,6 +10,12 @@ export type ApiPic = {
   updated_at: string | null;
 };
 
+export type PicAllResponse = {
+  readonly status: boolean;
+  readonly data: Array<{ readonly id: string; readonly name: string }>;
+  readonly messages: string[];
+};
+
 export type PicListResponse = PaginatedResponse<ApiPic>;
 export type PicDetailResponse = ApiEnvelope<ApiPic | ApiPic[] | null>;
 export type PicCreateResponse = ApiEnvelope<ApiPic | null>;

@@ -1,228 +1,144 @@
-import { useEffect, useRef, useState } from "react";
-import type { NavigateFunction } from "react-router-dom";
-import { useNavigate, useParams, useSearchParams } from "react-router-dom";
+import { useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 
-import type { CategoryStateReturn, ItemStateReturn, OrderCreateProps } from "./OrderCreate.type";
-import type { QuoteData } from '../Order.type';
-import { MOCK_QUOTES } from "../../../fixture/quotes";
+import { useGetAllCustomersQuery } from "@/services/master-customer.service";
+import { useGetAllItemsQuery } from "@/services/master-item.service";
+import { useGetAllPicsQuery } from "@/services/master-pic.service";
+import { useGetAllProjectsQuery } from "@/services/master-project.service";
+import { useGetAllVouchersQuery } from "@/services/master-voucher.service";
+import { useGetAllServiceTypesQuery } from "@/services/master-service-type.service";
+import { useCreateOrderMutation, useCreateProjectOrderMutation } from "@/services/order.service";
 
-/**
- * Helper to initialize item details
- * @param {QuoteData | null} existingOrder - existing order data
- * @returns {Record<string, {qty: number, remark: string}>} init state
- */
-const getInitialItemDetails = (existingOrder: QuoteData | null): Record<string, {qty: number, remark: string}> => {
-  if (existingOrder?.selectedItems) {
-    const newDetails: Record<string, {qty: number, remark: string}> = {};
+import type { OrderItemPayload } from "../Order.type";
 
-    existingOrder.selectedItems.forEach((item: string) => {
-      newDetails[item] = { qty: existingOrder.qty || 1, remark: "" };
-    });
+import { calculateOrderTotals, getNextOrderStep, getPreviousOrderStep } from "./OrderCreate.helpers";
+import type { OrderCreateFormState, OrderCreateState } from "./OrderCreate.type";
 
-    return newDetails;
-  }
+const EMPTY_ITEM: OrderItemPayload = { item_id: "", project_id: null, item_name: "", qty: 1, price: 0, subtotal: 0, remark: "" };
+const INITIAL_FORM: OrderCreateFormState = { customer_id: "", pic_id: "", voucher_id: "", service_type_id: "", service_type_name: "", customer_name: "", customer_phone: "", address: "", event_name: "", start_at: "", end_at: "", subtotal: 0, discount: 0, service_fee: 0, remarks: "", grand_total: 0, status: 1, rental_transaction_items: [EMPTY_ITEM] };
+const formatOrderDate = (value: string): string => {
+  const date = new Date(value);
+  const pad = (part: number): string => String(part).padStart(2, "0");
 
-  return {};
+  return `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())} ${pad(date.getHours())}:${pad(date.getMinutes())}:${pad(date.getSeconds())}`;
 };
 
-/**
- * Hook for basic order state
- * @returns {{ existingOrder: QuoteData | null, isEdit: boolean }} Hook state
- */
-const useOrderState = (): { existingOrder: QuoteData | null, isEdit: boolean } => {
-  const { id: paramId } = useParams();
-  const [searchParams] = useSearchParams();
-  const id = paramId || searchParams.get("id");
-  const existingOrder = id ? MOCK_QUOTES.find(q => q.id === id) || null : null;
-  const isEdit = !!existingOrder;
-
-  return { existingOrder, isEdit };
-};
-
-/**
- * Hook for categories state
- * @param {QuoteData | null} existingOrder - existing order
- * @returns {CategoryStateReturn} categories state
- */
-const useCategoryState = (existingOrder: QuoteData | null): CategoryStateReturn => {
-  const [selectedCategories, setSelectedCategories] = useState<string[]>(() => 
-    existingOrder?.category ? existingOrder.category.split(",").map(c => c.trim()) : []
-  );
-  const [categoryRemarks, setCategoryRemarks] = useState<Record<string, string>>({});
-  const [isCategoryOpen, setIsCategoryOpen] = useState<boolean>(false);
-  const categoryRef = useRef<HTMLDivElement>(null!);
-
-  return {
-    selectedCategories, setSelectedCategories,
-    categoryRemarks, setCategoryRemarks,
-    isCategoryOpen, setIsCategoryOpen,
-    categoryRef
-  };
-};
-
-/**
- * Hook for items state
- * @param {QuoteData | null} existingOrder - existing order
- * @returns {ItemStateReturn} items state
- */
-const useItemState = (existingOrder: QuoteData | null): ItemStateReturn => {
-  const [selectedItems, setSelectedItems] = useState<string[]>(() => 
-    existingOrder?.selectedItems || []
-  );
-  const [itemDetails, setItemDetails] = useState<Record<string, {qty: number, remark: string}>>(() => 
-    getInitialItemDetails(existingOrder)
-  );
-
-  return {
-    selectedItems, setSelectedItems,
-    itemDetails, setItemDetails
-  };
-};
-
-/**
- * Navigation handlers
- * @param {NavigateFunction} navigate - router navigate
- * @returns {{ onNavigateBack: () => void, onSubmit: (e: React.SyntheticEvent) => void }} handlers
- */
-const useNavHandlers = (navigate: NavigateFunction): { onNavigateBack: () => void, onSubmit: (e: React.SyntheticEvent) => void } => {
-  /**
-   * Navigate back
-   * @returns {void} void
-   */
-  const handleNavigateBack = (): void => {
-    navigate(-1);
-  };
-  /**
-   * Handle submit
-   * @param {React.SyntheticEvent} e - event
-   * @returns {void} void
-   */
-  const handleSubmit = (e: React.SyntheticEvent): void => {
-    e.preventDefault();
-    navigate("/order");
-  };
-
-  return { onNavigateBack: handleNavigateBack, onSubmit: handleSubmit };
-};
-
-/**
- * Category handlers
- * @param {CategoryStateReturn} cats - categories state
- * @returns {{ onToggleCategory: (cat: string) => void, onUpdateCategoryRemark: (cat: string, text: string) => void, onToggleCategoryOpen: () => void }} handlers
- */
-const useCategoryHandlers = (cats: CategoryStateReturn): { onToggleCategory: (cat: string) => void, onUpdateCategoryRemark: (cat: string, text: string) => void, onToggleCategoryOpen: () => void } => {
-  /**
-   * Toggle category
-   * @param {string} cat - cat
-   * @returns {void} void
-   */
-  const handleToggleCategory = (cat: string): void => {
-    cats.setSelectedCategories((p: string[]) => p.includes(cat) ? p.filter(c => c !== cat) : [...p, cat]);
-  };
-  /**
-   * Update category remark
-   * @param {string} cat - cat
-   * @param {string} text - text
-   * @returns {void} void
-   */
-  const handleUpdateCategoryRemark = (cat: string, text: string): void => {
-    cats.setCategoryRemarks((p: Record<string, string>) => ({...p, [cat]: text}));
-  };
-  /**
-   * Toggle category open
-   * @returns {void} void
-   */
-  const handleToggleCategoryOpen = (): void => {
-    cats.setIsCategoryOpen(!cats.isCategoryOpen);
-  };
-
-  return { onToggleCategory: handleToggleCategory, onUpdateCategoryRemark: handleUpdateCategoryRemark, onToggleCategoryOpen: handleToggleCategoryOpen };
-};
-
-/**
- * Item handlers
- * @param {ItemStateReturn} items - items state
- * @returns {{ onToggleItem: (item: string) => void, onUpdateQty: (item: string, delta: number) => void, onUpdateRemark: (item: string, remark: string) => void }} handlers
- */
-const useItemHandlers = (items: ItemStateReturn): { onToggleItem: (item: string) => void, onUpdateQty: (item: string, delta: number) => void, onUpdateRemark: (item: string, remark: string) => void } => {
-  /**
-   * Toggle item
-   * @param {string} item - item
-   * @returns {void} void
-   */
-  const handleToggleItem = (item: string): void => {
-    items.setSelectedItems((p: string[]) => p.includes(item) ? p.filter(i => i !== item) : [...p, item]);
-
-    if (!items.selectedItems.includes(item)) items.setItemDetails((p: Record<string, {qty: number, remark: string}>) => ({...p, [item]: {qty: 1, remark: ""}}));
-  };
-  /**
-   * Update qty
-   * @param {string} item - item
-   * @param {number} delta - delta
-   * @returns {void} void
-   */
-  const handleUpdateQty = (item: string, delta: number): void => {
-    items.setItemDetails((p: Record<string, {qty: number, remark: string}>) => ({...p, [item]: {...(p[item] || {qty: 1, remark: ""}), qty: Math.max(1, (p[item]?.qty || 1) + delta)}}));
-  };
-  /**
-   * Update remark
-   * @param {string} item - item
-   * @param {string} remark - remark
-   * @returns {void} void
-   */
-  const handleUpdateRemark = (item: string, remark: string): void => {
-    items.setItemDetails((p: Record<string, {qty: number, remark: string}>) => ({...p, [item]: {...(p[item] || {qty: 1, remark: ""}), remark}}));
-  };
-
-  return { onToggleItem: handleToggleItem, onUpdateQty: handleUpdateQty, onUpdateRemark: handleUpdateRemark };
-};
-
-/**
- * Custom hook for mobile order create logic
- * @returns {OrderCreateProps} Hook state and handlers
- */
-export const useOrderCreateLogic = (): OrderCreateProps => {
+export const useOrderCreateLogic = (): OrderCreateState => {
   const navigate = useNavigate();
-  const { existingOrder, isEdit } = useOrderState();
-  const cats = useCategoryState(existingOrder);
-  const items = useItemState(existingOrder);
+  const { id } = useParams();
+  const [form, setForm] = useState<OrderCreateFormState>(INITIAL_FORM);
+  const [step, setStep] = useState<number>(1);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const customerQuery = useGetAllCustomersQuery();
+  const picQuery = useGetAllPicsQuery();
+  const serviceTypeQuery = useGetAllServiceTypesQuery();
+  const itemQuery = useGetAllItemsQuery();
+  const projectQuery = useGetAllProjectsQuery();
+  const voucherQuery = useGetAllVouchersQuery();
+  const [createOrder, mutation] = useCreateOrderMutation();
+  const [createProjectOrder, projectMutation] = useCreateProjectOrderMutation();
 
-  useEffect(() => {
-    /**
-     * Handle click outside
-     * @param {MouseEvent | TouchEvent} event - dom event
-     * @returns {void} void
-     */
-    const handleClickOutside = (event: MouseEvent | TouchEvent): void => {
-      if (cats.categoryRef.current && !cats.categoryRef.current.contains(event.target as Node)) {
-        cats.setIsCategoryOpen(false);
-      }
-    };
+  const onBack = (): void => { void navigate(-1); };
+  const onNextStep = (): void => setStep(getNextOrderStep);
+  const onPreviousStep = (): void => setStep(getPreviousOrderStep);
+  const onCustomerChange = (customerId: string): void => {
+    const customer = customerQuery.data?.data.find((item) => item.id === customerId);
 
-    document.addEventListener("mousedown", handleClickOutside);
-    document.addEventListener("touchstart", handleClickOutside);
-
-    return (): void => {
-      document.removeEventListener("mousedown", handleClickOutside);
-      document.removeEventListener("touchstart", handleClickOutside);
-    };
-  }, [cats]);
-
-  const navH = useNavHandlers(navigate);
-  const catH = useCategoryHandlers(cats);
-  const itemH = useItemHandlers(items);
-
-  return {
-    isEdit,
-    existingOrder,
-    selectedCategories: cats.selectedCategories,
-    selectedItems: items.selectedItems,
-    itemDetails: items.itemDetails,
-    categoryRemarks: cats.categoryRemarks,
-    isCategoryOpen: cats.isCategoryOpen,
-    categoryRef: cats.categoryRef,
-    ...navH,
-    ...catH,
-    ...itemH,
+    if (customer) setForm((previous) => ({ ...previous, customer_id: customer.id, customer_name: customer.name, customer_phone: customer.phone_number, address: customer.address }));
   };
+  const onChange = (field: keyof OrderCreateFormState, value: string | number): void => setForm((previous) => ({ ...previous, [field]: value }));
+  const onPicChange = (picId: string): void => onChange("pic_id", picId);
+  const onVoucherChange = (voucherId: string): void => {
+    const voucher = voucherQuery.data?.data.find((item) => item.id === voucherId);
+    setForm((previous) => ({ ...previous, voucher_id: voucherId, discount: voucher?.discount_percent ?? 0 }));
+  };
+  const onServiceTypeChange = (serviceTypeId: string): void => {
+    const serviceType = serviceTypeQuery.data?.data.find((item) => item.id === serviceTypeId);
+    const serviceTypeName = serviceType?.name ?? "";
+
+    setForm((previous) => ({ ...previous, service_type_id: serviceTypeId, service_type_name: serviceTypeName, rental_transaction_items: serviceTypeName.trim().toUpperCase() === "PROJECT" ? [] : previous.rental_transaction_items.map((item) => ({ ...item, project_id: null })) }));
+  };
+  const onToggleItem = (itemId: string): void => {
+    const selectedIndex = form.rental_transaction_items.findIndex((item) => item.item_id === itemId);
+    if (selectedIndex >= 0) { onRemoveItem(selectedIndex); return; }
+    const emptyIndex = form.rental_transaction_items.findIndex((item) => !item.item_id);
+    if (emptyIndex >= 0) { onItemSelect(emptyIndex, itemId); return; }
+    const item = itemQuery.data?.data.find((option) => option.id === itemId);
+    if (item) setForm((previous) => ({ ...previous, rental_transaction_items: [...previous.rental_transaction_items, { ...EMPTY_ITEM, item_id: item.id, item_name: item.name, price: item.price ?? 0, subtotal: item.price ?? 0 }] }));
+  };
+  const onToggleProject = (projectId: string): void => {
+    const isSelected = form.rental_transaction_items.some((item) => item.project_id === projectId);
+
+    if (isSelected) {
+      setForm((previous) => ({ ...previous, rental_transaction_items: previous.rental_transaction_items.filter((item) => item.project_id !== projectId) }));
+      return;
+    }
+
+    const project = projectQuery.data?.data.find((item) => item.id === projectId);
+
+    if (!project) return;
+
+    setForm((previous) => ({ ...previous, rental_transaction_items: [...previous.rental_transaction_items, { ...EMPTY_ITEM, item_id: project.id, project_id: project.id, item_name: project.name, qty: 1 }] }));
+  };
+  const onProjectSelect = (index: number, projectId: string): void => setForm((previous) => ({ ...previous, rental_transaction_items: previous.rental_transaction_items.map((item, itemIndex) => itemIndex === index ? { ...item, project_id: projectId } : item) }));
+  const onItemSelect = (index: number, itemId: string): void => {
+    const item = itemQuery.data?.data.find((option) => option.id === itemId);
+    setForm((previous) => ({ ...previous, rental_transaction_items: previous.rental_transaction_items.map((row, rowIndex) => rowIndex === index ? item ? { ...row, item_id: item.id, item_name: item.name, price: item.price ?? 0, subtotal: (item.price ?? 0) * row.qty } : EMPTY_ITEM : row) }));
+  };
+  const onItemChange = (index: number, field: keyof OrderItemPayload, value: string | number): void => setForm((previous) => ({ ...previous, rental_transaction_items: previous.rental_transaction_items.map((item, itemIndex) => {
+    if (itemIndex !== index) return item;
+    const updatedItem = { ...item, [field]: value };
+
+    return { ...updatedItem, subtotal: updatedItem.price * updatedItem.qty };
+  }) }));
+  const onAddItem = (): void => setForm((previous) => ({ ...previous, rental_transaction_items: [...previous.rental_transaction_items, EMPTY_ITEM] }));
+  const onRemoveItem = (index: number): void => setForm((previous) => ({ ...previous, rental_transaction_items: previous.rental_transaction_items.filter((_item, itemIndex) => itemIndex !== index) }));
+  const onPreventSubmit = (event: React.SyntheticEvent<HTMLFormElement>): void => event.preventDefault();
+  const onSubmit = async (event: React.SyntheticEvent): Promise<void> => {
+    event.preventDefault();
+    setErrorMessage(null);
+
+    try {
+      const totals = calculateOrderTotals(form.rental_transaction_items.filter((item) => item.item_id), form.discount, form.service_fee);
+      const payload = {
+        customer_id: form.customer_id,
+        pic_id: form.pic_id,
+        voucher_id: form.voucher_id,
+        service_type_id: form.service_type_id,
+        customer_name: form.customer_name,
+        customer_phone: form.customer_phone,
+        address: form.address,
+        event_name: form.event_name,
+        start_at: formatOrderDate(form.start_at),
+        end_at: formatOrderDate(form.end_at),
+        subtotal: totals.subtotal,
+        discount: form.discount,
+        service_fee: form.service_fee,
+        remarks: form.remarks,
+        grand_total: totals.grandTotal,
+        status: 1,
+        rental_transaction_items: form.rental_transaction_items.filter((item) => item.item_id),
+      };
+
+      if (form.service_type_name.trim().toUpperCase() === "PROJECT") {
+        const projectItems = payload.rental_transaction_items.map((item) => ({
+          project_id: item.project_id ?? "",
+          qty: item.qty,
+          price: item.price,
+          subtotal: item.subtotal,
+          remark: item.remark,
+        }));
+
+        await createProjectOrder({ ...payload, rental_transaction_items: projectItems }).unwrap();
+      } else {
+        await createOrder(payload).unwrap();
+      }
+
+      navigate("/order");
+    } catch {
+      setErrorMessage("Unable to save order. Please review the form and try again.");
+    }
+  };
+
+  return { form, customers: customerQuery.data?.data ?? [], pics: picQuery.data?.data ?? [], serviceTypes: serviceTypeQuery.data?.data ?? [], vouchers: voucherQuery.data?.data ?? [], projects: (projectQuery.data?.data ?? []).map((project) => ({ id: project.id, name: project.name, items: project.items ?? [] })), items: itemQuery.data?.data ?? [], onToggleItem, onToggleProject, isCustomersLoading: customerQuery.isLoading, isPicsLoading: picQuery.isLoading, isServiceTypesLoading: serviceTypeQuery.isLoading, isVouchersLoading: voucherQuery.isLoading, isProjectsLoading: projectQuery.isLoading, isItemsLoading: itemQuery.isLoading, isEdit: Boolean(id), isSubmitting: mutation.isLoading, errorMessage, step, onBack, onNextStep, onPreviousStep, onCustomerChange, onPicChange, onVoucherChange, onServiceTypeChange, onProjectSelect, onItemSelect, onChange, onItemChange, onAddItem, onRemoveItem, onSubmit, onPreventSubmit };
 };

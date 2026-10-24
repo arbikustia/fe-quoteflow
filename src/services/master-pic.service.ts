@@ -3,6 +3,7 @@ import { apiRtkClient } from "@/libs/ApiRtkServices/apiRtkClient";
 import ENDPOINT from "@/constant/endpoint.const";
 import type {
   ApiPic,
+  PicAllResponse,
   PicCreatePayload,
   PicCreateResponse,
   PicData,
@@ -32,6 +33,7 @@ export const masterPicService = apiRtkClient.injectEndpoints({
    * @param builder
    */
   endpoints: (builder) => ({
+    getAllPics: builder.query<PicAllResponse, void>({ query: () => ({ url: ENDPOINT.MASTER_PIC.ALL, method: "GET" }), providesTags: ["Pic"] }),
     getPics: builder.query<PicListResponse, PicListParams>({ /**
      *
      * @param params
@@ -59,4 +61,4 @@ export const masterPicService = apiRtkClient.injectEndpoints({
   overrideExisting: false,
 });
 
-export const { useGetPicsQuery, useCreatePicMutation, useGetPicByIdQuery, useUpdatePicMutation } = masterPicService;
+export const { useGetAllPicsQuery, useGetPicsQuery, useCreatePicMutation, useGetPicByIdQuery, useUpdatePicMutation } = masterPicService;

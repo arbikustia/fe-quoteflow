@@ -1,157 +1,34 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-import type { BaseOrderState, QuoteData } from "./Order.type";
+import { mapOrder, useGetOrdersQuery } from "@/services/order.service";
 
-/**
- * Hook for managing view modals state
- * @returns {object} view modals state
- */
-const useViewModalState = (): Pick<
-  BaseOrderState,
-  | "viewingItemsQuote"
-  | "viewingCategoriesQuote"
-  | "openViewItemsModal"
-  | "closeViewItemsModal"
-  | "openViewCategoriesModal"
-  | "closeViewCategoriesModal"
-> => {
-  const [viewingItemsQuote, setViewingItemsQuote] = useState<QuoteData | null>(
-    null,
-  );
-  const [viewingCategoriesQuote, setViewingCategoriesQuote] =
-    useState<QuoteData | null>(null);
+import type { BaseOrderState, OrderProps, OrderListResponse, QuoteData } from "./Order.type";
 
-  /**
-   * Handle open view items modal
-   * @param {QuoteData} quote - current quote
-   * @returns {void} void
-   */
-  const openViewItemsModal = (quote: QuoteData): void => {
-    setViewingItemsQuote(quote);
-  };
+const EMPTY_FILTER = "";
 
-  /**
-   * Handle close view items modal
-   * @returns {void} void
-   */
-  const closeViewItemsModal = (): void => {
-    setViewingItemsQuote(null);
-  };
+export const useOrderPagination = (): Pick<OrderProps, "currentPage" | "totalPages" | "pageSize" | "paginatedData" | "totalCount" | "isLoading" | "errorMessage" | "isEmpty" | "goToPage" | "changePageSize" | "setSearchTerm"> => {
+  const [currentPage, setCurrentPage] = useState(1);
+  const [pageSize, setPageSize] = useState(10);
+  const [filters, setFilters] = useState({ type: EMPTY_FILTER, status: EMPTY_FILTER, startDate: EMPTY_FILTER, endDate: EMPTY_FILTER, searchTerm: EMPTY_FILTER });
+  const query = useGetOrdersQuery({ pageNumber: currentPage, pageSize, ...filters });
+  const response: OrderListResponse | undefined = query.data;
+  const paginatedData: QuoteData[] = response?.data.map(mapOrder) ?? [];
+  const errorMessage = query.error ? "Unable to load orders." : null;
 
-  /**
-   * Handle open view categories modal
-   * @param {QuoteData} quote - current quote
-   * @returns {void} void
-   */
-  const openViewCategoriesModal = (quote: QuoteData): void => {
-    setViewingCategoriesQuote(quote);
-  };
+  const goToPage = (page: number): void => setCurrentPage(Math.max(1, page));
+  const changePageSize = (size: number): void => { setPageSize(size); setCurrentPage(1); };
+  const setSearchTerm = (searchTerm: string): void => { setFilters((previous) => ({ ...previous, searchTerm })); setCurrentPage(1); };
 
-  /**
-   * Handle close view categories modal
-   * @returns {void} void
-   */
-  const closeViewCategoriesModal = (): void => {
-    setViewingCategoriesQuote(null);
-  };
-
-  return {
-    viewingItemsQuote,
-    viewingCategoriesQuote,
-    openViewItemsModal,
-    closeViewItemsModal,
-    openViewCategoriesModal,
-    closeViewCategoriesModal,
-  };
+  return { currentPage, totalPages: response?.total_pages ?? 0, pageSize, paginatedData, totalCount: response?.total_count ?? 0, isLoading: query.isLoading, errorMessage, isEmpty: !query.isLoading && !errorMessage && paginatedData.length === 0, goToPage, changePageSize, setSearchTerm };
 };
 
-/**
- * Hook for managing confirm modal state
- * @returns {object} confirm modal state
- */
-const useConfirmModalState = (): Pick<
-  BaseOrderState,
-  | "isConfirmModalOpen"
-  | "deletingQuote"
-  | "openConfirmModal"
-  | "closeConfirmModal"
-  | "onConfirmDelete"
-> => {
-  const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false);
-  const [deletingQuote, setDeletingQuote] = useState<QuoteData | null>(null);
-
-  /**
-   * Handle open confirm modal
-   * @param {QuoteData} quote - current quote
-   * @returns {void} void
-   */
-  const openConfirmModal = (quote: QuoteData): void => {
-    setDeletingQuote(quote);
-    setIsConfirmModalOpen(true);
-  };
-
-  /**
-   * Handle close confirm modal
-   * @returns {void} void
-   */
-  const closeConfirmModal = (): void => {
-    setIsConfirmModalOpen(false);
-    setTimeout(() => setDeletingQuote(null), 200);
-  };
-
-  /**
-   * Handle confirm delete
-   * @returns {void} void
-   */
-  const onConfirmDelete = (): void => {
-    // API logic to delete will go here
-  };
-
-  return {
-    isConfirmModalOpen,
-    deletingQuote,
-    openConfirmModal,
-    closeConfirmModal,
-    onConfirmDelete,
-  };
-};
-
-/**
- * Order Page State Hook
- * @returns {BaseOrderState} - Order page state and handlers
- */
 export const useOrderState = (): BaseOrderState => {
   const navigate = useNavigate();
-  const viewState = useViewModalState();
-  const confirmState = useConfirmModalState();
+  const openCreateModal = (): void => { navigate("/order/create"); };
+  const openEditModal = (quote: QuoteData): void => { navigate(`/order/edit/${quote.id}`); };
+  const onRowClick = (quote: QuoteData): void => { navigate(`/order/detail/${quote.id}`); };
+  const onBack = (): void => { void navigate(-1); };
 
-  /**
-   * Handle open create modal
-   * @returns {void} void
-   */
-  const openCreateModal = (): void => {
-    navigate("/order/create");
-  };
-
-  const onBack = (): void => {
-    void navigate(-1);
-  };
-
-  /**
-   * Handle open edit modal
-   * @param {QuoteData} quote - current quote
-   * @returns {void} void
-   */
-  const openEditModal = (quote: QuoteData): void => {
-    navigate(`/order/edit/${quote.id}`);
-  };
-
-  return {
-    ...viewState,
-    ...confirmState,
-    openCreateModal,
-    onBack,
-    openEditModal,
-  };
+  return { openCreateModal, openEditModal, onRowClick, onBack };
 };
