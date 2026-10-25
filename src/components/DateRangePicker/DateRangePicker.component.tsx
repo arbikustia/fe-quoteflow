@@ -21,7 +21,7 @@ const _renderDateField = (id: string, label: string, value: string | undefined, 
 
   const labelParts = label.split(" *");
 
-  return <div className="flex-1"><label htmlFor={id} className="mb-1.5 block text-xs font-bold uppercase tracking-wider text-text-secondary">{labelParts[0]}{label.includes(" *") && <span aria-hidden="true" className="ml-1 text-danger">*</span>}</label><DatePicker id={id} value={_toDayjs(value)} onChange={handleChange} disabled={props.disabled} minDate={_toDayjs(props.minDate) ?? undefined} maxDate={_toDayjs(props.maxDate) ?? undefined} showTime={props.showTime} format={format} inputReadOnly placeholder="Select date" status={error ? "error" : undefined} className="h-14 w-full" classNames={{ popup: { root: "origin-top-left scale-75 text-[11px]" } }} /></div>;
+  return <div className="flex-1"><label htmlFor={id} className="mb-1.5 block text-xs font-bold uppercase tracking-wider text-text-secondary">{labelParts[0]}{label.includes(" *") && <span aria-hidden="true" className="ml-1 text-danger">*</span>}</label><DatePicker id={id} value={_toDayjs(value)} onChange={handleChange} disabled={props.disabled} minDate={_toDayjs(props.minDate) ?? undefined} maxDate={_toDayjs(props.maxDate) ?? undefined} showTime={props.showTime} format={format} inputReadOnly placeholder="Select date" status={error ? "error" : undefined} placement={id === "date-range-start" ? "topLeft" : "bottomLeft"} className="h-14 w-full" classNames={{ popup: { root: "origin-top-left scale-75 text-[11px]" } }} /></div>;
 };
 
 export const DateRangePicker = (props: DateRangePickerProps): ReactElement => {
