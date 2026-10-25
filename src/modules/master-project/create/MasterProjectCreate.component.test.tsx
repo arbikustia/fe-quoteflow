@@ -43,7 +43,7 @@ const createProps = (
 });
 
 describe("MasterProjectCreateForm", () => {
-  it("should render item step and handle item selection", () => {
+  it("should render item selection and handle item toggle", () => {
     const props = createProps();
     render(<MasterProjectCreateForm {...props} />);
 

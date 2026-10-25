@@ -82,7 +82,7 @@ const _renderCurrentStep = (
           placeholder="e.g. Stage Sound Package"
           required
           value={props.name}
-          errorMessage={props.isSubmitted && !props.name ? "Project name is required." : _getFieldError(props.errors.name)}
+          errorMessage={props.isSubmitted && !props.name ? "Project name is required." : _getFieldError(props.errors?.name)}
           onChange={props.handleNameChange}
         />
         <InputComponent
