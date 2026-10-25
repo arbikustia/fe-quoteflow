@@ -4,6 +4,8 @@ import { useLocation } from "react-router-dom";
 import SidebarContainer from "../components/Sidebar/index";
 import { useSidebarCollapse } from "../hooks/useSidebarCollapse";
 import NavbarContainer from "../components/Navbar/index";
+import GlobalHeader from "./shared/GlobalHeader";
+import MobileNavigate from "../components/MobileNavigate";
 
 export type LayoutProps = {
   children: React.ReactNode;
@@ -19,7 +21,7 @@ export type LayoutProps = {
 export default function Layout({ children, mobileWhiteBackground = false }: LayoutProps): React.ReactElement {
   const { pathname } = useLocation();
   const { isSidebarCollapsed, onToggleSidebarCollapsed } = useSidebarCollapse();
-  const isMasterRoute = pathname.startsWith("/master");
+  const isOrderRoute = pathname.startsWith("/order");
 
   return (
     <div className="flex h-full min-h-0 w-full bg-background-page overflow-hidden font-sans text-text-primary relative items-stretch transition-colors duration-200">
@@ -28,7 +30,7 @@ export default function Layout({ children, mobileWhiteBackground = false }: Layo
       </div>
 
       <div className={`flex-1 flex flex-col min-w-0 min-h-0 overflow-hidden relative bg-background-page transition-colors duration-200${mobileWhiteBackground ? " bg-background-surface lg:bg-background-page" : ""}`}>
-        {!isMasterRoute && (
+        {isOrderRoute ? <div className="lg:hidden shrink-0"><GlobalHeader /></div> : (
           <div className="lg:hidden flex items-center gap-3 p-4 border-b border-border-default bg-background-surface shrink-0">
             <div className="w-8 h-8 rounded-full bg-action-primary flex items-center justify-center">
               <span className="text-text-inverse font-bold">Q</span>
@@ -44,6 +46,7 @@ export default function Layout({ children, mobileWhiteBackground = false }: Layo
         <main className="flex-1 overflow-y-auto p-4 lg:p-8 pb-20 lg:pb-8 relative z-0">
           {children}
         </main>
+        {isOrderRoute && <div className="lg:hidden"><MobileNavigate /></div>}
       </div>
     </div>
   );
