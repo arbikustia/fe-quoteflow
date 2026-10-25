@@ -27,16 +27,20 @@ const _renderOrderCard = (order: QuoteData, onRowClick: OrderProps["onRowClick"]
    */
   const handleClick = (): void => onRowClick(order);
 
+  const status = order.status === 1 ? "active" : "inactive";
+  const statusClass = status === "active" ? "bg-success-subtle text-success-strong" : "bg-danger-subtle text-danger-strong";
+
   return (
-    <button type="button" onClick={handleClick} className="group flex w-full min-w-0 flex-col overflow-hidden rounded-2xl border border-border-default bg-background-surface p-4 text-left transition-colors hover:border-border-strong hover:bg-background-subtle/40 focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring/30 sm:p-5">
-      <span className="block text-xs font-medium uppercase tracking-wider text-text-tertiary">Order</span>
-      <span className="mt-1 block min-w-0 break-words text-base font-semibold leading-6 text-text-primary">{order.name || "-"}</span>
-      <span className="mt-4 grid min-w-0 gap-3 text-sm">
-        <span className="grid min-w-0 grid-cols-[5rem_minmax(0,1fr)] items-start gap-3"><span className="text-text-secondary">Period</span><span className="min-w-0 break-words text-right text-text-primary">{order.startDate || "-"} — {order.endDate || "-"}</span></span>
-        <span className="grid min-w-0 grid-cols-[5rem_minmax(0,1fr)] items-start gap-3"><span className="text-text-secondary">Location</span><span className="min-w-0 break-words text-right text-text-primary">{order.location || "-"}</span></span>
-        <span className="grid min-w-0 grid-cols-[5rem_minmax(0,1fr)] items-start gap-3"><span className="text-text-secondary">Total</span><span className="min-w-0 break-words text-right font-semibold text-text-primary">{_formatCurrency(order.grandTotal)}</span></span>
+    <button type="button" onClick={handleClick} className="group flex w-full items-start gap-4 rounded-2xl border border-border-default bg-background-surface p-5 text-left transition-colors hover:border-border-strong hover:bg-background-subtle/40 focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring/30">
+      <span className="min-w-0 flex-1">
+        <span className="mb-1 block text-xs font-medium uppercase tracking-wider text-text-tertiary">Order</span>
+        <span className="block truncate text-base font-semibold text-text-primary">{order.name || "-"}</span>
+        <span className="mt-3 block"><span className="grid gap-1 text-sm text-text-secondary"><span className="truncate">{order.startDate || "-"} — {order.endDate || "-"}</span><span className="truncate">{order.location || "-"}</span><span className="truncate">{_formatCurrency(order.grandTotal)}</span></span></span>
       </span>
-      <span className="mt-4 inline-flex max-w-full self-start rounded-full bg-background-subtle px-3 py-1 text-xs font-semibold text-text-secondary">Status: {order.status}</span>
+      <span className="flex shrink-0 items-center gap-3">
+        <span className={`rounded-full px-3 py-1 text-xs font-bold uppercase tracking-wider ${statusClass}`}>{status}</span>
+        <span aria-hidden="true" className="text-xl text-text-tertiary transition-transform group-hover:translate-x-1">→</span>
+      </span>
     </button>
   );
 };

@@ -5,4 +5,5 @@ export type OrderDetailProps = {
   isLoading: boolean;
   errorMessage: string | null;
   onNavigateBack: () => void;
+  onEdit: () => void;
 };

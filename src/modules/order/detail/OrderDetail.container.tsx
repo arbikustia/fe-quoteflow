@@ -16,6 +16,7 @@ const OrderDetailContainer = (): React.ReactElement => {
       isLoading={query.isLoading}
       errorMessage={query.error ? "Unable to load order detail." : query.data?.status === false ? "Order detail is unavailable." : null}
       onNavigateBack={(): void => { void navigate(-1); }}
+      onEdit={(): void => { void navigate(`/order/edit/${id}`); }}
     />
   );
 };
