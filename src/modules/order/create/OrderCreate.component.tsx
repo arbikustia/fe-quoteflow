@@ -19,6 +19,7 @@ const _renderSelect = (props: OrderCreateProps): React.ReactElement => (
   <Select
     id="order-customer"
     label="Customer"
+    className="mb-4"
     required
     errorMessage={
       props.showInformationErrors && !props.form.customer_id.trim()
@@ -42,6 +43,7 @@ const _renderPicSelect = (props: OrderCreateProps): React.ReactElement => (
   <Select
     id="order-pic"
     label="PIC"
+    className="mb-4"
     required
     errorMessage={
       props.showInformationErrors && !props.form.pic_id.trim()
@@ -62,6 +64,7 @@ const _renderServiceTypeSelect = (
   <Select
     id="order-service-type"
     label="Service Type"
+    className="mb-4"
     required
     errorMessage={
       props.showInformationErrors && !props.form.service_type_id.trim()
@@ -87,6 +90,7 @@ const _renderVoucherSelect = (props: OrderCreateProps): React.ReactElement => (
   <Select
     id="order-voucher"
     label="Voucher"
+    className="mb-4"
     value={props.form.voucher_id}
     onChange={props.onVoucherChange}
     disabled={props.isVouchersLoading}
@@ -108,7 +112,7 @@ const _renderDateRange = (props: OrderCreateProps): React.ReactElement => {
 
   return (
     <DateRangePicker
-      className="md:col-span-2"
+      className="mb-4 md:col-span-2"
       startLabel="Start Date *"
       endLabel="End Date *"
       startDate={props.form.start_at}
