@@ -5,16 +5,16 @@ import { Select } from "../Select";
 
 import type { PaginationNavigationProps, PaginationProps } from "./Pagination.type";
 
-const DEFAULT_PAGE_SIZES: readonly number[] = [5, 10, 20, 50, 100];
+const DEFAULT_PAGE_SIZES: number[] = [5, 10, 20, 50, 100];
 
 /**
  * Render page number buttons.
- * @param {readonly number[]} pages - Page numbers
+ * @param {number[]} pages - Page numbers
  * @param {number} currentPage - Active page
  * @param {(page: number) => void} onPageChange - Page change handler
  * @returns {React.ReactElement} Page buttons
  */
-const _renderPageButtons = (pages: readonly number[], currentPage: number, onPageChange: (page: number) => void): React.ReactElement => (
+const _renderPageButtons = (pages: number[], currentPage: number, onPageChange: (page: number) => void): React.ReactElement => (
   <div className="flex min-w-0 items-center justify-center gap-1">
     {pages.map((page, index) => (
       page === 0 ? (
@@ -33,9 +33,9 @@ const _renderPageButtons = (pages: readonly number[], currentPage: number, onPag
  * @param {number} currentPage - Active page
  * @param {number} totalPages - Total page count
  * @param {boolean} isCompact - Compact layout flag
- * @returns {readonly number[]} Visible pages; zero represents an ellipsis
+ * @returns {number[]} Visible pages; zero represents an ellipsis
  */
-const _getVisiblePages = (currentPage: number, totalPages: number, isCompact: boolean): readonly number[] => {
+const _getVisiblePages = (currentPage: number, totalPages: number, isCompact: boolean): number[] => {
   if (isCompact) {
     return [currentPage];
   }

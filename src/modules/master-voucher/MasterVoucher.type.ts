@@ -1,6 +1,5 @@
 import type * as React from "react";
 
-import type { TableColumn } from "../../components/Table";
 import type { ApiEnvelope } from "../../types/api.type";
 
 export type ApiVoucher = {
@@ -28,14 +27,30 @@ export type VoucherAllResponse = ApiEnvelope<ApiVoucher[]>;
 export type VoucherCreateResponse = ApiEnvelope<ApiVoucher | null>;
 export type VoucherDetailResponse = ApiEnvelope<ApiVoucher | ApiVoucher[] | null>;
 
-export type VoucherSubmissionParams = {
-  id: string | undefined;
-  isEditMode: boolean;
+export type VoucherFormValues = {
   name: string;
   code: string;
   codeMode: "generate" | "type";
   discountPercent: string;
   isActive: boolean;
+};
+
+export type VoucherRouteState = {
+  voucher?: VoucherData;
+  successMessage?: string;
+};
+
+export type VoucherSubmissionParams = {
+  id: string | undefined;
+  isEditMode: boolean;
+  isActive: boolean;
+  getValues: () => VoucherFormValues;
+  validateForm: () => Promise<boolean>;
+};
+
+export type VoucherFormValidation = {
+  errors: import("react-hook-form").FieldErrors<VoucherFormValues>;
+  isSubmitted: boolean;
 };
 
 export type VoucherSubmissionState = {
@@ -44,16 +59,13 @@ export type VoucherSubmissionState = {
   handleSubmit: (event: React.SyntheticEvent) => Promise<void>;
 };
 
-export type VoucherFormFieldsState = {
-  name: string;
-  code: string;
-  codeMode: "generate" | "type";
-  discountPercent: string;
-  isActive: boolean;
+export type VoucherFormFieldsState = VoucherFormValues & VoucherFormValidation & {
+  getValues: () => VoucherFormValues;
+  validateForm: () => Promise<boolean>;
   handleNameChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   handleCodeChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  handleCodeModeChange: (event: React.ChangeEvent<HTMLSelectElement>) => void;
-  handleDiscountChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  handleCodeModeChange: (value: string) => void;
+  handleDiscountChange: (value: number | null) => void;
   handleStatusChange: () => void;
 };
 
@@ -85,8 +97,8 @@ export type MasterVoucherCreateFormState = {
   errorMessage: string | null;
   handleNameChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   handleCodeChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  handleCodeModeChange: (event: React.ChangeEvent<HTMLSelectElement>) => void;
-  handleDiscountChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  handleCodeModeChange: (value: string) => void;
+  handleDiscountChange: (value: number | null) => void;
   handleStatusChange: () => void;
   handleSubmit: (event: React.SyntheticEvent) => Promise<void>;
   goBack: () => void;
@@ -117,7 +129,6 @@ export type MasterVoucherNavigation = {
   goBack: () => void;
   goCreate: () => void;
   goEdit: (voucher: VoucherData) => void;
-  goDetail: (voucher: VoucherData) => void;
 };
 
 export type MasterVoucherPagination = {
@@ -151,7 +162,6 @@ export type MasterVoucherProps = {
   pageSize: number;
   paginatedData: VoucherData[];
   totalCount: number;
-  columns: TableColumn<VoucherData>[];
   goToPage: (page: number) => void;
   nextPage: () => void;
   prevPage: () => void;
@@ -163,18 +173,10 @@ export type MasterVoucherProps = {
   isMissingData: boolean;
   onCreate: () => void;
   onEdit: (voucher: VoucherData) => void;
-  onRowClick: (voucher: VoucherData) => void;
   onBack: () => void;
   onDownload?: (voucher: VoucherData) => void;
   onMore?: () => void;
   isMoreOpen?: boolean;
   onCloseMore?: () => void;
   onDelete?: () => void;
-};
-
-export type GetColumnsParams = {
-  currentPage: number;
-  pageSize: number;
-  onEdit: (voucher: VoucherData) => void;
-  onDownload?: (voucher: VoucherData) => void;
 };

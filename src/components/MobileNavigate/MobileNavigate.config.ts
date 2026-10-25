@@ -5,7 +5,7 @@ import type { MobileNavigateItem } from "./MobileNavigate.type";
 /**
  * Static mobile navigation items.
  */
-export const MOBILE_NAVIGATE_ITEMS: readonly MobileNavigateItem[] = [
+export const MOBILE_NAVIGATE_ITEMS: MobileNavigateItem[] = [
   {
     id: "/home",
     label: "Home",

@@ -37,14 +37,8 @@ export const useMasterVoucherNavigation = (): MasterVoucherNavigation => {
   const goEdit = (voucher: VoucherData): void => {
     navigate(`/master-voucher/edit/${voucher.id}`, { state: { voucher } });
   };
-  /**
-   * Navigate to detail voucher page.
-   * @param {VoucherData} voucher - Voucher data
-   * @returns {void} No return value
-   */
-  const goDetail = (voucher: VoucherData): void => { navigate(`/master-voucher/detail/${voucher.id}`); };
 
-  return { goBack, goCreate, goEdit, goDetail };
+  return { goBack, goCreate, goEdit };
 };
 
 /**

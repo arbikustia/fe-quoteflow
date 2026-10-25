@@ -12,23 +12,23 @@ export const getUsername = (): string => {
 
 /**
  * Check whether navigation contains sections.
- * @param {readonly NavigationItem[] | readonly NavigationSection[]} navigation - Navigation data
+ * @param {NavigationItem[] | NavigationSection[]} navigation - Navigation data
  * @returns {boolean} Whether navigation contains sections
  */
 export const isNavigationSectionArray = (
-  navigation: readonly NavigationItem[] | readonly NavigationSection[],
-): navigation is readonly NavigationSection[] => navigation.length > 0 && "title" in navigation[0];
+  navigation: NavigationItem[] | NavigationSection[],
+): navigation is NavigationSection[] => navigation.length > 0 && "title" in navigation[0];
 
 /**
  * Find menu name containing current path.
- * @param {readonly NavigationItem[]} navigation - Navigation items
+ * @param {NavigationItem[]} navigation - Navigation items
  * @param {string} currentPath - Current browser path
- * @returns {readonly string[]} Initially open menu names
+ * @returns {string[]} Initially open menu names
  */
 export const getInitialOpenMenus = (
-  navigation: readonly NavigationItem[],
+  navigation: NavigationItem[],
   currentPath: string,
-): readonly string[] => {
+): string[] => {
   const activeItem = navigation.find((item) => item.children?.some((child) => currentPath.startsWith(child.path)));
 
   return activeItem ? [activeItem.name] : [];
@@ -38,13 +38,13 @@ export const getInitialOpenMenus = (
  * Check whether navigation item is active.
  * @param {NavigationItem} item - Navigation item
  * @param {string} currentPath - Current browser path
- * @param {readonly string[]} openMenus - Open menu names
+ * @param {string[]} openMenus - Open menu names
  * @returns {boolean} Whether item is active
  */
 export const isMenuItemActive = (
   item: NavigationItem,
   currentPath: string,
-  openMenus: readonly string[],
+  openMenus: string[],
 ): boolean => {
   if (!item.children?.length) {
     return Boolean(item.path && (currentPath === item.path || currentPath.startsWith(`${item.path}/`)));

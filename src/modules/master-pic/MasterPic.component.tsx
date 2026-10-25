@@ -1,13 +1,64 @@
 import * as React from "react";
+import { FiEdit2 } from "react-icons/fi";
 
 import Layout from "../../app/layout";
 import { PageLayout } from "../../app/shared/PageLayout";
 import { MasterDataCard } from "../../components/MasterDataCard";
 import { Pagination } from "../../components/Pagination";
 import { SearchFilter } from "../../components/SearchFilter";
+import type { TableColumn } from "../../components/Table";
 import Table from "../../components/Table";
 
 import type { MasterPicProps, PicData } from "./MasterPic.type";
+
+/**
+ * Build PIC table columns.
+ * @param {number} currentPage - Active page
+ * @param {number} pageSize - Active page size
+ * @param {(pic: PicData) => void} onEdit - Edit action
+ * @returns {TableColumn<PicData>[]} PIC columns
+ */
+const _getColumns = (currentPage: number, pageSize: number, onEdit: (pic: PicData) => void): TableColumn<PicData>[] => {
+  /**
+   * Render row number.
+   * @param {PicData} _row - PIC row
+   * @param {number} index - Row index
+   * @returns {React.ReactElement} Number cell
+   */
+  const renderNo = (_row: PicData, index: number): React.ReactElement => <span className="text-sm">{(currentPage - 1) * pageSize + index + 1}</span>;
+  /**
+   * Render status.
+   * @param {PicData} row - PIC row
+   * @returns {React.ReactElement} Status cell
+   */
+  const renderStatus = (row: PicData): React.ReactElement => <span className={`rounded-full px-3 py-1 text-xs font-bold uppercase ${row.status === "active" ? "bg-green-100 text-green-600" : "bg-red-100 text-red-600"}`}>{row.status}</span>;
+  /**
+   * Render edit action.
+   * @param {PicData} row - PIC row
+   * @returns {React.ReactElement} Action cell
+   */
+  const renderActions = (row: PicData): React.ReactElement => {
+    /**
+     * Handle edit click.
+     * @param {React.MouseEvent} event - Mouse event
+     * @returns {void} No return value
+     */
+    const handleEdit = (event: React.MouseEvent): void => {
+      event.stopPropagation();
+      onEdit(row);
+    };
+
+    return <button type="button" onClick={handleEdit} className="cursor-pointer rounded-lg p-1.5 text-brand-text-medium transition-colors hover:bg-brand-blue-light hover:text-brand-blue" title="Edit"><FiEdit2 className="h-4 w-4" /></button>;
+  };
+
+  return [
+    { key: "no", header: "No", align: "center", render: renderNo },
+    { key: "name", header: "PIC Name", mobile: { primary: true } },
+    { key: "status", header: "Status", align: "center", render: renderStatus },
+    { key: "createAt", header: "Created At" },
+    { key: "actions", header: "Action", align: "center", render: renderActions },
+  ];
+};
 
 /**
  * Render list state.
@@ -86,7 +137,8 @@ const _renderMobile = (props: MasterPicProps): React.ReactElement => {
  * @returns {React.ReactElement} Desktop table
  */
 const _renderDesktop = (props: MasterPicProps): React.ReactElement => {
-  const { paginatedData, columns, currentPage, totalPages, pageSize, totalCount, goToPage, changePageSize, setSearchTerm, onCreate, onRowClick } = props;
+  const { paginatedData, currentPage, totalPages, pageSize, totalCount, goToPage, changePageSize, setSearchTerm, onCreate, onRowClick, onEdit } = props;
+  const columns = _getColumns(currentPage, pageSize, onEdit);
   /**
    * Handle search input.
    * @param {React.ChangeEvent<HTMLInputElement>} event - Search event

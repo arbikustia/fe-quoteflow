@@ -1,4 +1,4 @@
-import { act, renderHook } from "@testing-library/react";
+import { act, renderHook } from "@/libs/unit-test";
 import * as ReactRouterDom from "react-router-dom";
 
 import { useMasterUserCreateForm } from "./MasterUserCreate.hook";
@@ -161,7 +161,9 @@ describe("MasterUserCreate.hook", () => {
       role: ["User"],
       status: 1,
     });
-    expect(mockNavigate).toHaveBeenCalledWith("/master-user");
+    expect(mockNavigate).toHaveBeenCalledWith("/master-user", {
+      state: { successMessage: "User created successfully." },
+    });
   });
 
   it("should handle error response and rejection on submit", async () => {
@@ -170,6 +172,12 @@ describe("MasterUserCreate.hook", () => {
     });
 
     const { result } = renderHook(() => useMasterUserCreateForm());
+
+    act(() => {
+      result.current.handleUsernameChange({ target: { value: "charlie" } } as React.ChangeEvent<HTMLInputElement>);
+      result.current.handleEmailChange({ target: { value: "charlie@test.com" } } as React.ChangeEvent<HTMLInputElement>);
+      result.current.handlePasswordChange({ target: { value: "mypassword" } } as React.ChangeEvent<HTMLInputElement>);
+    });
 
     await act(async () => {
       await result.current.handleSubmit({ preventDefault: jest.fn() } as unknown as React.SyntheticEvent);

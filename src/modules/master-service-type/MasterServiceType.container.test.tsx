@@ -2,6 +2,10 @@ import { render } from "@testing-library/react";
 import MasterServiceTypeContainer from "./MasterServiceType.container";
 import * as Hook from "./MasterServiceType.hook";
 
+jest.useFakeTimers();
+jest.setSystemTime(new Date("2026-10-25T08:41:24+07:00"));
+afterAll(() => jest.useRealTimers());
+
 jest.mock("react-router-dom", () => ({
   useNavigate: jest.fn(),
   useLocation: jest.fn().mockReturnValue({ pathname: "/master-service-type" }),

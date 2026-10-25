@@ -8,8 +8,8 @@ import { MASTER_MAIN_CONFIG } from "./MasterMain.config";
  * @returns {object} state and handlers
  */
 export const useMasterMainState = (): {
-  readonly cards: typeof MASTER_MAIN_CONFIG;
-  readonly onCardClick: (path: string) => void;
+  cards: typeof MASTER_MAIN_CONFIG;
+  onCardClick: (path: string) => void;
 } => {
   const navigate = useNavigate();
 

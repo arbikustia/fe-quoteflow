@@ -1,4 +1,4 @@
-import { act, renderHook } from "@testing-library/react";
+import { act, renderHook } from "@/libs/unit-test";
 import { MemoryRouter } from "react-router-dom";
 
 import type { ProjectData } from "./MasterProject.type";

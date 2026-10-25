@@ -1,10 +1,10 @@
 export type SwitchProps = {
-  readonly id?: string;
-  readonly label?: string;
-  readonly checked: boolean;
-  readonly onChange: (checked: boolean) => void;
-  readonly disabled?: boolean;
-  readonly loading?: boolean;
-  readonly size?: "small" | "default";
-  readonly className?: string;
+  id?: string;
+  label?: string;
+  checked: boolean;
+  onChange: (checked: boolean) => void;
+  disabled?: boolean;
+  loading?: boolean;
+  size?: "small" | "default";
+  className?: string;
 };

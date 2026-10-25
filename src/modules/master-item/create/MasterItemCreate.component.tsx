@@ -1,9 +1,20 @@
 import type { ReactElement } from "react";
+import type { FieldError } from "react-hook-form";
 
+import { AlertComponent } from "@/components/Alert";
+import { InputComponent } from "@/components/Input";
 import { Select } from "@/components/Select";
+import { SwitchComponent } from "@/components/Switch";
 
 import { formatRupiahInput } from "./MasterItemCreate.helpers";
 import type { ItemFormContentProps, MasterItemCreateFormState } from "./MasterItemCreate.type";
+
+/**
+ * Extract error message from field error.
+ * @param {FieldError | undefined} error - Field error object
+ * @returns {string | null} Error message or null
+ */
+const _getFieldError = (error: FieldError | undefined): string | null => error?.message?.toString() ?? null;
 
 /**
  * Render status switch field (edit mode only).
@@ -15,25 +26,8 @@ const _renderStatusField = (props: MasterItemCreateFormState): ReactElement | nu
 
   return (
     <div className="mb-4 flex items-center justify-between rounded-xl border border-border-default bg-background-surface px-4 py-3.5">
-      <div className="flex flex-col">
-        <span className="text-sm font-semibold text-text-primary">Status</span>
-        <span className="text-xs text-text-secondary">Toggle active or inactive status</span>
-      </div>
-      <button
-        type="button"
-        role="switch"
-        aria-checked={props.isActive}
-        onClick={props.handleStatusChange}
-        className={`relative inline-flex h-6 w-11 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors focus:outline-none focus:ring-2 focus:ring-brand-blue/30 ${
-          props.isActive ? "bg-brand-blue" : "bg-brand-gray-light"
-        }`}
-      >
-        <span
-          className={`pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow-lg transition ${
-            props.isActive ? "translate-x-5" : "translate-x-0"
-          }`}
-        />
-      </button>
+      <div className="flex flex-col"><span className="text-sm font-semibold text-text-primary">Status</span><span className="text-xs text-text-secondary">Toggle active or inactive status</span></div>
+      <SwitchComponent label="Item status" checked={props.isActive} onChange={props.handleStatusChange} />
     </div>
   );
 };
@@ -93,12 +87,7 @@ const FIELD_CLASS = "w-full rounded-xl border border-border-default bg-backgroun
  */
 const _renderBasicInputs = (props: ItemFormContentProps): ReactElement => (
   <>
-    <div>
-      <label className="mb-1.5 block text-xs font-bold uppercase tracking-wider text-text-secondary">
-        Item Name <span aria-hidden="true" className="text-red-600">*</span>
-      </label>
-      <input type="text" aria-label="Item name" placeholder="e.g. Wireless Microphone" required value={props.name} onChange={props.handleNameChange} className={FIELD_CLASS} />
-    </div>
+    <InputComponent id="item-name" type="text" label="Item Name" placeholder="e.g. Wireless Microphone" required value={props.name} errorMessage={_getFieldError(props.errors?.name)} onChange={props.handleNameChange} />
     <div>
       <Select
         id="item-category"
@@ -109,7 +98,7 @@ const _renderBasicInputs = (props: ItemFormContentProps): ReactElement => (
         placeholder={props.isCategoryLoading ? "Loading categories..." : "Select category"}
         options={props.categories.map((cat) => ({ value: cat.id, label: cat.category_name }))}
         onChange={props.handleCategoryChange}
-        errorMessage={props.categoryError}
+        errorMessage={props.categoryError ?? _getFieldError(props.errors?.categoryId)}
       />
     </div>
   </>
@@ -123,25 +112,10 @@ const _renderBasicInputs = (props: ItemFormContentProps): ReactElement => (
 const _renderNumericalInputs = (props: ItemFormContentProps): ReactElement => (
   <>
     <div className="grid gap-4 sm:grid-cols-2">
-      <div>
-        <label className="mb-1.5 block text-xs font-bold uppercase tracking-wider text-text-secondary">
-          Price <span aria-hidden="true" className="text-red-600">*</span>
-        </label>
-        <input type="text" inputMode="numeric" aria-label="Price" placeholder="Rp 0" required value={formatRupiahInput(props.price)} onChange={props.handlePriceChange} className={FIELD_CLASS} />
-      </div>
-      <div>
-        <label className="mb-1.5 block text-xs font-bold uppercase tracking-wider text-text-secondary">
-          Stock <span aria-hidden="true" className="text-red-600">*</span>
-        </label>
-        <input type="number" aria-label="Stock" placeholder="0" min="0" required value={props.stock} onChange={props.handleStockChange} className={FIELD_CLASS} />
-      </div>
+      <InputComponent id="item-price" type="text" label="Price" placeholder="Rp 0" required inputMode="numeric" value={formatRupiahInput(props.price)} errorMessage={_getFieldError(props.errors?.price)} onChange={props.handlePriceChange} />
+      <InputComponent id="item-stock" type="text" label="Stock" placeholder="0" required inputMode="numeric" value={props.stock} errorMessage={_getFieldError(props.errors?.stock)} onChange={props.handleStockChange} />
     </div>
-    <div>
-      <label className="mb-1.5 block text-xs font-bold uppercase tracking-wider text-text-secondary">
-        Duration (Days) <span aria-hidden="true" className="text-red-600">*</span>
-      </label>
-      <input type="number" aria-label="Duration" placeholder="1" min="0" required value={props.duration} onChange={props.handleDurationChange} className={FIELD_CLASS} />
-    </div>
+    <InputComponent id="item-duration" type="text" label="Duration (Days)" placeholder="1" required inputMode="numeric" value={props.duration} errorMessage={_getFieldError(props.errors?.duration)} onChange={props.handleDurationChange} />
   </>
 );
 
@@ -205,16 +179,17 @@ const _renderFormActions = (isEditMode: boolean, isSubmitting: boolean): ReactEl
  */
 export const MasterItemCreateForm = (props: MasterItemCreateFormState): ReactElement => (
   <div className="flex h-full w-full flex-col bg-background-surface pb-6 font-sans lg:bg-background-page">
+    {props.errorMessage && <AlertComponent type="error" message={props.errorMessage} toast closable />}
+    {props.successMessage && <AlertComponent type="success" message={props.successMessage} toast closable />}
     {_renderMobileBack(props.goBack)}
     <div className="mt-2 flex min-h-0 w-full flex-1 flex-col px-0 lg:mt-0 lg:px-0">
       {_renderHeaderSection(props.isEditMode, props.goBack)}
-      <form onSubmit={props.handleSubmit} className="flex min-h-0 flex-1 flex-col justify-between border-0 bg-transparent p-0 shadow-none lg:rounded-4xl lg:border lg:border-border-default lg:bg-background-surface lg:p-8 lg:shadow-xs">
+      <form noValidate onSubmit={props.handleSubmit} className="flex min-h-0 flex-1 flex-col justify-between border-0 bg-transparent p-0 shadow-none lg:rounded-4xl lg:border lg:border-border-default lg:bg-background-surface lg:p-8 lg:shadow-xs">
         <div className="space-y-4">
           {_renderBasicInputs(props)}
           {_renderNumericalInputs(props)}
           {_renderExtraInputs(props)}
           {_renderStatusField(props)}
-          {props.errorMessage && <p role="alert" className="rounded-lg border border-red-200 bg-red-50 px-3 py-2 text-[13px] font-medium text-red-700">{props.errorMessage}</p>}
         </div>
         {_renderFormActions(props.isEditMode, props.isSubmitting)}
       </form>

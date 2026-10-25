@@ -1,4 +1,4 @@
-import { act, renderHook } from "@testing-library/react";
+import { act, renderHook } from "@/libs/unit-test";
 import * as ReactRouterDom from "react-router-dom";
 
 import { useMasterProjectCreate } from "./MasterProjectCreate.hook";
@@ -179,7 +179,9 @@ describe("MasterProjectCreate.hook", () => {
       status: 1,
       items: [{ item_id: "item-1", qty: 1 }],
     });
-    expect(mockNavigate).toHaveBeenCalledWith("/master-project");
+    expect(mockNavigate).toHaveBeenCalledWith("/master-project", {
+      state: { successMessage: "Project created successfully." },
+    });
   });
 
   it("should load existing project in edit mode", () => {

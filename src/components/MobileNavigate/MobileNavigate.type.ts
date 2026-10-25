@@ -1,21 +1,21 @@
 import type * as React from "react";
 
 export type MobileNavigateItem = {
-  readonly id: string;
-  readonly label: string;
-  readonly Icon: () => React.ReactElement;
+  id: string;
+  label: string;
+  Icon: () => React.ReactElement;
 };
 
 export type MobileNavigateResolvedItem = MobileNavigateItem & {
-  readonly isActive: boolean;
+  isActive: boolean;
 };
 
 export type MobileNavigateProps = {
-  readonly items: readonly MobileNavigateResolvedItem[];
-  readonly onNavigate: (path: string) => void;
-  readonly isHidden: boolean;
+  items: MobileNavigateResolvedItem[];
+  onNavigate: (path: string) => void;
+  isHidden: boolean;
 };
 
 export type MobileNavigateHookResult = {
-  readonly getItems: (items: readonly MobileNavigateItem[]) => readonly MobileNavigateResolvedItem[];
+  getItems: (items: MobileNavigateItem[]) => MobileNavigateResolvedItem[];
 };

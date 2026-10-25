@@ -6,7 +6,7 @@ import type { RecentQuote } from "../DesktopDashboard.type";
  * Recent Quotes Table Props
  */
 type RecentQuotesTableProps = {
-  readonly quotes: RecentQuote[];
+  quotes: RecentQuote[];
 };
 
 /**

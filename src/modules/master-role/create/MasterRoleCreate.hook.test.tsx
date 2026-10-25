@@ -1,4 +1,4 @@
-import { act, renderHook } from "@testing-library/react";
+import { act, renderHook } from "@/libs/unit-test";
 import * as ReactRouterDom from "react-router-dom";
 
 import { useMasterRoleCreateForm } from "./MasterRoleCreate.hook";
@@ -101,7 +101,9 @@ describe("MasterRoleCreate.hook", () => {
     });
 
     expect(mockCreate).toHaveBeenCalledWith({ role: "Auditor", status: 1 });
-    expect(mockNavigate).toHaveBeenCalledWith("/master-role");
+    expect(mockNavigate).toHaveBeenCalledWith("/master-role", {
+      state: { successMessage: "Role created successfully." },
+    });
   });
 
   it("should display API and validation errors", async () => {

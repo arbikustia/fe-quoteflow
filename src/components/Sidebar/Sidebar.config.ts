@@ -1,8 +1,8 @@
 import { Icons } from "../Icons";
 
-import type { MasterNavigationItem, NavigationItem, NavigationSection } from "./Sidebar.type";
+import type { MasterNavigationItem, NavigationChild, NavigationItem, NavigationSection } from "./Sidebar.type";
 
-export const MASTER_DATA_ITEMS: readonly MasterNavigationItem[] = [
+export const MASTER_DATA_ITEMS: MasterNavigationItem[] = [
   { name: "Customer", description: "Manage customer profiles and contact info", icon: Icons.Customers, path: "/master-customer" },
   { name: "Category", description: "Manage product and item categories", icon: Icons.Dashboard, path: "/master-category" },
   { name: "Item", description: "Manage items and inventory data", icon: Icons.Database, path: "/master-item" },
@@ -15,11 +15,23 @@ export const MASTER_DATA_ITEMS: readonly MasterNavigationItem[] = [
   { name: "PIC", description: "Manage person in charge data", icon: Icons.Customers, path: "/master-pic" },
 ];
 
-export const NAVIGATION_CONFIG: readonly NavigationItem[] = [
+export const DOCUMENT_ITEMS: NavigationChild[] = [
+  { name: "Quotation", path: "/document/quotation" },
+  { name: "Invoice", path: "/document/invoice" },
+  { name: "Item Checklist", path: "/document/item-checklist" },
+  { name: "Payment", path: "/document/payment" },
+];
+
+export const NAVIGATION_CONFIG: NavigationItem[] = [
   {
     name: "Order",
     icon: Icons.Document,
     path: "/order",
+  },
+  {
+    name: "Document",
+    icon: Icons.Document,
+    children: DOCUMENT_ITEMS,
   },
   {
     name: "Master Data",
@@ -28,7 +40,7 @@ export const NAVIGATION_CONFIG: readonly NavigationItem[] = [
   },
 ];
 
-export const NAVIGATION_SECTIONS: readonly NavigationSection[] = [
+export const NAVIGATION_SECTIONS: NavigationSection[] = [
   {
     title: "Menu",
     items: NAVIGATION_CONFIG,

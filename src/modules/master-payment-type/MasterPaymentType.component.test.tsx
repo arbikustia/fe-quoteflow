@@ -2,7 +2,6 @@ import * as React from "react";
 
 import test from "../../libs/unit-test";
 
-import { getColumns } from "./MasterPaymentType.columns";
 import { MasterPaymentTypeComponent } from "./MasterPaymentType.component";
 import type { MasterPaymentTypeProps, PaymentTypeData } from "./MasterPaymentType.type";
 
@@ -45,14 +44,8 @@ describe("MasterPaymentType Component", () => {
     prevPage: jest.fn(),
     changePageSize: jest.fn(),
     totalCount: 2,
-    columns: getColumns({ currentPage: 1, pageSize: 10, onEdit: jest.fn() }),
     onCreate: jest.fn(),
     onEdit: jest.fn(),
-    onRowClick: jest.fn(),
-    onMore: jest.fn(),
-    isMoreOpen: false,
-    onCloseMore: jest.fn(),
-    onDelete: jest.fn(),
     onBack: jest.fn(),
   };
 
@@ -60,10 +53,6 @@ describe("MasterPaymentType Component", () => {
     {
       props: mockProps,
       desc: "default state",
-    },
-    {
-      props: { ...mockProps, isMoreOpen: true },
-      desc: "more open state",
     },
   ]);
 });

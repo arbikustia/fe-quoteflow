@@ -38,11 +38,11 @@ const _formatMessages = (messages: string[] | string | null): string => {
  * @returns {CustomerData | null} Customer item or null
  */
 const _resolveCustomerDetail = (customerDetail: ReturnType<typeof useGetCustomerByIdQuery>["data"]): {
-  readonly id: string;
-  readonly name: string;
-  readonly address: string | null;
-  readonly phone_number: string | null;
-  readonly status: number;
+  id: string;
+  name: string;
+  address: string | null;
+  phone_number: string | null;
+  status: number;
 } | null => {
   if (!customerDetail?.status || !customerDetail.data) {
     return null;
@@ -55,16 +55,16 @@ const _resolveCustomerDetail = (customerDetail: ReturnType<typeof useGetCustomer
  * Derive initial customer field values.
  * @param {CustomerData | undefined} routeCustomer - Customer from router state
  * @param {ReturnType<typeof _resolveCustomerDetail>} customerItem - Customer from API
- * @returns {{ readonly name: string; readonly address: string; readonly phoneNumber: string; readonly isActive: boolean }} Initial values
+ * @returns {{ name: string; address: string; phoneNumber: string; isActive: boolean }} Initial values
  */
 const _getInitialFieldValues = (
   routeCustomer: CustomerData | undefined,
   customerItem: ReturnType<typeof _resolveCustomerDetail>,
 ): {
-  readonly name: string;
-  readonly address: string;
-  readonly phoneNumber: string;
-  readonly isActive: boolean;
+  name: string;
+  address: string;
+  phoneNumber: string;
+  isActive: boolean;
 } => ({
   name: routeCustomer?.name ?? customerItem?.name ?? "",
   address: routeCustomer?.address ?? customerItem?.address ?? "",
@@ -229,7 +229,7 @@ const useCustomerSubmission = (params: CustomerSubmissionParams): CustomerSubmis
 export const useMasterCustomerCreate = (): MasterCustomerCreateFormState => {
   const navigate = useNavigate();
   const location = useLocation();
-  const { id } = useParams<{ readonly id?: string }>();
+  const { id } = useParams<{ id?: string }>();
   const isEditMode = Boolean(id);
   const routeCustomer: CustomerData | undefined = location.state?.customer;
 

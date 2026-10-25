@@ -2,6 +2,10 @@ import { MasterServiceTypeComponent } from "./MasterServiceType.component";
 import test from "../../libs/unit-test";
 import type { MasterServiceTypeProps } from "./MasterServiceType.type";
 
+jest.useFakeTimers();
+jest.setSystemTime(new Date("2026-10-25T08:41:24+07:00"));
+afterAll(() => jest.useRealTimers());
+
 jest.mock("react-router-dom", () => {
   const actual = jest.requireActual("react-router-dom");
 
@@ -34,7 +38,6 @@ const defaultProps: MasterServiceTypeProps = {
   changePageSize: jest.fn(),
   setSearchTerm: jest.fn(),
   totalCount: 1,
-  columns: [],
   isLoading: false,
   errorMessage: null,
   isEmpty: false,

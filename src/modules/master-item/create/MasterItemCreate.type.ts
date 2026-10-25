@@ -1,4 +1,5 @@
 import type { ChangeEvent, SyntheticEvent } from "react";
+import type { FieldErrors } from "react-hook-form";
 
 import type { CategoryAllItem } from "@/modules/master-category/MasterCategory.type";
 import type { ImageUploadResponse, ItemCreatePayload, ItemCreateResponse, ItemData, ItemUpdatePayload } from "@/modules/master-item/MasterItem.type";
@@ -14,6 +15,9 @@ export type ItemFormFieldsState = {
   duration: string;
   remark: string;
   isActive: boolean;
+  errors?: FieldErrors<ItemFormValues>;
+  isSubmitted?: boolean;
+  validateForm: () => Promise<boolean>;
   handleNameChange: (event: ChangeEvent<HTMLInputElement>) => void;
   handleCategoryChange: (value: string) => void;
   handlePriceChange: (event: ChangeEvent<HTMLInputElement>) => void;
@@ -44,19 +48,29 @@ export type ItemSubmissionParams = {
 
 export type ItemSubmissionState = {
   errorMessage: string | null;
+  successMessage: string | null;
   handleSubmit: (event: SyntheticEvent) => Promise<void>;
 };
 
 export type ItemRouteState = {
   item?: ItemData;
+  successMessage?: string;
 };
 
 export type ItemFormContentProps = Pick<MasterItemCreateFormState,
   "name" | "categoryId" | "price" | "stock" | "image" | "isImageUploading" | "imageUploadError" | "duration" | "remark" |
-  "categories" | "isCategoryLoading" | "categoryError" | "handleNameChange" |
+  "categories" | "isCategoryLoading" | "categoryError" | "errors" | "isSubmitted" | "handleNameChange" |
   "handleCategoryChange" | "handlePriceChange" | "handleStockChange" |
   "handleImageChange" | "handleDurationChange" | "handleRemarkChange"
 >;
+
+export type ItemFormValues = {
+  name: string;
+  categoryId: string;
+  price: string;
+  stock: string;
+  duration: string;
+};
 
 export type MasterItemCreateFormState = {
   name: string;
@@ -74,6 +88,9 @@ export type MasterItemCreateFormState = {
   isCategoryLoading: boolean;
   categoryError: string | null;
   errorMessage: string | null;
+  successMessage: string | null;
+  errors?: FieldErrors<ItemFormValues>;
+  isSubmitted?: boolean;
   categories: CategoryAllItem[];
   handleNameChange: (event: ChangeEvent<HTMLInputElement>) => void;
   handleCategoryChange: (value: string) => void;

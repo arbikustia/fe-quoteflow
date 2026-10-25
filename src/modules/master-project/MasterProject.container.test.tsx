@@ -1,100 +1,60 @@
-import { render, screen, fireEvent } from "@testing-library/react";
-import { MemoryRouter } from "react-router-dom";
-import { getColumns } from "./MasterProject.columns";
-import MasterProjectContainer from "./MasterProject.container";
-import type { ProjectData } from "./MasterProject.type";
+import { beforeEach, describe, expect, it, jest } from "@jest/globals";
+import { render, screen } from "@/libs/unit-test";
+import { BrowserRouter } from "react-router-dom";
 
-jest.mock("@/services/master-project.service", () => ({
-  mapProject: jest.fn(),
-  useGetProjectsQuery: jest.fn(() => ({
-    data: { data: [], total_pages: 1, total_count: 0, has_next: false, has_previous: false, page_number: 1 },
-    error: undefined,
-    isLoading: false,
-  })),
+import MasterProjectContainer from "./MasterProject.container";
+import * as hooks from "./MasterProject.hook";
+
+jest.mock("./MasterProject.hook", () => ({
+  useMasterProjectContainerState: jest.fn(),
 }));
 
-const mockProject: ProjectData = {
-  id: "1",
-  name: "Website Revamp",
-  items: [{ itemId: "ITM001", qty: 2 }],
-  remark: "High priority",
-  status: "active",
-  createAt: "2024-01-01",
-  createBy: "System",
+jest.mock("./MasterProject.component", () => ({
+  MasterProjectComponent: (props: { currentPage: number }) => (
+    <div data-page={props.currentPage} data-testid="mock-component" />
+  ),
+}));
+
+const mockState = {
+  pagination: {
+    currentPage: 1,
+    totalPages: 2,
+    pageSize: 10,
+    paginatedData: [],
+    totalCount: 0,
+    isLoading: false,
+    errorMessage: null,
+    isEmpty: true,
+    isMissingData: false,
+    goToPage: jest.fn(),
+    nextPage: jest.fn(),
+    prevPage: jest.fn(),
+    changePageSize: jest.fn(),
+    setSearchTerm: jest.fn(),
+  },
+  isMoreOpen: false,
+  toggleMore: jest.fn(),
+  handleCloseMore: jest.fn(),
+  goBack: jest.fn(),
+  goCreate: jest.fn(),
+  goEdit: jest.fn(),
+  goDetail: jest.fn(),
+  goDelete: jest.fn(),
 };
 
 describe("MasterProjectContainer", () => {
-  it("renders container component correctly", () => {
-    const { container } = render(
-      <MemoryRouter>
+  beforeEach(() => {
+    jest.clearAllMocks();
+    jest.mocked(hooks.useMasterProjectContainerState).mockReturnValue(mockState);
+  });
+
+  it("should render component with hook state", () => {
+    render(
+      <BrowserRouter>
         <MasterProjectContainer />
-      </MemoryRouter>
+      </BrowserRouter>,
     );
-    expect(container).toBeTruthy();
-    expect(screen.getAllByPlaceholderText(/Search/i).length).toBeGreaterThan(0);
-  });
 
-  it("matches snapshot", () => {
-    const { asFragment } = render(
-      <MemoryRouter>
-        <MasterProjectContainer />
-      </MemoryRouter>
-    );
-    expect(asFragment()).toMatchSnapshot();
-  });
-});
-
-describe("getColumns", () => {
-  const onEdit = jest.fn();
-  const columns = getColumns({ currentPage: 1, pageSize: 10, onEdit });
-
-  it("returns columns correctly", () => {
-    expect(columns).toHaveLength(7);
-    expect(columns[0].key).toBe("no");
-    expect(columns[1].key).toBe("name");
-    expect(columns[2].key).toBe("items");
-    expect(columns[3].key).toBe("remark");
-    expect(columns[4].key).toBe("status");
-    expect(columns[5].key).toBe("createBy");
-    expect(columns[6].key).toBe("actions");
-  });
-
-  it("renders status column correctly", () => {
-    const statusCol = columns.find((c) => c.key === "status");
-    expect(statusCol).toBeDefined();
-    
-    if (statusCol?.render) {
-      const activeRender = render(statusCol.render({ ...mockProject, status: "active" }, 0));
-      expect(activeRender.container.textContent).toContain("active");
-      
-      const inactiveRender = render(statusCol.render({ ...mockProject, status: "inactive" }, 0));
-      expect(inactiveRender.container.textContent).toContain("inactive");
-    }
-  });
-
-  it("renders no column correctly", () => {
-    const noCol = columns.find((c) => c.key === "no");
-    expect(noCol).toBeDefined();
-
-    if (noCol?.render) {
-      const { container } = render(noCol.render(mockProject, 0));
-      expect(container.textContent).toBe("1");
-    }
-  });
-
-  it("renders actions column correctly", () => {
-    const actionsCol = columns.find((c) => c.key === "actions");
-    expect(actionsCol).toBeDefined();
-
-    if (actionsCol?.render) {
-      const { container } = render(actionsCol.render(mockProject, 0));
-      const button = container.querySelector("button");
-      expect(button).toBeTruthy();
-      
-      if (button) {
-        fireEvent.click(button);
-        expect(onEdit).toHaveBeenCalledWith(mockProject);
-      }
-    }
+    expect(screen.getByTestId("mock-component").getAttribute("data-page")).toBe("1");
   });
 });

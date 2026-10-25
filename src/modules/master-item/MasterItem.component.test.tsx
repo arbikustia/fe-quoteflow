@@ -1,4 +1,4 @@
-import { render, screen, fireEvent } from "@testing-library/react";
+import { render, screen, fireEvent } from "@/libs/unit-test";
 import { MemoryRouter } from "react-router-dom";
 import { MasterItemComponent } from "./MasterItem.component";
 import type { ItemData } from "./MasterItem.type";
@@ -33,7 +33,6 @@ const defaultProps = {
   setSearchTerm: jest.fn(),
   onCreate: jest.fn(),
   onEdit: jest.fn(),
-  onRowClick: jest.fn(),
   onBack: jest.fn(),
   onMore: jest.fn(),
   isMoreOpen: false,

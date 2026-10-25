@@ -16,7 +16,7 @@ exports[`MasterProjectComponent should match project list snapshot 1`] = `
         Create New
       </button>
       <div
-        class="relative flex h-full flex-col bg-background-surface px-6 pb-18 lg:-mt-4 lg:bg-transparent lg:px-0 lg:pb-0"
+        class="relative flex h-full flex-col bg-background-surface px-0 pb-18 lg:-mt-4 lg:bg-transparent lg:px-0 lg:pb-0"
       >
         <div
           class="flex min-w-0 flex-col gap-4 pb-16 pt-2 lg:hidden"
@@ -64,54 +64,56 @@ exports[`MasterProjectComponent should match project list snapshot 1`] = `
           <div
             class="min-w-0 space-y-3"
           >
-            <div
-              class="flex cursor-pointer flex-col gap-4 rounded-3xl border border-border-default bg-background-surface p-5 transition-all hover:border-border-strong active:bg-background-subtle/50"
-              role="button"
-              tabindex="0"
+            <button
+              class="group flex w-full items-start gap-4 rounded-2xl border border-border-default bg-background-surface p-5 text-left transition-colors hover:border-border-strong hover:bg-background-subtle/40 focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring/30 "
+              type="button"
             >
-              <div
-                class="flex items-start justify-between gap-3"
+              <span
+                class="min-w-0 flex-1"
               >
-                <h4
-                  class="min-w-0 truncate text-base font-semibold text-text-primary"
+                <span
+                  class="mb-1 block text-xs font-medium uppercase tracking-wider text-text-tertiary"
+                >
+                  Master data
+                </span>
+                <span
+                  class="block truncate text-base font-semibold text-text-primary"
                 >
                   Website Revamp
-                </h4>
+                </span>
                 <span
-                  class="shrink-0 rounded-full px-3 py-1 text-xs font-semibold uppercase tracking-wider bg-green-100 text-green-700"
+                  class="mt-3 block"
+                >
+                  <span
+                    class="grid gap-2 text-sm text-text-secondary"
+                  >
+                    <span>
+                      1 item(s)
+                    </span>
+                    <span
+                      class="truncate"
+                    >
+                      High priority
+                    </span>
+                  </span>
+                </span>
+              </span>
+              <span
+                class="flex shrink-0 items-center gap-3"
+              >
+                <span
+                  class="rounded-full px-3 py-1 text-xs font-bold uppercase tracking-wider bg-success-subtle text-success-strong"
                 >
                   active
                 </span>
-              </div>
-              <div
-                class="grid gap-2 rounded-xl bg-background-subtle/60 p-3 text-sm"
-              >
-                <div>
-                  <p
-                    class="text-xs text-text-tertiary"
-                  >
-                    Items
-                  </p>
-                  <p
-                    class="font-medium text-text-primary"
-                  >
-                    1 item(s)
-                  </p>
-                </div>
-                <div>
-                  <p
-                    class="text-xs text-text-tertiary"
-                  >
-                    Remark
-                  </p>
-                  <p
-                    class="truncate font-medium text-text-primary"
-                  >
-                    High priority
-                  </p>
-                </div>
-              </div>
-            </div>
+                <span
+                  aria-hidden="true"
+                  class="text-xl text-text-tertiary transition-transform group-hover:translate-x-1"
+                >
+                  →
+                </span>
+              </span>
+            </button>
           </div>
           <div
             data-testid="pagination"
@@ -173,11 +175,148 @@ exports[`MasterProjectComponent should match project list snapshot 1`] = `
           <div
             class="flex-1 overflow-auto"
           >
-            <button
-              type="button"
+            <div
+              class="flex flex-col bg-transparent overflow-hidden"
             >
-              Desktop project row
-            </button>
+              <div
+                class="hidden md:flex flex-1 overflow-auto"
+              >
+                <div
+                  class="w-full overflow-x-auto"
+                >
+                  <table
+                    class="w-full min-w-max border-separate border-spacing-0 whitespace-nowrap"
+                  >
+                    <thead>
+                      <tr>
+                        <th
+                          class="bg-table-header px-5 py-4 text-[13px] font-bold text-text-secondary uppercase tracking-widest rounded-l-xl  text-center "
+                        >
+                          No
+                        </th>
+                        <th
+                          class="bg-table-header px-5 py-4 text-[13px] font-bold text-text-secondary uppercase tracking-widest   text-left "
+                        >
+                          Project Name
+                        </th>
+                        <th
+                          class="bg-table-header px-5 py-4 text-[13px] font-bold text-text-secondary uppercase tracking-widest   text-left "
+                        >
+                          Remark
+                        </th>
+                        <th
+                          class="bg-table-header px-5 py-4 text-[13px] font-bold text-text-secondary uppercase tracking-widest   text-center "
+                        >
+                          Status
+                        </th>
+                        <th
+                          class="bg-table-header px-5 py-4 text-[13px] font-bold text-text-secondary uppercase tracking-widest   text-left "
+                        >
+                          Created By
+                        </th>
+                        <th
+                          class="bg-table-header px-5 py-4 text-[13px] font-bold text-text-secondary uppercase tracking-widest  rounded-r-xl text-center "
+                        >
+                          Action
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody
+                      class="divide-y divide-border-default"
+                    >
+                      <tr
+                        class="hover:bg-background-subtle/50 transition-colors "
+                      >
+                        <td
+                          class="px-5 py-4 border-b border-border-default text-base text-center "
+                        >
+                          <span
+                            class="text-brand-text-medium font-medium text-sm"
+                          >
+                            1
+                          </span>
+                        </td>
+                        <td
+                          class="px-5 py-4 border-b border-border-default text-base text-left "
+                        >
+                          Website Revamp
+                        </td>
+                        <td
+                          class="px-5 py-4 border-b border-border-default text-base text-left "
+                        >
+                          High priority
+                        </td>
+                        <td
+                          class="px-5 py-4 border-b border-border-default text-base text-center "
+                        >
+                          <span
+                            class="px-3 py-1 rounded-full text-xs font-bold uppercase bg-green-100 text-green-600"
+                          >
+                            active
+                          </span>
+                        </td>
+                        <td
+                          class="px-5 py-4 border-b border-border-default text-base text-left "
+                        >
+                          System
+                        </td>
+                        <td
+                          class="px-5 py-4 border-b border-border-default text-base text-center "
+                        >
+                          <button
+                            class="p-1.5 text-brand-text-medium hover:text-brand-blue hover:bg-brand-blue-light rounded-lg transition-colors cursor-pointer"
+                            title="Edit"
+                          >
+                            <svg
+                              class="w-4 h-4"
+                              fill="none"
+                              height="1em"
+                              stroke="currentColor"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                              stroke-width="2"
+                              viewBox="0 0 24 24"
+                              width="1em"
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <path
+                                d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"
+                              />
+                            </svg>
+                          </button>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div
+                class="md:hidden bg-background-surface rounded-xl border border-border-default shadow-sm overflow-hidden"
+              >
+                <div
+                  class="bg-background-surface overflow-hidden divide-y divide-border-default"
+                >
+                  <div
+                    class="flex flex-col gap-3 px-4 py-4 bg-transparent transition-colors "
+                  >
+                    <div
+                      class="flex items-center justify-between gap-2"
+                    >
+                      <span
+                        class="text-xs font-medium text-text-tertiary uppercase tracking-wider"
+                      >
+                        Project Name
+                      </span>
+                      <span
+                        class="flex-1 text-sm font-medium text-text-primary text-right truncate"
+                      >
+                        Website Revamp
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
           <div
             data-testid="pagination"

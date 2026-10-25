@@ -11,7 +11,7 @@ import type { LogoutState, SidebarState } from "./Sidebar.type";
  */
 export const useSidebarState = (): SidebarState => {
   const location = useLocation();
-  const [openMenus, setOpenMenus] = useState<readonly string[]>(() => getInitialOpenMenus(NAVIGATION_CONFIG, location.pathname));
+  const [openMenus, setOpenMenus] = useState<string[]>(() => getInitialOpenMenus(NAVIGATION_CONFIG, location.pathname));
   const [isCollapsed, setIsCollapsed] = useState<boolean>(false);
   const [isProfileOpen, setIsProfileOpen] = useState<boolean>(false);
   const onToggleMenu = useCallback((menuName: string): void => {

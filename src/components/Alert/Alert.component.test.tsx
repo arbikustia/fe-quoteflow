@@ -1,4 +1,4 @@
-import { render, screen } from "@/libs/unit-test";
+import { act, render, screen } from "@/libs/unit-test";
 
 import { AlertComponent } from "./Alert.component";
 
@@ -21,4 +21,14 @@ it("should render toast at top right", (): void => {
   render(<AlertComponent type="success" message="Customer created successfully." toast />);
 
   expect(screen.getByRole("alert").parentElement).toHaveClass("fixed", "right-4", "top-4");
+});
+
+it("should close toast automatically after three seconds", (): void => {
+  jest.useFakeTimers();
+  render(<AlertComponent type="success" message="Saved" toast />);
+
+  expect(screen.getByRole("alert")).toBeTruthy();
+  act((): void => jest.advanceTimersByTime(3000));
+  expect(screen.queryByRole("alert")).toBeNull();
+  jest.useRealTimers();
 });

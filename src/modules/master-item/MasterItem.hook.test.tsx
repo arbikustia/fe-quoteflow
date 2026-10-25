@@ -9,17 +9,17 @@ const mockedGetItemsQuery = jest.mocked(useGetItemsQuery);
 
 jest.mock("@/services/master-item.service", () => ({
   mapItem: (item: {
-    readonly id: string;
-    readonly name: string;
-    readonly category_id: string | null;
-    readonly price: number | null;
-    readonly stock: number | null;
-    readonly image: string | null;
-    readonly duration: number | null;
-    readonly remark: string | null;
-    readonly status: number;
-    readonly created_at: string | null;
-    readonly created_by: string | null;
+    id: string;
+    name: string;
+    category_id: string | null;
+    price: number | null;
+    stock: number | null;
+    image: string | null;
+    duration: number | null;
+    remark: string | null;
+    status: number;
+    created_at: string | null;
+    created_by: string | null;
   }) => ({
     id: item.id,
     name: item.name,
@@ -191,10 +191,7 @@ describe("MasterItem hook", () => {
         state: { item: mockItem },
       });
 
-      act(() => { result.current.goDetail(mockItem); });
-      expect(mockNavigate).toHaveBeenCalledWith(`/master-item/detail/${mockItem.id}`);
-
-      expect(mockNavigate).toHaveBeenCalledTimes(4);
+      expect(mockNavigate).toHaveBeenCalledTimes(3);
     });
   });
 

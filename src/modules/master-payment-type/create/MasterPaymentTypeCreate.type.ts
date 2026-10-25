@@ -1,4 +1,7 @@
 import type * as React from "react";
+import type { FieldErrors } from "react-hook-form";
+
+import type { PaymentTypeFormValues } from "../MasterPaymentType.type";
 
 export type MasterPaymentTypeCreateFormState = {
   name: string;
@@ -8,7 +11,9 @@ export type MasterPaymentTypeCreateFormState = {
   isSubmitting: boolean;
   errorMessage: string | null;
   successMessage: string | null;
-  handleNameChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  errors: FieldErrors<PaymentTypeFormValues>;
+  isSubmitted: boolean;
+  handleNameChange: (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
   handleStatusChange: () => void;
   handleSubmit: (event: React.SyntheticEvent) => Promise<void>;
   goBack: () => void;

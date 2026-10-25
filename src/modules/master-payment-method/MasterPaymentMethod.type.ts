@@ -1,18 +1,35 @@
 import type * as React from "react";
+import type { FieldErrors, UseFormGetValues, UseFormRegister } from "react-hook-form";
+
+export type PaymentMethodFormValues = {
+  name: string;
+  description: string;
+  isActive: boolean;
+};
+
+export type PaymentMethodFormValidation = {
+  errors: FieldErrors<PaymentMethodFormValues>;
+  isSubmitted: boolean;
+  register: UseFormRegister<PaymentMethodFormValues>;
+};
+
+export type PaymentMethodRouteState = {
+  successMessage?: string;
+};
+
 
 import type { ApiEnvelope, ApiQueryParams, PaginatedResponse } from "@/types/api.type";
 
-import type { TableColumn } from "../../components/Table";
 import type { PaginationResult } from "../../hooks/usePagination";
 
 export type ApiPaymentMethod = {
-  readonly id: string;
-  readonly name: string | null;
-  readonly description: string | null;
-  readonly status: number;
-  readonly created_at: string | null;
-  readonly updated_at: string | null;
-  readonly created_by?: string | null;
+  id: string;
+  name: string | null;
+  description: string | null;
+  status: number;
+  created_at: string | null;
+  updated_at: string | null;
+  created_by?: string | null;
 };
 
 export type PaymentMethodListResponse = PaginatedResponse<ApiPaymentMethod>;
@@ -21,13 +38,13 @@ export type PaymentMethodCreateResponse = ApiEnvelope<ApiPaymentMethod | null>;
 export type PaymentMethodListParams = ApiQueryParams;
 
 export type PaymentMethodCreatePayload = {
-  readonly name: string;
-  readonly description: string;
-  readonly status: number;
+  name: string;
+  description: string;
+  status: number;
 };
 
 export type PaymentMethodUpdatePayload = PaymentMethodCreatePayload & {
-  readonly id: string;
+  id: string;
 };
 
 export type PaymentMethodData = {
@@ -42,9 +59,9 @@ export type PaymentMethodData = {
 export type PaymentMethodSubmissionParams = {
   id: string | undefined;
   isEditMode: boolean;
-  name: string;
-  description: string;
   isActive: boolean;
+  getValues: UseFormGetValues<PaymentMethodFormValues>;
+  validateForm: () => Promise<boolean>;
 };
 
 export type PaymentMethodSubmissionState = {
@@ -54,12 +71,14 @@ export type PaymentMethodSubmissionState = {
   handleSubmit: (event: React.SyntheticEvent) => Promise<void>;
 };
 
-export type PaymentMethodFormFieldsState = {
+export type PaymentMethodFormFieldsState = PaymentMethodFormValidation & {
   name: string;
   description: string;
   isActive: boolean;
-  handleNameChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  handleDescriptionChange: (event: React.ChangeEvent<HTMLTextAreaElement>) => void;
+  getValues: UseFormGetValues<PaymentMethodFormValues>;
+  validateForm: () => Promise<boolean>;
+  handleNameChange: (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
+  handleDescriptionChange: (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
   handleStatusChange: () => void;
 };
 
@@ -89,10 +108,8 @@ export type MasterPaymentMethodProps = {
   totalCount: number;
   isEmpty: boolean;
   setSearchTerm: (searchTerm: string) => void;
-  columns: TableColumn<PaymentMethodData>[];
   onCreate: () => void;
   onEdit: (paymentMethod: PaymentMethodData) => void;
-  onRowClick: (paymentMethod: PaymentMethodData) => void;
   onMore: () => void;
   isMoreOpen: boolean;
   onCloseMore: () => void;
@@ -100,17 +117,10 @@ export type MasterPaymentMethodProps = {
   onBack: () => void;
 };
 
-export type GetColumnsParams = {
-  currentPage: number;
-  pageSize: number;
-  onEdit: (paymentMethod: PaymentMethodData) => void;
-};
-
 export type MasterPaymentMethodNavigation = {
   goBack: () => void;
   goCreate: () => void;
   goEdit: (p: PaymentMethodData) => void;
-  goDetail: (p: PaymentMethodData) => void;
 };
 
 export type MasterPaymentMethodPagination = PaginationResult<PaymentMethodData> & {

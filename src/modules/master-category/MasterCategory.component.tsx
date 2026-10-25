@@ -1,13 +1,54 @@
 import type { ChangeEvent, ReactElement } from "react";
 import * as React from "react";
+import { FiEdit2 } from "react-icons/fi";
 
+import { getCategoryRowNumber } from "./MasterCategory.helpers";
 import type { CategoryData, MasterCategoryProps } from "./MasterCategory.type";
 import Layout from "../../app/layout";
 import { PageLayout } from "../../app/shared/PageLayout";
 import { MasterDataCard } from "../../components/MasterDataCard";
 import { Pagination } from "../../components/Pagination";
 import { SearchFilter } from "../../components/SearchFilter";
+import type { TableColumn } from "../../components/Table";
 import Table from "../../components/Table";
+
+/**
+ * Render category status table cell.
+ * @param {CategoryData} category - Category data
+ * @returns {ReactElement} Status cell
+ */
+const _renderStatus = (category: CategoryData): ReactElement => (
+  <span className={`rounded-full px-3 py-1 text-xs font-bold uppercase ${category.status === "active" ? "bg-green-100 text-green-600" : "bg-red-100 text-red-600"}`}>
+    {category.status}
+  </span>
+);
+
+/**
+ * Build category table columns.
+ * @param {number} currentPage - Active page
+ * @param {number} pageSize - Active page size
+ * @param {(category: CategoryData) => void} onEdit - Edit handler
+ * @returns {TableColumn<CategoryData>[]} Category columns
+ */
+const _getColumns = (currentPage: number, pageSize: number, onEdit: (category: CategoryData) => void): TableColumn<CategoryData>[] => {
+  const renderNumber = (_category: CategoryData, index: number): ReactElement => <span className="text-sm">{getCategoryRowNumber(currentPage, pageSize, index)}</span>;
+  const renderAction = (category: CategoryData): ReactElement => {
+    const handleEdit = (event: React.MouseEvent): void => {
+      event.stopPropagation();
+      onEdit(category);
+    };
+
+    return <button type="button" onClick={handleEdit} className="cursor-pointer rounded-lg p-1.5 text-brand-text-medium transition-colors hover:bg-brand-blue-light hover:text-brand-blue" title="Edit"><FiEdit2 className="h-4 w-4" /></button>;
+  };
+
+  return [
+    { key: "no", header: "No", align: "center", render: renderNumber },
+    { key: "categoryName", header: "Category Name" },
+    { key: "status", header: "Status", align: "center", render: _renderStatus },
+    { key: "createAt", header: "Created At" },
+    { key: "actions", header: "Action", align: "center", render: renderAction },
+  ];
+};
 
 /**
  * Render category list state.
@@ -100,7 +141,7 @@ const _renderDesktop = (props: MasterCategoryProps): ReactElement => (
       </button>
     </div>
     <div className="flex-1 overflow-auto">
-      {_renderListState(props) ?? <Table data={props.paginatedData} columns={props.columns} isDetail={false} onRowClick={props.onRowClick} keyExtractor={(row: CategoryData): string => row.id} />}
+      {_renderListState(props) ?? <Table data={props.paginatedData} columns={_getColumns(props.currentPage, props.pageSize, props.onEdit)} keyExtractor={(row: CategoryData): string => row.id} />}
     </div>
     <Pagination currentPage={props.currentPage} totalPages={props.totalPages} pageSize={props.pageSize} onPageChange={props.goToPage} onPageSizeChange={props.changePageSize} totalItems={props.totalCount} />
   </div>

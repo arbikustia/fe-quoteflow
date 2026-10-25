@@ -1,15 +1,15 @@
-import { fireEvent, render, screen } from "@testing-library/react";
+import { fireEvent, render, screen } from "@/libs/unit-test";
 
 import { MasterProjectComponent } from "./MasterProject.component";
 import type { MasterProjectProps, ProjectData } from "./MasterProject.type";
 
 jest.mock("../../app/layout", () => ({
   __esModule: true,
-  default: ({ children }: { readonly children: React.ReactNode }) => <div>{children}</div>,
+  default: ({ children }: { children: React.ReactNode }) => <div>{children}</div>,
 }));
 
 jest.mock("../../app/shared/PageLayout", () => ({
-  PageLayout: ({ children, headerRight, onBack }: { readonly children: React.ReactNode; readonly headerRight: React.ReactNode; readonly onBack: () => void }) => (
+  PageLayout: ({ children, headerRight, onBack }: { children: React.ReactNode; headerRight: React.ReactNode; onBack: () => void }) => (
     <section>
       <button type="button" onClick={onBack}>Page Back</button>
       {headerRight}
@@ -19,13 +19,6 @@ jest.mock("../../app/shared/PageLayout", () => ({
 }));
 
 jest.mock("../../components/Pagination", () => ({ Pagination: () => <div data-testid="pagination" /> }));
-jest.mock("../../components/Table", () => ({
-  __esModule: true,
-  default: ({ data, onRowClick }: { readonly data: readonly ProjectData[]; readonly onRowClick: (project: ProjectData) => void }) => (
-    <button type="button" onClick={() => onRowClick(data[0])}>Desktop project row</button>
-  ),
-}));
-
 const mockProject: ProjectData = {
   id: "1",
   name: "Website Revamp",
@@ -38,7 +31,6 @@ const mockProject: ProjectData = {
 
 const createProps = (overrides: Partial<MasterProjectProps> = {}): MasterProjectProps => ({
   paginatedData: [mockProject],
-  columns: [{ key: "name", header: "Project Name" }],
   currentPage: 1,
   totalPages: 2,
   pageSize: 10,
@@ -55,7 +47,6 @@ const createProps = (overrides: Partial<MasterProjectProps> = {}): MasterProject
   setSearchTerm: jest.fn(),
   onCreate: jest.fn(),
   onEdit: jest.fn(),
-  onRowClick: jest.fn(),
   onBack: jest.fn(),
   onMore: jest.fn(),
   onCloseMore: jest.fn(),
@@ -68,16 +59,14 @@ describe("MasterProjectComponent", () => {
     const props = createProps();
     render(<MasterProjectComponent {...props} />);
 
-    expect(screen.getByText("Website Revamp")).toBeInTheDocument();
+    expect(screen.getAllByText("Website Revamp")[0]).toBeInTheDocument();
     fireEvent.change(screen.getAllByRole("searchbox", { name: "Search project" })[0], { target: { value: "website" } });
-    fireEvent.click(screen.getByText("Website Revamp").closest("button")!);
-    fireEvent.click(screen.getByRole("button", { name: "Desktop project row" }));
+    fireEvent.click(screen.getAllByText("Website Revamp")[0].closest("button")!);
     fireEvent.click(screen.getByRole("button", { name: "Create New" }));
     fireEvent.click(screen.getByRole("button", { name: "Page Back" }));
 
     expect(props.setSearchTerm).toHaveBeenCalledWith("website");
     expect(props.onEdit).toHaveBeenCalledWith(mockProject);
-    expect(props.onRowClick).toHaveBeenCalledWith(mockProject);
     expect(props.onCreate).toHaveBeenCalled();
     expect(props.onBack).toHaveBeenCalled();
   });

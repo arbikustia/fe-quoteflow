@@ -1,15 +1,15 @@
-import { fireEvent, render, screen } from "@testing-library/react";
+import { fireEvent, render, screen } from "@/libs/unit-test";
 
 import { MasterRoleComponent } from "./MasterRole.component";
 import type { MasterRoleProps, RoleData } from "./MasterRole.type";
 
 jest.mock("../../app/layout", () => ({
   __esModule: true,
-  default: ({ children }: { readonly children: React.ReactNode }) => <div data-testid="layout">{children}</div>,
+  default: ({ children }: { children: React.ReactNode }) => <div data-testid="layout">{children}</div>,
 }));
 
 jest.mock("../../app/shared/PageLayout", () => ({
-  PageLayout: ({ children, headerRight, onBack }: { readonly children: React.ReactNode; readonly headerRight: React.ReactNode; readonly onBack: () => void }) => (
+  PageLayout: ({ children, headerRight, onBack }: { children: React.ReactNode; headerRight: React.ReactNode; onBack: () => void }) => (
     <section>
       <button type="button" onClick={onBack}>Page Back</button>
       {headerRight}
@@ -24,7 +24,7 @@ jest.mock("../../components/Pagination", () => ({
 
 jest.mock("../../components/Table", () => ({
   __esModule: true,
-  default: ({ data, onRowClick }: { readonly data: readonly RoleData[]; readonly onRowClick: (role: RoleData) => void }) => (
+  default: ({ data, onRowClick }: { data: RoleData[]; onRowClick: (role: RoleData) => void }) => (
     <button type="button" onClick={() => onRowClick(data[0])}>Desktop role row</button>
   ),
 }));
@@ -39,7 +39,6 @@ const mockRole: RoleData = {
 
 const createProps = (overrides: Partial<MasterRoleProps> = {}): MasterRoleProps => ({
   paginatedData: [mockRole],
-  columns: [{ key: "roleName", header: "Role Name" }],
   currentPage: 1,
   totalPages: 2,
   pageSize: 10,
@@ -67,7 +66,7 @@ describe("MasterRoleComponent", () => {
 
     expect(screen.getByText("Admin")).toBeInTheDocument();
     fireEvent.change(screen.getAllByRole("searchbox", { name: "Search role" })[0], { target: { value: "admin" } });
-    fireEvent.click(screen.getByText("Admin").closest('[role="button"]')!);
+    fireEvent.click(screen.getByText("Admin").closest("button")!);
     fireEvent.click(screen.getByRole("button", { name: "Desktop role row" }));
     fireEvent.click(screen.getByRole("button", { name: "Create New" }));
     fireEvent.click(screen.getByRole("button", { name: "Page Back" }));

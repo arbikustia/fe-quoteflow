@@ -1,12 +1,15 @@
-import { render, screen, fireEvent } from "@testing-library/react";
+import { render, screen } from "@/libs/unit-test";
 import { MemoryRouter } from "react-router-dom";
 
-import { getColumns } from "./MasterRole.columns";
 import MasterRoleContainer from "./MasterRole.container";
 import type { RoleData } from "./MasterRole.type";
 
+jest.useFakeTimers();
+jest.setSystemTime(new Date("2026-10-18T01:01:00+07:00"));
+afterAll(() => jest.useRealTimers());
+
 jest.mock("@/services/master-role.service", () => ({
-  mapRole: (role: { readonly id: string; readonly role: string; readonly last_created: string | null }) => ({
+  mapRole: (role: { id: string; role: string; last_created: string | null }) => ({
     id: role.id,
     roleName: role.role,
     status: "active",
@@ -50,55 +53,3 @@ describe("MasterRoleContainer", () => {
   });
 });
 
-describe("getColumns", () => {
-  const onEdit = jest.fn();
-  const columns = getColumns({ currentPage: 1, pageSize: 10, onEdit });
-
-  it("returns columns correctly", () => {
-    expect(columns).toHaveLength(5);
-    expect(columns[0].key).toBe("no");
-    expect(columns[1].key).toBe("roleName");
-    expect(columns[2].key).toBe("status");
-    expect(columns[3].key).toBe("createAt");
-    expect(columns[4].key).toBe("actions");
-  });
-
-  it("renders status column correctly", () => {
-    const statusCol = columns.find((c) => c.key === "status");
-    expect(statusCol).toBeDefined();
-    
-    if (statusCol?.render) {
-      const activeRender = render(statusCol.render({ ...mockRole, status: "active" }, 0));
-      expect(activeRender.container.textContent).toContain("active");
-      
-      const inactiveRender = render(statusCol.render({ ...mockRole, status: "inactive" }, 0));
-      expect(inactiveRender.container.textContent).toContain("inactive");
-    }
-  });
-
-  it("renders no column correctly", () => {
-    const noCol = columns.find((c) => c.key === "no");
-    expect(noCol).toBeDefined();
-
-    if (noCol?.render) {
-      const { container } = render(noCol.render(mockRole, 0));
-      expect(container.textContent).toBe("1");
-    }
-  });
-
-  it("renders actions column correctly", () => {
-    const actionsCol = columns.find((c) => c.key === "actions");
-    expect(actionsCol).toBeDefined();
-
-    if (actionsCol?.render) {
-      const { container } = render(actionsCol.render(mockRole, 0));
-      const button = container.querySelector("button");
-      expect(button).toBeTruthy();
-      
-      if (button) {
-        fireEvent.click(button);
-        expect(onEdit).toHaveBeenCalledWith(mockRole);
-      }
-    }
-  });
-});

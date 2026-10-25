@@ -6,8 +6,8 @@ import { QuotesIcon, UsersIcon } from "./StatIcons";
  * Quick Actions Props
  */
 export type QuickActionsProps = {
-  readonly onNewOrder: () => void;
-  readonly onReturn: () => void;
+  onNewOrder: () => void;
+  onReturn: () => void;
 };
 
 /**

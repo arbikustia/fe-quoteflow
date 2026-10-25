@@ -346,11 +346,11 @@ const _renderMobileAction = <T,>(column: TableColumn<T>, row: T, actionName: Tab
 
 /**
  * Render mobile actions.
- * @param {readonly TableColumn<T>[]} columns - Table columns
+ * @param {TableColumn<T>[]} columns - Table columns
  * @param {T} row - Table row
  * @returns {React.ReactNode} Mobile actions
  */
-const _renderMobileActions = <T,>(columns: readonly TableColumn<T>[], row: T): React.ReactNode => {
+const _renderMobileActions = <T,>(columns: TableColumn<T>[], row: T): React.ReactNode => {
   if (!columns.some(_hasActions)) {
     return null;
   }

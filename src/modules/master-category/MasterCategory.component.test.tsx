@@ -4,18 +4,14 @@ import { MemoryRouter } from "react-router-dom";
 
 import { MasterCategoryComponent } from "./MasterCategory.component";
 import type { CategoryData, MasterCategoryProps } from "./MasterCategory.type";
-import type { TableColumn } from "@/components/Table";
 
-const mockCategories: readonly CategoryData[] = [
+const mockCategories: CategoryData[] = [
   { id: "1", categoryName: "Audio System", status: "active", createAt: "2024-02-01", createBy: "Admin" },
   { id: "2", categoryName: "Lighting", status: "inactive", createAt: "2024-03-01", createBy: "Admin" },
 ];
 
-const mockColumns: readonly TableColumn<CategoryData>[] = [{ key: "categoryName", header: "Name" }];
-
 const createProps = (overrides?: Partial<MasterCategoryProps>): MasterCategoryProps => ({
   paginatedData: mockCategories,
-  columns: mockColumns,
   currentPage: 1,
   totalPages: 2,
   pageSize: 5,
@@ -32,7 +28,6 @@ const createProps = (overrides?: Partial<MasterCategoryProps>): MasterCategoryPr
   setSearchTerm: jest.fn(),
   onCreate: jest.fn(),
   onEdit: jest.fn(),
-  onRowClick: jest.fn(),
   onBack: jest.fn(),
   onMore: jest.fn(),
   onCloseMore: jest.fn(),

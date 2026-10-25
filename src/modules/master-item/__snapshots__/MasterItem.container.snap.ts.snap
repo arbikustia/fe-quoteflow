@@ -100,6 +100,72 @@ exports[`MasterItemContainer matches snapshot 1`] = `
                       width="20"
                       xmlns="http://www.w3.org/2000/svg"
                     >
+                      <path
+                        d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"
+                      />
+                      <polyline
+                        points="14 2 14 8 20 8"
+                      />
+                      <line
+                        x1="16"
+                        x2="8"
+                        y1="13"
+                        y2="13"
+                      />
+                      <line
+                        x1="16"
+                        x2="8"
+                        y1="17"
+                        y2="17"
+                      />
+                    </svg>
+                  </span>
+                  <span
+                    class="flex-1 truncate text-xl leading-none font-normal"
+                  >
+                    Document
+                  </span>
+                  <span
+                    class="shrink-0 text-text-tertiary transition-transform duration-200 "
+                  >
+                    <svg
+                      fill="none"
+                      height="14"
+                      stroke="currentColor"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      viewBox="0 0 24 24"
+                      width="14"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="m6 9 6 6 6-6"
+                      />
+                    </svg>
+                  </span>
+                </button>
+              </div>
+              <div>
+                <button
+                  aria-expanded="false"
+                  class="w-full min-h-14 py-3 flex items-center gap-3 rounded-[8px] px-4 text-left transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring/30 text-text-secondary hover:bg-background-elevated hover:text-text-primary"
+                  type="button"
+                >
+                  <span
+                    class="shrink-0 [&_svg]:h-5 [&_svg]:w-5 text-text-tertiary"
+                  >
+                    <svg
+                      fill="none"
+                      height="20"
+                      stroke="currentColor"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="1.8"
+                      viewBox="0 0 24 24"
+                      width="20"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
                       <ellipse
                         cx="12"
                         cy="5"
@@ -583,37 +649,53 @@ exports[`MasterItemContainer matches snapshot 1`] = `
                         >
                           Documents per page
                         </label>
-                        <button
-                          aria-controls="documents-per-page-listbox"
-                          aria-expanded="false"
-                          aria-haspopup="listbox"
-                          class="flex w-full cursor-pointer items-center justify-between rounded-xl border border-border-default bg-background-surface px-4 py-3 text-left text-[15px] font-normal text-text-primary shadow-xs outline-none transition-all hover:border-border-strong focus:border-border-focus focus:ring-2 focus:ring-focus-ring/30 disabled:cursor-not-allowed disabled:bg-background-disabled disabled:text-text-disabled"
-                          id="documents-per-page"
-                          role="combobox"
-                          type="button"
+                        <div
+                          class="ant-select ant-select-outlined h-14 w-full css-var-root ant-select-css-var css-dev-only-do-not-override-eofgey ant-select-single ant-select-show-arrow"
                         >
-                          <span
-                            class="text-text-primary"
+                          <div
+                            class="ant-select-content ant-select-content-has-value"
+                            title="10"
                           >
                             10
-                          </span>
-                          <svg
-                            class="h-5 w-5 text-text-tertiary transition-transform duration-200 "
-                            fill="none"
-                            height="1em"
-                            stroke="currentColor"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            stroke-width="2"
-                            viewBox="0 0 24 24"
-                            width="1em"
-                            xmlns="http://www.w3.org/2000/svg"
-                          >
-                            <polyline
-                              points="6 9 12 15 18 9"
+                            <input
+                              aria-autocomplete="list"
+                              aria-expanded="false"
+                              aria-haspopup="listbox"
+                              aria-invalid="false"
+                              aria-label="Documents per page"
+                              autocomplete="new-password"
+                              class="ant-select-input"
+                              id="documents-per-page"
+                              readonly=""
+                              role="combobox"
+                              type="text"
+                              value=""
                             />
-                          </svg>
-                        </button>
+                          </div>
+                          <div
+                            class="ant-select-suffix"
+                          >
+                            <span
+                              aria-label="down"
+                              class="anticon anticon-down"
+                              role="img"
+                            >
+                              <svg
+                                aria-hidden="true"
+                                data-icon="down"
+                                fill="currentColor"
+                                focusable="false"
+                                height="1em"
+                                viewBox="64 64 896 896"
+                                width="1em"
+                              >
+                                <path
+                                  d="M884 256h-75c-5.1 0-9.9 2.5-12.9 6.6L512 654.2 227.9 262.6c-3-4.1-7.8-6.6-12.9-6.6h-75c-6.5 0-10.3 7.4-6.5 12.7l352.6 486.1c12.8 17.6 39 17.6 51.7 0l352.6-486.1c3.9-5.3.1-12.7-6.4-12.7z"
+                                />
+                              </svg>
+                            </span>
+                          </div>
+                        </div>
                       </div>
                     </div>
                     <div
@@ -1023,37 +1105,53 @@ exports[`MasterItemContainer matches snapshot 1`] = `
                         >
                           Documents per page
                         </label>
-                        <button
-                          aria-controls="documents-per-page-listbox"
-                          aria-expanded="false"
-                          aria-haspopup="listbox"
-                          class="flex w-full cursor-pointer items-center justify-between rounded-xl border border-border-default bg-background-surface px-4 py-3 text-left text-[15px] font-normal text-text-primary shadow-xs outline-none transition-all hover:border-border-strong focus:border-border-focus focus:ring-2 focus:ring-focus-ring/30 disabled:cursor-not-allowed disabled:bg-background-disabled disabled:text-text-disabled"
-                          id="documents-per-page"
-                          role="combobox"
-                          type="button"
+                        <div
+                          class="ant-select ant-select-outlined h-14 w-full css-var-root ant-select-css-var css-dev-only-do-not-override-eofgey ant-select-single ant-select-show-arrow"
                         >
-                          <span
-                            class="text-text-primary"
+                          <div
+                            class="ant-select-content ant-select-content-has-value"
+                            title="10"
                           >
                             10
-                          </span>
-                          <svg
-                            class="h-5 w-5 text-text-tertiary transition-transform duration-200 "
-                            fill="none"
-                            height="1em"
-                            stroke="currentColor"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            stroke-width="2"
-                            viewBox="0 0 24 24"
-                            width="1em"
-                            xmlns="http://www.w3.org/2000/svg"
-                          >
-                            <polyline
-                              points="6 9 12 15 18 9"
+                            <input
+                              aria-autocomplete="list"
+                              aria-expanded="false"
+                              aria-haspopup="listbox"
+                              aria-invalid="false"
+                              aria-label="Documents per page"
+                              autocomplete="new-password"
+                              class="ant-select-input"
+                              id="documents-per-page"
+                              readonly=""
+                              role="combobox"
+                              type="text"
+                              value=""
                             />
-                          </svg>
-                        </button>
+                          </div>
+                          <div
+                            class="ant-select-suffix"
+                          >
+                            <span
+                              aria-label="down"
+                              class="anticon anticon-down"
+                              role="img"
+                            >
+                              <svg
+                                aria-hidden="true"
+                                data-icon="down"
+                                fill="currentColor"
+                                focusable="false"
+                                height="1em"
+                                viewBox="64 64 896 896"
+                                width="1em"
+                              >
+                                <path
+                                  d="M884 256h-75c-5.1 0-9.9 2.5-12.9 6.6L512 654.2 227.9 262.6c-3-4.1-7.8-6.6-12.9-6.6h-75c-6.5 0-10.3 7.4-6.5 12.7l352.6 486.1c12.8 17.6 39 17.6 51.7 0l352.6-486.1c3.9-5.3.1-12.7-6.4-12.7z"
+                                />
+                              </svg>
+                            </span>
+                          </div>
+                        </div>
                       </div>
                     </div>
                     <div

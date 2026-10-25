@@ -1,13 +1,15 @@
 import type * as React from "react";
 
 export type MasterRoleCreateFormState = {
-  readonly roleName: string;
-  readonly isActive: boolean;
-  readonly isEditMode: boolean;
-  readonly isSubmitting: boolean;
-  readonly errorMessage: string | null;
-  readonly handleRoleNameChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  readonly handleStatusChange: () => void;
-  readonly handleSubmit: (event: React.SyntheticEvent) => Promise<void>;
-  readonly goBack: () => void;
+  roleName: string;
+  isActive: boolean;
+  isEditMode: boolean;
+  isSubmitting: boolean;
+  errorMessage: string | null;
+  errors: import("react-hook-form").FieldErrors<import("../MasterRole.type").RoleFormValues>;
+  isSubmitted: boolean;
+  handleRoleNameChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  handleStatusChange: () => void;
+  handleSubmit: (event: React.SyntheticEvent) => Promise<void>;
+  goBack: () => void;
 };

@@ -4,17 +4,17 @@ import { TableComponent } from "./Table.component";
 import type { TableColumn } from "./Table.type";
 
 type TestRow = {
-  readonly id: string;
-  readonly name: string;
+  id: string;
+  name: string;
 };
 
-const ROWS: readonly TestRow[] = [
+const ROWS: TestRow[] = [
   { id: "row-1", name: "Audio" },
 ];
 
 const renderName = (row: TestRow): string => row.name;
 
-const COLUMNS: readonly TableColumn<TestRow>[] = [
+const COLUMNS: TableColumn<TestRow>[] = [
   {
     key: "name",
     header: "Name",
@@ -43,7 +43,7 @@ describe("TableComponent", () => {
   it("should isolate action click from row click", (): void => {
     const onRowClick = jest.fn();
     const onEdit = jest.fn();
-    const columns: readonly TableColumn<TestRow>[] = [
+    const columns: TableColumn<TestRow>[] = [
       ...COLUMNS,
       { key: "actions", header: "Action", actions: { edit: onEdit } },
     ];
@@ -163,7 +163,7 @@ describe("TableComponent", () => {
   it("should render mobile action buttons when actions provided", (): void => {
     const onEdit = jest.fn();
     const onDelete = jest.fn();
-    const columns: readonly TableColumn<TestRow>[] = [
+    const columns: TableColumn<TestRow>[] = [
       ...COLUMNS,
       { key: "actions", header: "Action", actions: { edit: onEdit, delete: onDelete } },
     ];

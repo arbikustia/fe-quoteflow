@@ -1,13 +1,78 @@
 import * as React from "react";
+import { FiEdit2 } from "react-icons/fi";
 
 import Layout from "../../app/layout";
 import { PageLayout } from "../../app/shared/PageLayout";
 import { MasterDataCard } from "../../components/MasterDataCard";
 import { Pagination } from "../../components/Pagination";
 import { SearchFilter } from "../../components/SearchFilter";
+import type { TableColumn } from "../../components/Table";
 import Table from "../../components/Table";
 
 import type { MasterServiceTypeProps, ServiceTypeData } from "./MasterServiceType.type";
+
+/**
+ * Build service type table columns.
+ * @param {number} currentPage - Current page
+ * @param {number} pageSize - Page size
+ * @param {(serviceType: ServiceTypeData) => void} onEdit - Edit handler
+ * @returns {TableColumn<ServiceTypeData>[]} Service type columns
+ */
+const _getColumns = (currentPage: number, pageSize: number, onEdit: (serviceType: ServiceTypeData) => void): TableColumn<ServiceTypeData>[] => {
+  /**
+   * Render row number.
+   * @param {ServiceTypeData} _row - Service type row
+   * @param {number} index - Row index
+   * @returns {React.ReactElement} Number cell
+   */
+  const renderNo = (_row: ServiceTypeData, index: number): React.ReactElement => <span className="text-sm font-medium text-brand-text-medium">{(currentPage - 1) * pageSize + index + 1}</span>;
+  /**
+   * Render price.
+   * @param {ServiceTypeData} row - Service type row
+   * @returns {React.ReactElement} Price cell
+   */
+  const renderPrice = (row: ServiceTypeData): React.ReactElement => <span>Rp {row.price.toLocaleString("id-ID")}</span>;
+  /**
+   * Render active state.
+   * @param {ServiceTypeData} row - Service type row
+   * @returns {React.ReactElement} Active cell
+   */
+  const renderIsActive = (row: ServiceTypeData): React.ReactElement => <span className={`rounded px-2 py-0.5 text-xs font-semibold ${row.isActive ? "bg-blue-50 text-blue-600" : "bg-gray-100 text-gray-500"}`}>{row.isActive ? "Yes" : "No"}</span>;
+  /**
+   * Render status.
+   * @param {ServiceTypeData} row - Service type row
+   * @returns {React.ReactElement} Status cell
+   */
+  const renderStatus = (row: ServiceTypeData): React.ReactElement => <span className={`rounded-full px-3 py-1 text-xs font-bold uppercase ${row.status === "active" ? "bg-green-100 text-green-600" : "bg-red-100 text-red-600"}`}>{row.status}</span>;
+  /**
+   * Render edit action.
+   * @param {ServiceTypeData} row - Service type row
+   * @returns {React.ReactElement} Action cell
+   */
+  const renderActions = (row: ServiceTypeData): React.ReactElement => {
+    /**
+     * Handle edit click.
+     * @param {React.MouseEvent} event - Click event
+     * @returns {void} No return value
+     */
+    const handleClick = (event: React.MouseEvent): void => {
+      event.stopPropagation();
+      onEdit(row);
+    };
+
+    return <div className="flex items-center justify-center"><button type="button" onClick={handleClick} className="cursor-pointer rounded-lg p-1.5 text-brand-text-medium transition-colors hover:bg-brand-blue-light hover:text-brand-blue" title="Edit"><FiEdit2 className="h-4 w-4" /></button></div>;
+  };
+
+  return [
+    { key: "no", header: "No", align: "center", render: renderNo },
+    { key: "name", header: "Service Name", mobile: { primary: true } },
+    { key: "price", header: "Price", mobile: { primary: true, render: renderPrice }, render: renderPrice },
+    { key: "isActive", header: "Active", align: "center", render: renderIsActive },
+    { key: "status", header: "Status", align: "center", render: renderStatus },
+    { key: "createAt", header: "Created At" },
+    { key: "actions", header: "Action", align: "center", render: renderActions },
+  ];
+};
 
 /**
  * Render loading, empty, and error states.
@@ -91,7 +156,8 @@ const _renderMobile = (props: MasterServiceTypeProps): React.ReactElement => {
  * @returns {React.ReactElement} Desktop view
  */
 const _renderDesktop = (props: MasterServiceTypeProps): React.ReactElement => {
-  const { paginatedData, columns, currentPage, totalPages, pageSize, totalCount, goToPage, changePageSize, setSearchTerm, onCreate, onRowClick } = props;
+  const { paginatedData, currentPage, totalPages, pageSize, totalCount, goToPage, changePageSize, setSearchTerm, onCreate, onEdit, onRowClick } = props;
+  const columns = _getColumns(currentPage, pageSize, onEdit);
   /**
    * Update service type search term.
    * @param {React.ChangeEvent<HTMLInputElement>} event - Search input event

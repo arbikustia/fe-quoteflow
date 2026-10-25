@@ -1,8 +1,8 @@
 import { useCallback, useState } from "react";
 
 export type UseSidebarCollapse = {
-  readonly isSidebarCollapsed: boolean;
-  readonly onToggleSidebarCollapsed: () => void;
+  isSidebarCollapsed: boolean;
+  onToggleSidebarCollapsed: () => void;
 };
 
 /**

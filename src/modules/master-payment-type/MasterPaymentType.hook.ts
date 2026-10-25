@@ -37,14 +37,8 @@ export const useMasterPaymentTypeNavigation = (): MasterPaymentTypeNavigation =>
   const goEdit = (paymentType: PaymentTypeData): void => {
     navigate(`/master-payment-type/edit/${paymentType.id}`, { state: { paymentType } });
   };
-  /**
-   * Navigate to detail page.
-   * @param {PaymentTypeData} paymentType - Payment type to inspect
-   * @returns {void} No return value
-   */
-  const goDetail = (paymentType: PaymentTypeData): void => { navigate(`/master-payment-type/detail/${paymentType.id}`); };
 
-  return { goBack, goCreate, goEdit, goDetail };
+  return { goBack, goCreate, goEdit };
 };
 
 /**
@@ -121,19 +115,6 @@ export const useMasterPaymentTypePagination = (): MasterPaymentTypePagination =>
 export const useMasterPaymentTypeContainerState = (): MasterPaymentTypeContainerState => {
   const pagination = useMasterPaymentTypePagination();
   const navigation = useMasterPaymentTypeNavigation();
-  const [isMoreOpen, setIsMoreOpen] = useState(false);
-  /**
-   *
-   */
-  const toggleMore = (): void => { setIsMoreOpen((previous) => !previous); };
-  /**
-   *
-   */
-  const goDelete = (): void => { setIsMoreOpen(false); };
-  /**
-   *
-   */
-  const handleCloseMore = (): void => { setIsMoreOpen(false); };
 
-  return { ...navigation, pagination, isMoreOpen, toggleMore, goDelete, handleCloseMore };
+  return { ...navigation, pagination };
 };

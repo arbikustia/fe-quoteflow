@@ -3,13 +3,13 @@ import type { ChangeEvent, SyntheticEvent } from 'react';
 import type { ApiEnvelope } from '@/types/api.type';
 
 export type AuthenticationPayload = {
-  readonly username: string;
-  readonly password: string;
+  username: string;
+  password: string;
 };
 
 export type AuthenticationTokens = {
-  readonly access_token: string;
-  readonly refresh_token: string;
+  access_token: string;
+  refresh_token: string;
 };
 
 export type AuthenticationResponse = ApiEnvelope<AuthenticationTokens | null>;

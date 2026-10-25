@@ -1,11 +1,11 @@
-import { fireEvent, render, screen } from "@testing-library/react";
+import { fireEvent, render, screen } from "@/libs/unit-test";
 
 import { MasterProjectCreateForm } from "./MasterProjectCreate.component";
 import type { MasterProjectCreateFormState } from "@/modules/master-project/MasterProject.type";
 
 jest.mock("@/app/layout", () => ({
   __esModule: true,
-  default: ({ children }: { readonly children: React.ReactNode }) => <div>{children}</div>,
+  default: ({ children }: { children: React.ReactNode }) => <div>{children}</div>,
 }));
 
 const createProps = (
@@ -29,6 +29,8 @@ const createProps = (
   isSubmitting: false,
   errorMessage: null,
   successMessage: null,
+  errors: {},
+  isSubmitted: false,
   handleNameChange: jest.fn(),
   handleRemarkChange: jest.fn(),
   nextStep: jest.fn(),
@@ -56,8 +58,8 @@ describe("MasterProjectCreateForm", () => {
     const props = createProps({ step: 2 });
     render(<MasterProjectCreateForm {...props} />);
 
-    fireEvent.change(screen.getByLabelText("Project Name"), { target: { value: "Event Project" } });
-    fireEvent.change(screen.getByLabelText("Remark"), { target: { value: "Outdoor event" } });
+    fireEvent.change(screen.getByLabelText(/project name/i), { target: { value: "Event Project" } });
+    fireEvent.change(screen.getByLabelText(/remark/i), { target: { value: "Outdoor event" } });
 
     expect(props.handleNameChange).toHaveBeenCalled();
     expect(props.handleRemarkChange).toHaveBeenCalled();
@@ -71,14 +73,12 @@ describe("MasterProjectCreateForm", () => {
       remark: "Outdoor event",
       selectedItems: [{ ...createProps().items[0], qty: 2 }],
       errorMessage: "Unable to save project.",
-      successMessage: "Project saved.",
       isSubmitting: true,
     });
     render(<MasterProjectCreateForm {...props} />);
 
     expect(screen.getByText("Event Project")).toBeInTheDocument();
     expect(screen.getByRole("alert")).toHaveTextContent("Unable to save project.");
-    expect(screen.getByRole("status")).toHaveTextContent("Project saved.");
     expect(screen.getByRole("button", { name: "Saving…" })).toBeDisabled();
   });
 

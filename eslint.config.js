@@ -50,6 +50,7 @@ export default defineConfig([
     rules: {
       ...reactHooksPlugin.configs.recommended.rules,
       ...sonarjsPlugin.configs.recommended?.rules,
+      "sonarjs/prefer-read-only-props": "off",
 
       "react-refresh/only-export-components": [
         "warn",

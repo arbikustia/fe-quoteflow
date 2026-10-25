@@ -1,4 +1,4 @@
-import { render } from "@testing-library/react";
+import { render } from "@/libs/unit-test";
 import { BrowserRouter } from "react-router-dom";
 
 import MasterPaymentTypeContainer from "./MasterPaymentType.container";
@@ -12,7 +12,6 @@ jest.mock("./MasterPaymentType.hook", () => ({
     goBack: jest.fn(),
     goCreate: jest.fn(),
     goEdit: jest.fn(),
-    goDetail: jest.fn(),
     pagination: {
       currentPage: 1,
       totalPages: 1,
@@ -29,10 +28,6 @@ jest.mock("./MasterPaymentType.hook", () => ({
       changePageSize: jest.fn(),
       totalCount: 1,
     },
-    isMoreOpen: false,
-    toggleMore: jest.fn(),
-    goDelete: jest.fn(),
-    handleCloseMore: jest.fn(),
   })),
 }));
 
@@ -47,7 +42,6 @@ describe("MasterPaymentType Container", () => {
       goBack: jest.fn(),
       goCreate: jest.fn(),
       goEdit: jest.fn(),
-      goDetail: jest.fn(),
     });
 
     const { getByTestId } = render(

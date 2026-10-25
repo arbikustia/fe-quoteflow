@@ -20,7 +20,7 @@ const axiosBaseQuery = async (
     return { data: response.data };
   } catch (error) {
     if (
-      axios.isAxiosError<{ readonly messages: string[] | string | null }>(error)
+      axios.isAxiosError<{ messages: string[] | string | null }>(error)
     ) {
       return {
         error: {
@@ -50,6 +50,9 @@ export const apiRtkClient = createApi({
     "Pic",
     "User",
     "Order",
+    "Quotation",
+    "Invoice",
+    "Payment",
   ],
   endpoints: () => ({}),
 });

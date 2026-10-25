@@ -1,9 +1,9 @@
 import type { ReactElement } from "react";
 
-import Layout from "@/app/layout";
-
 import { formatRupiahInput } from "./MasterServiceTypeCreate.helpers";
 import type { MasterServiceTypeCreateFormState } from "./MasterServiceTypeCreate.type";
+
+import Layout from "@/app/layout";
 
 /**
  * Render status switch field (edit mode only).

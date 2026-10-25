@@ -137,7 +137,7 @@ const useServiceTypeFields = (
 export const useMasterServiceTypeCreateForm = (): MasterServiceTypeCreateFormState => {
   const navigate = useNavigate();
   const location = useLocation();
-  const { id } = useParams<{ readonly id: string }>();
+  const { id } = useParams<{ id: string }>();
   const isEditMode = Boolean(id);
   const routeServiceType: ServiceTypeData | undefined = location.state?.serviceType;
 

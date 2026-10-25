@@ -1,5 +1,5 @@
 import { describe, expect, it, jest } from "@jest/globals";
-import { fireEvent, render, screen } from "@testing-library/react";
+import { fireEvent, render, screen } from "@/libs/unit-test";
 
 import { MasterItemCreateForm } from "./MasterItemCreate.component";
 import type { MasterItemCreateFormState } from "./MasterItemCreate.type";
@@ -39,10 +39,10 @@ describe("MasterItemCreateForm", () => {
   it("should render item form fields and select options in create mode", () => {
     render(<MasterItemCreateForm {...createProps()} />);
 
-    expect(screen.getByLabelText("Item name")).toBeTruthy();
+    expect(screen.getByLabelText(/item name/i)).toBeTruthy();
     const categorySelect = screen.getByRole("combobox", { name: "Category" });
     expect(categorySelect).toBeTruthy();
-    fireEvent.click(categorySelect);
+    fireEvent.mouseDown(categorySelect);
     expect(screen.getByRole("option", { name: "Audio System" })).toBeTruthy();
     expect(screen.getByRole("button", { name: "Create Item" })).toBeTruthy();
     expect(screen.queryByRole("switch")).toBeNull();
@@ -59,7 +59,7 @@ describe("MasterItemCreateForm", () => {
     const handlePriceChange = jest.fn();
     render(<MasterItemCreateForm {...createProps({ price: "1500000", handlePriceChange })} />);
 
-    const priceInput = screen.getByLabelText("Price") as HTMLInputElement;
+    const priceInput = screen.getByLabelText(/price/i) as HTMLInputElement;
     expect(priceInput.value).toBe("Rp 1.500.000");
 
     fireEvent.change(priceInput, { target: { value: "Rp 2.000.000" } });

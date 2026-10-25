@@ -4,7 +4,7 @@ import { Outlet } from "react-router-dom";
 import GlobalHeader from "./GlobalHeader";
 import MobileNavigate from "../../components/MobileNavigate";
 
-export default function MobileLayout({ children }: { readonly children?: React.ReactNode }): React.ReactElement {
+export default function MobileLayout({ children }: { children?: React.ReactNode }): React.ReactElement {
   return (
     <div className="flex flex-col h-full w-full bg-background-surface absolute inset-0">
       <GlobalHeader />

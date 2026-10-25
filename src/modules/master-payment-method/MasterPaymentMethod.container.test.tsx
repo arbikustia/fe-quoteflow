@@ -1,30 +1,22 @@
-import { render } from "@testing-library/react";
+import { render } from "@/libs/unit-test";
+import { MemoryRouter } from "react-router-dom";
+
 import MasterPaymentMethodContainer from "./MasterPaymentMethod.container";
-import { useMasterPaymentMethodContainerState, useMasterPaymentMethodNavigation } from "./MasterPaymentMethod.hook";
+import { useMasterPaymentMethodContainerState } from "./MasterPaymentMethod.hook";
+import type { MasterPaymentMethodProps } from "./MasterPaymentMethod.type";
 
 jest.mock("./MasterPaymentMethod.component", () => ({
-  MasterPaymentMethodComponent: (props: any) => <div data-testid="component">{JSON.stringify(props)}</div>,
+  MasterPaymentMethodComponent: (props: MasterPaymentMethodProps) => <div data-testid="component">{JSON.stringify(props)}</div>,
 }));
 
-jest.mock("./MasterPaymentMethod.hook", () => ({
-  useMasterPaymentMethodContainerState: jest.fn(),
-  useMasterPaymentMethodNavigation: jest.fn(),
-}));
+jest.mock("./MasterPaymentMethod.hook", () => ({ useMasterPaymentMethodContainerState: jest.fn() }));
 
 describe("MasterPaymentMethod.container", () => {
   it("should render correctly", () => {
-    jest.mocked(useMasterPaymentMethodNavigation).mockReturnValue({
-      goBack: jest.fn(),
-      goCreate: jest.fn(),
-      goEdit: jest.fn(),
-      goDetail: jest.fn(),
-    });
-
     jest.mocked(useMasterPaymentMethodContainerState).mockReturnValue({
       goBack: jest.fn(),
       goCreate: jest.fn(),
       goEdit: jest.fn(),
-      goDetail: jest.fn(),
       pagination: {
         paginatedData: [],
         currentPage: 1,
@@ -47,7 +39,7 @@ describe("MasterPaymentMethod.container", () => {
       handleCloseMore: jest.fn(),
     });
 
-    const { getByTestId } = render(<MasterPaymentMethodContainer />);
+    const { getByTestId } = render(<MemoryRouter><MasterPaymentMethodContainer /></MemoryRouter>);
     expect(getByTestId("component")).toBeTruthy();
   });
 });

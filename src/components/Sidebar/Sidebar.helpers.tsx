@@ -33,12 +33,12 @@ const _renderBadge = (badge: string | number | undefined, isCollapsed: boolean):
 
 /**
  * Render navigation children.
- * @param {readonly NavigationChild[]} [children] - Child items
+ * @param {NavigationChild[]} [children] - Child items
  * @param {string} currentPath - Current path
  * @param {boolean} isCollapsed - Collapsed state
  * @returns {React.ReactNode} Child links
  */
-const _renderChildren = (children: readonly NavigationChild[] | undefined, currentPath: string, isCollapsed: boolean): React.ReactNode => children?.map((child) => {
+const _renderChildren = (children: NavigationChild[] | undefined, currentPath: string, isCollapsed: boolean): React.ReactNode => children?.map((child) => {
   const isActive = isNavigationChildActive(child.path, currentPath);
   const childClassName = isCollapsed
     ? "flex h-9 items-center rounded-[6px] px-3 text-base transition-colors"

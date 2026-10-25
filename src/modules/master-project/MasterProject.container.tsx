@@ -1,35 +1,35 @@
 import * as React from "react";
+import { useLocation } from "react-router-dom";
 
-import { getColumns } from "./MasterProject.columns";
+import { AlertComponent } from "@/components/Alert";
+
 import { MasterProjectComponent } from "./MasterProject.component";
 import { useMasterProjectContainerState } from "./MasterProject.hook";
+import type { ProjectRouteState } from "./MasterProject.type";
 
 /**
  * Master Project Container
  * @returns {React.ReactElement} Container component
  */
 const MasterProjectContainer = (): React.ReactElement => {
+  const location = useLocation();
+  const routeState: ProjectRouteState | null = location.state;
   const containerState = useMasterProjectContainerState();
 
-  const columns = getColumns({
-    currentPage: containerState.pagination.currentPage,
-    pageSize: containerState.pagination.pageSize,
-    onEdit: containerState.goEdit,
-  });
-
   return (
-    <MasterProjectComponent
-      {...containerState.pagination}
-      columns={columns}
-      onBack={containerState.goBack}
-      onCreate={containerState.goCreate}
-      onEdit={containerState.goEdit}
-      onRowClick={containerState.goDetail}
-      onMore={containerState.toggleMore}
-      isMoreOpen={containerState.isMoreOpen}
-      onCloseMore={containerState.handleCloseMore}
-      onDelete={containerState.goDelete}
-    />
+    <>
+      {routeState?.successMessage && <AlertComponent type="success" message={routeState.successMessage} toast closable />}
+      <MasterProjectComponent
+        {...containerState.pagination}
+        onBack={containerState.goBack}
+        onCreate={containerState.goCreate}
+        onEdit={containerState.goEdit}
+        onMore={containerState.toggleMore}
+        isMoreOpen={containerState.isMoreOpen}
+        onCloseMore={containerState.handleCloseMore}
+        onDelete={containerState.goDelete}
+      />
+    </>
   );
 };
 

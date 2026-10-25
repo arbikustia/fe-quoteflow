@@ -1,4 +1,3 @@
-import type { TableColumn } from "../../components/Table";
 import type { ApiEnvelope, ApiQueryParams, PaginatedResponse } from "../../types/api.type";
 
 export type ApiPic = {
@@ -11,9 +10,9 @@ export type ApiPic = {
 };
 
 export type PicAllResponse = {
-  readonly status: boolean;
-  readonly data: Array<{ readonly id: string; readonly name: string }>;
-  readonly messages: string[];
+  status: boolean;
+  data: Array<{ id: string; name: string }>;
+  messages: string[];
 };
 
 export type PicListResponse = PaginatedResponse<ApiPic>;
@@ -38,11 +37,15 @@ export type PicData = {
   createBy: string | null;
 };
 
+export type PicRouteState = {
+  pic?: PicData;
+  successMessage?: string;
+};
+
 export type MasterPicNavigation = {
   goBack: () => void;
   goCreate: () => void;
   goEdit: (pic: PicData) => void;
-  goDetail: (pic: PicData) => void;
 };
 
 export type MasterPicPagination = {
@@ -83,7 +86,6 @@ export type MasterPicProps = {
   isLoading: boolean;
   isError: boolean;
   setSearchTerm: (searchTerm: string) => void;
-  columns: TableColumn<PicData>[];
   onCreate: () => void;
   onEdit: (pic: PicData) => void;
   onRowClick: (pic: PicData) => void;

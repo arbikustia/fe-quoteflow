@@ -26,9 +26,7 @@ export const useMasterCategoryNavigation = (): MasterCategoryNavigation => {
   const goBack = (): void => { navigate(-1); };
   const goCreate = (): void => { navigate("/master-category/create"); };
   const goEdit = (category: CategoryData): void => { navigate(`/master-category/edit/${category.id}`, { state: { category } }); };
-  const goDetail = (category: CategoryData): void => { navigate(`/master-category/detail/${category.id}`); };
-
-  return { goBack, goCreate, goEdit, goDetail };
+  return { goBack, goCreate, goEdit };
 };
 
 /**

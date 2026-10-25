@@ -6,7 +6,7 @@ import { useAppSelector } from "./hooks";
 import { selectTheme } from "./theme.slice";
 
 export type ThemeProviderProps = {
-  readonly children: React.ReactNode;
+  children: React.ReactNode;
 };
 
 /**

@@ -1,13 +1,57 @@
 import * as React from "react";
+import { FiEdit2 } from "react-icons/fi";
 
 import Layout from "../../app/layout";
 import { PageLayout } from "../../app/shared/PageLayout";
 import { MasterDataCard } from "../../components/MasterDataCard";
 import { Pagination } from "../../components/Pagination";
 import { SearchFilter } from "../../components/SearchFilter";
+import type { TableColumn } from "../../components/Table";
 import Table from "../../components/Table";
 
 import type { MasterPaymentMethodProps, PaymentMethodData } from "./MasterPaymentMethod.type";
+
+/** Build payment method table columns.
+ * @param {number} currentPage - Active page
+ * @param {number} pageSize - Active page size
+ * @param {(paymentMethod: PaymentMethodData) => void} onEdit - Edit handler
+ * @returns {TableColumn<PaymentMethodData>[]} Table columns
+ */
+const _getColumns = (currentPage: number, pageSize: number, onEdit: (paymentMethod: PaymentMethodData) => void): TableColumn<PaymentMethodData>[] => {
+  /** Render row number.
+   * @param {PaymentMethodData} _row - Row data
+   * @param {number} index - Row index
+   * @returns {React.ReactElement} Number cell
+   */
+  const renderNumber = (_row: PaymentMethodData, index: number): React.ReactElement => <span className="text-sm">{(currentPage - 1) * pageSize + index + 1}</span>;
+  /** Render status.
+   * @param {PaymentMethodData} row - Row data
+   * @returns {React.ReactElement} Status cell
+   */
+  const renderStatus = (row: PaymentMethodData): React.ReactElement => <span className={`rounded-full px-3 py-1 text-xs font-bold uppercase ${row.status === "active" ? "bg-green-100 text-green-600" : "bg-red-100 text-red-600"}`}>{row.status}</span>;
+  /** Render edit action.
+   * @param {PaymentMethodData} row - Row data
+   * @returns {React.ReactElement} Edit button
+   */
+  const renderActions = (row: PaymentMethodData): React.ReactElement => {
+    /** Open editing without triggering row navigation.
+     * @param {React.MouseEvent} event - Click event
+     * @returns {void} No return value
+     */
+    const handleEdit = (event: React.MouseEvent): void => { event.stopPropagation(); onEdit(row); };
+
+    return <button type="button" onClick={handleEdit} className="cursor-pointer rounded-lg p-1.5 text-brand-text-medium transition-colors hover:bg-brand-blue-light hover:text-brand-blue" title="Edit"><FiEdit2 className="h-4 w-4" /></button>;
+  };
+
+  return [
+    { key: "no", header: "No", align: "center", render: renderNumber },
+    { key: "name", header: "Payment Method" },
+    { key: "description", header: "Description" },
+    { key: "status", header: "Status", align: "center", render: renderStatus },
+    { key: "createAt", header: "Created At" },
+    { key: "actions", header: "Action", align: "center", render: renderActions },
+  ];
+};
 
 /**
  * Render list state.
@@ -88,7 +132,8 @@ const _renderMobile = (props: MasterPaymentMethodProps): React.ReactElement => {
  * @returns {React.ReactElement} Desktop table
  */
 const _renderDesktop = (props: MasterPaymentMethodProps): React.ReactElement => {
-  const { paginatedData, columns, currentPage, totalPages, pageSize, totalCount, goToPage, changePageSize, setSearchTerm, onCreate, onRowClick } = props;
+  const { paginatedData, currentPage, totalPages, pageSize, totalCount, goToPage, changePageSize, setSearchTerm, onCreate, onEdit } = props;
+  const columns = _getColumns(currentPage, pageSize, onEdit);
   /**
    * Update search term.
    * @param {React.ChangeEvent<HTMLInputElement>} event - Search input event
@@ -109,7 +154,7 @@ const _renderDesktop = (props: MasterPaymentMethodProps): React.ReactElement => 
         <button type="button" onClick={onCreate} className="h-14 rounded-xl bg-brand-blue px-6 text-sm font-semibold text-brand-white">Create Payment Method</button>
       </div>
       <div className="flex-1 overflow-auto">
-        {_renderListState(props) ?? <Table data={paginatedData} columns={columns} isDetail={false} onRowClick={onRowClick} keyExtractor={keyExtractor} />}
+        {_renderListState(props) ?? <Table data={paginatedData} columns={columns} keyExtractor={keyExtractor} />}
       </div>
       <Pagination currentPage={currentPage} totalPages={totalPages} pageSize={pageSize} onPageChange={goToPage} onPageSizeChange={changePageSize} totalItems={totalCount} />
     </div>

@@ -25,40 +25,31 @@ export const useMasterRoleNavigation = (): MasterRoleNavigation => {
   const navigate = useNavigate();
 
   /**
-   * Navigate back
-   * @returns {void} void
+   * Navigate back.
+   * @returns {void} No return value
    */
   const goBack = (): void => {
     navigate(-1);
   };
 
   /**
-   * Navigate to create
-   * @returns {void} void
+   * Navigate to create role.
+   * @returns {void} No return value
    */
   const goCreate = (): void => {
     navigate("/master-role/create");
   };
 
   /**
-   * Navigate to edit
-   * @param {RoleData} role - role data
-   * @returns {void} void
+   * Navigate to edit role.
+   * @param {RoleData} role - Role record
+   * @returns {void} No return value
    */
   const goEdit = (role: RoleData): void => {
     navigate(`/master-role/edit/${role.id}`, { state: { role } });
   };
 
-  /**
-   * Navigate to detail
-   * @param {RoleData} role - role data
-   * @returns {void} void
-   */
-  const goDetail = (role: RoleData): void => {
-    navigate(`/master-role/detail/${role.id}`);
-  };
-
-  return { goBack, goCreate, goEdit, goDetail };
+  return { goBack, goCreate, goEdit };
 };
 
 /**

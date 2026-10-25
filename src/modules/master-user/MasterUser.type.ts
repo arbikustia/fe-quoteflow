@@ -1,4 +1,3 @@
-import type { TableColumn } from "../../components/Table";
 import type { ApiEnvelope, ApiQueryParams, PaginatedResponse } from "../../types/api.type";
 
 export type ApiUser = {
@@ -62,7 +61,6 @@ export type MasterUserProps = {
   prevPage: () => void;
   changePageSize: (size: number) => void;
   totalCount: number;
-  columns: TableColumn<UserData>[];
   isLoading: boolean;
   isError: boolean;
   isEmpty: boolean;
@@ -85,11 +83,15 @@ export type GetColumnsParams = {
 };
 
 /** Navigation hook return type */
+export type UserRouteState = {
+  user?: UserData;
+  successMessage?: string;
+};
+
 export type MasterUserNavigation = {
   goBack: () => void;
   goCreate: () => void;
   goEdit: (item: UserData) => void;
-  goDetail: (item: UserData) => void;
 };
 
 /** Container state hook return type */

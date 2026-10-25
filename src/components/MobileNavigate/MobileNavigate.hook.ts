@@ -30,12 +30,12 @@ export const _isTabActive = (tabId: string, path: string): boolean => {
 export const useMobileNavigate = (currentPath: string): MobileNavigateHookResult => {
   /**
    * Resolve navigation items with active route state.
-   * @param {readonly MobileNavigateItem[]} items - navigation items
-   * @returns {readonly MobileNavigateResolvedItem[]} resolved navigation items
+   * @param {MobileNavigateItem[]} items - navigation items
+   * @returns {MobileNavigateResolvedItem[]} resolved navigation items
    */
   const getItems = (
-    items: readonly MobileNavigateItem[],
-  ): readonly MobileNavigateResolvedItem[] => items.map((item) => ({
+    items: MobileNavigateItem[],
+  ): MobileNavigateResolvedItem[] => items.map((item) => ({
     ...item,
     isActive: _isTabActive(item.id, currentPath),
   }));

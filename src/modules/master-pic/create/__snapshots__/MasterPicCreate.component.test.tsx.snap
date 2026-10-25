@@ -69,28 +69,33 @@ exports[`MasterPicCreateForm Component MasterPicCreateForm Snapshots create mode
       </div>
       <form
         class="flex min-h-0 flex-1 flex-col justify-between border-0 bg-transparent p-0 shadow-none lg:rounded-4xl lg:border lg:border-border-default lg:bg-background-surface lg:p-8 lg:shadow-xs"
+        novalidate=""
       >
         <div
           class="space-y-4"
         >
-          <div>
+          <div
+            class="mb-4 "
+          >
             <label
               class="mb-1.5 block text-xs font-bold uppercase tracking-wider text-text-secondary"
               for="pic-name"
             >
-              PIC Name 
+              PIC Name
               <span
                 aria-hidden="true"
-                class="text-red-600"
+                class="ml-1 text-danger"
               >
                 *
               </span>
             </label>
             <input
-              class="w-full rounded-xl border border-border-default bg-background-surface px-4 py-3 text-[15px] text-text-primary shadow-xs outline-none transition-all placeholder:text-text-tertiary/60 focus:border-border-focus focus:ring-2 focus:ring-focus-ring/30"
+              aria-invalid="false"
+              class="ant-input ant-input-lg css-dev-only-do-not-override-eofgey ant-input-outlined h-14 w-full css-var-root ant-input-css-var"
               id="pic-name"
               placeholder="e.g. John Doe"
               required=""
+              type="text"
               value="John Doe"
             />
           </div>
@@ -180,57 +185,71 @@ exports[`MasterPicCreateForm Component MasterPicCreateForm Snapshots edit mode a
       </div>
       <form
         class="flex min-h-0 flex-1 flex-col justify-between border-0 bg-transparent p-0 shadow-none lg:rounded-4xl lg:border lg:border-border-default lg:bg-background-surface lg:p-8 lg:shadow-xs"
+        novalidate=""
       >
         <div
           class="space-y-4"
         >
-          <div>
+          <div
+            class="mb-4 "
+          >
             <label
               class="mb-1.5 block text-xs font-bold uppercase tracking-wider text-text-secondary"
               for="pic-name"
             >
-              PIC Name 
+              PIC Name
               <span
                 aria-hidden="true"
-                class="text-red-600"
+                class="ml-1 text-danger"
               >
                 *
               </span>
             </label>
             <input
-              class="w-full rounded-xl border border-border-default bg-background-surface px-4 py-3 text-[15px] text-text-primary shadow-xs outline-none transition-all placeholder:text-text-tertiary/60 focus:border-border-focus focus:ring-2 focus:ring-focus-ring/30"
+              aria-invalid="false"
+              class="ant-input ant-input-lg css-dev-only-do-not-override-eofgey ant-input-outlined h-14 w-full css-var-root ant-input-css-var"
               id="pic-name"
               placeholder="e.g. John Doe"
               required=""
+              type="text"
               value="John Doe"
             />
           </div>
           <div
             class="flex items-center justify-between rounded-xl border border-border-default bg-background-surface px-4 py-3.5"
           >
-            <div
-              class="flex flex-col"
-            >
-              <span
+            <div>
+              <p
                 class="text-sm font-semibold text-text-primary"
               >
                 Status
-              </span>
-              <span
+              </p>
+              <p
                 class="text-xs text-text-secondary"
               >
                 Toggle active or inactive status
-              </span>
+              </p>
             </div>
             <button
               aria-checked="true"
-              class="relative inline-flex h-6 w-11 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-brand-blue/30 bg-brand-blue"
+              aria-label="PIC status"
+              class="ant-switch css-dev-only-do-not-override-eofgey css-var-root ant-switch-checked"
               role="switch"
               type="button"
             >
-              <span
-                class="pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow-lg transition translate-x-5"
+              <div
+                class="ant-switch-handle"
               />
+              <span
+                class="ant-switch-inner"
+              >
+                <span
+                  class="ant-switch-inner-checked"
+                />
+                <span
+                  class="ant-switch-inner-unchecked"
+                />
+              </span>
             </button>
           </div>
         </div>
@@ -329,28 +348,33 @@ exports[`MasterPicCreateForm Component MasterPicCreateForm Snapshots submitting 
       </div>
       <form
         class="flex min-h-0 flex-1 flex-col justify-between border-0 bg-transparent p-0 shadow-none lg:rounded-4xl lg:border lg:border-border-default lg:bg-background-surface lg:p-8 lg:shadow-xs"
+        novalidate=""
       >
         <div
           class="space-y-4"
         >
-          <div>
+          <div
+            class="mb-4 "
+          >
             <label
               class="mb-1.5 block text-xs font-bold uppercase tracking-wider text-text-secondary"
               for="pic-name"
             >
-              PIC Name 
+              PIC Name
               <span
                 aria-hidden="true"
-                class="text-red-600"
+                class="ml-1 text-danger"
               >
                 *
               </span>
             </label>
             <input
-              class="w-full rounded-xl border border-border-default bg-background-surface px-4 py-3 text-[15px] text-text-primary shadow-xs outline-none transition-all placeholder:text-text-tertiary/60 focus:border-border-focus focus:ring-2 focus:ring-focus-ring/30"
+              aria-invalid="false"
+              class="ant-input ant-input-lg css-dev-only-do-not-override-eofgey ant-input-outlined h-14 w-full css-var-root ant-input-css-var"
               id="pic-name"
               placeholder="e.g. John Doe"
               required=""
+              type="text"
               value="John Doe"
             />
           </div>
@@ -377,6 +401,74 @@ exports[`MasterPicCreateForm Component MasterPicCreateForm Snapshots with error 
   <div
     class="flex h-full w-full flex-col bg-background-surface pb-6 font-sans lg:bg-background-page"
   >
+    <div
+      class="fixed right-4 top-4 z-50 w-[calc(100vw-2rem)] max-w-md shadow-lg"
+    >
+      <div
+        class="ant-alert ant-alert-error ant-alert-outlined css-var-root css-dev-only-do-not-override-eofgey"
+        data-show="true"
+        role="alert"
+      >
+        <span
+          class="ant-alert-icon"
+        >
+          <span
+            aria-label="close-circle"
+            class="anticon anticon-close-circle"
+            role="img"
+          >
+            <svg
+              aria-hidden="true"
+              data-icon="close-circle"
+              fill="currentColor"
+              fill-rule="evenodd"
+              focusable="false"
+              height="1em"
+              viewBox="64 64 896 896"
+              width="1em"
+            >
+              <path
+                d="M512 64c247.4 0 448 200.6 448 448S759.4 960 512 960 64 759.4 64 512 264.6 64 512 64zm127.98 274.82h-.04l-.08.06L512 466.75 384.14 338.88c-.04-.05-.06-.06-.08-.06a.12.12 0 00-.07 0c-.03 0-.05.01-.09.05l-45.02 45.02a.2.2 0 00-.05.09.12.12 0 000 .07v.02a.27.27 0 00.06.06L466.75 512 338.88 639.86c-.05.04-.06.06-.06.08a.12.12 0 000 .07c0 .03.01.05.05.09l45.02 45.02a.2.2 0 00.09.05.12.12 0 00.07 0c.02 0 .04-.01.08-.05L512 557.25l127.86 127.87c.04.04.06.05.08.05a.12.12 0 00.07 0c.03 0 .05-.01.09-.05l45.02-45.02a.2.2 0 00.05-.09.12.12 0 000-.07v-.02a.27.27 0 00-.05-.06L557.25 512l127.87-127.86c.04-.04.05-.06.05-.08a.12.12 0 000-.07c0-.03-.01-.05-.05-.09l-45.02-45.02a.2.2 0 00-.09-.05.12.12 0 00-.07 0z"
+              />
+            </svg>
+          </span>
+        </span>
+        <div
+          class="ant-alert-section"
+        >
+          <div
+            class="ant-alert-title"
+          >
+            PIC Name is required
+          </div>
+        </div>
+        <button
+          class="ant-alert-close-icon"
+          type="button"
+        >
+          <span
+            aria-label="close"
+            class="anticon anticon-close"
+            role="img"
+          >
+            <svg
+              aria-hidden="true"
+              data-icon="close"
+              fill="currentColor"
+              fill-rule="evenodd"
+              focusable="false"
+              height="1em"
+              viewBox="64 64 896 896"
+              width="1em"
+            >
+              <path
+                d="M799.86 166.31c.02 0 .04.02.08.06l57.69 57.7c.04.03.05.05.06.08a.12.12 0 010 .06c0 .03-.02.05-.06.09L569.93 512l287.7 287.7c.04.04.05.06.06.09a.12.12 0 010 .07c0 .02-.02.04-.06.08l-57.7 57.69c-.03.04-.05.05-.07.06a.12.12 0 01-.07 0c-.03 0-.05-.02-.09-.06L512 569.93l-287.7 287.7c-.04.04-.06.05-.09.06a.12.12 0 01-.07 0c-.02 0-.04-.02-.08-.06l-57.69-57.7c-.04-.03-.05-.05-.06-.07a.12.12 0 010-.07c0-.03.02-.05.06-.09L454.07 512l-287.7-287.7c-.04-.04-.05-.06-.06-.09a.12.12 0 010-.07c0-.02.02-.04.06-.08l57.7-57.69c.03-.04.05-.05.07-.06a.12.12 0 01.07 0c.03 0 .05.02.09.06L512 454.07l287.7-287.7c.04-.04.06-.05.09-.06a.12.12 0 01.07 0z"
+              />
+            </svg>
+          </span>
+        </button>
+      </div>
+    </div>
     <div
       class="sticky top-0 z-20 flex items-center bg-background-surface px-0 lg:hidden"
     >
@@ -441,37 +533,36 @@ exports[`MasterPicCreateForm Component MasterPicCreateForm Snapshots with error 
       </div>
       <form
         class="flex min-h-0 flex-1 flex-col justify-between border-0 bg-transparent p-0 shadow-none lg:rounded-4xl lg:border lg:border-border-default lg:bg-background-surface lg:p-8 lg:shadow-xs"
+        novalidate=""
       >
         <div
           class="space-y-4"
         >
-          <div>
+          <div
+            class="mb-4 "
+          >
             <label
               class="mb-1.5 block text-xs font-bold uppercase tracking-wider text-text-secondary"
               for="pic-name"
             >
-              PIC Name 
+              PIC Name
               <span
                 aria-hidden="true"
-                class="text-red-600"
+                class="ml-1 text-danger"
               >
                 *
               </span>
             </label>
             <input
-              class="w-full rounded-xl border border-border-default bg-background-surface px-4 py-3 text-[15px] text-text-primary shadow-xs outline-none transition-all placeholder:text-text-tertiary/60 focus:border-border-focus focus:ring-2 focus:ring-focus-ring/30"
+              aria-invalid="false"
+              class="ant-input ant-input-lg css-dev-only-do-not-override-eofgey ant-input-outlined h-14 w-full css-var-root ant-input-css-var"
               id="pic-name"
               placeholder="e.g. John Doe"
               required=""
+              type="text"
               value="John Doe"
             />
           </div>
-          <p
-            class="rounded-lg border border-red-200 bg-red-50 px-3 py-2 text-[13px] font-medium text-red-700"
-            role="alert"
-          >
-            PIC Name is required
-          </p>
         </div>
         <div
           class="mt-8 flex justify-end border-t border-border-default/60 pt-5 lg:mt-6 lg:border-border-default"

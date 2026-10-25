@@ -14,15 +14,15 @@ export type RecentQuote = {
  * Desktop Dashboard Props
  */
 export type DesktopDashboardProps = {
-  readonly quotes: RecentQuote[];
-  readonly onNewOrder: () => void;
-  readonly onReturn: () => void;
+  quotes: RecentQuote[];
+  onNewOrder: () => void;
+  onReturn: () => void;
 };
 
 /**
  * Hook Return Type
  */
 export type DesktopDashboardHookReturn = {
-  readonly handleNewOrder: () => void;
-  readonly handleReturn: () => void;
+  handleNewOrder: () => void;
+  handleReturn: () => void;
 };

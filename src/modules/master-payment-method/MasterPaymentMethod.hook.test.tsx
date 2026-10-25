@@ -1,4 +1,4 @@
-import { renderHook, act } from "@testing-library/react";
+import { renderHook, act } from "@/libs/unit-test";
 import { useNavigate } from "react-router-dom";
 
 import type { PaymentMethodData } from "./MasterPaymentMethod.type";
@@ -22,7 +22,6 @@ const renderContainerState = () => renderHook(() => useMasterPaymentMethodContai
 
 const assertPaymentMethodNavigation = (mockNavigate: jest.Mock): void => {
   expect(mockNavigate).toHaveBeenNthCalledWith(3, "/master-payment-method/edit/pm-1", { state: { paymentMethod } });
-  expect(mockNavigate).toHaveBeenNthCalledWith(4, "/master-payment-method/detail/pm-1");
 };
 
 jest.mock("react-router-dom", () => ({
@@ -52,8 +51,7 @@ describe("MasterPaymentMethod.hook", () => {
       });
 
       act(() => {
-        result.current.goDetail(paymentMethod);
-      });
+        });
       assertPaymentMethodNavigation(mockNavigate);
     });
   });

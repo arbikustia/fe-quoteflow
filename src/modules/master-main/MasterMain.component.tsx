@@ -40,13 +40,13 @@ export const MasterMainCard = (props: MasterMainCardProps): React.ReactElement =
 /**
  * Master Main Component
  * @param {object} props - component props
- * @param {readonly MasterMainCardProps[]} props.cards - master cards list
+ * @param {MasterMainCardProps[]} props.cards - master cards list
  * @param {(path: string) => void} props.onCardClick - card click handler
  * @returns {React.ReactElement} - component
  */
 export const MasterMainComponent = (props: {
-  readonly cards: readonly MasterMainCardProps[];
-  readonly onCardClick: (path: string) => void;
+  cards: MasterMainCardProps[];
+  onCardClick: (path: string) => void;
 }): React.ReactElement => {
   const { cards, onCardClick } = props;
 

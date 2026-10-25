@@ -2,9 +2,7 @@ import * as React from "react";
 
 import test from "../../libs/unit-test";
 
-import { getColumns } from "./MasterUser.columns";
 import MasterUserContainer from "./MasterUser.container";
-import type { UserData } from "./MasterUser.type";
 
 jest.mock("./MasterUser.hook", () => ({
   useMasterUserContainerState: jest.fn(() => ({
@@ -24,19 +22,3 @@ jest.mock("./MasterUser.component", () => ({
 
 test.assertSnapshots(MasterUserContainer, [{ props: {}, desc: "default state" }]);
 
-describe("getColumns", () => {
-  const onEdit = jest.fn();
-  const user: UserData = { id: "1", username: "admin1", email: null, role: "Admin", status: "active", createAt: "2024-01-01", createBy: "Admin" };
-
-  it("returns expected columns", () => {
-    const columns = getColumns({ currentPage: 1, pageSize: 5, onEdit });
-    expect(columns.map((column) => column.key)).toEqual(["no", "username", "role", "status", "createAt", "actions"]);
-  });
-
-  it("renders configured column cells", () => {
-    const columns = getColumns({ currentPage: 1, pageSize: 5, onEdit });
-    columns.filter((column) => column.render).forEach((column) => {
-      expect(column.render?.(user, 0)).toBeDefined();
-    });
-  });
-});

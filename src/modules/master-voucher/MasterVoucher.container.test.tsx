@@ -1,6 +1,5 @@
-import { render, screen, fireEvent } from "@testing-library/react";
+import { fireEvent, render, screen } from "@/libs/unit-test";
 import { MemoryRouter } from "react-router-dom";
-import { getColumns } from "./MasterVoucher.columns";
 import MasterVoucherContainer from "./MasterVoucher.container";
 import { useGetVouchersQuery } from "@/services/master-voucher.service";
 import type { VoucherData } from "./MasterVoucher.type";
@@ -79,55 +78,3 @@ describe("MasterVoucherContainer", () => {
   });
 });
 
-describe("getColumns", () => {
-  const onEdit = jest.fn();
-  const columns = getColumns({ currentPage: 1, pageSize: 10, onEdit });
-
-  it("returns columns correctly", () => {
-    expect(columns).toHaveLength(7);
-    expect(columns[0].key).toBe("no");
-    expect(columns[1].key).toBe("name");
-    expect(columns[2].key).toBe("code");
-    expect(columns[3].key).toBe("discountPercent");
-    expect(columns[4].key).toBe("status");
-    expect(columns[5].key).toBe("createAt");
-    expect(columns[6].key).toBe("actions");
-  });
-
-  it("renders status column correctly", () => {
-    const statusCol = columns.find((c) => c.key === "status");
-    expect(statusCol).toBeDefined();
-    
-    if (statusCol?.render) {
-      const activeRender = render(statusCol.render({ ...mockVoucher, status: "active" }, 0));
-      expect(activeRender.container.textContent).toContain("active");
-      
-      const inactiveRender = render(statusCol.render({ ...mockVoucher, status: "inactive" }, 0));
-      expect(inactiveRender.container.textContent).toContain("inactive");
-    }
-  });
-
-  it("renders no column correctly", () => {
-    const noCol = columns.find((c) => c.key === "no");
-    expect(noCol).toBeDefined();
-
-    if (noCol?.render) {
-      const { container } = render(noCol.render(mockVoucher, 0));
-      expect(container.textContent).toBe("1");
-    }
-  });
-
-  it("renders actions column correctly", () => {
-    const actionsCol = columns.find((c) => c.key === "actions");
-    expect(actionsCol).toBeDefined();
-
-    if (actionsCol?.render) {
-      const { container } = render(actionsCol.render(mockVoucher, 0));
-      const buttons = container.querySelectorAll("button");
-      expect(buttons.length).toBe(2);
-
-      fireEvent.click(buttons[1]);
-      expect(onEdit).toHaveBeenCalledWith(mockVoucher);
-    }
-  });
-});

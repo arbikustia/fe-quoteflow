@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom";
 
 import { createPaginationHandlers } from "@/utils/pagination.helpers";
 
-import { downloadItemQrImage, downloadItemQrPdf } from "./MasterItem.qr.helpers";
+import { downloadItemQrImage, downloadItemQrPdf } from "./MasterItem.helper";
 import type {
   ConfirmModalState,
   ItemCreatePayload,
@@ -181,16 +181,7 @@ export const useMasterItemNavigation = (): MasterItemNavigation => {
     navigate(`/master-item/edit/${item.id}`, { state: { item } });
   };
 
-  /**
-   * Navigate to detail
-   * @param {ItemData} item - item data
-   * @returns {void} void
-   */
-  const goDetail = (item: ItemData): void => {
-    navigate(`/master-item/detail/${item.id}`);
-  };
-
-  return { goBack, goCreate, goEdit, goDetail };
+  return { goBack, goCreate, goEdit };
 };
 
 /**

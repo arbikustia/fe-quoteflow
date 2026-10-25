@@ -11,7 +11,7 @@ jest.mock("./MasterCategory.hook", () => ({
 }));
 
 jest.mock("./MasterCategory.component", () => ({
-  MasterCategoryComponent: (props: { readonly currentPage: number }) => (
+  MasterCategoryComponent: (props: { currentPage: number }) => (
     <div data-testid="mock-component" data-page={props.currentPage} />
   ),
 }));

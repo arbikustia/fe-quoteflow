@@ -55,7 +55,7 @@ const themeSlice = createSlice({
 
 export const { setTheme, toggleTheme } = themeSlice.actions;
 
-export const selectTheme = (state: { readonly theme: ThemeState }): Theme =>
+export const selectTheme = (state: { theme: ThemeState }): Theme =>
   state.theme.theme;
 
 export { themeSlice };

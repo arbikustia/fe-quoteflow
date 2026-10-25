@@ -1,5 +1,5 @@
 import { describe, expect, it, jest } from "@jest/globals";
-import { fireEvent, render, screen } from "@testing-library/react";
+import { fireEvent, render, screen } from "@/libs/unit-test";
 
 import { MasterCategoryCreateForm } from "./MasterCategoryCreate.component";
 import type { MasterCategoryCreateFormState } from "./MasterCategoryCreate.type";
@@ -8,9 +8,12 @@ const createProps = (overrides?: Partial<MasterCategoryCreateFormState>): Master
   name: "",
   isActive: true,
   isEditMode: false,
+  isLoadingInitialData: false,
   isSubmitting: false,
   errorMessage: null,
   successMessage: null,
+  errors: {},
+  isSubmitted: false,
   handleNameChange: jest.fn(),
   handleStatusChange: jest.fn(),
   handleSubmit: jest.fn(),

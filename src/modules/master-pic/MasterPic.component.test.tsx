@@ -1,5 +1,4 @@
 import test from "../../libs/unit-test";
-import { getColumns } from "./MasterPic.columns";
 import { MasterPicComponent } from "./MasterPic.component";
 import type { MasterPicProps, PicData } from "./MasterPic.type";
 
@@ -41,8 +40,7 @@ describe("MasterPic Component", () => {
     isEmpty: false,
     isLoading: false,
     isError: false,
-    columns: getColumns({ currentPage: 1, pageSize: 10, onEdit: jest.fn() }),
-    onCreate: jest.fn(),
+        onCreate: jest.fn(),
     onEdit: jest.fn(),
     onRowClick: jest.fn(),
     onMore: jest.fn(),

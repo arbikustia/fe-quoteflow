@@ -1,122 +1,90 @@
+/* eslint-disable jsdoc/require-param, jsdoc/require-returns */
+import type { ChangeEvent, SyntheticEvent } from "react";
 import { useState } from "react";
+import type { FieldError, UseFormSetValue, UseFormTrigger } from "react-hook-form";
+import { useForm, useWatch } from "react-hook-form";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 
-import type { ApiPic, PicData, PicDetailResponse } from "../MasterPic.type";
+import type { ApiPic, PicCreateResponse, PicData, PicDetailResponse, PicRouteState } from "../MasterPic.type";
 
-import { validatePicFields } from "./MasterPicCreate.helpers";
-import type {
-  MasterPicCreateState,
-  PicFormFieldsState,
-  PicSubmissionParams,
-} from "./MasterPicCreate.type";
+import type { MasterPicCreateState, PicFormFieldsState, PicFormValues, PicSubmissionParams } from "./MasterPicCreate.type";
 
 import { useCreatePicMutation, useGetPicByIdQuery, useUpdatePicMutation } from "@/services/master-pic.service";
 
-/**
- * Format backend messages into string.
- * @param {string[] | string | null} messages - Backend messages
- * @returns {string} Formatted message
- */
-const _formatMessages = (messages: string[] | string | null): string => {
-  if (Array.isArray(messages)) return messages.join(" ");
+/** Format backend messages. */
+const _formatMessages = (messages: string[] | string | null): string => Array.isArray(messages) ? messages.join(" ") : (messages ?? "PIC request failed.");
 
-  return messages ?? "PIC request failed.";
-};
-
-/**
- * Resolve PIC detail response.
- * @param {PicDetailResponse | undefined} detailData - Detail response
- * @returns {ApiPic | null} API PIC record
- */
+/** Resolve PIC detail response. */
 const _resolveApiPic = (detailData: PicDetailResponse | undefined): ApiPic | null => {
   if (!detailData?.status || !detailData.data) return null;
 
   return Array.isArray(detailData.data) ? detailData.data[0] ?? null : detailData.data;
 };
 
-/**
- * Get initial status state.
- * @param {PicData | undefined} routePic - Route PIC record
- * @param {ApiPic | null} apiPic - API PIC record
- * @returns {boolean} Initial status state
- */
-const _getInitialActive = (routePic: PicData | undefined, apiPic: ApiPic | null): boolean => {
-  if (routePic) return routePic.status === "active";
-
-  if (apiPic) return apiPic.status === 1;
-
-  return true;
+/** Register PIC validation rules. */
+const _registerPicFields = (register: ReturnType<typeof useForm<PicFormValues>>["register"]): void => {
+  register("name", { required: "PIC name is required." });
 };
 
-/**
- * Manage PIC form fields.
- * @param {PicData | undefined} routePic - Route PIC record
- * @param {ApiPic | null} apiPic - API PIC record
- * @returns {PicFormFieldsState} Form field state
- */
-const usePicFormFields = (routePic: PicData | undefined, apiPic: ApiPic | null): PicFormFieldsState => {
-  const [name, setName] = useState(routePic?.name ?? apiPic?.name ?? "");
-  const [isActive, setIsActive] = useState(_getInitialActive(routePic, apiPic));
-  const [initializedId, setInitializedId] = useState<string | null>(routePic?.id ?? null);
+/** Create name change handler. */
+const _createNameChange = (setValue: UseFormSetValue<PicFormValues>, error: FieldError | undefined): ((event: ChangeEvent<HTMLInputElement>) => void) => (
+  (event: ChangeEvent<HTMLInputElement>): void => setValue("name", event.target.value, { shouldValidate: Boolean(error) })
+);
 
-  if (apiPic && apiPic.id !== initializedId) {
-    setInitializedId(apiPic.id);
-    setName(apiPic.name ?? "");
-    setIsActive(apiPic.status === 1);
+/** Create status toggle handler. */
+const _createStatusToggle = (setValue: UseFormSetValue<PicFormValues>, isActive: boolean): (() => void) => (
+  (): void => setValue("isActive", !isActive, { shouldDirty: true })
+);
+
+/** Create form validator. */
+const _createFormValidator = (trigger: UseFormTrigger<PicFormValues>): (() => Promise<boolean>) => (
+  async (): Promise<boolean> => await trigger()
+);
+
+/** Sync API PIC data into form. */
+const _syncApiPic = (apiPic: ApiPic | null, initializedId: string | null, setInitializedId: (id: string | null) => void, setValue: UseFormSetValue<PicFormValues>): void => {
+  if (!apiPic || apiPic.id === initializedId) return;
+
+  setInitializedId(apiPic.id);
+  setValue("name", apiPic.name ?? "");
+  setValue("isActive", apiPic.status === 1);
+};
+
+/** Submit PIC mutation. */
+const _sendPicMutation = (
+  params: PicSubmissionParams,
+  createPic: ReturnType<typeof useCreatePicMutation>[0],
+  updatePic: ReturnType<typeof useUpdatePicMutation>[0],
+): Promise<PicCreateResponse> => {
+  const values = params.getValues();
+
+  if (params.isEditMode && params.id) {
+    return updatePic({ id: params.id, name: values.name, status: params.isActive ? 1 : 0 }).unwrap();
   }
 
-  /**
-   * Update PIC name.
-   * @param {React.ChangeEvent<HTMLInputElement>} event - Input change event
-   */
-  const handleNameChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
-    setName(event.target.value);
-  };
-
-  /** Toggle PIC status. */
-  const handleStatusChange = (): void => {
-    setIsActive((previous) => !previous);
-  };
-
-  return { name, isActive, handleNameChange, handleStatusChange };
+  return createPic({ name: values.name, status: 1 }).unwrap();
 };
 
-/**
- * Submit PIC create or update mutation.
- * @param {PicSubmissionParams} params - Submission parameters
- * @returns {{ errorMessage: string | null; handleSubmit: (event: React.SyntheticEvent) => Promise<void>; isSubmitting: boolean }} Submission state
- */
-const usePicSubmission = (params: PicSubmissionParams): {
-  errorMessage: string | null;
-  handleSubmit: (event: React.SyntheticEvent) => Promise<void>;
-  isSubmitting: boolean;
-} => {
+/** Manage PIC submission. */
+const usePicSubmission = (params: PicSubmissionParams): Pick<MasterPicCreateState, "errorMessage" | "handleSubmit" | "isSubmitting"> => {
   const navigate = useNavigate();
   const [createPic, { isLoading: isCreating }] = useCreatePicMutation();
   const [updatePic, { isLoading: isUpdating }] = useUpdatePicMutation();
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
-  /**
-   * Submit PIC form.
-   * @param {React.SyntheticEvent} event - Form submit event
-   * @returns {Promise<void>} Submit result
-   */
-  const handleSubmit = async (event: React.SyntheticEvent): Promise<void> => {
+  /** Submit PIC form. */
+  const handleSubmit = async (event: SyntheticEvent): Promise<void> => {
     event.preventDefault();
     setErrorMessage(null);
 
-    const validationError = validatePicFields(params.name);
-
-    if (validationError) {
-      setErrorMessage(validationError);
+    if (!(await params.validateForm())) {
+      setErrorMessage("PIC name is required.");
 
       return;
     }
 
     try {
-      const response = params.isEditMode && params.id
-        ? await updatePic({ id: params.id, name: params.name, status: params.isActive ? 1 : 0 }).unwrap()
-        : await createPic({ name: params.name, status: 1 }).unwrap();
+      const response = await _sendPicMutation(params, createPic, updatePic);
 
       if (!response.status) {
         setErrorMessage(_formatMessages(response.messages));
@@ -124,7 +92,9 @@ const usePicSubmission = (params: PicSubmissionParams): {
         return;
       }
 
-      navigate("/master-pic");
+      const successMessage = params.isEditMode ? "PIC updated successfully." : "PIC created successfully.";
+
+      navigate("/master-pic", { state: { successMessage } });
     } catch {
       setErrorMessage(params.isEditMode ? "Unable to update PIC. Please try again." : "Unable to create PIC. Please try again.");
     }
@@ -133,25 +103,37 @@ const usePicSubmission = (params: PicSubmissionParams): {
   return { errorMessage, handleSubmit, isSubmitting: isCreating || isUpdating };
 };
 
-/**
- * Manage PIC create state.
- * @returns {MasterPicCreateState} Form state
- */
+/** Manage PIC form fields. */
+const usePicFormFields = (routePic: PicData | undefined, apiPic: ApiPic | null): PicFormFieldsState => {
+  const { control, formState: { errors, isSubmitted }, getValues, register, setValue, trigger } = useForm<PicFormValues>({
+    defaultValues: { name: routePic?.name ?? "", isActive: routePic?.status !== "inactive" },
+    mode: "onSubmit", reValidateMode: "onChange",
+  });
+
+  _registerPicFields(register);
+  const [initializedId, setInitializedId] = useState<string | null>(routePic?.id ?? null);
+  const name = useWatch({ control, name: "name" });
+  const isActive = useWatch({ control, name: "isActive" });
+
+  _syncApiPic(apiPic, initializedId, setInitializedId, setValue);
+
+  return { name, isActive, errors, isSubmitted, getValues, validateForm: _createFormValidator(trigger), handleNameChange: _createNameChange(setValue, errors.name), handleStatusChange: _createStatusToggle(setValue, isActive) };
+};
+
+/** Manage PIC create/edit form. */
 export const useMasterPicCreate = (): MasterPicCreateState => {
   const navigate = useNavigate();
   const location = useLocation();
   const { id } = useParams<{ id?: string }>();
   const isEditMode = Boolean(id);
-  const routePic: PicData | undefined = location.state?.pic;
+  const routeState: PicRouteState | null = location.state;
+  const routePic = routeState?.pic;
   const { data: detailData, isLoading: isLoadingDetail } = useGetPicByIdQuery(id ?? "", { skip: !isEditMode || !id || Boolean(routePic) });
-  const apiPic = _resolveApiPic(detailData);
-  const formFields = usePicFormFields(routePic, apiPic);
+  const formFields = usePicFormFields(routePic, _resolveApiPic(detailData));
   const submission = usePicSubmission({ id, isEditMode, ...formFields });
 
   /** Navigate back. */
-  const goBack = (): void => {
-    navigate(-1);
-  };
+  const goBack = (): void => { navigate(-1); };
 
   return { ...formFields, ...submission, isEditMode, isLoadingInitialData: isLoadingDetail && !routePic, goBack };
 };

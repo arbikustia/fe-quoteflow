@@ -1,5 +1,8 @@
+/* eslint-disable jsdoc/require-param, jsdoc/require-returns */
 import type { ChangeEvent, SyntheticEvent } from "react";
 import { useState } from "react";
+import type { FieldError, UseFormSetValue, UseFormTrigger } from "react-hook-form";
+import { useForm, useWatch } from "react-hook-form";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 
 import type {
@@ -7,6 +10,8 @@ import type {
   RoleData,
   RoleDetailResponse,
   RoleFormFieldsState,
+  RoleFormValues,
+  RoleRouteState,
   RoleSubmissionParams,
   RoleSubmissionState,
 } from "../MasterRole.type";
@@ -21,86 +26,80 @@ import {
 } from "@/services/master-role.service";
 
 /**
- * Format backend messages into a display string.
+ * Format backend messages into display text.
  * @param {string[] | string | null} messages - Backend messages
- * @returns {string} Formatted message
+ * @returns {string} Display message
  */
-const _formatMessages = (messages: string[] | string | null): string => {
-  if (Array.isArray(messages)) {
-    return messages.join(" ");
-  }
-
-  return messages ?? "Role request failed.";
-};
+const _formatMessages = (messages: string[] | string | null): string => Array.isArray(messages)
+  ? messages.join(" ")
+  : (messages ?? "Role request failed.");
 
 /**
- * Resolve detail response into single UI role.
+ * Resolve detail response into role data.
  * @param {RoleDetailResponse | undefined} response - Detail response
- * @returns {RoleData | null} Role or null
+ * @returns {RoleData | null} Role data
  */
-const _resolveRoleDetail = (
-  response: RoleDetailResponse | undefined,
-): RoleData | null => {
-  if (!response?.status || !response.data) {
-    return null;
-  }
+const _resolveRoleDetail = (response: RoleDetailResponse | undefined): RoleData | null => {
+  if (!response?.status || !response.data) return null;
 
-  const rawItem = Array.isArray(response.data)
-    ? response.data[0]
-    : response.data;
+  const rawItem = Array.isArray(response.data) ? response.data[0] : response.data;
 
   return rawItem ? mapRole(rawItem) : null;
 };
 
-/**
- * Send role create or update mutation.
- * @param {RoleSubmissionParams} params - Submission parameters
- * @param {ReturnType<typeof useCreateRoleMutation>[0]} createRole - Create trigger
- * @param {ReturnType<typeof useUpdateRoleMutation>[0]} updateRole - Update trigger
- * @returns {Promise<RoleCreateResponse>} Mutation response
- */
-const _sendRoleMutation = (
-  params: RoleSubmissionParams,
-  createRole: ReturnType<typeof useCreateRoleMutation>[0],
-  updateRole: ReturnType<typeof useUpdateRoleMutation>[0],
-): Promise<RoleCreateResponse> => {
-  const { id, isEditMode, roleName, isActive } = params;
-
-  if (isEditMode && id) {
-    return updateRole({
-      id,
-      role: roleName,
-      status: isActive ? 1 : 0,
-    }).unwrap();
-  }
-
-  return createRole({ role: roleName, status: 1 }).unwrap();
+/** Register role validation rules. */
+const _registerRoleFields = (register: ReturnType<typeof useForm<RoleFormValues>>["register"]): void => {
+  register("roleName", { required: "Role name is required." });
 };
 
-/**
- * Handle form submission logic for create or update.
- * @param {RoleSubmissionParams} params - Submission parameters
- * @returns {RoleSubmissionState} Submission state
- */
-const useRoleSubmission = (
-  params: RoleSubmissionParams,
-): RoleSubmissionState => {
-  const { roleName, isEditMode } = params;
+/** Create role name change handler. */
+const _createRoleNameChange = (setValue: UseFormSetValue<RoleFormValues>, error: FieldError | undefined): ((event: ChangeEvent<HTMLInputElement>) => void) => (
+  (event: ChangeEvent<HTMLInputElement>): void => setValue("roleName", event.target.value, { shouldValidate: Boolean(error) })
+);
+
+/** Create status toggle handler. */
+const _createStatusToggle = (setValue: UseFormSetValue<RoleFormValues>, isActive: boolean): (() => void) => (
+  (): void => setValue("isActive", !isActive, { shouldDirty: true })
+);
+
+/** Create form validation trigger. */
+const _createFormValidator = (trigger: UseFormTrigger<RoleFormValues>): (() => Promise<boolean>) => (
+  async (): Promise<boolean> => await trigger()
+);
+
+/** Synchronize fetched role into form. */
+const _syncApiRole = (apiItem: RoleData | null, initializedId: string | null, setInitializedId: (id: string | null) => void, setValue: UseFormSetValue<RoleFormValues>): void => {
+  if (!apiItem || apiItem.id === initializedId) return;
+
+  setInitializedId(apiItem.id);
+  setValue("roleName", apiItem.roleName);
+  setValue("isActive", apiItem.status === "active");
+};
+
+/** Send create or update mutation. */
+const _sendRoleMutation = (params: RoleSubmissionParams, createRole: ReturnType<typeof useCreateRoleMutation>[0], updateRole: ReturnType<typeof useUpdateRoleMutation>[0]): Promise<RoleCreateResponse> => {
+  const values = params.getValues();
+
+  if (params.isEditMode && params.id) {
+    return updateRole({ id: params.id, role: values.roleName, status: params.isActive ? 1 : 0 }).unwrap();
+  }
+
+  return createRole({ role: values.roleName, status: 1 }).unwrap();
+};
+
+/** Manage role submission. */
+const useRoleSubmission = (params: RoleSubmissionParams): RoleSubmissionState => {
   const navigate = useNavigate();
   const [createRole, { isLoading: isCreating }] = useCreateRoleMutation();
   const [updateRole, { isLoading: isUpdating }] = useUpdateRoleMutation();
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
-  /**
-   * Submit role form.
-   * @param {SyntheticEvent} event - Submit event
-   * @returns {Promise<void>} Async result
-   */
+  /** Submit role form. */
   const handleSubmit = async (event: SyntheticEvent): Promise<void> => {
     event.preventDefault();
     setErrorMessage(null);
 
-    if (!roleName.trim()) {
+    if (!(await params.validateForm())) {
       setErrorMessage("Role name is required.");
 
       return;
@@ -115,116 +114,49 @@ const useRoleSubmission = (
         return;
       }
 
-      navigate("/master-role");
+      const successMessage = params.isEditMode ? "Role updated successfully." : "Role created successfully.";
+
+      navigate("/master-role", { state: { successMessage } });
     } catch {
-      setErrorMessage(
-        isEditMode
-          ? "Unable to update role. Please try again."
-          : "Unable to create role. Please try again.",
-      );
+      setErrorMessage(params.isEditMode ? "Unable to update role. Please try again." : "Unable to create role. Please try again.");
     }
   };
 
   return { isSubmitting: isCreating || isUpdating, errorMessage, handleSubmit };
 };
 
-/**
- * Resolve initial role active status.
- * @param {RoleData | undefined} routeRole - Route role
- * @param {RoleData | null} apiItem - API fetched role
- * @returns {boolean} Initial active status
- */
-const _resolveInitialIsActive = (
-  routeRole: RoleData | undefined,
-  apiItem: RoleData | null,
-): boolean => {
-  if (routeRole) {
-    return routeRole.status === "active";
-  }
+/** Manage role form fields. */
+const useRoleFormFields = (routeRole: RoleData | undefined, apiItem: RoleData | null): RoleFormFieldsState => {
+  const { control, formState: { errors, isSubmitted }, getValues, register, setValue, trigger } = useForm<RoleFormValues>({
+    defaultValues: { roleName: routeRole?.roleName ?? "", isActive: routeRole?.status !== "inactive" },
+    mode: "onSubmit",
+    reValidateMode: "onChange",
+  });
 
-  if (apiItem) {
-    return apiItem.status === "active";
-  }
+  _registerRoleFields(register);
+  const [initializedId, setInitializedId] = useState<string | null>(routeRole?.id ?? null);
+  const roleName = useWatch({ control, name: "roleName" });
+  const isActive = useWatch({ control, name: "isActive" });
 
-  return true;
+  _syncApiRole(apiItem, initializedId, setInitializedId, setValue);
+
+  return { roleName, isActive, errors, isSubmitted, getValues, validateForm: _createFormValidator(trigger), handleRoleNameChange: _createRoleNameChange(setValue, errors.roleName), handleStatusChange: _createStatusToggle(setValue, isActive) };
 };
 
-/**
- * Hook managing form fields and synchronization.
- * @param {RoleData | undefined} routeRole - Route role
- * @param {RoleData | null} apiItem - API fetched role
- * @returns {RoleFormFieldsState} Form fields state
- */
-const useRoleFormFields = (
-  routeRole: RoleData | undefined,
-  apiItem: RoleData | null,
-): RoleFormFieldsState => {
-  const initialRoleName = routeRole?.roleName ?? apiItem?.roleName ?? "";
-  const initialIsActive = _resolveInitialIsActive(routeRole, apiItem);
-
-  const [roleName, setRoleName] = useState(initialRoleName);
-  const [isActive, setIsActive] = useState(initialIsActive);
-  const [initializedId, setInitializedId] = useState<string | null>(
-    routeRole?.id ?? null,
-  );
-
-  if (apiItem && apiItem.id !== initializedId) {
-    setInitializedId(apiItem.id);
-    setRoleName(apiItem.roleName);
-    setIsActive(apiItem.status === "active");
-  }
-
-  /**
-   * Handle role name input change.
-   * @param {ChangeEvent<HTMLInputElement>} event - Input change event
-   * @returns {void} No return value
-   */
-  const handleRoleNameChange = (event: ChangeEvent<HTMLInputElement>): void => {
-    setRoleName(event.target.value);
-  };
-
-  /**
-   * Toggle role active status.
-   * @returns {void} No return value
-   */
-  const handleStatusChange = (): void => {
-    setIsActive((current) => !current);
-  };
-
-  return { roleName, isActive, handleRoleNameChange, handleStatusChange };
-};
-
-/**
- * Hook managing master role form state.
- * @returns {MasterRoleCreateFormState} Form state
- */
+/** Provide master role form state. */
 export const useMasterRoleCreateForm = (): MasterRoleCreateFormState => {
   const navigate = useNavigate();
   const location = useLocation();
-  const { id } = useParams<{ readonly id?: string }>();
+  const { id } = useParams<{ id?: string }>();
   const isEditMode = Boolean(id);
-  const routeRole: RoleData | undefined = location.state?.role;
-
-  const { data: detailData } = useGetRoleByIdQuery(id ?? "", {
-    skip: !isEditMode || !id || Boolean(routeRole),
-  });
-
-  const apiItem = _resolveRoleDetail(detailData);
-  const formFields = useRoleFormFields(routeRole, apiItem);
+  const routeState: RoleRouteState | null = location.state;
+  const routeRole = routeState?.role;
+  const { data: detailData } = useGetRoleByIdQuery(id ?? "", { skip: !isEditMode || !id || Boolean(routeRole) });
+  const formFields = useRoleFormFields(routeRole, _resolveRoleDetail(detailData));
   const submission = useRoleSubmission({ id, isEditMode, ...formFields });
 
-  /**
-   * Navigate back to previous page.
-   * @returns {void} No return value
-   */
-  const goBack = (): void => {
-    navigate(-1);
-  };
+  /** Navigate back. */
+  const goBack = (): void => { navigate(-1); };
 
-  return {
-    isEditMode,
-    goBack,
-    ...formFields,
-    ...submission,
-  };
+  return { isEditMode, goBack, ...formFields, ...submission };
 };

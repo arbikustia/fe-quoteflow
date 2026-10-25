@@ -3,7 +3,6 @@
  * @description Types for Master Item module.
  */
 
-import type { TableColumn } from "../../components/Table";
 import type { ApiEnvelope, PaginatedResponse } from "../../types/api.type";
 
 export type ApiItem = {
@@ -93,10 +92,8 @@ export type MasterItemProps = {
   prevPage: () => void;
   changePageSize: (size: number) => void;
   totalCount: number;
-  columns: TableColumn<ItemData>[];
   onCreate: () => void;
   onEdit: (item: ItemData) => void;
-  onRowClick: (item: ItemData) => void;
   onMore?: () => void;
   isMoreOpen: boolean;
   onCloseMore: () => void;
@@ -192,7 +189,6 @@ export type MasterItemNavigation = {
   goBack: () => void;
   goCreate: () => void;
   goEdit: (item: ItemData) => void;
-  goDetail: (item: ItemData) => void;
 };
 
 /** Master item pagination state */

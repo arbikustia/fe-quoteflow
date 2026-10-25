@@ -1,6 +1,18 @@
 import type { ReactElement } from "react";
+import type { FieldError } from "react-hook-form";
+
+import { AlertComponent } from "@/components/Alert";
+import { InputComponent } from "@/components/Input";
+import { SwitchComponent } from "@/components/Switch";
 
 import type { MasterPaymentMethodCreateFormState } from "./MasterPaymentMethodCreate.type";
+
+/**
+ * Read validation message from React Hook Form.
+ * @param {FieldError | undefined} error - Field validation error
+ * @returns {string | null} Validation message
+ */
+const _getFieldError = (error: FieldError | undefined): string | null => error?.message?.toString() ?? null;
 
 /**
  * Render status switch field.
@@ -16,15 +28,11 @@ const _renderStatusField = (props: MasterPaymentMethodCreateFormState): ReactEle
         <span className="text-sm font-semibold text-text-primary">Status</span>
         <span className="text-xs text-text-secondary">Toggle active or inactive status</span>
       </div>
-      <button
-        type="button"
-        role="switch"
-        aria-checked={props.isActive}
-        onClick={props.handleStatusChange}
-        className={`relative inline-flex h-6 w-11 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-brand-blue/30 ${props.isActive ? "bg-brand-blue" : "bg-brand-gray-light"}`}
-      >
-        <span className={`pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow-lg transition ${props.isActive ? "translate-x-5" : "translate-x-0"}`} />
-      </button>
+      <SwitchComponent
+        label="Payment method status"
+        checked={props.isActive}
+        onChange={props.handleStatusChange}
+      />
     </div>
   );
 };
@@ -69,42 +77,81 @@ const _renderHeader = (isEditMode: boolean, goBack: () => void): ReactElement =>
 };
 
 /**
+ * Render input fields.
+ * @param {MasterPaymentMethodCreateFormState} props - Form state
+ * @returns {ReactElement} Fields grid
+ */
+const _renderFields = (props: MasterPaymentMethodCreateFormState): ReactElement => {
+  const { name, description, errors, isSubmitted, handleNameChange, handleDescriptionChange } = props;
+
+  return (
+    <div className="grid w-full grid-cols-1 gap-x-6 gap-y-4 lg:grid-cols-2">
+      <div className="lg:col-span-2">
+        <InputComponent
+          id="payment-method-name"
+          type="text"
+          label="Payment Method Name"
+          placeholder="e.g. Bank Transfer"
+          value={name}
+          required
+          errorMessage={isSubmitted && !name ? "Payment method name is required." : _getFieldError(errors?.name)}
+          onChange={handleNameChange}
+        />
+      </div>
+      <div className="lg:col-span-2">
+        <InputComponent
+          id="payment-method-description"
+          type="textarea"
+          label="Description"
+          placeholder="Describe this payment method"
+          value={description}
+          required
+          errorMessage={isSubmitted && !description ? "Description is required." : _getFieldError(errors?.description)}
+          onChange={handleDescriptionChange}
+        />
+      </div>
+      {_renderStatusField(props)}
+    </div>
+  );
+};
+
+/**
+ * Render payment method form content.
+ * @param {MasterPaymentMethodCreateFormState} props - Form state
+ * @returns {ReactElement} Form element
+ */
+const _renderForm = (props: MasterPaymentMethodCreateFormState): ReactElement => {
+  const { isEditMode, isSubmitting, handleSubmit } = props;
+  const buttonText = isEditMode ? "Update Payment Method" : "Create Payment Method";
+  const submittingText = isEditMode ? "Updating…" : "Creating…";
+
+  return (
+    <form noValidate onSubmit={handleSubmit} className="flex min-h-0 flex-1 flex-col justify-between border-0 bg-transparent p-0 shadow-none lg:rounded-4xl lg:border lg:border-border-default lg:bg-background-surface lg:p-8 lg:shadow-xs">
+      {_renderFields(props)}
+      <div className="mt-8 flex justify-end border-t border-border-default/60 pt-5 lg:mt-6 lg:border-border-default">
+        <button type="submit" disabled={isSubmitting} className="h-14 w-full cursor-pointer rounded-xl bg-action-primary px-8 text-sm font-semibold tracking-wide text-text-inverse shadow-xs transition-all hover:bg-action-primary-hover disabled:opacity-60 sm:w-auto">{isSubmitting ? submittingText : buttonText}</button>
+      </div>
+    </form>
+  );
+};
+
+/**
  * Render payment method create/edit form.
  * @param {MasterPaymentMethodCreateFormState} props - Form state
  * @returns {ReactElement} Form
  */
-export const MasterPaymentMethodCreateForm = (props: MasterPaymentMethodCreateFormState): ReactElement => {
-  const { name, description, isEditMode, isLoadingInitialData, isSubmitting, errorMessage, successMessage, handleNameChange, handleDescriptionChange, handleSubmit, goBack } = props;
-  const buttonText = isEditMode ? "Update Payment Method" : "Create Payment Method";
-  const submittingText = isEditMode ? "Updating…" : "Creating…";
-  const fieldClass = "w-full rounded-xl border border-border-default bg-background-surface px-4 py-3 text-[15px] text-text-primary shadow-xs outline-none transition-all placeholder:text-text-tertiary/60 focus:border-border-focus focus:ring-2 focus:ring-focus-ring/30";
-
-  return (
-    <div className="flex h-full w-full flex-col bg-background-surface pb-6 font-sans lg:bg-background-page">
-      {_renderMobileBack(goBack)}
-      <div className="mt-2 flex min-h-0 w-full flex-1 flex-col px-0 lg:mt-0 lg:px-0">
-        {_renderHeader(isEditMode, goBack)}
-        {isLoadingInitialData ? <p className="py-12 text-center text-sm text-text-secondary">Loading payment method data…</p> : (
-          <form onSubmit={handleSubmit} className="flex min-h-0 flex-1 flex-col justify-between border-0 bg-transparent p-0 shadow-none lg:rounded-4xl lg:border lg:border-border-default lg:bg-background-surface lg:p-8 lg:shadow-xs">
-            <div className="grid w-full grid-cols-1 gap-x-6 gap-y-4 lg:grid-cols-2">
-              <div className="lg:col-span-2">
-                <label htmlFor="payment-method-name" className="mb-1.5 block text-xs font-bold uppercase tracking-wider text-text-secondary">Payment Method Name <span className="text-red-600">*</span></label>
-                <input id="payment-method-name" value={name} onChange={handleNameChange} placeholder="e.g. Bank Transfer" required className={fieldClass} />
-              </div>
-              <div className="lg:col-span-2">
-                <label htmlFor="payment-method-description" className="mb-1.5 block text-xs font-bold uppercase tracking-wider text-text-secondary">Description <span className="text-red-600">*</span></label>
-                <textarea id="payment-method-description" value={description} onChange={handleDescriptionChange} placeholder="Describe this payment method" rows={4} required className={`${fieldClass} resize-none`} />
-              </div>
-              {_renderStatusField(props)}
-              {errorMessage !== null && <p role="alert" className="rounded-lg border border-red-200 bg-red-50 px-3 py-2 text-[13px] font-medium text-red-700 lg:col-span-2">{errorMessage}</p>}
-              {successMessage !== null && <p role="status" className="rounded-lg border border-green-200 bg-green-50 px-3 py-2 text-[13px] font-medium text-green-700 lg:col-span-2">{successMessage}</p>}
-            </div>
-            <div className="mt-8 flex justify-end border-t border-border-default/60 pt-5 lg:mt-6 lg:border-border-default">
-              <button type="submit" disabled={isSubmitting} className="h-14 w-full cursor-pointer rounded-xl bg-action-primary px-8 text-sm font-semibold tracking-wide text-text-inverse shadow-xs transition-all hover:bg-action-primary-hover disabled:opacity-60 sm:w-auto">{isSubmitting ? submittingText : buttonText}</button>
-            </div>
-          </form>
-        )}
-      </div>
+export const MasterPaymentMethodCreateForm = (props: MasterPaymentMethodCreateFormState): ReactElement => (
+  <div className="flex h-full w-full flex-col bg-background-surface pb-6 font-sans lg:bg-background-page">
+    {props.errorMessage && <AlertComponent type="error" message={props.errorMessage} toast closable />}
+    {props.successMessage && <AlertComponent type="success" message={props.successMessage} toast closable />}
+    {_renderMobileBack(props.goBack)}
+    <div className="mt-2 flex min-h-0 w-full flex-1 flex-col px-0 lg:mt-0 lg:px-0">
+      {_renderHeader(props.isEditMode, props.goBack)}
+      {props.isLoadingInitialData ? (
+        <p className="py-12 text-center text-sm text-text-secondary">Loading payment method data…</p>
+      ) : (
+        _renderForm(props)
+      )}
     </div>
-  );
-};
+  </div>
+);

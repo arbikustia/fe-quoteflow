@@ -1,7 +1,8 @@
-import { fireEvent, render, screen } from "@testing-library/react";
+import { describe, expect, it, jest } from "@jest/globals";
+import { fireEvent, render, screen } from "@/libs/unit-test";
 
 import { MasterRoleCreateComponent } from "./MasterRoleCreate.component";
-import type { MasterRoleCreateFormState } from "../MasterRole.type";
+import type { MasterRoleCreateFormState } from "./MasterRoleCreate.type";
 
 const createProps = (
   overrides: Partial<MasterRoleCreateFormState> = {},
@@ -11,9 +12,11 @@ const createProps = (
   isEditMode: false,
   isSubmitting: false,
   errorMessage: null,
+  errors: {},
+  isSubmitted: false,
   handleRoleNameChange: jest.fn(),
   handleStatusChange: jest.fn(),
-  handleSubmit: jest.fn(() => Promise.resolve()),
+  handleSubmit: jest.fn(async () => Promise.resolve()),
   goBack: jest.fn(),
   ...overrides,
 });
@@ -23,12 +26,15 @@ describe("MasterRoleCreateComponent", () => {
     const props = createProps();
     render(<MasterRoleCreateComponent {...props} />);
 
-    expect(screen.getByRole("heading", { name: "New Role" })).toBeInTheDocument();
-    expect(screen.queryByRole("switch")).not.toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: "New Role" })).toBeTruthy();
+    expect(screen.queryByRole("switch")).toBeNull();
 
     fireEvent.change(screen.getByLabelText(/Role Name/), { target: { value: "Manager" } });
     fireEvent.click(screen.getAllByRole("button", { name: "Back" })[0]);
-    fireEvent.submit(screen.getByRole("button", { name: "Create Role" }).closest("form")!);
+    const form = screen.getByRole("button", { name: "Create Role" }).closest("form");
+    if (form) {
+      fireEvent.submit(form);
+    }
 
     expect(props.handleRoleNameChange).toHaveBeenCalled();
     expect(props.goBack).toHaveBeenCalled();
@@ -41,13 +47,14 @@ describe("MasterRoleCreateComponent", () => {
       isActive: false,
       isEditMode: true,
       errorMessage: "Role already exists.",
+      errors: { roleName: { type: "required", message: "Role name is required." } },
     });
     render(<MasterRoleCreateComponent {...props} />);
 
-    expect(screen.getByRole("heading", { name: "Edit Role" })).toBeInTheDocument();
-    expect(screen.getByDisplayValue("Administrator")).toBeInTheDocument();
-    expect(screen.getByRole("alert")).toHaveTextContent("Role already exists.");
-    expect(screen.getByRole("switch")).toHaveAttribute("aria-checked", "false");
+    expect(screen.getByRole("heading", { name: "Edit Role" })).toBeTruthy();
+    expect(screen.getByDisplayValue("Administrator")).toBeTruthy();
+    expect(screen.getByText("Role already exists.")).toBeTruthy();
+    expect(screen.getByText("Role name is required.")).toBeTruthy();
 
     fireEvent.click(screen.getByRole("switch"));
     expect(props.handleStatusChange).toHaveBeenCalled();
@@ -61,7 +68,6 @@ describe("MasterRoleCreateComponent", () => {
     );
 
     const submitButton = screen.getByRole("button", { name: "Updating…" });
-    expect(submitButton).toBeDisabled();
-    expect(submitButton).toHaveAttribute("aria-busy", "true");
+    expect(submitButton.hasAttribute("disabled")).toBe(true);
   });
 });

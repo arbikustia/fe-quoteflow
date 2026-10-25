@@ -9,10 +9,12 @@ export type MasterVoucherCreateFormState = {
   isEditMode: boolean;
   isSubmitting: boolean;
   errorMessage: string | null;
+  errors: import("react-hook-form").FieldErrors<import("../MasterVoucher.type").VoucherFormValues>;
+  isSubmitted: boolean;
   handleNameChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   handleCodeChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  handleCodeModeChange: (event: React.ChangeEvent<HTMLSelectElement>) => void;
-  handleDiscountChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  handleCodeModeChange: (value: string) => void;
+  handleDiscountChange: (value: number | null) => void;
   handleStatusChange: () => void;
   handleSubmit: (event: React.SyntheticEvent) => Promise<void>;
   goBack: () => void;

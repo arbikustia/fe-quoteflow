@@ -1,14 +1,122 @@
 import type { ChangeEvent, ReactElement } from "react";
 import { Fragment } from "react";
+import { FiEdit2 } from "react-icons/fi";
 
 import Layout from "../../app/layout";
 import { PageLayout } from "../../app/shared/PageLayout";
 import { MasterDataCard } from "../../components/MasterDataCard";
 import { Pagination } from "../../components/Pagination";
 import { SearchFilter } from "../../components/SearchFilter";
+import type { TableColumn } from "../../components/Table";
 import Table from "../../components/Table";
 
+import { getProjectRowNumber } from "./MasterProject.helpers";
 import type { MasterProjectProps, ProjectData } from "./MasterProject.type";
+
+/**
+ * Render No
+ * @param {_row} _row - data
+ * @param {number} index - index
+ * @param {number} currentPage - current page
+ * @param {number} pageSize - page size
+ * @returns {React.ReactElement} span
+ */
+const _renderNo = (_row: ProjectData, index: number, currentPage: number, pageSize: number): React.ReactElement => (
+  <span className="text-brand-text-medium font-medium text-sm">
+    {getProjectRowNumber(currentPage, pageSize, index)}
+  </span>
+);
+
+/**
+ * Render Status
+ * @param {ProjectData} row - data
+ * @returns {React.ReactElement} span
+ */
+const _renderStatus = (row: ProjectData): React.ReactElement => (
+  <span className={"px-3 py-1 rounded-full text-xs font-bold uppercase " + (row.status === "active" ? "bg-green-100 text-green-600" : "bg-red-100 text-red-600")}>
+    {row.status}
+  </span>
+);
+
+/**
+ * Get Basic Columns
+ * @param {number} currentPage - current page
+ * @param {number} pageSize - page size
+ * @returns {TableColumn<ProjectData>[]} columns
+ */
+const _getBasicColumns = (currentPage: number, pageSize: number): TableColumn<ProjectData>[] => {
+  /**
+   * Render No wrapper
+   * @param {ProjectData} _row - data
+   * @param {number} index - index
+   * @returns {React.ReactElement} cell
+   */
+  const renderNoWrapper = (_row: ProjectData, index: number): React.ReactElement => _renderNo(_row, index, currentPage, pageSize);
+
+  return [
+    {
+      key: "no",
+      header: "No",
+      align: "center",
+      render: renderNoWrapper,
+    },
+    { key: "name", header: "Project Name", mobile: { primary: true } },
+    { key: "remark", header: "Remark" },
+    {
+      key: "status",
+      header: "Status",
+      align: "center",
+      render: _renderStatus,
+    },
+    { key: "createBy", header: "Created By" },
+  ];
+};
+
+/**
+ * Build project table columns.
+ * @param {number} currentPage - Active page
+ * @param {number} pageSize - Active page size
+ * @param {MasterProjectProps["onEdit"]} onEdit - Edit handler
+ * @returns {TableColumn<ProjectData>[]} Project columns
+ */
+const _getColumns = (currentPage: number, pageSize: number, onEdit: MasterProjectProps["onEdit"]): TableColumn<ProjectData>[] => {
+  /**
+   * Render actions
+   * @param {ProjectData} row - row
+   * @returns {React.ReactElement} action
+   */
+  const renderActions = (row: ProjectData): React.ReactElement => {
+    /**
+     * Handle click
+     * @param {React.MouseEvent} e - event
+     * @returns {void} void
+     */
+    const handleClick = (e: React.MouseEvent): void => {
+      e.stopPropagation();
+      onEdit(row);
+    };
+
+    return (
+      <button
+        onClick={handleClick}
+        className="p-1.5 text-brand-text-medium hover:text-brand-blue hover:bg-brand-blue-light rounded-lg transition-colors cursor-pointer"
+        title="Edit"
+      >
+        <FiEdit2 className="w-4 h-4" />
+      </button>
+    );
+  };
+
+  return [
+    ..._getBasicColumns(currentPage, pageSize),
+    {
+      key: "actions",
+      header: "Action",
+      align: "center",
+      render: renderActions,
+    },
+  ];
+};
 
 /**
  * Render project list state.
@@ -84,7 +192,7 @@ const _renderDesktop = (props: MasterProjectProps): ReactElement => (
       <SearchFilter placeholder="Search project" onChange={_handleSearch.bind(null, props.setSearchTerm)} />
       <button type="button" onClick={props.onCreate} className="h-14 rounded-xl bg-brand-blue px-6 text-sm font-semibold text-brand-white">Create Project</button>
     </div>
-    <div className="flex-1 overflow-auto">{_renderListState(props) ?? <Table data={props.paginatedData} columns={props.columns} onRowClick={props.onRowClick} keyExtractor={(row: ProjectData): string => row.id} />}</div>
+    <div className="flex-1 overflow-auto">{_renderListState(props) ?? <Table data={props.paginatedData} columns={_getColumns(props.currentPage, props.pageSize, props.onEdit)} isDetail={false} keyExtractor={(row: ProjectData): string => row.id} />}</div>
     <Pagination currentPage={props.currentPage} totalPages={props.totalPages} pageSize={props.pageSize} onPageChange={props.goToPage} onPageSizeChange={props.changePageSize} totalItems={props.totalCount} />
   </div>
 );

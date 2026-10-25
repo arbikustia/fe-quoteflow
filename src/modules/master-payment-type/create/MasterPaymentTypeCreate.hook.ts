@@ -1,15 +1,17 @@
-import type { ChangeEvent, Dispatch, SetStateAction, SyntheticEvent } from "react";
+import type { ChangeEvent, SyntheticEvent } from "react";
 import { useState } from "react";
+import type { FieldError, UseFormSetValue, UseFormTrigger } from "react-hook-form";
+import { useForm, useWatch } from "react-hook-form";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 
 import type {
   PaymentTypeData,
   PaymentTypeFormFieldsState,
+  PaymentTypeFormValues,
   PaymentTypeSubmissionParams,
   PaymentTypeSubmissionState,
 } from "../MasterPaymentType.type";
 
-import { validatePaymentTypeFields } from "./MasterPaymentTypeCreate.helpers";
 import type { MasterPaymentTypeCreateFormState } from "./MasterPaymentTypeCreate.type";
 
 import type { PaymentTypeCreateResponse, PaymentTypeDetailResponse } from "@/services/master-payment-type.service";
@@ -34,16 +36,55 @@ const _formatMessages = (messages: string[] | string | null): string => {
 };
 
 /**
- * Create input change handler.
- * @param {Dispatch<SetStateAction<string>>} setter - State setter
- * @returns {(event: ChangeEvent<HTMLInputElement>) => void} Change handler
+ * Register payment type validation rules.
+ * @param {ReturnType<typeof useForm<PaymentTypeFormValues>>["register"]} register - Register function
+ * @returns {void} No return value
  */
-const _createInputChangeHandler = (
-  setter: Dispatch<SetStateAction<string>>,
-): ((event: ChangeEvent<HTMLInputElement>) => void) => (
-  (event: ChangeEvent<HTMLInputElement>): void => {
-    setter(event.target.value);
+const _registerPaymentTypeFields = (
+  register: ReturnType<typeof useForm<PaymentTypeFormValues>>["register"],
+): void => {
+  register("name", { required: "Payment type name is required." });
+};
+
+/**
+ * Create name input change handler.
+ * @param {UseFormSetValue<PaymentTypeFormValues>} setValue - Form value setter
+ * @param {FieldError | undefined} error - Field error
+ * @returns {(event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void} Change handler
+ */
+const _createNameChange = (
+  setValue: UseFormSetValue<PaymentTypeFormValues>,
+  error: FieldError | undefined,
+): ((event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void) => (
+  (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>): void => {
+    setValue("name", event.target.value, { shouldValidate: Boolean(error) });
   }
+);
+
+/**
+ * Create status toggle handler.
+ * @param {UseFormSetValue<PaymentTypeFormValues>} setValue - Form value setter
+ * @param {boolean} isActive - Current status
+ * @returns {() => void} Toggle handler
+ */
+const _createStatusToggle = (
+  setValue: UseFormSetValue<PaymentTypeFormValues>,
+  isActive: boolean,
+): (() => void) => (
+  (): void => {
+    setValue("isActive", !isActive, { shouldDirty: true });
+  }
+);
+
+/**
+ * Create form validation trigger.
+ * @param {UseFormTrigger<PaymentTypeFormValues>} trigger - Form trigger
+ * @returns {() => Promise<boolean>} Validation function
+ */
+const _createFormValidator = (
+  trigger: UseFormTrigger<PaymentTypeFormValues>,
+): (() => Promise<boolean>) => (
+  async (): Promise<boolean> => await trigger()
 );
 
 /**
@@ -62,6 +103,27 @@ const _resolvePaymentTypeDetail = (response: PaymentTypeDetailResponse | undefin
 };
 
 /**
+ * Synchronize API item with form values.
+ * @param {PaymentTypeData | null} apiItem - API item
+ * @param {string | null} initializedId - Current initialized ID
+ * @param {(id: string | null) => void} setInitializedId - ID setter
+ * @param {UseFormSetValue<PaymentTypeFormValues>} setValue - Value setter
+ * @returns {void} No return value
+ */
+const _syncApiItem = (
+  apiItem: PaymentTypeData | null,
+  initializedId: string | null,
+  setInitializedId: (id: string | null) => void,
+  setValue: UseFormSetValue<PaymentTypeFormValues>,
+): void => {
+  if (apiItem && apiItem.id !== initializedId) {
+    setInitializedId(apiItem.id);
+    setValue("name", apiItem.name ?? "");
+    setValue("isActive", apiItem.status === "active");
+  }
+};
+
+/**
  * Send create or update payment type mutation.
  * @param {PaymentTypeSubmissionParams} params - Submission parameters
  * @param {ReturnType<typeof useCreatePaymentTypeMutation>[0]} createPaymentType - Create trigger
@@ -73,13 +135,14 @@ const _sendPaymentTypeMutation = (
   createPaymentType: ReturnType<typeof useCreatePaymentTypeMutation>[0],
   updatePaymentType: ReturnType<typeof useUpdatePaymentTypeMutation>[0],
 ): Promise<PaymentTypeCreateResponse> => {
-  const { id, isEditMode, name, isActive } = params;
+  const { id, isEditMode, isActive, getValues } = params;
+  const values = getValues();
 
   if (isEditMode && id) {
-    return updatePaymentType({ id, name, status: isActive ? 1 : 0 }).unwrap();
+    return updatePaymentType({ id, name: values.name, status: isActive ? 1 : 0 }).unwrap();
   }
 
-  return createPaymentType({ name, status: 1 }).unwrap();
+  return createPaymentType({ name: values.name, status: 1 }).unwrap();
 };
 
 /**
@@ -90,7 +153,7 @@ const _sendPaymentTypeMutation = (
 const usePaymentTypeSubmission = (
   params: PaymentTypeSubmissionParams,
 ): PaymentTypeSubmissionState => {
-  const { isEditMode, name } = params;
+  const { isEditMode, validateForm } = params;
   const navigate = useNavigate();
   const [createPaymentType, { isLoading: isCreating }] = useCreatePaymentTypeMutation();
   const [updatePaymentType, { isLoading: isUpdating }] = useUpdatePaymentTypeMutation();
@@ -108,10 +171,8 @@ const usePaymentTypeSubmission = (
     setErrorMessage(null);
     setSuccessMessage(null);
 
-    const validationError = validatePaymentTypeFields(name);
-
-    if (validationError) {
-      setErrorMessage(validationError);
+    if (!(await validateForm())) {
+      setErrorMessage("Complete required payment type fields.");
 
       return;
     }
@@ -125,8 +186,10 @@ const usePaymentTypeSubmission = (
         return;
       }
 
-      setSuccessMessage(isEditMode ? "Payment type updated successfully." : "Payment type created successfully.");
-      navigate("/master-payment-type");
+      const successMsg = isEditMode ? "Payment type updated successfully." : "Payment type created successfully.";
+
+      setSuccessMessage(successMsg);
+      navigate("/master-payment-type", { state: { successMessage: successMsg } });
     } catch {
       setErrorMessage(isEditMode ? "Unable to update payment type. Please try again." : "Unable to create payment type. Please try again.");
     }
@@ -168,25 +231,31 @@ const usePaymentTypeFormFields = (
 ): PaymentTypeFormFieldsState => {
   const initialName = routePaymentType?.name ?? apiItem?.name ?? "";
   const initialIsActive = _resolveInitialIsActive(routePaymentType, apiItem);
+  const { control, formState: { errors }, getValues, register, setValue, trigger } = useForm<PaymentTypeFormValues>({
+    defaultValues: { name: initialName, isActive: initialIsActive },
+    mode: "onSubmit",
+    reValidateMode: "onChange",
+  });
 
-  const [name, setName] = useState(initialName);
-  const [isActive, setIsActive] = useState(initialIsActive);
+  _registerPaymentTypeFields(register);
+
   const [initializedId, setInitializedId] = useState<string | null>(routePaymentType?.id ?? null);
+  const name = useWatch({ control, name: "name" });
+  const isActive = useWatch({ control, name: "isActive" });
 
-  if (apiItem && apiItem.id !== initializedId) {
-    setInitializedId(apiItem.id);
-    setName(apiItem.name ?? "");
-    setIsActive(apiItem.status === "active");
-  }
+  _syncApiItem(apiItem, initializedId, setInitializedId, setValue);
 
-  const handleNameChange = _createInputChangeHandler(setName);
-  /**
-   * Toggle active state.
-   * @returns {void} No return value
-   */
-  const handleStatusChange = (): void => { setIsActive((currentIsActive) => !currentIsActive); };
-
-  return { name, isActive, handleNameChange, handleStatusChange };
+  return {
+    name,
+    isActive,
+    errors,
+    isSubmitted: Boolean(errors.name),
+    register,
+    getValues,
+    validateForm: _createFormValidator(trigger),
+    handleNameChange: _createNameChange(setValue, errors.name),
+    handleStatusChange: _createStatusToggle(setValue, isActive),
+  };
 };
 
 /**
@@ -196,7 +265,7 @@ const usePaymentTypeFormFields = (
 export const useMasterPaymentTypeCreate = (): MasterPaymentTypeCreateFormState => {
   const navigate = useNavigate();
   const location = useLocation();
-  const { id } = useParams<{ readonly id?: string }>();
+  const { id } = useParams<{ id?: string }>();
   const isEditMode = Boolean(id);
   const routePaymentType: PaymentTypeData | undefined = location.state?.paymentType;
 

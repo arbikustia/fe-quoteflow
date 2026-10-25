@@ -6,9 +6,9 @@ import { useSidebarCollapse } from "../hooks/useSidebarCollapse";
 import NavbarContainer from "../components/Navbar/index";
 
 export type LayoutProps = {
-  readonly children: React.ReactNode;
-  readonly pageTitle?: string;
-  readonly mobileWhiteBackground?: boolean;
+  children: React.ReactNode;
+  pageTitle?: string;
+  mobileWhiteBackground?: boolean;
 };
 
 /**

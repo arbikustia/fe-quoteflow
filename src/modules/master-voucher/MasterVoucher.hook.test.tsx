@@ -56,8 +56,6 @@ describe("MasterVoucher hook", () => {
     expect(mockNavigate).toHaveBeenNthCalledWith(2, "/master-voucher/create");
     act(() => { result.current.goEdit(MOCK_VOUCHERS[0]); });
     expect(mockNavigate).toHaveBeenNthCalledWith(3, "/master-voucher/edit/1", { state: { voucher: MOCK_VOUCHERS[0] } });
-    act(() => { result.current.goDetail(MOCK_VOUCHERS[1]); });
-    expect(mockNavigate).toHaveBeenNthCalledWith(4, "/master-voucher/detail/2");
   });
 
   it("should expose empty API state", () => {

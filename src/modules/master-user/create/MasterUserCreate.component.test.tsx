@@ -1,5 +1,5 @@
 import { describe, expect, it, jest } from "@jest/globals";
-import { fireEvent, render, screen } from "@testing-library/react";
+import { fireEvent, render, screen } from "@/libs/unit-test";
 import { MemoryRouter } from "react-router-dom";
 
 import { MasterUserCreateComponent } from "./MasterUserCreate.component";
@@ -18,6 +18,8 @@ const createMockProps = (overrides?: Partial<MasterUserCreateFormState>): Master
   isEditMode: false,
   isSubmitting: false,
   errorMessage: null,
+  errors: {},
+  isSubmitted: false,
   handleUsernameChange: jest.fn(),
   handleEmailChange: jest.fn(),
   handlePasswordChange: jest.fn(),
@@ -80,7 +82,7 @@ describe("MasterUserCreateComponent", () => {
     expect(screen.getByLabelText(/Username/i).hasAttribute("required")).toBe(true);
     expect(screen.getByLabelText(/Email/i).hasAttribute("required")).toBe(true);
     expect(screen.getByLabelText(/^Password/i).hasAttribute("required")).toBe(true);
-    expect(screen.getByRole("combobox", { name: /Role/i }).hasAttribute("required")).toBe(true);
+    expect(screen.getByRole("combobox", { name: /Role/i }).getAttribute("aria-required")).toBe("true");
   });
 
   it("renders role options returned by API", () => {
@@ -95,6 +97,7 @@ describe("MasterUserCreateComponent", () => {
       </MemoryRouter>
     );
 
-    expect(screen.getByRole("option", { name: "kasir" }).getAttribute("value")).toBe("kasir");
+    fireEvent.mouseDown(screen.getByRole("combobox", { name: /Role/i }));
+    expect(screen.getAllByText("kasir").length).toBeGreaterThan(0);
   });
 });

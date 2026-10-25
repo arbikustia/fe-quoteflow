@@ -33,7 +33,6 @@ const props: MasterUserProps = {
   pageSize: 10,
   paginatedData: users,
   totalCount: 1,
-  columns: [],
   isEmpty: false,
   isLoading: false,
   isError: false,

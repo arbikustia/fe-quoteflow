@@ -63,7 +63,8 @@ describe("MasterItemCreate.hook", () => {
       await result.current.handleSubmit({ preventDefault: jest.fn() } as never);
     });
 
-    expect(result.current.errorMessage).toBe("Item name is required.");
+    expect(result.current.isSubmitted).toBe(true);
+    expect(result.current.errors?.name?.message).toBe("Item name is required.");
     expect(createItem).not.toHaveBeenCalled();
   });
 
@@ -82,7 +83,7 @@ describe("MasterItemCreate.hook", () => {
     });
 
     expect(createItem).toHaveBeenCalledWith(expect.objectContaining({ name: "Camera", category_id: "cat-1", status: 1 }));
-    expect(navigate).toHaveBeenCalledWith("/master-item");
+    expect(navigate).toHaveBeenCalledWith("/master-item", { state: { successMessage: "Item created successfully." } });
   });
 
   it("should handle image upload failure", async () => {

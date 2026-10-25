@@ -12,7 +12,7 @@ jest.mock("react-router-dom", () => ({
 }));
 
 jest.mock("@/services/master-customer.service", () => ({
-  mapCustomer: (customer: { readonly id: string; readonly name: string; readonly address: string | null; readonly phone_number: string | null; readonly status: number; readonly created_at: string | null; readonly created_by: string | null }) => ({
+  mapCustomer: (customer: { id: string; name: string; address: string | null; phone_number: string | null; status: number; created_at: string | null; created_by: string | null }) => ({
     id: customer.id,
     name: customer.name,
     address: customer.address ?? "",

@@ -4,15 +4,15 @@ import type React from "react";
  * Master main card properties.
  */
 export type MasterMainCardProps = {
-  readonly title: string;
-  readonly description: string;
-  readonly icon: React.ReactElement;
-  readonly image?: string;
-  readonly path: string;
-  readonly onClick?: () => void;
+  title: string;
+  description: string;
+  icon: React.ReactElement;
+  image?: string;
+  path: string;
+  onClick?: () => void;
 };
 
 export type MasterMainProps = {
-  readonly cards: readonly MasterMainCardProps[];
-  readonly onCardClick: (path: string) => void;
+  cards: MasterMainCardProps[];
+  onCardClick: (path: string) => void;
 };

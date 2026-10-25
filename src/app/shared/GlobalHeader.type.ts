@@ -1,4 +1,4 @@
 export type GlobalHeaderProps = {
-  readonly showCreateButton?: boolean;
-  readonly createEndpoint?: string;
+  showCreateButton?: boolean;
+  createEndpoint?: string;
 };

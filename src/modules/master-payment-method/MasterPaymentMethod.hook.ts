@@ -37,14 +37,9 @@ export const useMasterPaymentMethodNavigation = (): MasterPaymentMethodNavigatio
   const goEdit = (paymentMethod: PaymentMethodData): void => {
     navigate(`/master-payment-method/edit/${paymentMethod.id}`, { state: { paymentMethod } });
   };
-  /**
-   * Navigate to detail page.
-   * @param {PaymentMethodData} paymentMethod - Payment method to inspect
-   * @returns {void} No return value
-   */
-  const goDetail = (paymentMethod: PaymentMethodData): void => { navigate(`/master-payment-method/detail/${paymentMethod.id}`); };
 
-  return { goBack, goCreate, goEdit, goDetail };
+
+  return { goBack, goCreate, goEdit };
 };
 
 /**

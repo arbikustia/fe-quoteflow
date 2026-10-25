@@ -20,33 +20,32 @@ import { mapUser, useGetUsersQuery } from "@/services/master-user.service";
 export const useMasterUserNavigation = (): MasterUserNavigation => {
   const navigate = useNavigate();
 
-  /** Navigate back. */
+  /**
+   * Navigate back.
+   * @returns {void} No return value
+   */
   const goBack = (): void => {
     navigate(-1);
   };
 
-  /** Navigate to create. */
+  /**
+   * Navigate to create user.
+   * @returns {void} No return value
+   */
   const goCreate = (): void => {
     navigate("/master-user/create");
   };
 
   /**
-   * Navigate to edit.
-   * @param {UserData} c - User data
+   * Navigate to edit user.
+   * @param {UserData} user - User record
+   * @returns {void} No return value
    */
-  const goEdit = (c: UserData): void => {
-    navigate(`/master-user/edit/${c.id}`, { state: { user: c } });
+  const goEdit = (user: UserData): void => {
+    navigate(`/master-user/edit/${user.id}`, { state: { user } });
   };
 
-  /**
-   * Navigate to detail.
-   * @param {UserData} c - User data
-   */
-  const goDetail = (c: UserData): void => {
-    navigate(`/master-user/detail/${c.id}`);
-  };
-
-  return { goBack, goCreate, goEdit, goDetail };
+  return { goBack, goCreate, goEdit };
 };
 
 /**

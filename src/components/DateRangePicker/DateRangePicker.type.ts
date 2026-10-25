@@ -1,24 +1,24 @@
 export type DateRangePickerVariant = "split" | "compact";
 
 export type DateRangePickerProps = {
-  readonly label?: string;
-  readonly startLabel?: string;
-  readonly endLabel?: string;
-  readonly startDate?: string;
-  readonly endDate?: string;
-  readonly onStartDateChange?: (value: string) => void;
-  readonly onEndDateChange?: (value: string) => void;
-  readonly minDate?: string;
-  readonly maxDate?: string;
-  readonly disabled?: boolean;
-  readonly variant?: DateRangePickerVariant;
-  readonly className?: string;
-  readonly showTime?: boolean;
+  label?: string;
+  startLabel?: string;
+  endLabel?: string;
+  startDate?: string;
+  endDate?: string;
+  onStartDateChange?: (value: string) => void;
+  onEndDateChange?: (value: string) => void;
+  minDate?: string;
+  maxDate?: string;
+  disabled?: boolean;
+  variant?: DateRangePickerVariant;
+  className?: string;
+  showTime?: boolean;
 };
 
 export type DateRangePickerState = {
-  readonly activeField: "start" | "end" | null;
-  readonly visibleMonth: Date;
-  readonly setActiveField: (field: "start" | "end" | null) => void;
-  readonly setVisibleMonth: (date: Date) => void;
+  activeField: "start" | "end" | null;
+  visibleMonth: Date;
+  setActiveField: (field: "start" | "end" | null) => void;
+  setVisibleMonth: (date: Date) => void;
 };

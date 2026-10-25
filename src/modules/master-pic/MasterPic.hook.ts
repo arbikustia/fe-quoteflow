@@ -19,12 +19,18 @@ import { mapPic, useGetPicsQuery } from "@/services/master-pic.service";
 export const useMasterPicNavigation = (): MasterPicNavigation => {
   const navigate = useNavigate();
 
-  /** Navigate back. */
+  /**
+   * Navigate back.
+   * @returns {void} No return value
+   */
   const goBack = (): void => {
     navigate(-1);
   };
 
-  /** Navigate to create PIC. */
+  /**
+   * Navigate to create PIC.
+   * @returns {void} No return value
+   */
   const goCreate = (): void => {
     navigate("/master-pic/create");
   };
@@ -32,20 +38,13 @@ export const useMasterPicNavigation = (): MasterPicNavigation => {
   /**
    * Navigate to edit PIC.
    * @param {PicData} pic - PIC record
+   * @returns {void} No return value
    */
   const goEdit = (pic: PicData): void => {
     navigate(`/master-pic/edit/${pic.id}`, { state: { pic } });
   };
 
-  /**
-   * Navigate to detail PIC.
-   * @param {PicData} pic - PIC record
-   */
-  const goDetail = (pic: PicData): void => {
-    navigate(`/master-pic/detail/${pic.id}`);
-  };
-
-  return { goBack, goCreate, goEdit, goDetail };
+  return { goBack, goCreate, goEdit };
 };
 
 /**

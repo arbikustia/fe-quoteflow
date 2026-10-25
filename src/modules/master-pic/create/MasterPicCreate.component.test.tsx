@@ -10,6 +10,8 @@ describe("MasterPicCreateForm Component", () => {
     isLoadingInitialData: false,
     isSubmitting: false,
     errorMessage: null,
+    errors: {},
+    isSubmitted: false,
     handleNameChange: jest.fn(),
     handleStatusChange: jest.fn(),
     handleSubmit: jest.fn(async () => {}),

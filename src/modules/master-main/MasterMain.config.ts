@@ -26,7 +26,7 @@ const MASTER_MAIN_IMAGES = new Map<string, string>([
   ["/master-pic", picIllustration],
 ]);
 
-export const MASTER_MAIN_CONFIG: readonly MasterMainCardProps[] =
+export const MASTER_MAIN_CONFIG: MasterMainCardProps[] =
   MASTER_DATA_ITEMS.map((item) => ({
     title: `Master ${item.name}`,
     description: item.description,

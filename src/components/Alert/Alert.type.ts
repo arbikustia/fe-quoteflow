@@ -2,12 +2,17 @@ import type { ReactNode } from "react";
 
 export type AlertType = "success" | "info" | "warning" | "error";
 
+export type AlertToastState = {
+  isVisible: boolean;
+  closeToast: () => void;
+};
+
 export type AlertProps = {
-  readonly type?: AlertType;
-  readonly message: ReactNode;
-  readonly description?: ReactNode;
-  readonly closable?: boolean;
-  readonly onClose?: () => void;
-  readonly className?: string;
-  readonly toast?: boolean;
+  type?: AlertType;
+  message: ReactNode;
+  description?: ReactNode;
+  closable?: boolean;
+  onClose?: () => void;
+  className?: string;
+  toast?: boolean;
 };

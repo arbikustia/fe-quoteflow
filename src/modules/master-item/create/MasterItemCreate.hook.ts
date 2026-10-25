@@ -1,11 +1,14 @@
 import type { ChangeEvent, SyntheticEvent } from "react";
 import { useState } from "react";
+import type { FieldErrors, UseFormSetValue } from "react-hook-form";
+import { useForm, useWatch } from "react-hook-form";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 
-import { parseRupiahInput, validateRequiredItemFields } from "./MasterItemCreate.helpers";
+import { parseRupiahInput } from "./MasterItemCreate.helpers";
 import type {
   ImageUploadMutation,
   ItemFormFieldsState,
+  ItemFormValues,
   ItemImageFieldState,
   ItemRouteState,
   ItemSubmissionParams,
@@ -36,83 +39,90 @@ const _formatMessages = (messages: string[] | string | null): string => {
 };
 
 /**
+ * Create validated text field change handler.
+ * @param {keyof ItemFormValues} field - Form field name
+ * @param {UseFormSetValue<ItemFormValues>} setValue - React Hook Form value setter
+ * @param {FieldErrors<ItemFormValues>} errors - Current validation errors
+ * @param {(value: string) => string} transform - Input value transformer
+ * @returns {(event: ChangeEvent<HTMLInputElement>) => void} Change handler
+ */
+const _createTextHandler = (field: keyof ItemFormValues, setValue: UseFormSetValue<ItemFormValues>, errors: FieldErrors<ItemFormValues>, transform: (value: string) => string): ((event: ChangeEvent<HTMLInputElement>) => void) => (
+  (event: ChangeEvent<HTMLInputElement>): void => { setValue(field, transform(event.target.value), { shouldValidate: Boolean(errors[field]) }); }
+);
+
+/**
+ * Register validation rules for item text fields.
+ * @param {import("react-hook-form").UseFormRegister<ItemFormValues>} register - Form register function
+ * @returns {void} No return value
+ */
+const _registerItemFields = (register: import("react-hook-form").UseFormRegister<ItemFormValues>): void => {
+  register("name", { required: "Item name is required." });
+  register("categoryId", { required: "Category is required." });
+  register("price", { required: "Price is required." });
+  register("stock", { required: "Stock is required." });
+  register("duration", { required: "Duration is required." });
+};
+
+/**
  * Manage item text form fields.
  * @param {ItemRouteState} routeState - Route state
  * @returns {ItemTextFieldsState} Text fields and handlers
  */
 const useItemTextFields = (routeState: ItemRouteState): ItemTextFieldsState => {
   const routeItem = routeState.item;
-  const [name, setName] = useState(routeItem?.name ?? "");
-  const [categoryId, setCategoryId] = useState(routeItem?.categoryId ?? "");
-  const [price, setPrice] = useState(routeItem?.price?.toString() ?? "");
-  const [stock, setStock] = useState(routeItem?.stock?.toString() ?? "");
-  const [duration, setDuration] = useState(routeItem?.duration?.toString() ?? "");
+  const { control, formState: { errors }, register, setValue, trigger } = useForm<ItemFormValues>({
+    defaultValues: {
+      name: routeItem?.name ?? "",
+      categoryId: routeItem?.categoryId ?? "",
+      price: routeItem?.price?.toString() ?? "",
+      stock: routeItem?.stock?.toString() ?? "",
+      duration: routeItem?.duration?.toString() ?? "",
+    },
+    mode: "onSubmit",
+    reValidateMode: "onChange",
+  });
+
+  _registerItemFields(register);
+  const name = useWatch({ control, name: "name" });
+  const categoryId = useWatch({ control, name: "categoryId" });
+  const price = useWatch({ control, name: "price" });
+  const stock = useWatch({ control, name: "stock" });
+  const duration = useWatch({ control, name: "duration" });
   const [remark, setRemark] = useState(routeItem?.remark ?? "");
   const [isActive, setIsActive] = useState(routeItem?.status === "active");
-
+  const [isSubmitted, setIsSubmitted] = useState(false);
+  const handleNameChange = _createTextHandler("name", setValue, errors, (v: string): string => v);
   /**
-   * Update item name.
-   * @param {ChangeEvent<HTMLInputElement>} event - Input event
-   * @returns {void} No return value
-   */
-  const handleNameChange = (event: ChangeEvent<HTMLInputElement>): void => {
-    setName(event.target.value);
-  };
-
-  /**
-   * Update category.
+   * Update category selection.
    * @param {string} value - Category ID
    * @returns {void} No return value
    */
-  const handleCategoryChange = (value: string): void => {
-    setCategoryId(value);
-  };
-
+  const handleCategoryChange = (value: string): void => { setValue("categoryId", value, { shouldValidate: Boolean(errors.categoryId) }); };
+  const handlePriceChange = _createTextHandler("price", setValue, errors, parseRupiahInput);
+  const handleStockChange = _createTextHandler("stock", setValue, errors, (value: string): string => value);
+  const handleDurationChange = _createTextHandler("duration", setValue, errors, (value: string): string => value);
   /**
-   * Update price.
-   * @param {ChangeEvent<HTMLInputElement>} event - Input event
+   * Update optional remark.
+   * @param {ChangeEvent<HTMLInputElement>} event - Remark change event
    * @returns {void} No return value
    */
-  const handlePriceChange = (event: ChangeEvent<HTMLInputElement>): void => {
-    setPrice(parseRupiahInput(event.target.value));
-  };
-
+  const handleRemarkChange = (event: ChangeEvent<HTMLInputElement>): void => { setRemark(event.target.value); };
   /**
-   * Update stock.
-   * @param {ChangeEvent<HTMLInputElement>} event - Input event
+   * Toggle item status.
    * @returns {void} No return value
    */
-  const handleStockChange = (event: ChangeEvent<HTMLInputElement>): void => {
-    setStock(event.target.value);
-  };
-
+  const handleStatusChange = (): void => { setIsActive((current) => !current); };
   /**
-   * Update duration.
-   * @param {ChangeEvent<HTMLInputElement>} event - Input event
-   * @returns {void} No return value
+   * Validate required item fields.
+   * @returns {Promise<boolean>} Validation result
    */
-  const handleDurationChange = (event: ChangeEvent<HTMLInputElement>): void => {
-    setDuration(event.target.value);
+  const validateForm = async (): Promise<boolean> => {
+    setIsSubmitted(true);
+
+    return await trigger();
   };
 
-  /**
-   * Update remark.
-   * @param {ChangeEvent<HTMLInputElement>} event - Input event
-   * @returns {void} No return value
-   */
-  const handleRemarkChange = (event: ChangeEvent<HTMLInputElement>): void => {
-    setRemark(event.target.value);
-  };
-
-  /**
-   * Toggle status.
-   * @returns {void} No return value
-   */
-  const handleStatusChange = (): void => {
-    setIsActive((current) => !current);
-  };
-
-  return { name, categoryId, price, stock, duration, remark, isActive, handleNameChange, handleCategoryChange, handlePriceChange, handleStockChange, handleDurationChange, handleRemarkChange, handleStatusChange };
+  return { name, categoryId, price, stock, duration, remark, isActive, errors, isSubmitted, validateForm, handleNameChange, handleCategoryChange, handlePriceChange, handleStockChange, handleDurationChange, handleRemarkChange, handleStatusChange };
 };
 
 /**
@@ -208,6 +218,7 @@ const _sendItemMutation = (params: ItemSubmissionParams): Promise<ItemCreateResp
 const useItemSubmission = (params: ItemSubmissionParams): ItemSubmissionState => {
   const navigate = useNavigate();
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [successMessage, setSuccessMessage] = useState<string | null>(null);
 
   /**
    * Submit item form.
@@ -217,11 +228,9 @@ const useItemSubmission = (params: ItemSubmissionParams): ItemSubmissionState =>
   const handleSubmit = async (event: SyntheticEvent): Promise<void> => {
     event.preventDefault();
     setErrorMessage(null);
-    const validationError = validateRequiredItemFields({ name: params.fields.name, categoryId: params.fields.categoryId, price: params.fields.price, stock: params.fields.stock, duration: params.fields.duration });
+    setSuccessMessage(null);
 
-    if (validationError) {
-      setErrorMessage(validationError);
-
+    if (!(await params.fields.validateForm())) {
       return;
     }
 
@@ -234,13 +243,16 @@ const useItemSubmission = (params: ItemSubmissionParams): ItemSubmissionState =>
         return;
       }
 
-      navigate("/master-item");
+      const message = params.isEditMode ? "Item updated successfully." : "Item created successfully.";
+
+      setSuccessMessage(message);
+      navigate("/master-item", { state: { successMessage: message } });
     } catch {
       setErrorMessage(params.isEditMode ? "Unable to update item. Please try again." : "Unable to create item. Please try again.");
     }
   };
 
-  return { errorMessage, handleSubmit };
+  return { errorMessage, successMessage, handleSubmit };
 };
 
 /**
@@ -268,5 +280,5 @@ export const useMasterItemCreateForm = (): MasterItemCreateFormState => {
     navigate(-1);
   };
 
-  return { ...fields, isEditMode, isSubmitting: isCreating || isUpdating, isCategoryLoading: categoryState.isLoading, categoryError: categoryState.errorMessage, categories: categoryState.categories, errorMessage: submission.errorMessage, handleSubmit: submission.handleSubmit, goBack };
+  return { ...fields, isEditMode, isSubmitting: isCreating || isUpdating, isCategoryLoading: categoryState.isLoading, categoryError: categoryState.errorMessage, categories: categoryState.categories, errorMessage: submission.errorMessage, successMessage: submission.successMessage, handleSubmit: submission.handleSubmit, goBack };
 };

@@ -1,9 +1,9 @@
 export type SkeletonColumn = {
-  readonly width?: string;
+  width?: string;
 };
 
 export type SkeletonProps = {
-  readonly rows?: number;
-  readonly columns?: readonly SkeletonColumn[];
-  readonly className?: string;
+  rows?: number;
+  columns?: SkeletonColumn[];
+  className?: string;
 };

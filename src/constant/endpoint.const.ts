@@ -34,6 +34,7 @@ const ENDPOINT = {
   },
   MASTER_PAYMENT_METHOD: {
     PAGED: "/api/payment-method/paged",
+    ALL: "/api/payment-method/get-all-payment-method",
     CREATE: "/api/payment-method",
     DETAIL: "/api/payment-method",
   },
@@ -58,6 +59,20 @@ const ENDPOINT = {
     ALL: "/api/project",
     CREATE: "/api/project",
     DETAIL: "/api/project",
+  },
+  QUOTATION: {
+    PAGED: "/api/quotation/paged",
+    DETAIL: "/api/quotation",
+  },
+  INVOICE: {
+    PAGED: "/api/invoice/paged",
+    ALL: "/api/invoice",
+    DETAIL: "/api/invoice",
+  },
+  PAYMENT: {
+    PAGED: "/api/payment/paged",
+    CREATE: "/api/payment",
+    DETAIL: "/api/payment",
   },
   ORDER: {
     PAGED: "/api/rental-transaction/paged",

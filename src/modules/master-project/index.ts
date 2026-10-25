@@ -1,1 +1,1 @@
-export { default } from './MasterProject.wrapper';
+export { default } from "./MasterProject.container";

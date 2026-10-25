@@ -1,6 +1,6 @@
 export type NavbarProps = {
-  readonly pageTitle?: string;
-  readonly isSidebarCollapsed: boolean;
-  readonly onToggleSidebar: () => void;
-  readonly currentTime?: string;
+  pageTitle?: string;
+  isSidebarCollapsed: boolean;
+  onToggleSidebar: () => void;
+  currentTime?: string;
 };

@@ -36,7 +36,7 @@ const _resolveErrorMessage = (
  */
 export const useMasterProjectDetail = (): MasterProjectDetailState => {
   const navigate = useNavigate();
-  const { id } = useParams<{ readonly id: string }>();
+  const { id } = useParams<{ id: string }>();
   const { data, error, isLoading } = useGetProjectByIdQuery(id ?? "", {
     skip: !id,
   });

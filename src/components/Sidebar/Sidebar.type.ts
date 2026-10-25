@@ -1,82 +1,82 @@
 import type { Dispatch, ReactNode, SetStateAction } from "react";
 
 export type NavigationChild = {
-  readonly name: string;
-  readonly path: string;
+  name: string;
+  path: string;
 };
 
 export type MasterNavigationItem = NavigationChild & {
-  readonly description: string;
-  readonly icon: () => ReactNode;
+  description: string;
+  icon: () => ReactNode;
 };
 
 export type NavigationItem = {
-  readonly name: string;
-  readonly path?: string;
-  readonly icon: () => ReactNode;
-  readonly badge?: string | number;
-  readonly children?: readonly NavigationChild[];
+  name: string;
+  path?: string;
+  icon: () => ReactNode;
+  badge?: string | number;
+  children?: NavigationChild[];
 };
 
 export type NavigationSection = {
-  readonly title: string;
-  readonly items: readonly NavigationItem[];
+  title: string;
+  items: NavigationItem[];
 };
 
 export type SidebarState = {
-  readonly currentPath: string;
-  readonly openMenus: readonly string[];
-  readonly onToggleMenu: (menuName: string) => void;
-  readonly isCollapsed: boolean;
-  readonly onToggleCollapsed: () => void;
-  readonly isProfileOpen: boolean;
-  readonly onToggleProfile: () => void;
-  readonly onCloseProfile: () => void;
-  readonly setOpenMenus: Dispatch<SetStateAction<readonly string[]>>;
+  currentPath: string;
+  openMenus: string[];
+  onToggleMenu: (menuName: string) => void;
+  isCollapsed: boolean;
+  onToggleCollapsed: () => void;
+  isProfileOpen: boolean;
+  onToggleProfile: () => void;
+  onCloseProfile: () => void;
+  setOpenMenus: Dispatch<SetStateAction<string[]>>;
 };
 
 export type SidebarContainerProps = {
-  readonly isCollapsed?: boolean;
+  isCollapsed?: boolean;
 };
 
 export type SidebarProps = {
-  readonly navigation: readonly NavigationItem[] | readonly NavigationSection[];
-  readonly sections?: readonly NavigationSection[];
-  readonly currentPath: string;
-  readonly openMenus: readonly string[];
-  readonly onToggleMenu: (menuName: string) => void;
-  readonly isCollapsed: boolean;
-  readonly isProfileOpen: boolean;
-  readonly onToggleProfile: () => void;
-  readonly theme: "light" | "dark";
-  readonly onToggleTheme: () => void;
-  readonly onLogout: () => void;
+  navigation: NavigationItem[] | NavigationSection[];
+  sections?: NavigationSection[];
+  currentPath: string;
+  openMenus: string[];
+  onToggleMenu: (menuName: string) => void;
+  isCollapsed: boolean;
+  isProfileOpen: boolean;
+  onToggleProfile: () => void;
+  theme: "light" | "dark";
+  onToggleTheme: () => void;
+  onLogout: () => void;
 };
 
 export type SidebarNavigationProps = Pick<SidebarProps, "currentPath" | "openMenus" | "onToggleMenu" | "isCollapsed"> & {
-  readonly sections: readonly NavigationSection[];
+  sections: NavigationSection[];
 };
 
 export type SidebarItemProps = Omit<SidebarNavigationProps, "sections"> & {
-  readonly item: NavigationItem;
+  item: NavigationItem;
 };
 
 export type SidebarProfileProps = Pick<SidebarProps, "isCollapsed" | "isProfileOpen" | "onToggleProfile" | "theme" | "onToggleTheme" | "onLogout"> & {
-  readonly displayName: string;
-  readonly initials: string;
+  displayName: string;
+  initials: string;
 };
 
 export type SidebarLogoProps = Pick<SidebarProps, "isCollapsed" | "theme">;
 
 export type SidebarRenderProps = SidebarProps & {
-  readonly displayName: string;
-  readonly initials: string;
-  readonly sections: readonly NavigationSection[];
+  displayName: string;
+  initials: string;
+  sections: NavigationSection[];
 };
 
 export type LogoutState = {
-  readonly isLogoutConfirmOpen: boolean;
-  readonly handleLogout: () => void;
-  readonly closeLogoutConfirm: () => void;
-  readonly confirmLogout: () => void;
+  isLogoutConfirmOpen: boolean;
+  handleLogout: () => void;
+  closeLogoutConfirm: () => void;
+  confirmLogout: () => void;
 };

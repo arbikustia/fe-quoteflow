@@ -1,4 +1,4 @@
-import { renderHook, act } from "@testing-library/react";
+import { renderHook, act } from "@/libs/unit-test";
 import { useMasterUserContainerState, useMasterUserNavigation } from "./MasterUser.hook";
 import type { UserData } from "./MasterUser.type";
 import { useGetUsersQuery } from "@/services/master-user.service";
@@ -46,9 +46,6 @@ describe("useMasterUserNavigation", () => {
 
     act(() => result.current.goEdit(mockUser));
     expect(navigateMock).toHaveBeenNthCalledWith(3, `/master-user/edit/${mockUser.id}`, { state: { user: mockUser } });
-
-    act(() => result.current.goDetail(mockUser));
-    expect(navigateMock).toHaveBeenNthCalledWith(4, `/master-user/detail/${mockUser.id}`);
   });
 });
 

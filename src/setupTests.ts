@@ -3,8 +3,8 @@ import '@testing-library/jest-dom';
 // jsdom has no layout engine; Ant Design subscribes to browser APIs.
 Object.defineProperty(globalThis, 'MessageChannel', {
   value: class {
-    readonly port1 = { onmessage: (): void => {} };
-    readonly port2 = { postMessage: (): void => { setTimeout(this.port1.onmessage, 0); } };
+    port1 = { onmessage: (): void => {} };
+    port2 = { postMessage: (): void => { setTimeout(this.port1.onmessage, 0); } };
   },
 });
 

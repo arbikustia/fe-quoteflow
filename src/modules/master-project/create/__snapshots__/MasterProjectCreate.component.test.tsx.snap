@@ -74,6 +74,7 @@ exports[`MasterProjectCreateForm should match project form snapshot 1`] = `
         </div>
         <form
           class="bg-transparent p-0"
+          novalidate=""
         >
           <section>
             <h3

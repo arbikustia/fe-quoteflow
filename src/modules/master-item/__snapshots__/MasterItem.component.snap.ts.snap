@@ -100,6 +100,72 @@ exports[`MasterItemComponent matches snapshot 1`] = `
                       width="20"
                       xmlns="http://www.w3.org/2000/svg"
                     >
+                      <path
+                        d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"
+                      />
+                      <polyline
+                        points="14 2 14 8 20 8"
+                      />
+                      <line
+                        x1="16"
+                        x2="8"
+                        y1="13"
+                        y2="13"
+                      />
+                      <line
+                        x1="16"
+                        x2="8"
+                        y1="17"
+                        y2="17"
+                      />
+                    </svg>
+                  </span>
+                  <span
+                    class="flex-1 truncate text-xl leading-none font-normal"
+                  >
+                    Document
+                  </span>
+                  <span
+                    class="shrink-0 text-text-tertiary transition-transform duration-200 "
+                  >
+                    <svg
+                      fill="none"
+                      height="14"
+                      stroke="currentColor"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      viewBox="0 0 24 24"
+                      width="14"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="m6 9 6 6 6-6"
+                      />
+                    </svg>
+                  </span>
+                </button>
+              </div>
+              <div>
+                <button
+                  aria-expanded="false"
+                  class="w-full min-h-14 py-3 flex items-center gap-3 rounded-[8px] px-4 text-left transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring/30 text-text-secondary hover:bg-background-elevated hover:text-text-primary"
+                  type="button"
+                >
+                  <span
+                    class="shrink-0 [&_svg]:h-5 [&_svg]:w-5 text-text-tertiary"
+                  >
+                    <svg
+                      fill="none"
+                      height="20"
+                      stroke="currentColor"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="1.8"
+                      viewBox="0 0 24 24"
+                      width="20"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
                       <ellipse
                         cx="12"
                         cy="5"
@@ -583,37 +649,53 @@ exports[`MasterItemComponent matches snapshot 1`] = `
                         >
                           Documents per page
                         </label>
-                        <button
-                          aria-controls="documents-per-page-listbox"
-                          aria-expanded="false"
-                          aria-haspopup="listbox"
-                          class="flex w-full cursor-pointer items-center justify-between rounded-xl border border-border-default bg-background-surface px-4 py-3 text-left text-[15px] font-normal text-text-primary shadow-xs outline-none transition-all hover:border-border-strong focus:border-border-focus focus:ring-2 focus:ring-focus-ring/30 disabled:cursor-not-allowed disabled:bg-background-disabled disabled:text-text-disabled"
-                          id="documents-per-page"
-                          role="combobox"
-                          type="button"
+                        <div
+                          class="ant-select ant-select-outlined h-14 w-full css-var-root ant-select-css-var css-dev-only-do-not-override-eofgey ant-select-single ant-select-show-arrow"
                         >
-                          <span
-                            class="text-text-primary"
+                          <div
+                            class="ant-select-content ant-select-content-has-value"
+                            title="5"
                           >
                             5
-                          </span>
-                          <svg
-                            class="h-5 w-5 text-text-tertiary transition-transform duration-200 "
-                            fill="none"
-                            height="1em"
-                            stroke="currentColor"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            stroke-width="2"
-                            viewBox="0 0 24 24"
-                            width="1em"
-                            xmlns="http://www.w3.org/2000/svg"
-                          >
-                            <polyline
-                              points="6 9 12 15 18 9"
+                            <input
+                              aria-autocomplete="list"
+                              aria-expanded="false"
+                              aria-haspopup="listbox"
+                              aria-invalid="false"
+                              aria-label="Documents per page"
+                              autocomplete="new-password"
+                              class="ant-select-input"
+                              id="documents-per-page"
+                              readonly=""
+                              role="combobox"
+                              type="text"
+                              value=""
                             />
-                          </svg>
-                        </button>
+                          </div>
+                          <div
+                            class="ant-select-suffix"
+                          >
+                            <span
+                              aria-label="down"
+                              class="anticon anticon-down"
+                              role="img"
+                            >
+                              <svg
+                                aria-hidden="true"
+                                data-icon="down"
+                                fill="currentColor"
+                                focusable="false"
+                                height="1em"
+                                viewBox="64 64 896 896"
+                                width="1em"
+                              >
+                                <path
+                                  d="M884 256h-75c-5.1 0-9.9 2.5-12.9 6.6L512 654.2 227.9 262.6c-3-4.1-7.8-6.6-12.9-6.6h-75c-6.5 0-10.3 7.4-6.5 12.7l352.6 486.1c12.8 17.6 39 17.6 51.7 0l352.6-486.1c3.9-5.3.1-12.7-6.4-12.7z"
+                                />
+                              </svg>
+                            </span>
+                          </div>
+                        </div>
                       </div>
                     </div>
                     <div
@@ -771,9 +853,54 @@ exports[`MasterItemComponent matches snapshot 1`] = `
                           <thead>
                             <tr>
                               <th
-                                class="bg-table-header px-5 py-4 text-[13px] font-bold text-text-secondary uppercase tracking-widest rounded-l-xl rounded-r-xl text-left "
+                                class="bg-table-header px-5 py-4 text-[13px] font-bold text-text-secondary uppercase tracking-widest rounded-l-xl  text-center "
+                              >
+                                No
+                              </th>
+                              <th
+                                class="bg-table-header px-5 py-4 text-[13px] font-bold text-text-secondary uppercase tracking-widest   text-center "
+                              >
+                                Image
+                              </th>
+                              <th
+                                class="bg-table-header px-5 py-4 text-[13px] font-bold text-text-secondary uppercase tracking-widest   text-left "
                               >
                                 Item Name
+                              </th>
+                              <th
+                                class="bg-table-header px-5 py-4 text-[13px] font-bold text-text-secondary uppercase tracking-widest   text-left "
+                              >
+                                Category
+                              </th>
+                              <th
+                                class="bg-table-header px-5 py-4 text-[13px] font-bold text-text-secondary uppercase tracking-widest   text-left "
+                              >
+                                Price
+                              </th>
+                              <th
+                                class="bg-table-header px-5 py-4 text-[13px] font-bold text-text-secondary uppercase tracking-widest   text-center "
+                              >
+                                Stock
+                              </th>
+                              <th
+                                class="bg-table-header px-5 py-4 text-[13px] font-bold text-text-secondary uppercase tracking-widest   text-center "
+                              >
+                                Duration
+                              </th>
+                              <th
+                                class="bg-table-header px-5 py-4 text-[13px] font-bold text-text-secondary uppercase tracking-widest   text-center "
+                              >
+                                Status
+                              </th>
+                              <th
+                                class="bg-table-header px-5 py-4 text-[13px] font-bold text-text-secondary uppercase tracking-widest   text-left "
+                              >
+                                Remark
+                              </th>
+                              <th
+                                class="bg-table-header px-5 py-4 text-[13px] font-bold text-text-secondary uppercase tracking-widest  rounded-r-xl text-center "
+                              >
+                                Action
                               </th>
                             </tr>
                           </thead>
@@ -784,9 +911,145 @@ exports[`MasterItemComponent matches snapshot 1`] = `
                               class="hover:bg-background-subtle/50 transition-colors "
                             >
                               <td
+                                class="px-5 py-4 border-b border-border-default text-base text-center "
+                              >
+                                <span
+                                  class="text-sm"
+                                >
+                                  1
+                                </span>
+                              </td>
+                              <td
+                                class="px-5 py-4 border-b border-border-default text-base text-center "
+                              >
+                                <a
+                                  class="text-sm text-brand-blue underline hover:text-brand-blue/80"
+                                  href="https://example.com/a.jpg"
+                                  rel="noreferrer"
+                                  target="_blank"
+                                >
+                                  a.jpg
+                                </a>
+                              </td>
+                              <td
                                 class="px-5 py-4 border-b border-border-default text-base text-left "
                               >
                                 Speaker
+                              </td>
+                              <td
+                                class="px-5 py-4 border-b border-border-default text-base text-left "
+                              >
+                                Audio System
+                              </td>
+                              <td
+                                class="px-5 py-4 border-b border-border-default text-base text-left "
+                              >
+                                Rp 5.000.000
+                              </td>
+                              <td
+                                class="px-5 py-4 border-b border-border-default text-base text-center "
+                              >
+                                12
+                              </td>
+                              <td
+                                class="px-5 py-4 border-b border-border-default text-base text-center "
+                              >
+                                3
+                              </td>
+                              <td
+                                class="px-5 py-4 border-b border-border-default text-base text-center "
+                              >
+                                <span
+                                  class="rounded-full px-3 py-1 text-xs font-bold uppercase bg-green-100 text-green-600"
+                                >
+                                  active
+                                </span>
+                              </td>
+                              <td
+                                class="px-5 py-4 border-b border-border-default text-base text-left "
+                              >
+                                ok
+                              </td>
+                              <td
+                                class="px-5 py-4 border-b border-border-default text-base text-center "
+                              >
+                                <div
+                                  class="flex items-center justify-center gap-1"
+                                >
+                                  <button
+                                    class="rounded-lg p-1.5 text-brand-text-medium hover:bg-brand-blue-light hover:text-brand-blue"
+                                    title="Edit"
+                                    type="button"
+                                  >
+                                    <svg
+                                      class="h-4 w-4"
+                                      fill="none"
+                                      height="1em"
+                                      stroke="currentColor"
+                                      stroke-linecap="round"
+                                      stroke-linejoin="round"
+                                      stroke-width="2"
+                                      viewBox="0 0 24 24"
+                                      width="1em"
+                                      xmlns="http://www.w3.org/2000/svg"
+                                    >
+                                      <path
+                                        d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"
+                                      />
+                                    </svg>
+                                  </button>
+                                  <label
+                                    class="flex items-center gap-1 rounded-lg p-1.5 text-brand-text-medium hover:bg-brand-blue-light hover:text-brand-blue"
+                                    title="Download QR"
+                                  >
+                                    <svg
+                                      class="h-4 w-4"
+                                      fill="none"
+                                      height="1em"
+                                      stroke="currentColor"
+                                      stroke-linecap="round"
+                                      stroke-linejoin="round"
+                                      stroke-width="2"
+                                      viewBox="0 0 24 24"
+                                      width="1em"
+                                      xmlns="http://www.w3.org/2000/svg"
+                                    >
+                                      <path
+                                        d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"
+                                      />
+                                      <polyline
+                                        points="7 10 12 15 17 10"
+                                      />
+                                      <line
+                                        x1="12"
+                                        x2="12"
+                                        y1="15"
+                                        y2="3"
+                                      />
+                                    </svg>
+                                    <select
+                                      class="cursor-pointer bg-transparent text-xs"
+                                    >
+                                      <option
+                                        disabled=""
+                                        selected=""
+                                        value=""
+                                      >
+                                        Download
+                                      </option>
+                                      <option
+                                        value="image"
+                                      >
+                                        Image
+                                      </option>
+                                      <option
+                                        value="pdf"
+                                      >
+                                        PDF
+                                      </option>
+                                    </select>
+                                  </label>
+                                </div>
                               </td>
                             </tr>
                           </tbody>
@@ -801,7 +1064,22 @@ exports[`MasterItemComponent matches snapshot 1`] = `
                       >
                         <div
                           class="flex flex-col gap-3 px-4 py-4 bg-transparent transition-colors "
-                        />
+                        >
+                          <div
+                            class="flex items-center justify-between gap-2"
+                          >
+                            <span
+                              class="text-xs font-medium text-text-tertiary uppercase tracking-wider"
+                            >
+                              Item Name
+                            </span>
+                            <span
+                              class="flex-1 text-sm font-medium text-text-primary text-right truncate"
+                            >
+                              Speaker
+                            </span>
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -829,37 +1107,53 @@ exports[`MasterItemComponent matches snapshot 1`] = `
                         >
                           Documents per page
                         </label>
-                        <button
-                          aria-controls="documents-per-page-listbox"
-                          aria-expanded="false"
-                          aria-haspopup="listbox"
-                          class="flex w-full cursor-pointer items-center justify-between rounded-xl border border-border-default bg-background-surface px-4 py-3 text-left text-[15px] font-normal text-text-primary shadow-xs outline-none transition-all hover:border-border-strong focus:border-border-focus focus:ring-2 focus:ring-focus-ring/30 disabled:cursor-not-allowed disabled:bg-background-disabled disabled:text-text-disabled"
-                          id="documents-per-page"
-                          role="combobox"
-                          type="button"
+                        <div
+                          class="ant-select ant-select-outlined h-14 w-full css-var-root ant-select-css-var css-dev-only-do-not-override-eofgey ant-select-single ant-select-show-arrow"
                         >
-                          <span
-                            class="text-text-primary"
+                          <div
+                            class="ant-select-content ant-select-content-has-value"
+                            title="5"
                           >
                             5
-                          </span>
-                          <svg
-                            class="h-5 w-5 text-text-tertiary transition-transform duration-200 "
-                            fill="none"
-                            height="1em"
-                            stroke="currentColor"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            stroke-width="2"
-                            viewBox="0 0 24 24"
-                            width="1em"
-                            xmlns="http://www.w3.org/2000/svg"
-                          >
-                            <polyline
-                              points="6 9 12 15 18 9"
+                            <input
+                              aria-autocomplete="list"
+                              aria-expanded="false"
+                              aria-haspopup="listbox"
+                              aria-invalid="false"
+                              aria-label="Documents per page"
+                              autocomplete="new-password"
+                              class="ant-select-input"
+                              id="documents-per-page"
+                              readonly=""
+                              role="combobox"
+                              type="text"
+                              value=""
                             />
-                          </svg>
-                        </button>
+                          </div>
+                          <div
+                            class="ant-select-suffix"
+                          >
+                            <span
+                              aria-label="down"
+                              class="anticon anticon-down"
+                              role="img"
+                            >
+                              <svg
+                                aria-hidden="true"
+                                data-icon="down"
+                                fill="currentColor"
+                                focusable="false"
+                                height="1em"
+                                viewBox="64 64 896 896"
+                                width="1em"
+                              >
+                                <path
+                                  d="M884 256h-75c-5.1 0-9.9 2.5-12.9 6.6L512 654.2 227.9 262.6c-3-4.1-7.8-6.6-12.9-6.6h-75c-6.5 0-10.3 7.4-6.5 12.7l352.6 486.1c12.8 17.6 39 17.6 51.7 0l352.6-486.1c3.9-5.3.1-12.7-6.4-12.7z"
+                                />
+                              </svg>
+                            </span>
+                          </div>
+                        </div>
                       </div>
                     </div>
                     <div
@@ -1025,6 +1319,72 @@ exports[`MasterItemComponent matches snapshot 2`] = `
                   Order
                 </span>
               </a>
+              <div>
+                <button
+                  aria-expanded="false"
+                  class="w-full min-h-14 py-3 flex items-center gap-3 rounded-[8px] px-4 text-left transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring/30 text-text-secondary hover:bg-background-elevated hover:text-text-primary"
+                  type="button"
+                >
+                  <span
+                    class="shrink-0 [&_svg]:h-5 [&_svg]:w-5 text-text-tertiary"
+                  >
+                    <svg
+                      fill="none"
+                      height="20"
+                      stroke="currentColor"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="1.8"
+                      viewBox="0 0 24 24"
+                      width="20"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"
+                      />
+                      <polyline
+                        points="14 2 14 8 20 8"
+                      />
+                      <line
+                        x1="16"
+                        x2="8"
+                        y1="13"
+                        y2="13"
+                      />
+                      <line
+                        x1="16"
+                        x2="8"
+                        y1="17"
+                        y2="17"
+                      />
+                    </svg>
+                  </span>
+                  <span
+                    class="flex-1 truncate text-xl leading-none font-normal"
+                  >
+                    Document
+                  </span>
+                  <span
+                    class="shrink-0 text-text-tertiary transition-transform duration-200 "
+                  >
+                    <svg
+                      fill="none"
+                      height="14"
+                      stroke="currentColor"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      viewBox="0 0 24 24"
+                      width="14"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="m6 9 6 6 6-6"
+                      />
+                    </svg>
+                  </span>
+                </button>
+              </div>
               <div>
                 <button
                   aria-expanded="false"
@@ -1485,37 +1845,53 @@ exports[`MasterItemComponent matches snapshot 2`] = `
                         >
                           Documents per page
                         </label>
-                        <button
-                          aria-controls="documents-per-page-listbox"
-                          aria-expanded="false"
-                          aria-haspopup="listbox"
-                          class="flex w-full cursor-pointer items-center justify-between rounded-xl border border-border-default bg-background-surface px-4 py-3 text-left text-[15px] font-normal text-text-primary shadow-xs outline-none transition-all hover:border-border-strong focus:border-border-focus focus:ring-2 focus:ring-focus-ring/30 disabled:cursor-not-allowed disabled:bg-background-disabled disabled:text-text-disabled"
-                          id="documents-per-page"
-                          role="combobox"
-                          type="button"
+                        <div
+                          class="ant-select ant-select-outlined h-14 w-full css-var-root ant-select-css-var css-dev-only-do-not-override-eofgey ant-select-single ant-select-show-arrow"
                         >
-                          <span
-                            class="text-text-primary"
+                          <div
+                            class="ant-select-content ant-select-content-has-value"
+                            title="5"
                           >
                             5
-                          </span>
-                          <svg
-                            class="h-5 w-5 text-text-tertiary transition-transform duration-200 "
-                            fill="none"
-                            height="1em"
-                            stroke="currentColor"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            stroke-width="2"
-                            viewBox="0 0 24 24"
-                            width="1em"
-                            xmlns="http://www.w3.org/2000/svg"
-                          >
-                            <polyline
-                              points="6 9 12 15 18 9"
+                            <input
+                              aria-autocomplete="list"
+                              aria-expanded="false"
+                              aria-haspopup="listbox"
+                              aria-invalid="false"
+                              aria-label="Documents per page"
+                              autocomplete="new-password"
+                              class="ant-select-input"
+                              id="documents-per-page"
+                              readonly=""
+                              role="combobox"
+                              type="text"
+                              value=""
                             />
-                          </svg>
-                        </button>
+                          </div>
+                          <div
+                            class="ant-select-suffix"
+                          >
+                            <span
+                              aria-label="down"
+                              class="anticon anticon-down"
+                              role="img"
+                            >
+                              <svg
+                                aria-hidden="true"
+                                data-icon="down"
+                                fill="currentColor"
+                                focusable="false"
+                                height="1em"
+                                viewBox="64 64 896 896"
+                                width="1em"
+                              >
+                                <path
+                                  d="M884 256h-75c-5.1 0-9.9 2.5-12.9 6.6L512 654.2 227.9 262.6c-3-4.1-7.8-6.6-12.9-6.6h-75c-6.5 0-10.3 7.4-6.5 12.7l352.6 486.1c12.8 17.6 39 17.6 51.7 0l352.6-486.1c3.9-5.3.1-12.7-6.4-12.7z"
+                                />
+                              </svg>
+                            </span>
+                          </div>
+                        </div>
                       </div>
                     </div>
                     <div
@@ -1687,37 +2063,53 @@ exports[`MasterItemComponent matches snapshot 2`] = `
                         >
                           Documents per page
                         </label>
-                        <button
-                          aria-controls="documents-per-page-listbox"
-                          aria-expanded="false"
-                          aria-haspopup="listbox"
-                          class="flex w-full cursor-pointer items-center justify-between rounded-xl border border-border-default bg-background-surface px-4 py-3 text-left text-[15px] font-normal text-text-primary shadow-xs outline-none transition-all hover:border-border-strong focus:border-border-focus focus:ring-2 focus:ring-focus-ring/30 disabled:cursor-not-allowed disabled:bg-background-disabled disabled:text-text-disabled"
-                          id="documents-per-page"
-                          role="combobox"
-                          type="button"
+                        <div
+                          class="ant-select ant-select-outlined h-14 w-full css-var-root ant-select-css-var css-dev-only-do-not-override-eofgey ant-select-single ant-select-show-arrow"
                         >
-                          <span
-                            class="text-text-primary"
+                          <div
+                            class="ant-select-content ant-select-content-has-value"
+                            title="5"
                           >
                             5
-                          </span>
-                          <svg
-                            class="h-5 w-5 text-text-tertiary transition-transform duration-200 "
-                            fill="none"
-                            height="1em"
-                            stroke="currentColor"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            stroke-width="2"
-                            viewBox="0 0 24 24"
-                            width="1em"
-                            xmlns="http://www.w3.org/2000/svg"
-                          >
-                            <polyline
-                              points="6 9 12 15 18 9"
+                            <input
+                              aria-autocomplete="list"
+                              aria-expanded="false"
+                              aria-haspopup="listbox"
+                              aria-invalid="false"
+                              aria-label="Documents per page"
+                              autocomplete="new-password"
+                              class="ant-select-input"
+                              id="documents-per-page"
+                              readonly=""
+                              role="combobox"
+                              type="text"
+                              value=""
                             />
-                          </svg>
-                        </button>
+                          </div>
+                          <div
+                            class="ant-select-suffix"
+                          >
+                            <span
+                              aria-label="down"
+                              class="anticon anticon-down"
+                              role="img"
+                            >
+                              <svg
+                                aria-hidden="true"
+                                data-icon="down"
+                                fill="currentColor"
+                                focusable="false"
+                                height="1em"
+                                viewBox="64 64 896 896"
+                                width="1em"
+                              >
+                                <path
+                                  d="M884 256h-75c-5.1 0-9.9 2.5-12.9 6.6L512 654.2 227.9 262.6c-3-4.1-7.8-6.6-12.9-6.6h-75c-6.5 0-10.3 7.4-6.5 12.7l352.6 486.1c12.8 17.6 39 17.6 51.7 0l352.6-486.1c3.9-5.3.1-12.7-6.4-12.7z"
+                                />
+                              </svg>
+                            </span>
+                          </div>
+                        </div>
                       </div>
                     </div>
                     <div

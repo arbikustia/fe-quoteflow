@@ -5,10 +5,10 @@ import type { SelectOption, SelectProps } from "./Select.type";
 
 /**
  * Build visible Ant Design options.
- * @param {readonly SelectOption[]} options - Select options
+ * @param {SelectOption[]} options - Select options
  * @returns {SelectOption[]} Visible options
  */
-const _getOptions = (options: readonly SelectOption[]): SelectOption[] => options.filter((option) => option.value !== "" && option.label.trim() !== "");
+const _getOptions = (options: SelectOption[]): SelectOption[] => options.filter((option) => option.value !== "" && option.label.trim() !== "");
 
 /**
  * Render reusable Ant Design select field.

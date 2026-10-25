@@ -30,7 +30,6 @@ describe("MasterPaymentMethod.component", () => {
   ];
   const defaultProps: MasterPaymentMethodProps = {
     paginatedData: paymentMethods,
-    columns: [],
     currentPage: 1,
     totalPages: 5,
     pageSize: 10,
@@ -47,7 +46,6 @@ describe("MasterPaymentMethod.component", () => {
     onBack: jest.fn(),
     onCreate: jest.fn(),
     onEdit: jest.fn(),
-    onRowClick: jest.fn(),
     onMore: jest.fn(),
     isMoreOpen: false,
     onCloseMore: jest.fn(),

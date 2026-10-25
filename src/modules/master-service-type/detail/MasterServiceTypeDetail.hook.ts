@@ -67,7 +67,7 @@ const useDetailMenuState = (): MasterServiceTypeDetailMenuState => {
  */
 export const useMasterServiceTypeDetail = (): MasterServiceTypeDetailState => {
   const navigate = useNavigate();
-  const { id } = useParams<{ readonly id: string }>();
+  const { id } = useParams<{ id: string }>();
   const menuState = useDetailMenuState();
   const serviceType: ServiceTypeData | null =
     MOCK_SERVICE_TYPES.find((item) => item.id === id) ?? null;

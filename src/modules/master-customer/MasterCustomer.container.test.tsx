@@ -12,7 +12,7 @@ jest.mock("./MasterCustomer.hook", () => ({
 }));
 
 jest.mock("./MasterCustomer.component", () => ({
-  MasterCustomerComponent: (props: { readonly currentPage: number }) => (
+  MasterCustomerComponent: (props: { currentPage: number }) => (
     <div data-testid="mock-component" data-page={props.currentPage} />
   ),
 }));

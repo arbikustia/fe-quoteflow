@@ -13,7 +13,7 @@ import type { NavigationSection, SidebarProps } from "./Sidebar.type";
 export const SidebarComponent = (props: SidebarProps): React.ReactElement => {
   const displayName = getUsername() || "User";
   const initials = displayName.slice(0, 2).toUpperCase();
-  const sections: readonly NavigationSection[] = isNavigationSectionArray(props.navigation)
+  const sections: NavigationSection[] = isNavigationSectionArray(props.navigation)
     ? props.navigation
     : [{ title: "Menu", items: props.navigation }];
 

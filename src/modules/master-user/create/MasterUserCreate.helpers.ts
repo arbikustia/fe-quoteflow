@@ -64,23 +64,24 @@ export const sendUserMutation = (
   createUser: ReturnType<typeof useCreateUserMutation>[0],
   updateUser: ReturnType<typeof useUpdateUserMutation>[0],
 ): Promise<UserCreateResponse> => {
-  const { id, isEditMode, username, email, password, role, isActive } = params;
+  const { id, isEditMode, isActive } = params;
+  const values = params.getValues();
 
   if (isEditMode && id) {
     return updateUser({
       id,
-      username,
-      email,
-      role: [role],
+      username: values.username,
+      email: values.email,
+      role: [values.role],
       status: isActive ? 1 : 0,
     }).unwrap();
   }
 
   return createUser({
-    username,
-    email,
-    password,
-    role: [role],
+    username: values.username,
+    email: values.email,
+    password: values.password,
+    role: [values.role],
     status: 1,
   }).unwrap();
 };

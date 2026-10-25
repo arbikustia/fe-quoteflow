@@ -4,15 +4,15 @@ import { TableComponent } from "./Table.component";
 import type { TableColumn } from "./Table.type";
 
 type TestRow = {
-  readonly id: string;
-  readonly name: string;
+  id: string;
+  name: string;
 };
 
-const rows: readonly TestRow[] = [
+const rows: TestRow[] = [
   { id: "row-1", name: "Audio" },
 ];
 
-const columns: readonly TableColumn<TestRow>[] = [
+const columns: TableColumn<TestRow>[] = [
   {
     key: "name",
     header: "Name",
@@ -39,7 +39,7 @@ describe("TableComponent Snapshot", () => {
   });
 
   it("should render mobile action card and desktop action column", (): void => {
-    const actionColumns: readonly TableColumn<TestRow>[] = [
+    const actionColumns: TableColumn<TestRow>[] = [
       ...columns,
       {
         key: "actions",

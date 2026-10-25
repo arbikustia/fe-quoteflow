@@ -1,4 +1,4 @@
-import { act, renderHook } from "@testing-library/react";
+import { act, renderHook } from "@/libs/unit-test";
 import * as ReactRouterDom from "react-router-dom";
 
 import { useMasterProjectDetail } from "./MasterProjectDetail.hook";

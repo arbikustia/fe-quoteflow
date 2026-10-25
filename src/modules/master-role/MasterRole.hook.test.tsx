@@ -1,4 +1,4 @@
-import { act, renderHook } from "@testing-library/react";
+import { act, renderHook } from "@/libs/unit-test";
 import { MemoryRouter, useNavigate } from "react-router-dom";
 
 import { useCreateRoleMutation, useGetRolesQuery } from "@/services/master-role.service";
@@ -11,7 +11,7 @@ import {
 import type { RoleData } from "./MasterRole.type";
 
 jest.mock("@/services/master-role.service", () => ({
-  mapRole: (role: { readonly id: string; readonly role?: string; readonly role_name?: string; readonly last_created?: string | null }) => ({
+  mapRole: (role: { id: string; role?: string; role_name?: string; last_created?: string | null }) => ({
     id: role.id,
     roleName: role.role ?? role.role_name ?? "",
     status: "active",
@@ -54,7 +54,6 @@ describe("MasterRole Navigation Hook", () => {
     expect(result.current).toHaveProperty("goBack");
     expect(result.current).toHaveProperty("goCreate");
     expect(result.current).toHaveProperty("goEdit");
-    expect(result.current).toHaveProperty("goDetail");
   });
 
   it("should trigger correct navigation paths", () => {
@@ -67,13 +66,9 @@ describe("MasterRole Navigation Hook", () => {
     expect(mockNavigate).toHaveBeenCalledWith("/master-role/create");
 
     const editRole: RoleData = { id: "1", roleName: "Admin", status: "active", createAt: "", createBy: "" };
-    const detailRole: RoleData = { id: "2", roleName: "Viewer", status: "inactive", createAt: "", createBy: "" };
 
     act(() => result.current.goEdit(editRole));
     expect(mockNavigate).toHaveBeenCalledWith("/master-role/edit/1", { state: { role: editRole } });
-
-    act(() => result.current.goDetail(detailRole));
-    expect(mockNavigate).toHaveBeenCalledWith("/master-role/detail/2");
   });
 });
 

@@ -8,10 +8,10 @@ import SidebarContainer from "../../components/Sidebar/index";
 import { useSidebarCollapse } from "../../hooks/useSidebarCollapse";
 
 export type ResponsiveLayoutProps = {
-  readonly children: React.ReactNode;
-  readonly pageTitle?: string;
-  readonly showCreateButton?: boolean;
-  readonly createEndpoint?: string;
+  children: React.ReactNode;
+  pageTitle?: string;
+  showCreateButton?: boolean;
+  createEndpoint?: string;
 };
 
 /**

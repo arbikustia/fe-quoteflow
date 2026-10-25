@@ -1,17 +1,33 @@
 import type * as React from "react";
+import type { FieldErrors, UseFormGetValues, UseFormRegister } from "react-hook-form";
+
+export type PaymentTypeFormValues = {
+  name: string;
+  isActive: boolean;
+};
+
+export type PaymentTypeRouteState = {
+  successMessage?: string;
+};
+
+export type PaymentTypeFormValidation = {
+  errors: FieldErrors<PaymentTypeFormValues>;
+  isSubmitted: boolean;
+  register: UseFormRegister<PaymentTypeFormValues>;
+};
+
 
 import type { ApiEnvelope, ApiQueryParams, PaginatedResponse } from "@/types/api.type";
 
-import type { TableColumn } from "../../components/Table";
 import type { PaginationResult } from "../../hooks/usePagination";
 
 export type ApiPaymentType = {
-  readonly id: string;
-  readonly name: string | null;
-  readonly status: number;
-  readonly created_at: string | null;
-  readonly updated_at: string | null;
-  readonly created_by?: string | null;
+  id: string;
+  name: string | null;
+  status: number;
+  created_at: string | null;
+  updated_at: string | null;
+  created_by?: string | null;
 };
 
 export type PaymentTypeListResponse = PaginatedResponse<ApiPaymentType>;
@@ -20,12 +36,12 @@ export type PaymentTypeCreateResponse = ApiEnvelope<ApiPaymentType | null>;
 export type PaymentTypeListParams = ApiQueryParams;
 
 export type PaymentTypeCreatePayload = {
-  readonly name: string;
-  readonly status: number;
+  name: string;
+  status: number;
 };
 
 export type PaymentTypeUpdatePayload = PaymentTypeCreatePayload & {
-  readonly id: string;
+  id: string;
 };
 
 export type PaymentTypeData = {
@@ -39,8 +55,9 @@ export type PaymentTypeData = {
 export type PaymentTypeSubmissionParams = {
   id: string | undefined;
   isEditMode: boolean;
-  name: string;
   isActive: boolean;
+  getValues: UseFormGetValues<PaymentTypeFormValues>;
+  validateForm: () => Promise<boolean>;
 };
 
 export type PaymentTypeSubmissionState = {
@@ -50,10 +67,12 @@ export type PaymentTypeSubmissionState = {
   handleSubmit: (event: React.SyntheticEvent) => Promise<void>;
 };
 
-export type PaymentTypeFormFieldsState = {
+export type PaymentTypeFormFieldsState = PaymentTypeFormValidation & {
   name: string;
   isActive: boolean;
-  handleNameChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  getValues: UseFormGetValues<PaymentTypeFormValues>;
+  validateForm: () => Promise<boolean>;
+  handleNameChange: (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
   handleStatusChange: () => void;
 };
 
@@ -72,7 +91,6 @@ export type MasterPaymentTypeNavigation = {
   goBack: () => void;
   goCreate: () => void;
   goEdit: (paymentType: PaymentTypeData) => void;
-  goDetail: (paymentType: PaymentTypeData) => void;
 };
 
 export type MasterPaymentTypePagination = PaginationResult<PaymentTypeData> & {
@@ -85,10 +103,6 @@ export type MasterPaymentTypePagination = PaginationResult<PaymentTypeData> & {
 
 export type MasterPaymentTypeContainerState = MasterPaymentTypeNavigation & {
   pagination: MasterPaymentTypePagination;
-  isMoreOpen: boolean;
-  toggleMore: () => void;
-  goDelete: () => void;
-  handleCloseMore: () => void;
 };
 
 export type MasterPaymentTypeProps = {
@@ -106,14 +120,8 @@ export type MasterPaymentTypeProps = {
   prevPage: () => void;
   changePageSize: (size: number) => void;
   setSearchTerm: (searchTerm: string) => void;
-  columns: TableColumn<PaymentTypeData>[];
   onCreate: () => void;
   onEdit: (paymentType: PaymentTypeData) => void;
-  onRowClick: (paymentType: PaymentTypeData) => void;
-  onMore: () => void;
-  isMoreOpen: boolean;
-  onCloseMore: () => void;
-  onDelete: () => void;
   onBack: () => void;
 };
 

@@ -1,4 +1,4 @@
-import { act, renderHook } from "@testing-library/react";
+import { act, renderHook } from "@/libs/unit-test";
 
 import { useGetPicsQuery } from "@/services/master-pic.service";
 
@@ -35,12 +35,10 @@ describe("MasterPic hook", () => {
     act(() => result.current.goBack());
     act(() => result.current.goCreate());
     act(() => result.current.goEdit(mockPic));
-    act(() => result.current.goDetail(mockPic));
 
     expect(mockNavigate).toHaveBeenNthCalledWith(1, -1);
     expect(mockNavigate).toHaveBeenNthCalledWith(2, "/master-pic/create");
     expect(mockNavigate).toHaveBeenNthCalledWith(3, "/master-pic/edit/1", { state: { pic: mockPic } });
-    expect(mockNavigate).toHaveBeenNthCalledWith(4, "/master-pic/detail/1");
   });
 
   it("should manage dropdown state correctly", () => {

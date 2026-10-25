@@ -1,161 +1,168 @@
 import type * as React from "react";
 
-import type { TableColumn } from "../../components/Table";
 import type { ApiEnvelope, PaginatedResponse } from "../../types/api.type";
 
 export type ApiRole = {
-  readonly id: string;
-  readonly role: string;
-  readonly status: number;
-  readonly last_created: string | null;
+  id: string;
+  role: string;
+  status: number;
+  last_created: string | null;
 };
 
 export type RoleOption = {
-  readonly id: string;
-  readonly role: string;
-  readonly status: number;
+  id: string;
+  role: string;
+  status: number;
 };
 
 export type RoleSelectState = {
-  readonly roles: readonly RoleOption[];
-  readonly isLoading: boolean;
-  readonly errorMessage: string | null;
+  roles: RoleOption[];
+  isLoading: boolean;
+  errorMessage: string | null;
 };
 
 export type RoleAllResponse = {
-  readonly status: boolean;
-  readonly data: RoleOption[];
-  readonly messages: string[] | string | null;
+  status: boolean;
+  data: RoleOption[];
+  messages: string[] | string | null;
 };
 
 export type RoleListResponse = PaginatedResponse<ApiRole>;
 export type RoleCreateResponse = ApiEnvelope<ApiRole | null>;
 export type RoleDetailResponse = ApiEnvelope<ApiRole | ApiRole[] | null>;
 
+export type RoleFormValues = {
+  roleName: string;
+  isActive: boolean;
+};
+
+export type RoleRouteState = {
+  role?: RoleData;
+  successMessage?: string;
+};
+
 export type RoleSubmissionParams = {
-  readonly id: string | undefined;
-  readonly isEditMode: boolean;
-  readonly roleName: string;
-  readonly isActive: boolean;
+  id: string | undefined;
+  isEditMode: boolean;
+  isActive: boolean;
+  getValues: () => RoleFormValues;
+  validateForm: () => Promise<boolean>;
+};
+
+export type RoleFormValidation = {
+  errors: import("react-hook-form").FieldErrors<RoleFormValues>;
+  isSubmitted: boolean;
 };
 
 export type RoleSubmissionState = {
-  readonly isSubmitting: boolean;
-  readonly errorMessage: string | null;
-  readonly handleSubmit: (event: React.SyntheticEvent) => Promise<void>;
+  isSubmitting: boolean;
+  errorMessage: string | null;
+  handleSubmit: (event: React.SyntheticEvent) => Promise<void>;
 };
 
-export type RoleFormFieldsState = {
-  readonly roleName: string;
-  readonly isActive: boolean;
-  readonly handleRoleNameChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  readonly handleStatusChange: () => void;
+export type RoleFormFieldsState = RoleFormValues & RoleFormValidation & {
+  getValues: () => RoleFormValues;
+  validateForm: () => Promise<boolean>;
+  handleRoleNameChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  handleStatusChange: () => void;
 };
 
 export type RoleListParams = {
-  readonly pageNumber: number;
-  readonly pageSize: number;
-  readonly searchTerm: string;
+  pageNumber: number;
+  pageSize: number;
+  searchTerm: string;
 };
 
 export type RoleData = {
-  readonly id: string;
-  readonly roleName: string;
-  readonly status: "active" | "inactive";
-  readonly createAt: string | null;
-  readonly createBy: string | null;
+  id: string;
+  roleName: string;
+  status: "active" | "inactive";
+  createAt: string | null;
+  createBy: string | null;
 };
 
 export type RoleListApiState = {
-  readonly isLoading: boolean;
-  readonly errorMessage: string | null;
-  readonly isMissingData: boolean;
-  readonly paginatedData: RoleData[];
-  readonly totalPages: number;
-  readonly totalCount: number;
+  isLoading: boolean;
+  errorMessage: string | null;
+  isMissingData: boolean;
+  paginatedData: RoleData[];
+  totalPages: number;
+  totalCount: number;
 };
 
 export type RoleCreatePayload = {
-  readonly role: string;
-  readonly status: number;
+  role: string;
+  status: number;
 };
 
 export type RoleUpdatePayload = RoleCreatePayload & {
-  readonly id: string;
+  id: string;
 };
 
 export type MasterRoleCreateFormState = {
-  readonly roleName: string;
-  readonly isActive: boolean;
-  readonly isEditMode: boolean;
-  readonly isSubmitting: boolean;
-  readonly errorMessage: string | null;
-  readonly handleRoleNameChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  readonly handleStatusChange: () => void;
-  readonly handleSubmit: (event: React.SyntheticEvent) => Promise<void>;
-  readonly goBack: () => void;
+  roleName: string;
+  isActive: boolean;
+  isEditMode: boolean;
+  isSubmitting: boolean;
+  errorMessage: string | null;
+  handleRoleNameChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  handleStatusChange: () => void;
+  handleSubmit: (event: React.SyntheticEvent) => Promise<void>;
+  goBack: () => void;
 };
 
 export type MasterRoleNavigation = {
-  readonly goBack: () => void;
-  readonly goCreate: () => void;
-  readonly goEdit: (item: RoleData) => void;
-  readonly goDetail: (item: RoleData) => void;
+  goBack: () => void;
+  goCreate: () => void;
+  goEdit: (item: RoleData) => void;
 };
 
 export type MasterRolePagination = {
-  readonly currentPage: number;
-  readonly totalPages: number;
-  readonly pageSize: number;
-  readonly paginatedData: readonly RoleData[];
-  readonly totalCount: number;
-  readonly isLoading: boolean;
-  readonly errorMessage: string | null;
-  readonly isEmpty: boolean;
-  readonly isMissingData: boolean;
-  readonly goToPage: (page: number) => void;
-  readonly nextPage: () => void;
-  readonly prevPage: () => void;
-  readonly changePageSize: (size: number) => void;
-  readonly setSearchTerm: (searchTerm: string) => void;
+  currentPage: number;
+  totalPages: number;
+  pageSize: number;
+  paginatedData: RoleData[];
+  totalCount: number;
+  isLoading: boolean;
+  errorMessage: string | null;
+  isEmpty: boolean;
+  isMissingData: boolean;
+  goToPage: (page: number) => void;
+  nextPage: () => void;
+  prevPage: () => void;
+  changePageSize: (size: number) => void;
+  setSearchTerm: (searchTerm: string) => void;
 };
 
 export type MasterRoleContainerState = MasterRoleNavigation & {
-  readonly pagination: MasterRolePagination;
-  readonly isMoreOpen: boolean;
-  readonly toggleMore: () => void;
-  readonly goDelete: () => void;
-  readonly handleCloseMore: () => void;
+  pagination: MasterRolePagination;
+  isMoreOpen: boolean;
+  toggleMore: () => void;
+  goDelete: () => void;
+  handleCloseMore: () => void;
 };
 
 export type MasterRoleProps = {
-  readonly currentPage: number;
-  readonly totalPages: number;
-  readonly pageSize: number;
-  readonly paginatedData: readonly RoleData[];
-  readonly totalCount: number;
-  readonly columns: readonly TableColumn<RoleData>[];
-  readonly isLoading: boolean;
-  readonly errorMessage: string | null;
-  readonly isEmpty: boolean;
-  readonly isMissingData: boolean;
-  readonly goToPage: (page: number) => void;
-  readonly nextPage: () => void;
-  readonly prevPage: () => void;
-  readonly changePageSize: (size: number) => void;
-  readonly setSearchTerm: (searchTerm: string) => void;
-  readonly onCreate: () => void;
-  readonly onEdit: (role: RoleData) => void;
-  readonly onRowClick: (role: RoleData) => void;
-  readonly onBack: () => void;
-  readonly onMore?: () => void;
-  readonly isMoreOpen?: boolean;
-  readonly onCloseMore?: () => void;
-  readonly onDelete?: () => void;
-};
-
-export type GetColumnsParams = {
-  readonly currentPage: number;
-  readonly pageSize: number;
-  readonly onEdit: (role: RoleData) => void;
+  currentPage: number;
+  totalPages: number;
+  pageSize: number;
+  paginatedData: RoleData[];
+  totalCount: number;
+  isLoading: boolean;
+  errorMessage: string | null;
+  isEmpty: boolean;
+  isMissingData: boolean;
+  goToPage: (page: number) => void;
+  nextPage: () => void;
+  prevPage: () => void;
+  changePageSize: (size: number) => void;
+  setSearchTerm: (searchTerm: string) => void;
+  onCreate: () => void;
+  onEdit: (role: RoleData) => void;
+  onRowClick: (role: RoleData) => void;
+  onBack: () => void;
+  onMore?: () => void;
+  isMoreOpen?: boolean;
+  onCloseMore?: () => void;
+  onDelete?: () => void;
 };

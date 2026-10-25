@@ -1,7 +1,5 @@
 import test from "@/libs/unit-test";
 
-import type { TableColumn } from "@/components/Table";
-
 jest.useFakeTimers();
 jest.setSystemTime(new Date("2026-10-18T01:01:00+07:00"));
 
@@ -11,10 +9,8 @@ import { MasterCategoryComponent } from "./MasterCategory.component";
 import type { CategoryData, MasterCategoryProps } from "./MasterCategory.type";
 
 const mockCategories: CategoryData[] = [{ id: "1", categoryName: "Audio System", status: "active", createAt: "2024-02-01", createBy: "Admin" }];
-const mockColumns: TableColumn<CategoryData>[] = [{ key: "categoryName", header: "Name" }];
 const defaultProps: MasterCategoryProps = {
   paginatedData: mockCategories,
-  columns: mockColumns,
   currentPage: 1,
   totalPages: 1,
   pageSize: 5,
@@ -31,7 +27,6 @@ const defaultProps: MasterCategoryProps = {
   setSearchTerm: (): void => {},
   onCreate: (): void => {},
   onEdit: (): void => {},
-  onRowClick: (): void => {},
   onBack: (): void => {},
   onMore: (): void => {},
   onCloseMore: (): void => {},

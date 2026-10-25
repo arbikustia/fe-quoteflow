@@ -1,18 +1,18 @@
 import type * as React from "react";
 
 export type PageLayoutAction = {
-  readonly label: string;
-  readonly onClick: () => void;
-  readonly isDangerous?: boolean;
+  label: string;
+  onClick: () => void;
+  isDangerous?: boolean;
 };
 
 export type PageLayoutProps = {
-  readonly title: string;
-  readonly breadcrumbs?: string[];
-  readonly actions?: PageLayoutAction[];
-  readonly headerRight?: React.ReactNode;
-  readonly mobileHeaderClassName?: string;
-  readonly onBack: () => void;
-  readonly children: React.ReactNode;
-  readonly footer?: React.ReactNode;
+  title: string;
+  breadcrumbs?: string[];
+  actions?: PageLayoutAction[];
+  headerRight?: React.ReactNode;
+  mobileHeaderClassName?: string;
+  onBack: () => void;
+  children: React.ReactNode;
+  footer?: React.ReactNode;
 };
