@@ -551,7 +551,7 @@ export const OrderCreateComponent = (
           <form
             noValidate
             onSubmit={props.onPreventSubmit}
-            className="mb-10 flex min-h-0 flex-1 flex-col justify-between border-0 bg-transparent p-0 shadow-none lg:rounded-4xl lg:border lg:border-brand-gray-light lg:bg-brand-white lg:p-8 lg:shadow-xs"
+            className="mb-14 flex min-h-0 flex-1 flex-col justify-between border-0 bg-transparent p-0 shadow-none lg:mb-10 lg:rounded-4xl lg:border lg:border-brand-gray-light lg:bg-brand-white lg:p-8 lg:shadow-xs"
           >
             <div className="mb-6 flex items-center gap-2">
               {stepTitles.map((title, index) => (
@@ -578,7 +578,7 @@ export const OrderCreateComponent = (
                   <h2 className="text-lg font-semibold text-text-primary">
                     Order information
                   </h2>
-                  <div className="grid gap-4 md:grid-cols-2">
+                  <div className="grid grid-cols-1 gap-x-6 gap-y-0 md:grid-cols-2">
                     {_renderSelect(props)}
                     {_renderField(props, {
                       field: "customer_name",
@@ -626,7 +626,7 @@ export const OrderCreateComponent = (
                   </div>
                   {props.form.service_type_name.trim().toUpperCase() ===
                   "PROJECT" ? (
-                    <div className="grid gap-4 md:grid-cols-2">
+                    <div className="grid grid-cols-1 gap-x-6 gap-y-0 md:grid-cols-2">
                       {props.projects.map((project) => (
                         <React.Fragment key={project.id}>
                           {_renderProjectCard(props, project)}
@@ -640,7 +640,7 @@ export const OrderCreateComponent = (
                           Loading items…
                         </p>
                       )}
-                      <div className="grid gap-4 md:grid-cols-2">
+                      <div className="grid grid-cols-1 gap-x-6 gap-y-0 md:grid-cols-2">
                         {props.items.map((item) => (
                           <React.Fragment key={item.id}>
                             {_renderItemCard(props, item)}
@@ -656,7 +656,7 @@ export const OrderCreateComponent = (
                   <h2 className="text-lg font-semibold text-text-primary">
                     Review Order
                   </h2>
-                  <div className="grid gap-4 md:grid-cols-2">
+                  <div className="grid grid-cols-1 gap-x-6 gap-y-0 md:grid-cols-2">
                     <div>
                       <p className="text-xs font-semibold uppercase tracking-wider text-text-secondary">
                         Customer Information
