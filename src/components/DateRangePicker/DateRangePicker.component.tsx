@@ -16,8 +16,8 @@ const _toDayjs = (value: string | undefined): Dayjs | null => {
 };
 
 const _renderDateField = (id: string, label: string, value: string | undefined, error: boolean | undefined, onChange: ((value: string) => void) | undefined, props: DateRangePickerProps): ReactElement => {
-  const format = props.showTime ? DATE_TIME_FORMAT : DATE_FORMAT;
-  const handleChange = (date: Dayjs | null): void => onChange?.(date?.format(format) ?? "");
+  const format = props.showTime ? "YYYY-MM-DD HH:mm" : DATE_FORMAT;
+  const handleChange = (date: Dayjs | null): void => onChange?.(date?.format(props.showTime ? DATE_TIME_FORMAT : DATE_FORMAT) ?? "");
 
   const labelParts = label.split(" *");
 
