@@ -14,6 +14,8 @@ export type DateRangePickerProps = {
   variant?: DateRangePickerVariant;
   className?: string;
   showTime?: boolean;
+  startError?: boolean;
+  endError?: boolean;
 };
 
 export type DateRangePickerState = {

@@ -11,7 +11,7 @@ import { useCreateOrderMutation, useCreateProjectOrderMutation } from "@/service
 
 import type { OrderItemPayload } from "../Order.type";
 
-import { calculateOrderTotals, getNextOrderStep, getPreviousOrderStep } from "./OrderCreate.helpers";
+import { calculateOrderTotals, getNextOrderStep, getPreviousOrderStep, hasSelectedOrderItem, isOrderInformationValid } from "./OrderCreate.helpers";
 import type { OrderCreateFormState, OrderCreateState } from "./OrderCreate.type";
 
 const EMPTY_ITEM: OrderItemPayload = { item_id: "", project_id: null, item_name: "", qty: 1, price: 0, subtotal: 0, remark: "" };
@@ -29,6 +29,8 @@ export const useOrderCreateLogic = (): OrderCreateState => {
   const [form, setForm] = useState<OrderCreateFormState>(INITIAL_FORM);
   const [step, setStep] = useState<number>(1);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [showInformationErrors, setShowInformationErrors] = useState<boolean>(false);
+  const [showItemErrors, setShowItemErrors] = useState<boolean>(false);
   const customerQuery = useGetAllCustomersQuery();
   const picQuery = useGetAllPicsQuery();
   const serviceTypeQuery = useGetAllServiceTypesQuery();
@@ -39,7 +41,24 @@ export const useOrderCreateLogic = (): OrderCreateState => {
   const [createProjectOrder, projectMutation] = useCreateProjectOrderMutation();
 
   const onBack = (): void => { void navigate(-1); };
-  const onNextStep = (): void => setStep(getNextOrderStep);
+  const onNextStep = (): void => {
+    if (step === 1 && !isOrderInformationValid(form)) {
+      setShowInformationErrors(true);
+      setErrorMessage("Please complete all required Order Information fields.");
+      return;
+    }
+
+    if (step === 2 && !hasSelectedOrderItem(form.rental_transaction_items)) {
+      setShowItemErrors(true);
+      setErrorMessage("Please select at least one item.");
+      return;
+    }
+
+    setShowInformationErrors(false);
+    setShowItemErrors(false);
+    setErrorMessage(null);
+    setStep(getNextOrderStep);
+  };
   const onPreviousStep = (): void => setStep(getPreviousOrderStep);
   const onCustomerChange = (customerId: string): void => {
     const customer = customerQuery.data?.data.find((item) => item.id === customerId);
@@ -140,5 +159,5 @@ export const useOrderCreateLogic = (): OrderCreateState => {
     }
   };
 
-  return { form, customers: customerQuery.data?.data ?? [], pics: picQuery.data?.data ?? [], serviceTypes: serviceTypeQuery.data?.data ?? [], vouchers: voucherQuery.data?.data ?? [], projects: (projectQuery.data?.data ?? []).map((project) => ({ id: project.id, name: project.name, items: project.items ?? [] })), items: itemQuery.data?.data ?? [], onToggleItem, onToggleProject, isCustomersLoading: customerQuery.isLoading, isPicsLoading: picQuery.isLoading, isServiceTypesLoading: serviceTypeQuery.isLoading, isVouchersLoading: voucherQuery.isLoading, isProjectsLoading: projectQuery.isLoading, isItemsLoading: itemQuery.isLoading, isEdit: Boolean(id), isSubmitting: mutation.isLoading, errorMessage, step, onBack, onNextStep, onPreviousStep, onCustomerChange, onPicChange, onVoucherChange, onServiceTypeChange, onProjectSelect, onItemSelect, onChange, onItemChange, onAddItem, onRemoveItem, onSubmit, onPreventSubmit };
+  return { form, customers: customerQuery.data?.data ?? [], pics: picQuery.data?.data ?? [], serviceTypes: serviceTypeQuery.data?.data ?? [], vouchers: voucherQuery.data?.data ?? [], projects: (projectQuery.data?.data ?? []).map((project) => ({ id: project.id, name: project.name, items: project.items ?? [] })), items: itemQuery.data?.data ?? [], onToggleItem, onToggleProject, isCustomersLoading: customerQuery.isLoading, isPicsLoading: picQuery.isLoading, isServiceTypesLoading: serviceTypeQuery.isLoading, isVouchersLoading: voucherQuery.isLoading, isProjectsLoading: projectQuery.isLoading, isItemsLoading: itemQuery.isLoading, isEdit: Boolean(id), isSubmitting: mutation.isLoading, errorMessage, showInformationErrors, showItemErrors, step, onBack, onNextStep, onPreviousStep, onCustomerChange, onPicChange, onVoucherChange, onServiceTypeChange, onProjectSelect, onItemSelect, onChange, onItemChange, onAddItem, onRemoveItem, onSubmit, onPreventSubmit };
 };

@@ -44,6 +44,8 @@ export type OrderCreateProps = {
   isEdit: boolean;
   isSubmitting: boolean;
   errorMessage: string | null;
+  showInformationErrors: boolean;
+  showItemErrors: boolean;
   step: number;
   onBack: () => void;
   onNextStep: () => void;
@@ -81,6 +83,8 @@ export type OrderCreateState = {
   isEdit: boolean;
   isSubmitting: boolean;
   errorMessage: string | null;
+  showInformationErrors: boolean;
+  showItemErrors: boolean;
   step: number;
   onBack: () => void;
   onNextStep: () => void;

@@ -1,4 +1,4 @@
-import { calculateOrderTotals, getNextOrderStep, getPreviousOrderStep } from "./OrderCreate.helpers";
+import { calculateOrderTotals, getNextOrderStep, getPreviousOrderStep, hasSelectedOrderItem, isOrderInformationValid } from "./OrderCreate.helpers";
 
 describe("OrderCreate step helpers", () => {
   it("should advance until pricing step", (): void => {
@@ -15,5 +15,18 @@ describe("OrderCreate step helpers", () => {
     expect(getPreviousOrderStep(3)).toBe(2);
     expect(getPreviousOrderStep(2)).toBe(1);
     expect(getPreviousOrderStep(1)).toBe(1);
+  });
+
+  it("should require every order information field except voucher and address", (): void => {
+    const information = { customer_id: "customer", customer_name: "Customer", customer_phone: "0812", pic_id: "pic", service_type_id: "service", service_fee: 1000, event_name: "Event", start_at: "2026-10-25", end_at: "2026-10-26" };
+
+    expect(isOrderInformationValid(information)).toBe(true);
+    expect(isOrderInformationValid({ ...information, event_name: "" })).toBe(false);
+    expect(isOrderInformationValid({ ...information, service_fee: 0 })).toBe(false);
+  });
+
+  it("should require at least one selected item", (): void => {
+    expect(hasSelectedOrderItem([{ item_id: "" }])).toBe(false);
+    expect(hasSelectedOrderItem([{ item_id: "item-1" }])).toBe(true);
   });
 });
