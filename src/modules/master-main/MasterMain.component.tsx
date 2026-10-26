@@ -29,8 +29,8 @@ export const MasterMainCard = (props: MasterMainCardProps): React.ReactElement =
         </span>
       )}
       <span className="min-w-0 flex-1">
-        <span className="block truncate text-lg font-semibold text-text-primary">{title}</span>
-        <span className="mt-2 block text-sm leading-5 text-text-secondary">{description}</span>
+        <span className="block truncate text-2xl font-semibold text-text-primary lg:text-lg">{title}</span>
+        <span className="mt-2 block text-lg leading-7 text-text-secondary lg:text-sm lg:leading-5">{description}</span>
       </span>
       <span aria-hidden="true" className="shrink-0 text-xl text-text-tertiary transition-transform group-hover:translate-x-1">→</span>
     </button>
@@ -53,7 +53,7 @@ export const MasterMainComponent = (props: {
   return (
     <div className="flex flex-col gap-6 px-6 pb-20 lg:px-0">
       <div>
-        <h1 className="text-3xl font-bold text-text-primary">Master Data</h1>
+        <h1 className="text-4xl font-bold text-text-primary lg:text-3xl">Master Data</h1>
         <p className="mt-2 text-sm text-text-secondary">Manage core data used across QuoteFlow.</p>
       </div>
 

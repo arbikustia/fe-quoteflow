@@ -12,17 +12,20 @@ export type LayoutProps = {
   pageTitle?: string;
   mobileWhiteBackground?: boolean;
   whiteBackground?: boolean;
+  showMobileGlobalHeader?: boolean;
 };
 
 /**
- * Render Layout — mobile header hidden on /master* routes.
+ * Render Layout.
  * @param {LayoutProps} props - props
  * @returns {React.ReactElement} node
  */
-export default function Layout({ children, mobileWhiteBackground = false, whiteBackground = false }: LayoutProps): React.ReactElement {
+export default function Layout({ children, mobileWhiteBackground = false, whiteBackground = false, showMobileGlobalHeader = false }: LayoutProps): React.ReactElement {
   const { pathname } = useLocation();
   const { isSidebarCollapsed, onToggleSidebarCollapsed } = useSidebarCollapse();
   const isOrderRoute = pathname.startsWith("/order");
+  const isMasterListRoute = /^\/master-[^/]+$/.test(pathname);
+  const hasGlobalMobileHeader = isOrderRoute || isMasterListRoute || showMobileGlobalHeader;
 
   return (
     <div className={`flex h-full min-h-0 w-full overflow-hidden font-sans text-text-primary relative items-stretch transition-colors duration-200 ${whiteBackground ? "bg-background-surface" : "bg-background-page"}`}>
@@ -31,7 +34,7 @@ export default function Layout({ children, mobileWhiteBackground = false, whiteB
       </div>
 
       <div className={`flex-1 flex flex-col min-w-0 min-h-0 overflow-hidden relative transition-colors duration-200 ${whiteBackground ? "bg-background-surface" : "bg-background-page"}${mobileWhiteBackground ? " bg-background-surface lg:bg-background-page" : ""}`}>
-        {isOrderRoute ? <div className="lg:hidden shrink-0"><GlobalHeader /></div> : (
+        {hasGlobalMobileHeader ? <div className="lg:hidden shrink-0"><GlobalHeader /></div> : (
           <div className="lg:hidden flex items-center gap-3 p-4 border-b border-border-default bg-background-surface shrink-0">
             <div className="w-8 h-8 rounded-full bg-action-primary flex items-center justify-center">
               <span className="text-text-inverse font-bold">Q</span>

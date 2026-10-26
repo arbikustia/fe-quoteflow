@@ -207,7 +207,7 @@ export const LoginPageComponent = (props: LoginPageProps): ReactElement => {
                   htmlFor="identifier"
                   className="block text-sm font-semibold text-[#1f2937] mb-2 text-left"
                 >
-                  Email atau nama pengguna
+                  Nama pengguna
                 </label>
                 <input
                   id="identifier"

@@ -11,7 +11,7 @@ import type { CustomerData, CustomerMobileCardProps } from "./MasterCustomer.typ
  */
 const _renderDetails = (customer: CustomerData): React.ReactElement => React.createElement(
   "span",
-  { className: "grid gap-1 text-sm text-text-secondary" },
+  { className: "grid gap-1 text-lg text-text-secondary" },
   React.createElement("span", { className: "truncate" }, customer.address || "No address provided"),
   React.createElement("span", { className: "truncate" }, customer.phoneNumber || "No phone number"),
 );
@@ -34,7 +34,7 @@ export const CustomerMobileCard = (props: CustomerMobileCardProps): React.ReactE
 
   return React.createElement(
     MasterDataCard,
-    { title: customer.name, status: customer.status, onClick: handleClick, children: _renderDetails(customer) },
+    { title: customer.name, status: customer.status, onClick: handleClick, isLargeText: true, children: _renderDetails(customer) },
   );
 };
 

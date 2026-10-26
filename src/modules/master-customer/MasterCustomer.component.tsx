@@ -188,7 +188,7 @@ const _renderMobileSearch = (setSearchTerm: MasterCustomerProps["setSearchTerm"]
    */
   const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>): void => setSearchTerm(event.target.value);
 
-  return <SearchFilter placeholder="Search customer" onChange={handleSearchChange} isRoundedFull={true} className="w-full sm:w-full" />;
+  return <SearchFilter placeholder="Search customer" onChange={handleSearchChange} isRoundedFull={true} className="w-full sm:w-full" inputClassName="text-lg placeholder:text-lg" />;
 };
 
 /**
@@ -215,6 +215,7 @@ export const MasterCustomerComponent = (props: MasterCustomerProps): React.React
         breadcrumbs={["Master", "Master Customer"]}
         headerRight={createButton}
         mobileHeaderClassName="px-0"
+        mobileTitleClassName="text-4xl"
         onBack={onBack}
       >
         <div className="relative flex h-full flex-col bg-background-surface px-0 pb-18 lg:-mt-4 lg:bg-transparent lg:px-0 lg:pb-0">

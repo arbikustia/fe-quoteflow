@@ -24,6 +24,7 @@ const _renderNameField = (props: MasterCustomerCreateFormState): ReactElement =>
     id="customer-name"
     type="text"
     label="Customer Name"
+    className="[&_.ant-input]:text-lg [&_.ant-input]:placeholder:text-lg [&_label]:text-sm"
     placeholder="e.g. PT Mega Jaya Abadi"
     value={props.name}
     required
@@ -42,6 +43,7 @@ const _renderPhoneField = (props: MasterCustomerCreateFormState): ReactElement =
     id="customer-phone"
     type="tel"
     label="Phone Number"
+    className="[&_.ant-input]:text-lg [&_.ant-input]:placeholder:text-lg [&_label]:text-sm"
     placeholder="0812... atau 628..."
     value={props.phoneNumber}
     required
@@ -85,6 +87,7 @@ const _renderAddressField = (props: MasterCustomerCreateFormState): ReactElement
     id="customer-address"
     type="textarea"
     label="Address"
+    className="[&_.ant-input]:text-lg [&_.ant-input]:placeholder:text-lg [&_label]:text-sm"
     placeholder="e.g. Jl. Sudirman No. 45"
     value={props.address}
     required
@@ -95,11 +98,16 @@ const _renderAddressField = (props: MasterCustomerCreateFormState): ReactElement
 
 /**
  * Render mobile top back bar
+ * @param {boolean} isEditMode - Edit mode flag
  * @param {() => void} goBack - Back action
  * @returns {ReactElement} Bar element
  */
-const _renderMobileBack = (goBack: () => void): ReactElement => (
-  <div className="sticky top-0 z-20 flex items-center bg-background-surface px-0 lg:hidden">
+const _renderMobileBack = (isEditMode: boolean, goBack: () => void): ReactElement => {
+  const title = isEditMode ? "Edit Customer" : "New Customer";
+  const subtitle = isEditMode ? "Update customer details." : "Fill in customer details.";
+
+  return (
+  <div className="sticky top-0 z-20 flex items-center gap-3 bg-background-surface px-0 lg:hidden">
     <button
       type="button"
       onClick={goBack}
@@ -110,8 +118,13 @@ const _renderMobileBack = (goBack: () => void): ReactElement => (
         <path d="M19 12H5M12 19l-7-7 7-7" />
       </svg>
     </button>
+    <div className="min-w-0">
+      <h2 className="truncate text-2xl font-semibold leading-tight text-text-primary">{title}</h2>
+      <p className="truncate text-sm text-text-secondary">{subtitle}</p>
+    </div>
   </div>
-);
+  );
+};
 
 /**
  * Render page header with breadcrumb
@@ -129,7 +142,7 @@ const _renderHeaderSection = (isEditMode: boolean, goBack: () => void): ReactEle
         <span aria-hidden="true">/</span>
         <span className="text-text-primary">{title}</span>
       </nav>
-      <div className="my-6 pl-1">
+      <div className="my-6 hidden pl-1 lg:block">
         <h2 className="text-4xl font-semibold leading-tight text-text-primary tracking-tight">{title}</h2>
         <p className="text-[14px] text-text-secondary opacity-70 mt-3 font-medium">
           {isEditMode ? "Update the customer details below." : "Fill in the customer details below."}
@@ -174,8 +187,8 @@ export const MasterCustomerCreateForm = (props: MasterCustomerCreateFormState): 
     <div className="flex h-full w-full flex-col bg-background-surface font-sans pb-6 lg:bg-background-page">
       {errorMessage && <AlertComponent type="error" message={errorMessage} toast closable />}
       {successMessage && <AlertComponent type="success" message={successMessage} toast closable />}
-      {_renderMobileBack(goBack)}
-      <div className="mt-2 flex min-h-0 w-full flex-1 flex-col px-0 lg:mt-0 lg:px-0">
+      {_renderMobileBack(isEditMode, goBack)}
+      <div className="mt-10 flex min-h-0 w-full flex-1 flex-col px-0 text-lg lg:mt-0 lg:px-0 lg:text-base">
         {_renderHeaderSection(isEditMode, goBack)}
         {isLoadingInitialData ? (
           <p className="py-12 text-center text-sm text-text-secondary">Loading customer data…</p>

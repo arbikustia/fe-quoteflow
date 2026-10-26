@@ -12,6 +12,7 @@ export type PageLayoutProps = {
   actions?: PageLayoutAction[];
   headerRight?: React.ReactNode;
   mobileHeaderClassName?: string;
+  mobileTitleClassName?: string;
   onBack: () => void;
   children: React.ReactNode;
   footer?: React.ReactNode;

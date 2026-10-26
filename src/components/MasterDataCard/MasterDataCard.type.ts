@@ -6,4 +6,5 @@ export type MasterDataCardProps = {
   children: ReactNode;
   onClick: () => void;
   className?: string;
+  isLargeText?: boolean;
 };

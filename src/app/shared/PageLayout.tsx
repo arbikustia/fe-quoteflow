@@ -39,7 +39,7 @@ const _renderActions = (actions: PageLayoutAction[]): React.ReactElement[] => ac
  * @param {PageLayoutProps} props - page layout props
  * @returns {React.ReactElement} page layout
  */
-export const PageLayout = ({ title, breadcrumbs, actions = [], headerRight, mobileHeaderClassName = "px-2", onBack, children, footer }: PageLayoutProps): React.ReactElement => (
+export const PageLayout = ({ title, breadcrumbs, actions = [], headerRight, mobileHeaderClassName = "px-2", mobileTitleClassName = "", onBack, children, footer }: PageLayoutProps): React.ReactElement => (
   <div className="flex min-h-full flex-col">
     <header className="mb-6 shrink-0">
       <div className="hidden items-start justify-between gap-4 lg:flex">
@@ -79,7 +79,7 @@ export const PageLayout = ({ title, breadcrumbs, actions = [], headerRight, mobi
           <button type="button" onClick={onBack} aria-label="Back" className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full border border-border-default text-text-primary bg-white hover:bg-background-subtle transition-colors">
             {_renderBackIcon()}
           </button>
-          <h1 className="min-w-0 truncate text-left text-3xl font-semibold tracking-tight text-text-primary">{title}</h1>
+          <h1 className={`min-w-0 truncate text-left text-3xl font-semibold tracking-tight text-text-primary ${mobileTitleClassName}`}>{title}</h1>
         </div>
         {headerRight ? (
           <div className="shrink-0">{headerRight}</div>

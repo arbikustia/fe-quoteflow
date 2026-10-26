@@ -25,7 +25,7 @@ describe('LoginPageComponent', () => {
     renderLoginPage();
 
     expect(screen.getByRole('heading', { name: 'Selamat datang kembali' })).toBeInTheDocument();
-    expect(screen.getByLabelText('Email atau nama pengguna')).toBeInTheDocument();
+    expect(screen.getByLabelText('Nama pengguna')).toBeInTheDocument();
     expect(screen.getByLabelText('Kata sandi')).toBeInTheDocument();
     expect(screen.getByText('Ingat saya')).toBeInTheDocument();
     expect(screen.getByText('Lupa kata sandi?')).toBeInTheDocument();
