@@ -97,11 +97,12 @@ const _renderRoleAndStatus = (props: MasterUserCreateFormState): ReactElement =>
 
   return (
     <>
-      <div className="lg:col-span-2">
+      <div className="mb-4 lg:col-span-2">
         <Select
           id="role"
           label="Role"
-          className="[&_.ant-select-selector]:text-xl [&_label]:text-base"
+          labelClassName="text-base"
+          className="[&_.ant-select-selector]:text-xl"
           placeholder={props.roleOptionsLoading ? "Loading roles…" : "Select role"}
           value={props.role}
           options={options}

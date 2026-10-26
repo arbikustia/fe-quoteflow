@@ -99,7 +99,7 @@ const _renderCurrentStep = (
     );
   }
 
-  return <section className="space-y-5"><h3 className="text-xl font-semibold text-text-primary">Preview</h3><dl className="space-y-3 text-sm"><div><dt className="text-text-secondary">Name</dt><dd className="font-semibold">{props.name}</dd></div><div><dt className="text-text-secondary">Remark</dt><dd>{props.remark || "-"}</dd></div></dl><div><h4 className="mb-2 font-semibold">Selected items</h4>{props.selectedItems.map((item) => <div key={item.id} className="flex justify-between border-b border-border-default py-2 text-sm"><span>{item.name}</span><span>Qty: {item.qty}</span></div>)}</div></section>;
+  return <section className="space-y-5"><h3 className="text-2xl font-semibold text-text-primary lg:text-xl">Preview</h3><dl className="space-y-3 text-xl lg:text-sm"><div><dt className="text-base text-text-secondary lg:text-sm">Name</dt><dd className="font-semibold">{props.name}</dd></div><div><dt className="text-base text-text-secondary lg:text-sm">Remark</dt><dd>{props.remark || "-"}</dd></div></dl><div><h4 className="mb-2 text-xl font-semibold lg:text-base">Selected items</h4>{props.selectedItems.map((item) => <div key={item.id} className="flex justify-between border-b border-border-default py-3 text-lg lg:py-2 lg:text-sm"><span>{item.name}</span><span>Qty: {item.qty}</span></div>)}</div></section>;
 };
 
 /**

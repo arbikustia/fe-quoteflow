@@ -85,7 +85,7 @@ const _renderCategoryCard = (category: CategoryData, onEdit: MasterCategoryProps
   return (
     <MasterDataCard title={category.categoryName} status={category.status} isLargeText={true} onClick={(): void => onEdit(category)}>
       <span className="text-xl text-text-secondary">
-        Created {category.createAt ? new Date(category.createAt).toLocaleDateString("id-ID") : "-"}
+        Created {category.createAt ? new Date(category.createAt).toLocaleDateString("id-ID").replaceAll("/", "-") : "-"}
       </span>
     </MasterDataCard>
   );

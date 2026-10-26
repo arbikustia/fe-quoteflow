@@ -121,11 +121,13 @@ const _renderBasicInputs = (props: ItemFormContentProps): ReactElement => (
  */
 const _renderNumericalInputs = (props: ItemFormContentProps): ReactElement => (
   <>
-    <div className="grid gap-4 sm:grid-cols-2">
+    <div className="grid gap-x-6 gap-y-1 sm:grid-cols-2 lg:col-span-2">
       <InputComponent id="item-price" type="text" label="Price" className="[&_.ant-input]:text-xl [&_.ant-input]:placeholder:text-xl [&_label]:text-base" placeholder="Rp 0" required inputMode="numeric" value={formatRupiahInput(props.price)} errorMessage={_getFieldError(props.errors?.price)} onChange={props.handlePriceChange} />
       <InputComponent id="item-stock" type="text" label="Stock" className="[&_.ant-input]:text-xl [&_.ant-input]:placeholder:text-xl [&_label]:text-base" placeholder="0" required inputMode="numeric" value={props.stock} errorMessage={_getFieldError(props.errors?.stock)} onChange={props.handleStockChange} />
     </div>
-    <InputComponent id="item-duration" type="text" label="Duration (Days)" className="[&_.ant-input]:text-xl [&_.ant-input]:placeholder:text-xl [&_label]:text-base" placeholder="1" required inputMode="numeric" value={props.duration} errorMessage={_getFieldError(props.errors?.duration)} onChange={props.handleDurationChange} />
+    <div className="lg:col-span-2">
+      <InputComponent id="item-duration" type="text" label="Duration (Days)" className="[&_.ant-input]:text-xl [&_.ant-input]:placeholder:text-xl [&_label]:text-base" placeholder="1" required inputMode="numeric" value={props.duration} errorMessage={_getFieldError(props.errors?.duration)} onChange={props.handleDurationChange} />
+    </div>
   </>
 );
 
@@ -195,7 +197,7 @@ export const MasterItemCreateForm = (props: MasterItemCreateFormState): ReactEle
     <div className="mt-10 flex min-h-0 w-full flex-1 flex-col px-0 text-lg lg:mt-0 lg:px-0 lg:text-base">
       {_renderHeaderSection(props.isEditMode, props.goBack)}
       <form noValidate onSubmit={props.handleSubmit} className="flex min-h-0 flex-1 flex-col justify-between border-0 bg-transparent p-0 shadow-none lg:rounded-4xl lg:border lg:border-border-default lg:bg-background-surface lg:p-8 lg:shadow-xs">
-        <div className="space-y-4">
+        <div className="grid w-full grid-cols-1 gap-x-6 gap-y-1 lg:grid-cols-2">
           {_renderBasicInputs(props)}
           {_renderNumericalInputs(props)}
           {_renderExtraInputs(props)}

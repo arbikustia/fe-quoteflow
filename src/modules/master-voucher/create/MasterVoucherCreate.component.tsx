@@ -92,7 +92,8 @@ const _renderCodeOption = (props: MasterVoucherCreateFormState): ReactElement =>
     <Select
       id="voucher-code-mode"
       label="Code Option"
-      className="[&_.ant-select-selector]:text-xl [&_label]:text-base"
+      labelClassName="text-base"
+      className="[&_.ant-select-selector]:text-xl"
       placeholder="Select code option"
       value={props.codeMode}
       options={CODE_MODE_OPTIONS}
@@ -124,8 +125,8 @@ const _renderFields = (props: MasterVoucherCreateFormState): ReactElement => {
   const discountError = props.isSubmitted && !props.discountPercent ? "Discount percentage is required." : _getFieldError(props.errors?.discountPercent);
 
   return (
-    <div className="space-y-4">
-      <InputComponent
+    <div className="grid w-full grid-cols-1 gap-x-6 gap-y-1 lg:grid-cols-2">
+      <div><InputComponent
         id="voucher-name"
         type="text"
         label="Voucher Name"
@@ -135,9 +136,9 @@ const _renderFields = (props: MasterVoucherCreateFormState): ReactElement => {
         required
         errorMessage={nameError}
         onChange={props.handleNameChange}
-      />
-      {_renderCodeOption(props)}
-      <InputComponent
+      /></div>
+      <div>{_renderCodeOption(props)}</div>
+      <div><InputComponent
         id="discount-percent"
         type="number"
         label="Discount (%)"
@@ -149,8 +150,8 @@ const _renderFields = (props: MasterVoucherCreateFormState): ReactElement => {
         required
         errorMessage={discountError}
         onChange={props.handleDiscountChange}
-      />
-      {_renderStatusField(props)}
+      /></div>
+      <div className="lg:col-span-2">{_renderStatusField(props)}</div>
     </div>
   );
 };
