@@ -40,7 +40,7 @@ export default function Layout({ children, mobileWhiteBackground = false, whiteB
           <NavbarContainer isSidebarCollapsed={isSidebarCollapsed} onToggleSidebar={onToggleSidebarCollapsed} />
         </div>
 
-        <main className="flex-1 overflow-y-auto px-4 mb-32  lg:p-8 pb-20 lg:pb-8 relative z-0">
+        <main className="relative z-0 flex-1 overflow-y-auto px-4 mb-32 pt-4 pb-20 lg:p-8">
           {children}
         </main>
         {isOrderRoute && <div className="lg:hidden"><MobileNavigate /></div>}

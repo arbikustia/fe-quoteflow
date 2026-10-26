@@ -460,7 +460,7 @@ const _getStepBadgeClass = (index: number, step: number, hasError: boolean): str
 };
 
 const _renderMobileBack = (isEdit: boolean, onBack: () => void): React.ReactElement => (
-  <div className="sticky top-0 pt-5 z-20 flex items-center gap-3 bg-background-surface px-0 pb-6 lg:hidden">
+  <div className="flex items-center gap-3 bg-background-surface px-0 pb-6 lg:hidden">
     <button
       type="button"
       onClick={onBack}
