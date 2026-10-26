@@ -231,7 +231,8 @@ const _renderItemCard = (
   const hasError = props.showItemErrors && !selected;
   let itemCardClass = "border-border-default bg-background-surface";
 
-  if (selected) itemCardClass = "border-action-primary bg-action-primary-subtle";
+  if (selected)
+    itemCardClass = "border-action-primary bg-action-primary-subtle";
   if (hasError) itemCardClass = "border-danger bg-background-surface";
 
   return (
@@ -450,21 +451,32 @@ const _renderItem = (
  * @param {boolean} hasError - Step validation state
  * @returns {string} Text class
  */
-const _getStepTextClass = (index: number, step: number, hasError: boolean): string => {
+const _getStepTextClass = (
+  index: number,
+  step: number,
+  hasError: boolean,
+): string => {
   if (hasError) return "text-danger";
   if (step === index + 1) return "text-action-primary";
 
   return "text-text-tertiary";
 };
 
-const _getStepBadgeClass = (index: number, step: number, hasError: boolean): string => {
+const _getStepBadgeClass = (
+  index: number,
+  step: number,
+  hasError: boolean,
+): string => {
   if (hasError) return "bg-danger text-text-inverse";
   if (step >= index + 1) return "bg-action-primary text-text-inverse";
 
   return "border border-border-default";
 };
 
-const _renderMobileBack = (isEdit: boolean, onBack: () => void): React.ReactElement => (
+const _renderMobileBack = (
+  isEdit: boolean,
+  onBack: () => void,
+): React.ReactElement => (
   <div className="flex items-center gap-3 bg-background-surface px-0 pb-6 lg:hidden">
     <button
       type="button"
@@ -485,7 +497,9 @@ const _renderMobileBack = (isEdit: boolean, onBack: () => void): React.ReactElem
         <path d="M19 12H5M12 19l-7-7 7-7" />
       </svg>
     </button>
-    <h1 className="truncate text-4xl font-semibold leading-tight text-text-primary">{isEdit ? "Edit Order" : "Create Order"}</h1>
+    <h1 className="truncate text-4xl font-semibold leading-tight text-text-primary">
+      {isEdit ? "Edit Order" : "Create Order"}
+    </h1>
   </div>
 );
 
@@ -555,14 +569,14 @@ export const OrderCreateComponent = (
 
   return (
     <Layout pageTitle={pageTitle} mobileWhiteBackground>
-      <div className="min-h-full w-full bg-background-surface pb-6 font-sans lg:flex lg:h-full lg:flex-col lg:bg-background-page">
+      <div className="min-h-full w-full bg-background-surface pb-6 font-sans min-[1024px]:bg-background-page">
         {_renderMobileBack(props.isEdit, props.onBack)}
-        <div className="w-full px-0 text-lg lg:flex lg:min-h-0 lg:flex-1 lg:flex-col lg:text-base">
+        <div className="w-full px-0 text-lg min-[1024px]:text-base">
           {_renderHeaderSection(pageTitle, props.onBack)}
           <form
             noValidate
             onSubmit={props.onPreventSubmit}
-            className="mb-14 flex min-h-0 flex-1 flex-col justify-between border-0 bg-transparent p-0 pb-0 shadow-none lg:mb-10 lg:rounded-4xl lg:border lg:border-brand-gray-light lg:bg-brand-white lg:p-8 lg:shadow-xs"
+            className="mb-14 flex flex-col justify-between border-0 bg-transparent p-0 pb-0 shadow-none min-[1024px]:mb-10 min-[1024px]:rounded-4xl min-[1024px]:border min-[1024px]:border-brand-gray-light min-[1024px]:bg-brand-white min-[1024px]:p-8 min-[1024px]:shadow-xs"
           >
             <div className="mb-6 flex items-center gap-2">
               {stepTitles.map((title, index) => (
@@ -627,20 +641,13 @@ export const OrderCreateComponent = (
               {props.step === 2 && (
                 <section className="space-y-4">
                   <div className="flex items-center justify-between">
-                    <h2 className="text-lg font-semibold text-text-primary">
+                    <h2 className="text-2xl font-semibold text-text-primary lg:text-lg">
                       Select items
                     </h2>
-                    <button
-                      type="button"
-                      onClick={props.onAddItem}
-                      className="rounded-xl border border-action-primary px-4 py-2 text-sm font-semibold text-action-primary"
-                    >
-                      Add Item
-                    </button>
                   </div>
                   {props.form.service_type_name.trim().toUpperCase() ===
                   "PROJECT" ? (
-                    <div className="grid grid-cols-1 gap-x-6 gap-y-0 md:grid-cols-2">
+                    <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
                       {props.projects.map((project) => (
                         <React.Fragment key={project.id}>
                           {_renderProjectCard(props, project)}
@@ -654,7 +661,7 @@ export const OrderCreateComponent = (
                           Loading items…
                         </p>
                       )}
-                      <div className="grid grid-cols-1 gap-x-6 gap-y-0 md:grid-cols-2">
+                      <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
                         {props.items.map((item) => (
                           <React.Fragment key={item.id}>
                             {_renderItemCard(props, item)}
@@ -671,84 +678,121 @@ export const OrderCreateComponent = (
                     Review Order
                   </h2>
                   <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-                    <div className="rounded-xl border border-border-default p-4">
-                      <p className="text-base font-semibold uppercase tracking-wider text-text-secondary lg:text-xs">
-                        Customer Information
-                      </p>
-                      <dl className="mt-3 space-y-2 text-xl lg:text-sm">
-                        <div className="flex gap-2">
-                          <dt className="text-text-secondary">Name:</dt>
-                          <dd className="font-medium text-text-primary">
+                    <div className="rounded-2xl border border-border-default bg-background-surface p-5">
+                      <div className="mb-4 flex items-center gap-3">
+                        <div>
+                          <p className="text-base font-semibold text-text-primary lg:text-sm">
+                            Customer Information
+                          </p>
+                          <p className="text-sm text-text-secondary lg:text-xs">
+                            Contact and delivery details
+                          </p>
+                        </div>
+                      </div>
+                      <dl className="divide-y divide-border-default text-lg lg:text-sm">
+                        <div className="grid grid-cols-[5rem_minmax(0,1fr)] gap-3 py-3">
+                          <dt className="text-text-secondary">Name</dt>
+                          <dd className="break-words font-semibold text-text-primary">
                             {props.form.customer_name || "-"}
                           </dd>
                         </div>
-                        <div className="flex gap-2">
-                          <dt className="text-text-secondary">Phone:</dt>
-                          <dd className="font-medium text-text-primary">
+                        <div className="grid grid-cols-[5rem_minmax(0,1fr)] gap-3 py-3">
+                          <dt className="text-text-secondary">Phone</dt>
+                          <dd className="break-words font-semibold text-text-primary">
                             {props.form.customer_phone || "-"}
                           </dd>
                         </div>
-                        <div className="flex gap-2">
-                          <dt className="text-text-secondary">Address:</dt>
-                          <dd className="font-medium text-text-primary">
+                        <div className="grid grid-cols-[5rem_minmax(0,1fr)] gap-3 py-3">
+                          <dt className="text-text-secondary">Address</dt>
+                          <dd className="break-words font-semibold text-text-primary">
                             {props.form.address || "-"}
                           </dd>
                         </div>
                       </dl>
                     </div>
-                    <div className="rounded-xl border border-border-default p-4">
-                      <p className="text-base font-semibold uppercase tracking-wider text-text-secondary lg:text-xs">
-                        Order Information
-                      </p>
-                      <dl className="mt-3 space-y-2 text-xl lg:text-sm">
-                        <div className="flex gap-2">
-                          <dt className="text-text-secondary">PIC:</dt>
-                          <dd className="font-medium text-text-primary">
+                    <div className="rounded-2xl border border-border-default bg-background-surface p-5">
+                      <div className="mb-4 flex items-center gap-3">
+                        <div>
+                          <p className="text-base font-semibold text-text-primary lg:text-sm">
+                            Order Information
+                          </p>
+                          <p className="text-sm text-text-secondary lg:text-xs">
+                            Event schedule and PIC
+                          </p>
+                        </div>
+                      </div>
+                      <dl className="divide-y divide-border-default text-lg lg:text-sm">
+                        <div className="grid grid-cols-[5rem_minmax(0,1fr)] gap-3 py-3">
+                          <dt className="text-text-secondary">PIC</dt>
+                          <dd className="break-words font-semibold text-text-primary">
                             {props.pics.find(
                               (pic) => pic.id === props.form.pic_id,
                             )?.name || "-"}
                           </dd>
                         </div>
-                        <div className="flex gap-2">
-                          <dt className="text-text-secondary">Event:</dt>
-                          <dd className="font-medium text-text-primary">
+                        <div className="grid grid-cols-[5rem_minmax(0,1fr)] gap-3 py-3">
+                          <dt className="text-text-secondary">Event</dt>
+                          <dd className="break-words font-semibold text-text-primary">
                             {props.form.event_name || "-"}
                           </dd>
                         </div>
-                        <div className="flex gap-2">
-                          <dt className="text-text-secondary">Start:</dt>
-                          <dd className="font-medium text-text-primary">
+                        <div className="grid grid-cols-[5rem_minmax(0,1fr)] gap-3 py-3">
+                          <dt className="text-text-secondary">Start</dt>
+                          <dd className="break-words font-semibold text-text-primary">
                             {props.form.start_at || "-"}
                           </dd>
                         </div>
-                        <div className="flex gap-2">
-                          <dt className="text-text-secondary">End:</dt>
-                          <dd className="font-medium text-text-primary">
+                        <div className="grid grid-cols-[5rem_minmax(0,1fr)] gap-3 py-3">
+                          <dt className="text-text-secondary">End</dt>
+                          <dd className="break-words font-semibold text-text-primary">
                             {props.form.end_at || "-"}
                           </dd>
                         </div>
                       </dl>
                     </div>
-                    <div className="rounded-xl border border-border-default p-4">
-                      <p className="text-base font-semibold uppercase tracking-wider text-text-secondary lg:text-xs">
-                        Pricing
-                      </p>
-                      <div className="mt-3 space-y-2 text-xl lg:text-sm">
-                      <p className="text-text-primary">
-                        Subtotal: Rp {totals.subtotal.toLocaleString("id-ID")}
-                      </p>
-                      <p className="text-text-primary">
-                        Service Fee: Rp{" "}
-                        {props.form.service_fee.toLocaleString("id-ID")}
-                      </p>
-                      <p className="text-text-primary">
-                        Discount: Rp{" "}
-                        {props.form.discount.toLocaleString("id-ID")}
-                      </p>
-                      <p className="font-semibold text-text-primary">
-                        Grand Total: Rp{" "}
-                        {totals.grandTotal.toLocaleString("id-ID")}
-                      </p>
+                    <div className="rounded-2xl border border-action-primary/30 p-5 md:col-span-2">
+                      <div className="mb-4 flex items-center justify-between gap-3">
+                        <div className="flex items-center gap-3">
+                          <div>
+                            <p className="text-base font-semibold text-text-primary lg:text-sm">
+                              Pricing
+                            </p>
+                            <p className="text-sm text-text-secondary lg:text-xs">
+                              Order cost breakdown
+                            </p>
+                          </div>
+                        </div>
+                        <span className="text-xs font-semibold uppercase tracking-wider text-text-secondary">
+                          IDR
+                        </span>
+                      </div>
+                      <div className="space-y-3 text-lg lg:text-sm">
+                        <div className="flex justify-between gap-4 text-text-secondary">
+                          <span>Subtotal</span>
+                          <span className="font-medium text-text-primary">
+                            Rp {totals.subtotal.toLocaleString("id-ID")}
+                          </span>
+                        </div>
+                        <div className="flex justify-between gap-4 text-text-secondary">
+                          <span>Service Fee</span>
+                          <span className="font-medium text-text-primary">
+                            Rp {props.form.service_fee.toLocaleString("id-ID")}
+                          </span>
+                        </div>
+                        <div className="flex justify-between gap-4 text-text-secondary">
+                          <span>Discount</span>
+                          <span className="font-medium text-text-primary">
+                            Rp {props.form.discount.toLocaleString("id-ID")}
+                          </span>
+                        </div>
+                        <div className="flex items-center justify-between gap-4 border-t border-action-primary/20 pt-4">
+                          <span className="font-semibold text-text-primary">
+                            Grand Total
+                          </span>
+                          <span className="text-2xl font-bold text-action-primary lg:text-lg">
+                            Rp {totals.grandTotal.toLocaleString("id-ID")}
+                          </span>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -765,44 +809,55 @@ export const OrderCreateComponent = (
                               (item) => item.project_id === project.id,
                             ),
                           )
-                          .map((project) => (
-                            <section
-                              key={project.id}
-                              className="rounded-xl border border-border-default p-3"
-                            >
-                              <h4 className="font-semibold text-text-primary">
-                                {project.name}
-                              </h4>
-                              <div className="mt-2 space-y-2">
-                                {props.form.rental_transaction_items
-                                  .filter(
-                                    (item) => item.project_id === project.id,
-                                  )
-                                  .map((item) => (
+                          .map((project) => {
+                            const projectItems =
+                              props.form.rental_transaction_items.filter(
+                                (item) => item.project_id === project.id,
+                              );
+
+                            return (
+                              <section
+                                key={project.id}
+                                className="overflow-hidden rounded-2xl border border-border-default bg-background-surface"
+                              >
+                                <div className="flex items-center justify-between gap-3 border-b border-border-default bg-background-subtle px-4 py-3">
+                                  <h4 className="text-xl font-semibold text-text-primary lg:text-base">
+                                    {project.name}
+                                  </h4>
+                                  <span className="shrink-0 rounded-full bg-action-primary-subtle px-3 py-1 text-sm font-semibold text-action-primary lg:text-xs">
+                                    {projectItems.length} items
+                                  </span>
+                                </div>
+                                <div className="divide-y divide-border-default px-4">
+                                  {projectItems.map((item) => (
                                     <div
                                       key={`${project.id}-${item.item_id}`}
-                                      className="flex items-start justify-between gap-3 text-lg lg:text-sm"
+                                      className="grid gap-2 py-4 text-lg sm:grid-cols-[minmax(0,1fr)_auto] sm:items-center lg:text-sm"
                                     >
-                                      <span>
-                                        {item.item_name}
-                                        <span className="ml-2 text-text-secondary">
-                                          Qty: {item.qty}
-                                        </span>
+                                      <div className="min-w-0">
+                                        <p className="break-words font-semibold text-text-primary">
+                                          {item.item_name || item.item_id}
+                                        </p>
+                                        <p className="mt-1 text-base text-text-secondary lg:text-xs">
+                                          Qty {item.qty} × Rp{" "}
+                                          {item.price.toLocaleString("id-ID")}
+                                        </p>
                                         {item.remark && (
-                                          <span className="ml-2 text-text-secondary">
-                                            · {item.remark}
-                                          </span>
+                                          <p className="mt-1 break-words text-base text-text-secondary lg:text-xs">
+                                            {item.remark}
+                                          </p>
                                         )}
-                                      </span>
-                                      <span className="font-semibold text-text-primary">
+                                      </div>
+                                      <p className="font-semibold text-text-primary sm:text-right">
                                         Rp{" "}
                                         {item.subtotal.toLocaleString("id-ID")}
-                                      </span>
+                                      </p>
                                     </div>
                                   ))}
-                              </div>
-                            </section>
-                          ))}
+                                </div>
+                              </section>
+                            );
+                          })}
                       </div>
                     ) : (
                       <div className="space-y-2">

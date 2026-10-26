@@ -63,4 +63,4 @@ export const masterProjectService = apiRtkClient.injectEndpoints({
   overrideExisting: false,
 });
 
-export const { useGetAllProjectsQuery, useGetProjectsQuery, useGetProjectByIdQuery, useCreateProjectMutation, useUpdateProjectMutation } = masterProjectService;
+export const { useGetAllProjectsQuery, useGetProjectsQuery, useGetProjectByIdQuery, useLazyGetProjectByIdQuery, useCreateProjectMutation, useUpdateProjectMutation } = masterProjectService;

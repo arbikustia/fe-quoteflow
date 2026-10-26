@@ -97,7 +97,20 @@ export const useOrderCreateLogic = (): OrderCreateState => {
 
     if (!project) return;
 
-    setForm((previous) => ({ ...previous, rental_transaction_items: [...previous.rental_transaction_items, { ...EMPTY_ITEM, item_id: project.id, project_id: project.id, item_name: project.name, qty: 1 }] }));
+    const projectItems = (project.items ?? []).map((item) => ({
+      ...EMPTY_ITEM,
+      item_id: item.item_id,
+      project_id: project.id,
+      item_name: item.item_name ?? "",
+      qty: item.qty,
+      price: itemQuery.data?.data.find((option) => option.id === item.item_id)?.price ?? 0,
+      subtotal: (itemQuery.data?.data.find((option) => option.id === item.item_id)?.price ?? 0) * item.qty,
+    }));
+
+    setForm((previous) => ({
+      ...previous,
+      rental_transaction_items: [...previous.rental_transaction_items, ...projectItems],
+    }));
   };
   const onProjectSelect = (index: number, projectId: string): void => setForm((previous) => ({ ...previous, rental_transaction_items: previous.rental_transaction_items.map((item, itemIndex) => itemIndex === index ? { ...item, project_id: projectId } : item) }));
   const onItemSelect = (index: number, itemId: string): void => {
@@ -140,22 +153,39 @@ export const useOrderCreateLogic = (): OrderCreateState => {
       };
 
       if (form.service_type_name.trim().toUpperCase() === "PROJECT") {
-        const projectItems = payload.rental_transaction_items.map((item) => ({
-          project_id: item.project_id ?? "",
-          qty: item.qty,
-          price: item.price,
-          subtotal: item.subtotal,
-          remark: item.remark,
-        }));
+        const selectedProjectItems = payload.rental_transaction_items.filter((item) => item.project_id);
+
+        if (!selectedProjectItems.length) {
+          setErrorMessage("Please select at least one project with items.");
+          return;
+        }
+
+        const projectItems = Array.from(
+          new Set(selectedProjectItems.map((item) => item.project_id).filter((projectId): projectId is string => Boolean(projectId))),
+        ).map((projectId) => {
+          const items = selectedProjectItems.filter((item) => item.project_id === projectId);
+          const subtotal = items.reduce((total, item) => total + item.subtotal, 0);
+
+          return {
+            project_id: projectId,
+            qty: 1,
+            price: subtotal,
+            subtotal,
+            remark: items.map((item) => item.remark).filter(Boolean).join("; "),
+          };
+        });
 
         await createProjectOrder({ ...payload, rental_transaction_items: projectItems }).unwrap();
+
       } else {
         await createOrder(payload).unwrap();
       }
 
       navigate("/order");
-    } catch {
-      setErrorMessage("Unable to save order. Please review the form and try again.");
+    } catch (error) {
+      const details = error instanceof Error ? error.message : JSON.stringify(error);
+
+      setErrorMessage(details ? `Unable to save order: ${details}` : "Unable to save order. Please review the form and try again.");
     }
   };
 
