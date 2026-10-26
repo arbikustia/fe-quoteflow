@@ -24,7 +24,7 @@ const _renderNameField = (props: MasterCustomerCreateFormState): ReactElement =>
     id="customer-name"
     type="text"
     label="Customer Name"
-    className="[&_.ant-input]:text-lg [&_.ant-input]:placeholder:text-lg [&_label]:text-sm"
+    className="[&_.ant-input]:text-xl [&_.ant-input]:placeholder:text-xl [&_label]:text-lg"
     placeholder="e.g. PT Mega Jaya Abadi"
     value={props.name}
     required
@@ -43,7 +43,7 @@ const _renderPhoneField = (props: MasterCustomerCreateFormState): ReactElement =
     id="customer-phone"
     type="tel"
     label="Phone Number"
-    className="[&_.ant-input]:text-lg [&_.ant-input]:placeholder:text-lg [&_label]:text-sm"
+    className="[&_.ant-input]:text-xl [&_.ant-input]:placeholder:text-xl [&_label]:text-lg"
     placeholder="0812... atau 628..."
     value={props.phoneNumber}
     required
@@ -87,7 +87,7 @@ const _renderAddressField = (props: MasterCustomerCreateFormState): ReactElement
     id="customer-address"
     type="textarea"
     label="Address"
-    className="[&_.ant-input]:text-lg [&_.ant-input]:placeholder:text-lg [&_label]:text-sm"
+    className="[&_.ant-input]:text-xl [&_.ant-input]:placeholder:text-xl [&_label]:text-lg"
     placeholder="e.g. Jl. Sudirman No. 45"
     value={props.address}
     required
@@ -104,7 +104,6 @@ const _renderAddressField = (props: MasterCustomerCreateFormState): ReactElement
  */
 const _renderMobileBack = (isEditMode: boolean, goBack: () => void): ReactElement => {
   const title = isEditMode ? "Edit Customer" : "New Customer";
-  const subtitle = isEditMode ? "Update customer details." : "Fill in customer details.";
 
   return (
   <div className="sticky top-0 z-20 flex items-center gap-3 bg-background-surface px-0 lg:hidden">
@@ -119,8 +118,7 @@ const _renderMobileBack = (isEditMode: boolean, goBack: () => void): ReactElemen
       </svg>
     </button>
     <div className="min-w-0">
-      <h2 className="truncate text-2xl font-semibold leading-tight text-text-primary">{title}</h2>
-      <p className="truncate text-sm text-text-secondary">{subtitle}</p>
+      <h2 className="truncate text-4xl font-semibold leading-tight text-text-primary">{title}</h2>
     </div>
   </div>
   );
