@@ -13,7 +13,7 @@ const MasterCategoryCreateContainer = (): ReactElement => {
   const formState = useMasterCategoryCreate();
 
   return (
-    <Layout mobileWhiteBackground={true}>
+    <Layout mobileWhiteBackground={true} showMobileGlobalHeader={true}>
       <MasterCategoryCreateForm {...formState} />
     </Layout>
   );

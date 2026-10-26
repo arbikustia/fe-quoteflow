@@ -15,13 +15,18 @@ import Layout from "@/app/layout";
 const _getFieldError = (error: FieldError | undefined): string | null => error?.message?.toString() ?? null;
 
 /** Render mobile back button. */
-const _renderMobileBack = (goBack: () => void): ReactElement => (
-  <div className="sticky top-0 z-20 flex items-center bg-background-surface px-0 lg:hidden">
+const _renderMobileBack = (isEditMode: boolean, goBack: () => void): ReactElement => {
+  const title = isEditMode ? "Edit User" : "New User";
+
+  return (
+  <div className="sticky top-0 z-20 flex items-center gap-3 bg-background-surface px-0 lg:hidden">
     <button type="button" onClick={goBack} aria-label="Back" className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full border border-border-default bg-background-surface text-text-primary transition-colors hover:bg-background-subtle">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="h-6 w-6" aria-hidden="true"><path d="M19 12H5M12 19l-7-7 7-7" /></svg>
     </button>
+    <h2 className="truncate text-4xl font-semibold leading-tight text-text-primary">{title}</h2>
   </div>
-);
+  );
+};
 
 /** Render header section. */
 const _renderHeader = (isEditMode: boolean, goBack: () => void): ReactElement => {
@@ -35,7 +40,7 @@ const _renderHeader = (isEditMode: boolean, goBack: () => void): ReactElement =>
         <span aria-hidden="true">/</span>
         <span className="text-text-primary">{title}</span>
       </nav>
-      <div className="my-6 pl-1">
+      <div className="my-6 hidden pl-1 lg:block">
         <h2 className="text-4xl font-semibold leading-tight tracking-tight text-text-primary">{title}</h2>
         <p className="mt-3 text-[14px] font-medium text-text-secondary opacity-70">{subtitle}</p>
       </div>
@@ -64,6 +69,7 @@ const _renderPassword = (props: MasterUserCreateFormState): ReactElement => {
         id="password"
         type={props.isPasswordVisible ? "text" : "password"}
         label="Password"
+        className="[&_.ant-input]:text-xl [&_.ant-input]:placeholder:text-xl [&_label]:text-base"
         value={props.password}
         required
         errorMessage={passwordError}
@@ -95,6 +101,7 @@ const _renderRoleAndStatus = (props: MasterUserCreateFormState): ReactElement =>
         <Select
           id="role"
           label="Role"
+          className="[&_.ant-select-selector]:text-xl [&_label]:text-base"
           placeholder={props.roleOptionsLoading ? "Loading roles…" : "Select role"}
           value={props.role}
           options={options}
@@ -128,6 +135,7 @@ const _renderFormInputs = (props: MasterUserCreateFormState): ReactElement => {
         id="username"
         type="text"
         label="Username"
+        className="[&_.ant-input]:text-xl [&_.ant-input]:placeholder:text-xl [&_label]:text-base"
         placeholder="e.g. johndoe"
         value={props.username}
         required
@@ -138,6 +146,7 @@ const _renderFormInputs = (props: MasterUserCreateFormState): ReactElement => {
         id="email"
         type="email"
         label="Email"
+        className="[&_.ant-input]:text-xl [&_.ant-input]:placeholder:text-xl [&_label]:text-base"
         placeholder="e.g. john@example.com"
         value={props.email}
         required
@@ -156,7 +165,7 @@ const _renderFormActions = (isSubmitting: boolean, isEditMode: boolean): ReactEl
 
   return (
     <div className="mt-8 flex justify-end border-t border-border-default/60 pt-5 lg:mt-6 lg:border-border-default">
-      <button type="submit" disabled={isSubmitting} className="h-14 w-full cursor-pointer rounded-xl bg-action-primary px-8 text-sm font-semibold tracking-wide text-text-inverse shadow-xs transition-all hover:bg-action-primary-hover disabled:opacity-60 sm:w-auto">
+      <button type="submit" disabled={isSubmitting} className="h-14 w-full cursor-pointer rounded-xl bg-action-primary px-8 text-lg font-semibold tracking-wide text-text-inverse shadow-xs transition-all hover:bg-action-primary-hover disabled:opacity-60 sm:w-auto lg:text-sm">
         {submitLabel}
       </button>
     </div>
@@ -165,11 +174,11 @@ const _renderFormActions = (isSubmitting: boolean, isEditMode: boolean): ReactEl
 
 /** Render master user create/edit form. */
 export const MasterUserCreateComponent = (props: MasterUserCreateFormState): ReactElement => (
-  <Layout pageTitle={props.isEditMode ? "Edit User" : "New User"} mobileWhiteBackground={true}>
+  <Layout pageTitle={props.isEditMode ? "Edit User" : "New User"} mobileWhiteBackground={true} showMobileGlobalHeader={true}>
     <div className="flex h-full w-full flex-col bg-background-surface pb-6 font-sans lg:bg-background-page">
       {props.errorMessage && <AlertComponent type="error" message={props.errorMessage} toast closable />}
-      {_renderMobileBack(props.goBack)}
-      <div className="mt-2 flex min-h-0 w-full flex-1 flex-col px-0 lg:mt-0 lg:px-0">
+      {_renderMobileBack(props.isEditMode, props.goBack)}
+      <div className="mt-10 flex min-h-0 w-full flex-1 flex-col px-0 text-lg lg:mt-0 lg:px-0 lg:text-base">
         {_renderHeader(props.isEditMode, props.goBack)}
         <form noValidate onSubmit={props.handleSubmit} className="flex min-h-0 flex-1 flex-col justify-between border-0 bg-transparent p-0 shadow-none lg:rounded-4xl lg:border lg:border-brand-gray-light lg:bg-brand-white lg:p-8 lg:shadow-xs">
           {_renderFormInputs(props)}

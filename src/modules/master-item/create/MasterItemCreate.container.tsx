@@ -13,7 +13,7 @@ const MasterItemCreateContainer = (): ReactElement => {
   const formState = useMasterItemCreateForm();
 
   return (
-    <Layout mobileWhiteBackground={true}>
+    <Layout mobileWhiteBackground={true} showMobileGlobalHeader={true}>
       <MasterItemCreateForm {...formState} />
     </Layout>
   );

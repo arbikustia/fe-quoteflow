@@ -109,8 +109,8 @@ const _createRoleEditHandler = (role: RoleData, onEdit: MasterRoleProps["onEdit"
  * @returns {ReactElement} Role card
  */
 const _renderRoleCard = (role: RoleData, onEdit: MasterRoleProps["onEdit"]): ReactElement => (
-  <MasterDataCard title={role.roleName} status={role.status} onClick={_createRoleEditHandler(role, onEdit)}>
-    <span className="text-sm text-text-secondary">Created {role.createAt || "-"}</span>
+  <MasterDataCard title={role.roleName} status={role.status} isLargeText={true} onClick={_createRoleEditHandler(role, onEdit)}>
+    <span className="text-xl text-text-secondary">Created {role.createAt || "-"}</span>
   </MasterDataCard>
 );
 
@@ -131,7 +131,7 @@ const _handleSearch = (setSearchTerm: MasterRoleProps["setSearchTerm"], event: C
  */
 const _renderMobile = (props: MasterRoleProps): ReactElement => (
   <div className="flex min-w-0 flex-col gap-4 pb-16 pt-2 lg:hidden">
-    <SearchFilter placeholder="Search role" onChange={_handleSearch.bind(null, props.setSearchTerm)} isRoundedFull={true} className="w-full sm:w-full" />
+    <SearchFilter placeholder="Search role" onChange={_handleSearch.bind(null, props.setSearchTerm)} isRoundedFull={true} className="w-full sm:w-full" inputClassName="text-lg placeholder:text-lg" />
     <div className="min-w-0 space-y-3">
       {_renderListState(props) ?? props.paginatedData.map((role) => <React.Fragment key={role.id}>{_renderRoleCard(role, props.onEdit)}</React.Fragment>)}
     </div>
@@ -171,7 +171,7 @@ export const MasterRoleComponent = (props: MasterRoleProps): ReactElement => {
 
   return (
     <Layout pageTitle="Role List" mobileWhiteBackground={true}>
-      <PageLayout title="Role List" breadcrumbs={["Master", "Master Role"]} headerRight={createButton} mobileHeaderClassName="px-0" onBack={props.onBack}>
+      <PageLayout title="Role List" breadcrumbs={["Master", "Master Role"]} headerRight={createButton} mobileHeaderClassName="px-0" mobileTitleClassName="text-4xl" onBack={props.onBack}>
         <div className="relative flex h-full flex-col bg-background-surface px-0 pb-18 lg:-mt-4 lg:bg-transparent lg:px-0 lg:pb-0">
           {_renderMobile(props)}
           {_renderDesktop(props)}

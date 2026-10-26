@@ -32,7 +32,7 @@ export const MasterMainCard = (props: MasterMainCardProps): React.ReactElement =
         <span className="block truncate text-2xl font-semibold text-text-primary lg:text-lg">{title}</span>
         <span className="mt-2 block text-lg leading-7 text-text-secondary lg:text-sm lg:leading-5">{description}</span>
       </span>
-      <span aria-hidden="true" className="shrink-0 text-xl text-text-tertiary transition-transform group-hover:translate-x-1">→</span>
+      <span aria-hidden="true" className="shrink-0 text-3xl text-text-tertiary transition-transform group-hover:translate-x-1 lg:text-xl">→</span>
     </button>
   );
 };

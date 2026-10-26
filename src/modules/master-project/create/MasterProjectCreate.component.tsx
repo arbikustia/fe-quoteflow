@@ -37,8 +37,8 @@ const _renderItemCard = (
     <button type="button" onClick={() => toggleItem(item)} aria-label={`Select ${item.name}`} className="absolute inset-0 z-0 rounded-2xl focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring/30" />
     <div className="relative z-10 flex items-center gap-3 pointer-events-none">
       {item.image ? <img src={item.image} alt="" className="h-12 w-12 shrink-0 rounded-lg object-cover" /> : <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-lg bg-background-subtle text-xs text-text-tertiary">No image</div>}
-      <span className="min-w-0 flex-1"><strong className="block truncate text-sm font-semibold text-text-primary">{item.name}</strong><small className="mt-1 block text-text-secondary">Stock: {item.stock} · Rp {item.price.toLocaleString("id-ID")}</small></span>
-      {selected && <div className="pointer-events-auto flex shrink-0 items-center gap-2"><label htmlFor={`qty-${item.id}`} className="text-xs text-text-secondary">Qty</label><input id={`qty-${item.id}`} type="number" min="1" max={item.stock} value={selected.qty} onChange={(event) => updateQuantity(item.id, Number(event.target.value))} className="w-20 rounded-lg border border-border-default bg-background-surface px-2 py-2 text-center text-sm" /></div>}
+      <span className="min-w-0 flex-1"><strong className="block truncate text-xl font-semibold text-text-primary">{item.name}</strong><small className="mt-1 block text-lg text-text-secondary">Stock: {item.stock} · Rp {item.price.toLocaleString("id-ID")}</small></span>
+      {selected && <div className="pointer-events-auto flex shrink-0 items-center gap-2"><label htmlFor={`qty-${item.id}`} className="text-xs text-text-secondary">Qty</label><input id={`qty-${item.id}`} type="number" min="1" max={item.stock} value={selected.qty} onChange={(event) => updateQuantity(item.id, Number(event.target.value))} className="w-20 rounded-lg border border-border-default bg-background-surface px-2 py-2 text-center text-lg" /></div>}
       <span aria-hidden="true" className={`flex h-6 w-6 shrink-0 items-center justify-center rounded-full border text-sm ${selected ? "border-action-primary bg-action-primary text-text-inverse" : "border-border-default text-transparent"}`}>✓</span>
     </div>
   </div>
@@ -68,17 +68,18 @@ const _renderCurrentStep = (
   selectedById: Map<string, ProjectItemSelection>,
 ): ReactElement => {
   if (props.step === 1) {
-    return <section><h3 className="mb-4 text-xl font-semibold text-text-primary">Select items</h3>{props.isItemsLoading && <p className="text-sm text-text-secondary">Loading items…</p>}{props.itemsError && <p role="alert" className="text-sm text-red-700">{props.itemsError}</p>}<div className="max-h-[min(34rem,calc(100vh-20rem))] space-y-3 overflow-y-auto pr-1">{props.items.map((item) => <Fragment key={item.id}>{_renderItemCard(item, selectedById.get(item.id), props.toggleItem, props.updateItemQuantity)}</Fragment>)}</div></section>;
+    return <section><h3 className="mb-4 text-2xl font-semibold text-text-primary lg:text-xl">Select items</h3>{props.isItemsLoading && <p className="text-sm text-text-secondary">Loading items…</p>}{props.itemsError && <p role="alert" className="text-sm text-red-700">{props.itemsError}</p>}<div className="max-h-[min(34rem,calc(100vh-20rem))] space-y-3 overflow-y-auto pr-1">{props.items.map((item) => <Fragment key={item.id}>{_renderItemCard(item, selectedById.get(item.id), props.toggleItem, props.updateItemQuantity)}</Fragment>)}</div></section>;
   }
 
   if (props.step === 2) {
     return (
       <section className="space-y-5">
-        <h3 className="text-xl font-semibold text-text-primary">Project details</h3>
+        <h3 className="text-2xl font-semibold text-text-primary lg:text-xl">Project details</h3>
         <InputComponent
           id="project-name"
           type="text"
           label="Project Name"
+          className="[&_.ant-input]:text-xl [&_.ant-input]:placeholder:text-xl [&_label]:text-base"
           placeholder="e.g. Stage Sound Package"
           required
           value={props.name}
@@ -89,6 +90,7 @@ const _renderCurrentStep = (
           id="project-remark"
           type="textarea"
           label="Remark"
+          className="[&_.ant-input]:text-xl [&_.ant-input]:placeholder:text-xl [&_label]:text-base"
           placeholder="Optional project notes"
           value={props.remark}
           onChange={props.handleRemarkChange}
@@ -113,7 +115,7 @@ const _renderActions = (props: MasterProjectCreateFormState): ReactElement => {
     submitText = props.isSubmitting ? "Saving…" : "Save Project";
   }
 
-  return <div className="mt-8 flex justify-between border-t border-border-default pt-5"><button type="button" onClick={isFirstStep ? props.goBack : props.previousStep} className="h-14 rounded-xl border border-border-default px-6">{isFirstStep ? "Cancel" : "Back"}</button><button type="submit" disabled={props.isSubmitting} className="h-14 rounded-xl bg-action-primary px-8 font-semibold text-text-inverse disabled:opacity-60">{submitText}</button></div>;
+  return <div className="mt-8 flex justify-between border-t border-border-default pt-5"><button type="button" onClick={isFirstStep ? props.goBack : props.previousStep} className="h-14 rounded-xl border border-border-default px-6">{isFirstStep ? "Cancel" : "Back"}</button><button type="submit" disabled={props.isSubmitting} className="h-14 rounded-xl bg-action-primary px-8 text-lg font-semibold text-text-inverse disabled:opacity-60 lg:text-base">{submitText}</button></div>;
 };
 
 /**
@@ -125,17 +127,18 @@ export const MasterProjectCreateForm = (props: MasterProjectCreateFormState): Re
   const selectedById = new Map(props.selectedItems.map((item) => [item.id, item]));
 
   return (
-    <Layout mobileWhiteBackground={true}>
+    <Layout mobileWhiteBackground={true} showMobileGlobalHeader={true}>
       {props.errorMessage && <AlertComponent type="error" message={props.errorMessage} toast closable />}
       {props.successMessage && <AlertComponent type="success" message={props.successMessage} toast closable />}
       <div className="flex h-full min-h-full w-full flex-col bg-background-surface pb-6 font-sans lg:bg-background-page">
-        <div className="sticky top-0 z-20 flex items-center bg-background-surface px-0 lg:hidden">
+        <div className="sticky top-0 z-20 flex items-center gap-3 bg-background-surface px-0 lg:hidden">
           <button type="button" onClick={props.goBack} aria-label="Back" className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full border border-border-default bg-background-surface text-text-primary transition-colors hover:bg-background-subtle focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring/30">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="h-6 w-6" aria-hidden="true"><path d="M19 12H5M12 19l-7-7 7-7" /></svg>
           </button>
+          <h2 className="truncate text-4xl font-semibold text-text-primary">New Project</h2>
         </div>
-        <div className="mt-2 px-0 lg:px-0">
-          <div className="mb-8 pl-1"><h2 className="text-4xl font-semibold text-text-primary">New Project</h2><p className="mt-3 text-sm text-text-secondary">Build project in three steps.</p></div>
+        <div className="mt-10 px-0 text-lg lg:mt-0 lg:px-0 lg:text-base">
+          <div className="mb-8 hidden pl-1 lg:block"><h2 className="text-4xl font-semibold text-text-primary">New Project</h2><p className="mt-3 text-sm text-text-secondary">Build project in three steps.</p></div>
           {_renderSteps(props.step)}
           <form noValidate onSubmit={props.handleSubmit} className="bg-transparent p-0">{_renderCurrentStep(props, selectedById)}{_renderActions(props)}</form>
         </div>

@@ -35,17 +35,23 @@ const _renderStatusField = (props: MasterVoucherCreateFormState): ReactElement |
 
 /**
  * Render mobile back button bar.
+ * @param isEditMode
  * @param goBack
  */
-const _renderMobileBack = (goBack: () => void): ReactElement => (
-  <div className="sticky top-0 z-20 flex items-center bg-background-surface px-0 lg:hidden">
+const _renderMobileBack = (isEditMode: boolean, goBack: () => void): ReactElement => {
+  const title = isEditMode ? "Edit Voucher" : "New Voucher";
+
+  return (
+  <div className="sticky top-0 z-20 flex items-center gap-3 bg-background-surface px-0 lg:hidden">
     <button type="button" onClick={goBack} aria-label="Back" className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full border border-border-default bg-background-surface text-text-primary transition-colors hover:bg-background-subtle">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="h-6 w-6" aria-hidden="true">
         <path d="M19 12H5M12 19l-7-7 7-7" />
       </svg>
     </button>
+    <h2 className="truncate text-4xl font-semibold leading-tight text-text-primary">{title}</h2>
   </div>
-);
+  );
+};
 
 /**
  * Render breadcrumb and page title header.
@@ -62,7 +68,7 @@ const _renderHeader = (isEditMode: boolean, goBack: () => void): ReactElement =>
         <span aria-hidden="true">/</span>
         <span className="text-text-primary">{title}</span>
       </nav>
-      <div className="my-6 pl-1">
+      <div className="my-6 hidden pl-1 lg:block">
         <h2 className="text-4xl font-semibold leading-tight tracking-tight text-text-primary">{title}</h2>
         <p className="mt-3 text-sm font-medium text-text-secondary opacity-70">
           {isEditMode ? "Update the voucher details below." : "Fill in the voucher details below."}
@@ -86,6 +92,7 @@ const _renderCodeOption = (props: MasterVoucherCreateFormState): ReactElement =>
     <Select
       id="voucher-code-mode"
       label="Code Option"
+      className="[&_.ant-select-selector]:text-xl [&_label]:text-base"
       placeholder="Select code option"
       value={props.codeMode}
       options={CODE_MODE_OPTIONS}
@@ -97,6 +104,7 @@ const _renderCodeOption = (props: MasterVoucherCreateFormState): ReactElement =>
         id="voucher-code"
         type="text"
         label="Voucher Code"
+        className="[&_.ant-input]:text-xl [&_.ant-input]:placeholder:text-xl [&_label]:text-base"
         placeholder="Min 7, max 8 chars (alphanumeric)"
         value={props.code}
         required
@@ -121,6 +129,7 @@ const _renderFields = (props: MasterVoucherCreateFormState): ReactElement => {
         id="voucher-name"
         type="text"
         label="Voucher Name"
+        className="[&_.ant-input]:text-xl [&_.ant-input]:placeholder:text-xl [&_label]:text-base"
         placeholder="e.g. Summer Promo"
         value={props.name}
         required
@@ -132,6 +141,7 @@ const _renderFields = (props: MasterVoucherCreateFormState): ReactElement => {
         id="discount-percent"
         type="number"
         label="Discount (%)"
+        className="[&_.ant-input]:text-xl [&_.ant-input]:placeholder:text-xl [&_label]:text-base"
         placeholder="e.g. 10"
         value={props.discountPercent === "" ? null : Number(props.discountPercent)}
         min={0}
@@ -157,7 +167,7 @@ const _renderForm = (props: MasterVoucherCreateFormState): ReactElement => {
     <form noValidate onSubmit={props.handleSubmit} className="flex min-h-0 flex-1 flex-col justify-between border-0 bg-transparent p-0 shadow-none lg:rounded-4xl lg:border lg:border-border-default lg:bg-background-surface lg:p-8 lg:shadow-xs">
       {_renderFields(props)}
       <div className="mt-8 flex justify-end border-t border-border-default/60 pt-5 lg:mt-6 lg:border-border-default">
-        <button type="submit" disabled={props.isSubmitting} className="h-14 w-full cursor-pointer rounded-xl bg-action-primary px-8 text-sm font-semibold tracking-wide text-text-inverse shadow-xs transition-all hover:bg-action-primary-hover disabled:opacity-60 sm:w-auto">
+        <button type="submit" disabled={props.isSubmitting} className="h-14 w-full cursor-pointer rounded-xl bg-action-primary px-8 text-lg font-semibold tracking-wide text-text-inverse shadow-xs transition-all hover:bg-action-primary-hover disabled:opacity-60 sm:w-auto lg:text-sm">
           {props.isSubmitting ? submittingText : buttonText}
         </button>
       </div>
@@ -172,8 +182,8 @@ const _renderForm = (props: MasterVoucherCreateFormState): ReactElement => {
 export const MasterVoucherCreateComponent = (props: MasterVoucherCreateFormState): ReactElement => (
   <div className="flex h-full w-full flex-col bg-background-surface pb-6 font-sans lg:bg-background-page">
     {props.errorMessage && <AlertComponent type="error" message={props.errorMessage} toast closable />}
-    {_renderMobileBack(props.goBack)}
-    <div className="mt-2 flex min-h-0 w-full flex-1 flex-col px-0 lg:mt-0 lg:px-0">
+    {_renderMobileBack(props.isEditMode, props.goBack)}
+    <div className="mt-10 flex min-h-0 w-full flex-1 flex-col px-0 text-lg lg:mt-0 lg:px-0 lg:text-base">
       {_renderHeader(props.isEditMode, props.goBack)}
       {_renderForm(props)}
     </div>

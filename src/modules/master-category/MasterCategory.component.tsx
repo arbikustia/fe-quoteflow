@@ -83,8 +83,8 @@ const _renderListState = (props: MasterCategoryProps): ReactElement | null => {
  */
 const _renderCategoryCard = (category: CategoryData, onEdit: MasterCategoryProps["onEdit"]): ReactElement => {
   return (
-    <MasterDataCard title={category.categoryName} status={category.status} onClick={(): void => onEdit(category)}>
-      <span className="text-xs text-text-secondary">
+    <MasterDataCard title={category.categoryName} status={category.status} isLargeText={true} onClick={(): void => onEdit(category)}>
+      <span className="text-xl text-text-secondary">
         Created {category.createAt ? new Date(category.createAt).toLocaleDateString("id-ID") : "-"}
       </span>
     </MasterDataCard>
@@ -108,7 +108,7 @@ const _handleSearch = (setSearchTerm: MasterCategoryProps["setSearchTerm"], even
  */
 const _renderMobile = (props: MasterCategoryProps): ReactElement => (
   <div className="flex min-w-0 flex-col gap-4 pb-16 pt-2 lg:hidden">
-    <SearchFilter placeholder="Search category" onChange={_handleSearch.bind(null, props.setSearchTerm)} isRoundedFull={true} className="w-full sm:w-full" />
+  <SearchFilter placeholder="Search category" onChange={_handleSearch.bind(null, props.setSearchTerm)} isRoundedFull={true} className="w-full sm:w-full" inputClassName="text-lg placeholder:text-lg" />
     <div className="min-w-0 space-y-3">
       {_renderListState(props) ?? props.paginatedData.map((category) => (
         <React.Fragment key={category.id}>{_renderCategoryCard(category, props.onEdit)}</React.Fragment>
@@ -161,7 +161,7 @@ export const MasterCategoryComponent = (props: MasterCategoryProps): ReactElemen
 
   return (
     <Layout pageTitle="Category List" mobileWhiteBackground={true}>
-      <PageLayout title="Category List" breadcrumbs={["Master", "Master Category"]} headerRight={createButton} mobileHeaderClassName="px-0" onBack={props.onBack}>
+      <PageLayout title="Category List" breadcrumbs={["Master", "Master Category"]} headerRight={createButton} mobileHeaderClassName="px-0" mobileTitleClassName="text-4xl" onBack={props.onBack}>
         <div className="relative flex h-full flex-col bg-background-surface px-0 pb-18 lg:-mt-4 lg:bg-transparent lg:px-0 lg:pb-0">
           {_renderMobile(props)}
           {_renderDesktop(props)}

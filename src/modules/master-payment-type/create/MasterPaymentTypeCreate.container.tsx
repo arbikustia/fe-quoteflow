@@ -13,7 +13,7 @@ const MasterPaymentTypeCreateContainer = (): ReactElement => {
   const state = useMasterPaymentTypeCreate();
 
   return (
-    <Layout pageTitle={state.isEditMode ? "Edit Payment Type" : "New Payment Type"} mobileWhiteBackground={true}>
+    <Layout pageTitle={state.isEditMode ? "Edit Payment Type" : "New Payment Type"} mobileWhiteBackground={true} showMobileGlobalHeader={true}>
       <MasterPaymentTypeCreateForm {...state} />
     </Layout>
   );

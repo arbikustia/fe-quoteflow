@@ -247,8 +247,8 @@ const MobileItemCard = ({ item, onEdit }: MobileItemCardProps): ReactElement => 
   };
 
   return (
-    <MasterDataCard title={item.name} status={item.status} onClick={handleClick}>
-      <span className="grid gap-2 text-sm text-text-secondary">
+    <MasterDataCard title={item.name} status={item.status} isLargeText={true} onClick={handleClick}>
+      <span className="grid gap-2 text-xl text-text-secondary">
         <span>{item.categoryName ?? "No category"}</span>
         <span>Rp {item.price.toLocaleString("id-ID")} · {item.stock} unit · {item.duration} days</span>
       </span>
@@ -273,7 +273,7 @@ const _renderMobile = (props: MasterItemProps): ReactElement => {
 
   return (
     <div className="flex min-w-0 flex-col gap-4 pt-2 pb-16 lg:hidden">
-      <SearchFilter placeholder="Search item" onChange={handleSearch} isRoundedFull={true} className="w-full sm:w-full" />
+      <SearchFilter placeholder="Search item" onChange={handleSearch} isRoundedFull={true} className="w-full sm:w-full" inputClassName="text-lg placeholder:text-lg" />
       <div className="min-w-0 space-y-3">
         {_renderListState(props) ??
           props.paginatedData.map((item) => (
@@ -400,6 +400,7 @@ export const MasterItemComponent = (props: MasterItemProps): ReactElement => {
         breadcrumbs={["Master", "Master Item"]}
         headerRight={createButton}
         mobileHeaderClassName="px-0"
+        mobileTitleClassName="text-4xl"
         onBack={props.onBack}
       >
         <div className="relative flex h-full flex-col bg-background-surface px-0 pb-18 lg:-mt-4 lg:bg-transparent lg:px-0 lg:pb-0">

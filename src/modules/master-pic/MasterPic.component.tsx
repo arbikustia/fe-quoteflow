@@ -91,8 +91,8 @@ const _renderPicCard = (pic: PicData, onEdit: MasterPicProps["onEdit"]): React.R
   };
 
   return (
-    <MasterDataCard title={pic.name} status={pic.status} onClick={handleCardClick}>
-      <span className="text-sm text-text-secondary">Created {pic.createAt ?? "-"}</span>
+    <MasterDataCard title={pic.name} status={pic.status} isLargeText={true} onClick={handleCardClick}>
+      <span className="text-xl text-text-secondary">Created {pic.createAt ?? "-"}</span>
     </MasterDataCard>
   );
 };
@@ -113,7 +113,7 @@ const _renderMobile = (props: MasterPicProps): React.ReactElement => {
 
   return (
     <div className="flex min-w-0 flex-col gap-4 pt-2 pb-16 lg:hidden">
-      <SearchFilter placeholder="Search PIC" onChange={handleSearch} isRoundedFull={true} className="w-full sm:w-full" />
+      <SearchFilter placeholder="Search PIC" onChange={handleSearch} isRoundedFull={true} className="w-full sm:w-full" inputClassName="text-lg placeholder:text-lg" />
       <div className="min-w-0 space-y-3">
         {_renderListState(props) ?? paginatedData.map((pic) => <React.Fragment key={pic.id}>{_renderPicCard(pic, onEdit)}</React.Fragment>)}
       </div>
@@ -177,7 +177,7 @@ export const MasterPicComponent = (props: MasterPicProps): React.ReactElement =>
 
   return (
     <Layout pageTitle="PIC List" mobileWhiteBackground={true}>
-      <PageLayout title="PIC List" breadcrumbs={["Master", "Master PIC"]} headerRight={createButton} mobileHeaderClassName="px-0" onBack={onBack}>
+      <PageLayout title="PIC List" breadcrumbs={["Master", "Master PIC"]} headerRight={createButton} mobileHeaderClassName="px-0" mobileTitleClassName="text-4xl" onBack={onBack}>
         <div className="relative flex h-full flex-col bg-background-surface px-0 pb-18 lg:-mt-4 lg:bg-transparent lg:px-0 lg:pb-0">
           {_renderMobile(props)}
           {_renderDesktop(props)}

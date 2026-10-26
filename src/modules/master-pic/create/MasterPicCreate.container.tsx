@@ -13,7 +13,7 @@ const MasterPicCreateContainer = (): ReactElement => {
   const state = useMasterPicCreate();
 
   return (
-    <Layout pageTitle={state.isEditMode ? "Edit PIC" : "New PIC"} mobileWhiteBackground={true}>
+    <Layout pageTitle={state.isEditMode ? "Edit PIC" : "New PIC"} mobileWhiteBackground={true} showMobileGlobalHeader={true}>
       <MasterPicCreateForm {...state} />
     </Layout>
   );

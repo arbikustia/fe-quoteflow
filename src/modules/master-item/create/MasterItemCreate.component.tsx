@@ -34,11 +34,15 @@ const _renderStatusField = (props: MasterItemCreateFormState): ReactElement | nu
 
 /**
  * Render mobile top back bar.
+ * @param {boolean} isEditMode - Edit mode flag
  * @param {() => void} goBack - Back action
  * @returns {ReactElement} Bar element
  */
-const _renderMobileBack = (goBack: () => void): ReactElement => (
-  <div className="sticky top-0 z-20 flex items-center bg-background-surface px-0 lg:hidden">
+const _renderMobileBack = (isEditMode: boolean, goBack: () => void): ReactElement => {
+  const title = isEditMode ? "Edit Item" : "New Item";
+
+  return (
+  <div className="sticky top-0 z-20 flex items-center gap-3 bg-background-surface px-0 lg:hidden">
     <button
       type="button"
       onClick={goBack}
@@ -49,8 +53,12 @@ const _renderMobileBack = (goBack: () => void): ReactElement => (
         <path d="M19 12H5M12 19l-7-7 7-7" />
       </svg>
     </button>
+    <div className="min-w-0">
+      <h2 className="truncate text-4xl font-semibold leading-tight text-text-primary">{title}</h2>
+    </div>
   </div>
-);
+  );
+};
 
 /**
  * Render page header with breadcrumb.
@@ -68,7 +76,7 @@ const _renderHeaderSection = (isEditMode: boolean, goBack: () => void): ReactEle
         <span aria-hidden="true">/</span>
         <span className="text-text-primary">{title}</span>
       </nav>
-      <div className="my-6 pl-1">
+      <div className="my-6 hidden pl-1 lg:block">
         <h2 className="text-4xl font-semibold leading-tight tracking-tight text-text-primary">{title}</h2>
         <p className="mt-3 text-sm font-medium text-text-secondary opacity-70">
           {isEditMode ? "Update the item details below." : "Fill in the item details below."}
@@ -78,7 +86,7 @@ const _renderHeaderSection = (isEditMode: boolean, goBack: () => void): ReactEle
   );
 };
 
-const FIELD_CLASS = "w-full rounded-xl border border-border-default bg-background-surface px-4 py-3 text-[15px] font-normal text-text-primary shadow-xs outline-none transition-all placeholder:font-normal placeholder:text-text-tertiary/60 focus:border-border-focus focus:ring-2 focus:ring-focus-ring/30";
+const FIELD_CLASS = "w-full rounded-xl border border-border-default bg-background-surface px-4 py-3 text-xl font-normal text-text-primary shadow-xs outline-none transition-all placeholder:font-normal placeholder:text-text-tertiary/60 focus:border-border-focus focus:ring-2 focus:ring-focus-ring/30 lg:text-[15px]";
 
 /**
  * Render basic input fields for item.
@@ -87,11 +95,13 @@ const FIELD_CLASS = "w-full rounded-xl border border-border-default bg-backgroun
  */
 const _renderBasicInputs = (props: ItemFormContentProps): ReactElement => (
   <>
-    <InputComponent id="item-name" type="text" label="Item Name" placeholder="e.g. Wireless Microphone" required value={props.name} errorMessage={_getFieldError(props.errors?.name)} onChange={props.handleNameChange} />
+    <InputComponent id="item-name" type="text" label="Item Name" className="[&_.ant-input]:text-xl [&_.ant-input]:placeholder:text-xl [&_label]:text-base" placeholder="e.g. Wireless Microphone" required value={props.name} errorMessage={_getFieldError(props.errors?.name)} onChange={props.handleNameChange} />
     <div>
       <Select
         id="item-category"
         label="Category"
+        labelClassName="text-base"
+        className="[&_.ant-select-selection-item]:text-xl [&_.ant-select-selection-placeholder]:text-xl"
         required
         value={props.categoryId}
         disabled={props.isCategoryLoading}
@@ -112,10 +122,10 @@ const _renderBasicInputs = (props: ItemFormContentProps): ReactElement => (
 const _renderNumericalInputs = (props: ItemFormContentProps): ReactElement => (
   <>
     <div className="grid gap-4 sm:grid-cols-2">
-      <InputComponent id="item-price" type="text" label="Price" placeholder="Rp 0" required inputMode="numeric" value={formatRupiahInput(props.price)} errorMessage={_getFieldError(props.errors?.price)} onChange={props.handlePriceChange} />
-      <InputComponent id="item-stock" type="text" label="Stock" placeholder="0" required inputMode="numeric" value={props.stock} errorMessage={_getFieldError(props.errors?.stock)} onChange={props.handleStockChange} />
+      <InputComponent id="item-price" type="text" label="Price" className="[&_.ant-input]:text-xl [&_.ant-input]:placeholder:text-xl [&_label]:text-base" placeholder="Rp 0" required inputMode="numeric" value={formatRupiahInput(props.price)} errorMessage={_getFieldError(props.errors?.price)} onChange={props.handlePriceChange} />
+      <InputComponent id="item-stock" type="text" label="Stock" className="[&_.ant-input]:text-xl [&_.ant-input]:placeholder:text-xl [&_label]:text-base" placeholder="0" required inputMode="numeric" value={props.stock} errorMessage={_getFieldError(props.errors?.stock)} onChange={props.handleStockChange} />
     </div>
-    <InputComponent id="item-duration" type="text" label="Duration (Days)" placeholder="1" required inputMode="numeric" value={props.duration} errorMessage={_getFieldError(props.errors?.duration)} onChange={props.handleDurationChange} />
+    <InputComponent id="item-duration" type="text" label="Duration (Days)" className="[&_.ant-input]:text-xl [&_.ant-input]:placeholder:text-xl [&_label]:text-base" placeholder="1" required inputMode="numeric" value={props.duration} errorMessage={_getFieldError(props.errors?.duration)} onChange={props.handleDurationChange} />
   </>
 );
 
@@ -127,7 +137,7 @@ const _renderNumericalInputs = (props: ItemFormContentProps): ReactElement => (
 const _renderExtraInputs = (props: ItemFormContentProps): ReactElement => (
   <>
     <div>
-      <label htmlFor="item-image" className="mb-1.5 block text-xs font-bold uppercase tracking-wider text-text-secondary">Upload Image</label>
+      <label htmlFor="item-image" className="mb-1.5 block text-base font-bold uppercase tracking-wider text-text-secondary lg:text-xs">Upload Image</label>
       <input id="item-image" type="file" accept="image/*" aria-label="Upload image" onChange={props.handleImageChange} disabled={props.isImageUploading} className={FIELD_CLASS} />
       {props.isImageUploading && <p className="mt-2 text-xs text-text-secondary">Uploading image…</p>}
       {props.imageUploadError !== null && <p role="alert" className="mt-2 text-xs text-red-700">{props.imageUploadError}</p>}
@@ -143,7 +153,7 @@ const _renderExtraInputs = (props: ItemFormContentProps): ReactElement => (
       )}
     </div>
     <div>
-      <label className="mb-1.5 block text-xs font-bold uppercase tracking-wider text-text-secondary">Remarks</label>
+      <label className="mb-1.5 block text-base font-bold uppercase tracking-wider text-text-secondary lg:text-xs">Remarks</label>
       <input type="text" aria-label="Remarks" placeholder="Optional notes" value={props.remark} onChange={props.handleRemarkChange} className={FIELD_CLASS} />
     </div>
   </>
@@ -164,7 +174,7 @@ const _renderFormActions = (isEditMode: boolean, isSubmitting: boolean): ReactEl
       <button
         type="submit"
         disabled={isSubmitting}
-        className="h-14 w-full cursor-pointer rounded-xl bg-action-primary px-8 text-sm font-semibold tracking-wide text-text-inverse shadow-xs transition-all hover:bg-action-primary-hover disabled:opacity-60 sm:w-auto"
+        className="h-14 w-full cursor-pointer rounded-xl bg-action-primary px-8 text-lg font-semibold tracking-wide text-text-inverse shadow-xs transition-all hover:bg-action-primary-hover disabled:opacity-60 sm:w-auto lg:text-sm"
       >
         {isSubmitting ? submittingText : buttonText}
       </button>
@@ -181,8 +191,8 @@ export const MasterItemCreateForm = (props: MasterItemCreateFormState): ReactEle
   <div className="flex h-full w-full flex-col bg-background-surface pb-6 font-sans lg:bg-background-page">
     {props.errorMessage && <AlertComponent type="error" message={props.errorMessage} toast closable />}
     {props.successMessage && <AlertComponent type="success" message={props.successMessage} toast closable />}
-    {_renderMobileBack(props.goBack)}
-    <div className="mt-2 flex min-h-0 w-full flex-1 flex-col px-0 lg:mt-0 lg:px-0">
+    {_renderMobileBack(props.isEditMode, props.goBack)}
+    <div className="mt-10 flex min-h-0 w-full flex-1 flex-col px-0 text-lg lg:mt-0 lg:px-0 lg:text-base">
       {_renderHeaderSection(props.isEditMode, props.goBack)}
       <form noValidate onSubmit={props.handleSubmit} className="flex min-h-0 flex-1 flex-col justify-between border-0 bg-transparent p-0 shadow-none lg:rounded-4xl lg:border lg:border-border-default lg:bg-background-surface lg:p-8 lg:shadow-xs">
         <div className="space-y-4">

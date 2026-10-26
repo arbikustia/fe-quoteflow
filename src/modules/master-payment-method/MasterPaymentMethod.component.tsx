@@ -84,8 +84,8 @@ const _renderPaymentMethodCard = (paymentMethod: PaymentMethodData, onEdit: Mast
   const handleCardClick = (): void => onEdit(paymentMethod);
 
   return (
-    <MasterDataCard title={paymentMethod.name} status={paymentMethod.status} onClick={handleCardClick}>
-      <span className="text-sm text-text-secondary">{paymentMethod.description ?? "No description"}</span>
+    <MasterDataCard title={paymentMethod.name} status={paymentMethod.status} isLargeText={true} onClick={handleCardClick}>
+      <span className="text-xl text-text-secondary">{paymentMethod.description ?? "No description"}</span>
     </MasterDataCard>
   );
 };
@@ -106,7 +106,7 @@ const _renderMobile = (props: MasterPaymentMethodProps): React.ReactElement => {
 
   return (
     <div className="flex min-w-0 flex-col gap-4 pt-2 pb-16 lg:hidden">
-      <SearchFilter placeholder="Search payment method" onChange={handleSearch} isRoundedFull={true} className="w-full sm:w-full" />
+      <SearchFilter placeholder="Search payment method" onChange={handleSearch} isRoundedFull={true} className="w-full sm:w-full" inputClassName="text-lg placeholder:text-lg" />
       <div className="min-w-0 space-y-3">
         {_renderListState(props) ?? paginatedData.map((paymentMethod) => (
           <React.Fragment key={paymentMethod.id}>{_renderPaymentMethodCard(paymentMethod, onEdit)}</React.Fragment>
@@ -172,7 +172,7 @@ export const MasterPaymentMethodComponent = (props: MasterPaymentMethodProps): R
 
   return (
     <Layout pageTitle="Payment Method List" mobileWhiteBackground={true}>
-      <PageLayout title="Payment Method List" breadcrumbs={["Master", "Master Payment Method"]} headerRight={createButton} mobileHeaderClassName="px-0" onBack={onBack}>
+      <PageLayout title="Payment Method List" breadcrumbs={["Master", "Master Payment Method"]} headerRight={createButton} mobileHeaderClassName="px-0" mobileTitleClassName="text-4xl" onBack={onBack}>
         <div className="relative flex h-full flex-col bg-background-surface px-0 pb-18 lg:-mt-4 lg:bg-transparent lg:px-0 lg:pb-0">
           {_renderMobile(props)}
           {_renderDesktop(props)}

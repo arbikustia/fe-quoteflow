@@ -95,8 +95,8 @@ const _renderListState = (props: MasterUserProps): React.ReactElement | null => 
  * @returns {React.ReactElement} User card
  */
 const _renderUserCard = (user: UserData, onEdit: MasterUserProps["onEdit"]): React.ReactElement => (
-  <MasterDataCard title={user.username} status={user.status} onClick={(): void => onEdit(user)}>
-    <span className="grid gap-2 text-sm text-text-secondary">
+  <MasterDataCard title={user.username} status={user.status} isLargeText={true} onClick={(): void => onEdit(user)}>
+    <span className="grid gap-2 text-xl text-text-secondary">
       <span>{user.role || "No role"}</span>
       {user.email && <span className="truncate">{user.email}</span>}
     </span>
@@ -117,7 +117,7 @@ const _renderMobile = (props: MasterUserProps): React.ReactElement => {
 
   return (
     <div className="flex min-w-0 flex-col gap-4 pt-2 pb-16 lg:hidden">
-      <SearchFilter placeholder="Search user" onChange={handleSearch} isRoundedFull={true} className="w-full sm:w-full" />
+      <SearchFilter placeholder="Search user" onChange={handleSearch} isRoundedFull={true} className="w-full sm:w-full" inputClassName="text-lg placeholder:text-lg" />
       <div className="min-w-0 space-y-3">{_renderListState(props) ?? props.paginatedData.map((user) => <React.Fragment key={user.id}>{_renderUserCard(user, props.onEdit)}</React.Fragment>)}</div>
       <Pagination currentPage={props.currentPage} totalPages={props.totalPages} pageSize={props.pageSize} onPageChange={props.goToPage} onPageSizeChange={props.changePageSize} totalItems={props.totalCount} isCompact className="mt-2 w-full rounded-2xl border border-border-default bg-background-surface px-4 py-3 shadow-xs" />
     </div>
@@ -155,5 +155,5 @@ const _renderDesktop = (props: MasterUserProps): React.ReactElement => {
 export const MasterUserComponent = (props: MasterUserProps): React.ReactElement => {
   const createButton = <button type="button" onClick={props.onCreate} className="h-14 rounded-full border-2 border-brand-blue bg-background-surface px-6 text-sm font-bold text-brand-blue transition-colors hover:bg-action-primary-subtle focus:outline-none focus:ring-2 focus:ring-focus-ring/30">Create New</button>;
 
-  return <Layout pageTitle="User List" mobileWhiteBackground={true}><PageLayout title="User List" breadcrumbs={["Master", "Master User"]} headerRight={createButton} mobileHeaderClassName="px-0" onBack={props.onBack}><div className="relative flex h-full flex-col bg-background-surface px-0 pb-18 lg:-mt-4 lg:bg-transparent lg:px-0 lg:pb-0">{_renderMobile(props)}{_renderDesktop(props)}</div></PageLayout></Layout>;
+  return <Layout pageTitle="User List" mobileWhiteBackground={true}><PageLayout title="User List" breadcrumbs={["Master", "Master User"]} headerRight={createButton} mobileHeaderClassName="px-0" mobileTitleClassName="text-4xl" onBack={props.onBack}><div className="relative flex h-full flex-col bg-background-surface px-0 pb-18 lg:-mt-4 lg:bg-transparent lg:px-0 lg:pb-0">{_renderMobile(props)}{_renderDesktop(props)}</div></PageLayout></Layout>;
 };
