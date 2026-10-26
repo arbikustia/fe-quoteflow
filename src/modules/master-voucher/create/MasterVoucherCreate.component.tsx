@@ -25,8 +25,8 @@ const _renderStatusField = (props: MasterVoucherCreateFormState): ReactElement |
   return (
     <div className="flex items-center justify-between rounded-xl border border-border-default bg-background-surface px-4 py-3.5">
       <div className="flex flex-col">
-        <span className="text-sm font-semibold text-text-primary">Status</span>
-        <span className="text-xs text-text-secondary">Toggle active or inactive status</span>
+        <span className="text-lg font-semibold text-text-primary lg:text-sm">Status</span>
+        <span className="text-base text-text-secondary lg:text-xs">Toggle active or inactive status</span>
       </div>
       <SwitchComponent label="Voucher status" checked={props.isActive} onChange={props.handleStatusChange} />
     </div>
@@ -92,7 +92,7 @@ const _renderCodeOption = (props: MasterVoucherCreateFormState): ReactElement =>
     <Select
       id="voucher-code-mode"
       label="Code Option"
-      labelClassName="text-base"
+      labelClassName="!text-base"
       className="[&_.ant-select-selector]:text-xl"
       placeholder="Select code option"
       value={props.codeMode}
@@ -126,7 +126,7 @@ const _renderFields = (props: MasterVoucherCreateFormState): ReactElement => {
 
   return (
     <div className="grid w-full grid-cols-1 gap-x-6 gap-y-1 lg:grid-cols-2">
-      <div><InputComponent
+      <div className="mb-4"><InputComponent
         id="voucher-name"
         type="text"
         label="Voucher Name"
@@ -137,8 +137,8 @@ const _renderFields = (props: MasterVoucherCreateFormState): ReactElement => {
         errorMessage={nameError}
         onChange={props.handleNameChange}
       /></div>
-      <div>{_renderCodeOption(props)}</div>
-      <div><InputComponent
+      <div className="mb-4">{_renderCodeOption(props)}</div>
+      <div className="mb-4"><InputComponent
         id="discount-percent"
         type="number"
         label="Discount (%)"

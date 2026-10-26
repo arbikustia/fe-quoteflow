@@ -66,8 +66,8 @@ const _renderStatusField = (props: MasterCustomerCreateFormState): ReactElement 
   return (
     <div className="flex items-center justify-between rounded-xl border border-border-default bg-background-surface px-4 py-3.5 lg:col-span-2">
       <div className="flex flex-col">
-        <span className="text-sm font-semibold text-text-primary">Status</span>
-        <span className="text-xs text-text-secondary">Toggle active or inactive status</span>
+        <span className="text-lg font-semibold text-text-primary lg:text-sm">Status</span>
+        <span className="text-base text-text-secondary lg:text-xs">Toggle active or inactive status</span>
       </div>
       <SwitchComponent
         label="Customer status"

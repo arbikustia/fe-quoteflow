@@ -26,7 +26,7 @@ const _renderStatusField = (props: MasterItemCreateFormState): ReactElement | nu
 
   return (
     <div className="mb-4 flex items-center justify-between rounded-xl border border-border-default bg-background-surface px-4 py-3.5">
-      <div className="flex flex-col"><span className="text-sm font-semibold text-text-primary">Status</span><span className="text-xs text-text-secondary">Toggle active or inactive status</span></div>
+      <div className="flex flex-col"><span className="text-lg font-semibold text-text-primary lg:text-sm">Status</span><span className="text-base text-text-secondary lg:text-xs">Toggle active or inactive status</span></div>
       <SwitchComponent label="Item status" checked={props.isActive} onChange={props.handleStatusChange} />
     </div>
   );
@@ -100,7 +100,7 @@ const _renderBasicInputs = (props: ItemFormContentProps): ReactElement => (
       <Select
         id="item-category"
         label="Category"
-        labelClassName="text-base"
+        labelClassName="!text-base"
         className="[&_.ant-select-selection-item]:text-xl [&_.ant-select-selection-placeholder]:text-xl"
         required
         value={props.categoryId}
@@ -138,7 +138,7 @@ const _renderNumericalInputs = (props: ItemFormContentProps): ReactElement => (
  */
 const _renderExtraInputs = (props: ItemFormContentProps): ReactElement => (
   <>
-    <div>
+    <div className="mb-4">
       <label htmlFor="item-image" className="mb-1.5 block text-base font-bold uppercase tracking-wider text-text-secondary lg:text-xs">Upload Image</label>
       <input id="item-image" type="file" accept="image/*" aria-label="Upload image" onChange={props.handleImageChange} disabled={props.isImageUploading} className={FIELD_CLASS} />
       {props.isImageUploading && <p className="mt-2 text-xs text-text-secondary">Uploading image…</p>}
@@ -154,7 +154,7 @@ const _renderExtraInputs = (props: ItemFormContentProps): ReactElement => (
         </a>
       )}
     </div>
-    <div>
+    <div className="mb-4">
       <label className="mb-1.5 block text-base font-bold uppercase tracking-wider text-text-secondary lg:text-xs">Remarks</label>
       <input type="text" aria-label="Remarks" placeholder="Optional notes" value={props.remark} onChange={props.handleRemarkChange} className={FIELD_CLASS} />
     </div>

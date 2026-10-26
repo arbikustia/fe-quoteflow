@@ -83,8 +83,8 @@ const _renderFields = (props: MasterRoleCreateFormState): ReactElement => {
       {props.isEditMode && (
         <div className="flex items-center justify-between rounded-xl border border-border-default bg-background-surface px-4 py-3.5">
           <div>
-            <p className="text-sm font-semibold text-text-primary">Status</p>
-            <p className="text-xs text-text-secondary">Toggle active or inactive status</p>
+            <p className="text-lg font-semibold text-text-primary lg:text-sm">Status</p>
+            <p className="text-base text-text-secondary lg:text-xs">Toggle active or inactive status</p>
           </div>
           <SwitchComponent label="Role status" checked={props.isActive} onChange={props.handleStatusChange} />
         </div>

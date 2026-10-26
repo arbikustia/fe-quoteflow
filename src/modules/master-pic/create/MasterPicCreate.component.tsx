@@ -44,7 +44,7 @@ const _renderFields = (props: MasterPicCreateState): ReactElement => {
   return (
     <div className="space-y-4">
       <InputComponent id="pic-name" type="text" label="PIC Name" className="[&_.ant-input]:text-xl [&_.ant-input]:placeholder:text-xl [&_label]:text-base" placeholder="e.g. John Doe" value={props.name} required errorMessage={nameError} onChange={props.handleNameChange} />
-      {props.isEditMode && <div className="flex items-center justify-between rounded-xl border border-border-default bg-background-surface px-4 py-3.5"><div><p className="text-sm font-semibold text-text-primary">Status</p><p className="text-xs text-text-secondary">Toggle active or inactive status</p></div><SwitchComponent label="PIC status" checked={props.isActive} onChange={props.handleStatusChange} /></div>}
+      {props.isEditMode && <div className="flex items-center justify-between rounded-xl border border-border-default bg-background-surface px-4 py-3.5"><div><p className="text-lg font-semibold text-text-primary lg:text-sm">Status</p><p className="text-base text-text-secondary lg:text-xs">Toggle active or inactive status</p></div><SwitchComponent label="PIC status" checked={props.isActive} onChange={props.handleStatusChange} /></div>}
     </div>
   );
 };
