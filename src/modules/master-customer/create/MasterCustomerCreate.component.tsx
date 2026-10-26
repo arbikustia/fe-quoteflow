@@ -24,7 +24,7 @@ const _renderNameField = (props: MasterCustomerCreateFormState): ReactElement =>
     id="customer-name"
     type="text"
     label="Customer Name"
-    className="[&_.ant-input]:text-xl [&_.ant-input]:placeholder:text-xl [&_label]:text-lg"
+    className="[&_.ant-input]:text-xl [&_.ant-input]:placeholder:text-xl [&_label]:text-base"
     placeholder="e.g. PT Mega Jaya Abadi"
     value={props.name}
     required
@@ -43,7 +43,7 @@ const _renderPhoneField = (props: MasterCustomerCreateFormState): ReactElement =
     id="customer-phone"
     type="tel"
     label="Phone Number"
-    className="[&_.ant-input]:text-xl [&_.ant-input]:placeholder:text-xl [&_label]:text-lg"
+    className="[&_.ant-input]:text-xl [&_.ant-input]:placeholder:text-xl [&_label]:text-base"
     placeholder="0812... atau 628..."
     value={props.phoneNumber}
     required
@@ -87,7 +87,7 @@ const _renderAddressField = (props: MasterCustomerCreateFormState): ReactElement
     id="customer-address"
     type="textarea"
     label="Address"
-    className="[&_.ant-input]:text-xl [&_.ant-input]:placeholder:text-xl [&_label]:text-lg"
+    className="[&_.ant-input]:text-xl [&_.ant-input]:placeholder:text-xl [&_label]:text-base"
     placeholder="e.g. Jl. Sudirman No. 45"
     value={props.address}
     required
@@ -165,7 +165,7 @@ const _renderSubmitSection = (isSubmitting: boolean, isEditMode: boolean): React
       <button
         type="submit"
         disabled={isSubmitting}
-        className="h-14 w-full cursor-pointer rounded-xl bg-action-primary px-8 text-sm font-semibold tracking-wide text-text-inverse shadow-xs transition-all hover:bg-action-primary-hover disabled:opacity-60 sm:w-auto"
+        className="h-14 w-full cursor-pointer rounded-xl bg-action-primary px-8 text-lg font-semibold tracking-wide text-text-inverse shadow-xs transition-all hover:bg-action-primary-hover disabled:opacity-60 sm:w-auto lg:text-sm"
       >
         {isSubmitting ? submittingText : buttonText}
       </button>
