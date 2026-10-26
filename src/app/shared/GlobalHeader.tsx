@@ -15,7 +15,7 @@ export default function GlobalHeader({ showCreateButton = false, createEndpoint 
   const path = location.pathname;
 
   return (
-    <div className="px-6 pt-5 pb-4 flex items-center justify-between bg-white">
+    <div className="flex items-center justify-between bg-background-surface px-6 pt-5">
       <div className="flex items-center gap-4">
         <div className="w-52 h-14">
           <img src={Logo} alt="Logo" className="w-full h-full object-cover" />

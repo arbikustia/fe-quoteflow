@@ -34,20 +34,13 @@ export default function Layout({ children, mobileWhiteBackground = false, whiteB
       </div>
 
       <div className={`flex-1 flex flex-col min-w-0 min-h-0 overflow-hidden relative transition-colors duration-200 ${whiteBackground ? "bg-background-surface" : "bg-background-page"}${mobileWhiteBackground ? " bg-background-surface lg:bg-background-page" : ""}`}>
-        {hasGlobalMobileHeader ? <div className="lg:hidden shrink-0"><GlobalHeader /></div> : (
-          <div className="lg:hidden flex items-center gap-3 p-4 border-b border-border-default bg-background-surface shrink-0">
-            <div className="w-8 h-8 rounded-full bg-action-primary flex items-center justify-center">
-              <span className="text-text-inverse font-bold">Q</span>
-            </div>
-            <span className="font-bold text-text-primary">QuoteFlow</span>
-          </div>
-        )}
+        <div className="lg:hidden shrink-0"><GlobalHeader /></div>
 
         <div className="hidden lg:block shrink-0">
           <NavbarContainer isSidebarCollapsed={isSidebarCollapsed} onToggleSidebar={onToggleSidebarCollapsed} />
         </div>
 
-        <main className="flex-1 overflow-y-auto p-4 lg:p-8 pb-20 lg:pb-8 relative z-0">
+        <main className="flex-1 overflow-y-auto px-4 mb-32  lg:p-8 pb-20 lg:pb-8 relative z-0">
           {children}
         </main>
         {isOrderRoute && <div className="lg:hidden"><MobileNavigate /></div>}

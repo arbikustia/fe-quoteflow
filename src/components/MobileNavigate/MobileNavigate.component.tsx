@@ -21,8 +21,8 @@ const _renderNavItem = (
     aria-label={item.label}
     aria-current={item.isActive ? "page" : undefined}
   >
-    <item.Icon />
-    <span className="text-[11px] font-semibold leading-4">{item.label}</span>
+    <span className="[&_svg]:h-8 [&_svg]:w-8"><item.Icon /></span>
+    <span className="text-base font-semibold leading-6">{item.label}</span>
   </button>
 );
 

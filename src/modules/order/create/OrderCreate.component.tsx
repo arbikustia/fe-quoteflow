@@ -19,7 +19,8 @@ const _renderSelect = (props: OrderCreateProps): React.ReactElement => (
   <Select
     id="order-customer"
     label="Customer"
-    className="mb-4"
+    labelClassName="!text-base"
+    className="mb-4 [&_.ant-select-selector]:text-xl"
     required
     errorMessage={
       props.showInformationErrors && !props.form.customer_id.trim()
@@ -43,7 +44,8 @@ const _renderPicSelect = (props: OrderCreateProps): React.ReactElement => (
   <Select
     id="order-pic"
     label="PIC"
-    className="mb-4"
+    labelClassName="!text-base"
+    className="mb-4 [&_.ant-select-selector]:text-xl"
     required
     errorMessage={
       props.showInformationErrors && !props.form.pic_id.trim()
@@ -64,7 +66,8 @@ const _renderServiceTypeSelect = (
   <Select
     id="order-service-type"
     label="Service Type"
-    className="mb-4"
+    labelClassName="!text-base"
+    className="mb-4 [&_.ant-select-selector]:text-xl"
     required
     errorMessage={
       props.showInformationErrors && !props.form.service_type_id.trim()
@@ -112,7 +115,7 @@ const _renderDateRange = (props: OrderCreateProps): React.ReactElement => {
 
   return (
     <DateRangePicker
-      className="mb-4 md:col-span-2"
+      className="mb-4 md:col-span-2 [&_.ant-picker-input>input]:text-xl [&_label]:!text-base"
       startLabel="Start Date *"
       endLabel="End Date *"
       startDate={props.form.start_at}
@@ -147,6 +150,7 @@ const _renderField = (
       value={value}
       onChange={handleChange}
       type={config.type ?? "text"}
+      className="[&_.ant-input]:text-xl [&_.ant-input]:placeholder:text-xl [&_label]:text-base"
       errorMessage={isInvalid ? `${config.label} is required` : undefined}
     />
   );
@@ -172,6 +176,7 @@ const _renderServiceFee = (props: OrderCreateProps): React.ReactElement => {
       value={formattedValue}
       onChange={handleChange}
       inputMode="numeric"
+      className="[&_.ant-input]:text-xl [&_.ant-input]:placeholder:text-xl [&_label]:text-base"
       errorMessage={isInvalid ? "Service Fee is required" : undefined}
     />
   );
@@ -454,8 +459,8 @@ const _getStepBadgeClass = (index: number, step: number, hasError: boolean): str
   return "border border-border-default";
 };
 
-const _renderMobileBack = (onBack: () => void): React.ReactElement => (
-  <div className="sticky top-0 z-20 flex items-center bg-background-surface px-0 lg:hidden">
+const _renderMobileBack = (isEdit: boolean, onBack: () => void): React.ReactElement => (
+  <div className="sticky top-0 pt-5 z-20 flex items-center gap-3 bg-background-surface px-0 pb-6 lg:hidden">
     <button
       type="button"
       onClick={onBack}
@@ -475,6 +480,7 @@ const _renderMobileBack = (onBack: () => void): React.ReactElement => (
         <path d="M19 12H5M12 19l-7-7 7-7" />
       </svg>
     </button>
+    <h1 className="truncate text-4xl font-semibold leading-tight text-text-primary">{isEdit ? "Edit Order" : "Create Order"}</h1>
   </div>
 );
 
@@ -503,7 +509,7 @@ const _renderHeaderSection = (
       <span aria-hidden="true">/</span>
       <span className="text-text-primary">{title}</span>
     </nav>
-    <div className="my-6 pl-1">
+    <div className="my-6 hidden pl-1 lg:block">
       <h1 className="text-4xl font-semibold leading-tight tracking-tight text-text-primary">
         {title}
       </h1>
@@ -544,9 +550,9 @@ export const OrderCreateComponent = (
 
   return (
     <Layout pageTitle={pageTitle} mobileWhiteBackground>
-      <div className="flex h-full w-full flex-col bg-background-surface pb-6 font-sans lg:bg-background-page">
-        {_renderMobileBack(props.onBack)}
-        <div className="mt-2 flex min-h-0 w-full flex-1 flex-col px-0 lg:mt-0">
+      <div className="flex h-full w-full flex-col bg-background-surface pb-10 font-sans lg:bg-background-page">
+        {_renderMobileBack(props.isEdit, props.onBack)}
+        <div className="flex min-h-0 bg-blu w-full flex-1 flex-col px-0 text-lg lg:text-base">
           {_renderHeaderSection(pageTitle, props.onBack)}
           <form
             noValidate
@@ -575,7 +581,7 @@ export const OrderCreateComponent = (
             <div className="pb-6">
               {props.step === 1 && (
                 <section className="space-y-4">
-                  <h2 className="text-lg font-semibold text-text-primary">
+                  <h2 className="text-2xl font-semibold text-text-primary lg:text-lg">
                     Order information
                   </h2>
                   <div className="grid grid-cols-1 gap-x-6 gap-y-0 md:grid-cols-2">
@@ -605,7 +611,7 @@ export const OrderCreateComponent = (
                     <textarea
                       value={props.form.address}
                       onChange={handleAddress}
-                      className="min-h-24 w-full rounded-xl border border-border-default bg-background-surface px-4 py-3"
+                      className="min-h-24 w-full rounded-xl border border-border-default bg-background-surface px-4 py-3 text-xl placeholder:text-xl"
                     />
                   </label>
                 </section>
@@ -823,7 +829,7 @@ export const OrderCreateComponent = (
                     <textarea
                       value={props.form.remarks}
                       onChange={handleRemarks}
-                      className="min-h-24 w-full rounded-xl border border-border-default bg-background-surface px-4 py-3"
+                      className="min-h-24 w-full rounded-xl border border-border-default bg-background-surface px-4 py-3 text-xl placeholder:text-xl"
                     />
                   </label>
                 </section>
