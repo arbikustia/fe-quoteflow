@@ -16,7 +16,7 @@ const _getOptions = (options: SelectOption[]): SelectOption[] => options.filter(
  * @returns {ReactElement} Select component
  */
 export const Select = (props: SelectProps): ReactElement => {
-  const { id, label, placeholder, value, options, onChange, required, disabled, errorMessage, className = "", labelClassName = "", popupClassName = "" } = props;
+  const { id, label, placeholder, value, options, onChange, required, disabled, errorMessage, className = "", selectClassName = "", labelClassName = "", popupClassName = "" } = props;
   const errorId = `${id}-error`;
 
   /**
@@ -38,13 +38,13 @@ export const Select = (props: SelectProps): ReactElement => {
         aria-required={required}
         aria-invalid={Boolean(errorMessage)}
         aria-describedby={errorMessage ? errorId : undefined}
-        value={value}
+        value={value === "" ? undefined : value}
         options={_getOptions(options)}
         placeholder={placeholder}
         onChange={handleChange}
         disabled={disabled}
         status={errorMessage ? "error" : undefined}
-        className="h-14 w-full"
+        className={`h-14 w-full [&_.ant-select-content]:!text-xl [&_.ant-select-content]:!font-normal ${selectClassName}`}
         classNames={{ popup: { root: popupClassName } }}
         virtual={false}
       />

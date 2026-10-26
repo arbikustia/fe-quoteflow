@@ -20,7 +20,8 @@ const _renderSelect = (props: OrderCreateProps): React.ReactElement => (
     id="order-customer"
     label="Customer"
     labelClassName="!text-base"
-    className="mb-4 [&_.ant-select-selector]:text-xl"
+    className="mb-4"
+    selectClassName="[&_.ant-select-selection-item]:!text-xl [&_.ant-select-selection-placeholder]:!text-xl"
     required
     errorMessage={
       props.showInformationErrors && !props.form.customer_id.trim()
@@ -93,7 +94,8 @@ const _renderVoucherSelect = (props: OrderCreateProps): React.ReactElement => (
   <Select
     id="order-voucher"
     label="Voucher"
-    className="mb-4"
+    labelClassName="!text-base"
+    className="mb-4 [&_.ant-select-selector]:text-xl"
     value={props.form.voucher_id}
     onChange={props.onVoucherChange}
     disabled={props.isVouchersLoading}
@@ -115,7 +117,7 @@ const _renderDateRange = (props: OrderCreateProps): React.ReactElement => {
 
   return (
     <DateRangePicker
-      className="mb-4 md:col-span-2 [&_.ant-picker-input>input]:text-xl [&_label]:!text-base"
+      className="mb-4 md:col-span-2 [&_.ant-picker-input>input]:!text-xl [&_.ant-picker-input>input]:!font-normal [&_label]:!text-base"
       startLabel="Start Date *"
       endLabel="End Date *"
       startDate={props.form.start_at}
@@ -134,6 +136,7 @@ const _renderField = (
   config: {
     field: keyof OrderCreateFormState;
     label: string;
+    placeholder: string;
     type?: "text" | "tel";
   },
 ): React.ReactElement => {
@@ -146,6 +149,7 @@ const _renderField = (
     <InputComponent
       id={`order-${config.field}`}
       label={config.label}
+      placeholder={config.placeholder}
       required
       value={value}
       onChange={handleChange}
@@ -172,6 +176,7 @@ const _renderServiceFee = (props: OrderCreateProps): React.ReactElement => {
     <InputComponent
       id="order-service-fee"
       label="Service Fee"
+      placeholder="Enter service fee"
       required
       value={formattedValue}
       onChange={handleChange}
@@ -550,14 +555,14 @@ export const OrderCreateComponent = (
 
   return (
     <Layout pageTitle={pageTitle} mobileWhiteBackground>
-      <div className="flex h-full w-full flex-col bg-background-surface pb-10 font-sans lg:bg-background-page">
+      <div className="min-h-full w-full bg-background-surface pb-6 font-sans lg:flex lg:h-full lg:flex-col lg:bg-background-page">
         {_renderMobileBack(props.isEdit, props.onBack)}
-        <div className="flex min-h-0 bg-blu w-full flex-1 flex-col px-0 text-lg lg:text-base">
+        <div className="w-full px-0 text-lg lg:flex lg:min-h-0 lg:flex-1 lg:flex-col lg:text-base">
           {_renderHeaderSection(pageTitle, props.onBack)}
           <form
             noValidate
             onSubmit={props.onPreventSubmit}
-            className="mb-14 flex min-h-0 flex-1 flex-col justify-between border-0 bg-transparent p-0 shadow-none lg:mb-10 lg:rounded-4xl lg:border lg:border-brand-gray-light lg:bg-brand-white lg:p-8 lg:shadow-xs"
+            className="mb-14 flex min-h-0 flex-1 flex-col justify-between border-0 bg-transparent p-0 pb-0 shadow-none lg:mb-10 lg:rounded-4xl lg:border lg:border-brand-gray-light lg:bg-brand-white lg:p-8 lg:shadow-xs"
           >
             <div className="mb-6 flex items-center gap-2">
               {stepTitles.map((title, index) => (
@@ -584,15 +589,17 @@ export const OrderCreateComponent = (
                   <h2 className="text-2xl font-semibold text-text-primary lg:text-lg">
                     Order information
                   </h2>
-                  <div className="grid grid-cols-1 gap-x-6 gap-y-0 md:grid-cols-2">
+                  <div className="grid grid-cols-1 gap-x-6 gap-y-1 md:grid-cols-2">
                     {_renderSelect(props)}
                     {_renderField(props, {
                       field: "customer_name",
                       label: "Customer Name",
+                      placeholder: "Enter customer name",
                     })}
                     {_renderField(props, {
                       field: "customer_phone",
                       label: "Customer Phone",
+                      placeholder: "Enter customer phone number",
                     })}
                     {_renderPicSelect(props)}
                     {_renderDateRange(props)}
@@ -601,6 +608,7 @@ export const OrderCreateComponent = (
                     {_renderField(props, {
                       field: "event_name",
                       label: "Event Name",
+                      placeholder: "Enter event name",
                     })}
                     {_renderVoucherSelect(props)}
                   </div>
@@ -659,15 +667,15 @@ export const OrderCreateComponent = (
               )}
               {props.step === 3 && (
                 <section className="space-y-6">
-                  <h2 className="text-lg font-semibold text-text-primary">
+                  <h2 className="text-2xl font-semibold text-text-primary lg:text-lg">
                     Review Order
                   </h2>
-                  <div className="grid grid-cols-1 gap-x-6 gap-y-0 md:grid-cols-2">
-                    <div>
-                      <p className="text-xs font-semibold uppercase tracking-wider text-text-secondary">
+                  <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+                    <div className="rounded-xl border border-border-default p-4">
+                      <p className="text-base font-semibold uppercase tracking-wider text-text-secondary lg:text-xs">
                         Customer Information
                       </p>
-                      <dl className="mt-2 space-y-1 text-sm">
+                      <dl className="mt-3 space-y-2 text-xl lg:text-sm">
                         <div className="flex gap-2">
                           <dt className="text-text-secondary">Name:</dt>
                           <dd className="font-medium text-text-primary">
@@ -688,11 +696,11 @@ export const OrderCreateComponent = (
                         </div>
                       </dl>
                     </div>
-                    <div>
-                      <p className="text-xs font-semibold uppercase tracking-wider text-text-secondary">
+                    <div className="rounded-xl border border-border-default p-4">
+                      <p className="text-base font-semibold uppercase tracking-wider text-text-secondary lg:text-xs">
                         Order Information
                       </p>
-                      <dl className="mt-2 space-y-1 text-sm">
+                      <dl className="mt-3 space-y-2 text-xl lg:text-sm">
                         <div className="flex gap-2">
                           <dt className="text-text-secondary">PIC:</dt>
                           <dd className="font-medium text-text-primary">
@@ -721,11 +729,12 @@ export const OrderCreateComponent = (
                         </div>
                       </dl>
                     </div>
-                    <div>
-                      <p className="text-xs font-semibold uppercase tracking-wider text-text-secondary">
+                    <div className="rounded-xl border border-border-default p-4">
+                      <p className="text-base font-semibold uppercase tracking-wider text-text-secondary lg:text-xs">
                         Pricing
                       </p>
-                      <p className="mt-1 text-text-primary">
+                      <div className="mt-3 space-y-2 text-xl lg:text-sm">
+                      <p className="text-text-primary">
                         Subtotal: Rp {totals.subtotal.toLocaleString("id-ID")}
                       </p>
                       <p className="text-text-primary">
@@ -736,14 +745,15 @@ export const OrderCreateComponent = (
                         Discount: Rp{" "}
                         {props.form.discount.toLocaleString("id-ID")}
                       </p>
-                      <p className="text-text-primary">
+                      <p className="font-semibold text-text-primary">
                         Grand Total: Rp{" "}
                         {totals.grandTotal.toLocaleString("id-ID")}
                       </p>
+                      </div>
                     </div>
                   </div>
-                  <div>
-                    <h3 className="mb-3 font-semibold text-text-primary">
+                  <div className="rounded-xl border border-border-default p-4">
+                    <h3 className="mb-3 text-2xl font-semibold text-text-primary lg:text-base">
                       Rental Items
                     </h3>
                     {props.form.service_type_name.trim().toUpperCase() ===
@@ -771,7 +781,7 @@ export const OrderCreateComponent = (
                                   .map((item) => (
                                     <div
                                       key={`${project.id}-${item.item_id}`}
-                                      className="flex items-center justify-between text-sm"
+                                      className="flex items-start justify-between gap-3 text-lg lg:text-sm"
                                     >
                                       <span>
                                         {item.item_name}
@@ -801,7 +811,7 @@ export const OrderCreateComponent = (
                           .map((item) => (
                             <div
                               key={`${item.item_id}-${item.remark}`}
-                              className="flex items-center justify-between rounded-xl border border-border-default p-3 text-sm"
+                              className="flex items-start justify-between gap-3 rounded-xl border border-border-default p-3 text-lg lg:text-sm"
                             >
                               <span>
                                 {item.item_name}
@@ -823,7 +833,7 @@ export const OrderCreateComponent = (
                     )}
                   </div>
                   <label className="block space-y-2">
-                    <span className="text-xs font-semibold uppercase tracking-wider text-text-secondary">
+                    <span className="text-base font-semibold uppercase tracking-wider text-text-secondary lg:text-xs">
                       Remarks
                     </span>
                     <textarea

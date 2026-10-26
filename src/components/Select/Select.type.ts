@@ -23,6 +23,7 @@ export type SelectProps = {
   disabled?: boolean;
   errorMessage?: string | null;
   className?: string;
+  selectClassName?: string;
   labelClassName?: string;
   popupClassName?: string;
 };
