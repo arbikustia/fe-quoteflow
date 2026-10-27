@@ -1,14 +1,15 @@
 import type { ReactElement } from "react";
 
-import { getPaymentColumns } from "./Payment.columns";
 import { PaymentComponent } from "./Payment.component";
 import { usePaymentNavigation, usePaymentPagination } from "./Payment.hook";
 
-/** Render payment page container. */
+/**
+ * Render payment page container.
+ * @returns {ReactElement} - payment page
+ */
 export default function PaymentContainer(): ReactElement {
   const pagination = usePaymentPagination();
   const navigation = usePaymentNavigation();
-  const columns = getPaymentColumns(pagination.currentPage, pagination.pageSize, navigation.onEdit);
 
-  return <PaymentComponent {...pagination} {...navigation} columns={columns} />;
+  return <PaymentComponent {...pagination} {...navigation} />;
 }

@@ -1,4 +1,3 @@
-import type { TableColumn } from "@/components/Table";
 
 export type ApiQuotationItem = {
   item_id: string;
@@ -103,6 +102,10 @@ export type QuotationListParams = {
 
 export type QuotationUpdatePayload = {
   transaction_id: string;
+  quotation_no: string;
+  quotation_date: string;
+  expired_at: string;
+  notes: string;
   status: number;
 };
 
@@ -121,7 +124,9 @@ export type QuotationData = {
   id: string;
   transactionId: string;
   quotationNumber: string;
+  customerName: string;
   name: string;
+  quotationDate: string;
   customerPhone: string;
   location: string;
   startDate: string;
@@ -152,8 +157,11 @@ export type QuotationNavigation = {
   onBack: () => void;
   onEdit: (quotation: QuotationData) => void;
   onDetail: (quotation: QuotationData) => void;
+  onStatus: (quotation: QuotationData) => void;
   onRowClick: (quotation: QuotationData) => void;
 };
+
+export type QuotationProps = QuotationPagination & QuotationNavigation;
 
 export type QuotationDetailResponse = {
   status: boolean;
@@ -168,23 +176,67 @@ export type QuotationDetailState = {
   goBack: () => void;
 };
 
-export type QuotationStatusState = {
-  updatingQuotationId: string | null;
-  notificationMessage: string | null;
-  notificationType: "success" | "error";
-  updateStatus: (quotation: QuotationData, isActive: boolean) => Promise<void>;
-  closeNotification: () => void;
+
+export type QuotationInfoSection = {
+  quotationNo: string;
+  quotationDate: string;
+  expiredAt: string;
+  notes: string;
+  statusText: string;
+  isActive: boolean;
 };
 
-export type QuotationProps = QuotationPagination & QuotationNavigation & QuotationStatusState & {
-  columns: TableColumn<QuotationData>[];
+export type QuotationTxSummary = {
+  eventName: string;
+  serviceTypeName: string;
+  startAt: string;
+  endAt: string;
+  subtotal: string;
+  serviceFee: string;
+  discount: string;
+  grandTotal: string;
 };
 
-export type QuotationColumnParams = {
-  currentPage: number;
-  pageSize: number;
-  updatingQuotationId: string | null;
-  onEdit: (quotation: QuotationData) => void;
-  onDetail: (quotation: QuotationData) => void;
-  onStatusChange: (quotation: QuotationData, isActive: boolean) => Promise<void>;
+export type CustomerSummary = {
+  name: string;
+  phone: string;
+  address: string;
+  statusText: string;
+};
+
+export type PicSummary = {
+  name: string;
+  statusText: string;
+};
+
+export type VoucherSummary = {
+  name: string;
+  code: string;
+  discountPercent: string;
+  statusText: string;
+};
+
+export type ItemRow = {
+  id: string;
+  name: string;
+  qty: number;
+  price: string;
+  subtotal: string;
+  remark: string;
+};
+
+export type ProjectItemRow = {
+  id: string;
+  name: string;
+  qty: number;
+  price: string;
+};
+
+export type ProjectSection = {
+  id: string;
+  name: string;
+  remark: string;
+  qty: number;
+  subtotal: string;
+  items: ProjectItemRow[];
 };

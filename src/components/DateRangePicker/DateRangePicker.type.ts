@@ -18,6 +18,15 @@ export type DateRangePickerProps = {
   endError?: boolean;
 };
 
+export type DateRangeFieldProps = {
+  id: string;
+  label: string;
+  value?: string;
+  error?: boolean;
+  onChange?: (value: string) => void;
+  pickerProps: DateRangePickerProps;
+};
+
 export type DateRangePickerState = {
   activeField: "start" | "end" | null;
   visibleMonth: Date;

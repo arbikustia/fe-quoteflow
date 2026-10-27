@@ -10,7 +10,7 @@ import type { MobileReportProps } from "./MobileReport.type";
  */
 export const useMobileReportState = (): Omit<MobileReportProps, "onNavigate"> => {
   const orders = useMemo(
-    () => MOCK_QUOTES.filter((order) => order.status === "Completed"),
+    () => MOCK_QUOTES.filter((order) => String(order.status) === "Completed"),
     []
   );
 

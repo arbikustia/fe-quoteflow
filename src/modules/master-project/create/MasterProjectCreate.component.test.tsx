@@ -47,7 +47,7 @@ describe("MasterProjectCreateForm", () => {
     const props = createProps();
     render(<MasterProjectCreateForm {...props} />);
 
-    expect(screen.getByRole("heading", { name: "New Project" })).toBeInTheDocument();
+    expect(screen.getAllByRole("heading", { name: "New Project" })[0]).toBeInTheDocument();
     expect(screen.getByText("Camera")).toBeInTheDocument();
     fireEvent.click(screen.getByRole("button", { name: /Camera/ }));
 

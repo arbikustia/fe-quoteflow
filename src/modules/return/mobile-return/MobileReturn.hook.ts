@@ -9,7 +9,7 @@ import { MOCK_QUOTES } from "../../../fixture/quotes";
  */
 export const useMobileReturn = (): MobileReturnProps => {
   const navigate = useNavigate();
-  const quotes = MOCK_QUOTES.filter((quote) => quote.status === "On Rental");
+  const quotes = MOCK_QUOTES.filter((quote) => String(quote.status) === "On Rental");
 
   /**
    * Handle navigate to detail

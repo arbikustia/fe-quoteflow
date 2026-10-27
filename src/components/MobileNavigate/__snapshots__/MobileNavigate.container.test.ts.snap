@@ -15,48 +15,52 @@ exports[`MobileNavigateContainer Test MobileNavigateContainer matches snapshot 1
         data-path="/home"
         type="button"
       >
-        <svg
-          fill="none"
-          height="20"
-          stroke="currentColor"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width="1.8"
-          viewBox="0 0 24 24"
-          width="20"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <rect
-            height="9"
-            rx="1"
-            width="7"
-            x="3"
-            y="3"
-          />
-          <rect
-            height="5"
-            rx="1"
-            width="7"
-            x="14"
-            y="3"
-          />
-          <rect
-            height="9"
-            rx="1"
-            width="7"
-            x="14"
-            y="12"
-          />
-          <rect
-            height="5"
-            rx="1"
-            width="7"
-            x="3"
-            y="16"
-          />
-        </svg>
         <span
-          class="text-[11px] font-semibold leading-4"
+          class="[&_svg]:h-8 [&_svg]:w-8"
+        >
+          <svg
+            fill="none"
+            height="20"
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="1.8"
+            viewBox="0 0 24 24"
+            width="20"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <rect
+              height="9"
+              rx="1"
+              width="7"
+              x="3"
+              y="3"
+            />
+            <rect
+              height="5"
+              rx="1"
+              width="7"
+              x="14"
+              y="3"
+            />
+            <rect
+              height="9"
+              rx="1"
+              width="7"
+              x="14"
+              y="12"
+            />
+            <rect
+              height="5"
+              rx="1"
+              width="7"
+              x="3"
+              y="16"
+            />
+          </svg>
+        </span>
+        <span
+          class="text-base font-semibold leading-6"
         >
           Home
         </span>
@@ -67,38 +71,42 @@ exports[`MobileNavigateContainer Test MobileNavigateContainer matches snapshot 1
         data-path="/order"
         type="button"
       >
-        <svg
-          fill="none"
-          height="20"
-          stroke="currentColor"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width="1.8"
-          viewBox="0 0 24 24"
-          width="20"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"
-          />
-          <polyline
-            points="14 2 14 8 20 8"
-          />
-          <line
-            x1="16"
-            x2="8"
-            y1="13"
-            y2="13"
-          />
-          <line
-            x1="16"
-            x2="8"
-            y1="17"
-            y2="17"
-          />
-        </svg>
         <span
-          class="text-[11px] font-semibold leading-4"
+          class="[&_svg]:h-8 [&_svg]:w-8"
+        >
+          <svg
+            fill="none"
+            height="20"
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="1.8"
+            viewBox="0 0 24 24"
+            width="20"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"
+            />
+            <polyline
+              points="14 2 14 8 20 8"
+            />
+            <line
+              x1="16"
+              x2="8"
+              y1="13"
+              y2="13"
+            />
+            <line
+              x1="16"
+              x2="8"
+              y1="17"
+              y2="17"
+            />
+          </svg>
+        </span>
+        <span
+          class="text-base font-semibold leading-6"
         >
           Order
         </span>
@@ -109,45 +117,49 @@ exports[`MobileNavigateContainer Test MobileNavigateContainer matches snapshot 1
         data-path="/return"
         type="button"
       >
-        <svg
-          fill="none"
-          height="20"
-          stroke="currentColor"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width="1.8"
-          viewBox="0 0 24 24"
-          width="20"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <rect
-            height="18"
-            rx="2"
-            width="18"
-            x="3"
-            y="4"
-          />
-          <line
-            x1="16"
-            x2="16"
-            y1="2"
-            y2="6"
-          />
-          <line
-            x1="8"
-            x2="8"
-            y1="2"
-            y2="6"
-          />
-          <line
-            x1="3"
-            x2="21"
-            y1="10"
-            y2="10"
-          />
-        </svg>
         <span
-          class="text-[11px] font-semibold leading-4"
+          class="[&_svg]:h-8 [&_svg]:w-8"
+        >
+          <svg
+            fill="none"
+            height="20"
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="1.8"
+            viewBox="0 0 24 24"
+            width="20"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <rect
+              height="18"
+              rx="2"
+              width="18"
+              x="3"
+              y="4"
+            />
+            <line
+              x1="16"
+              x2="16"
+              y1="2"
+              y2="6"
+            />
+            <line
+              x1="8"
+              x2="8"
+              y1="2"
+              y2="6"
+            />
+            <line
+              x1="3"
+              x2="21"
+              y1="10"
+              y2="10"
+            />
+          </svg>
+        </span>
+        <span
+          class="text-base font-semibold leading-6"
         >
           Return
         </span>
@@ -158,32 +170,36 @@ exports[`MobileNavigateContainer Test MobileNavigateContainer matches snapshot 1
         data-path="/master-main"
         type="button"
       >
-        <svg
-          fill="none"
-          height="20"
-          stroke="currentColor"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width="1.8"
-          viewBox="0 0 24 24"
-          width="20"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <ellipse
-            cx="12"
-            cy="5"
-            rx="9"
-            ry="3"
-          />
-          <path
-            d="M3 5V19A9 3 0 0 0 21 19V5"
-          />
-          <path
-            d="M3 12A9 3 0 0 0 21 12"
-          />
-        </svg>
         <span
-          class="text-[11px] font-semibold leading-4"
+          class="[&_svg]:h-8 [&_svg]:w-8"
+        >
+          <svg
+            fill="none"
+            height="20"
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="1.8"
+            viewBox="0 0 24 24"
+            width="20"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <ellipse
+              cx="12"
+              cy="5"
+              rx="9"
+              ry="3"
+            />
+            <path
+              d="M3 5V19A9 3 0 0 0 21 19V5"
+            />
+            <path
+              d="M3 12A9 3 0 0 0 21 12"
+            />
+          </svg>
+        </span>
+        <span
+          class="text-base font-semibold leading-6"
         >
           Master
         </span>
@@ -194,38 +210,42 @@ exports[`MobileNavigateContainer Test MobileNavigateContainer matches snapshot 1
         data-path="/report/main"
         type="button"
       >
-        <svg
-          fill="none"
-          height="20"
-          stroke="currentColor"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width="1.8"
-          viewBox="0 0 24 24"
-          width="20"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <line
-            x1="12"
-            x2="12"
-            y1="20"
-            y2="10"
-          />
-          <line
-            x1="18"
-            x2="18"
-            y1="20"
-            y2="4"
-          />
-          <line
-            x1="6"
-            x2="6"
-            y1="20"
-            y2="16"
-          />
-        </svg>
         <span
-          class="text-[11px] font-semibold leading-4"
+          class="[&_svg]:h-8 [&_svg]:w-8"
+        >
+          <svg
+            fill="none"
+            height="20"
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="1.8"
+            viewBox="0 0 24 24"
+            width="20"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <line
+              x1="12"
+              x2="12"
+              y1="20"
+              y2="10"
+            />
+            <line
+              x1="18"
+              x2="18"
+              y1="20"
+              y2="4"
+            />
+            <line
+              x1="6"
+              x2="6"
+              y1="20"
+              y2="16"
+            />
+          </svg>
+        </span>
+        <span
+          class="text-base font-semibold leading-6"
         >
           Report
         </span>
@@ -250,48 +270,52 @@ exports[`MobileNavigateContainer Test MobileNavigateContainer matches snapshot 2
         data-path="/home"
         type="button"
       >
-        <svg
-          fill="none"
-          height="20"
-          stroke="currentColor"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width="1.8"
-          viewBox="0 0 24 24"
-          width="20"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <rect
-            height="9"
-            rx="1"
-            width="7"
-            x="3"
-            y="3"
-          />
-          <rect
-            height="5"
-            rx="1"
-            width="7"
-            x="14"
-            y="3"
-          />
-          <rect
-            height="9"
-            rx="1"
-            width="7"
-            x="14"
-            y="12"
-          />
-          <rect
-            height="5"
-            rx="1"
-            width="7"
-            x="3"
-            y="16"
-          />
-        </svg>
         <span
-          class="text-[11px] font-semibold leading-4"
+          class="[&_svg]:h-8 [&_svg]:w-8"
+        >
+          <svg
+            fill="none"
+            height="20"
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="1.8"
+            viewBox="0 0 24 24"
+            width="20"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <rect
+              height="9"
+              rx="1"
+              width="7"
+              x="3"
+              y="3"
+            />
+            <rect
+              height="5"
+              rx="1"
+              width="7"
+              x="14"
+              y="3"
+            />
+            <rect
+              height="9"
+              rx="1"
+              width="7"
+              x="14"
+              y="12"
+            />
+            <rect
+              height="5"
+              rx="1"
+              width="7"
+              x="3"
+              y="16"
+            />
+          </svg>
+        </span>
+        <span
+          class="text-base font-semibold leading-6"
         >
           Home
         </span>
@@ -302,38 +326,42 @@ exports[`MobileNavigateContainer Test MobileNavigateContainer matches snapshot 2
         data-path="/order"
         type="button"
       >
-        <svg
-          fill="none"
-          height="20"
-          stroke="currentColor"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width="1.8"
-          viewBox="0 0 24 24"
-          width="20"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"
-          />
-          <polyline
-            points="14 2 14 8 20 8"
-          />
-          <line
-            x1="16"
-            x2="8"
-            y1="13"
-            y2="13"
-          />
-          <line
-            x1="16"
-            x2="8"
-            y1="17"
-            y2="17"
-          />
-        </svg>
         <span
-          class="text-[11px] font-semibold leading-4"
+          class="[&_svg]:h-8 [&_svg]:w-8"
+        >
+          <svg
+            fill="none"
+            height="20"
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="1.8"
+            viewBox="0 0 24 24"
+            width="20"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"
+            />
+            <polyline
+              points="14 2 14 8 20 8"
+            />
+            <line
+              x1="16"
+              x2="8"
+              y1="13"
+              y2="13"
+            />
+            <line
+              x1="16"
+              x2="8"
+              y1="17"
+              y2="17"
+            />
+          </svg>
+        </span>
+        <span
+          class="text-base font-semibold leading-6"
         >
           Order
         </span>
@@ -344,45 +372,49 @@ exports[`MobileNavigateContainer Test MobileNavigateContainer matches snapshot 2
         data-path="/return"
         type="button"
       >
-        <svg
-          fill="none"
-          height="20"
-          stroke="currentColor"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width="1.8"
-          viewBox="0 0 24 24"
-          width="20"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <rect
-            height="18"
-            rx="2"
-            width="18"
-            x="3"
-            y="4"
-          />
-          <line
-            x1="16"
-            x2="16"
-            y1="2"
-            y2="6"
-          />
-          <line
-            x1="8"
-            x2="8"
-            y1="2"
-            y2="6"
-          />
-          <line
-            x1="3"
-            x2="21"
-            y1="10"
-            y2="10"
-          />
-        </svg>
         <span
-          class="text-[11px] font-semibold leading-4"
+          class="[&_svg]:h-8 [&_svg]:w-8"
+        >
+          <svg
+            fill="none"
+            height="20"
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="1.8"
+            viewBox="0 0 24 24"
+            width="20"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <rect
+              height="18"
+              rx="2"
+              width="18"
+              x="3"
+              y="4"
+            />
+            <line
+              x1="16"
+              x2="16"
+              y1="2"
+              y2="6"
+            />
+            <line
+              x1="8"
+              x2="8"
+              y1="2"
+              y2="6"
+            />
+            <line
+              x1="3"
+              x2="21"
+              y1="10"
+              y2="10"
+            />
+          </svg>
+        </span>
+        <span
+          class="text-base font-semibold leading-6"
         >
           Return
         </span>
@@ -393,32 +425,36 @@ exports[`MobileNavigateContainer Test MobileNavigateContainer matches snapshot 2
         data-path="/master-main"
         type="button"
       >
-        <svg
-          fill="none"
-          height="20"
-          stroke="currentColor"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width="1.8"
-          viewBox="0 0 24 24"
-          width="20"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <ellipse
-            cx="12"
-            cy="5"
-            rx="9"
-            ry="3"
-          />
-          <path
-            d="M3 5V19A9 3 0 0 0 21 19V5"
-          />
-          <path
-            d="M3 12A9 3 0 0 0 21 12"
-          />
-        </svg>
         <span
-          class="text-[11px] font-semibold leading-4"
+          class="[&_svg]:h-8 [&_svg]:w-8"
+        >
+          <svg
+            fill="none"
+            height="20"
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="1.8"
+            viewBox="0 0 24 24"
+            width="20"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <ellipse
+              cx="12"
+              cy="5"
+              rx="9"
+              ry="3"
+            />
+            <path
+              d="M3 5V19A9 3 0 0 0 21 19V5"
+            />
+            <path
+              d="M3 12A9 3 0 0 0 21 12"
+            />
+          </svg>
+        </span>
+        <span
+          class="text-base font-semibold leading-6"
         >
           Master
         </span>
@@ -429,38 +465,42 @@ exports[`MobileNavigateContainer Test MobileNavigateContainer matches snapshot 2
         data-path="/report/main"
         type="button"
       >
-        <svg
-          fill="none"
-          height="20"
-          stroke="currentColor"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width="1.8"
-          viewBox="0 0 24 24"
-          width="20"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <line
-            x1="12"
-            x2="12"
-            y1="20"
-            y2="10"
-          />
-          <line
-            x1="18"
-            x2="18"
-            y1="20"
-            y2="4"
-          />
-          <line
-            x1="6"
-            x2="6"
-            y1="20"
-            y2="16"
-          />
-        </svg>
         <span
-          class="text-[11px] font-semibold leading-4"
+          class="[&_svg]:h-8 [&_svg]:w-8"
+        >
+          <svg
+            fill="none"
+            height="20"
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="1.8"
+            viewBox="0 0 24 24"
+            width="20"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <line
+              x1="12"
+              x2="12"
+              y1="20"
+              y2="10"
+            />
+            <line
+              x1="18"
+              x2="18"
+              y1="20"
+              y2="4"
+            />
+            <line
+              x1="6"
+              x2="6"
+              y1="20"
+              y2="16"
+            />
+          </svg>
+        </span>
+        <span
+          class="text-base font-semibold leading-6"
         >
           Report
         </span>
@@ -485,48 +525,52 @@ exports[`MobileNavigateContainer Test MobileNavigateContainer matches snapshot 3
         data-path="/home"
         type="button"
       >
-        <svg
-          fill="none"
-          height="20"
-          stroke="currentColor"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width="1.8"
-          viewBox="0 0 24 24"
-          width="20"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <rect
-            height="9"
-            rx="1"
-            width="7"
-            x="3"
-            y="3"
-          />
-          <rect
-            height="5"
-            rx="1"
-            width="7"
-            x="14"
-            y="3"
-          />
-          <rect
-            height="9"
-            rx="1"
-            width="7"
-            x="14"
-            y="12"
-          />
-          <rect
-            height="5"
-            rx="1"
-            width="7"
-            x="3"
-            y="16"
-          />
-        </svg>
         <span
-          class="text-[11px] font-semibold leading-4"
+          class="[&_svg]:h-8 [&_svg]:w-8"
+        >
+          <svg
+            fill="none"
+            height="20"
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="1.8"
+            viewBox="0 0 24 24"
+            width="20"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <rect
+              height="9"
+              rx="1"
+              width="7"
+              x="3"
+              y="3"
+            />
+            <rect
+              height="5"
+              rx="1"
+              width="7"
+              x="14"
+              y="3"
+            />
+            <rect
+              height="9"
+              rx="1"
+              width="7"
+              x="14"
+              y="12"
+            />
+            <rect
+              height="5"
+              rx="1"
+              width="7"
+              x="3"
+              y="16"
+            />
+          </svg>
+        </span>
+        <span
+          class="text-base font-semibold leading-6"
         >
           Home
         </span>
@@ -537,38 +581,42 @@ exports[`MobileNavigateContainer Test MobileNavigateContainer matches snapshot 3
         data-path="/order"
         type="button"
       >
-        <svg
-          fill="none"
-          height="20"
-          stroke="currentColor"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width="1.8"
-          viewBox="0 0 24 24"
-          width="20"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"
-          />
-          <polyline
-            points="14 2 14 8 20 8"
-          />
-          <line
-            x1="16"
-            x2="8"
-            y1="13"
-            y2="13"
-          />
-          <line
-            x1="16"
-            x2="8"
-            y1="17"
-            y2="17"
-          />
-        </svg>
         <span
-          class="text-[11px] font-semibold leading-4"
+          class="[&_svg]:h-8 [&_svg]:w-8"
+        >
+          <svg
+            fill="none"
+            height="20"
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="1.8"
+            viewBox="0 0 24 24"
+            width="20"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"
+            />
+            <polyline
+              points="14 2 14 8 20 8"
+            />
+            <line
+              x1="16"
+              x2="8"
+              y1="13"
+              y2="13"
+            />
+            <line
+              x1="16"
+              x2="8"
+              y1="17"
+              y2="17"
+            />
+          </svg>
+        </span>
+        <span
+          class="text-base font-semibold leading-6"
         >
           Order
         </span>
@@ -579,45 +627,49 @@ exports[`MobileNavigateContainer Test MobileNavigateContainer matches snapshot 3
         data-path="/return"
         type="button"
       >
-        <svg
-          fill="none"
-          height="20"
-          stroke="currentColor"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width="1.8"
-          viewBox="0 0 24 24"
-          width="20"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <rect
-            height="18"
-            rx="2"
-            width="18"
-            x="3"
-            y="4"
-          />
-          <line
-            x1="16"
-            x2="16"
-            y1="2"
-            y2="6"
-          />
-          <line
-            x1="8"
-            x2="8"
-            y1="2"
-            y2="6"
-          />
-          <line
-            x1="3"
-            x2="21"
-            y1="10"
-            y2="10"
-          />
-        </svg>
         <span
-          class="text-[11px] font-semibold leading-4"
+          class="[&_svg]:h-8 [&_svg]:w-8"
+        >
+          <svg
+            fill="none"
+            height="20"
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="1.8"
+            viewBox="0 0 24 24"
+            width="20"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <rect
+              height="18"
+              rx="2"
+              width="18"
+              x="3"
+              y="4"
+            />
+            <line
+              x1="16"
+              x2="16"
+              y1="2"
+              y2="6"
+            />
+            <line
+              x1="8"
+              x2="8"
+              y1="2"
+              y2="6"
+            />
+            <line
+              x1="3"
+              x2="21"
+              y1="10"
+              y2="10"
+            />
+          </svg>
+        </span>
+        <span
+          class="text-base font-semibold leading-6"
         >
           Return
         </span>
@@ -628,32 +680,36 @@ exports[`MobileNavigateContainer Test MobileNavigateContainer matches snapshot 3
         data-path="/master-main"
         type="button"
       >
-        <svg
-          fill="none"
-          height="20"
-          stroke="currentColor"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width="1.8"
-          viewBox="0 0 24 24"
-          width="20"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <ellipse
-            cx="12"
-            cy="5"
-            rx="9"
-            ry="3"
-          />
-          <path
-            d="M3 5V19A9 3 0 0 0 21 19V5"
-          />
-          <path
-            d="M3 12A9 3 0 0 0 21 12"
-          />
-        </svg>
         <span
-          class="text-[11px] font-semibold leading-4"
+          class="[&_svg]:h-8 [&_svg]:w-8"
+        >
+          <svg
+            fill="none"
+            height="20"
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="1.8"
+            viewBox="0 0 24 24"
+            width="20"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <ellipse
+              cx="12"
+              cy="5"
+              rx="9"
+              ry="3"
+            />
+            <path
+              d="M3 5V19A9 3 0 0 0 21 19V5"
+            />
+            <path
+              d="M3 12A9 3 0 0 0 21 12"
+            />
+          </svg>
+        </span>
+        <span
+          class="text-base font-semibold leading-6"
         >
           Master
         </span>
@@ -664,38 +720,42 @@ exports[`MobileNavigateContainer Test MobileNavigateContainer matches snapshot 3
         data-path="/report/main"
         type="button"
       >
-        <svg
-          fill="none"
-          height="20"
-          stroke="currentColor"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width="1.8"
-          viewBox="0 0 24 24"
-          width="20"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <line
-            x1="12"
-            x2="12"
-            y1="20"
-            y2="10"
-          />
-          <line
-            x1="18"
-            x2="18"
-            y1="20"
-            y2="4"
-          />
-          <line
-            x1="6"
-            x2="6"
-            y1="20"
-            y2="16"
-          />
-        </svg>
         <span
-          class="text-[11px] font-semibold leading-4"
+          class="[&_svg]:h-8 [&_svg]:w-8"
+        >
+          <svg
+            fill="none"
+            height="20"
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="1.8"
+            viewBox="0 0 24 24"
+            width="20"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <line
+              x1="12"
+              x2="12"
+              y1="20"
+              y2="10"
+            />
+            <line
+              x1="18"
+              x2="18"
+              y1="20"
+              y2="4"
+            />
+            <line
+              x1="6"
+              x2="6"
+              y1="20"
+              y2="16"
+            />
+          </svg>
+        </span>
+        <span
+          class="text-base font-semibold leading-6"
         >
           Report
         </span>

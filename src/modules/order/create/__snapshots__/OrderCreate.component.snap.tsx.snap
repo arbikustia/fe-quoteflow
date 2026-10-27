@@ -3,165 +3,45 @@
 exports[`OrderCreateComponent Snapshots Should Render OrderCreateComponent 1`] = `
 <DocumentFragment>
   <div
-    class="flex-1 w-full min-h-full bg-[#f8f9fb] font-sans pb-10 relative overflow-y-auto"
+    class="flex h-full min-h-0 w-full overflow-hidden font-sans text-text-primary relative items-stretch transition-colors duration-200 bg-background-page"
   >
     <div
-      class="px-6 pt-10 pb-4 flex items-center sticky top-0 bg-[#f8f9fb]/90 backdrop-blur-sm z-20"
+      class="hidden lg:flex h-full min-h-0 shrink-0 self-stretch"
     >
-      <button
-        class="flex items-center gap-3 text-gray-600 hover:text-gray-900 transition-colors group"
-        type="button"
+      <aside
+        aria-label="Sidebar"
+        class="w-[290px] h-full min-h-0 self-stretch bg-sidebar-background border border-border-default flex flex-col shrink-0 overflow-hidden transition-[width] duration-[250ms] ease-in-out"
+        style="border-radius: 0;"
       >
         <div
-          class="w-10 h-10 rounded-full bg-white shadow-sm flex items-center justify-center text-[#1a233a] group-hover:bg-gray-50 transition-colors"
+          class="h-[72px] mb-16 flex items-center shrink-0 px-4"
         >
-          <svg
-            fill="none"
-            height="20"
-            stroke="currentColor"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="3"
-            viewBox="0 0 24 24"
-            width="20"
-          >
-            <polyline
-              points="15 18 9 12 15 6"
-            />
-          </svg>
-        </div>
-        <span
-          class="font-bold text-[15px]"
-        >
-          Back
-        </span>
-      </button>
-    </div>
-    <div
-      class="px-6 mt-2"
-    >
-      <div
-        class="mb-8 pl-1"
-      >
-        <h2
-          class="text-[28px] font-extrabold text-gray-900 tracking-tight"
-        >
-          New Request
-        </h2>
-        <p
-          class="text-[14px] text-gray-500 mt-2 font-medium leading-relaxed"
-        >
-          Fill in the complete event details and select the required equipment below.
-        </p>
-      </div>
-    </div>
-    <div
-      class="px-6"
-    >
-      <form
-        class="flex flex-col"
-      >
-        <div
-          class="mb-5"
-        >
-          <label
-            class="block text-[12px] font-bold text-gray-400 mb-2 pl-3 tracking-widest uppercase"
-          >
-            Client Name
-          </label>
-          <div
-            class="relative"
-          >
-            <div
-              class="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"
-            >
-              <svg
-                fill="none"
-                height="20"
-                stroke="currentColor"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2.5"
-                viewBox="0 0 24 24"
-                width="20"
-              >
-                <path
-                  d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"
-                />
-                <circle
-                  cx="12"
-                  cy="7"
-                  r="4"
-                />
-              </svg>
-            </div>
-            <input
-              class="w-full bg-white border border-gray-100 rounded-3xl py-4 pl-12 pr-5 text-[15px] font-semibold text-gray-800 shadow-[0_4px_15px_rgba(0,0,0,0.02)] outline-none focus:border-[#daeaf3] focus:ring-4 focus:ring-[#daeaf3]/50 transition-all placeholder:text-gray-300"
-              placeholder="e.g. Stevy Ditolla"
-              type="text"
-            />
-          </div>
+          <img
+            alt="Sonicline"
+            class="h-12 w-auto object-contain"
+            src="/src/assets/Sonicline-dark.png"
+          />
         </div>
         <div
-          class="mb-5"
+          class="flex-1 overflow-y-auto overflow-x-hidden px-4 space-y-5 scrollbar-thin"
         >
-          <label
-            class="block text-[12px] font-bold text-gray-400 mb-2 pl-3 tracking-widest uppercase"
-          >
-            Event Location
-          </label>
-          <div
-            class="relative"
-          >
-            <div
-              class="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"
+          <div>
+            <p
+              class="px-2 mb-2 text-[15px] font-semibold tracking-widest uppercase text-text-tertiary"
             >
-              <svg
-                fill="none"
-                height="20"
-                stroke="currentColor"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2.5"
-                viewBox="0 0 24 24"
-                width="20"
-              >
-                <path
-                  d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"
-                />
-                <circle
-                  cx="12"
-                  cy="10"
-                  r="3"
-                />
-              </svg>
-            </div>
-            <input
-              class="w-full bg-white border border-gray-100 rounded-3xl py-4 pl-12 pr-5 text-[15px] font-semibold text-gray-800 shadow-[0_4px_15px_rgba(0,0,0,0.02)] outline-none focus:border-[#daeaf3] focus:ring-4 focus:ring-[#daeaf3]/50 transition-all placeholder:text-gray-300"
-              placeholder="e.g. Grand Ballroom"
-              type="text"
-            />
-          </div>
-        </div>
-        <div
-          class="flex gap-4"
-        >
-          <div
-            class="flex-1"
-          >
-            <div
-              class="mb-5"
+              Menu
+            </p>
+            <nav
+              aria-label="Menu"
+              class="space-y-1"
             >
-              <label
-                class="block text-[12px] font-bold text-gray-400 mb-2 pl-3 tracking-widest uppercase"
+              <a
+                class="h-9 flex items-center gap-3 rounded-[6px] px-3 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring/30 text-text-secondary hover:bg-background-elevated hover:text-text-primary"
+                data-discover="true"
+                href="/order"
               >
-                Start Date
-              </label>
-              <div
-                class="relative"
-              >
-                <div
-                  class="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"
+                <span
+                  class="shrink-0 [&_svg]:h-5 [&_svg]:w-5 text-text-tertiary"
                 >
                   <svg
                     fill="none"
@@ -169,123 +49,179 @@ exports[`OrderCreateComponent Snapshots Should Render OrderCreateComponent 1`] =
                     stroke="currentColor"
                     stroke-linecap="round"
                     stroke-linejoin="round"
-                    stroke-width="2.5"
+                    stroke-width="1.8"
                     viewBox="0 0 24 24"
                     width="20"
+                    xmlns="http://www.w3.org/2000/svg"
                   >
-                    <rect
-                      height="18"
-                      rx="2"
-                      ry="2"
-                      width="18"
-                      x="3"
-                      y="4"
+                    <path
+                      d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"
+                    />
+                    <polyline
+                      points="14 2 14 8 20 8"
                     />
                     <line
                       x1="16"
-                      x2="16"
-                      y1="2"
-                      y2="6"
-                    />
-                    <line
-                      x1="8"
                       x2="8"
-                      y1="2"
-                      y2="6"
+                      y1="13"
+                      y2="13"
                     />
                     <line
-                      x1="3"
-                      x2="21"
-                      y1="10"
-                      y2="10"
+                      x1="16"
+                      x2="8"
+                      y1="17"
+                      y2="17"
                     />
                   </svg>
-                </div>
-                <input
-                  class="w-full bg-white border border-gray-100 rounded-3xl py-4 pl-12 pr-5 text-[15px] font-semibold text-gray-800 shadow-[0_4px_15px_rgba(0,0,0,0.02)] outline-none focus:border-[#daeaf3] focus:ring-4 focus:ring-[#daeaf3]/50 transition-all placeholder:text-gray-300"
-                  placeholder="DD MMM YYYY"
-                  type="date"
-                />
-              </div>
-            </div>
-          </div>
-          <div
-            class="flex-1"
-          >
-            <div
-              class="mb-5"
-            >
-              <label
-                class="block text-[12px] font-bold text-gray-400 mb-2 pl-3 tracking-widest uppercase"
-              >
-                End Date
-              </label>
-              <div
-                class="relative"
-              >
-                <div
-                  class="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"
+                </span>
+                <span
+                  class="flex-1 truncate text-lg leading-none font-normal"
                 >
-                  <svg
-                    fill="none"
-                    height="20"
-                    stroke="currentColor"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2.5"
-                    viewBox="0 0 24 24"
-                    width="20"
+                  Order
+                </span>
+              </a>
+              <div>
+                <button
+                  aria-expanded="false"
+                  class="w-full min-h-14 py-3 flex items-center gap-3 rounded-[8px] px-4 text-left transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring/30 text-text-secondary hover:bg-background-elevated hover:text-text-primary"
+                  type="button"
+                >
+                  <span
+                    class="shrink-0 [&_svg]:h-5 [&_svg]:w-5 text-text-tertiary"
                   >
-                    <rect
-                      height="18"
-                      rx="2"
-                      ry="2"
-                      width="18"
-                      x="3"
-                      y="4"
-                    />
-                    <line
-                      x1="16"
-                      x2="16"
-                      y1="2"
-                      y2="6"
-                    />
-                    <line
-                      x1="8"
-                      x2="8"
-                      y1="2"
-                      y2="6"
-                    />
-                    <line
-                      x1="3"
-                      x2="21"
-                      y1="10"
-                      y2="10"
-                    />
-                  </svg>
-                </div>
-                <input
-                  class="w-full bg-white border border-gray-100 rounded-3xl py-4 pl-12 pr-5 text-[15px] font-semibold text-gray-800 shadow-[0_4px_15px_rgba(0,0,0,0.02)] outline-none focus:border-[#daeaf3] focus:ring-4 focus:ring-[#daeaf3]/50 transition-all placeholder:text-gray-300"
-                  placeholder="DD MMM YYYY"
-                  type="date"
-                />
+                    <svg
+                      fill="none"
+                      height="20"
+                      stroke="currentColor"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="1.8"
+                      viewBox="0 0 24 24"
+                      width="20"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"
+                      />
+                      <polyline
+                        points="14 2 14 8 20 8"
+                      />
+                      <line
+                        x1="16"
+                        x2="8"
+                        y1="13"
+                        y2="13"
+                      />
+                      <line
+                        x1="16"
+                        x2="8"
+                        y1="17"
+                        y2="17"
+                      />
+                    </svg>
+                  </span>
+                  <span
+                    class="flex-1 truncate text-xl leading-none font-normal"
+                  >
+                    Document
+                  </span>
+                  <span
+                    class="shrink-0 text-text-tertiary transition-transform duration-200 "
+                  >
+                    <svg
+                      fill="none"
+                      height="14"
+                      stroke="currentColor"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      viewBox="0 0 24 24"
+                      width="14"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="m6 9 6 6 6-6"
+                      />
+                    </svg>
+                  </span>
+                </button>
               </div>
-            </div>
+              <div>
+                <button
+                  aria-expanded="false"
+                  class="w-full min-h-14 py-3 flex items-center gap-3 rounded-[8px] px-4 text-left transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring/30 text-text-secondary hover:bg-background-elevated hover:text-text-primary"
+                  type="button"
+                >
+                  <span
+                    class="shrink-0 [&_svg]:h-5 [&_svg]:w-5 text-text-tertiary"
+                  >
+                    <svg
+                      fill="none"
+                      height="20"
+                      stroke="currentColor"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="1.8"
+                      viewBox="0 0 24 24"
+                      width="20"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <ellipse
+                        cx="12"
+                        cy="5"
+                        rx="9"
+                        ry="3"
+                      />
+                      <path
+                        d="M3 5V19A9 3 0 0 0 21 19V5"
+                      />
+                      <path
+                        d="M3 12A9 3 0 0 0 21 12"
+                      />
+                    </svg>
+                  </span>
+                  <span
+                    class="flex-1 truncate text-xl leading-none font-normal"
+                  >
+                    Master Data
+                  </span>
+                  <span
+                    class="shrink-0 text-text-tertiary transition-transform duration-200 "
+                  >
+                    <svg
+                      fill="none"
+                      height="14"
+                      stroke="currentColor"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      viewBox="0 0 24 24"
+                      width="14"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="m6 9 6 6 6-6"
+                      />
+                    </svg>
+                  </span>
+                </button>
+              </div>
+            </nav>
           </div>
         </div>
         <div
-          class="mb-5"
+          class="shrink-0 border-t border-border-default p-3"
         >
-          <label
-            class="block text-[12px] font-bold text-gray-400 mb-2 pl-3 tracking-widest uppercase"
+          <button
+            aria-checked="false"
+            aria-label="Toggle dark theme"
+            class="mb-2 flex h-9 w-full items-center rounded-[8px] bg-background-subtle text-text-secondary transition-colors hover:bg-action-primary-subtle focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring gap-3 px-3"
+            role="switch"
+            type="button"
           >
-            Discount (%)
-          </label>
-          <div
-            class="relative"
-          >
-            <div
-              class="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"
+            <span
+              aria-hidden="true"
+              class="shrink-0"
             >
               <svg
                 fill="none"
@@ -293,107 +229,886 @@ exports[`OrderCreateComponent Snapshots Should Render OrderCreateComponent 1`] =
                 stroke="currentColor"
                 stroke-linecap="round"
                 stroke-linejoin="round"
-                stroke-width="2.5"
+                stroke-width="1.8"
                 viewBox="0 0 24 24"
                 width="20"
+                xmlns="http://www.w3.org/2000/svg"
               >
+                <path
+                  d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"
+                />
+              </svg>
+            </span>
+            <span
+              class="flex-1 text-left text-[13px] font-medium"
+            >
+              Dark theme
+            </span>
+          </button>
+          <button
+            aria-label="Log out"
+            class="mb-2 flex h-9 w-full items-center rounded-[8px] text-danger-strong transition-colors hover:bg-danger-subtle focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring gap-3 px-3"
+            type="button"
+          >
+            <span
+              aria-hidden="true"
+              class="shrink-0"
+            >
+              <svg
+                fill="none"
+                height="16"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="1.8"
+                viewBox="0 0 24 24"
+                width="16"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"
+                />
+                <polyline
+                  points="16 17 21 12 16 7"
+                />
                 <line
-                  x1="19"
-                  x2="5"
-                  y1="5"
-                  y2="19"
-                />
-                <circle
-                  cx="6.5"
-                  cy="6.5"
-                  r="2.5"
-                />
-                <circle
-                  cx="17.5"
-                  cy="17.5"
-                  r="2.5"
+                  x1="21"
+                  x2="9"
+                  y1="12"
+                  y2="12"
                 />
               </svg>
-            </div>
-            <input
-              class="w-full bg-white border border-gray-100 rounded-3xl py-4 pl-12 pr-5 text-[15px] font-semibold text-gray-800 shadow-[0_4px_15px_rgba(0,0,0,0.02)] outline-none focus:border-[#daeaf3] focus:ring-4 focus:ring-[#daeaf3]/50 transition-all placeholder:text-gray-300"
-              placeholder="e.g. 10"
-              type="number"
-            />
-          </div>
-        </div>
-        <div
-          class="mb-6 mt-2 relative z-10"
-        >
-          <label
-            class="block text-[12px] font-bold text-gray-400 mb-2 pl-3 tracking-widest uppercase"
-          >
-            Service Category
-          </label>
-          <div
-            class="relative"
-          >
-            <div
-              class="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"
+            </span>
+            <span
+              class="flex-1 text-left text-[13px] font-medium"
             >
-              <svg
-                fill="none"
-                height="20"
-                stroke="currentColor"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2.5"
-                viewBox="0 0 24 24"
-                width="20"
-              >
-                <polygon
-                  points="12 2 2 7 12 12 22 7 12 2"
-                />
-                <polyline
-                  points="2 17 12 22 22 17"
-                />
-                <polyline
-                  points="2 12 12 17 22 12"
-                />
-              </svg>
-            </div>
-            <div
-              class="w-full bg-white border border-gray-100 rounded-3xl py-4 pl-12 pr-10 text-[15px] font-semibold text-gray-800 shadow-[0_4px_15px_rgba(0,0,0,0.02)] cursor-pointer transition-all flex items-center"
+              Log out
+            </span>
+          </button>
+          <button
+            aria-expanded="false"
+            aria-haspopup="menu"
+            class="w-full flex items-center rounded-[10px] transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring/30 hover:bg-background-elevated gap-3 p-2"
+            type="button"
+          >
+            <span
+              aria-hidden="true"
+              class="w-8 h-8 rounded-full bg-action-primary-subtle text-action-primary flex items-center justify-center text-[12px] font-semibold shrink-0"
+            >
+              US
+            </span>
+            <span
+              class="flex-1 min-w-0 text-left"
             >
               <span
-                class="truncate"
+                class="block truncate text-[13px] font-semibold leading-4 text-text-primary"
               >
-                Select category...
+                User
               </span>
-            </div>
-            <div
-              class="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none"
+            </span>
+            <span
+              class="shrink-0 text-text-tertiary transition-transform duration-200 "
             >
               <svg
-                class="transition-transform duration-200 "
+                fill="none"
+                height="14"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+                width="14"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="m6 9 6 6 6-6"
+                />
+              </svg>
+            </span>
+          </button>
+        </div>
+      </aside>
+    </div>
+    <div
+      class="flex-1 flex flex-col min-w-0 min-h-0 overflow-hidden relative transition-colors duration-200 bg-background-page bg-background-surface lg:bg-background-page"
+    >
+      <div
+        class="lg:hidden shrink-0"
+      >
+        <div
+          class="flex items-center justify-between bg-background-surface px-6 pt-5"
+        >
+          <div
+            class="flex items-center gap-4"
+          >
+            <div
+              class="w-52 h-14"
+            >
+              <img
+                alt="Logo"
+                class="w-full h-full object-cover"
+                src="/src/assets/Sonicline.png"
+              />
+            </div>
+          </div>
+          <div
+            class="flex items-center gap-3"
+          />
+        </div>
+      </div>
+      <div
+        class="hidden lg:block shrink-0"
+      >
+        <header
+          class="sticky top-0 z-10 flex h-20 items-center justify-between border-b border-border-default bg-background-surface px-8 transition-all"
+        >
+          <div
+            class="flex flex-1 items-center gap-4"
+          >
+            <button
+              aria-expanded="true"
+              aria-label="Close sidebar"
+              class="flex h-10 w-10 items-center justify-center rounded-lg border border-border-default bg-background-surface text-text-secondary transition-colors hover:bg-background-subtle hover:text-text-primary focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring/30"
+              type="button"
+            >
+              <svg
                 fill="none"
                 height="20"
                 stroke="currentColor"
                 stroke-linecap="round"
                 stroke-linejoin="round"
-                stroke-width="2.5"
+                stroke-width="1.8"
                 viewBox="0 0 24 24"
                 width="20"
+                xmlns="http://www.w3.org/2000/svg"
               >
-                <polyline
-                  points="6 9 12 15 18 9"
+                <rect
+                  height="18"
+                  rx="3"
+                  width="18"
+                  x="3"
+                  y="3"
+                />
+                <path
+                  d="M9 3v18"
                 />
               </svg>
+            </button>
+            <div
+              class="group relative hidden max-w-lg flex-1 md:block"
+            >
+              <div
+                class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3 text-text-tertiary"
+              >
+                <svg
+                  fill="none"
+                  height="18"
+                  stroke="currentColor"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="1.8"
+                  viewBox="0 0 24 24"
+                  width="18"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <circle
+                    cx="11"
+                    cy="11"
+                    r="8"
+                  />
+                  <path
+                    d="m21 21-4.3-4.3"
+                  />
+                </svg>
+              </div>
+              <input
+                aria-label="Search anything"
+                class="w-full rounded-lg border border-border-default bg-background-surface py-2.5 pl-10 pr-12 text-sm font-medium text-text-primary transition-all placeholder:text-text-tertiary focus:border-action-primary focus:outline-none focus:ring-1 focus:ring-action-primary"
+                placeholder="Search anything"
+                type="text"
+              />
+              <div
+                class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3"
+              >
+                <span
+                  class="rounded border border-border-default bg-background-subtle px-1.5 py-0.5 text-[10px] font-medium text-text-tertiary"
+                >
+                  ⌘K
+                </span>
+              </div>
             </div>
           </div>
-        </div>
-        <button
-          class="w-full bg-[#1a233a] text-white rounded-full py-4.5 text-[16px] font-bold tracking-wide shadow-[0_10px_20px_rgba(26,35,58,0.15)] hover:bg-black transition-all transform hover:-translate-y-0.5 mt-2"
-          type="submit"
+          <time
+            class="text-lg font-semibold tracking-wide text-text-primary tabular-nums sm:text-3xl"
+            data-testid="navbar-realtime-clock"
+          >
+            22-10-2026 18:45:00
+          </time>
+        </header>
+      </div>
+      <main
+        class="relative z-0 flex-1 overflow-y-auto px-4 pt-4 pb-20 lg:p-8"
+      >
+        <div
+          class="min-h-full w-full bg-background-surface pb-6 font-sans min-[1024px]:bg-background-page"
         >
-          Create Order
-        </button>
-      </form>
+          <div
+            class="flex items-center gap-3 bg-background-surface px-0 pb-6 lg:hidden"
+          >
+            <button
+              aria-label="Back"
+              class="flex h-14 w-14 shrink-0 items-center justify-center rounded-full border border-border-default bg-background-surface text-text-primary transition-colors hover:bg-background-subtle"
+              type="button"
+            >
+              <svg
+                aria-hidden="true"
+                class="h-6 w-6"
+                fill="none"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2.5"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  d="M19 12H5M12 19l-7-7 7-7"
+                />
+              </svg>
+            </button>
+            <h1
+              class="truncate text-4xl font-semibold leading-tight text-text-primary"
+            >
+              Create Order
+            </h1>
+          </div>
+          <div
+            class="w-full px-0 text-lg min-[1024px]:text-base"
+          >
+            <nav
+              aria-label="Breadcrumb"
+              class="mb-3 hidden items-center gap-2 text-sm font-medium text-text-secondary lg:flex"
+            >
+              <button
+                class="cursor-pointer hover:text-text-primary"
+                type="button"
+              >
+                Order
+              </button>
+              <span
+                aria-hidden="true"
+              >
+                /
+              </span>
+              <span
+                class="text-text-primary"
+              >
+                Create Order
+              </span>
+            </nav>
+            <div
+              class="my-6 hidden pl-1 lg:block"
+            >
+              <h1
+                class="text-4xl font-semibold leading-tight tracking-tight text-text-primary"
+              >
+                Create Order
+              </h1>
+              <p
+                class="mt-3 text-[14px] font-medium text-text-secondary opacity-70"
+              >
+                Fill in the order details below.
+              </p>
+            </div>
+            <form
+              class="mb-14 flex flex-col justify-between border-0 bg-transparent p-0 pb-0 shadow-none min-[1024px]:mb-10 min-[1024px]:rounded-4xl min-[1024px]:border min-[1024px]:border-brand-gray-light min-[1024px]:bg-brand-white min-[1024px]:p-8 min-[1024px]:shadow-xs"
+              novalidate=""
+            >
+              <div
+                class="mb-6 flex items-center gap-2"
+              >
+                <div
+                  class="flex items-center gap-2 text-sm font-semibold text-action-primary"
+                >
+                  <span
+                    class="flex h-8 w-8 items-center justify-center rounded-full bg-action-primary text-text-inverse"
+                  >
+                    1
+                  </span>
+                  <span
+                    class="hidden sm:inline"
+                  >
+                    Order Information
+                  </span>
+                </div>
+                <span
+                  class="h-px flex-1 bg-border-default"
+                />
+                <div
+                  class="flex items-center gap-2 text-sm font-semibold text-text-tertiary"
+                >
+                  <span
+                    class="flex h-8 w-8 items-center justify-center rounded-full border border-border-default"
+                  >
+                    2
+                  </span>
+                  <span
+                    class="hidden sm:inline"
+                  >
+                    Rental Items
+                  </span>
+                </div>
+                <span
+                  class="h-px flex-1 bg-border-default"
+                />
+                <div
+                  class="flex items-center gap-2 text-sm font-semibold text-text-tertiary"
+                >
+                  <span
+                    class="flex h-8 w-8 items-center justify-center rounded-full border border-border-default"
+                  >
+                    3
+                  </span>
+                  <span
+                    class="hidden sm:inline"
+                  >
+                    Review
+                  </span>
+                </div>
+              </div>
+              <div
+                class="pb-6"
+              >
+                <section
+                  class="space-y-4"
+                >
+                  <h2
+                    class="text-2xl font-semibold text-text-primary lg:text-lg"
+                  >
+                    Order information
+                  </h2>
+                  <div
+                    class="grid grid-cols-1 gap-x-6 gap-y-1 md:grid-cols-2"
+                  >
+                    <div
+                      class="relative mb-4"
+                    >
+                      <label
+                        class="mb-1.5 block text-xs font-bold uppercase tracking-wider text-text-secondary !text-base"
+                        for="order-customer"
+                      >
+                        Customer
+                        <span
+                          aria-hidden="true"
+                          class="ml-1 text-danger"
+                        >
+                          *
+                        </span>
+                      </label>
+                      <div
+                        class="ant-select ant-select-outlined h-14 w-full [&_.ant-select-content]:!text-xl [&_.ant-select-content]:!font-normal [&_.ant-select-selection-item]:!text-xl [&_.ant-select-selection-placeholder]:!text-xl css-var-root ant-select-css-var css-dev-only-do-not-override-eofgey ant-select-single ant-select-show-arrow"
+                      >
+                        <div
+                          class="ant-select-content"
+                        >
+                          <div
+                            class="ant-select-placeholder"
+                          >
+                            Select customer
+                          </div>
+                          <input
+                            aria-autocomplete="list"
+                            aria-expanded="false"
+                            aria-haspopup="listbox"
+                            aria-invalid="false"
+                            aria-label="Customer"
+                            aria-required="true"
+                            autocomplete="new-password"
+                            class="ant-select-input"
+                            id="order-customer"
+                            readonly=""
+                            role="combobox"
+                            type="text"
+                            value=""
+                          />
+                        </div>
+                        <div
+                          class="ant-select-suffix"
+                        >
+                          <span
+                            aria-label="down"
+                            class="anticon anticon-down"
+                            role="img"
+                          >
+                            <svg
+                              aria-hidden="true"
+                              data-icon="down"
+                              fill="currentColor"
+                              focusable="false"
+                              height="1em"
+                              viewBox="64 64 896 896"
+                              width="1em"
+                            >
+                              <path
+                                d="M884 256h-75c-5.1 0-9.9 2.5-12.9 6.6L512 654.2 227.9 262.6c-3-4.1-7.8-6.6-12.9-6.6h-75c-6.5 0-10.3 7.4-6.5 12.7l352.6 486.1c12.8 17.6 39 17.6 51.7 0l352.6-486.1c3.9-5.3.1-12.7-6.4-12.7z"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                    <div
+                      class="mb-4 [&_.ant-input]:text-xl [&_.ant-input]:placeholder:text-xl [&_label]:text-base"
+                    >
+                      <label
+                        class="mb-1.5 block text-xs font-bold uppercase tracking-wider text-text-secondary"
+                        for="order-customer_name"
+                      >
+                        Customer Name
+                        <span
+                          aria-hidden="true"
+                          class="ml-1 text-danger"
+                        >
+                          *
+                        </span>
+                      </label>
+                      <input
+                        aria-invalid="false"
+                        class="ant-input ant-input-lg css-dev-only-do-not-override-eofgey ant-input-outlined h-14 w-full css-var-root ant-input-css-var"
+                        id="order-customer_name"
+                        placeholder="Enter customer name"
+                        required=""
+                        type="text"
+                        value=""
+                      />
+                    </div>
+                    <div
+                      class="mb-4 [&_.ant-input]:text-xl [&_.ant-input]:placeholder:text-xl [&_label]:text-base"
+                    >
+                      <label
+                        class="mb-1.5 block text-xs font-bold uppercase tracking-wider text-text-secondary"
+                        for="order-customer_phone"
+                      >
+                        Customer Phone
+                        <span
+                          aria-hidden="true"
+                          class="ml-1 text-danger"
+                        >
+                          *
+                        </span>
+                      </label>
+                      <input
+                        aria-invalid="false"
+                        class="ant-input ant-input-lg css-dev-only-do-not-override-eofgey ant-input-outlined h-14 w-full css-var-root ant-input-css-var"
+                        id="order-customer_phone"
+                        placeholder="Enter customer phone number"
+                        required=""
+                        type="text"
+                        value=""
+                      />
+                    </div>
+                    <div
+                      class="relative mb-4 [&_.ant-select-selector]:text-xl"
+                    >
+                      <label
+                        class="mb-1.5 block text-xs font-bold uppercase tracking-wider text-text-secondary !text-base"
+                        for="order-pic"
+                      >
+                        PIC
+                        <span
+                          aria-hidden="true"
+                          class="ml-1 text-danger"
+                        >
+                          *
+                        </span>
+                      </label>
+                      <div
+                        class="ant-select ant-select-outlined h-14 w-full [&_.ant-select-content]:!text-xl [&_.ant-select-content]:!font-normal  css-var-root ant-select-css-var css-dev-only-do-not-override-eofgey ant-select-single ant-select-show-arrow"
+                      >
+                        <div
+                          class="ant-select-content"
+                        >
+                          <div
+                            class="ant-select-placeholder"
+                          >
+                            Select PIC
+                          </div>
+                          <input
+                            aria-autocomplete="list"
+                            aria-expanded="false"
+                            aria-haspopup="listbox"
+                            aria-invalid="false"
+                            aria-label="PIC"
+                            aria-required="true"
+                            autocomplete="new-password"
+                            class="ant-select-input"
+                            id="order-pic"
+                            readonly=""
+                            role="combobox"
+                            type="text"
+                            value=""
+                          />
+                        </div>
+                        <div
+                          class="ant-select-suffix"
+                        >
+                          <span
+                            aria-label="down"
+                            class="anticon anticon-down"
+                            role="img"
+                          >
+                            <svg
+                              aria-hidden="true"
+                              data-icon="down"
+                              fill="currentColor"
+                              focusable="false"
+                              height="1em"
+                              viewBox="64 64 896 896"
+                              width="1em"
+                            >
+                              <path
+                                d="M884 256h-75c-5.1 0-9.9 2.5-12.9 6.6L512 654.2 227.9 262.6c-3-4.1-7.8-6.6-12.9-6.6h-75c-6.5 0-10.3 7.4-6.5 12.7l352.6 486.1c12.8 17.6 39 17.6 51.7 0l352.6-486.1c3.9-5.3.1-12.7-6.4-12.7z"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                    <div
+                      class="block mb-4 md:col-span-2 [&_.ant-picker-input>input]:!text-xl [&_.ant-picker-input>input]:!font-normal [&_label]:!text-base"
+                    >
+                      <div
+                        class="flex flex-col gap-4 sm:flex-row"
+                      >
+                        <div
+                          class="flex-1"
+                        >
+                          <label
+                            class="mb-1.5 block text-xs font-bold uppercase tracking-wider text-text-secondary"
+                            for="date-range-start"
+                          >
+                            Start Date
+                            <span
+                              aria-hidden="true"
+                              class="ml-1 text-danger"
+                            >
+                              *
+                            </span>
+                          </label>
+                          <div
+                            class="ant-picker ant-picker-outlined h-14 w-full css-dev-only-do-not-override-eofgey css-var-root ant-picker-css-var"
+                          >
+                            <div
+                              class="ant-picker-input"
+                            >
+                              <input
+                                aria-invalid="false"
+                                autocomplete="off"
+                                id="date-range-start"
+                                placeholder="Select date"
+                                readonly=""
+                                size="18"
+                                value=""
+                              />
+                              <span
+                                class="ant-picker-suffix"
+                              >
+                                <span
+                                  aria-hidden="true"
+                                  aria-label="calendar"
+                                  class="anticon anticon-calendar"
+                                  role="img"
+                                >
+                                  <svg
+                                    aria-hidden="true"
+                                    data-icon="calendar"
+                                    fill="currentColor"
+                                    focusable="false"
+                                    height="1em"
+                                    viewBox="64 64 896 896"
+                                    width="1em"
+                                  >
+                                    <path
+                                      d="M880 184H712v-64c0-4.4-3.6-8-8-8h-56c-4.4 0-8 3.6-8 8v64H384v-64c0-4.4-3.6-8-8-8h-56c-4.4 0-8 3.6-8 8v64H144c-17.7 0-32 14.3-32 32v664c0 17.7 14.3 32 32 32h736c17.7 0 32-14.3 32-32V216c0-17.7-14.3-32-32-32zm-40 656H184V460h656v380zM184 392V256h128v48c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8v-48h256v48c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8v-48h128v136H184z"
+                                    />
+                                  </svg>
+                                </span>
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+                        <div
+                          class="flex-1"
+                        >
+                          <label
+                            class="mb-1.5 block text-xs font-bold uppercase tracking-wider text-text-secondary"
+                            for="date-range-end"
+                          >
+                            End Date
+                            <span
+                              aria-hidden="true"
+                              class="ml-1 text-danger"
+                            >
+                              *
+                            </span>
+                          </label>
+                          <div
+                            class="ant-picker ant-picker-outlined h-14 w-full css-dev-only-do-not-override-eofgey css-var-root ant-picker-css-var"
+                          >
+                            <div
+                              class="ant-picker-input"
+                            >
+                              <input
+                                aria-invalid="false"
+                                autocomplete="off"
+                                id="date-range-end"
+                                placeholder="Select date"
+                                readonly=""
+                                size="18"
+                                value=""
+                              />
+                              <span
+                                class="ant-picker-suffix"
+                              >
+                                <span
+                                  aria-hidden="true"
+                                  aria-label="calendar"
+                                  class="anticon anticon-calendar"
+                                  role="img"
+                                >
+                                  <svg
+                                    aria-hidden="true"
+                                    data-icon="calendar"
+                                    fill="currentColor"
+                                    focusable="false"
+                                    height="1em"
+                                    viewBox="64 64 896 896"
+                                    width="1em"
+                                  >
+                                    <path
+                                      d="M880 184H712v-64c0-4.4-3.6-8-8-8h-56c-4.4 0-8 3.6-8 8v64H384v-64c0-4.4-3.6-8-8-8h-56c-4.4 0-8 3.6-8 8v64H144c-17.7 0-32 14.3-32 32v664c0 17.7 14.3 32 32 32h736c17.7 0 32-14.3 32-32V216c0-17.7-14.3-32-32-32zm-40 656H184V460h656v380zM184 392V256h128v48c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8v-48h256v48c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8v-48h128v136H184z"
+                                    />
+                                  </svg>
+                                </span>
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div
+                      class="relative mb-4 [&_.ant-select-selector]:text-xl"
+                    >
+                      <label
+                        class="mb-1.5 block text-xs font-bold uppercase tracking-wider text-text-secondary !text-base"
+                        for="order-service-type"
+                      >
+                        Service Type
+                        <span
+                          aria-hidden="true"
+                          class="ml-1 text-danger"
+                        >
+                          *
+                        </span>
+                      </label>
+                      <div
+                        class="ant-select ant-select-outlined h-14 w-full [&_.ant-select-content]:!text-xl [&_.ant-select-content]:!font-normal  css-var-root ant-select-css-var css-dev-only-do-not-override-eofgey ant-select-single ant-select-show-arrow"
+                      >
+                        <div
+                          class="ant-select-content"
+                        >
+                          <div
+                            class="ant-select-placeholder"
+                          >
+                            Select service type
+                          </div>
+                          <input
+                            aria-autocomplete="list"
+                            aria-expanded="false"
+                            aria-haspopup="listbox"
+                            aria-invalid="false"
+                            aria-label="Service Type"
+                            aria-required="true"
+                            autocomplete="new-password"
+                            class="ant-select-input"
+                            id="order-service-type"
+                            readonly=""
+                            role="combobox"
+                            type="text"
+                            value=""
+                          />
+                        </div>
+                        <div
+                          class="ant-select-suffix"
+                        >
+                          <span
+                            aria-label="down"
+                            class="anticon anticon-down"
+                            role="img"
+                          >
+                            <svg
+                              aria-hidden="true"
+                              data-icon="down"
+                              fill="currentColor"
+                              focusable="false"
+                              height="1em"
+                              viewBox="64 64 896 896"
+                              width="1em"
+                            >
+                              <path
+                                d="M884 256h-75c-5.1 0-9.9 2.5-12.9 6.6L512 654.2 227.9 262.6c-3-4.1-7.8-6.6-12.9-6.6h-75c-6.5 0-10.3 7.4-6.5 12.7l352.6 486.1c12.8 17.6 39 17.6 51.7 0l352.6-486.1c3.9-5.3.1-12.7-6.4-12.7z"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                    <div
+                      class="mb-4 [&_.ant-input]:text-xl [&_.ant-input]:placeholder:text-xl [&_label]:text-base"
+                    >
+                      <label
+                        class="mb-1.5 block text-xs font-bold uppercase tracking-wider text-text-secondary"
+                        for="order-service-fee"
+                      >
+                        Service Fee
+                        <span
+                          aria-hidden="true"
+                          class="ml-1 text-danger"
+                        >
+                          *
+                        </span>
+                      </label>
+                      <input
+                        aria-invalid="false"
+                        class="ant-input ant-input-lg css-dev-only-do-not-override-eofgey ant-input-outlined h-14 w-full css-var-root ant-input-css-var"
+                        id="order-service-fee"
+                        inputmode="numeric"
+                        placeholder="Enter service fee"
+                        required=""
+                        type="text"
+                        value=""
+                      />
+                    </div>
+                    <div
+                      class="mb-4 [&_.ant-input]:text-xl [&_.ant-input]:placeholder:text-xl [&_label]:text-base"
+                    >
+                      <label
+                        class="mb-1.5 block text-xs font-bold uppercase tracking-wider text-text-secondary"
+                        for="order-event_name"
+                      >
+                        Event Name
+                        <span
+                          aria-hidden="true"
+                          class="ml-1 text-danger"
+                        >
+                          *
+                        </span>
+                      </label>
+                      <input
+                        aria-invalid="false"
+                        class="ant-input ant-input-lg css-dev-only-do-not-override-eofgey ant-input-outlined h-14 w-full css-var-root ant-input-css-var"
+                        id="order-event_name"
+                        placeholder="Enter event name"
+                        required=""
+                        type="text"
+                        value=""
+                      />
+                    </div>
+                    <div
+                      class="relative mb-4 [&_.ant-select-selector]:text-xl"
+                    >
+                      <label
+                        class="mb-1.5 block text-xs font-bold uppercase tracking-wider text-text-secondary !text-base"
+                        for="order-voucher"
+                      >
+                        Voucher
+                      </label>
+                      <div
+                        class="ant-select ant-select-outlined h-14 w-full [&_.ant-select-content]:!text-xl [&_.ant-select-content]:!font-normal  css-var-root ant-select-css-var css-dev-only-do-not-override-eofgey ant-select-single ant-select-show-arrow"
+                      >
+                        <div
+                          class="ant-select-content"
+                        >
+                          <div
+                            class="ant-select-placeholder"
+                          >
+                            Select voucher
+                          </div>
+                          <input
+                            aria-autocomplete="list"
+                            aria-expanded="false"
+                            aria-haspopup="listbox"
+                            aria-invalid="false"
+                            aria-label="Voucher"
+                            autocomplete="new-password"
+                            class="ant-select-input"
+                            id="order-voucher"
+                            readonly=""
+                            role="combobox"
+                            type="text"
+                            value=""
+                          />
+                        </div>
+                        <div
+                          class="ant-select-suffix"
+                        >
+                          <span
+                            aria-label="down"
+                            class="anticon anticon-down"
+                            role="img"
+                          >
+                            <svg
+                              aria-hidden="true"
+                              data-icon="down"
+                              fill="currentColor"
+                              focusable="false"
+                              height="1em"
+                              viewBox="64 64 896 896"
+                              width="1em"
+                            >
+                              <path
+                                d="M884 256h-75c-5.1 0-9.9 2.5-12.9 6.6L512 654.2 227.9 262.6c-3-4.1-7.8-6.6-12.9-6.6h-75c-6.5 0-10.3 7.4-6.5 12.7l352.6 486.1c12.8 17.6 39 17.6 51.7 0l352.6-486.1c3.9-5.3.1-12.7-6.4-12.7z"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <label
+                    class="block space-y-2"
+                  >
+                    <span
+                      class="text-sm font-medium text-text-secondary"
+                    >
+                      Address
+                    </span>
+                    <textarea
+                      class="min-h-24 w-full rounded-xl border border-border-default bg-background-surface px-4 py-3 text-xl placeholder:text-xl"
+                    />
+                  </label>
+                </section>
+              </div>
+              <div
+                class="flex justify-between border-t border-border-default pt-5"
+              >
+                <button
+                  class="h-14 rounded-xl border border-border-default px-8 font-semibold text-text-primary disabled:cursor-not-allowed disabled:opacity-50"
+                  disabled=""
+                  type="button"
+                >
+                  Back
+                </button>
+                <button
+                  class="h-14 rounded-xl bg-action-primary px-8 font-semibold text-text-inverse"
+                  type="button"
+                >
+                  Next
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </main>
     </div>
   </div>
 </DocumentFragment>

@@ -1,12 +1,12 @@
 import * as React from "react";
 import { FiBox,FiX } from "react-icons/fi";
 
-import type { ItemDetailModalProps } from "../Order.type";
+import type { ItemDetailModalProps } from "../../Order.type";
 
 /**
- * Render Item Detail Content
- * @param {{items: string[]}} props - component props
- * @returns {React.ReactElement} content element
+ * Handle module operation.
+ * @param {{ items: string[] }} props - props value
+ * @returns {React.ReactElement} - Operation result
  */
 const ItemDetailContent = ({ items }: { items: string[] }): React.ReactElement => (
   <div className="flex-1 overflow-y-auto p-6 bg-brand-white">
@@ -33,9 +33,11 @@ const ItemDetailContent = ({ items }: { items: string[] }): React.ReactElement =
 );
 
 /**
- * Item Detail Modal Header Component
- * @param {{name: string, onClose: () => void}} props - props
- * @returns {React.ReactElement} header element
+ * Handle module operation.
+ * @param {{ name: string; onClose: () => void }} root0 - Header properties
+ * @param {string} root0.name - Order name
+ * @param {() => void} root0.onClose - Close handler
+ * @returns {React.ReactElement} Header
  */
 const ItemDetailModalHeader = ({ name, onClose }: { name: string, onClose: () => void }): React.ReactElement => (
   <div className="flex items-center justify-between px-6 py-4 border-b border-brand-gray-light bg-brand-gray-light/50">
@@ -58,9 +60,9 @@ const ItemDetailModalHeader = ({ name, onClose }: { name: string, onClose: () =>
 );
 
 /**
- * Item Detail Modal Component
- * @param {ItemDetailModalProps} props - component props
- * @returns {React.ReactElement | null} modal element
+ * Handle module operation.
+ * @param {ItemDetailModalProps} props - Modal properties
+ * @returns {React.ReactElement | null} - Operation result
  */
 export const ItemDetailModal = ({ isOpen, onClose, quote }: ItemDetailModalProps): React.ReactElement | null => {
   if (!isOpen || !quote) return null;

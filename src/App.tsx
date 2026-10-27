@@ -1,13 +1,19 @@
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 
+import ActivityLogPage from "./app/activity-log";
 import Login from "./app/auth/login-page";
 import Dashboard from "./app/dashboard";
+import DocumentMain from "./app/document/DocumentMain";
 import InvoicePage from "./app/document/invoice";
 import InvoiceDetailPage from "./app/document/invoice/detail";
+import InvoiceStatusPage from "./app/document/invoice/status";
 import ItemChecklistPage from "./app/document/item-checklist";
 import PaymentPage from "./app/document/payment";
 import PaymentCreatePage from "./app/document/payment/create";
+import PaymentStatusPage from "./app/document/payment/status";
 import QuotationPage from "./app/document/quotation";
+import QuotationDetailPage from "./app/document/quotation/detail";
+import QuotationStatusPage from "./app/document/quotation/status";
 import MasterCategory from "./app/master-category";
 import MasterCategoryCreate from "./app/master-category/create";
 import MasterCustomer from "./app/master-customer";
@@ -50,6 +56,7 @@ function App(): React.ReactElement {
         <Route path="/" element={<Navigate to="/login" replace />} />
         <Route path="/login" element={<Login />} />
         <Route path="/home" element={<Dashboard />} />
+        <Route path="/activity-log" element={<ActivityLogPage />} />
         <Route path="/master-main" element={<MasterMain />} />
         
         {/* Customer */}
@@ -110,13 +117,18 @@ function App(): React.ReactElement {
         <Route path="/master-user/edit/:id" element={<MasterUserCreate />} />
 
         {/* Documents */}
+        <Route path="/document" element={<DocumentMain />} />
         <Route path="/document/quotation" element={<QuotationPage />} />
+        <Route path="/document/quotation/:id" element={<QuotationDetailPage />} />
+        <Route path="/document/quotation/:id/status" element={<QuotationStatusPage />} />
         <Route path="/document/invoice" element={<InvoicePage />} />
         <Route path="/document/invoice/:id" element={<InvoiceDetailPage />} />
+        <Route path="/document/invoice/:id/status" element={<InvoiceStatusPage />} />
         <Route path="/document/item-checklist" element={<ItemChecklistPage />} />
         <Route path="/document/payment" element={<PaymentPage />} />
         <Route path="/document/payment/create" element={<PaymentCreatePage />} />
         <Route path="/document/payment/:id/edit" element={<PaymentCreatePage />} />
+        <Route path="/document/payment/:id/status" element={<PaymentStatusPage />} />
 
         {/* Orders & Reports */}
         <Route path="/order" element={<OrderPage />} />

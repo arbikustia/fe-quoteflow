@@ -1,13 +1,12 @@
 import * as React from "react";
 import { FiLayers,FiX } from "react-icons/fi";
 
-import type { CategoryDetailModalProps } from "../Order.type";
+import type { CategoryDetailModalProps } from "../../Order.type";
 
 /**
- * Category Detail Content Component
- * @param {object} props - props
- * @param {string[]} props.categories - categories list
- * @returns {React.ReactElement} content element
+ * Handle module operation.
+ * @param {{ categories: string[] }} props - props value
+ * @returns {React.ReactElement} - Operation result
  */
 const CategoryDetailContent = ({ categories }: { categories: string[] }): React.ReactElement => (
   <div className="flex-1 overflow-y-auto p-6 bg-brand-white">
@@ -33,9 +32,11 @@ const CategoryDetailContent = ({ categories }: { categories: string[] }): React.
 );
 
 /**
- * Category Detail Modal Header Component
- * @param {{name: string, onClose: () => void}} props - props
- * @returns {React.ReactElement} header element
+ * Handle module operation.
+ * @param {{ name: string; onClose: () => void }} root0 - Header properties
+ * @param {string} root0.name - Order name
+ * @param {() => void} root0.onClose - Close handler
+ * @returns {React.ReactElement} Header
  */
 const CategoryDetailModalHeader = ({ name, onClose }: { name: string, onClose: () => void }): React.ReactElement => (
   <div className="flex items-center justify-between px-6 py-4 border-b border-brand-gray-light bg-brand-gray-light/50">
@@ -58,9 +59,9 @@ const CategoryDetailModalHeader = ({ name, onClose }: { name: string, onClose: (
 );
 
 /**
- * Category Detail Modal Component
- * @param {CategoryDetailModalProps} props - component props
- * @returns {React.ReactElement | null} modal element
+ * Handle module operation.
+ * @param {CategoryDetailModalProps} props - Modal properties
+ * @returns {React.ReactElement | null} - Operation result
  */
 export const CategoryDetailModal = ({ isOpen, onClose, quote }: CategoryDetailModalProps): React.ReactElement | null => {
   if (!isOpen || !quote) return null;

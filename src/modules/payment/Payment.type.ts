@@ -1,7 +1,5 @@
 import type * as React from "react";
 
-import type { TableColumn } from "@/components/Table";
-
 export type ApiPayment = {
   id: string;
   invoice_id: string;
@@ -35,6 +33,14 @@ export type PaymentCreatePayload = { invoice_id: string; payment_method_id: stri
 export type PaymentCreateResponse = { status: boolean; data: ApiPayment | null; messages: string[] };
 export type PaymentInvoiceOption = { id: string; invoice_no: string; customer_name?: string; event_name?: string };
 export type PaymentMethodOption = { id: string; name: string };
+export type PaymentRequiredFields = {
+  invoiceId: string;
+  paymentMethodId: string;
+  amount: number | null;
+  paidAt: string;
+  referenceNo: string;
+};
+
 export type PaymentCreateFormState = {
   id?: string;
   isEditMode?: boolean;
@@ -43,13 +49,14 @@ export type PaymentCreateFormState = {
   paymentMethods: PaymentMethodOption[];
   invoiceId: string;
   paymentMethodId: string;
-  amount: number;
+  amount: number | null;
   paidAt: string;
   referenceNo: string;
   notes: string;
   isLoadingOptions: boolean;
   isSubmitting: boolean;
   errorMessage: string | null;
+  isSubmitted: boolean;
   handleSubmit: (event: React.SyntheticEvent) => Promise<void>;
   setInvoiceId: (value: string) => void;
   setPaymentMethodId: (value: string) => void;
@@ -57,7 +64,7 @@ export type PaymentCreateFormState = {
   setPaidAt: (value: string) => void;
   setReferenceNo: (value: string) => void;
   setNotes: (value: string) => void;
-  handleStatusChange?: (value: boolean) => void;
+  handleStatusChange: (value: boolean) => void;
   goBack: () => void;
 };
 
@@ -95,8 +102,8 @@ export type PaymentPagination = {
 };
 
 export type PaymentProps = PaymentPagination & {
-  columns: TableColumn<PaymentData>[];
   onBack: () => void;
   onCreate: () => void;
+  onEdit: (payment: PaymentData) => void;
   onRowClick: (payment: PaymentData) => void;
 };

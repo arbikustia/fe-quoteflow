@@ -82,7 +82,7 @@ const getDesktopReportColumns = (currentPage: number, pageSize: number): TableCo
  * @param {DesktopReportProps} props - props
  * @returns {React.ReactElement} - rendered toolbar
  */
-const DesktopReportToolbar = (props: DesktopReportProps): React.ReactElement => (
+const DesktopReportToolbar = (): React.ReactElement => (
   <div className="flex items-center justify-between p-4 px-6 border-b border-brand-gray-light">
     <div className="relative">
       <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-brand-text-medium">
@@ -113,7 +113,7 @@ export const DesktopReportComponent = (props: DesktopReportProps): React.ReactEl
       </div>
 
       <div className="bg-brand-white rounded-xl border border-brand-gray-light shadow-sm flex flex-col flex-1 overflow-hidden">
-        <DesktopReportToolbar {...props} />
+        <DesktopReportToolbar />
         <div className="flex-1 overflow-auto">
           <Table data={props.paginatedData} columns={getDesktopReportColumns(props.currentPage, props.pageSize)} keyExtractor={(row): string => row.id} />
         </div>

@@ -1,11 +1,11 @@
 import React from "react";
 import { useLocation } from "react-router-dom";
 
-import SidebarContainer from "../components/Sidebar/index";
-import { useSidebarCollapse } from "../hooks/useSidebarCollapse";
-import NavbarContainer from "../components/Navbar/index";
 import GlobalHeader from "./shared/GlobalHeader";
 import MobileNavigate from "../components/MobileNavigate";
+import NavbarContainer from "../components/Navbar/index";
+import SidebarContainer from "../components/Sidebar/index";
+import { useSidebarCollapse } from "../hooks/useSidebarCollapse";
 
 export type LayoutProps = {
   children: React.ReactNode;
@@ -20,12 +20,10 @@ export type LayoutProps = {
  * @param {LayoutProps} props - props
  * @returns {React.ReactElement} node
  */
-export default function Layout({ children, mobileWhiteBackground = false, whiteBackground = false, showMobileGlobalHeader = false }: LayoutProps): React.ReactElement {
+export default function Layout({ children, mobileWhiteBackground = false, whiteBackground = false }: LayoutProps): React.ReactElement {
   const { pathname } = useLocation();
   const { isSidebarCollapsed, onToggleSidebarCollapsed } = useSidebarCollapse();
   const isOrderRoute = pathname.startsWith("/order");
-  const isMasterListRoute = /^\/master-[^/]+$/.test(pathname);
-  const hasGlobalMobileHeader = isOrderRoute || isMasterListRoute || showMobileGlobalHeader;
 
   return (
     <div className={`flex h-full min-h-0 w-full overflow-hidden font-sans text-text-primary relative items-stretch transition-colors duration-200 ${whiteBackground ? "bg-background-surface" : "bg-background-page"}`}>

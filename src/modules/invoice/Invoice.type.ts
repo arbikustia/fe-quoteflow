@@ -1,9 +1,7 @@
-import type { TableColumn } from "@/components/Table";
-
 export type InvoiceItem = { item_id: string; item_name: string; qty: number; price: number; subtotal: number; remark: string };
 export type InvoiceProjectItem = { id: string; item_id: string; item_name: string; qty: number; price: number };
 export type InvoiceProject = { id: string; name: string; remark: string; qty: number; subtotal: number; items: InvoiceProjectItem[] };
-export type InvoiceEntity = { id: string; name: string; status: number; created_at: string; updated_at: string; address?: string; phone_number?: string; code?: string; discount_percent?: number };
+export type InvoiceEntity = { id: string; name: string; status: number; created_at: string; updated_at: string; address: string; phone_number: string; code?: string; discount_percent?: number };
 export type InvoiceTransaction = {
   id: string; service_type_id: string; service_type_name: string; customer_name: string; customer_phone: string; address: string; event_name: string; start_at: string; end_at: string;
   subtotal: number; service_fee: number; discount: number; grand_total: number; status: number; created_at: string; updated_at: string;
@@ -38,6 +36,7 @@ export type InvoiceData = {
   invoiceNumber: string;
   invoiceDate: string;
   dueDate: string;
+  customerName: string;
   name: string;
   customerPhone: string;
   location: string;
@@ -48,12 +47,10 @@ export type InvoiceData = {
   notes: string;
 };
 
-export type InvoiceStatusState = {
-  updatingInvoiceId: string | null;
-  notificationMessage: string | null;
-  notificationType: "success" | "error";
-  updateStatus: (invoice: InvoiceData, isActive: boolean) => Promise<void>;
-  closeNotification: () => void;
+export type InvoicePageData = {
+  paginatedData: InvoiceData[];
+  totalPages: number;
+  totalCount: number;
 };
 
 export type InvoicePagination = {
@@ -70,11 +67,11 @@ export type InvoicePagination = {
   changePageSize: (size: number) => void;
 };
 
-export type InvoiceProps = InvoicePagination & InvoiceStatusState & {
-  columns: TableColumn<InvoiceData>[];
+export type InvoiceProps = InvoicePagination & {
   onBack: () => void;
   onRowClick: (invoice: InvoiceData) => void;
   onDetail: (invoice: InvoiceData) => void;
+  onEdit: (invoice: InvoiceData) => void;
 };
 
 export type InvoiceDetailState = {

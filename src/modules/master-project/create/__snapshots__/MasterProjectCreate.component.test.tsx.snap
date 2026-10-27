@@ -7,7 +7,7 @@ exports[`MasterProjectCreateForm should match project form snapshot 1`] = `
       class="flex h-full min-h-full w-full flex-col bg-background-surface pb-6 font-sans lg:bg-background-page"
     >
       <div
-        class="sticky top-0 z-20 flex items-center bg-background-surface px-0 lg:hidden"
+        class="sticky top-0 z-20 flex items-center gap-3 bg-background-surface px-0 lg:hidden"
       >
         <button
           aria-label="Back"
@@ -29,12 +29,17 @@ exports[`MasterProjectCreateForm should match project form snapshot 1`] = `
             />
           </svg>
         </button>
+        <h2
+          class="truncate text-4xl font-semibold text-text-primary"
+        >
+          New Project
+        </h2>
       </div>
       <div
-        class="mt-2 px-0 lg:px-0"
+        class="mt-10 px-0 text-lg lg:mt-0 lg:px-0 lg:text-base"
       >
         <div
-          class="mb-8 pl-1"
+          class="mb-8 hidden pl-1 lg:block"
         >
           <h2
             class="text-4xl font-semibold text-text-primary"
@@ -78,7 +83,7 @@ exports[`MasterProjectCreateForm should match project form snapshot 1`] = `
         >
           <section>
             <h3
-              class="mb-4 text-xl font-semibold text-text-primary"
+              class="mb-4 text-2xl font-semibold text-text-primary lg:text-xl"
             >
               Select items
             </h3>
@@ -105,12 +110,12 @@ exports[`MasterProjectCreateForm should match project form snapshot 1`] = `
                     class="min-w-0 flex-1"
                   >
                     <strong
-                      class="block truncate text-sm font-semibold text-text-primary"
+                      class="block truncate text-xl font-semibold text-text-primary"
                     >
                       Camera
                     </strong>
                     <small
-                      class="mt-1 block text-text-secondary"
+                      class="mt-1 block text-lg text-text-secondary"
                     >
                       Stock: 5 · Rp 100.000
                     </small>
@@ -135,7 +140,7 @@ exports[`MasterProjectCreateForm should match project form snapshot 1`] = `
               Cancel
             </button>
             <button
-              class="h-14 rounded-xl bg-action-primary px-8 font-semibold text-text-inverse disabled:opacity-60"
+              class="h-14 rounded-xl bg-action-primary px-8 text-lg font-semibold text-text-inverse disabled:opacity-60 lg:text-base"
               type="submit"
             >
               Next

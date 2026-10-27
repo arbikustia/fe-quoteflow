@@ -3,8 +3,8 @@ import * as React from "react";
 import OrderContainer from "./Order.container";
 
 /**
- * Order Page Container Wrapper
- * @returns {React.ReactElement} wrapper component
+ * Handle module operation.
+ * @returns {React.ReactElement} - Operation result
  */
 const OrderContainerWrapper = (): React.ReactElement => {
   return <OrderContainer />;

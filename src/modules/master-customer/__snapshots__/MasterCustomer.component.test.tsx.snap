@@ -70,7 +70,7 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots default stat
               </svg>
             </button>
             <h1
-              class="min-w-0 truncate text-left text-3xl font-semibold tracking-tight text-text-primary"
+              class="min-w-0 truncate text-left text-3xl font-semibold tracking-tight text-text-primary text-4xl"
             >
               Customer List
             </h1>
@@ -112,7 +112,7 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots default stat
                 />
                 <input
                   aria-label="Search customer"
-                  class="h-14 w-full rounded-full border border-border-default bg-background-surface pl-12 pr-4 text-base font-medium text-text-primary outline-none transition-colors placeholder:font-normal placeholder:text-text-tertiary hover:border-border-strong focus:border-border-focus focus:ring-2 focus:ring-focus-ring/30"
+                  class="h-14 w-full rounded-full border border-border-default bg-background-surface pl-12 pr-4 text-base font-medium text-text-primary outline-none transition-colors placeholder:font-normal placeholder:text-text-tertiary hover:border-border-strong focus:border-border-focus focus:ring-2 focus:ring-focus-ring/30 text-lg placeholder:text-lg"
                   placeholder="Search customer"
                   type="search"
                 />
@@ -129,20 +129,15 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots default stat
                   class="min-w-0 flex-1"
                 >
                   <span
-                    class="mb-1 block text-xs font-medium uppercase tracking-wider text-text-tertiary"
-                  >
-                    Master data
-                  </span>
-                  <span
-                    class="block truncate text-base font-semibold text-text-primary"
+                    class="block truncate font-semibold text-text-primary text-2xl"
                   >
                     PT Mega Jaya Abadi
                   </span>
                   <span
-                    class="mt-3 block"
+                    class="mt-3 block text-xl"
                   >
                     <span
-                      class="grid gap-1 text-sm text-text-secondary"
+                      class="grid gap-1 text-lg text-text-secondary"
                     >
                       <span
                         class="truncate"
@@ -161,7 +156,7 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots default stat
                   class="flex shrink-0 items-center gap-3"
                 >
                   <span
-                    class="rounded-full px-3 py-1 text-xs font-bold uppercase tracking-wider bg-success-subtle text-success-strong"
+                    class="rounded-full px-3 py-1 font-bold uppercase tracking-wider bg-success-subtle text-success-strong text-sm"
                   >
                     active
                   </span>
@@ -181,20 +176,15 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots default stat
                   class="min-w-0 flex-1"
                 >
                   <span
-                    class="mb-1 block text-xs font-medium uppercase tracking-wider text-text-tertiary"
-                  >
-                    Master data
-                  </span>
-                  <span
-                    class="block truncate text-base font-semibold text-text-primary"
+                    class="block truncate font-semibold text-text-primary text-2xl"
                   >
                     CV Sinar Terang
                   </span>
                   <span
-                    class="mt-3 block"
+                    class="mt-3 block text-xl"
                   >
                     <span
-                      class="grid gap-1 text-sm text-text-secondary"
+                      class="grid gap-1 text-lg text-text-secondary"
                     >
                       <span
                         class="truncate"
@@ -213,7 +203,7 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots default stat
                   class="flex shrink-0 items-center gap-3"
                 >
                   <span
-                    class="rounded-full px-3 py-1 text-xs font-bold uppercase tracking-wider bg-success-subtle text-success-strong"
+                    class="rounded-full px-3 py-1 font-bold uppercase tracking-wider bg-success-subtle text-success-strong text-sm"
                   >
                     active
                   </span>
@@ -233,20 +223,15 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots default stat
                   class="min-w-0 flex-1"
                 >
                   <span
-                    class="mb-1 block text-xs font-medium uppercase tracking-wider text-text-tertiary"
-                  >
-                    Master data
-                  </span>
-                  <span
-                    class="block truncate text-base font-semibold text-text-primary"
+                    class="block truncate font-semibold text-text-primary text-2xl"
                   >
                     Budi Santoso
                   </span>
                   <span
-                    class="mt-3 block"
+                    class="mt-3 block text-xl"
                   >
                     <span
-                      class="grid gap-1 text-sm text-text-secondary"
+                      class="grid gap-1 text-lg text-text-secondary"
                     >
                       <span
                         class="truncate"
@@ -265,7 +250,7 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots default stat
                   class="flex shrink-0 items-center gap-3"
                 >
                   <span
-                    class="rounded-full px-3 py-1 text-xs font-bold uppercase tracking-wider bg-danger-subtle text-danger-strong"
+                    class="rounded-full px-3 py-1 font-bold uppercase tracking-wider bg-danger-subtle text-danger-strong text-sm"
                   >
                     inactive
                   </span>
@@ -285,20 +270,15 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots default stat
                   class="min-w-0 flex-1"
                 >
                   <span
-                    class="mb-1 block text-xs font-medium uppercase tracking-wider text-text-tertiary"
-                  >
-                    Master data
-                  </span>
-                  <span
-                    class="block truncate text-base font-semibold text-text-primary"
+                    class="block truncate font-semibold text-text-primary text-2xl"
                   >
                     PT Nusantara Prima
                   </span>
                   <span
-                    class="mt-3 block"
+                    class="mt-3 block text-xl"
                   >
                     <span
-                      class="grid gap-1 text-sm text-text-secondary"
+                      class="grid gap-1 text-lg text-text-secondary"
                     >
                       <span
                         class="truncate"
@@ -317,7 +297,7 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots default stat
                   class="flex shrink-0 items-center gap-3"
                 >
                   <span
-                    class="rounded-full px-3 py-1 text-xs font-bold uppercase tracking-wider bg-success-subtle text-success-strong"
+                    class="rounded-full px-3 py-1 font-bold uppercase tracking-wider bg-success-subtle text-success-strong text-sm"
                   >
                     active
                   </span>
@@ -337,20 +317,15 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots default stat
                   class="min-w-0 flex-1"
                 >
                   <span
-                    class="mb-1 block text-xs font-medium uppercase tracking-wider text-text-tertiary"
-                  >
-                    Master data
-                  </span>
-                  <span
-                    class="block truncate text-base font-semibold text-text-primary"
+                    class="block truncate font-semibold text-text-primary text-2xl"
                   >
                     Dewi Lestari
                   </span>
                   <span
-                    class="mt-3 block"
+                    class="mt-3 block text-xl"
                   >
                     <span
-                      class="grid gap-1 text-sm text-text-secondary"
+                      class="grid gap-1 text-lg text-text-secondary"
                     >
                       <span
                         class="truncate"
@@ -369,7 +344,7 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots default stat
                   class="flex shrink-0 items-center gap-3"
                 >
                   <span
-                    class="rounded-full px-3 py-1 text-xs font-bold uppercase tracking-wider bg-success-subtle text-success-strong"
+                    class="rounded-full px-3 py-1 font-bold uppercase tracking-wider bg-success-subtle text-success-strong text-sm"
                   >
                     active
                   </span>
@@ -389,20 +364,15 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots default stat
                   class="min-w-0 flex-1"
                 >
                   <span
-                    class="mb-1 block text-xs font-medium uppercase tracking-wider text-text-tertiary"
-                  >
-                    Master data
-                  </span>
-                  <span
-                    class="block truncate text-base font-semibold text-text-primary"
+                    class="block truncate font-semibold text-text-primary text-2xl"
                   >
                     CV Berkah Mandiri
                   </span>
                   <span
-                    class="mt-3 block"
+                    class="mt-3 block text-xl"
                   >
                     <span
-                      class="grid gap-1 text-sm text-text-secondary"
+                      class="grid gap-1 text-lg text-text-secondary"
                     >
                       <span
                         class="truncate"
@@ -421,7 +391,7 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots default stat
                   class="flex shrink-0 items-center gap-3"
                 >
                   <span
-                    class="rounded-full px-3 py-1 text-xs font-bold uppercase tracking-wider bg-danger-subtle text-danger-strong"
+                    class="rounded-full px-3 py-1 font-bold uppercase tracking-wider bg-danger-subtle text-danger-strong text-sm"
                   >
                     inactive
                   </span>
@@ -441,20 +411,15 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots default stat
                   class="min-w-0 flex-1"
                 >
                   <span
-                    class="mb-1 block text-xs font-medium uppercase tracking-wider text-text-tertiary"
-                  >
-                    Master data
-                  </span>
-                  <span
-                    class="block truncate text-base font-semibold text-text-primary"
+                    class="block truncate font-semibold text-text-primary text-2xl"
                   >
                     PT Cipta Karya Solusi
                   </span>
                   <span
-                    class="mt-3 block"
+                    class="mt-3 block text-xl"
                   >
                     <span
-                      class="grid gap-1 text-sm text-text-secondary"
+                      class="grid gap-1 text-lg text-text-secondary"
                     >
                       <span
                         class="truncate"
@@ -473,7 +438,7 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots default stat
                   class="flex shrink-0 items-center gap-3"
                 >
                   <span
-                    class="rounded-full px-3 py-1 text-xs font-bold uppercase tracking-wider bg-success-subtle text-success-strong"
+                    class="rounded-full px-3 py-1 font-bold uppercase tracking-wider bg-success-subtle text-success-strong text-sm"
                   >
                     active
                   </span>
@@ -493,20 +458,15 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots default stat
                   class="min-w-0 flex-1"
                 >
                   <span
-                    class="mb-1 block text-xs font-medium uppercase tracking-wider text-text-tertiary"
-                  >
-                    Master data
-                  </span>
-                  <span
-                    class="block truncate text-base font-semibold text-text-primary"
+                    class="block truncate font-semibold text-text-primary text-2xl"
                   >
                     Ahmad Fauzi
                   </span>
                   <span
-                    class="mt-3 block"
+                    class="mt-3 block text-xl"
                   >
                     <span
-                      class="grid gap-1 text-sm text-text-secondary"
+                      class="grid gap-1 text-lg text-text-secondary"
                     >
                       <span
                         class="truncate"
@@ -525,7 +485,7 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots default stat
                   class="flex shrink-0 items-center gap-3"
                 >
                   <span
-                    class="rounded-full px-3 py-1 text-xs font-bold uppercase tracking-wider bg-success-subtle text-success-strong"
+                    class="rounded-full px-3 py-1 font-bold uppercase tracking-wider bg-success-subtle text-success-strong text-sm"
                   >
                     active
                   </span>
@@ -545,20 +505,15 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots default stat
                   class="min-w-0 flex-1"
                 >
                   <span
-                    class="mb-1 block text-xs font-medium uppercase tracking-wider text-text-tertiary"
-                  >
-                    Master data
-                  </span>
-                  <span
-                    class="block truncate text-base font-semibold text-text-primary"
+                    class="block truncate font-semibold text-text-primary text-2xl"
                   >
                     PT Global Indo Medika
                   </span>
                   <span
-                    class="mt-3 block"
+                    class="mt-3 block text-xl"
                   >
                     <span
-                      class="grid gap-1 text-sm text-text-secondary"
+                      class="grid gap-1 text-lg text-text-secondary"
                     >
                       <span
                         class="truncate"
@@ -577,7 +532,7 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots default stat
                   class="flex shrink-0 items-center gap-3"
                 >
                   <span
-                    class="rounded-full px-3 py-1 text-xs font-bold uppercase tracking-wider bg-danger-subtle text-danger-strong"
+                    class="rounded-full px-3 py-1 font-bold uppercase tracking-wider bg-danger-subtle text-danger-strong text-sm"
                   >
                     inactive
                   </span>
@@ -597,20 +552,15 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots default stat
                   class="min-w-0 flex-1"
                 >
                   <span
-                    class="mb-1 block text-xs font-medium uppercase tracking-wider text-text-tertiary"
-                  >
-                    Master data
-                  </span>
-                  <span
-                    class="block truncate text-base font-semibold text-text-primary"
+                    class="block truncate font-semibold text-text-primary text-2xl"
                   >
                     Siti Rahmawati
                   </span>
                   <span
-                    class="mt-3 block"
+                    class="mt-3 block text-xl"
                   >
                     <span
-                      class="grid gap-1 text-sm text-text-secondary"
+                      class="grid gap-1 text-lg text-text-secondary"
                     >
                       <span
                         class="truncate"
@@ -629,7 +579,7 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots default stat
                   class="flex shrink-0 items-center gap-3"
                 >
                   <span
-                    class="rounded-full px-3 py-1 text-xs font-bold uppercase tracking-wider bg-success-subtle text-success-strong"
+                    class="rounded-full px-3 py-1 font-bold uppercase tracking-wider bg-success-subtle text-success-strong text-sm"
                   >
                     active
                   </span>
@@ -1354,7 +1304,7 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots more open st
               </svg>
             </button>
             <h1
-              class="min-w-0 truncate text-left text-3xl font-semibold tracking-tight text-text-primary"
+              class="min-w-0 truncate text-left text-3xl font-semibold tracking-tight text-text-primary text-4xl"
             >
               Customer List
             </h1>
@@ -1396,7 +1346,7 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots more open st
                 />
                 <input
                   aria-label="Search customer"
-                  class="h-14 w-full rounded-full border border-border-default bg-background-surface pl-12 pr-4 text-base font-medium text-text-primary outline-none transition-colors placeholder:font-normal placeholder:text-text-tertiary hover:border-border-strong focus:border-border-focus focus:ring-2 focus:ring-focus-ring/30"
+                  class="h-14 w-full rounded-full border border-border-default bg-background-surface pl-12 pr-4 text-base font-medium text-text-primary outline-none transition-colors placeholder:font-normal placeholder:text-text-tertiary hover:border-border-strong focus:border-border-focus focus:ring-2 focus:ring-focus-ring/30 text-lg placeholder:text-lg"
                   placeholder="Search customer"
                   type="search"
                 />
@@ -1413,20 +1363,15 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots more open st
                   class="min-w-0 flex-1"
                 >
                   <span
-                    class="mb-1 block text-xs font-medium uppercase tracking-wider text-text-tertiary"
-                  >
-                    Master data
-                  </span>
-                  <span
-                    class="block truncate text-base font-semibold text-text-primary"
+                    class="block truncate font-semibold text-text-primary text-2xl"
                   >
                     PT Mega Jaya Abadi
                   </span>
                   <span
-                    class="mt-3 block"
+                    class="mt-3 block text-xl"
                   >
                     <span
-                      class="grid gap-1 text-sm text-text-secondary"
+                      class="grid gap-1 text-lg text-text-secondary"
                     >
                       <span
                         class="truncate"
@@ -1445,7 +1390,7 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots more open st
                   class="flex shrink-0 items-center gap-3"
                 >
                   <span
-                    class="rounded-full px-3 py-1 text-xs font-bold uppercase tracking-wider bg-success-subtle text-success-strong"
+                    class="rounded-full px-3 py-1 font-bold uppercase tracking-wider bg-success-subtle text-success-strong text-sm"
                   >
                     active
                   </span>
@@ -1465,20 +1410,15 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots more open st
                   class="min-w-0 flex-1"
                 >
                   <span
-                    class="mb-1 block text-xs font-medium uppercase tracking-wider text-text-tertiary"
-                  >
-                    Master data
-                  </span>
-                  <span
-                    class="block truncate text-base font-semibold text-text-primary"
+                    class="block truncate font-semibold text-text-primary text-2xl"
                   >
                     CV Sinar Terang
                   </span>
                   <span
-                    class="mt-3 block"
+                    class="mt-3 block text-xl"
                   >
                     <span
-                      class="grid gap-1 text-sm text-text-secondary"
+                      class="grid gap-1 text-lg text-text-secondary"
                     >
                       <span
                         class="truncate"
@@ -1497,7 +1437,7 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots more open st
                   class="flex shrink-0 items-center gap-3"
                 >
                   <span
-                    class="rounded-full px-3 py-1 text-xs font-bold uppercase tracking-wider bg-success-subtle text-success-strong"
+                    class="rounded-full px-3 py-1 font-bold uppercase tracking-wider bg-success-subtle text-success-strong text-sm"
                   >
                     active
                   </span>
@@ -1517,20 +1457,15 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots more open st
                   class="min-w-0 flex-1"
                 >
                   <span
-                    class="mb-1 block text-xs font-medium uppercase tracking-wider text-text-tertiary"
-                  >
-                    Master data
-                  </span>
-                  <span
-                    class="block truncate text-base font-semibold text-text-primary"
+                    class="block truncate font-semibold text-text-primary text-2xl"
                   >
                     Budi Santoso
                   </span>
                   <span
-                    class="mt-3 block"
+                    class="mt-3 block text-xl"
                   >
                     <span
-                      class="grid gap-1 text-sm text-text-secondary"
+                      class="grid gap-1 text-lg text-text-secondary"
                     >
                       <span
                         class="truncate"
@@ -1549,7 +1484,7 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots more open st
                   class="flex shrink-0 items-center gap-3"
                 >
                   <span
-                    class="rounded-full px-3 py-1 text-xs font-bold uppercase tracking-wider bg-danger-subtle text-danger-strong"
+                    class="rounded-full px-3 py-1 font-bold uppercase tracking-wider bg-danger-subtle text-danger-strong text-sm"
                   >
                     inactive
                   </span>
@@ -1569,20 +1504,15 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots more open st
                   class="min-w-0 flex-1"
                 >
                   <span
-                    class="mb-1 block text-xs font-medium uppercase tracking-wider text-text-tertiary"
-                  >
-                    Master data
-                  </span>
-                  <span
-                    class="block truncate text-base font-semibold text-text-primary"
+                    class="block truncate font-semibold text-text-primary text-2xl"
                   >
                     PT Nusantara Prima
                   </span>
                   <span
-                    class="mt-3 block"
+                    class="mt-3 block text-xl"
                   >
                     <span
-                      class="grid gap-1 text-sm text-text-secondary"
+                      class="grid gap-1 text-lg text-text-secondary"
                     >
                       <span
                         class="truncate"
@@ -1601,7 +1531,7 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots more open st
                   class="flex shrink-0 items-center gap-3"
                 >
                   <span
-                    class="rounded-full px-3 py-1 text-xs font-bold uppercase tracking-wider bg-success-subtle text-success-strong"
+                    class="rounded-full px-3 py-1 font-bold uppercase tracking-wider bg-success-subtle text-success-strong text-sm"
                   >
                     active
                   </span>
@@ -1621,20 +1551,15 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots more open st
                   class="min-w-0 flex-1"
                 >
                   <span
-                    class="mb-1 block text-xs font-medium uppercase tracking-wider text-text-tertiary"
-                  >
-                    Master data
-                  </span>
-                  <span
-                    class="block truncate text-base font-semibold text-text-primary"
+                    class="block truncate font-semibold text-text-primary text-2xl"
                   >
                     Dewi Lestari
                   </span>
                   <span
-                    class="mt-3 block"
+                    class="mt-3 block text-xl"
                   >
                     <span
-                      class="grid gap-1 text-sm text-text-secondary"
+                      class="grid gap-1 text-lg text-text-secondary"
                     >
                       <span
                         class="truncate"
@@ -1653,7 +1578,7 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots more open st
                   class="flex shrink-0 items-center gap-3"
                 >
                   <span
-                    class="rounded-full px-3 py-1 text-xs font-bold uppercase tracking-wider bg-success-subtle text-success-strong"
+                    class="rounded-full px-3 py-1 font-bold uppercase tracking-wider bg-success-subtle text-success-strong text-sm"
                   >
                     active
                   </span>
@@ -1673,20 +1598,15 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots more open st
                   class="min-w-0 flex-1"
                 >
                   <span
-                    class="mb-1 block text-xs font-medium uppercase tracking-wider text-text-tertiary"
-                  >
-                    Master data
-                  </span>
-                  <span
-                    class="block truncate text-base font-semibold text-text-primary"
+                    class="block truncate font-semibold text-text-primary text-2xl"
                   >
                     CV Berkah Mandiri
                   </span>
                   <span
-                    class="mt-3 block"
+                    class="mt-3 block text-xl"
                   >
                     <span
-                      class="grid gap-1 text-sm text-text-secondary"
+                      class="grid gap-1 text-lg text-text-secondary"
                     >
                       <span
                         class="truncate"
@@ -1705,7 +1625,7 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots more open st
                   class="flex shrink-0 items-center gap-3"
                 >
                   <span
-                    class="rounded-full px-3 py-1 text-xs font-bold uppercase tracking-wider bg-danger-subtle text-danger-strong"
+                    class="rounded-full px-3 py-1 font-bold uppercase tracking-wider bg-danger-subtle text-danger-strong text-sm"
                   >
                     inactive
                   </span>
@@ -1725,20 +1645,15 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots more open st
                   class="min-w-0 flex-1"
                 >
                   <span
-                    class="mb-1 block text-xs font-medium uppercase tracking-wider text-text-tertiary"
-                  >
-                    Master data
-                  </span>
-                  <span
-                    class="block truncate text-base font-semibold text-text-primary"
+                    class="block truncate font-semibold text-text-primary text-2xl"
                   >
                     PT Cipta Karya Solusi
                   </span>
                   <span
-                    class="mt-3 block"
+                    class="mt-3 block text-xl"
                   >
                     <span
-                      class="grid gap-1 text-sm text-text-secondary"
+                      class="grid gap-1 text-lg text-text-secondary"
                     >
                       <span
                         class="truncate"
@@ -1757,7 +1672,7 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots more open st
                   class="flex shrink-0 items-center gap-3"
                 >
                   <span
-                    class="rounded-full px-3 py-1 text-xs font-bold uppercase tracking-wider bg-success-subtle text-success-strong"
+                    class="rounded-full px-3 py-1 font-bold uppercase tracking-wider bg-success-subtle text-success-strong text-sm"
                   >
                     active
                   </span>
@@ -1777,20 +1692,15 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots more open st
                   class="min-w-0 flex-1"
                 >
                   <span
-                    class="mb-1 block text-xs font-medium uppercase tracking-wider text-text-tertiary"
-                  >
-                    Master data
-                  </span>
-                  <span
-                    class="block truncate text-base font-semibold text-text-primary"
+                    class="block truncate font-semibold text-text-primary text-2xl"
                   >
                     Ahmad Fauzi
                   </span>
                   <span
-                    class="mt-3 block"
+                    class="mt-3 block text-xl"
                   >
                     <span
-                      class="grid gap-1 text-sm text-text-secondary"
+                      class="grid gap-1 text-lg text-text-secondary"
                     >
                       <span
                         class="truncate"
@@ -1809,7 +1719,7 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots more open st
                   class="flex shrink-0 items-center gap-3"
                 >
                   <span
-                    class="rounded-full px-3 py-1 text-xs font-bold uppercase tracking-wider bg-success-subtle text-success-strong"
+                    class="rounded-full px-3 py-1 font-bold uppercase tracking-wider bg-success-subtle text-success-strong text-sm"
                   >
                     active
                   </span>
@@ -1829,20 +1739,15 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots more open st
                   class="min-w-0 flex-1"
                 >
                   <span
-                    class="mb-1 block text-xs font-medium uppercase tracking-wider text-text-tertiary"
-                  >
-                    Master data
-                  </span>
-                  <span
-                    class="block truncate text-base font-semibold text-text-primary"
+                    class="block truncate font-semibold text-text-primary text-2xl"
                   >
                     PT Global Indo Medika
                   </span>
                   <span
-                    class="mt-3 block"
+                    class="mt-3 block text-xl"
                   >
                     <span
-                      class="grid gap-1 text-sm text-text-secondary"
+                      class="grid gap-1 text-lg text-text-secondary"
                     >
                       <span
                         class="truncate"
@@ -1861,7 +1766,7 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots more open st
                   class="flex shrink-0 items-center gap-3"
                 >
                   <span
-                    class="rounded-full px-3 py-1 text-xs font-bold uppercase tracking-wider bg-danger-subtle text-danger-strong"
+                    class="rounded-full px-3 py-1 font-bold uppercase tracking-wider bg-danger-subtle text-danger-strong text-sm"
                   >
                     inactive
                   </span>
@@ -1881,20 +1786,15 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots more open st
                   class="min-w-0 flex-1"
                 >
                   <span
-                    class="mb-1 block text-xs font-medium uppercase tracking-wider text-text-tertiary"
-                  >
-                    Master data
-                  </span>
-                  <span
-                    class="block truncate text-base font-semibold text-text-primary"
+                    class="block truncate font-semibold text-text-primary text-2xl"
                   >
                     Siti Rahmawati
                   </span>
                   <span
-                    class="mt-3 block"
+                    class="mt-3 block text-xl"
                   >
                     <span
-                      class="grid gap-1 text-sm text-text-secondary"
+                      class="grid gap-1 text-lg text-text-secondary"
                     >
                       <span
                         class="truncate"
@@ -1913,7 +1813,7 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots more open st
                   class="flex shrink-0 items-center gap-3"
                 >
                   <span
-                    class="rounded-full px-3 py-1 text-xs font-bold uppercase tracking-wider bg-success-subtle text-success-strong"
+                    class="rounded-full px-3 py-1 font-bold uppercase tracking-wider bg-success-subtle text-success-strong text-sm"
                   >
                     active
                   </span>

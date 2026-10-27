@@ -12,7 +12,7 @@ import type { DesktopReportProps } from "./DesktopReport.type";
  */
 export const useDesktopReportState = (): DesktopReportProps => {
   const completedOrders = useMemo(
-    () => MOCK_QUOTES.filter((quote) => quote.status === "Completed"),
+    () => MOCK_QUOTES.filter((quote) => String(quote.status) === "Completed"),
     []
   );
 

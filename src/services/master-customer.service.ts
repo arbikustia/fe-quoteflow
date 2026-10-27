@@ -3,8 +3,8 @@ import { apiRtkClient } from "@/libs/ApiRtkServices/apiRtkClient";
 import ENDPOINT from "@/constant/endpoint.const";
 import type {
   ApiCustomer,
-  CustomerCreatePayload,
   CustomerAllResponse,
+  CustomerCreatePayload,
   CustomerCreateResponse,
   CustomerData,
   CustomerDetailResponse,

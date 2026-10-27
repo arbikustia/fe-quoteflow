@@ -10,6 +10,7 @@ export const mapInvoice = (invoice: ApiInvoice): InvoiceData => ({
   invoiceNumber: invoice.invoice_no,
   invoiceDate: invoice.invoice_date,
   dueDate: invoice.due_date,
+  customerName: invoice.quotation.transaction.customer_name,
   name: invoice.quotation.transaction.event_name,
   customerPhone: invoice.quotation.transaction.customer_phone,
   location: invoice.quotation.transaction.address,

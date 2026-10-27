@@ -56,16 +56,19 @@ jest.mock("@/services/quotation.service", () => ({
     isLoading: false,
     error: null,
   }),
-  mapQuotation: (q: { id: string; transaction_id: string; quotation_no: string; transaction: { event_name: string; customer_phone: string; address: string; start_at: string; end_at: string; grand_total: number } }) => ({
+  mapQuotation: (q: { id: string; transaction_id: string; quotation_no: string; quotation_date: string; transaction: { customer_name: string; event_name: string; customer_phone: string; address: string; start_at: string; end_at: string; grand_total: number } }) => ({
     id: q.id,
     transactionId: q.transaction_id,
     quotationNumber: q.quotation_no,
+    customerName: q.transaction.customer_name,
     name: q.transaction.event_name,
+    quotationDate: q.quotation_date,
     customerPhone: q.transaction.customer_phone,
     location: q.transaction.address,
     startDate: q.transaction.start_at,
     endDate: q.transaction.end_at,
     grandTotal: q.transaction.grand_total,
+    status: 1,
   }),
 }));
 

@@ -2,7 +2,6 @@ import { describe, expect, it, jest } from "@jest/globals";
 import { fireEvent, render, screen } from "@/libs/unit-test";
 import { MemoryRouter } from "react-router-dom";
 
-import { getColumns } from "./Quotation.columns";
 import { QuotationComponent } from "./Quotation.component";
 import type { QuotationData, QuotationProps } from "./Quotation.type";
 
@@ -11,12 +10,15 @@ const MOCK_ROWS: QuotationData[] = [
     id: "q-1",
     transactionId: "tx-1",
     quotationNumber: "QUO-001",
+    customerName: "PT Example",
     name: "Annual Gala",
+    quotationDate: "2026-10-01",
     customerPhone: "0812345678",
     location: "Jakarta Convention Center",
     startDate: "2026-11-01",
     endDate: "2026-11-02",
     grandTotal: 15000000,
+    status: 1,
   },
 ];
 
@@ -43,20 +45,41 @@ const createProps = (overrides?: Partial<QuotationProps>): QuotationProps => {
     setSearchTerm,
     onBack,
     onEdit,
+    onDetail: jest.fn(),
+    onStatus: jest.fn(),
     onRowClick,
-    columns: getColumns({ currentPage: 1, pageSize: 10, onEdit }),
     ...overrides,
   };
 };
 
 describe("QuotationComponent", () => {
-  it("renders table with event name and formatted grand total without create button", () => {
+  it("renders quotation table columns without create button", () => {
     const props = createProps();
     render(<MemoryRouter><QuotationComponent {...props} /></MemoryRouter>);
 
     expect(screen.queryByRole("button", { name: /create|add quotation/i })).toBeNull();
+    expect(screen.getAllByText("QUO-001").length).toBeGreaterThan(0);
+    expect(screen.getAllByText("PT Example").length).toBeGreaterThan(0);
     expect(screen.getAllByText("Annual Gala").length).toBeGreaterThan(0);
-    expect(screen.getAllByText("15.000.000").length).toBeGreaterThan(0);
+    expect(screen.getAllByText("2026-10-01").length).toBeGreaterThan(0);
+    expect(screen.getAllByText("2026-11-01").length).toBeGreaterThan(0);
+    expect(screen.getAllByText("2026-11-02").length).toBeGreaterThan(0);
+  });
+
+  it("should open detail when table row is clicked", (): void => {
+    const onRowClick = jest.fn();
+    const props = createProps({ onRowClick });
+    render(<MemoryRouter><QuotationComponent {...props} /></MemoryRouter>);
+
+    const row = screen.getAllByText("QUO-001")[0].closest("tr");
+
+    if (!row) {
+      throw new Error("Quotation row was not rendered.");
+    }
+
+    fireEvent.click(row);
+
+    expect(onRowClick).toHaveBeenCalledWith(MOCK_ROWS[0]);
   });
 
   it("handles search input change", () => {

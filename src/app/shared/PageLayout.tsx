@@ -35,6 +35,33 @@ const _renderActions = (actions: PageLayoutAction[]): React.ReactElement[] => ac
 ));
 
 /**
+ * Render mobile header right content.
+ * @param {React.ReactNode} headerRight - custom header content
+ * @param {PageLayoutAction[]} actions - page actions
+ * @returns {React.ReactNode} header right content
+ */
+const _renderMobileHeaderRight = (headerRight: React.ReactNode, actions: PageLayoutAction[]): React.ReactNode => {
+  if (headerRight) {
+    return <div className="shrink-0">{headerRight}</div>;
+  }
+
+  if (actions.length > 0) {
+    return (
+      <details className="relative shrink-0">
+        <summary className="flex h-12 w-12 cursor-pointer list-none items-center justify-center rounded-2xl border border-border-default text-text-secondary hover:bg-background-subtle" aria-label="More options">
+          <span aria-hidden="true">•••</span>
+        </summary>
+        <div role="menu" className="absolute right-0 top-14 z-20 w-48 overflow-hidden rounded-lg border border-border-default bg-background-surface py-1 shadow-lg">
+          {_renderActions(actions)}
+        </div>
+      </details>
+    );
+  }
+
+  return <span className="h-12 w-12 shrink-0" aria-hidden="true" />;
+};
+
+/**
  * Render reusable responsive page layout.
  * @param {PageLayoutProps} props - page layout props
  * @returns {React.ReactElement} page layout
@@ -81,18 +108,7 @@ export const PageLayout = ({ title, breadcrumbs, actions = [], headerRight, mobi
           </button>
           <h1 className={`min-w-0 truncate text-left text-3xl font-semibold tracking-tight text-text-primary ${mobileTitleClassName}`}>{title}</h1>
         </div>
-        {headerRight ? (
-          <div className="shrink-0">{headerRight}</div>
-        ) : actions.length > 0 ? (
-          <details className="relative shrink-0">
-            <summary className="flex h-12 w-12 cursor-pointer list-none items-center justify-center rounded-2xl border border-border-default text-text-secondary hover:bg-background-subtle" aria-label="More options">
-              <span aria-hidden="true">•••</span>
-            </summary>
-            <div role="menu" className="absolute right-0 top-14 z-20 w-48 overflow-hidden rounded-lg border border-border-default bg-background-surface py-1 shadow-lg">
-              {_renderActions(actions)}
-            </div>
-          </details>
-        ) : <span className="h-12 w-12 shrink-0" aria-hidden="true" />}
+        {_renderMobileHeaderRight(headerRight, actions)}
       </div>
     </header>
     <main className="min-w-0 flex-1">{children}</main>

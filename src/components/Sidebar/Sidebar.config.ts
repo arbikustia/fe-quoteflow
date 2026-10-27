@@ -34,6 +34,11 @@ export const NAVIGATION_CONFIG: NavigationItem[] = [
     children: DOCUMENT_ITEMS,
   },
   {
+    name: "Activity Log",
+    icon: Icons.Report,
+    path: "/activity-log",
+  },
+  {
     name: "Master Data",
     icon: Icons.Database,
     children: MASTER_DATA_ITEMS,

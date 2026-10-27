@@ -3,7 +3,7 @@
 exports[`OrderContainer matches snapshot 1`] = `
 <DocumentFragment>
   <div
-    class="flex h-full min-h-0 w-full bg-background-page overflow-hidden font-sans text-text-primary relative items-stretch transition-colors duration-200"
+    class="flex h-full min-h-0 w-full overflow-hidden font-sans text-text-primary relative items-stretch transition-colors duration-200 bg-background-page"
   >
     <div
       class="hidden lg:flex h-full min-h-0 shrink-0 self-stretch"
@@ -330,25 +330,31 @@ exports[`OrderContainer matches snapshot 1`] = `
       </aside>
     </div>
     <div
-      class="flex-1 flex flex-col min-w-0 min-h-0 overflow-hidden relative bg-background-page transition-colors duration-200 bg-background-surface lg:bg-background-page"
+      class="flex-1 flex flex-col min-w-0 min-h-0 overflow-hidden relative transition-colors duration-200 bg-background-page bg-background-surface lg:bg-background-page"
     >
       <div
-        class="lg:hidden flex items-center gap-3 p-4 border-b border-border-default bg-background-surface shrink-0"
+        class="lg:hidden shrink-0"
       >
         <div
-          class="w-8 h-8 rounded-full bg-action-primary flex items-center justify-center"
+          class="flex items-center justify-between bg-background-surface px-6 pt-5"
         >
-          <span
-            class="text-text-inverse font-bold"
+          <div
+            class="flex items-center gap-4"
           >
-            Q
-          </span>
+            <div
+              class="w-52 h-14"
+            >
+              <img
+                alt="Logo"
+                class="w-full h-full object-cover"
+                src="/src/assets/Sonicline.png"
+              />
+            </div>
+          </div>
+          <div
+            class="flex items-center gap-3"
+          />
         </div>
-        <span
-          class="font-bold text-text-primary"
-        >
-          QuoteFlow
-        </span>
       </div>
       <div
         class="hidden lg:block shrink-0"
@@ -441,7 +447,7 @@ exports[`OrderContainer matches snapshot 1`] = `
         </header>
       </div>
       <main
-        class="flex-1 overflow-y-auto p-4 lg:p-8 pb-20 lg:pb-8 relative z-0"
+        class="relative z-0 flex-1 overflow-y-auto px-4 pt-4 pb-20 lg:p-8"
       >
         <div
           class="flex min-h-full flex-col"
@@ -508,7 +514,7 @@ exports[`OrderContainer matches snapshot 1`] = `
                   </svg>
                 </button>
                 <h1
-                  class="min-w-0 truncate text-left text-3xl font-semibold tracking-tight text-text-primary"
+                  class="min-w-0 truncate text-left text-3xl font-semibold tracking-tight text-text-primary text-4xl"
                 >
                   Order List
                 </h1>
@@ -569,7 +575,7 @@ exports[`OrderContainer matches snapshot 1`] = `
                   </svg>
                   <input
                     aria-label="Search order"
-                    class="h-14 w-full rounded-full border border-border-default bg-background-surface pl-12 pr-4 text-base font-medium text-text-primary outline-none transition-colors placeholder:font-normal placeholder:text-text-tertiary hover:border-border-strong focus:border-border-focus focus:ring-2 focus:ring-focus-ring/30"
+                    class="h-14 w-full rounded-full border border-border-default bg-background-surface pl-12 pr-4 text-base font-medium text-text-primary outline-none transition-colors placeholder:font-normal placeholder:text-text-tertiary hover:border-border-strong focus:border-border-focus focus:ring-2 focus:ring-focus-ring/30 text-lg placeholder:text-lg"
                     placeholder="Search order"
                     type="search"
                   />
@@ -603,7 +609,7 @@ exports[`OrderContainer matches snapshot 1`] = `
                           Documents per page
                         </label>
                         <div
-                          class="ant-select ant-select-outlined h-14 w-full css-var-root ant-select-css-var css-dev-only-do-not-override-eofgey ant-select-single ant-select-show-arrow"
+                          class="ant-select ant-select-outlined h-14 w-full [&_.ant-select-content]:!text-xl [&_.ant-select-content]:!font-normal  css-var-root ant-select-css-var css-dev-only-do-not-override-eofgey ant-select-single ant-select-show-arrow"
                         >
                           <div
                             class="ant-select-content ant-select-content-has-value"
@@ -810,7 +816,7 @@ exports[`OrderContainer matches snapshot 1`] = `
                           Documents per page
                         </label>
                         <div
-                          class="ant-select ant-select-outlined h-14 w-full css-var-root ant-select-css-var css-dev-only-do-not-override-eofgey ant-select-single ant-select-show-arrow"
+                          class="ant-select ant-select-outlined h-14 w-full [&_.ant-select-content]:!text-xl [&_.ant-select-content]:!font-normal  css-var-root ant-select-css-var css-dev-only-do-not-override-eofgey ant-select-single ant-select-show-arrow"
                         >
                           <div
                             class="ant-select-content ant-select-content-has-value"
