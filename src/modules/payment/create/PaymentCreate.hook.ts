@@ -2,11 +2,17 @@ import type { SyntheticEvent } from "react";
 import { useState } from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 
-import { useCreatePaymentMutation, useGetAllInvoicesQuery, useGetAllPaymentMethodsQuery, useUpdatePaymentMutation } from "@/services/payment.service";
-
 import type { PaymentCreateFormState, PaymentData } from "../Payment.type";
 
-/** Manage create and edit payment form state. */
+import { validateRequiredPaymentFields } from "./PaymentCreate.helpers";
+
+import { useCreatePaymentMutation, useGetAllInvoicesQuery, useGetAllPaymentMethodsQuery, useUpdatePaymentMutation } from "@/services/payment.service";
+
+/**
+ * Manage create and edit payment form state.
+ * @returns {PaymentCreateFormState} - payment form state
+ */
+// eslint-disable-next-line max-lines-per-function
 export const usePaymentCreate = (): PaymentCreateFormState => {
   const navigate = useNavigate();
   const location = useLocation();
@@ -18,30 +24,55 @@ export const usePaymentCreate = (): PaymentCreateFormState => {
   const [updatePayment, { isLoading: isUpdating }] = useUpdatePaymentMutation();
   const [invoiceId, setInvoiceId] = useState(routePayment?.invoiceId ?? "");
   const [paymentMethodId, setPaymentMethodId] = useState(routePayment?.paymentMethodId ?? "");
-  const [amount, setAmountState] = useState(routePayment?.amount ?? 0);
+  const [amount, setAmountState] = useState<number | null>(routePayment?.amount ?? null);
   const [paidAt, setPaidAt] = useState(routePayment?.paidAt ? routePayment.paidAt.slice(0, 16) : "");
   const [referenceNo, setReferenceNo] = useState(routePayment?.referenceNo ?? "");
   const [notes, setNotes] = useState(routePayment?.notes ?? "");
   const [isActive, setIsActive] = useState(routePayment?.status === "active");
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [isSubmitted, setIsSubmitted] = useState(false);
   const invoices = invoiceQuery.data?.status ? invoiceQuery.data.data : [];
   const paymentMethods = paymentMethodQuery.data?.status ? paymentMethodQuery.data.data : [];
   const isEditMode = Boolean(id);
-  const setAmount = (value: number | null): void => setAmountState(value ?? 0);
+
+  /** Set payment amount.
+   * @param {number | null} value - amount
+   * @returns {void} - no return value
+   */
+  const setAmount = (value: number | null): void => setAmountState(value);
+  /** Return to previous page.
+   * @returns {void} - no return value
+   */
   const goBack = (): void => { void navigate(-1); };
+  /** Change payment status.
+   * @param {boolean} value - selected status
+   * @returns {void} - no return value
+   */
   const handleStatusChange = (value: boolean): void => setIsActive(value);
 
+  /**
+   * Submit payment form.
+   * @param {SyntheticEvent} event - form submit event
+   * @returns {Promise<void>} - completed request
+   */
   const handleSubmit = async (event: SyntheticEvent): Promise<void> => {
     event.preventDefault();
     setErrorMessage(null);
+    setIsSubmitted(true);
 
-    if (!invoiceId || !paymentMethodId || amount <= 0 || !paidAt || !referenceNo.trim()) {
-      setErrorMessage("Complete all required payment fields.");
+    const validationMessage = validateRequiredPaymentFields({ invoiceId, paymentMethodId, amount, paidAt, referenceNo });
+
+    if (validationMessage) {
+      setErrorMessage(validationMessage);
 
       return;
     }
 
-    const status = isEditMode && !isActive ? 0 : 1;
+    if (amount === null) {
+      return;
+    }
+
+    const status = isEditMode ? Number(isActive) : 1;
     const payload = { invoice_id: invoiceId, payment_method_id: paymentMethodId, amount, paid_at: new Date(paidAt).toISOString(), reference_no: referenceNo, notes, status };
 
     try {
@@ -59,5 +90,5 @@ export const usePaymentCreate = (): PaymentCreateFormState => {
     }
   };
 
-  return { id, isEditMode, isActive, invoices, paymentMethods, invoiceId, paymentMethodId, amount, paidAt, referenceNo, notes, isLoadingOptions: invoiceQuery.isLoading || paymentMethodQuery.isLoading, isSubmitting: isCreating || isUpdating, errorMessage, handleSubmit, setInvoiceId, setPaymentMethodId, setAmount, setPaidAt, setReferenceNo, setNotes, goBack, handleStatusChange };
+  return { id, isEditMode, isActive, invoices, paymentMethods, invoiceId, paymentMethodId, amount, paidAt, referenceNo, notes, isLoadingOptions: invoiceQuery.isLoading || paymentMethodQuery.isLoading, isSubmitting: isCreating || isUpdating, errorMessage, isSubmitted, handleSubmit, setInvoiceId, setPaymentMethodId, setAmount, setPaidAt, setReferenceNo, setNotes, goBack, handleStatusChange };
 };

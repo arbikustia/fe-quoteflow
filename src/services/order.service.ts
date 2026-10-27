@@ -5,22 +5,26 @@ import type { ApiRentalTransaction, OrderCreatePayload, OrderCreateResponse, Ord
 
 const ORDER_TAG = "Order";
 
-const mapOrder = (order: ApiRentalTransaction): QuoteData => ({
-  id: order.id,
-  name: order.event_name,
-  startDate: order.start_at,
-  endDate: order.end_at,
-  location: order.address,
-  category: "",
-  selectedItems: order.rental_transaction_items.map((item) => item.item_name),
-  qty: order.rental_transaction_items.reduce((total, item) => total + item.qty, 0),
-  pph: order.grand_total,
-  discount: 0,
-  remark: "",
-  grandTotal: order.grand_total,
-  status: order.status,
-  customerPhone: order.customer_phone,
-});
+const mapOrder = (order: ApiRentalTransaction): QuoteData => {
+  const rentalItems = order.rental_transaction_items ?? [];
+
+  return {
+    id: order.id,
+    name: order.event_name,
+    startDate: order.start_at,
+    endDate: order.end_at,
+    location: order.address,
+    category: "",
+    selectedItems: rentalItems.map((item) => item.item_name),
+    qty: rentalItems.reduce((total, item) => total + item.qty, 0),
+    pph: order.grand_total,
+    discount: 0,
+    remark: "",
+    grandTotal: order.grand_total,
+    status: order.status,
+    customerPhone: order.customer_phone,
+  };
+};
 
 export const orderService = apiRtkClient.injectEndpoints({
   endpoints: (builder) => ({

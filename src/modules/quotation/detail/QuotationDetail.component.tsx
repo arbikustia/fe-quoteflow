@@ -1,95 +1,63 @@
 import type { ReactElement } from "react";
 
+import { SkeletonComponent } from "@/components/Skeleton";
+
 import type { ApiQuotation, QuotationDetailState } from "../Quotation.type";
 
 import {
-  mapCustomerSummary,
-  mapItemRows,
-  mapPicSummary,
-  mapProjectSections,
-  mapQuotationInfo,
-  mapQuotationTx,
-  mapVoucherSummary,
-} from "./QuotationDetail.helpers";
-import {
-  renderEntitiesCard,
-  renderHeaderCard,
-  renderInfoCard,
-  renderProjectsCard,
-  renderRentalItemsCard,
-  renderTransactionSummary,
+  renderCustomerSection,
+  renderItemsSection,
+  renderPricingSection,
+  renderProjectsSection,
+  renderQuotationOverview,
+  renderTransactionSection,
+  renderVoucherSection,
 } from "./QuotationDetail.sections";
 
 import Layout from "@/app/layout";
+import { PageLayout } from "@/app/shared/PageLayout";
 
-/** Render detail cards sections. */
-const _renderDetailSections = (quotation: ApiQuotation): ReactElement => {
-  const info = mapQuotationInfo(quotation);
-  const tx = mapQuotationTx(quotation.transaction);
-  const customer = mapCustomerSummary(quotation.transaction.customer);
-  const pic = mapPicSummary(quotation.transaction.pic);
-  const voucher = mapVoucherSummary(quotation.transaction.voucher);
-  const items = mapItemRows(quotation.transaction.rental_transaction_items);
-  const projects = mapProjectSections(quotation.transaction.rental_transaction_project);
-
-  return (
-    <div className="space-y-4">
-      {renderHeaderCard(info)}
-      {renderInfoCard(info)}
-      {renderTransactionSummary(tx)}
-      {renderEntitiesCard(customer, pic, voucher)}
-      {renderRentalItemsCard(items)}
-      {renderProjectsCard(projects)}
-    </div>
-  );
-};
-
-/** Render loading state. */
-const _renderLoading = (): ReactElement => (
-  <Layout pageTitle="Detail Quotation">
-    <div className="flex h-full items-center justify-center py-20">
-      <p className="text-text-secondary">Loading quotation…</p>
-    </div>
-  </Layout>
-);
-
-/** Render error state. */
-const _renderError = (errorMessage: string | null): ReactElement => (
-  <Layout pageTitle="Detail Quotation">
-    <div className="flex h-full items-center justify-center py-20">
-      <p className="text-red-600">{errorMessage ?? "Quotation not found"}</p>
-    </div>
-  </Layout>
-);
-
-/** Quotation Detail Pure UI Component. */
-export const QuotationDetailComponent = (props: QuotationDetailState): ReactElement => {
-  const { quotation, isLoading, errorMessage, goBack } = props;
-
-  if (isLoading) {
-    return _renderLoading();
-  }
-
-  if (errorMessage || !quotation) {
-    return _renderError(errorMessage);
-  }
+/**
+ * Render quotation detail content.
+ * @param {ApiQuotation} quotation - Quotation response
+ * @returns {ReactElement} Detail sections
+ */
+const _renderDetail = (quotation: ApiQuotation): ReactElement => {
+  const serviceTypeName = quotation.transaction.service_type_name.toUpperCase();
+  const isRegular = serviceTypeName === "REGULER";
+  const isProject = serviceTypeName === "PROJECT";
 
   return (
-    <Layout pageTitle="Detail Quotation">
-      <div className="relative mx-auto max-w-5xl space-y-4 px-3 pb-8 lg:px-0">
-        <div className="flex items-center justify-between py-2">
-          <button
-            type="button"
-            onClick={goBack}
-            className="h-11 rounded-lg border border-border-default px-4 text-sm font-medium hover:bg-background-surface-subtle"
-          >
-            Back
-          </button>
-          <h1 className="text-lg font-semibold text-text-primary">Detail Quotation</h1>
-          <div className="w-16" />
+    <div className="space-y-5 pb-8">
+      {renderQuotationOverview(quotation)}
+      <div className="grid grid-cols-1 gap-5 xl:grid-cols-[minmax(0,1.55fr)_minmax(320px,0.75fr)]">
+        <div className="space-y-5">
+          {renderTransactionSection(quotation.transaction)}
+          {isRegular && renderItemsSection(quotation.transaction.rental_transaction_items)}
+          {isProject && renderProjectsSection(quotation.transaction.rental_transaction_project)}
         </div>
-        {_renderDetailSections(quotation)}
+        <aside className="space-y-5">
+          {renderPricingSection(quotation.transaction)}
+          {renderCustomerSection(quotation.transaction.customer)}
+          {renderVoucherSection(quotation.transaction.voucher)}
+        </aside>
       </div>
-    </Layout>
+    </div>
   );
 };
+
+/**
+ * Render quotation detail page.
+ * @param {QuotationDetailState} props - Detail state
+ * @returns {ReactElement} Quotation detail page
+ */
+export const QuotationDetailComponent = (props: QuotationDetailState): ReactElement => (
+  <Layout pageTitle="Quotation Detail" mobileWhiteBackground={true}>
+    <PageLayout title="Quotation Detail" breadcrumbs={["Quotation", "Detail"]} mobileHeaderClassName="px-0" onBack={props.goBack}>
+      {props.isLoading && <div className="rounded-2xl border border-border-default bg-background-surface p-5"><SkeletonComponent rows={8} columns={[{ width: "35%" }, { width: "65%" }]} /></div>}
+      {!props.isLoading && props.errorMessage && <div role="alert" className="rounded-2xl border border-danger bg-danger-subtle p-5 text-sm font-medium text-danger-strong">{props.errorMessage}</div>}
+      {!props.isLoading && !props.errorMessage && !props.quotation && <div className="rounded-2xl border border-border-default bg-background-surface p-8 text-center text-sm text-text-secondary">Quotation detail is unavailable.</div>}
+      {!props.isLoading && !props.errorMessage && props.quotation && _renderDetail(props.quotation)}
+    </PageLayout>
+  </Layout>
+);

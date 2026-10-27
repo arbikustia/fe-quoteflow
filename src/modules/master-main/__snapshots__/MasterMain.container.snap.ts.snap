@@ -7,7 +7,7 @@ exports[`MasterMainContainer matches snapshot 1`] = `
   >
     <div>
       <h1
-        class="text-3xl font-bold text-text-primary"
+        class="text-4xl font-bold text-text-primary lg:text-3xl"
       >
         Master Data
       </h1>
@@ -34,19 +34,19 @@ exports[`MasterMainContainer matches snapshot 1`] = `
           class="min-w-0 flex-1"
         >
           <span
-            class="block truncate text-lg font-semibold text-text-primary"
+            class="block truncate text-2xl font-semibold text-text-primary lg:text-lg"
           >
             Master Customer
           </span>
           <span
-            class="mt-2 block text-sm leading-5 text-text-secondary"
+            class="mt-2 block text-lg leading-7 text-text-secondary lg:text-sm lg:leading-5"
           >
             Manage customer profiles and contact info
           </span>
         </span>
         <span
           aria-hidden="true"
-          class="shrink-0 text-xl text-text-tertiary transition-transform group-hover:translate-x-1"
+          class="shrink-0 text-3xl text-text-tertiary transition-transform group-hover:translate-x-1 lg:text-xl"
         >
           →
         </span>
@@ -65,19 +65,19 @@ exports[`MasterMainContainer matches snapshot 1`] = `
           class="min-w-0 flex-1"
         >
           <span
-            class="block truncate text-lg font-semibold text-text-primary"
+            class="block truncate text-2xl font-semibold text-text-primary lg:text-lg"
           >
             Master Category
           </span>
           <span
-            class="mt-2 block text-sm leading-5 text-text-secondary"
+            class="mt-2 block text-lg leading-7 text-text-secondary lg:text-sm lg:leading-5"
           >
             Manage product and item categories
           </span>
         </span>
         <span
           aria-hidden="true"
-          class="shrink-0 text-xl text-text-tertiary transition-transform group-hover:translate-x-1"
+          class="shrink-0 text-3xl text-text-tertiary transition-transform group-hover:translate-x-1 lg:text-xl"
         >
           →
         </span>
@@ -96,19 +96,19 @@ exports[`MasterMainContainer matches snapshot 1`] = `
           class="min-w-0 flex-1"
         >
           <span
-            class="block truncate text-lg font-semibold text-text-primary"
+            class="block truncate text-2xl font-semibold text-text-primary lg:text-lg"
           >
             Master Item
           </span>
           <span
-            class="mt-2 block text-sm leading-5 text-text-secondary"
+            class="mt-2 block text-lg leading-7 text-text-secondary lg:text-sm lg:leading-5"
           >
             Manage items and inventory data
           </span>
         </span>
         <span
           aria-hidden="true"
-          class="shrink-0 text-xl text-text-tertiary transition-transform group-hover:translate-x-1"
+          class="shrink-0 text-3xl text-text-tertiary transition-transform group-hover:translate-x-1 lg:text-xl"
         >
           →
         </span>
@@ -127,19 +127,19 @@ exports[`MasterMainContainer matches snapshot 1`] = `
           class="min-w-0 flex-1"
         >
           <span
-            class="block truncate text-lg font-semibold text-text-primary"
+            class="block truncate text-2xl font-semibold text-text-primary lg:text-lg"
           >
             Master Project
           </span>
           <span
-            class="mt-2 block text-sm leading-5 text-text-secondary"
+            class="mt-2 block text-lg leading-7 text-text-secondary lg:text-sm lg:leading-5"
           >
             Manage project items and details
           </span>
         </span>
         <span
           aria-hidden="true"
-          class="shrink-0 text-xl text-text-tertiary transition-transform group-hover:translate-x-1"
+          class="shrink-0 text-3xl text-text-tertiary transition-transform group-hover:translate-x-1 lg:text-xl"
         >
           →
         </span>
@@ -158,19 +158,19 @@ exports[`MasterMainContainer matches snapshot 1`] = `
           class="min-w-0 flex-1"
         >
           <span
-            class="block truncate text-lg font-semibold text-text-primary"
+            class="block truncate text-2xl font-semibold text-text-primary lg:text-lg"
           >
             Master Payment Method
           </span>
           <span
-            class="mt-2 block text-sm leading-5 text-text-secondary"
+            class="mt-2 block text-lg leading-7 text-text-secondary lg:text-sm lg:leading-5"
           >
             Manage available payment methods
           </span>
         </span>
         <span
           aria-hidden="true"
-          class="shrink-0 text-xl text-text-tertiary transition-transform group-hover:translate-x-1"
+          class="shrink-0 text-3xl text-text-tertiary transition-transform group-hover:translate-x-1 lg:text-xl"
         >
           →
         </span>
@@ -189,19 +189,19 @@ exports[`MasterMainContainer matches snapshot 1`] = `
           class="min-w-0 flex-1"
         >
           <span
-            class="block truncate text-lg font-semibold text-text-primary"
+            class="block truncate text-2xl font-semibold text-text-primary lg:text-lg"
           >
             Master Payment Type
           </span>
           <span
-            class="mt-2 block text-sm leading-5 text-text-secondary"
+            class="mt-2 block text-lg leading-7 text-text-secondary lg:text-sm lg:leading-5"
           >
             Manage payment types categorization
           </span>
         </span>
         <span
           aria-hidden="true"
-          class="shrink-0 text-xl text-text-tertiary transition-transform group-hover:translate-x-1"
+          class="shrink-0 text-3xl text-text-tertiary transition-transform group-hover:translate-x-1 lg:text-xl"
         >
           →
         </span>
@@ -220,19 +220,19 @@ exports[`MasterMainContainer matches snapshot 1`] = `
           class="min-w-0 flex-1"
         >
           <span
-            class="block truncate text-lg font-semibold text-text-primary"
+            class="block truncate text-2xl font-semibold text-text-primary lg:text-lg"
           >
             Master Voucher
           </span>
           <span
-            class="mt-2 block text-sm leading-5 text-text-secondary"
+            class="mt-2 block text-lg leading-7 text-text-secondary lg:text-sm lg:leading-5"
           >
             Manage discount codes and vouchers
           </span>
         </span>
         <span
           aria-hidden="true"
-          class="shrink-0 text-xl text-text-tertiary transition-transform group-hover:translate-x-1"
+          class="shrink-0 text-3xl text-text-tertiary transition-transform group-hover:translate-x-1 lg:text-xl"
         >
           →
         </span>
@@ -251,19 +251,19 @@ exports[`MasterMainContainer matches snapshot 1`] = `
           class="min-w-0 flex-1"
         >
           <span
-            class="block truncate text-lg font-semibold text-text-primary"
+            class="block truncate text-2xl font-semibold text-text-primary lg:text-lg"
           >
             Master Role
           </span>
           <span
-            class="mt-2 block text-sm leading-5 text-text-secondary"
+            class="mt-2 block text-lg leading-7 text-text-secondary lg:text-sm lg:leading-5"
           >
             Manage user roles and access rights
           </span>
         </span>
         <span
           aria-hidden="true"
-          class="shrink-0 text-xl text-text-tertiary transition-transform group-hover:translate-x-1"
+          class="shrink-0 text-3xl text-text-tertiary transition-transform group-hover:translate-x-1 lg:text-xl"
         >
           →
         </span>
@@ -282,19 +282,19 @@ exports[`MasterMainContainer matches snapshot 1`] = `
           class="min-w-0 flex-1"
         >
           <span
-            class="block truncate text-lg font-semibold text-text-primary"
+            class="block truncate text-2xl font-semibold text-text-primary lg:text-lg"
           >
             Master User
           </span>
           <span
-            class="mt-2 block text-sm leading-5 text-text-secondary"
+            class="mt-2 block text-lg leading-7 text-text-secondary lg:text-sm lg:leading-5"
           >
             Manage system users and their roles
           </span>
         </span>
         <span
           aria-hidden="true"
-          class="shrink-0 text-xl text-text-tertiary transition-transform group-hover:translate-x-1"
+          class="shrink-0 text-3xl text-text-tertiary transition-transform group-hover:translate-x-1 lg:text-xl"
         >
           →
         </span>
@@ -313,19 +313,19 @@ exports[`MasterMainContainer matches snapshot 1`] = `
           class="min-w-0 flex-1"
         >
           <span
-            class="block truncate text-lg font-semibold text-text-primary"
+            class="block truncate text-2xl font-semibold text-text-primary lg:text-lg"
           >
             Master PIC
           </span>
           <span
-            class="mt-2 block text-sm leading-5 text-text-secondary"
+            class="mt-2 block text-lg leading-7 text-text-secondary lg:text-sm lg:leading-5"
           >
             Manage person in charge data
           </span>
         </span>
         <span
           aria-hidden="true"
-          class="shrink-0 text-xl text-text-tertiary transition-transform group-hover:translate-x-1"
+          class="shrink-0 text-3xl text-text-tertiary transition-transform group-hover:translate-x-1 lg:text-xl"
         >
           →
         </span>

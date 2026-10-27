@@ -1,11 +1,14 @@
+/* eslint-disable jsdoc/require-jsdoc */
 import * as React from "react";
+import { FiEdit2 } from "react-icons/fi";
 
-import type { OrderProps, QuoteData } from "./Order.type";
 import Layout from "../../app/layout";
 import { PageLayout } from "../../app/shared/PageLayout";
 import { Pagination } from "../../components/Pagination";
 import { SearchFilter } from "../../components/SearchFilter";
-import Table from "../../components/Table";
+import Table, { type TableColumn } from "../../components/Table";
+
+import type { OrderProps, QuoteData } from "./Order.type";
 
 /**
  * Format order currency.
@@ -13,6 +16,37 @@ import Table from "../../components/Table";
  * @returns {string} Formatted currency
  */
 const _formatCurrency = (value: number): string => `Rp ${value.toLocaleString("id-ID")}`;
+
+/**
+ * Build order table columns.
+ * @param {OrderProps} props - Order page props
+ * @returns {TableColumn<QuoteData>[]} Order columns
+ */
+const _getColumns = (props: OrderProps): TableColumn<QuoteData>[] => [
+  { key: "no", header: "No", align: "center", render: (_row: QuoteData, index: number): React.ReactElement => <span>{(props.currentPage - 1) * props.pageSize + index + 1}</span> },
+  { key: "name", header: "Event Name" },
+  { key: "customerPhone", header: "Customer Phone" },
+  { key: "location", header: "Address" },
+  { key: "startDate", header: "Start Date" },
+  { key: "endDate", header: "End Date" },
+  { key: "grandTotal", header: "Grand Total", align: "right", render: (row: QuoteData): React.ReactElement => <span>{row.grandTotal.toLocaleString("id-ID")}</span> },
+  { key: "actions", header: "Action", align: "center", render: (row: QuoteData): React.ReactElement => _renderEditAction(row, props.openEditModal) },
+];
+
+/**
+ * Render order edit action.
+ * @param {QuoteData} order - Order row
+ * @param {(order: QuoteData) => void} onEdit - Edit callback
+ * @returns {React.ReactElement} Edit button
+ */
+const _renderEditAction = (order: QuoteData, onEdit: (order: QuoteData) => void): React.ReactElement => {
+  const handleEdit = (event: React.MouseEvent<HTMLButtonElement>): void => {
+    event.stopPropagation();
+    onEdit(order);
+  };
+
+  return <button type="button" onClick={handleEdit} className="cursor-pointer rounded-lg p-1.5 text-text-secondary hover:bg-action-primary-subtle hover:text-action-primary" title="Edit order" aria-label="Edit order"><FiEdit2 className="h-4 w-4" /></button>;
+};
 
 /**
  * Render mobile order card.
@@ -75,10 +109,12 @@ const _renderListState = (props: OrderProps): React.ReactElement | null => {
 /**
  * Render desktop order table.
  * @param {OrderProps} props - Order component props
+ * @param {(event: React.ChangeEvent<HTMLInputElement>) => void} handleSearchChange - Search handler
  * @returns {React.ReactElement} Desktop list
  */
-const _renderDesktopTable = (props: OrderProps): React.ReactElement => {
-  const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>): void => props.setSearchTerm(event.target.value);
+// eslint-disable-next-line max-lines-per-function
+const _renderDesktopTable = (props: OrderProps, handleSearchChange: (event: React.ChangeEvent<HTMLInputElement>) => void): React.ReactElement => {
+  const columns = _getColumns(props);
 
   return (
     <div className="hidden rounded-4xl border border-border-default bg-background-surface px-6 shadow-xs md:mt-6 md:flex md:flex-1 md:flex-col md:overflow-hidden lg:flex">
@@ -96,7 +132,7 @@ const _renderDesktopTable = (props: OrderProps): React.ReactElement => {
         {_renderListState(props) ?? (
           <Table
             data={props.paginatedData}
-            columns={props.columns}
+            columns={columns}
             isDetail={true}
             onRowClick={props.onRowClick}
             keyExtractor={(row: QuoteData): string => row.id}
@@ -118,11 +154,13 @@ const _renderDesktopTable = (props: OrderProps): React.ReactElement => {
 /**
  * Render mobile order list.
  * @param {OrderProps} props - Order component props
+ * @param {(event: React.ChangeEvent<HTMLInputElement>) => void} handleSearchChange - Search handler
  * @returns {React.ReactElement} Mobile list
  */
-const _renderMobileList = (props: OrderProps): React.ReactElement => {
-  const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>): void => props.setSearchTerm(event.target.value);
-
+const _renderMobileList = (
+  props: OrderProps,
+  handleSearchChange: (event: React.ChangeEvent<HTMLInputElement>) => void,
+): React.ReactElement => {
   return (
     <div className="flex min-w-0 flex-col gap-4 pb-16 pt-2 lg:hidden">
       <SearchFilter placeholder="Search order" onChange={handleSearchChange} isRoundedFull={true} className="w-full sm:w-full" inputClassName="text-lg placeholder:text-lg" />
@@ -147,6 +185,13 @@ const _renderMobileList = (props: OrderProps): React.ReactElement => {
  * @returns {React.ReactElement} Order page
  */
 export const OrderComponent = (props: OrderProps): React.ReactElement => {
+  /**
+   * Handle search input change.
+   * @param {React.ChangeEvent<HTMLInputElement>} event - Search input change event
+   * @returns {void} No return value
+   */
+  const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>): void => props.setSearchTerm(event.target.value);
+
   const createButton = (
     <button
       type="button"
@@ -168,8 +213,8 @@ export const OrderComponent = (props: OrderProps): React.ReactElement => {
         onBack={props.onBack}
       >
         <div className="relative flex h-full flex-col bg-background-surface px-0 pb-18 lg:-mt-4 lg:bg-transparent lg:px-0 lg:pb-0">
-          {_renderMobileList(props)}
-          {_renderDesktopTable(props)}
+          {_renderMobileList(props, handleSearchChange)}
+          {_renderDesktopTable(props, handleSearchChange)}
         </div>
       </PageLayout>
     </Layout>

@@ -18,6 +18,15 @@ const props: DesktopReportProps = {
 
 const configs = [{ props, desc: 'Should Render DesktopReportComponent with empty data' }];
 
+beforeAll(() => {
+  jest.useFakeTimers();
+  jest.setSystemTime(new Date('2026-10-27T01:18:32'));
+});
+
+afterAll(() => {
+  jest.useRealTimers();
+});
+
 it('DesktopReportComponent matches snapshot', () => {
   test.assertSnapshots(DesktopReportComponent, configs);
 });

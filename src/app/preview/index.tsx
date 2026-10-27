@@ -1,5 +1,5 @@
+import type { ReactElement } from "react";
 import { useState } from "react";
-import type { ChangeEvent, ReactElement } from "react";
 import { FiDownload, FiPlus } from "react-icons/fi";
 
 import { ButtonComponent } from "@/components/Button";
@@ -20,21 +20,21 @@ const Preview = (): ReactElement => {
    * @param {ChangeEvent<HTMLInputElement>} event - input change event
    * @returns {void}
    */
-  const handleDateChange = (event: ChangeEvent<HTMLInputElement>): void => setDate(event.target.value);
+  const handleDateChange = (value: string): void => setDate(value);
 
   /**
    * Update range start date preview.
    * @param {ChangeEvent<HTMLInputElement>} event - input change event
    * @returns {void}
    */
-  const handleStartDateChange = (event: ChangeEvent<HTMLInputElement>): void => setStartDate(event.target.value);
+  const handleStartDateChange = (value: string): void => setStartDate(value);
 
   /**
    * Update range end date preview.
    * @param {ChangeEvent<HTMLInputElement>} event - input change event
    * @returns {void}
    */
-  const handleEndDateChange = (event: ChangeEvent<HTMLInputElement>): void => setEndDate(event.target.value);
+  const handleEndDateChange = (value: string): void => setEndDate(value);
 
   return (
     <main className="min-h-full overflow-auto bg-background-page p-4 text-text-primary sm:p-6 lg:p-8">

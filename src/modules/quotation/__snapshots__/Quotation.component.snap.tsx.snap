@@ -3,7 +3,7 @@
 exports[`QuotationComponent Snapshots renders QuotationComponent with data 1`] = `
 <DocumentFragment>
   <div
-    class="flex h-full min-h-0 w-full bg-background-page overflow-hidden font-sans text-text-primary relative items-stretch transition-colors duration-200"
+    class="flex h-full min-h-0 w-full overflow-hidden font-sans text-text-primary relative items-stretch transition-colors duration-200 bg-background-page"
   >
     <div
       class="hidden lg:flex h-full min-h-0 shrink-0 self-stretch"
@@ -35,6 +35,51 @@ exports[`QuotationComponent Snapshots renders QuotationComponent with data 1`] =
               aria-label="Menu"
               class="space-y-1"
             >
+              <a
+                class="h-9 flex items-center gap-3 rounded-[6px] px-3 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring/30 text-text-secondary hover:bg-background-elevated hover:text-text-primary"
+                data-discover="true"
+                href="/order"
+              >
+                <span
+                  class="shrink-0 [&_svg]:h-5 [&_svg]:w-5 text-text-tertiary"
+                >
+                  <svg
+                    fill="none"
+                    height="20"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="1.8"
+                    viewBox="0 0 24 24"
+                    width="20"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"
+                    />
+                    <polyline
+                      points="14 2 14 8 20 8"
+                    />
+                    <line
+                      x1="16"
+                      x2="8"
+                      y1="13"
+                      y2="13"
+                    />
+                    <line
+                      x1="16"
+                      x2="8"
+                      y1="17"
+                      y2="17"
+                    />
+                  </svg>
+                </span>
+                <span
+                  class="flex-1 truncate text-lg leading-none font-normal"
+                >
+                  Order
+                </span>
+              </a>
               <div>
                 <button
                   aria-expanded="false"
@@ -285,25 +330,31 @@ exports[`QuotationComponent Snapshots renders QuotationComponent with data 1`] =
       </aside>
     </div>
     <div
-      class="flex-1 flex flex-col min-w-0 min-h-0 overflow-hidden relative bg-background-page transition-colors duration-200 bg-background-surface lg:bg-background-page"
+      class="flex-1 flex flex-col min-w-0 min-h-0 overflow-hidden relative transition-colors duration-200 bg-background-page bg-background-surface lg:bg-background-page"
     >
       <div
-        class="lg:hidden flex items-center gap-3 p-4 border-b border-border-default bg-background-surface shrink-0"
+        class="lg:hidden shrink-0"
       >
         <div
-          class="w-8 h-8 rounded-full bg-action-primary flex items-center justify-center"
+          class="flex items-center justify-between bg-background-surface px-6 pt-5"
         >
-          <span
-            class="text-text-inverse font-bold"
+          <div
+            class="flex items-center gap-4"
           >
-            Q
-          </span>
+            <div
+              class="w-52 h-14"
+            >
+              <img
+                alt="Logo"
+                class="w-full h-full object-cover"
+                src="/src/assets/Sonicline.png"
+              />
+            </div>
+          </div>
+          <div
+            class="flex items-center gap-3"
+          />
         </div>
-        <span
-          class="font-bold text-text-primary"
-        >
-          QuoteFlow
-        </span>
       </div>
       <div
         class="hidden lg:block shrink-0"
@@ -396,7 +447,7 @@ exports[`QuotationComponent Snapshots renders QuotationComponent with data 1`] =
         </header>
       </div>
       <main
-        class="flex-1 overflow-y-auto p-4 lg:p-8 pb-20 lg:pb-8 relative z-0"
+        class="relative z-0 flex-1 overflow-y-auto px-4 pt-4 pb-20 lg:p-8"
       >
         <div
           class="flex min-h-full flex-col"
@@ -463,7 +514,7 @@ exports[`QuotationComponent Snapshots renders QuotationComponent with data 1`] =
                   </svg>
                 </button>
                 <h1
-                  class="min-w-0 truncate text-left text-3xl font-semibold tracking-tight text-text-primary"
+                  class="min-w-0 truncate text-left text-3xl font-semibold tracking-tight text-text-primary "
                 >
                   Quotation List
                 </h1>
@@ -548,32 +599,37 @@ exports[`QuotationComponent Snapshots renders QuotationComponent with data 1`] =
                               <th
                                 class="bg-table-header px-5 py-4 text-[13px] font-bold text-text-secondary uppercase tracking-widest   text-left "
                               >
+                                Quotation No
+                              </th>
+                              <th
+                                class="bg-table-header px-5 py-4 text-[13px] font-bold text-text-secondary uppercase tracking-widest   text-left "
+                              >
+                                Customer Name
+                              </th>
+                              <th
+                                class="bg-table-header px-5 py-4 text-[13px] font-bold text-text-secondary uppercase tracking-widest   text-left "
+                              >
                                 Event Name
                               </th>
                               <th
                                 class="bg-table-header px-5 py-4 text-[13px] font-bold text-text-secondary uppercase tracking-widest   text-left "
                               >
-                                Customer Phone
+                                Quotation Date
                               </th>
                               <th
                                 class="bg-table-header px-5 py-4 text-[13px] font-bold text-text-secondary uppercase tracking-widest   text-left "
                               >
-                                Address
+                                Event Start Date
                               </th>
                               <th
                                 class="bg-table-header px-5 py-4 text-[13px] font-bold text-text-secondary uppercase tracking-widest   text-left "
                               >
-                                Start Date
+                                Event End Date
                               </th>
                               <th
-                                class="bg-table-header px-5 py-4 text-[13px] font-bold text-text-secondary uppercase tracking-widest   text-left "
+                                class="bg-table-header px-5 py-4 text-[13px] font-bold text-text-secondary uppercase tracking-widest   text-center "
                               >
-                                End Date
-                              </th>
-                              <th
-                                class="bg-table-header px-5 py-4 text-[13px] font-bold text-text-secondary uppercase tracking-widest   text-right "
-                              >
-                                Grand Total
+                                Status
                               </th>
                               <th
                                 class="bg-table-header px-5 py-4 text-[13px] font-bold text-text-secondary uppercase tracking-widest  rounded-r-xl text-center "
@@ -586,7 +642,7 @@ exports[`QuotationComponent Snapshots renders QuotationComponent with data 1`] =
                             class="divide-y divide-border-default"
                           >
                             <tr
-                              class="hover:bg-background-subtle/50 transition-colors "
+                              class="hover:bg-background-subtle/50 transition-colors cursor-pointer"
                             >
                               <td
                                 class="px-5 py-4 border-b border-border-default text-base text-center "
@@ -598,17 +654,22 @@ exports[`QuotationComponent Snapshots renders QuotationComponent with data 1`] =
                               <td
                                 class="px-5 py-4 border-b border-border-default text-base text-left "
                               >
+                                QUO-001
+                              </td>
+                              <td
+                                class="px-5 py-4 border-b border-border-default text-base text-left "
+                              >
+                                PT Example
+                              </td>
+                              <td
+                                class="px-5 py-4 border-b border-border-default text-base text-left "
+                              >
                                 Event Test
                               </td>
                               <td
                                 class="px-5 py-4 border-b border-border-default text-base text-left "
                               >
-                                0812345678
-                              </td>
-                              <td
-                                class="px-5 py-4 border-b border-border-default text-base text-left "
-                              >
-                                Jakarta
+                                2026-10-01
                               </td>
                               <td
                                 class="px-5 py-4 border-b border-border-default text-base text-left "
@@ -621,37 +682,44 @@ exports[`QuotationComponent Snapshots renders QuotationComponent with data 1`] =
                                 2026-11-02
                               </td>
                               <td
-                                class="px-5 py-4 border-b border-border-default text-base text-right "
+                                class="px-5 py-4 border-b border-border-default text-base text-center "
                               >
-                                <span>
-                                  5.000.000
+                                <span
+                                  class="rounded-full px-3 py-1 text-xs font-bold uppercase bg-success-subtle text-success"
+                                >
+                                  Active
                                 </span>
                               </td>
                               <td
                                 class="px-5 py-4 border-b border-border-default text-base text-center "
                               >
-                                <button
-                                  class="rounded-lg p-1.5 text-text-secondary hover:bg-action-primary-subtle hover:text-action-primary"
-                                  title="Edit quotation"
-                                  type="button"
+                                <div
+                                  class="flex items-center justify-center"
                                 >
-                                  <svg
-                                    class="h-4 w-4"
-                                    fill="none"
-                                    height="1em"
-                                    stroke="currentColor"
-                                    stroke-linecap="round"
-                                    stroke-linejoin="round"
-                                    stroke-width="2"
-                                    viewBox="0 0 24 24"
-                                    width="1em"
-                                    xmlns="http://www.w3.org/2000/svg"
+                                  <button
+                                    aria-label="Update status"
+                                    class="cursor-pointer rounded-lg p-2.5 text-text-secondary hover:bg-action-primary-subtle hover:text-action-primary"
+                                    title="Update status"
+                                    type="button"
                                   >
-                                    <path
-                                      d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"
-                                    />
-                                  </svg>
-                                </button>
+                                    <svg
+                                      class="h-5 w-5"
+                                      fill="none"
+                                      height="1em"
+                                      stroke="currentColor"
+                                      stroke-linecap="round"
+                                      stroke-linejoin="round"
+                                      stroke-width="2"
+                                      viewBox="0 0 24 24"
+                                      width="1em"
+                                      xmlns="http://www.w3.org/2000/svg"
+                                    >
+                                      <path
+                                        d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"
+                                      />
+                                    </svg>
+                                  </button>
+                                </div>
                               </td>
                             </tr>
                           </tbody>
@@ -665,7 +733,9 @@ exports[`QuotationComponent Snapshots renders QuotationComponent with data 1`] =
                         class="bg-background-surface overflow-hidden divide-y divide-border-default"
                       >
                         <div
-                          class="flex flex-col gap-3 px-4 py-4 bg-transparent transition-colors "
+                          class="flex flex-col gap-3 px-4 py-4 bg-transparent transition-colors cursor-pointer active:bg-background-subtle/50"
+                          role="button"
+                          tabindex="0"
                         />
                       </div>
                     </div>
@@ -695,7 +765,7 @@ exports[`QuotationComponent Snapshots renders QuotationComponent with data 1`] =
                           Documents per page
                         </label>
                         <div
-                          class="ant-select ant-select-outlined h-14 w-full css-var-root ant-select-css-var css-dev-only-do-not-override-eofgey ant-select-single ant-select-show-arrow"
+                          class="ant-select ant-select-outlined h-14 w-full [&_.ant-select-content]:!text-xl [&_.ant-select-content]:!font-normal  css-var-root ant-select-css-var css-dev-only-do-not-override-eofgey ant-select-single ant-select-show-arrow"
                         >
                           <div
                             class="ant-select-content ant-select-content-has-value"
@@ -889,32 +959,37 @@ exports[`QuotationComponent Snapshots renders QuotationComponent with data 1`] =
                               <th
                                 class="bg-table-header px-5 py-4 text-[13px] font-bold text-text-secondary uppercase tracking-widest   text-left "
                               >
+                                Quotation No
+                              </th>
+                              <th
+                                class="bg-table-header px-5 py-4 text-[13px] font-bold text-text-secondary uppercase tracking-widest   text-left "
+                              >
+                                Customer Name
+                              </th>
+                              <th
+                                class="bg-table-header px-5 py-4 text-[13px] font-bold text-text-secondary uppercase tracking-widest   text-left "
+                              >
                                 Event Name
                               </th>
                               <th
                                 class="bg-table-header px-5 py-4 text-[13px] font-bold text-text-secondary uppercase tracking-widest   text-left "
                               >
-                                Customer Phone
+                                Quotation Date
                               </th>
                               <th
                                 class="bg-table-header px-5 py-4 text-[13px] font-bold text-text-secondary uppercase tracking-widest   text-left "
                               >
-                                Address
+                                Event Start Date
                               </th>
                               <th
                                 class="bg-table-header px-5 py-4 text-[13px] font-bold text-text-secondary uppercase tracking-widest   text-left "
                               >
-                                Start Date
+                                Event End Date
                               </th>
                               <th
-                                class="bg-table-header px-5 py-4 text-[13px] font-bold text-text-secondary uppercase tracking-widest   text-left "
+                                class="bg-table-header px-5 py-4 text-[13px] font-bold text-text-secondary uppercase tracking-widest   text-center "
                               >
-                                End Date
-                              </th>
-                              <th
-                                class="bg-table-header px-5 py-4 text-[13px] font-bold text-text-secondary uppercase tracking-widest   text-right "
-                              >
-                                Grand Total
+                                Status
                               </th>
                               <th
                                 class="bg-table-header px-5 py-4 text-[13px] font-bold text-text-secondary uppercase tracking-widest  rounded-r-xl text-center "
@@ -927,7 +1002,7 @@ exports[`QuotationComponent Snapshots renders QuotationComponent with data 1`] =
                             class="divide-y divide-border-default"
                           >
                             <tr
-                              class="hover:bg-background-subtle/50 transition-colors "
+                              class="hover:bg-background-subtle/50 transition-colors cursor-pointer"
                             >
                               <td
                                 class="px-5 py-4 border-b border-border-default text-base text-center "
@@ -939,17 +1014,22 @@ exports[`QuotationComponent Snapshots renders QuotationComponent with data 1`] =
                               <td
                                 class="px-5 py-4 border-b border-border-default text-base text-left "
                               >
+                                QUO-001
+                              </td>
+                              <td
+                                class="px-5 py-4 border-b border-border-default text-base text-left "
+                              >
+                                PT Example
+                              </td>
+                              <td
+                                class="px-5 py-4 border-b border-border-default text-base text-left "
+                              >
                                 Event Test
                               </td>
                               <td
                                 class="px-5 py-4 border-b border-border-default text-base text-left "
                               >
-                                0812345678
-                              </td>
-                              <td
-                                class="px-5 py-4 border-b border-border-default text-base text-left "
-                              >
-                                Jakarta
+                                2026-10-01
                               </td>
                               <td
                                 class="px-5 py-4 border-b border-border-default text-base text-left "
@@ -962,37 +1042,44 @@ exports[`QuotationComponent Snapshots renders QuotationComponent with data 1`] =
                                 2026-11-02
                               </td>
                               <td
-                                class="px-5 py-4 border-b border-border-default text-base text-right "
+                                class="px-5 py-4 border-b border-border-default text-base text-center "
                               >
-                                <span>
-                                  5.000.000
+                                <span
+                                  class="rounded-full px-3 py-1 text-xs font-bold uppercase bg-success-subtle text-success"
+                                >
+                                  Active
                                 </span>
                               </td>
                               <td
                                 class="px-5 py-4 border-b border-border-default text-base text-center "
                               >
-                                <button
-                                  class="rounded-lg p-1.5 text-text-secondary hover:bg-action-primary-subtle hover:text-action-primary"
-                                  title="Edit quotation"
-                                  type="button"
+                                <div
+                                  class="flex items-center justify-center"
                                 >
-                                  <svg
-                                    class="h-4 w-4"
-                                    fill="none"
-                                    height="1em"
-                                    stroke="currentColor"
-                                    stroke-linecap="round"
-                                    stroke-linejoin="round"
-                                    stroke-width="2"
-                                    viewBox="0 0 24 24"
-                                    width="1em"
-                                    xmlns="http://www.w3.org/2000/svg"
+                                  <button
+                                    aria-label="Update status"
+                                    class="cursor-pointer rounded-lg p-2.5 text-text-secondary hover:bg-action-primary-subtle hover:text-action-primary"
+                                    title="Update status"
+                                    type="button"
                                   >
-                                    <path
-                                      d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"
-                                    />
-                                  </svg>
-                                </button>
+                                    <svg
+                                      class="h-5 w-5"
+                                      fill="none"
+                                      height="1em"
+                                      stroke="currentColor"
+                                      stroke-linecap="round"
+                                      stroke-linejoin="round"
+                                      stroke-width="2"
+                                      viewBox="0 0 24 24"
+                                      width="1em"
+                                      xmlns="http://www.w3.org/2000/svg"
+                                    >
+                                      <path
+                                        d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"
+                                      />
+                                    </svg>
+                                  </button>
+                                </div>
                               </td>
                             </tr>
                           </tbody>
@@ -1006,7 +1093,9 @@ exports[`QuotationComponent Snapshots renders QuotationComponent with data 1`] =
                         class="bg-background-surface overflow-hidden divide-y divide-border-default"
                       >
                         <div
-                          class="flex flex-col gap-3 px-4 py-4 bg-transparent transition-colors "
+                          class="flex flex-col gap-3 px-4 py-4 bg-transparent transition-colors cursor-pointer active:bg-background-subtle/50"
+                          role="button"
+                          tabindex="0"
                         />
                       </div>
                     </div>
@@ -1036,7 +1125,7 @@ exports[`QuotationComponent Snapshots renders QuotationComponent with data 1`] =
                           Documents per page
                         </label>
                         <div
-                          class="ant-select ant-select-outlined h-14 w-full css-var-root ant-select-css-var css-dev-only-do-not-override-eofgey ant-select-single ant-select-show-arrow"
+                          class="ant-select ant-select-outlined h-14 w-full [&_.ant-select-content]:!text-xl [&_.ant-select-content]:!font-normal  css-var-root ant-select-css-var css-dev-only-do-not-override-eofgey ant-select-single ant-select-show-arrow"
                         >
                           <div
                             class="ant-select-content ant-select-content-has-value"

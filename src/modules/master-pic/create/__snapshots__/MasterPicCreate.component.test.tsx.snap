@@ -6,7 +6,7 @@ exports[`MasterPicCreateForm Component MasterPicCreateForm Snapshots create mode
     class="flex h-full w-full flex-col bg-background-surface pb-6 font-sans lg:bg-background-page"
   >
     <div
-      class="sticky top-0 z-20 flex items-center bg-background-surface px-0 lg:hidden"
+      class="sticky top-0 z-20 flex items-center gap-3 bg-background-surface px-0 lg:hidden"
     >
       <button
         aria-label="Back"
@@ -28,9 +28,14 @@ exports[`MasterPicCreateForm Component MasterPicCreateForm Snapshots create mode
           />
         </svg>
       </button>
+      <h2
+        class="truncate text-4xl font-semibold leading-tight text-text-primary"
+      >
+        New PIC
+      </h2>
     </div>
     <div
-      class="mt-2 flex min-h-0 w-full flex-1 flex-col px-0 lg:mt-0 lg:px-0"
+      class="mt-10 flex min-h-0 w-full flex-1 flex-col px-0 lg:mt-0 lg:px-0"
     >
       <nav
         aria-label="Breadcrumb"
@@ -54,7 +59,7 @@ exports[`MasterPicCreateForm Component MasterPicCreateForm Snapshots create mode
         </span>
       </nav>
       <div
-        class="my-6 pl-1"
+        class="my-6 hidden pl-1 lg:block"
       >
         <h2
           class="text-4xl font-semibold leading-tight tracking-tight text-text-primary"
@@ -75,7 +80,7 @@ exports[`MasterPicCreateForm Component MasterPicCreateForm Snapshots create mode
           class="space-y-4"
         >
           <div
-            class="mb-4 "
+            class="mb-4 [&_.ant-input]:text-xl [&_.ant-input]:placeholder:text-xl [&_label]:text-base"
           >
             <label
               class="mb-1.5 block text-xs font-bold uppercase tracking-wider text-text-secondary"
@@ -104,7 +109,7 @@ exports[`MasterPicCreateForm Component MasterPicCreateForm Snapshots create mode
           class="mt-8 flex justify-end border-t border-border-default/60 pt-5 lg:mt-6 lg:border-border-default"
         >
           <button
-            class="h-14 w-full cursor-pointer rounded-xl bg-action-primary px-8 text-sm font-semibold tracking-wide text-text-inverse shadow-xs transition-all hover:bg-action-primary-hover disabled:opacity-60 sm:w-auto"
+            class="h-14 w-full cursor-pointer rounded-xl bg-action-primary px-8 text-lg font-semibold tracking-wide text-text-inverse lg:text-sm shadow-xs transition-all hover:bg-action-primary-hover disabled:opacity-60 sm:w-auto"
             type="submit"
           >
             Create PIC
@@ -122,7 +127,7 @@ exports[`MasterPicCreateForm Component MasterPicCreateForm Snapshots edit mode a
     class="flex h-full w-full flex-col bg-background-surface pb-6 font-sans lg:bg-background-page"
   >
     <div
-      class="sticky top-0 z-20 flex items-center bg-background-surface px-0 lg:hidden"
+      class="sticky top-0 z-20 flex items-center gap-3 bg-background-surface px-0 lg:hidden"
     >
       <button
         aria-label="Back"
@@ -144,9 +149,14 @@ exports[`MasterPicCreateForm Component MasterPicCreateForm Snapshots edit mode a
           />
         </svg>
       </button>
+      <h2
+        class="truncate text-4xl font-semibold leading-tight text-text-primary"
+      >
+        Edit PIC
+      </h2>
     </div>
     <div
-      class="mt-2 flex min-h-0 w-full flex-1 flex-col px-0 lg:mt-0 lg:px-0"
+      class="mt-10 flex min-h-0 w-full flex-1 flex-col px-0 lg:mt-0 lg:px-0"
     >
       <nav
         aria-label="Breadcrumb"
@@ -170,7 +180,7 @@ exports[`MasterPicCreateForm Component MasterPicCreateForm Snapshots edit mode a
         </span>
       </nav>
       <div
-        class="my-6 pl-1"
+        class="my-6 hidden pl-1 lg:block"
       >
         <h2
           class="text-4xl font-semibold leading-tight tracking-tight text-text-primary"
@@ -191,7 +201,7 @@ exports[`MasterPicCreateForm Component MasterPicCreateForm Snapshots edit mode a
           class="space-y-4"
         >
           <div
-            class="mb-4 "
+            class="mb-4 [&_.ant-input]:text-xl [&_.ant-input]:placeholder:text-xl [&_label]:text-base"
           >
             <label
               class="mb-1.5 block text-xs font-bold uppercase tracking-wider text-text-secondary"
@@ -220,12 +230,12 @@ exports[`MasterPicCreateForm Component MasterPicCreateForm Snapshots edit mode a
           >
             <div>
               <p
-                class="text-sm font-semibold text-text-primary"
+                class="text-lg font-semibold text-text-primary lg:text-sm"
               >
                 Status
               </p>
               <p
-                class="text-xs text-text-secondary"
+                class="text-base text-text-secondary lg:text-xs"
               >
                 Toggle active or inactive status
               </p>
@@ -257,7 +267,7 @@ exports[`MasterPicCreateForm Component MasterPicCreateForm Snapshots edit mode a
           class="mt-8 flex justify-end border-t border-border-default/60 pt-5 lg:mt-6 lg:border-border-default"
         >
           <button
-            class="h-14 w-full cursor-pointer rounded-xl bg-action-primary px-8 text-sm font-semibold tracking-wide text-text-inverse shadow-xs transition-all hover:bg-action-primary-hover disabled:opacity-60 sm:w-auto"
+            class="h-14 w-full cursor-pointer rounded-xl bg-action-primary px-8 text-lg font-semibold tracking-wide text-text-inverse lg:text-sm shadow-xs transition-all hover:bg-action-primary-hover disabled:opacity-60 sm:w-auto"
             type="submit"
           >
             Update PIC
@@ -285,7 +295,7 @@ exports[`MasterPicCreateForm Component MasterPicCreateForm Snapshots submitting 
     class="flex h-full w-full flex-col bg-background-surface pb-6 font-sans lg:bg-background-page"
   >
     <div
-      class="sticky top-0 z-20 flex items-center bg-background-surface px-0 lg:hidden"
+      class="sticky top-0 z-20 flex items-center gap-3 bg-background-surface px-0 lg:hidden"
     >
       <button
         aria-label="Back"
@@ -307,9 +317,14 @@ exports[`MasterPicCreateForm Component MasterPicCreateForm Snapshots submitting 
           />
         </svg>
       </button>
+      <h2
+        class="truncate text-4xl font-semibold leading-tight text-text-primary"
+      >
+        New PIC
+      </h2>
     </div>
     <div
-      class="mt-2 flex min-h-0 w-full flex-1 flex-col px-0 lg:mt-0 lg:px-0"
+      class="mt-10 flex min-h-0 w-full flex-1 flex-col px-0 lg:mt-0 lg:px-0"
     >
       <nav
         aria-label="Breadcrumb"
@@ -333,7 +348,7 @@ exports[`MasterPicCreateForm Component MasterPicCreateForm Snapshots submitting 
         </span>
       </nav>
       <div
-        class="my-6 pl-1"
+        class="my-6 hidden pl-1 lg:block"
       >
         <h2
           class="text-4xl font-semibold leading-tight tracking-tight text-text-primary"
@@ -354,7 +369,7 @@ exports[`MasterPicCreateForm Component MasterPicCreateForm Snapshots submitting 
           class="space-y-4"
         >
           <div
-            class="mb-4 "
+            class="mb-4 [&_.ant-input]:text-xl [&_.ant-input]:placeholder:text-xl [&_label]:text-base"
           >
             <label
               class="mb-1.5 block text-xs font-bold uppercase tracking-wider text-text-secondary"
@@ -383,7 +398,7 @@ exports[`MasterPicCreateForm Component MasterPicCreateForm Snapshots submitting 
           class="mt-8 flex justify-end border-t border-border-default/60 pt-5 lg:mt-6 lg:border-border-default"
         >
           <button
-            class="h-14 w-full cursor-pointer rounded-xl bg-action-primary px-8 text-sm font-semibold tracking-wide text-text-inverse shadow-xs transition-all hover:bg-action-primary-hover disabled:opacity-60 sm:w-auto"
+            class="h-14 w-full cursor-pointer rounded-xl bg-action-primary px-8 text-lg font-semibold tracking-wide text-text-inverse lg:text-sm shadow-xs transition-all hover:bg-action-primary-hover disabled:opacity-60 sm:w-auto"
             disabled=""
             type="submit"
           >
@@ -470,7 +485,7 @@ exports[`MasterPicCreateForm Component MasterPicCreateForm Snapshots with error 
       </div>
     </div>
     <div
-      class="sticky top-0 z-20 flex items-center bg-background-surface px-0 lg:hidden"
+      class="sticky top-0 z-20 flex items-center gap-3 bg-background-surface px-0 lg:hidden"
     >
       <button
         aria-label="Back"
@@ -492,9 +507,14 @@ exports[`MasterPicCreateForm Component MasterPicCreateForm Snapshots with error 
           />
         </svg>
       </button>
+      <h2
+        class="truncate text-4xl font-semibold leading-tight text-text-primary"
+      >
+        New PIC
+      </h2>
     </div>
     <div
-      class="mt-2 flex min-h-0 w-full flex-1 flex-col px-0 lg:mt-0 lg:px-0"
+      class="mt-10 flex min-h-0 w-full flex-1 flex-col px-0 lg:mt-0 lg:px-0"
     >
       <nav
         aria-label="Breadcrumb"
@@ -518,7 +538,7 @@ exports[`MasterPicCreateForm Component MasterPicCreateForm Snapshots with error 
         </span>
       </nav>
       <div
-        class="my-6 pl-1"
+        class="my-6 hidden pl-1 lg:block"
       >
         <h2
           class="text-4xl font-semibold leading-tight tracking-tight text-text-primary"
@@ -539,7 +559,7 @@ exports[`MasterPicCreateForm Component MasterPicCreateForm Snapshots with error 
           class="space-y-4"
         >
           <div
-            class="mb-4 "
+            class="mb-4 [&_.ant-input]:text-xl [&_.ant-input]:placeholder:text-xl [&_label]:text-base"
           >
             <label
               class="mb-1.5 block text-xs font-bold uppercase tracking-wider text-text-secondary"
@@ -568,7 +588,7 @@ exports[`MasterPicCreateForm Component MasterPicCreateForm Snapshots with error 
           class="mt-8 flex justify-end border-t border-border-default/60 pt-5 lg:mt-6 lg:border-border-default"
         >
           <button
-            class="h-14 w-full cursor-pointer rounded-xl bg-action-primary px-8 text-sm font-semibold tracking-wide text-text-inverse shadow-xs transition-all hover:bg-action-primary-hover disabled:opacity-60 sm:w-auto"
+            class="h-14 w-full cursor-pointer rounded-xl bg-action-primary px-8 text-lg font-semibold tracking-wide text-text-inverse lg:text-sm shadow-xs transition-all hover:bg-action-primary-hover disabled:opacity-60 sm:w-auto"
             type="submit"
           >
             Create PIC

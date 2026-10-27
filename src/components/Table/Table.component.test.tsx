@@ -80,7 +80,8 @@ describe("TableComponent", () => {
       />
     );
     fireEvent.click(screen.getByRole("button", { name: /Next/i }));
-    fireEvent.change(screen.getByRole("combobox"), { target: { value: "10" } });
+    fireEvent.mouseDown(screen.getByRole("combobox", { name: "Documents per page" }));
+    fireEvent.click(screen.getByRole("option", { name: "10" }));
 
     expect(onPageChange).toHaveBeenCalledWith(2);
     expect(onPageSizeChange).toHaveBeenCalledWith(10);

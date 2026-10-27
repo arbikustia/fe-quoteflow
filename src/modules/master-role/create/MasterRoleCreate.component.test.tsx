@@ -26,7 +26,7 @@ describe("MasterRoleCreateComponent", () => {
     const props = createProps();
     render(<MasterRoleCreateComponent {...props} />);
 
-    expect(screen.getByRole("heading", { name: "New Role" })).toBeTruthy();
+    expect(screen.getAllByRole("heading", { name: "New Role" })[0]).toBeTruthy();
     expect(screen.queryByRole("switch")).toBeNull();
 
     fireEvent.change(screen.getByLabelText(/Role Name/), { target: { value: "Manager" } });
@@ -51,7 +51,7 @@ describe("MasterRoleCreateComponent", () => {
     });
     render(<MasterRoleCreateComponent {...props} />);
 
-    expect(screen.getByRole("heading", { name: "Edit Role" })).toBeTruthy();
+    expect(screen.getAllByRole("heading", { name: "Edit Role" })[0]).toBeTruthy();
     expect(screen.getByDisplayValue("Administrator")).toBeTruthy();
     expect(screen.getByText("Role already exists.")).toBeTruthy();
     expect(screen.getByText("Role name is required.")).toBeTruthy();

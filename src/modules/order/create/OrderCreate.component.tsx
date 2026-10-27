@@ -15,6 +15,11 @@ import type { OrderItemPayload } from "../Order.type";
 
 const RUPIAH_FORMATTER = new Intl.NumberFormat("id-ID");
 
+/**
+ * Render _renderSelect.
+ * @param {OrderCreateProps} props - Component properties.
+ * @returns {React.ReactElement} Rendered element.
+ */
 const _renderSelect = (props: OrderCreateProps): React.ReactElement => (
   <Select
     id="order-customer"
@@ -41,6 +46,11 @@ const _renderSelect = (props: OrderCreateProps): React.ReactElement => (
   />
 );
 
+/**
+ * Render _renderPicSelect.
+ * @param {OrderCreateProps} props - Component properties.
+ * @returns {React.ReactElement} Rendered element.
+ */
 const _renderPicSelect = (props: OrderCreateProps): React.ReactElement => (
   <Select
     id="order-pic"
@@ -61,6 +71,11 @@ const _renderPicSelect = (props: OrderCreateProps): React.ReactElement => (
   />
 );
 
+/**
+ * Render _renderServiceTypeSelect.
+ * @param {OrderCreateProps} props - Component properties.
+ * @returns {React.ReactElement} Rendered element.
+ */
 const _renderServiceTypeSelect = (
   props: OrderCreateProps,
 ): React.ReactElement => (
@@ -90,6 +105,11 @@ const _renderServiceTypeSelect = (
   />
 );
 
+/**
+ * Render _renderVoucherSelect.
+ * @param {OrderCreateProps} props - Component properties.
+ * @returns {React.ReactElement} Rendered element.
+ */
 const _renderVoucherSelect = (props: OrderCreateProps): React.ReactElement => (
   <Select
     id="order-voucher"
@@ -109,9 +129,24 @@ const _renderVoucherSelect = (props: OrderCreateProps): React.ReactElement => (
   />
 );
 
+/**
+ * Render _renderDateRange.
+ * @param {OrderCreateProps} props - Component properties.
+ * @returns {React.ReactElement} Rendered element.
+ */
 const _renderDateRange = (props: OrderCreateProps): React.ReactElement => {
+  /**
+   * Handle date change.
+   * @param {string} value - Date value.
+   * @returns {void} Nothing.
+   */
   const handleStartDateChange = (value: string): void =>
     props.onChange("start_at", value);
+  /**
+   * Handle date change.
+   * @param {string} value - Date value.
+   * @returns {void} Nothing.
+   */
   const handleEndDateChange = (value: string): void =>
     props.onChange("end_at", value);
 
@@ -140,6 +175,11 @@ const _renderField = (
     type?: "text" | "tel";
   },
 ): React.ReactElement => {
+  /**
+   * Handle input change.
+   * @param {React.ChangeEvent<HTMLInputElement>} event - Input event.
+   * @returns {void} Nothing.
+   */
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>): void =>
     props.onChange(config.field, event.target.value);
   const value = String(props.form[config.field]);
@@ -160,8 +200,18 @@ const _renderField = (
   );
 };
 
+/**
+ * Render _renderServiceFee.
+ * @param {OrderCreateProps} props - Component properties.
+ * @returns {React.ReactElement} Rendered element.
+ */
 const _renderServiceFee = (props: OrderCreateProps): React.ReactElement => {
   const isInvalid = props.showInformationErrors && props.form.service_fee <= 0;
+  /**
+   * Handle input change.
+   * @param {React.ChangeEvent<HTMLInputElement>} event - Input event.
+   * @returns {void} Nothing.
+   */
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>): void =>
     props.onChange(
       "service_fee",
@@ -187,6 +237,14 @@ const _renderServiceFee = (props: OrderCreateProps): React.ReactElement => {
   );
 };
 
+/**
+ * Render _renderProjectCard.
+ * @param {OrderCreateProps} props - Component properties.
+ * @param {OrderCreateProps["items"][number]} option - Render option.
+ * @param {OrderItemPayload} item - Render item.
+ * @param {number} index - Item index.
+ * @returns {React.ReactElement} Rendered element.
+ */
 const _renderProjectCard = (
   props: OrderCreateProps,
   project: OrderCreateProps["projects"][number],
@@ -221,6 +279,14 @@ const _renderProjectCard = (
   );
 };
 
+/**
+ * Render _renderItemCard.
+ * @param {OrderCreateProps} props - Component properties.
+ * @param {OrderCreateProps["items"][number]} option - Render option.
+ * @param {OrderItemPayload} item - Render item.
+ * @param {number} index - Item index.
+ * @returns {React.ReactElement} Rendered element.
+ */
 const _renderItemCard = (
   props: OrderCreateProps,
   option: OrderCreateProps["items"][number],
@@ -324,6 +390,14 @@ const _renderItemCard = (
 };
 
 /* Item details are rendered inline in each Master Project-style card. */
+/**
+ * Render _renderItem.
+ * @param {OrderCreateProps} props - Component properties.
+ * @param {OrderCreateProps["items"][number]} option - Render option.
+ * @param {OrderItemPayload} item - Render item.
+ * @param {number} index - Item index.
+ * @returns {React.ReactElement} Rendered element.
+ */
 const _renderItem = (
   props: OrderCreateProps,
   item: OrderItemPayload,
@@ -337,6 +411,11 @@ const _renderItem = (
     (field: keyof OrderItemPayload) =>
     (event: React.ChangeEvent<HTMLInputElement>): void =>
       props.onItemChange(index, field, Number(event.target.value));
+  /**
+   * Handle input change.
+   * @param {React.ChangeEvent<HTMLInputElement>} event - Input event.
+   * @returns {void} Nothing.
+   */
   const handleRemove = (): void => props.onRemoveItem(index);
 
   return (
@@ -549,8 +628,18 @@ const _renderHeaderSection = (
 export const OrderCreateComponent = (
   props: OrderCreateProps,
 ): React.ReactElement => {
+  /**
+   * Handle input change.
+   * @param {React.ChangeEvent<HTMLInputElement>} event - Input event.
+   * @returns {void} Nothing.
+   */
   const handleAddress = (event: React.ChangeEvent<HTMLTextAreaElement>): void =>
     props.onChange("address", event.target.value);
+  /**
+   * Handle input change.
+   * @param {React.ChangeEvent<HTMLInputElement>} event - Input event.
+   * @returns {void} Nothing.
+   */
   const handleRemarks = (event: React.ChangeEvent<HTMLTextAreaElement>): void =>
     props.onChange("remarks", event.target.value);
 

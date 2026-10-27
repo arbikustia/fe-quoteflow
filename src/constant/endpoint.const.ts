@@ -74,6 +74,9 @@ const ENDPOINT = {
     CREATE: "/api/payment",
     DETAIL: "/api/payment",
   },
+  ACTIVITY_LOG: {
+    PAGED: "/api/activity-log/paged",
+  },
   ORDER: {
     PAGED: "/api/rental-transaction/paged",
     DETAIL: "/api/rental-transaction",

@@ -1,5 +1,3 @@
-import type { TableColumn } from "../../components/Table";
-
 export type ApiRentalTransactionItem = {
   item_id: string;
   project_id: string;
@@ -21,12 +19,12 @@ export type ApiRentalTransaction = {
   grand_total: number;
   status: number;
   created_at: string;
-  rental_transaction_items: ApiRentalTransactionItem[];
+  rental_transaction_items?: ApiRentalTransactionItem[];
 };
 
 export type OrderListResponse = {
   status: boolean;
-  data: ApiRentalTransaction[];
+  data?: ApiRentalTransaction[];
   messages: string[];
   page_number: number;
   total_pages: number;
@@ -63,6 +61,18 @@ export type QuoteData = {
   customerPhone: string;
 };
 
+export type CategoryDetailModalProps = {
+  isOpen: boolean;
+  onClose: () => void;
+  quote: QuoteData | null;
+};
+
+export type ItemDetailModalProps = {
+  isOpen: boolean;
+  onClose: () => void;
+  quote: QuoteData | null;
+};
+
 export type BaseOrderState = {
   openCreateModal: () => void;
   openEditModal: (quote: QuoteData) => void;
@@ -71,7 +81,6 @@ export type BaseOrderState = {
 };
 
 export type OrderProps = BaseOrderState & {
-  columns: TableColumn<QuoteData>[];
   paginatedData: QuoteData[];
   currentPage: number;
   totalPages: number;

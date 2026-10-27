@@ -3,7 +3,7 @@
 exports[`OrderDetailComponent Snapshots Should Render OrderDetailComponent 1`] = `
 <DocumentFragment>
   <div
-    class="flex h-full min-h-0 w-full bg-background-page overflow-hidden font-sans text-text-primary relative items-stretch transition-colors duration-200"
+    class="flex h-full min-h-0 w-full overflow-hidden font-sans text-text-primary relative items-stretch transition-colors duration-200 bg-background-page"
   >
     <div
       class="hidden lg:flex h-full min-h-0 shrink-0 self-stretch"
@@ -330,25 +330,31 @@ exports[`OrderDetailComponent Snapshots Should Render OrderDetailComponent 1`] =
       </aside>
     </div>
     <div
-      class="flex-1 flex flex-col min-w-0 min-h-0 overflow-hidden relative bg-background-page transition-colors duration-200"
+      class="flex-1 flex flex-col min-w-0 min-h-0 overflow-hidden relative transition-colors duration-200 bg-background-page"
     >
       <div
-        class="lg:hidden flex items-center gap-3 p-4 border-b border-border-default bg-background-surface shrink-0"
+        class="lg:hidden shrink-0"
       >
         <div
-          class="w-8 h-8 rounded-full bg-action-primary flex items-center justify-center"
+          class="flex items-center justify-between bg-background-surface px-6 pt-5"
         >
-          <span
-            class="text-text-inverse font-bold"
+          <div
+            class="flex items-center gap-4"
           >
-            Q
-          </span>
+            <div
+              class="w-52 h-14"
+            >
+              <img
+                alt="Logo"
+                class="w-full h-full object-cover"
+                src="/src/assets/Sonicline.png"
+              />
+            </div>
+          </div>
+          <div
+            class="flex items-center gap-3"
+          />
         </div>
-        <span
-          class="font-bold text-text-primary"
-        >
-          QuoteFlow
-        </span>
       </div>
       <div
         class="hidden lg:block shrink-0"
@@ -441,7 +447,7 @@ exports[`OrderDetailComponent Snapshots Should Render OrderDetailComponent 1`] =
         </header>
       </div>
       <main
-        class="flex-1 overflow-y-auto p-4 lg:p-8 pb-20 lg:pb-8 relative z-0"
+        class="relative z-0 flex-1 overflow-y-auto px-4 pt-4 pb-20 lg:p-8"
       >
         <div
           class="flex min-h-full flex-col"
@@ -508,7 +514,7 @@ exports[`OrderDetailComponent Snapshots Should Render OrderDetailComponent 1`] =
                   </svg>
                 </button>
                 <h1
-                  class="min-w-0 truncate text-left text-3xl font-semibold tracking-tight text-text-primary"
+                  class="min-w-0 truncate text-left text-3xl font-semibold tracking-tight text-text-primary "
                 >
                   Order Detail
                 </h1>
@@ -539,12 +545,12 @@ exports[`OrderDetailComponent Snapshots Should Render OrderDetailComponent 1`] =
                 >
                   <div>
                     <p
-                      class="text-xs font-bold uppercase tracking-wider text-text-tertiary"
+                      class="text-base font-bold uppercase tracking-wider text-text-tertiary lg:text-xs"
                     >
                       Order information
                     </p>
                     <h2
-                      class="mt-1 text-xl font-semibold text-text-primary"
+                      class="mt-1 text-2xl font-semibold text-text-primary lg:text-xl"
                     >
                       Test Event
                     </h2>
@@ -643,18 +649,18 @@ exports[`OrderDetailComponent Snapshots Should Render OrderDetailComponent 1`] =
                   >
                     <div>
                       <p
-                        class="text-xs font-bold uppercase tracking-wider text-text-tertiary"
+                        class="text-base font-bold uppercase tracking-wider text-text-tertiary lg:text-xs"
                       >
                         Line items
                       </p>
                       <h2
-                        class="mt-1 text-lg font-semibold text-text-primary"
+                        class="mt-1 text-2xl font-semibold text-text-primary lg:text-lg"
                       >
                         Rental items
                       </h2>
                     </div>
                     <span
-                      class="text-sm text-text-secondary"
+                      class="text-lg text-text-secondary lg:text-sm"
                     >
                       1 items
                     </span>
@@ -691,17 +697,17 @@ exports[`OrderDetailComponent Snapshots Should Render OrderDetailComponent 1`] =
                   class="rounded-2xl border border-border-default bg-background-surface p-5 lg:p-6"
                 >
                   <p
-                    class="text-xs font-bold uppercase tracking-wider text-text-tertiary"
+                    class="text-base font-bold uppercase tracking-wider text-text-tertiary lg:text-xs"
                   >
                     Amount
                   </p>
                   <h2
-                    class="mt-1 text-lg font-semibold text-text-primary"
+                    class="mt-1 text-2xl font-semibold text-text-primary lg:text-lg"
                   >
                     Order summary
                   </h2>
                   <dl
-                    class="mt-5 space-y-3 text-sm"
+                    class="mt-5 space-y-3 text-xl lg:text-sm"
                   >
                     <div
                       class="flex justify-between gap-4"

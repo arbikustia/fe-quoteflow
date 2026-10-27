@@ -1,23 +1,27 @@
 import { useNavigate, useParams } from "react-router-dom";
 
-import { useGetInvoiceByIdQuery } from "@/services/invoice.service";
+import { MOCK_INVOICES } from "@/fixture/invoices";
 
 import type { InvoiceDetailState } from "../Invoice.type";
 
-/** Load invoice detail and expose navigation. */
+import { useGetInvoiceByIdQuery } from "@/services/invoice.service";
+
+/**
+ * Load invoice detail and expose navigation.
+ * @returns {InvoiceDetailState} - invoice detail state
+ */
 export const useInvoiceDetail = (): InvoiceDetailState => {
   const navigate = useNavigate();
   const { id } = useParams<{ id: string }>();
-  const { data, error, isLoading } = useGetInvoiceByIdQuery(id ?? "", { skip: !id });
-  const invoice = data?.status && data.data ? data.data : null;
-  let errorMessage: string | null = null;
+  const { data, isLoading } = useGetInvoiceByIdQuery(id ?? "", { skip: !id });
+  const fixtureInvoice = MOCK_INVOICES.find((invoice) => invoice.id === id) ?? null;
+  const invoice = data?.status && data.data ? data.data : fixtureInvoice;
+  const errorMessage = !isLoading && !invoice ? "Invoice detail is unavailable." : null;
 
-  if (error) {
-    errorMessage = "Unable to load invoice detail.";
-  } else if (data && !data.status) {
-    errorMessage = "Invoice detail is unavailable.";
-  }
-
+  /**
+   * Navigate back from invoice detail.
+   * @returns {void} - no return value
+   */
   const goBack = (): void => { void navigate(-1); };
 
   return { invoice, isLoading, errorMessage, goBack };

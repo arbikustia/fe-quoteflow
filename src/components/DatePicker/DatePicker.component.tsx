@@ -1,48 +1,59 @@
-import * as React from "react";
-import { FiCalendar } from "react-icons/fi";
+import type { ReactElement } from "react";
+import { DatePicker as AntDatePicker } from "antd";
+import dayjs, { type Dayjs } from "dayjs";
 
 import type { DatePickerProps } from "./DatePicker.type";
 
-/**
- * Reusable date picker component.
- * @param {DatePickerProps} props - component props
- * @returns {React.ReactElement} date picker
- */
-export const DatePicker = ({
-  label,
-  className = "",
-  ...inputProps
-}: DatePickerProps): React.ReactElement => {
-  /**
-   * Handle input click to open native picker directly.
-   * @param {React.MouseEvent<HTMLInputElement>} event - mouse event
-   * @returns {void}
-   */
-  const handleClick = (event: React.MouseEvent<HTMLInputElement>): void => {
-    try {
-      event.currentTarget.showPicker?.();
-    } catch {
-      // Browser doesn't support or disallows showPicker
-    }
+const DATE_FORMAT = "YYYY-MM-DD";
 
-    inputProps.onClick?.(event);
-  };
+/**
+ * Convert date string to Dayjs.
+ * @param {string | undefined} value - date value
+ * @returns {Dayjs | null} parsed date
+ */
+const _toDayjs = (value: string | undefined): Dayjs | null => {
+  if (!value) return null;
+
+  const date = dayjs(value);
+
+  return date.isValid() ? date : null;
+};
+
+/**
+ * Render reusable Ant Design date picker.
+ * @param {DatePickerProps} props - date picker props
+ * @returns {ReactElement} date picker
+ */
+export const DatePicker = (props: DatePickerProps): ReactElement => {
+  const { id, label, value, onChange, required, disabled, className = "", popupClassName = "", errorMessage } = props;
+  const errorId = id ? `${id}-error` : undefined;
+
+  /**
+   * Update selected date.
+   * @param {Dayjs | null} date - selected date
+   * @returns {void} no return value
+   */
+  const handleChange = (date: Dayjs | null): void => onChange?.(date?.format(DATE_FORMAT) ?? "");
 
   return (
-    <label className={`block ${className}`}>
-      {label && <span className="block text-sm font-medium text-text-primary mb-1">{label}</span>}
-      <div className="relative">
-        <FiCalendar
-          aria-hidden="true"
-          className="pointer-events-none absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-text-tertiary"
-        />
-        <input
-          type="date"
-          {...inputProps}
-          onClick={handleClick}
-          className="h-11 w-full rounded-xl border border-border-default bg-background-surface pl-12 pr-4 text-base font-medium text-text-primary shadow-sm outline-none transition-colors placeholder:text-text-tertiary hover:border-border-strong focus:border-border-focus focus:ring-2 focus:ring-focus-ring/30 cursor-pointer"
-        />
-      </div>
-    </label>
+    <div className={`block ${className}`}>
+      {label && <label htmlFor={id} className="mb-1.5 block text-xs font-bold uppercase tracking-wider text-text-secondary">{label}{required && <span aria-hidden="true" className="ml-1 text-danger">*</span>}</label>}
+      <AntDatePicker
+        id={id}
+        value={_toDayjs(value)}
+        onChange={handleChange}
+        disabled={disabled}
+        format={DATE_FORMAT}
+        inputReadOnly
+        placeholder="Select date"
+        aria-invalid={Boolean(errorMessage)}
+        aria-describedby={errorMessage ? errorId : undefined}
+        status={errorMessage ? "error" : undefined}
+        placement="topLeft"
+        className="h-14 w-full"
+        classNames={{ popup: { root: popupClassName } }}
+      />
+      {errorMessage && <p id={errorId} role="alert" className="mt-1.5 text-sm text-danger">{errorMessage}</p>}
+    </div>
   );
 };

@@ -96,86 +96,29 @@ const _renderHeaderSection = (isEditMode: boolean, goBack: () => void): ReactEle
 };
 
 /**
+ * Render service type form fields.
+ * @param {MasterServiceTypeCreateFormState} props - Form state
+ * @param {string} fieldClass - input class name
+ * @returns {ReactElement} Form fields
+ */
+const _renderFields = (props: MasterServiceTypeCreateFormState, fieldClass: string): ReactElement => (
+  <div className="space-y-4">
+    <div><label htmlFor="service-name" className="mb-1.5 block text-xs font-bold uppercase tracking-wider text-text-secondary">Service Name <span className="text-red-600">*</span></label><input id="service-name" value={props.serviceName} onChange={props.handleServiceNameChange} placeholder="e.g. Sound System" required className={fieldClass} /></div>
+    <div><label htmlFor="service-price" className="mb-1.5 block text-xs font-bold uppercase tracking-wider text-text-secondary">Price <span className="text-red-600">*</span></label><input id="service-price" type="text" inputMode="numeric" value={formatRupiahInput(props.price)} onChange={props.handlePriceChange} placeholder="Rp 500.000" required className={fieldClass} /></div>
+    {_renderStatusField(props)}
+    {props.errorMessage !== null && <p role="alert" className="rounded-lg border border-red-200 bg-red-50 px-3 py-2 text-[13px] font-medium text-red-700">{props.errorMessage}</p>}
+  </div>
+);
+
+/**
  * Render service type create/edit form.
  * @param {MasterServiceTypeCreateFormState} props - Form state
  * @returns {ReactElement} Service type form
  */
 export const MasterServiceTypeCreateComponent = (props: MasterServiceTypeCreateFormState): ReactElement => {
-  const {
-    serviceName,
-    price,
-    isSubmitting,
-    isEditMode,
-    errorMessage,
-    handleServiceNameChange,
-    handlePriceChange,
-    handleSubmit,
-    goBack,
-  } = props;
+  const buttonText = props.isEditMode ? "Update Service Type" : "Create Service Type";
+  const submittingText = props.isEditMode ? "Updating…" : "Creating…";
+  const fieldClass = "w-full rounded-xl border border-border-default bg-background-surface px-4 py-3 text-[15px] font-normal text-text-primary shadow-xs outline-none transition-all placeholder:font-normal placeholder:text-text-tertiary/60 focus:border-border-focus focus:ring-2 focus:ring-focus-ring/30";
 
-  const buttonText = isEditMode ? "Update Service Type" : "Create Service Type";
-  const submittingText = isEditMode ? "Updating…" : "Creating…";
-  const fieldClass =
-    "w-full rounded-xl border border-border-default bg-background-surface px-4 py-3 text-[15px] font-normal text-text-primary shadow-xs outline-none transition-all placeholder:font-normal placeholder:text-text-tertiary/60 focus:border-border-focus focus:ring-2 focus:ring-focus-ring/30";
-
-  return (
-    <Layout mobileWhiteBackground={true}>
-      <div className="flex h-full w-full flex-col bg-background-surface pb-6 font-sans lg:bg-background-page">
-        {_renderMobileBack(goBack)}
-        <div className="mt-2 flex min-h-0 w-full flex-1 flex-col px-0 lg:mt-0 lg:px-0">
-          {_renderHeaderSection(isEditMode, goBack)}
-          <form
-            onSubmit={handleSubmit}
-            className="flex min-h-0 flex-1 flex-col justify-between border-0 bg-transparent p-0 shadow-none lg:rounded-4xl lg:border lg:border-border-default lg:bg-background-surface lg:p-8 lg:shadow-xs"
-          >
-            <div className="space-y-4">
-              <div>
-                <label htmlFor="service-name" className="mb-1.5 block text-xs font-bold uppercase tracking-wider text-text-secondary">
-                  Service Name <span className="text-red-600">*</span>
-                </label>
-                <input
-                  id="service-name"
-                  value={serviceName}
-                  onChange={handleServiceNameChange}
-                  placeholder="e.g. Sound System"
-                  required
-                  className={fieldClass}
-                />
-              </div>
-              <div>
-                <label htmlFor="service-price" className="mb-1.5 block text-xs font-bold uppercase tracking-wider text-text-secondary">
-                  Price <span className="text-red-600">*</span>
-                </label>
-                <input
-                  id="service-price"
-                  type="text"
-                  inputMode="numeric"
-                  value={formatRupiahInput(price)}
-                  onChange={handlePriceChange}
-                  placeholder="Rp 500.000"
-                  required
-                  className={fieldClass}
-                />
-              </div>
-              {_renderStatusField(props)}
-              {errorMessage !== null && (
-                <p role="alert" className="rounded-lg border border-red-200 bg-red-50 px-3 py-2 text-[13px] font-medium text-red-700">
-                  {errorMessage}
-                </p>
-              )}
-            </div>
-            <div className="mt-8 flex justify-end border-t border-border-default/60 pt-5 lg:mt-6 lg:border-border-default">
-              <button
-                type="submit"
-                disabled={isSubmitting}
-                className="h-14 w-full cursor-pointer rounded-xl bg-action-primary px-8 text-sm font-semibold tracking-wide text-text-inverse shadow-xs transition-all hover:bg-action-primary-hover disabled:opacity-60 sm:w-auto"
-              >
-                {isSubmitting ? submittingText : buttonText}
-              </button>
-            </div>
-          </form>
-        </div>
-      </div>
-    </Layout>
-  );
+  return <Layout mobileWhiteBackground={true}><div className="flex h-full w-full flex-col bg-background-surface pb-6 font-sans lg:bg-background-page">{_renderMobileBack(props.goBack)}<div className="mt-2 flex min-h-0 w-full flex-1 flex-col px-0 lg:mt-0 lg:px-0">{_renderHeaderSection(props.isEditMode, props.goBack)}<form onSubmit={props.handleSubmit} className="flex min-h-0 flex-1 flex-col justify-between border-0 bg-transparent p-0 shadow-none lg:rounded-4xl lg:border lg:border-border-default lg:bg-background-surface lg:p-8 lg:shadow-xs">{_renderFields(props, fieldClass)}<div className="mt-8 flex justify-end border-t border-border-default/60 pt-5 lg:mt-6 lg:border-border-default"><button type="submit" disabled={props.isSubmitting} className="h-14 w-full cursor-pointer rounded-xl bg-action-primary px-8 text-sm font-semibold tracking-wide text-text-inverse shadow-xs transition-all hover:bg-action-primary-hover disabled:opacity-60 sm:w-auto">{props.isSubmitting ? submittingText : buttonText}</button></div></form></div></div></Layout>;
 };

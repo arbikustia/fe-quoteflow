@@ -3,7 +3,10 @@ import type { ReactElement } from "react";
 import { QuotationDetailComponent } from "./QuotationDetail.component";
 import { useQuotationDetail } from "./QuotationDetail.hook";
 
-/** Render quotation detail container. */
+/**
+ * QuotationDetailContainer.
+ * @returns {ReactElement} - result.
+ */
 const QuotationDetailContainer = (): ReactElement => {
   const state = useQuotationDetail();
 

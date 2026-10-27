@@ -6,6 +6,10 @@ jest.setSystemTime(new Date("2026-10-22T18:45:00+07:00"));
 afterAll(() => jest.useRealTimers());
 
 jest.mock('@/services/order.service', () => ({
+  /**
+   *
+ * @returns {void} Snapshot assertion
+   */
   useGetOrdersQuery: (): { data: undefined; error: undefined; isLoading: boolean } => ({ data: undefined, error: undefined, isLoading: false }),
 }));
 

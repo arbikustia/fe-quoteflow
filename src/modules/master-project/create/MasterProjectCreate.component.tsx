@@ -58,17 +58,22 @@ const _renderSteps = (step: number): ReactElement => (
 );
 
 /**
+ * Render item selection step.
+ * @param {MasterProjectCreateFormState} props - Form state
+ * @param {Map<string, ProjectItemSelection>} selectedById - Selected items
+ * @returns {ReactElement} Item selection step
+ */
+const _renderItemStep = (props: MasterProjectCreateFormState, selectedById: Map<string, ProjectItemSelection>): ReactElement => <section><h3 className="mb-4 text-2xl font-semibold text-text-primary lg:text-xl">Select items</h3>{props.isItemsLoading && <p className="text-sm text-text-secondary">Loading items…</p>}{props.itemsError && <p role="alert" className="text-sm text-red-700">{props.itemsError}</p>}<div className="max-h-[min(34rem,calc(100vh-20rem))] space-y-3 overflow-y-auto pr-1">{props.items.map((item) => <Fragment key={item.id}>{_renderItemCard(item, selectedById.get(item.id), props.toggleItem, props.updateItemQuantity)}</Fragment>)}</div></section>;
+
+/**
  * Render current form step.
  * @param {MasterProjectCreateFormState} props - Form state
  * @param {Map<string, ProjectItemSelection>} selectedById - Selected items by ID
  * @returns {ReactElement} Current form step
  */
-const _renderCurrentStep = (
-  props: MasterProjectCreateFormState,
-  selectedById: Map<string, ProjectItemSelection>,
-): ReactElement => {
+const _renderCurrentStep = (props: MasterProjectCreateFormState, selectedById: Map<string, ProjectItemSelection>): ReactElement => {
   if (props.step === 1) {
-    return <section><h3 className="mb-4 text-2xl font-semibold text-text-primary lg:text-xl">Select items</h3>{props.isItemsLoading && <p className="text-sm text-text-secondary">Loading items…</p>}{props.itemsError && <p role="alert" className="text-sm text-red-700">{props.itemsError}</p>}<div className="max-h-[min(34rem,calc(100vh-20rem))] space-y-3 overflow-y-auto pr-1">{props.items.map((item) => <Fragment key={item.id}>{_renderItemCard(item, selectedById.get(item.id), props.toggleItem, props.updateItemQuantity)}</Fragment>)}</div></section>;
+    return _renderItemStep(props, selectedById);
   }
 
   if (props.step === 2) {

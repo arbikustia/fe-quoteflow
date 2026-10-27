@@ -149,9 +149,9 @@ const _renderExpandedLink = (props: SidebarItemProps): React.ReactElement => {
   const isActive = isMenuItemActive(item, currentPath, openMenus);
 
   return (
-    <Link key={item.name} to={item.path ?? "#"} aria-current={isActive ? "page" : undefined} className={`h-9 flex items-center gap-3 rounded-[6px] px-3 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring/30 ${isActive ? "bg-background-subtle text-text-primary" : "text-text-secondary hover:bg-background-elevated hover:text-text-primary"}`}>
+    <Link key={item.name} to={item.path ?? "#"} aria-current={isActive ? "page" : undefined} className={`min-h-14 flex items-center gap-3 rounded-[8px] px-4 py-3 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring/30 ${isActive ? "bg-background-subtle text-text-primary" : "text-text-secondary hover:bg-background-elevated hover:text-text-primary"}`}>
       <span className={`shrink-0 [&_svg]:h-5 [&_svg]:w-5 ${isActive ? "text-text-primary" : "text-text-tertiary"}`}><item.icon /></span>
-      <span className={`flex-1 truncate text-lg leading-none ${isActive ? "font-medium text-text-primary" : "font-normal"}`}>{item.name}</span>
+      <span className={`flex-1 truncate text-xl leading-none ${isActive ? "font-medium text-text-primary" : "font-normal"}`}>{item.name}</span>
       {_renderBadge(item.badge, false)}
     </Link>
   );

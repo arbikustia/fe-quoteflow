@@ -1,6 +1,10 @@
 import test from '../../../libs/unit-test';
 
 jest.mock('@/services/order.service', () => ({
+  /**
+   *
+ * @returns {void} Snapshot assertion
+   */
   useGetOrderByIdQuery: (): { data: undefined; error: undefined; isLoading: boolean } => ({ data: undefined, error: undefined, isLoading: false }),
 }));
 

@@ -21,7 +21,7 @@ const MobileDashboardContainer = (): React.ReactElement => {
     { title: "Cancel", bgColor: "bg-[#fee2e2]", iconColor: "text-[#ef4444]", icon: <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="15" y1="9" x2="9" y2="15"></line><line x1="9" y1="9" x2="15" y2="15"></line></svg>, count: 0 },
   ].map(s => ({
     ...s,
-    count: MOCK_QUOTES.filter(q => q.status === s.title).length
+    count: MOCK_QUOTES.filter(q => String(q.status) === s.title).length
   }));
 
   return (

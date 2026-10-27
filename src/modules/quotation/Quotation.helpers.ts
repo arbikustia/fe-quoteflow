@@ -1,9 +1,9 @@
 /**
- * Calculate pure 1-based display row index.
- * @param {number} currentPage - Current page number
- * @param {number} pageSize - Number of rows per page
- * @param {number} index - 0-based index of item on current page
- * @returns {number} 1-based overall row number
+ * getQuotationRowNumber.
+ * @param {number} currentPage - currentPage value.
+ * @param {number} pageSize - pageSize value.
+ * @param {number} index - index value.
+ * @returns {number} - result.
  */
 export const getQuotationRowNumber = (
   currentPage: number,

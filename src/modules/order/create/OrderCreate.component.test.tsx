@@ -1,30 +1,23 @@
-import { render, screen } from '@testing-library/react';
-import { OrderCreateComponent } from './OrderCreate.component';
-import React from 'react';
+import { describe, expect, it, jest } from "@jest/globals";
 
-describe('OrderCreateComponent', () => {
-  it('should render successfully', () => {
-    const mockRef = { current: document.createElement('div') };
-    render(
-      <OrderCreateComponent 
-        isEdit={false}
-        existingOrder={null}
-        selectedCategories={[]}
-        selectedItems={[]}
-        itemDetails={{}}
-        categoryRemarks={{}}
-        isCategoryOpen={false}
-        categoryRef={mockRef}
-        onNavigateBack={jest.fn()}
-        onToggleCategory={jest.fn()}
-        onToggleItem={jest.fn()}
-        onUpdateQty={jest.fn()}
-        onUpdateRemark={jest.fn()}
-        onUpdateCategoryRemark={jest.fn()}
-        onSubmit={jest.fn()}
-        onToggleCategoryOpen={jest.fn()}
-      />
-    );
-    expect(screen.getByText('New Request')).toBeTruthy();
+import { render, screen } from "@/libs/unit-test";
+import { MemoryRouter } from "react-router-dom";
+
+import { OrderCreateComponent } from "./OrderCreate.component";
+import type { OrderCreateProps } from "./OrderCreate.type";
+
+const props: OrderCreateProps = {
+  form: { customer_id: "", pic_id: "", voucher_id: "", service_type_id: "", service_type_name: "", customer_name: "", customer_phone: "", address: "", event_name: "", start_at: "", end_at: "", subtotal: 0, discount: 0, service_fee: 0, remarks: "", grand_total: 0, status: 1, rental_transaction_items: [] },
+  customers: [], pics: [], serviceTypes: [], vouchers: [], projects: [], items: [],
+  isCustomersLoading: false, isPicsLoading: false, isServiceTypesLoading: false, isVouchersLoading: false, isProjectsLoading: false, isItemsLoading: false,
+  isEdit: false, isSubmitting: false, errorMessage: null, showInformationErrors: false, showItemErrors: false, step: 1,
+  onBack: jest.fn(), onNextStep: jest.fn(), onPreviousStep: jest.fn(), onCustomerChange: jest.fn(), onPicChange: jest.fn(), onVoucherChange: jest.fn(), onServiceTypeChange: jest.fn(), onProjectSelect: jest.fn(), onItemSelect: jest.fn(), onToggleItem: jest.fn(), onToggleProject: jest.fn(), onChange: jest.fn(), onItemChange: jest.fn(), onAddItem: jest.fn(), onRemoveItem: jest.fn(), onSubmit: jest.fn(), onPreventSubmit: jest.fn(),
+};
+
+describe("OrderCreateComponent", (): void => {
+  it("should render order information step", (): void => {
+    render(<MemoryRouter><OrderCreateComponent {...props} /></MemoryRouter>);
+
+    expect(screen.getByText("Order Information")).toBeTruthy();
   });
 });
