@@ -1,8 +1,11 @@
 import * as React from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import type { GlobalHeaderProps } from "./GlobalHeader.type";
-import Logo from "../../assets/Sonicline.png";
+
+import { Icons } from "../../components/Icons";
+import { getUsername } from "../../components/Sidebar/Sidebar.helpers";
+import { useTheme } from "../../store/theme.hook";
 
 /**
  * Render mobile application header.
@@ -11,40 +14,42 @@ import Logo from "../../assets/Sonicline.png";
  */
 export default function GlobalHeader({ showCreateButton = false, createEndpoint = "" }: GlobalHeaderProps): React.ReactElement {
   const navigate = useNavigate();
-  const location = useLocation();
-  const path = location.pathname;
+  const { theme, toggleTheme } = useTheme();
+  const displayName = getUsername() || "User";
 
   return (
-    <div className="flex items-center justify-between bg-background-surface px-6 pt-5">
-      <div className="flex items-center gap-4">
-        <div className="w-52 h-14">
-          <img src={Logo} alt="Logo" className="w-full h-full object-cover" />
-        </div>
+    <header className="flex items-center justify-between bg-background-surface px-4 py-4">
+      <div className="min-w-0">
+        <p className="text-xl font-medium text-text-tertiary">Welcome back</p>
+        <p className="truncate text-2xl font-semibold text-text-primary">{displayName}</p>
       </div>
-      <div className="flex items-center gap-3">
+      <div className="flex items-center gap-2">
         {showCreateButton && createEndpoint && (
-          <button 
-            onClick={() => navigate(createEndpoint)}
-            className="bg-[#212330] text-white rounded-full flex items-center justify-center gap-2 px-4 py-3 hover:bg-gray-800 transition-colors shadow-sm"
-          >
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
-            <span className="font-medium text-[14px]">Create</span>
-          </button>
-        )}
-        {path === "/home" && (
           <button
-            onClick={() => navigate("/login")}
-            className="w-12 h-12 bg-white rounded-full flex items-center justify-center text-gray-700 hover:text-red-500 hover:bg-red-50 transition-colors shadow-sm shrink-0"
-            aria-label="Logout"
+            type="button"
+            onClick={() => navigate(createEndpoint)}
+            className="flex h-10 items-center justify-center gap-2 rounded-full bg-action-primary px-4 text-sm font-medium text-text-inverse transition-colors hover:bg-action-primary-hover"
           >
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
-              <polyline points="16 17 21 12 16 7"></polyline>
-              <line x1="21" y1="12" x2="9" y2="12"></line>
-            </svg>
+            <Icons.Plus />
+            <span>Create</span>
           </button>
         )}
+        <button
+          type="button"
+          onClick={toggleTheme}
+          className="flex h-12 w-12 items-center justify-center rounded-full border border-border-default bg-background-surface text-text-secondary transition-colors hover:bg-background-subtle hover:text-text-primary [&>svg]:h-7 [&>svg]:w-7"
+          aria-label={theme === "dark" ? "Use light theme" : "Use dark theme"}
+        >
+          {theme === "dark" ? <Icons.Sun /> : <Icons.Moon />}
+        </button>
+        <span
+          className="ml-2 flex h-12 w-12 items-center justify-center rounded-full bg-action-primary-subtle text-action-primary [&>svg]:h-7 [&>svg]:w-7"
+          aria-label="User profile"
+          role="img"
+        >
+          <Icons.User />
+        </span>
       </div>
-    </div>
+    </header>
   );
 }

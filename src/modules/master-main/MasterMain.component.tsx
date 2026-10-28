@@ -51,7 +51,7 @@ export const MasterMainComponent = (props: {
   const { cards, onCardClick } = props;
 
   return (
-    <div className="flex flex-col gap-6 px-6 pb-20 lg:px-0">
+    <div className="flex flex-col gap-6 px-6 pt-4 pb-20 lg:px-0 lg:pt-0">
       <div>
         <h1 className="text-4xl font-bold text-text-primary lg:text-3xl">Master Data</h1>
         <p className="mt-2 text-sm text-text-secondary">Manage core data used across QuoteFlow.</p>
