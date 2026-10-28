@@ -2,6 +2,7 @@ import * as React from "react";
 import { useNavigate } from "react-router-dom";
 
 import type { GlobalHeaderProps } from "./GlobalHeader.type";
+import { getGreeting } from "./GlobalHeader.helpers";
 
 import { Icons } from "../../components/Icons";
 import { getUsername } from "../../components/Sidebar/Sidebar.helpers";
@@ -16,12 +17,13 @@ export default function GlobalHeader({ showCreateButton = false, createEndpoint 
   const navigate = useNavigate();
   const { theme, toggleTheme } = useTheme();
   const displayName = getUsername() || "User";
+  const greeting = getGreeting(new Date().getHours());
 
   return (
     <header className="flex items-center justify-between bg-background-surface px-4 py-4">
       <div className="min-w-0">
-        <p className="text-xl font-medium text-text-tertiary">Welcome back</p>
-        <p className="truncate text-2xl font-semibold text-text-primary">{displayName}</p>
+        <p className="text-xl font-medium text-text-tertiary">{greeting}</p>
+        <p className="truncate text-3xl font-semibold text-text-primary">{displayName}</p>
       </div>
       <div className="flex items-center gap-2">
         {showCreateButton && createEndpoint && (
