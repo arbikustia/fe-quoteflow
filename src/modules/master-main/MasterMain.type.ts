@@ -15,4 +15,5 @@ export type MasterMainCardProps = {
 export type MasterMainProps = {
   cards: MasterMainCardProps[];
   onCardClick: (path: string) => void;
+  onBack: () => void;
 };

@@ -3,6 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 
 import { OrderDetailComponent } from "./OrderDetail.component";
 
+import { mapProject, useGetAllProjectsQuery } from "@/services/master-project.service";
 import { useGetOrderByIdQuery } from "@/services/order.service";
 
 /**
@@ -13,6 +14,8 @@ const OrderDetailContainer = (): React.ReactElement => {
   const navigate = useNavigate();
   const { id = "" } = useParams();
   const query = useGetOrderByIdQuery(id, { skip: id.length === 0 });
+  const projectsQuery = useGetAllProjectsQuery();
+  const projects = (projectsQuery.data?.data ?? []).map(mapProject);
   /** Navigate back to order list. */
   const handleNavigateBack = (): void => { void navigate(-1); };
   /** Navigate to order edit page. */
@@ -28,6 +31,7 @@ const OrderDetailContainer = (): React.ReactElement => {
   return (
     <OrderDetailComponent
       order={query.data?.data ?? null}
+      projects={projects}
       isLoading={query.isLoading}
       errorMessage={errorMessage}
       onNavigateBack={handleNavigateBack}

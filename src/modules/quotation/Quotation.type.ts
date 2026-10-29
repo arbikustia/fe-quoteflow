@@ -135,6 +135,11 @@ export type QuotationData = {
   status: number;
 };
 
+export type QuotationMobileCardProps = {
+  quotation: QuotationData;
+  onClick: (quotation: QuotationData) => void;
+};
+
 export type QuotationListApiState = {
   isLoading: boolean;
   errorMessage: string | null;
@@ -174,6 +179,7 @@ export type QuotationDetailState = {
   isLoading: boolean;
   errorMessage: string | null;
   goBack: () => void;
+  goEdit: () => void;
 };
 
 

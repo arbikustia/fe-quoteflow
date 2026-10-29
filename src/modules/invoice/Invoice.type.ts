@@ -79,4 +79,5 @@ export type InvoiceDetailState = {
   isLoading: boolean;
   errorMessage: string | null;
   goBack: () => void;
+  goEdit: () => void;
 };

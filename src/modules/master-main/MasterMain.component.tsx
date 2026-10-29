@@ -1,6 +1,6 @@
 import * as React from "react";
 
-import type { MasterMainCardProps } from "./MasterMain.type";
+import type { MasterMainCardProps, MasterMainProps } from "./MasterMain.type";
 
 /**
  * Render Master Main Card
@@ -32,7 +32,6 @@ export const MasterMainCard = (props: MasterMainCardProps): React.ReactElement =
         <span className="block truncate text-2xl font-semibold text-text-primary lg:text-lg">{title}</span>
         <span className="mt-2 block text-lg leading-7 text-text-secondary lg:text-sm lg:leading-5">{description}</span>
       </span>
-      <span aria-hidden="true" className="shrink-0 text-3xl text-text-tertiary transition-transform group-hover:translate-x-1 lg:text-xl">→</span>
     </button>
   );
 };
@@ -44,16 +43,18 @@ export const MasterMainCard = (props: MasterMainCardProps): React.ReactElement =
  * @param {(path: string) => void} props.onCardClick - card click handler
  * @returns {React.ReactElement} - component
  */
-export const MasterMainComponent = (props: {
-  cards: MasterMainCardProps[];
-  onCardClick: (path: string) => void;
-}): React.ReactElement => {
-  const { cards, onCardClick } = props;
+export const MasterMainComponent = (props: MasterMainProps): React.ReactElement => {
+  const { cards, onCardClick, onBack } = props;
 
   return (
     <div className="flex flex-col gap-6 px-6 pt-4 pb-20 lg:px-0 lg:pt-0">
       <div>
-        <h1 className="text-4xl font-bold text-text-primary lg:text-3xl">Master Data</h1>
+        <div className="flex items-center gap-3">
+          <button type="button" onClick={onBack} aria-label="Back" className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full border border-border-default bg-background-surface text-text-primary transition-colors hover:bg-background-subtle focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring/30">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="h-6 w-6" aria-hidden="true"><path d="M19 12H5M12 19l-7-7 7-7" /></svg>
+          </button>
+          <h1 className="text-4xl font-bold text-text-primary lg:text-3xl">Master Data</h1>
+        </div>
         <p className="mt-2 text-sm text-text-secondary">Manage core data used across QuoteFlow.</p>
       </div>
 

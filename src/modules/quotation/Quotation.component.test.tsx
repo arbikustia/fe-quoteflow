@@ -71,13 +71,13 @@ describe("QuotationComponent", () => {
     const props = createProps({ onRowClick });
     render(<MemoryRouter><QuotationComponent {...props} /></MemoryRouter>);
 
-    const row = screen.getAllByText("QUO-001")[0].closest("tr");
+    const card = screen.getAllByText("QUO-001")[0].closest("button");
 
-    if (!row) {
-      throw new Error("Quotation row was not rendered.");
+    if (!card) {
+      throw new Error("Quotation card was not rendered.");
     }
 
-    fireEvent.click(row);
+    fireEvent.click(card);
 
     expect(onRowClick).toHaveBeenCalledWith(MOCK_ROWS[0]);
   });

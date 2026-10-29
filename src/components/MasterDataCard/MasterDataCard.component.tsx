@@ -23,10 +23,7 @@ export const MasterDataCard = ({ title, status, children, onClick, className = "
         <span className={`block truncate font-semibold text-text-primary ${titleClassName}`}>{title}</span>
         <span className={`mt-3 block ${contentClassName}`}>{children}</span>
       </span>
-      <span className="flex shrink-0 items-center gap-3">
-        {status && <span className={`rounded-full px-3 py-1 font-bold uppercase tracking-wider ${statusClass} ${statusTextClassName}`}>{status}</span>}
-        <span aria-hidden="true" className="text-xl text-text-tertiary transition-transform group-hover:translate-x-1">→</span>
-      </span>
+      {status && <span className={`shrink-0 rounded-full px-3 py-1 font-bold uppercase tracking-wider ${statusClass} ${statusTextClassName}`}>{status}</span>}
     </button>
   );
 };

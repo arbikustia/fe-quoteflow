@@ -28,7 +28,7 @@ describe('OrderDetailComponent', () => {
   it('should render API order detail', () => {
     render(
       <MemoryRouter>
-        <OrderDetailComponent order={order} isLoading={false} errorMessage={null} onNavigateBack={jest.fn()} />
+        <OrderDetailComponent order={order} projects={[]} isLoading={false} errorMessage={null} onNavigateBack={jest.fn()} onEdit={jest.fn()} />
       </MemoryRouter>,
     );
 

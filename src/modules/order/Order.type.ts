@@ -97,6 +97,7 @@ export type OrderProps = BaseOrderState & {
 
 export type ApiRentalTransactionDetailItem = {
   item_id: string;
+  project_id?: string | null;
   item_name: string;
   qty: number;
   price: number;
@@ -123,6 +124,12 @@ export type ApiRentalTransactionProject = {
 
 export type ApiRentalTransactionDetail = {
   id: string;
+  customer_id?: string;
+  pic_id?: string;
+  voucher_id?: string;
+  customer?: { id: string; name: string };
+  pic?: { id: string; name: string };
+  voucher?: { id: string; name: string };
   service_type_id: string;
   service_type_name: string;
   customer_name: string;
@@ -134,6 +141,7 @@ export type ApiRentalTransactionDetail = {
   subtotal: number;
   service_fee: number;
   discount: number;
+  remarks?: string;
   grand_total: number;
   status: number;
   created_at: string;

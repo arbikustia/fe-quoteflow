@@ -5,6 +5,11 @@ jest.mock('@/services/order.service', () => ({
   useGetOrderByIdQuery: (): { data: undefined; error: undefined; isLoading: boolean } => ({ data: undefined, error: undefined, isLoading: false }),
 }));
 
+jest.mock('@/services/master-project.service', () => ({
+  mapProject: jest.fn(),
+  useGetAllProjectsQuery: (): { data: undefined } => ({ data: undefined }),
+}));
+
 import OrderDetailContainer from './OrderDetail.container';
 
 describe('OrderDetailContainer', () => {

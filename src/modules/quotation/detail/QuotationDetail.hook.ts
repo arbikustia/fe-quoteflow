@@ -37,6 +37,15 @@ export const useQuotationDetail = (): QuotationDetailState => {
  * @returns {void} - result.
  */
 const goBack = (): void => { void navigate(-1); };
+  /**
+   * Navigate to quotation status page.
+   * @returns {void} No return value
+   */
+  const goEdit = (): void => {
+    if (quotation) {
+      void navigate(`/document/quotation/${quotation.id}/status`);
+    }
+  };
 
-  return { quotation, isLoading, errorMessage, goBack };
+  return { quotation, isLoading, errorMessage, goBack, goEdit };
 };

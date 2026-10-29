@@ -1,6 +1,7 @@
 import * as React from "react";
 import { FiEdit2 } from "react-icons/fi";
 
+import { MasterDataCard } from "@/components/MasterDataCard";
 import { Pagination } from "@/components/Pagination";
 import { SearchFilter } from "@/components/SearchFilter";
 import { SkeletonComponent } from "@/components/Skeleton";
@@ -98,6 +99,30 @@ const _getColumns = (props: InvoiceProps): TableColumn<InvoiceData>[] => [
 ];
 
 /**
+ * Render invoice mobile card.
+ * @param {InvoiceData} invoice - Invoice data
+ * @param {InvoiceProps["onRowClick"]} onRowClick - Detail callback
+ * @returns {React.ReactElement} Invoice card
+ */
+const _renderMobileCard = (invoice: InvoiceData, onRowClick: InvoiceProps["onRowClick"]): React.ReactElement => {
+  /**
+   * Open invoice detail.
+   * @returns {void} No return value
+   */
+  const handleClick = (): void => onRowClick(invoice);
+
+  return (
+    <MasterDataCard title={invoice.invoiceNumber} status={invoice.status === 1 ? "active" : "inactive"} isLargeText={true} onClick={handleClick}>
+      <span className="grid gap-1 text-lg text-text-secondary">
+        <span className="truncate">{invoice.customerName}</span>
+        <span className="truncate">{invoice.name}</span>
+        <span className="truncate">{invoice.startDate} - {invoice.endDate}</span>
+      </span>
+    </MasterDataCard>
+  );
+};
+
+/**
  * Render invoice list content.
  * @param {InvoiceProps} props - Invoice component props
  * @returns {React.ReactElement} Invoice content
@@ -115,6 +140,21 @@ const _renderContent = (props: InvoiceProps): React.ReactElement => {
 };
 
 /**
+ * Render mobile invoice content.
+ * @param {InvoiceProps} props - Invoice component props
+ * @returns {React.ReactElement} Mobile invoice content
+ */
+const _renderMobileContent = (props: InvoiceProps): React.ReactElement => {
+  if (props.isLoading) return <SkeletonComponent rows={5} columns={[{ width: "100%" }]} />;
+
+  if (props.errorMessage) return <p className="py-10 text-center text-sm text-danger">{props.errorMessage}</p>;
+
+  if (props.isEmpty) return <p className="py-10 text-center text-sm text-text-secondary">No invoices found.</p>;
+
+  return <>{props.paginatedData.map((invoice) => _renderMobileCard(invoice, props.onRowClick))}</>;
+};
+
+/**
  * Render invoice list page.
  * @param {InvoiceProps} props - Invoice component props
  * @returns {React.ReactElement} Invoice page
@@ -129,11 +169,13 @@ export const InvoiceComponent = (props: InvoiceProps): React.ReactElement => {
 
   return (
     <Layout pageTitle="Invoice List" mobileWhiteBackground={true}>
-      <PageLayout title="Invoice List" breadcrumbs={["Document", "Invoice"]} mobileHeaderClassName="px-0" onBack={props.onBack}>
+      <PageLayout title="Invoice List" breadcrumbs={["Document", "Invoice"]} mobileHeaderClassName="px-0" mobileTitleClassName="text-4xl" onBack={props.onBack}>
         <div className="relative flex h-full flex-col bg-background-surface px-0 pb-18 lg:-mt-4 lg:bg-transparent lg:pb-0">
           <div className="flex min-w-0 flex-col gap-4 pb-16 pt-2 lg:hidden">
-            <SearchFilter placeholder="Search invoice" onChange={handleSearch} isRoundedFull={true} className="w-full sm:w-full" />
-            <div className="min-w-0">{_renderContent(props)}</div>
+            <SearchFilter placeholder="Search invoice" onChange={handleSearch} isRoundedFull={true} className="w-full sm:w-full" inputClassName="text-lg placeholder:text-lg" />
+            <div className="min-w-0 space-y-3">
+              {_renderMobileContent(props)}
+            </div>
             <Pagination currentPage={props.currentPage} totalPages={props.totalPages} pageSize={props.pageSize} onPageChange={props.goToPage} onPageSizeChange={props.changePageSize} totalItems={props.totalCount} isCompact={true} className="mt-2 w-full rounded-2xl border border-border-default bg-background-surface px-4 py-3 shadow-xs" />
           </div>
           <div className="hidden rounded-4xl border border-border-default bg-background-surface px-6 shadow-xs md:mt-6 md:flex md:flex-1 md:flex-col md:overflow-hidden lg:flex">

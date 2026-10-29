@@ -24,9 +24,9 @@ const _renderSelect = (props: OrderCreateProps): React.ReactElement => (
   <Select
     id="order-customer"
     label="Customer"
-    labelClassName="!text-base"
-    className="mb-4"
-    selectClassName="[&_.ant-select-selection-item]:!text-xl [&_.ant-select-selection-placeholder]:!text-xl"
+    labelClassName="!text-lg"
+    className="mb-5"
+    selectClassName="!h-16 [&_.ant-select-selector]:!min-h-16 [&_.ant-select-selection-item]:!text-2xl [&_.ant-select-selection-placeholder]:!text-2xl"
     required
     errorMessage={
       props.showInformationErrors && !props.form.customer_id.trim()
@@ -55,8 +55,9 @@ const _renderPicSelect = (props: OrderCreateProps): React.ReactElement => (
   <Select
     id="order-pic"
     label="PIC"
-    labelClassName="!text-base"
-    className="mb-4 [&_.ant-select-selector]:text-xl"
+    labelClassName="!text-lg"
+    className="mb-5 [&_.ant-select-selector]:!min-h-16"
+    selectClassName="!h-16 [&_.ant-select-selection-item]:!text-2xl [&_.ant-select-selection-placeholder]:!text-2xl"
     required
     errorMessage={
       props.showInformationErrors && !props.form.pic_id.trim()
@@ -82,8 +83,9 @@ const _renderServiceTypeSelect = (
   <Select
     id="order-service-type"
     label="Service Type"
-    labelClassName="!text-base"
-    className="mb-4 [&_.ant-select-selector]:text-xl"
+    labelClassName="!text-lg"
+    className="mb-5 [&_.ant-select-selector]:!min-h-16"
+    selectClassName="!h-16 [&_.ant-select-selection-item]:!text-2xl [&_.ant-select-selection-placeholder]:!text-2xl"
     required
     errorMessage={
       props.showInformationErrors && !props.form.service_type_id.trim()
@@ -114,8 +116,9 @@ const _renderVoucherSelect = (props: OrderCreateProps): React.ReactElement => (
   <Select
     id="order-voucher"
     label="Voucher"
-    labelClassName="!text-base"
-    className="mb-4 [&_.ant-select-selector]:text-xl"
+    labelClassName="!text-lg"
+    className="mb-5 [&_.ant-select-selector]:!min-h-16"
+    selectClassName="!h-16 [&_.ant-select-selection-item]:!text-2xl [&_.ant-select-selection-placeholder]:!text-2xl"
     value={props.form.voucher_id}
     onChange={props.onVoucherChange}
     disabled={props.isVouchersLoading}
@@ -152,7 +155,7 @@ const _renderDateRange = (props: OrderCreateProps): React.ReactElement => {
 
   return (
     <DateRangePicker
-      className="mb-4 md:col-span-2 [&_.ant-picker-input>input]:!text-xl [&_.ant-picker-input>input]:!font-normal [&_label]:!text-base"
+      className="mb-5 md:col-span-2 [&_.ant-picker]:!h-16 [&_.ant-picker-input>input]:!text-2xl [&_.ant-picker-input>input]:!font-normal [&_label]:!text-lg"
       startLabel="Start Date *"
       endLabel="End Date *"
       startDate={props.form.start_at}
@@ -194,7 +197,7 @@ const _renderField = (
       value={value}
       onChange={handleChange}
       type={config.type ?? "text"}
-      className="[&_.ant-input]:text-xl [&_.ant-input]:placeholder:text-xl [&_label]:text-base"
+      className="mb-5 [&_.ant-input]:!h-16 [&_.ant-input]:!px-4 [&_.ant-input]:!text-2xl [&_.ant-input]:placeholder:!text-2xl [&_label]:!text-lg"
       errorMessage={isInvalid ? `${config.label} is required` : undefined}
     />
   );
@@ -231,7 +234,7 @@ const _renderServiceFee = (props: OrderCreateProps): React.ReactElement => {
       value={formattedValue}
       onChange={handleChange}
       inputMode="numeric"
-      className="[&_.ant-input]:text-xl [&_.ant-input]:placeholder:text-xl [&_label]:text-base"
+      className="mb-5 [&_.ant-input]:!h-16 [&_.ant-input]:!px-4 [&_.ant-input]:!text-2xl [&_.ant-input]:placeholder:!text-2xl [&_label]:!text-lg"
       errorMessage={isInvalid ? "Service Fee is required" : undefined}
     />
   );
@@ -665,9 +668,9 @@ export const OrderCreateComponent = (
           <form
             noValidate
             onSubmit={props.onPreventSubmit}
-            className="mb-14 flex flex-col justify-between border-0 bg-transparent p-0 pb-0 shadow-none min-[1024px]:mb-10 min-[1024px]:rounded-4xl min-[1024px]:border min-[1024px]:border-brand-gray-light min-[1024px]:bg-brand-white min-[1024px]:p-8 min-[1024px]:shadow-xs"
+            className="mb-14 flex min-w-0 max-w-full flex-col justify-between overflow-hidden border-0 bg-transparent px-4 pb-0 pt-0 shadow-none min-[1024px]:mb-10 min-[1024px]:rounded-4xl min-[1024px]:border min-[1024px]:border-brand-gray-light min-[1024px]:bg-brand-white min-[1024px]:p-8 min-[1024px]:shadow-xs"
           >
-            <div className="mb-6 flex items-center gap-2">
+            <div className="mb-8 flex items-center gap-3">
               {stepTitles.map((title, index) => (
                 <React.Fragment key={title}>
                   <div
@@ -688,11 +691,11 @@ export const OrderCreateComponent = (
             </div>
             <div className="pb-6">
               {props.step === 1 && (
-                <section className="space-y-4">
-                  <h2 className="text-2xl font-semibold text-text-primary lg:text-lg">
+                <section className="space-y-5">
+                  <h2 className="text-3xl font-semibold text-text-primary lg:text-lg">
                     Order information
                   </h2>
-                  <div className="grid grid-cols-1 gap-x-6 gap-y-1 md:grid-cols-2">
+                  <div className="grid grid-cols-1 gap-x-8 gap-y-2 md:grid-cols-2">
                     {_renderSelect(props)}
                     {_renderField(props, {
                       field: "customer_name",
@@ -716,13 +719,14 @@ export const OrderCreateComponent = (
                     {_renderVoucherSelect(props)}
                   </div>
                   <label className="block space-y-2">
-                    <span className="text-sm font-medium text-text-secondary">
+                    <span className="text-lg font-bold uppercase tracking-wider text-text-secondary">
                       Address
                     </span>
                     <textarea
                       value={props.form.address}
                       onChange={handleAddress}
-                      className="min-h-24 w-full rounded-xl border border-border-default bg-background-surface px-4 py-3 text-xl placeholder:text-xl"
+                      placeholder="Enter address"
+                      className="min-h-36 w-full rounded-xl border border-border-default bg-background-surface px-4 py-4 text-2xl outline-none placeholder:text-2xl placeholder:text-text-tertiary focus:border-border-focus focus:ring-2 focus:ring-focus-ring/30"
                     />
                   </label>
                 </section>

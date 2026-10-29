@@ -14,6 +14,7 @@ const createProps = (invoice: ApiInvoice | null = INVOICE): InvoiceDetailState =
   isLoading: false,
   errorMessage: null,
   goBack: jest.fn(),
+  goEdit: jest.fn(),
 });
 
 describe("InvoiceDetailComponent", () => {

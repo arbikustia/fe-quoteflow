@@ -18,9 +18,9 @@ import { formatCurrency, formatDate, getStatusLabel } from "./QuotationDetail.he
  * @returns {ReactElement} Description item
  */
 const _renderField = (label: string, value: ReactNode): ReactElement => (
-  <div className="min-w-0 border-b border-border-default/60 py-3 last:border-b-0">
-    <dt className="mb-1 text-xs font-semibold uppercase tracking-wide text-text-tertiary">{label}</dt>
-    <dd className="break-words text-sm font-medium text-text-primary">{value}</dd>
+  <div className="grid min-w-0 grid-cols-[minmax(7rem,34%)_minmax(0,1fr)] items-start gap-3 border-b border-border-default/60 py-3 last:border-b-0 sm:block sm:py-4">
+    <dt className="text-xs font-semibold uppercase tracking-wide text-text-tertiary sm:mb-1">{label}</dt>
+    <dd className="break-words text-right text-base font-medium leading-6 text-text-primary sm:text-left sm:text-sm">{value}</dd>
   </div>
 );
 
@@ -43,10 +43,10 @@ const _renderStatus = (status: number): ReactElement => (
  */
 const _renderSection = (title: string, children: ReactNode): ReactElement => (
   <section className="overflow-hidden rounded-2xl border border-border-default bg-background-surface shadow-xs">
-    <header className="border-b border-border-default bg-background-subtle/60 px-5 py-4">
-      <h2 className="text-base font-semibold text-text-primary">{title}</h2>
+    <header className="border-b border-border-default bg-background-subtle/60 px-4 py-4 sm:px-5">
+      <h2 className="text-lg font-semibold text-text-primary sm:text-base">{title}</h2>
     </header>
-    <div className="px-5">{children}</div>
+    <div className="px-4 sm:px-5">{children}</div>
   </section>
 );
 
@@ -56,14 +56,17 @@ const _renderSection = (title: string, children: ReactNode): ReactElement => (
  * @returns {ReactElement} Overview section
  */
 export const renderQuotationOverview = (quotation: ApiQuotation): ReactElement => (
-  <section className="rounded-2xl border border-border-default bg-background-surface p-5 shadow-xs lg:p-6">
+  <section className="rounded-2xl border border-border-default bg-background-surface p-4 shadow-xs sm:p-5 lg:p-6">
     <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
       <div className="min-w-0">
         <p className="text-xs font-semibold uppercase tracking-widest text-text-tertiary">Quotation</p>
-        <h2 className="mt-1 break-words text-2xl font-semibold tracking-tight text-text-primary lg:text-3xl">{quotation.quotation_no}</h2>
-        <p className="mt-2 text-sm font-medium text-text-secondary">Service Type: {quotation.transaction.service_type_name}</p>
+        <h2 className="mt-1 break-words text-3xl font-semibold tracking-tight text-text-primary sm:text-2xl lg:text-3xl">{quotation.quotation_no}</h2>
+        <div className="mt-3 inline-flex items-center rounded-lg border border-border-default bg-background-subtle px-3 py-2">
+          <span className="text-xs font-semibold uppercase tracking-wide text-text-tertiary">Service Type</span>
+          <span className="ml-3 text-sm font-bold text-text-primary">{quotation.transaction.service_type_name}</span>
+        </div>
       </div>
-      <span className="inline-flex rounded-full bg-warning-subtle px-3 py-1 text-xs font-bold uppercase text-warning-strong">
+      <span className="inline-flex w-fit rounded-full bg-warning-subtle px-3 py-1 text-sm font-bold uppercase text-warning-strong sm:text-xs">
         QUOTATION SENT
       </span>
     </div>
@@ -108,9 +111,9 @@ export const renderPricingSection = (transaction: ApiQuotationTransaction): Reac
     {_renderField("Subtotal", formatCurrency(transaction.subtotal))}
     {_renderField("Service Fee", formatCurrency(transaction.service_fee))}
     {_renderField("Discount", formatCurrency(transaction.discount))}
-    <div className="py-4 sm:col-span-2">
+    <div className="mx-0 my-2 rounded-xl bg-action-primary-subtle px-4 py-4 sm:col-span-2 sm:flex sm:items-center sm:justify-between sm:px-0 sm:py-4 sm:bg-transparent">
       <dt className="text-xs font-semibold uppercase tracking-wide text-text-tertiary">Grand Total</dt>
-      <dd className="mt-1 text-2xl font-bold tabular-nums text-action-primary">{formatCurrency(transaction.grand_total)}</dd>
+      <dd className="mt-1 text-right text-3xl font-bold tabular-nums text-action-primary sm:mt-0 sm:text-2xl">{formatCurrency(transaction.grand_total)}</dd>
     </div>
   </dl>
 ));
@@ -161,15 +164,21 @@ export const renderVoucherSection = (voucher: ApiQuotationReference): ReactEleme
  * @returns {ReactElement} Rental item row
  */
 const _renderItem = (item: ApiQuotationItem): ReactElement => (
-  <article key={item.item_id} className="grid grid-cols-1 gap-3 border-b border-border-default py-4 last:border-b-0 sm:grid-cols-[minmax(0,1fr)_auto] sm:items-center">
+  <article key={item.item_id} className="grid grid-cols-[minmax(0,1fr)_auto] items-start gap-3 border-b border-border-default py-4 last:border-b-0">
     <div className="min-w-0">
-      <h3 className="font-semibold text-text-primary">{item.item_name}</h3>
+      <h3 className="break-words font-semibold text-text-primary">{item.item_name}</h3>
       <p className="mt-1 text-sm font-medium text-text-secondary">{formatCurrency(item.price)}</p>
       <p className="mt-2 text-sm text-text-secondary">{item.remark}</p>
     </div>
-    <dl className="grid grid-cols-2 gap-4 text-right">
-      <div><dt className="text-xs text-text-tertiary">Subtotal</dt><dd className="font-semibold text-text-primary">{formatCurrency(item.subtotal)}</dd></div>
-      <div><dt className="text-xs text-text-tertiary">Qty</dt><dd className="font-semibold text-text-primary">{item.qty}</dd></div>
+    <dl className="grid shrink-0 gap-2 text-right">
+      <div>
+        <dt className="sr-only">Qty</dt>
+        <dd><span className="inline-flex rounded-lg bg-background-subtle px-2 py-1 text-xs font-semibold tabular-nums text-text-secondary">Qty {item.qty}</span></dd>
+      </div>
+      <div>
+        <dt className="text-xs text-text-tertiary">Subtotal</dt>
+        <dd className="font-semibold tabular-nums text-text-primary">{formatCurrency(item.subtotal)}</dd>
+      </div>
     </dl>
   </article>
 );

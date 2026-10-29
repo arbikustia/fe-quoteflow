@@ -1,8 +1,8 @@
 import type React from "react";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
-import type { OrderCreatePayload, OrderItemPayload, ProjectOrderCreatePayload, ProjectOrderItemPayload } from "../../Order.type";
+import type { ApiRentalTransactionDetail, OrderCreatePayload, OrderItemPayload, ProjectOrderCreatePayload, ProjectOrderItemPayload } from "../../Order.type";
 import { calculateOrderTotals, getNextOrderStep, getPreviousOrderStep, hasSelectedOrderItem, isOrderInformationValid } from "../OrderCreate.helpers";
 import type { OrderCreateFormState, OrderCreateState, OrderItemOption, OrderProjectOption, SelectOption } from "../OrderCreate.type";
 
@@ -12,7 +12,7 @@ import { useGetAllPicsQuery } from "@/services/master-pic.service";
 import { useGetAllProjectsQuery } from "@/services/master-project.service";
 import { useGetAllServiceTypesQuery } from "@/services/master-service-type.service";
 import { useGetAllVouchersQuery } from "@/services/master-voucher.service";
-import { useCreateOrderMutation, useCreateProjectOrderMutation } from "@/services/order.service";
+import { useCreateOrderMutation, useCreateProjectOrderMutation, useGetOrderByIdQuery } from "@/services/order.service";
 
 type CustomerOption = SelectOption & { address: string; phone_number: string };
 type VoucherOption = SelectOption & { discount_percent: number };
@@ -35,6 +35,65 @@ type ActionResult = {
 
 const EMPTY_ITEM: OrderItemPayload = { item_id: "", project_id: null, item_name: "", qty: 1, price: 0, subtotal: 0, remark: "" };
 const INITIAL_FORM: OrderCreateFormState = { customer_id: "", pic_id: "", voucher_id: "", service_type_id: "", service_type_name: "", customer_name: "", customer_phone: "", address: "", event_name: "", start_at: "", end_at: "", subtotal: 0, discount: 0, service_fee: 0, remarks: "", grand_total: 0, status: 1, rental_transaction_items: [EMPTY_ITEM] };
+
+/**
+ * Build edit form defaults from order detail.
+ * @param {ApiRentalTransactionDetail} order - Order detail.
+ * @returns {OrderCreateFormState} - Populated edit form.
+ */
+const buildEditForm = (order: ApiRentalTransactionDetail): OrderCreateFormState => {
+  const isProjectService = order.service_type_name.trim().toUpperCase() === "PROJECT";
+  let rentalTransactionItems: OrderItemPayload[] = [];
+
+  if (isProjectService) {
+    const projectItems = (order.rental_transaction_project ?? []).flatMap((project) =>
+      project.items.map((projectItem) => ({
+        item_id: projectItem.item_id,
+        project_id: project.id,
+        item_name: projectItem.item_name,
+        qty: projectItem.qty,
+        price: projectItem.price,
+        subtotal: projectItem.price * projectItem.qty,
+        remark: project.remark ?? "",
+      })),
+    );
+
+    rentalTransactionItems = projectItems.length > 0 ? projectItems : [EMPTY_ITEM];
+  } else {
+    const regularItems = (order.rental_transaction_items ?? []).map((item) => ({
+      item_id: item.item_id,
+      project_id: item.project_id ?? null,
+      item_name: item.item_name,
+      qty: item.qty,
+      price: item.price,
+      subtotal: item.subtotal,
+      remark: item.remark ?? "",
+    }));
+
+    rentalTransactionItems = regularItems.length > 0 ? regularItems : [EMPTY_ITEM];
+  }
+
+  return {
+    customer_id: order.customer_id ?? order.customer?.id ?? "",
+    pic_id: order.pic_id ?? order.pic?.id ?? "",
+    voucher_id: order.voucher_id ?? order.voucher?.id ?? "",
+    service_type_id: order.service_type_id,
+    service_type_name: order.service_type_name,
+    customer_name: order.customer_name,
+    customer_phone: order.customer_phone,
+    address: order.address,
+    event_name: order.event_name,
+    start_at: order.start_at,
+    end_at: order.end_at,
+    subtotal: order.subtotal,
+    discount: order.discount,
+    service_fee: order.service_fee,
+    remarks: order.remarks ?? "",
+    grand_total: order.grand_total,
+    status: order.status,
+    rental_transaction_items: rentalTransactionItems,
+  };
+};
 
 /**
  * Format date value for order API payload. @param {string} value - date value. @returns {string} formatted date.
@@ -260,6 +319,16 @@ export const useOrderCreateForm = (): OrderCreateState => {
   const itemQuery = useGetAllItemsQuery();
   const projectQuery = useGetAllProjectsQuery();
   const voucherQuery = useGetAllVouchersQuery();
+  const orderDetailQuery = useGetOrderByIdQuery(id ?? "", { skip: !id });
+  const hasInitializedEdit = useRef(false);
+
+  useEffect(() => {
+    if (!id || hasInitializedEdit.current || !orderDetailQuery.data?.data) return;
+
+    setForm(buildEditForm(orderDetailQuery.data.data));
+    hasInitializedEdit.current = true;
+  }, [id, orderDetailQuery.data]);
+
   const [createOrder, mutation] = useCreateOrderMutation();
   const [createProjectOrder] = useCreateProjectOrderMutation();
   const customers = customerQuery.data?.data ?? [];

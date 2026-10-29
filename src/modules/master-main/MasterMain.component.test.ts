@@ -8,6 +8,7 @@ describe("MasterMainComponent Test", () => {
     const result = React.createElement(MasterMainComponent, {
       cards: MASTER_MAIN_CONFIG,
       onCardClick: () => {},
+      onBack: () => {},
     });
 
     expect(result).toBeDefined();

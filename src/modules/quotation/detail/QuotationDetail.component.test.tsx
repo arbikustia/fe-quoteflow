@@ -41,7 +41,7 @@ const QUOTATION: ApiQuotation = {
   },
 };
 
-const createProps = (quotation: ApiQuotation | null = QUOTATION): QuotationDetailState => ({ quotation, isLoading: false, errorMessage: null, goBack: jest.fn() });
+const createProps = (quotation: ApiQuotation | null = QUOTATION): QuotationDetailState => ({ quotation, isLoading: false, errorMessage: null, goBack: jest.fn(), goEdit: jest.fn() });
 
 describe("QuotationDetailComponent", () => {
   it("should render all quotation response sections", (): void => {

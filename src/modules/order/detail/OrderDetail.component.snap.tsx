@@ -29,9 +29,11 @@ const props: OrderDetailProps = {
     rental_transaction_items: [{ item_id: "ITEM-1", item_name: "Spotlight", qty: 1, price: 100000, subtotal: 100000, remark: "Careful" }],
     rental_transaction_project: [],
   },
+  projects: [],
   isLoading: false,
   errorMessage: null,
   onNavigateBack: jest.fn(),
+  onEdit: jest.fn(),
 };
 
 const configs = [{ props, desc: 'Should Render OrderDetailComponent' }];

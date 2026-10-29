@@ -14,11 +14,13 @@ const MasterMainContainer = (): React.ReactElement => {
   const handleCardClick = (path: string): void => {
     navigate(path);
   };
+  const handleBack = (): void => { void navigate(-1); };
 
   return (
     <MasterMainComponent
       cards={MASTER_MAIN_CONFIG}
       onCardClick={handleCardClick}
+      onBack={handleBack}
     />
   );
 };

@@ -7,7 +7,7 @@ import { SkeletonComponent } from "@/components/Skeleton";
 import type { TableColumn } from "@/components/Table";
 import Table from "@/components/Table";
 
-import { getQuotationRowNumber } from "./Quotation.helpers";
+import { getQuotationRowNumber, QuotationMobileCard } from "./Quotation.helpers";
 import type { QuotationData, QuotationProps } from "./Quotation.type";
 
 import Layout from "@/app/layout";
@@ -163,8 +163,14 @@ const handleSearch = (event: React.ChangeEvent<HTMLInputElement>): void => props
 
   return (
     <div className="flex min-w-0 flex-col gap-4 pb-16 pt-2 lg:hidden">
-      <SearchFilter placeholder="Search quotation" onChange={handleSearch} isRoundedFull={true} className="w-full sm:w-full" />
-      <div className="min-w-0">{_renderListState(props) ?? <Table data={props.paginatedData} columns={_getColumns(props)} isDetail={true} onRowClick={props.onRowClick} keyExtractor={(row: QuotationData): string => row.id} />}</div>
+      <SearchFilter placeholder="Search quotation" onChange={handleSearch} isRoundedFull={true} className="w-full sm:w-full" inputClassName="text-lg placeholder:text-lg" />
+      <div className="min-w-0 space-y-3">
+        {props.isLoading ? (
+          <SkeletonComponent rows={5} columns={[{ width: "100%" }]} />
+        ) : _renderListState(props) ?? props.paginatedData.map((quotation) => (
+          <QuotationMobileCard key={quotation.id} quotation={quotation} onClick={props.onRowClick} />
+        ))}
+      </div>
       <Pagination currentPage={props.currentPage} totalPages={props.totalPages} pageSize={props.pageSize} onPageChange={props.goToPage} onPageSizeChange={props.changePageSize} totalItems={props.totalCount} isCompact={true} className="mt-2 w-full rounded-2xl border border-border-default bg-background-surface px-4 py-3 shadow-xs" />
     </div>
   );
@@ -177,7 +183,7 @@ const handleSearch = (event: React.ChangeEvent<HTMLInputElement>): void => props
  */
 export const QuotationComponent = (props: QuotationProps): React.ReactElement => (
   <Layout pageTitle="Quotation List" mobileWhiteBackground={true}>
-    <PageLayout title="Quotation List" breadcrumbs={["Document", "Quotation"]} mobileHeaderClassName="px-0" onBack={props.onBack}>
+    <PageLayout title="Quotation List" breadcrumbs={["Document", "Quotation"]} mobileHeaderClassName="px-0" mobileTitleClassName="text-4xl" onBack={props.onBack}>
       <div className="relative flex h-full flex-col bg-background-surface px-0 pb-18 lg:-mt-4 lg:bg-transparent lg:px-0 lg:pb-0">
         {_renderMobile(props)}
         {_renderTable(props)}

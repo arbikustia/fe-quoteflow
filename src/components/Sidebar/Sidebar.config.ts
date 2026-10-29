@@ -1,6 +1,6 @@
 import { Icons } from "../Icons";
 
-import type { MasterNavigationItem, NavigationChild, NavigationItem, NavigationSection } from "./Sidebar.type";
+import type { MasterNavigationItem, NavigationItem, NavigationSection } from "./Sidebar.type";
 
 export const MASTER_DATA_ITEMS: MasterNavigationItem[] = [
   { name: "Customer", description: "Manage customer profiles and contact info", icon: Icons.Customers, path: "/master-customer" },
@@ -15,11 +15,11 @@ export const MASTER_DATA_ITEMS: MasterNavigationItem[] = [
   { name: "PIC", description: "Manage person in charge data", icon: Icons.Customers, path: "/master-pic" },
 ];
 
-export const DOCUMENT_ITEMS: NavigationChild[] = [
-  { name: "Quotation", path: "/document/quotation" },
-  { name: "Invoice", path: "/document/invoice" },
-  { name: "Item Checklist", path: "/document/item-checklist" },
-  { name: "Payment", path: "/document/payment" },
+export const DOCUMENT_ITEMS: MasterNavigationItem[] = [
+  { name: "Quotation", description: "Manage quotation documents and status", icon: Icons.Quotes, path: "/document/quotation" },
+  { name: "Invoice", description: "Manage invoices and payment status", icon: Icons.Report, path: "/document/invoice" },
+  { name: "Item Checklist", description: "Track rental item preparation and return", icon: Icons.Database, path: "/document/item-checklist" },
+  { name: "Payment", description: "Manage document payments and status", icon: Icons.Report, path: "/document/payment" },
 ];
 
 export const NAVIGATION_CONFIG: NavigationItem[] = [

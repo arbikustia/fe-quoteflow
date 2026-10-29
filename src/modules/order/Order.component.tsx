@@ -65,14 +65,20 @@ const _renderOrderCard = (order: QuoteData, onRowClick: OrderProps["onRowClick"]
   const statusClass = status === "active" ? "bg-success-subtle text-success-strong" : "bg-danger-subtle text-danger-strong";
 
   return (
-    <button type="button" onClick={handleClick} className="group flex w-full items-start gap-4 rounded-2xl border border-border-default bg-background-surface p-5 text-left transition-colors hover:border-border-strong hover:bg-background-subtle/40 focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring/30">
+    <button type="button" onClick={handleClick} className="group flex w-full items-start gap-4 rounded-2xl border border-border-default bg-background-surface p-5 text-left shadow-small transition-colors hover:border-border-strong focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring">
       <span className="min-w-0 flex-1">
         <span className="block truncate text-2xl font-semibold text-text-primary">{order.name || "-"}</span>
-        <span className="mt-3 block"><span className="grid gap-1 text-xl text-text-secondary"><span className="truncate">{order.startDate || "-"} — {order.endDate || "-"}</span><span className="truncate">{order.location || "-"}</span><span className="truncate">{_formatCurrency(order.grandTotal)}</span></span></span>
+        <span className="mt-3 block">
+          <span className="grid gap-1 text-xl text-text-secondary">
+            <span className="truncate">{order.startDate || "-"}</span>
+            <span className="truncate">{order.endDate || "-"}</span>
+            <span className="truncate">{order.location || "-"}</span>
+            <span className="truncate">{_formatCurrency(order.grandTotal)}</span>
+          </span>
+        </span>
       </span>
       <span className="flex shrink-0 items-center gap-3">
         <span className={`rounded-full px-3 py-1 text-sm font-bold uppercase tracking-wider ${statusClass}`}>{status}</span>
-        <span aria-hidden="true" className="text-xl text-text-tertiary transition-transform group-hover:translate-x-1">→</span>
       </span>
     </button>
   );
@@ -163,7 +169,7 @@ const _renderMobileList = (
 ): React.ReactElement => {
   return (
     <div className="flex min-w-0 flex-col gap-4 pb-16 pt-2 lg:hidden">
-      <SearchFilter placeholder="Search order" onChange={handleSearchChange} isRoundedFull={true} className="w-full sm:w-full" inputClassName="text-lg placeholder:text-lg" />
+      <SearchFilter placeholder="Search order" onChange={handleSearchChange} isRoundedFull={true} className="w-full sm:w-full [&_svg]:h-7 [&_svg]:w-7" inputClassName="h-16 pl-14 text-xl placeholder:text-xl lg:h-14" />
       {_renderMobileCards(props)}
       <Pagination
         currentPage={props.currentPage}
@@ -196,9 +202,9 @@ export const OrderComponent = (props: OrderProps): React.ReactElement => {
     <button
       type="button"
       onClick={props.openCreateModal}
-      className="h-14 rounded-full border-2 border-brand-blue bg-background-surface px-6 text-sm font-bold text-brand-blue transition-colors hover:bg-action-primary-subtle focus:outline-none focus:ring-2 focus:ring-focus-ring/30"
+      className="h-14 rounded-full border-2 border-brand-blue bg-background-surface px-6 text-lg font-bold text-brand-blue transition-colors hover:bg-action-primary-subtle focus:outline-none focus:ring-2 focus:ring-focus-ring/30"
     >
-      Create New
+      Create
     </button>
   );
 

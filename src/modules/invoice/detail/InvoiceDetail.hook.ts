@@ -24,5 +24,15 @@ export const useInvoiceDetail = (): InvoiceDetailState => {
    */
   const goBack = (): void => { void navigate(-1); };
 
-  return { invoice, isLoading, errorMessage, goBack };
+  /**
+   * Navigate to invoice status page.
+   * @returns {void} No return value
+   */
+  const goEdit = (): void => {
+    if (invoice) {
+      void navigate(`/document/invoice/${invoice.id}/status`);
+    }
+  };
+
+  return { invoice, isLoading, errorMessage, goBack, goEdit };
 };
