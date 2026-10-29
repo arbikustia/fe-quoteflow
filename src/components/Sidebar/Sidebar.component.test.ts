@@ -26,19 +26,29 @@ describe("SidebarComponent Test", () => {
     expect(screen.getByText("Master Data")).toBeDefined();
   });
 
+  it("should render primary navigation links", () => {
+    render(React.createElement(MemoryRouter, null, React.createElement(SidebarComponent, defaultProps)));
+
+    expect(screen.getByRole("link", { name: "Dashboard" })).toHaveAttribute("href", "/home");
+    expect(screen.getByRole("link", { name: "Create Order" })).toHaveAttribute("href", "/order/create");
+  });
+
   it("should render Document sub-menus", () => {
     render(
       React.createElement(
         MemoryRouter,
         null,
-        React.createElement(SidebarComponent, { ...defaultProps, openMenus: ["Document"] }),
+        React.createElement(SidebarComponent, { ...defaultProps, openMenus: ["Document", "Report"] }),
       ),
     );
 
+    expect(screen.getByRole("link", { name: "Draft Order" })).toHaveAttribute("href", "/order/draft");
     expect(screen.getByRole("link", { name: "Quotation" })).toHaveAttribute("href", "/document/quotation");
     expect(screen.getByRole("link", { name: "Invoice" })).toHaveAttribute("href", "/document/invoice");
     expect(screen.getByRole("link", { name: "Item Checklist" })).toHaveAttribute("href", "/document/item-checklist");
     expect(screen.getByRole("link", { name: "Payment" })).toHaveAttribute("href", "/document/payment");
+    expect(screen.getByRole("link", { name: "Calendar" })).toHaveAttribute("href", "/calendar");
+    expect(screen.getByRole("link", { name: "Report Order" })).toHaveAttribute("href", "/report");
   });
 
   it("should call onToggleTheme when theme switch is clicked", () => {

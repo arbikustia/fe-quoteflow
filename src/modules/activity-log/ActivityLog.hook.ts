@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-import { MOCK_ACTIVITY_LOG_RESPONSE } from "@/fixture/activity-logs";
 import { mapActivityLog, useGetActivityLogsQuery } from "@/services/activity-log.service";
 
 import type { ActivityLogData, ActivityLogPageData, ActivityLogPagination } from "./ActivityLog.type";
@@ -16,12 +15,11 @@ export const useActivityLogPagination = (): ActivityLogPagination => {
   const [searchTerm, setSearchTermState] = useState("");
   const query = useGetActivityLogsQuery({ pageNumber: currentPage, pageSize, searchTerm });
   const response = query.data;
-  const isUsingFixture = Boolean(response?.status && response.data.length === 0);
-  const sourceData = isUsingFixture ? MOCK_ACTIVITY_LOG_RESPONSE.data : response?.data ?? [];
+  const sourceData = response?.data ?? [];
   const pageData: ActivityLogPageData = {
     paginatedData: sourceData.map(mapActivityLog),
-    totalPages: isUsingFixture ? Math.max(1, Math.ceil(sourceData.length / pageSize)) : response?.total_pages ?? 0,
-    totalCount: isUsingFixture ? sourceData.length : response?.total_count ?? 0,
+    totalPages: response?.total_pages ?? 0,
+    totalCount: response?.total_count ?? 0,
   };
   const paginatedData: ActivityLogData[] = pageData.paginatedData;
   let errorMessage: string | null = null;

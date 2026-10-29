@@ -1,46 +1,92 @@
-import { Icons } from "../Icons";
+import {
+  LuActivity,
+  LuBadgePercent,
+  LuCalendarDays,
+  LuChartNoAxesCombined,
+  LuClipboardList,
+  LuCreditCard,
+  LuFileCheck2,
+  LuFilePlus2,
+  LuFileText,
+  LuFolderKanban,
+  LuLayoutDashboard,
+  LuPackage,
+  LuReceiptText,
+  LuShieldCheck,
+  LuSquareCheck,
+  LuTags,
+  LuUserRound,
+  LuUserRoundCog,
+  LuUsers,
+  LuWalletCards,
+} from "react-icons/lu";
 
 import type { MasterNavigationItem, NavigationItem, NavigationSection } from "./Sidebar.type";
 
 export const MASTER_DATA_ITEMS: MasterNavigationItem[] = [
-  { name: "Customer", description: "Manage customer profiles and contact info", icon: Icons.Customers, path: "/master-customer" },
-  { name: "Category", description: "Manage product and item categories", icon: Icons.Dashboard, path: "/master-category" },
-  { name: "Item", description: "Manage items and inventory data", icon: Icons.Database, path: "/master-item" },
-  { name: "Project", description: "Manage project items and details", icon: Icons.Database, path: "/master-project" },
-  { name: "Payment Method", description: "Manage available payment methods", icon: Icons.Report, path: "/master-payment-method" },
-  { name: "Payment Type", description: "Manage payment types categorization", icon: Icons.Report, path: "/master-payment-type" },
-  { name: "Voucher", description: "Manage discount codes and vouchers", icon: Icons.Quotes, path: "/master-voucher" },
-  { name: "Role", description: "Manage user roles and access rights", icon: Icons.Dashboard, path: "/master-role" },
-  { name: "User", description: "Manage system users and their roles", icon: Icons.Customers, path: "/master-user" },
-  { name: "PIC", description: "Manage person in charge data", icon: Icons.Customers, path: "/master-pic" },
+  { name: "Customer", description: "Manage customer profiles and contact info", icon: LuUsers, path: "/master-customer" },
+  { name: "Category", description: "Manage product and item categories", icon: LuTags, path: "/master-category" },
+  { name: "Item", description: "Manage items and inventory data", icon: LuPackage, path: "/master-item" },
+  { name: "Project", description: "Manage project items and details", icon: LuFolderKanban, path: "/master-project" },
+  { name: "Payment Method", description: "Manage available payment methods", icon: LuCreditCard, path: "/master-payment-method" },
+  { name: "Payment Type", description: "Manage payment types categorization", icon: LuWalletCards, path: "/master-payment-type" },
+  { name: "Voucher", description: "Manage discount codes and vouchers", icon: LuBadgePercent, path: "/master-voucher" },
+  { name: "Role", description: "Manage user roles and access rights", icon: LuShieldCheck, path: "/master-role" },
+  { name: "User", description: "Manage system users and their roles", icon: LuUserRoundCog, path: "/master-user" },
+  { name: "PIC", description: "Manage person in charge data", icon: LuUserRound, path: "/master-pic" },
 ];
 
 export const DOCUMENT_ITEMS: MasterNavigationItem[] = [
-  { name: "Quotation", description: "Manage quotation documents and status", icon: Icons.Quotes, path: "/document/quotation" },
-  { name: "Invoice", description: "Manage invoices and payment status", icon: Icons.Report, path: "/document/invoice" },
-  { name: "Item Checklist", description: "Track rental item preparation and return", icon: Icons.Database, path: "/document/item-checklist" },
-  { name: "Payment", description: "Manage document payments and status", icon: Icons.Report, path: "/document/payment" },
+  { name: "Quotation", description: "Manage quotation documents and status", icon: LuFileCheck2, path: "/document/quotation" },
+  { name: "Invoice", description: "Manage invoices and payment status", icon: LuReceiptText, path: "/document/invoice" },
+  { name: "Item Checklist", description: "Track rental item preparation and return", icon: LuSquareCheck, path: "/document/item-checklist" },
+  { name: "Payment", description: "Manage document payments and status", icon: LuCreditCard, path: "/document/payment" },
+];
+
+const DOCUMENT_SIDEBAR_ITEMS: MasterNavigationItem[] = [
+  { name: "Draft Order", description: "Manage draft orders and order preparation", icon: LuClipboardList, path: "/order/draft" },
+  ...DOCUMENT_ITEMS.filter((item) => item.path !== "/document/item-checklist"),
 ];
 
 export const NAVIGATION_CONFIG: NavigationItem[] = [
   {
-    name: "Order",
-    icon: Icons.Document,
-    path: "/order",
+    name: "Dashboard",
+    icon: LuLayoutDashboard,
+    path: "/home",
+  },
+  {
+    name: "Create Order",
+    icon: LuFilePlus2,
+    path: "/order/create",
   },
   {
     name: "Document",
-    icon: Icons.Document,
-    children: DOCUMENT_ITEMS,
+    icon: LuFileText,
+    children: DOCUMENT_SIDEBAR_ITEMS,
+  },
+  {
+    name: "Item Checklist",
+    icon: LuSquareCheck,
+    path: "/document/item-checklist",
+  },
+  {
+    name: "Calendar",
+    icon: LuCalendarDays,
+    path: "/calendar",
   },
   {
     name: "Activity Log",
-    icon: Icons.Report,
+    icon: LuActivity,
     path: "/activity-log",
   },
   {
+    name: "Report",
+    icon: LuChartNoAxesCombined,
+    children: [{ name: "Report Order", icon: LuClipboardList, path: "/report" }],
+  },
+  {
     name: "Master Data",
-    icon: Icons.Database,
+    icon: LuPackage,
     children: MASTER_DATA_ITEMS,
   },
 ];

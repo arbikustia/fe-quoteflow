@@ -1,19 +1,19 @@
-import type { Dispatch, ReactNode, SetStateAction } from "react";
+import type { Dispatch, ElementType, SetStateAction } from "react";
 
 export type NavigationChild = {
   name: string;
   path: string;
+  icon: ElementType;
 };
 
 export type MasterNavigationItem = NavigationChild & {
   description: string;
-  icon: () => ReactNode;
 };
 
 export type NavigationItem = {
   name: string;
   path?: string;
-  icon: () => ReactNode;
+  icon: ElementType;
   badge?: string | number;
   children?: NavigationChild[];
 };

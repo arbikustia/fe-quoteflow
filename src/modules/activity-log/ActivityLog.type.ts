@@ -35,6 +35,10 @@ export type ActivityLogData = {
   createdAt: string;
 };
 
+export type ActivityLogCardProps = {
+  activity: ActivityLogData;
+};
+
 export type ActivityLogProps = ActivityLogPagination & {
   onBack: () => void;
 };

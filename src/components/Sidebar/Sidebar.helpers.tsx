@@ -52,6 +52,7 @@ const _renderChildren = (children: NavigationChild[] | undefined, currentPath: s
       aria-current={ariaCurrent}
       className={`${childClassName} ${isActive ? "bg-background-subtle text-text-primary font-medium" : "text-text-secondary hover:bg-background-elevated hover:text-text-primary"}`}
     >
+      <span className="mr-2 shrink-0 [&_svg]:h-4 [&_svg]:w-4"><child.icon /></span>
       {child.name}
     </Link>
   );
@@ -182,7 +183,7 @@ const _renderNavigation = (props: SidebarNavigationProps): React.ReactElement =>
   const { sections, isCollapsed, currentPath, openMenus, onToggleMenu } = props;
 
   return (
-    <div className={`flex-1 overflow-y-auto overflow-x-hidden ${isCollapsed ? "px-2" : "px-4"} space-y-5 scrollbar-thin`}>
+    <div className={`min-h-0 flex-1 overflow-y-auto overflow-x-hidden pb-6 ${isCollapsed ? "px-2" : "px-4"} space-y-5 scrollbar-thin`}>
       {sections.map((section) => (
         <div key={section.title}>
           {!isCollapsed && <p className="px-2 mb-2 text-[15px] font-semibold tracking-widest uppercase text-text-tertiary">{section.title}</p>}

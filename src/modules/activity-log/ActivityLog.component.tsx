@@ -8,6 +8,7 @@ import Table, { type TableColumn } from "@/components/Table";
 import Layout from "@/app/layout";
 import { PageLayout } from "@/app/shared/PageLayout";
 
+import { ActivityLogCard } from "./ActivityLog.helpers";
 import type { ActivityLogData, ActivityLogProps } from "./ActivityLog.type";
 
 const COLUMNS: TableColumn<ActivityLogData>[] = [
@@ -42,7 +43,19 @@ const _renderContent = (props: ActivityLogProps): ReactElement => {
 const _renderSearch = (setSearchTerm: ActivityLogProps["setSearchTerm"], isMobile: boolean): ReactElement => {
   const handleSearch = (event: ChangeEvent<HTMLInputElement>): void => setSearchTerm(event.target.value);
 
-  return <SearchFilter placeholder="Search activity log" onChange={handleSearch} isRoundedFull={isMobile} className="w-72" inputClassName={isMobile ? "text-lg placeholder:text-lg" : ""} />;
+  if (isMobile) {
+    return (
+      <SearchFilter
+        placeholder="Search activity log"
+        onChange={handleSearch}
+        isRoundedFull={true}
+        className="w-full sm:w-full [&_svg]:h-7 [&_svg]:w-7"
+        inputClassName="h-16 pl-14 text-xl placeholder:text-xl lg:h-14"
+      />
+    );
+  }
+
+  return <SearchFilter placeholder="Search activity log" onChange={handleSearch} className="w-72" />;
 };
 
 /**
@@ -61,6 +74,21 @@ const _renderDesktopTable = (props: ActivityLogProps): ReactElement => (
 );
 
 /**
+ * Render mobile activity list content state.
+ * @param {ActivityLogProps} props - Activity log page props
+ * @returns {ReactElement} Mobile list content
+ */
+const _renderMobileContent = (props: ActivityLogProps): ReactElement => {
+  if (props.isLoading) return <SkeletonComponent rows={3} columns={[{ width: "100%" }]} />;
+
+  if (props.errorMessage) return <p className="py-10 text-center text-sm text-danger">{props.errorMessage}</p>;
+
+  if (props.isEmpty) return <p className="py-10 text-center text-sm text-text-secondary">No activity logs found.</p>;
+
+  return <>{props.paginatedData.map((activity) => <ActivityLogCard key={activity.id} activity={activity} />)}</>;
+};
+
+/**
  * Render mobile activity log list.
  * @param {ActivityLogProps} props - Activity log page props
  * @returns {ReactElement} Mobile list
@@ -68,7 +96,7 @@ const _renderDesktopTable = (props: ActivityLogProps): ReactElement => (
 const _renderMobileList = (props: ActivityLogProps): ReactElement => (
   <div className="flex min-w-0 flex-col gap-4 pb-16 pt-2 lg:hidden">
     <div className="w-full">{_renderSearch(props.setSearchTerm, true)}</div>
-    <div className="min-w-0 overflow-x-auto">{_renderContent(props)}</div>
+    <div className="min-w-0 space-y-3">{_renderMobileContent(props)}</div>
     <Pagination currentPage={props.currentPage} totalPages={props.totalPages} pageSize={props.pageSize} onPageChange={props.goToPage} onPageSizeChange={props.changePageSize} totalItems={props.totalCount} isCompact={true} className="mt-2 w-full rounded-2xl border border-border-default bg-background-surface px-4 py-3 shadow-xs" />
   </div>
 );
