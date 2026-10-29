@@ -1,7 +1,6 @@
 import React from "react";
 import { useLocation } from "react-router-dom";
 
-import GlobalHeader from "./shared/GlobalHeader";
 import MobileNavigate from "../components/MobileNavigate";
 import NavbarContainer from "../components/Navbar/index";
 import SidebarContainer from "../components/Sidebar/index";
@@ -32,8 +31,6 @@ export default function Layout({ children, mobileWhiteBackground = false, whiteB
       </div>
 
       <div className={`flex-1 flex flex-col min-w-0 min-h-0 overflow-hidden relative transition-colors duration-200 ${whiteBackground ? "bg-background-surface" : "bg-background-page"}${mobileWhiteBackground ? " bg-background-surface lg:bg-background-page" : ""}`}>
-        <div className="lg:hidden shrink-0"><GlobalHeader /></div>
-
         <div className="hidden lg:block shrink-0">
           <NavbarContainer isSidebarCollapsed={isSidebarCollapsed} onToggleSidebar={onToggleSidebarCollapsed} />
         </div>

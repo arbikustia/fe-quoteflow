@@ -1,7 +1,6 @@
 import * as React from "react";
 import { useLocation } from "react-router-dom";
 
-import GlobalHeader from "./GlobalHeader";
 import MobileNavigate from "../../components/MobileNavigate";
 import NavbarContainer from "../../components/Navbar/index";
 import SidebarContainer from "../../components/Sidebar/index";
@@ -12,6 +11,8 @@ export type ResponsiveLayoutProps = {
   pageTitle?: string;
   showCreateButton?: boolean;
   createEndpoint?: string;
+  showNavbar?: boolean;
+  showMobileHeader?: boolean;
 };
 
 /**
@@ -24,8 +25,7 @@ export type ResponsiveLayoutProps = {
 export const ResponsiveLayout = ({
   children,
   pageTitle,
-  showCreateButton = false,
-  createEndpoint = "",
+  showNavbar = true,
 }: ResponsiveLayoutProps): React.ReactElement => {
   const location = useLocation();
   const path = location.pathname;
@@ -42,14 +42,12 @@ export const ResponsiveLayout = ({
 
       <div className="flex-1 flex flex-col min-w-0 min-h-0 overflow-hidden relative bg-brand-white">
         {/* Mobile GlobalHeader - lg:hidden */}
-        <div className="lg:hidden border-b border-brand-gray-light">
-          <GlobalHeader showCreateButton={showCreateButton} createEndpoint={createEndpoint} />
-        </div>
-
         {/* Desktop Navbar - hidden lg:block */}
-        <div className="hidden lg:block shrink-0">
-          <NavbarContainer isSidebarCollapsed={isSidebarCollapsed} onToggleSidebar={onToggleSidebarCollapsed} />
-        </div>
+        {showNavbar && (
+          <div className="hidden lg:block shrink-0">
+            <NavbarContainer isSidebarCollapsed={isSidebarCollapsed} onToggleSidebar={onToggleSidebarCollapsed} />
+          </div>
+        )}
 
         {/* Content Area - responsive padding */}
         <main className="flex-1 overflow-y-auto p-4 lg:p-8 pb-20 lg:pb-8 relative z-0">

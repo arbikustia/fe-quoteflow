@@ -2,6 +2,7 @@ import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 
 import ActivityLogPage from "./app/activity-log";
 import Login from "./app/auth/login-page";
+import CalendarPage from "./app/calendar";
 import Dashboard from "./app/dashboard";
 import DocumentMain from "./app/document/DocumentMain";
 import InvoicePage from "./app/document/invoice";
@@ -43,6 +44,7 @@ import OrderPage from "./app/order";
 import OrderPageCreate from "./app/order/create";
 import OrderPageDetail from "./app/order/detail";
 import Preview from "./app/preview";
+import ProfilePage from "./app/profile";
 import Report from "./app/report";
 import ReportDetail from "./app/report/detail";
 import ReportMain from "./app/report/main";
@@ -56,7 +58,9 @@ function App(): React.ReactElement {
         <Route path="/" element={<Navigate to="/login" replace />} />
         <Route path="/login" element={<Login />} />
         <Route path="/home" element={<Dashboard />} />
+        <Route path="/calendar" element={<CalendarPage />} />
         <Route path="/activity-log" element={<ActivityLogPage />} />
+        <Route path="/profile" element={<ProfilePage />} />
         <Route path="/master-main" element={<MasterMain />} />
         
         {/* Customer */}

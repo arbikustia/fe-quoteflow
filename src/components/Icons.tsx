@@ -19,6 +19,30 @@ export const Icons = {
   Dashboard: (): ReactElement => (
     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><rect width="7" height="9" x="3" y="3" rx="1"/><rect width="7" height="5" x="14" y="3" rx="1"/><rect width="7" height="9" x="14" y="12" rx="1"/><rect width="7" height="5" x="3" y="16" rx="1"/></svg>
   ),
+  /** Render Home icon.
+   * @returns {ReactElement} Icon SVG
+   */
+  Home: (): ReactElement => (
+    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.1 1 12h3v9a1 1 0 0 0 1 1h5v-6h4v6h5a1 1 0 0 0 1-1v-9h3L12 2.1Z"/></svg>
+  ),
+  /** Render CalendarSolid icon.
+   * @returns {ReactElement} Icon SVG
+   */
+  CalendarSolid: (): ReactElement => (
+    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M7 2a1 1 0 0 1 1 1v1h8V3a1 1 0 1 1 2 0v1h1a3 3 0 0 1 3 3v12a3 3 0 0 1-3 3H5a3 3 0 0 1-3-3V7a3 3 0 0 1 3-3h1V3a1 1 0 0 1 1-1Zm13 8H4v9a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-9Z"/></svg>
+  ),
+  /** Render ActivitySolid icon.
+   * @returns {ReactElement} Icon SVG
+   */
+  ActivitySolid: (): ReactElement => (
+    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M19 2a3 3 0 0 1 3 3v14a3 3 0 0 1-3 3H5a3 3 0 0 1-3-3V5a3 3 0 0 1 3-3h14Zm-2.3 6.3a1 1 0 0 0-1.4 0L10 13.6l-2.3-2.3a1 1 0 0 0-1.4 1.4l3 3a1 1 0 0 0 1.4 0l6-6a1 1 0 0 0 0-1.4Z"/></svg>
+  ),
+  /** Render UserSolid icon.
+   * @returns {ReactElement} Icon SVG
+   */
+  UserSolid: (): ReactElement => (
+    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 12a5 5 0 1 0 0-10 5 5 0 0 0 0 10Zm0 2c-5 0-9 2.5-9 5.5A2.5 2.5 0 0 0 5.5 22h13a2.5 2.5 0 0 0 2.5-2.5C21 16.5 17 14 12 14Z"/></svg>
+  ),
   /** Render Products icon.
    * @returns {ReactElement} Icon SVG
    */

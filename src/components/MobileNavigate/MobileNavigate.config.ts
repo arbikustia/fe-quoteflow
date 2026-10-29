@@ -9,26 +9,21 @@ export const MOBILE_NAVIGATE_ITEMS: MobileNavigateItem[] = [
   {
     id: "/home",
     label: "Home",
-    Icon: Icons.Dashboard,
+    Icon: Icons.Home,
   },
   {
-    id: "/order",
-    label: "Order",
-    Icon: Icons.Document,
+    id: "/calendar",
+    label: "Calendar",
+    Icon: Icons.CalendarSolid,
   },
   {
-    id: "/return",
-    label: "Return",
-    Icon: Icons.Schedule,
+    id: "/activity-log",
+    label: "Activity Log",
+    Icon: Icons.ActivitySolid,
   },
   {
-    id: "/master-main",
-    label: "Master",
-    Icon: Icons.Database,
-  },
-  {
-    id: "/report/main",
-    label: "Report",
-    Icon: Icons.Reporting,
+    id: "/profile",
+    label: "Profile",
+    Icon: Icons.UserSolid,
   },
 ];
