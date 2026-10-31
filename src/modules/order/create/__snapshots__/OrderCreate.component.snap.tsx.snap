@@ -23,7 +23,7 @@ exports[`OrderCreateComponent Snapshots Should Render OrderCreateComponent 1`] =
           />
         </div>
         <div
-          class="flex-1 overflow-y-auto overflow-x-hidden px-4 space-y-5 scrollbar-thin"
+          class="min-h-0 flex-1 overflow-y-auto overflow-x-hidden pb-6 px-4 space-y-5 scrollbar-thin"
         >
           <div>
             <p
@@ -36,48 +36,97 @@ exports[`OrderCreateComponent Snapshots Should Render OrderCreateComponent 1`] =
               class="space-y-1"
             >
               <a
-                class="h-9 flex items-center gap-3 rounded-[6px] px-3 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring/30 text-text-secondary hover:bg-background-elevated hover:text-text-primary"
+                class="min-h-14 flex items-center gap-3 rounded-[8px] px-4 py-3 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring/30 text-text-secondary hover:bg-background-elevated hover:text-text-primary"
                 data-discover="true"
-                href="/order"
+                href="/home"
               >
                 <span
                   class="shrink-0 [&_svg]:h-5 [&_svg]:w-5 text-text-tertiary"
                 >
                   <svg
                     fill="none"
-                    height="20"
+                    height="1em"
                     stroke="currentColor"
                     stroke-linecap="round"
                     stroke-linejoin="round"
-                    stroke-width="1.8"
+                    stroke-width="2"
                     viewBox="0 0 24 24"
-                    width="20"
+                    width="1em"
                     xmlns="http://www.w3.org/2000/svg"
                   >
-                    <path
-                      d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"
+                    <rect
+                      height="9"
+                      rx="1"
+                      width="7"
+                      x="3"
+                      y="3"
                     />
-                    <polyline
-                      points="14 2 14 8 20 8"
+                    <rect
+                      height="5"
+                      rx="1"
+                      width="7"
+                      x="14"
+                      y="3"
                     />
-                    <line
-                      x1="16"
-                      x2="8"
-                      y1="13"
-                      y2="13"
+                    <rect
+                      height="9"
+                      rx="1"
+                      width="7"
+                      x="14"
+                      y="12"
                     />
-                    <line
-                      x1="16"
-                      x2="8"
-                      y1="17"
-                      y2="17"
+                    <rect
+                      height="5"
+                      rx="1"
+                      width="7"
+                      x="3"
+                      y="16"
                     />
                   </svg>
                 </span>
                 <span
-                  class="flex-1 truncate text-lg leading-none font-normal"
+                  class="flex-1 truncate text-xl leading-none font-normal"
                 >
-                  Order
+                  Dashboard
+                </span>
+              </a>
+              <a
+                class="min-h-14 flex items-center gap-3 rounded-[8px] px-4 py-3 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring/30 text-text-secondary hover:bg-background-elevated hover:text-text-primary"
+                data-discover="true"
+                href="/order/create"
+              >
+                <span
+                  class="shrink-0 [&_svg]:h-5 [&_svg]:w-5 text-text-tertiary"
+                >
+                  <svg
+                    fill="none"
+                    height="1em"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    viewBox="0 0 24 24"
+                    width="1em"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M4 22h14a2 2 0 0 0 2-2V7l-5-5H6a2 2 0 0 0-2 2v4"
+                    />
+                    <path
+                      d="M14 2v4a2 2 0 0 0 2 2h4"
+                    />
+                    <path
+                      d="M3 15h6"
+                    />
+                    <path
+                      d="M6 12v6"
+                    />
+                  </svg>
+                </span>
+                <span
+                  class="flex-1 truncate text-xl leading-none font-normal"
+                >
+                  Create Order
                 </span>
               </a>
               <div>
@@ -91,32 +140,29 @@ exports[`OrderCreateComponent Snapshots Should Render OrderCreateComponent 1`] =
                   >
                     <svg
                       fill="none"
-                      height="20"
+                      height="1em"
                       stroke="currentColor"
                       stroke-linecap="round"
                       stroke-linejoin="round"
-                      stroke-width="1.8"
+                      stroke-width="2"
                       viewBox="0 0 24 24"
-                      width="20"
+                      width="1em"
                       xmlns="http://www.w3.org/2000/svg"
                     >
                       <path
-                        d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"
+                        d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"
                       />
-                      <polyline
-                        points="14 2 14 8 20 8"
+                      <path
+                        d="M14 2v4a2 2 0 0 0 2 2h4"
                       />
-                      <line
-                        x1="16"
-                        x2="8"
-                        y1="13"
-                        y2="13"
+                      <path
+                        d="M10 9H8"
                       />
-                      <line
-                        x1="16"
-                        x2="8"
-                        y1="17"
-                        y2="17"
+                      <path
+                        d="M16 13H8"
+                      />
+                      <path
+                        d="M16 17H8"
                       />
                     </svg>
                   </span>
@@ -124,6 +170,200 @@ exports[`OrderCreateComponent Snapshots Should Render OrderCreateComponent 1`] =
                     class="flex-1 truncate text-xl leading-none font-normal"
                   >
                     Document
+                  </span>
+                  <span
+                    class="shrink-0 text-text-tertiary transition-transform duration-200 "
+                  >
+                    <svg
+                      fill="none"
+                      height="14"
+                      stroke="currentColor"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      viewBox="0 0 24 24"
+                      width="14"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="m6 9 6 6 6-6"
+                      />
+                    </svg>
+                  </span>
+                </button>
+              </div>
+              <a
+                class="min-h-14 flex items-center gap-3 rounded-[8px] px-4 py-3 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring/30 text-text-secondary hover:bg-background-elevated hover:text-text-primary"
+                data-discover="true"
+                href="/document/item-checklist"
+              >
+                <span
+                  class="shrink-0 [&_svg]:h-5 [&_svg]:w-5 text-text-tertiary"
+                >
+                  <svg
+                    fill="none"
+                    height="1em"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    viewBox="0 0 24 24"
+                    width="1em"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <rect
+                      height="18"
+                      rx="2"
+                      width="18"
+                      x="3"
+                      y="3"
+                    />
+                    <path
+                      d="m9 12 2 2 4-4"
+                    />
+                  </svg>
+                </span>
+                <span
+                  class="flex-1 truncate text-xl leading-none font-normal"
+                >
+                  Item Checklist
+                </span>
+              </a>
+              <a
+                class="min-h-14 flex items-center gap-3 rounded-[8px] px-4 py-3 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring/30 text-text-secondary hover:bg-background-elevated hover:text-text-primary"
+                data-discover="true"
+                href="/calendar"
+              >
+                <span
+                  class="shrink-0 [&_svg]:h-5 [&_svg]:w-5 text-text-tertiary"
+                >
+                  <svg
+                    fill="none"
+                    height="1em"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    viewBox="0 0 24 24"
+                    width="1em"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M8 2v4"
+                    />
+                    <path
+                      d="M16 2v4"
+                    />
+                    <rect
+                      height="18"
+                      rx="2"
+                      width="18"
+                      x="3"
+                      y="4"
+                    />
+                    <path
+                      d="M3 10h18"
+                    />
+                    <path
+                      d="M8 14h.01"
+                    />
+                    <path
+                      d="M12 14h.01"
+                    />
+                    <path
+                      d="M16 14h.01"
+                    />
+                    <path
+                      d="M8 18h.01"
+                    />
+                    <path
+                      d="M12 18h.01"
+                    />
+                    <path
+                      d="M16 18h.01"
+                    />
+                  </svg>
+                </span>
+                <span
+                  class="flex-1 truncate text-xl leading-none font-normal"
+                >
+                  Calendar
+                </span>
+              </a>
+              <a
+                class="min-h-14 flex items-center gap-3 rounded-[8px] px-4 py-3 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring/30 text-text-secondary hover:bg-background-elevated hover:text-text-primary"
+                data-discover="true"
+                href="/activity-log"
+              >
+                <span
+                  class="shrink-0 [&_svg]:h-5 [&_svg]:w-5 text-text-tertiary"
+                >
+                  <svg
+                    fill="none"
+                    height="1em"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    viewBox="0 0 24 24"
+                    width="1em"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M22 12h-2.48a2 2 0 0 0-1.93 1.46l-2.35 8.36a.25.25 0 0 1-.48 0L9.24 2.18a.25.25 0 0 0-.48 0l-2.35 8.36A2 2 0 0 1 4.49 12H2"
+                    />
+                  </svg>
+                </span>
+                <span
+                  class="flex-1 truncate text-xl leading-none font-normal"
+                >
+                  Activity Log
+                </span>
+              </a>
+              <div>
+                <button
+                  aria-expanded="false"
+                  class="w-full min-h-14 py-3 flex items-center gap-3 rounded-[8px] px-4 text-left transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring/30 text-text-secondary hover:bg-background-elevated hover:text-text-primary"
+                  type="button"
+                >
+                  <span
+                    class="shrink-0 [&_svg]:h-5 [&_svg]:w-5 text-text-tertiary"
+                  >
+                    <svg
+                      fill="none"
+                      height="1em"
+                      stroke="currentColor"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      viewBox="0 0 24 24"
+                      width="1em"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M12 16v5"
+                      />
+                      <path
+                        d="M16 14v7"
+                      />
+                      <path
+                        d="M20 10v11"
+                      />
+                      <path
+                        d="m22 3-8.646 8.646a.5.5 0 0 1-.708 0L9.354 8.354a.5.5 0 0 0-.707 0L2 15"
+                      />
+                      <path
+                        d="M4 18v3"
+                      />
+                      <path
+                        d="M8 14v7"
+                      />
+                    </svg>
+                  </span>
+                  <span
+                    class="flex-1 truncate text-xl leading-none font-normal"
+                  >
+                    Report
                   </span>
                   <span
                     class="shrink-0 text-text-tertiary transition-transform duration-200 "
@@ -157,26 +397,26 @@ exports[`OrderCreateComponent Snapshots Should Render OrderCreateComponent 1`] =
                   >
                     <svg
                       fill="none"
-                      height="20"
+                      height="1em"
                       stroke="currentColor"
                       stroke-linecap="round"
                       stroke-linejoin="round"
-                      stroke-width="1.8"
+                      stroke-width="2"
                       viewBox="0 0 24 24"
-                      width="20"
+                      width="1em"
                       xmlns="http://www.w3.org/2000/svg"
                     >
-                      <ellipse
-                        cx="12"
-                        cy="5"
-                        rx="9"
-                        ry="3"
+                      <path
+                        d="M11 21.73a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73z"
                       />
                       <path
-                        d="M3 5V19A9 3 0 0 0 21 19V5"
+                        d="M12 22V12"
                       />
                       <path
-                        d="M3 12A9 3 0 0 0 21 12"
+                        d="m3.3 7 7.703 4.734a2 2 0 0 0 1.994 0L20.7 7"
+                      />
+                      <path
+                        d="m7.5 4.27 9 5.15"
                       />
                     </svg>
                   </span>
@@ -215,13 +455,13 @@ exports[`OrderCreateComponent Snapshots Should Render OrderCreateComponent 1`] =
           <button
             aria-checked="false"
             aria-label="Toggle dark theme"
-            class="mb-2 flex h-9 w-full items-center rounded-[8px] bg-background-subtle text-text-secondary transition-colors hover:bg-action-primary-subtle focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring gap-3 px-3"
+            class="mb-2 flex min-h-12 w-full cursor-pointer items-center rounded-[8px] bg-background-subtle text-text-secondary transition-colors hover:bg-action-primary-subtle focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring gap-3 px-4 py-3"
             role="switch"
             type="button"
           >
             <span
               aria-hidden="true"
-              class="shrink-0"
+              class="shrink-0 [&_svg]:h-5 [&_svg]:w-5"
             >
               <svg
                 fill="none"
@@ -240,19 +480,19 @@ exports[`OrderCreateComponent Snapshots Should Render OrderCreateComponent 1`] =
               </svg>
             </span>
             <span
-              class="flex-1 text-left text-[13px] font-medium"
+              class="flex-1 text-left text-xl font-medium"
             >
               Dark theme
             </span>
           </button>
           <button
             aria-label="Log out"
-            class="mb-2 flex h-9 w-full items-center rounded-[8px] text-danger-strong transition-colors hover:bg-danger-subtle focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring gap-3 px-3"
+            class="mb-2 flex min-h-12 w-full cursor-pointer items-center rounded-[8px] bg-danger-subtle text-danger-strong transition-colors hover:bg-danger/20 focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring gap-3 px-4 py-3"
             type="button"
           >
             <span
               aria-hidden="true"
-              class="shrink-0"
+              class="shrink-0 [&_svg]:h-5 [&_svg]:w-5"
             >
               <svg
                 fill="none"
@@ -280,7 +520,7 @@ exports[`OrderCreateComponent Snapshots Should Render OrderCreateComponent 1`] =
               </svg>
             </span>
             <span
-              class="flex-1 text-left text-[13px] font-medium"
+              class="flex-1 text-left text-xl font-medium"
             >
               Log out
             </span>
@@ -288,12 +528,12 @@ exports[`OrderCreateComponent Snapshots Should Render OrderCreateComponent 1`] =
           <button
             aria-expanded="false"
             aria-haspopup="menu"
-            class="w-full flex items-center rounded-[10px] transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring/30 hover:bg-background-elevated gap-3 p-2"
+            class="flex w-full cursor-pointer items-center rounded-[10px] transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring/30 hover:bg-background-elevated gap-3 px-4 py-3"
             type="button"
           >
             <span
               aria-hidden="true"
-              class="w-8 h-8 rounded-full bg-action-primary-subtle text-action-primary flex items-center justify-center text-[12px] font-semibold shrink-0"
+              class="w-10 h-10 rounded-full bg-action-primary-subtle text-action-primary flex items-center justify-center text-sm font-semibold shrink-0"
             >
               US
             </span>
@@ -301,13 +541,13 @@ exports[`OrderCreateComponent Snapshots Should Render OrderCreateComponent 1`] =
               class="flex-1 min-w-0 text-left"
             >
               <span
-                class="block truncate text-[13px] font-semibold leading-4 text-text-primary"
+                class="block truncate text-xl font-semibold leading-tight text-text-primary"
               >
                 User
               </span>
             </span>
             <span
-              class="shrink-0 text-text-tertiary transition-transform duration-200 "
+              class="shrink-0 text-text-tertiary transition-transform duration-200 [&_svg]:h-5 [&_svg]:w-5 "
             >
               <svg
                 fill="none"
@@ -332,30 +572,6 @@ exports[`OrderCreateComponent Snapshots Should Render OrderCreateComponent 1`] =
     <div
       class="flex-1 flex flex-col min-w-0 min-h-0 overflow-hidden relative transition-colors duration-200 bg-background-page bg-background-surface lg:bg-background-page"
     >
-      <div
-        class="lg:hidden shrink-0"
-      >
-        <div
-          class="flex items-center justify-between bg-background-surface px-6 pt-5"
-        >
-          <div
-            class="flex items-center gap-4"
-          >
-            <div
-              class="w-52 h-14"
-            >
-              <img
-                alt="Logo"
-                class="w-full h-full object-cover"
-                src="/src/assets/Sonicline.png"
-              />
-            </div>
-          </div>
-          <div
-            class="flex items-center gap-3"
-          />
-        </div>
-      </div>
       <div
         class="hidden lg:block shrink-0"
       >
@@ -450,7 +666,7 @@ exports[`OrderCreateComponent Snapshots Should Render OrderCreateComponent 1`] =
         class="relative z-0 flex-1 overflow-y-auto px-4 pt-4 pb-20 lg:p-8"
       >
         <div
-          class="min-h-full w-full bg-background-surface pb-6 font-sans min-[1024px]:bg-background-page"
+          class="flex h-full w-full flex-col bg-background-surface pb-6 font-sans lg:bg-background-page"
         >
           <div
             class="flex items-center gap-3 bg-background-surface px-0 pb-6 lg:hidden"
@@ -482,7 +698,7 @@ exports[`OrderCreateComponent Snapshots Should Render OrderCreateComponent 1`] =
             </h1>
           </div>
           <div
-            class="w-full px-0 text-lg min-[1024px]:text-base"
+            class="mt-10 flex min-h-0 w-full flex-1 flex-col px-0 text-lg lg:mt-0 lg:text-base"
           >
             <nav
               aria-label="Breadcrumb"
@@ -520,80 +736,60 @@ exports[`OrderCreateComponent Snapshots Should Render OrderCreateComponent 1`] =
               </p>
             </div>
             <form
-              class="mb-14 flex flex-col justify-between border-0 bg-transparent p-0 pb-0 shadow-none min-[1024px]:mb-10 min-[1024px]:rounded-4xl min-[1024px]:border min-[1024px]:border-brand-gray-light min-[1024px]:bg-brand-white min-[1024px]:p-8 min-[1024px]:shadow-xs"
+              class="mb-5 flex flex-col justify-between border-0 bg-transparent p-0 pb-32 shadow-none lg:rounded-4xl lg:border lg:border-brand-gray-light lg:bg-brand-white lg:p-8 lg:shadow-xs"
               novalidate=""
             >
               <div
-                class="mb-6 flex items-center gap-2"
+                class="mb-8 flex items-center gap-8 overflow-x-auto border-b border-border-default"
               >
                 <div
-                  class="flex items-center gap-2 text-sm font-semibold text-action-primary"
+                  class="relative shrink-0 pb-3 text-xl lg:text-base font-semibold text-text-primary"
                 >
-                  <span
-                    class="flex h-8 w-8 items-center justify-center rounded-full bg-action-primary text-text-inverse"
-                  >
-                    1
-                  </span>
-                  <span
-                    class="hidden sm:inline"
-                  >
+                  <span>
                     Order Information
                   </span>
+                  <span
+                    aria-hidden="true"
+                    class="absolute inset-x-0 bottom-0 h-0.5 bg-action-primary"
+                  />
                 </div>
-                <span
-                  class="h-px flex-1 bg-border-default"
-                />
                 <div
-                  class="flex items-center gap-2 text-sm font-semibold text-text-tertiary"
+                  class="relative shrink-0 pb-3 text-xl lg:text-base font-normal text-text-secondary"
                 >
-                  <span
-                    class="flex h-8 w-8 items-center justify-center rounded-full border border-border-default"
-                  >
-                    2
-                  </span>
-                  <span
-                    class="hidden sm:inline"
-                  >
+                  <span>
                     Rental Items
                   </span>
+                  <span
+                    aria-hidden="true"
+                    class="absolute inset-x-0 bottom-0 h-0.5 bg-transparent"
+                  />
                 </div>
-                <span
-                  class="h-px flex-1 bg-border-default"
-                />
                 <div
-                  class="flex items-center gap-2 text-sm font-semibold text-text-tertiary"
+                  class="relative shrink-0 pb-3 text-xl lg:text-base font-normal text-text-secondary"
                 >
-                  <span
-                    class="flex h-8 w-8 items-center justify-center rounded-full border border-border-default"
-                  >
-                    3
-                  </span>
-                  <span
-                    class="hidden sm:inline"
-                  >
+                  <span>
                     Review
                   </span>
+                  <span
+                    aria-hidden="true"
+                    class="absolute inset-x-0 bottom-0 h-0.5 bg-transparent"
+                  />
                 </div>
               </div>
               <div
                 class="pb-6"
               >
                 <section
-                  class="space-y-4"
+                  class="space-y-5"
                 >
-                  <h2
-                    class="text-2xl font-semibold text-text-primary lg:text-lg"
-                  >
-                    Order information
-                  </h2>
                   <div
-                    class="grid grid-cols-1 gap-x-6 gap-y-1 md:grid-cols-2"
+                    class="grid grid-cols-1 gap-x-8 gap-y-2 md:grid-cols-2"
                   >
                     <div
-                      class="relative mb-4"
+                      class="relative mb-5"
                     >
                       <label
-                        class="mb-1.5 block text-xs font-bold uppercase tracking-wider text-text-secondary !text-base"
+                        class="mb-1.5 block text-xs font-bold uppercase tracking-wider text-text-secondary !text-lg !font-semibold !normal-case !text-text-primary"
                         for="order-customer"
                       >
                         Customer
@@ -605,7 +801,8 @@ exports[`OrderCreateComponent Snapshots Should Render OrderCreateComponent 1`] =
                         </span>
                       </label>
                       <div
-                        class="ant-select ant-select-outlined h-14 w-full [&_.ant-select-content]:!text-xl [&_.ant-select-content]:!font-normal [&_.ant-select-selection-item]:!text-xl [&_.ant-select-selection-placeholder]:!text-xl css-var-root ant-select-css-var css-dev-only-do-not-override-eofgey ant-select-single ant-select-show-arrow"
+                        class="ant-select ant-select-outlined h-14 w-full [&_.ant-select-selector]:!rounded-2xl [&_.ant-select-content]:!text-xl [&_.ant-select-content]:!font-normal !h-16 [&_.ant-select-selector]:!min-h-16 [&_.ant-select-selector]:!rounded-2xl [&_.ant-select-selection-item]:!text-2xl [&_.ant-select-selection-item]:!font-semibold [&_.ant-select-selection-placeholder]:!text-2xl css-var-root ant-select-css-var css-dev-only-do-not-override-eofgey ant-select-single ant-select-show-arrow ant-select-show-search"
+                        style="--ant-select-border-radius: 16px;"
                       >
                         <div
                           class="ant-select-content"
@@ -625,7 +822,6 @@ exports[`OrderCreateComponent Snapshots Should Render OrderCreateComponent 1`] =
                             autocomplete="new-password"
                             class="ant-select-input"
                             id="order-customer"
-                            readonly=""
                             role="combobox"
                             type="text"
                             value=""
@@ -657,7 +853,7 @@ exports[`OrderCreateComponent Snapshots Should Render OrderCreateComponent 1`] =
                       </div>
                     </div>
                     <div
-                      class="mb-4 [&_.ant-input]:text-xl [&_.ant-input]:placeholder:text-xl [&_label]:text-base"
+                      class="mb-4 mb-5 [&_.ant-input]:!h-16 [&_.ant-input]:!rounded-2xl [&_.ant-input]:!px-4 [&_.ant-input]:!text-xl [&_.ant-input]:!font-normal [&_.ant-input]:placeholder:!text-xl [&_.ant-input]:placeholder:!font-normal [&_label]:!text-lg [&_label]:!font-semibold [&_label]:!normal-case [&_label]:!text-text-primary"
                     >
                       <label
                         class="mb-1.5 block text-xs font-bold uppercase tracking-wider text-text-secondary"
@@ -673,7 +869,7 @@ exports[`OrderCreateComponent Snapshots Should Render OrderCreateComponent 1`] =
                       </label>
                       <input
                         aria-invalid="false"
-                        class="ant-input ant-input-lg css-dev-only-do-not-override-eofgey ant-input-outlined h-14 w-full css-var-root ant-input-css-var"
+                        class="ant-input ant-input-lg css-dev-only-do-not-override-eofgey ant-input-outlined h-14 w-full !rounded-2xl css-var-root ant-input-css-var"
                         id="order-customer_name"
                         placeholder="Enter customer name"
                         required=""
@@ -682,7 +878,7 @@ exports[`OrderCreateComponent Snapshots Should Render OrderCreateComponent 1`] =
                       />
                     </div>
                     <div
-                      class="mb-4 [&_.ant-input]:text-xl [&_.ant-input]:placeholder:text-xl [&_label]:text-base"
+                      class="mb-4 mb-5 [&_.ant-input]:!h-16 [&_.ant-input]:!rounded-2xl [&_.ant-input]:!px-4 [&_.ant-input]:!text-xl [&_.ant-input]:!font-normal [&_.ant-input]:placeholder:!text-xl [&_.ant-input]:placeholder:!font-normal [&_label]:!text-lg [&_label]:!font-semibold [&_label]:!normal-case [&_label]:!text-text-primary"
                     >
                       <label
                         class="mb-1.5 block text-xs font-bold uppercase tracking-wider text-text-secondary"
@@ -698,7 +894,7 @@ exports[`OrderCreateComponent Snapshots Should Render OrderCreateComponent 1`] =
                       </label>
                       <input
                         aria-invalid="false"
-                        class="ant-input ant-input-lg css-dev-only-do-not-override-eofgey ant-input-outlined h-14 w-full css-var-root ant-input-css-var"
+                        class="ant-input ant-input-lg css-dev-only-do-not-override-eofgey ant-input-outlined h-14 w-full !rounded-2xl css-var-root ant-input-css-var"
                         id="order-customer_phone"
                         placeholder="Enter customer phone number"
                         required=""
@@ -707,10 +903,10 @@ exports[`OrderCreateComponent Snapshots Should Render OrderCreateComponent 1`] =
                       />
                     </div>
                     <div
-                      class="relative mb-4 [&_.ant-select-selector]:text-xl"
+                      class="relative mb-5 [&_.ant-select-selector]:!min-h-16"
                     >
                       <label
-                        class="mb-1.5 block text-xs font-bold uppercase tracking-wider text-text-secondary !text-base"
+                        class="mb-1.5 block text-xs font-bold uppercase tracking-wider text-text-secondary !text-lg !font-semibold !normal-case !text-text-primary"
                         for="order-pic"
                       >
                         PIC
@@ -722,7 +918,8 @@ exports[`OrderCreateComponent Snapshots Should Render OrderCreateComponent 1`] =
                         </span>
                       </label>
                       <div
-                        class="ant-select ant-select-outlined h-14 w-full [&_.ant-select-content]:!text-xl [&_.ant-select-content]:!font-normal  css-var-root ant-select-css-var css-dev-only-do-not-override-eofgey ant-select-single ant-select-show-arrow"
+                        class="ant-select ant-select-outlined h-14 w-full [&_.ant-select-selector]:!rounded-2xl [&_.ant-select-content]:!text-xl [&_.ant-select-content]:!font-normal !h-16 [&_.ant-select-selector]:!rounded-2xl [&_.ant-select-selection-item]:!text-2xl [&_.ant-select-selection-item]:!font-semibold [&_.ant-select-selection-placeholder]:!text-2xl css-var-root ant-select-css-var css-dev-only-do-not-override-eofgey ant-select-single ant-select-show-arrow ant-select-show-search"
+                        style="--ant-select-border-radius: 16px;"
                       >
                         <div
                           class="ant-select-content"
@@ -742,7 +939,6 @@ exports[`OrderCreateComponent Snapshots Should Render OrderCreateComponent 1`] =
                             autocomplete="new-password"
                             class="ant-select-input"
                             id="order-pic"
-                            readonly=""
                             role="combobox"
                             type="text"
                             value=""
@@ -774,7 +970,7 @@ exports[`OrderCreateComponent Snapshots Should Render OrderCreateComponent 1`] =
                       </div>
                     </div>
                     <div
-                      class="block mb-4 md:col-span-2 [&_.ant-picker-input>input]:!text-xl [&_.ant-picker-input>input]:!font-normal [&_label]:!text-base"
+                      class="block mb-5 md:col-span-2 [&>div]:gap-5 [&_.ant-picker]:!h-16 [&_.ant-picker]:!rounded-2xl [&_.ant-picker-input>input]:!text-xl [&_.ant-picker-input>input]:!font-normal [&_label]:!text-lg [&_label]:!font-semibold [&_label]:!normal-case [&_label]:!text-text-primary"
                     >
                       <div
                         class="flex flex-col gap-4 sm:flex-row"
@@ -896,10 +1092,10 @@ exports[`OrderCreateComponent Snapshots Should Render OrderCreateComponent 1`] =
                       </div>
                     </div>
                     <div
-                      class="relative mb-4 [&_.ant-select-selector]:text-xl"
+                      class="relative mb-5 [&_.ant-select-selector]:!min-h-16"
                     >
                       <label
-                        class="mb-1.5 block text-xs font-bold uppercase tracking-wider text-text-secondary !text-base"
+                        class="mb-1.5 block text-xs font-bold uppercase tracking-wider text-text-secondary !text-lg !font-semibold !normal-case !text-text-primary"
                         for="order-service-type"
                       >
                         Service Type
@@ -911,7 +1107,8 @@ exports[`OrderCreateComponent Snapshots Should Render OrderCreateComponent 1`] =
                         </span>
                       </label>
                       <div
-                        class="ant-select ant-select-outlined h-14 w-full [&_.ant-select-content]:!text-xl [&_.ant-select-content]:!font-normal  css-var-root ant-select-css-var css-dev-only-do-not-override-eofgey ant-select-single ant-select-show-arrow"
+                        class="ant-select ant-select-outlined h-14 w-full [&_.ant-select-selector]:!rounded-2xl [&_.ant-select-content]:!text-xl [&_.ant-select-content]:!font-normal !h-16 [&_.ant-select-selector]:!rounded-2xl [&_.ant-select-selection-item]:!text-2xl [&_.ant-select-selection-item]:!font-semibold [&_.ant-select-selection-placeholder]:!text-2xl css-var-root ant-select-css-var css-dev-only-do-not-override-eofgey ant-select-single ant-select-show-arrow ant-select-show-search"
+                        style="--ant-select-border-radius: 16px;"
                       >
                         <div
                           class="ant-select-content"
@@ -931,7 +1128,6 @@ exports[`OrderCreateComponent Snapshots Should Render OrderCreateComponent 1`] =
                             autocomplete="new-password"
                             class="ant-select-input"
                             id="order-service-type"
-                            readonly=""
                             role="combobox"
                             type="text"
                             value=""
@@ -963,33 +1159,26 @@ exports[`OrderCreateComponent Snapshots Should Render OrderCreateComponent 1`] =
                       </div>
                     </div>
                     <div
-                      class="mb-4 [&_.ant-input]:text-xl [&_.ant-input]:placeholder:text-xl [&_label]:text-base"
+                      class="mb-4 mb-5 [&_.ant-input]:!h-16 [&_.ant-input]:!rounded-2xl [&_.ant-input]:!px-4 [&_.ant-input]:!text-xl [&_.ant-input]:!font-normal [&_.ant-input]:placeholder:!text-xl [&_.ant-input]:placeholder:!font-normal [&_label]:!text-lg [&_label]:!font-semibold [&_label]:!normal-case [&_label]:!text-text-primary"
                     >
                       <label
                         class="mb-1.5 block text-xs font-bold uppercase tracking-wider text-text-secondary"
                         for="order-service-fee"
                       >
                         Service Fee
-                        <span
-                          aria-hidden="true"
-                          class="ml-1 text-danger"
-                        >
-                          *
-                        </span>
                       </label>
                       <input
                         aria-invalid="false"
-                        class="ant-input ant-input-lg css-dev-only-do-not-override-eofgey ant-input-outlined h-14 w-full css-var-root ant-input-css-var"
+                        class="ant-input ant-input-lg css-dev-only-do-not-override-eofgey ant-input-outlined h-14 w-full !rounded-2xl css-var-root ant-input-css-var"
                         id="order-service-fee"
                         inputmode="numeric"
                         placeholder="Enter service fee"
-                        required=""
                         type="text"
                         value=""
                       />
                     </div>
                     <div
-                      class="mb-4 [&_.ant-input]:text-xl [&_.ant-input]:placeholder:text-xl [&_label]:text-base"
+                      class="mb-4 mb-5 [&_.ant-input]:!h-16 [&_.ant-input]:!rounded-2xl [&_.ant-input]:!px-4 [&_.ant-input]:!text-xl [&_.ant-input]:!font-normal [&_.ant-input]:placeholder:!text-xl [&_.ant-input]:placeholder:!font-normal [&_label]:!text-lg [&_label]:!font-semibold [&_label]:!normal-case [&_label]:!text-text-primary"
                     >
                       <label
                         class="mb-1.5 block text-xs font-bold uppercase tracking-wider text-text-secondary"
@@ -1005,7 +1194,7 @@ exports[`OrderCreateComponent Snapshots Should Render OrderCreateComponent 1`] =
                       </label>
                       <input
                         aria-invalid="false"
-                        class="ant-input ant-input-lg css-dev-only-do-not-override-eofgey ant-input-outlined h-14 w-full css-var-root ant-input-css-var"
+                        class="ant-input ant-input-lg css-dev-only-do-not-override-eofgey ant-input-outlined h-14 w-full !rounded-2xl css-var-root ant-input-css-var"
                         id="order-event_name"
                         placeholder="Enter event name"
                         required=""
@@ -1014,16 +1203,84 @@ exports[`OrderCreateComponent Snapshots Should Render OrderCreateComponent 1`] =
                       />
                     </div>
                     <div
-                      class="relative mb-4 [&_.ant-select-selector]:text-xl"
+                      class="relative mb-5 [&_.ant-select-selector]:!min-h-16"
                     >
                       <label
-                        class="mb-1.5 block text-xs font-bold uppercase tracking-wider text-text-secondary !text-base"
+                        class="mb-1.5 block text-xs font-bold uppercase tracking-wider text-text-secondary !text-lg !font-semibold !normal-case !text-text-primary"
+                        for="order-order-type"
+                      >
+                        Order Type
+                        <span
+                          aria-hidden="true"
+                          class="ml-1 text-danger"
+                        >
+                          *
+                        </span>
+                      </label>
+                      <div
+                        class="ant-select ant-select-outlined h-14 w-full [&_.ant-select-selector]:!rounded-2xl [&_.ant-select-content]:!text-xl [&_.ant-select-content]:!font-normal !h-16 [&_.ant-select-selector]:!rounded-2xl [&_.ant-select-selection-item]:!text-2xl [&_.ant-select-selection-item]:!font-semibold [&_.ant-select-selection-placeholder]:!text-2xl css-var-root ant-select-css-var css-dev-only-do-not-override-eofgey ant-select-single ant-select-show-arrow ant-select-show-search"
+                        style="--ant-select-border-radius: 16px;"
+                      >
+                        <div
+                          class="ant-select-content"
+                        >
+                          <div
+                            class="ant-select-placeholder"
+                          >
+                            Select order type
+                          </div>
+                          <input
+                            aria-autocomplete="list"
+                            aria-expanded="false"
+                            aria-haspopup="listbox"
+                            aria-invalid="false"
+                            aria-label="Order Type"
+                            aria-required="true"
+                            autocomplete="new-password"
+                            class="ant-select-input"
+                            id="order-order-type"
+                            role="combobox"
+                            type="text"
+                            value=""
+                          />
+                        </div>
+                        <div
+                          class="ant-select-suffix"
+                        >
+                          <span
+                            aria-label="down"
+                            class="anticon anticon-down"
+                            role="img"
+                          >
+                            <svg
+                              aria-hidden="true"
+                              data-icon="down"
+                              fill="currentColor"
+                              focusable="false"
+                              height="1em"
+                              viewBox="64 64 896 896"
+                              width="1em"
+                            >
+                              <path
+                                d="M884 256h-75c-5.1 0-9.9 2.5-12.9 6.6L512 654.2 227.9 262.6c-3-4.1-7.8-6.6-12.9-6.6h-75c-6.5 0-10.3 7.4-6.5 12.7l352.6 486.1c12.8 17.6 39 17.6 51.7 0l352.6-486.1c3.9-5.3.1-12.7-6.4-12.7z"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                    <div
+                      class="relative mb-5 [&_.ant-select-selector]:!min-h-16"
+                    >
+                      <label
+                        class="mb-1.5 block text-xs font-bold uppercase tracking-wider text-text-secondary !text-lg !font-semibold !normal-case !text-text-primary"
                         for="order-voucher"
                       >
                         Voucher
                       </label>
                       <div
-                        class="ant-select ant-select-outlined h-14 w-full [&_.ant-select-content]:!text-xl [&_.ant-select-content]:!font-normal  css-var-root ant-select-css-var css-dev-only-do-not-override-eofgey ant-select-single ant-select-show-arrow"
+                        class="ant-select ant-select-outlined h-14 w-full [&_.ant-select-selector]:!rounded-2xl [&_.ant-select-content]:!text-xl [&_.ant-select-content]:!font-normal !h-16 [&_.ant-select-selector]:!rounded-2xl [&_.ant-select-selection-item]:!text-2xl [&_.ant-select-selection-item]:!font-semibold [&_.ant-select-selection-placeholder]:!text-2xl css-var-root ant-select-css-var css-dev-only-do-not-override-eofgey ant-select-single ant-select-show-arrow ant-select-show-search"
+                        style="--ant-select-border-radius: 16px;"
                       >
                         <div
                           class="ant-select-content"
@@ -1042,7 +1299,6 @@ exports[`OrderCreateComponent Snapshots Should Render OrderCreateComponent 1`] =
                             autocomplete="new-password"
                             class="ant-select-input"
                             id="order-voucher"
-                            readonly=""
                             role="combobox"
                             type="text"
                             value=""
@@ -1078,12 +1334,13 @@ exports[`OrderCreateComponent Snapshots Should Render OrderCreateComponent 1`] =
                     class="block space-y-2"
                   >
                     <span
-                      class="text-sm font-medium text-text-secondary"
+                      class="text-lg font-semibold text-text-primary"
                     >
                       Address
                     </span>
                     <textarea
-                      class="min-h-24 w-full rounded-xl border border-border-default bg-background-surface px-4 py-3 text-xl placeholder:text-xl"
+                      class="min-h-36 w-full rounded-2xl border border-border-default bg-background-surface px-4 py-4 text-xl font-normal outline-none placeholder:font-normal placeholder:text-xl placeholder:text-text-tertiary focus:border-border-focus focus:ring-2 focus:ring-focus-ring/30"
+                      placeholder="Enter address"
                     />
                   </label>
                 </section>

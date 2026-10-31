@@ -7,7 +7,6 @@ describe("NavbarComponent", () => {
     render(<NavbarComponent isSidebarCollapsed={false} onToggleSidebar={jest.fn()} currentTime="17-10-2026 08:05:09" />);
 
     expect(screen.getByRole("banner")).toBeInTheDocument();
-    expect(screen.getByRole("textbox", { name: "Search anything" })).toBeInTheDocument();
     expect(screen.getByTestId("navbar-realtime-clock")).toHaveTextContent("17-10-2026 08:05:09");
     expect(screen.getByRole("button", { name: "Close sidebar" })).toHaveAttribute("aria-expanded", "true");
   });

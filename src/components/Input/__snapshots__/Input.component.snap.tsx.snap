@@ -19,7 +19,7 @@ exports[`should render a labelled Ant Design input 1`] = `
     </label>
     <input
       aria-invalid="false"
-      class="ant-input ant-input-lg css-dev-only-do-not-override-eofgey ant-input-outlined h-14 w-full css-var-root ant-input-css-var"
+      class="ant-input ant-input-lg css-dev-only-do-not-override-eofgey ant-input-outlined h-14 w-full !rounded-2xl css-var-root ant-input-css-var"
       id="name"
       required=""
       type="text"

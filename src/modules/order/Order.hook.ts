@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 import type { BaseOrderState, OrderListResponse, OrderProps, QuoteData } from "./Order.type";
 
@@ -55,7 +55,9 @@ export const useOrderPagination = (): Pick<OrderProps, "currentPage" | "totalPag
  * @returns {BaseOrderState} - Operation result
  */
 export const useOrderState = (): BaseOrderState => {
+  const { pathname } = useLocation();
   const navigate = useNavigate();
+  const canCreateOrder = pathname !== "/order/draft";
   /**
  * Handle module operation.
  * @returns {void} - Operation result
@@ -79,5 +81,5 @@ export const useOrderState = (): BaseOrderState => {
  */
   const onBack = (): void => { void navigate(-1); };
 
-  return { openCreateModal, openEditModal, onRowClick, onBack };
+  return { canCreateOrder, openCreateModal, openEditModal, onRowClick, onBack };
 };

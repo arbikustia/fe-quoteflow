@@ -185,12 +185,11 @@ const _renderDesktop = (props: MasterServiceTypeProps): React.ReactElement => {
  * @returns {React.ReactElement} List element
  */
 export const MasterServiceTypeComponent = (props: MasterServiceTypeProps): React.ReactElement => {
-  const { onBack, onCreate } = props;
-  const createButton = <button type="button" onClick={onCreate} className="h-14 rounded-full border-2 border-brand-blue bg-background-surface px-6 text-sm font-bold text-brand-blue transition-colors hover:bg-action-primary-subtle focus:outline-none focus:ring-2 focus:ring-focus-ring/30">Create New</button>;
+  const { onBack } = props;
 
   return (
     <Layout pageTitle="Service Type List" mobileWhiteBackground={true}>
-      <PageLayout title="Service Type List" breadcrumbs={["Master", "Master Service Type"]} headerRight={createButton} mobileHeaderClassName="px-0" onBack={onBack}>
+      <PageLayout title="Service Type List" breadcrumbs={["Master", "Master Service Type"]} mobileHeaderClassName="px-0" onBack={onBack}>
         <div className="relative flex h-full flex-col bg-background-surface px-0 pb-18 lg:-mt-4 lg:bg-transparent lg:px-0 lg:pb-0">
           {_renderMobile(props)}
           {_renderDesktop(props)}

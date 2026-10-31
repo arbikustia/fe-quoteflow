@@ -74,6 +74,7 @@ export type ItemDetailModalProps = {
 };
 
 export type BaseOrderState = {
+  canCreateOrder: boolean;
   openCreateModal: () => void;
   openEditModal: (quote: QuoteData) => void;
   onRowClick: (quote: QuoteData) => void;
@@ -132,6 +133,7 @@ export type ApiRentalTransactionDetail = {
   voucher?: { id: string; name: string };
   service_type_id: string;
   service_type_name: string;
+  order_type_id?: string;
   customer_name: string;
   customer_phone: string;
   address: string;
@@ -174,11 +176,28 @@ export type ProjectOrderItemPayload = {
   remark: string;
 };
 
+export type OrderType = {
+  id: string;
+  name: string;
+  is_handover: boolean;
+  status: number;
+  created_at: string;
+  updated_at: string;
+};
+
+export type RentalHandoverPayload = {
+  order_type_id: string;
+  type: string;
+  name: string;
+  status: number;
+};
+
 export type ProjectOrderCreatePayload = {
   customer_id: string;
   pic_id: string;
   voucher_id: string;
   service_type_id: string;
+  order_type_id: string;
   customer_name: string;
   customer_phone: string;
   address: string;
@@ -192,6 +211,7 @@ export type ProjectOrderCreatePayload = {
   grand_total: number;
   status: number;
   rental_transaction_items: ProjectOrderItemPayload[];
+  rental_handover?: RentalHandoverPayload;
 };
 
 export type OrderCreateResponse = {
@@ -205,6 +225,7 @@ export type OrderCreatePayload = {
   pic_id: string;
   voucher_id: string;
   service_type_id: string;
+  order_type_id: string;
   customer_name: string;
   customer_phone: string;
   address: string;
@@ -218,6 +239,7 @@ export type OrderCreatePayload = {
   grand_total: number;
   status: number;
   rental_transaction_items: OrderItemPayload[];
+  rental_handover?: RentalHandoverPayload;
 };
 
 export type GetColumnsParams = {

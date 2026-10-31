@@ -2,8 +2,8 @@ import { Card } from "antd";
 import type { ReactElement } from "react";
 
 import { DASHBOARD_MENU_ITEMS } from "./Dashboard.config";
-import { useDashboardAssets, useDashboardNavigation, useDashboardOrders, useDashboardQuotations } from "./Dashboard.hook";
-import type { DashboardOrder, DashboardQuotation, DashboardQuotationChartDatum, DashboardRoute } from "./Dashboard.type";
+import { useDashboardAssets, useDashboardNavigation, useDashboardOrders, useDashboardOverview, useDashboardQuotations } from "./Dashboard.hook";
+import type { DashboardMetric, DashboardOrder, DashboardQuotation, DashboardQuotationChartDatum, DashboardRoute, DashboardTrendDatum } from "./Dashboard.type";
 import ResponsiveLayout from "../shared/ResponsiveLayout";
 import BannerApp from "../../assets/banner-app.png";
 
@@ -129,6 +129,17 @@ const _renderCreationChart = (
   );
 };
 
+const _renderDesktopDashboard = (overview: ReturnType<typeof useDashboardOverview>): ReactElement => {
+  const metrics: DashboardMetric[] = [
+    { label: "Quotation", count: overview.quotationCount, value: overview.quotationValue, colorClassName: "bg-blue-500" },
+    { label: "Invoice", count: overview.invoiceCount, value: overview.invoiceValue, colorClassName: "bg-violet-500" },
+    { label: "Payment", count: overview.paymentCount, value: overview.paymentValue, colorClassName: "bg-emerald-500" },
+    { label: "Voucher", count: overview.voucherCount, value: 0, colorClassName: "bg-amber-500" },
+  ];
+  const maxTrend = Math.max(...overview.trend.flatMap((item: DashboardTrendDatum) => [item.quotation, item.invoice, item.payment]), 1);
+  return <div className="hidden min-h-full bg-brand-white p-8 lg:block"><div className="mb-8"><p className="text-sm font-semibold uppercase tracking-wider text-text-tertiary">Overview</p><h1 className="mt-2 text-4xl font-bold text-text-primary">Dashboard</h1><p className="mt-2 text-text-secondary">Monitor quotation, invoice, payment, and voucher performance.</p></div><div className="grid grid-cols-4 gap-5">{metrics.map((metric) => <Card key={metric.label} className="rounded-2xl border-border-default shadow-none"><div className="flex items-start justify-between"><div><p className="text-sm font-medium text-text-secondary">{metric.label}</p><p className="mt-3 text-3xl font-bold text-text-primary">{overview.isLoading ? "-" : metric.count.toLocaleString("id-ID")}</p>{metric.value > 0 && <p className="mt-2 text-sm text-text-secondary">Rp {metric.value.toLocaleString("id-ID")}</p>}</div><span className={`h-3 w-3 rounded-full ${metric.colorClassName}`} /></div></Card>)}</div><div className="mt-6 grid grid-cols-3 gap-5"><Card title="Activity trend" className="col-span-2 rounded-2xl border-border-default shadow-none"><div className="flex h-64 items-end gap-4">{overview.trend.map((item) => <div key={item.label} className="flex h-full flex-1 items-end justify-between gap-1"><div className="flex flex-1 flex-col items-center gap-1"><div className="w-full rounded-t bg-blue-500" style={{ height: `${Math.max((item.quotation / maxTrend) * 85, item.quotation ? 8 : 2)}%` }} /><span className="text-xs text-text-tertiary">{item.quotation}</span></div><div className="flex flex-1 flex-col items-center gap-1"><div className="w-full rounded-t bg-violet-500" style={{ height: `${Math.max((item.invoice / maxTrend) * 85, item.invoice ? 8 : 2)}%` }} /><span className="text-xs text-text-tertiary">{item.invoice}</span></div><div className="flex flex-1 flex-col items-center gap-1"><div className="w-full rounded-t bg-emerald-500" style={{ height: `${Math.max((item.payment / maxTrend) * 85, item.payment ? 8 : 2)}%` }} /><span className="text-xs text-text-tertiary">{item.payment}</span></div><span className="text-xs text-text-secondary">{item.label}</span></div>)}</div></Card><Card title="Data summary" className="rounded-2xl border-border-default shadow-none"><div className="space-y-5">{metrics.map((metric) => <div key={metric.label} className="flex items-center justify-between border-b border-border-default pb-3 last:border-0"><span className="text-sm text-text-secondary">{metric.label}</span><span className="font-semibold text-text-primary">{metric.count.toLocaleString("id-ID")}</span></div>)}</div></Card></div></div>;
+};
+
 const _renderVoucherBanner = (
   count: number | null,
   onClick: (route: DashboardRoute) => void,
@@ -200,6 +211,7 @@ export default function Dashboard(): ReactElement {
   const { isLoading, voucherCount } = useDashboardAssets();
   const quotationState = useDashboardQuotations();
   const orderState = useDashboardOrders();
+  const overview = useDashboardOverview();
 
   if (isLoading) {
     return (
@@ -242,7 +254,8 @@ export default function Dashboard(): ReactElement {
 
   return (
     <ResponsiveLayout showMobileHeader={false}>
-      <div className="-m-4 pb-28 lg:-m-8 lg:pb-16">
+      {_renderDesktopDashboard(overview)}
+      <div className="-m-4 pb-28 lg:hidden">
         <div className="relative h-64 w-full overflow-hidden">
           <img src={BannerApp} alt="" className="h-full w-full object-cover" aria-hidden="true" />
         </div>

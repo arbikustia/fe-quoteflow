@@ -37,7 +37,7 @@ export const DatePicker = (props: DatePickerProps): ReactElement => {
 
   return (
     <div className={`block ${className}`}>
-      {label && <label htmlFor={id} className="mb-1.5 block text-xs font-bold uppercase tracking-wider text-text-secondary">{label}{required && <span aria-hidden="true" className="ml-1 text-danger">*</span>}</label>}
+      {label && <label htmlFor={id} className="mb-1.5 block text-sm font-semibold text-text-secondary">{label}{required && <span aria-hidden="true" className="ml-1 text-danger">*</span>}</label>}
       <AntDatePicker
         id={id}
         value={_toDayjs(value)}

@@ -41,8 +41,8 @@ const _renderBadge = (badge: string | number | undefined, isCollapsed: boolean):
 const _renderChildren = (children: NavigationChild[] | undefined, currentPath: string, isCollapsed: boolean): React.ReactNode => children?.map((child) => {
   const isActive = isNavigationChildActive(child.path, currentPath);
   const childClassName = isCollapsed
-    ? "flex h-9 items-center rounded-[6px] px-3 text-base transition-colors"
-    : "flex h-9 items-center rounded-[6px] px-3 text-lg transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring/30";
+    ? "flex min-h-10 items-center rounded-[8px] px-3 text-lg transition-colors"
+    : "flex min-h-12 items-center rounded-[8px] px-3.5 text-xl transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring/30";
   const ariaCurrent = !isCollapsed && isActive ? "page" : undefined;
 
   return (
@@ -52,7 +52,7 @@ const _renderChildren = (children: NavigationChild[] | undefined, currentPath: s
       aria-current={ariaCurrent}
       className={`${childClassName} ${isActive ? "bg-background-subtle text-text-primary font-medium" : "text-text-secondary hover:bg-background-elevated hover:text-text-primary"}`}
     >
-      <span className="mr-2 shrink-0 [&_svg]:h-4 [&_svg]:w-4"><child.icon /></span>
+      <span className="mr-3 shrink-0 [&_svg]:h-5 [&_svg]:w-5"><child.icon /></span>
       {child.name}
     </Link>
   );

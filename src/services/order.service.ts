@@ -1,7 +1,8 @@
 import { apiRtkClient } from "@/libs/ApiRtkServices/apiRtkClient";
 
 import ENDPOINT from "@/constant/endpoint.const";
-import type { ApiRentalTransaction, OrderCreatePayload, OrderCreateResponse, OrderDetailResponse, OrderListParams, OrderListResponse, ProjectOrderCreatePayload, QuoteData } from "@/modules/order/Order.type";
+import type { ApiEnvelope } from "@/types/api.type";
+import type { ApiRentalTransaction, OrderCreatePayload, OrderCreateResponse, OrderDetailResponse, OrderListParams, OrderListResponse, OrderType, ProjectOrderCreatePayload, QuoteData } from "@/modules/order/Order.type";
 
 const ORDER_TAG = "Order";
 
@@ -51,6 +52,10 @@ export const orderService = apiRtkClient.injectEndpoints({
       }),
       providesTags: [ORDER_TAG],
     }),
+    getAllOrderTypes: builder.query<ApiEnvelope<OrderType[]>, void>({
+      query: () => ({ url: ENDPOINT.ORDER.TYPES, method: "GET" }),
+      providesTags: [ORDER_TAG],
+    }),
     createOrder: builder.mutation<OrderCreateResponse, OrderCreatePayload>({
       query: (body) => ({ url: ENDPOINT.ORDER.CREATE, method: "POST", data: body }),
       invalidatesTags: [ORDER_TAG],
@@ -63,5 +68,5 @@ export const orderService = apiRtkClient.injectEndpoints({
   overrideExisting: false,
 });
 
-export const { useGetOrdersQuery, useGetOrderByIdQuery, useCreateOrderMutation, useCreateProjectOrderMutation } = orderService;
+export const { useGetOrdersQuery, useGetOrderByIdQuery, useGetAllOrderTypesQuery, useCreateOrderMutation, useCreateProjectOrderMutation } = orderService;
 export { mapOrder };

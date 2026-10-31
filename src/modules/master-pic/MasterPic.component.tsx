@@ -172,12 +172,11 @@ const _renderDesktop = (props: MasterPicProps): React.ReactElement => {
  * @returns {React.ReactElement} Page element
  */
 export const MasterPicComponent = (props: MasterPicProps): React.ReactElement => {
-  const { onBack, onCreate } = props;
-  const createButton = <button type="button" onClick={onCreate} className="h-14 rounded-full border-2 border-brand-blue bg-background-surface px-6 text-sm font-bold text-brand-blue transition-colors hover:bg-action-primary-subtle focus:outline-none focus:ring-2 focus:ring-focus-ring/30">Create New</button>;
+  const { onBack } = props;
 
   return (
     <Layout pageTitle="PIC List" mobileWhiteBackground={true}>
-      <PageLayout title="PIC List" breadcrumbs={["Master", "Master PIC"]} headerRight={createButton} mobileHeaderClassName="px-0" mobileTitleClassName="text-4xl" onBack={onBack}>
+      <PageLayout title="PIC List" breadcrumbs={["Master", "Master PIC"]} mobileHeaderClassName="px-0" mobileTitleClassName="text-4xl" onBack={onBack}>
         <div className="relative flex h-full flex-col bg-background-surface px-0 pb-18 lg:-mt-4 lg:bg-transparent lg:px-0 lg:pb-0">
           {_renderMobile(props)}
           {_renderDesktop(props)}

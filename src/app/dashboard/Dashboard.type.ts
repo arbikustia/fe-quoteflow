@@ -1,4 +1,4 @@
-export type DashboardRoute = "/order" | "/return" | "/document" | "/document/quotation" | "/master-main" | "/master-voucher" | "/report";
+export type DashboardRoute = "/order" | "/order/create" | "/return" | "/document" | "/document/quotation" | "/master-main" | "/master-voucher" | "/report";
 
 export type DashboardOrder = {
   id: string;
@@ -27,6 +27,35 @@ export type DashboardMenuItem = {
 export type DashboardAssets = {
   isLoading: boolean;
   voucherCount: number | null;
+};
+
+export type DashboardOverview = {
+  isLoading: boolean;
+  quotationCount: number;
+  invoiceCount: number;
+  paymentCount: number;
+  voucherCount: number;
+  quotationValue: number;
+  invoiceValue: number;
+  paymentValue: number;
+};
+
+export type DashboardMetric = {
+  label: string;
+  count: number;
+  value: number;
+  colorClassName: string;
+};
+
+export type DashboardTrendDatum = {
+  label: string;
+  quotation: number;
+  invoice: number;
+  payment: number;
+};
+
+export type DashboardOverviewState = DashboardOverview & {
+  trend: DashboardTrendDatum[];
 };
 
 export type DashboardVoucherState = {

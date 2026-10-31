@@ -117,13 +117,13 @@ const onBack = (): void => { void navigate(-1); };
  * @param {QuotationData} quotation - quotation value.
  * @returns {void} - result.
  */
-const onEdit = (quotation: QuotationData): void => { void navigate(`/order/edit/${quotation.transactionId}`); };
+const onEdit = (quotation: QuotationData): void => { void navigate(`/document/quotation/${quotation.id}`); };
   /**
  * onStatus.
  * @param {QuotationData} quotation - quotation value.
  * @returns {void} - result.
  */
-const onStatus = (quotation: QuotationData): void => { void navigate(`/document/quotation/${quotation.id}/status`); };
+const onStatus = (quotation: QuotationData): void => { void navigate(`/document/quotation/${quotation.id}`); };
   /**
  * onDetail.
  * @param {QuotationData} quotation - quotation value.

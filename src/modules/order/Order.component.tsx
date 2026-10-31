@@ -126,13 +126,15 @@ const _renderDesktopTable = (props: OrderProps, handleSearchChange: (event: Reac
     <div className="hidden rounded-4xl border border-border-default bg-background-surface px-6 shadow-xs md:mt-6 md:flex md:flex-1 md:flex-col md:overflow-hidden lg:flex">
       <div className="flex items-center justify-between gap-4 border-brand-gray-light py-6">
         <SearchFilter placeholder="Search order" onChange={handleSearchChange} />
-        <button
-          type="button"
-          onClick={props.openCreateModal}
-          className="h-14 rounded-xl bg-brand-blue px-6 text-sm font-semibold text-brand-white shadow-sm transition-colors hover:bg-brand-blue/90 focus:outline-none focus:ring-2 focus:ring-brand-blue/30"
-        >
-          Create Order
-        </button>
+        {props.canCreateOrder && (
+          <button
+            type="button"
+            onClick={props.openCreateModal}
+            className="h-14 rounded-xl bg-brand-blue px-6 text-sm font-semibold text-brand-white shadow-sm transition-colors hover:bg-brand-blue/90 focus:outline-none focus:ring-2 focus:ring-brand-blue/30"
+          >
+            Create Order
+          </button>
+        )}
       </div>
       <div className="flex-1 overflow-auto">
         {_renderListState(props) ?? (
@@ -213,7 +215,7 @@ export const OrderComponent = (props: OrderProps): React.ReactElement => {
       <PageLayout
         title="Order List"
         breadcrumbs={["Order", "Order List"]}
-        headerRight={createButton}
+        headerRight={props.canCreateOrder ? createButton : undefined}
         mobileHeaderClassName="px-0"
         mobileTitleClassName="text-4xl"
         onBack={props.onBack}

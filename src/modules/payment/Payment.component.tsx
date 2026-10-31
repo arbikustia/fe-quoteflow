@@ -94,11 +94,10 @@ const _renderMobileCards = (props: PaymentProps, listState: React.ReactElement |
 export const PaymentComponent = (props: PaymentProps): React.ReactElement => {
   const columns = _getColumns(props);
   const listState = _renderListState(props, columns);
-  const createButton = <button type="button" onClick={props.onCreate} className="h-14 rounded-full border-2 border-action-primary bg-background-surface px-6 text-sm font-bold text-action-primary transition-colors hover:bg-action-primary-subtle focus:outline-none focus:ring-2 focus:ring-focus-ring/30">Create New</button>;
 
   return (
     <Layout pageTitle="Payment List" mobileWhiteBackground={true}>
-      <PageLayout title="Payment List" breadcrumbs={["Document", "Payment"]} headerRight={createButton} mobileHeaderClassName="px-0" onBack={props.onBack}>
+      <PageLayout title="Payment List" breadcrumbs={["Document", "Payment"]} mobileHeaderClassName="px-0" onBack={props.onBack}>
         <div className="relative flex h-full flex-col bg-background-surface px-0 pb-18 lg:-mt-4 lg:bg-transparent lg:pb-0">
           {_renderMobileCards(props, listState)}
           <div className="hidden rounded-4xl border border-border-default bg-background-surface px-6 shadow-xs md:mt-6 md:flex md:flex-1 md:flex-col md:overflow-hidden lg:flex">

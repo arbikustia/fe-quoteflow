@@ -120,6 +120,10 @@ export type QuotationUpdateRequest = {
   payload: QuotationUpdatePayload;
 };
 
+export type QuotationApproveRequest = {
+  id: string;
+};
+
 export type QuotationData = {
   id: string;
   transactionId: string;
@@ -177,9 +181,13 @@ export type QuotationDetailResponse = {
 export type QuotationDetailState = {
   quotation: ApiQuotation | null;
   isLoading: boolean;
+  isApproving: boolean;
+  isConfirmOpen: boolean;
   errorMessage: string | null;
   goBack: () => void;
-  goEdit: () => void;
+  openApproveModal: () => void;
+  closeApproveModal: () => void;
+  handleApprove: () => Promise<void>;
 };
 
 

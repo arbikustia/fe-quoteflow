@@ -7,7 +7,7 @@ import ReturnMenuIcon from "../../assets/icon-return-menu.png";
 import type { DashboardMenuItem } from "./Dashboard.type";
 
 export const DASHBOARD_MENU_ITEMS: DashboardMenuItem[] = [
-  { route: "/order", label: "Order", icon: OrderMenuIcon, backgroundClassName: "bg-action-primary-subtle" },
+  { route: "/order/create", label: "Create Order", icon: OrderMenuIcon, backgroundClassName: "bg-action-primary-subtle" },
   { route: "/return", label: "Return", icon: ReturnMenuIcon, backgroundClassName: "bg-action-primary-subtle" },
   { route: "/document", label: "Document", icon: DocumentMenuIcon, backgroundClassName: "bg-background-subtle" },
   { route: "/master-main", label: "Master Data", icon: MasterDataMenuIcon, backgroundClassName: "bg-background-subtle" },

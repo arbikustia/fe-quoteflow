@@ -6,7 +6,7 @@ import type { QuotationStatusFormProps } from "./QuotationStatus.type";
 
 const createProps = (overrides?: Partial<QuotationStatusFormProps>): QuotationStatusFormProps => ({
   quotationNumber: "QUO-001",
-  isActive: true,
+  isApproved: true,
   isLoading: false,
   isSubmitting: false,
   errorMessage: null,
@@ -21,8 +21,8 @@ describe("QuotationStatusForm", () => {
     render(<QuotationStatusForm {...createProps()} />);
 
     expect(screen.getByText("QUO-001")).toBeTruthy();
-    expect(screen.getByRole("switch", { name: "Quotation status" }).getAttribute("aria-checked")).toBe("true");
-    expect(screen.getByRole("button", { name: "Update Status" })).toBeTruthy();
+    expect(screen.getByRole("switch", { name: "Approve this quotation" }).getAttribute("aria-checked")).toBe("true");
+    expect(screen.getByRole("button", { name: "Approve Quotation" })).toBeTruthy();
   });
 
   it("should change status without submitting automatically", (): void => {
@@ -30,7 +30,7 @@ describe("QuotationStatusForm", () => {
     const handleSubmit = jest.fn(async (): Promise<void> => undefined);
 
     render(<QuotationStatusForm {...createProps({ handleStatusChange, handleSubmit })} />);
-    fireEvent.click(screen.getByRole("switch", { name: "Quotation status" }));
+    fireEvent.click(screen.getByRole("switch", { name: "Approve this quotation" }));
 
     expect(handleStatusChange).toHaveBeenCalledWith(false, expect.anything());
     expect(handleSubmit).not.toHaveBeenCalled();

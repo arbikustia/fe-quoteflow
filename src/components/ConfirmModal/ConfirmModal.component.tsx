@@ -1,4 +1,5 @@
 import * as React from "react";
+import { createPortal } from "react-dom";
 import { FiAlertTriangle } from "react-icons/fi";
 
 import type { ConfirmModalProps } from "./ConfirmModal.type";
@@ -69,13 +70,14 @@ export const ConfirmModalComponent = (props: ConfirmModalProps): React.ReactElem
     return null;
   }
 
-  return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-overlay p-4 sm:p-6">
+  return createPortal(
+    <div className="fixed inset-0 z-[100] flex items-center justify-center bg-neutral-950/75 p-4 backdrop-blur-xs sm:p-6">
       <button type="button" aria-label="Close confirmation modal" className="absolute inset-0 cursor-default" onClick={onClose} />
       <div role="alertdialog" aria-modal="true" aria-labelledby="confirm-modal-title" aria-describedby="confirm-modal-message" className="relative flex w-full max-w-md flex-col overflow-hidden rounded-xl border border-border-default bg-background-surface shadow-medium">
         {_renderMessage(props)}
         {_renderActions(props, handleConfirm)}
       </div>
-    </div>
+    </div>,
+    document.body,
   );
 };

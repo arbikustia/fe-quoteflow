@@ -28,7 +28,7 @@ export const Select = (props: SelectProps): ReactElement => {
 
   return (
     <div className={`relative ${className}`}>
-      <label htmlFor={id} className={`mb-1.5 block text-xs font-bold uppercase tracking-wider text-text-secondary ${labelClassName}`}>
+      <label htmlFor={id} className={`mb-1.5 block text-sm font-semibold text-text-secondary ${labelClassName}`}>
         {label}
         {required && <span aria-hidden="true" className="ml-1 text-danger">*</span>}
       </label>
@@ -40,11 +40,15 @@ export const Select = (props: SelectProps): ReactElement => {
         aria-describedby={errorMessage ? errorId : undefined}
         value={value === "" ? undefined : value}
         options={_getOptions(options)}
+        showSearch
+        optionFilterProp="label"
+        filterOption={(input, option): boolean => String(option?.label ?? "").toLowerCase().includes(input.toLowerCase())}
         placeholder={placeholder}
         onChange={handleChange}
         disabled={disabled}
         status={errorMessage ? "error" : undefined}
-        className={`h-14 w-full [&_.ant-select-content]:!text-xl [&_.ant-select-content]:!font-normal ${selectClassName}`}
+        className={`h-14 w-full [&_.ant-select-selector]:!rounded-2xl [&_.ant-select-content]:!text-xl [&_.ant-select-content]:!font-normal ${selectClassName}`}
+        style={{ "--ant-select-border-radius": "16px" } as React.CSSProperties}
         classNames={{ popup: { root: popupClassName } }}
         virtual={false}
       />

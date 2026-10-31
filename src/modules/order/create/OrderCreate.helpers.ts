@@ -14,10 +14,11 @@ export const getPreviousOrderStep = (step: number): number => Math.max(step - 1,
 
 /**
  * Handle module operation.
- * @param {{ customer_id: string; customer_name: string; customer_phone: string; pic_id: string; service_type_id: string; service_fee: number; event_name: string; start_at: string; end_at: string }} form - form value
+ * @param {{ customer_id: string; customer_name: string; customer_phone: string; pic_id: string; service_type_id: string; order_type_id: string; handover_type: string; handover_name: string; event_name: string; start_at: string; end_at: string }} form - form value
+ * @param {boolean} isHandover - Whether handover fields are required
  * @returns {boolean} - Operation result
  */
-export const isOrderInformationValid = (form: { customer_id: string; customer_name: string; customer_phone: string; pic_id: string; service_type_id: string; service_fee: number; event_name: string; start_at: string; end_at: string }): boolean => Boolean(form.customer_id.trim() && form.customer_name.trim() && form.customer_phone.trim() && form.pic_id.trim() && form.service_type_id.trim() && form.service_fee > 0 && form.event_name.trim() && form.start_at.trim() && form.end_at.trim());
+export const isOrderInformationValid = (form: { customer_id: string; customer_name: string; customer_phone: string; pic_id: string; service_type_id: string; order_type_id: string; handover_type: string; handover_name: string; event_name: string; start_at: string; end_at: string }, isHandover = false): boolean => Boolean(form.customer_id.trim() && form.customer_name.trim() && form.customer_phone.trim() && form.pic_id.trim() && form.service_type_id.trim() && form.order_type_id.trim() && form.event_name.trim() && form.start_at.trim() && form.end_at.trim() && (!isHandover || (form.handover_type.trim() && form.handover_name.trim())));
 
 /**
  * Handle module operation.

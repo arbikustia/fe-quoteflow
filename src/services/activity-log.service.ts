@@ -13,8 +13,19 @@ export const mapActivityLog = (activityLog: ApiActivityLog): ActivityLogData => 
   createdAt: activityLog.created_at,
 });
 
+export type ActivityLogPayload = {
+  user_name: string;
+  action: "create" | "edit" | "delete" | "view";
+  page: string;
+  description: string;
+};
+
 export const activityLogService = apiRtkClient.injectEndpoints({
   endpoints: (builder) => ({
+    createActivityLog: builder.mutation<{ status: boolean }, ActivityLogPayload>({
+      query: (body) => ({ url: ENDPOINT.ACTIVITY_LOG.CREATE, method: "POST", data: body }),
+      invalidatesTags: ["ActivityLog"],
+    }),
     getActivityLogs: builder.query<ActivityLogListResponse, ActivityLogListParams>({
       query: (params) => ({
         url: ENDPOINT.ACTIVITY_LOG.PAGED,
@@ -26,4 +37,4 @@ export const activityLogService = apiRtkClient.injectEndpoints({
   overrideExisting: false,
 });
 
-export const { useGetActivityLogsQuery } = activityLogService;
+export const { useCreateActivityLogMutation, useGetActivityLogsQuery } = activityLogService;

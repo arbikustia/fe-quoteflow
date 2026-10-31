@@ -1,21 +1,13 @@
+const INDONESIAN_MONTHS = ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"];
+
 /**
- * Format a Date object to DD-MM-YYYY HH:mm:ss string.
+ * Format Date to Indonesian long date and 24-hour time.
  * @param {Date} date - Date instance to format
  * @returns {string} Formatted date string
  */
 export const formatRealtimeClock = (date: Date): string => {
-  /**
-   * Pad clock component with leading zero.
-   * @param {number} num - Clock component
-   * @returns {string} Padded component
-   */
-  const pad = (num: number): string => num.toString().padStart(2, "0");
-  const day = pad(date.getDate());
-  const month = pad(date.getMonth() + 1);
-  const year = date.getFullYear().toString();
-  const hours = pad(date.getHours());
-  const minutes = pad(date.getMinutes());
-  const seconds = pad(date.getSeconds());
+  const hours = String(date.getHours()).padStart(2, "0");
+  const minutes = String(date.getMinutes()).padStart(2, "0");
 
-  return `${day}-${month}-${year} ${hours}:${minutes}:${seconds}`;
+  return `${date.getDate()} ${INDONESIAN_MONTHS[date.getMonth()]} ${date.getFullYear()} ${hours}:${minutes}`;
 };

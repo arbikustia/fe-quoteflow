@@ -383,22 +383,11 @@ const _renderDesktop = (props: MasterItemProps): ReactElement => {
  * @returns {ReactElement} Component element
  */
 export const MasterItemComponent = (props: MasterItemProps): ReactElement => {
-  const createButton = (
-    <button
-      type="button"
-      onClick={props.onCreate}
-      className="h-14 rounded-full border-2 border-brand-blue bg-background-surface px-6 text-sm font-bold text-brand-blue transition-colors hover:bg-action-primary-subtle focus:outline-none focus:ring-2 focus:ring-focus-ring/30"
-    >
-      Create New
-    </button>
-  );
-
   return (
     <Layout pageTitle="Item List" mobileWhiteBackground={true}>
       <PageLayout
         title="Item List"
         breadcrumbs={["Master", "Master Item"]}
-        headerRight={createButton}
         mobileHeaderClassName="px-0"
         mobileTitleClassName="text-4xl"
         onBack={props.onBack}

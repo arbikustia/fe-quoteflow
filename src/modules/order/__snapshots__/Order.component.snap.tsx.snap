@@ -23,7 +23,7 @@ exports[`OrderComponent Snapshots Should Render OrderComponent with empty data 1
           />
         </div>
         <div
-          class="flex-1 overflow-y-auto overflow-x-hidden px-4 space-y-5 scrollbar-thin"
+          class="min-h-0 flex-1 overflow-y-auto overflow-x-hidden pb-6 px-4 space-y-5 scrollbar-thin"
         >
           <div>
             <p
@@ -36,48 +36,97 @@ exports[`OrderComponent Snapshots Should Render OrderComponent with empty data 1
               class="space-y-1"
             >
               <a
-                class="h-9 flex items-center gap-3 rounded-[6px] px-3 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring/30 text-text-secondary hover:bg-background-elevated hover:text-text-primary"
+                class="min-h-14 flex items-center gap-3 rounded-[8px] px-4 py-3 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring/30 text-text-secondary hover:bg-background-elevated hover:text-text-primary"
                 data-discover="true"
-                href="/order"
+                href="/home"
               >
                 <span
                   class="shrink-0 [&_svg]:h-5 [&_svg]:w-5 text-text-tertiary"
                 >
                   <svg
                     fill="none"
-                    height="20"
+                    height="1em"
                     stroke="currentColor"
                     stroke-linecap="round"
                     stroke-linejoin="round"
-                    stroke-width="1.8"
+                    stroke-width="2"
                     viewBox="0 0 24 24"
-                    width="20"
+                    width="1em"
                     xmlns="http://www.w3.org/2000/svg"
                   >
-                    <path
-                      d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"
+                    <rect
+                      height="9"
+                      rx="1"
+                      width="7"
+                      x="3"
+                      y="3"
                     />
-                    <polyline
-                      points="14 2 14 8 20 8"
+                    <rect
+                      height="5"
+                      rx="1"
+                      width="7"
+                      x="14"
+                      y="3"
                     />
-                    <line
-                      x1="16"
-                      x2="8"
-                      y1="13"
-                      y2="13"
+                    <rect
+                      height="9"
+                      rx="1"
+                      width="7"
+                      x="14"
+                      y="12"
                     />
-                    <line
-                      x1="16"
-                      x2="8"
-                      y1="17"
-                      y2="17"
+                    <rect
+                      height="5"
+                      rx="1"
+                      width="7"
+                      x="3"
+                      y="16"
                     />
                   </svg>
                 </span>
                 <span
-                  class="flex-1 truncate text-lg leading-none font-normal"
+                  class="flex-1 truncate text-xl leading-none font-normal"
                 >
-                  Order
+                  Dashboard
+                </span>
+              </a>
+              <a
+                class="min-h-14 flex items-center gap-3 rounded-[8px] px-4 py-3 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring/30 text-text-secondary hover:bg-background-elevated hover:text-text-primary"
+                data-discover="true"
+                href="/order/create"
+              >
+                <span
+                  class="shrink-0 [&_svg]:h-5 [&_svg]:w-5 text-text-tertiary"
+                >
+                  <svg
+                    fill="none"
+                    height="1em"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    viewBox="0 0 24 24"
+                    width="1em"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M4 22h14a2 2 0 0 0 2-2V7l-5-5H6a2 2 0 0 0-2 2v4"
+                    />
+                    <path
+                      d="M14 2v4a2 2 0 0 0 2 2h4"
+                    />
+                    <path
+                      d="M3 15h6"
+                    />
+                    <path
+                      d="M6 12v6"
+                    />
+                  </svg>
+                </span>
+                <span
+                  class="flex-1 truncate text-xl leading-none font-normal"
+                >
+                  Create Order
                 </span>
               </a>
               <div>
@@ -91,32 +140,29 @@ exports[`OrderComponent Snapshots Should Render OrderComponent with empty data 1
                   >
                     <svg
                       fill="none"
-                      height="20"
+                      height="1em"
                       stroke="currentColor"
                       stroke-linecap="round"
                       stroke-linejoin="round"
-                      stroke-width="1.8"
+                      stroke-width="2"
                       viewBox="0 0 24 24"
-                      width="20"
+                      width="1em"
                       xmlns="http://www.w3.org/2000/svg"
                     >
                       <path
-                        d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"
+                        d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"
                       />
-                      <polyline
-                        points="14 2 14 8 20 8"
+                      <path
+                        d="M14 2v4a2 2 0 0 0 2 2h4"
                       />
-                      <line
-                        x1="16"
-                        x2="8"
-                        y1="13"
-                        y2="13"
+                      <path
+                        d="M10 9H8"
                       />
-                      <line
-                        x1="16"
-                        x2="8"
-                        y1="17"
-                        y2="17"
+                      <path
+                        d="M16 13H8"
+                      />
+                      <path
+                        d="M16 17H8"
                       />
                     </svg>
                   </span>
@@ -124,6 +170,200 @@ exports[`OrderComponent Snapshots Should Render OrderComponent with empty data 1
                     class="flex-1 truncate text-xl leading-none font-normal"
                   >
                     Document
+                  </span>
+                  <span
+                    class="shrink-0 text-text-tertiary transition-transform duration-200 "
+                  >
+                    <svg
+                      fill="none"
+                      height="14"
+                      stroke="currentColor"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      viewBox="0 0 24 24"
+                      width="14"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="m6 9 6 6 6-6"
+                      />
+                    </svg>
+                  </span>
+                </button>
+              </div>
+              <a
+                class="min-h-14 flex items-center gap-3 rounded-[8px] px-4 py-3 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring/30 text-text-secondary hover:bg-background-elevated hover:text-text-primary"
+                data-discover="true"
+                href="/document/item-checklist"
+              >
+                <span
+                  class="shrink-0 [&_svg]:h-5 [&_svg]:w-5 text-text-tertiary"
+                >
+                  <svg
+                    fill="none"
+                    height="1em"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    viewBox="0 0 24 24"
+                    width="1em"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <rect
+                      height="18"
+                      rx="2"
+                      width="18"
+                      x="3"
+                      y="3"
+                    />
+                    <path
+                      d="m9 12 2 2 4-4"
+                    />
+                  </svg>
+                </span>
+                <span
+                  class="flex-1 truncate text-xl leading-none font-normal"
+                >
+                  Item Checklist
+                </span>
+              </a>
+              <a
+                class="min-h-14 flex items-center gap-3 rounded-[8px] px-4 py-3 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring/30 text-text-secondary hover:bg-background-elevated hover:text-text-primary"
+                data-discover="true"
+                href="/calendar"
+              >
+                <span
+                  class="shrink-0 [&_svg]:h-5 [&_svg]:w-5 text-text-tertiary"
+                >
+                  <svg
+                    fill="none"
+                    height="1em"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    viewBox="0 0 24 24"
+                    width="1em"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M8 2v4"
+                    />
+                    <path
+                      d="M16 2v4"
+                    />
+                    <rect
+                      height="18"
+                      rx="2"
+                      width="18"
+                      x="3"
+                      y="4"
+                    />
+                    <path
+                      d="M3 10h18"
+                    />
+                    <path
+                      d="M8 14h.01"
+                    />
+                    <path
+                      d="M12 14h.01"
+                    />
+                    <path
+                      d="M16 14h.01"
+                    />
+                    <path
+                      d="M8 18h.01"
+                    />
+                    <path
+                      d="M12 18h.01"
+                    />
+                    <path
+                      d="M16 18h.01"
+                    />
+                  </svg>
+                </span>
+                <span
+                  class="flex-1 truncate text-xl leading-none font-normal"
+                >
+                  Calendar
+                </span>
+              </a>
+              <a
+                class="min-h-14 flex items-center gap-3 rounded-[8px] px-4 py-3 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring/30 text-text-secondary hover:bg-background-elevated hover:text-text-primary"
+                data-discover="true"
+                href="/activity-log"
+              >
+                <span
+                  class="shrink-0 [&_svg]:h-5 [&_svg]:w-5 text-text-tertiary"
+                >
+                  <svg
+                    fill="none"
+                    height="1em"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    viewBox="0 0 24 24"
+                    width="1em"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M22 12h-2.48a2 2 0 0 0-1.93 1.46l-2.35 8.36a.25.25 0 0 1-.48 0L9.24 2.18a.25.25 0 0 0-.48 0l-2.35 8.36A2 2 0 0 1 4.49 12H2"
+                    />
+                  </svg>
+                </span>
+                <span
+                  class="flex-1 truncate text-xl leading-none font-normal"
+                >
+                  Activity Log
+                </span>
+              </a>
+              <div>
+                <button
+                  aria-expanded="false"
+                  class="w-full min-h-14 py-3 flex items-center gap-3 rounded-[8px] px-4 text-left transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring/30 text-text-secondary hover:bg-background-elevated hover:text-text-primary"
+                  type="button"
+                >
+                  <span
+                    class="shrink-0 [&_svg]:h-5 [&_svg]:w-5 text-text-tertiary"
+                  >
+                    <svg
+                      fill="none"
+                      height="1em"
+                      stroke="currentColor"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      viewBox="0 0 24 24"
+                      width="1em"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M12 16v5"
+                      />
+                      <path
+                        d="M16 14v7"
+                      />
+                      <path
+                        d="M20 10v11"
+                      />
+                      <path
+                        d="m22 3-8.646 8.646a.5.5 0 0 1-.708 0L9.354 8.354a.5.5 0 0 0-.707 0L2 15"
+                      />
+                      <path
+                        d="M4 18v3"
+                      />
+                      <path
+                        d="M8 14v7"
+                      />
+                    </svg>
+                  </span>
+                  <span
+                    class="flex-1 truncate text-xl leading-none font-normal"
+                  >
+                    Report
                   </span>
                   <span
                     class="shrink-0 text-text-tertiary transition-transform duration-200 "
@@ -157,26 +397,26 @@ exports[`OrderComponent Snapshots Should Render OrderComponent with empty data 1
                   >
                     <svg
                       fill="none"
-                      height="20"
+                      height="1em"
                       stroke="currentColor"
                       stroke-linecap="round"
                       stroke-linejoin="round"
-                      stroke-width="1.8"
+                      stroke-width="2"
                       viewBox="0 0 24 24"
-                      width="20"
+                      width="1em"
                       xmlns="http://www.w3.org/2000/svg"
                     >
-                      <ellipse
-                        cx="12"
-                        cy="5"
-                        rx="9"
-                        ry="3"
+                      <path
+                        d="M11 21.73a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73z"
                       />
                       <path
-                        d="M3 5V19A9 3 0 0 0 21 19V5"
+                        d="M12 22V12"
                       />
                       <path
-                        d="M3 12A9 3 0 0 0 21 12"
+                        d="m3.3 7 7.703 4.734a2 2 0 0 0 1.994 0L20.7 7"
+                      />
+                      <path
+                        d="m7.5 4.27 9 5.15"
                       />
                     </svg>
                   </span>
@@ -215,13 +455,13 @@ exports[`OrderComponent Snapshots Should Render OrderComponent with empty data 1
           <button
             aria-checked="false"
             aria-label="Toggle dark theme"
-            class="mb-2 flex h-9 w-full items-center rounded-[8px] bg-background-subtle text-text-secondary transition-colors hover:bg-action-primary-subtle focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring gap-3 px-3"
+            class="mb-2 flex min-h-12 w-full cursor-pointer items-center rounded-[8px] bg-background-subtle text-text-secondary transition-colors hover:bg-action-primary-subtle focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring gap-3 px-4 py-3"
             role="switch"
             type="button"
           >
             <span
               aria-hidden="true"
-              class="shrink-0"
+              class="shrink-0 [&_svg]:h-5 [&_svg]:w-5"
             >
               <svg
                 fill="none"
@@ -240,19 +480,19 @@ exports[`OrderComponent Snapshots Should Render OrderComponent with empty data 1
               </svg>
             </span>
             <span
-              class="flex-1 text-left text-[13px] font-medium"
+              class="flex-1 text-left text-xl font-medium"
             >
               Dark theme
             </span>
           </button>
           <button
             aria-label="Log out"
-            class="mb-2 flex h-9 w-full items-center rounded-[8px] text-danger-strong transition-colors hover:bg-danger-subtle focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring gap-3 px-3"
+            class="mb-2 flex min-h-12 w-full cursor-pointer items-center rounded-[8px] bg-danger-subtle text-danger-strong transition-colors hover:bg-danger/20 focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring gap-3 px-4 py-3"
             type="button"
           >
             <span
               aria-hidden="true"
-              class="shrink-0"
+              class="shrink-0 [&_svg]:h-5 [&_svg]:w-5"
             >
               <svg
                 fill="none"
@@ -280,7 +520,7 @@ exports[`OrderComponent Snapshots Should Render OrderComponent with empty data 1
               </svg>
             </span>
             <span
-              class="flex-1 text-left text-[13px] font-medium"
+              class="flex-1 text-left text-xl font-medium"
             >
               Log out
             </span>
@@ -288,12 +528,12 @@ exports[`OrderComponent Snapshots Should Render OrderComponent with empty data 1
           <button
             aria-expanded="false"
             aria-haspopup="menu"
-            class="w-full flex items-center rounded-[10px] transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring/30 hover:bg-background-elevated gap-3 p-2"
+            class="flex w-full cursor-pointer items-center rounded-[10px] transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring/30 hover:bg-background-elevated gap-3 px-4 py-3"
             type="button"
           >
             <span
               aria-hidden="true"
-              class="w-8 h-8 rounded-full bg-action-primary-subtle text-action-primary flex items-center justify-center text-[12px] font-semibold shrink-0"
+              class="w-10 h-10 rounded-full bg-action-primary-subtle text-action-primary flex items-center justify-center text-sm font-semibold shrink-0"
             >
               US
             </span>
@@ -301,13 +541,13 @@ exports[`OrderComponent Snapshots Should Render OrderComponent with empty data 1
               class="flex-1 min-w-0 text-left"
             >
               <span
-                class="block truncate text-[13px] font-semibold leading-4 text-text-primary"
+                class="block truncate text-xl font-semibold leading-tight text-text-primary"
               >
                 User
               </span>
             </span>
             <span
-              class="shrink-0 text-text-tertiary transition-transform duration-200 "
+              class="shrink-0 text-text-tertiary transition-transform duration-200 [&_svg]:h-5 [&_svg]:w-5 "
             >
               <svg
                 fill="none"
@@ -332,30 +572,6 @@ exports[`OrderComponent Snapshots Should Render OrderComponent with empty data 1
     <div
       class="flex-1 flex flex-col min-w-0 min-h-0 overflow-hidden relative transition-colors duration-200 bg-background-page bg-background-surface lg:bg-background-page"
     >
-      <div
-        class="lg:hidden shrink-0"
-      >
-        <div
-          class="flex items-center justify-between bg-background-surface px-6 pt-5"
-        >
-          <div
-            class="flex items-center gap-4"
-          >
-            <div
-              class="w-52 h-14"
-            >
-              <img
-                alt="Logo"
-                class="w-full h-full object-cover"
-                src="/src/assets/Sonicline.png"
-              />
-            </div>
-          </div>
-          <div
-            class="flex items-center gap-3"
-          />
-        </div>
-      </div>
       <div
         class="hidden lg:block shrink-0"
       >
@@ -486,6 +702,16 @@ exports[`OrderComponent Snapshots Should Render OrderComponent with empty data 1
                   Order List
                 </h1>
               </div>
+              <div
+                class="flex shrink-0 items-center gap-3"
+              >
+                <button
+                  class="h-14 rounded-full border-2 border-brand-blue bg-background-surface px-6 text-lg font-bold text-brand-blue transition-colors hover:bg-action-primary-subtle focus:outline-none focus:ring-2 focus:ring-focus-ring/30"
+                  type="button"
+                >
+                  Create
+                </button>
+              </div>
             </div>
             <div
               class="flex items-center justify-between gap-3 lg:hidden px-0"
@@ -523,10 +749,10 @@ exports[`OrderComponent Snapshots Should Render OrderComponent with empty data 1
                 class="shrink-0"
               >
                 <button
-                  class="h-14 rounded-full border-2 border-brand-blue bg-background-surface px-6 text-sm font-bold text-brand-blue transition-colors hover:bg-action-primary-subtle focus:outline-none focus:ring-2 focus:ring-focus-ring/30"
+                  class="h-14 rounded-full border-2 border-brand-blue bg-background-surface px-6 text-lg font-bold text-brand-blue transition-colors hover:bg-action-primary-subtle focus:outline-none focus:ring-2 focus:ring-focus-ring/30"
                   type="button"
                 >
-                  Create New
+                  Create
                 </button>
               </div>
             </div>
@@ -541,7 +767,7 @@ exports[`OrderComponent Snapshots Should Render OrderComponent with empty data 1
                 class="flex min-w-0 flex-col gap-4 pb-16 pt-2 lg:hidden"
               >
                 <label
-                  class="relative block w-full sm:w-72 w-full sm:w-full"
+                  class="relative block w-full sm:w-72 w-full sm:w-full [&_svg]:h-7 [&_svg]:w-7"
                 >
                   <span
                     class="sr-only"
@@ -575,7 +801,7 @@ exports[`OrderComponent Snapshots Should Render OrderComponent with empty data 1
                   </svg>
                   <input
                     aria-label="Search order"
-                    class="h-14 w-full rounded-full border border-border-default bg-background-surface pl-12 pr-4 text-base font-medium text-text-primary outline-none transition-colors placeholder:font-normal placeholder:text-text-tertiary hover:border-border-strong focus:border-border-focus focus:ring-2 focus:ring-focus-ring/30 text-lg placeholder:text-lg"
+                    class="h-14 w-full rounded-full border border-border-default bg-background-surface pl-12 pr-4 text-base font-medium text-text-primary outline-none transition-colors placeholder:font-normal placeholder:text-text-tertiary hover:border-border-strong focus:border-border-focus focus:ring-2 focus:ring-focus-ring/30 h-16 pl-14 text-xl placeholder:text-xl lg:h-14"
                     placeholder="Search order"
                     type="search"
                   />
@@ -609,7 +835,8 @@ exports[`OrderComponent Snapshots Should Render OrderComponent with empty data 1
                           Documents per page
                         </label>
                         <div
-                          class="ant-select ant-select-outlined h-14 w-full [&_.ant-select-content]:!text-xl [&_.ant-select-content]:!font-normal  css-var-root ant-select-css-var css-dev-only-do-not-override-eofgey ant-select-single ant-select-show-arrow"
+                          class="ant-select ant-select-outlined h-14 w-full [&_.ant-select-selector]:!rounded-2xl [&_.ant-select-content]:!text-xl [&_.ant-select-content]:!font-normal  css-var-root ant-select-css-var css-dev-only-do-not-override-eofgey ant-select-single ant-select-show-arrow ant-select-show-search"
+                          style="--ant-select-border-radius: 16px;"
                         >
                           <div
                             class="ant-select-content ant-select-content-has-value"
@@ -625,7 +852,6 @@ exports[`OrderComponent Snapshots Should Render OrderComponent with empty data 1
                               autocomplete="new-password"
                               class="ant-select-input"
                               id="documents-per-page"
-                              readonly=""
                               role="combobox"
                               type="text"
                               value=""
@@ -817,7 +1043,8 @@ exports[`OrderComponent Snapshots Should Render OrderComponent with empty data 1
                           Documents per page
                         </label>
                         <div
-                          class="ant-select ant-select-outlined h-14 w-full [&_.ant-select-content]:!text-xl [&_.ant-select-content]:!font-normal  css-var-root ant-select-css-var css-dev-only-do-not-override-eofgey ant-select-single ant-select-show-arrow"
+                          class="ant-select ant-select-outlined h-14 w-full [&_.ant-select-selector]:!rounded-2xl [&_.ant-select-content]:!text-xl [&_.ant-select-content]:!font-normal  css-var-root ant-select-css-var css-dev-only-do-not-override-eofgey ant-select-single ant-select-show-arrow ant-select-show-search"
+                          style="--ant-select-border-radius: 16px;"
                         >
                           <div
                             class="ant-select-content ant-select-content-has-value"
@@ -833,7 +1060,6 @@ exports[`OrderComponent Snapshots Should Render OrderComponent with empty data 1
                               autocomplete="new-password"
                               class="ant-select-input"
                               id="documents-per-page"
-                              readonly=""
                               role="combobox"
                               type="text"
                               value=""

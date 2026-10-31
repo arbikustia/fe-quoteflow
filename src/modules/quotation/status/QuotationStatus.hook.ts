@@ -4,7 +4,7 @@ import { useNavigate, useParams } from "react-router-dom";
 
 import type { QuotationStatusFormProps } from "./QuotationStatus.type";
 
-import { useGetQuotationByIdQuery, useUpdateQuotationMutation } from "@/services/quotation.service";
+import { useApproveQuotationMutation, useGetQuotationByIdQuery } from "@/services/quotation.service";
 
 /**
  * Resolve quotation query error.
@@ -30,11 +30,11 @@ export const useQuotationStatusForm = (): QuotationStatusFormProps => {
   const navigate = useNavigate();
   const { id } = useParams<{ id: string }>();
   const { data, error, isLoading } = useGetQuotationByIdQuery(id ?? "", { skip: !id });
-  const [updateQuotation, { isLoading: isSubmitting }] = useUpdateQuotationMutation();
+  const [approveQuotation, { isLoading: isSubmitting }] = useApproveQuotationMutation();
   const quotation = data?.status && data.data ? data.data : null;
   const [selectedStatus, setSelectedStatus] = useState<boolean | null>(null);
   const [submissionError, setSubmissionError] = useState<string | null>(null);
-  const isActive = selectedStatus ?? quotation?.status === 1;
+  const isApproved = selectedStatus ?? quotation?.status === 3;
   const queryError = _getQueryError(id, Boolean(error), Boolean(data && (!data.status || !data.data)));
   const errorMessage = submissionError ?? queryError;
 
@@ -65,20 +65,16 @@ export const useQuotationStatusForm = (): QuotationStatusFormProps => {
       return;
     }
 
+    if (!isApproved) {
+      setSubmissionError("Approve this quotation before submitting.");
+
+      return;
+    }
+
     setSubmissionError(null);
 
     try {
-      const response = await updateQuotation({
-        id,
-        payload: {
-          transaction_id: quotation.transaction_id,
-          quotation_no: quotation.quotation_no,
-          quotation_date: quotation.quotation_date,
-          expired_at: quotation.expired_at,
-          notes: quotation.notes,
-          status: isActive ? 1 : 0,
-        },
-      }).unwrap();
+      const response = await approveQuotation({ id }).unwrap();
 
       if (!response.status) {
         setSubmissionError(response.messages.join(" ") || "Unable to update quotation status.");
@@ -86,7 +82,7 @@ export const useQuotationStatusForm = (): QuotationStatusFormProps => {
         return;
       }
 
-      void navigate("/document/quotation", { state: { successMessage: "Quotation status updated successfully." } });
+      void navigate("/document/invoice", { state: { successMessage: "Quotation approved successfully." } });
     } catch {
       setSubmissionError("Unable to update quotation status.");
     }
@@ -94,7 +90,7 @@ export const useQuotationStatusForm = (): QuotationStatusFormProps => {
 
   return {
     quotationNumber: quotation?.quotation_no ?? null,
-    isActive,
+    isApproved,
     isLoading,
     isSubmitting,
     errorMessage,

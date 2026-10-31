@@ -2,7 +2,7 @@ import type React from "react";
 import { useEffect, useRef, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
-import type { ApiRentalTransactionDetail, OrderCreatePayload, OrderItemPayload, ProjectOrderCreatePayload, ProjectOrderItemPayload } from "../../Order.type";
+import type { ApiRentalTransactionDetail, OrderCreatePayload, OrderItemPayload, OrderType, ProjectOrderCreatePayload, ProjectOrderItemPayload, RentalHandoverPayload } from "../../Order.type";
 import { calculateOrderTotals, getNextOrderStep, getPreviousOrderStep, hasSelectedOrderItem, isOrderInformationValid } from "../OrderCreate.helpers";
 import type { OrderCreateFormState, OrderCreateState, OrderItemOption, OrderProjectOption, SelectOption } from "../OrderCreate.type";
 
@@ -12,7 +12,7 @@ import { useGetAllPicsQuery } from "@/services/master-pic.service";
 import { useGetAllProjectsQuery } from "@/services/master-project.service";
 import { useGetAllServiceTypesQuery } from "@/services/master-service-type.service";
 import { useGetAllVouchersQuery } from "@/services/master-voucher.service";
-import { useCreateOrderMutation, useCreateProjectOrderMutation, useGetOrderByIdQuery } from "@/services/order.service";
+import { useCreateOrderMutation, useCreateProjectOrderMutation, useGetAllOrderTypesQuery, useGetOrderByIdQuery } from "@/services/order.service";
 
 type CustomerOption = SelectOption & { address: string; phone_number: string };
 type VoucherOption = SelectOption & { discount_percent: number };
@@ -25,6 +25,8 @@ type ActionResult = {
   onPicChange: (picId: string) => void;
   onVoucherChange: (voucherId: string) => void;
   onServiceTypeChange: (serviceTypeId: string) => void;
+  onOrderTypeChange: (orderTypeId: string) => void;
+  onHandoverTypeChange: (handoverType: string) => void;
   onProjectSelect: (index: number, projectId: string) => void;
   onItemSelect: (index: number, itemId: string) => void;
   onChange: (field: keyof OrderCreateFormState, value: string | number) => void;
@@ -34,7 +36,29 @@ type ActionResult = {
 };
 
 const EMPTY_ITEM: OrderItemPayload = { item_id: "", project_id: null, item_name: "", qty: 1, price: 0, subtotal: 0, remark: "" };
-const INITIAL_FORM: OrderCreateFormState = { customer_id: "", pic_id: "", voucher_id: "", service_type_id: "", service_type_name: "", customer_name: "", customer_phone: "", address: "", event_name: "", start_at: "", end_at: "", subtotal: 0, discount: 0, service_fee: 0, remarks: "", grand_total: 0, status: 1, rental_transaction_items: [EMPTY_ITEM] };
+
+/**
+ * Format date for date picker state.
+ * @param {Date} date - Date to format.
+ * @returns {string} Date formatted for date picker.
+ */
+const formatDatePickerValue = (date: Date): string => `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, "0")}-${String(date.getDate()).padStart(2, "0")}T${String(date.getHours()).padStart(2, "0")}:${String(date.getMinutes()).padStart(2, "0")}`;
+
+/**
+ * Build default order date range.
+ * @returns {{ start_at: string; end_at: string }} Today at 06:00 through tomorrow at 06:00.
+ */
+const getDefaultDateRange = (): { start_at: string; end_at: string } => {
+  const start = new Date();
+  start.setHours(6, 0, 0, 0);
+  const end = new Date(start);
+  end.setDate(end.getDate() + 1);
+
+  return { start_at: formatDatePickerValue(start), end_at: formatDatePickerValue(end) };
+};
+
+const DEFAULT_DATE_RANGE = getDefaultDateRange();
+const INITIAL_FORM: OrderCreateFormState = { customer_id: "", pic_id: "", voucher_id: "", service_type_id: "", order_type_id: "", handover_type: "", handover_name: "", service_type_name: "", customer_name: "", customer_phone: "", address: "", event_name: "", start_at: DEFAULT_DATE_RANGE.start_at, end_at: DEFAULT_DATE_RANGE.end_at, subtotal: 0, discount: 0, service_fee: 0, remarks: "", grand_total: 0, status: 2, rental_transaction_items: [EMPTY_ITEM] };
 
 /**
  * Build edit form defaults from order detail.
@@ -78,6 +102,9 @@ const buildEditForm = (order: ApiRentalTransactionDetail): OrderCreateFormState 
     pic_id: order.pic_id ?? order.pic?.id ?? "",
     voucher_id: order.voucher_id ?? order.voucher?.id ?? "",
     service_type_id: order.service_type_id,
+    order_type_id: order.order_type_id ?? "",
+    handover_type: "",
+    handover_name: "",
     service_type_name: order.service_type_name,
     customer_name: order.customer_name,
     customer_phone: order.customer_phone,
@@ -158,6 +185,18 @@ const createFormActions = (setForm: FormSetter, customers: CustomerOption[], vou
    */
   const onPicChange = (picId: string): void => onChange("pic_id", picId);
   /**
+   * Set selected order type.
+   * @param {string} orderTypeId - Order type ID.
+   * @returns {void} Nothing.
+   */
+  const onOrderTypeChange = (orderTypeId: string): void => onChange("order_type_id", orderTypeId);
+  /**
+   * Set rental handover identity type.
+   * @param {string} handoverType - Identity document type.
+   * @returns {void} Nothing.
+   */
+  const onHandoverTypeChange = (handoverType: string): void => onChange("handover_type", handoverType);
+  /**
    *
    * @param customerId
    */
@@ -220,7 +259,7 @@ const createFormActions = (setForm: FormSetter, customers: CustomerOption[], vou
    */
   const onToggleProject = (projectId: string): void => setForm((previous) => toggleProject(previous, projectId, projects, items));
 
-  return { onToggleItem, onToggleProject, onCustomerChange, onPicChange, onVoucherChange, onServiceTypeChange, onProjectSelect, onItemSelect, onChange, onItemChange, onAddItem, onRemoveItem };
+  return { onToggleItem, onToggleProject, onCustomerChange, onPicChange, onVoucherChange, onServiceTypeChange, onOrderTypeChange, onHandoverTypeChange, onProjectSelect, onItemSelect, onChange, onItemChange, onAddItem, onRemoveItem };
 };
 
 /**
@@ -298,10 +337,19 @@ const toggleProject = (form: OrderCreateFormState, projectId: string, projects: 
  * @param form
  * @param items
  */
-const buildOrderPayload = (form: OrderCreateFormState, items: OrderItemPayload[]): OrderCreatePayload => {
+const buildOrderPayload = (form: OrderCreateFormState, items: OrderItemPayload[], orderTypes: OrderType[]): OrderCreatePayload => {
   const totals = calculateOrderTotals(items, form.discount, form.service_fee);
+  const selectedOrderType = orderTypes.find((orderType) => orderType.id === form.order_type_id);
+  const rentalHandover: RentalHandoverPayload | undefined = selectedOrderType?.is_handover
+    ? {
+        order_type_id: selectedOrderType.id,
+        type: form.handover_type,
+        name: form.handover_name,
+        status: 1,
+      }
+    : undefined;
 
-  return { customer_id: form.customer_id, pic_id: form.pic_id, voucher_id: form.voucher_id, service_type_id: form.service_type_id, customer_name: form.customer_name, customer_phone: form.customer_phone, address: form.address, event_name: form.event_name, start_at: formatOrderDate(form.start_at), end_at: formatOrderDate(form.end_at), subtotal: totals.subtotal, discount: form.discount, service_fee: form.service_fee, remarks: form.remarks, grand_total: totals.grandTotal, status: 1, rental_transaction_items: items };
+  return { customer_id: form.customer_id, pic_id: form.pic_id, voucher_id: form.voucher_id, service_type_id: form.service_type_id, order_type_id: form.order_type_id, customer_name: form.customer_name, customer_phone: form.customer_phone, address: form.address, event_name: form.event_name, start_at: formatOrderDate(form.start_at), end_at: formatOrderDate(form.end_at), subtotal: totals.subtotal, discount: form.discount, service_fee: form.service_fee, remarks: form.remarks, grand_total: totals.grandTotal, status: 2, rental_transaction_items: items, ...(rentalHandover ? { rental_handover: rentalHandover } : {}) };
 };
 
 /** Manage order creation form state, validation, and submission. @returns {OrderCreateState} order creation state and handlers. */
@@ -316,6 +364,7 @@ export const useOrderCreateForm = (): OrderCreateState => {
   const customerQuery = useGetAllCustomersQuery();
   const picQuery = useGetAllPicsQuery();
   const serviceTypeQuery = useGetAllServiceTypesQuery();
+  const orderTypeQuery = useGetAllOrderTypesQuery();
   const itemQuery = useGetAllItemsQuery();
   const projectQuery = useGetAllProjectsQuery();
   const voucherQuery = useGetAllVouchersQuery();
@@ -334,6 +383,7 @@ export const useOrderCreateForm = (): OrderCreateState => {
   const customers = customerQuery.data?.data ?? [];
   const pics = picQuery.data?.data ?? [];
   const serviceTypes = serviceTypeQuery.data?.data ?? [];
+  const orderTypes = orderTypeQuery.data?.data ?? [];
   const vouchers = voucherQuery.data?.data ?? [];
   const items = itemQuery.data?.data ?? [];
   const projects = (projectQuery.data?.data ?? []).map((project) => ({ id: project.id, name: project.name, items: project.items ?? [] }));
@@ -346,7 +396,9 @@ export const useOrderCreateForm = (): OrderCreateState => {
    *
    */
   const onNextStep = (): void => {
-    if (step === 1 && !isOrderInformationValid(form)) { setShowInformationErrors(true); setErrorMessage("Please complete all required Order Information fields.");
+    const isHandover = Boolean(orderTypes.find((orderType) => orderType.id === form.order_type_id)?.is_handover);
+
+    if (step === 1 && !isOrderInformationValid(form, isHandover)) { setShowInformationErrors(true); setErrorMessage("Please complete all required Order Information fields.");
 
  return; }
 
@@ -373,10 +425,10 @@ export const useOrderCreateForm = (): OrderCreateState => {
     event.preventDefault();
     setErrorMessage(null);
 
-    try { await submitOrder(form, createOrder, createProjectOrder, navigate, setErrorMessage); } catch (error) { setErrorMessage(error instanceof Error ? `Unable to save order: ${error.message}` : "Unable to save order. Please review the form and try again."); }
+    try { await submitOrder(form, orderTypes, createOrder, createProjectOrder, navigate, setErrorMessage); } catch (error) { setErrorMessage(error instanceof Error ? `Unable to save order: ${error.message}` : "Unable to save order. Please review the form and try again."); }
   };
 
-  return { form, customers, pics, serviceTypes, vouchers, projects, items, isCustomersLoading: customerQuery.isLoading, isPicsLoading: picQuery.isLoading, isServiceTypesLoading: serviceTypeQuery.isLoading, isVouchersLoading: voucherQuery.isLoading, isProjectsLoading: projectQuery.isLoading, isItemsLoading: itemQuery.isLoading, isEdit: Boolean(id), isSubmitting: mutation.isLoading, errorMessage, showInformationErrors, showItemErrors, step, onBack, onNextStep, onPreviousStep, ...actions, onSubmit, onPreventSubmit };
+  return { form, customers, pics, serviceTypes, orderTypes, vouchers, projects, items, isCustomersLoading: customerQuery.isLoading, isPicsLoading: picQuery.isLoading, isServiceTypesLoading: serviceTypeQuery.isLoading, isOrderTypesLoading: orderTypeQuery.isLoading, isVouchersLoading: voucherQuery.isLoading, isProjectsLoading: projectQuery.isLoading, isItemsLoading: itemQuery.isLoading, isEdit: Boolean(id), isSubmitting: mutation.isLoading, errorMessage, showInformationErrors, showItemErrors, step, onBack, onNextStep, onPreviousStep, ...actions, onSubmit, onPreventSubmit };
 };
 
 /**
@@ -387,9 +439,9 @@ export const useOrderCreateForm = (): OrderCreateState => {
  * @param navigate
  * @param setErrorMessage
  */
-const submitOrder = async (form: OrderCreateFormState, createOrder: (payload: OrderCreatePayload) => { unwrap: () => Promise<unknown> }, createProjectOrder: (payload: ProjectOrderCreatePayload) => { unwrap: () => Promise<unknown> }, navigate: (path: string) => void, setErrorMessage: React.Dispatch<React.SetStateAction<string | null>>): Promise<void> => {
+const submitOrder = async (form: OrderCreateFormState, orderTypes: OrderType[], createOrder: (payload: OrderCreatePayload) => { unwrap: () => Promise<unknown> }, createProjectOrder: (payload: ProjectOrderCreatePayload) => { unwrap: () => Promise<unknown> }, navigate: (path: string) => void, setErrorMessage: React.Dispatch<React.SetStateAction<string | null>>): Promise<void> => {
   const items = form.rental_transaction_items.filter((item) => item.item_id);
-  const payload = buildOrderPayload(form, items);
+  const payload = buildOrderPayload(form, items, orderTypes);
 
   if (form.service_type_name.trim().toUpperCase() === "PROJECT") {
     const projectItems = buildProjectItems(items);
@@ -401,5 +453,5 @@ const submitOrder = async (form: OrderCreateFormState, createOrder: (payload: Or
     await createProjectOrder({ ...payload, rental_transaction_items: projectItems }).unwrap();
   } else await createOrder(payload).unwrap();
 
-  navigate("/order");
+  navigate("/document/quotation");
 };

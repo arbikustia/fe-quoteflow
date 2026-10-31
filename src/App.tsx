@@ -19,6 +19,8 @@ import MasterCategory from "./app/master-category";
 import MasterCategoryCreate from "./app/master-category/create";
 import MasterCustomer from "./app/master-customer";
 import MasterCustomerCreate from "./app/master-customer/create";
+import MasterEmailSender from "./app/master-email-sender";
+import MasterEmailSenderCreate from "./app/master-email-sender/create";
 import MasterItem from "./app/master-item";
 import MasterItemCreate from "./app/master-item/create";
 import MasterMain from "./app/master-main";
@@ -40,6 +42,8 @@ import MasterUser from "./app/master-user";
 import MasterUserCreate from "./app/master-user/create";
 import MasterVoucher from "./app/master-voucher";
 import MasterVoucherCreate from "./app/master-voucher/create";
+import NotePage from "./app/note";
+import NoteCreatePage from "./app/note/create";
 import OrderPage from "./app/order";
 import OrderPageCreate from "./app/order/create";
 import OrderPageDetail from "./app/order/detail";
@@ -60,6 +64,8 @@ function App(): React.ReactElement {
         <Route path="/home" element={<Dashboard />} />
         <Route path="/calendar" element={<CalendarPage />} />
         <Route path="/activity-log" element={<ActivityLogPage />} />
+        <Route path="/note" element={<NotePage />} />
+        <Route path="/note/create" element={<NoteCreatePage />} />
         <Route path="/profile" element={<ProfilePage />} />
         <Route path="/master-main" element={<MasterMain />} />
         
@@ -67,6 +73,9 @@ function App(): React.ReactElement {
         <Route path="/master-customer" element={<MasterCustomer />} />
         <Route path="/master-customer/create" element={<MasterCustomerCreate />} />
         <Route path="/master-customer/edit/:id" element={<MasterCustomerCreate />} />
+        <Route path="/master-email-sender" element={<MasterEmailSender />} />
+        <Route path="/master-email-sender/create" element={<MasterEmailSenderCreate />} />
+        <Route path="/master-email-sender/edit/:id" element={<MasterEmailSenderCreate />} />
         
         {/* Item */}
         <Route path="/master-item" element={<MasterItem />} />

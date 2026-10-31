@@ -197,23 +197,13 @@ const _renderMobileSearch = (setSearchTerm: MasterCustomerProps["setSearchTerm"]
  * @returns {React.ReactElement} The component
  */
 export const MasterCustomerComponent = (props: MasterCustomerProps): React.ReactElement => {
-  const { onBack, onCreate } = props;
-  const createButton = (
-    <button
-      type="button"
-      onClick={onCreate}
-      className="h-14 rounded-full border-2 border-brand-blue bg-background-surface px-6 text-sm font-bold text-brand-blue transition-colors hover:bg-action-primary-subtle focus:outline-none focus:ring-2 focus:ring-focus-ring/30"
-    >
-      Create New
-    </button>
-  );
+  const { onBack } = props;
 
   return (
     <Layout pageTitle="Customer List" mobileWhiteBackground={true}>
       <PageLayout
         title="Customer List"
         breadcrumbs={["Master", "Master Customer"]}
-        headerRight={createButton}
         mobileHeaderClassName="px-0"
         mobileTitleClassName="text-4xl"
         onBack={onBack}

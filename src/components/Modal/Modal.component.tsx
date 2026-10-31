@@ -1,4 +1,5 @@
 import * as React from "react";
+import { createPortal } from "react-dom";
 
 import type { ModalProps } from "./Modal.type";
 
@@ -31,13 +32,14 @@ export const ModalComponent = (props: ModalProps): React.ReactElement | null => 
     return null;
   }
 
-  return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-overlay p-4 sm:p-6">
+  return createPortal(
+    <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/70 p-4 sm:p-6">
       <button type="button" aria-label="Close modal backdrop" className="absolute inset-0 cursor-default" onClick={onClose} />
-      <div role="dialog" aria-modal="true" aria-labelledby="modal-title" className={`relative flex w-full ${maxWidth} flex-col overflow-hidden rounded-xl border border-border-default bg-background-surface shadow-medium`}>
+      <div role="dialog" aria-modal="true" aria-labelledby="modal-title" className={`relative flex h-[90vh] w-full ${maxWidth} flex-col overflow-hidden rounded-xl border border-border-default bg-background-surface shadow-medium`}>
         {_renderHeader(title, onClose)}
-        <div className="max-h-[80vh] overflow-y-auto p-6">{children}</div>
+        <div className="max-h-[90vh] overflow-y-auto p-6">{children}</div>
       </div>
-    </div>
+    </div>,
+    document.body,
   );
 };

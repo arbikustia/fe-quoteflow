@@ -41,7 +41,17 @@ const QUOTATION: ApiQuotation = {
   },
 };
 
-const createProps = (quotation: ApiQuotation | null = QUOTATION): QuotationDetailState => ({ quotation, isLoading: false, errorMessage: null, goBack: jest.fn(), goEdit: jest.fn() });
+const createProps = (quotation: ApiQuotation | null = QUOTATION): QuotationDetailState => ({
+  quotation,
+  isLoading: false,
+  isApproving: false,
+  isConfirmOpen: false,
+  errorMessage: null,
+  goBack: jest.fn(),
+  openApproveModal: jest.fn(),
+  closeApproveModal: jest.fn(),
+  handleApprove: jest.fn<() => Promise<void>>().mockResolvedValue(undefined),
+});
 
 describe("QuotationDetailComponent", () => {
   it("should render all quotation response sections", (): void => {

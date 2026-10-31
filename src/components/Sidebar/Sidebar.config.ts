@@ -10,6 +10,8 @@ import {
   LuFileText,
   LuFolderKanban,
   LuLayoutDashboard,
+  LuMail,
+  LuNotebookTabs,
   LuPackage,
   LuReceiptText,
   LuShieldCheck,
@@ -34,6 +36,7 @@ export const MASTER_DATA_ITEMS: MasterNavigationItem[] = [
   { name: "Role", description: "Manage user roles and access rights", icon: LuShieldCheck, path: "/master-role" },
   { name: "User", description: "Manage system users and their roles", icon: LuUserRoundCog, path: "/master-user" },
   { name: "PIC", description: "Manage person in charge data", icon: LuUserRound, path: "/master-pic" },
+  { name: "Email Sender", description: "Manage SMTP email sender settings", icon: LuMail, path: "/master-email-sender" },
 ];
 
 export const DOCUMENT_ITEMS: MasterNavigationItem[] = [
@@ -78,6 +81,11 @@ export const NAVIGATION_CONFIG: NavigationItem[] = [
     name: "Activity Log",
     icon: LuActivity,
     path: "/activity-log",
+  },
+  {
+    name: "Note",
+    icon: LuNotebookTabs,
+    path: "/note",
   },
   {
     name: "Report",

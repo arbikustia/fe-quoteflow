@@ -25,17 +25,6 @@ const _renderRowNumber = (_row: QuotationData, index: number, props: QuotationPr
 );
 
 /**
- * Render status cell.
- * @param {QuotationData} row - quotation row.
- * @returns {React.ReactElement} Status label.
- */
-const _renderStatus = (row: QuotationData): React.ReactElement => (
-  <span className={`rounded-full px-3 py-1 text-xs font-bold uppercase ${row.status === 1 ? "bg-success-subtle text-success" : "bg-danger-subtle text-danger"}`}>
-    {row.status === 1 ? "Active" : "Inactive"}
-  </span>
-);
-
-/**
  * Render quotation status action.
  * @param {QuotationData} row - quotation row.
  * @param {QuotationProps} props - quotation state and handlers.
@@ -46,11 +35,11 @@ const _renderStatusAction = (row: QuotationData, props: QuotationProps): React.R
     type="button"
     onClick={(event: React.MouseEvent): void => {
       event.stopPropagation();
-      props.onStatus(row);
+      props.onEdit(row);
     }}
     className="cursor-pointer rounded-lg p-2.5 text-text-secondary hover:bg-action-primary-subtle hover:text-action-primary"
-    title="Update status"
-    aria-label="Update status"
+    title="Edit quotation"
+    aria-label="Edit quotation"
   >
     <FiEdit2 className="h-5 w-5" />
   </button>
@@ -82,12 +71,6 @@ const _getColumns = (props: QuotationProps): TableColumn<QuotationData>[] => {
    */
   const renderRowNumber = (row: QuotationData, index: number): React.ReactElement => _renderRowNumber(row, index, props);
   /**
-   * Render row status with current state.
-   * @param {QuotationData} row - quotation row.
-   * @returns {React.ReactElement} status switch.
-   */
-  const renderStatus = (row: QuotationData): React.ReactElement => _renderStatus(row);
-  /**
    * Render row actions with current handlers.
    * @param {QuotationData} row - quotation row.
    * @returns {React.ReactElement} row actions.
@@ -102,7 +85,6 @@ const _getColumns = (props: QuotationProps): TableColumn<QuotationData>[] => {
     { key: "quotationDate", header: "Quotation Date" },
     { key: "startDate", header: "Event Start Date" },
     { key: "endDate", header: "Event End Date" },
-    { key: "status", header: "Status", align: "center", render: renderStatus },
     { key: "actions", header: "Action", align: "center", render: renderActions },
   ];
 };
@@ -141,7 +123,7 @@ const handleSearch = (event: React.ChangeEvent<HTMLInputElement>): void => props
         <SearchFilter placeholder="Search quotation" onChange={handleSearch} />
       </div>
       <div className="flex-1 overflow-auto">
-        {props.isLoading ? <SkeletonComponent rows={5} columns={[{ width: "8%" }, { width: "15%" }, { width: "15%" }, { width: "18%" }, { width: "12%" }, { width: "12%" }, { width: "12%" }, { width: "8%" }]} /> : _renderListState(props) ?? <Table data={props.paginatedData} columns={_getColumns(props)} isDetail={true} onRowClick={props.onRowClick} keyExtractor={(row: QuotationData): string => row.id} />}
+        {props.isLoading ? <SkeletonComponent rows={5} columns={[{ width: "8%" }, { width: "15%" }, { width: "15%" }, { width: "18%" }, { width: "12%" }, { width: "12%" }, { width: "12%" }, { width: "8%" }]} /> : _renderListState(props) ?? <Table data={props.paginatedData} columns={_getColumns(props)} isDetail={false} onRowClick={props.onRowClick} keyExtractor={(row: QuotationData): string => row.id} />}
       </div>
       <Pagination currentPage={props.currentPage} totalPages={props.totalPages} pageSize={props.pageSize} onPageChange={props.goToPage} onPageSizeChange={props.changePageSize} totalItems={props.totalCount} />
     </div>

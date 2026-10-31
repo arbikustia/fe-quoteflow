@@ -203,7 +203,5 @@ const _renderDesktop = (props: MasterProjectProps): ReactElement => (
  * @returns {ReactElement} Project list
  */
 export const MasterProjectComponent = (props: MasterProjectProps): ReactElement => {
-  const createButton = <button type="button" onClick={props.onCreate} className="h-14 rounded-full border-2 border-brand-blue bg-background-surface px-6 text-sm font-bold text-brand-blue transition-colors hover:bg-action-primary-subtle focus:outline-none focus:ring-2 focus:ring-focus-ring/30">Create New</button>;
-
-  return <Layout pageTitle="Project List" mobileWhiteBackground={true}><PageLayout title="Project List" breadcrumbs={["Master", "Master Project"]} headerRight={createButton} mobileHeaderClassName="px-0" mobileTitleClassName="text-4xl" onBack={props.onBack}><div className="relative flex h-full flex-col bg-background-surface px-0 pb-18 lg:-mt-4 lg:bg-transparent lg:px-0 lg:pb-0">{_renderMobile(props)}{_renderDesktop(props)}</div></PageLayout></Layout>;
+  return <Layout pageTitle="Project List" mobileWhiteBackground={true}><PageLayout title="Project List" breadcrumbs={["Master", "Master Project"]} mobileHeaderClassName="px-0" mobileTitleClassName="text-4xl" onBack={props.onBack}><div className="relative flex h-full flex-col bg-background-surface px-0 pb-18 lg:-mt-4 lg:bg-transparent lg:px-0 lg:pb-0">{_renderMobile(props)}{_renderDesktop(props)}</div></PageLayout></Layout>;
 };

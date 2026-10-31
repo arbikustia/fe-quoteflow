@@ -17,12 +17,14 @@ describe("OrderCreate step helpers", () => {
     expect(getPreviousOrderStep(1)).toBe(1);
   });
 
-  it("should require every order information field except voucher and address", (): void => {
-    const information = { customer_id: "customer", customer_name: "Customer", customer_phone: "0812", pic_id: "pic", service_type_id: "service", service_fee: 1000, event_name: "Event", start_at: "2026-10-25", end_at: "2026-10-26" };
+  it("should require every order information field except optional fields", (): void => {
+    const information = { customer_id: "customer", customer_name: "Customer", customer_phone: "0812", pic_id: "pic", service_type_id: "service", order_type_id: "order-type", handover_type: "", handover_name: "", service_fee: 0, event_name: "Event", start_at: "2026-10-25", end_at: "2026-10-26" };
 
     expect(isOrderInformationValid(information)).toBe(true);
+    expect(isOrderInformationValid({ ...information, order_type_id: "" })).toBe(false);
     expect(isOrderInformationValid({ ...information, event_name: "" })).toBe(false);
-    expect(isOrderInformationValid({ ...information, service_fee: 0 })).toBe(false);
+    expect(isOrderInformationValid(information, true)).toBe(false);
+    expect(isOrderInformationValid({ ...information, handover_type: "KTP", handover_name: "Owner" }, true)).toBe(true);
   });
 
   it("should require at least one selected item", (): void => {

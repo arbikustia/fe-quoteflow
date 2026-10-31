@@ -2,7 +2,7 @@ import type { SyntheticEvent } from "react";
 
 export type QuotationStatusFormProps = {
   quotationNumber: string | null;
-  isActive: boolean;
+  isApproved: boolean;
   isLoading: boolean;
   isSubmitting: boolean;
   errorMessage: string | null;

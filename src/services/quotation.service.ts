@@ -3,6 +3,7 @@ import { apiRtkClient } from "@/libs/ApiRtkServices/apiRtkClient";
 import ENDPOINT from "@/constant/endpoint.const";
 import type {
   ApiQuotation,
+  QuotationApproveRequest,
   QuotationData,
   QuotationDetailResponse,
   QuotationListParams,
@@ -62,6 +63,14 @@ export const quotationService = apiRtkClient.injectEndpoints({
       }),
       invalidatesTags: [QUOTATION_TAG],
     }),
+    approveQuotation: builder.mutation<QuotationUpdateResponse, QuotationApproveRequest>({
+      query: ({ id }) => ({
+        url: `${ENDPOINT.QUOTATION.STATUS}/${id}/status`,
+        method: "PATCH",
+        data: { status: 3 },
+      }),
+      invalidatesTags: [QUOTATION_TAG],
+    }),
   }),
   overrideExisting: false,
 });
@@ -70,4 +79,5 @@ export const {
   useGetQuotationsQuery,
   useGetQuotationByIdQuery,
   useUpdateQuotationMutation,
+  useApproveQuotationMutation,
 } = quotationService;

@@ -7,6 +7,9 @@ export type OrderCreateFormState = {
   pic_id: string;
   voucher_id: string;
   service_type_id: string;
+  order_type_id: string;
+  handover_type: string;
+  handover_name: string;
   service_type_name: string;
   customer_name: string;
   customer_phone: string;
@@ -26,18 +29,21 @@ export type OrderCreateFormState = {
 export type SelectOption = { id: string; name: string };
 export type OrderItemOption = SelectOption & { image: string | null; price: number | null; stock: number | null };
 export type OrderProjectOption = SelectOption & { items: ReadonlyArray<{ item_id: string; item_name: string | null; qty: number }> };
+export type OrderTypeOption = SelectOption & { is_handover: boolean };
 
 export type OrderCreateProps = {
   form: OrderCreateFormState;
   customers: Array<SelectOption & { address: string; phone_number: string }>;
   pics: SelectOption[];
   serviceTypes: SelectOption[];
+  orderTypes: OrderTypeOption[];
   vouchers: Array<SelectOption & { discount_percent: number }>;
   projects: OrderProjectOption[];
   items: OrderItemOption[];
   isCustomersLoading: boolean;
   isPicsLoading: boolean;
   isServiceTypesLoading: boolean;
+  isOrderTypesLoading: boolean;
   isVouchersLoading: boolean;
   isProjectsLoading: boolean;
   isItemsLoading: boolean;
@@ -54,6 +60,8 @@ export type OrderCreateProps = {
   onPicChange: (picId: string) => void;
   onVoucherChange: (voucherId: string) => void;
   onServiceTypeChange: (serviceTypeId: string) => void;
+  onOrderTypeChange: (orderTypeId: string) => void;
+  onHandoverTypeChange: (handoverType: string) => void;
   onProjectSelect: (index: number, projectId: string) => void;
   onItemSelect: (index: number, itemId: string) => void;
   onToggleItem: (itemId: string) => void;
@@ -71,12 +79,14 @@ export type OrderCreateState = {
   customers: Array<SelectOption & { address: string; phone_number: string }>;
   pics: SelectOption[];
   serviceTypes: SelectOption[];
+  orderTypes: OrderTypeOption[];
   vouchers: Array<SelectOption & { discount_percent: number }>;
   projects: OrderProjectOption[];
   items: OrderItemOption[];
   isCustomersLoading: boolean;
   isPicsLoading: boolean;
   isServiceTypesLoading: boolean;
+  isOrderTypesLoading: boolean;
   isVouchersLoading: boolean;
   isProjectsLoading: boolean;
   isItemsLoading: boolean;
@@ -93,6 +103,8 @@ export type OrderCreateState = {
   onPicChange: (picId: string) => void;
   onVoucherChange: (voucherId: string) => void;
   onServiceTypeChange: (serviceTypeId: string) => void;
+  onOrderTypeChange: (orderTypeId: string) => void;
+  onHandoverTypeChange: (handoverType: string) => void;
   onProjectSelect: (index: number, projectId: string) => void;
   onItemSelect: (index: number, itemId: string) => void;
   onToggleItem: (itemId: string) => void;

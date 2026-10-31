@@ -51,7 +51,7 @@ const _renderControl = (props: InputComponentProps): ReactElement => {
   if (props.type === "number") {
     return <InputNumber {...sharedProps} size="large" value={props.value}
       min={props.min} max={props.max} step={props.step} onChange={props.onChange}
-      status={errorMessage ? "error" : undefined} className="h-14 w-full" />;
+      status={errorMessage ? "error" : undefined} className={`h-14 w-full ${props.className ?? ""}`} />;
   }
 
   if (props.type === "textarea") {
@@ -61,7 +61,8 @@ const _renderControl = (props: InputComponentProps): ReactElement => {
 
   return <Input {...sharedProps} size="large" type={props.type ?? "text"} value={props.value}
     inputMode={props.inputMode} pattern={props.pattern} title={props.title}
-    onChange={props.onChange} status={errorMessage ? "error" : undefined} className="h-14 w-full" />;
+    onChange={props.onChange} status={errorMessage ? "error" : undefined}
+    className="h-14 w-full !rounded-2xl" />;
 };
 
 /**
@@ -89,7 +90,7 @@ export const InputComponent = (props: InputComponentProps): ReactElement => {
 
   return (
     <div className={`mb-4 ${className}`}>
-      <label htmlFor={id} className="mb-1.5 block text-xs font-bold uppercase tracking-wider text-text-secondary">
+      <label htmlFor={id} className="mb-1.5 block text-sm font-semibold text-text-secondary">
         {label}
         {required && <span aria-hidden="true" className="ml-1 text-danger">*</span>}
       </label>

@@ -1,12 +1,14 @@
 import { useCallback, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-import { useGetAllVouchersQuery } from "@/services/master-voucher.service";
+import { useGetInvoicesQuery } from "@/services/invoice.service";
+import { useGetAllVouchersQuery, useGetVouchersQuery } from "@/services/master-voucher.service";
 import { mapOrder, useGetOrdersQuery } from "@/services/order.service";
+import { useGetPaymentsQuery } from "@/services/payment.service";
 import { mapQuotation, useGetQuotationsQuery } from "@/services/quotation.service";
 
 import { DASHBOARD_MENU_ITEMS } from "./Dashboard.config";
-import type { DashboardAssets, DashboardNavigation, DashboardOrder, DashboardOrderState, DashboardQuotationChartDatum, DashboardQuotationState, DashboardRoute, DashboardVoucherState } from "./Dashboard.type";
+import type { DashboardAssets, DashboardNavigation, DashboardOrder, DashboardOrderState, DashboardOverviewState, DashboardQuotationChartDatum, DashboardQuotationState, DashboardRoute, DashboardTrendDatum, DashboardVoucherState } from "./Dashboard.type";
 import BannerApp from "../../assets/banner-app.png";
 
 /**
@@ -181,6 +183,44 @@ export const useDashboardOrders = (): DashboardOrderState => {
   });
 
   return { isLoading: false, orders, chartData };
+};
+
+/** Build seven-day count trend from API timestamps. */
+const _buildTrend = (quotationDates: string[], invoiceDates: string[], paymentDates: string[]): DashboardTrendDatum[] => {
+  const today = new Date();
+  return Array.from({ length: 7 }, (_, index) => {
+    const date = new Date(today);
+    date.setHours(0, 0, 0, 0);
+    date.setDate(today.getDate() - (6 - index));
+    const countAtDate = (dates: string[]): number => dates.filter((value) => {
+      const itemDate = new Date(value);
+      return !Number.isNaN(itemDate.getTime()) && itemDate.toDateString() === date.toDateString();
+    }).length;
+    return { label: date.toLocaleDateString("id-ID", { weekday: "short" }), quotation: countAtDate(quotationDates), invoice: countAtDate(invoiceDates), payment: countAtDate(paymentDates) };
+  });
+};
+
+/** Load desktop dashboard overview data. */
+export const useDashboardOverview = (): DashboardOverviewState => {
+  const quotationQuery = useGetQuotationsQuery({ pageNumber: 1, pageSize: 1000, searchTerm: "" });
+  const invoiceQuery = useGetInvoicesQuery({ pageNumber: 1, pageSize: 1000, searchTerm: "" });
+  const paymentQuery = useGetPaymentsQuery({ pageNumber: 1, pageSize: 1000, searchTerm: "" });
+  const voucherQuery = useGetVouchersQuery({ pageNumber: 1, pageSize: 1000, searchTerm: "" });
+  const quotations = quotationQuery.data?.data ?? [];
+  const invoices = invoiceQuery.data?.data ?? [];
+  const payments = paymentQuery.data?.data ?? [];
+  const vouchers = voucherQuery.data?.data ?? [];
+  return {
+    isLoading: quotationQuery.isLoading || invoiceQuery.isLoading || paymentQuery.isLoading || voucherQuery.isLoading,
+    quotationCount: quotationQuery.data?.total_count ?? quotations.length,
+    invoiceCount: invoiceQuery.data?.total_count ?? invoices.length,
+    paymentCount: paymentQuery.data?.total_count ?? payments.length,
+    voucherCount: voucherQuery.data?.total_count ?? vouchers.length,
+    quotationValue: quotations.reduce((sum, item) => sum + item.transaction.grand_total, 0),
+    invoiceValue: invoices.reduce((sum, item) => sum + item.quotation.transaction.grand_total, 0),
+    paymentValue: payments.reduce((sum, item) => sum + item.amount, 0),
+    trend: _buildTrend(quotations.map((item) => item.created_at), invoices.map((item) => item.created_at), payments.map((item) => item.created_at)),
+  };
 };
 
 export const useDashboardAssets = (): DashboardAssets => {

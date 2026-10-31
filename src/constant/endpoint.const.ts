@@ -60,9 +60,20 @@ const ENDPOINT = {
     CREATE: "/api/project",
     DETAIL: "/api/project",
   },
+  NOTE: {
+    ALL: "/api/notes",
+    CREATE: "/api/notes",
+  },
+  MASTER_EMAIL_SENDER: {
+    PAGED: "/api/email-sender/paged",
+    ALL: "/api/email-sender",
+    CREATE: "/api/email-sender",
+    DETAIL: "/api/email-sender",
+  },
   QUOTATION: {
     PAGED: "/api/quotation/paged",
     DETAIL: "/api/quotation",
+    STATUS: "/api/quotation",
   },
   INVOICE: {
     PAGED: "/api/invoice/paged",
@@ -76,12 +87,14 @@ const ENDPOINT = {
   },
   ACTIVITY_LOG: {
     PAGED: "/api/activity-log/paged",
+    CREATE: "/api/activity-log",
   },
   ORDER: {
     PAGED: "/api/rental-transaction/paged",
     DETAIL: "/api/rental-transaction",
     CREATE: "/api/rental-transaction",
     PROJECT_CREATE: "/api/rental-transaction/project",
+    TYPES: "/api/order-type/get-all-order-type",
   },
   MASTER_ROLE: {
     LIST: "/api/role/paged",

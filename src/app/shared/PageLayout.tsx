@@ -89,15 +89,20 @@ export const PageLayout = ({ title, breadcrumbs, actions = [], headerRight, mobi
           )}
           <h1 className="truncate text-4xl font-semibold leading-tight tracking-tight text-text-primary">{title}</h1>
         </div>
-        {actions.length > 0 && (
-          <details className="relative shrink-0">
-            <summary className="flex h-10 w-10 cursor-pointer list-none items-center justify-center rounded-lg border border-border-default text-text-secondary hover:bg-background-subtle" aria-label="More options">
-              <span aria-hidden="true">•••</span>
-            </summary>
-            <div role="menu" className="absolute right-0 top-12 z-20 w-48 overflow-hidden rounded-lg border border-border-default bg-background-surface py-1 shadow-lg">
-              {_renderActions(actions)}
-            </div>
-          </details>
+        {(headerRight || actions.length > 0) && (
+          <div className="flex shrink-0 items-center gap-3">
+            {headerRight}
+            {actions.length > 0 && (
+              <details className="relative shrink-0">
+                <summary className="flex h-10 w-10 cursor-pointer list-none items-center justify-center rounded-lg border border-border-default text-text-secondary hover:bg-background-subtle" aria-label="More options">
+                  <span aria-hidden="true">•••</span>
+                </summary>
+                <div role="menu" className="absolute right-0 top-12 z-20 w-48 overflow-hidden rounded-lg border border-border-default bg-background-surface py-1 shadow-lg">
+                  {_renderActions(actions)}
+                </div>
+              </details>
+            )}
+          </div>
         )}
       </div>
 
