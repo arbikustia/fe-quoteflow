@@ -1,3 +1,3 @@
-export { SkeletonComponent } from "./Skeleton.component";
+export { CardSkeletonComponent, SkeletonComponent } from "./Skeleton.component";
 export { default } from "./Skeleton.component";
-export type { SkeletonColumn, SkeletonProps } from "./Skeleton.type";
+export type { CardSkeletonProps, SkeletonColumn, SkeletonProps } from "./Skeleton.type";

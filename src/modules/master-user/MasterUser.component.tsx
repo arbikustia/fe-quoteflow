@@ -6,6 +6,7 @@ import { PageLayout } from "../../app/shared/PageLayout";
 import { MasterDataCard } from "../../components/MasterDataCard";
 import { Pagination } from "../../components/Pagination";
 import { SearchFilter } from "../../components/SearchFilter";
+import { CardSkeletonComponent, SkeletonComponent } from "../../components/Skeleton";
 import type { TableColumn } from "../../components/Table";
 import Table from "../../components/Table";
 
@@ -118,7 +119,7 @@ const _renderMobile = (props: MasterUserProps): React.ReactElement => {
   return (
     <div className="flex min-w-0 flex-col gap-4 pt-2 pb-16 lg:hidden">
       <SearchFilter placeholder="Search user" onChange={handleSearch} isRoundedFull={true} className="w-full sm:w-full" inputClassName="text-lg placeholder:text-lg" />
-      <div className="min-w-0 space-y-3">{_renderListState(props) ?? props.paginatedData.map((user) => <React.Fragment key={user.id}>{_renderUserCard(user, props.onEdit)}</React.Fragment>)}</div>
+      <div className="min-w-0 space-y-3">{props.isLoading ? <CardSkeletonComponent count={5} /> : _renderListState(props) ?? props.paginatedData.map((user) => <React.Fragment key={user.id}>{_renderUserCard(user, props.onEdit)}</React.Fragment>)}</div>
       <Pagination currentPage={props.currentPage} totalPages={props.totalPages} pageSize={props.pageSize} onPageChange={props.goToPage} onPageSizeChange={props.changePageSize} totalItems={props.totalCount} isCompact className="mt-2 w-full rounded-2xl border border-border-default bg-background-surface px-4 py-3 shadow-xs" />
     </div>
   );
@@ -144,7 +145,7 @@ const _renderDesktop = (props: MasterUserProps): React.ReactElement => {
    */
   const keyExtractor = (row: UserData): string => row.id;
 
-  return <div className="hidden lg:flex rounded-4xl border border-brand-gray-light bg-brand-white px-6 shadow-xs md:flex-1 md:flex-col md:overflow-hidden md:mt-6"><div className="flex items-center justify-between gap-4 py-6"><SearchFilter placeholder="Search user" onChange={handleSearch} /><button type="button" onClick={props.onCreate} className="rounded-xl bg-brand-blue h-14 px-6 text-sm font-semibold text-brand-white">Create User</button></div><div className="flex-1 overflow-auto">{_renderListState(props) ?? <Table data={props.paginatedData} columns={columns} isDetail={false} onRowClick={props.onRowClick} keyExtractor={keyExtractor} />}</div><Pagination currentPage={props.currentPage} totalPages={props.totalPages} pageSize={props.pageSize} onPageChange={props.goToPage} onPageSizeChange={props.changePageSize} totalItems={props.totalCount} /></div>;
+  return <div className="hidden lg:flex rounded-4xl border border-brand-gray-light bg-brand-white px-6 shadow-xs md:flex-1 md:flex-col md:overflow-hidden md:mt-6"><div className="flex items-center justify-between gap-4 py-6"><SearchFilter placeholder="Search user" onChange={handleSearch} /><button type="button" onClick={props.onCreate} className="rounded-xl bg-brand-blue h-14 px-6 text-sm font-semibold text-brand-white">Create User</button></div><div className="flex-1 overflow-auto">{props.isLoading ? <SkeletonComponent rows={5} columns={[{ width: "8%" }, { width: "35%" }, { width: "25%" }, { width: "20%" }, { width: "12%" }]} /> : _renderListState(props) ?? <Table data={props.paginatedData} columns={columns} isDetail={false} onRowClick={props.onRowClick} keyExtractor={keyExtractor} />}</div><Pagination currentPage={props.currentPage} totalPages={props.totalPages} pageSize={props.pageSize} onPageChange={props.goToPage} onPageSizeChange={props.changePageSize} totalItems={props.totalCount} /></div>;
 };
 
 /**

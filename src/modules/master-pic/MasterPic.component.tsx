@@ -6,6 +6,7 @@ import { PageLayout } from "../../app/shared/PageLayout";
 import { MasterDataCard } from "../../components/MasterDataCard";
 import { Pagination } from "../../components/Pagination";
 import { SearchFilter } from "../../components/SearchFilter";
+import { CardSkeletonComponent, SkeletonComponent } from "../../components/Skeleton";
 import type { TableColumn } from "../../components/Table";
 import Table from "../../components/Table";
 
@@ -115,7 +116,11 @@ const _renderMobile = (props: MasterPicProps): React.ReactElement => {
     <div className="flex min-w-0 flex-col gap-4 pt-2 pb-16 lg:hidden">
       <SearchFilter placeholder="Search PIC" onChange={handleSearch} isRoundedFull={true} className="w-full sm:w-full" inputClassName="text-lg placeholder:text-lg" />
       <div className="min-w-0 space-y-3">
-        {_renderListState(props) ?? paginatedData.map((pic) => <React.Fragment key={pic.id}>{_renderPicCard(pic, onEdit)}</React.Fragment>)}
+        {props.isLoading ? (
+          <CardSkeletonComponent count={5} />
+        ) : (
+          _renderListState(props) ?? paginatedData.map((pic) => <React.Fragment key={pic.id}>{_renderPicCard(pic, onEdit)}</React.Fragment>)
+        )}
       </div>
       <Pagination
         currentPage={currentPage}
@@ -159,7 +164,11 @@ const _renderDesktop = (props: MasterPicProps): React.ReactElement => {
         <button type="button" onClick={onCreate} className="h-14 rounded-xl bg-brand-blue px-6 text-sm font-semibold text-brand-white">Create PIC</button>
       </div>
       <div className="flex-1 overflow-auto">
-        {_renderListState(props) ?? <Table data={paginatedData} columns={columns} isDetail={false} onRowClick={onRowClick} keyExtractor={keyExtractor} />}
+        {props.isLoading ? (
+          <SkeletonComponent rows={5} columns={[{ width: "8%" }, { width: "35%" }, { width: "25%" }, { width: "20%" }, { width: "12%" }]} />
+        ) : (
+          _renderListState(props) ?? <Table data={paginatedData} columns={columns} isDetail={false} onRowClick={onRowClick} keyExtractor={keyExtractor} />
+        )}
       </div>
       <Pagination currentPage={currentPage} totalPages={totalPages} pageSize={pageSize} onPageChange={goToPage} onPageSizeChange={changePageSize} totalItems={totalCount} />
     </div>

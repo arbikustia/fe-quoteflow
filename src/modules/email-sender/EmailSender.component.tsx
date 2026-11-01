@@ -4,6 +4,7 @@ import { FiEdit2 } from "react-icons/fi";
 import { MasterDataCard } from "@/components/MasterDataCard";
 import { Pagination } from "@/components/Pagination";
 import { SearchFilter } from "@/components/SearchFilter";
+import { CardSkeletonComponent, SkeletonComponent } from "@/components/Skeleton";
 import type { TableColumn } from "@/components/Table";
 import Table from "@/components/Table";
 
@@ -54,7 +55,7 @@ export const EmailSenderComponent = (): ReactElement => {
           <div className="flex min-w-0 flex-col gap-4 pt-2 pb-16 lg:hidden">
             {_renderSearch(state.setSearch)}
             <div className="min-w-0 space-y-3">
-              {state.loading && <p className="py-10 text-center text-sm text-text-secondary">Loading email senders…</p>}
+              {state.loading && <CardSkeletonComponent count={5} />}
               {!state.loading && state.rows.length === 0 && <p className="py-10 text-center text-sm text-text-secondary">No email senders found.</p>}
               {!state.loading && state.rows.map((row): ReactElement => <div key={row.id}>{_renderMobileCard(row, onEdit)}</div>)}
             </div>
@@ -66,7 +67,7 @@ export const EmailSenderComponent = (): ReactElement => {
               <button type="button" onClick={state.create} className="h-14 rounded-xl bg-brand-blue px-6 text-sm font-semibold text-brand-white shadow-sm transition-colors hover:bg-brand-blue/90">Create Email Sender</button>
             </div>
             <div className="flex-1 overflow-auto">
-              {state.loading && <p className="py-10 text-center text-sm text-text-secondary">Loading email senders…</p>}
+              {state.loading && <SkeletonComponent rows={5} columns={[{ width: "20%" }, { width: "25%" }, { width: "25%" }, { width: "10%" }, { width: "10%" }, { width: "10%" }]} />}
               {!state.loading && state.rows.length === 0 && <p className="py-10 text-center text-sm text-text-secondary">No email senders found.</p>}
               {!state.loading && state.rows.length > 0 && <Table data={state.rows} columns={_getColumns(onEdit)} isDetail={false} keyExtractor={(row): string => row.id} />}
             </div>

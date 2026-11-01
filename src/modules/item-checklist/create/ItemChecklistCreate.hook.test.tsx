@@ -1,6 +1,6 @@
 import { act, renderHook, waitFor } from "@testing-library/react";
 import type { ReactNode } from "react";
-import { MemoryRouter, Route, Routes } from "react-router-dom";
+import { MemoryRouter, Route, Routes, useLocation } from "react-router-dom";
 
 import type { ApiChecklist } from "../ItemChecklist.type";
 import { useItemChecklistCreate } from "./ItemChecklistCreate.hook";
@@ -68,6 +68,7 @@ const EditRoute = ({ children }: { children: ReactNode }): ReactNode => (
   <MemoryRouter initialEntries={["/document/item-checklist/create/checklist-1"]}>
     <Routes>
       <Route path="/document/item-checklist/create/:id" element={children} />
+      <Route path="/document/item-checklist" element={children} />
     </Routes>
   </MemoryRouter>
 );
@@ -79,13 +80,13 @@ describe("useItemChecklistCreate edit mode", () => {
   });
 
   it("should load saved flags and update checklist without checklist_date", async () => {
-    const { result } = renderHook(() => useItemChecklistCreate(), { wrapper: EditRoute });
-    await waitFor(() => expect(result.current.moveOutItemIds).toEqual(["entry-1"]));
-    expect(result.current.moveInItemIds).toEqual(["entry-2"]);
-    expect(result.current.isEditMode).toBe(true);
+    const { result } = renderHook(() => ({ form: useItemChecklistCreate(), location: useLocation() }), { wrapper: EditRoute });
+    await waitFor(() => expect(result.current.form.moveOutItemIds).toEqual(["entry-1"]));
+    expect(result.current.form.moveInItemIds).toEqual(["entry-2"]);
+    expect(result.current.form.isEditMode).toBe(true);
 
-    act(() => result.current.onToggleMoveIn("entry-1"));
-    await act(async () => { await result.current.handleSave(); });
+    act(() => result.current.form.onToggleMoveIn("entry-1"));
+    await act(async () => { await result.current.form.handleSave(); });
 
     expect(mockUpdate).toHaveBeenCalledWith({
       id: "checklist-1",
@@ -99,5 +100,7 @@ describe("useItemChecklistCreate edit mode", () => {
       },
     });
     expect(mockCreate).not.toHaveBeenCalled();
+    expect(result.current.location.pathname).toBe("/document/item-checklist");
+    expect(result.current.form.errorMessage).toBeNull();
   });
 });

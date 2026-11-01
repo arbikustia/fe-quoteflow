@@ -88,7 +88,7 @@ exports[`MasterCustomerCreateForm Snapshots should render customer create form 1
               class="mb-4 [&_.ant-input]:text-xl [&_.ant-input]:placeholder:text-xl [&_label]:text-base"
             >
               <label
-                class="mb-1.5 block text-xs font-bold uppercase tracking-wider text-text-secondary"
+                class="mb-1.5 block text-sm font-semibold text-text-secondary"
                 for="customer-name"
               >
                 Customer Name
@@ -101,7 +101,7 @@ exports[`MasterCustomerCreateForm Snapshots should render customer create form 1
               </label>
               <input
                 aria-invalid="false"
-                class="ant-input ant-input-lg css-dev-only-do-not-override-eofgey ant-input-outlined h-14 w-full css-var-root ant-input-css-var"
+                class="ant-input ant-input-lg css-dev-only-do-not-override-eofgey ant-input-outlined h-14 w-full !rounded-2xl css-var-root ant-input-css-var"
                 id="customer-name"
                 placeholder="e.g. PT Mega Jaya Abadi"
                 required=""
@@ -115,7 +115,7 @@ exports[`MasterCustomerCreateForm Snapshots should render customer create form 1
               class="mb-4 [&_.ant-input]:text-xl [&_.ant-input]:placeholder:text-xl [&_label]:text-base"
             >
               <label
-                class="mb-1.5 block text-xs font-bold uppercase tracking-wider text-text-secondary"
+                class="mb-1.5 block text-sm font-semibold text-text-secondary"
                 for="customer-phone"
               >
                 Phone Number
@@ -128,7 +128,7 @@ exports[`MasterCustomerCreateForm Snapshots should render customer create form 1
               </label>
               <input
                 aria-invalid="false"
-                class="ant-input ant-input-lg css-dev-only-do-not-override-eofgey ant-input-outlined h-14 w-full css-var-root ant-input-css-var"
+                class="ant-input ant-input-lg css-dev-only-do-not-override-eofgey ant-input-outlined h-14 w-full !rounded-2xl css-var-root ant-input-css-var"
                 id="customer-phone"
                 inputmode="numeric"
                 pattern="[0-9]{6,15}"
@@ -147,7 +147,7 @@ exports[`MasterCustomerCreateForm Snapshots should render customer create form 1
               class="mb-4 [&_.ant-input]:text-xl [&_.ant-input]:placeholder:text-xl [&_label]:text-base"
             >
               <label
-                class="mb-1.5 block text-xs font-bold uppercase tracking-wider text-text-secondary"
+                class="mb-1.5 block text-sm font-semibold text-text-secondary"
                 for="customer-address"
               >
                 Address
@@ -275,7 +275,7 @@ exports[`MasterCustomerCreateForm Snapshots should render customer create form w
               class="mb-4 [&_.ant-input]:text-xl [&_.ant-input]:placeholder:text-xl [&_label]:text-base"
             >
               <label
-                class="mb-1.5 block text-xs font-bold uppercase tracking-wider text-text-secondary"
+                class="mb-1.5 block text-sm font-semibold text-text-secondary"
                 for="customer-name"
               >
                 Customer Name
@@ -288,7 +288,7 @@ exports[`MasterCustomerCreateForm Snapshots should render customer create form w
               </label>
               <input
                 aria-invalid="false"
-                class="ant-input ant-input-lg css-dev-only-do-not-override-eofgey ant-input-outlined h-14 w-full css-var-root ant-input-css-var"
+                class="ant-input ant-input-lg css-dev-only-do-not-override-eofgey ant-input-outlined h-14 w-full !rounded-2xl css-var-root ant-input-css-var"
                 id="customer-name"
                 placeholder="e.g. PT Mega Jaya Abadi"
                 required=""
@@ -302,7 +302,7 @@ exports[`MasterCustomerCreateForm Snapshots should render customer create form w
               class="mb-4 [&_.ant-input]:text-xl [&_.ant-input]:placeholder:text-xl [&_label]:text-base"
             >
               <label
-                class="mb-1.5 block text-xs font-bold uppercase tracking-wider text-text-secondary"
+                class="mb-1.5 block text-sm font-semibold text-text-secondary"
                 for="customer-phone"
               >
                 Phone Number
@@ -315,7 +315,7 @@ exports[`MasterCustomerCreateForm Snapshots should render customer create form w
               </label>
               <input
                 aria-invalid="false"
-                class="ant-input ant-input-lg css-dev-only-do-not-override-eofgey ant-input-outlined h-14 w-full css-var-root ant-input-css-var"
+                class="ant-input ant-input-lg css-dev-only-do-not-override-eofgey ant-input-outlined h-14 w-full !rounded-2xl css-var-root ant-input-css-var"
                 id="customer-phone"
                 inputmode="numeric"
                 pattern="[0-9]{6,15}"
@@ -334,7 +334,7 @@ exports[`MasterCustomerCreateForm Snapshots should render customer create form w
               class="mb-4 [&_.ant-input]:text-xl [&_.ant-input]:placeholder:text-xl [&_label]:text-base"
             >
               <label
-                class="mb-1.5 block text-xs font-bold uppercase tracking-wider text-text-secondary"
+                class="mb-1.5 block text-sm font-semibold text-text-secondary"
                 for="customer-address"
               >
                 Address

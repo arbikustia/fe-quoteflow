@@ -28,6 +28,8 @@ const mockProps: ChecklistListState = {
   onCreate: jest.fn(),
   onRowClick: jest.fn(),
   onEdit: jest.fn(),
+  onDownload: jest.fn(),
+  isDownloadingId: null,
   onBack: jest.fn(),
 };
 
@@ -41,16 +43,44 @@ afterAll(() => {
 });
 
 describe("ItemChecklistComponent", () => {
+  beforeEach(() => { jest.clearAllMocks(); });
+
   it("should render table data and header", () => {
     render(<MemoryRouter><ItemChecklistComponent {...mockProps} /></MemoryRouter>);
     expect(screen.getAllByText("CHK-001")).toHaveLength(2);
-    expect(screen.getAllByText("Create Checklist")).toHaveLength(2);
+    expect(screen.getAllByText("Create Checklist")).toHaveLength(1);
   });
 
   it("should trigger onCreate when clicked", () => {
     render(<MemoryRouter><ItemChecklistComponent {...mockProps} /></MemoryRouter>);
     fireEvent.click(screen.getAllByText("Create Checklist")[0]);
     expect(mockProps.onCreate).toHaveBeenCalled();
+  });
+
+  it("should open detail when desktop row is clicked", () => {
+    render(<MemoryRouter><ItemChecklistComponent {...mockProps} /></MemoryRouter>);
+    fireEvent.click(screen.getAllByText("CHK-001")[1]);
+    expect(mockProps.onRowClick).toHaveBeenCalledWith(mockProps.rows[0]);
+  });
+
+  it("should open detail when mobile card is clicked", () => {
+    render(<MemoryRouter><ItemChecklistComponent {...mockProps} /></MemoryRouter>);
+    fireEvent.click(screen.getAllByText("CHK-001")[0]);
+    expect(mockProps.onRowClick).toHaveBeenCalledWith(mockProps.rows[0]);
+  });
+
+  it("should download selected checklist without opening detail", () => {
+    render(<MemoryRouter><ItemChecklistComponent {...mockProps} /></MemoryRouter>);
+    fireEvent.click(screen.getByRole("button", { name: "Download CHK-001" }));
+    expect(mockProps.onDownload).toHaveBeenCalledWith(mockProps.rows[0]);
+    expect(mockProps.onRowClick).not.toHaveBeenCalled();
+  });
+
+  it("should download selected mobile checklist without opening detail", () => {
+    render(<MemoryRouter><ItemChecklistComponent {...mockProps} /></MemoryRouter>);
+    fireEvent.click(screen.getByRole("button", { name: "Download PDF CHK-001" }));
+    expect(mockProps.onDownload).toHaveBeenCalledWith(mockProps.rows[0]);
+    expect(mockProps.onRowClick).not.toHaveBeenCalled();
   });
 
   it("should edit selected checklist without opening detail", () => {

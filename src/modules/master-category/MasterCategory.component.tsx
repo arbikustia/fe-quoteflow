@@ -9,6 +9,7 @@ import { PageLayout } from "../../app/shared/PageLayout";
 import { MasterDataCard } from "../../components/MasterDataCard";
 import { Pagination } from "../../components/Pagination";
 import { SearchFilter } from "../../components/SearchFilter";
+import { CardSkeletonComponent, SkeletonComponent } from "../../components/Skeleton";
 import type { TableColumn } from "../../components/Table";
 import Table from "../../components/Table";
 
@@ -110,9 +111,13 @@ const _renderMobile = (props: MasterCategoryProps): ReactElement => (
   <div className="flex min-w-0 flex-col gap-4 pb-16 pt-2 lg:hidden">
   <SearchFilter placeholder="Search category" onChange={_handleSearch.bind(null, props.setSearchTerm)} isRoundedFull={true} className="w-full sm:w-full" inputClassName="text-lg placeholder:text-lg" />
     <div className="min-w-0 space-y-3">
-      {_renderListState(props) ?? props.paginatedData.map((category) => (
-        <React.Fragment key={category.id}>{_renderCategoryCard(category, props.onEdit)}</React.Fragment>
-      ))}
+      {props.isLoading ? (
+        <CardSkeletonComponent count={5} />
+      ) : (
+        _renderListState(props) ?? props.paginatedData.map((category) => (
+          <React.Fragment key={category.id}>{_renderCategoryCard(category, props.onEdit)}</React.Fragment>
+        ))
+      )}
     </div>
     <Pagination
       currentPage={props.currentPage}
@@ -141,7 +146,11 @@ const _renderDesktop = (props: MasterCategoryProps): ReactElement => (
       </button>
     </div>
     <div className="flex-1 overflow-auto">
-      {_renderListState(props) ?? <Table data={props.paginatedData} columns={_getColumns(props.currentPage, props.pageSize, props.onEdit)} keyExtractor={(row: CategoryData): string => row.id} />}
+      {props.isLoading ? (
+        <SkeletonComponent rows={5} columns={[{ width: "10%" }, { width: "60%" }, { width: "15%" }, { width: "15%" }]} />
+      ) : (
+        _renderListState(props) ?? <Table data={props.paginatedData} columns={_getColumns(props.currentPage, props.pageSize, props.onEdit)} keyExtractor={(row: CategoryData): string => row.id} />
+      )}
     </div>
     <Pagination currentPage={props.currentPage} totalPages={props.totalPages} pageSize={props.pageSize} onPageChange={props.goToPage} onPageSizeChange={props.changePageSize} totalItems={props.totalCount} />
   </div>

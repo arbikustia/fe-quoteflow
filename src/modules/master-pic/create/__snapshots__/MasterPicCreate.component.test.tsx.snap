@@ -83,7 +83,7 @@ exports[`MasterPicCreateForm Component MasterPicCreateForm Snapshots create mode
             class="mb-4 [&_.ant-input]:text-xl [&_.ant-input]:placeholder:text-xl [&_label]:text-base"
           >
             <label
-              class="mb-1.5 block text-xs font-bold uppercase tracking-wider text-text-secondary"
+              class="mb-1.5 block text-sm font-semibold text-text-secondary"
               for="pic-name"
             >
               PIC Name
@@ -96,7 +96,7 @@ exports[`MasterPicCreateForm Component MasterPicCreateForm Snapshots create mode
             </label>
             <input
               aria-invalid="false"
-              class="ant-input ant-input-lg css-dev-only-do-not-override-eofgey ant-input-outlined h-14 w-full css-var-root ant-input-css-var"
+              class="ant-input ant-input-lg css-dev-only-do-not-override-eofgey ant-input-outlined h-14 w-full !rounded-2xl css-var-root ant-input-css-var"
               id="pic-name"
               placeholder="e.g. John Doe"
               required=""
@@ -204,7 +204,7 @@ exports[`MasterPicCreateForm Component MasterPicCreateForm Snapshots edit mode a
             class="mb-4 [&_.ant-input]:text-xl [&_.ant-input]:placeholder:text-xl [&_label]:text-base"
           >
             <label
-              class="mb-1.5 block text-xs font-bold uppercase tracking-wider text-text-secondary"
+              class="mb-1.5 block text-sm font-semibold text-text-secondary"
               for="pic-name"
             >
               PIC Name
@@ -217,7 +217,7 @@ exports[`MasterPicCreateForm Component MasterPicCreateForm Snapshots edit mode a
             </label>
             <input
               aria-invalid="false"
-              class="ant-input ant-input-lg css-dev-only-do-not-override-eofgey ant-input-outlined h-14 w-full css-var-root ant-input-css-var"
+              class="ant-input ant-input-lg css-dev-only-do-not-override-eofgey ant-input-outlined h-14 w-full !rounded-2xl css-var-root ant-input-css-var"
               id="pic-name"
               placeholder="e.g. John Doe"
               required=""
@@ -372,7 +372,7 @@ exports[`MasterPicCreateForm Component MasterPicCreateForm Snapshots submitting 
             class="mb-4 [&_.ant-input]:text-xl [&_.ant-input]:placeholder:text-xl [&_label]:text-base"
           >
             <label
-              class="mb-1.5 block text-xs font-bold uppercase tracking-wider text-text-secondary"
+              class="mb-1.5 block text-sm font-semibold text-text-secondary"
               for="pic-name"
             >
               PIC Name
@@ -385,7 +385,7 @@ exports[`MasterPicCreateForm Component MasterPicCreateForm Snapshots submitting 
             </label>
             <input
               aria-invalid="false"
-              class="ant-input ant-input-lg css-dev-only-do-not-override-eofgey ant-input-outlined h-14 w-full css-var-root ant-input-css-var"
+              class="ant-input ant-input-lg css-dev-only-do-not-override-eofgey ant-input-outlined h-14 w-full !rounded-2xl css-var-root ant-input-css-var"
               id="pic-name"
               placeholder="e.g. John Doe"
               required=""
@@ -562,7 +562,7 @@ exports[`MasterPicCreateForm Component MasterPicCreateForm Snapshots with error 
             class="mb-4 [&_.ant-input]:text-xl [&_.ant-input]:placeholder:text-xl [&_label]:text-base"
           >
             <label
-              class="mb-1.5 block text-xs font-bold uppercase tracking-wider text-text-secondary"
+              class="mb-1.5 block text-sm font-semibold text-text-secondary"
               for="pic-name"
             >
               PIC Name
@@ -575,7 +575,7 @@ exports[`MasterPicCreateForm Component MasterPicCreateForm Snapshots with error 
             </label>
             <input
               aria-invalid="false"
-              class="ant-input ant-input-lg css-dev-only-do-not-override-eofgey ant-input-outlined h-14 w-full css-var-root ant-input-css-var"
+              class="ant-input ant-input-lg css-dev-only-do-not-override-eofgey ant-input-outlined h-14 w-full !rounded-2xl css-var-root ant-input-css-var"
               id="pic-name"
               placeholder="e.g. John Doe"
               required=""

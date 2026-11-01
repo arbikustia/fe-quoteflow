@@ -6,6 +6,7 @@ import { PageLayout } from "../../app/shared/PageLayout";
 import { MasterDataCard } from "../../components/MasterDataCard";
 import { Pagination } from "../../components/Pagination";
 import { SearchFilter } from "../../components/SearchFilter";
+import { CardSkeletonComponent, SkeletonComponent } from "../../components/Skeleton";
 import type { TableColumn } from "../../components/Table";
 import Table from "../../components/Table";
 
@@ -108,9 +109,13 @@ const _renderMobile = (props: MasterPaymentMethodProps): React.ReactElement => {
     <div className="flex min-w-0 flex-col gap-4 pt-2 pb-16 lg:hidden">
       <SearchFilter placeholder="Search payment method" onChange={handleSearch} isRoundedFull={true} className="w-full sm:w-full" inputClassName="text-lg placeholder:text-lg" />
       <div className="min-w-0 space-y-3">
-        {_renderListState(props) ?? paginatedData.map((paymentMethod) => (
-          <React.Fragment key={paymentMethod.id}>{_renderPaymentMethodCard(paymentMethod, onEdit)}</React.Fragment>
-        ))}
+        {props.isLoading ? (
+          <CardSkeletonComponent count={5} />
+        ) : (
+          _renderListState(props) ?? paginatedData.map((paymentMethod) => (
+            <React.Fragment key={paymentMethod.id}>{_renderPaymentMethodCard(paymentMethod, onEdit)}</React.Fragment>
+          ))
+        )}
       </div>
       <Pagination
         currentPage={currentPage}
@@ -154,7 +159,11 @@ const _renderDesktop = (props: MasterPaymentMethodProps): React.ReactElement => 
         <button type="button" onClick={onCreate} className="h-14 rounded-xl bg-brand-blue px-6 text-sm font-semibold text-brand-white">Create Payment Method</button>
       </div>
       <div className="flex-1 overflow-auto">
-        {_renderListState(props) ?? <Table data={paginatedData} columns={columns} keyExtractor={keyExtractor} />}
+        {props.isLoading ? (
+          <SkeletonComponent rows={5} columns={[{ width: "10%" }, { width: "60%" }, { width: "15%" }, { width: "15%" }]} />
+        ) : (
+          _renderListState(props) ?? <Table data={paginatedData} columns={columns} keyExtractor={keyExtractor} />
+        )}
       </div>
       <Pagination currentPage={currentPage} totalPages={totalPages} pageSize={pageSize} onPageChange={goToPage} onPageSizeChange={changePageSize} totalItems={totalCount} />
     </div>

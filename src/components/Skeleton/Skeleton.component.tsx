@@ -1,7 +1,29 @@
 import type { ReactElement } from "react";
 import { Skeleton as AntSkeleton } from "antd";
 
-import type { SkeletonProps } from "./Skeleton.type";
+import type { CardSkeletonProps, SkeletonProps } from "./Skeleton.type";
+
+/**
+ * Render reusable card loading skeleton for mobile lists.
+ * @param {CardSkeletonProps} props - Card skeleton props
+ * @returns {ReactElement} Skeleton card list
+ */
+export const CardSkeletonComponent = ({ count = 5, className = "" }: CardSkeletonProps): ReactElement => (
+  <div className={`space-y-3 ${className}`} aria-label="Loading cards" role="status">
+    {Array.from({ length: count }, (_, index) => (
+      <div key={`card-skeleton-${index}`} className="animate-pulse rounded-2xl border border-border-default bg-background-surface p-5">
+        <div className="flex items-start justify-between gap-4">
+          <div className="h-6 w-2/5 rounded bg-background-subtle" />
+          <div className="h-5 w-16 rounded-full bg-background-subtle" />
+        </div>
+        <div className="mt-3 grid gap-2">
+          <div className="h-4 w-3/5 rounded bg-background-subtle" />
+          <div className="h-4 w-4/5 rounded bg-background-subtle" />
+        </div>
+      </div>
+    ))}
+  </div>
+);
 
 /**
  * Render reusable Ant Design loading skeleton.

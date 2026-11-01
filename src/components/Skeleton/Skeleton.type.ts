@@ -7,3 +7,8 @@ export type SkeletonProps = {
   columns?: SkeletonColumn[];
   className?: string;
 };
+
+export type CardSkeletonProps = {
+  count?: number;
+  className?: string;
+};

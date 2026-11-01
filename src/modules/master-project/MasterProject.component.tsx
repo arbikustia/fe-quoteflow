@@ -7,6 +7,7 @@ import { PageLayout } from "../../app/shared/PageLayout";
 import { MasterDataCard } from "../../components/MasterDataCard";
 import { Pagination } from "../../components/Pagination";
 import { SearchFilter } from "../../components/SearchFilter";
+import { CardSkeletonComponent, SkeletonComponent } from "../../components/Skeleton";
 import type { TableColumn } from "../../components/Table";
 import Table from "../../components/Table";
 
@@ -176,7 +177,7 @@ const _handleSearch = (setSearchTerm: MasterProjectProps["setSearchTerm"], event
 const _renderMobile = (props: MasterProjectProps): ReactElement => (
   <div className="flex min-w-0 flex-col gap-4 pb-16 pt-2 lg:hidden">
     <SearchFilter placeholder="Search project" onChange={_handleSearch.bind(null, props.setSearchTerm)} isRoundedFull={true} className="w-full sm:w-full" inputClassName="text-lg placeholder:text-lg" />
-    <div className="min-w-0 space-y-3">{_renderListState(props) ?? props.paginatedData.map((project) => <Fragment key={project.id}>{_renderProjectCard(project, props.onEdit)}</Fragment>)}</div>
+    <div className="min-w-0 space-y-3">{props.isLoading ? <CardSkeletonComponent count={5} /> : _renderListState(props) ?? props.paginatedData.map((project) => <Fragment key={project.id}>{_renderProjectCard(project, props.onEdit)}</Fragment>)}</div>
     <Pagination currentPage={props.currentPage} totalPages={props.totalPages} pageSize={props.pageSize} onPageChange={props.goToPage} onPageSizeChange={props.changePageSize} totalItems={props.totalCount} isCompact className="mt-2 w-full rounded-2xl border border-border-default bg-background-surface px-4 py-3 shadow-xs" />
   </div>
 );
@@ -192,7 +193,7 @@ const _renderDesktop = (props: MasterProjectProps): ReactElement => (
       <SearchFilter placeholder="Search project" onChange={_handleSearch.bind(null, props.setSearchTerm)} />
       <button type="button" onClick={props.onCreate} className="h-14 rounded-xl bg-brand-blue px-6 text-sm font-semibold text-brand-white">Create Project</button>
     </div>
-    <div className="flex-1 overflow-auto">{_renderListState(props) ?? <Table data={props.paginatedData} columns={_getColumns(props.currentPage, props.pageSize, props.onEdit)} isDetail={false} keyExtractor={(row: ProjectData): string => row.id} />}</div>
+    <div className="flex-1 overflow-auto">{props.isLoading ? <SkeletonComponent rows={5} columns={[{ width: "8%" }, { width: "35%" }, { width: "25%" }, { width: "20%" }, { width: "12%" }]} /> : _renderListState(props) ?? <Table data={props.paginatedData} columns={_getColumns(props.currentPage, props.pageSize, props.onEdit)} isDetail={false} keyExtractor={(row: ProjectData): string => row.id} />}</div>
     <Pagination currentPage={props.currentPage} totalPages={props.totalPages} pageSize={props.pageSize} onPageChange={props.goToPage} onPageSizeChange={props.changePageSize} totalItems={props.totalCount} />
   </div>
 );

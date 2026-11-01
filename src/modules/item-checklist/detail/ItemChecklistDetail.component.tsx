@@ -10,29 +10,73 @@ import { PageLayout } from "@/app/shared/PageLayout";
 import type { ItemChecklistDetailState } from "./ItemChecklistDetail.type";
 import type { ApiChecklistItem } from "../ItemChecklist.type";
 
+const _displayOptional = (value: string | null): string => value?.trim() || "-";
+const _formatDate = (value: string): string => {
+  const date = new Date(value);
+
+  return Number.isNaN(date.getTime()) ? value : date.toLocaleString("id-ID", { dateStyle: "medium", timeStyle: "short" });
+};
+
 const _columns: TableColumn<ApiChecklistItem>[] = [
   { key: "item_name", header: "Item" },
-  { key: "section", header: "Section" },
+  { key: "description", header: "Description" },
+  { key: "section", header: "Section", render: (item): string => _displayOptional(item.section) },
   { key: "qty", header: "Qty", align: "center" },
   { key: "move_out", header: "Move Out", align: "center", render: (item): string => item.move_out ? "Yes" : "No" },
   { key: "move_in", header: "Move In", align: "center", render: (item): string => item.move_in ? "Yes" : "No" },
-  { key: "remark", header: "Remark" },
+  { key: "sign", header: "Sign", render: (item): string => _displayOptional(item.sign) },
+  { key: "remark", header: "Remark", render: (item): string => _displayOptional(item.remark) },
 ];
 
-/** Render checklist detail. */
+/** Render checklist detail from its detail endpoint. */
 export const ItemChecklistDetailComponent = (props: ItemChecklistDetailState): ReactElement => {
-  const { checklist, isLoading, errorMessage, goBack } = props;
+  const { checklist, isLoading, errorMessage, goBack, goEdit } = props;
   let content: ReactElement;
+  let statusLabel = "Unavailable";
+
+  if (checklist?.status !== null && checklist?.status !== undefined) {
+    statusLabel = checklist.status === 1 ? "Active" : "Inactive";
+  }
 
   if (isLoading) {
-    content = <SkeletonComponent rows={5} columns={[{ width: "28%" }, { width: "18%" }, { width: "12%" }, { width: "14%" }, { width: "14%" }, { width: "14%" }]} />;
+    content = <SkeletonComponent rows={5} columns={[{ width: "25%" }, { width: "20%" }, { width: "10%" }, { width: "10%" }, { width: "10%" }, { width: "10%" }, { width: "10%" }, { width: "5%" }]} />;
   } else if (errorMessage) {
     content = <p role="alert" className="py-10 text-center text-danger">{errorMessage}</p>;
   } else if (!checklist) {
     content = <p className="py-10 text-center text-text-secondary">Item checklist unavailable.</p>;
   } else {
-    content = <Table data={checklist.items} columns={_columns} keyExtractor={(item): string => item.id} emptyText="No checklist items." />;
+    content = (
+      <div className="space-y-6">
+        <dl className="grid grid-cols-1 gap-4 border-b border-border-default pb-6 text-sm sm:grid-cols-2 lg:grid-cols-3">
+          <div><dt className="text-text-secondary">Checklist date</dt><dd className="font-semibold text-text-primary">{_formatDate(checklist.checklist_date)}</dd></div>
+          <div><dt className="text-text-secondary">Status</dt><dd className="font-semibold text-text-primary">{statusLabel}</dd></div>
+          <div><dt className="text-text-secondary">Items</dt><dd className="font-semibold text-text-primary">{checklist.items.length}</dd></div>
+        </dl>
+        <Table data={checklist.items} columns={_columns} keyExtractor={(item): string => item.id} emptyText="No checklist items." />
+      </div>
+    );
   }
 
-  return <Layout pageTitle="Item Checklist Detail" mobileWhiteBackground={true}><PageLayout title={checklist?.checklist_no ?? "Item Checklist"} subtitle="Rental item checklist details." breadcrumbs={["Item Checklist", checklist?.checklist_no ?? "Detail"]} onBack={goBack} headerRight={checklist && !errorMessage ? <button type="button" onClick={props.goEdit} className="h-12 rounded-xl bg-action-primary px-6 font-semibold text-text-inverse hover:bg-action-primary-hover">Edit Checklist</button> : undefined}><div className="rounded-4xl border border-border-default bg-background-surface p-6 shadow-xs"><div className="mb-6 grid grid-cols-1 gap-4 border-b border-border-default pb-6 text-sm text-text-secondary md:grid-cols-3"><p>Order ID: <span className="font-semibold text-text-primary">{checklist?.order_id ?? "-"}</span></p><p>Date: <span className="font-semibold text-text-primary">{checklist?.checklist_date ?? "-"}</span></p><p>Items: <span className="font-semibold text-text-primary">{checklist?.items.length ?? 0}</span></p></div>{content}</div></PageLayout></Layout>;
+  return (
+    <Layout pageTitle="Item Checklist Detail" mobileWhiteBackground={true}>
+      <PageLayout
+        title={checklist?.checklist_no ?? "Item Checklist"}
+        subtitle="Rental item checklist details."
+        breadcrumbs={["Item Checklist", checklist?.checklist_no ?? "Detail"]}
+        onBack={goBack}
+        headerRight={checklist && !errorMessage ? (
+          <div className="flex items-center gap-2">
+            <button type="button" onClick={props.onDownload} className="h-12 rounded-xl border border-border-default bg-background-surface px-6 font-semibold text-text-primary hover:bg-background-subtle">
+              Download PDF
+            </button>
+            <button type="button" onClick={goEdit} className="h-12 rounded-xl bg-action-primary px-6 font-semibold text-text-inverse hover:bg-action-primary-hover">
+              Edit Checklist
+            </button>
+          </div>
+        ) : undefined}
+      >
+        <div className="rounded-4xl border border-border-default bg-background-surface p-6 shadow-xs">{content}</div>
+      </PageLayout>
+    </Layout>
+  );
 };

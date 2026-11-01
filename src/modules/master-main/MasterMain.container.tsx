@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 
 import { MasterMainComponent } from "./MasterMain.component";
 import { MASTER_MAIN_CONFIG } from "./MasterMain.config";
+import { useMasterIllustrationsLoaded } from "./MasterMain.hook";
 
 /**
  * Master Main Container
@@ -10,17 +11,19 @@ import { MASTER_MAIN_CONFIG } from "./MasterMain.config";
  */
 const MasterMainContainer = (): React.ReactElement => {
   const navigate = useNavigate();
+  const isLoaded = useMasterIllustrationsLoaded();
 
   const handleCardClick = (path: string): void => {
     navigate(path);
   };
-  const handleBack = (): void => { void navigate(-1); };
+  const handleBack = (): void => { void navigate("/home"); };
 
   return (
     <MasterMainComponent
       cards={MASTER_MAIN_CONFIG}
       onCardClick={handleCardClick}
       onBack={handleBack}
+      isLoaded={isLoaded}
     />
   );
 };

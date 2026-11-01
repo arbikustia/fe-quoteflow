@@ -25,4 +25,4 @@ export const rentalChecklistService = apiRtkClient.injectEndpoints({
   overrideExisting: false,
 });
 
-export const { useGetRentalChecklistsQuery, useGetRentalChecklistByIdQuery, useCreateRentalChecklistMutation, useUpdateRentalChecklistMutation } = rentalChecklistService;
+export const { useGetRentalChecklistsQuery, useGetRentalChecklistByIdQuery, useLazyGetRentalChecklistByIdQuery, useCreateRentalChecklistMutation, useUpdateRentalChecklistMutation } = rentalChecklistService;

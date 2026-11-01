@@ -5,7 +5,7 @@ import Layout from "../../app/layout";
 import { PageLayout } from "../../app/shared/PageLayout";
 import { Pagination } from "../../components/Pagination";
 import { SearchFilter } from "../../components/SearchFilter";
-import { SkeletonComponent } from "../../components/Skeleton";
+import { CardSkeletonComponent, SkeletonComponent } from "../../components/Skeleton";
 import type { TableColumn } from "../../components/Table";
 import Table from "../../components/Table";
 
@@ -157,7 +157,9 @@ const _renderMobileCards = (props: MasterCustomerProps): React.ReactElement => {
     <div className="lg:hidden flex min-w-0 flex-col gap-4 pt-2 pb-16">
       <div className="w-full">{_renderMobileSearch(setSearchTerm)}</div>
       <div className="min-w-0 space-y-3">
-        {_renderListState(props) ?? paginatedData.map((customer) => (
+        {props.isLoading ? (
+          <CardSkeletonComponent count={5} />
+        ) : _renderListState(props) ?? paginatedData.map((customer) => (
           <CustomerMobileCard key={customer.id} customer={customer} onEdit={onEdit} />
         ))}
       </div>

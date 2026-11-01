@@ -62,7 +62,7 @@ describe("MasterProjectComponent", () => {
     expect(screen.getAllByText("Website Revamp")[0]).toBeInTheDocument();
     fireEvent.change(screen.getAllByRole("searchbox", { name: "Search project" })[0], { target: { value: "website" } });
     fireEvent.click(screen.getAllByText("Website Revamp")[0].closest("button")!);
-    fireEvent.click(screen.getByRole("button", { name: "Create New" }));
+    fireEvent.click(screen.getByRole("button", { name: "Create Project" }));
     fireEvent.click(screen.getByRole("button", { name: "Page Back" }));
 
     expect(props.setSearchTerm).toHaveBeenCalledWith("website");
@@ -71,8 +71,14 @@ describe("MasterProjectComponent", () => {
     expect(props.onBack).toHaveBeenCalled();
   });
 
+  it("should render loading skeletons when isLoading is true", () => {
+    render(<MasterProjectComponent {...createProps({ isLoading: true })} />);
+
+    expect(screen.getByRole("status", { name: "Loading cards" })).toBeInTheDocument();
+    expect(screen.getByRole("status", { name: "Loading" })).toBeInTheDocument();
+  });
+
   it.each([
-    [{ isLoading: true }, "Loading projects…"],
     [{ isMissingData: true }, "Project data is unavailable. Please try again."],
     [{ errorMessage: "Unable to load projects." }, "Unable to load projects."],
     [{ isEmpty: true, paginatedData: [] }, "No projects found."],

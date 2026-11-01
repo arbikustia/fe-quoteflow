@@ -13,4 +13,15 @@ describe("MasterMainComponent Test", () => {
 
     expect(result).toBeDefined();
   });
+
+  it("should render skeleton cards when illustrations are loading", () => {
+    const result = React.createElement(MasterMainComponent, {
+      cards: MASTER_MAIN_CONFIG,
+      onCardClick: () => {},
+      onBack: () => {},
+      isLoaded: false,
+    });
+
+    expect(result).toBeDefined();
+  });
 });

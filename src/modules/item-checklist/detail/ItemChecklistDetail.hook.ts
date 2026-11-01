@@ -3,6 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useGetRentalChecklistByIdQuery } from "@/services/rental-checklist.service";
 
 import type { ItemChecklistDetailState } from "./ItemChecklistDetail.type";
+import { downloadChecklistPdf } from "../ItemChecklist.pdf";
 
 /** Get checklist detail page state. */
 export const useItemChecklistDetail = (): ItemChecklistDetailState => {
@@ -19,6 +20,11 @@ export const useItemChecklistDetail = (): ItemChecklistDetailState => {
 
   const goBack = (): void => { void navigate("/document/item-checklist"); };
   const goEdit = (): void => { if (id) void navigate(`/document/item-checklist/create/${id}`); };
+  const onDownload = (): void => {
+    if (query.data?.data) {
+      downloadChecklistPdf(query.data.data);
+    }
+  };
 
-  return { checklist: query.data?.data ?? null, isLoading: query.isLoading, errorMessage, goBack, goEdit };
+  return { checklist: query.data?.data ?? null, isLoading: query.isLoading, errorMessage, goBack, goEdit, onDownload };
 };

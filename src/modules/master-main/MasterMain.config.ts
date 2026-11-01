@@ -13,7 +13,7 @@ import userIllustration from "../../assets/user-illustration.png";
 import voucherIllustration from "../../assets/voucher-illustration.png";
 import { MASTER_DATA_ITEMS } from "../../components/Sidebar/Sidebar.config";
 
-const MASTER_MAIN_IMAGES = new Map<string, string>([
+export const MASTER_MAIN_IMAGES = new Map<string, string>([
   ["/master-customer", customerIllustration],
   ["/master-category", categoryIllustration],
   ["/master-item", itemIllustration],

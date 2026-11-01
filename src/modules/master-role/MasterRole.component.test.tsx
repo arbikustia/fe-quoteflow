@@ -68,7 +68,7 @@ describe("MasterRoleComponent", () => {
     fireEvent.change(screen.getAllByRole("searchbox", { name: "Search role" })[0], { target: { value: "admin" } });
     fireEvent.click(screen.getByText("Admin").closest("button")!);
     fireEvent.click(screen.getByRole("button", { name: "Desktop role row" }));
-    fireEvent.click(screen.getByRole("button", { name: "Create New" }));
+    fireEvent.click(screen.getByRole("button", { name: "Create Role" }));
     fireEvent.click(screen.getByRole("button", { name: "Page Back" }));
 
     expect(props.setSearchTerm).toHaveBeenCalledWith("admin");
@@ -78,8 +78,14 @@ describe("MasterRoleComponent", () => {
     expect(props.onBack).toHaveBeenCalled();
   });
 
+  it("should render loading skeletons when isLoading is true", () => {
+    render(<MasterRoleComponent {...createProps({ isLoading: true })} />);
+
+    expect(screen.getByRole("status", { name: "Loading cards" })).toBeInTheDocument();
+    expect(screen.getByRole("status", { name: "Loading" })).toBeInTheDocument();
+  });
+
   it.each([
-    [{ isLoading: true }, "Loading roles…"],
     [{ isMissingData: true }, "Role data is unavailable. Please try again."],
     [{ errorMessage: "Unable to load roles." }, "Unable to load roles."],
     [{ isEmpty: true, paginatedData: [] }, "No roles found."],

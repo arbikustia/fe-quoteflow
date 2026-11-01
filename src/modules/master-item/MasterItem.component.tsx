@@ -9,6 +9,7 @@ import { PageLayout } from "../../app/shared/PageLayout";
 import { MasterDataCard } from "../../components/MasterDataCard";
 import { Pagination } from "../../components/Pagination";
 import { SearchFilter } from "../../components/SearchFilter";
+import { CardSkeletonComponent, SkeletonComponent } from "../../components/Skeleton";
 import type { TableColumn } from "../../components/Table";
 import Table from "../../components/Table";
 
@@ -275,12 +276,16 @@ const _renderMobile = (props: MasterItemProps): ReactElement => {
     <div className="flex min-w-0 flex-col gap-4 pt-2 pb-16 lg:hidden">
       <SearchFilter placeholder="Search item" onChange={handleSearch} isRoundedFull={true} className="w-full sm:w-full" inputClassName="text-lg placeholder:text-lg" />
       <div className="min-w-0 space-y-3">
-        {_renderListState(props) ??
-          props.paginatedData.map((item) => (
-            <React.Fragment key={item.id}>
-              <MobileItemCard item={item} onEdit={props.onEdit} />
-            </React.Fragment>
-          ))}
+        {props.isLoading ? (
+          <CardSkeletonComponent count={5} />
+        ) : (
+          _renderListState(props) ??
+            props.paginatedData.map((item) => (
+              <React.Fragment key={item.id}>
+                <MobileItemCard item={item} onEdit={props.onEdit} />
+              </React.Fragment>
+            ))
+        )}
       </div>
       <Pagination
         currentPage={props.currentPage}
@@ -356,13 +361,17 @@ const _renderDesktop = (props: MasterItemProps): ReactElement => {
     <div className="hidden lg:flex rounded-4xl border border-brand-gray-light bg-brand-white px-6 shadow-xs md:flex-1 md:flex-col md:overflow-hidden md:mt-6">
       {_renderDesktopToolbar(props, handleSearch)}
       <div className="flex-1 overflow-auto">
-        {_renderListState(props) ?? (
-          <Table
-            data={props.paginatedData}
-            columns={_getColumns(props)}
-            isDetail={false}
-            keyExtractor={(row: ItemData): string => row.id}
-          />
+        {props.isLoading ? (
+          <SkeletonComponent rows={5} columns={[{ width: "5%" }, { width: "35%" }, { width: "20%" }, { width: "20%" }, { width: "20%" }]} />
+        ) : (
+          _renderListState(props) ?? (
+            <Table
+              data={props.paginatedData}
+              columns={_getColumns(props)}
+              isDetail={false}
+              keyExtractor={(row: ItemData): string => row.id}
+            />
+          )
         )}
       </div>
       <Pagination

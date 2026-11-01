@@ -1,30 +1,51 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-import { useGetRentalChecklistsQuery } from "@/services/rental-checklist.service";
+import { useGetRentalChecklistsQuery, useLazyGetRentalChecklistByIdQuery } from "@/services/rental-checklist.service";
 
+import { downloadChecklistPdf } from "./ItemChecklist.pdf";
 import type { ApiChecklist, ChecklistListState, ChecklistRow } from "./ItemChecklist.type";
 
-const _mapChecklist = (checklist: ApiChecklist): ChecklistRow => ({
-  id: checklist.id,
-  checklistNo: checklist.checklist_no,
-  checklistDate: checklist.checklist_date,
-  itemCount: checklist.items.length,
-  status: checklist.status === 1 ? "active" : "inactive",
-  orderId: checklist.order_id,
-});
+const _mapChecklist = (checklist: ApiChecklist): ChecklistRow => {
+  let status: ChecklistRow["status"] = "unavailable";
 
-export const useItemChecklistNavigation = (): Pick<ChecklistListState, "onBack" | "onCreate" | "onRowClick" | "onEdit"> => {
+  if (checklist.status !== null) {
+    status = checklist.status === 1 ? "active" : "inactive";
+  }
+
+  return {
+    id: checklist.id,
+    checklistNo: checklist.checklist_no,
+    checklistDate: checklist.checklist_date,
+    itemCount: checklist.items.length,
+    status,
+    orderId: checklist.order_id,
+  };
+};
+
+export const useItemChecklistNavigation = (): Pick<ChecklistListState, "onBack" | "onCreate" | "onRowClick" | "onEdit" | "onDownload" | "isDownloadingId"> => {
   const navigate = useNavigate();
-  const onBack = (): void => { void navigate("/home"); };
+  const [getChecklist] = useLazyGetRentalChecklistByIdQuery();
+  const [isDownloadingId, setIsDownloadingId] = useState<string | null>(null);
+  const onBack = (): void => { void navigate("/document"); };
   const onCreate = (): void => { void navigate("/document/item-checklist/create"); };
   const onRowClick = (row: ChecklistRow): void => { void navigate(`/document/item-checklist/${row.id}`); };
   const onEdit = (row: ChecklistRow): void => { void navigate(`/document/item-checklist/create/${row.id}`); };
+  const onDownload = (row: ChecklistRow): void => {
+    if (isDownloadingId) return;
+    setIsDownloadingId(row.id);
+    void getChecklist(row.id).unwrap().then((response) => {
+      if (!response.status || !response.data) throw new Error(response.messages.join(" ") || "Checklist detail unavailable.");
+      downloadChecklistPdf(response.data);
+    }).catch(() => {
+      window.alert("Unable to download item checklist. Please try again.");
+    }).finally(() => setIsDownloadingId(null));
+  };
 
-  return { onBack, onCreate, onRowClick, onEdit };
+  return { onBack, onCreate, onRowClick, onEdit, onDownload, isDownloadingId };
 };
 
-export const useItemChecklistList = (): Omit<ChecklistListState, "onBack" | "onCreate" | "onRowClick" | "onEdit"> => {
+export const useItemChecklistList = (): Omit<ChecklistListState, "onBack" | "onCreate" | "onRowClick" | "onEdit" | "onDownload" | "isDownloadingId"> => {
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize, setPageSize] = useState(10);
   const [searchTerm, setSearchTermState] = useState("");

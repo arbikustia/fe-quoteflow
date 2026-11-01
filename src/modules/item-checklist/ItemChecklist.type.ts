@@ -4,13 +4,13 @@ export type ApiChecklistItem = {
   item_id: string;
   item_name: string;
   description: string;
-  section: string;
+  section: string | null;
   qty: number;
   move_out: boolean;
   move_in: boolean;
   sign: string;
-  remark: string;
-  status: number;
+  remark: string | null;
+  status: number | null;
   created_at: string;
   updated_at: string;
 };
@@ -20,7 +20,7 @@ export type ApiChecklist = {
   order_id: string;
   checklist_no: string;
   checklist_date: string;
-  status: number;
+  status: number | null;
   created_at: string;
   updated_at: string;
   items: ApiChecklistItem[];
@@ -56,5 +56,5 @@ export type ChecklistCreatePayload = {
 export type ChecklistCreateResponse = { status: boolean; data: ApiChecklist | null; messages: string[] };
 export type ChecklistUpdateRequest = { id: string; body: ChecklistCreatePayload };
 
-export type ChecklistRow = { id: string; checklistNo: string; checklistDate: string; itemCount: number; status: "active" | "inactive"; orderId: string };
-export type ChecklistListState = { currentPage: number; totalPages: number; pageSize: number; totalCount: number; rows: ChecklistRow[]; isLoading: boolean; errorMessage: string | null; isEmpty: boolean; setSearchTerm: (value: string) => void; goToPage: (page: number) => void; changePageSize: (size: number) => void; onCreate: () => void; onRowClick: (row: ChecklistRow) => void; onEdit: (row: ChecklistRow) => void; onBack: () => void };
+export type ChecklistRow = { id: string; checklistNo: string; checklistDate: string; itemCount: number; status: "active" | "inactive" | "unavailable"; orderId: string };
+export type ChecklistListState = { currentPage: number; totalPages: number; pageSize: number; totalCount: number; rows: ChecklistRow[]; isLoading: boolean; errorMessage: string | null; isEmpty: boolean; setSearchTerm: (value: string) => void; goToPage: (page: number) => void; changePageSize: (size: number) => void; onCreate: () => void; onRowClick: (row: ChecklistRow) => void; onEdit: (row: ChecklistRow) => void; onDownload: (row: ChecklistRow) => void; isDownloadingId: string | null; onBack: () => void };

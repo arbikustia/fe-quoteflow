@@ -6,4 +6,5 @@ export type ItemChecklistDetailState = {
   errorMessage: string | null;
   goBack: () => void;
   goEdit: () => void;
+  onDownload: () => void;
 };

@@ -16,4 +16,5 @@ export type MasterMainProps = {
   cards: MasterMainCardProps[];
   onCardClick: (path: string) => void;
   onBack: () => void;
+  isLoaded?: boolean;
 };

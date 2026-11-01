@@ -45,19 +45,9 @@ exports[`MasterUserComponent Snapshots default state 1`] = `
                 </span>
               </span>
               <span
-                class="flex shrink-0 items-center gap-3"
+                class="shrink-0 rounded-full px-3 py-1 font-bold uppercase tracking-wider bg-success-subtle text-success-strong text-sm"
               >
-                <span
-                  class="rounded-full px-3 py-1 font-bold uppercase tracking-wider bg-success-subtle text-success-strong text-sm"
-                >
-                  active
-                </span>
-                <span
-                  aria-hidden="true"
-                  class="text-xl text-text-tertiary transition-transform group-hover:translate-x-1"
-                >
-                  →
-                </span>
+                active
               </span>
             </button>
           </div>

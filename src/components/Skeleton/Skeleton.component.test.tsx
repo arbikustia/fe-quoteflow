@@ -1,6 +1,6 @@
 import { render, screen } from "@testing-library/react";
 
-import { SkeletonComponent } from "./Skeleton.component";
+import { CardSkeletonComponent, SkeletonComponent } from "./Skeleton.component";
 
 it("should render five default skeleton rows", (): void => {
   const { container } = render(<SkeletonComponent />);
@@ -13,4 +13,10 @@ it("should render a dynamic table skeleton layout", (): void => {
   const { container } = render(<SkeletonComponent rows={2} columns={[{ width: "25%" }, { width: "75%" }]} />);
 
   expect(container.querySelectorAll(".ant-skeleton-input")).toHaveLength(6);
+});
+
+it("should render card skeletons for mobile", (): void => {
+  render(<CardSkeletonComponent count={3} />);
+
+  expect(screen.getByRole("status", { name: "Loading cards" })).toBeInTheDocument();
 });

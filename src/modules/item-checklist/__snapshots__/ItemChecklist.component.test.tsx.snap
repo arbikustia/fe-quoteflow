@@ -700,8 +700,16 @@ exports[`ItemChecklistComponent matches snapshot 1`] = `
                     class="cursor-pointer hover:text-text-primary"
                     type="button"
                   >
-                    Item Checklist
+                    Document
                   </button>
+                  <span
+                    aria-hidden="true"
+                  >
+                    /
+                  </span>
+                  <span>
+                    Item Checklist
+                  </span>
                 </nav>
                 <h1
                   class="truncate text-4xl font-semibold leading-tight tracking-tight text-text-primary"
@@ -850,37 +858,67 @@ exports[`ItemChecklistComponent matches snapshot 1`] = `
                         active
                       </span>
                     </button>
-                    <button
-                      class="flex min-h-10 items-center gap-2 rounded-lg px-3 text-action-primary hover:bg-action-primary-subtle focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring"
-                      type="button"
+                    <div
+                      class="flex items-center gap-2"
                     >
-                      <svg
-                        aria-hidden="true"
-                        class="h-5 w-5"
-                        fill="none"
-                        height="1em"
-                        stroke="currentColor"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
-                        viewBox="0 0 24 24"
-                        width="1em"
-                        xmlns="http://www.w3.org/2000/svg"
+                      <button
+                        class="flex min-h-10 items-center gap-2 rounded-lg px-3 text-action-primary hover:bg-action-primary-subtle focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring"
+                        type="button"
                       >
-                        <path
-                          d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"
-                        />
-                      </svg>
-                       Edit CHK-001
-                    </button>
+                        <svg
+                          aria-hidden="true"
+                          class="h-5 w-5"
+                          fill="none"
+                          height="1em"
+                          stroke="currentColor"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                          viewBox="0 0 24 24"
+                          width="1em"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"
+                          />
+                        </svg>
+                         Edit CHK-001
+                      </button>
+                      <button
+                        class="flex min-h-10 items-center gap-2 rounded-lg px-3 text-action-primary hover:bg-action-primary-subtle focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring disabled:opacity-50"
+                        type="button"
+                      >
+                        <svg
+                          aria-hidden="true"
+                          class="h-5 w-5"
+                          fill="none"
+                          height="1em"
+                          stroke="currentColor"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                          viewBox="0 0 24 24"
+                          width="1em"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"
+                          />
+                          <polyline
+                            points="7 10 12 15 17 10"
+                          />
+                          <line
+                            x1="12"
+                            x2="12"
+                            y1="15"
+                            y2="3"
+                          />
+                        </svg>
+                         Download PDF CHK-001
+                      </button>
+                    </div>
                   </div>
                 </div>
-                <button
-                  class="h-14 w-full rounded-xl bg-action-primary px-6 text-lg font-semibold text-text-inverse hover:bg-action-primary-hover"
-                  type="button"
-                >
-                  Create Checklist
-                </button>
                 <div
                   class="flex flex-col gap-3 py-4 w-full rounded-2xl border border-border-default bg-background-surface px-4 py-3"
                 >
@@ -1158,30 +1196,67 @@ exports[`ItemChecklistComponent matches snapshot 1`] = `
                               <td
                                 class="px-5 py-4 border-b border-border-default text-base text-center "
                               >
-                                <button
-                                  aria-label="Edit CHK-001"
-                                  class="inline-flex cursor-pointer items-center gap-2 rounded-lg p-2.5 text-action-primary hover:bg-action-primary-subtle focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring"
-                                  type="button"
+                                <div
+                                  class="flex items-center justify-center gap-2"
                                 >
-                                  <svg
-                                    aria-hidden="true"
-                                    class="h-5 w-5"
-                                    fill="none"
-                                    height="1em"
-                                    stroke="currentColor"
-                                    stroke-linecap="round"
-                                    stroke-linejoin="round"
-                                    stroke-width="2"
-                                    viewBox="0 0 24 24"
-                                    width="1em"
-                                    xmlns="http://www.w3.org/2000/svg"
+                                  <button
+                                    aria-label="Edit CHK-001"
+                                    class="cursor-pointer rounded-lg p-1.5 text-brand-text-medium transition-colors hover:bg-brand-blue-light hover:text-brand-blue focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring"
+                                    title="Edit"
+                                    type="button"
                                   >
-                                    <path
-                                      d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"
-                                    />
-                                  </svg>
-                                   Edit
-                                </button>
+                                    <svg
+                                      aria-hidden="true"
+                                      class="h-4 w-4"
+                                      fill="none"
+                                      height="1em"
+                                      stroke="currentColor"
+                                      stroke-linecap="round"
+                                      stroke-linejoin="round"
+                                      stroke-width="2"
+                                      viewBox="0 0 24 24"
+                                      width="1em"
+                                      xmlns="http://www.w3.org/2000/svg"
+                                    >
+                                      <path
+                                        d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"
+                                      />
+                                    </svg>
+                                  </button>
+                                  <button
+                                    aria-label="Download CHK-001"
+                                    class="cursor-pointer rounded-lg p-1.5 text-brand-text-medium transition-colors hover:bg-brand-blue-light hover:text-brand-blue focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring disabled:cursor-wait disabled:opacity-50"
+                                    title="Download PDF"
+                                    type="button"
+                                  >
+                                    <svg
+                                      aria-hidden="true"
+                                      class="h-4 w-4"
+                                      fill="none"
+                                      height="1em"
+                                      stroke="currentColor"
+                                      stroke-linecap="round"
+                                      stroke-linejoin="round"
+                                      stroke-width="2"
+                                      viewBox="0 0 24 24"
+                                      width="1em"
+                                      xmlns="http://www.w3.org/2000/svg"
+                                    >
+                                      <path
+                                        d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"
+                                      />
+                                      <polyline
+                                        points="7 10 12 15 17 10"
+                                      />
+                                      <line
+                                        x1="12"
+                                        x2="12"
+                                        y1="15"
+                                        y2="3"
+                                      />
+                                    </svg>
+                                  </button>
+                                </div>
                               </td>
                             </tr>
                           </tbody>
