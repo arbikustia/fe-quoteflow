@@ -1,5 +1,5 @@
 import type { ReactElement } from "react";
-import { FiCheckCircle } from "react-icons/fi";
+import { FiCheckCircle, FiEdit2, FiMoreHorizontal } from "react-icons/fi";
 
 import ConfirmModal from "@/components/ConfirmModal";
 import { SkeletonComponent } from "@/components/Skeleton";
@@ -7,7 +7,6 @@ import { SkeletonComponent } from "@/components/Skeleton";
 import type { ApiQuotation, QuotationDetailState } from "../Quotation.type";
 
 import {
-  renderCustomerSection,
   renderItemsSection,
   renderPricingSection,
   renderProjectsSection,
@@ -40,7 +39,6 @@ const _renderDetail = (quotation: ApiQuotation): ReactElement => {
         </div>
         <aside className="space-y-4 sm:space-y-5">
           {renderPricingSection(quotation.transaction)}
-          {renderCustomerSection(quotation.transaction.customer)}
           {renderVoucherSection(quotation.transaction.voucher)}
         </aside>
       </div>
@@ -67,24 +65,31 @@ const _getApproveLabel = (isApproved: boolean, isApproving: boolean): string => 
  * @param {QuotationDetailState} props - Detail state
  * @returns {ReactElement} Quotation detail page
  */
+// eslint-disable-next-line max-lines-per-function
 export const QuotationDetailComponent = (props: QuotationDetailState): ReactElement => {
-  const isApproved = props.quotation?.status === 3;
+  const isApproved = props.quotation?.status === 2;
   const approveLabel = _getApproveLabel(isApproved, props.isApproving);
-  const approveButton = (
-    <button
-      type="button"
-      onClick={props.openApproveModal}
-      disabled={!props.quotation || isApproved || props.isApproving}
-      className={`inline-flex h-11 items-center justify-center gap-1.5 rounded-xl px-3 text-sm font-semibold transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed lg:h-12 lg:gap-2 lg:px-5 ${isApproved ? "border border-success bg-success-subtle text-success-strong" : "bg-action-primary text-text-inverse shadow-xs hover:bg-action-primary-hover active:bg-action-primary-pressed disabled:opacity-60"}`}
-    >
-      <FiCheckCircle className="h-4 w-4 lg:h-5 lg:w-5" aria-hidden="true" />
-      <span>{approveLabel}</span>
-    </button>
-  );
+  const headerActions = props.quotation?.status === 1 ? (
+    <details className="relative shrink-0">
+      <summary data-testid="quotation-detail-actions" className="flex h-14 w-14 cursor-pointer list-none items-center justify-center rounded-2xl border border-border-default text-text-secondary transition-colors hover:bg-background-subtle hover:text-text-primary" aria-label="More options">
+        <FiMoreHorizontal className="h-7 w-7" aria-hidden="true" />
+      </summary>
+      <div role="menu" className="absolute right-0 top-16 z-20 w-56 overflow-hidden rounded-2xl border border-border-default bg-background-surface py-2 shadow-lg">
+        <button type="button" role="menuitem" onClick={props.handleEdit} className="flex w-full items-center gap-3 px-5 py-3.5 text-left text-lg font-semibold text-text-primary transition-colors hover:bg-background-subtle">
+          <FiEdit2 className="h-5 w-5" aria-hidden="true" />
+          Edit
+        </button>
+        <button type="button" role="menuitem" onClick={props.openApproveModal} className="flex w-full items-center gap-3 px-5 py-3.5 text-left text-lg font-semibold text-success-strong transition-colors hover:bg-success-subtle">
+          <FiCheckCircle className="h-5 w-5" aria-hidden="true" />
+          {approveLabel}
+        </button>
+      </div>
+    </details>
+  ) : null;
 
   return (
     <Layout pageTitle="Quotation Detail" mobileWhiteBackground={true}>
-      <PageLayout title="Quotation Detail" breadcrumbs={["Quotation", "Detail"]} headerRight={approveButton} mobileHeaderClassName="px-0" mobileTitleClassName="text-4xl" onBack={props.goBack}>
+      <PageLayout title="Quotation Detail" subtitle="View quotation details and transaction information" breadcrumbs={["Quotation", "Detail"]} headerRight={headerActions} mobileHeaderClassName="px-0" mobileTitleClassName="text-4xl" onBack={props.goBack}>
         {props.isLoading && <div className="rounded-2xl border border-border-default bg-background-surface p-5"><SkeletonComponent rows={8} columns={[{ width: "35%" }, { width: "65%" }]} /></div>}
         {!props.isLoading && props.errorMessage && <div role="alert" className="rounded-2xl border border-danger bg-danger-subtle p-5 text-sm font-medium text-danger-strong">{props.errorMessage}</div>}
         {!props.isLoading && !props.errorMessage && !props.quotation && <div className="rounded-2xl border border-border-default bg-background-surface p-8 text-center text-sm text-text-secondary">Quotation detail is unavailable.</div>}

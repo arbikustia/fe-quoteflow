@@ -144,9 +144,9 @@ function App(): React.ReactElement {
         <Route path="/document/payment/:id/status" element={<PaymentStatusPage />} />
 
         {/* Orders & Reports */}
-        <Route path="/order/draft" element={<OrderPage />} />
         <Route path="/order" element={<OrderPage />} />
         <Route path="/order/create" element={<OrderPageCreate />} />
+        <Route path="/order/create/:id" element={<OrderPageCreate />} />
         <Route path="/order/edit/:id" element={<OrderPageCreate />} />
         <Route path="/order/detail/:id" element={<OrderPageDetail />} />
         <Route path="/preview" element={<Preview />} />

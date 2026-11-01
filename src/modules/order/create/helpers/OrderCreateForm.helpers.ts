@@ -1,6 +1,7 @@
 import type React from "react";
 import { useEffect, useRef, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import type { NavigateFunction } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 
 import type { ApiRentalTransactionDetail, OrderCreatePayload, OrderItemPayload, OrderType, ProjectOrderCreatePayload, ProjectOrderItemPayload, RentalHandoverPayload } from "../../Order.type";
 import { calculateOrderTotals, getNextOrderStep, getPreviousOrderStep, hasSelectedOrderItem, isOrderInformationValid } from "../OrderCreate.helpers";
@@ -12,10 +13,11 @@ import { useGetAllPicsQuery } from "@/services/master-pic.service";
 import { useGetAllProjectsQuery } from "@/services/master-project.service";
 import { useGetAllServiceTypesQuery } from "@/services/master-service-type.service";
 import { useGetAllVouchersQuery } from "@/services/master-voucher.service";
-import { useCreateOrderMutation, useCreateProjectOrderMutation, useGetAllOrderTypesQuery, useGetOrderByIdQuery } from "@/services/order.service";
+import { useCreateOrderMutation, useCreateProjectOrderMutation, useGetAllOrderTypesQuery, useGetOrderByIdQuery, useUpdateOrderMutation } from "@/services/order.service";
 
 type CustomerOption = SelectOption & { address: string; phone_number: string };
 type VoucherOption = SelectOption & { discount_percent: number };
+type OrderLocationState = { returnUrl?: string };
 type ProjectData = OrderProjectOption;
 type FormSetter = React.Dispatch<React.SetStateAction<OrderCreateFormState>>;
 type ActionResult = {
@@ -58,18 +60,17 @@ const getDefaultDateRange = (): { start_at: string; end_at: string } => {
 };
 
 const DEFAULT_DATE_RANGE = getDefaultDateRange();
-const INITIAL_FORM: OrderCreateFormState = { customer_id: "", pic_id: "", voucher_id: "", service_type_id: "", order_type_id: "", handover_type: "", handover_name: "", service_type_name: "", customer_name: "", customer_phone: "", address: "", event_name: "", start_at: DEFAULT_DATE_RANGE.start_at, end_at: DEFAULT_DATE_RANGE.end_at, subtotal: 0, discount: 0, service_fee: 0, remarks: "", grand_total: 0, status: 2, rental_transaction_items: [EMPTY_ITEM] };
+const INITIAL_FORM: OrderCreateFormState = { customer_id: "", pic_id: "", voucher_id: "", service_type_id: "", order_type_id: "", handover_type: "", handover_name: "", service_type_name: "", customer_name: "", customer_phone: "", address: "", event_name: "", start_at: DEFAULT_DATE_RANGE.start_at, end_at: DEFAULT_DATE_RANGE.end_at, subtotal: 0, discount: 0, service_fee: 0, remarks: "", grand_total: 0, status: 1, rental_transaction_items: [EMPTY_ITEM] };
 
 /**
- * Build edit form defaults from order detail.
+ * Build edit form item list from order detail.
  * @param {ApiRentalTransactionDetail} order - Order detail.
- * @returns {OrderCreateFormState} - Populated edit form.
+ * @returns {OrderItemPayload[]} Form item rows.
  */
-const buildEditForm = (order: ApiRentalTransactionDetail): OrderCreateFormState => {
-  const isProjectService = order.service_type_name.trim().toUpperCase() === "PROJECT";
-  let rentalTransactionItems: OrderItemPayload[] = [];
+const _buildEditFormItems = (order: ApiRentalTransactionDetail): OrderItemPayload[] => {
+  const serviceTypeName = (order.service_type_name ?? order.service_type?.name ?? "").trim().toUpperCase();
 
-  if (isProjectService) {
+  if (serviceTypeName === "PROJECT") {
     const projectItems = (order.rental_transaction_project ?? []).flatMap((project) =>
       project.items.map((projectItem) => ({
         item_id: projectItem.item_id,
@@ -82,45 +83,50 @@ const buildEditForm = (order: ApiRentalTransactionDetail): OrderCreateFormState 
       })),
     );
 
-    rentalTransactionItems = projectItems.length > 0 ? projectItems : [EMPTY_ITEM];
-  } else {
-    const regularItems = (order.rental_transaction_items ?? []).map((item) => ({
-      item_id: item.item_id,
-      project_id: item.project_id ?? null,
-      item_name: item.item_name,
-      qty: item.qty,
-      price: item.price,
-      subtotal: item.subtotal,
-      remark: item.remark ?? "",
-    }));
-
-    rentalTransactionItems = regularItems.length > 0 ? regularItems : [EMPTY_ITEM];
+    return projectItems.length > 0 ? projectItems : [EMPTY_ITEM];
   }
 
-  return {
-    customer_id: order.customer_id ?? order.customer?.id ?? "",
-    pic_id: order.pic_id ?? order.pic?.id ?? "",
-    voucher_id: order.voucher_id ?? order.voucher?.id ?? "",
-    service_type_id: order.service_type_id,
-    order_type_id: order.order_type_id ?? "",
-    handover_type: "",
-    handover_name: "",
-    service_type_name: order.service_type_name,
-    customer_name: order.customer_name,
-    customer_phone: order.customer_phone,
-    address: order.address,
-    event_name: order.event_name,
-    start_at: order.start_at,
-    end_at: order.end_at,
-    subtotal: order.subtotal,
-    discount: order.discount,
-    service_fee: order.service_fee,
-    remarks: order.remarks ?? "",
-    grand_total: order.grand_total,
-    status: order.status,
-    rental_transaction_items: rentalTransactionItems,
-  };
+  const regularItems = (order.rental_transaction_items ?? []).map((item) => ({
+    item_id: item.item_id,
+    project_id: item.project_id ?? null,
+    item_name: item.item_name,
+    qty: item.qty,
+    price: item.price,
+    subtotal: item.subtotal,
+    remark: item.remark ?? "",
+  }));
+
+  return regularItems.length > 0 ? regularItems : [EMPTY_ITEM];
 };
+
+/**
+ * Build edit form defaults from order detail.
+ * @param {ApiRentalTransactionDetail} order - Order detail.
+ * @returns {OrderCreateFormState} - Populated edit form.
+ */
+const buildEditForm = (order: ApiRentalTransactionDetail): OrderCreateFormState => ({
+  customer_id: order.customer_id ?? order.customer?.id ?? "",
+  pic_id: order.pic_id ?? order.pic?.id ?? "",
+  voucher_id: order.voucher_id ?? order.voucher?.id ?? "",
+  service_type_id: order.service_type_id ?? order.service_type?.id ?? "",
+  order_type_id: order.order_type_id ?? order.order_type?.id ?? "",
+  handover_type: "",
+  handover_name: "",
+  service_type_name: order.service_type_name ?? order.service_type?.name ?? "",
+  customer_name: order.customer_name ?? order.customer?.name ?? "",
+  customer_phone: order.customer_phone ?? order.customer?.phone_number ?? order.customer?.phone ?? "",
+  address: order.address ?? order.customer?.address ?? "",
+  event_name: order.event_name ?? "",
+  start_at: order.start_at ?? "",
+  end_at: order.end_at ?? "",
+  subtotal: order.subtotal ?? 0,
+  discount: order.discount ?? 0,
+  service_fee: order.service_fee ?? 0,
+  remarks: order.remarks ?? "",
+  grand_total: order.grand_total ?? 0,
+  status: order.status ?? 1,
+  rental_transaction_items: _buildEditFormItems(order),
+});
 
 /**
  * Format date value for order API payload. @param {string} value - date value. @returns {string} formatted date.
@@ -349,12 +355,14 @@ const buildOrderPayload = (form: OrderCreateFormState, items: OrderItemPayload[]
       }
     : undefined;
 
-  return { customer_id: form.customer_id, pic_id: form.pic_id, voucher_id: form.voucher_id, service_type_id: form.service_type_id, order_type_id: form.order_type_id, customer_name: form.customer_name, customer_phone: form.customer_phone, address: form.address, event_name: form.event_name, start_at: formatOrderDate(form.start_at), end_at: formatOrderDate(form.end_at), subtotal: totals.subtotal, discount: form.discount, service_fee: form.service_fee, remarks: form.remarks, grand_total: totals.grandTotal, status: 2, rental_transaction_items: items, ...(rentalHandover ? { rental_handover: rentalHandover } : {}) };
+  return { customer_id: form.customer_id, pic_id: form.pic_id, voucher_id: form.voucher_id, service_type_id: form.service_type_id, order_type_id: form.order_type_id, customer_name: form.customer_name, customer_phone: form.customer_phone, address: form.address, event_name: form.event_name, start_at: formatOrderDate(form.start_at), end_at: formatOrderDate(form.end_at), subtotal: totals.subtotal, discount: form.discount, service_fee: form.service_fee, remarks: form.remarks, grand_total: totals.grandTotal, status: 1, rental_transaction_items: items, ...(rentalHandover ? { rental_handover: rentalHandover } : {}) };
 };
 
 /** Manage order creation form state, validation, and submission. @returns {OrderCreateState} order creation state and handlers. */
 export const useOrderCreateForm = (): OrderCreateState => {
   const navigate = useNavigate();
+  const location = useLocation();
+  const returnUrl = (location.state as OrderLocationState | null)?.returnUrl;
   const { id } = useParams();
   const [form, setForm] = useState<OrderCreateFormState>(INITIAL_FORM);
   const [step, setStep] = useState<number>(1);
@@ -378,8 +386,10 @@ export const useOrderCreateForm = (): OrderCreateState => {
     hasInitializedEdit.current = true;
   }, [id, orderDetailQuery.data]);
 
-  const [createOrder, mutation] = useCreateOrderMutation();
+  const [createOrder, createMutation] = useCreateOrderMutation();
   const [createProjectOrder] = useCreateProjectOrderMutation();
+  const [updateOrder, updateMutation] = useUpdateOrderMutation();
+  const mutation = id ? updateMutation : createMutation; // Edit quotation transaction when route carries transaction_id.
   const customers = customerQuery.data?.data ?? [];
   const pics = picQuery.data?.data ?? [];
   const serviceTypes = serviceTypeQuery.data?.data ?? [];
@@ -425,10 +435,41 @@ export const useOrderCreateForm = (): OrderCreateState => {
     event.preventDefault();
     setErrorMessage(null);
 
-    try { await submitOrder(form, orderTypes, createOrder, createProjectOrder, navigate, setErrorMessage); } catch (error) { setErrorMessage(error instanceof Error ? `Unable to save order: ${error.message}` : "Unable to save order. Please review the form and try again."); }
+    try {
+      await submitOrder(form, orderTypes, id, createOrder, createProjectOrder, updateOrder, navigate, setErrorMessage, returnUrl);
+    } catch (error) {
+      setErrorMessage(error instanceof Error ? `Unable to save order: ${error.message}` : "Unable to save order. Please review the form and try again.");
+    }
   };
 
   return { form, customers, pics, serviceTypes, orderTypes, vouchers, projects, items, isCustomersLoading: customerQuery.isLoading, isPicsLoading: picQuery.isLoading, isServiceTypesLoading: serviceTypeQuery.isLoading, isOrderTypesLoading: orderTypeQuery.isLoading, isVouchersLoading: voucherQuery.isLoading, isProjectsLoading: projectQuery.isLoading, isItemsLoading: itemQuery.isLoading, isEdit: Boolean(id), isSubmitting: mutation.isLoading, errorMessage, showInformationErrors, showItemErrors, step, onBack, onNextStep, onPreviousStep, ...actions, onSubmit, onPreventSubmit };
+};
+
+/**
+ * Route after successful order submission.
+ * @param {NavigateFunction} navigate - route navigation
+ * @param {string | undefined} id - transaction ID
+ * @param {string | undefined} returnUrl - return route
+ * @returns {void}
+ */
+const _resolveSubmitRoute = (
+  navigate: NavigateFunction,
+  id: string | undefined,
+  returnUrl: string | undefined,
+): void => {
+  if (returnUrl) {
+    navigate(returnUrl);
+
+    return;
+  }
+
+  if (id) {
+    navigate(-1);
+
+    return;
+  }
+
+  navigate("/document/quotation");
 };
 
 /**
@@ -439,19 +480,35 @@ export const useOrderCreateForm = (): OrderCreateState => {
  * @param navigate
  * @param setErrorMessage
  */
-const submitOrder = async (form: OrderCreateFormState, orderTypes: OrderType[], createOrder: (payload: OrderCreatePayload) => { unwrap: () => Promise<unknown> }, createProjectOrder: (payload: ProjectOrderCreatePayload) => { unwrap: () => Promise<unknown> }, navigate: (path: string) => void, setErrorMessage: React.Dispatch<React.SetStateAction<string | null>>): Promise<void> => {
+const submitOrder = async (
+  form: OrderCreateFormState,
+  orderTypes: OrderType[],
+  id: string | undefined,
+  createOrder: (payload: OrderCreatePayload) => { unwrap: () => Promise<unknown> },
+  createProjectOrder: (payload: ProjectOrderCreatePayload) => { unwrap: () => Promise<unknown> },
+  updateOrder: (request: { id: string; payload: OrderCreatePayload }) => { unwrap: () => Promise<unknown> },
+  navigate: NavigateFunction,
+  setErrorMessage: React.Dispatch<React.SetStateAction<string | null>>,
+  returnUrl?: string,
+): Promise<void> => {
   const items = form.rental_transaction_items.filter((item) => item.item_id);
   const payload = buildOrderPayload(form, items, orderTypes);
 
-  if (form.service_type_name.trim().toUpperCase() === "PROJECT") {
+  if (id) {
+    await updateOrder({ id, payload: { ...payload, status: form.status } }).unwrap();
+  } else if (form.service_type_name.trim().toUpperCase() === "PROJECT") {
     const projectItems = buildProjectItems(items);
 
-    if (!projectItems.length) { setErrorMessage("Please select at least one project with items.");
+    if (!projectItems.length) {
+      setErrorMessage("Please select at least one project with items.");
 
- return; }
+      return;
+    }
 
     await createProjectOrder({ ...payload, rental_transaction_items: projectItems }).unwrap();
-  } else await createOrder(payload).unwrap();
+  } else {
+    await createOrder(payload).unwrap();
+  }
 
-  navigate("/document/quotation");
+  _resolveSubmitRoute(navigate, id, returnUrl);
 };

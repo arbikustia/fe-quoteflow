@@ -19,7 +19,11 @@ const OrderDetailContainer = (): React.ReactElement => {
   /** Navigate back to order list. */
   const handleNavigateBack = (): void => { void navigate(-1); };
   /** Navigate to order edit page. */
-  const handleEdit = (): void => { void navigate(`/order/edit/${id}`); };
+  const handleEdit = (): void => {
+    void navigate(`/order/edit/${id}`, {
+      state: { returnUrl: `/order/detail/${id}` },
+    });
+  };
   let errorMessage: string | null = null;
 
   if (query.error) {

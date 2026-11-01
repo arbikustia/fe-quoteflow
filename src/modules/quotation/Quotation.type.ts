@@ -187,6 +187,7 @@ export type QuotationDetailState = {
   goBack: () => void;
   openApproveModal: () => void;
   closeApproveModal: () => void;
+  handleEdit: () => void;
   handleApprove: () => Promise<void>;
 };
 

@@ -34,7 +34,7 @@ export const useQuotationStatusForm = (): QuotationStatusFormProps => {
   const quotation = data?.status && data.data ? data.data : null;
   const [selectedStatus, setSelectedStatus] = useState<boolean | null>(null);
   const [submissionError, setSubmissionError] = useState<string | null>(null);
-  const isApproved = selectedStatus ?? quotation?.status === 3;
+  const isApproved = selectedStatus ?? quotation?.status === 2;
   const queryError = _getQueryError(id, Boolean(error), Boolean(data && (!data.status || !data.data)));
   const errorMessage = submissionError ?? queryError;
 

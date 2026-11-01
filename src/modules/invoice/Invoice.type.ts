@@ -3,7 +3,7 @@ export type InvoiceProjectItem = { id: string; item_id: string; item_name: strin
 export type InvoiceProject = { id: string; name: string; remark: string; qty: number; subtotal: number; items: InvoiceProjectItem[] };
 export type InvoiceEntity = { id: string; name: string; status: number; created_at: string; updated_at: string; address: string; phone_number: string; code?: string; discount_percent?: number };
 export type InvoiceTransaction = {
-  id: string; service_type_id: string; service_type_name: string; customer_name: string; customer_phone: string; address: string; event_name: string; start_at: string; end_at: string;
+  id: string; service_type_id: string; service_type_name: string; order_type_id?: string; order_type_name?: string; customer_name: string; customer_phone: string; address: string; event_name: string; start_at: string; end_at: string;
   subtotal: number; service_fee: number; discount: number; grand_total: number; status: number; created_at: string; updated_at: string;
   rental_transaction_items: InvoiceItem[]; rental_transaction_project: InvoiceProject[]; customer: InvoiceEntity; pic: InvoiceEntity; voucher: InvoiceEntity;
 };
@@ -29,6 +29,7 @@ export type InvoiceListParams = { pageNumber: number; pageSize: number; searchTe
 
 export type InvoiceUpdateRequest = { id: string; payload: { transaction_id: string; status: number } };
 export type InvoiceUpdateResponse = { status: boolean; data: ApiInvoice | null; messages: string[] };
+export type InvoiceApproveRequest = { id: string };
 
 export type InvoiceData = {
   id: string;
@@ -77,7 +78,13 @@ export type InvoiceProps = InvoicePagination & {
 export type InvoiceDetailState = {
   invoice: ApiInvoice | null;
   isLoading: boolean;
+  isApproving: boolean;
+  isConfirmOpen: boolean;
   errorMessage: string | null;
   goBack: () => void;
-  goEdit: () => void;
+  goEdit?: () => void;
+  handleEdit: () => void;
+  openApproveModal: () => void;
+  closeApproveModal: () => void;
+  handleApprove: () => Promise<void>;
 };

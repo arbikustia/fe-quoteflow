@@ -66,7 +66,7 @@ const _renderMobileHeaderRight = (headerRight: React.ReactNode, actions: PageLay
  * @param {PageLayoutProps} props - page layout props
  * @returns {React.ReactElement} page layout
  */
-export const PageLayout = ({ title, breadcrumbs, actions = [], headerRight, mobileHeaderClassName = "px-2", mobileTitleClassName = "", onBack, children, footer }: PageLayoutProps): React.ReactElement => (
+export const PageLayout = ({ title, subtitle, breadcrumbs, actions = [], headerRight, mobileHeaderClassName = "px-2", mobileTitleClassName = "", onBack, children, footer }: PageLayoutProps): React.ReactElement => (
   <div className="flex min-h-full flex-col">
     <header className="mb-6 shrink-0">
       <div className="hidden items-start justify-between gap-4 lg:flex">
@@ -88,6 +88,7 @@ export const PageLayout = ({ title, breadcrumbs, actions = [], headerRight, mobi
             </nav>
           )}
           <h1 className="truncate text-4xl font-semibold leading-tight tracking-tight text-text-primary">{title}</h1>
+          {subtitle && <p className="mt-2 text-sm text-text-secondary">{subtitle}</p>}
         </div>
         {(headerRight || actions.length > 0) && (
           <div className="flex shrink-0 items-center gap-3">
@@ -111,7 +112,10 @@ export const PageLayout = ({ title, breadcrumbs, actions = [], headerRight, mobi
           <button type="button" onClick={onBack} aria-label="Back" className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full border border-border-default text-text-primary bg-white hover:bg-background-subtle transition-colors">
             {_renderBackIcon()}
           </button>
-          <h1 className={`min-w-0 truncate text-left text-3xl font-semibold tracking-tight text-text-primary ${mobileTitleClassName}`}>{title}</h1>
+          <div className="min-w-0 flex-1">
+            <h1 className={`truncate text-left text-3xl font-semibold tracking-tight text-text-primary ${mobileTitleClassName}`}>{title}</h1>
+            {subtitle && <p className="mt-1 truncate text-sm text-text-secondary">{subtitle}</p>}
+          </div>
         </div>
         {_renderMobileHeaderRight(headerRight, actions)}
       </div>

@@ -67,7 +67,7 @@ export const quotationService = apiRtkClient.injectEndpoints({
       query: ({ id }) => ({
         url: `${ENDPOINT.QUOTATION.STATUS}/${id}/status`,
         method: "PATCH",
-        data: { status: 3 },
+        data: { status: 2 },
       }),
       invalidatesTags: [QUOTATION_TAG],
     }),

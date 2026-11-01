@@ -4,7 +4,6 @@ import { FiEdit2 } from "react-icons/fi";
 import { MasterDataCard } from "@/components/MasterDataCard";
 import { Pagination } from "@/components/Pagination";
 import { SearchFilter } from "@/components/SearchFilter";
-import { SkeletonComponent } from "@/components/Skeleton";
 import Table, { type TableColumn } from "@/components/Table";
 
 import type { InvoiceData, InvoiceProps } from "./Invoice.type";
@@ -71,21 +70,6 @@ const _getColumns = (props: InvoiceProps): TableColumn<InvoiceData>[] => [
   { key: "startDate", header: "Event Start Date" },
   { key: "endDate", header: "Event End Date" },
   {
-    key: "status",
-    header: "Status",
-    align: "center",
-    /**
-     * Render invoice status.
-     * @param {InvoiceData} row - Invoice row
-     * @returns {React.ReactElement} Invoice status
-     */
-    render: (row: InvoiceData): React.ReactElement => (
-      <span className={`rounded-full px-3 py-1 text-xs font-bold uppercase ${row.status === 1 ? "bg-success-subtle text-success" : "bg-danger-subtle text-danger"}`}>
-        {row.status === 1 ? "Active" : "Inactive"}
-      </span>
-    ),
-  },
-  {
     key: "actions",
     header: "Action",
     align: "center",
@@ -123,6 +107,33 @@ const _renderMobileCard = (invoice: InvoiceData, onRowClick: InvoiceProps["onRow
 };
 
 /**
+ * Render invoice table skeleton matching real columns.
+ * @returns {React.ReactElement} Invoice table skeleton
+ */
+const _renderInvoiceTableSkeleton = (): React.ReactElement => {
+  const columns = ["7%", "13%", "14%", "14%", "11%", "11%", "13%", "13%", "7%"];
+
+  return (
+    <div className="min-w-225 animate-pulse overflow-hidden" role="status" aria-label="Loading invoice table">
+      <div className="flex h-12 items-center gap-4 border-b border-border-default bg-background-subtle px-4">{columns.map((width, index) => <div key={`invoice-table-header-${index}`} className="h-4 rounded bg-background-muted" style={{ width }} />)}</div>
+      {Array.from({ length: 5 }, (_value, rowIndex) => <div key={`invoice-table-row-${rowIndex}`} className="flex h-14 items-center gap-4 border-b border-border-default px-4">{columns.map((width, columnIndex) => <div key={`invoice-table-cell-${rowIndex}-${columnIndex}`} className="h-4 rounded bg-background-subtle" style={{ width }} />)}</div>)}
+    </div>
+  );
+};
+
+/**
+ * Render invoice mobile card skeleton matching MasterDataCard.
+ * @param {number} key - Skeleton key
+ * @returns {React.ReactElement} Invoice mobile card skeleton
+ */
+const _renderInvoiceCardSkeleton = (key: number): React.ReactElement => (
+  <div key={key} className="animate-pulse rounded-2xl border border-border-default bg-background-surface p-5" role="status" aria-label="Loading invoice card">
+    <div className="flex items-start justify-between gap-4"><div className="h-7 w-2/5 rounded bg-background-subtle" /><div className="h-6 w-16 rounded-full bg-background-subtle" /></div>
+    <div className="mt-3 grid gap-2"><div className="h-5 w-3/5 rounded bg-background-subtle" /><div className="h-5 w-4/5 rounded bg-background-subtle" /><div className="h-5 w-2/3 rounded bg-background-subtle" /></div>
+  </div>
+);
+
+/**
  * Render invoice list content.
  * @param {InvoiceProps} props - Invoice component props
  * @returns {React.ReactElement} Invoice content
@@ -130,13 +141,13 @@ const _renderMobileCard = (invoice: InvoiceData, onRowClick: InvoiceProps["onRow
 const _renderContent = (props: InvoiceProps): React.ReactElement => {
   const columns = _getColumns(props);
 
-  if (props.isLoading) return <SkeletonComponent rows={5} columns={columns.map(() => ({ width: "10%" }))} />;
+  if (props.isLoading) return _renderInvoiceTableSkeleton();
 
   if (props.errorMessage) return <p className="py-10 text-center text-sm text-danger">{props.errorMessage}</p>;
 
   if (props.isEmpty) return <p className="py-10 text-center text-sm text-text-secondary">No invoices found.</p>;
 
-  return <Table data={props.paginatedData} columns={columns} isDetail={true} onRowClick={props.onRowClick} keyExtractor={(row: InvoiceData): string => row.id} />;
+  return <Table data={props.paginatedData} columns={columns} isDetail={false} onRowClick={props.onRowClick} keyExtractor={(row: InvoiceData): string => row.id} />;
 };
 
 /**
@@ -145,7 +156,7 @@ const _renderContent = (props: InvoiceProps): React.ReactElement => {
  * @returns {React.ReactElement} Mobile invoice content
  */
 const _renderMobileContent = (props: InvoiceProps): React.ReactElement => {
-  if (props.isLoading) return <SkeletonComponent rows={5} columns={[{ width: "100%" }]} />;
+  if (props.isLoading) return <>{Array.from({ length: 5 }, (_value, index) => _renderInvoiceCardSkeleton(index))}</>;
 
   if (props.errorMessage) return <p className="py-10 text-center text-sm text-danger">{props.errorMessage}</p>;
 
@@ -169,10 +180,10 @@ export const InvoiceComponent = (props: InvoiceProps): React.ReactElement => {
 
   return (
     <Layout pageTitle="Invoice List" mobileWhiteBackground={true}>
-      <PageLayout title="Invoice List" breadcrumbs={["Document", "Invoice"]} mobileHeaderClassName="px-0" mobileTitleClassName="text-4xl" onBack={props.onBack}>
+      <PageLayout title="Invoice List" subtitle="Manage invoices and payment status" breadcrumbs={["Document", "Invoice"]} mobileHeaderClassName="px-0" mobileTitleClassName="text-4xl" onBack={props.onBack}>
         <div className="relative flex h-full flex-col bg-background-surface px-0 pb-18 lg:-mt-4 lg:bg-transparent lg:pb-0">
           <div className="flex min-w-0 flex-col gap-4 pb-16 pt-2 lg:hidden">
-            <SearchFilter placeholder="Search invoice" onChange={handleSearch} isRoundedFull={true} className="w-full sm:w-full" inputClassName="text-lg placeholder:text-lg" />
+            <SearchFilter placeholder="Search invoice" onChange={handleSearch} isRoundedFull={true} className="w-full sm:w-full" inputClassName="!h-16 text-xl placeholder:text-xl" />
             <div className="min-w-0 space-y-3">
               {_renderMobileContent(props)}
             </div>

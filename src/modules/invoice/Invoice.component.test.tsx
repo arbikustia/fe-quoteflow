@@ -30,14 +30,14 @@ describe("InvoiceComponent", () => {
     expect(screen.getAllByText("INV-001").length).toBeGreaterThan(0);
     expect(screen.getAllByText("PT Example").length).toBeGreaterThan(0);
     expect(screen.getAllByText("Annual Gala").length).toBeGreaterThan(0);
-    expect(screen.getAllByText("Active").length).toBeGreaterThan(0);
+    expect(screen.queryByRole("columnheader", { name: "Status" })).toBeNull();
     expect(screen.getAllByLabelText("Edit invoice").length).toBeGreaterThan(0);
   });
 
-  it("should render inactive top-level invoice status", () => {
+  it("should keep status out of invoice table", () => {
     render(<InvoiceComponent {...props} paginatedData={[{ ...props.paginatedData[0], status: 0 }]} />);
 
-    expect(screen.getAllByText("Inactive").length).toBeGreaterThan(0);
+    expect(screen.queryByText("Inactive")).toBeNull();
   });
 
   it("should render empty invoice state", () => {

@@ -97,7 +97,8 @@ describe("QuotationComponent", () => {
     const props = createProps({ isLoading: true, paginatedData: [] });
     render(<MemoryRouter><QuotationComponent {...props} /></MemoryRouter>);
 
-    expect(screen.getAllByRole("status", { name: "Loading" }).length).toBeGreaterThan(0);
+    expect(screen.getByRole("status", { name: "Loading quotation table" })).toBeTruthy();
+    expect(screen.getAllByRole("status", { name: "Loading quotation card" })).toHaveLength(5);
   });
 
   it("renders error message on error", () => {

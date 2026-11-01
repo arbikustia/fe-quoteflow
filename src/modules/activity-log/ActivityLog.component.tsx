@@ -8,7 +8,7 @@ import Table, { type TableColumn } from "@/components/Table";
 import Layout from "@/app/layout";
 import { PageLayout } from "@/app/shared/PageLayout";
 
-import { ActivityLogCard } from "./ActivityLog.helpers";
+import { ActivityLogCard, formatActivityDateTime } from "./ActivityLog.helpers";
 import type { ActivityLogData, ActivityLogProps } from "./ActivityLog.type";
 
 const COLUMNS: TableColumn<ActivityLogData>[] = [
@@ -16,7 +16,7 @@ const COLUMNS: TableColumn<ActivityLogData>[] = [
   { key: "action", header: "Action" },
   { key: "page", header: "Page" },
   { key: "description", header: "Description" },
-  { key: "createdAt", header: "Created At", render: (row: ActivityLogData): ReactElement => <span>{new Date(row.createdAt).toLocaleString("id-ID")}</span> },
+  { key: "createdAt", header: "Created At", render: (row: ActivityLogData): ReactElement => <span>{formatActivityDateTime(row.createdAt)}</span> },
 ];
 
 /**

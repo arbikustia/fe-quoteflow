@@ -5,12 +5,15 @@ import { DOCUMENT_ITEMS } from "@/components/Sidebar/Sidebar.config";
 import type { MasterNavigationItem } from "@/components/Sidebar/Sidebar.type";
 
 import invoiceIllustration from "@/assets/invoice-illustration.webp";
-import itemChecklistIllustration from "@/assets/item-checklist-illustration.webp";
 import paymentIllustration from "@/assets/payment-illustration.webp";
 import quotationIllustration from "@/assets/quotation-illustration.webp";
 
 import Layout from "@/app/layout";
-import MobileLayout from "@/app/shared/MobileLayout";
+import { PageLayout } from "@/app/shared/PageLayout";
+
+import { useDocumentIllustrationsLoaded } from "./DocumentMain.hook";
+
+const DOCUMENT_MAIN_ITEMS = DOCUMENT_ITEMS.filter((item) => item.path !== "/document/item-checklist");
 
 /**
  * Get document illustration by route.
@@ -23,8 +26,6 @@ const _getDocumentIllustration = (path: string): string => {
       return quotationIllustration;
     case "/document/invoice":
       return invoiceIllustration;
-    case "/document/item-checklist":
-      return itemChecklistIllustration;
     default:
       return paymentIllustration;
   }
@@ -57,39 +58,44 @@ const _renderDocumentCard = (item: MasterNavigationItem, onNavigate: (path: stri
 };
 
 /**
+ * Render document navigation card skeleton.
+ * @param {number} key - Skeleton key
+ * @returns {ReactElement} Document card skeleton
+ */
+const _renderDocumentSkeleton = (key: number): ReactElement => (
+  <div key={key} className="flex min-h-36 animate-pulse items-start gap-4 rounded-2xl border border-border-default bg-background-surface p-5" role="status" aria-label="Loading document">
+    <div data-testid="document-card-skeleton-image" className="h-28 w-44 shrink-0 rounded-xl bg-background-subtle" />
+    <div className="min-w-0 flex-1 pt-1">
+      <div className="h-6 w-2/3 rounded-md bg-background-subtle" />
+      <div className="mt-3 h-4 w-full rounded-md bg-background-subtle" />
+      <div className="mt-2 h-4 w-4/5 rounded-md bg-background-subtle" />
+    </div>
+  </div>
+);
+
+/**
  * Render responsive document landing page.
  * @returns {ReactElement} Document landing page
  */
 const DocumentMain = (): ReactElement => {
   const navigate = useNavigate();
+  const isIllustrationsLoaded = useDocumentIllustrationsLoaded();
+  const skeletonKeys = DOCUMENT_MAIN_ITEMS.map((_item, index) => index);
   const navigateToDocument = (path: string): void => { void navigate(path); };
-  const navigateBack = (): void => { void navigate(-1); };
-  const content = (
-    <div className="flex flex-col gap-6 px-6 pb-20 pt-4 lg:px-0 lg:pt-0">
-      <div>
-        <div className="flex items-center gap-3">
-          <button type="button" onClick={navigateBack} aria-label="Back" className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full border border-border-default bg-background-surface text-text-primary transition-colors hover:bg-background-subtle focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring/30">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="h-6 w-6" aria-hidden="true"><path d="M19 12H5M12 19l-7-7 7-7" /></svg>
-          </button>
-          <h1 className="text-4xl font-bold text-text-primary lg:text-3xl">Document</h1>
-        </div>
-        <p className="mt-2 text-sm text-text-secondary">Manage quotations, invoices, checklists, and payments.</p>
-      </div>
-      <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
-        {DOCUMENT_ITEMS.map((item) => _renderDocumentCard(item, navigateToDocument))}
-      </div>
-    </div>
-  );
+  const navigateBack = (): void => { void navigate("/home"); };
 
   return (
-    <>
-      <div className="hidden md:block">
-        <Layout pageTitle="Document">{content}</Layout>
-      </div>
-      <div className="md:hidden">
-        <MobileLayout>{content}</MobileLayout>
-      </div>
-    </>
+    <Layout pageTitle="Document" mobileWhiteBackground={true}>
+      <PageLayout title="Document" subtitle="Manage core documents used across QuoteFlow." breadcrumbs={["Document"]} mobileHeaderClassName="px-0" mobileTitleClassName="text-4xl" onBack={navigateBack}>
+        <div className="relative flex h-full flex-col bg-background-surface px-0 pb-18 lg:-mt-4 lg:bg-transparent lg:pb-0">
+          <div className="flex flex-col gap-6 pb-20 pt-2 lg:pt-0">
+            <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
+              {isIllustrationsLoaded ? DOCUMENT_MAIN_ITEMS.map((item) => _renderDocumentCard(item, navigateToDocument)) : skeletonKeys.map(_renderDocumentSkeleton)}
+            </div>
+          </div>
+        </div>
+      </PageLayout>
+    </Layout>
   );
 };
 

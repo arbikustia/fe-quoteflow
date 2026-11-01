@@ -13,7 +13,7 @@ export default function MobileReportMain(): React.ReactElement {
 
   const cards = [
     {
-      title: "Order Report",
+      title: "Order",
       description: "View and manage all completed orders",
       icon: <Icons.Quotes />,
       path: "/report",

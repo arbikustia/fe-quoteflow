@@ -109,7 +109,7 @@ export const usePaymentNavigation = (): { onBack: () => void; onCreate: () => vo
   /**
    *
    */
-  const onBack = (): void => { void navigate(-1); };
+  const onBack = (): void => { void navigate("/document"); };
   /**
    *
    */

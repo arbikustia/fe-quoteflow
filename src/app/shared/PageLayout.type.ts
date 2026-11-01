@@ -8,6 +8,7 @@ export type PageLayoutAction = {
 
 export type PageLayoutProps = {
   title: string;
+  subtitle?: string;
   breadcrumbs?: string[];
   actions?: PageLayoutAction[];
   headerRight?: React.ReactNode;

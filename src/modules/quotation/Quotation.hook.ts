@@ -111,7 +111,7 @@ export const useQuotationNavigation = (): QuotationNavigation => {
  * onBack.
  * @returns {void} - result.
  */
-const onBack = (): void => { void navigate(-1); };
+const onBack = (): void => { void navigate("/document"); };
   /**
  * onEdit.
  * @param {QuotationData} quotation - quotation value.

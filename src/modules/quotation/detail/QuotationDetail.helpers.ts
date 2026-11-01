@@ -51,6 +51,19 @@ export const formatDate = (dateString: string): string => {
 export const getStatusLabel = (status: number): string => (status === 1 ? "Active" : "Inactive");
 
 /**
+ * Get quotation workflow status label.
+ * @param {number} status - Quotation status value
+ * @returns {string} Quotation workflow status label
+ */
+export const getQuotationStatusLabel = (status: number): string => {
+  if (status === 1) return "Quotation Created";
+
+  if (status === 2) return "Approved";
+
+  return "Inactive";
+};
+
+/**
  * mapQuotationInfo.
  * @param {ApiQuotation} data - data value.
  * @returns {QuotationInfoSection} - result.
@@ -60,7 +73,7 @@ export const mapQuotationInfo = (data: ApiQuotation): QuotationInfoSection => ({
   quotationDate: formatDate(data.quotation_date),
   expiredAt: formatDate(data.expired_at),
   notes: data.notes || "-",
-  statusText: getStatusLabel(data.status),
+  statusText: getQuotationStatusLabel(data.status),
   isActive: data.status === 1,
 });
 

@@ -1,12 +1,12 @@
 import { apiRtkClient } from "@/libs/ApiRtkServices/apiRtkClient";
 
 import ENDPOINT from "@/constant/endpoint.const";
-import type { ApiInvoice, InvoiceData, InvoiceDetailResponse, InvoiceListParams, InvoiceListResponse, InvoiceUpdateRequest, InvoiceUpdateResponse } from "@/modules/invoice/Invoice.type";
+import type { ApiInvoice, InvoiceApproveRequest, InvoiceData, InvoiceDetailResponse, InvoiceListParams, InvoiceListResponse, InvoiceUpdateRequest, InvoiceUpdateResponse } from "@/modules/invoice/Invoice.type";
 
 /** Map API invoice to table row. */
 export const mapInvoice = (invoice: ApiInvoice): InvoiceData => ({
   id: invoice.id,
-  transactionId: invoice.transaction_id,
+  transactionId: invoice.quotation?.transaction?.id ?? invoice.quotation?.transaction_id ?? invoice.transaction_id ?? "",
   invoiceNumber: invoice.invoice_no,
   invoiceDate: invoice.invoice_date,
   dueDate: invoice.due_date,
@@ -39,10 +39,18 @@ export const invoiceService = apiRtkClient.injectEndpoints({
       query: ({ id, payload }) => ({ url: `${ENDPOINT.INVOICE.DETAIL}/${id}`, method: "PUT", data: payload }),
       invalidatesTags: ["Invoice"],
     }),
+    approveInvoice: builder.mutation<InvoiceUpdateResponse, InvoiceApproveRequest>({
+      query: ({ id }) => ({
+        url: `${ENDPOINT.INVOICE.STATUS}/${id}/status`,
+        method: "PATCH",
+        data: { status: 2 },
+      }),
+      invalidatesTags: ["Invoice"],
+    }),
   }),
   overrideExisting: false,
 });
 
-export const { useGetInvoicesQuery, useGetInvoiceByIdQuery, useUpdateInvoiceMutation } = invoiceService;
+export const { useGetInvoicesQuery, useGetInvoiceByIdQuery, useUpdateInvoiceMutation, useApproveInvoiceMutation } = invoiceService;
 
 export const useGetAllInvoicesQuery = invoiceService.endpoints.getInvoices.useQuery;

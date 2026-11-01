@@ -47,7 +47,6 @@ export const DOCUMENT_ITEMS: MasterNavigationItem[] = [
 ];
 
 const DOCUMENT_SIDEBAR_ITEMS: MasterNavigationItem[] = [
-  { name: "Draft Order", description: "Manage draft orders and order preparation", icon: LuClipboardList, path: "/order/draft" },
   ...DOCUMENT_ITEMS.filter((item) => item.path !== "/document/item-checklist"),
 ];
 
@@ -90,7 +89,7 @@ export const NAVIGATION_CONFIG: NavigationItem[] = [
   {
     name: "Report",
     icon: LuChartNoAxesCombined,
-    children: [{ name: "Report Order", icon: LuClipboardList, path: "/report" }],
+    children: [{ name: "Order", icon: LuClipboardList, path: "/report" }],
   },
   {
     name: "Master Data",

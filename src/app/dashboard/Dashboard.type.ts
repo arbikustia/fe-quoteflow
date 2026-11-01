@@ -1,4 +1,4 @@
-export type DashboardRoute = "/order" | "/order/create" | "/return" | "/document" | "/document/quotation" | "/master-main" | "/master-voucher" | "/report";
+export type DashboardRoute = "/order" | "/order/create" | "/return" | "/document" | "/document/quotation" | "/document/item-checklist" | "/master-main" | "/master-voucher" | "/report";
 
 export type DashboardOrder = {
   id: string;
@@ -47,14 +47,23 @@ export type DashboardMetric = {
   colorClassName: string;
 };
 
+export type DashboardRentalOrderRange = {
+  dateFrom: string;
+  dateTo: string;
+  label: string;
+};
+
 export type DashboardTrendDatum = {
   label: string;
-  quotation: number;
-  invoice: number;
-  payment: number;
+  totalOrders: number;
+  totalAmount: number;
 };
 
 export type DashboardOverviewState = DashboardOverview & {
+  isChartLoading: boolean;
+  isChartError: boolean;
+  chartDateFrom: string;
+  chartDateTo: string;
   trend: DashboardTrendDatum[];
 };
 

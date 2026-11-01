@@ -79,6 +79,7 @@ const ENDPOINT = {
     PAGED: "/api/invoice/paged",
     ALL: "/api/invoice",
     DETAIL: "/api/invoice",
+    STATUS: "/api/invoice",
   },
   PAYMENT: {
     PAGED: "/api/payment/paged",
@@ -101,6 +102,10 @@ const ENDPOINT = {
     ALL: "/api/role/get-all-role",
     CREATE: "/api/role",
     DETAIL: "/api/role",
+  },
+  RENTAL_ORDER: {
+    PAGED: "/api/rental-order/paged",
+    DASHBOARD: "/api/dashboard/rental-orders",
   },
 } as const;
 

@@ -1,8 +1,9 @@
 import { apiRtkClient } from "@/libs/ApiRtkServices/apiRtkClient";
 
-import ENDPOINT from "@/constant/endpoint.const";
 import type { ApiEnvelope } from "@/types/api.type";
-import type { ApiRentalTransaction, OrderCreatePayload, OrderCreateResponse, OrderDetailResponse, OrderListParams, OrderListResponse, OrderType, ProjectOrderCreatePayload, QuoteData } from "@/modules/order/Order.type";
+
+import ENDPOINT from "@/constant/endpoint.const";
+import type { ApiRentalTransaction, OrderCreatePayload, OrderCreateResponse, OrderDetailResponse, OrderListParams, OrderListResponse, OrderType, ProjectOrderCreatePayload, QuoteData, UpdateOrderRequest } from "@/modules/order/Order.type";
 
 const ORDER_TAG = "Order";
 
@@ -58,15 +59,19 @@ export const orderService = apiRtkClient.injectEndpoints({
     }),
     createOrder: builder.mutation<OrderCreateResponse, OrderCreatePayload>({
       query: (body) => ({ url: ENDPOINT.ORDER.CREATE, method: "POST", data: body }),
-      invalidatesTags: [ORDER_TAG],
+      invalidatesTags: [ORDER_TAG, "Quotation"],
     }),
     createProjectOrder: builder.mutation<OrderCreateResponse, ProjectOrderCreatePayload>({
       query: (body) => ({ url: ENDPOINT.ORDER.PROJECT_CREATE, method: "POST", data: body }),
-      invalidatesTags: [ORDER_TAG],
+      invalidatesTags: [ORDER_TAG, "Quotation"],
+    }),
+    updateOrder: builder.mutation<OrderCreateResponse, UpdateOrderRequest>({
+      query: ({ id, payload }) => ({ url: `${ENDPOINT.ORDER.DETAIL}/${id}`, method: "PUT", data: payload }),
+      invalidatesTags: [ORDER_TAG, "Quotation", "Invoice"],
     }),
   }),
   overrideExisting: false,
 });
 
-export const { useGetOrdersQuery, useGetOrderByIdQuery, useGetAllOrderTypesQuery, useCreateOrderMutation, useCreateProjectOrderMutation } = orderService;
+export const { useGetOrdersQuery, useGetOrderByIdQuery, useGetAllOrderTypesQuery, useCreateOrderMutation, useCreateProjectOrderMutation, useUpdateOrderMutation } = orderService;
 export { mapOrder };

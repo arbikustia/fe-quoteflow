@@ -6,9 +6,10 @@ import { useGetAllVouchersQuery, useGetVouchersQuery } from "@/services/master-v
 import { mapOrder, useGetOrdersQuery } from "@/services/order.service";
 import { useGetPaymentsQuery } from "@/services/payment.service";
 import { mapQuotation, useGetQuotationsQuery } from "@/services/quotation.service";
+import { useGetDashboardRentalOrdersQuery } from "@/services/rental-order.service";
 
 import { DASHBOARD_MENU_ITEMS } from "./Dashboard.config";
-import type { DashboardAssets, DashboardNavigation, DashboardOrder, DashboardOrderState, DashboardOverviewState, DashboardQuotationChartDatum, DashboardQuotationState, DashboardRoute, DashboardTrendDatum, DashboardVoucherState } from "./Dashboard.type";
+import type { DashboardAssets, DashboardNavigation, DashboardOrder, DashboardOrderState, DashboardOverviewState, DashboardQuotationChartDatum, DashboardQuotationState, DashboardRentalOrderRange, DashboardRoute, DashboardVoucherState } from "./Dashboard.type";
 import BannerApp from "../../assets/banner-app.png";
 
 /**
@@ -185,19 +186,16 @@ export const useDashboardOrders = (): DashboardOrderState => {
   return { isLoading: false, orders, chartData };
 };
 
-/** Build seven-day count trend from API timestamps. */
-const _buildTrend = (quotationDates: string[], invoiceDates: string[], paymentDates: string[]): DashboardTrendDatum[] => {
-  const today = new Date();
-  return Array.from({ length: 7 }, (_, index) => {
-    const date = new Date(today);
-    date.setHours(0, 0, 0, 0);
-    date.setDate(today.getDate() - (6 - index));
-    const countAtDate = (dates: string[]): number => dates.filter((value) => {
-      const itemDate = new Date(value);
-      return !Number.isNaN(itemDate.getTime()) && itemDate.toDateString() === date.toDateString();
-    }).length;
-    return { label: date.toLocaleDateString("id-ID", { weekday: "short" }), quotation: countAtDate(quotationDates), invoice: countAtDate(invoiceDates), payment: countAtDate(paymentDates) };
-  });
+/** Format date for dashboard API query. */
+const _formatDashboardDate = (date: Date): string => `${String(date.getMonth() + 1).padStart(2, "0")}-${String(date.getDate()).padStart(2, "0")}-${date.getFullYear()}`;
+
+/** Get current dashboard rental-order date range. */
+const _getDashboardRange = (): DashboardRentalOrderRange => {
+  const dateTo = new Date();
+  const dateFrom = new Date(dateTo);
+  dateFrom.setDate(dateTo.getDate() - 30);
+
+  return { dateFrom: _formatDashboardDate(dateFrom), dateTo: _formatDashboardDate(dateTo), label: `${dateFrom.toLocaleDateString("id-ID", { day: "numeric", month: "short" })} - ${dateTo.toLocaleDateString("id-ID", { day: "numeric", month: "short", year: "numeric" })}` };
 };
 
 /** Load desktop dashboard overview data. */
@@ -206,12 +204,20 @@ export const useDashboardOverview = (): DashboardOverviewState => {
   const invoiceQuery = useGetInvoicesQuery({ pageNumber: 1, pageSize: 1000, searchTerm: "" });
   const paymentQuery = useGetPaymentsQuery({ pageNumber: 1, pageSize: 1000, searchTerm: "" });
   const voucherQuery = useGetVouchersQuery({ pageNumber: 1, pageSize: 1000, searchTerm: "" });
+  const range = _getDashboardRange();
+  const rentalOrderQuery = useGetDashboardRentalOrdersQuery({ dateFrom: range.dateFrom, dateTo: range.dateTo });
   const quotations = quotationQuery.data?.data ?? [];
   const invoices = invoiceQuery.data?.data ?? [];
   const payments = paymentQuery.data?.data ?? [];
   const vouchers = voucherQuery.data?.data ?? [];
+  const chartData = rentalOrderQuery.data?.status ? rentalOrderQuery.data.data : null;
+
   return {
     isLoading: quotationQuery.isLoading || invoiceQuery.isLoading || paymentQuery.isLoading || voucherQuery.isLoading,
+    isChartLoading: rentalOrderQuery.isLoading || rentalOrderQuery.isFetching,
+    isChartError: rentalOrderQuery.isError || (Boolean(rentalOrderQuery.data) && !rentalOrderQuery.data.status),
+    chartDateFrom: range.dateFrom,
+    chartDateTo: range.dateTo,
     quotationCount: quotationQuery.data?.total_count ?? quotations.length,
     invoiceCount: invoiceQuery.data?.total_count ?? invoices.length,
     paymentCount: paymentQuery.data?.total_count ?? payments.length,
@@ -219,7 +225,7 @@ export const useDashboardOverview = (): DashboardOverviewState => {
     quotationValue: quotations.reduce((sum, item) => sum + item.transaction.grand_total, 0),
     invoiceValue: invoices.reduce((sum, item) => sum + item.quotation.transaction.grand_total, 0),
     paymentValue: payments.reduce((sum, item) => sum + item.amount, 0),
-    trend: _buildTrend(quotations.map((item) => item.created_at), invoices.map((item) => item.created_at), payments.map((item) => item.created_at)),
+    trend: chartData ? [{ label: range.label, totalOrders: chartData.total_orders, totalAmount: chartData.total_amount }] : [],
   };
 };
 

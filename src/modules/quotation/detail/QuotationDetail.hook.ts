@@ -23,10 +23,14 @@ const _resolveErrorMessage = (hasError: boolean, isMissingData: boolean): string
  * Manage quotation detail state.
  * @returns {QuotationDetailState} Quotation detail state
  */
+// eslint-disable-next-line max-lines-per-function
 export const useQuotationDetail = (): QuotationDetailState => {
   const navigate = useNavigate();
   const { id } = useParams<{ id: string }>();
-  const { data, error, isLoading } = useGetQuotationByIdQuery(id ?? "", { skip: !id });
+  const { data, error, isLoading } = useGetQuotationByIdQuery(id ?? "", {
+    skip: !id,
+    refetchOnMountOrArgChange: true,
+  });
   const [approveQuotation, { isLoading: isApproving }] = useApproveQuotationMutation();
   const [isConfirmOpen, setIsConfirmOpen] = useState(false);
   const [submissionError, setSubmissionError] = useState<string | null>(null);
@@ -50,6 +54,18 @@ export const useQuotationDetail = (): QuotationDetailState => {
    * @returns {void} No return value
    */
   const closeApproveModal = (): void => setIsConfirmOpen(false);
+
+  /**
+   * Open order form in transaction edit mode.
+   * @returns {void} No return value
+   */
+  const handleEdit = (): void => {
+    if (!quotation || quotation.status !== 1) return;
+
+    void navigate(`/order/create/${quotation.transaction_id}`, {
+      state: { returnUrl: `/document/quotation/${id ?? quotation.id}` },
+    });
+  };
 
   /**
    * Approve current quotation.
@@ -76,5 +92,5 @@ export const useQuotationDetail = (): QuotationDetailState => {
     }
   };
 
-  return { quotation, isLoading, isApproving, isConfirmOpen, errorMessage, goBack, openApproveModal, closeApproveModal, handleApprove };
+  return { quotation, isLoading, isApproving, isConfirmOpen, errorMessage, goBack, openApproveModal, closeApproveModal, handleEdit, handleApprove };
 };

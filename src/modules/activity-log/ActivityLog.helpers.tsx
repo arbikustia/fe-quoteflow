@@ -2,21 +2,19 @@ import type { ReactElement } from "react";
 
 import type { ActivityLogCardProps } from "./ActivityLog.type";
 
+const MONTH_NAMES = ["jan", "feb", "mar", "apr", "mei", "jun", "jul", "agu", "sep", "okt", "nov", "des"];
+
 /**
- * Format activity date for mobile card.
+ * Format activity creation timestamp.
  * @param {string} createdAt - Activity creation timestamp
- * @returns {string} Formatted date
+ * @returns {string} Formatted timestamp
  */
-const _formatActivityDate = (createdAt: string): string => {
+export const formatActivityDateTime = (createdAt: string): string => {
   const date = new Date(createdAt);
 
   if (Number.isNaN(date.getTime())) return createdAt;
 
-  return date.toLocaleDateString("en-GB", {
-    day: "numeric",
-    month: "short",
-    year: "numeric",
-  });
+  return `${date.getDate()} ${MONTH_NAMES[date.getMonth()]} ${date.getFullYear()} ${String(date.getHours()).padStart(2, "0")}:${String(date.getMinutes()).padStart(2, "0")}`;
 };
 
 /**
@@ -66,7 +64,7 @@ export const ActivityLogCard = ({ activity }: ActivityLogCardProps): ReactElemen
           {activity.action}
         </span>
         <time className="text-sm text-text-tertiary" dateTime={activity.createdAt}>
-          {_formatActivityDate(activity.createdAt)}
+          {formatActivityDateTime(activity.createdAt)}
         </time>
       </div>
     </div>

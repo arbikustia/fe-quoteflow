@@ -128,12 +128,14 @@ export type ApiRentalTransactionDetail = {
   customer_id?: string;
   pic_id?: string;
   voucher_id?: string;
-  customer?: { id: string; name: string };
-  pic?: { id: string; name: string };
-  voucher?: { id: string; name: string };
+  customer?: { id: string; name?: string; address?: string; phone_number?: string; phone?: string };
+  pic?: { id: string; name?: string };
+  voucher?: { id: string; name?: string };
   service_type_id: string;
   service_type_name: string;
+  service_type?: { id: string; name?: string };
   order_type_id?: string;
+  order_type?: { id: string; name?: string };
   customer_name: string;
   customer_phone: string;
   address: string;
@@ -218,6 +220,11 @@ export type OrderCreateResponse = {
   status: boolean;
   data: OrderCreatePayload | null;
   messages: string[];
+};
+
+export type UpdateOrderRequest = {
+  id: string;
+  payload: OrderCreatePayload;
 };
 
 export type OrderCreatePayload = {

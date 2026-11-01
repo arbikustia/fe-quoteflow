@@ -2,8 +2,6 @@ import type { SyntheticEvent } from "react";
 import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
-import { MOCK_INVOICES } from "@/fixture/invoices";
-
 import type { InvoiceStatusFormProps } from "./InvoiceStatus.type";
 
 import { useGetInvoiceByIdQuery, useUpdateInvoiceMutation } from "@/services/invoice.service";
@@ -19,9 +17,7 @@ export const useInvoiceStatusForm = (): InvoiceStatusFormProps => {
   const { data, isLoading } = useGetInvoiceByIdQuery(id ?? "", { skip: !id });
   const [updateInvoice, { isLoading: isSubmitting }] = useUpdateInvoiceMutation();
 
-  const apiInvoice = data?.status && data.data ? data.data : null;
-  const fixtureInvoice = MOCK_INVOICES.find((item) => item.id === id) ?? null;
-  const invoice = apiInvoice ?? fixtureInvoice;
+  const invoice = data?.status && data.data ? data.data : null;
 
   const [selectedStatus, setSelectedStatus] = useState<boolean | null>(null);
   const [submissionError, setSubmissionError] = useState<string | null>(null);
@@ -62,7 +58,7 @@ export const useInvoiceStatusForm = (): InvoiceStatusFormProps => {
       const response = await updateInvoice({
         id,
         payload: {
-          transaction_id: invoice.transaction_id,
+          transaction_id: invoice.quotation?.transaction?.id ?? invoice.quotation?.transaction_id ?? invoice.transaction_id ?? "",
           status: isActive ? 1 : 0,
         },
       }).unwrap();
@@ -75,12 +71,6 @@ export const useInvoiceStatusForm = (): InvoiceStatusFormProps => {
 
       void navigate("/document/invoice", { state: { successMessage: "Invoice status updated successfully." } });
     } catch {
-      if (apiInvoice === null) {
-        void navigate("/document/invoice", { state: { successMessage: "Invoice status updated successfully." } });
-
-        return;
-      }
-
       setSubmissionError("Unable to update invoice status.");
     }
   };

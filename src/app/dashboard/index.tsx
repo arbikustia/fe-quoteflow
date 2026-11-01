@@ -3,7 +3,7 @@ import type { ReactElement } from "react";
 
 import { DASHBOARD_MENU_ITEMS } from "./Dashboard.config";
 import { useDashboardAssets, useDashboardNavigation, useDashboardOrders, useDashboardOverview, useDashboardQuotations } from "./Dashboard.hook";
-import type { DashboardMetric, DashboardOrder, DashboardQuotation, DashboardQuotationChartDatum, DashboardRoute, DashboardTrendDatum } from "./Dashboard.type";
+import type { DashboardMetric, DashboardOrder, DashboardQuotation, DashboardQuotationChartDatum, DashboardRoute } from "./Dashboard.type";
 import ResponsiveLayout from "../shared/ResponsiveLayout";
 import BannerApp from "../../assets/banner-app.png";
 
@@ -131,13 +131,75 @@ const _renderCreationChart = (
 
 const _renderDesktopDashboard = (overview: ReturnType<typeof useDashboardOverview>): ReactElement => {
   const metrics: DashboardMetric[] = [
-    { label: "Quotation", count: overview.quotationCount, value: overview.quotationValue, colorClassName: "bg-blue-500" },
-    { label: "Invoice", count: overview.invoiceCount, value: overview.invoiceValue, colorClassName: "bg-violet-500" },
-    { label: "Payment", count: overview.paymentCount, value: overview.paymentValue, colorClassName: "bg-emerald-500" },
-    { label: "Voucher", count: overview.voucherCount, value: 0, colorClassName: "bg-amber-500" },
+    { label: "Quotation", count: overview.quotationCount, value: overview.quotationValue, colorClassName: "bg-action-primary" },
+    { label: "Invoice", count: overview.invoiceCount, value: overview.invoiceValue, colorClassName: "bg-information" },
+    { label: "Payment", count: overview.paymentCount, value: overview.paymentValue, colorClassName: "bg-success" },
+    { label: "Voucher", count: overview.voucherCount, value: 0, colorClassName: "bg-accent-500" },
   ];
-  const maxTrend = Math.max(...overview.trend.flatMap((item: DashboardTrendDatum) => [item.quotation, item.invoice, item.payment]), 1);
-  return <div className="hidden min-h-full bg-brand-white p-8 lg:block"><div className="mb-8"><p className="text-sm font-semibold uppercase tracking-wider text-text-tertiary">Overview</p><h1 className="mt-2 text-4xl font-bold text-text-primary">Dashboard</h1><p className="mt-2 text-text-secondary">Monitor quotation, invoice, payment, and voucher performance.</p></div><div className="grid grid-cols-4 gap-5">{metrics.map((metric) => <Card key={metric.label} className="rounded-2xl border-border-default shadow-none"><div className="flex items-start justify-between"><div><p className="text-sm font-medium text-text-secondary">{metric.label}</p><p className="mt-3 text-3xl font-bold text-text-primary">{overview.isLoading ? "-" : metric.count.toLocaleString("id-ID")}</p>{metric.value > 0 && <p className="mt-2 text-sm text-text-secondary">Rp {metric.value.toLocaleString("id-ID")}</p>}</div><span className={`h-3 w-3 rounded-full ${metric.colorClassName}`} /></div></Card>)}</div><div className="mt-6 grid grid-cols-3 gap-5"><Card title="Activity trend" className="col-span-2 rounded-2xl border-border-default shadow-none"><div className="flex h-64 items-end gap-4">{overview.trend.map((item) => <div key={item.label} className="flex h-full flex-1 items-end justify-between gap-1"><div className="flex flex-1 flex-col items-center gap-1"><div className="w-full rounded-t bg-blue-500" style={{ height: `${Math.max((item.quotation / maxTrend) * 85, item.quotation ? 8 : 2)}%` }} /><span className="text-xs text-text-tertiary">{item.quotation}</span></div><div className="flex flex-1 flex-col items-center gap-1"><div className="w-full rounded-t bg-violet-500" style={{ height: `${Math.max((item.invoice / maxTrend) * 85, item.invoice ? 8 : 2)}%` }} /><span className="text-xs text-text-tertiary">{item.invoice}</span></div><div className="flex flex-1 flex-col items-center gap-1"><div className="w-full rounded-t bg-emerald-500" style={{ height: `${Math.max((item.payment / maxTrend) * 85, item.payment ? 8 : 2)}%` }} /><span className="text-xs text-text-tertiary">{item.payment}</span></div><span className="text-xs text-text-secondary">{item.label}</span></div>)}</div></Card><Card title="Data summary" className="rounded-2xl border-border-default shadow-none"><div className="space-y-5">{metrics.map((metric) => <div key={metric.label} className="flex items-center justify-between border-b border-border-default pb-3 last:border-0"><span className="text-sm text-text-secondary">{metric.label}</span><span className="font-semibold text-text-primary">{metric.count.toLocaleString("id-ID")}</span></div>)}</div></Card></div></div>;
+  const rentalOrder = overview.trend[0];
+  let rentalOrderContent: ReactElement;
+
+  if (overview.isChartLoading) {
+    rentalOrderContent = <div className="mt-6 h-40 animate-pulse rounded-lg bg-background-subtle" role="status" aria-label="Loading rental order chart" />;
+  } else if (overview.isChartError) {
+    rentalOrderContent = <p className="mt-6 rounded-lg border border-danger bg-danger-subtle px-4 py-3 text-sm text-danger-strong">Rental order performance unavailable.</p>;
+  } else if (rentalOrder) {
+    const chartLabel = `${rentalOrder.totalOrders.toLocaleString("id-ID")} rental orders, total value Rp ${rentalOrder.totalAmount.toLocaleString("id-ID")}, ${rentalOrder.label}`;
+    rentalOrderContent = <div className="mt-6"><div className="mb-5 flex items-end justify-between gap-6"><div><p className="text-sm text-text-secondary">Total rental value</p><p className="mt-1 tabular-nums text-2xl font-semibold text-text-primary">Rp {rentalOrder.totalAmount.toLocaleString("id-ID")}</p></div><div className="flex items-center gap-2 text-sm text-text-secondary"><span className="h-3 w-3 rounded-sm bg-action-primary" aria-hidden="true" />Rental orders</div></div><div className="grid h-52 grid-cols-[3rem_1fr] gap-4" role="img" aria-label={chartLabel}><div className="flex flex-col justify-between text-right text-xs tabular-nums text-text-tertiary"><span>{rentalOrder.totalOrders.toLocaleString("id-ID")}</span><span>0</span></div><div className="relative border-b border-l border-border-strong"><div className="pointer-events-none absolute inset-0 flex flex-col justify-between" aria-hidden="true"><span className="border-t border-border-default" /><span className="border-t border-border-default" /><span className="border-t border-border-default" /></div><div className="absolute inset-0 flex items-end justify-center px-12 pt-6"><div className="relative h-full w-32 max-w-full rounded-t-lg bg-action-primary"><span className="absolute -top-7 left-1/2 -translate-x-1/2 tabular-nums text-sm font-semibold text-text-primary">{rentalOrder.totalOrders.toLocaleString("id-ID")}</span></div></div></div></div><p className="mt-3 text-center text-sm text-text-tertiary">{rentalOrder.label}</p></div>;
+  } else {
+    rentalOrderContent = <p className="mt-6 rounded-lg border border-dashed border-border-default px-4 py-10 text-center text-sm text-text-secondary">No rental order data for this period.</p>;
+  }
+
+  return (
+    <section className="hidden min-h-full bg-background-page p-6 lg:block xl:p-8">
+      <header className="mb-8 flex items-end justify-between gap-6">
+        <div>
+          <p className="text-sm font-medium text-text-tertiary">Overview</p>
+          <h1 className="mt-1 text-3xl font-semibold text-text-primary">Dashboard</h1>
+          <p className="mt-2 text-sm text-text-secondary">Monitor quotation, invoice, payment, and voucher performance.</p>
+        </div>
+        <p className="text-sm text-text-tertiary">Updated from current records</p>
+      </header>
+
+      <div className="grid grid-cols-4 gap-5">
+        {metrics.map((metric) => (
+          <Card key={metric.label} className="rounded-xl border-border-default bg-background-surface shadow-none">
+            <div className="flex items-start justify-between gap-4">
+              <div>
+                <p className="text-sm font-medium text-text-secondary">{metric.label}</p>
+                <p className="mt-3 tabular-nums text-3xl font-semibold text-text-primary">{overview.isLoading ? "-" : metric.count.toLocaleString("id-ID")}</p>
+                {metric.value > 0 && <p className="mt-2 tabular-nums text-sm text-text-secondary">Rp {metric.value.toLocaleString("id-ID")}</p>}
+              </div>
+              <span className={`mt-1 h-2.5 w-2.5 rounded-full ${metric.colorClassName}`} aria-hidden="true" />
+            </div>
+          </Card>
+        ))}
+      </div>
+
+      <div className="mt-6 grid grid-cols-3 gap-5">
+        <Card className="col-span-2 rounded-xl border-border-default bg-background-surface shadow-none">
+          <div className="flex items-start justify-between gap-6 border-b border-border-default pb-4">
+            <div>
+              <h2 className="text-base font-semibold text-text-primary">Rental order performance</h2>
+              <p className="mt-1 text-sm text-text-secondary">Rental orders and value within selected 30-day period.</p>
+            </div>
+            <span className="shrink-0 text-sm text-text-tertiary">{overview.chartDateFrom} - {overview.chartDateTo}</span>
+          </div>
+          {rentalOrderContent}
+        </Card>
+        <Card title="Data summary" className="rounded-xl border-border-default bg-background-surface shadow-none">
+          <div className="space-y-4">
+            {metrics.map((metric) => (
+              <div key={metric.label} className="flex items-center justify-between border-b border-border-default pb-3 last:border-0 last:pb-0">
+                <span className="text-sm text-text-secondary">{metric.label}</span>
+                <span className="tabular-nums text-sm font-semibold text-text-primary">{overview.isLoading ? "-" : metric.count.toLocaleString("id-ID")}</span>
+              </div>
+            ))}
+          </div>
+        </Card>
+      </div>
+    </section>
+  );
 };
 
 const _renderVoucherBanner = (
