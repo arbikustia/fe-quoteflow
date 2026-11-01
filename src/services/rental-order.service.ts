@@ -1,7 +1,7 @@
 import { apiRtkClient } from "@/libs/ApiRtkServices/apiRtkClient";
 
 import ENDPOINT from "@/constant/endpoint.const";
-import type { ApiRentalOrder, DashboardRentalOrderParams, DashboardRentalOrderResponse, RentalOrderListParams, RentalOrderListResponse, ReportOrderData } from "@/modules/report/Report.type";
+import type { ApiRentalOrder, DashboardRentalOrderParams, DashboardRentalOrderResponse, RentalOrderListParams, RentalOrderListResponse, RentalOrderResponse, ReportOrderData } from "@/modules/report/Report.type";
 
 const RENTAL_ORDER_TAG = "RentalOrder";
 
@@ -35,6 +35,10 @@ export const mapRentalOrder = (order: ApiRentalOrder): ReportOrderData => {
 
 export const rentalOrderService = apiRtkClient.injectEndpoints({
   endpoints: (builder) => ({
+    getRentalOrderOptions: builder.query<RentalOrderResponse, void>({
+      query: () => ({ url: ENDPOINT.RENTAL_ORDER.LIST, method: "GET" }),
+      providesTags: [RENTAL_ORDER_TAG],
+    }),
     getRentalOrders: builder.query<RentalOrderListResponse, RentalOrderListParams>({
       query: (params) => ({
         url: ENDPOINT.RENTAL_ORDER.PAGED,
@@ -62,4 +66,4 @@ export const rentalOrderService = apiRtkClient.injectEndpoints({
   overrideExisting: false,
 });
 
-export const { useGetRentalOrdersQuery, useGetDashboardRentalOrdersQuery } = rentalOrderService;
+export const { useGetRentalOrdersQuery, useGetRentalOrderOptionsQuery, useGetDashboardRentalOrdersQuery } = rentalOrderService;

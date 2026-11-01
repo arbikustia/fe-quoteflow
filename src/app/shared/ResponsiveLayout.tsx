@@ -40,7 +40,7 @@ export const ResponsiveLayout = ({
         <SidebarContainer isCollapsed={isSidebarCollapsed} />
       </div>
 
-      <div className="flex-1 flex flex-col min-w-0 min-h-0 overflow-hidden relative bg-brand-white">
+      <div className="flex-1 flex flex-col min-w-0 min-h-0 overflow-hidden relative bg-background-page">
         {/* Mobile GlobalHeader - lg:hidden */}
         {/* Desktop Navbar - hidden lg:block */}
         {showNavbar && (

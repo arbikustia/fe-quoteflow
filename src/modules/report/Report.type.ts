@@ -14,10 +14,13 @@ export type ApiRentalOrder = {
   invoice: ApiInvoice;
 };
 
-export type RentalOrderListResponse = {
+export type RentalOrderResponse = {
   status: boolean;
   data: ApiRentalOrder[];
   messages: string[] | null;
+};
+
+export type RentalOrderListResponse = RentalOrderResponse & {
   page_number: number;
   total_pages: number;
   page_size: number;

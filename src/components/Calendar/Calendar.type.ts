@@ -40,6 +40,7 @@ export type CalendarComponentProps = {
   onPreviousMonth?: () => void;
   onNextMonth?: () => void;
   onToday?: () => void;
+  showControls?: boolean;
   className?: string;
 };
 

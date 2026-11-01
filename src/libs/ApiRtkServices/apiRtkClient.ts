@@ -1,3 +1,4 @@
+import type { BaseQueryFn } from "@reduxjs/toolkit/query";
 import { createApi } from "@reduxjs/toolkit/query/react";
 import type { AxiosRequestConfig } from "axios";
 import axios from "axios";
@@ -11,9 +12,9 @@ import type { ApiBaseData, ApiError } from "@/types/api.type";
  * @param {AxiosRequestConfig} requestConfig - Axios request configuration
  * @returns {Promise<{ data: ApiBaseData } | { error: ApiError }>} RTK Query result
  */
-const axiosBaseQuery = async (
+const axiosBaseQuery: BaseQueryFn<AxiosRequestConfig, ApiBaseData, ApiError> = async (
   requestConfig: AxiosRequestConfig,
-): Promise<{ data: ApiBaseData } | { error: ApiError }> => {
+) => {
   try {
     const response = await apiClient.request<ApiBaseData>(requestConfig);
 
@@ -57,6 +58,7 @@ export const apiRtkClient = createApi({
     "EmailSender",
     "ActivityLog",
     "RentalOrder",
+    "RentalChecklist",
   ],
   endpoints: () => ({}),
 });

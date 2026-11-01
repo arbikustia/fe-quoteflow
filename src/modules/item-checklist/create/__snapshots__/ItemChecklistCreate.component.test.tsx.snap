@@ -1,0 +1,486 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`ItemChecklistCreateForm matches snapshot 1`] = `
+<DocumentFragment>
+  <div
+    class="flex flex-col gap-6"
+  >
+    <div
+      class="rounded-4xl border border-border-default bg-background-surface p-6 shadow-xs"
+    >
+      <div
+        class="relative max-w-xl"
+      >
+        <label
+          class="mb-1.5 block text-sm font-semibold text-text-secondary "
+          for="checklist-order"
+        >
+          Rental Order
+          <span
+            aria-hidden="true"
+            class="ml-1 text-danger"
+          >
+            *
+          </span>
+        </label>
+        <div
+          class="ant-select ant-select-outlined h-14 w-full [&_.ant-select-selector]:!rounded-2xl [&_.ant-select-content]:!text-xl [&_.ant-select-content]:!font-normal  css-var-root ant-select-css-var css-dev-only-do-not-override-eofgey ant-select-single ant-select-show-arrow ant-select-show-search"
+          style="--ant-select-border-radius: 16px;"
+        >
+          <div
+            class="ant-select-content"
+          >
+            <div
+              class="ant-select-placeholder"
+            >
+              Select customer and order number
+            </div>
+            <input
+              aria-autocomplete="list"
+              aria-expanded="false"
+              aria-haspopup="listbox"
+              aria-invalid="false"
+              aria-label="Rental Order"
+              aria-required="true"
+              autocomplete="new-password"
+              class="ant-select-input"
+              id="checklist-order"
+              role="combobox"
+              type="text"
+              value=""
+            />
+          </div>
+          <div
+            class="ant-select-suffix"
+          >
+            <span
+              aria-label="down"
+              class="anticon anticon-down"
+              role="img"
+            >
+              <svg
+                aria-hidden="true"
+                data-icon="down"
+                fill="currentColor"
+                focusable="false"
+                height="1em"
+                viewBox="64 64 896 896"
+                width="1em"
+              >
+                <path
+                  d="M884 256h-75c-5.1 0-9.9 2.5-12.9 6.6L512 654.2 227.9 262.6c-3-4.1-7.8-6.6-12.9-6.6h-75c-6.5 0-10.3 7.4-6.5 12.7l352.6 486.1c12.8 17.6 39 17.6 51.7 0l352.6-486.1c3.9-5.3.1-12.7-6.4-12.7z"
+                />
+              </svg>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`ItemChecklistCreateForm matches snapshot 2`] = `
+<DocumentFragment>
+  <div
+    class="flex flex-col gap-6"
+  >
+    <div
+      class="rounded-4xl border border-border-default bg-background-surface p-6 shadow-xs"
+    >
+      <div
+        class="relative max-w-xl"
+      >
+        <label
+          class="mb-1.5 block text-sm font-semibold text-text-secondary "
+          for="checklist-order"
+        >
+          Rental Order
+          <span
+            aria-hidden="true"
+            class="ml-1 text-danger"
+          >
+            *
+          </span>
+        </label>
+        <div
+          class="ant-select ant-select-outlined h-14 w-full [&_.ant-select-selector]:!rounded-2xl [&_.ant-select-content]:!text-xl [&_.ant-select-content]:!font-normal  css-var-root ant-select-css-var css-dev-only-do-not-override-eofgey ant-select-single ant-select-show-arrow ant-select-show-search"
+          style="--ant-select-border-radius: 16px;"
+        >
+          <div
+            class="ant-select-content ant-select-content-has-value"
+            title="PT Customer — ORD-001"
+          >
+            PT Customer — ORD-001
+            <input
+              aria-autocomplete="list"
+              aria-expanded="false"
+              aria-haspopup="listbox"
+              aria-invalid="false"
+              aria-label="Rental Order"
+              aria-required="true"
+              autocomplete="new-password"
+              class="ant-select-input"
+              id="checklist-order"
+              role="combobox"
+              type="text"
+              value=""
+            />
+          </div>
+          <div
+            class="ant-select-suffix"
+          >
+            <span
+              aria-label="down"
+              class="anticon anticon-down"
+              role="img"
+            >
+              <svg
+                aria-hidden="true"
+                data-icon="down"
+                fill="currentColor"
+                focusable="false"
+                height="1em"
+                viewBox="64 64 896 896"
+                width="1em"
+              >
+                <path
+                  d="M884 256h-75c-5.1 0-9.9 2.5-12.9 6.6L512 654.2 227.9 262.6c-3-4.1-7.8-6.6-12.9-6.6h-75c-6.5 0-10.3 7.4-6.5 12.7l352.6 486.1c12.8 17.6 39 17.6 51.7 0l352.6-486.1c3.9-5.3.1-12.7-6.4-12.7z"
+                />
+              </svg>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="rounded-4xl border border-border-default bg-background-surface p-6 shadow-xs"
+    >
+      <div
+        class="mb-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between"
+      >
+        <div
+          class="flex items-center gap-3"
+        >
+          <h3
+            class="text-xl font-semibold text-text-primary"
+          >
+            Order Items
+          </h3>
+          <span
+            class="text-sm font-medium text-text-secondary"
+          >
+            1 move out · 0 move in
+          </span>
+        </div>
+        <div
+          class="w-full sm:w-72"
+        >
+          <label
+            class="relative block w-full sm:w-72 w-full"
+          >
+            <span
+              class="sr-only"
+            >
+              Search items...
+            </span>
+            <svg
+              aria-hidden="true"
+              class="pointer-events-none absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-text-tertiary"
+              fill="none"
+              height="1em"
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              viewBox="0 0 24 24"
+              width="1em"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <circle
+                cx="11"
+                cy="11"
+                r="8"
+              />
+              <line
+                x1="21"
+                x2="16.65"
+                y1="21"
+                y2="16.65"
+              />
+            </svg>
+            <input
+              aria-label="Search items..."
+              class="h-14 w-full rounded-xl border border-border-default bg-background-surface pl-12 pr-4 text-base font-medium text-text-primary outline-none transition-colors placeholder:font-normal placeholder:text-text-tertiary hover:border-border-strong focus:border-border-focus focus:ring-2 focus:ring-focus-ring/30"
+              placeholder="Search items..."
+              type="search"
+              value=""
+            />
+          </label>
+        </div>
+      </div>
+      <div
+        class="flex flex-col bg-transparent overflow-hidden"
+      >
+        <div
+          class="hidden md:flex flex-1 overflow-auto"
+        >
+          <div
+            class="w-full overflow-x-auto"
+          >
+            <table
+              class="w-full min-w-max border-separate border-spacing-0 whitespace-nowrap"
+            >
+              <thead>
+                <tr>
+                  <th
+                    class="bg-table-header px-5 py-4 text-[13px] font-bold text-text-secondary uppercase tracking-widest rounded-l-xl  text-left "
+                  >
+                    Item Name
+                  </th>
+                  <th
+                    class="bg-table-header px-5 py-4 text-[13px] font-bold text-text-secondary uppercase tracking-widest   text-left "
+                  >
+                    Category
+                  </th>
+                  <th
+                    class="bg-table-header px-5 py-4 text-[13px] font-bold text-text-secondary uppercase tracking-widest   text-center "
+                  >
+                    Qty
+                  </th>
+                  <th
+                    class="bg-table-header px-5 py-4 text-[13px] font-bold text-text-secondary uppercase tracking-widest   text-center "
+                  >
+                    Unit
+                  </th>
+                  <th
+                    class="bg-table-header px-5 py-4 text-[13px] font-bold text-text-secondary uppercase tracking-widest   text-center "
+                  >
+                    Move Out
+                  </th>
+                  <th
+                    class="bg-table-header px-5 py-4 text-[13px] font-bold text-text-secondary uppercase tracking-widest   text-center "
+                  >
+                    Move In
+                  </th>
+                  <th
+                    class="bg-table-header px-5 py-4 text-[13px] font-bold text-text-secondary uppercase tracking-widest  rounded-r-xl text-center "
+                  >
+                    Sign
+                  </th>
+                </tr>
+              </thead>
+              <tbody
+                class="divide-y divide-border-default"
+              >
+                <tr
+                  class="hover:bg-background-subtle/50 transition-colors "
+                >
+                  <td
+                    class="px-5 py-4 border-b border-border-default text-base text-left "
+                  >
+                    Speaker Active
+                  </td>
+                  <td
+                    class="px-5 py-4 border-b border-border-default text-base text-left "
+                  >
+                    Audio
+                  </td>
+                  <td
+                    class="px-5 py-4 border-b border-border-default text-base text-center "
+                  >
+                    1
+                  </td>
+                  <td
+                    class="px-5 py-4 border-b border-border-default text-base text-center "
+                  >
+                    unit
+                  </td>
+                  <td
+                    class="px-5 py-4 border-b border-border-default text-base text-center "
+                  >
+                    <div
+                      class="flex items-center justify-center"
+                    >
+                      <label
+                        class="ant-checkbox-wrapper ant-checkbox-wrapper-checked css-var-root ant-checkbox-css-var css-dev-only-do-not-override-eofgey"
+                      >
+                        <span
+                          class="ant-checkbox ant-wave-target css-dev-only-do-not-override-eofgey ant-checkbox-checked"
+                        >
+                          <input
+                            aria-label="Move out Speaker Active"
+                            checked=""
+                            class="ant-checkbox-input"
+                            type="checkbox"
+                          />
+                        </span>
+                      </label>
+                    </div>
+                  </td>
+                  <td
+                    class="px-5 py-4 border-b border-border-default text-base text-center "
+                  >
+                    <div
+                      class="flex items-center justify-center"
+                    >
+                      <label
+                        class="ant-checkbox-wrapper css-var-root ant-checkbox-css-var css-dev-only-do-not-override-eofgey"
+                      >
+                        <span
+                          class="ant-checkbox ant-wave-target css-dev-only-do-not-override-eofgey"
+                        >
+                          <input
+                            aria-label="Move in Speaker Active"
+                            class="ant-checkbox-input"
+                            type="checkbox"
+                          />
+                        </span>
+                      </label>
+                    </div>
+                  </td>
+                  <td
+                    class="px-5 py-4 border-b border-border-default text-base text-center "
+                  >
+                    John Doe
+                  </td>
+                </tr>
+                <tr
+                  class="hover:bg-background-subtle/50 transition-colors "
+                >
+                  <td
+                    class="px-5 py-4 border-b border-border-default text-base text-left "
+                  >
+                    Microphone Wireless
+                  </td>
+                  <td
+                    class="px-5 py-4 border-b border-border-default text-base text-left "
+                  >
+                    Audio
+                  </td>
+                  <td
+                    class="px-5 py-4 border-b border-border-default text-base text-center "
+                  >
+                    2
+                  </td>
+                  <td
+                    class="px-5 py-4 border-b border-border-default text-base text-center "
+                  >
+                    units
+                  </td>
+                  <td
+                    class="px-5 py-4 border-b border-border-default text-base text-center "
+                  >
+                    <div
+                      class="flex items-center justify-center"
+                    >
+                      <label
+                        class="ant-checkbox-wrapper css-var-root ant-checkbox-css-var css-dev-only-do-not-override-eofgey"
+                      >
+                        <span
+                          class="ant-checkbox ant-wave-target css-dev-only-do-not-override-eofgey"
+                        >
+                          <input
+                            aria-label="Move out Microphone Wireless"
+                            class="ant-checkbox-input"
+                            type="checkbox"
+                          />
+                        </span>
+                      </label>
+                    </div>
+                  </td>
+                  <td
+                    class="px-5 py-4 border-b border-border-default text-base text-center "
+                  >
+                    <div
+                      class="flex items-center justify-center"
+                    >
+                      <label
+                        class="ant-checkbox-wrapper css-var-root ant-checkbox-css-var css-dev-only-do-not-override-eofgey"
+                      >
+                        <span
+                          class="ant-checkbox ant-wave-target css-dev-only-do-not-override-eofgey"
+                        >
+                          <input
+                            aria-label="Move in Microphone Wireless"
+                            class="ant-checkbox-input"
+                            type="checkbox"
+                          />
+                        </span>
+                      </label>
+                    </div>
+                  </td>
+                  <td
+                    class="px-5 py-4 border-b border-border-default text-base text-center "
+                  >
+                    John Doe
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div
+          class="md:hidden bg-background-surface rounded-xl border border-border-default shadow-sm overflow-hidden"
+        >
+          <div
+            class="bg-background-surface overflow-hidden divide-y divide-border-default"
+          >
+            <div
+              class="flex flex-col gap-3 px-4 py-4 bg-transparent transition-colors "
+            >
+              <div
+                class="flex items-center justify-between gap-2"
+              >
+                <span
+                  class="text-xs font-medium text-text-tertiary uppercase tracking-wider"
+                >
+                  Item Name
+                </span>
+                <span
+                  class="flex-1 text-sm font-medium text-text-primary text-right truncate"
+                >
+                  Speaker Active
+                </span>
+              </div>
+            </div>
+            <div
+              class="flex flex-col gap-3 px-4 py-4 bg-transparent transition-colors "
+            >
+              <div
+                class="flex items-center justify-between gap-2"
+              >
+                <span
+                  class="text-xs font-medium text-text-tertiary uppercase tracking-wider"
+                >
+                  Item Name
+                </span>
+                <span
+                  class="flex-1 text-sm font-medium text-text-primary text-right truncate"
+                >
+                  Microphone Wireless
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="mt-6 flex flex-col items-center justify-between gap-4 border-t border-border-default pt-5 sm:flex-row"
+      >
+        <span
+          class="text-sm font-medium text-text-secondary"
+        >
+          Select Move Out and Move In independently for each item.
+        </span>
+        <button
+          class="h-14 w-full cursor-pointer rounded-xl bg-action-primary px-8 text-lg font-semibold tracking-wide text-text-inverse shadow-xs transition-all hover:bg-action-primary-hover disabled:cursor-not-allowed disabled:opacity-50 sm:w-auto lg:text-sm"
+          type="button"
+        >
+          Save Checklist
+        </button>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;

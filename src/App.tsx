@@ -9,6 +9,8 @@ import InvoicePage from "./app/document/invoice";
 import InvoiceDetailPage from "./app/document/invoice/detail";
 import InvoiceStatusPage from "./app/document/invoice/status";
 import ItemChecklistPage from "./app/document/item-checklist";
+import ItemChecklistCreatePage from "./app/document/item-checklist/create";
+import ItemChecklistDetailPage from "./app/document/item-checklist/detail";
 import PaymentPage from "./app/document/payment";
 import PaymentCreatePage from "./app/document/payment/create";
 import PaymentStatusPage from "./app/document/payment/status";
@@ -138,6 +140,9 @@ function App(): React.ReactElement {
         <Route path="/document/invoice/:id" element={<InvoiceDetailPage />} />
         <Route path="/document/invoice/:id/status" element={<InvoiceStatusPage />} />
         <Route path="/document/item-checklist" element={<ItemChecklistPage />} />
+        <Route path="/document/item-checklist/create" element={<ItemChecklistCreatePage />} />
+        <Route path="/document/item-checklist/create/:id" element={<ItemChecklistCreatePage />} />
+        <Route path="/document/item-checklist/:id" element={<ItemChecklistDetailPage />} />
         <Route path="/document/payment" element={<PaymentPage />} />
         <Route path="/document/payment/create" element={<PaymentCreatePage />} />
         <Route path="/document/payment/:id/edit" element={<PaymentCreatePage />} />

@@ -1,12 +1,13 @@
 import { useCallback, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
+import { mapQuotationToCalendarEvent } from "@/modules/calendar/Calendar.helpers";
 import { useGetInvoicesQuery } from "@/services/invoice.service";
 import { useGetAllVouchersQuery, useGetVouchersQuery } from "@/services/master-voucher.service";
 import { mapOrder, useGetOrdersQuery } from "@/services/order.service";
 import { useGetPaymentsQuery } from "@/services/payment.service";
 import { mapQuotation, useGetQuotationsQuery } from "@/services/quotation.service";
-import { useGetDashboardRentalOrdersQuery } from "@/services/rental-order.service";
+import { useGetRentalOrdersQuery } from "@/services/rental-order.service";
 
 import { DASHBOARD_MENU_ITEMS } from "./Dashboard.config";
 import type { DashboardAssets, DashboardNavigation, DashboardOrder, DashboardOrderState, DashboardOverviewState, DashboardQuotationChartDatum, DashboardQuotationState, DashboardRentalOrderRange, DashboardRoute, DashboardVoucherState } from "./Dashboard.type";
@@ -68,7 +69,7 @@ export const useDashboardQuotations = (): DashboardQuotationState => {
   const isLoading = carouselQuery.isLoading || carouselQuery.isFetching || chartQuery.isLoading || chartQuery.isFetching;
 
   if (isLoading) {
-    return { isLoading: true, quotations: [], chartData: [] };
+    return { isLoading: true, quotations: [], chartData: [], calendarEvents: [] };
   }
 
   const carouselData = carouselQuery.data?.status && Array.isArray(carouselQuery.data.data)
@@ -110,7 +111,12 @@ export const useDashboardQuotations = (): DashboardQuotationState => {
     };
   });
 
-  return { isLoading: false, quotations, chartData };
+  return {
+    isLoading: false,
+    quotations,
+    chartData,
+    calendarEvents: chartSource.map(mapQuotationToCalendarEvent),
+  };
 };
 
 /**
@@ -205,12 +211,29 @@ export const useDashboardOverview = (): DashboardOverviewState => {
   const paymentQuery = useGetPaymentsQuery({ pageNumber: 1, pageSize: 1000, searchTerm: "" });
   const voucherQuery = useGetVouchersQuery({ pageNumber: 1, pageSize: 1000, searchTerm: "" });
   const range = _getDashboardRange();
-  const rentalOrderQuery = useGetDashboardRentalOrdersQuery({ dateFrom: range.dateFrom, dateTo: range.dateTo });
+  const rentalOrderQuery = useGetRentalOrdersQuery({ pageNumber: 1, pageSize: 1000, searchTerm: "" });
   const quotations = quotationQuery.data?.data ?? [];
   const invoices = invoiceQuery.data?.data ?? [];
   const payments = paymentQuery.data?.data ?? [];
   const vouchers = voucherQuery.data?.data ?? [];
-  const chartData = rentalOrderQuery.data?.status ? rentalOrderQuery.data.data : null;
+  const rentalOrderResponse = rentalOrderQuery.data;
+  const rentalOrders = rentalOrderResponse?.status ? rentalOrderResponse.data : [];
+  const rangeStart = new Date();
+  rangeStart.setDate(rangeStart.getDate() - 30);
+  const chartOrders = rentalOrders.filter((order) => {
+    const createdAt = new Date(order.created_at);
+
+    return !Number.isNaN(createdAt.getTime()) && createdAt >= rangeStart;
+  });
+  const chartData = rentalOrderResponse?.status
+    ? {
+      total_orders: chartOrders.length,
+      total_amount: chartOrders.reduce(
+        (sum, order) => sum + (order.invoice?.quotation?.transaction?.grand_total ?? 0),
+        0,
+      ),
+    }
+    : null;
 
   return {
     isLoading: quotationQuery.isLoading || invoiceQuery.isLoading || paymentQuery.isLoading || voucherQuery.isLoading,

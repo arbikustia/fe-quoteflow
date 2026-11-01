@@ -104,8 +104,15 @@ const ENDPOINT = {
     DETAIL: "/api/role",
   },
   RENTAL_ORDER: {
+    LIST: "/api/rental-order",
     PAGED: "/api/rental-order/paged",
     DASHBOARD: "/api/dashboard/rental-orders",
+  },
+  RENTAL_CHECKLIST: {
+    PAGED: "/api/rental-checklist/paged",
+    CREATE: "/api/rental-checklist",
+    UPDATE: "/api/rental-checklist",
+    DETAIL: "/api/rental-checklist",
   },
 } as const;
 
