@@ -1,0 +1,159 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`ProfileComponent snapshots should match profile settings snapshot 1`] = `
+<DocumentFragment>
+  <section
+    aria-label="Profile content"
+    class="mx-auto max-w-xl space-y-6"
+  >
+    <div
+      class="rounded-2xl border border-border-default bg-background-surface p-5"
+    >
+      <p
+        class="mb-4 text-sm font-medium text-text-secondary"
+      >
+        Logged in as
+      </p>
+      <div
+        class="flex items-center gap-4"
+      >
+        <span
+          aria-hidden="true"
+          class="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-action-primary-subtle text-action-primary"
+        >
+          <svg
+            fill="none"
+            height="20"
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="1.8"
+            viewBox="0 0 24 24"
+            width="20"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"
+            />
+            <circle
+              cx="12"
+              cy="7"
+              r="4"
+            />
+          </svg>
+        </span>
+        <div
+          class="min-w-0"
+        >
+          <p
+            class="text-xs text-text-tertiary"
+          >
+            Username
+          </p>
+          <p
+            class="break-words text-base font-semibold text-text-primary"
+          >
+            alice
+          </p>
+        </div>
+      </div>
+    </div>
+    <div
+      class="overflow-hidden rounded-2xl border border-border-default bg-background-surface"
+    >
+      <h2
+        class="px-5 pt-5 pb-3 text-sm font-semibold text-text-secondary"
+      >
+        Settings
+      </h2>
+      <button
+        aria-label="Theme mode: light. Switch to dark mode"
+        class="flex min-h-14 w-full items-center justify-between gap-4 border-t border-border-default px-5 py-4 text-left transition-colors hover:bg-background-subtle focus-visible:outline-2 focus-visible:outline-focus-ring"
+        type="button"
+      >
+        <span
+          class="flex items-center gap-3 text-sm font-medium text-text-primary"
+        >
+          <svg
+            fill="none"
+            height="20"
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="1.8"
+            viewBox="0 0 24 24"
+            width="20"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <circle
+              cx="12"
+              cy="12"
+              r="5"
+            />
+            <path
+              d="M12 1v2"
+            />
+            <path
+              d="M12 21v2"
+            />
+            <path
+              d="M4.22 4.22l1.42 1.42"
+            />
+            <path
+              d="M18.36 18.36l1.42 1.42"
+            />
+            <path
+              d="M1 12h2"
+            />
+            <path
+              d="M21 12h2"
+            />
+            <path
+              d="M4.22 19.78l1.42-1.42"
+            />
+            <path
+              d="M18.36 5.64l1.42-1.42"
+            />
+          </svg>
+          Theme mode
+        </span>
+        <span
+          class="text-sm text-text-secondary"
+        >
+          Light
+        </span>
+      </button>
+    </div>
+    <button
+      class="flex min-h-14 w-full items-center gap-3 rounded-2xl border border-border-default bg-background-surface px-5 py-4 text-left text-sm font-medium text-danger-strong transition-colors hover:bg-danger-subtle focus-visible:outline-2 focus-visible:outline-focus-ring"
+      type="button"
+    >
+      <svg
+        fill="none"
+        height="16"
+        stroke="currentColor"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="1.8"
+        viewBox="0 0 24 24"
+        width="16"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"
+        />
+        <polyline
+          points="16 17 21 12 16 7"
+        />
+        <line
+          x1="21"
+          x2="9"
+          y1="12"
+          y2="12"
+        />
+      </svg>
+      Logout
+    </button>
+  </section>
+</DocumentFragment>
+`;

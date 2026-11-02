@@ -3,6 +3,7 @@ import type { ApiEnvelope, PaginatedResponse } from "../../types/api.type";
 export type ApiCustomer = {
   id: string;
   name: string;
+  email?: string | null;
   address: string | null;
   phone_number: string | null;
   status: number;
@@ -15,6 +16,7 @@ export type CustomerAllResponse = {
   data: Array<{
     id: string;
     name: string;
+    email?: string;
     address: string;
     phone_number: string;
   }>;
@@ -26,6 +28,7 @@ export type CustomerCreateResponse = ApiEnvelope<ApiCustomer | null>;
 export type CustomerUpdatePayload = {
   id: string;
   name: string;
+  email: string;
   address: string;
   phone_number: string;
   status: number;
@@ -41,6 +44,7 @@ export type CustomerListParams = {
 export type CustomerData = {
   id: string;
   name: string;
+  email?: string | null;
   address: string | null;
   phoneNumber: string | null;
   status: "active" | "inactive";
@@ -65,6 +69,7 @@ export type CustomerListApiState = {
 
 export type CustomerCreatePayload = {
   name: string;
+  email: string;
   address: string;
   phone_number: string;
   status: number;

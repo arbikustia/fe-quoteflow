@@ -18,8 +18,8 @@ export const useItemChecklistDetail = (): ItemChecklistDetailState => {
     errorMessage = query.data.messages.join(" ");
   }
 
-  const goBack = (): void => { void navigate("/document/item-checklist"); };
-  const goEdit = (): void => { if (id) void navigate(`/document/item-checklist/create/${id}`); };
+  const goBack = (): void => { void navigate("/item-checklist"); };
+  const goEdit = (): void => { if (id) void navigate(`/item-checklist/create/${id}`); };
   const onDownload = (): void => {
     if (query.data?.data) {
       downloadChecklistPdf(query.data.data);

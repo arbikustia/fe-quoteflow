@@ -48,6 +48,7 @@ describe("MasterCategoryComponent", () => {
     renderWithRouter(createProps());
 
     expect(screen.getAllByText("Category List").length).toBeGreaterThan(0);
+    expect(screen.getAllByText("Manage product and item categories")).toHaveLength(2);
   });
 
   it("should handle empty data", () => {

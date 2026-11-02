@@ -2,7 +2,71 @@ import * as React from "react";
 
 import { MasterDataCard } from "@/components/MasterDataCard";
 
-import type { QuotationMobileCardProps } from "./Quotation.type";
+import type { ApiQuotation, QuotationData, QuotationMobileCardProps } from "./Quotation.type";
+
+import type { QuoteData } from "@/modules/order/Order.type";
+
+/**
+ * Map quotation list row to quote data.
+ * @param {QuotationData} quotation - Quotation data row
+ * @returns {QuoteData} Quote data
+ */
+const _fromQuotationData = (quotation: QuotationData): QuoteData => ({
+  id: quotation.quotationNumber || quotation.id,
+  name: quotation.name || quotation.customerName || "Event",
+  startDate: quotation.startDate,
+  endDate: quotation.endDate,
+  location: quotation.location || "-",
+  category: "",
+  selectedItems: [],
+  qty: 1,
+  pph: 0,
+  discount: 0,
+  remark: "",
+  grandTotal: quotation.grandTotal,
+  status: quotation.status,
+  customerPhone: quotation.customerPhone || "-",
+});
+
+/**
+ * Map api quotation to quote data.
+ * @param {ApiQuotation} quotation - Api quotation
+ * @returns {QuoteData} Quote data
+ */
+const _fromApiQuotation = (quotation: ApiQuotation): QuoteData => {
+  const tx = quotation.transaction;
+  const items = tx?.rental_transaction_items?.map((item) => item.item_name) ?? [];
+
+  return {
+    id: quotation.quotation_no || quotation.id,
+    name: tx?.event_name || tx?.customer_name || "Event",
+    startDate: tx?.start_at || quotation.quotation_date,
+    endDate: tx?.end_at || quotation.quotation_date,
+    location: tx?.address || "-",
+    category: tx?.service_type_name || "",
+    selectedItems: items,
+    qty: 1,
+    pph: 0,
+    discount: tx?.discount ?? 0,
+    remark: quotation.notes || "",
+    grandTotal: tx?.grand_total ?? 0,
+    status: quotation.status,
+    customerPhone: tx?.customer_phone || "-",
+  };
+};
+
+/**
+ * Convert quotation to quote data for PDF generator.
+ * @param {QuotationData | ApiQuotation} quotation - Quotation data or API quotation
+ * @returns {QuoteData} Quote data
+ */
+export const quotationToQuoteData = (quotation: QuotationData | ApiQuotation): QuoteData => {
+  if ("quotationNumber" in quotation) {
+    return _fromQuotationData(quotation);
+  }
+
+  return _fromApiQuotation(quotation);
+};
 
 /**
  * Render quotation details for mobile card.
@@ -41,7 +105,7 @@ export const QuotationMobileCard = (props: QuotationMobileCardProps): React.Reac
     MasterDataCard,
     {
       title: quotation.quotationNumber,
-      status: quotation.status === 1 ? "active" : "inactive",
+      status: quotation.status === 0 ? "inactive" : "active",
       onClick: handleClick,
       isLargeText: true,
       children: _renderDetails(props),

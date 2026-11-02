@@ -227,11 +227,11 @@ export const useItemChecklistCreate = (): ChecklistCreateFormState => {
       return;
     }
 
-    void navigate("/document/item-checklist");
+    void navigate("/item-checklist");
   };
 
   const goBack = (): void => {
-    void navigate("/document/item-checklist");
+    void navigate("/item-checklist");
   };
 
   let loadErrorMessage: string | null = null;

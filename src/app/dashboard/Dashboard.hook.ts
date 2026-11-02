@@ -4,10 +4,9 @@ import { useNavigate } from "react-router-dom";
 import { mapQuotationToCalendarEvent } from "@/modules/calendar/Calendar.helpers";
 import { useGetInvoicesQuery } from "@/services/invoice.service";
 import { useGetAllVouchersQuery, useGetVouchersQuery } from "@/services/master-voucher.service";
-import { mapOrder, useGetOrdersQuery } from "@/services/order.service";
 import { useGetPaymentsQuery } from "@/services/payment.service";
 import { mapQuotation, useGetQuotationsQuery } from "@/services/quotation.service";
-import { useGetRentalOrdersQuery } from "@/services/rental-order.service";
+import { mapRentalOrder, useGetRentalOrdersQuery } from "@/services/rental-order.service";
 
 import { DASHBOARD_MENU_ITEMS } from "./Dashboard.config";
 import type { DashboardAssets, DashboardNavigation, DashboardOrder, DashboardOrderState, DashboardOverviewState, DashboardQuotationChartDatum, DashboardQuotationState, DashboardRentalOrderRange, DashboardRoute, DashboardVoucherState } from "./Dashboard.type";
@@ -120,48 +119,27 @@ export const useDashboardQuotations = (): DashboardQuotationState => {
 };
 
 /**
- * Load three active orders and order creation chart data for dashboard.
- * @returns {DashboardOrderState} Order loading state, carousel items, and chart data
+ * Load rental orders for mobile dashboard carousel.
+ * @returns {DashboardOrderState} Rental order loading state and items
  */
 export const useDashboardOrders = (): DashboardOrderState => {
-  const carouselQuery = useGetOrdersQuery({
-    pageNumber: 1,
-    pageSize: 3,
-    type: "",
-    status: "",
-    startDate: "",
-    endDate: "",
-    searchTerm: "",
-  });
-  const chartQuery = useGetOrdersQuery({
-    pageNumber: 1,
-    pageSize: 1000,
-    type: "",
-    status: "",
-    startDate: "",
-    endDate: "",
-    searchTerm: "",
-  });
-  const isLoading = carouselQuery.isLoading || carouselQuery.isFetching || chartQuery.isLoading || chartQuery.isFetching;
+  const query = useGetRentalOrdersQuery({ pageNumber: 1, pageSize: 3, searchTerm: "" });
 
-  if (isLoading) {
-    return { isLoading: true, orders: [], chartData: [] };
+  if (query.isLoading || query.isFetching) {
+    return { isLoading: true, isError: false, orders: [] };
   }
 
-  const carouselData = carouselQuery.data?.status && Array.isArray(carouselQuery.data.data)
-    ? carouselQuery.data.data
-    : [];
-  const chartSource = chartQuery.data?.status && Array.isArray(chartQuery.data.data)
-    ? chartQuery.data.data
-    : [];
+  if (query.isError || !query.data?.status || !Array.isArray(query.data.data)) {
+    return { isLoading: false, isError: true, orders: [] };
+  }
 
-  const orders: DashboardOrder[] = carouselData.map((order) => {
-    const mapped = mapOrder(order);
+  const orders: DashboardOrder[] = query.data.data.map((order) => {
+    const mapped = mapRentalOrder(order);
 
     return {
-      id: mapped.id,
-      eventName: mapped.name,
-      customerName: order.customer_name ?? "-",
+      id: mapped.transactionId,
+      eventName: mapped.eventName,
+      customerName: mapped.customerName,
       startDate: mapped.startDate,
       endDate: mapped.endDate,
       grandTotal: mapped.grandTotal,
@@ -170,26 +148,7 @@ export const useDashboardOrders = (): DashboardOrderState => {
     };
   });
 
-  const today = new Date();
-  const chartData: DashboardQuotationChartDatum[] = Array.from({ length: 7 }, (_, index) => {
-    const date = new Date(today);
-    date.setHours(0, 0, 0, 0);
-    date.setDate(today.getDate() - (6 - index));
-    const count = chartSource.filter((order) => {
-      const createdAt = new Date(order.created_at);
-      return !Number.isNaN(createdAt.getTime())
-        && createdAt.getFullYear() === date.getFullYear()
-        && createdAt.getMonth() === date.getMonth()
-        && createdAt.getDate() === date.getDate();
-    }).length;
-
-    return {
-      label: date.toLocaleDateString("id-ID", { day: "numeric", month: "short" }),
-      count,
-    };
-  });
-
-  return { isLoading: false, orders, chartData };
+  return { isLoading: false, isError: false, orders };
 };
 
 /** Format date for dashboard API query. */

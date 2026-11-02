@@ -6,7 +6,7 @@ exports[`MasterCustomerCreateForm Snapshots should render customer create form 1
     class="flex h-full w-full flex-col bg-background-surface font-sans pb-6 lg:bg-background-page"
   >
     <div
-      class="sticky top-0 z-20 flex items-center gap-3 bg-background-surface px-0 lg:hidden"
+      class="sticky top-0 z-20 mb-6 flex items-center gap-3 bg-background-surface px-0 lg:hidden"
     >
       <button
         aria-label="Back"
@@ -32,18 +32,23 @@ exports[`MasterCustomerCreateForm Snapshots should render customer create form 1
         class="min-w-0"
       >
         <h2
-          class="truncate text-4xl font-semibold leading-tight text-text-primary"
+          class="truncate text-4xl font-semibold tracking-tight text-text-primary"
         >
           New Customer
         </h2>
+        <p
+          class="mt-1 truncate text-sm text-text-secondary"
+        >
+          Fill in the customer details below.
+        </p>
       </div>
     </div>
     <div
-      class="mt-10 flex min-h-0 w-full flex-1 flex-col px-0 text-lg lg:mt-0 lg:px-0 lg:text-base"
+      class="flex min-h-0 w-full flex-1 flex-col px-0 text-lg lg:mt-0 lg:px-0 lg:text-base"
     >
       <nav
         aria-label="Breadcrumb"
-        class="hidden lg:flex items-center gap-2 mb-3 text-sm font-medium text-text-secondary"
+        class="hidden lg:flex items-center gap-2 mb-2 text-sm font-medium text-text-secondary"
       >
         <button
           class="cursor-pointer hover:text-text-primary"
@@ -63,10 +68,10 @@ exports[`MasterCustomerCreateForm Snapshots should render customer create form 1
         </span>
       </nav>
       <div
-        class="my-6 hidden pl-1 lg:block"
+        class="mb-6 hidden lg:block"
       >
         <h2
-          class="text-4xl font-semibold leading-tight text-text-primary tracking-tight"
+          class="text-4xl font-semibold leading-tight tracking-tight text-text-primary"
         >
           New Customer
         </h2>
@@ -107,6 +112,33 @@ exports[`MasterCustomerCreateForm Snapshots should render customer create form 1
                 required=""
                 type="text"
                 value="PT Mega Jaya Abadi"
+              />
+            </div>
+          </div>
+          <div>
+            <div
+              class="mb-4 [&_.ant-input]:text-xl [&_.ant-input]:placeholder:text-xl [&_label]:text-base"
+            >
+              <label
+                class="mb-1.5 block text-sm font-semibold text-text-secondary"
+                for="customer-email"
+              >
+                Email
+                <span
+                  aria-hidden="true"
+                  class="ml-1 text-danger"
+                >
+                  *
+                </span>
+              </label>
+              <input
+                aria-invalid="false"
+                class="ant-input ant-input-lg css-dev-only-do-not-override-eofgey ant-input-outlined h-14 w-full !rounded-2xl css-var-root ant-input-css-var"
+                id="customer-email"
+                placeholder="e.g. customer@example.com"
+                required=""
+                type="email"
+                value=""
               />
             </div>
           </div>
@@ -193,7 +225,7 @@ exports[`MasterCustomerCreateForm Snapshots should render customer create form w
     class="flex h-full w-full flex-col bg-background-surface font-sans pb-6 lg:bg-background-page"
   >
     <div
-      class="sticky top-0 z-20 flex items-center gap-3 bg-background-surface px-0 lg:hidden"
+      class="sticky top-0 z-20 mb-6 flex items-center gap-3 bg-background-surface px-0 lg:hidden"
     >
       <button
         aria-label="Back"
@@ -219,18 +251,23 @@ exports[`MasterCustomerCreateForm Snapshots should render customer create form w
         class="min-w-0"
       >
         <h2
-          class="truncate text-4xl font-semibold leading-tight text-text-primary"
+          class="truncate text-4xl font-semibold tracking-tight text-text-primary"
         >
           New Customer
         </h2>
+        <p
+          class="mt-1 truncate text-sm text-text-secondary"
+        >
+          Fill in the customer details below.
+        </p>
       </div>
     </div>
     <div
-      class="mt-10 flex min-h-0 w-full flex-1 flex-col px-0 text-lg lg:mt-0 lg:px-0 lg:text-base"
+      class="flex min-h-0 w-full flex-1 flex-col px-0 text-lg lg:mt-0 lg:px-0 lg:text-base"
     >
       <nav
         aria-label="Breadcrumb"
-        class="hidden lg:flex items-center gap-2 mb-3 text-sm font-medium text-text-secondary"
+        class="hidden lg:flex items-center gap-2 mb-2 text-sm font-medium text-text-secondary"
       >
         <button
           class="cursor-pointer hover:text-text-primary"
@@ -250,10 +287,10 @@ exports[`MasterCustomerCreateForm Snapshots should render customer create form w
         </span>
       </nav>
       <div
-        class="my-6 hidden pl-1 lg:block"
+        class="mb-6 hidden lg:block"
       >
         <h2
-          class="text-4xl font-semibold leading-tight text-text-primary tracking-tight"
+          class="text-4xl font-semibold leading-tight tracking-tight text-text-primary"
         >
           New Customer
         </h2>
@@ -294,6 +331,33 @@ exports[`MasterCustomerCreateForm Snapshots should render customer create form w
                 required=""
                 type="text"
                 value="PT Mega Jaya Abadi"
+              />
+            </div>
+          </div>
+          <div>
+            <div
+              class="mb-4 [&_.ant-input]:text-xl [&_.ant-input]:placeholder:text-xl [&_label]:text-base"
+            >
+              <label
+                class="mb-1.5 block text-sm font-semibold text-text-secondary"
+                for="customer-email"
+              >
+                Email
+                <span
+                  aria-hidden="true"
+                  class="ml-1 text-danger"
+                >
+                  *
+                </span>
+              </label>
+              <input
+                aria-invalid="false"
+                class="ant-input ant-input-lg css-dev-only-do-not-override-eofgey ant-input-outlined h-14 w-full !rounded-2xl css-var-root ant-input-css-var"
+                id="customer-email"
+                placeholder="e.g. customer@example.com"
+                required=""
+                type="email"
+                value=""
               />
             </div>
           </div>

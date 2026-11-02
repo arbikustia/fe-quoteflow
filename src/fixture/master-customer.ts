@@ -4,6 +4,7 @@ export const MOCK_CUSTOMERS: CustomerData[] = [
   {
     id: "1",
     name: "PT Mega Jaya Abadi",
+    email: "admin@megajaya.com",
     address: "Jl. Sudirman No. 45, Jakarta Pusat",
     phoneNumber: "081234567890",
     status: "active",

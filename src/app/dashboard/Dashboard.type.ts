@@ -1,6 +1,6 @@
 import type { CalendarEventItem } from "@/components/Calendar";
 
-export type DashboardRoute = "/order" | "/order/create" | "/return" | "/document" | "/document/quotation" | "/document/item-checklist" | "/master-main" | "/master-voucher" | "/report" | "/calendar";
+export type DashboardRoute = "/order" | "/order/create" | "/return" | "/document" | "/document/quotation" | "/item-checklist" | "/master-main" | "/master-voucher" | "/report" | "/calendar" | "/activity-log";
 
 export type DashboardOrder = {
   id: string;
@@ -15,8 +15,8 @@ export type DashboardOrder = {
 
 export type DashboardOrderState = {
   isLoading: boolean;
+  isError: boolean;
   orders: DashboardOrder[];
-  chartData: DashboardQuotationChartDatum[];
 };
 
 export type DashboardMenuItem = {

@@ -1,4 +1,5 @@
 import type { ReactElement } from "react";
+import { FiDownload, FiEdit2, FiMoreHorizontal } from "react-icons/fi";
 
 import { SkeletonComponent } from "@/components/Skeleton";
 import type { TableColumn } from "@/components/Table";
@@ -46,13 +47,37 @@ export const ItemChecklistDetailComponent = (props: ItemChecklistDetailState): R
     content = <p className="py-10 text-center text-text-secondary">Item checklist unavailable.</p>;
   } else {
     content = (
-      <div className="space-y-6">
-        <dl className="grid grid-cols-1 gap-4 border-b border-border-default pb-6 text-sm sm:grid-cols-2 lg:grid-cols-3">
-          <div><dt className="text-text-secondary">Checklist date</dt><dd className="font-semibold text-text-primary">{_formatDate(checklist.checklist_date)}</dd></div>
-          <div><dt className="text-text-secondary">Status</dt><dd className="font-semibold text-text-primary">{statusLabel}</dd></div>
-          <div><dt className="text-text-secondary">Items</dt><dd className="font-semibold text-text-primary">{checklist.items.length}</dd></div>
-        </dl>
-        <Table data={checklist.items} columns={_columns} keyExtractor={(item): string => item.id} emptyText="No checklist items." />
+      <div className="space-y-4 pb-32 sm:space-y-5 lg:pb-8">
+        <section className="rounded-2xl border border-border-default bg-background-surface p-5 sm:p-6">
+          <div className="flex flex-wrap items-start justify-between gap-3">
+            <h2 className="min-w-0 break-words text-3xl font-semibold text-text-primary sm:text-2xl">{checklist.checklist_no}</h2>
+            <span className={`w-fit rounded-full px-3 py-1 text-sm font-semibold ${checklist.status === 1 ? "bg-success-subtle text-success-strong" : "bg-background-subtle text-text-secondary"}`}>{statusLabel}</span>
+          </div>
+          <dl className="mt-5 grid gap-4 sm:grid-cols-2">
+            <div><dt className="text-base font-medium text-text-secondary sm:text-xs sm:font-semibold sm:uppercase">Checklist date</dt><dd className="text-xl font-semibold text-text-primary sm:text-sm">{_formatDate(checklist.checklist_date)}</dd></div>
+            <div><dt className="text-base font-medium text-text-secondary sm:text-xs sm:font-semibold sm:uppercase">Items</dt><dd className="text-xl font-semibold text-text-primary sm:text-sm">{checklist.items.length}</dd></div>
+          </dl>
+        </section>
+        <section className="rounded-2xl border border-border-default bg-background-surface p-5 sm:p-6">
+          <h2 className="mb-4 text-xl font-bold text-text-primary sm:text-lg sm:font-semibold">Checklist items</h2>
+          {checklist.items.length === 0 ? <p className="text-sm text-text-secondary">No checklist items.</p> : (
+            <>
+              <div className="space-y-3 sm:hidden">
+                {checklist.items.map((item) => (
+                  <div key={item.id} className="space-y-2 border-t border-border-default pt-3 first:border-0 first:pt-0">
+                    <div className="flex items-start justify-between gap-3"><h3 className="min-w-0 break-words text-xl font-bold text-text-primary">{item.item_name}</h3><span className="shrink-0 rounded-xl bg-action-primary-subtle px-3 py-1 text-sm font-bold text-action-primary">Qty {item.qty}</span></div>
+                    <p className="break-words text-sm text-text-secondary">{item.description}</p>
+                    <p className="text-sm text-text-secondary">Move out: {item.move_out ? "Yes" : "No"} · Move in: {item.move_in ? "Yes" : "No"}</p>
+                    {item.section && <p className="text-sm text-text-secondary">Section: {item.section}</p>}
+                    {item.sign && <p className="text-sm text-text-secondary">Sign: {item.sign}</p>}
+                    {item.remark && <p className="text-sm text-text-secondary">Remark: {item.remark}</p>}
+                  </div>
+                ))}
+              </div>
+              <div className="hidden overflow-x-auto sm:block"><Table data={checklist.items} columns={_columns} keyExtractor={(item): string => item.id} emptyText="No checklist items." /></div>
+            </>
+          )}
+        </section>
       </div>
     );
   }
@@ -60,22 +85,29 @@ export const ItemChecklistDetailComponent = (props: ItemChecklistDetailState): R
   return (
     <Layout pageTitle="Item Checklist Detail" mobileWhiteBackground={true}>
       <PageLayout
-        title={checklist?.checklist_no ?? "Item Checklist"}
-        subtitle="Rental item checklist details."
+        title="Item Checklist Detail"
+        subtitle="View item checklist details and item information"
         breadcrumbs={["Item Checklist", checklist?.checklist_no ?? "Detail"]}
         onBack={goBack}
+        mobileHeaderClassName="px-0"
+        mobileTitleClassName="text-4xl"
         headerRight={checklist && !errorMessage ? (
-          <div className="flex items-center gap-2">
-            <button type="button" onClick={props.onDownload} className="h-12 rounded-xl border border-border-default bg-background-surface px-6 font-semibold text-text-primary hover:bg-background-subtle">
-              Download PDF
-            </button>
-            <button type="button" onClick={goEdit} className="h-12 rounded-xl bg-action-primary px-6 font-semibold text-text-inverse hover:bg-action-primary-hover">
-              Edit Checklist
-            </button>
-          </div>
+          <details className="relative shrink-0">
+            <summary aria-label="More options" className="flex h-14 w-14 cursor-pointer list-none items-center justify-center rounded-2xl border border-border-default text-text-secondary transition-colors hover:bg-background-subtle hover:text-text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring">
+              <FiMoreHorizontal className="h-7 w-7" aria-hidden="true" />
+            </summary>
+            <div role="menu" className="absolute right-0 top-16 z-20 w-56 overflow-hidden rounded-2xl border border-border-default bg-background-surface py-2 shadow-lg">
+              <button type="button" role="menuitem" onClick={goEdit} className="flex w-full items-center gap-3 px-5 py-3.5 text-left text-lg font-semibold text-text-primary transition-colors hover:bg-background-subtle focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring">
+                <FiEdit2 className="h-5 w-5" aria-hidden="true" /> Edit Checklist
+              </button>
+              <button type="button" role="menuitem" onClick={props.onDownload} className="flex w-full items-center gap-3 px-5 py-3.5 text-left text-lg font-semibold text-text-primary transition-colors hover:bg-background-subtle focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring">
+                <FiDownload className="h-5 w-5" aria-hidden="true" /> Download PDF
+              </button>
+            </div>
+          </details>
         ) : undefined}
       >
-        <div className="rounded-4xl border border-border-default bg-background-surface p-6 shadow-xs">{content}</div>
+        {isLoading || errorMessage || !checklist ? <div className="rounded-2xl border border-border-default bg-background-surface p-5">{content}</div> : content}
       </PageLayout>
     </Layout>
   );

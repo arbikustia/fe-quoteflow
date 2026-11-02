@@ -1,3 +1,5 @@
+import type { Dayjs } from "dayjs";
+
 export type DateRangePickerVariant = "split" | "compact";
 
 export type DateRangePickerProps = {
@@ -11,11 +13,16 @@ export type DateRangePickerProps = {
   minDate?: string;
   maxDate?: string;
   disabled?: boolean;
+  disabledDate?: (current: Dayjs) => boolean;
+  startDisabledDate?: (current: Dayjs) => boolean;
+  endDisabledDate?: (current: Dayjs) => boolean;
   variant?: DateRangePickerVariant;
   className?: string;
   showTime?: boolean;
   startError?: boolean;
   endError?: boolean;
+  startErrorMessage?: string;
+  endErrorMessage?: string;
 };
 
 export type DateRangeFieldProps = {
@@ -23,6 +30,7 @@ export type DateRangeFieldProps = {
   label: string;
   value?: string;
   error?: boolean;
+  errorMessage?: string;
   onChange?: (value: string) => void;
   pickerProps: DateRangePickerProps;
 };

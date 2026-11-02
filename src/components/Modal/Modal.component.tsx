@@ -26,18 +26,20 @@ const _renderHeader = (title: string, onClose: () => void): React.ReactElement =
  * @returns {React.ReactElement | null} Modal or null
  */
 export const ModalComponent = (props: ModalProps): React.ReactElement | null => {
-  const { isOpen, onClose, title, children, maxWidth = "max-w-2xl" } = props;
+  const { isOpen, onClose, title, children, maxWidth = "max-w-2xl", contentClassName = "", dialogClassName = "" } = props;
 
   if (!isOpen) {
     return null;
   }
 
+  const dialogHeightClassName = dialogClassName.includes("h-") ? dialogClassName : `h-[80vh] ${dialogClassName}`.trim();
+
   return createPortal(
     <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/70 p-4 sm:p-6">
       <button type="button" aria-label="Close modal backdrop" className="absolute inset-0 cursor-default" onClick={onClose} />
-      <div role="dialog" aria-modal="true" aria-labelledby="modal-title" className={`relative flex h-[90vh] w-full ${maxWidth} flex-col overflow-hidden rounded-xl border border-border-default bg-background-surface shadow-medium`}>
+      <div role="dialog" aria-modal="true" aria-labelledby="modal-title" className={`relative flex ${dialogHeightClassName} w-full ${maxWidth} flex-col overflow-hidden rounded-xl border border-border-default bg-background-surface shadow-medium`}>
         {_renderHeader(title, onClose)}
-        <div className="max-h-[90vh] overflow-y-auto p-6">{children}</div>
+        <div className={`max-h-[80vh] overflow-y-auto p-6 ${contentClassName}`}>{children}</div>
       </div>
     </div>,
     document.body,

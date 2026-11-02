@@ -8,15 +8,15 @@ import DocumentMain from "./app/document/DocumentMain";
 import InvoicePage from "./app/document/invoice";
 import InvoiceDetailPage from "./app/document/invoice/detail";
 import InvoiceStatusPage from "./app/document/invoice/status";
-import ItemChecklistPage from "./app/document/item-checklist";
-import ItemChecklistCreatePage from "./app/document/item-checklist/create";
-import ItemChecklistDetailPage from "./app/document/item-checklist/detail";
 import PaymentPage from "./app/document/payment";
 import PaymentCreatePage from "./app/document/payment/create";
 import PaymentStatusPage from "./app/document/payment/status";
 import QuotationPage from "./app/document/quotation";
 import QuotationDetailPage from "./app/document/quotation/detail";
 import QuotationStatusPage from "./app/document/quotation/status";
+import ItemChecklistPage from "./app/item-checklist";
+import ItemChecklistCreatePage from "./app/item-checklist/create";
+import ItemChecklistDetailPage from "./app/item-checklist/detail";
 import MasterCategory from "./app/master-category";
 import MasterCategoryCreate from "./app/master-category/create";
 import MasterCustomer from "./app/master-customer";
@@ -26,6 +26,8 @@ import MasterEmailSenderCreate from "./app/master-email-sender/create";
 import MasterItem from "./app/master-item";
 import MasterItemCreate from "./app/master-item/create";
 import MasterMain from "./app/master-main";
+import MasterOrderType from "./app/master-order-type";
+import MasterOrderTypeCreate from "./app/master-order-type/create";
 import MasterPaymentMethod from "./app/master-payment-method";
 import MasterPaymentMethodCreate from "./app/master-payment-method/create";
 import MasterPaymentType from "./app/master-payment-type";
@@ -66,6 +68,10 @@ function App(): React.ReactElement {
         <Route path="/home" element={<Dashboard />} />
         <Route path="/calendar" element={<CalendarPage />} />
         <Route path="/activity-log" element={<ActivityLogPage />} />
+        <Route path="/item-checklist" element={<ItemChecklistPage />} />
+        <Route path="/item-checklist/create" element={<ItemChecklistCreatePage />} />
+        <Route path="/item-checklist/create/:id" element={<ItemChecklistCreatePage />} />
+        <Route path="/item-checklist/:id" element={<ItemChecklistDetailPage />} />
         <Route path="/note" element={<NotePage />} />
         <Route path="/note/create" element={<NoteCreatePage />} />
         <Route path="/profile" element={<ProfilePage />} />
@@ -111,6 +117,11 @@ function App(): React.ReactElement {
         <Route path="/master-service-type/edit/:id" element={<MasterServiceTypeCreate />} />
         <Route path="/master-service-type/detail/:id" element={<MasterServiceTypeDetail />} />
 
+        {/* Order Type */}
+        <Route path="/master-order-type" element={<MasterOrderType />} />
+        <Route path="/master-order-type/create" element={<MasterOrderTypeCreate />} />
+        <Route path="/master-order-type/edit/:id" element={<MasterOrderTypeCreate />} />
+
         {/* Payment Method */}
         <Route path="/master-payment-method" element={<MasterPaymentMethod />} />
         <Route path="/master-payment-method/create" element={<MasterPaymentMethodCreate />} />
@@ -139,10 +150,6 @@ function App(): React.ReactElement {
         <Route path="/document/invoice" element={<InvoicePage />} />
         <Route path="/document/invoice/:id" element={<InvoiceDetailPage />} />
         <Route path="/document/invoice/:id/status" element={<InvoiceStatusPage />} />
-        <Route path="/document/item-checklist" element={<ItemChecklistPage />} />
-        <Route path="/document/item-checklist/create" element={<ItemChecklistCreatePage />} />
-        <Route path="/document/item-checklist/create/:id" element={<ItemChecklistCreatePage />} />
-        <Route path="/document/item-checklist/:id" element={<ItemChecklistDetailPage />} />
         <Route path="/document/payment" element={<PaymentPage />} />
         <Route path="/document/payment/create" element={<PaymentCreatePage />} />
         <Route path="/document/payment/:id/edit" element={<PaymentCreatePage />} />

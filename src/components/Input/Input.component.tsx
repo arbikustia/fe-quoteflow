@@ -51,7 +51,8 @@ const _renderControl = (props: InputComponentProps): ReactElement => {
   if (props.type === "number") {
     return <InputNumber {...sharedProps} size="large" value={props.value}
       min={props.min} max={props.max} step={props.step} onChange={props.onChange}
-      status={errorMessage ? "error" : undefined} className={`h-14 w-full ${props.className ?? ""}`} />;
+      status={errorMessage ? "error" : undefined} style={{ width: "100%" }}
+      className={`h-14 !w-full !rounded-2xl ${props.className ?? ""}`} />;
   }
 
   if (props.type === "textarea") {

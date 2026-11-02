@@ -98,10 +98,16 @@ describe("ItemChecklistCreateForm", () => {
     render(<MemoryRouter><ItemChecklistCreateForm {...mockSelectedFormProps} isEditMode={true} moveInItemIds={["itm-2-0"]} /></MemoryRouter>);
     expect(screen.getByRole("button", { name: "Update Checklist" })).toBeInTheDocument();
     expect(screen.queryByRole("combobox", { name: "Rental Order" })).not.toBeInTheDocument();
-    expect(screen.getByLabelText("Move out Speaker Active")).toBeChecked();
-    expect(screen.getByLabelText("Move in Microphone Wireless")).toBeChecked();
-    fireEvent.click(screen.getByLabelText("Move in Speaker Active"));
+    expect(screen.getAllByRole("checkbox", { name: "Move out Speaker Active" })).toHaveLength(2);
+    expect(screen.getAllByRole("checkbox", { name: "Move in Microphone Wireless" })).toHaveLength(2);
+    screen.getAllByRole("checkbox", { name: "Move out Speaker Active" }).forEach((checkbox) => expect(checkbox).toBeChecked());
+    screen.getAllByRole("checkbox", { name: "Move in Microphone Wireless" }).forEach((checkbox) => expect(checkbox).toBeChecked());
+    fireEvent.click(screen.getAllByRole("checkbox", { name: "Move in Speaker Active" })[0]);
     expect(mockSelectedFormProps.onToggleMoveIn).toHaveBeenCalledWith("itm-1-0");
+    expect(mockSelectedFormProps.onToggleMoveOut).not.toHaveBeenCalled();
+    fireEvent.click(screen.getAllByRole("checkbox", { name: "Move out Microphone Wireless" })[0]);
+    expect(mockSelectedFormProps.onToggleMoveOut).toHaveBeenCalledWith("itm-2-0");
+    expect(mockSelectedFormProps.onToggleMoveIn).toHaveBeenCalledTimes(1);
   });
 
   it("should trigger save on button click", () => {

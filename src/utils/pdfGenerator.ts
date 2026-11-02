@@ -3,17 +3,23 @@ import autoTable from "jspdf-autotable";
 
 import FrameImage from "../assets/frame-pdf.png";
 import { MOCK_ORDER_ITEMS } from "../fixture/quotes";
-import type { QuoteData } from "../modules/order-page/OrderPage.type";
+import type { QuoteData } from "../modules/order/Order.type";
 
 type TableCell = string | number | Record<string, unknown>;
 type TableRow = TableCell[];
 
+export type PdfOptions = {
+  title?: string;
+  filename?: string;
+};
+
 /**
  * Generate PDF for a Quote
  * @param {QuoteData} quote - the quote data
+ * @param {PdfOptions} [options] - custom options like title and filename
  * @returns {Promise<void>} promise
  */
-export const generateQuotePDF = async (quote: QuoteData): Promise<void> => {
+export const generateQuotePDF = async (quote: QuoteData, options?: PdfOptions): Promise<void> => {
   const doc = new jsPDF();
   const frameData = await new Promise<string>((resolve) => {
     const img = new Image();
@@ -49,7 +55,7 @@ export const generateQuotePDF = async (quote: QuoteData): Promise<void> => {
   // --- TITLE ---
   doc.setFontSize(14);
   doc.setFont("helvetica", "bold");
-  doc.text("PENAWARAN HARGA", 105, 40, { align: "center" });
+  doc.text(options?.title ?? "PENAWARAN HARGA", 105, 40, { align: "center" });
 
   // --- DATE ---
   const dateStr = new Date().toLocaleDateString("id-ID", {
@@ -89,7 +95,8 @@ export const generateQuotePDF = async (quote: QuoteData): Promise<void> => {
   // --- TABLE DATA PREPARATION ---
   const tableData: TableRow[] = [];
   let no = 1;
-  const categories = quote.category.split(", ").map(c => c.trim());
+  const rawCategories = (quote.category || "Equipment").split(", ").map(c => c.trim()).filter(Boolean);
+  const categories = rawCategories.length > 0 ? rawCategories : ["Equipment"];
   let subTotal1 = 0;
 
   categories.forEach(cat => {
@@ -103,14 +110,17 @@ export const generateQuotePDF = async (quote: QuoteData): Promise<void> => {
 
     subTotal1 += pricePerDay;
 
+    const catHeading = cat === "Equipment" ? "Equipment" : `${cat} Equipment`;
     tableData.push([
-      { content: `${cat} Equipment`, colSpan: 6, styles: { fontStyle: 'bold', fillColor: [240, 240, 240], textColor: [0, 0, 0], halign: 'left' } }
+      { content: catHeading, colSpan: 6, styles: { fontStyle: 'bold', fillColor: [240, 240, 240], textColor: [0, 0, 0], halign: 'left' } }
     ]);
 
     const catItems = MOCK_ORDER_ITEMS[cat] || quote.selectedItems;
     let itemsInCat = quote.selectedItems.filter(i => catItems.includes(i));
     
-    if (itemsInCat.length === 0) itemsInCat = [`Paket ${cat}`];
+    if (itemsInCat.length === 0) {
+      itemsInCat = quote.selectedItems.length > 0 ? quote.selectedItems : [`Paket ${cat}`];
+    }
     
     const count = itemsInCat.length;
 
@@ -231,7 +241,8 @@ export const generateQuotePDF = async (quote: QuoteData): Promise<void> => {
   });
 
   // --- FOOTER NOTES ---
-  let finalY = ((doc as unknown) as { lastAutoTable: { finalY: number } }).lastAutoTable.finalY + 8;
+  const lastAutoTable = ((doc as unknown) as { lastAutoTable?: { finalY: number } }).lastAutoTable;
+  let finalY = (lastAutoTable?.finalY ?? 180) + 8;
   
   // The company name is omitted as requested because the frame image has it
   // Or the user does not want it duplicated below the table.
@@ -262,5 +273,30 @@ export const generateQuotePDF = async (quote: QuoteData): Promise<void> => {
   doc.text("Derik", 14, finalY + 85);
 
   // --- SAVE ---
-  doc.save(`Invoice-${quote.id}.pdf`);
+  const filename = options?.filename ?? `Invoice-${quote.id}.pdf`;
+  doc.save(filename);
+};
+
+/**
+ * Generate PDF for a Quotation
+ * @param {QuoteData} quote - the quote data
+ * @returns {Promise<void>} promise
+ */
+export const generateQuotationPDF = async (quote: QuoteData): Promise<void> => {
+  await generateQuotePDF(quote, {
+    title: "QUOTATION",
+    filename: `Quotation-${quote.id}.pdf`,
+  });
+};
+
+/**
+ * Generate PDF for an Invoice
+ * @param {QuoteData} quote - the quote data
+ * @returns {Promise<void>} promise
+ */
+export const generateInvoicePDF = async (quote: QuoteData): Promise<void> => {
+  await generateQuotePDF(quote, {
+    title: "INVOICE",
+    filename: `Invoice-${quote.id}.pdf`,
+  });
 };

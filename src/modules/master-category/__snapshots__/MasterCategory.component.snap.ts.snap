@@ -195,7 +195,7 @@ exports[`should match MasterCategoryComponent snapshots 1`] = `
               <a
                 class="min-h-14 flex items-center gap-3 rounded-[8px] px-4 py-3 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring/30 text-text-secondary hover:bg-background-elevated hover:text-text-primary"
                 data-discover="true"
-                href="/document/item-checklist"
+                href="/item-checklist"
               >
                 <span
                   class="shrink-0 [&_svg]:h-5 [&_svg]:w-5 text-text-tertiary"
@@ -716,6 +716,21 @@ exports[`should match MasterCategoryComponent snapshots 1`] = `
                 >
                   Category List
                 </h1>
+                <p
+                  class="mt-2 text-sm text-text-secondary"
+                >
+                  Manage product and item categories
+                </p>
+              </div>
+              <div
+                class="flex shrink-0 items-center gap-3"
+              >
+                <button
+                  class="h-14 rounded-full border-2 border-brand-blue bg-background-surface px-6 text-sm font-bold text-brand-blue transition-colors hover:bg-action-primary-subtle focus:outline-none focus:ring-2 focus:ring-focus-ring/30"
+                  type="button"
+                >
+                  Create New
+                </button>
               </div>
             </div>
             <div
@@ -752,12 +767,23 @@ exports[`should match MasterCategoryComponent snapshots 1`] = `
                   >
                     Category List
                   </h1>
+                  <p
+                    class="mt-1 truncate text-sm text-text-secondary"
+                  >
+                    Manage product and item categories
+                  </p>
                 </div>
               </div>
-              <span
-                aria-hidden="true"
-                class="h-12 w-12 shrink-0"
-              />
+              <div
+                class="shrink-0"
+              >
+                <button
+                  class="h-14 rounded-full border-2 border-brand-blue bg-background-surface px-6 text-sm font-bold text-brand-blue transition-colors hover:bg-action-primary-subtle focus:outline-none focus:ring-2 focus:ring-focus-ring/30"
+                  type="button"
+                >
+                  Create New
+                </button>
+              </div>
             </div>
           </header>
           <main
@@ -1512,7 +1538,7 @@ exports[`should match MasterCategoryComponent snapshots 2`] = `
               <a
                 class="min-h-14 flex items-center gap-3 rounded-[8px] px-4 py-3 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring/30 text-text-secondary hover:bg-background-elevated hover:text-text-primary"
                 data-discover="true"
-                href="/document/item-checklist"
+                href="/item-checklist"
               >
                 <span
                   class="shrink-0 [&_svg]:h-5 [&_svg]:w-5 text-text-tertiary"
@@ -2033,6 +2059,21 @@ exports[`should match MasterCategoryComponent snapshots 2`] = `
                 >
                   Category List
                 </h1>
+                <p
+                  class="mt-2 text-sm text-text-secondary"
+                >
+                  Manage product and item categories
+                </p>
+              </div>
+              <div
+                class="flex shrink-0 items-center gap-3"
+              >
+                <button
+                  class="h-14 rounded-full border-2 border-brand-blue bg-background-surface px-6 text-sm font-bold text-brand-blue transition-colors hover:bg-action-primary-subtle focus:outline-none focus:ring-2 focus:ring-focus-ring/30"
+                  type="button"
+                >
+                  Create New
+                </button>
               </div>
             </div>
             <div
@@ -2069,12 +2110,23 @@ exports[`should match MasterCategoryComponent snapshots 2`] = `
                   >
                     Category List
                   </h1>
+                  <p
+                    class="mt-1 truncate text-sm text-text-secondary"
+                  >
+                    Manage product and item categories
+                  </p>
                 </div>
               </div>
-              <span
-                aria-hidden="true"
-                class="h-12 w-12 shrink-0"
-              />
+              <div
+                class="shrink-0"
+              >
+                <button
+                  class="h-14 rounded-full border-2 border-brand-blue bg-background-surface px-6 text-sm font-bold text-brand-blue transition-colors hover:bg-action-primary-subtle focus:outline-none focus:ring-2 focus:ring-focus-ring/30"
+                  type="button"
+                >
+                  Create New
+                </button>
+              </div>
             </div>
           </header>
           <main

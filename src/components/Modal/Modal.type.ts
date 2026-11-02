@@ -6,4 +6,6 @@ export type ModalProps = {
   title: string;
   children: ReactNode;
   maxWidth?: string;
+  contentClassName?: string;
+  dialogClassName?: string;
 };

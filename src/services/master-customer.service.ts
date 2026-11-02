@@ -23,6 +23,7 @@ const CUSTOMER_TAG = "Customer";
 export const mapCustomer = (customer: ApiCustomer): CustomerData => ({
   id: customer.id,
   name: customer.name,
+  email: customer.email ?? null,
   address: customer.address,
   phoneNumber: customer.phone_number,
   status: customer.status === 1 ? "active" : "inactive",

@@ -47,10 +47,15 @@ const _renderSearch = (onSearch: (value: string) => void): ReactElement => (
 export const EmailSenderComponent = (): ReactElement => {
   const state = useEmailSender();
   const onEdit = (row: EmailSender): void => state.edit(row);
+  const createButton = (
+    <button type="button" onClick={state.create} className="h-14 rounded-full border-2 border-brand-blue bg-background-surface px-6 text-sm font-bold text-brand-blue transition-colors hover:bg-action-primary-subtle focus:outline-none focus:ring-2 focus:ring-focus-ring/30">
+      Create New
+    </button>
+  );
 
   return (
     <Layout pageTitle="Email Sender" mobileWhiteBackground={true}>
-      <PageLayout title="Email Sender" breadcrumbs={["Master", "Email Sender"]} onBack={state.back} mobileHeaderClassName="px-0" mobileTitleClassName="text-4xl">
+      <PageLayout title="Email Sender" subtitle="Manage SMTP email sender settings" breadcrumbs={["Master", "Email Sender"]} headerRight={createButton} onBack={state.back} mobileHeaderClassName="px-0" mobileTitleClassName="text-4xl">
         <div className="relative flex h-full flex-col bg-background-surface px-0 pb-18 lg:-mt-4 lg:bg-transparent lg:px-0 lg:pb-0">
           <div className="flex min-w-0 flex-col gap-4 pt-2 pb-16 lg:hidden">
             {_renderSearch(state.setSearch)}

@@ -24,7 +24,7 @@ const EVENT_VARIANTS: CalendarEventVariantClasses = {
 const _renderEvent = (event: CalendarEventItem, onEventClick: ((event: CalendarEventItem) => void) | undefined): ReactElement => (
   <button type="button" key={event.id} onClick={(): void => onEventClick?.(event)} className={`flex min-w-0 w-full items-center gap-1 rounded-md border px-2 py-1.5 text-left text-base font-semibold leading-5 transition-opacity hover:opacity-75 ${EVENT_VARIANTS[event.variant ?? "neutral"]}`} title={event.title}>
     <span className="min-w-0 flex-1 truncate">{event.title}</span>
-    {event.time && <span className="shrink-0 text-sm font-medium opacity-75">{event.time}</span>}
+    {event.time && <span className="hidden shrink-0 text-sm font-medium opacity-75 lg:inline">{event.time}</span>}
   </button>
 );
 
@@ -45,6 +45,44 @@ const _getDayNumberClassName = (day: CalendarDayCell): string => {
   return "text-text-disabled opacity-40";
 };
 
+const MAX_MOBILE_EVENTS = 2;
+const MAX_DESKTOP_EVENTS = 5;
+
+/**
+ * Render day events list.
+ * @param {CalendarEventItem[]} events - Day events
+ * @param {((event: CalendarEventItem) => void) | undefined} onEventClick - Event click handler
+ * @returns {ReactElement} Events container
+ */
+const _renderDayEvents = (events: CalendarEventItem[], onEventClick: ((event: CalendarEventItem) => void) | undefined): ReactElement => {
+  const singleDayEvents = events.filter((event) => !event.endDate || event.endDate === event.date);
+  const mobileVisible = events.slice(0, MAX_MOBILE_EVENTS);
+  const mobileRemainingCount = events.length - MAX_MOBILE_EVENTS;
+  const desktopVisible = singleDayEvents.slice(0, MAX_DESKTOP_EVENTS);
+  const desktopRemainingCount = singleDayEvents.length - MAX_DESKTOP_EVENTS;
+
+  return (
+    <div className="mt-2 space-y-2">
+      <div className="space-y-2 lg:hidden">
+        {mobileVisible.map((event) => _renderEvent(event, onEventClick))}
+        {mobileRemainingCount > 0 && (
+          <span className="block px-1 text-xs font-semibold text-text-secondary">
+            {mobileRemainingCount} more...
+          </span>
+        )}
+      </div>
+      <div className="hidden space-y-2 lg:block">
+        {desktopVisible.map((event) => _renderEvent(event, onEventClick))}
+        {desktopRemainingCount > 0 && (
+          <span className="block px-1 text-xs font-semibold text-text-secondary">
+            {desktopRemainingCount} more...
+          </span>
+        )}
+      </div>
+    </div>
+  );
+};
+
 /**
  * Render one week with continuous multi-day event bars.
  * @param {CalendarDayCell[]} weekDays - Week cells
@@ -55,7 +93,7 @@ const _getDayNumberClassName = (day: CalendarDayCell): string => {
 const _renderWeek = (weekDays: CalendarDayCell[], onEventClick: ((event: CalendarEventItem) => void) | undefined, isExpanded: boolean): ReactElement => {
   const segments = buildCalendarWeekEventSegments(weekDays);
 
-  return <div className="relative grid grid-cols-7 border-b border-border-default">{weekDays.map((day) => <div key={day.dateKey} aria-disabled={!day.isCurrentMonth} className={`relative ${isExpanded ? "min-h-[6rem]" : "aspect-square"} min-w-0 border-r border-border-default p-2 ${day.isCurrentMonth ? "" : "pointer-events-none bg-background-subtle"}`}><span className={`inline-flex h-6 min-w-6 items-center justify-center rounded-full px-1 text-xs font-semibold ${_getDayNumberClassName(day)}`}>{day.dayNumber}</span>{day.isCurrentMonth && <div className="mt-2 space-y-2">{day.events.filter((event) => !event.endDate || event.endDate === event.date).slice(0, 5).map((event) => _renderEvent(event, onEventClick))}{day.events.length > 5 && <span className="block px-1 text-xs font-semibold text-text-secondary">{day.events.length - 5} more...</span>}</div>}</div>)}{segments.map((segment) => <div key={`${segment.event.id}-${segment.startColumn}`} className="absolute z-10" style={{ left: `calc(${segment.startColumn * 100 / 7}% + 0.5rem)`, width: `calc(${segment.span * 100 / 7}% - 1rem)`, top: `${2.25 + segment.row * 2.5}rem` }}>{_renderEvent(segment.event, onEventClick)}</div>)}</div>;
+  return <div className="relative grid grid-cols-7 border-b border-border-default">{weekDays.map((day) => <div key={day.dateKey} aria-disabled={!day.isCurrentMonth} className={`relative ${isExpanded ? "min-h-[6rem]" : "min-h-[20dvh] lg:aspect-square lg:min-h-0"} min-w-0 border-r border-border-default p-2 ${day.isCurrentMonth ? "" : "pointer-events-none bg-background-subtle"}`}><span className={`inline-flex h-6 min-w-6 items-center justify-center rounded-full px-1 text-xs font-semibold ${_getDayNumberClassName(day)}`}>{day.dayNumber}</span>{day.isCurrentMonth && _renderDayEvents(day.events, onEventClick)}</div>)}{segments.map((segment) => <div key={`${segment.event.id}-${segment.startColumn}`} className="absolute z-10 hidden lg:block" style={{ left: `calc(${segment.startColumn * 100 / 7}% + 0.5rem)`, width: `calc(${segment.span * 100 / 7}% - 1rem)`, top: `${2.25 + segment.row * 2.5}rem` }}>{_renderEvent(segment.event, onEventClick)}</div>)}</div>;
 };
 
 /**
@@ -80,7 +118,7 @@ export const CalendarComponent = (props: CalendarComponentProps): ReactElement =
         {props.showControls !== false && <div className="flex items-center text-text-secondary"><div className="flex overflow-hidden rounded-lg border border-border-default"><button type="button" onClick={props.onPreviousMonth} aria-label="Previous month" className="flex h-11 w-11 items-center justify-center border-r border-border-default hover:bg-background-subtle"><LuChevronLeft size={21} /></button><button type="button" onClick={props.onToday} className="h-11 px-5 text-sm font-semibold text-text-primary hover:bg-background-subtle">Today</button><button type="button" onClick={props.onNextMonth} aria-label="Next month" className="flex h-11 w-11 items-center justify-center border-l border-border-default hover:bg-background-subtle"><LuChevronRight size={21} /></button></div></div>}
       </header>
       <div className="grid grid-cols-7 border-b border-border-default">{WEEKDAYS.map((weekday) => <div key={weekday} className="py-2 text-center text-xs font-semibold text-text-tertiary">{weekday}</div>)}</div>
-      {props.isLoading ? <div className="grid min-h-[600px] grid-cols-7 grid-rows-5">{days.map((day) => <div key={day.dateKey} className="animate-pulse border-b border-r border-border-default bg-background-subtle" />)}</div> : <div>{Array.from({ length: 5 }, (_, weekIndex) => <div key={days[weekIndex * 7].dateKey}>{_renderWeek(days.slice(weekIndex * 7, weekIndex * 7 + 7), props.onEventClick, props.showControls === false)}</div>)}</div>}
+      {props.isLoading ? <div className="grid min-h-[100dvh] grid-cols-7 grid-rows-5 lg:min-h-[600px]">{days.map((day) => <div key={day.dateKey} className="animate-pulse border-b border-r border-border-default bg-background-subtle" />)}</div> : <div>{Array.from({ length: 5 }, (_, weekIndex) => <div key={days[weekIndex * 7].dateKey}>{_renderWeek(days.slice(weekIndex * 7, weekIndex * 7 + 7), props.onEventClick, props.showControls === false)}</div>)}</div>}
       {!props.isLoading && visibleEvents.length === 0 && <p className="sr-only">No quotation events in this month.</p>}
     </section>
   );

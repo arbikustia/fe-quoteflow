@@ -1,10 +1,15 @@
 import { describe, expect, it, jest } from "@jest/globals";
-import { render, screen } from "@/libs/unit-test";
+import { fireEvent, render, screen } from "@/libs/unit-test";
 import { MemoryRouter } from "react-router-dom";
 
 import { QuotationDetailComponent } from "./QuotationDetail.component";
 
 import type { ApiQuotation, QuotationDetailState } from "../Quotation.type";
+
+const mockGenerateQuotationPDF = jest.fn();
+jest.mock("@/utils/pdfGenerator", () => ({
+  generateQuotationPDF: (...args: unknown[]) => mockGenerateQuotationPDF(...args),
+}));
 
 const QUOTATION: ApiQuotation = {
   id: "quotation-1",
@@ -98,5 +103,15 @@ describe("QuotationDetailComponent", () => {
     render(<MemoryRouter><QuotationDetailComponent {...createProps(null)} /></MemoryRouter>);
 
     expect(screen.getByText("Quotation detail is unavailable.")).toBeTruthy();
+  });
+
+  it("should trigger download PDF when clicked from options menu", (): void => {
+    render(<MemoryRouter><QuotationDetailComponent {...createProps()} /></MemoryRouter>);
+
+    const downloadButtons = screen.getAllByRole("menuitem", { name: /Download PDF/i });
+    expect(downloadButtons.length).toBeGreaterThan(0);
+
+    fireEvent.click(downloadButtons[0]);
+    expect(mockGenerateQuotationPDF).toHaveBeenCalled();
   });
 });

@@ -38,7 +38,7 @@ export type PaymentRequiredFields = {
   paymentMethodId: string;
   amount: number | null;
   paidAt: string;
-  referenceNo: string;
+  referenceNo?: string;
 };
 
 export type PaymentCreateFormState = {
@@ -51,7 +51,7 @@ export type PaymentCreateFormState = {
   paymentMethodId: string;
   amount: number | null;
   paidAt: string;
-  referenceNo: string;
+  referenceNo?: string;
   notes: string;
   isLoadingOptions: boolean;
   isSubmitting: boolean;
@@ -62,7 +62,7 @@ export type PaymentCreateFormState = {
   setPaymentMethodId: (value: string) => void;
   setAmount: (value: number | null) => void;
   setPaidAt: (value: string) => void;
-  setReferenceNo: (value: string) => void;
+  setReferenceNo?: (value: string) => void;
   setNotes: (value: string) => void;
   handleStatusChange: (value: boolean) => void;
   goBack: () => void;

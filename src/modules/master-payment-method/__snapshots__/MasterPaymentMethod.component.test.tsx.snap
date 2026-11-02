@@ -41,6 +41,21 @@ exports[`MasterPaymentMethod.component MasterPaymentMethodComponent Snapshots de
             >
               Payment Method List
             </h1>
+            <p
+              class="mt-2 text-sm text-text-secondary"
+            >
+              Manage available payment methods
+            </p>
+          </div>
+          <div
+            class="flex shrink-0 items-center gap-3"
+          >
+            <button
+              class="h-14 rounded-full border-2 border-brand-blue bg-background-surface px-6 text-sm font-bold text-brand-blue transition-colors hover:bg-action-primary-subtle focus:outline-none focus:ring-2 focus:ring-focus-ring/30"
+              type="button"
+            >
+              Create New
+            </button>
           </div>
         </div>
         <div
@@ -77,12 +92,23 @@ exports[`MasterPaymentMethod.component MasterPaymentMethodComponent Snapshots de
               >
                 Payment Method List
               </h1>
+              <p
+                class="mt-1 truncate text-sm text-text-secondary"
+              >
+                Manage available payment methods
+              </p>
             </div>
           </div>
-          <span
-            aria-hidden="true"
-            class="h-12 w-12 shrink-0"
-          />
+          <div
+            class="shrink-0"
+          >
+            <button
+              class="h-14 rounded-full border-2 border-brand-blue bg-background-surface px-6 text-sm font-bold text-brand-blue transition-colors hover:bg-action-primary-subtle focus:outline-none focus:ring-2 focus:ring-focus-ring/30"
+              type="button"
+            >
+              Create New
+            </button>
+          </div>
         </div>
       </header>
       <main
@@ -310,6 +336,21 @@ exports[`MasterPaymentMethod.component MasterPaymentMethodComponent Snapshots mo
             >
               Payment Method List
             </h1>
+            <p
+              class="mt-2 text-sm text-text-secondary"
+            >
+              Manage available payment methods
+            </p>
+          </div>
+          <div
+            class="flex shrink-0 items-center gap-3"
+          >
+            <button
+              class="h-14 rounded-full border-2 border-brand-blue bg-background-surface px-6 text-sm font-bold text-brand-blue transition-colors hover:bg-action-primary-subtle focus:outline-none focus:ring-2 focus:ring-focus-ring/30"
+              type="button"
+            >
+              Create New
+            </button>
           </div>
         </div>
         <div
@@ -346,12 +387,23 @@ exports[`MasterPaymentMethod.component MasterPaymentMethodComponent Snapshots mo
               >
                 Payment Method List
               </h1>
+              <p
+                class="mt-1 truncate text-sm text-text-secondary"
+              >
+                Manage available payment methods
+              </p>
             </div>
           </div>
-          <span
-            aria-hidden="true"
-            class="h-12 w-12 shrink-0"
-          />
+          <div
+            class="shrink-0"
+          >
+            <button
+              class="h-14 rounded-full border-2 border-brand-blue bg-background-surface px-6 text-sm font-bold text-brand-blue transition-colors hover:bg-action-primary-subtle focus:outline-none focus:ring-2 focus:ring-focus-ring/30"
+              type="button"
+            >
+              Create New
+            </button>
+          </div>
         </div>
       </header>
       <main

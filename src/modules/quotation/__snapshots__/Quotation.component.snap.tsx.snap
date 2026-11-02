@@ -195,7 +195,7 @@ exports[`QuotationComponent Snapshots renders QuotationComponent with data 1`] =
               <a
                 class="min-h-14 flex items-center gap-3 rounded-[8px] px-4 py-3 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring/30 text-text-secondary hover:bg-background-elevated hover:text-text-primary"
                 data-discover="true"
-                href="/document/item-checklist"
+                href="/item-checklist"
               >
                 <span
                   class="shrink-0 [&_svg]:h-5 [&_svg]:w-5 text-text-tertiary"
@@ -1111,6 +1111,11 @@ exports[`QuotationComponent Snapshots renders QuotationComponent with data 1`] =
                                 Event End Date
                               </th>
                               <th
+                                class="bg-table-header px-5 py-4 text-[13px] font-bold text-text-secondary uppercase tracking-widest   text-center "
+                              >
+                                Status
+                              </th>
+                              <th
                                 class="bg-table-header px-5 py-4 text-[13px] font-bold text-text-secondary uppercase tracking-widest  rounded-r-xl text-center "
                               >
                                 Action
@@ -1163,9 +1168,50 @@ exports[`QuotationComponent Snapshots renders QuotationComponent with data 1`] =
                               <td
                                 class="px-5 py-4 border-b border-border-default text-base text-center "
                               >
-                                <div
-                                  class="flex items-center justify-center"
+                                <span
+                                  class="inline-flex rounded-full px-3 py-1 text-xs font-semibold bg-warning-subtle text-warning-strong"
                                 >
+                                  Quotation Created
+                                </span>
+                              </td>
+                              <td
+                                class="px-5 py-4 border-b border-border-default text-base text-center "
+                              >
+                                <div
+                                  class="flex items-center justify-center gap-1"
+                                >
+                                  <button
+                                    aria-label="Download PDF"
+                                    class="cursor-pointer rounded-lg p-2.5 text-text-secondary hover:bg-action-primary-subtle hover:text-action-primary"
+                                    title="Download PDF"
+                                    type="button"
+                                  >
+                                    <svg
+                                      class="h-5 w-5"
+                                      fill="none"
+                                      height="1em"
+                                      stroke="currentColor"
+                                      stroke-linecap="round"
+                                      stroke-linejoin="round"
+                                      stroke-width="2"
+                                      viewBox="0 0 24 24"
+                                      width="1em"
+                                      xmlns="http://www.w3.org/2000/svg"
+                                    >
+                                      <path
+                                        d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"
+                                      />
+                                      <polyline
+                                        points="7 10 12 15 17 10"
+                                      />
+                                      <line
+                                        x1="12"
+                                        x2="12"
+                                        y1="15"
+                                        y2="3"
+                                      />
+                                    </svg>
+                                  </button>
                                   <button
                                     aria-label="Edit quotation"
                                     class="cursor-pointer rounded-lg p-2.5 text-text-secondary hover:bg-action-primary-subtle hover:text-action-primary"

@@ -25,6 +25,9 @@ describe("OrderCreate step helpers", () => {
     expect(isOrderInformationValid({ ...information, event_name: "" })).toBe(false);
     expect(isOrderInformationValid(information, true)).toBe(false);
     expect(isOrderInformationValid({ ...information, handover_type: "KTP", handover_name: "Owner" }, true)).toBe(true);
+    expect(isOrderInformationValid({ ...information, start_at: "2026-11-08", end_at: "2026-11-01" })).toBe(false);
+    expect(isOrderInformationValid({ ...information, start_at: "2026-11-08", end_at: "2026-11-08" })).toBe(true);
+    expect(isOrderInformationValid({ ...information, start_at: "2026-11-08", end_at: "2026-11-09" })).toBe(true);
   });
 
   it("should require at least one selected item", (): void => {

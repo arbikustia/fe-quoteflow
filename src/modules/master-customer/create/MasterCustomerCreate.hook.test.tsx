@@ -34,18 +34,34 @@ describe("useMasterCustomerCreate", (): void => {
     expect(createCustomer).not.toHaveBeenCalled();
   });
 
+  it("should prevent submission when email format is invalid", async (): Promise<void> => {
+    const { result } = renderHook(() => useMasterCustomerCreate());
+
+    act((): void => {
+      result.current.handleNameChange({ target: { value: "Test Customer" } } as never);
+      result.current.handleEmailChange({ target: { value: "invalid-email" } } as never);
+      result.current.handlePhoneNumberChange({ target: { value: "081234567890" } } as never);
+      result.current.handleAddressChange({ target: { value: "Test Address" } } as never);
+    });
+    await act(async (): Promise<void> => { await result.current.handleSubmit({ preventDefault: jest.fn() } as never); });
+
+    expect(result.current.isSubmitted).toBe(true);
+    expect(createCustomer).not.toHaveBeenCalled();
+  });
+
   it("should create customer and navigate on successful submission", async (): Promise<void> => {
     createCustomer.mockReturnValue({ unwrap: (): Promise<{ status: boolean; messages: null; data: null }> => Promise.resolve({ status: true, messages: null, data: null }) });
     const { result } = renderHook(() => useMasterCustomerCreate());
 
     act((): void => {
       result.current.handleNameChange({ target: { value: "Test Customer" } } as never);
+      result.current.handleEmailChange({ target: { value: "test@example.com" } } as never);
       result.current.handlePhoneNumberChange({ target: { value: "081234567890" } } as never);
       result.current.handleAddressChange({ target: { value: "Test Address" } } as never);
     });
     await act(async (): Promise<void> => { await result.current.handleSubmit({ preventDefault: jest.fn() } as never); });
 
-    expect(createCustomer).toHaveBeenCalledWith({ name: "Test Customer", address: "Test Address", phone_number: "081234567890", status: 1 });
+    expect(createCustomer).toHaveBeenCalledWith({ name: "Test Customer", email: "test@example.com", address: "Test Address", phone_number: "081234567890", status: 1 });
     expect(result.current.successMessage).toBe("Customer created successfully.");
   });
 
@@ -55,6 +71,7 @@ describe("useMasterCustomerCreate", (): void => {
 
     act((): void => {
       result.current.handleNameChange({ target: { value: "Test Customer" } } as never);
+      result.current.handleEmailChange({ target: { value: "test@example.com" } } as never);
       result.current.handlePhoneNumberChange({ target: { value: "081234567890" } } as never);
       result.current.handleAddressChange({ target: { value: "Test Address" } } as never);
     });
@@ -65,13 +82,14 @@ describe("useMasterCustomerCreate", (): void => {
 
   it("should initialize edit values and submit update payload", async (): Promise<void> => {
     jest.mocked(Router.useParams).mockReturnValue({ id: "customer-1" });
-    jest.mocked(CustomerService.useGetCustomerByIdQuery).mockReturnValue({ data: { status: true, messages: null, data: { id: "customer-1", name: "Existing Customer", address: "Existing Address", phone_number: "081999888777", status: 1, created_at: null, created_by: null } }, isLoading: false } as never);
+    jest.mocked(CustomerService.useGetCustomerByIdQuery).mockReturnValue({ data: { status: true, messages: null, data: { id: "customer-1", name: "Existing Customer", email: "existing@example.com", address: "Existing Address", phone_number: "081999888777", status: 1, created_at: null, created_by: null } }, isLoading: false } as never);
     updateCustomer.mockReturnValue({ unwrap: (): Promise<{ status: boolean; messages: null; data: null }> => Promise.resolve({ status: true, messages: null, data: null }) });
     const { result } = renderHook(() => useMasterCustomerCreate());
 
     await waitFor((): void => expect(result.current.name).toBe("Existing Customer"));
+    await waitFor((): void => expect(result.current.email).toBe("existing@example.com"));
     await act(async (): Promise<void> => { await result.current.handleSubmit({ preventDefault: jest.fn() } as never); });
 
-    expect(updateCustomer).toHaveBeenCalledWith({ id: "customer-1", name: "Existing Customer", address: "Existing Address", phone_number: "081999888777", status: 1 });
+    expect(updateCustomer).toHaveBeenCalledWith({ id: "customer-1", name: "Existing Customer", email: "existing@example.com", address: "Existing Address", phone_number: "081999888777", status: 1 });
   });
 });

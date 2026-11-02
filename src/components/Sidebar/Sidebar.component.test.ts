@@ -45,7 +45,7 @@ describe("SidebarComponent Test", () => {
     expect(screen.queryByRole("link", { name: "Draft Order" })).not.toBeInTheDocument();
     expect(screen.getByRole("link", { name: "Quotation" })).toHaveAttribute("href", "/document/quotation");
     expect(screen.getByRole("link", { name: "Invoice" })).toHaveAttribute("href", "/document/invoice");
-    expect(screen.getByRole("link", { name: "Item Checklist" })).toHaveAttribute("href", "/document/item-checklist");
+    expect(screen.getByRole("link", { name: "Item Checklist" })).toHaveAttribute("href", "/item-checklist");
     expect(screen.getByRole("link", { name: "Payment" })).toHaveAttribute("href", "/document/payment");
     expect(screen.getByRole("link", { name: "Calendar" })).toHaveAttribute("href", "/calendar");
     expect(screen.getByRole("link", { name: "Order" })).toHaveAttribute("href", "/report");

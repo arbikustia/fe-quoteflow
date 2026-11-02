@@ -8,7 +8,7 @@ import type {
   ApiQuotationTransaction,
 } from "../Quotation.type";
 
-import { formatCurrency, formatDate, getQuotationStatusLabel } from "./QuotationDetail.helpers";
+import { formatCurrency, formatDate, getQuotationStatusLabel, getStatusBadgeClass } from "./QuotationDetail.helpers";
 
 /**
  * Render labeled value.
@@ -61,7 +61,7 @@ export const renderQuotationOverview = (quotation: ApiQuotation): ReactElement =
           <span className="inline-flex w-fit rounded-full bg-action-primary-subtle px-3 py-1 text-sm font-bold uppercase tracking-wide text-action-primary">
             {quotation.transaction.service_type_name}
           </span>
-          <span className={`inline-flex w-fit shrink-0 rounded-full px-3 py-1 text-xs font-bold uppercase sm:text-xs ${quotation.status === 2 ? "bg-success-subtle text-success-strong" : "bg-warning-subtle text-warning-strong"}`}>
+          <span className={`inline-flex w-fit shrink-0 rounded-full px-3 py-1 text-xs font-bold uppercase sm:text-xs ${getStatusBadgeClass(quotation.status)}`}>
             {getQuotationStatusLabel(quotation.status)}
           </span>
         </div>

@@ -195,7 +195,7 @@ exports[`InvoiceComponent Snapshots Should render InvoiceComponent with empty da
               <a
                 class="min-h-14 flex items-center gap-3 rounded-[8px] px-4 py-3 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring/30 text-text-secondary hover:bg-background-elevated hover:text-text-primary"
                 data-discover="true"
-                href="/document/item-checklist"
+                href="/item-checklist"
               >
                 <span
                   class="shrink-0 [&_svg]:h-5 [&_svg]:w-5 text-text-tertiary"

@@ -13,8 +13,6 @@ import { PageLayout } from "@/app/shared/PageLayout";
 
 import { useDocumentIllustrationsLoaded } from "./DocumentMain.hook";
 
-const DOCUMENT_MAIN_ITEMS = DOCUMENT_ITEMS.filter((item) => item.path !== "/document/item-checklist");
-
 /**
  * Get document illustration by route.
  * @param {string} path - Document route
@@ -80,7 +78,7 @@ const _renderDocumentSkeleton = (key: number): ReactElement => (
 const DocumentMain = (): ReactElement => {
   const navigate = useNavigate();
   const isIllustrationsLoaded = useDocumentIllustrationsLoaded();
-  const skeletonKeys = DOCUMENT_MAIN_ITEMS.map((_item, index) => index);
+  const skeletonKeys = DOCUMENT_ITEMS.map((_item, index) => index);
   const navigateToDocument = (path: string): void => { void navigate(path); };
   const navigateBack = (): void => { void navigate("/home"); };
 
@@ -90,7 +88,7 @@ const DocumentMain = (): ReactElement => {
         <div className="relative flex h-full flex-col bg-background-surface px-0 pb-18 lg:-mt-4 lg:bg-transparent lg:pb-0">
           <div className="flex flex-col gap-6 pb-20 pt-2 lg:pt-0">
             <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
-              {isIllustrationsLoaded ? DOCUMENT_MAIN_ITEMS.map((item) => _renderDocumentCard(item, navigateToDocument)) : skeletonKeys.map(_renderDocumentSkeleton)}
+              {isIllustrationsLoaded ? DOCUMENT_ITEMS.map((item) => _renderDocumentCard(item, navigateToDocument)) : skeletonKeys.map(_renderDocumentSkeleton)}
             </div>
           </div>
         </div>

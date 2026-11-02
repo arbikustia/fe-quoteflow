@@ -42,13 +42,14 @@ const _renderMobileBack = (isEditMode: boolean, goBack: () => void): ReactElemen
   const title = isEditMode ? "Edit Voucher" : "New Voucher";
 
   return (
-  <div className="sticky top-0 z-20 flex items-center gap-3 bg-background-surface px-0 lg:hidden">
+  <div className="sticky top-0 z-20 mb-6 flex items-center gap-3 bg-background-surface px-0 lg:hidden">
     <button type="button" onClick={goBack} aria-label="Back" className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full border border-border-default bg-background-surface text-text-primary transition-colors hover:bg-background-subtle">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="h-6 w-6" aria-hidden="true">
         <path d="M19 12H5M12 19l-7-7 7-7" />
       </svg>
     </button>
-    <h2 className="truncate text-4xl font-semibold leading-tight text-text-primary">{title}</h2>
+    <h2 className="truncate text-4xl font-semibold tracking-tight text-text-primary">{title}</h2>
+        <p className="mt-1 truncate text-sm text-text-secondary">{isEditMode ? "Update the voucher details below." : "Fill in the voucher details below."}</p>
   </div>
   );
 };
@@ -63,12 +64,12 @@ const _renderHeader = (isEditMode: boolean, goBack: () => void): ReactElement =>
 
   return (
     <>
-      <nav aria-label="Breadcrumb" className="mb-3 hidden items-center gap-2 text-sm font-medium text-text-secondary lg:flex">
+      <nav aria-label="Breadcrumb" className="mb-2 hidden items-center gap-2 text-sm font-medium text-text-secondary lg:flex">
         <button type="button" onClick={goBack} className="cursor-pointer hover:text-text-primary">Master Voucher</button>
         <span aria-hidden="true">/</span>
         <span className="text-text-primary">{title}</span>
       </nav>
-      <div className="my-6 hidden pl-1 lg:block">
+      <div className="mb-6 hidden lg:block">
         <h2 className="text-4xl font-semibold leading-tight tracking-tight text-text-primary">{title}</h2>
         <p className="mt-3 text-sm font-medium text-text-secondary opacity-70">
           {isEditMode ? "Update the voucher details below." : "Fill in the voucher details below."}
@@ -142,7 +143,7 @@ const _renderFields = (props: MasterVoucherCreateFormState): ReactElement => {
         id="discount-percent"
         type="number"
         label="Discount (%)"
-        className="[&_.ant-input]:text-xl [&_.ant-input]:placeholder:text-xl [&_label]:text-base"
+        className="[&_.ant-input]:text-xl [&_.ant-input-number-input]:text-xl [&_.ant-input]:placeholder:text-xl [&_.ant-input-number-input]:placeholder:text-xl [&_label]:text-base"
         placeholder="e.g. 10"
         value={props.discountPercent === "" ? null : Number(props.discountPercent)}
         min={0}
@@ -184,7 +185,7 @@ export const MasterVoucherCreateComponent = (props: MasterVoucherCreateFormState
   <div className="flex h-full w-full flex-col bg-background-surface pb-6 font-sans lg:bg-background-page">
     {props.errorMessage && <AlertComponent type="error" message={props.errorMessage} toast closable />}
     {_renderMobileBack(props.isEditMode, props.goBack)}
-    <div className="mt-10 flex min-h-0 w-full flex-1 flex-col px-0 text-lg lg:mt-0 lg:px-0 lg:text-base">
+    <div className="flex min-h-0 w-full flex-1 flex-col px-0 text-lg lg:mt-0 lg:px-0 lg:text-base">
       {_renderHeader(props.isEditMode, props.goBack)}
       {_renderForm(props)}
     </div>

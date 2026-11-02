@@ -27,6 +27,28 @@ const _renderMoveCheckbox = (
   </div>
 );
 
+const _renderMobileItem = (row: ChecklistOrderItemRow, props: ChecklistCreateFormState): ReactElement => (
+  <article key={row.id} className="min-w-0 rounded-2xl border border-border-default bg-background-surface p-4">
+    <h4 className="break-words text-lg font-semibold text-text-primary">{row.itemName}</h4>
+    <p className="mt-1 break-words text-sm text-text-secondary">{row.category} · {row.qty} {row.unit}</p>
+    <p className="mt-1 break-words text-sm text-text-secondary">Sign: {row.sign}</p>
+    <div className="mt-4 flex flex-wrap gap-x-6 gap-y-3 border-t border-border-default pt-4">
+      <CheckboxComponent
+        label="Move Out"
+        ariaLabel={`Move out ${row.itemName}`}
+        checked={props.moveOutItemIds.includes(row.id)}
+        onChange={(): void => props.onToggleMoveOut(row.id)}
+      />
+      <CheckboxComponent
+        label="Move In"
+        ariaLabel={`Move in ${row.itemName}`}
+        checked={props.moveInItemIds.includes(row.id)}
+        onChange={(): void => props.onToggleMoveIn(row.id)}
+      />
+    </div>
+  </article>
+);
+
 const _getColumns = (props: ChecklistCreateFormState): TableColumn<ChecklistOrderItemRow>[] => [
   { key: "itemName", header: "Item Name", mobile: { primary: true } },
   { key: "category", header: "Category" },
@@ -104,12 +126,21 @@ export const ItemChecklistCreateForm = (props: ChecklistCreateFormState): ReactE
               />
             </div>
           </div>
-          <Table
-            data={props.filteredOrderItems}
-            columns={columns}
-            keyExtractor={(row): string => row.id}
-            emptyText={props.searchTerm ? "No items matching search." : "No items found for this order."}
-          />
+          <div className="space-y-3 md:hidden">
+            {props.filteredOrderItems.length > 0 ? props.filteredOrderItems.map((row) => _renderMobileItem(row, props)) : (
+              <p className="py-10 text-center text-sm text-text-secondary">
+                {props.searchTerm ? "No items matching search." : "No items found for this order."}
+              </p>
+            )}
+          </div>
+          <div className="hidden md:block">
+            <Table
+              data={props.filteredOrderItems}
+              columns={columns}
+              keyExtractor={(row): string => row.id}
+              emptyText={props.searchTerm ? "No items matching search." : "No items found for this order."}
+            />
+          </div>
           <div className="mt-6 flex flex-col items-center justify-between gap-4 border-t border-border-default pt-5 sm:flex-row">
             <span className="text-sm font-medium text-text-secondary">
               Select Move Out and Move In independently for each item.

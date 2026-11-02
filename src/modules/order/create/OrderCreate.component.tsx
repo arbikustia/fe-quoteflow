@@ -200,8 +200,14 @@ const _renderDateRange = (props: OrderCreateProps): React.ReactElement => {
    * @param {string} value - Date value.
    * @returns {void} Nothing.
    */
-  const handleStartDateChange = (value: string): void =>
+  const handleStartDateChange = (value: string): void => {
     props.onChange("start_at", value);
+
+    if (props.form.end_at && value && value.slice(0, 10) > props.form.end_at.slice(0, 10)) {
+      props.onChange("end_at", value);
+    }
+  };
+
   /**
    * Handle date change.
    * @param {string} value - Date value.
@@ -209,6 +215,12 @@ const _renderDateRange = (props: OrderCreateProps): React.ReactElement => {
    */
   const handleEndDateChange = (value: string): void =>
     props.onChange("end_at", value);
+
+  const isEndBeforeStart = Boolean(
+    props.form.start_at &&
+    props.form.end_at &&
+    props.form.end_at.slice(0, 10) < props.form.start_at.slice(0, 10),
+  );
 
   return (
     <DateRangePicker
@@ -218,7 +230,8 @@ const _renderDateRange = (props: OrderCreateProps): React.ReactElement => {
       startDate={props.form.start_at}
       endDate={props.form.end_at}
       startError={props.showInformationErrors && !props.form.start_at.trim()}
-      endError={props.showInformationErrors && !props.form.end_at.trim()}
+      endError={props.showInformationErrors && (!props.form.end_at.trim() || isEndBeforeStart)}
+      endErrorMessage={isEndBeforeStart ? "End date cannot be earlier than start date" : undefined}
       onStartDateChange={handleStartDateChange}
       onEndDateChange={handleEndDateChange}
       showTime

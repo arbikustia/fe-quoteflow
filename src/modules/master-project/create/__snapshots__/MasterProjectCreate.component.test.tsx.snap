@@ -7,7 +7,7 @@ exports[`MasterProjectCreateForm should match project form snapshot 1`] = `
       class="flex h-full min-h-full w-full flex-col bg-background-surface pb-6 font-sans lg:bg-background-page"
     >
       <div
-        class="sticky top-0 z-20 flex items-center gap-3 bg-background-surface px-0 lg:hidden"
+        class="sticky top-0 z-20 mb-6 flex items-center gap-3 bg-background-surface px-0 lg:hidden"
       >
         <button
           aria-label="Back"
@@ -29,25 +29,61 @@ exports[`MasterProjectCreateForm should match project form snapshot 1`] = `
             />
           </svg>
         </button>
-        <h2
-          class="truncate text-4xl font-semibold text-text-primary"
-        >
-          New Project
-        </h2>
-      </div>
-      <div
-        class="mt-10 px-0 text-lg lg:mt-0 lg:px-0 lg:text-base"
-      >
         <div
-          class="mb-8 hidden pl-1 lg:block"
+          class="min-w-0"
         >
           <h2
-            class="text-4xl font-semibold text-text-primary"
+            class="truncate text-4xl font-semibold tracking-tight text-text-primary"
           >
             New Project
           </h2>
           <p
-            class="mt-3 text-sm text-text-secondary"
+            class="mt-1 truncate text-sm text-text-secondary"
+          >
+            Build project in three steps.
+          </p>
+        </div>
+      </div>
+      <div
+        class="px-0 text-lg lg:mt-0 lg:px-0 lg:text-base"
+      >
+        <div
+          class="mb-6 hidden lg:block"
+        >
+          <nav
+            aria-label="Breadcrumb"
+            class="mb-2 flex items-center gap-2 text-[15px] font-medium text-text-secondary"
+          >
+            <button
+              class="cursor-pointer hover:text-text-primary"
+              type="button"
+            >
+              Master
+            </button>
+            <span
+              aria-hidden="true"
+            >
+              /
+            </span>
+            <span>
+              Master Project
+            </span>
+            <span
+              aria-hidden="true"
+            >
+              /
+            </span>
+            <span>
+              New Project
+            </span>
+          </nav>
+          <h2
+            class="text-4xl font-semibold leading-tight tracking-tight text-text-primary"
+          >
+            New Project
+          </h2>
+          <p
+            class="mt-2 text-sm text-text-secondary"
           >
             Build project in three steps.
           </p>

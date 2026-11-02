@@ -34,6 +34,25 @@ const _renderNameField = (props: MasterCustomerCreateFormState): ReactElement =>
 );
 
 /**
+ * Render email field
+ * @param {MasterCustomerCreateFormState} props - Form state
+ * @returns {ReactElement} Field element
+ */
+const _renderEmailField = (props: MasterCustomerCreateFormState): ReactElement => (
+  <InputComponent
+    id="customer-email"
+    type="email"
+    label="Email"
+    className="[&_.ant-input]:text-xl [&_.ant-input]:placeholder:text-xl [&_label]:text-base"
+    placeholder="e.g. customer@example.com"
+    value={props.email}
+    required
+    errorMessage={props.isSubmitted && !props.email ? "Email is required." : _getFieldError(props.errors.email)}
+    onChange={props.handleEmailChange}
+  />
+);
+
+/**
  * Render phone field
  * @param {MasterCustomerCreateFormState} props - Form state
  * @returns {ReactElement} Field element
@@ -106,7 +125,7 @@ const _renderMobileBack = (isEditMode: boolean, goBack: () => void): ReactElemen
   const title = isEditMode ? "Edit Customer" : "New Customer";
 
   return (
-  <div className="sticky top-0 z-20 flex items-center gap-3 bg-background-surface px-0 lg:hidden">
+  <div className="sticky top-0 z-20 mb-6 flex items-center gap-3 bg-background-surface px-0 lg:hidden">
     <button
       type="button"
       onClick={goBack}
@@ -118,7 +137,8 @@ const _renderMobileBack = (isEditMode: boolean, goBack: () => void): ReactElemen
       </svg>
     </button>
     <div className="min-w-0">
-      <h2 className="truncate text-4xl font-semibold leading-tight text-text-primary">{title}</h2>
+      <h2 className="truncate text-4xl font-semibold tracking-tight text-text-primary">{title}</h2>
+        <p className="mt-1 truncate text-sm text-text-secondary">{isEditMode ? "Update the customer details below." : "Fill in the customer details below."}</p>
     </div>
   </div>
   );
@@ -135,13 +155,13 @@ const _renderHeaderSection = (isEditMode: boolean, goBack: () => void): ReactEle
 
   return (
     <>
-      <nav aria-label="Breadcrumb" className="hidden lg:flex items-center gap-2 mb-3 text-sm font-medium text-text-secondary">
+      <nav aria-label="Breadcrumb" className="hidden lg:flex items-center gap-2 mb-2 text-sm font-medium text-text-secondary">
         <button type="button" onClick={goBack} className="cursor-pointer hover:text-text-primary">Master Customer</button>
         <span aria-hidden="true">/</span>
         <span className="text-text-primary">{title}</span>
       </nav>
-      <div className="my-6 hidden pl-1 lg:block">
-        <h2 className="text-4xl font-semibold leading-tight text-text-primary tracking-tight">{title}</h2>
+      <div className="mb-6 hidden lg:block">
+        <h2 className="text-4xl font-semibold leading-tight tracking-tight text-text-primary">{title}</h2>
         <p className="text-[14px] text-text-secondary opacity-70 mt-3 font-medium">
           {isEditMode ? "Update the customer details below." : "Fill in the customer details below."}
         </p>
@@ -186,7 +206,7 @@ export const MasterCustomerCreateForm = (props: MasterCustomerCreateFormState): 
       {errorMessage && <AlertComponent type="error" message={errorMessage} toast closable />}
       {successMessage && <AlertComponent type="success" message={successMessage} toast closable />}
       {_renderMobileBack(isEditMode, goBack)}
-      <div className="mt-10 flex min-h-0 w-full flex-1 flex-col px-0 text-lg lg:mt-0 lg:px-0 lg:text-base">
+      <div className="flex min-h-0 w-full flex-1 flex-col px-0 text-lg lg:mt-0 lg:px-0 lg:text-base">
         {_renderHeaderSection(isEditMode, goBack)}
         {isLoadingInitialData ? (
           <p className="py-12 text-center text-sm text-text-secondary">Loading customer data…</p>
@@ -194,6 +214,7 @@ export const MasterCustomerCreateForm = (props: MasterCustomerCreateFormState): 
           <form noValidate onSubmit={handleSubmit} className="flex min-h-0 flex-1 flex-col justify-between border-0 bg-transparent p-0 shadow-none lg:rounded-4xl lg:border lg:border-brand-gray-light lg:bg-brand-white lg:p-8 lg:shadow-xs">
             <div className="grid w-full grid-cols-1 gap-x-6 gap-y-1 lg:grid-cols-2">
               <div>{_renderNameField(props)}</div>
+              <div>{_renderEmailField(props)}</div>
               <div>{_renderPhoneField(props)}</div>
               <div className="lg:col-span-2">{_renderAddressField(props)}</div>
               {_renderStatusField(props)}

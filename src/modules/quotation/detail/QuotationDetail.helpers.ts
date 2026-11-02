@@ -60,7 +60,39 @@ export const getQuotationStatusLabel = (status: number): string => {
 
   if (status === 2) return "Approved";
 
-  return "Inactive";
+  if (status === 0) return "Cancelled";
+
+  return "-";
+};
+
+/**
+ * Get invoice workflow status label.
+ * @param {number} status - Invoice status value
+ * @returns {string} Invoice workflow status label
+ */
+export const getInvoiceStatusLabel = (status: number): string => {
+  if (status === 1) return "Invoice Created";
+
+  if (status === 2) return "Approved";
+
+  if (status === 0) return "Cancelled";
+
+  return "-";
+};
+
+/**
+ * Get workflow status badge CSS class.
+ * @param {number} status - Status value
+ * @returns {string} Badge CSS class
+ */
+export const getStatusBadgeClass = (status: number): string => {
+  if (status === 2) return "bg-success-subtle text-success-strong";
+
+  if (status === 1) return "bg-warning-subtle text-warning-strong";
+
+  if (status === 0) return "bg-danger-subtle text-danger-strong";
+
+  return "bg-background-muted text-text-tertiary";
 };
 
 /**

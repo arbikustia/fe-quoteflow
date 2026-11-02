@@ -1,12 +1,15 @@
 import * as React from "react";
-import { FiEdit2 } from "react-icons/fi";
+import { FiDownload, FiEdit2 } from "react-icons/fi";
+
+import { generateQuotationPDF } from "@/utils/pdfGenerator";
 
 import { Pagination } from "@/components/Pagination";
 import { SearchFilter } from "@/components/SearchFilter";
 import type { TableColumn } from "@/components/Table";
 import Table from "@/components/Table";
 
-import { getQuotationRowNumber, QuotationMobileCard } from "./Quotation.helpers";
+import { getQuotationStatusLabel, getStatusBadgeClass } from "./detail/QuotationDetail.helpers";
+import { getQuotationRowNumber, QuotationMobileCard, quotationToQuoteData } from "./Quotation.helpers";
 import type { QuotationData, QuotationProps } from "./Quotation.type";
 
 import Layout from "@/app/layout";
@@ -21,6 +24,26 @@ import { PageLayout } from "@/app/shared/PageLayout";
  */
 const _renderRowNumber = (_row: QuotationData, index: number, props: QuotationProps): React.ReactElement => (
   <span>{getQuotationRowNumber(props.currentPage, props.pageSize, index)}</span>
+);
+
+/**
+ * Render quotation download action.
+ * @param {QuotationData} row - quotation row.
+ * @returns {React.ReactElement} Download action.
+ */
+const _renderDownloadAction = (row: QuotationData): React.ReactElement => (
+  <button
+    type="button"
+    onClick={(event: React.MouseEvent): void => {
+      event.stopPropagation();
+      void generateQuotationPDF(quotationToQuoteData(row));
+    }}
+    className="cursor-pointer rounded-lg p-2.5 text-text-secondary hover:bg-action-primary-subtle hover:text-action-primary"
+    title="Download PDF"
+    aria-label="Download PDF"
+  >
+    <FiDownload className="h-5 w-5" />
+  </button>
 );
 
 /**
@@ -45,13 +68,25 @@ const _renderStatusAction = (row: QuotationData, props: QuotationProps): React.R
 );
 
 /**
+ * Render quotation status cell.
+ * @param {QuotationData} row - quotation row.
+ * @returns {React.ReactElement} Status badge.
+ */
+const _renderStatus = (row: QuotationData): React.ReactElement => (
+  <span className={`inline-flex rounded-full px-3 py-1 text-xs font-semibold ${getStatusBadgeClass(row.status)}`}>
+    {getQuotationStatusLabel(row.status)}
+  </span>
+);
+
+/**
  * Render action cells.
  * @param {QuotationData} row - quotation row.
  * @param {QuotationProps} props - quotation state and handlers.
  * @returns {React.ReactElement} row actions.
  */
 const _renderActions = (row: QuotationData, props: QuotationProps): React.ReactElement => (
-  <div className="flex items-center justify-center">
+  <div className="flex items-center justify-center gap-1">
+    {_renderDownloadAction(row)}
     {_renderStatusAction(row, props)}
   </div>
 );
@@ -84,6 +119,7 @@ const _getColumns = (props: QuotationProps): TableColumn<QuotationData>[] => {
     { key: "quotationDate", header: "Quotation Date" },
     { key: "startDate", header: "Event Start Date" },
     { key: "endDate", header: "Event End Date" },
+    { key: "status", header: "Status", align: "center", render: _renderStatus },
     { key: "actions", header: "Action", align: "center", render: renderActions },
   ];
 };
@@ -108,7 +144,7 @@ const _renderListState = (props: QuotationProps): React.ReactElement | null => {
  * @returns {React.ReactElement} Quotation table skeleton
  */
 const _renderTableSkeleton = (): React.ReactElement => {
-  const columns = ["8%", "15%", "15%", "18%", "12%", "12%", "12%", "8%"];
+  const columns = ["6%", "14%", "14%", "15%", "11%", "11%", "11%", "10%", "8%"];
 
   return (
     <div className="min-w-225 animate-pulse overflow-hidden" role="status" aria-label="Loading quotation table">

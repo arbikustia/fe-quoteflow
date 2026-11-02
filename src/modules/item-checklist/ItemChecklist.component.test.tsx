@@ -48,13 +48,15 @@ describe("ItemChecklistComponent", () => {
   it("should render table data and header", () => {
     render(<MemoryRouter><ItemChecklistComponent {...mockProps} /></MemoryRouter>);
     expect(screen.getAllByText("CHK-001")).toHaveLength(2);
-    expect(screen.getAllByText("Create Checklist")).toHaveLength(1);
+    expect(screen.getByText("Create Checklist")).toBeInTheDocument();
+    expect(screen.getAllByRole("button", { name: "Create" })).toHaveLength(2);
   });
 
-  it("should trigger onCreate when clicked", () => {
+  it("should trigger onCreate from mobile header and desktop toolbar", () => {
     render(<MemoryRouter><ItemChecklistComponent {...mockProps} /></MemoryRouter>);
-    fireEvent.click(screen.getAllByText("Create Checklist")[0]);
-    expect(mockProps.onCreate).toHaveBeenCalled();
+    fireEvent.click(screen.getAllByRole("button", { name: "Create" })[0]);
+    fireEvent.click(screen.getByRole("button", { name: "Create Checklist" }));
+    expect(mockProps.onCreate).toHaveBeenCalledTimes(2);
   });
 
   it("should open detail when desktop row is clicked", () => {
@@ -63,31 +65,46 @@ describe("ItemChecklistComponent", () => {
     expect(mockProps.onRowClick).toHaveBeenCalledWith(mockProps.rows[0]);
   });
 
-  it("should open detail when mobile card is clicked", () => {
+  it("should match quotation mobile card typography and open detail", () => {
     render(<MemoryRouter><ItemChecklistComponent {...mockProps} /></MemoryRouter>);
-    fireEvent.click(screen.getAllByText("CHK-001")[0]);
+    const title = screen.getAllByText("CHK-001")[0];
+    expect(title).toHaveClass("text-2xl");
+    expect(title.nextElementSibling).toHaveClass("text-xl");
+    expect(screen.getByText("2 items").parentElement).toHaveClass("text-lg");
+    fireEvent.click(title);
     expect(mockProps.onRowClick).toHaveBeenCalledWith(mockProps.rows[0]);
   });
 
-  it("should download selected checklist without opening detail", () => {
-    render(<MemoryRouter><ItemChecklistComponent {...mockProps} /></MemoryRouter>);
-    fireEvent.click(screen.getByRole("button", { name: "Download CHK-001" }));
-    expect(mockProps.onDownload).toHaveBeenCalledWith(mockProps.rows[0]);
-    expect(mockProps.onRowClick).not.toHaveBeenCalled();
+  it("should show unavailable status inside card", () => {
+    render(<MemoryRouter><ItemChecklistComponent {...mockProps} rows={[{ ...mockProps.rows[0], status: "unavailable" }]} /></MemoryRouter>);
+    expect(screen.getByText("Status unavailable")).toBeInTheDocument();
   });
 
-  it("should download selected mobile checklist without opening detail", () => {
+  it("should render card skeleton on mobile and table skeleton on desktop while loading", () => {
+    render(<MemoryRouter><ItemChecklistComponent {...mockProps} isLoading={true} /></MemoryRouter>);
+    expect(screen.getByLabelText("Loading cards")).toBeInTheDocument();
+    expect(screen.getByLabelText("Loading")).toBeInTheDocument();
+  });
+
+  it("should trigger onEdit directly when desktop edit button is clicked", () => {
+    render(<MemoryRouter><ItemChecklistComponent {...mockProps} /></MemoryRouter>);
+    const editButton = screen.getByRole("button", { name: "Edit CHK-001" });
+    fireEvent.click(editButton);
+    expect(mockProps.onEdit).toHaveBeenCalledWith(mockProps.rows[0]);
+    expect(mockProps.onRowClick).not.toHaveBeenCalled();
+    expect(screen.getByRole("button", { name: "Download PDF CHK-001" })).toBeInTheDocument();
+  });
+
+  it("should download PDF from table action without opening detail", () => {
     render(<MemoryRouter><ItemChecklistComponent {...mockProps} /></MemoryRouter>);
     fireEvent.click(screen.getByRole("button", { name: "Download PDF CHK-001" }));
     expect(mockProps.onDownload).toHaveBeenCalledWith(mockProps.rows[0]);
     expect(mockProps.onRowClick).not.toHaveBeenCalled();
   });
 
-  it("should edit selected checklist without opening detail", () => {
-    render(<MemoryRouter><ItemChecklistComponent {...mockProps} /></MemoryRouter>);
-    fireEvent.click(screen.getAllByRole("button", { name: "Edit CHK-001" })[1]);
-    expect(mockProps.onEdit).toHaveBeenCalledWith(mockProps.rows[0]);
-    expect(mockProps.onRowClick).not.toHaveBeenCalled();
+  it("should disable download while another checklist is downloading", () => {
+    render(<MemoryRouter><ItemChecklistComponent {...mockProps} isDownloadingId="chk-1" /></MemoryRouter>);
+    expect(screen.getByRole("button", { name: "Download PDF CHK-001" })).toBeDisabled();
   });
 });
 

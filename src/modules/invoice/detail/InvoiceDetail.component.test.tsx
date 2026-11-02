@@ -1,10 +1,15 @@
 import { describe, expect, it, jest } from "@jest/globals";
-import { render, screen } from "@/libs/unit-test";
+import { fireEvent, render, screen } from "@/libs/unit-test";
 import { MemoryRouter } from "react-router-dom";
 
 import { InvoiceDetailComponent } from "./InvoiceDetail.component";
 
 import type { ApiInvoice, InvoiceDetailState } from "../Invoice.type";
+
+const mockGenerateInvoicePDF = jest.fn();
+jest.mock("@/utils/pdfGenerator", () => ({
+  generateInvoicePDF: (...args: unknown[]) => mockGenerateInvoicePDF(...args),
+}));
 
 const INVOICE: ApiInvoice = {
   id: "invoice-1",
@@ -81,7 +86,7 @@ describe("InvoiceDetailComponent", () => {
     expect(screen.getAllByTestId("invoice-detail-actions")).toHaveLength(2);
     expect(screen.getAllByRole("menuitem", { name: "Edit" })).toHaveLength(2);
     expect(screen.getAllByRole("menuitem", { name: "Approve" })).toHaveLength(2);
-    expect(screen.getAllByText("APPROVED").length).toBeGreaterThan(0);
+    expect(screen.getAllByText("Invoice Created").length).toBeGreaterThan(0);
     expect(screen.getAllByText("Speaker").length).toBeGreaterThan(0);
     expect(screen.queryByText("Audio Package")).toBeNull();
     expect(screen.getAllByText("PIC").length).toBeGreaterThan(0);
@@ -128,5 +133,19 @@ describe("InvoiceDetailComponent", () => {
     );
 
     expect(screen.getByText("Invoice detail is unavailable.")).toBeTruthy();
+  });
+
+  it("should trigger download PDF when clicked from options menu", (): void => {
+    render(
+      <MemoryRouter>
+        <InvoiceDetailComponent {...createProps()} />
+      </MemoryRouter>,
+    );
+
+    const downloadButtons = screen.getAllByRole("menuitem", { name: /Download PDF/i });
+    expect(downloadButtons.length).toBeGreaterThan(0);
+
+    fireEvent.click(downloadButtons[0]);
+    expect(mockGenerateInvoicePDF).toHaveBeenCalled();
   });
 });

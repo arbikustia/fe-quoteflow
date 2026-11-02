@@ -3,6 +3,7 @@ import type { FieldErrors, UseFormRegister } from "react-hook-form";
 
 export type CustomerFormValues = {
   name: string;
+  email: string;
   address: string;
   phoneNumber: string;
   isActive: boolean;
@@ -34,10 +35,12 @@ export type CustomerSubmissionState = {
 
 export type CustomerFormFields = {
   name: string;
+  email: string;
   address: string;
   phoneNumber: string;
   isActive: boolean;
   handleNameChange: (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
+  handleEmailChange: (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
   handlePhoneNumberChange: (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
   handleAddressChange: (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
   handleStatusChange: () => void;
@@ -45,6 +48,7 @@ export type CustomerFormFields = {
 
 export type MasterCustomerCreateFormState = {
   name: string;
+  email: string;
   address: string;
   phoneNumber: string;
   isActive: boolean;
@@ -57,6 +61,7 @@ export type MasterCustomerCreateFormState = {
   errors: FieldErrors<CustomerFormValues>;
   isSubmitted: boolean;
   handleNameChange: (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
+  handleEmailChange: (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
   handlePhoneNumberChange: (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
   handleAddressChange: (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
   handleSubmit: (event: SyntheticEvent) => void;

@@ -27,10 +27,10 @@ export const useItemChecklistNavigation = (): Pick<ChecklistListState, "onBack" 
   const navigate = useNavigate();
   const [getChecklist] = useLazyGetRentalChecklistByIdQuery();
   const [isDownloadingId, setIsDownloadingId] = useState<string | null>(null);
-  const onBack = (): void => { void navigate("/document"); };
-  const onCreate = (): void => { void navigate("/document/item-checklist/create"); };
-  const onRowClick = (row: ChecklistRow): void => { void navigate(`/document/item-checklist/${row.id}`); };
-  const onEdit = (row: ChecklistRow): void => { void navigate(`/document/item-checklist/create/${row.id}`); };
+  const onBack = (): void => { void navigate("/home"); };
+  const onCreate = (): void => { void navigate("/item-checklist/create"); };
+  const onRowClick = (row: ChecklistRow): void => { void navigate(`/item-checklist/${row.id}`); };
+  const onEdit = (row: ChecklistRow): void => { void navigate(`/item-checklist/create/${row.id}`); };
   const onDownload = (row: ChecklistRow): void => {
     if (isDownloadingId) return;
     setIsDownloadingId(row.id);

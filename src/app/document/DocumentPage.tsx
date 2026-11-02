@@ -13,8 +13,8 @@ import type { DocumentPageProps } from "./DocumentPage.type";
  */
 export const DocumentPage = ({ title }: DocumentPageProps): ReactElement => {
   const navigate = useNavigate();
-  const navigateBack = (): void => { void navigate(title === "Item Checklist" ? "/home" : "/document"); };
-  const breadcrumbs = title === "Item Checklist" ? [title] : ["Document", title];
+  const navigateBack = (): void => { void navigate("/document"); };
+  const breadcrumbs = ["Document", title];
 
   return (
     <Layout pageTitle={title} mobileWhiteBackground={true}>

@@ -51,5 +51,20 @@ describe("DateRangePicker", () => {
     fireEvent.click(screen.getByRole("textbox", { name: "End Date" }));
     expect(screen.getAllByRole("button", { name: "Previous month" })).toHaveLength(2);
   });
+
+  it("should disable dates before start date in end date picker", (): void => {
+    jest.useFakeTimers();
+    jest.setSystemTime(new Date("2026-11-01T00:00:00"));
+    render(<DateRangePicker startDate="2026-11-08" />);
+
+    fireEvent.click(screen.getByRole("textbox", { name: "End Date" }));
+
+    const disabledCell = screen.getByTitle("2026-11-01").closest("td");
+    const enabledCell = screen.getByTitle("2026-11-08").closest("td");
+
+    expect(disabledCell).toHaveClass("ant-picker-cell-disabled");
+    expect(enabledCell).not.toHaveClass("ant-picker-cell-disabled");
+    jest.useRealTimers();
+  });
 });
 

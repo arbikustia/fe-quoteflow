@@ -220,246 +220,373 @@ exports[`ItemChecklistCreateForm matches snapshot 2`] = `
         </div>
       </div>
       <div
-        class="flex flex-col bg-transparent overflow-hidden"
+        class="space-y-3 md:hidden"
+      >
+        <article
+          class="min-w-0 rounded-2xl border border-border-default bg-background-surface p-4"
+        >
+          <h4
+            class="break-words text-lg font-semibold text-text-primary"
+          >
+            Speaker Active
+          </h4>
+          <p
+            class="mt-1 break-words text-sm text-text-secondary"
+          >
+            Audio · 1 unit
+          </p>
+          <p
+            class="mt-1 break-words text-sm text-text-secondary"
+          >
+            Sign: John Doe
+          </p>
+          <div
+            class="mt-4 flex flex-wrap gap-x-6 gap-y-3 border-t border-border-default pt-4"
+          >
+            <label
+              class="ant-checkbox-wrapper ant-checkbox-wrapper-checked css-var-root ant-checkbox-css-var css-dev-only-do-not-override-eofgey"
+            >
+              <span
+                class="ant-checkbox ant-wave-target css-dev-only-do-not-override-eofgey ant-checkbox-checked"
+              >
+                <input
+                  aria-label="Move out Speaker Active"
+                  checked=""
+                  class="ant-checkbox-input"
+                  type="checkbox"
+                />
+              </span>
+              <span
+                class="ant-checkbox-label"
+              >
+                Move Out
+              </span>
+            </label>
+            <label
+              class="ant-checkbox-wrapper css-var-root ant-checkbox-css-var css-dev-only-do-not-override-eofgey"
+            >
+              <span
+                class="ant-checkbox ant-wave-target css-dev-only-do-not-override-eofgey"
+              >
+                <input
+                  aria-label="Move in Speaker Active"
+                  class="ant-checkbox-input"
+                  type="checkbox"
+                />
+              </span>
+              <span
+                class="ant-checkbox-label"
+              >
+                Move In
+              </span>
+            </label>
+          </div>
+        </article>
+        <article
+          class="min-w-0 rounded-2xl border border-border-default bg-background-surface p-4"
+        >
+          <h4
+            class="break-words text-lg font-semibold text-text-primary"
+          >
+            Microphone Wireless
+          </h4>
+          <p
+            class="mt-1 break-words text-sm text-text-secondary"
+          >
+            Audio · 2 units
+          </p>
+          <p
+            class="mt-1 break-words text-sm text-text-secondary"
+          >
+            Sign: John Doe
+          </p>
+          <div
+            class="mt-4 flex flex-wrap gap-x-6 gap-y-3 border-t border-border-default pt-4"
+          >
+            <label
+              class="ant-checkbox-wrapper css-var-root ant-checkbox-css-var css-dev-only-do-not-override-eofgey"
+            >
+              <span
+                class="ant-checkbox ant-wave-target css-dev-only-do-not-override-eofgey"
+              >
+                <input
+                  aria-label="Move out Microphone Wireless"
+                  class="ant-checkbox-input"
+                  type="checkbox"
+                />
+              </span>
+              <span
+                class="ant-checkbox-label"
+              >
+                Move Out
+              </span>
+            </label>
+            <label
+              class="ant-checkbox-wrapper css-var-root ant-checkbox-css-var css-dev-only-do-not-override-eofgey"
+            >
+              <span
+                class="ant-checkbox ant-wave-target css-dev-only-do-not-override-eofgey"
+              >
+                <input
+                  aria-label="Move in Microphone Wireless"
+                  class="ant-checkbox-input"
+                  type="checkbox"
+                />
+              </span>
+              <span
+                class="ant-checkbox-label"
+              >
+                Move In
+              </span>
+            </label>
+          </div>
+        </article>
+      </div>
+      <div
+        class="hidden md:block"
       >
         <div
-          class="hidden md:flex flex-1 overflow-auto"
+          class="flex flex-col bg-transparent overflow-hidden"
         >
           <div
-            class="w-full overflow-x-auto"
+            class="hidden md:flex flex-1 overflow-auto"
           >
-            <table
-              class="w-full min-w-max border-separate border-spacing-0 whitespace-nowrap"
+            <div
+              class="w-full overflow-x-auto"
             >
-              <thead>
-                <tr>
-                  <th
-                    class="bg-table-header px-5 py-4 text-[13px] font-bold text-text-secondary uppercase tracking-widest rounded-l-xl  text-left "
+              <table
+                class="w-full min-w-max border-separate border-spacing-0 whitespace-nowrap"
+              >
+                <thead>
+                  <tr>
+                    <th
+                      class="bg-table-header px-5 py-4 text-[13px] font-bold text-text-secondary uppercase tracking-widest rounded-l-xl  text-left "
+                    >
+                      Item Name
+                    </th>
+                    <th
+                      class="bg-table-header px-5 py-4 text-[13px] font-bold text-text-secondary uppercase tracking-widest   text-left "
+                    >
+                      Category
+                    </th>
+                    <th
+                      class="bg-table-header px-5 py-4 text-[13px] font-bold text-text-secondary uppercase tracking-widest   text-center "
+                    >
+                      Qty
+                    </th>
+                    <th
+                      class="bg-table-header px-5 py-4 text-[13px] font-bold text-text-secondary uppercase tracking-widest   text-center "
+                    >
+                      Unit
+                    </th>
+                    <th
+                      class="bg-table-header px-5 py-4 text-[13px] font-bold text-text-secondary uppercase tracking-widest   text-center "
+                    >
+                      Move Out
+                    </th>
+                    <th
+                      class="bg-table-header px-5 py-4 text-[13px] font-bold text-text-secondary uppercase tracking-widest   text-center "
+                    >
+                      Move In
+                    </th>
+                    <th
+                      class="bg-table-header px-5 py-4 text-[13px] font-bold text-text-secondary uppercase tracking-widest  rounded-r-xl text-center "
+                    >
+                      Sign
+                    </th>
+                  </tr>
+                </thead>
+                <tbody
+                  class="divide-y divide-border-default"
+                >
+                  <tr
+                    class="hover:bg-background-subtle/50 transition-colors "
+                  >
+                    <td
+                      class="px-5 py-4 border-b border-border-default text-base text-left "
+                    >
+                      Speaker Active
+                    </td>
+                    <td
+                      class="px-5 py-4 border-b border-border-default text-base text-left "
+                    >
+                      Audio
+                    </td>
+                    <td
+                      class="px-5 py-4 border-b border-border-default text-base text-center "
+                    >
+                      1
+                    </td>
+                    <td
+                      class="px-5 py-4 border-b border-border-default text-base text-center "
+                    >
+                      unit
+                    </td>
+                    <td
+                      class="px-5 py-4 border-b border-border-default text-base text-center "
+                    >
+                      <div
+                        class="flex items-center justify-center"
+                      >
+                        <label
+                          class="ant-checkbox-wrapper ant-checkbox-wrapper-checked css-var-root ant-checkbox-css-var css-dev-only-do-not-override-eofgey"
+                        >
+                          <span
+                            class="ant-checkbox ant-wave-target css-dev-only-do-not-override-eofgey ant-checkbox-checked"
+                          >
+                            <input
+                              aria-label="Move out Speaker Active"
+                              checked=""
+                              class="ant-checkbox-input"
+                              type="checkbox"
+                            />
+                          </span>
+                        </label>
+                      </div>
+                    </td>
+                    <td
+                      class="px-5 py-4 border-b border-border-default text-base text-center "
+                    >
+                      <div
+                        class="flex items-center justify-center"
+                      >
+                        <label
+                          class="ant-checkbox-wrapper css-var-root ant-checkbox-css-var css-dev-only-do-not-override-eofgey"
+                        >
+                          <span
+                            class="ant-checkbox ant-wave-target css-dev-only-do-not-override-eofgey"
+                          >
+                            <input
+                              aria-label="Move in Speaker Active"
+                              class="ant-checkbox-input"
+                              type="checkbox"
+                            />
+                          </span>
+                        </label>
+                      </div>
+                    </td>
+                    <td
+                      class="px-5 py-4 border-b border-border-default text-base text-center "
+                    >
+                      John Doe
+                    </td>
+                  </tr>
+                  <tr
+                    class="hover:bg-background-subtle/50 transition-colors "
+                  >
+                    <td
+                      class="px-5 py-4 border-b border-border-default text-base text-left "
+                    >
+                      Microphone Wireless
+                    </td>
+                    <td
+                      class="px-5 py-4 border-b border-border-default text-base text-left "
+                    >
+                      Audio
+                    </td>
+                    <td
+                      class="px-5 py-4 border-b border-border-default text-base text-center "
+                    >
+                      2
+                    </td>
+                    <td
+                      class="px-5 py-4 border-b border-border-default text-base text-center "
+                    >
+                      units
+                    </td>
+                    <td
+                      class="px-5 py-4 border-b border-border-default text-base text-center "
+                    >
+                      <div
+                        class="flex items-center justify-center"
+                      >
+                        <label
+                          class="ant-checkbox-wrapper css-var-root ant-checkbox-css-var css-dev-only-do-not-override-eofgey"
+                        >
+                          <span
+                            class="ant-checkbox ant-wave-target css-dev-only-do-not-override-eofgey"
+                          >
+                            <input
+                              aria-label="Move out Microphone Wireless"
+                              class="ant-checkbox-input"
+                              type="checkbox"
+                            />
+                          </span>
+                        </label>
+                      </div>
+                    </td>
+                    <td
+                      class="px-5 py-4 border-b border-border-default text-base text-center "
+                    >
+                      <div
+                        class="flex items-center justify-center"
+                      >
+                        <label
+                          class="ant-checkbox-wrapper css-var-root ant-checkbox-css-var css-dev-only-do-not-override-eofgey"
+                        >
+                          <span
+                            class="ant-checkbox ant-wave-target css-dev-only-do-not-override-eofgey"
+                          >
+                            <input
+                              aria-label="Move in Microphone Wireless"
+                              class="ant-checkbox-input"
+                              type="checkbox"
+                            />
+                          </span>
+                        </label>
+                      </div>
+                    </td>
+                    <td
+                      class="px-5 py-4 border-b border-border-default text-base text-center "
+                    >
+                      John Doe
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div
+            class="md:hidden bg-background-surface rounded-xl border border-border-default shadow-sm overflow-hidden"
+          >
+            <div
+              class="bg-background-surface overflow-hidden divide-y divide-border-default"
+            >
+              <div
+                class="flex flex-col gap-3 px-4 py-4 bg-transparent transition-colors "
+              >
+                <div
+                  class="flex items-center justify-between gap-2"
+                >
+                  <span
+                    class="text-xs font-medium text-text-tertiary uppercase tracking-wider"
                   >
                     Item Name
-                  </th>
-                  <th
-                    class="bg-table-header px-5 py-4 text-[13px] font-bold text-text-secondary uppercase tracking-widest   text-left "
-                  >
-                    Category
-                  </th>
-                  <th
-                    class="bg-table-header px-5 py-4 text-[13px] font-bold text-text-secondary uppercase tracking-widest   text-center "
-                  >
-                    Qty
-                  </th>
-                  <th
-                    class="bg-table-header px-5 py-4 text-[13px] font-bold text-text-secondary uppercase tracking-widest   text-center "
-                  >
-                    Unit
-                  </th>
-                  <th
-                    class="bg-table-header px-5 py-4 text-[13px] font-bold text-text-secondary uppercase tracking-widest   text-center "
-                  >
-                    Move Out
-                  </th>
-                  <th
-                    class="bg-table-header px-5 py-4 text-[13px] font-bold text-text-secondary uppercase tracking-widest   text-center "
-                  >
-                    Move In
-                  </th>
-                  <th
-                    class="bg-table-header px-5 py-4 text-[13px] font-bold text-text-secondary uppercase tracking-widest  rounded-r-xl text-center "
-                  >
-                    Sign
-                  </th>
-                </tr>
-              </thead>
-              <tbody
-                class="divide-y divide-border-default"
-              >
-                <tr
-                  class="hover:bg-background-subtle/50 transition-colors "
-                >
-                  <td
-                    class="px-5 py-4 border-b border-border-default text-base text-left "
+                  </span>
+                  <span
+                    class="flex-1 text-sm font-medium text-text-primary text-right truncate"
                   >
                     Speaker Active
-                  </td>
-                  <td
-                    class="px-5 py-4 border-b border-border-default text-base text-left "
-                  >
-                    Audio
-                  </td>
-                  <td
-                    class="px-5 py-4 border-b border-border-default text-base text-center "
-                  >
-                    1
-                  </td>
-                  <td
-                    class="px-5 py-4 border-b border-border-default text-base text-center "
-                  >
-                    unit
-                  </td>
-                  <td
-                    class="px-5 py-4 border-b border-border-default text-base text-center "
-                  >
-                    <div
-                      class="flex items-center justify-center"
-                    >
-                      <label
-                        class="ant-checkbox-wrapper ant-checkbox-wrapper-checked css-var-root ant-checkbox-css-var css-dev-only-do-not-override-eofgey"
-                      >
-                        <span
-                          class="ant-checkbox ant-wave-target css-dev-only-do-not-override-eofgey ant-checkbox-checked"
-                        >
-                          <input
-                            aria-label="Move out Speaker Active"
-                            checked=""
-                            class="ant-checkbox-input"
-                            type="checkbox"
-                          />
-                        </span>
-                      </label>
-                    </div>
-                  </td>
-                  <td
-                    class="px-5 py-4 border-b border-border-default text-base text-center "
-                  >
-                    <div
-                      class="flex items-center justify-center"
-                    >
-                      <label
-                        class="ant-checkbox-wrapper css-var-root ant-checkbox-css-var css-dev-only-do-not-override-eofgey"
-                      >
-                        <span
-                          class="ant-checkbox ant-wave-target css-dev-only-do-not-override-eofgey"
-                        >
-                          <input
-                            aria-label="Move in Speaker Active"
-                            class="ant-checkbox-input"
-                            type="checkbox"
-                          />
-                        </span>
-                      </label>
-                    </div>
-                  </td>
-                  <td
-                    class="px-5 py-4 border-b border-border-default text-base text-center "
-                  >
-                    John Doe
-                  </td>
-                </tr>
-                <tr
-                  class="hover:bg-background-subtle/50 transition-colors "
+                  </span>
+                </div>
+              </div>
+              <div
+                class="flex flex-col gap-3 px-4 py-4 bg-transparent transition-colors "
+              >
+                <div
+                  class="flex items-center justify-between gap-2"
                 >
-                  <td
-                    class="px-5 py-4 border-b border-border-default text-base text-left "
+                  <span
+                    class="text-xs font-medium text-text-tertiary uppercase tracking-wider"
+                  >
+                    Item Name
+                  </span>
+                  <span
+                    class="flex-1 text-sm font-medium text-text-primary text-right truncate"
                   >
                     Microphone Wireless
-                  </td>
-                  <td
-                    class="px-5 py-4 border-b border-border-default text-base text-left "
-                  >
-                    Audio
-                  </td>
-                  <td
-                    class="px-5 py-4 border-b border-border-default text-base text-center "
-                  >
-                    2
-                  </td>
-                  <td
-                    class="px-5 py-4 border-b border-border-default text-base text-center "
-                  >
-                    units
-                  </td>
-                  <td
-                    class="px-5 py-4 border-b border-border-default text-base text-center "
-                  >
-                    <div
-                      class="flex items-center justify-center"
-                    >
-                      <label
-                        class="ant-checkbox-wrapper css-var-root ant-checkbox-css-var css-dev-only-do-not-override-eofgey"
-                      >
-                        <span
-                          class="ant-checkbox ant-wave-target css-dev-only-do-not-override-eofgey"
-                        >
-                          <input
-                            aria-label="Move out Microphone Wireless"
-                            class="ant-checkbox-input"
-                            type="checkbox"
-                          />
-                        </span>
-                      </label>
-                    </div>
-                  </td>
-                  <td
-                    class="px-5 py-4 border-b border-border-default text-base text-center "
-                  >
-                    <div
-                      class="flex items-center justify-center"
-                    >
-                      <label
-                        class="ant-checkbox-wrapper css-var-root ant-checkbox-css-var css-dev-only-do-not-override-eofgey"
-                      >
-                        <span
-                          class="ant-checkbox ant-wave-target css-dev-only-do-not-override-eofgey"
-                        >
-                          <input
-                            aria-label="Move in Microphone Wireless"
-                            class="ant-checkbox-input"
-                            type="checkbox"
-                          />
-                        </span>
-                      </label>
-                    </div>
-                  </td>
-                  <td
-                    class="px-5 py-4 border-b border-border-default text-base text-center "
-                  >
-                    John Doe
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-        <div
-          class="md:hidden bg-background-surface rounded-xl border border-border-default shadow-sm overflow-hidden"
-        >
-          <div
-            class="bg-background-surface overflow-hidden divide-y divide-border-default"
-          >
-            <div
-              class="flex flex-col gap-3 px-4 py-4 bg-transparent transition-colors "
-            >
-              <div
-                class="flex items-center justify-between gap-2"
-              >
-                <span
-                  class="text-xs font-medium text-text-tertiary uppercase tracking-wider"
-                >
-                  Item Name
-                </span>
-                <span
-                  class="flex-1 text-sm font-medium text-text-primary text-right truncate"
-                >
-                  Speaker Active
-                </span>
-              </div>
-            </div>
-            <div
-              class="flex flex-col gap-3 px-4 py-4 bg-transparent transition-colors "
-            >
-              <div
-                class="flex items-center justify-between gap-2"
-              >
-                <span
-                  class="text-xs font-medium text-text-tertiary uppercase tracking-wider"
-                >
-                  Item Name
-                </span>
-                <span
-                  class="flex-1 text-sm font-medium text-text-primary text-right truncate"
-                >
-                  Microphone Wireless
-                </span>
+                  </span>
+                </div>
               </div>
             </div>
           </div>

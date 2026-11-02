@@ -1,15 +1,38 @@
 import * as React from "react";
-import { FiEdit2 } from "react-icons/fi";
+import { FiDownload, FiEdit2 } from "react-icons/fi";
+
+import { generateInvoicePDF } from "@/utils/pdfGenerator";
 
 import { MasterDataCard } from "@/components/MasterDataCard";
 import { Pagination } from "@/components/Pagination";
 import { SearchFilter } from "@/components/SearchFilter";
 import Table, { type TableColumn } from "@/components/Table";
 
+import { invoiceToQuoteData } from "./Invoice.helpers";
 import type { InvoiceData, InvoiceProps } from "./Invoice.type";
 
 import Layout from "@/app/layout";
 import { PageLayout } from "@/app/shared/PageLayout";
+
+/**
+ * Render invoice download action.
+ * @param {InvoiceData} row - Invoice row
+ * @returns {React.ReactElement} Download action button
+ */
+const _renderDownloadAction = (row: InvoiceData): React.ReactElement => (
+  <button
+    type="button"
+    onClick={(event: React.MouseEvent): void => {
+      event.stopPropagation();
+      void generateInvoicePDF(invoiceToQuoteData(row));
+    }}
+    className="cursor-pointer rounded-lg p-2.5 text-text-secondary hover:bg-action-primary-subtle hover:text-action-primary"
+    title="Download PDF"
+    aria-label="Download PDF"
+  >
+    <FiDownload className="h-5 w-5" />
+  </button>
+);
 
 /**
  * Render invoice edit action.
@@ -39,7 +62,8 @@ const _renderEditAction = (row: InvoiceData, props: InvoiceProps): React.ReactEl
  * @returns {React.ReactElement} Row actions
  */
 const _renderActions = (row: InvoiceData, props: InvoiceProps): React.ReactElement => (
-  <div className="flex items-center justify-center">
+  <div className="flex items-center justify-center gap-1">
+    {_renderDownloadAction(row)}
     {_renderEditAction(row, props)}
   </div>
 );
@@ -96,7 +120,7 @@ const _renderMobileCard = (invoice: InvoiceData, onRowClick: InvoiceProps["onRow
   const handleClick = (): void => onRowClick(invoice);
 
   return (
-    <MasterDataCard title={invoice.invoiceNumber} status={invoice.status === 1 ? "active" : "inactive"} isLargeText={true} onClick={handleClick}>
+    <MasterDataCard title={invoice.invoiceNumber} status={invoice.status === 0 ? "inactive" : "active"} isLargeText={true} onClick={handleClick}>
       <span className="grid gap-1 text-lg text-text-secondary">
         <span className="truncate">{invoice.customerName}</span>
         <span className="truncate">{invoice.name}</span>

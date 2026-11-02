@@ -1,7 +1,12 @@
-import { render, screen } from "@testing-library/react";
+import { fireEvent, render, screen } from "@testing-library/react";
 
 import { InvoiceComponent } from "./Invoice.component";
 import type { InvoiceProps } from "./Invoice.type";
+
+const mockGenerateInvoicePDF = jest.fn();
+jest.mock("@/utils/pdfGenerator", () => ({
+  generateInvoicePDF: (...args: unknown[]) => mockGenerateInvoicePDF(...args),
+}));
 
 jest.mock("@/app/layout", () => ({ children }: { children: React.ReactNode }): React.ReactElement => <div>{children}</div>);
 
@@ -32,6 +37,16 @@ describe("InvoiceComponent", () => {
     expect(screen.getAllByText("Annual Gala").length).toBeGreaterThan(0);
     expect(screen.queryByRole("columnheader", { name: "Status" })).toBeNull();
     expect(screen.getAllByLabelText("Edit invoice").length).toBeGreaterThan(0);
+    expect(screen.getAllByLabelText("Download PDF").length).toBeGreaterThan(0);
+  });
+
+  it("should trigger download PDF when clicked in invoice table", () => {
+    render(<InvoiceComponent {...props} />);
+
+    const downloadButtons = screen.getAllByLabelText("Download PDF");
+    fireEvent.click(downloadButtons[0]);
+
+    expect(mockGenerateInvoicePDF).toHaveBeenCalled();
   });
 
   it("should keep status out of invoice table", () => {

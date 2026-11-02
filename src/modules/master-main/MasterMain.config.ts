@@ -20,6 +20,7 @@ export const MASTER_MAIN_IMAGES = new Map<string, string>([
   ["/master-project", projectIllustration],
   ["/master-payment-method", paymentMethodIllustration],
   ["/master-payment-type", paymentTypeIllustration],
+  ["/master-order-type", categoryIllustration],
   ["/master-voucher", voucherIllustration],
   ["/master-role", roleIllustration],
   ["/master-user", userIllustration],

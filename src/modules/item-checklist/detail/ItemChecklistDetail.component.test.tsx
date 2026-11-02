@@ -41,6 +41,7 @@ const mockProps: ItemChecklistDetailState = {
 describe("ItemChecklistDetailComponent", () => {
   it("should show checklist metadata and item details with nullable fields", () => {
     render(<MemoryRouter><ItemChecklistDetailComponent {...mockProps} /></MemoryRouter>);
+    expect(screen.getAllByRole("heading", { name: "Item Checklist Detail", level: 1 })).toHaveLength(2);
     expect(screen.getAllByText("CI20261101210842").length).toBeGreaterThan(0);
     expect(screen.queryByText("ord-1")).not.toBeInTheDocument();
     expect(screen.queryByText("Order ID")).not.toBeInTheDocument();
@@ -51,15 +52,17 @@ describe("ItemChecklistDetailComponent", () => {
     expect(screen.getAllByText("-").length).toBeGreaterThan(0);
   });
 
-  it("should navigate to edit when action is clicked", () => {
+  it("should navigate to edit from the three-dot menu", () => {
     render(<MemoryRouter><ItemChecklistDetailComponent {...mockProps} /></MemoryRouter>);
-    fireEvent.click(screen.getAllByRole("button", { name: "Edit Checklist" })[0]);
+    fireEvent.click(screen.getAllByLabelText("More options")[0]);
+    fireEvent.click(screen.getAllByRole("menuitem", { name: "Edit Checklist" })[0]);
     expect(mockProps.goEdit).toHaveBeenCalled();
   });
 
-  it("should trigger download when Download PDF is clicked", () => {
+  it("should trigger download from the three-dot menu", () => {
     render(<MemoryRouter><ItemChecklistDetailComponent {...mockProps} /></MemoryRouter>);
-    fireEvent.click(screen.getAllByRole("button", { name: "Download PDF" })[0]);
+    fireEvent.click(screen.getAllByLabelText("More options")[0]);
+    fireEvent.click(screen.getAllByRole("menuitem", { name: "Download PDF" })[0]);
     expect(mockProps.onDownload).toHaveBeenCalled();
   });
 

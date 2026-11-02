@@ -36,18 +36,14 @@ export const MASTER_DATA_ITEMS: MasterNavigationItem[] = [
   { name: "Role", description: "Manage user roles and access rights", icon: LuShieldCheck, path: "/master-role" },
   { name: "User", description: "Manage system users and their roles", icon: LuUserRoundCog, path: "/master-user" },
   { name: "PIC", description: "Manage person in charge data", icon: LuUserRound, path: "/master-pic" },
+  { name: "Order Type", description: "Manage order types and handover rules", icon: LuClipboardList, path: "/master-order-type" },
   { name: "Email Sender", description: "Manage SMTP email sender settings", icon: LuMail, path: "/master-email-sender" },
 ];
 
 export const DOCUMENT_ITEMS: MasterNavigationItem[] = [
   { name: "Quotation", description: "Manage quotation documents and status", icon: LuFileCheck2, path: "/document/quotation" },
   { name: "Invoice", description: "Manage invoices and payment status", icon: LuReceiptText, path: "/document/invoice" },
-  { name: "Item Checklist", description: "Track rental item preparation and return", icon: LuSquareCheck, path: "/document/item-checklist" },
   { name: "Payment", description: "Manage document payments and status", icon: LuCreditCard, path: "/document/payment" },
-];
-
-const DOCUMENT_SIDEBAR_ITEMS: MasterNavigationItem[] = [
-  ...DOCUMENT_ITEMS.filter((item) => item.path !== "/document/item-checklist"),
 ];
 
 export const NAVIGATION_CONFIG: NavigationItem[] = [
@@ -64,12 +60,12 @@ export const NAVIGATION_CONFIG: NavigationItem[] = [
   {
     name: "Document",
     icon: LuFileText,
-    children: DOCUMENT_SIDEBAR_ITEMS,
+    children: DOCUMENT_ITEMS,
   },
   {
     name: "Item Checklist",
     icon: LuSquareCheck,
-    path: "/document/item-checklist",
+    path: "/item-checklist",
   },
   {
     name: "Calendar",

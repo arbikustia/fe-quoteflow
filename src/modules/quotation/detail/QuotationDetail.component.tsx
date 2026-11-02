@@ -1,9 +1,12 @@
 import type { ReactElement } from "react";
-import { FiCheckCircle, FiEdit2, FiMoreHorizontal } from "react-icons/fi";
+import { FiCheckCircle, FiDownload, FiEdit2, FiMoreHorizontal } from "react-icons/fi";
+
+import { generateQuotationPDF } from "@/utils/pdfGenerator";
 
 import ConfirmModal from "@/components/ConfirmModal";
 import { SkeletonComponent } from "@/components/Skeleton";
 
+import { quotationToQuoteData } from "../Quotation.helpers";
 import type { ApiQuotation, QuotationDetailState } from "../Quotation.type";
 
 import {
@@ -69,19 +72,38 @@ const _getApproveLabel = (isApproved: boolean, isApproving: boolean): string => 
 export const QuotationDetailComponent = (props: QuotationDetailState): ReactElement => {
   const isApproved = props.quotation?.status === 2;
   const approveLabel = _getApproveLabel(isApproved, props.isApproving);
-  const headerActions = props.quotation?.status === 1 ? (
+
+  /**
+   * Handle quotation PDF download.
+   * @returns {void}
+   */
+  const handleDownloadPdf = (): void => {
+    if (props.quotation) {
+      void generateQuotationPDF(quotationToQuoteData(props.quotation));
+    }
+  };
+
+  const headerActions = props.quotation ? (
     <details className="relative shrink-0">
       <summary data-testid="quotation-detail-actions" className="flex h-14 w-14 cursor-pointer list-none items-center justify-center rounded-2xl border border-border-default text-text-secondary transition-colors hover:bg-background-subtle hover:text-text-primary" aria-label="More options">
         <FiMoreHorizontal className="h-7 w-7" aria-hidden="true" />
       </summary>
       <div role="menu" className="absolute right-0 top-16 z-20 w-56 overflow-hidden rounded-2xl border border-border-default bg-background-surface py-2 shadow-lg">
-        <button type="button" role="menuitem" onClick={props.handleEdit} className="flex w-full items-center gap-3 px-5 py-3.5 text-left text-lg font-semibold text-text-primary transition-colors hover:bg-background-subtle">
-          <FiEdit2 className="h-5 w-5" aria-hidden="true" />
-          Edit
-        </button>
-        <button type="button" role="menuitem" onClick={props.openApproveModal} className="flex w-full items-center gap-3 px-5 py-3.5 text-left text-lg font-semibold text-success-strong transition-colors hover:bg-success-subtle">
-          <FiCheckCircle className="h-5 w-5" aria-hidden="true" />
-          {approveLabel}
+        {props.quotation.status === 1 && (
+          <button type="button" role="menuitem" onClick={props.handleEdit} className="flex w-full items-center gap-3 px-5 py-3.5 text-left text-lg font-semibold text-text-primary transition-colors hover:bg-background-subtle">
+            <FiEdit2 className="h-5 w-5" aria-hidden="true" />
+            Edit
+          </button>
+        )}
+        {props.quotation.status === 1 && (
+          <button type="button" role="menuitem" onClick={props.openApproveModal} className="flex w-full items-center gap-3 px-5 py-3.5 text-left text-lg font-semibold text-success-strong transition-colors hover:bg-success-subtle">
+            <FiCheckCircle className="h-5 w-5" aria-hidden="true" />
+            {approveLabel}
+          </button>
+        )}
+        <button type="button" role="menuitem" onClick={handleDownloadPdf} className="flex w-full items-center gap-3 px-5 py-3.5 text-left text-lg font-semibold text-text-primary transition-colors hover:bg-background-subtle">
+          <FiDownload className="h-5 w-5" aria-hidden="true" />
+          Download PDF
         </button>
       </div>
     </details>

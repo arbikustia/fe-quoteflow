@@ -17,6 +17,12 @@ const ENDPOINT = {
     ALL: "/api/service-type/get-all-service-type",
     CREATE: "/api/service-type",
   },
+  MASTER_ORDER_TYPE: {
+    PAGED: "/api/order-type/paged",
+    ALL: "/api/order-type/get-all-order-type",
+    CREATE: "/api/order-type",
+    DETAIL: "/api/order-type",
+  },
   IMAGE: {
     UPLOAD: "/api/image/upload",
   },

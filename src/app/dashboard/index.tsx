@@ -2,6 +2,7 @@ import { Card } from "antd";
 import type { ReactElement } from "react";
 
 import { CalendarComponent } from "@/components/Calendar";
+import { Icons } from "@/components/Icons";
 
 import { DASHBOARD_MENU_ITEMS } from "./Dashboard.config";
 import { useDashboardAssets, useDashboardNavigation, useDashboardOrders, useDashboardOverview, useDashboardQuotations } from "./Dashboard.hook";
@@ -82,7 +83,7 @@ const _renderOrderCards = (orders: DashboardOrder[], onClick: (id: string) => vo
       </button>
     )) : (
       <div className="flex h-48 w-full items-center justify-center rounded-2xl border border-dashed border-border-default text-sm text-text-secondary">
-        Belum ada order.
+        Belum ada rental order.
       </div>
     )}
   </div>
@@ -251,7 +252,7 @@ const _renderVoucherBanner = (
       <div className="pointer-events-none absolute -bottom-6 -right-6 h-28 w-28 rounded-full bg-[#B8F042]/50 blur-md dark:bg-lime-500/20" aria-hidden="true" />
 
       {/* Left decorative coupon ticket */}
-      <div className="pointer-events-none relative z-10 hidden shrink-0 -rotate-12 transition-transform duration-300 group-hover:-rotate-6 xs:block sm:block" aria-hidden="true">
+      <div className="pointer-events-none relative z-10 shrink-0 -rotate-12 transition-transform duration-300 group-hover:-rotate-6" aria-hidden="true">
         <svg width="68" height="52" viewBox="0 0 68 52" fill="none" className="h-10 w-12 drop-shadow-md sm:h-12 sm:w-16">
           <rect x="2" y="2" width="64" height="48" rx="8" fill="#133E1A" />
           <circle cx="2" cy="26" r="6" fill="#8BE328" className="dark:fill-[#173814]" />
@@ -290,6 +291,60 @@ const _renderVoucherBanner = (
         </svg>
       </div>
     </button>
+  );
+};
+
+/**
+ * Render mobile rental-order carousel state.
+ * @param {ReturnType<typeof useDashboardOrders>} orderState - Rental order state
+ * @param {(id: string) => void} onClick - Order detail navigation
+ * @returns {ReactElement} Carousel, loading, or error state
+ */
+const _renderMobileRentalOrders = (orderState: ReturnType<typeof useDashboardOrders>, onClick: (id: string) => void): ReactElement => {
+  if (orderState.isLoading) {
+    return (
+      <div className="no-scrollbar flex gap-4 overflow-hidden pb-2" role="status" aria-label="Loading rental orders">
+        {[0, 1, 2].map((item) => <div key={item} className="h-48 w-[85%] shrink-0 animate-pulse rounded-2xl bg-background-subtle" />)}
+      </div>
+    );
+  }
+
+  if (orderState.isError) {
+    return <p className="rounded-xl border border-danger bg-danger-subtle px-4 py-3 text-sm text-danger-strong">Rental orders unavailable.</p>;
+  }
+
+  return _renderOrderCards(orderState.orders, onClick);
+};
+
+/**
+ * Render mobile rental-order summary from desktop overview data.
+ * @param {ReturnType<typeof useDashboardOverview>} overview - Shared rental-order overview
+ * @returns {ReactElement} Mobile chart or explicit data state
+ */
+const _renderMobileRentalOrderChart = (overview: ReturnType<typeof useDashboardOverview>): ReactElement => {
+  const rentalOrder = overview.trend[0];
+
+  if (overview.isChartLoading) {
+    return <div className="h-40 animate-pulse rounded-xl bg-background-subtle" role="status" aria-label="Loading rental order chart" />;
+  }
+
+  if (overview.isChartError) {
+    return <p className="rounded-xl border border-danger bg-danger-subtle px-4 py-3 text-sm text-danger-strong">Rental order performance unavailable.</p>;
+  }
+
+  if (!rentalOrder) {
+    return <p className="rounded-xl border border-dashed border-border-default px-4 py-10 text-center text-sm text-text-secondary">No rental order data for this period.</p>;
+  }
+
+  return (
+    <div className="rounded-xl border border-border-default bg-background-surface p-4">
+      <p className="text-sm text-text-secondary">Total rental value</p>
+      <p className="mt-1 tabular-nums text-xl font-semibold text-text-primary">Rp {rentalOrder.totalAmount.toLocaleString("id-ID")}</p>
+      <div className="mt-5 flex h-32 items-end justify-center border-b border-border-strong" role="img" aria-label={`${rentalOrder.totalOrders.toLocaleString("id-ID")} rental orders, total value Rp ${rentalOrder.totalAmount.toLocaleString("id-ID")}, ${rentalOrder.label}`}>
+        <div className={`flex w-24 items-start justify-center rounded-t-lg bg-action-primary pt-2 text-sm font-semibold text-text-inverse ${rentalOrder.totalOrders > 0 ? "h-full" : "h-1"}`}>{rentalOrder.totalOrders > 0 && rentalOrder.totalOrders.toLocaleString("id-ID")}</div>
+      </div>
+      <p className="mt-3 text-center text-sm text-text-tertiary">{rentalOrder.label}</p>
+    </div>
   );
 };
 
@@ -341,7 +396,7 @@ export default function Dashboard(): ReactElement {
         </section>
         <div className="-m-4 pb-10 lg:hidden" role="status" aria-label="Loading dashboard">
           <div className="h-64 w-full animate-pulse bg-background-subtle" />
-          <div className="relative -mt-10 px-4 sm:px-6"><div className="rounded-2xl border border-border-default bg-background-surface p-4 shadow-medium"><div className="grid grid-cols-4 gap-x-2 gap-y-6">{DASHBOARD_MENU_ITEMS.map((item) => <div key={item.label} className="flex flex-col items-center gap-1.5"><div className="h-24 w-24 animate-pulse rounded-3xl bg-background-subtle" /><div className="h-5 w-16 animate-pulse rounded-md bg-background-subtle" /></div>)}</div></div></div>
+          <div className="relative -mt-10 px-4 sm:px-6"><div className="rounded-2xl border border-border-default bg-background-surface p-4 shadow-medium"><div className="grid grid-cols-4 gap-x-2 gap-y-6">{DASHBOARD_MENU_ITEMS.map((item) => <div key={item.label} className="flex flex-col items-center gap-1.5"><div className="h-24 w-24 animate-pulse rounded-3xl bg-background-subtle" /><div className="h-5 w-16 animate-pulse rounded-md bg-background-subtle" /></div>)}<div className="flex flex-col items-center gap-1.5"><div className="h-24 w-24 animate-pulse rounded-3xl bg-background-subtle" /><div className="h-5 w-16 animate-pulse rounded-md bg-background-subtle" /></div></div></div></div>
           <div className="mt-10 px-4 sm:px-6"><div className="h-28 w-full animate-pulse rounded-2xl bg-background-subtle" /></div>
           <div className="mt-10 px-4 sm:px-6"><div className="mb-3 flex items-center justify-between"><div className="h-6 w-40 animate-pulse rounded-md bg-background-subtle" /><div className="h-5 w-20 animate-pulse rounded-md bg-background-subtle" /></div><div className="no-scrollbar flex gap-4 overflow-hidden pb-2"><div className="h-48 w-[85%] shrink-0 animate-pulse rounded-2xl bg-background-subtle" /><div className="h-48 w-[85%] shrink-0 animate-pulse rounded-2xl bg-background-subtle" /><div className="h-48 w-[85%] shrink-0 animate-pulse rounded-2xl bg-background-subtle" /></div></div>
         </div>
@@ -374,6 +429,17 @@ export default function Dashboard(): ReactElement {
                   <span className="text-base font-medium text-text-primary text-center leading-tight">{item.label}</span>
                 </button>
               ))}
+              <button
+                type="button"
+                onClick={(): void => navigateTo("/activity-log")}
+                className="flex flex-col items-center gap-1.5 focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring"
+                aria-label="Open Activity Log"
+              >
+                <span className="flex h-24 w-24 items-center justify-center rounded-3xl border border-border-default bg-background-subtle text-action-primary transition-transform active:scale-95 [&_svg]:h-12 [&_svg]:w-12">
+                  <Icons.ActivitySolid />
+                </span>
+                <span className="text-center text-base font-medium leading-tight text-text-primary">Activity Log</span>
+              </button>
             </div>
           </div>
         </div>
@@ -385,24 +451,21 @@ export default function Dashboard(): ReactElement {
 
           <div className="px-4 sm:px-6">
             <div className="mb-3 flex items-center justify-between">
-            <h2 className="text-2xl font-bold text-text-primary sm:text-3xl">Order Active</h2>
-            <button
-              type="button"
-              onClick={(): void => navigateTo("/order")}
-              className="cursor-pointer text-base font-semibold text-action-primary transition-colors hover:text-action-primary-hover focus:outline-none focus-visible:underline sm:text-lg"
-            >
-              Show More
-            </button>
-          </div>
-          {orderState.isLoading ? (
-            <div className="no-scrollbar flex gap-4 overflow-hidden pb-2" role="status" aria-label="Loading orders">
-              {[0, 1, 2].map((item) => (
-                <div key={item} className="h-48 w-[85%] shrink-0 animate-pulse rounded-2xl bg-background-subtle" />
-              ))}
+              <h2 className="text-2xl font-bold text-text-primary sm:text-3xl">Rental orders</h2>
+              <button
+                type="button"
+                onClick={(): void => navigateTo("/report")}
+                className="cursor-pointer text-base font-semibold text-action-primary transition-colors hover:text-action-primary-hover focus:outline-none focus-visible:underline sm:text-lg"
+              >
+                Show More
+              </button>
             </div>
-          ) : _renderOrderCards(orderState.orders, navigateToOrder)}
-          {!orderState.isLoading && _renderCreationChart(orderState.chartData, "Order Dibuat", "Jumlah order yang dibuat dalam 7 hari terakhir.")}
-        </div>
+            {_renderMobileRentalOrders(orderState, navigateToOrder)}
+            <div className="mt-8">
+              <h3 className="mb-3 text-lg font-semibold text-text-primary">Rental order performance</h3>
+              {_renderMobileRentalOrderChart(overview)}
+            </div>
+          </div>
 
           <div className="px-4 sm:px-6">
             <div className="mb-3 flex items-center justify-between">

@@ -1,14 +1,17 @@
 import type { ReactElement } from "react";
-import { FiCheckCircle, FiEdit2, FiMoreHorizontal } from "react-icons/fi";
+import { FiCheckCircle, FiDownload, FiEdit2, FiMoreHorizontal } from "react-icons/fi";
+
+import { generateInvoicePDF } from "@/utils/pdfGenerator";
 
 import ConfirmModal from "@/components/ConfirmModal";
 import { SkeletonComponent } from "@/components/Skeleton";
 
+import { invoiceToQuoteData } from "../Invoice.helpers";
 import type { ApiInvoice, InvoiceDetailState } from "../Invoice.type";
 
 import Layout from "@/app/layout";
 import { PageLayout } from "@/app/shared/PageLayout";
-import { formatDate } from "@/modules/quotation/detail/QuotationDetail.helpers";
+import { formatDate, getInvoiceStatusLabel, getStatusBadgeClass } from "@/modules/quotation/detail/QuotationDetail.helpers";
 import {
   renderItemsSection,
   renderPricingSection,
@@ -32,8 +35,8 @@ const _renderInvoiceOverview = (invoice: ApiInvoice): ReactElement => (
           <span className="inline-flex w-fit rounded-full bg-action-primary-subtle px-3 py-1 text-sm font-bold uppercase tracking-wide text-action-primary">
             {invoice.quotation.transaction.service_type_name}
           </span>
-          <span className="inline-flex w-fit rounded-full bg-success-subtle px-3 py-1 text-sm font-bold uppercase text-success-strong sm:text-xs">
-            APPROVED
+          <span className={`inline-flex w-fit shrink-0 rounded-full px-3 py-1 text-sm font-bold uppercase sm:text-xs ${getStatusBadgeClass(invoice.status)}`}>
+            {getInvoiceStatusLabel(invoice.status)}
           </span>
         </div>
       </div>
@@ -88,16 +91,26 @@ const _getApproveLabel = (isApproved: boolean, isApproving: boolean): string => 
 };
 
 /**
- * Render invoice detail page.
+ * Render invoice detail header actions.
  * @param {InvoiceDetailState} props - Detail state
- * @returns {ReactElement} Invoice detail page
+ * @param {string} approveLabel - Label for approval button
+ * @returns {ReactElement | null} Header actions menu
  */
-export const InvoiceDetailComponent = (props: InvoiceDetailState): ReactElement => {
-  const isApproved = props.invoice?.status === 2;
-  const approveLabel = _getApproveLabel(isApproved, props.isApproving);
-  const onEditClick = props.handleEdit ?? props.goEdit;
+const _renderHeaderActions = (props: InvoiceDetailState, approveLabel: string): ReactElement | null => {
+  if (!props.invoice) return null;
 
-  const headerActions = props.invoice ? (
+  const onEditClick = props.handleEdit ?? props.goEdit;
+  const invoice = props.invoice;
+
+  /**
+   * Handle invoice PDF download.
+   * @returns {void}
+   */
+  const handleDownloadPdf = (): void => {
+    void generateInvoicePDF(invoiceToQuoteData(invoice));
+  };
+
+  return (
     <details className="relative shrink-0">
       <summary data-testid="invoice-detail-actions" className="flex h-14 w-14 cursor-pointer list-none items-center justify-center rounded-2xl border border-border-default text-text-secondary transition-colors hover:bg-background-subtle hover:text-text-primary" aria-label="More options">
         <FiMoreHorizontal className="h-7 w-7" aria-hidden="true" />
@@ -105,9 +118,21 @@ export const InvoiceDetailComponent = (props: InvoiceDetailState): ReactElement 
       <div role="menu" className="absolute right-0 top-16 z-20 w-56 overflow-hidden rounded-2xl border border-border-default bg-background-surface py-2 shadow-lg">
         {onEditClick && <button type="button" role="menuitem" onClick={onEditClick} className="flex w-full items-center gap-3 px-5 py-3.5 text-left text-lg font-semibold text-text-primary transition-colors hover:bg-background-subtle"><FiEdit2 className="h-5 w-5" aria-hidden="true" />Edit</button>}
         <button type="button" role="menuitem" onClick={props.openApproveModal} disabled={props.isApproving} className="flex w-full items-center gap-3 px-5 py-3.5 text-left text-lg font-semibold text-success-strong transition-colors hover:bg-success-subtle disabled:cursor-not-allowed disabled:opacity-60"><FiCheckCircle className="h-5 w-5" aria-hidden="true" />{approveLabel}</button>
+        <button type="button" role="menuitem" onClick={handleDownloadPdf} className="flex w-full items-center gap-3 px-5 py-3.5 text-left text-lg font-semibold text-text-primary transition-colors hover:bg-background-subtle"><FiDownload className="h-5 w-5" aria-hidden="true" />Download PDF</button>
       </div>
     </details>
-  ) : null;
+  );
+};
+
+/**
+ * Render invoice detail page.
+ * @param {InvoiceDetailState} props - Detail state
+ * @returns {ReactElement} Invoice detail page
+ */
+export const InvoiceDetailComponent = (props: InvoiceDetailState): ReactElement => {
+  const isApproved = props.invoice?.status === 2;
+  const approveLabel = _getApproveLabel(isApproved, props.isApproving);
+  const headerActions = _renderHeaderActions(props, approveLabel);
 
   return (
     <Layout pageTitle="Invoice Detail" mobileWhiteBackground={true}>

@@ -17,9 +17,9 @@ export const MOBILE_NAVIGATE_ITEMS: MobileNavigateItem[] = [
     Icon: Icons.CalendarSolid,
   },
   {
-    id: "/activity-log",
-    label: "Activity Log",
-    Icon: Icons.ActivitySolid,
+    id: "/note",
+    label: "Note",
+    Icon: Icons.Document,
   },
   {
     id: "/profile",

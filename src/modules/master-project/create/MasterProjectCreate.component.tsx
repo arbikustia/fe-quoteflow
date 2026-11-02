@@ -136,14 +136,14 @@ export const MasterProjectCreateForm = (props: MasterProjectCreateFormState): Re
       {props.errorMessage && <AlertComponent type="error" message={props.errorMessage} toast closable />}
       {props.successMessage && <AlertComponent type="success" message={props.successMessage} toast closable />}
       <div className="flex h-full min-h-full w-full flex-col bg-background-surface pb-6 font-sans lg:bg-background-page">
-        <div className="sticky top-0 z-20 flex items-center gap-3 bg-background-surface px-0 lg:hidden">
+        <div className="sticky top-0 z-20 mb-6 flex items-center gap-3 bg-background-surface px-0 lg:hidden">
           <button type="button" onClick={props.goBack} aria-label="Back" className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full border border-border-default bg-background-surface text-text-primary transition-colors hover:bg-background-subtle focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring/30">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="h-6 w-6" aria-hidden="true"><path d="M19 12H5M12 19l-7-7 7-7" /></svg>
           </button>
-          <h2 className="truncate text-4xl font-semibold text-text-primary">New Project</h2>
+          <div className="min-w-0"><h2 className="truncate text-4xl font-semibold tracking-tight text-text-primary">New Project</h2><p className="mt-1 truncate text-sm text-text-secondary">Build project in three steps.</p></div>
         </div>
-        <div className="mt-10 px-0 text-lg lg:mt-0 lg:px-0 lg:text-base">
-          <div className="mb-8 hidden pl-1 lg:block"><h2 className="text-4xl font-semibold text-text-primary">New Project</h2><p className="mt-3 text-sm text-text-secondary">Build project in three steps.</p></div>
+        <div className="px-0 text-lg lg:mt-0 lg:px-0 lg:text-base">
+          <div className="mb-6 hidden lg:block"><nav aria-label="Breadcrumb" className="mb-2 flex items-center gap-2 text-[15px] font-medium text-text-secondary"><button type="button" onClick={props.goBack} className="cursor-pointer hover:text-text-primary">Master</button><span aria-hidden="true">/</span><span>Master Project</span><span aria-hidden="true">/</span><span>New Project</span></nav><h2 className="text-4xl font-semibold leading-tight tracking-tight text-text-primary">New Project</h2><p className="mt-2 text-sm text-text-secondary">Build project in three steps.</p></div>
           {_renderSteps(props.step)}
           <form noValidate onSubmit={props.handleSubmit} className="bg-transparent p-0">{_renderCurrentStep(props, selectedById)}{_renderActions(props)}</form>
         </div>

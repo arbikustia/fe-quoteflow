@@ -6,7 +6,7 @@ exports[`MasterPicCreateForm Component MasterPicCreateForm Snapshots create mode
     class="flex h-full w-full flex-col bg-background-surface pb-6 font-sans lg:bg-background-page"
   >
     <div
-      class="sticky top-0 z-20 flex items-center gap-3 bg-background-surface px-0 lg:hidden"
+      class="sticky top-0 z-20 mb-6 flex items-center gap-3 bg-background-surface px-0 lg:hidden"
     >
       <button
         aria-label="Back"
@@ -29,17 +29,22 @@ exports[`MasterPicCreateForm Component MasterPicCreateForm Snapshots create mode
         </svg>
       </button>
       <h2
-        class="truncate text-4xl font-semibold leading-tight text-text-primary"
+        class="truncate text-4xl font-semibold tracking-tight text-text-primary"
       >
         New PIC
       </h2>
+      <p
+        class="mt-1 truncate text-sm text-text-secondary"
+      >
+        Fill in the PIC details below.
+      </p>
     </div>
     <div
-      class="mt-10 flex min-h-0 w-full flex-1 flex-col px-0 lg:mt-0 lg:px-0"
+      class="flex min-h-0 w-full flex-1 flex-col px-0 lg:mt-0 lg:px-0"
     >
       <nav
         aria-label="Breadcrumb"
-        class="mb-3 hidden items-center gap-2 text-sm font-medium text-text-secondary lg:flex"
+        class="mb-2 hidden items-center gap-2 text-sm font-medium text-text-secondary lg:flex"
       >
         <button
           class="cursor-pointer hover:text-text-primary"
@@ -59,7 +64,7 @@ exports[`MasterPicCreateForm Component MasterPicCreateForm Snapshots create mode
         </span>
       </nav>
       <div
-        class="my-6 hidden pl-1 lg:block"
+        class="mb-6 hidden lg:block"
       >
         <h2
           class="text-4xl font-semibold leading-tight tracking-tight text-text-primary"
@@ -127,7 +132,7 @@ exports[`MasterPicCreateForm Component MasterPicCreateForm Snapshots edit mode a
     class="flex h-full w-full flex-col bg-background-surface pb-6 font-sans lg:bg-background-page"
   >
     <div
-      class="sticky top-0 z-20 flex items-center gap-3 bg-background-surface px-0 lg:hidden"
+      class="sticky top-0 z-20 mb-6 flex items-center gap-3 bg-background-surface px-0 lg:hidden"
     >
       <button
         aria-label="Back"
@@ -150,17 +155,22 @@ exports[`MasterPicCreateForm Component MasterPicCreateForm Snapshots edit mode a
         </svg>
       </button>
       <h2
-        class="truncate text-4xl font-semibold leading-tight text-text-primary"
+        class="truncate text-4xl font-semibold tracking-tight text-text-primary"
       >
         Edit PIC
       </h2>
+      <p
+        class="mt-1 truncate text-sm text-text-secondary"
+      >
+        Update the PIC details below.
+      </p>
     </div>
     <div
-      class="mt-10 flex min-h-0 w-full flex-1 flex-col px-0 lg:mt-0 lg:px-0"
+      class="flex min-h-0 w-full flex-1 flex-col px-0 lg:mt-0 lg:px-0"
     >
       <nav
         aria-label="Breadcrumb"
-        class="mb-3 hidden items-center gap-2 text-sm font-medium text-text-secondary lg:flex"
+        class="mb-2 hidden items-center gap-2 text-sm font-medium text-text-secondary lg:flex"
       >
         <button
           class="cursor-pointer hover:text-text-primary"
@@ -180,7 +190,7 @@ exports[`MasterPicCreateForm Component MasterPicCreateForm Snapshots edit mode a
         </span>
       </nav>
       <div
-        class="my-6 hidden pl-1 lg:block"
+        class="mb-6 hidden lg:block"
       >
         <h2
           class="text-4xl font-semibold leading-tight tracking-tight text-text-primary"
@@ -295,7 +305,7 @@ exports[`MasterPicCreateForm Component MasterPicCreateForm Snapshots submitting 
     class="flex h-full w-full flex-col bg-background-surface pb-6 font-sans lg:bg-background-page"
   >
     <div
-      class="sticky top-0 z-20 flex items-center gap-3 bg-background-surface px-0 lg:hidden"
+      class="sticky top-0 z-20 mb-6 flex items-center gap-3 bg-background-surface px-0 lg:hidden"
     >
       <button
         aria-label="Back"
@@ -318,17 +328,22 @@ exports[`MasterPicCreateForm Component MasterPicCreateForm Snapshots submitting 
         </svg>
       </button>
       <h2
-        class="truncate text-4xl font-semibold leading-tight text-text-primary"
+        class="truncate text-4xl font-semibold tracking-tight text-text-primary"
       >
         New PIC
       </h2>
+      <p
+        class="mt-1 truncate text-sm text-text-secondary"
+      >
+        Fill in the PIC details below.
+      </p>
     </div>
     <div
-      class="mt-10 flex min-h-0 w-full flex-1 flex-col px-0 lg:mt-0 lg:px-0"
+      class="flex min-h-0 w-full flex-1 flex-col px-0 lg:mt-0 lg:px-0"
     >
       <nav
         aria-label="Breadcrumb"
-        class="mb-3 hidden items-center gap-2 text-sm font-medium text-text-secondary lg:flex"
+        class="mb-2 hidden items-center gap-2 text-sm font-medium text-text-secondary lg:flex"
       >
         <button
           class="cursor-pointer hover:text-text-primary"
@@ -348,7 +363,7 @@ exports[`MasterPicCreateForm Component MasterPicCreateForm Snapshots submitting 
         </span>
       </nav>
       <div
-        class="my-6 hidden pl-1 lg:block"
+        class="mb-6 hidden lg:block"
       >
         <h2
           class="text-4xl font-semibold leading-tight tracking-tight text-text-primary"
@@ -485,7 +500,7 @@ exports[`MasterPicCreateForm Component MasterPicCreateForm Snapshots with error 
       </div>
     </div>
     <div
-      class="sticky top-0 z-20 flex items-center gap-3 bg-background-surface px-0 lg:hidden"
+      class="sticky top-0 z-20 mb-6 flex items-center gap-3 bg-background-surface px-0 lg:hidden"
     >
       <button
         aria-label="Back"
@@ -508,17 +523,22 @@ exports[`MasterPicCreateForm Component MasterPicCreateForm Snapshots with error 
         </svg>
       </button>
       <h2
-        class="truncate text-4xl font-semibold leading-tight text-text-primary"
+        class="truncate text-4xl font-semibold tracking-tight text-text-primary"
       >
         New PIC
       </h2>
+      <p
+        class="mt-1 truncate text-sm text-text-secondary"
+      >
+        Fill in the PIC details below.
+      </p>
     </div>
     <div
-      class="mt-10 flex min-h-0 w-full flex-1 flex-col px-0 lg:mt-0 lg:px-0"
+      class="flex min-h-0 w-full flex-1 flex-col px-0 lg:mt-0 lg:px-0"
     >
       <nav
         aria-label="Breadcrumb"
-        class="mb-3 hidden items-center gap-2 text-sm font-medium text-text-secondary lg:flex"
+        class="mb-2 hidden items-center gap-2 text-sm font-medium text-text-secondary lg:flex"
       >
         <button
           class="cursor-pointer hover:text-text-primary"
@@ -538,7 +558,7 @@ exports[`MasterPicCreateForm Component MasterPicCreateForm Snapshots with error 
         </span>
       </nav>
       <div
-        class="my-6 hidden pl-1 lg:block"
+        class="mb-6 hidden lg:block"
       >
         <h2
           class="text-4xl font-semibold leading-tight tracking-tight text-text-primary"

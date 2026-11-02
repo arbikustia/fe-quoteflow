@@ -7,6 +7,7 @@ import type { MasterCustomerCreateFormState } from "./MasterCustomerCreate.type"
 
 const createProps = (): MasterCustomerCreateFormState => ({
   name: "",
+  email: "",
   address: "",
   phoneNumber: "",
   isActive: true,
@@ -19,6 +20,7 @@ const createProps = (): MasterCustomerCreateFormState => ({
   errors: {},
   isSubmitted: false,
   handleNameChange: jest.fn(),
+  handleEmailChange: jest.fn(),
   handlePhoneNumberChange: jest.fn(),
   handleAddressChange: jest.fn(),
   handleSubmit: jest.fn(),
@@ -30,10 +32,23 @@ describe("MasterCustomerCreateForm", () => {
     render(<MasterCustomerCreateForm {...createProps()} />);
 
     expect(screen.getByText("Customer Name")).toBeTruthy();
+    expect(screen.getByText("Email")).toBeTruthy();
     expect(screen.getByText("Phone Number")).toBeTruthy();
     expect(screen.getByText("Address")).toBeTruthy();
-    expect(screen.getAllByText("*")).toHaveLength(3);
+    expect(screen.getAllByText("*")).toHaveLength(4);
     expect(screen.getByRole("button", { name: "Create Customer" })).toBeTruthy();
+  });
+
+  it("should match customer list title typography on mobile and desktop", () => {
+    const { container } = render(<MasterCustomerCreateForm {...createProps()} />);
+    const titles = container.querySelectorAll("h2");
+
+    expect(titles).toHaveLength(2);
+    titles.forEach((title) => {
+      expect(title.classList.contains("text-4xl")).toBe(true);
+      expect(title.classList.contains("font-semibold")).toBe(true);
+      expect(title.classList.contains("tracking-tight")).toBe(true);
+    });
   });
 
   it("should configure phone field with pattern and tel attributes", () => {

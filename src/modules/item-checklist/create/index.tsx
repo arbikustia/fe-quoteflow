@@ -16,6 +16,8 @@ const ItemChecklistCreate = (): ReactElement => {
         title={title}
         subtitle={form.isEditMode ? "Update rental item checklist." : "Create rental item checklist."}
         breadcrumbs={["Item Checklist", title]}
+        mobileHeaderClassName="px-0"
+        mobileTitleClassName="text-4xl"
         onBack={form.goBack}
       >
         <ItemChecklistCreateForm {...form} />

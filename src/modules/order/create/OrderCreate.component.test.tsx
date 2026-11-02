@@ -20,4 +20,18 @@ describe("OrderCreateComponent", (): void => {
 
     expect(screen.getByText("Order Information")).toBeTruthy();
   });
+
+  it("should show error when end date is earlier than start date", (): void => {
+    render(
+      <MemoryRouter>
+        <OrderCreateComponent
+          {...props}
+          form={{ ...props.form, start_at: "2026-11-08T06:00", end_at: "2026-11-01T06:00" }}
+          showInformationErrors
+        />
+      </MemoryRouter>,
+    );
+
+    expect(screen.getByText("End date cannot be earlier than start date")).toBeTruthy();
+  });
 });
