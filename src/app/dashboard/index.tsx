@@ -2,7 +2,6 @@ import { Card } from "antd";
 import type { ReactElement } from "react";
 
 import { CalendarComponent } from "@/components/Calendar";
-import { Icons } from "@/components/Icons";
 
 import { DASHBOARD_MENU_ITEMS } from "./Dashboard.config";
 import { useDashboardAssets, useDashboardNavigation, useDashboardOrders, useDashboardOverview, useDashboardQuotations } from "./Dashboard.hook";
@@ -29,7 +28,7 @@ const _renderOrderCards = (orders: DashboardOrder[], onClick: (id: string) => vo
         key={order.id}
         type="button"
         onClick={(): void => onClick(order.id)}
-        className="flex h-52 w-[85%] shrink-0 snap-start cursor-pointer flex-col justify-between rounded-2xl border border-border-default bg-background-surface p-4 text-left transition-shadow hover:shadow-small focus:outline-none focus-visible:ring-2 focus-visible:ring-border-focus"
+        className="flex h-52 w-[85%] shrink-0 snap-start cursor-pointer flex-col justify-between rounded-xl border border-border-default bg-background-surface p-4 text-left transition-shadow hover:shadow-small focus:outline-none focus-visible:ring-2 focus-visible:ring-border-focus"
       >
         <div>
           <div className="flex items-start justify-between gap-3">
@@ -38,13 +37,13 @@ const _renderOrderCards = (orders: DashboardOrder[], onClick: (id: string) => vo
               {order.status === 1 ? "Active" : "Inactive"}
             </span>
           </div>
-          <p className="mt-3 truncate text-lg font-semibold text-text-primary">{order.customerName}</p>
-          <p className="mt-1 truncate text-base text-text-secondary">{order.startDate} - {order.endDate}</p>
+          <p className="mt-3 truncate text-base font-semibold text-text-primary">{order.customerName}</p>
+          <p className="mt-1 truncate text-sm text-text-secondary">{order.startDate} - {order.endDate}</p>
         </div>
         <p className="text-lg font-bold text-action-primary">Rp {order.grandTotal.toLocaleString("id-ID")}</p>
       </button>
     )) : (
-      <div className="flex h-48 w-full items-center justify-center rounded-2xl border border-dashed border-border-default text-sm text-text-secondary">
+      <div className="flex h-48 w-full items-center justify-center rounded-xl border border-dashed border-border-default text-sm text-text-secondary">
         Belum ada rental order.
       </div>
     )}
@@ -109,11 +108,10 @@ const _renderDesktopDashboard = (
   }
 
   return (
-    <section className="hidden min-h-full bg-background-page p-6 lg:block xl:p-8">
-      <header className="mb-8 flex items-end justify-between gap-6">
+    <section className="hidden min-h-full bg-background-page lg:block">
+      <header className="mb-6 flex items-start justify-between gap-6">
         <div>
-          <p className="text-sm font-medium text-text-tertiary">Overview</p>
-          <h1 className="mt-1 text-3xl font-semibold text-text-primary">Dashboard</h1>
+          <h1 className="truncate text-4xl font-semibold leading-tight tracking-tight text-text-primary">Dashboard</h1>
           <p className="mt-2 text-sm text-text-secondary">Monitor quotation, invoice, payment, and voucher performance.</p>
         </div>
       </header>
@@ -197,7 +195,7 @@ const _renderVoucherBanner = (
       </div>
 
       {/* Right decorative coupon ticket */}
-      <div className="pointer-events-none relative z-10 hidden shrink-0 rotate-12 transition-transform duration-300 group-hover:rotate-6 xs:block sm:block" aria-hidden="true">
+      <div className="pointer-events-none relative z-10 shrink-0 rotate-12 transition-transform duration-300 group-hover:rotate-6" aria-hidden="true">
         <svg width="68" height="52" viewBox="0 0 68 52" fill="none" className="h-10 w-12 drop-shadow-md sm:h-12 sm:w-16">
           <rect x="2" y="2" width="64" height="48" rx="8" fill="#133E1A" />
           <circle cx="2" cy="26" r="6" fill="#DCF87D" className="dark:fill-[#265320]" />
@@ -235,33 +233,37 @@ const _renderMobileRentalOrders = (orderState: ReturnType<typeof useDashboardOrd
 };
 
 /**
- * Render mobile rental-order summary from desktop overview data.
- * @param {ReturnType<typeof useDashboardOverview>} overview - Shared rental-order overview
+ * Render rental-order counts for the last seven days.
+ * @param {ReturnType<typeof useDashboardOrders>} orderState - Rental-order chart state
  * @returns {ReactElement} Mobile chart or explicit data state
  */
-const _renderMobileRentalOrderChart = (overview: ReturnType<typeof useDashboardOverview>): ReactElement => {
-  const rentalOrder = overview.trend[0];
-
-  if (overview.isChartLoading) {
-    return <div className="h-40 animate-pulse rounded-xl bg-background-subtle" role="status" aria-label="Loading rental order chart" />;
+const _renderMobileRentalOrderChart = (orderState: ReturnType<typeof useDashboardOrders>): ReactElement => {
+  if (orderState.isLoading) {
+    return <div className="h-48 animate-pulse rounded-xl bg-background-subtle" role="status" aria-label="Loading rental order chart" />;
   }
 
-  if (overview.isChartError) {
+  if (orderState.isError) {
     return <p className="rounded-xl border border-danger bg-danger-subtle px-4 py-3 text-sm text-danger-strong">Rental order performance unavailable.</p>;
   }
 
-  if (!rentalOrder) {
-    return <p className="rounded-xl border border-dashed border-border-default px-4 py-10 text-center text-sm text-text-secondary">No rental order data for this period.</p>;
-  }
+  const maxCount = Math.max(...orderState.chartData.map((datum) => datum.count), 1);
+  const totalOrders = orderState.chartData.reduce((sum, datum) => sum + datum.count, 0);
 
   return (
     <div className="rounded-xl border border-border-default bg-background-surface p-4">
-      <p className="text-sm text-text-secondary">Total rental value</p>
-      <p className="mt-1 tabular-nums text-xl font-semibold text-text-primary">Rp {rentalOrder.totalAmount.toLocaleString("id-ID")}</p>
-      <div className="mt-5 flex h-32 items-end justify-center border-b border-border-strong" role="img" aria-label={`${rentalOrder.totalOrders.toLocaleString("id-ID")} rental orders, total value Rp ${rentalOrder.totalAmount.toLocaleString("id-ID")}, ${rentalOrder.label}`}>
-        <div className={`flex w-24 items-start justify-center rounded-t-lg bg-action-primary pt-2 text-sm font-semibold text-text-inverse ${rentalOrder.totalOrders > 0 ? "h-full" : "h-1"}`}>{rentalOrder.totalOrders > 0 && rentalOrder.totalOrders.toLocaleString("id-ID")}</div>
+      <p className="text-sm text-text-secondary">Rental orders created in the last 7 days</p>
+      <p className="mt-1 tabular-nums text-xl font-semibold text-text-primary">{totalOrders.toLocaleString("id-ID")} orders</p>
+      <div className="mt-5 grid h-40 grid-cols-7 items-end gap-2 border-b border-border-strong" role="img" aria-label={`${totalOrders.toLocaleString("id-ID")} rental orders created in the last 7 days`}>
+        {orderState.chartData.map((datum) => (
+          <div key={datum.label} className="flex h-full min-w-0 flex-col items-center justify-end">
+            <span className="mb-1 text-xs font-semibold tabular-nums text-text-primary">{datum.count}</span>
+            <div className="w-full rounded-t-md bg-action-primary" style={{ height: datum.count > 0 ? `${Math.max((datum.count / maxCount) * 100, 8)}%` : "4px" }} />
+          </div>
+        ))}
       </div>
-      <p className="mt-3 text-center text-sm text-text-tertiary">{rentalOrder.label}</p>
+      <div className="mt-2 grid grid-cols-7 gap-2">
+        {orderState.chartData.map((datum) => <span key={datum.label} className="text-center text-[10px] text-text-tertiary">{datum.label}</span>)}
+      </div>
     </div>
   );
 };
@@ -280,11 +282,10 @@ export default function Dashboard(): ReactElement {
   if (isLoading) {
     return (
       <ResponsiveLayout showMobileHeader={false}>
-        <section className="hidden min-h-full bg-background-page p-6 lg:block xl:p-8" role="status" aria-label="Loading dashboard">
-          <header className="mb-8 flex items-end justify-between gap-6">
-            <div className="space-y-3">
-              <div className="h-4 w-20 animate-pulse rounded bg-background-subtle" />
-              <div className="h-10 w-40 animate-pulse rounded bg-background-subtle" />
+        <section className="hidden min-h-full bg-background-page lg:block" role="status" aria-label="Loading dashboard">
+          <header className="mb-6 flex items-start justify-between gap-6">
+            <div className="space-y-2">
+              <div className="h-10 w-52 animate-pulse rounded bg-background-subtle" />
               <div className="h-5 w-96 animate-pulse rounded bg-background-subtle" />
             </div>
             <div className="h-5 w-44 animate-pulse rounded bg-background-subtle" />
@@ -347,17 +348,6 @@ export default function Dashboard(): ReactElement {
                   <span className="text-base font-medium text-text-primary text-center leading-tight">{item.label}</span>
                 </button>
               ))}
-              <button
-                type="button"
-                onClick={(): void => navigateTo("/activity-log")}
-                className="flex flex-col items-center gap-1.5 focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring"
-                aria-label="Open Activity Log"
-              >
-                <span className="flex h-24 w-24 items-center justify-center rounded-3xl border border-border-default bg-background-subtle text-action-primary transition-transform active:scale-95 [&_svg]:h-12 [&_svg]:w-12">
-                  <Icons.ActivitySolid />
-                </span>
-                <span className="text-center text-base font-medium leading-tight text-text-primary">Activity Log</span>
-              </button>
             </div>
           </div>
         </div>
@@ -367,22 +357,25 @@ export default function Dashboard(): ReactElement {
             {_renderVoucherBanner(voucherCount, navigateTo)}
           </div>
 
-          <div className="px-4 sm:px-6">
-            <div className="mb-3 flex items-center justify-between">
-              <h2 className="text-2xl font-bold text-text-primary sm:text-3xl">Rental orders</h2>
-              <button
-                type="button"
-                onClick={(): void => navigateTo("/report")}
-                className="cursor-pointer text-base font-semibold text-action-primary transition-colors hover:text-action-primary-hover focus:outline-none focus-visible:underline sm:text-lg"
-              >
-                Show More
-              </button>
-            </div>
-            {_renderMobileRentalOrders(orderState, navigateToOrder)}
-            <div className="mt-8">
-              <h3 className="mb-3 text-lg font-semibold text-text-primary">Rental order performance</h3>
-              {_renderMobileRentalOrderChart(overview)}
-            </div>
+          <div className="space-y-8 px-4 sm:px-6">
+            <section>
+              <div className="mb-4 flex items-center justify-between gap-4">
+                <h2 className="text-xl font-bold text-text-primary">Rental orders</h2>
+                <button
+                  type="button"
+                  onClick={(): void => navigateTo("/report")}
+                  className="cursor-pointer text-sm font-semibold text-action-primary transition-colors hover:text-action-primary-hover focus:outline-none focus-visible:underline"
+                >
+                  Show More
+                </button>
+              </div>
+              {_renderMobileRentalOrders(orderState, navigateToOrder)}
+            </section>
+
+            <section>
+              <h2 className="mb-4 text-xl font-bold text-text-primary">Rental order performance</h2>
+              {_renderMobileRentalOrderChart(orderState)}
+            </section>
           </div>
         </div>
       </div>

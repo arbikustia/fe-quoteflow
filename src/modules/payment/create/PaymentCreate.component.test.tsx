@@ -57,15 +57,20 @@ describe("PaymentCreateComponent", () => {
     expect(props.goBack).toHaveBeenCalledTimes(1);
   });
 
-  it("should match payment form title typography on mobile and desktop", () => {
+  it("should match payment list title and subtitle typography", () => {
     const { container } = render(<PaymentCreateComponent {...createProps()} />);
     const titles = container.querySelectorAll("h2");
+    const subtitles = screen.getAllByText("Manage document payments and status");
 
     expect(titles).toHaveLength(2);
     titles.forEach((title) => {
       expect(title.classList.contains("text-4xl")).toBe(true);
       expect(title.classList.contains("font-semibold")).toBe(true);
       expect(title.classList.contains("tracking-tight")).toBe(true);
+    });
+    expect(subtitles).toHaveLength(2);
+    subtitles.forEach((subtitle) => {
+      expect(subtitle.classList.contains("text-sm")).toBe(true);
     });
   });
 

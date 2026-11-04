@@ -13,10 +13,16 @@ export type DashboardOrder = {
   createdAt: string;
 };
 
+export type DashboardOrderChartDatum = {
+  label: string;
+  count: number;
+};
+
 export type DashboardOrderState = {
   isLoading: boolean;
   isError: boolean;
   orders: DashboardOrder[];
+  chartData: DashboardOrderChartDatum[];
 };
 
 export type DashboardMenuItem = {

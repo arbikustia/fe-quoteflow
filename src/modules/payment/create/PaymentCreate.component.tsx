@@ -50,9 +50,8 @@ const _renderMobileBack = (
   isEditMode: boolean | undefined,
   goBack: () => void,
 ): ReactElement => {
-  const subtitle = isEditMode
-    ? "Update the payment details below."
-    : "Fill in the payment details below.";
+  const title = isEditMode ? "Edit Payment" : "New Payment";
+  const subtitle = "Manage document payments and status";
 
   return (
     <div className="mb-6 flex items-center gap-3 bg-background-page lg:hidden">
@@ -66,9 +65,9 @@ const _renderMobileBack = (
       </button>
       <div className="min-w-0">
         <h2 className="truncate text-4xl font-semibold tracking-tight text-text-primary">
-          {isEditMode ? "Edit Payment" : "New Payment"}
+          {title}
         </h2>
-        <p className="mt-1 truncate text-lg text-text-secondary">{subtitle}</p>
+        <p className="mt-1 truncate text-sm text-text-secondary">{subtitle}</p>
       </div>
     </div>
   );
@@ -85,9 +84,7 @@ const _renderHeaderSection = (
   goBack: () => void,
 ): ReactElement => {
   const title = isEditMode ? "Edit Payment" : "New Payment";
-  const subtitle = isEditMode
-    ? "Update the payment details below."
-    : "Fill in the payment details below.";
+  const subtitle = "Manage document payments and status";
 
   return (
     <>
@@ -109,7 +106,7 @@ const _renderHeaderSection = (
         <h2 className="text-4xl font-semibold leading-tight tracking-tight text-text-primary">
           {title}
         </h2>
-        <p className="mt-3 text-lg font-medium text-text-secondary opacity-70">
+        <p className="mt-2 text-sm text-text-secondary">
           {subtitle}
         </p>
       </div>

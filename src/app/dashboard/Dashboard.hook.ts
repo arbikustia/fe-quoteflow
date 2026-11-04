@@ -3,7 +3,8 @@ import { useNavigate } from "react-router-dom";
 
 import { useMasterActivityLog } from "@/hooks/useMasterActivityLog";
 
-import { mapQuotationToCalendarEvent } from "@/modules/calendar/Calendar.helpers";
+import { getCalendarMonthRange, mapCalendarItemToEvent } from "@/modules/calendar/Calendar.helpers";
+import { useGetCalendarEventsQuery } from "@/services/calendar.service";
 import { useGetInvoicesQuery } from "@/services/invoice.service";
 import { useGetAllVouchersQuery, useGetVouchersQuery } from "@/services/master-voucher.service";
 import { useGetPaymentsQuery } from "@/services/payment.service";
@@ -11,7 +12,7 @@ import { mapQuotation, useGetQuotationsQuery } from "@/services/quotation.servic
 import { mapRentalOrder, useGetRentalOrdersQuery } from "@/services/rental-order.service";
 
 import { DASHBOARD_MENU_ITEMS } from "./Dashboard.config";
-import type { DashboardAssets, DashboardNavigation, DashboardOrder, DashboardOrderState, DashboardOverviewState, DashboardQuotationChartDatum, DashboardQuotationState, DashboardRentalOrderRange, DashboardRoute, DashboardVoucherState } from "./Dashboard.type";
+import type { DashboardAssets, DashboardNavigation, DashboardOrder, DashboardOrderChartDatum, DashboardOrderState, DashboardOverviewState, DashboardQuotationChartDatum, DashboardQuotationState, DashboardRentalOrderRange, DashboardRoute, DashboardVoucherState } from "./Dashboard.type";
 import BannerApp from "../../assets/banner-app.png";
 
 /**
@@ -80,7 +81,8 @@ export const useDashboardVouchers = (): DashboardVoucherState => {
 export const useDashboardQuotations = (): DashboardQuotationState => {
   const carouselQuery = useGetQuotationsQuery({ pageNumber: 1, pageSize: 3, searchTerm: "" });
   const chartQuery = useGetQuotationsQuery({ pageNumber: 1, pageSize: 1000, searchTerm: "" });
-  const isLoading = carouselQuery.isLoading || carouselQuery.isFetching || chartQuery.isLoading || chartQuery.isFetching;
+  const calendarQuery = useGetCalendarEventsQuery(getCalendarMonthRange(new Date()));
+  const isLoading = carouselQuery.isLoading || carouselQuery.isFetching || chartQuery.isLoading || chartQuery.isFetching || calendarQuery.isLoading;
 
   if (isLoading) {
     return { isLoading: true, quotations: [], chartData: [], calendarEvents: [] };
@@ -111,8 +113,8 @@ export const useDashboardQuotations = (): DashboardQuotationState => {
     const date = new Date(today);
     date.setHours(0, 0, 0, 0);
     date.setDate(today.getDate() - (6 - index));
-    const count = chartSource.filter((quotation) => {
-      const createdAt = new Date(quotation.created_at);
+    const count = chartSource.filter((order) => {
+      const createdAt = new Date(order.created_at);
       return !Number.isNaN(createdAt.getTime())
         && createdAt.getFullYear() === date.getFullYear()
         && createdAt.getMonth() === date.getMonth()
@@ -125,11 +127,15 @@ export const useDashboardQuotations = (): DashboardQuotationState => {
     };
   });
 
+  const calendarEvents = calendarQuery.data?.status && Array.isArray(calendarQuery.data.data)
+    ? calendarQuery.data.data.map(mapCalendarItemToEvent)
+    : [];
+
   return {
     isLoading: false,
     quotations,
     chartData,
-    calendarEvents: chartSource.map(mapQuotationToCalendarEvent),
+    calendarEvents,
   };
 };
 
@@ -138,17 +144,18 @@ export const useDashboardQuotations = (): DashboardQuotationState => {
  * @returns {DashboardOrderState} Rental order loading state and items
  */
 export const useDashboardOrders = (): DashboardOrderState => {
-  const query = useGetRentalOrdersQuery({ pageNumber: 1, pageSize: 3, searchTerm: "" });
+  const query = useGetRentalOrdersQuery({ pageNumber: 1, pageSize: 1000, searchTerm: "" });
 
   if (query.isLoading || query.isFetching) {
-    return { isLoading: true, isError: false, orders: [] };
+    return { isLoading: true, isError: false, orders: [], chartData: [] };
   }
 
   if (query.isError || !query.data?.status || !Array.isArray(query.data.data)) {
-    return { isLoading: false, isError: true, orders: [] };
+    return { isLoading: false, isError: true, orders: [], chartData: [] };
   }
 
-  const orders: DashboardOrder[] = query.data.data.map((order) => {
+  const allOrders = query.data.data;
+  const orders: DashboardOrder[] = allOrders.slice(0, 3).map((order) => {
     const mapped = mapRentalOrder(order);
 
     return {
@@ -163,7 +170,27 @@ export const useDashboardOrders = (): DashboardOrderState => {
     };
   });
 
-  return { isLoading: false, isError: false, orders };
+  const today = new Date();
+  const chartData: DashboardOrderChartDatum[] = Array.from({ length: 7 }, (_, index) => {
+    const date = new Date(today);
+    date.setHours(0, 0, 0, 0);
+    date.setDate(today.getDate() - (6 - index));
+    const count = allOrders.filter((order) => {
+      const createdAt = new Date(order.created_at);
+
+      return !Number.isNaN(createdAt.getTime())
+        && createdAt.getFullYear() === date.getFullYear()
+        && createdAt.getMonth() === date.getMonth()
+        && createdAt.getDate() === date.getDate();
+    }).length;
+
+    return {
+      label: date.toLocaleDateString("id-ID", { day: "numeric", month: "short" }),
+      count,
+    };
+  });
+
+  return { isLoading: false, isError: false, orders, chartData };
 };
 
 /** Format date for dashboard API query. */

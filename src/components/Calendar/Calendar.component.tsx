@@ -29,11 +29,11 @@ const _renderEvent = (event: CalendarEventItem, onEventClick: ((event: CalendarE
       e.stopPropagation();
       onEventClick?.(event);
     }}
-    className={`flex min-w-0 w-full items-center gap-1 rounded-md border px-2 py-1.5 text-left text-base font-semibold leading-5 transition-opacity hover:opacity-75 ${EVENT_VARIANTS[event.variant ?? "neutral"]}`}
+    className={`flex min-w-0 max-w-full w-full items-center gap-1 rounded-md border px-2 py-1 text-left text-xs font-semibold leading-tight transition-opacity hover:opacity-75 sm:text-sm lg:text-base ${EVENT_VARIANTS[event.variant ?? "neutral"]}`}
     title={event.title}
   >
     <span className="min-w-0 flex-1 truncate">{event.title}</span>
-    {event.time && <span className="hidden shrink-0 text-sm font-medium opacity-75 lg:inline">{event.time}</span>}
+    {event.time && <span className="hidden shrink-0 text-xs font-medium opacity-75 lg:inline">{event.time}</span>}
   </button>
 );
 
@@ -54,7 +54,7 @@ const _getDayNumberClassName = (day: CalendarDayCell): string => {
   return "text-text-disabled opacity-40";
 };
 
-const MAX_MOBILE_EVENTS = 2;
+const MAX_MOBILE_EVENTS = 1;
 const MAX_DESKTOP_EVENTS = 5;
 
 /**
@@ -103,14 +103,14 @@ const _getDayCellClassName = (day: CalendarDayCell, isExpanded: boolean, isClick
   const heightClass = isExpanded ? "min-h-[6rem]" : "min-h-[20dvh] lg:aspect-square lg:min-h-0";
 
   if (!day.isCurrentMonth) {
-    return `relative ${heightClass} min-w-0 border-r border-border-default p-2 pointer-events-none bg-background-subtle`;
+    return `relative ${heightClass} min-w-0 overflow-hidden border-r border-border-default p-2 pointer-events-none bg-background-subtle`;
   }
 
   const hoverClass = isClickable
     ? "cursor-pointer transition-colors hover:bg-background-subtle/50 focus:outline-none focus-visible:ring-1 focus-visible:ring-focus-ring"
     : "";
 
-  return `relative ${heightClass} min-w-0 border-r border-border-default p-2 ${hoverClass}`;
+  return `relative ${heightClass} min-w-0 overflow-hidden border-r border-border-default p-2 ${hoverClass}`;
 };
 
 /**

@@ -8,27 +8,35 @@ import type { EmailSenderCreateProps } from "./EmailSenderCreate.type";
 
 const _fieldClassName = "!mb-0 [&_.ant-input]:!h-16 lg:[&_.ant-input]:!h-14 [&_.ant-input]:!rounded-2xl [&_.ant-input]:!border-2 [&_.ant-input]:!border-border-strong [&_.ant-input.ant-input-status-error]:!border-danger [&_.ant-input]:!px-4 [&_.ant-input]:!text-xl lg:[&_.ant-input]:!text-lg [&_.ant-input]:!font-normal [&_.ant-input]:placeholder:!text-xl lg:[&_.ant-input]:placeholder:!text-lg [&_.ant-input]:placeholder:!font-normal [&_label]:!text-lg lg:[&_label]:!text-lg [&_label]:!font-normal [&_label]:!normal-case [&_label]:!text-text-primary";
 
-const _renderMobileBack = (title: string, onBack: () => void): ReactElement => (
-  <div className="mb-6 flex items-center gap-3 bg-background-page lg:hidden">
-    <button type="button" onClick={onBack} aria-label="Back" className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full border border-border-default bg-background-page text-text-primary transition-colors hover:bg-background-subtle">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="h-6 w-6" aria-hidden="true"><path d="M19 12H5M12 19l-7-7 7-7" /></svg>
-    </button>
-    <div className="min-w-0">
-      <h2 className="min-w-0 truncate text-4xl font-semibold tracking-tight text-text-primary">{title}</h2>
-      <p className="mt-1 truncate text-lg text-text-secondary">Configure SMTP sender details below.</p>
-    </div>
-  </div>
-);
+const _renderMobileBack = (title: string, onBack: () => void): ReactElement => {
+  const subtitle = "Manage SMTP email sender settings";
 
-const _renderHeader = (title: string, onBack: () => void): ReactElement => (
-  <>
-    <nav aria-label="Breadcrumb" className="mb-2 hidden items-center gap-2 text-sm font-medium text-text-secondary lg:flex">
-      <button type="button" onClick={onBack} className="cursor-pointer hover:text-text-primary">Email Sender</button>
-      <span aria-hidden="true">/</span><span className="text-text-primary">{title}</span>
-    </nav>
-    <div className="mb-6 hidden lg:block"><h2 className="text-4xl font-semibold leading-tight tracking-tight text-text-primary">{title}</h2><p className="mt-3 text-lg font-medium text-text-secondary opacity-70">Configure SMTP sender details below.</p></div>
-  </>
-);
+  return (
+    <div className="mb-6 flex items-center gap-3 bg-background-page lg:hidden">
+      <button type="button" onClick={onBack} aria-label="Back" className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full border border-border-default bg-background-page text-text-primary transition-colors hover:bg-background-subtle">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="h-6 w-6" aria-hidden="true"><path d="M19 12H5M12 19l-7-7 7-7" /></svg>
+      </button>
+      <div className="min-w-0">
+        <h2 className="min-w-0 truncate text-4xl font-semibold tracking-tight text-text-primary">{title}</h2>
+        <p className="mt-1 truncate text-sm text-text-secondary">{subtitle}</p>
+      </div>
+    </div>
+  );
+};
+
+const _renderHeader = (title: string, onBack: () => void): ReactElement => {
+  const subtitle = "Manage SMTP email sender settings";
+
+  return (
+    <>
+      <nav aria-label="Breadcrumb" className="mb-2 hidden items-center gap-2 text-sm font-medium text-text-secondary lg:flex">
+        <button type="button" onClick={onBack} className="cursor-pointer hover:text-text-primary">Email Sender</button>
+        <span aria-hidden="true">/</span><span className="text-text-primary">{title}</span>
+      </nav>
+      <div className="mb-6 hidden lg:block"><h2 className="text-4xl font-semibold leading-tight tracking-tight text-text-primary">{title}</h2><p className="mt-2 text-sm text-text-secondary">{subtitle}</p></div>
+    </>
+  );
+};
 
 
 const _renderSwitch = (label: string, description: string, checked: boolean, onChange: (checked: boolean) => void): ReactElement => (

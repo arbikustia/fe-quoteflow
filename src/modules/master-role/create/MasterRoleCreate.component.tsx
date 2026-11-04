@@ -48,7 +48,7 @@ const _renderMobileBack = (isEditMode: boolean, goBack: () => void): ReactElemen
         <h2 className="truncate text-4xl font-semibold tracking-tight text-text-primary">
           {title}
         </h2>
-        <p className="mt-1 truncate text-lg text-text-secondary">
+        <p className="mt-1 truncate text-sm text-text-secondary">
           {isEditMode ? "Update the role details below." : "Fill in the role details below."}
         </p>
       </div>
@@ -87,7 +87,7 @@ const _renderHeader = (isEditMode: boolean, goBack: () => void): ReactElement =>
         <h2 className="text-4xl font-semibold leading-tight tracking-tight text-text-primary">
           {title}
         </h2>
-        <p className="mt-3 text-lg font-medium text-text-secondary opacity-70">
+        <p className="mt-3 text-sm font-medium text-text-secondary opacity-70">
           {subtitle}
         </p>
       </div>

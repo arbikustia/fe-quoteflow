@@ -31,9 +31,10 @@ describe("useDashboardOrders", () => {
 
     const { result } = renderHook(useDashboardOrders);
 
-    expect(mockQuery).toHaveBeenCalledWith({ pageNumber: 1, pageSize: 3, searchTerm: "" });
+    expect(mockQuery).toHaveBeenCalledWith({ pageNumber: 1, pageSize: 1000, searchTerm: "" });
     expect(result.current.orders).toEqual([expect.objectContaining({ id: "transaction-1", eventName: "RO-1", grandTotal: 1000 })]);
     expect(result.current.isError).toBe(false);
+    expect(result.current.chartData).toHaveLength(7);
   });
 
   it("should report API error instead of empty data", (): void => {
@@ -41,6 +42,6 @@ describe("useDashboardOrders", () => {
 
     const { result } = renderHook(useDashboardOrders);
 
-    expect(result.current).toEqual({ isLoading: false, isError: true, orders: [] });
+    expect(result.current).toEqual({ isLoading: false, isError: true, orders: [], chartData: [] });
   });
 });

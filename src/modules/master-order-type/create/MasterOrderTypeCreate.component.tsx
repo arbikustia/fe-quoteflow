@@ -113,7 +113,7 @@ const _renderMobileBack = (isEditMode: boolean, goBack: () => void): ReactElemen
       </button>
       <div className="min-w-0">
         <h2 className="truncate text-4xl font-semibold tracking-tight text-text-primary">{title}</h2>
-        <p className="mt-1 truncate text-lg text-text-secondary">
+        <p className="mt-1 truncate text-sm text-text-secondary">
           {isEditMode ? "Update the order type details below." : "Fill in the order type details below."}
         </p>
       </div>
@@ -142,7 +142,7 @@ const _renderHeaderSection = (isEditMode: boolean, goBack: () => void): ReactEle
       </nav>
       <div className="mb-6 hidden lg:block">
         <h2 className="text-4xl font-semibold leading-tight tracking-tight text-text-primary">{title}</h2>
-        <p className="mt-3 text-lg font-medium text-text-secondary opacity-70">
+        <p className="mt-3 text-sm font-medium text-text-secondary opacity-70">
           {subtitle}
         </p>
       </div>

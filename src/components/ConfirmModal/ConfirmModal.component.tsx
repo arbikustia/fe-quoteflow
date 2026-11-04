@@ -38,15 +38,15 @@ const _renderMessage = (props: ConfirmModalProps): React.ReactElement => {
 const _renderActions = (props: ConfirmModalProps, handleConfirm: () => void): React.ReactElement => {
   const { cancelText = "Cancel", confirmText = "Confirm", isDestructive = true, onClose } = props;
   const confirmClassName = isDestructive
-    ? "bg-danger-default hover:bg-danger-strong focus-visible:ring-danger-default"
-    : "bg-action-primary hover:bg-action-primary-hover focus-visible:ring-focus-ring";
+    ? "bg-danger text-white hover:bg-danger-strong focus-visible:ring-danger"
+    : "bg-action-primary text-text-inverse hover:bg-action-primary-hover focus-visible:ring-focus-ring";
 
   return (
     <div className="flex justify-end gap-3 rounded-b-xl border-t border-border-default bg-background-subtle px-6 py-4">
       <button type="button" onClick={onClose} className="rounded-lg border border-border-default bg-background-surface px-4 py-2 text-sm font-semibold text-text-primary transition-colors hover:bg-background-elevated focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring">
         {cancelText}
       </button>
-      <button type="button" onClick={handleConfirm} className={`rounded-lg px-4 py-2 text-sm font-semibold text-text-inverse transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-1 ${confirmClassName}`}>
+      <button type="button" onClick={handleConfirm} className={`rounded-lg px-4 py-2 text-sm font-semibold transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-1 ${confirmClassName}`}>
         {confirmText}
       </button>
     </div>
