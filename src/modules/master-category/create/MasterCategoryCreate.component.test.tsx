@@ -23,10 +23,20 @@ const createProps = (overrides?: Partial<MasterCategoryCreateFormState>): Master
 
 describe("MasterCategoryCreateForm", () => {
   it("should render category name input and create button in create mode", () => {
-    render(<MasterCategoryCreateForm {...createProps()} />);
+    const props = createProps();
+    const { container } = render(<MasterCategoryCreateForm {...props} />);
 
     expect(screen.getByText("Category Name")).toBeTruthy();
+    expect(screen.getByText("Category Information")).toBeTruthy();
+    expect(screen.getByText("Information")).toBeTruthy();
+    expect(screen.getByRole("button", { name: "Cancel" })).toBeTruthy();
     expect(screen.getByRole("button", { name: "Create Category" })).toBeTruthy();
+
+    const form = container.querySelector("form");
+    expect(form?.classList.contains("rounded-3xl")).toBe(true);
+
+    fireEvent.click(screen.getByRole("button", { name: "Cancel" }));
+    expect(props.goBack).toHaveBeenCalledTimes(1);
   });
 
   it("should render update button in edit mode", () => {

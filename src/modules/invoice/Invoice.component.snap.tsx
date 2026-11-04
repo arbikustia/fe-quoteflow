@@ -24,4 +24,7 @@ const props: InvoiceProps = {
   onEdit: jest.fn(),
 };
 
-test.assertSnapshots(InvoiceComponent, [{ props, desc: "Should render InvoiceComponent with empty data" }]);
+test.assertSnapshots(InvoiceComponent, [
+  { props, desc: "Should render InvoiceComponent with empty data" },
+  { props: { ...props, isLoading: true, isEmpty: false }, desc: "Should render InvoiceComponent loading skeletons" },
+]);

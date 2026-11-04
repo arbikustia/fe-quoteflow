@@ -2,6 +2,7 @@ import type { ChangeEvent, SyntheticEvent } from 'react';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
+import { useCreateActivityLogMutation } from '@/services/activity-log.service';
 import { useAuthenticateMutation } from '@/services/authentication.service';
 
 import type { LoginPageState } from './LoginPage.type';
@@ -18,6 +19,7 @@ export const useLoginPageState = (): LoginPageState => {
   const [isRemembered, setIsRemembered] = useState<boolean>(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [authenticate, { isLoading: isSubmitting }] = useAuthenticateMutation();
+  const [createActivityLog] = useCreateActivityLogMutation();
 
   /**
    * Handle identifier input change
@@ -75,6 +77,14 @@ export const useLoginPageState = (): LoginPageState => {
       localStorage.setItem("access_token", response.data.access_token);
       localStorage.setItem("refresh_token", response.data.refresh_token);
       document.cookie = `quoteflow_username=${encodeURIComponent(identifier)}; path=/; max-age=2592000; SameSite=Lax`;
+      
+      void createActivityLog({
+        user_name: identifier,
+        action: "view",
+        page: "Login",
+        description: "User logged in.",
+      }).unwrap().catch(() => {});
+
       navigate('/home');
     } catch {
       setErrorMessage("Username atau password salah.");

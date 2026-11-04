@@ -4,7 +4,6 @@ import { FiCheckCircle, FiDownload, FiEdit2, FiMoreHorizontal } from "react-icon
 import { generateInvoicePDF } from "@/utils/pdfGenerator";
 
 import ConfirmModal from "@/components/ConfirmModal";
-import { SkeletonComponent } from "@/components/Skeleton";
 
 import { invoiceToQuoteData } from "../Invoice.helpers";
 import type { ApiInvoice, InvoiceDetailState } from "../Invoice.type";
@@ -13,6 +12,7 @@ import Layout from "@/app/layout";
 import { PageLayout } from "@/app/shared/PageLayout";
 import { formatDate, getInvoiceStatusLabel, getStatusBadgeClass } from "@/modules/quotation/detail/QuotationDetail.helpers";
 import {
+  renderDetailField,
   renderItemsSection,
   renderPricingSection,
   renderProjectsSection,
@@ -26,25 +26,25 @@ import {
  * @returns {ReactElement} Invoice overview
  */
 const _renderInvoiceOverview = (invoice: ApiInvoice): ReactElement => (
-  <section className="rounded-2xl border border-border-default bg-background-surface p-4 shadow-xs sm:p-5 lg:p-6">
-    <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
+  <section className="min-w-0 rounded-3xl border border-border-strong bg-background-surface p-5 shadow-small sm:p-6">
+    <div className="flex min-w-0 flex-col gap-3 sm:flex-row sm:items-start sm:justify-between sm:gap-4">
       <div className="min-w-0">
-        <p className="text-xs font-semibold uppercase tracking-widest text-text-tertiary">Invoice</p>
+        <p className="text-lg font-semibold uppercase tracking-widest text-text-tertiary">Invoice</p>
         <div className="mt-1 flex flex-wrap items-center gap-3">
-          <h2 className="break-words text-3xl font-semibold tracking-tight text-text-primary sm:text-2xl lg:text-3xl">{invoice.invoice_no}</h2>
-          <span className="inline-flex w-fit rounded-full bg-action-primary-subtle px-3 py-1 text-sm font-bold uppercase tracking-wide text-action-primary">
+          <h2 className="break-all text-2xl font-bold tracking-tight text-text-primary sm:break-words lg:text-3xl">{invoice.invoice_no}</h2>
+          <span className="inline-flex w-fit rounded-full bg-action-primary-subtle px-3.5 py-1 text-lg font-bold uppercase tracking-wide text-action-primary">
             {invoice.quotation.transaction.service_type_name}
           </span>
-          <span className={`inline-flex w-fit shrink-0 rounded-full px-3 py-1 text-sm font-bold uppercase sm:text-xs ${getStatusBadgeClass(invoice.status)}`}>
+          <span className={`inline-flex w-fit shrink-0 rounded-full px-3.5 py-1 text-lg font-semibold ${getStatusBadgeClass(invoice.status)}`}>
             {getInvoiceStatusLabel(invoice.status)}
           </span>
         </div>
       </div>
     </div>
-    <dl className="mt-5 grid grid-cols-1 gap-x-8 border-t border-border-default sm:grid-cols-2 lg:grid-cols-4">
-      <div className="grid grid-cols-[minmax(7rem,40%)_minmax(0,1fr)] items-start gap-2 border-b border-border-default/60 py-3 sm:block sm:py-4"><dt className="text-lg font-medium leading-7 text-text-secondary sm:mb-1 sm:text-sm sm:font-semibold sm:uppercase sm:tracking-wide sm:text-text-tertiary">Invoice Date</dt><dd className="text-right text-xl font-medium leading-8 text-text-primary sm:text-left sm:text-base">{formatDate(invoice.invoice_date)}</dd></div>
-      <div className="grid grid-cols-[minmax(7rem,40%)_minmax(0,1fr)] items-start gap-2 border-b border-border-default/60 py-3 sm:block sm:py-4"><dt className="text-lg font-medium leading-7 text-text-secondary sm:mb-1 sm:text-sm sm:font-semibold sm:uppercase sm:tracking-wide sm:text-text-tertiary">Due Date</dt><dd className="text-right text-xl font-medium leading-8 text-text-primary sm:text-left sm:text-base">{formatDate(invoice.due_date)}</dd></div>
-      <div className="grid grid-cols-[minmax(7rem,40%)_minmax(0,1fr)] items-start gap-2 border-b border-border-default/60 py-3 last:border-b-0 sm:block sm:py-4"><dt className="text-lg font-medium leading-7 text-text-secondary sm:mb-1 sm:text-sm sm:font-semibold sm:uppercase sm:tracking-wide sm:text-text-tertiary">Quotation No</dt><dd className="break-words text-right text-xl font-medium leading-8 text-text-primary sm:text-left sm:text-base">{invoice.quotation.quotation_no}</dd></div>
+    <dl className="mt-4 grid grid-cols-1 gap-x-8 border-t border-border-default sm:mt-5 sm:grid-cols-2 lg:grid-cols-4">
+      {renderDetailField("Invoice Date", formatDate(invoice.invoice_date))}
+      {renderDetailField("Due Date", formatDate(invoice.due_date))}
+      {renderDetailField("Quotation No", invoice.quotation.quotation_no)}
     </dl>
   </section>
 );
@@ -59,22 +59,127 @@ const _renderDetails = (invoice: ApiInvoice): ReactElement => {
   const serviceTypeName = transaction.service_type_name.toUpperCase();
 
   return (
-    <div className="space-y-4 pb-8 sm:space-y-5">
+    <div className="w-full space-y-4 pb-32 sm:space-y-4 lg:pb-8">
       {_renderInvoiceOverview(invoice)}
-      <div className="grid grid-cols-1 gap-4 sm:gap-5 xl:grid-cols-[minmax(0,1.55fr)_minmax(320px,0.75fr)]">
-        <div className="space-y-4 sm:space-y-5">
+      <div className="space-y-4 sm:space-y-4">
+        <div className="min-w-0 lg:[&_dl]:grid-cols-3 xl:[&_dl]:grid-cols-4">
           {renderTransactionSection(transaction)}
-          {serviceTypeName === "REGULER" && renderItemsSection(transaction.rental_transaction_items)}
-          {serviceTypeName === "PROJECT" && renderProjectsSection(transaction.rental_transaction_project)}
         </div>
-        <aside className="space-y-4 sm:space-y-5">
-          {renderPricingSection(transaction)}
-          {renderVoucherSection(transaction.voucher)}
-        </aside>
+        <div className="grid min-w-0 grid-cols-1 items-start gap-4 sm:gap-4 lg:grid-cols-[minmax(0,2fr)_minmax(20rem,1fr)]">
+          <div className="min-w-0 space-y-4 sm:space-y-4">
+            {serviceTypeName === "REGULER" && renderItemsSection(transaction.rental_transaction_items)}
+            {serviceTypeName === "PROJECT" && renderProjectsSection(transaction.rental_transaction_project)}
+          </div>
+          <aside className="min-w-0 space-y-4 sm:space-y-4">
+            {renderPricingSection(transaction)}
+            {renderVoucherSection(transaction.voucher)}
+          </aside>
+        </div>
       </div>
     </div>
   );
 };
+
+/**
+ * Render loading description field aligned with detail fields.
+ * @param {number} index - Field position
+ * @returns {ReactElement} Loading field
+ */
+const _renderSkeletonField = (index: number): ReactElement => (
+  <div key={index} className="grid min-w-0 grid-cols-[minmax(6rem,38%)_minmax(0,1fr)] items-start gap-3 border-b border-border-default/60 py-3 last:border-b-0 sm:block">
+    <span className="h-5 w-20 rounded-3xl bg-background-subtle sm:h-4" />
+    <span className="h-6 w-28 justify-self-end rounded-3xl bg-background-subtle sm:mt-1 sm:h-5 sm:justify-self-start" />
+  </div>
+);
+
+/**
+ * Render loading invoice identity and three metadata fields.
+ * @returns {ReactElement} Overview skeleton
+ */
+const _renderSkeletonOverview = (): ReactElement => (
+  <section className="min-w-0 rounded-3xl border border-border-strong bg-background-surface p-5 shadow-small sm:p-6" aria-label="Loading invoice overview">
+    <div className="h-4 w-20 rounded-3xl bg-background-subtle" />
+    <div className="mt-2 flex flex-wrap items-center gap-3">
+      <div className="h-8 w-40 rounded-3xl bg-background-subtle" />
+      <div className="h-7 w-24 rounded-full bg-background-subtle" />
+      <div className="h-7 w-32 rounded-full bg-background-subtle" />
+    </div>
+    <div className="mt-4 grid grid-cols-1 gap-x-8 border-t border-border-default sm:mt-5 sm:grid-cols-2 lg:grid-cols-4">
+      {Array.from({ length: 3 }, (_value, index) => _renderSkeletonField(index))}
+    </div>
+  </section>
+);
+
+/**
+ * Render loading section with matching card and description grid.
+ * @param {number} fieldCount - Number of description fields
+ * @param {string} label - Section label
+ * @param {boolean} [isWide] - Expand transaction fields at desktop widths
+ * @returns {ReactElement} Loading section
+ */
+const _renderSkeletonSection = (fieldCount: number, label: string, isWide = false): ReactElement => (
+  <section className="min-w-0 overflow-hidden rounded-3xl border border-border-strong bg-background-surface shadow-small" aria-label={label}>
+    <div className="border-b border-border-default px-5 py-4 sm:px-6"><span className="block h-6 w-40 rounded-3xl bg-background-subtle" /></div>
+    <div className={`grid grid-cols-1 gap-x-6 px-5 py-1 sm:grid-cols-2 sm:px-6 sm:py-0 ${isWide ? "lg:grid-cols-3 xl:grid-cols-4" : ""}`}>
+      {Array.from({ length: fieldCount }, (_value, index) => _renderSkeletonField(index))}
+    </div>
+  </section>
+);
+
+/**
+ * Render loading rental rows with the loaded item or project layout.
+ * @returns {ReactElement} Rental skeleton
+ */
+const _renderSkeletonRental = (): ReactElement => (
+  <section className="min-w-0 overflow-hidden rounded-3xl border border-border-strong bg-background-surface shadow-small" aria-label="Loading rental content">
+    <div className="border-b border-border-default px-5 py-4 sm:px-6"><div className="h-6 w-36 rounded-3xl bg-background-subtle" /></div>
+    <div className="space-y-4 px-5 py-4 sm:px-6">
+      {Array.from({ length: 2 }, (_value, index) => (
+        <div key={index} className="flex items-start justify-between gap-4 border-b border-border-default pb-4 last:border-0 last:pb-0">
+          <div className="space-y-2"><div className="h-6 w-32 rounded-3xl bg-background-subtle" /><div className="h-5 w-24 rounded-3xl bg-background-subtle" /></div>
+          <div className="space-y-2"><div className="ml-auto h-6 w-16 rounded-3xl bg-background-subtle" /><div className="h-6 w-24 rounded-3xl bg-background-subtle" /></div>
+        </div>
+      ))}
+    </div>
+  </section>
+);
+
+/**
+ * Render loading pricing rows and grand total.
+ * @returns {ReactElement} Pricing skeleton
+ */
+const _renderSkeletonPricing = (): ReactElement => (
+  <section className="min-w-0 overflow-hidden rounded-3xl border border-border-strong bg-background-surface shadow-small" aria-label="Loading pricing summary">
+    <div className="border-b border-border-default px-5 py-4 sm:px-6"><div className="h-6 w-36 rounded-3xl bg-background-subtle" /></div>
+    <div className="px-5 py-1 sm:px-6">
+      {Array.from({ length: 4 }, (_value, index) => _renderSkeletonField(index))}
+    </div>
+  </section>
+);
+
+/**
+ * Render invoice loading state with loaded mobile and desktop structure.
+ * @returns {ReactElement} Responsive detail skeleton
+ */
+const _renderDetailSkeleton = (): ReactElement => (
+  <div className="w-full space-y-4 pb-32 sm:space-y-4 lg:pb-8" role="status" aria-label="Loading invoice detail">
+    <div className="animate-pulse" aria-hidden="true">
+      {_renderSkeletonOverview()}
+      <div className="mt-4 space-y-4 sm:mt-4 sm:space-y-4">
+        {_renderSkeletonSection(10, "Loading transaction and event", true)}
+        <div className="grid min-w-0 grid-cols-1 items-start gap-4 sm:gap-4 lg:grid-cols-[minmax(0,2fr)_minmax(20rem,1fr)]">
+          <div className="min-w-0 space-y-4 sm:space-y-4">
+            {_renderSkeletonRental()}
+          </div>
+          <aside className="min-w-0 space-y-4 sm:space-y-4">
+            {_renderSkeletonPricing()}
+            {_renderSkeletonSection(2, "Loading voucher")}
+          </aside>
+        </div>
+      </div>
+    </div>
+  </div>
+);
 
 /**
  * Resolve invoice approve button label.
@@ -112,12 +217,12 @@ const _renderHeaderActions = (props: InvoiceDetailState, approveLabel: string): 
 
   return (
     <details className="relative shrink-0">
-      <summary data-testid="invoice-detail-actions" className="flex h-14 w-14 cursor-pointer list-none items-center justify-center rounded-2xl border border-border-default text-text-secondary transition-colors hover:bg-background-subtle hover:text-text-primary" aria-label="More options">
+      <summary data-testid="invoice-detail-actions" className="flex h-14 w-14 cursor-pointer list-none items-center justify-center rounded-3xl border border-border-default text-text-secondary transition-colors hover:bg-background-subtle hover:text-text-primary" aria-label="More options">
         <FiMoreHorizontal className="h-7 w-7" aria-hidden="true" />
       </summary>
-      <div role="menu" className="absolute right-0 top-16 z-20 w-56 overflow-hidden rounded-2xl border border-border-default bg-background-surface py-2 shadow-lg">
-        {onEditClick && <button type="button" role="menuitem" onClick={onEditClick} className="flex w-full items-center gap-3 px-5 py-3.5 text-left text-lg font-semibold text-text-primary transition-colors hover:bg-background-subtle"><FiEdit2 className="h-5 w-5" aria-hidden="true" />Edit</button>}
-        <button type="button" role="menuitem" onClick={props.openApproveModal} disabled={props.isApproving} className="flex w-full items-center gap-3 px-5 py-3.5 text-left text-lg font-semibold text-success-strong transition-colors hover:bg-success-subtle disabled:cursor-not-allowed disabled:opacity-60"><FiCheckCircle className="h-5 w-5" aria-hidden="true" />{approveLabel}</button>
+      <div role="menu" className="absolute right-0 top-16 z-20 w-56 overflow-hidden rounded-3xl border border-border-default bg-background-surface py-2 shadow-lg">
+        {invoice.status === 1 && onEditClick && <button type="button" role="menuitem" onClick={onEditClick} className="flex w-full items-center gap-3 px-5 py-3.5 text-left text-lg font-semibold text-text-primary transition-colors hover:bg-background-subtle"><FiEdit2 className="h-5 w-5" aria-hidden="true" />Edit</button>}
+        {invoice.status === 1 && <button type="button" role="menuitem" onClick={props.openApproveModal} disabled={props.isApproving} className="flex w-full items-center gap-3 px-5 py-3.5 text-left text-lg font-semibold text-success-strong transition-colors hover:bg-success-subtle disabled:cursor-not-allowed disabled:opacity-60"><FiCheckCircle className="h-5 w-5" aria-hidden="true" />{approveLabel}</button>}
         <button type="button" role="menuitem" onClick={handleDownloadPdf} className="flex w-full items-center gap-3 px-5 py-3.5 text-left text-lg font-semibold text-text-primary transition-colors hover:bg-background-subtle"><FiDownload className="h-5 w-5" aria-hidden="true" />Download PDF</button>
       </div>
     </details>
@@ -135,12 +240,14 @@ export const InvoiceDetailComponent = (props: InvoiceDetailState): ReactElement 
   const headerActions = _renderHeaderActions(props, approveLabel);
 
   return (
-    <Layout pageTitle="Invoice Detail" mobileWhiteBackground={true}>
+    <Layout pageTitle="Invoice Detail">
       <PageLayout title="Invoice Detail" subtitle="View invoice details and transaction information" breadcrumbs={["Document", "Invoice", "Detail"]} headerRight={headerActions} mobileHeaderClassName="px-0" mobileTitleClassName="text-4xl" onBack={props.goBack}>
-      {props.isLoading && <div className="rounded-2xl border border-border-default bg-background-surface p-5"><SkeletonComponent rows={8} columns={[{ width: "35%" }, { width: "65%" }]} /></div>}
-      {!props.isLoading && props.errorMessage && <div role="alert" className="rounded-2xl border border-danger bg-danger-subtle p-5 text-sm font-medium text-danger-strong">{props.errorMessage}</div>}
-      {!props.isLoading && !props.errorMessage && !props.invoice && <div className="rounded-2xl border border-border-default bg-background-surface p-8 text-center text-sm text-text-secondary">Invoice detail is unavailable.</div>}
-      {!props.isLoading && !props.errorMessage && props.invoice && _renderDetails(props.invoice)}
+        <div className="relative flex h-full flex-col bg-background-page px-0 pb-18 lg:-mt-4 lg:bg-transparent lg:px-0 lg:pb-0">
+          {props.isLoading && _renderDetailSkeleton()}
+          {!props.isLoading && props.errorMessage && <div role="alert" className="rounded-3xl border border-danger bg-danger-subtle p-5 text-lg font-medium text-danger-strong">{props.errorMessage}</div>}
+          {!props.isLoading && !props.errorMessage && !props.invoice && <div className="rounded-3xl border border-border-default bg-background-surface p-8 text-center text-lg text-text-secondary">Invoice detail is unavailable.</div>}
+          {!props.isLoading && !props.errorMessage && props.invoice && _renderDetails(props.invoice)}
+        </div>
       </PageLayout>
       <ConfirmModal
         isOpen={props.isConfirmOpen}

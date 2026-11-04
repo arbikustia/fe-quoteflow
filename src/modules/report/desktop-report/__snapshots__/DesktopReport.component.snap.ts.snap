@@ -195,7 +195,7 @@ exports[`DesktopReportComponent matches snapshot 1`] = `
               <a
                 class="min-h-14 flex items-center gap-3 rounded-[8px] px-4 py-3 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring/30 text-text-secondary hover:bg-background-elevated hover:text-text-primary"
                 data-discover="true"
-                href="/document/item-checklist"
+                href="/item-checklist"
               >
                 <span
                   class="shrink-0 [&_svg]:h-5 [&_svg]:w-5 text-text-tertiary"
@@ -227,6 +227,39 @@ exports[`DesktopReportComponent matches snapshot 1`] = `
                   class="flex-1 truncate text-xl leading-none font-normal"
                 >
                   Item Checklist
+                </span>
+              </a>
+              <a
+                class="min-h-14 flex items-center gap-3 rounded-[8px] px-4 py-3 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring/30 text-text-secondary hover:bg-background-elevated hover:text-text-primary"
+                data-discover="true"
+                href="/item-return"
+              >
+                <span
+                  class="shrink-0 [&_svg]:h-5 [&_svg]:w-5 text-text-tertiary"
+                >
+                  <svg
+                    fill="none"
+                    height="1em"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    viewBox="0 0 24 24"
+                    width="1em"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"
+                    />
+                    <path
+                      d="M3 3v5h5"
+                    />
+                  </svg>
+                </span>
+                <span
+                  class="flex-1 truncate text-xl leading-none font-normal"
+                >
+                  Item Return
                 </span>
               </a>
               <a
@@ -861,8 +894,8 @@ exports[`DesktopReportComponent matches snapshot 1`] = `
                       Documents per page
                     </label>
                     <div
-                      class="ant-select ant-select-outlined h-14 w-full [&_.ant-select-selector]:!rounded-2xl [&_.ant-select-content]:!text-xl [&_.ant-select-content]:!font-normal  css-var-root ant-select-css-var css-dev-only-do-not-override-eofgey ant-select-single ant-select-show-arrow ant-select-show-search"
-                      style="--ant-select-border-radius: 16px;"
+                      class="ant-select ant-select-outlined h-14 w-full !border-2 [&_.ant-select-selector]:!rounded-2xl [&_.ant-select-content]:!text-xl [&_.ant-select-content]:!font-normal !border-border-strong [&_.ant-select-selector]:!border-2 [&_.ant-select-selector]:!border-border-strong  css-var-root ant-select-css-var css-dev-only-do-not-override-eofgey ant-select-single ant-select-show-arrow ant-select-show-search"
+                      style="--ant-select-border-radius: 16px; border: 2px solid var(--border-strong);"
                     >
                       <div
                         class="ant-select-content ant-select-content-has-value"

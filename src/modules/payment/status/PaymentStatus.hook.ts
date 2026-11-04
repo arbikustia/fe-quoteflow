@@ -2,6 +2,7 @@ import type { SyntheticEvent } from "react";
 import { useState } from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 
+import { formatPaymentPaidAt } from "../create/PaymentCreate.helpers";
 import type { PaymentData } from "../Payment.type";
 
 import type { PaymentStatusFormProps } from "./PaymentStatus.type";
@@ -59,7 +60,7 @@ export const usePaymentStatusForm = (): PaymentStatusFormProps => {
         invoice_id: payment.invoiceId,
         payment_method_id: payment.paymentMethodId,
         amount: payment.amount,
-        paid_at: payment.paidAt,
+        paid_at: formatPaymentPaidAt(payment.paidAt),
         reference_no: payment.referenceNo,
         notes: payment.notes,
         status: isActive ? 1 : 0,

@@ -5,7 +5,6 @@ import categoryIllustration from "../../assets/category-illustration.png";
 import customerIllustration from "../../assets/customer-illustration.png";
 import itemIllustration from "../../assets/item-illustration.png";
 import paymentMethodIllustration from "../../assets/payment-method-illustration.png";
-import paymentTypeIllustration from "../../assets/payment-type-illustration.png";
 import picIllustration from "../../assets/pic-illustration.png";
 import projectIllustration from "../../assets/project-illustration.png";
 import roleIllustration from "../../assets/role-illustration.png";
@@ -19,7 +18,6 @@ export const MASTER_MAIN_IMAGES = new Map<string, string>([
   ["/master-item", itemIllustration],
   ["/master-project", projectIllustration],
   ["/master-payment-method", paymentMethodIllustration],
-  ["/master-payment-type", paymentTypeIllustration],
   ["/master-order-type", categoryIllustration],
   ["/master-voucher", voucherIllustration],
   ["/master-role", roleIllustration],

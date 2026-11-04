@@ -48,6 +48,9 @@ describe("ItemChecklistDetailComponent", () => {
     expect(screen.getAllByText("Unavailable").length).toBeGreaterThan(0);
     expect(screen.getAllByText("Beam 290").length).toBeGreaterThan(0);
     expect(screen.getAllByText("Beam 290 description").length).toBeGreaterThan(0);
+    expect(screen.getAllByText("Beam 290 description")[0]).toHaveClass("text-lg");
+    expect(screen.getByText("Checklist date")).toHaveClass("text-lg");
+    expect(screen.getByText("Qty 1")).toHaveClass("text-lg");
     expect(screen.getAllByText("Putri").length).toBeGreaterThan(0);
     expect(screen.getAllByText("-").length).toBeGreaterThan(0);
   });

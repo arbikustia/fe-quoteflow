@@ -24,7 +24,6 @@ export const activityLogService = apiRtkClient.injectEndpoints({
   endpoints: (builder) => ({
     createActivityLog: builder.mutation<{ status: boolean }, ActivityLogPayload>({
       query: (body) => ({ url: ENDPOINT.ACTIVITY_LOG.CREATE, method: "POST", data: body }),
-      invalidatesTags: ["ActivityLog"],
     }),
     getActivityLogs: builder.query<ActivityLogListResponse, ActivityLogListParams>({
       query: (params) => ({

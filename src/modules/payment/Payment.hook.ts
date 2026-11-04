@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 
 import { MOCK_PAYMENT_RESPONSE } from "@/fixture/payments";
 
-import type { PaymentData, PaymentPagination } from "./Payment.type";
+import type { PaymentData, PaymentPagination, PaymentProps } from "./Payment.type";
 
 import { mapPayment, useGetPaymentsQuery } from "@/services/payment.service";
 
@@ -102,9 +102,9 @@ export const usePaymentPagination = (): PaymentPagination => {
 
 /**
  * Provide payment page navigation.
- * @returns {{onBack: () => void; onCreate: () => void; onEdit: (payment: PaymentData) => void; onRowClick: (payment: PaymentData) => void}} - navigation callbacks
+ * @returns {Pick<PaymentProps, "onBack" | "onCreate" | "onEdit" | "onDetail" | "onRowClick">} - navigation callbacks
  */
-export const usePaymentNavigation = (): { onBack: () => void; onCreate: () => void; onEdit: (payment: PaymentData) => void; onRowClick: (payment: PaymentData) => void } => {
+export const usePaymentNavigation = (): Pick<PaymentProps, "onBack" | "onCreate" | "onEdit" | "onDetail" | "onRowClick"> => {
   const navigate = useNavigate();
   /**
    *
@@ -123,7 +123,12 @@ export const usePaymentNavigation = (): { onBack: () => void; onCreate: () => vo
    *
    * @param {PaymentData} payment - payment
    */
-  const onRowClick = (payment: PaymentData): void => { onEdit(payment); };
+  const onDetail = (payment: PaymentData): void => { void navigate(`/document/payment/${payment.id}`, { state: payment }); };
+  /**
+   *
+   * @param {PaymentData} payment - payment
+   */
+  const onRowClick = (payment: PaymentData): void => { onDetail(payment); };
 
-  return { onBack, onCreate, onEdit, onRowClick };
+  return { onBack, onCreate, onEdit, onDetail, onRowClick };
 };

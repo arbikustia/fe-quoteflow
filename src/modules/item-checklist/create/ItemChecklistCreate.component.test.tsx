@@ -85,6 +85,9 @@ describe("ItemChecklistCreateForm", () => {
     expect(screen.getAllByText("Speaker Active").length).toBeGreaterThan(0);
     expect(screen.getAllByText("Microphone Wireless").length).toBeGreaterThan(0);
     expect(screen.getByRole("button", { name: "Save Checklist" })).toBeInTheDocument();
+    const mobileItem = screen.getAllByText("Speaker Active")[0].closest("article");
+    expect(mobileItem?.querySelectorAll(".text-xs, .text-sm, .text-base")).toHaveLength(0);
+    expect(screen.getByText("Select Move Out and Move In independently for each item.")).toHaveClass("text-lg");
   });
 
   it("should trigger search change on input", () => {

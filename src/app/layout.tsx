@@ -22,7 +22,7 @@ export type LayoutProps = {
 export default function Layout({ children, mobileWhiteBackground = false, whiteBackground = false }: LayoutProps): React.ReactElement {
   const { pathname } = useLocation();
   const { isSidebarCollapsed, onToggleSidebarCollapsed } = useSidebarCollapse();
-  const shouldShowMobileNavigation = pathname.startsWith("/order") || pathname === "/activity-log" || pathname === "/note";
+  const shouldShowMobileNavigation = pathname.startsWith("/order") || pathname === "/activity-log" || pathname === "/note" || pathname === "/calendar" || pathname === "/profile";
 
   return (
     <div className={`flex h-full min-h-0 w-full overflow-hidden font-sans text-text-primary relative items-stretch transition-colors duration-200 ${whiteBackground ? "bg-background-surface" : "bg-background-page"}`}>

@@ -2,8 +2,10 @@ import { useCallback, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 
 import { NAVIGATION_CONFIG } from "./Sidebar.config";
-import { getInitialOpenMenus } from "./Sidebar.helpers";
+import { getInitialOpenMenus, getUsername } from "./Sidebar.helpers";
 import type { LogoutState, SidebarState } from "./Sidebar.type";
+
+import { useCreateActivityLogMutation } from "@/services/activity-log.service";
 
 /**
  * Manage sidebar navigation and profile state.
@@ -36,13 +38,26 @@ export const useSidebarState = (): SidebarState => {
 export const useLogoutState = (): LogoutState => {
   const navigate = useNavigate();
   const [isLogoutConfirmOpen, setIsLogoutConfirmOpen] = useState(false);
+  const [createActivityLog] = useCreateActivityLogMutation();
   const handleLogout = useCallback((): void => setIsLogoutConfirmOpen(true), []);
   const closeLogoutConfirm = useCallback((): void => setIsLogoutConfirmOpen(false), []);
   const confirmLogout = useCallback((): void => {
+    const username = getUsername();
+
+    if (username) {
+      void createActivityLog({
+        user_name: username,
+        action: "view",
+        page: "Logout",
+        description: "User logged out.",
+      }).unwrap().catch(() => {});
+    }
+
     localStorage.removeItem("access_token");
     localStorage.removeItem("refresh_token");
+    document.cookie = "quoteflow_username=; path=/; max-age=0";
     navigate("/login", { replace: true });
-  }, [navigate]);
+  }, [createActivityLog, navigate]);
 
   return { isLogoutConfirmOpen, handleLogout, closeLogoutConfirm, confirmLogout };
 };

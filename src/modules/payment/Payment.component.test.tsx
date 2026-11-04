@@ -54,6 +54,35 @@ describe("PaymentComponent", () => {
     expect(mockProps.onCreate).toHaveBeenCalledTimes(1);
   });
 
+  it("should show payment details on mobile and status in desktop table", () => {
+    render(<MemoryRouter><PaymentComponent {...mockProps} /></MemoryRouter>);
+
+    const card = screen.getByRole("button", { name: /REF-001.*Active.*INV-001.*Bank Transfer.*Paid at.*Amount/s });
+    expect(card).toHaveClass("rounded-3xl", "border-border-strong", "bg-background-surface");
+    expect(card.querySelectorAll(".text-xs, .text-sm, .text-base")).toHaveLength(0);
+    expect(screen.getAllByText("REF-001")[0]).toHaveClass("text-lg");
+    expect(screen.getAllByText("Active")[0]).toHaveClass("text-lg");
+    const editButton = screen.getByLabelText("Edit payment");
+    expect(editButton).toHaveClass("rounded-3xl");
+    fireEvent.click(card);
+    expect(mockProps.onRowClick).toHaveBeenCalledWith(mockProps.paginatedData[0]);
+    expect(screen.getByRole("columnheader", { name: "Status" })).toBeInTheDocument();
+    expect(screen.getAllByText("Active")).toHaveLength(2);
+  });
+
+  it("should match loading card and table columns", () => {
+    render(<MemoryRouter><PaymentComponent {...mockProps} isLoading={true} paginatedData={[]} /></MemoryRouter>);
+
+    const cards = screen.getAllByRole("status", { name: "Loading payment card" });
+    expect(cards).toHaveLength(5);
+    expect(cards[0]).toHaveClass("rounded-3xl", "border-border-strong", "shadow-small");
+    expect(cards[0].querySelectorAll(".border-t")).toHaveLength(1);
+    const table = screen.getByRole("status", { name: "Loading payment table" });
+    expect(table.querySelectorAll("thead th")).toHaveLength(9);
+    expect(table.querySelectorAll("tbody tr")).toHaveLength(5);
+    expect(table.querySelectorAll("tbody tr:first-child td")).toHaveLength(9);
+  });
+
   it("should trigger search when input changes", () => {
     render(
       <MemoryRouter>

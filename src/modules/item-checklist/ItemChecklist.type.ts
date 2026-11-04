@@ -57,4 +57,10 @@ export type ChecklistCreateResponse = { status: boolean; data: ApiChecklist | nu
 export type ChecklistUpdateRequest = { id: string; body: ChecklistCreatePayload };
 
 export type ChecklistRow = { id: string; checklistNo: string; checklistDate: string; itemCount: number; status: "active" | "inactive" | "unavailable"; orderId: string };
+
+export type ItemChecklistMobileCardProps = {
+  row: ChecklistRow;
+  onClick: (row: ChecklistRow) => void;
+};
+
 export type ChecklistListState = { currentPage: number; totalPages: number; pageSize: number; totalCount: number; rows: ChecklistRow[]; isLoading: boolean; errorMessage: string | null; isEmpty: boolean; setSearchTerm: (value: string) => void; goToPage: (page: number) => void; changePageSize: (size: number) => void; onCreate: () => void; onRowClick: (row: ChecklistRow) => void; onEdit: (row: ChecklistRow) => void; onDownload: (row: ChecklistRow) => void; isDownloadingId: string | null; onBack: () => void };

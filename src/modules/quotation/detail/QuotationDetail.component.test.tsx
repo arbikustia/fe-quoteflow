@@ -71,6 +71,9 @@ describe("QuotationDetailComponent", () => {
     expect(screen.getAllByTestId("quotation-detail-actions")).toHaveLength(2);
     expect(screen.getAllByText("REGULER").length).toBeGreaterThan(0);
     expect(screen.getAllByText("Speaker").length).toBeGreaterThan(0);
+    const qtyElement = screen.getByText("Qty: 2");
+    expect(qtyElement.className).not.toContain("bg-action-primary-subtle");
+    expect(qtyElement.className).toContain("text-lg");
     expect(screen.queryByText("Audio Package")).toBeNull();
     expect(screen.getAllByText("PIC").length).toBeGreaterThan(0);
     expect(screen.getAllByText("Sinta").length).toBeGreaterThan(0);
@@ -84,6 +87,14 @@ describe("QuotationDetailComponent", () => {
     expect(screen.queryByText("item-1")).toBeNull();
     expect(screen.queryByText("project-1")).toBeNull();
     expect(screen.queryByText("project-item-1 · item-2")).toBeNull();
+    const transactionSection = screen.getByText("Transaction & Event").closest("section");
+    const rentalSection = screen.getByText("Rental Items").closest("section");
+    expect(transactionSection?.className).toContain("rounded-3xl");
+    expect(rentalSection?.className).toContain("rounded-3xl");
+    expect(transactionSection?.parentElement?.className).toContain("xl:[&_dl]:grid-cols-4");
+    expect(rentalSection?.parentElement?.parentElement?.className).toContain("lg:grid-cols-[minmax(0,2fr)_minmax(20rem,1fr)]");
+    const moreOptionsButtons = screen.getAllByTestId("quotation-detail-actions");
+    expect(moreOptionsButtons[0].className).toContain("rounded-3xl");
   });
 
   it("should render rental projects only for project service", (): void => {
@@ -97,6 +108,21 @@ describe("QuotationDetailComponent", () => {
     expect(screen.getAllByText("PROJECT").length).toBeGreaterThan(0);
     expect(screen.getAllByText("Audio Package").length).toBeGreaterThan(0);
     expect(screen.queryByText("Speaker")).toBeNull();
+  });
+
+  it("should render responsive detail sections while loading", (): void => {
+    render(<MemoryRouter><QuotationDetailComponent {...{ ...createProps(null), isLoading: true }} /></MemoryRouter>);
+
+    const skeleton = screen.getByRole("status", { name: "Loading quotation detail" });
+    expect(skeleton.querySelectorAll("section")).toHaveLength(5);
+    expect(skeleton.querySelector("aside")).not.toBeNull();
+    expect(skeleton.querySelector(".sm\\:grid-cols-2")).not.toBeNull();
+    expect(skeleton.querySelector('[aria-label="Loading pricing summary"]')).not.toBeNull();
+    const transactionSkeleton = skeleton.querySelector('[aria-label="Loading transaction and event"]');
+    expect(transactionSkeleton?.querySelector(".xl\\:grid-cols-4")).not.toBeNull();
+    expect(transactionSkeleton?.nextElementSibling?.className).toContain("lg:grid-cols-[minmax(0,2fr)_minmax(20rem,1fr)]");
+    expect(screen.queryByText("QUO-001")).toBeNull();
+    expect(screen.queryByText("Quotation detail is unavailable.")).toBeNull();
   });
 
   it("should render unavailable state", (): void => {

@@ -1,6 +1,6 @@
 import type { CalendarEventItem } from "@/components/Calendar";
 
-export type DashboardRoute = "/order" | "/order/create" | "/return" | "/document" | "/document/quotation" | "/item-checklist" | "/master-main" | "/master-voucher" | "/report" | "/calendar" | "/activity-log";
+export type DashboardRoute = "/order" | "/order/create" | "/return" | "/item-return" | "/document" | "/document/quotation" | "/item-checklist" | "/master-main" | "/master-voucher" | "/report" | "/calendar" | "/activity-log";
 
 export type DashboardOrder = {
   id: string;

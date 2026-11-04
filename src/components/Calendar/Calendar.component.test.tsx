@@ -26,4 +26,21 @@ describe("CalendarComponent", () => {
     expect(mobileContainer).not.toHaveTextContent("Event 4");
     expect(mobileContainer?.querySelector("button span.hidden.lg\\:inline")).toHaveTextContent("09:00");
   });
+
+  it("should trigger onDateClick when a current month day cell is clicked", (): void => {
+    const handleDateClick = jest.fn();
+    const { container } = render(
+      <CalendarComponent
+        events={[]}
+        currentDate={new Date(2026, 10, 2)}
+        onDateClick={handleDateClick}
+      />,
+    );
+
+    const clickableCell = container.querySelector('[role="button"]');
+    expect(clickableCell).toBeInTheDocument();
+
+    clickableCell?.dispatchEvent(new MouseEvent("click", { bubbles: true }));
+    expect(handleDateClick).toHaveBeenCalled();
+  });
 });

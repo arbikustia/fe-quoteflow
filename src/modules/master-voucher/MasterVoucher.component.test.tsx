@@ -76,7 +76,16 @@ describe("MasterVoucherComponent", () => {
     expect(onBack).toHaveBeenCalledTimes(1);
   });
 
+  it("should render quotation-matched loading skeletons", () => {
+    renderWithRouter({ ...defaultProps, isLoading: true });
 
+    expect(screen.getAllByRole("status", { name: "Loading voucher card" })).toHaveLength(5);
+    const tableSkeleton = screen.getByRole("status", { name: "Loading voucher table" });
+
+    expect(tableSkeleton.querySelectorAll("th")).toHaveLength(7);
+    expect(tableSkeleton.querySelectorAll("tbody tr:first-child td")).toHaveLength(7);
+    expect(tableSkeleton.querySelectorAll("tbody tr:first-child td:last-child span")).toHaveLength(2);
+  });
 
   it("matches snapshot", () => {
     const { asFragment } = renderWithRouter();

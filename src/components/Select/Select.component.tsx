@@ -18,6 +18,7 @@ const _getOptions = (options: SelectOption[]): SelectOption[] => options.filter(
 export const Select = (props: SelectProps): ReactElement => {
   const { id, label, placeholder, value, options, onChange, required, disabled, errorMessage, className = "", selectClassName = "", labelClassName = "", popupClassName = "" } = props;
   const errorId = `${id}-error`;
+  const isError = Boolean(errorMessage);
 
   /**
    * Handle Ant Design selection.
@@ -36,8 +37,8 @@ export const Select = (props: SelectProps): ReactElement => {
         id={id}
         aria-label={label}
         aria-required={required}
-        aria-invalid={Boolean(errorMessage)}
-        aria-describedby={errorMessage ? errorId : undefined}
+        aria-invalid={isError}
+        aria-describedby={isError ? errorId : undefined}
         value={value === "" ? undefined : value}
         options={_getOptions(options)}
         showSearch
@@ -46,9 +47,16 @@ export const Select = (props: SelectProps): ReactElement => {
         placeholder={placeholder}
         onChange={handleChange}
         disabled={disabled}
-        status={errorMessage ? "error" : undefined}
-        className={`h-14 w-full [&_.ant-select-selector]:!rounded-2xl [&_.ant-select-content]:!text-xl [&_.ant-select-content]:!font-normal ${selectClassName}`}
-        style={{ "--ant-select-border-radius": "16px" } as React.CSSProperties}
+        status={isError ? "error" : undefined}
+        className={`h-14 w-full !border-2 [&_.ant-select-selector]:!rounded-2xl [&_.ant-select-content]:!text-xl [&_.ant-select-content]:!font-normal ${
+          isError
+            ? "!border-danger [&_.ant-select-selector]:!border-2 [&_.ant-select-selector]:!border-danger"
+            : "!border-border-strong [&_.ant-select-selector]:!border-2 [&_.ant-select-selector]:!border-border-strong"
+        } ${selectClassName}`}
+        style={{
+          "--ant-select-border-radius": "16px",
+          border: `2px solid ${isError ? "#DC2626" : "var(--border-strong)"}`,
+        } as React.CSSProperties}
         classNames={{ popup: { root: popupClassName } }}
         virtual={false}
       />

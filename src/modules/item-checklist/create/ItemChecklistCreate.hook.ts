@@ -1,6 +1,8 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
+import { useMasterActivityLog } from "@/hooks/useMasterActivityLog";
+
 import type { SelectOption } from "@/components/Select";
 
 import type { ApiRentalOrder } from "@/modules/report/Report.type";
@@ -107,6 +109,7 @@ export const useItemChecklistCreate = (): ChecklistCreateFormState => {
   const isEditMode = Boolean(id);
   const [createChecklist, { isLoading: isCreating }] = useCreateRentalChecklistMutation();
   const [updateChecklist, { isLoading: isUpdating }] = useUpdateRentalChecklistMutation();
+  const { logCreate, logEdit } = useMasterActivityLog("Item Checklist");
   const detailQuery = useGetRentalChecklistByIdQuery(id ?? "", { skip: !id });
   const ordersQuery = useGetRentalOrderOptionsQuery();
   const itemsQuery = useGetAllItemsQuery();
@@ -225,6 +228,13 @@ export const useItemChecklistCreate = (): ChecklistCreateFormState => {
     if (!result.data?.status) {
       setSaveErrorMessage(result.data?.messages.join(" ") || "Unable to save item checklist.");
       return;
+    }
+
+    const checklistName = checklist?.checklist_no ?? selectedOrder?.order_no ?? id ?? "Item Checklist";
+    if (isEditMode) {
+      await logEdit(checklistName);
+    } else {
+      await logCreate(checklistName);
     }
 
     void navigate("/item-checklist");

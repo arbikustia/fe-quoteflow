@@ -42,35 +42,35 @@ export const ItemChecklistDetailComponent = (props: ItemChecklistDetailState): R
   if (isLoading) {
     content = <SkeletonComponent rows={5} columns={[{ width: "25%" }, { width: "20%" }, { width: "10%" }, { width: "10%" }, { width: "10%" }, { width: "10%" }, { width: "10%" }, { width: "5%" }]} />;
   } else if (errorMessage) {
-    content = <p role="alert" className="py-10 text-center text-danger">{errorMessage}</p>;
+    content = <p role="alert" className="py-10 text-center text-lg text-danger">{errorMessage}</p>;
   } else if (!checklist) {
-    content = <p className="py-10 text-center text-text-secondary">Item checklist unavailable.</p>;
+    content = <p className="py-10 text-center text-lg text-text-secondary">Item checklist unavailable.</p>;
   } else {
     content = (
-      <div className="space-y-4 pb-32 sm:space-y-5 lg:pb-8">
-        <section className="rounded-2xl border border-border-default bg-background-surface p-5 sm:p-6">
+      <div className="space-y-6 pb-32 sm:space-y-6 lg:pb-8">
+        <section className="rounded-3xl border border-border-default bg-background-surface p-6 shadow-small sm:p-8 lg:p-10">
           <div className="flex flex-wrap items-start justify-between gap-3">
             <h2 className="min-w-0 break-words text-3xl font-semibold text-text-primary sm:text-2xl">{checklist.checklist_no}</h2>
-            <span className={`w-fit rounded-full px-3 py-1 text-sm font-semibold ${checklist.status === 1 ? "bg-success-subtle text-success-strong" : "bg-background-subtle text-text-secondary"}`}>{statusLabel}</span>
+            <span className={`w-fit rounded-full px-3.5 py-1 text-lg font-semibold ${checklist.status === 1 ? "bg-success-subtle text-success-strong" : "bg-background-subtle text-text-secondary"}`}>{statusLabel}</span>
           </div>
-          <dl className="mt-5 grid gap-4 sm:grid-cols-2">
-            <div><dt className="text-base font-medium text-text-secondary sm:text-xs sm:font-semibold sm:uppercase">Checklist date</dt><dd className="text-xl font-semibold text-text-primary sm:text-sm">{_formatDate(checklist.checklist_date)}</dd></div>
-            <div><dt className="text-base font-medium text-text-secondary sm:text-xs sm:font-semibold sm:uppercase">Items</dt><dd className="text-xl font-semibold text-text-primary sm:text-sm">{checklist.items.length}</dd></div>
+          <dl className="mt-6 grid gap-4 sm:grid-cols-2">
+            <div><dt className="text-lg font-medium text-text-secondary">Checklist date</dt><dd className="mt-1 text-xl font-semibold text-text-primary">{_formatDate(checklist.checklist_date)}</dd></div>
+            <div><dt className="text-lg font-medium text-text-secondary">Items</dt><dd className="mt-1 text-xl font-semibold text-text-primary">{checklist.items.length}</dd></div>
           </dl>
         </section>
-        <section className="rounded-2xl border border-border-default bg-background-surface p-5 sm:p-6">
-          <h2 className="mb-4 text-xl font-bold text-text-primary sm:text-lg sm:font-semibold">Checklist items</h2>
-          {checklist.items.length === 0 ? <p className="text-sm text-text-secondary">No checklist items.</p> : (
+        <section className="rounded-3xl border border-border-default bg-background-surface p-6 shadow-small sm:p-8 lg:p-10">
+          <h2 className="mb-6 text-2xl font-bold text-text-primary sm:text-xl sm:font-semibold">Checklist items</h2>
+          {checklist.items.length === 0 ? <p className="text-lg text-text-secondary">No checklist items.</p> : (
             <>
               <div className="space-y-3 sm:hidden">
                 {checklist.items.map((item) => (
                   <div key={item.id} className="space-y-2 border-t border-border-default pt-3 first:border-0 first:pt-0">
-                    <div className="flex items-start justify-between gap-3"><h3 className="min-w-0 break-words text-xl font-bold text-text-primary">{item.item_name}</h3><span className="shrink-0 rounded-xl bg-action-primary-subtle px-3 py-1 text-sm font-bold text-action-primary">Qty {item.qty}</span></div>
-                    <p className="break-words text-sm text-text-secondary">{item.description}</p>
-                    <p className="text-sm text-text-secondary">Move out: {item.move_out ? "Yes" : "No"} · Move in: {item.move_in ? "Yes" : "No"}</p>
-                    {item.section && <p className="text-sm text-text-secondary">Section: {item.section}</p>}
-                    {item.sign && <p className="text-sm text-text-secondary">Sign: {item.sign}</p>}
-                    {item.remark && <p className="text-sm text-text-secondary">Remark: {item.remark}</p>}
+                    <div className="flex items-start justify-between gap-3"><h3 className="min-w-0 break-words text-xl font-bold text-text-primary">{item.item_name}</h3><span className="shrink-0 rounded-xl bg-action-primary-subtle px-3 py-1 text-lg font-bold text-action-primary">Qty {item.qty}</span></div>
+                    <p className="break-words text-lg text-text-secondary">{item.description}</p>
+                    <p className="text-lg text-text-secondary">Move out: {item.move_out ? "Yes" : "No"} · Move in: {item.move_in ? "Yes" : "No"}</p>
+                    {item.section && <p className="text-lg text-text-secondary">Section: {item.section}</p>}
+                    {item.sign && <p className="text-lg text-text-secondary">Sign: {item.sign}</p>}
+                    {item.remark && <p className="text-lg text-text-secondary">Remark: {item.remark}</p>}
                   </div>
                 ))}
               </div>
@@ -83,7 +83,7 @@ export const ItemChecklistDetailComponent = (props: ItemChecklistDetailState): R
   }
 
   return (
-    <Layout pageTitle="Item Checklist Detail" mobileWhiteBackground={true}>
+    <Layout pageTitle="Item Checklist Detail">
       <PageLayout
         title="Item Checklist Detail"
         subtitle="View item checklist details and item information"
@@ -107,7 +107,9 @@ export const ItemChecklistDetailComponent = (props: ItemChecklistDetailState): R
           </details>
         ) : undefined}
       >
-        {isLoading || errorMessage || !checklist ? <div className="rounded-2xl border border-border-default bg-background-surface p-5">{content}</div> : content}
+        <div className="bg-background-page pb-18 lg:-mt-4 lg:bg-transparent lg:pb-0">
+          {isLoading || errorMessage || !checklist ? <div className="rounded-3xl border border-border-default bg-background-surface p-6 sm:p-8 lg:p-10">{content}</div> : content}
+        </div>
       </PageLayout>
     </Layout>
   );

@@ -3,84 +3,118 @@ import { FiDownload, FiEdit2 } from "react-icons/fi";
 
 import Layout from "../../app/layout";
 import { PageLayout } from "../../app/shared/PageLayout";
-import { MasterDataCard } from "../../components/MasterDataCard";
 import { Pagination } from "../../components/Pagination";
 import { SearchFilter } from "../../components/SearchFilter";
-import { CardSkeletonComponent, SkeletonComponent } from "../../components/Skeleton";
 import type { TableColumn } from "../../components/Table";
 import Table from "../../components/Table";
 
 import type { MasterVoucherProps, VoucherData } from "./MasterVoucher.type";
 
 /**
- * Build voucher table columns.
+ * Render voucher row number.
  * @param {number} currentPage - Current page
  * @param {number} pageSize - Page size
- * @param {(voucher: VoucherData) => void} onEdit - Edit handler
- * @param {((voucher: VoucherData) => void) | undefined} onDownload - Download handler
- * @returns {TableColumn<VoucherData>[]} Voucher columns
+ * @param {number} index - Row index
+ * @returns {React.ReactElement} Number cell
  */
-const _getColumns = (currentPage: number, pageSize: number, onEdit: (voucher: VoucherData) => void, onDownload?: (voucher: VoucherData) => void): TableColumn<VoucherData>[] => {
-  /**
-   * Render row number.
-   * @param {VoucherData} _row - Voucher row
-   * @param {number} index - Row index
-   * @returns {React.ReactElement} Number cell
-   */
-  const renderNo = (_row: VoucherData, index: number): React.ReactElement => <span className="text-sm text-brand-text-medium">{(currentPage - 1) * pageSize + index + 1}</span>;
-  /**
-   * Render discount.
-   * @param {VoucherData} row - Voucher row
-   * @returns {string} Discount label
-   */
-  const renderDiscount = (row: VoucherData): string => `${row.discountPercent}%`;
-  /**
-   * Render status.
-   * @param {VoucherData} row - Voucher row
-   * @returns {React.ReactElement} Status cell
-   */
-  const renderStatus = (row: VoucherData): React.ReactElement => <span className={`rounded-full px-3 py-1 text-xs font-bold uppercase ${row.status === "active" ? "bg-green-100 text-green-600" : "bg-red-100 text-red-600"}`}>{row.status}</span>;
-  /**
-   * Render creation date.
-   * @param {VoucherData} row - Voucher row
-   * @returns {string} Creation date
-   */
-  const renderDate = (row: VoucherData): string => row.createAt ?? "-";
-  /**
-   * Render action buttons.
-   * @param {VoucherData} row - Voucher row
-   * @returns {React.ReactElement} Action buttons
-   */
-  const renderActions = (row: VoucherData): React.ReactElement => {
-    /**
-     * Handle voucher download.
-     * @param {React.MouseEvent} event - Click event
-     * @returns {void} No return value
-     */
-    const handleDownload = (event: React.MouseEvent): void => {
-      event.stopPropagation();
-      onDownload?.(row);
-    };
-    /**
-     * Handle voucher edit.
-     * @param {React.MouseEvent} event - Click event
-     * @returns {void} No return value
-     */
-    const handleEdit = (event: React.MouseEvent): void => {
-      event.stopPropagation();
-      onEdit(row);
-    };
+const _renderNumber = (currentPage: number, pageSize: number, index: number): React.ReactElement => (
+  <span className="text-lg text-text-secondary">{(currentPage - 1) * pageSize + index + 1}</span>
+);
 
-    return <div className="flex items-center justify-center gap-2"><button type="button" onClick={handleDownload} className="cursor-pointer rounded-lg p-1.5 text-brand-text-medium transition-colors hover:bg-brand-blue-light hover:text-brand-blue" title="Download voucher" aria-label={`Download voucher ${row.code}`}><FiDownload className="h-4 w-4" /></button><button type="button" onClick={handleEdit} className="cursor-pointer rounded-lg p-1.5 text-brand-text-medium transition-colors hover:bg-brand-blue-light hover:text-brand-blue" title="Edit" aria-label={`Edit voucher ${row.code}`}><FiEdit2 className="h-4 w-4" /></button></div>;
+/**
+ * Render voucher name.
+ * @param {VoucherData} voucher - Voucher row
+ * @returns {React.ReactElement} Name cell
+ */
+const _renderName = (voucher: VoucherData): React.ReactElement => (
+  <span className="text-lg font-medium text-text-primary">{voucher.name}</span>
+);
+
+/**
+ * Render voucher code.
+ * @param {VoucherData} voucher - Voucher row
+ * @returns {React.ReactElement} Code cell
+ */
+const _renderCode = (voucher: VoucherData): React.ReactElement => (
+  <span className="text-lg text-text-secondary">{voucher.code}</span>
+);
+
+/**
+ * Render voucher discount.
+ * @param {VoucherData} voucher - Voucher row
+ * @returns {React.ReactElement} Discount cell
+ */
+const _renderDiscount = (voucher: VoucherData): React.ReactElement => (
+  <span className="text-lg text-text-secondary">{voucher.discountPercent}%</span>
+);
+
+/**
+ * Render voucher status.
+ * @param {VoucherData} voucher - Voucher row
+ * @returns {React.ReactElement} Status cell
+ */
+const _renderStatus = (voucher: VoucherData): React.ReactElement => (
+  <span className={`inline-flex rounded-full px-4 py-1.5 text-lg font-semibold uppercase ${voucher.status === "active" ? "bg-badge-success-subtle text-badge-success" : "bg-badge-danger-subtle text-badge-danger"}`}>
+    {voucher.status}
+  </span>
+);
+
+/**
+ * Render voucher creation date.
+ * @param {VoucherData} voucher - Voucher row
+ * @returns {React.ReactElement} Date cell
+ */
+const _renderDate = (voucher: VoucherData): React.ReactElement => (
+  <span className="text-lg text-text-secondary">{voucher.createAt ?? "-"}</span>
+);
+
+/**
+ * Render voucher row actions.
+ * @param {VoucherData} voucher - Voucher row
+ * @param {MasterVoucherProps["onEdit"]} onEdit - Edit handler
+ * @param {MasterVoucherProps["onDownload"]} onDownload - Download handler
+ * @returns {React.ReactElement} Action cell
+ */
+const _renderActions = (voucher: VoucherData, onEdit: MasterVoucherProps["onEdit"], onDownload: MasterVoucherProps["onDownload"]): React.ReactElement => {
+  /** Handle voucher download. */
+  const handleDownload = (event: React.MouseEvent): void => {
+    event.stopPropagation();
+    onDownload?.(voucher);
+  };
+  /** Handle voucher edit. */
+  const handleEdit = (event: React.MouseEvent): void => {
+    event.stopPropagation();
+    onEdit(voucher);
   };
 
+  return (
+    <div className="flex items-center justify-center gap-1">
+      <button type="button" onClick={handleDownload} className="cursor-pointer rounded-3xl p-2.5 text-text-secondary hover:bg-action-primary-subtle hover:text-action-primary" title="Download voucher" aria-label={`Download voucher ${voucher.code}`}>
+        <FiDownload className="h-5 w-5" />
+      </button>
+      <button type="button" onClick={handleEdit} className="cursor-pointer rounded-3xl p-2.5 text-text-secondary hover:bg-action-primary-subtle hover:text-action-primary" title="Edit voucher" aria-label={`Edit voucher ${voucher.code}`}>
+        <FiEdit2 className="h-5 w-5" />
+      </button>
+    </div>
+  );
+};
+
+/**
+ * Build voucher table columns.
+ * @param {MasterVoucherProps} props - Component props
+ * @returns {TableColumn<VoucherData>[]} Voucher columns
+ */
+const _getColumns = (props: MasterVoucherProps): TableColumn<VoucherData>[] => {
+  const renderNumber = (_voucher: VoucherData, index: number): React.ReactElement => _renderNumber(props.currentPage, props.pageSize, index);
+  const renderActions = (voucher: VoucherData): React.ReactElement => _renderActions(voucher, props.onEdit, props.onDownload);
+
   return [
-    { key: "no", header: "No", align: "center", render: renderNo },
-    { key: "name", header: "Name" },
-    { key: "code", header: "Voucher Code", mobile: { primary: true } },
-    { key: "discountPercent", header: "Discount (%)", align: "center", render: renderDiscount, mobile: { primary: true } },
-    { key: "status", header: "Status", align: "center", render: renderStatus },
-    { key: "createAt", header: "Created At", render: renderDate },
+    { key: "no", header: "No", align: "center", render: renderNumber },
+    { key: "name", header: "Name", render: _renderName },
+    { key: "code", header: "Voucher Code", render: _renderCode },
+    { key: "discountPercent", header: "Discount (%)", align: "center", render: _renderDiscount },
+    { key: "status", header: "Status", align: "center", render: _renderStatus },
+    { key: "createAt", header: "Created At", render: _renderDate },
     { key: "actions", header: "Action", align: "center", render: renderActions },
   ];
 };
@@ -91,16 +125,77 @@ const _getColumns = (currentPage: number, pageSize: number, onEdit: (voucher: Vo
  * @returns {React.ReactElement | null} List state
  */
 const _renderListState = (props: MasterVoucherProps): React.ReactElement | null => {
-  if (props.isLoading) return <p className="py-10 text-center text-sm text-brand-text-medium">Loading vouchers…</p>;
+  if (props.isMissingData) return <p className="py-10 text-center text-lg text-danger">Voucher data is unavailable. Please try again.</p>;
 
-  if (props.isMissingData) return <p className="py-10 text-center text-sm text-red-600">Voucher data is unavailable. Please try again.</p>;
+  if (props.errorMessage) return <p className="py-10 text-center text-lg text-danger">{props.errorMessage}</p>;
 
-  if (props.errorMessage) return <p className="py-10 text-center text-sm text-red-600">{props.errorMessage}</p>;
-
-  if (props.isEmpty) return <p className="py-10 text-center text-sm text-brand-text-medium">No vouchers found.</p>;
+  if (props.isEmpty) return <p className="py-10 text-center text-lg text-text-secondary">No vouchers found.</p>;
 
   return null;
 };
+
+/** Render voucher action skeleton. */
+const _renderActionSkeleton = (): React.ReactElement => (
+  <div className="flex justify-center gap-1">
+    <span className="h-10 w-10 rounded-3xl bg-background-subtle" />
+    <span className="h-10 w-10 rounded-3xl bg-background-subtle" />
+  </div>
+);
+
+/**
+ * Render voucher table skeleton.
+ * @param {MasterVoucherProps} props - Component props
+ * @returns {React.ReactElement} Table skeleton
+ */
+const _renderTableSkeleton = (props: MasterVoucherProps): React.ReactElement => {
+  const columns = _getColumns(props);
+  const widths = ["w-6", "w-40", "w-32", "w-24", "w-28", "w-28"];
+
+  return (
+    <div className="w-full overflow-x-auto" role="status" aria-label="Loading voucher table">
+      <table className="w-full min-w-max border-separate border-spacing-0 whitespace-nowrap">
+        <thead>
+          <tr>
+            {columns.map((column, index) => (
+              <th key={column.key} className={`bg-table-header px-5 py-4 text-[13px] font-bold uppercase tracking-widest text-text-secondary ${column.align === "center" ? "text-center" : "text-left"} ${index === 0 ? "rounded-l-3xl" : ""} ${index === columns.length - 1 ? "rounded-r-3xl" : ""}`}>
+                {column.header}
+              </th>
+            ))}
+          </tr>
+        </thead>
+        <tbody>
+          {Array.from({ length: 5 }, (_value, rowIndex) => (
+            <tr key={rowIndex} className="animate-pulse">
+              {columns.map((column, columnIndex) => (
+                <td key={column.key} className={`border-b border-border-default px-5 py-4 ${column.align === "center" ? "text-center" : "text-left"}`}>
+                  {column.key === "actions" ? _renderActionSkeleton() : <span className={`inline-block h-5 rounded-3xl bg-background-subtle align-middle ${column.key === "status" ? "w-28 rounded-full" : widths[columnIndex]}`} />}
+                </td>
+              ))}
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
+};
+
+/**
+ * Render voucher mobile card skeleton.
+ * @param {number} key - Skeleton key
+ * @returns {React.ReactElement} Card skeleton
+ */
+const _renderMobileCardSkeleton = (key: number): React.ReactElement => (
+  <div key={key} className="animate-pulse rounded-3xl border border-border-strong bg-background-surface p-5 shadow-small" role="status" aria-label="Loading voucher card">
+    <div className="flex flex-wrap items-center justify-between gap-3">
+      <span className="h-7 w-32 rounded-3xl bg-background-subtle" />
+      <span className="h-8 w-24 rounded-full bg-background-subtle" />
+    </div>
+    <div className="mt-4 flex flex-wrap items-end justify-between gap-x-4 gap-y-3 border-t border-border-default pt-4">
+      <div><div className="h-7 w-20 rounded-3xl bg-background-subtle" /><div className="mt-1 h-7 w-28 rounded-3xl bg-background-subtle" /></div>
+      <div className="text-right"><div className="ml-auto h-7 w-20 rounded-3xl bg-background-subtle" /><div className="mt-1 h-7 w-28 rounded-3xl bg-background-subtle" /></div>
+    </div>
+  </div>
+);
 
 /**
  * Render voucher mobile card.
@@ -109,19 +204,19 @@ const _renderListState = (props: MasterVoucherProps): React.ReactElement | null 
  * @returns {React.ReactElement} Voucher card
  */
 const _renderVoucherCard = (voucher: VoucherData, onEdit: MasterVoucherProps["onEdit"]): React.ReactElement => {
-  /**
-   * Open voucher editing.
-   * @returns {void} No return value
-   */
   const handleClick = (): void => onEdit(voucher);
 
   return (
-    <MasterDataCard title={voucher.code} status={voucher.status} isLargeText={true} onClick={handleClick}>
-      <span className="grid gap-2 text-xl text-text-secondary">
-        <span>Discount {voucher.discountPercent}%</span>
-        <span>Created {voucher.createAt || "-"}</span>
+    <button type="button" onClick={handleClick} className="group block w-full min-w-0 rounded-3xl border border-border-strong bg-background-surface p-5 text-left shadow-small transition-colors hover:border-border-strong hover:bg-background-subtle/40 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-action-primary">
+      <span className="flex min-w-0 flex-wrap items-center justify-between gap-3">
+        <span className="min-w-0 break-words text-xl font-semibold text-text-primary">{voucher.code}</span>
+        <span className={`rounded-full px-3.5 py-1 text-lg font-semibold uppercase ${voucher.status === "active" ? "bg-badge-success-subtle text-badge-success" : "bg-badge-danger-subtle text-badge-danger"}`}>{voucher.status}</span>
       </span>
-    </MasterDataCard>
+      <span className="mt-4 flex flex-wrap items-end justify-between gap-x-4 gap-y-3 border-t border-border-default pt-4">
+        <span className="min-w-0"><span className="block text-lg text-text-tertiary">Discount</span><span className="mt-1 block text-lg font-medium text-text-primary">{voucher.discountPercent}%</span></span>
+        <span className="min-w-0 text-right"><span className="block text-lg text-text-tertiary">Created</span><span className="mt-1 block text-lg font-medium text-text-primary">{voucher.createAt ?? "-"}</span></span>
+      </span>
+    </button>
   );
 };
 
@@ -131,14 +226,17 @@ const _renderVoucherCard = (voucher: VoucherData, onEdit: MasterVoucherProps["on
  * @returns {React.ReactElement} Mobile element
  */
 const _renderMobile = (props: MasterVoucherProps): React.ReactElement => {
-  /**
-   * Update search term.
-   * @param {React.ChangeEvent<HTMLInputElement>} event - Change event
-   * @returns {void} No return value
-   */
   const handleSearch = (event: React.ChangeEvent<HTMLInputElement>): void => props.setSearchTerm(event.target.value);
 
-  return <div className="flex min-w-0 flex-col gap-4 pt-2 pb-16 lg:hidden"><SearchFilter placeholder="Search voucher" onChange={handleSearch} isRoundedFull={true} className="w-full sm:w-full" inputClassName="text-lg placeholder:text-lg" /><div className="min-w-0 space-y-3">{props.isLoading ? <CardSkeletonComponent count={5} /> : _renderListState(props) ?? props.paginatedData.map((voucher) => <React.Fragment key={voucher.id}>{_renderVoucherCard(voucher, props.onEdit)}</React.Fragment>)}</div><Pagination currentPage={props.currentPage} totalPages={props.totalPages} pageSize={props.pageSize} onPageChange={props.goToPage} onPageSizeChange={props.changePageSize} totalItems={props.totalCount} isCompact className="mt-2 w-full rounded-2xl border border-border-default bg-background-surface px-4 py-3 shadow-xs" /></div>;
+  return (
+    <div className="flex min-w-0 flex-col gap-4 pb-16 pt-2 lg:hidden">
+      <SearchFilter placeholder="Search voucher" onChange={handleSearch} isRoundedFull={true} className="w-full sm:w-full" inputClassName="!h-16 text-xl placeholder:text-xl" />
+      <div className="flex min-w-0 flex-col gap-4">
+        {props.isLoading ? Array.from({ length: 5 }, (_value, index) => _renderMobileCardSkeleton(index)) : _renderListState(props) ?? props.paginatedData.map((voucher) => <React.Fragment key={voucher.id}>{_renderVoucherCard(voucher, props.onEdit)}</React.Fragment>)}
+      </div>
+      <Pagination currentPage={props.currentPage} totalPages={props.totalPages} pageSize={props.pageSize} onPageChange={props.goToPage} onPageSizeChange={props.changePageSize} totalItems={props.totalCount} isCompact={true} className="w-full rounded-3xl border border-border-default bg-background-surface px-5 py-4 shadow-xs" />
+    </div>
+  );
 };
 
 /**
@@ -147,16 +245,20 @@ const _renderMobile = (props: MasterVoucherProps): React.ReactElement => {
  * @returns {React.ReactElement} Desktop element
  */
 const _renderDesktop = (props: MasterVoucherProps): React.ReactElement => {
-  const columns = _getColumns(props.currentPage, props.pageSize, props.onEdit, props.onDownload);
-
-  /**
-   * Update search term.
-   * @param {React.ChangeEvent<HTMLInputElement>} event - Change event
-   * @returns {void} No return value
-   */
   const handleSearch = (event: React.ChangeEvent<HTMLInputElement>): void => props.setSearchTerm(event.target.value);
 
-  return <div className="hidden lg:flex rounded-4xl border border-brand-gray-light bg-brand-white px-6 shadow-xs md:flex-1 md:flex-col md:overflow-hidden md:mt-6"><div className="flex items-center justify-between gap-4 py-6"><SearchFilter placeholder="Search voucher" onChange={handleSearch} /><button type="button" onClick={props.onCreate} className="rounded-xl bg-brand-blue h-14 px-6 text-sm font-semibold text-brand-white">Create Voucher</button></div><div className="flex-1 overflow-auto">{props.isLoading ? <SkeletonComponent rows={5} columns={[{ width: "8%" }, { width: "25%" }, { width: "20%" }, { width: "20%" }, { width: "15%" }, { width: "12%" }]} /> : _renderListState(props) ?? <Table data={props.paginatedData} columns={columns} isDetail={false} keyExtractor={(row: VoucherData) => row.id} />}</div><Pagination currentPage={props.currentPage} totalPages={props.totalPages} pageSize={props.pageSize} onPageChange={props.goToPage} onPageSizeChange={props.changePageSize} totalItems={props.totalCount} /></div>;
+  return (
+    <div className="hidden rounded-3xl border border-border-default bg-background-surface px-6 pb-6 pt-0 shadow-xs md:mt-6 md:flex md:flex-1 md:flex-col md:overflow-hidden lg:flex">
+      <div className="flex items-center justify-between gap-4 border-b border-border-default py-6">
+        <SearchFilter placeholder="Search voucher" onChange={handleSearch} isRoundedFull={true} inputClassName="text-lg placeholder:text-lg" />
+        <button type="button" onClick={props.onCreate} className="h-14 rounded-2xl bg-action-primary px-6 text-lg font-semibold text-text-inverse hover:bg-action-primary-hover focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring">Create Voucher</button>
+      </div>
+      <div className="flex-1 overflow-auto">
+        {props.isLoading ? _renderTableSkeleton(props) : _renderListState(props) ?? <Table data={props.paginatedData} columns={_getColumns(props)} isDetail={false} keyExtractor={(row: VoucherData): string => row.id} />}
+      </div>
+      <Pagination currentPage={props.currentPage} totalPages={props.totalPages} pageSize={props.pageSize} onPageChange={props.goToPage} onPageSizeChange={props.changePageSize} totalItems={props.totalCount} className="pt-4" />
+    </div>
+  );
 };
 
 /**
@@ -166,10 +268,19 @@ const _renderDesktop = (props: MasterVoucherProps): React.ReactElement => {
  */
 export const MasterVoucherComponent = (props: MasterVoucherProps): React.ReactElement => {
   const createButton = (
-    <button type="button" onClick={props.onCreate} className="h-14 rounded-full border-2 border-brand-blue bg-background-surface px-6 text-sm font-bold text-brand-blue transition-colors hover:bg-action-primary-subtle focus:outline-none focus:ring-2 focus:ring-focus-ring/30">
+    <button type="button" onClick={props.onCreate} className="h-14 rounded-full border-2 border-action-primary bg-background-surface px-6 text-lg font-bold text-action-primary transition-colors hover:bg-action-primary-subtle focus:outline-none focus:ring-2 focus:ring-focus-ring/30 lg:hidden">
       Create New
     </button>
   );
 
-  return <Layout pageTitle="Voucher List" mobileWhiteBackground={true}><PageLayout title="Voucher List" subtitle="Manage discount codes and vouchers" breadcrumbs={["Master", "Master Voucher"]} headerRight={createButton} mobileHeaderClassName="px-0" mobileTitleClassName="text-4xl" onBack={props.onBack}><div className="relative flex h-full flex-col bg-background-surface px-0 pb-18 lg:-mt-4 lg:bg-transparent lg:px-0 lg:pb-0">{_renderMobile(props)}{_renderDesktop(props)}</div></PageLayout></Layout>;
+  return (
+    <Layout pageTitle="Voucher List">
+      <PageLayout title="Voucher List" subtitle="Manage discount codes and vouchers" breadcrumbs={["Master", "Master Voucher"]} headerRight={createButton} mobileHeaderClassName="px-0" mobileTitleClassName="text-4xl" onBack={props.onBack}>
+        <div className="relative flex h-full flex-col bg-background-page px-0 pb-18 lg:-mt-4 lg:bg-transparent lg:px-0 lg:pb-0">
+          {_renderMobile(props)}
+          {_renderDesktop(props)}
+        </div>
+      </PageLayout>
+    </Layout>
+  );
 };

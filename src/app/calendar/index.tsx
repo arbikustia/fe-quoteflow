@@ -1,6 +1,6 @@
 import type { ReactElement } from "react";
 
-import ResponsiveLayout from "../shared/ResponsiveLayout";
+import Layout from "../layout";
 import CalendarContainer from "../../modules/calendar";
 
 /**
@@ -9,8 +9,8 @@ import CalendarContainer from "../../modules/calendar";
  */
 export default function CalendarPage(): ReactElement {
   return (
-    <ResponsiveLayout>
+    <Layout pageTitle="Calendar">
       <CalendarContainer />
-    </ResponsiveLayout>
+    </Layout>
   );
 }

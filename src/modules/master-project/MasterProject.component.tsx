@@ -1,13 +1,11 @@
 import type { ChangeEvent, ReactElement } from "react";
-import { Fragment } from "react";
+import * as React from "react";
 import { FiEdit2 } from "react-icons/fi";
 
 import Layout from "../../app/layout";
 import { PageLayout } from "../../app/shared/PageLayout";
-import { MasterDataCard } from "../../components/MasterDataCard";
 import { Pagination } from "../../components/Pagination";
 import { SearchFilter } from "../../components/SearchFilter";
-import { CardSkeletonComponent, SkeletonComponent } from "../../components/Skeleton";
 import type { TableColumn } from "../../components/Table";
 import Table from "../../components/Table";
 
@@ -23,7 +21,7 @@ import type { MasterProjectProps, ProjectData } from "./MasterProject.type";
  * @returns {React.ReactElement} span
  */
 const _renderNo = (_row: ProjectData, index: number, currentPage: number, pageSize: number): React.ReactElement => (
-  <span className="text-brand-text-medium font-medium text-sm">
+  <span className="text-lg text-text-secondary">
     {getProjectRowNumber(currentPage, pageSize, index)}
   </span>
 );
@@ -34,10 +32,31 @@ const _renderNo = (_row: ProjectData, index: number, currentPage: number, pageSi
  * @returns {React.ReactElement} span
  */
 const _renderStatus = (row: ProjectData): React.ReactElement => (
-  <span className={"px-3 py-1 rounded-full text-xs font-bold uppercase " + (row.status === "active" ? "bg-green-100 text-green-600" : "bg-red-100 text-red-600")}>
+  <span className={`inline-flex rounded-full px-4 py-1.5 text-lg font-semibold uppercase ${row.status === "active" ? "bg-badge-success-subtle text-badge-success" : "bg-badge-danger-subtle text-badge-danger"}`}>
     {row.status}
   </span>
 );
+
+/**
+ * Render project name.
+ * @param {ProjectData} row - Project row
+ * @returns {ReactElement} Name cell
+ */
+const _renderName = (row: ProjectData): ReactElement => <span className="text-lg font-medium text-text-primary">{row.name}</span>;
+
+/**
+ * Render project remark.
+ * @param {ProjectData} row - Project row
+ * @returns {ReactElement} Remark cell
+ */
+const _renderRemark = (row: ProjectData): ReactElement => <span className="text-lg text-text-secondary">{row.remark}</span>;
+
+/**
+ * Render creator.
+ * @param {ProjectData} row - Project row
+ * @returns {ReactElement} Creator cell
+ */
+const _renderCreatedBy = (row: ProjectData): ReactElement => <span className="text-lg text-text-secondary">{row.createBy}</span>;
 
 /**
  * Get Basic Columns
@@ -61,15 +80,15 @@ const _getBasicColumns = (currentPage: number, pageSize: number): TableColumn<Pr
       align: "center",
       render: renderNoWrapper,
     },
-    { key: "name", header: "Project Name", mobile: { primary: true } },
-    { key: "remark", header: "Remark" },
+    { key: "name", header: "Project Name", render: _renderName },
+    { key: "remark", header: "Remark", render: _renderRemark },
     {
       key: "status",
       header: "Status",
       align: "center",
       render: _renderStatus,
     },
-    { key: "createBy", header: "Created By" },
+    { key: "createBy", header: "Created By", render: _renderCreatedBy },
   ];
 };
 
@@ -99,11 +118,13 @@ const _getColumns = (currentPage: number, pageSize: number, onEdit: MasterProjec
 
     return (
       <button
+        type="button"
         onClick={handleClick}
-        className="p-1.5 text-brand-text-medium hover:text-brand-blue hover:bg-brand-blue-light rounded-lg transition-colors cursor-pointer"
-        title="Edit"
+        className="cursor-pointer rounded-3xl p-2.5 text-text-secondary hover:bg-action-primary-subtle hover:text-action-primary"
+        title="Edit project"
+        aria-label="Edit project"
       >
-        <FiEdit2 className="w-4 h-4" />
+        <FiEdit2 className="h-5 w-5" />
       </button>
     );
   };
@@ -125,20 +146,16 @@ const _getColumns = (currentPage: number, pageSize: number, onEdit: MasterProjec
  * @returns {ReactElement | null} List state or null
  */
 const _renderListState = (props: MasterProjectProps): ReactElement | null => {
-  if (props.isLoading) {
-    return <p className="py-10 text-center text-sm text-brand-text-medium">Loading projects…</p>;
-  }
-
   if (props.isMissingData) {
-    return <p className="py-10 text-center text-sm text-red-600">Project data is unavailable. Please try again.</p>;
+    return <p className="py-10 text-center text-lg lg:text-sm text-red-600">Project data is unavailable. Please try again.</p>;
   }
 
   if (props.errorMessage) {
-    return <p className="py-10 text-center text-sm text-red-600">{props.errorMessage}</p>;
+    return <p className="py-10 text-center text-lg lg:text-sm text-red-600">{props.errorMessage}</p>;
   }
 
   if (props.isEmpty) {
-    return <p className="py-10 text-center text-sm text-brand-text-medium">No projects found.</p>;
+    return <p className="py-10 text-center text-lg lg:text-sm text-brand-text-medium">No projects found.</p>;
   }
 
   return null;
@@ -151,12 +168,70 @@ const _renderListState = (props: MasterProjectProps): ReactElement | null => {
  * @returns {ReactElement} Project card
  */
 const _renderProjectCard = (project: ProjectData, onEdit: MasterProjectProps["onEdit"]): ReactElement => (
-  <MasterDataCard title={project.name} status={project.status} isLargeText={true} onClick={(): void => onEdit(project)}>
-    <span className="grid gap-2 text-xl text-text-secondary">
-      <span>{project.items.length} item(s)</span>
-      <span className="truncate">{project.remark || "No remark"}</span>
+  <button
+    type="button"
+    onClick={(): void => onEdit(project)}
+    className="group block w-full min-w-0 rounded-3xl border border-border-strong bg-background-surface p-5 text-left shadow-small transition-colors hover:border-border-strong hover:bg-background-subtle/40 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-action-primary"
+  >
+    <span className="flex min-w-0 flex-wrap items-center justify-between gap-3">
+      <span className="min-w-0 break-words text-xl font-semibold text-text-primary">{project.name}</span>
+      <span className={`rounded-full px-3.5 py-1 text-lg font-semibold uppercase ${project.status === "active" ? "bg-badge-success-subtle text-badge-success" : "bg-badge-danger-subtle text-badge-danger"}`}>
+        {project.status}
+      </span>
     </span>
-  </MasterDataCard>
+    <span className="mt-4 flex flex-wrap items-end justify-between gap-x-4 gap-y-3 border-t border-border-default pt-4">
+      <span className="min-w-0 text-lg text-text-secondary">
+        <span className="block text-lg text-text-tertiary">Items</span>
+        <span className="mt-1 block text-lg font-medium text-text-primary">{project.items.length} item(s)</span>
+      </span>
+      <span className="min-w-0 text-lg text-text-secondary">
+        <span className="block text-lg text-text-tertiary">Remark</span>
+        <span className="mt-1 block break-words text-lg font-medium text-text-primary">{project.remark || "No remark"}</span>
+      </span>
+    </span>
+  </button>
+);
+
+/**
+ * Render project table loading geometry.
+ * @param {MasterProjectProps} props - Project list props
+ * @returns {ReactElement} Loading table
+ */
+const _renderTableSkeleton = (props: MasterProjectProps): ReactElement => {
+  const columns = _getColumns(props.currentPage, props.pageSize, props.onEdit);
+  const widths = ["w-6", "w-44", "w-32", "w-28", "w-32"];
+
+  return (
+    <div className="w-full overflow-x-auto" role="status" aria-label="Loading project table">
+      <table className="w-full min-w-max border-separate border-spacing-0 whitespace-nowrap">
+        <thead><tr>{columns.map((column, index) => (
+          <th key={column.key} className={`bg-table-header px-5 py-4 text-[13px] font-bold uppercase tracking-widest text-text-secondary ${column.align === "center" ? "text-center" : "text-left"} ${index === 0 ? "rounded-l-3xl" : ""} ${index === columns.length - 1 ? "rounded-r-3xl" : ""}`}>{column.header}</th>
+        ))}</tr></thead>
+        <tbody>{Array.from({ length: 5 }, (_value, rowIndex) => (
+          <tr key={rowIndex} className="animate-pulse">{columns.map((column, columnIndex) => (
+            <td key={column.key} className={`border-b border-border-default px-5 py-4 ${column.align === "center" ? "text-center" : "text-left"}`}>
+              {column.key === "actions" ? <span className="inline-block h-10 w-10 rounded-3xl bg-background-subtle" /> : <span className={`inline-block h-5 rounded-3xl bg-background-subtle align-middle ${column.key === "status" ? "w-28 rounded-full" : widths[columnIndex]}`} />}
+            </td>
+          ))}</tr>
+        ))}</tbody>
+      </table>
+    </div>
+  );
+};
+
+/**
+ * Render project mobile card loading geometry.
+ * @param {number} key - Skeleton key
+ * @returns {ReactElement} Loading card
+ */
+const _renderMobileCardSkeleton = (key: number): ReactElement => (
+  <div key={key} className="animate-pulse rounded-3xl border border-border-strong bg-background-surface p-5 shadow-small" role="status" aria-label="Loading project card">
+    <div className="flex flex-wrap items-center justify-between gap-3"><span className="h-7 w-40 rounded-3xl bg-background-subtle" /><span className="h-8 w-24 rounded-full bg-background-subtle" /></div>
+    <div className="mt-4 flex flex-wrap items-end justify-between gap-x-4 gap-y-3 border-t border-border-default pt-4">
+      <div><div className="h-7 w-20 rounded-3xl bg-background-subtle" /><div className="mt-1 h-7 w-32 rounded-3xl bg-background-subtle" /></div>
+      <div><div className="h-7 w-20 rounded-3xl bg-background-subtle" /><div className="mt-1 h-7 w-32 rounded-3xl bg-background-subtle" /></div>
+    </div>
+  </div>
 );
 
 /**
@@ -176,9 +251,11 @@ const _handleSearch = (setSearchTerm: MasterProjectProps["setSearchTerm"], event
  */
 const _renderMobile = (props: MasterProjectProps): ReactElement => (
   <div className="flex min-w-0 flex-col gap-4 pb-16 pt-2 lg:hidden">
-    <SearchFilter placeholder="Search project" onChange={_handleSearch.bind(null, props.setSearchTerm)} isRoundedFull={true} className="w-full sm:w-full" inputClassName="text-lg placeholder:text-lg" />
-    <div className="min-w-0 space-y-3">{props.isLoading ? <CardSkeletonComponent count={5} /> : _renderListState(props) ?? props.paginatedData.map((project) => <Fragment key={project.id}>{_renderProjectCard(project, props.onEdit)}</Fragment>)}</div>
-    <Pagination currentPage={props.currentPage} totalPages={props.totalPages} pageSize={props.pageSize} onPageChange={props.goToPage} onPageSizeChange={props.changePageSize} totalItems={props.totalCount} isCompact className="mt-2 w-full rounded-2xl border border-border-default bg-background-surface px-4 py-3 shadow-xs" />
+    <SearchFilter placeholder="Search project" onChange={_handleSearch.bind(null, props.setSearchTerm)} isRoundedFull={true} className="w-full sm:w-full" inputClassName="!h-16 text-xl placeholder:text-xl" />
+    <div className="flex min-w-0 flex-col gap-4">
+      {props.isLoading ? Array.from({ length: 5 }, (_value, index) => _renderMobileCardSkeleton(index)) : _renderListState(props) ?? props.paginatedData.map((project) => <React.Fragment key={project.id}>{_renderProjectCard(project, props.onEdit)}</React.Fragment>)}
+    </div>
+    <Pagination currentPage={props.currentPage} totalPages={props.totalPages} pageSize={props.pageSize} onPageChange={props.goToPage} onPageSizeChange={props.changePageSize} totalItems={props.totalCount} isCompact={true} className="w-full rounded-3xl border border-border-default bg-background-surface px-5 py-4 shadow-xs" />
   </div>
 );
 
@@ -188,13 +265,13 @@ const _renderMobile = (props: MasterProjectProps): ReactElement => (
  * @returns {ReactElement} Desktop list
  */
 const _renderDesktop = (props: MasterProjectProps): ReactElement => (
-  <div className="hidden rounded-4xl border border-brand-gray-light bg-brand-white px-6 shadow-xs lg:flex md:mt-6 md:flex-1 md:flex-col md:overflow-hidden">
-    <div className="flex items-center justify-between gap-4 py-6">
-      <SearchFilter placeholder="Search project" onChange={_handleSearch.bind(null, props.setSearchTerm)} />
-      <button type="button" onClick={props.onCreate} className="h-14 rounded-xl bg-brand-blue px-6 text-sm font-semibold text-brand-white">Create Project</button>
+  <div className="hidden rounded-3xl border border-border-default bg-background-surface px-6 pb-6 pt-0 shadow-xs md:mt-6 md:flex md:flex-1 md:flex-col md:overflow-hidden lg:flex">
+    <div className="flex items-center justify-between gap-4 border-b border-border-default py-6">
+      <SearchFilter placeholder="Search project" onChange={_handleSearch.bind(null, props.setSearchTerm)} isRoundedFull={true} inputClassName="text-lg placeholder:text-lg" />
+      <button type="button" onClick={props.onCreate} className="h-14 rounded-2xl bg-action-primary px-6 text-lg font-semibold text-text-inverse hover:bg-action-primary-hover focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring">Create Project</button>
     </div>
-    <div className="flex-1 overflow-auto">{props.isLoading ? <SkeletonComponent rows={5} columns={[{ width: "8%" }, { width: "35%" }, { width: "25%" }, { width: "20%" }, { width: "12%" }]} /> : _renderListState(props) ?? <Table data={props.paginatedData} columns={_getColumns(props.currentPage, props.pageSize, props.onEdit)} isDetail={false} keyExtractor={(row: ProjectData): string => row.id} />}</div>
-    <Pagination currentPage={props.currentPage} totalPages={props.totalPages} pageSize={props.pageSize} onPageChange={props.goToPage} onPageSizeChange={props.changePageSize} totalItems={props.totalCount} />
+    <div className="flex-1 overflow-auto">{props.isLoading ? _renderTableSkeleton(props) : _renderListState(props) ?? <Table data={props.paginatedData} columns={_getColumns(props.currentPage, props.pageSize, props.onEdit)} isDetail={false} keyExtractor={(row: ProjectData): string => row.id} />}</div>
+    <Pagination currentPage={props.currentPage} totalPages={props.totalPages} pageSize={props.pageSize} onPageChange={props.goToPage} onPageSizeChange={props.changePageSize} totalItems={props.totalCount} className="pt-4" />
   </div>
 );
 
@@ -205,15 +282,15 @@ const _renderDesktop = (props: MasterProjectProps): ReactElement => (
  */
 export const MasterProjectComponent = (props: MasterProjectProps): ReactElement => {
   const createButton = (
-    <button type="button" onClick={props.onCreate} className="h-14 rounded-full border-2 border-brand-blue bg-background-surface px-6 text-sm font-bold text-brand-blue transition-colors hover:bg-action-primary-subtle focus:outline-none focus:ring-2 focus:ring-focus-ring/30">
+    <button type="button" onClick={props.onCreate} className="h-14 rounded-full border-2 border-action-primary bg-background-surface px-6 text-lg font-bold text-action-primary transition-colors hover:bg-action-primary-subtle focus:outline-none focus:ring-2 focus:ring-focus-ring/30 lg:hidden">
       Create New
     </button>
   );
 
   return (
-    <Layout pageTitle="Project List" mobileWhiteBackground={true}>
+    <Layout pageTitle="Project List">
       <PageLayout title="Project List" subtitle="Manage project items and details" breadcrumbs={["Master", "Master Project"]} headerRight={createButton} mobileHeaderClassName="px-0" mobileTitleClassName="text-4xl" onBack={props.onBack}>
-        <div className="relative flex h-full flex-col bg-background-surface px-0 pb-18 lg:-mt-4 lg:bg-transparent lg:px-0 lg:pb-0">
+        <div className="relative flex h-full flex-col bg-background-page px-0 pb-18 lg:-mt-4 lg:bg-transparent lg:px-0 lg:pb-0">
           {_renderMobile(props)}
           {_renderDesktop(props)}
         </div>

@@ -29,14 +29,22 @@ const createProps = (): MasterCustomerCreateFormState => ({
 
 describe("MasterCustomerCreateForm", () => {
   it("should render all required customer fields", () => {
-    render(<MasterCustomerCreateForm {...createProps()} />);
+    const props = createProps();
+    const { container } = render(<MasterCustomerCreateForm {...props} />);
 
     expect(screen.getByText("Customer Name")).toBeTruthy();
     expect(screen.getByText("Email")).toBeTruthy();
     expect(screen.getByText("Phone Number")).toBeTruthy();
     expect(screen.getByText("Address")).toBeTruthy();
     expect(screen.getAllByText("*")).toHaveLength(4);
+    expect(screen.getByRole("button", { name: "Cancel" })).toBeTruthy();
     expect(screen.getByRole("button", { name: "Create Customer" })).toBeTruthy();
+
+    const form = container.querySelector("form");
+    expect(form?.classList.contains("rounded-3xl")).toBe(true);
+
+    fireEvent.click(screen.getByRole("button", { name: "Cancel" }));
+    expect(props.goBack).toHaveBeenCalledTimes(1);
   });
 
   it("should match customer list title typography on mobile and desktop", () => {

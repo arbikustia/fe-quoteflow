@@ -24,7 +24,7 @@ describe("MobileNavigateContainer Test", () => {
     expect(screen.queryByRole("navigation", { name: "Main mobile navigation" })).toBeNull();
   });
 
-  it("should show master data navigation outside master detail routes", () => {
+  it("should show mobile navigation outside master detail routes", () => {
     render(
       React.createElement(
         MemoryRouter,
@@ -33,7 +33,7 @@ describe("MobileNavigateContainer Test", () => {
       ),
     );
 
-    expect(screen.getByRole("button", { name: "Master" })).toBeDefined();
+    expect(screen.getByRole("button", { name: "Home" })).toBeDefined();
   });
 
   const snapshotConfigs = [

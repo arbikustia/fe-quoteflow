@@ -49,6 +49,8 @@ describe("MasterProjectCreateForm", () => {
 
     expect(screen.getAllByRole("heading", { name: "New Project" })[0]).toBeInTheDocument();
     expect(screen.getByText("Camera")).toBeInTheDocument();
+    expect(screen.getByText("Information")).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "Cancel" })).toBeInTheDocument();
     fireEvent.click(screen.getByRole("button", { name: /Camera/ }));
 
     expect(props.toggleItem).toHaveBeenCalledWith(props.items[0]);
@@ -56,8 +58,10 @@ describe("MasterProjectCreateForm", () => {
 
   it("should render details step and forward field changes", () => {
     const props = createProps({ step: 2 });
-    render(<MasterProjectCreateForm {...props} />);
+    const { container } = render(<MasterProjectCreateForm {...props} />);
 
+    expect(container.querySelector('form')?.classList.contains('rounded-3xl')).toBe(true);
+    expect(screen.getByText("Information")).toHaveAttribute("aria-current", "step");
     fireEvent.change(screen.getByLabelText(/project name/i), { target: { value: "Event Project" } });
     fireEvent.change(screen.getByLabelText(/remark/i), { target: { value: "Outdoor event" } });
 

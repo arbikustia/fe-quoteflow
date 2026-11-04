@@ -1,20 +1,24 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import type { SyntheticEvent } from "react";
+import { useEffect, useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 
-import { mapRentalOrder, useGetRentalOrdersQuery } from "@/services/rental-order.service";
+import { useMasterActivityLog } from "@/hooks/useMasterActivityLog";
+
+import { mapRentalOrder, useGetRentalOrdersQuery, useUpdateRentalOrderMutation } from "@/services/rental-order.service";
 
 import type {
   RentalOrderListResponse,
   ReportOrderApiState,
   ReportOrderData,
   ReportOrderPagination,
+  ReportOrderStatusFormProps,
 } from "./Report.type";
 
 /**
  * Hook for report order navigation.
- * @returns {{ goBack: () => void; goToDetail: (order: ReportOrderData) => void }} Navigation functions
+ * @returns {{ goBack: () => void; goToStatus: (order: ReportOrderData) => void }} Navigation functions
  */
-export const useReportOrderNavigation = (): { goBack: () => void; goToDetail: (order: ReportOrderData) => void } => {
+export const useReportOrderNavigation = (): { goBack: () => void; goToStatus: (order: ReportOrderData) => void } => {
   const navigate = useNavigate();
 
   /**
@@ -24,17 +28,15 @@ export const useReportOrderNavigation = (): { goBack: () => void; goToDetail: (o
   const goBack = (): void => { navigate(-1); };
 
   /**
-   * Navigate to order detail page.
+   * Navigate to order status form.
    * @param {ReportOrderData} order - Report order
    * @returns {void}
    */
-  const goToDetail = (order: ReportOrderData): void => {
-    if (order.transactionId) {
-      navigate(`/order/detail/${order.transactionId}`);
-    }
+  const goToStatus = (order: ReportOrderData): void => {
+    navigate(`/report/order/${order.id}/status`, { state: order });
   };
 
-  return { goBack, goToDetail };
+  return { goBack, goToStatus };
 };
 
 /**
@@ -139,10 +141,101 @@ const _deriveReportOrderListState = (queryResult: ReturnType<typeof useGetRental
  * Hook for API-backed report order pagination.
  * @returns {ReportOrderPagination} Report order pagination state and handlers
  */
+/**
+ * Hook for report order status form.
+ * @returns {ReportOrderStatusFormProps} Status form state
+ */
+export const useReportOrderStatusForm = (): ReportOrderStatusFormProps => {
+  const navigate = useNavigate();
+  const location = useLocation();
+  const order = location.state as ReportOrderData | null;
+  const [isActive, setIsActive] = useState(order?.status === 2);
+  const [submissionError, setSubmissionError] = useState<string | null>(null);
+  const [updateRentalOrder, { isLoading: isSubmitting }] = useUpdateRentalOrderMutation();
+  const { logEdit } = useMasterActivityLog("Report Order");
+
+  /**
+   * Update selected status.
+   * @param {boolean} checked - Active status
+   * @returns {void} No return value
+   */
+  const handleStatusChange = (checked: boolean): void => setIsActive(checked);
+
+  /**
+   * Return to report list.
+   * @returns {void} No return value
+   */
+  const goBack = (): void => { void navigate("/report"); };
+
+  /**
+   * Submit complete rental-order payload with updated status.
+   * @param {SyntheticEvent<HTMLFormElement>} event - Form submit event
+   * @returns {Promise<void>} Completion promise
+   */
+  const handleSubmit = async (event?: SyntheticEvent): Promise<void> => {
+    event?.preventDefault();
+
+    if (!order) {
+      setSubmissionError("Order data is unavailable.");
+
+      return;
+    }
+
+    setSubmissionError(null);
+
+    try {
+      const response = await updateRentalOrder({
+        id: order.id,
+        transaction_id: order.transactionId,
+        invoice_id: order.invoiceId,
+        quotation_id: order.quotationId,
+        order_no: order.orderNo,
+        order_date: order.rawOrderDate,
+        notes: order.notes,
+        status: isActive ? 2 : 1,
+      }).unwrap();
+
+      if (!response.status) {
+        setSubmissionError(response.messages?.join(" ") || "Unable to update order status.");
+
+        return;
+      }
+
+      await logEdit(order.orderNo);
+
+      void navigate("/report", { state: { successMessage: "Order status updated successfully." } });
+    } catch {
+      setSubmissionError("Unable to update order status.");
+    }
+  };
+
+  return {
+    orderNo: order?.orderNo ?? null,
+    isActive,
+    isSubmitting,
+    errorMessage: submissionError ?? (!order ? "Order data is unavailable." : null),
+    handleStatusChange,
+    handleSubmit,
+    goBack,
+  };
+};
+
 export const useReportOrderPagination = (): ReportOrderPagination => {
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize, setPageSize] = useState(10);
   const [searchTerm, setSearchTerm] = useState("");
+  const { logView } = useMasterActivityLog("Report Order");
+
+  useEffect(() => {
+    let active = true;
+    void logView().then(() => {
+      if (!active) return;
+    });
+
+    return () => {
+      active = false;
+    };
+  }, [logView]);
 
   const queryResult = useGetRentalOrdersQuery({ pageNumber: currentPage, pageSize, searchTerm });
   const derived = _deriveReportOrderListState(queryResult);

@@ -4,7 +4,6 @@ import { FiCheckCircle, FiDownload, FiEdit2, FiMoreHorizontal } from "react-icon
 import { generateQuotationPDF } from "@/utils/pdfGenerator";
 
 import ConfirmModal from "@/components/ConfirmModal";
-import { SkeletonComponent } from "@/components/Skeleton";
 
 import { quotationToQuoteData } from "../Quotation.helpers";
 import type { ApiQuotation, QuotationDetailState } from "../Quotation.type";
@@ -32,22 +31,127 @@ const _renderDetail = (quotation: ApiQuotation): ReactElement => {
   const isProject = serviceTypeName === "PROJECT";
 
   return (
-    <div className="space-y-4 pb-32 sm:space-y-5 lg:pb-8">
+    <div className="w-full space-y-4 pb-32 sm:space-y-4 lg:pb-8">
       {renderQuotationOverview(quotation)}
-      <div className="grid grid-cols-1 gap-4 sm:gap-5 xl:grid-cols-[minmax(0,1.55fr)_minmax(320px,0.75fr)]">
-        <div className="space-y-4 sm:space-y-5">
+      <div className="space-y-4 sm:space-y-4">
+        <div className="min-w-0 lg:[&_dl]:grid-cols-3 xl:[&_dl]:grid-cols-4">
           {renderTransactionSection(quotation.transaction)}
-          {isRegular && renderItemsSection(quotation.transaction.rental_transaction_items)}
-          {isProject && renderProjectsSection(quotation.transaction.rental_transaction_project)}
         </div>
-        <aside className="space-y-4 sm:space-y-5">
-          {renderPricingSection(quotation.transaction)}
-          {renderVoucherSection(quotation.transaction.voucher)}
-        </aside>
+        <div className="grid min-w-0 grid-cols-1 items-start gap-4 sm:gap-4 lg:grid-cols-[minmax(0,2fr)_minmax(20rem,1fr)]">
+          <div className="min-w-0 space-y-4 sm:space-y-4">
+            {isRegular && renderItemsSection(quotation.transaction.rental_transaction_items)}
+            {isProject && renderProjectsSection(quotation.transaction.rental_transaction_project)}
+          </div>
+          <aside className="min-w-0 space-y-4 sm:space-y-4">
+            {renderPricingSection(quotation.transaction)}
+            {renderVoucherSection(quotation.transaction.voucher)}
+          </aside>
+        </div>
       </div>
     </div>
   );
 };
+
+/**
+ * Render a loading description row in mobile and desktop layouts.
+ * @param {number} index - Row position
+ * @returns {ReactElement} Loading field
+ */
+const _renderSkeletonField = (index: number): ReactElement => (
+  <div key={index} className="grid min-w-0 grid-cols-[minmax(6rem,38%)_minmax(0,1fr)] items-start gap-3 border-b border-border-default/60 py-3 last:border-b-0 sm:block">
+    <span className="h-5 w-20 rounded-3xl bg-background-subtle sm:h-4" />
+    <span className="h-6 w-28 justify-self-end rounded-3xl bg-background-subtle sm:mt-1 sm:h-5 sm:justify-self-start" />
+  </div>
+);
+
+/**
+ * Render loading section with the same header and field grid as detail content.
+ * @param {number} fieldCount - Number of description fields
+ * @param {string} label - Section label
+ * @param {boolean} [isWide] - Expand fields across desktop width
+ * @returns {ReactElement} Loading section
+ */
+const _renderSkeletonSection = (fieldCount: number, label: string, isWide = false): ReactElement => (
+  <section className="min-w-0 overflow-hidden rounded-3xl border border-border-strong bg-background-surface shadow-small" aria-label={label}>
+    <div className="border-b border-border-default px-5 py-4 sm:px-6"><span className="block h-6 w-40 rounded-3xl bg-background-subtle" /></div>
+    <div className={`grid grid-cols-1 gap-x-6 px-5 py-1 sm:grid-cols-2 sm:px-6 sm:py-0 ${isWide ? "lg:grid-cols-3 xl:grid-cols-4" : ""}`}>
+      {Array.from({ length: fieldCount }, (_value, index) => _renderSkeletonField(index))}
+    </div>
+  </section>
+);
+
+/**
+ * Render loading quotation identity and dates.
+ * @returns {ReactElement} Overview skeleton
+ */
+const _renderSkeletonOverview = (): ReactElement => (
+  <section className="min-w-0 rounded-3xl border border-border-strong bg-background-surface p-5 shadow-small sm:p-6">
+    <div className="h-4 w-20 rounded-3xl bg-background-subtle" />
+    <div className="mt-2 flex flex-wrap items-center gap-3">
+      <div className="h-8 w-40 rounded-3xl bg-background-subtle" />
+      <div className="h-7 w-24 rounded-full bg-background-subtle" />
+      <div className="h-7 w-32 rounded-full bg-background-subtle" />
+    </div>
+    <div className="mt-4 grid grid-cols-1 gap-x-8 border-t border-border-default sm:mt-5 sm:grid-cols-2 lg:grid-cols-4">
+      {Array.from({ length: 4 }, (_value, index) => _renderSkeletonField(index))}
+    </div>
+  </section>
+);
+
+/**
+ * Render loading rental lines.
+ * @returns {ReactElement} Rental skeleton
+ */
+const _renderSkeletonRental = (): ReactElement => (
+  <section className="min-w-0 overflow-hidden rounded-3xl border border-border-strong bg-background-surface shadow-small" aria-label="Loading rental content">
+    <div className="border-b border-border-default px-5 py-4 sm:px-6"><div className="h-6 w-36 rounded-3xl bg-background-subtle" /></div>
+    <div className="space-y-4 px-5 py-4 sm:px-6">
+      {Array.from({ length: 2 }, (_value, index) => (
+        <div key={index} className="flex items-start justify-between gap-4 border-b border-border-default pb-4 last:border-0 last:pb-0">
+          <div className="space-y-2"><div className="h-6 w-32 rounded-3xl bg-background-subtle" /><div className="h-5 w-24 rounded-3xl bg-background-subtle" /></div>
+          <div className="space-y-2"><div className="ml-auto h-6 w-16 rounded-3xl bg-background-subtle" /><div className="h-6 w-24 rounded-3xl bg-background-subtle" /></div>
+        </div>
+      ))}
+    </div>
+  </section>
+);
+
+/**
+ * Render loading pricing breakdown and total.
+ * @returns {ReactElement} Pricing skeleton
+ */
+const _renderSkeletonPricing = (): ReactElement => (
+  <section className="min-w-0 overflow-hidden rounded-3xl border border-border-strong bg-background-surface shadow-small" aria-label="Loading pricing summary">
+    <div className="border-b border-border-default px-5 py-4 sm:px-6"><div className="h-6 w-36 rounded-3xl bg-background-subtle" /></div>
+    <div className="px-5 py-1 sm:px-6">
+      {Array.from({ length: 4 }, (_value, index) => _renderSkeletonField(index))}
+    </div>
+  </section>
+);
+
+/**
+ * Render quotation detail loading state at the loaded page breakpoints.
+ * @returns {ReactElement} Responsive detail skeleton
+ */
+const _renderDetailSkeleton = (): ReactElement => (
+  <div className="w-full space-y-4 pb-32 sm:space-y-4 lg:pb-8" role="status" aria-label="Loading quotation detail">
+    <div className="animate-pulse" aria-hidden="true">
+      {_renderSkeletonOverview()}
+      <div className="mt-4 space-y-4 sm:mt-4 sm:space-y-4">
+        {_renderSkeletonSection(10, "Loading transaction and event", true)}
+        <div className="grid min-w-0 grid-cols-1 items-start gap-4 sm:gap-4 lg:grid-cols-[minmax(0,2fr)_minmax(20rem,1fr)]">
+          <div className="min-w-0 space-y-4 sm:space-y-4">
+            {_renderSkeletonRental()}
+          </div>
+          <aside className="min-w-0 space-y-4 sm:space-y-4">
+            {_renderSkeletonPricing()}
+            {_renderSkeletonSection(2, "Loading voucher")}
+          </aside>
+        </div>
+      </div>
+    </div>
+  </div>
+);
 
 /**
  * Resolve approval button label.
@@ -85,10 +189,10 @@ export const QuotationDetailComponent = (props: QuotationDetailState): ReactElem
 
   const headerActions = props.quotation ? (
     <details className="relative shrink-0">
-      <summary data-testid="quotation-detail-actions" className="flex h-14 w-14 cursor-pointer list-none items-center justify-center rounded-2xl border border-border-default text-text-secondary transition-colors hover:bg-background-subtle hover:text-text-primary" aria-label="More options">
+      <summary data-testid="quotation-detail-actions" className="flex h-14 w-14 cursor-pointer list-none items-center justify-center rounded-3xl border border-border-default text-text-secondary transition-colors hover:bg-background-subtle hover:text-text-primary" aria-label="More options">
         <FiMoreHorizontal className="h-7 w-7" aria-hidden="true" />
       </summary>
-      <div role="menu" className="absolute right-0 top-16 z-20 w-56 overflow-hidden rounded-2xl border border-border-default bg-background-surface py-2 shadow-lg">
+      <div role="menu" className="absolute right-0 top-16 z-20 w-56 overflow-hidden rounded-3xl border border-border-default bg-background-surface py-2 shadow-lg">
         {props.quotation.status === 1 && (
           <button type="button" role="menuitem" onClick={props.handleEdit} className="flex w-full items-center gap-3 px-5 py-3.5 text-left text-lg font-semibold text-text-primary transition-colors hover:bg-background-subtle">
             <FiEdit2 className="h-5 w-5" aria-hidden="true" />
@@ -110,12 +214,14 @@ export const QuotationDetailComponent = (props: QuotationDetailState): ReactElem
   ) : null;
 
   return (
-    <Layout pageTitle="Quotation Detail" mobileWhiteBackground={true}>
+    <Layout pageTitle="Quotation Detail">
       <PageLayout title="Quotation Detail" subtitle="View quotation details and transaction information" breadcrumbs={["Quotation", "Detail"]} headerRight={headerActions} mobileHeaderClassName="px-0" mobileTitleClassName="text-4xl" onBack={props.goBack}>
-        {props.isLoading && <div className="rounded-2xl border border-border-default bg-background-surface p-5"><SkeletonComponent rows={8} columns={[{ width: "35%" }, { width: "65%" }]} /></div>}
-        {!props.isLoading && props.errorMessage && <div role="alert" className="rounded-2xl border border-danger bg-danger-subtle p-5 text-sm font-medium text-danger-strong">{props.errorMessage}</div>}
-        {!props.isLoading && !props.errorMessage && !props.quotation && <div className="rounded-2xl border border-border-default bg-background-surface p-8 text-center text-sm text-text-secondary">Quotation detail is unavailable.</div>}
-        {!props.isLoading && !props.errorMessage && props.quotation && _renderDetail(props.quotation)}
+        <div className="relative flex h-full flex-col bg-background-page px-0 pb-18 lg:-mt-4 lg:bg-transparent lg:px-0 lg:pb-0">
+          {props.isLoading && _renderDetailSkeleton()}
+          {!props.isLoading && props.errorMessage && <div role="alert" className="rounded-3xl border border-danger bg-danger-subtle p-5 text-lg font-medium text-danger-strong">{props.errorMessage}</div>}
+          {!props.isLoading && !props.errorMessage && !props.quotation && <div className="rounded-3xl border border-border-default bg-background-surface p-8 text-center text-lg text-text-secondary">Quotation detail is unavailable.</div>}
+          {!props.isLoading && !props.errorMessage && props.quotation && _renderDetail(props.quotation)}
+        </div>
       </PageLayout>
       <ConfirmModal
         isOpen={props.isConfirmOpen}

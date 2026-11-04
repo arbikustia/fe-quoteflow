@@ -82,13 +82,13 @@ const _getColumns = ({ currentPage, pageSize, onEdit }: GetColumnsParams): Table
  * @returns {React.ReactElement | null} State element
  */
 const _renderListState = (props: MasterPaymentTypeProps): React.ReactElement | null => {
-  if (props.isLoading) return <p className="py-10 text-center text-sm text-text-secondary">Loading payment types…</p>;
+  if (props.isLoading) return <p className="py-10 text-center text-lg lg:text-sm text-text-secondary">Loading payment types…</p>;
 
-  if (props.isMissingData) return <p className="py-10 text-center text-sm text-red-600">Payment type data is unavailable. Please try again.</p>;
+  if (props.isMissingData) return <p className="py-10 text-center text-lg lg:text-sm text-red-600">Payment type data is unavailable. Please try again.</p>;
 
-  if (props.errorMessage) return <p className="py-10 text-center text-sm text-red-600">{props.errorMessage}</p>;
+  if (props.errorMessage) return <p className="py-10 text-center text-lg lg:text-sm text-red-600">{props.errorMessage}</p>;
 
-  if (props.isEmpty) return <p className="py-10 text-center text-sm text-text-secondary">No payment types found.</p>;
+  if (props.isEmpty) return <p className="py-10 text-center text-lg lg:text-sm text-text-secondary">No payment types found.</p>;
 
   return null;
 };
@@ -198,7 +198,7 @@ const _renderDesktop = (props: MasterPaymentTypeProps): React.ReactElement => {
 export const MasterPaymentTypeComponent = (props: MasterPaymentTypeProps): React.ReactElement => {
   const { onBack, onCreate } = props;
   const createButton = (
-    <button type="button" onClick={onCreate} className="h-14 rounded-full border-2 border-brand-blue bg-background-surface px-6 text-sm font-bold text-brand-blue transition-colors hover:bg-action-primary-subtle focus:outline-none focus:ring-2 focus:ring-focus-ring/30">
+    <button type="button" onClick={onCreate} className="h-14 rounded-full border-2 border-brand-blue bg-background-surface px-6 text-lg font-bold text-brand-blue transition-colors hover:bg-action-primary-subtle focus:outline-none focus:ring-2 focus:ring-focus-ring/30">
       Create New
     </button>
   );

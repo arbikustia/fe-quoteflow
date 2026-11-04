@@ -4,13 +4,13 @@ exports[`ProfileComponent snapshots should match profile settings snapshot 1`] =
 <DocumentFragment>
   <section
     aria-label="Profile content"
-    class="mx-auto max-w-xl space-y-6"
+    class="w-full space-y-6"
   >
     <div
-      class="rounded-2xl border border-border-default bg-background-surface p-5"
+      class="rounded-3xl border border-border-default bg-background-surface p-5 shadow-xs sm:p-6"
     >
       <p
-        class="mb-4 text-sm font-medium text-text-secondary"
+        class="mb-4 text-sm font-semibold text-text-secondary"
       >
         Logged in as
       </p>
@@ -59,7 +59,7 @@ exports[`ProfileComponent snapshots should match profile settings snapshot 1`] =
       </div>
     </div>
     <div
-      class="overflow-hidden rounded-2xl border border-border-default bg-background-surface"
+      class="overflow-hidden rounded-3xl border border-border-default bg-background-surface shadow-xs"
     >
       <h2
         class="px-5 pt-5 pb-3 text-sm font-semibold text-text-secondary"
@@ -123,9 +123,40 @@ exports[`ProfileComponent snapshots should match profile settings snapshot 1`] =
           Light
         </span>
       </button>
+      <button
+        class="flex min-h-14 w-full items-center gap-3 border-t border-border-default px-5 py-4 text-left text-sm font-medium transition-colors focus-visible:outline-2 focus-visible:outline-focus-ring text-text-tertiary cursor-not-allowed opacity-60"
+        disabled=""
+        type="button"
+      >
+        <svg
+          fill="none"
+          height="20"
+          stroke="currentColor"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="1.8"
+          viewBox="0 0 24 24"
+          width="20"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"
+          />
+          <polyline
+            points="7 10 12 15 17 10"
+          />
+          <line
+            x1="12"
+            x2="12"
+            y1="15"
+            y2="3"
+          />
+        </svg>
+        App Installed / Not Supported
+      </button>
     </div>
     <button
-      class="flex min-h-14 w-full items-center gap-3 rounded-2xl border border-border-default bg-background-surface px-5 py-4 text-left text-sm font-medium text-danger-strong transition-colors hover:bg-danger-subtle focus-visible:outline-2 focus-visible:outline-focus-ring"
+      class="flex min-h-14 w-full items-center gap-3 rounded-3xl border border-border-default bg-background-surface px-5 py-4 text-left text-sm font-medium text-danger-strong transition-colors hover:bg-danger-subtle focus-visible:outline-2 focus-visible:outline-focus-ring shadow-xs"
       type="button"
     >
       <svg

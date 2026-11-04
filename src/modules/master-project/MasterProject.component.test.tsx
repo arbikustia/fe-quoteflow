@@ -74,8 +74,11 @@ describe("MasterProjectComponent", () => {
   it("should render loading skeletons when isLoading is true", () => {
     render(<MasterProjectComponent {...createProps({ isLoading: true })} />);
 
-    expect(screen.getByRole("status", { name: "Loading cards" })).toBeInTheDocument();
-    expect(screen.getByRole("status", { name: "Loading" })).toBeInTheDocument();
+    expect(screen.getAllByRole("status", { name: "Loading project card" })).toHaveLength(5);
+    const tableSkeleton = screen.getByRole("status", { name: "Loading project table" });
+
+    expect(tableSkeleton.querySelectorAll("th")).toHaveLength(6);
+    expect(tableSkeleton.querySelectorAll("tbody tr:first-child td")).toHaveLength(6);
   });
 
   it.each([

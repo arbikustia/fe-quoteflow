@@ -28,7 +28,7 @@ const _renderNavItem = (
     type="button"
     data-path={item.id}
     onClick={onClick}
-    className={`relative flex min-w-0 flex-1 flex-col items-center justify-center gap-1 px-1 py-3 transition-colors duration-500 focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring ${item.isActive ? "text-action-primary" : "text-gray-600 hover:bg-background-subtle hover:text-gray-700"}`}
+    className={`relative flex min-w-0 flex-1 flex-col items-center justify-center gap-1 px-1 py-3 transition-colors duration-500 focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring ${item.isActive ? "text-action-primary" : "text-text-secondary hover:bg-background-subtle hover:text-text-primary"}`}
     aria-label={item.label}
     aria-current={item.isActive ? "page" : undefined}
   >
@@ -64,7 +64,7 @@ export const MobileNavigateComponent = (props: MobileNavigateProps): ReactElemen
 
   return (
     <nav
-      className="fixed bottom-4 left-4 right-4 z-50 flex min-h-24 items-end overflow-hidden rounded-3xl border border-border-default bg-white px-4 shadow-[0_12px_32px_rgba(15,23,42,0.16)] lg:hidden"
+      className="fixed bottom-4 left-4 right-4 z-50 flex min-h-24 items-end overflow-hidden rounded-3xl border border-border-default bg-background-surface px-4 shadow-[0_12px_32px_rgba(15,23,42,0.16)] lg:hidden"
       aria-label="Main mobile navigation"
     >
       <div className="relative flex w-full items-end">

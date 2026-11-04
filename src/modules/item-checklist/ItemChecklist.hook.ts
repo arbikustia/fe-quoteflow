@@ -1,5 +1,7 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+
+import { useMasterActivityLog } from "@/hooks/useMasterActivityLog";
 
 import { useGetRentalChecklistsQuery, useLazyGetRentalChecklistByIdQuery } from "@/services/rental-checklist.service";
 
@@ -49,6 +51,19 @@ export const useItemChecklistList = (): Omit<ChecklistListState, "onBack" | "onC
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize, setPageSize] = useState(10);
   const [searchTerm, setSearchTermState] = useState("");
+  const { logView } = useMasterActivityLog("Item Checklist");
+
+  useEffect(() => {
+    let active = true;
+    void logView().then(() => {
+      if (!active) return;
+    });
+
+    return () => {
+      active = false;
+    };
+  }, [logView]);
+
   const query = useGetRentalChecklistsQuery({ pageNumber: currentPage, pageSize, searchTerm });
   const rows = query.data?.status ? query.data.data.map(_mapChecklist) : [];
   let errorMessage: string | null = null;

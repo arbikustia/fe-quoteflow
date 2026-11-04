@@ -7,23 +7,24 @@ import type { MasterDataCardProps } from "./MasterDataCard.type";
  * @param {MasterDataCardProps} props - Card props
  * @returns {ReactElement} Master-data card
  */
-export const MasterDataCard = ({ title, status, children, onClick, className = "", isLargeText = false }: MasterDataCardProps): ReactElement => {
-  const statusClass = status === "active" ? "bg-success-subtle text-success-strong" : "bg-danger-subtle text-danger-strong";
-  const titleClassName = isLargeText ? "text-2xl" : "text-base";
-  const contentClassName = isLargeText ? "text-xl" : "";
-  const statusTextClassName = isLargeText ? "text-sm" : "text-xs";
+export const MasterDataCard = ({ title, status, statusLabel, statusClassName, children, onClick, className = "", isLargeText = false }: MasterDataCardProps): ReactElement => {
+  const statusClass = statusClassName ?? (status === "active" ? "bg-success-subtle text-success-strong" : "bg-danger-subtle text-danger-strong");
+  const visibleStatus = statusLabel ?? status;
+  const titleClassName = isLargeText ? "text-xl" : "text-base";
+  const contentClassName = isLargeText ? "text-lg" : "";
+  const statusTextClassName = isLargeText ? "text-lg" : "text-xs";
 
   return (
     <button
       type="button"
       onClick={onClick}
-      className={`group flex w-full items-start gap-4 rounded-2xl border border-border-default bg-background-surface p-5 text-left transition-colors hover:border-border-strong hover:bg-background-subtle/40 focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring/30 ${className}`}
+      className={`group block w-full min-w-0 rounded-xl border border-border-strong bg-background-surface p-5 text-left shadow-small transition-colors hover:bg-background-subtle/40 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-action-primary ${className}`}
     >
-      <span className="min-w-0 flex-1">
-        <span className={`block truncate font-semibold text-text-primary ${titleClassName}`}>{title}</span>
-        <span className={`mt-3 block ${contentClassName}`}>{children}</span>
+      <span className="flex min-w-0 flex-wrap items-center justify-between gap-2">
+        <span className={`min-w-0 break-words font-semibold text-text-primary ${titleClassName}`}>{title}</span>
+        {visibleStatus && <span className={`rounded-full px-3 py-1 font-semibold ${statusClass} ${statusTextClassName}`}>{visibleStatus}</span>}
       </span>
-      {status && <span className={`shrink-0 rounded-full px-3 py-1 font-bold uppercase tracking-wider ${statusClass} ${statusTextClassName}`}>{status}</span>}
+      <span className={`mt-4 block min-w-0 border-t border-border-default pt-4 text-text-secondary ${contentClassName}`}>{children}</span>
     </button>
   );
 };

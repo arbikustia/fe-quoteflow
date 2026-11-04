@@ -34,7 +34,11 @@ describe("MasterPaymentMethodCreateForm", () => {
     const form = nameInput.closest("form");
 
     expect(screen.getByLabelText(/description/i)).toBeTruthy();
+    expect(screen.getByText("Payment Method Information")).toBeTruthy();
+    expect(screen.getByText("Information")).toBeTruthy();
+    expect(screen.getByRole("button", { name: "Cancel" })).toBeTruthy();
     expect(form?.hasAttribute("novalidate")).toBe(true);
+    expect(form?.classList.contains("rounded-3xl")).toBe(true);
 
     if (form) {
       fireEvent.submit(form);

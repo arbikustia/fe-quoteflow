@@ -1,6 +1,8 @@
 import { useCallback, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
+import { useMasterActivityLog } from "@/hooks/useMasterActivityLog";
+
 import { mapQuotationToCalendarEvent } from "@/modules/calendar/Calendar.helpers";
 import { useGetInvoicesQuery } from "@/services/invoice.service";
 import { useGetAllVouchersQuery, useGetVouchersQuery } from "@/services/master-voucher.service";
@@ -18,6 +20,19 @@ import BannerApp from "../../assets/banner-app.png";
  */
 export const useDashboardNavigation = (): DashboardNavigation => {
   const navigate = useNavigate();
+  const { logView } = useMasterActivityLog("Home");
+
+  useEffect(() => {
+    let active = true;
+    void logView().then(() => {
+      if (!active) return;
+    });
+
+    return () => {
+      active = false;
+    };
+  }, [logView]);
+
   const navigateTo = useCallback((route: DashboardRoute): void => {
     navigate(route);
   }, [navigate]);

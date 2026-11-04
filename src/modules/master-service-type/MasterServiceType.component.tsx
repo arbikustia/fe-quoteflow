@@ -6,6 +6,7 @@ import { PageLayout } from "../../app/shared/PageLayout";
 import { MasterDataCard } from "../../components/MasterDataCard";
 import { Pagination } from "../../components/Pagination";
 import { SearchFilter } from "../../components/SearchFilter";
+import { CardSkeletonComponent, SkeletonComponent } from "../../components/Skeleton";
 import type { TableColumn } from "../../components/Table";
 import Table from "../../components/Table";
 
@@ -82,13 +83,13 @@ const _getColumns = (currentPage: number, pageSize: number, onEdit: (serviceType
 const _renderListState = (props: MasterServiceTypeProps): React.ReactElement | null => {
   const { isLoading, isMissingData, errorMessage, isEmpty } = props;
 
-  if (isLoading) return <p className="py-10 text-center text-sm text-brand-text-medium">Loading service types…</p>;
+  if (isLoading) return <p className="py-10 text-center text-lg lg:text-sm text-brand-text-medium">Loading service types…</p>;
 
-  if (isMissingData) return <p className="py-10 text-center text-sm text-red-600">Service type data is unavailable. Please try again.</p>;
+  if (isMissingData) return <p className="py-10 text-center text-lg lg:text-sm text-red-600">Service type data is unavailable. Please try again.</p>;
 
-  if (errorMessage) return <p className="py-10 text-center text-sm text-red-600">{errorMessage}</p>;
+  if (errorMessage) return <p className="py-10 text-center text-lg lg:text-sm text-red-600">{errorMessage}</p>;
 
-  if (isEmpty) return <p className="py-10 text-center text-sm text-brand-text-medium">No service types found.</p>;
+  if (isEmpty) return <p className="py-10 text-center text-lg lg:text-sm text-brand-text-medium">No service types found.</p>;
 
   return null;
 };
@@ -107,8 +108,8 @@ const _renderServiceTypeCard = (serviceType: ServiceTypeData, onEdit: MasterServ
   const handleEdit = (): void => onEdit(serviceType);
 
   return (
-    <MasterDataCard title={serviceType.name} status={serviceType.status} onClick={handleEdit}>
-      <span className="grid gap-2 text-sm text-text-secondary">
+    <MasterDataCard title={serviceType.name} status={serviceType.status} isLargeText={true} onClick={handleEdit}>
+      <span className="grid gap-2 text-xl text-text-secondary">
         <span>Rp {serviceType.price.toLocaleString("id-ID")}</span>
         <span>{serviceType.isActive ? "Active" : "Inactive"}</span>
       </span>
@@ -132,9 +133,9 @@ const _renderMobile = (props: MasterServiceTypeProps): React.ReactElement => {
 
   return (
     <div className="flex min-w-0 flex-col gap-4 pt-2 pb-16 lg:hidden">
-      <SearchFilter placeholder="Search service type" onChange={handleSearch} isRoundedFull={true} className="w-full sm:w-full" />
+      <SearchFilter placeholder="Search service type" onChange={handleSearch} isRoundedFull={true} className="w-full sm:w-full" inputClassName="text-lg placeholder:text-lg" />
       <div className="min-w-0 space-y-3">
-        {_renderListState(props) ?? paginatedData.map((serviceType) => <React.Fragment key={serviceType.id}>{_renderServiceTypeCard(serviceType, onEdit)}</React.Fragment>)}
+        {props.isLoading ? <CardSkeletonComponent count={5} /> : _renderListState(props) ?? paginatedData.map((serviceType) => <React.Fragment key={serviceType.id}>{_renderServiceTypeCard(serviceType, onEdit)}</React.Fragment>)}
       </div>
       <Pagination
         currentPage={currentPage}
@@ -172,7 +173,7 @@ const _renderDesktop = (props: MasterServiceTypeProps): React.ReactElement => {
         <button type="button" onClick={onCreate} className="h-14 rounded-xl bg-brand-blue px-6 text-sm font-semibold text-brand-white">Create Service Type</button>
       </div>
       <div className="flex-1 overflow-auto">
-        {_renderListState(props) ?? <Table data={paginatedData} columns={columns} isDetail={false} onRowClick={onRowClick} keyExtractor={(row: ServiceTypeData) => row.id} />}
+        {props.isLoading ? <SkeletonComponent rows={5} columns={[{ width: "8%" }, { width: "35%" }, { width: "25%" }, { width: "20%" }, { width: "12%" }]} /> : _renderListState(props) ?? <Table data={paginatedData} columns={columns} isDetail={false} onRowClick={onRowClick} keyExtractor={(row: ServiceTypeData) => row.id} />}
       </div>
       <Pagination currentPage={currentPage} totalPages={totalPages} pageSize={pageSize} onPageChange={goToPage} onPageSizeChange={changePageSize} totalItems={totalCount} />
     </div>
@@ -187,7 +188,7 @@ const _renderDesktop = (props: MasterServiceTypeProps): React.ReactElement => {
 export const MasterServiceTypeComponent = (props: MasterServiceTypeProps): React.ReactElement => {
   const { onBack, onCreate } = props;
   const createButton = (
-    <button type="button" onClick={onCreate} className="h-14 rounded-full border-2 border-brand-blue bg-background-surface px-6 text-sm font-bold text-brand-blue transition-colors hover:bg-action-primary-subtle focus:outline-none focus:ring-2 focus:ring-focus-ring/30">
+    <button type="button" onClick={onCreate} className="h-14 rounded-full border-2 border-brand-blue bg-background-surface px-6 text-lg font-bold text-brand-blue transition-colors hover:bg-action-primary-subtle focus:outline-none focus:ring-2 focus:ring-focus-ring/30">
       Create New
     </button>
   );

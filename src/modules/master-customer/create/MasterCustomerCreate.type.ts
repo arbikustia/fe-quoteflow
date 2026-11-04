@@ -46,6 +46,22 @@ export type CustomerFormFields = {
   handleStatusChange: () => void;
 };
 
+export type CustomerFieldConfig = {
+  errorMessage: string | null;
+  id: string;
+  inputMode?: "numeric";
+  label: string;
+  onChange: (
+    event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+  ) => void;
+  pattern?: string;
+  placeholder: string;
+  required?: boolean;
+  title?: string;
+  type?: "text" | "email" | "tel";
+  value: string;
+};
+
 export type MasterCustomerCreateFormState = {
   name: string;
   email: string;

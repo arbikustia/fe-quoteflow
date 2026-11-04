@@ -1,5 +1,6 @@
 import * as React from "react";
 
+import { render, screen } from "../../libs/unit-test";
 import test from "../../libs/unit-test";
 
 import { MasterPaymentMethodComponent } from "./MasterPaymentMethod.component";
@@ -51,6 +52,16 @@ describe("MasterPaymentMethod.component", () => {
     onCloseMore: jest.fn(),
     onDelete: jest.fn(),
   };
+
+  it("should render quotation-matched loading skeletons", () => {
+    render(<MasterPaymentMethodComponent {...defaultProps} isLoading={true} />);
+
+    expect(screen.getAllByRole("status", { name: "Loading payment method card" })).toHaveLength(5);
+    const tableSkeleton = screen.getByRole("status", { name: "Loading payment method table" });
+
+    expect(tableSkeleton.querySelectorAll("th")).toHaveLength(6);
+    expect(tableSkeleton.querySelectorAll("tbody tr:first-child td")).toHaveLength(6);
+  });
 
   test.assertSnapshots(MasterPaymentMethodComponent, [
     {

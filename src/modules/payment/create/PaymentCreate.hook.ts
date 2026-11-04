@@ -2,9 +2,9 @@ import type { SyntheticEvent } from "react";
 import { useState } from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 
-import type { PaymentCreateFormState, PaymentData } from "../Payment.type";
+import type { PaymentCreateFormState, PaymentCreatePayload, PaymentData } from "../Payment.type";
 
-import { validateRequiredPaymentFields } from "./PaymentCreate.helpers";
+import { formatPaymentPaidAt, validateRequiredPaymentFields } from "./PaymentCreate.helpers";
 
 import { useCreatePaymentMutation, useGetAllInvoicesQuery, useGetAllPaymentMethodsQuery, useUpdatePaymentMutation } from "@/services/payment.service";
 
@@ -24,6 +24,7 @@ export const usePaymentCreate = (): PaymentCreateFormState => {
   const [updatePayment, { isLoading: isUpdating }] = useUpdatePaymentMutation();
   const [invoiceId, setInvoiceId] = useState(routePayment?.invoiceId ?? "");
   const [paymentMethodId, setPaymentMethodId] = useState(routePayment?.paymentMethodId ?? "");
+  const [status, setStatus] = useState<string>(routePayment?.paymentStatus ? String(routePayment.paymentStatus) : "");
   const [amount, setAmountState] = useState<number | null>(routePayment?.amount ?? null);
   const [paidAt, setPaidAt] = useState(routePayment?.paidAt ? routePayment.paidAt.slice(0, 16) : "");
   const [referenceNo, setReferenceNo] = useState(routePayment?.referenceNo ?? "");
@@ -60,7 +61,7 @@ export const usePaymentCreate = (): PaymentCreateFormState => {
     setErrorMessage(null);
     setIsSubmitted(true);
 
-    const validationMessage = validateRequiredPaymentFields({ invoiceId, paymentMethodId, amount, paidAt, referenceNo });
+    const validationMessage = validateRequiredPaymentFields({ invoiceId, paymentMethodId, status, amount, paidAt, referenceNo });
 
     if (validationMessage) {
       setErrorMessage(validationMessage);
@@ -72,8 +73,14 @@ export const usePaymentCreate = (): PaymentCreateFormState => {
       return;
     }
 
-    const status = isEditMode ? Number(isActive) : 1;
-    const payload = { invoice_id: invoiceId, payment_method_id: paymentMethodId, amount, paid_at: new Date(paidAt).toISOString(), reference_no: referenceNo, notes, status };
+    const payload: PaymentCreatePayload = {
+      invoice_id: invoiceId,
+      payment_method_id: paymentMethodId,
+      status: Number(status),
+      amount,
+      paid_at: formatPaymentPaidAt(paidAt),
+      notes,
+    };
 
     try {
       const response = isEditMode && id ? await updatePayment({ id, ...payload }).unwrap() : await createPayment(payload).unwrap();
@@ -90,5 +97,5 @@ export const usePaymentCreate = (): PaymentCreateFormState => {
     }
   };
 
-  return { id, isEditMode, isActive, invoices, paymentMethods, invoiceId, paymentMethodId, amount, paidAt, referenceNo, notes, isLoadingOptions: invoiceQuery.isLoading || paymentMethodQuery.isLoading, isSubmitting: isCreating || isUpdating, errorMessage, isSubmitted, handleSubmit, setInvoiceId, setPaymentMethodId, setAmount, setPaidAt, setReferenceNo, setNotes, goBack, handleStatusChange };
+  return { id, isEditMode, isActive, invoices, paymentMethods, invoiceId, paymentMethodId, status, amount, paidAt, referenceNo, notes, isLoadingOptions: invoiceQuery.isLoading || paymentMethodQuery.isLoading, isSubmitting: isCreating || isUpdating, errorMessage, isSubmitted, handleSubmit, setInvoiceId, setPaymentMethodId, setStatus, setAmount, setPaidAt, setReferenceNo, setNotes, goBack, handleStatusChange };
 };

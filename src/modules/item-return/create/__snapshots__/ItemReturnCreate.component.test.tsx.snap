@@ -1,0 +1,666 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`ItemReturnCreateForm matches snapshot 1`] = `
+<DocumentFragment>
+  <div
+    class="flex flex-col gap-6 lg:gap-8"
+  >
+    <div
+      class="rounded-3xl border border-border-default bg-background-surface p-6 sm:p-8 shadow-xs"
+    >
+      <div
+        class="grid grid-cols-1 gap-6 md:grid-cols-2"
+      >
+        <div
+          class="relative w-full"
+        >
+          <label
+            class="mb-1.5 block text-sm font-semibold text-text-secondary !text-lg font-medium"
+            for="return-order"
+          >
+            Rental Order
+            <span
+              aria-hidden="true"
+              class="ml-1 text-danger"
+            >
+              *
+            </span>
+          </label>
+          <div
+            class="ant-select ant-select-outlined h-14 w-full !border-2 [&_.ant-select-selector]:!rounded-2xl [&_.ant-select-content]:!text-xl [&_.ant-select-content]:!font-normal !border-border-strong [&_.ant-select-selector]:!border-2 [&_.ant-select-selector]:!border-border-strong !h-14 [&_.ant-select-content]:!text-lg css-var-root ant-select-css-var css-dev-only-do-not-override-eofgey ant-select-single ant-select-show-arrow ant-select-show-search"
+            style="--ant-select-border-radius: 16px; border: 2px solid var(--border-strong);"
+          >
+            <div
+              class="ant-select-content"
+            >
+              <div
+                class="ant-select-placeholder"
+              >
+                Select customer and order number
+              </div>
+              <input
+                aria-autocomplete="list"
+                aria-expanded="false"
+                aria-haspopup="listbox"
+                aria-invalid="false"
+                aria-label="Rental Order"
+                aria-required="true"
+                autocomplete="new-password"
+                class="ant-select-input"
+                id="return-order"
+                role="combobox"
+                type="text"
+                value=""
+              />
+            </div>
+            <div
+              class="ant-select-suffix"
+            >
+              <span
+                aria-label="down"
+                class="anticon anticon-down"
+                role="img"
+              >
+                <svg
+                  aria-hidden="true"
+                  data-icon="down"
+                  fill="currentColor"
+                  focusable="false"
+                  height="1em"
+                  viewBox="64 64 896 896"
+                  width="1em"
+                >
+                  <path
+                    d="M884 256h-75c-5.1 0-9.9 2.5-12.9 6.6L512 654.2 227.9 262.6c-3-4.1-7.8-6.6-12.9-6.6h-75c-6.5 0-10.3 7.4-6.5 12.7l352.6 486.1c12.8 17.6 39 17.6 51.7 0l352.6-486.1c3.9-5.3.1-12.7-6.4-12.7z"
+                  />
+                </svg>
+              </span>
+            </div>
+          </div>
+        </div>
+        <div>
+          <label
+            class="mb-1.5 block text-lg font-medium text-text-secondary md:hidden"
+            for="return-notes-mobile"
+          >
+            Return Remark
+          </label>
+          <label
+            class="mb-1.5 hidden text-lg font-medium text-text-secondary md:block"
+            for="return-notes"
+          >
+            Return Remark
+          </label>
+          <textarea
+            class="min-h-24 w-full resize-y rounded-2xl border border-border-default bg-background-surface px-4 py-3 text-lg text-text-primary placeholder:text-text-placeholder focus:border-action-primary focus:outline-none focus:ring-1 focus:ring-action-primary md:hidden"
+            id="return-notes-mobile"
+            placeholder="Optional return remark"
+            rows="3"
+          />
+          <input
+            class="hidden h-14 w-full rounded-2xl border border-border-default bg-background-surface px-4 text-lg text-text-primary placeholder:text-text-placeholder focus:border-action-primary focus:outline-none focus:ring-1 focus:ring-action-primary md:block"
+            id="return-notes"
+            placeholder="Optional return remark"
+            type="text"
+            value=""
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`ItemReturnCreateForm matches snapshot 2`] = `
+<DocumentFragment>
+  <div
+    class="flex flex-col gap-6 lg:gap-8"
+  >
+    <div
+      class="rounded-3xl border border-border-default bg-background-surface p-6 sm:p-8 shadow-xs"
+    >
+      <div
+        class="grid grid-cols-1 gap-6 md:grid-cols-2"
+      >
+        <div
+          class="relative w-full"
+        >
+          <label
+            class="mb-1.5 block text-sm font-semibold text-text-secondary !text-lg font-medium"
+            for="return-order"
+          >
+            Rental Order
+            <span
+              aria-hidden="true"
+              class="ml-1 text-danger"
+            >
+              *
+            </span>
+          </label>
+          <div
+            class="ant-select ant-select-outlined h-14 w-full !border-2 [&_.ant-select-selector]:!rounded-2xl [&_.ant-select-content]:!text-xl [&_.ant-select-content]:!font-normal !border-border-strong [&_.ant-select-selector]:!border-2 [&_.ant-select-selector]:!border-border-strong !h-14 [&_.ant-select-content]:!text-lg css-var-root ant-select-css-var css-dev-only-do-not-override-eofgey ant-select-single ant-select-show-arrow ant-select-show-search"
+            style="--ant-select-border-radius: 16px; border: 2px solid var(--border-strong);"
+          >
+            <div
+              class="ant-select-content ant-select-content-has-value"
+              title="PT Customer — ORD-001"
+            >
+              PT Customer — ORD-001
+              <input
+                aria-autocomplete="list"
+                aria-expanded="false"
+                aria-haspopup="listbox"
+                aria-invalid="false"
+                aria-label="Rental Order"
+                aria-required="true"
+                autocomplete="new-password"
+                class="ant-select-input"
+                id="return-order"
+                role="combobox"
+                type="text"
+                value=""
+              />
+            </div>
+            <div
+              class="ant-select-suffix"
+            >
+              <span
+                aria-label="down"
+                class="anticon anticon-down"
+                role="img"
+              >
+                <svg
+                  aria-hidden="true"
+                  data-icon="down"
+                  fill="currentColor"
+                  focusable="false"
+                  height="1em"
+                  viewBox="64 64 896 896"
+                  width="1em"
+                >
+                  <path
+                    d="M884 256h-75c-5.1 0-9.9 2.5-12.9 6.6L512 654.2 227.9 262.6c-3-4.1-7.8-6.6-12.9-6.6h-75c-6.5 0-10.3 7.4-6.5 12.7l352.6 486.1c12.8 17.6 39 17.6 51.7 0l352.6-486.1c3.9-5.3.1-12.7-6.4-12.7z"
+                  />
+                </svg>
+              </span>
+            </div>
+          </div>
+        </div>
+        <div>
+          <label
+            class="mb-1.5 block text-lg font-medium text-text-secondary md:hidden"
+            for="return-notes-mobile"
+          >
+            Return Remark
+          </label>
+          <label
+            class="mb-1.5 hidden text-lg font-medium text-text-secondary md:block"
+            for="return-notes"
+          >
+            Return Remark
+          </label>
+          <textarea
+            class="min-h-24 w-full resize-y rounded-2xl border border-border-default bg-background-surface px-4 py-3 text-lg text-text-primary placeholder:text-text-placeholder focus:border-action-primary focus:outline-none focus:ring-1 focus:ring-action-primary md:hidden"
+            id="return-notes-mobile"
+            placeholder="Optional return remark"
+            rows="3"
+          >
+            Catatan pengembalian
+          </textarea>
+          <input
+            class="hidden h-14 w-full rounded-2xl border border-border-default bg-background-surface px-4 text-lg text-text-primary placeholder:text-text-placeholder focus:border-action-primary focus:outline-none focus:ring-1 focus:ring-action-primary md:block"
+            id="return-notes"
+            placeholder="Optional return remark"
+            type="text"
+            value="Catatan pengembalian"
+          />
+        </div>
+      </div>
+    </div>
+    <div
+      class="rounded-3xl border border-border-default bg-background-surface p-6 sm:p-8 shadow-xs"
+    >
+      <div
+        class="mb-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between"
+      >
+        <div
+          class="flex items-center gap-3"
+        >
+          <h3
+            class="text-2xl font-bold text-text-primary"
+          >
+            Order Items
+          </h3>
+          <span
+            class="text-lg font-medium text-text-secondary"
+          >
+            1 items to return
+          </span>
+        </div>
+        <div
+          class="w-full sm:w-80"
+        >
+          <label
+            class="relative block w-full sm:w-72 w-full"
+          >
+            <span
+              class="sr-only"
+            >
+              Search items...
+            </span>
+            <svg
+              aria-hidden="true"
+              class="pointer-events-none absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-text-tertiary"
+              fill="none"
+              height="1em"
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              viewBox="0 0 24 24"
+              width="1em"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <circle
+                cx="11"
+                cy="11"
+                r="8"
+              />
+              <line
+                x1="21"
+                x2="16.65"
+                y1="21"
+                y2="16.65"
+              />
+            </svg>
+            <input
+              aria-label="Search items..."
+              class="h-14 w-full rounded-xl border border-border-default bg-background-surface pl-12 pr-4 text-base font-medium text-text-primary outline-none transition-colors placeholder:font-normal placeholder:text-text-tertiary hover:border-border-strong focus:border-border-focus focus:ring-2 focus:ring-focus-ring/30 text-lg placeholder:text-lg"
+              placeholder="Search items..."
+              type="search"
+              value=""
+            />
+          </label>
+        </div>
+      </div>
+      <div
+        class="space-y-4 md:hidden"
+      >
+        <article
+          class="min-w-0 rounded-3xl border border-border-default bg-background-surface p-5 sm:p-6 shadow-2xs"
+        >
+          <div
+            class="flex items-start justify-between gap-4"
+          >
+            <h4
+              class="max-w-[68%] min-w-0 break-words text-xl font-bold text-text-primary"
+            >
+              Speaker Active
+            </h4>
+            <span
+              class="shrink-0 text-right text-lg font-semibold text-text-secondary"
+            >
+              1 unit
+            </span>
+          </div>
+          <div
+            class="mt-4"
+          >
+            <label
+              class="block text-lg font-medium text-text-secondary"
+              for="return-remark-mobile-itm-1-0"
+            >
+              Remark
+            </label>
+            <textarea
+              class="mt-2 min-h-24 w-full resize-y rounded-2xl border border-border-strong bg-background-surface px-4 py-3 text-lg text-text-primary placeholder:text-text-placeholder focus:border-action-primary focus:outline-none focus:ring-2 focus:ring-focus-ring disabled:opacity-50"
+              id="return-remark-mobile-itm-1-0"
+              placeholder="Optional item remark"
+              rows="3"
+            />
+          </div>
+          <div
+            class="mt-5 flex items-center justify-between gap-3 border-t border-border-default pt-4"
+          >
+            <label
+              class="relative inline-flex min-h-12 cursor-pointer items-center justify-center rounded-2xl border border-border-default bg-background-surface px-5 py-2.5 text-lg font-medium text-text-primary hover:bg-background-subtle focus-within:ring-2 focus-within:ring-focus-ring"
+            >
+              Take photo
+              <input
+                accept="image/*"
+                aria-label="Take photo for Speaker Active"
+                capture="environment"
+                class="absolute inset-0 h-full w-full cursor-pointer opacity-0 disabled:cursor-not-allowed"
+                type="file"
+              />
+            </label>
+          </div>
+        </article>
+        <article
+          class="min-w-0 rounded-3xl border border-border-default bg-background-surface p-5 sm:p-6 shadow-2xs"
+        >
+          <div
+            class="flex items-start justify-between gap-4"
+          >
+            <h4
+              class="max-w-[68%] min-w-0 break-words text-xl font-bold text-text-primary"
+            >
+              Microphone Wireless
+            </h4>
+            <span
+              class="shrink-0 text-right text-lg font-semibold text-text-secondary"
+            >
+              2 units
+            </span>
+          </div>
+          <div
+            class="mt-4"
+          >
+            <label
+              class="block text-lg font-medium text-text-secondary"
+              for="return-remark-mobile-itm-2-0"
+            >
+              Remark
+            </label>
+            <textarea
+              class="mt-2 min-h-24 w-full resize-y rounded-2xl border border-border-strong bg-background-surface px-4 py-3 text-lg text-text-primary placeholder:text-text-placeholder focus:border-action-primary focus:outline-none focus:ring-2 focus:ring-focus-ring disabled:opacity-50"
+              id="return-remark-mobile-itm-2-0"
+              placeholder="Optional item remark"
+              rows="3"
+            />
+          </div>
+          <div
+            class="mt-5 flex items-center justify-between gap-3 border-t border-border-default pt-4"
+          >
+            <label
+              class="relative inline-flex min-h-12 cursor-pointer items-center justify-center rounded-2xl border border-border-default bg-background-surface px-5 py-2.5 text-lg font-medium text-text-primary hover:bg-background-subtle focus-within:ring-2 focus-within:ring-focus-ring"
+            >
+              Take photo
+              <input
+                accept="image/*"
+                aria-label="Take photo for Microphone Wireless"
+                capture="environment"
+                class="absolute inset-0 h-full w-full cursor-pointer opacity-0 disabled:cursor-not-allowed"
+                type="file"
+              />
+            </label>
+          </div>
+        </article>
+      </div>
+      <div
+        class="hidden md:block"
+      >
+        <div
+          class="flex flex-col bg-transparent overflow-hidden"
+        >
+          <div
+            class="hidden md:flex flex-1 overflow-auto"
+          >
+            <div
+              class="w-full overflow-x-auto"
+            >
+              <table
+                class="w-full min-w-max border-separate border-spacing-0 whitespace-nowrap"
+              >
+                <thead>
+                  <tr>
+                    <th
+                      class="bg-table-header px-5 py-4 text-[13px] font-bold text-text-secondary uppercase tracking-widest rounded-l-xl  text-left "
+                      style="width: 28%;"
+                    >
+                      Item Name
+                    </th>
+                    <th
+                      class="bg-table-header px-5 py-4 text-[13px] font-bold text-text-secondary uppercase tracking-widest   text-left "
+                      style="width: 18%;"
+                    >
+                      Category
+                    </th>
+                    <th
+                      class="bg-table-header px-5 py-4 text-[13px] font-bold text-text-secondary uppercase tracking-widest   text-center "
+                      style="width: 12%;"
+                    >
+                      Qty
+                    </th>
+                    <th
+                      class="bg-table-header px-5 py-4 text-[13px] font-bold text-text-secondary uppercase tracking-widest   text-center "
+                    >
+                      Return photo
+                    </th>
+                    <th
+                      class="bg-table-header px-5 py-4 text-[13px] font-bold text-text-secondary uppercase tracking-widest  rounded-r-xl text-left "
+                    >
+                      Remark
+                    </th>
+                  </tr>
+                </thead>
+                <tbody
+                  class="divide-y divide-border-default"
+                >
+                  <tr
+                    class="hover:bg-background-subtle/50 transition-colors "
+                  >
+                    <td
+                      class="px-5 py-4 border-b border-border-default text-base text-left "
+                    >
+                      <span
+                        class="text-lg font-semibold text-text-primary"
+                      >
+                        Speaker Active
+                      </span>
+                    </td>
+                    <td
+                      class="px-5 py-4 border-b border-border-default text-base text-left "
+                    >
+                      <span
+                        class="text-lg text-text-secondary"
+                      >
+                        Audio
+                      </span>
+                    </td>
+                    <td
+                      class="px-5 py-4 border-b border-border-default text-base text-center "
+                    >
+                      <span
+                        class="text-lg text-text-primary"
+                      >
+                        1 unit
+                      </span>
+                    </td>
+                    <td
+                      class="px-5 py-4 border-b border-border-default text-base text-center "
+                    >
+                      <div
+                        class="flex flex-wrap items-center justify-center gap-2"
+                      >
+                        <label
+                          class="relative inline-flex min-h-12 cursor-pointer items-center justify-center rounded-2xl border border-border-default bg-background-surface px-5 py-2.5 text-lg font-medium text-text-primary hover:bg-background-subtle focus-within:ring-2 focus-within:ring-focus-ring"
+                        >
+                          Take photo
+                          <input
+                            accept="image/*"
+                            aria-label="Take photo for Speaker Active"
+                            capture="environment"
+                            class="absolute inset-0 h-full w-full cursor-pointer opacity-0 disabled:cursor-not-allowed"
+                            type="file"
+                          />
+                        </label>
+                      </div>
+                    </td>
+                    <td
+                      class="px-5 py-4 border-b border-border-default text-base text-left "
+                    >
+                      <label
+                        class="block min-w-48 text-lg text-text-secondary"
+                      >
+                        <span
+                          class="sr-only"
+                        >
+                          Remark for Speaker Active
+                        </span>
+                        <input
+                          class="h-12 w-full rounded-2xl border border-border-strong bg-background-surface px-4 text-lg text-text-primary placeholder:text-text-placeholder focus:border-action-primary focus:outline-none focus:ring-2 focus:ring-focus-ring disabled:opacity-50"
+                          placeholder="Optional item remark"
+                          type="text"
+                          value=""
+                        />
+                      </label>
+                    </td>
+                  </tr>
+                  <tr
+                    class="hover:bg-background-subtle/50 transition-colors "
+                  >
+                    <td
+                      class="px-5 py-4 border-b border-border-default text-base text-left "
+                    >
+                      <span
+                        class="text-lg font-semibold text-text-primary"
+                      >
+                        Microphone Wireless
+                      </span>
+                    </td>
+                    <td
+                      class="px-5 py-4 border-b border-border-default text-base text-left "
+                    >
+                      <span
+                        class="text-lg text-text-secondary"
+                      >
+                        Audio
+                      </span>
+                    </td>
+                    <td
+                      class="px-5 py-4 border-b border-border-default text-base text-center "
+                    >
+                      <span
+                        class="text-lg text-text-primary"
+                      >
+                        2 units
+                      </span>
+                    </td>
+                    <td
+                      class="px-5 py-4 border-b border-border-default text-base text-center "
+                    >
+                      <div
+                        class="flex flex-wrap items-center justify-center gap-2"
+                      >
+                        <label
+                          class="relative inline-flex min-h-12 cursor-pointer items-center justify-center rounded-2xl border border-border-default bg-background-surface px-5 py-2.5 text-lg font-medium text-text-primary hover:bg-background-subtle focus-within:ring-2 focus-within:ring-focus-ring"
+                        >
+                          Take photo
+                          <input
+                            accept="image/*"
+                            aria-label="Take photo for Microphone Wireless"
+                            capture="environment"
+                            class="absolute inset-0 h-full w-full cursor-pointer opacity-0 disabled:cursor-not-allowed"
+                            type="file"
+                          />
+                        </label>
+                      </div>
+                    </td>
+                    <td
+                      class="px-5 py-4 border-b border-border-default text-base text-left "
+                    >
+                      <label
+                        class="block min-w-48 text-lg text-text-secondary"
+                      >
+                        <span
+                          class="sr-only"
+                        >
+                          Remark for Microphone Wireless
+                        </span>
+                        <input
+                          class="h-12 w-full rounded-2xl border border-border-strong bg-background-surface px-4 text-lg text-text-primary placeholder:text-text-placeholder focus:border-action-primary focus:outline-none focus:ring-2 focus:ring-focus-ring disabled:opacity-50"
+                          placeholder="Optional item remark"
+                          type="text"
+                          value=""
+                        />
+                      </label>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div
+            class="md:hidden bg-background-surface rounded-xl border border-border-default shadow-sm overflow-hidden"
+          >
+            <div
+              class="bg-background-surface overflow-hidden divide-y divide-border-default"
+            >
+              <div
+                class="flex flex-col gap-3 px-4 py-4 bg-transparent transition-colors "
+              >
+                <div
+                  class="flex items-center justify-between gap-2"
+                >
+                  <span
+                    class="text-xs font-medium text-text-tertiary uppercase tracking-wider"
+                  >
+                    Item Name
+                  </span>
+                  <span
+                    class="flex-1 text-sm font-medium text-text-primary text-right truncate"
+                  >
+                    <span
+                      class="text-lg font-semibold text-text-primary"
+                    >
+                      Speaker Active
+                    </span>
+                  </span>
+                </div>
+              </div>
+              <div
+                class="flex flex-col gap-3 px-4 py-4 bg-transparent transition-colors "
+              >
+                <div
+                  class="flex items-center justify-between gap-2"
+                >
+                  <span
+                    class="text-xs font-medium text-text-tertiary uppercase tracking-wider"
+                  >
+                    Item Name
+                  </span>
+                  <span
+                    class="flex-1 text-sm font-medium text-text-primary text-right truncate"
+                  >
+                    <span
+                      class="text-lg font-semibold text-text-primary"
+                    >
+                      Microphone Wireless
+                    </span>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="mt-8 flex flex-col items-center justify-between gap-4 border-t border-border-default pt-6 sm:flex-row"
+      >
+        <span
+          class="hidden text-lg font-medium text-text-secondary sm:inline-block"
+        >
+          Item photos and remarks are optional.
+        </span>
+        <div
+          class="flex w-full items-center gap-3 sm:w-auto"
+        >
+          <button
+            class="h-14 w-full cursor-pointer rounded-2xl border border-border-default bg-background-surface px-6 text-lg font-semibold text-text-primary hover:bg-background-subtle sm:w-auto"
+            type="button"
+          >
+            Cancel
+          </button>
+          <button
+            class="h-14 w-full cursor-pointer rounded-2xl bg-action-primary px-8 text-lg font-semibold tracking-wide text-text-inverse shadow-xs transition-all hover:bg-action-primary-hover disabled:cursor-not-allowed disabled:opacity-50 sm:w-auto"
+            type="button"
+          >
+            Save Return
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;

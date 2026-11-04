@@ -120,6 +120,15 @@ const ENDPOINT = {
     UPDATE: "/api/rental-checklist",
     DETAIL: "/api/rental-checklist",
   },
+  RENTAL_RETURN: {
+    PAGED: "/api/rental-return/paged",
+    CREATE: "/api/rental-return",
+    UPDATE: "/api/rental-return",
+    DETAIL: "/api/rental-return",
+  },
+  DASHBOARD: {
+    CALENDAR: "/api/dashboard/calendar",
+  },
 } as const;
 
 export default ENDPOINT;

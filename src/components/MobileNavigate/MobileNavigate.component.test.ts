@@ -8,11 +8,10 @@ import test from "../../libs/unit-test";
 
 const DEFAULT_PROPS: MobileNavigateProps = {
   items: [
-    { id: "/home", label: "Home", Icon: Icons.Dashboard, isActive: true },
-    { id: "/order", label: "Order", Icon: Icons.Document, isActive: false },
-    { id: "/return", label: "Return", Icon: Icons.Schedule, isActive: false },
-    { id: "/master-main", label: "Master", Icon: Icons.Database, isActive: false },
-    { id: "/report/main", label: "Report", Icon: Icons.Reporting, isActive: false },
+    { id: "/home", label: "Home", Icon: Icons.Home, isActive: true },
+    { id: "/calendar", label: "Calendar", Icon: Icons.CalendarSolid, isActive: false },
+    { id: "/note", label: "Note", Icon: Icons.Document, isActive: false },
+    { id: "/profile", label: "Profile", Icon: Icons.UserSolid, isActive: false },
   ],
   onNavigate: jest.fn(),
   isHidden: false,
@@ -29,17 +28,18 @@ describe("MobileNavigateComponent Test", () => {
 
     expect(screen.getByRole("navigation", { name: "Main mobile navigation" })).toBeDefined();
     expect(screen.getByRole("button", { name: "Home" }).getAttribute("aria-current")).toBe("page");
-    expect(screen.getByRole("button", { name: "Master" })).toBeDefined();
-    expect(screen.getByRole("button", { name: "Report" })).toBeDefined();
+    expect(screen.getByRole("button", { name: "Calendar" })).toBeDefined();
+    expect(screen.getByRole("button", { name: "Note" })).toBeDefined();
+    expect(screen.getByRole("button", { name: "Profile" })).toBeDefined();
   });
 
   it("should navigate to selected route", () => {
     const onNavigate = jest.fn();
 
     render(React.createElement(MobileNavigateComponent, { ...DEFAULT_PROPS, onNavigate }));
-    fireEvent.click(screen.getByRole("button", { name: "Order" }));
+    fireEvent.click(screen.getByRole("button", { name: "Calendar" }));
 
-    expect(onNavigate).toHaveBeenCalledWith("/order");
+    expect(onNavigate).toHaveBeenCalledWith("/calendar");
   });
 
   it("should hide navigation when requested", () => {

@@ -115,11 +115,17 @@ export const useInvoiceNavigation = (): {
   const onRowClick = (invoice: InvoiceData): void => onDetail(invoice);
 
   /**
-   * Navigate to invoice detail page for edit action.
+   * Navigate to order form edit for edit action.
    * @param {InvoiceData} invoice - Selected invoice
    * @returns {void} No return value
    */
-  const onEdit = (invoice: InvoiceData): void => { void navigate(`/document/invoice/${invoice.id}`); };
+  const onEdit = (invoice: InvoiceData): void => {
+    const targetId = invoice.transactionId || invoice.id;
+
+    void navigate(`/order/create/${targetId}`, {
+      state: { returnUrl: "/document/invoice" },
+    });
+  };
 
   return { onBack, onRowClick, onDetail, onEdit };
 };

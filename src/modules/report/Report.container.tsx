@@ -8,14 +8,14 @@ import { useReportOrderNavigation, useReportOrderPagination } from "./Report.hoo
  * @returns {React.ReactElement} Container element
  */
 const ReportOrderContainer = (): React.ReactElement => {
-  const { goBack, goToDetail } = useReportOrderNavigation();
+  const { goBack, goToStatus } = useReportOrderNavigation();
   const pagination = useReportOrderPagination();
 
   return (
     <ReportOrderComponent
       {...pagination}
       onBack={goBack}
-      onRowClick={goToDetail}
+      onEditStatus={goToStatus}
     />
   );
 };

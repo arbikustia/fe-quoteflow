@@ -10,6 +10,7 @@ const createProps = (): PaymentCreateFormState => ({
   paymentMethods: [{ id: "pm-1", name: "Bank Transfer" }],
   invoiceId: "inv-1",
   paymentMethodId: "pm-1",
+  status: "1",
   amount: 1500000,
   paidAt: "2026-11-01T00:00:00.000Z",
   referenceNo: "REF-001",
@@ -23,6 +24,7 @@ const createProps = (): PaymentCreateFormState => ({
   handleSubmit: jest.fn<PaymentCreateFormState["handleSubmit"]>(async (event) => { event.preventDefault(); }),
   setInvoiceId: jest.fn(),
   setPaymentMethodId: jest.fn(),
+  setStatus: jest.fn(),
   setAmount: jest.fn(),
   setPaidAt: jest.fn(),
   setReferenceNo: jest.fn(),
@@ -33,15 +35,26 @@ const createProps = (): PaymentCreateFormState => ({
 
 describe("PaymentCreateComponent", () => {
   it("should render all payment fields and submit button", () => {
-    render(<PaymentCreateComponent {...createProps()} />);
+    const props = createProps();
+    const { container } = render(<PaymentCreateComponent {...props} />);
 
     expect(screen.getByText("Invoice")).toBeTruthy();
     expect(screen.getByText("Payment Method")).toBeTruthy();
+    expect(screen.getByText("Payment Status")).toBeTruthy();
     expect(screen.getByText("Amount")).toBeTruthy();
     expect(screen.getByText("Paid At")).toBeTruthy();
     expect(screen.queryByText("Reference No")).toBeNull();
     expect(screen.getByText("Notes")).toBeTruthy();
+    expect(screen.getByText("Payment Information")).toBeTruthy();
+    expect(screen.getByText("Information")).toBeTruthy();
+    expect(screen.getByRole("button", { name: "Cancel" })).toBeTruthy();
     expect(screen.getByRole("button", { name: "Create Payment" })).toBeTruthy();
+
+    const form = container.querySelector("form");
+    expect(form?.classList.contains("rounded-3xl")).toBe(true);
+
+    fireEvent.click(screen.getByRole("button", { name: "Cancel" }));
+    expect(props.goBack).toHaveBeenCalledTimes(1);
   });
 
   it("should match payment form title typography on mobile and desktop", () => {
@@ -62,6 +75,17 @@ describe("PaymentCreateComponent", () => {
 
     fireEvent.submit(screen.getByRole("button", { name: "Create Payment" }).closest("form")!);
     expect(props.handleSubmit).toHaveBeenCalledTimes(1);
+  });
+
+  it("should show red border when payment status is empty after submit", () => {
+    const props = { ...createProps(), status: "", isSubmitted: true };
+    const { container } = render(<PaymentCreateComponent {...props} />);
+    const status = container.querySelector("#payment-status-select");
+
+    expect(screen.getByText("Payment status is required.")).toBeTruthy();
+    expect(status?.getAttribute("aria-invalid")).toBe("true");
+    expect(status?.closest(".ant-select")?.className).toContain("!border-danger");
+    expect(status?.closest(".ant-select")?.getAttribute("style")).toContain("rgb(220, 38, 38)");
   });
 
   it("should render status toggle when in edit mode", () => {

@@ -1,3 +1,5 @@
+import { useCallback, useRef } from "react";
+
 import { useCreateActivityLogMutation } from "@/services/activity-log.service";
 import type { ActivityAction } from "@/types/activity-log.type";
 
@@ -14,8 +16,9 @@ export const useMasterActivityLog = (page: string): {
   logView: () => Promise<void>;
 } => {
   const [createActivityLog] = useCreateActivityLogMutation();
+  const hasLoggedViewRef = useRef(false);
 
-  const logAction = async (action: ActivityAction, description: string): Promise<void> => {
+  const logAction = useCallback(async (action: ActivityAction, description: string): Promise<void> => {
     try {
       await createActivityLog({
         user_name: getUserName(),
@@ -26,12 +29,21 @@ export const useMasterActivityLog = (page: string): {
     } catch {
       // Activity log non-blocking
     }
-  };
+  }, [createActivityLog, page]);
+
+  const logCreate = useCallback((name: string): Promise<void> => logAction("create", `melakukan create data ${page} name: ${name}`), [logAction, page]);
+  const logEdit = useCallback((name: string): Promise<void> => logAction("edit", `melakukan edit data ${page} name: ${name}`), [logAction, page]);
+  const logDelete = useCallback((name: string): Promise<void> => logAction("delete", `melakukan delete data ${page} name: ${name}`), [logAction, page]);
+  const logView = useCallback(async (): Promise<void> => {
+    if (hasLoggedViewRef.current) return;
+    hasLoggedViewRef.current = true;
+    await logAction("view", `melihat page ${page}`);
+  }, [logAction, page]);
 
   return {
-    logCreate: (name: string): Promise<void> => logAction("create", `melakukan create data ${page} name: ${name}`),
-    logEdit: (name: string): Promise<void> => logAction("edit", `melakukan edit data ${page} name: ${name}`),
-    logDelete: (name: string): Promise<void> => logAction("delete", `melakukan delete data ${page} name: ${name}`),
-    logView: (): Promise<void> => logAction("view", `melihat page ${page}`),
+    logCreate,
+    logEdit,
+    logDelete,
+    logView,
   };
 };

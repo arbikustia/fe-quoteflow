@@ -10,6 +10,7 @@ import InvoiceDetailPage from "./app/document/invoice/detail";
 import InvoiceStatusPage from "./app/document/invoice/status";
 import PaymentPage from "./app/document/payment";
 import PaymentCreatePage from "./app/document/payment/create";
+import PaymentDetailPage from "./app/document/payment/detail";
 import PaymentStatusPage from "./app/document/payment/status";
 import QuotationPage from "./app/document/quotation";
 import QuotationDetailPage from "./app/document/quotation/detail";
@@ -17,6 +18,8 @@ import QuotationStatusPage from "./app/document/quotation/status";
 import ItemChecklistPage from "./app/item-checklist";
 import ItemChecklistCreatePage from "./app/item-checklist/create";
 import ItemChecklistDetailPage from "./app/item-checklist/detail";
+import ItemReturnPage from "./app/item-return";
+import ItemReturnCreatePage from "./app/item-return/create";
 import MasterCategory from "./app/master-category";
 import MasterCategoryCreate from "./app/master-category/create";
 import MasterCustomer from "./app/master-customer";
@@ -56,6 +59,7 @@ import ProfilePage from "./app/profile";
 import Report from "./app/report";
 import ReportDetail from "./app/report/detail";
 import ReportMain from "./app/report/main";
+import ReportOrderStatus from "./app/report/status";
 import Return from "./app/return";
 import ReturnPageDetail from "./app/return/detail";
 
@@ -72,8 +76,12 @@ function App(): React.ReactElement {
         <Route path="/item-checklist/create" element={<ItemChecklistCreatePage />} />
         <Route path="/item-checklist/create/:id" element={<ItemChecklistCreatePage />} />
         <Route path="/item-checklist/:id" element={<ItemChecklistDetailPage />} />
+        <Route path="/item-return" element={<ItemReturnPage />} />
+        <Route path="/item-return/create" element={<ItemReturnCreatePage />} />
+        <Route path="/item-return/create/:id" element={<ItemReturnCreatePage />} />
         <Route path="/note" element={<NotePage />} />
         <Route path="/note/create" element={<NoteCreatePage />} />
+        <Route path="/note/edit/:id" element={<NoteCreatePage />} />
         <Route path="/profile" element={<ProfilePage />} />
         <Route path="/master-main" element={<MasterMain />} />
         
@@ -152,6 +160,7 @@ function App(): React.ReactElement {
         <Route path="/document/invoice/:id/status" element={<InvoiceStatusPage />} />
         <Route path="/document/payment" element={<PaymentPage />} />
         <Route path="/document/payment/create" element={<PaymentCreatePage />} />
+        <Route path="/document/payment/:id" element={<PaymentDetailPage />} />
         <Route path="/document/payment/:id/edit" element={<PaymentCreatePage />} />
         <Route path="/document/payment/:id/status" element={<PaymentStatusPage />} />
 
@@ -164,6 +173,7 @@ function App(): React.ReactElement {
         <Route path="/preview" element={<Preview />} />
         <Route path="/report/main" element={<ReportMain />} />
         <Route path="/report" element={<Report />} />
+        <Route path="/report/order/:id/status" element={<ReportOrderStatus />} />
         <Route path="/report/detail/:id" element={<ReportDetail />} />
         <Route path="/return" element={<Return />} />
         <Route path="/return/detail/:id" element={<ReturnPageDetail />} />

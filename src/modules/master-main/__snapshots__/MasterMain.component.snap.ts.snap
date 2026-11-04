@@ -43,26 +43,6 @@ exports[`MasterMainComponent matches snapshot 1`] = `
         <div
           class="flex items-center gap-3 min-w-0 flex-1"
         >
-          <button
-            aria-label="Back"
-            class="flex h-14 w-14 shrink-0 items-center justify-center rounded-full border border-border-default text-text-primary bg-white hover:bg-background-subtle transition-colors"
-            type="button"
-          >
-            <svg
-              aria-hidden="true"
-              class="w-6 h-6"
-              fill="none"
-              stroke="currentColor"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2.5"
-              viewBox="0 0 24 24"
-            >
-              <path
-                d="M19 12H5M12 19l-7-7 7-7"
-              />
-            </svg>
-          </button>
           <div
             class="min-w-0 flex-1"
           >
@@ -88,270 +68,270 @@ exports[`MasterMainComponent matches snapshot 1`] = `
       class="min-w-0 flex-1"
     >
       <div
-        class="relative flex h-full flex-col bg-background-surface px-0 pb-18 lg:-mt-4 lg:bg-transparent lg:pb-0"
+        class="relative flex h-full flex-col bg-background-page px-0 pb-18 lg:-mt-4 lg:bg-transparent lg:pb-0"
       >
         <div
-          class="flex flex-col gap-6 pb-20 pt-2 lg:pt-0"
+          class="flex flex-col gap-4 pb-20 pt-2 lg:pt-0"
         >
           <div
             class="grid grid-cols-1 gap-4 md:grid-cols-3"
           >
             <button
-              class="group flex min-h-36 w-full items-start gap-4 rounded-2xl border border-border-default bg-background-surface p-5 text-left transition-colors hover:border-border-strong hover:bg-background-subtle/40 focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring/30"
+              class="group flex min-h-36 w-full items-start gap-4 rounded-3xl border border-border-strong bg-background-surface p-5 text-left shadow-small transition-colors hover:border-border-strong hover:bg-background-subtle/40 focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring/30"
               type="button"
             >
               <img
                 alt=""
                 aria-hidden="true"
-                class="h-28 w-44 shrink-0 rounded-xl object-contain"
+                class="h-28 w-44 shrink-0 rounded-3xl object-contain"
                 src="/src/assets/customer-illustration.png"
               />
               <span
                 class="min-w-0 flex-1"
               >
                 <span
-                  class="block truncate text-2xl font-semibold text-text-primary lg:text-lg"
+                  class="block truncate text-2xl font-semibold text-text-primary lg:text-xl"
                 >
                   Master Customer
                 </span>
                 <span
-                  class="mt-2 block text-lg leading-7 text-text-secondary lg:text-sm lg:leading-5"
+                  class="mt-2 block text-lg leading-7 text-text-secondary"
                 >
                   Manage customer profiles and contact info
                 </span>
               </span>
             </button>
             <button
-              class="group flex min-h-36 w-full items-start gap-4 rounded-2xl border border-border-default bg-background-surface p-5 text-left transition-colors hover:border-border-strong hover:bg-background-subtle/40 focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring/30"
+              class="group flex min-h-36 w-full items-start gap-4 rounded-3xl border border-border-strong bg-background-surface p-5 text-left shadow-small transition-colors hover:border-border-strong hover:bg-background-subtle/40 focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring/30"
               type="button"
             >
               <img
                 alt=""
                 aria-hidden="true"
-                class="h-28 w-44 shrink-0 rounded-xl object-contain"
+                class="h-28 w-44 shrink-0 rounded-3xl object-contain"
                 src="/src/assets/category-illustration.png"
               />
               <span
                 class="min-w-0 flex-1"
               >
                 <span
-                  class="block truncate text-2xl font-semibold text-text-primary lg:text-lg"
+                  class="block truncate text-2xl font-semibold text-text-primary lg:text-xl"
                 >
                   Master Category
                 </span>
                 <span
-                  class="mt-2 block text-lg leading-7 text-text-secondary lg:text-sm lg:leading-5"
+                  class="mt-2 block text-lg leading-7 text-text-secondary"
                 >
                   Manage product and item categories
                 </span>
               </span>
             </button>
             <button
-              class="group flex min-h-36 w-full items-start gap-4 rounded-2xl border border-border-default bg-background-surface p-5 text-left transition-colors hover:border-border-strong hover:bg-background-subtle/40 focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring/30"
+              class="group flex min-h-36 w-full items-start gap-4 rounded-3xl border border-border-strong bg-background-surface p-5 text-left shadow-small transition-colors hover:border-border-strong hover:bg-background-subtle/40 focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring/30"
               type="button"
             >
               <img
                 alt=""
                 aria-hidden="true"
-                class="h-28 w-44 shrink-0 rounded-xl object-contain"
+                class="h-28 w-44 shrink-0 rounded-3xl object-contain"
                 src="/src/assets/item-illustration.png"
               />
               <span
                 class="min-w-0 flex-1"
               >
                 <span
-                  class="block truncate text-2xl font-semibold text-text-primary lg:text-lg"
+                  class="block truncate text-2xl font-semibold text-text-primary lg:text-xl"
                 >
                   Master Item
                 </span>
                 <span
-                  class="mt-2 block text-lg leading-7 text-text-secondary lg:text-sm lg:leading-5"
+                  class="mt-2 block text-lg leading-7 text-text-secondary"
                 >
                   Manage items and inventory data
                 </span>
               </span>
             </button>
             <button
-              class="group flex min-h-36 w-full items-start gap-4 rounded-2xl border border-border-default bg-background-surface p-5 text-left transition-colors hover:border-border-strong hover:bg-background-subtle/40 focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring/30"
+              class="group flex min-h-36 w-full items-start gap-4 rounded-3xl border border-border-strong bg-background-surface p-5 text-left shadow-small transition-colors hover:border-border-strong hover:bg-background-subtle/40 focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring/30"
               type="button"
             >
               <img
                 alt=""
                 aria-hidden="true"
-                class="h-28 w-44 shrink-0 rounded-xl object-contain"
+                class="h-28 w-44 shrink-0 rounded-3xl object-contain"
                 src="/src/assets/project-illustration.png"
               />
               <span
                 class="min-w-0 flex-1"
               >
                 <span
-                  class="block truncate text-2xl font-semibold text-text-primary lg:text-lg"
+                  class="block truncate text-2xl font-semibold text-text-primary lg:text-xl"
                 >
                   Master Project
                 </span>
                 <span
-                  class="mt-2 block text-lg leading-7 text-text-secondary lg:text-sm lg:leading-5"
+                  class="mt-2 block text-lg leading-7 text-text-secondary"
                 >
                   Manage project items and details
                 </span>
               </span>
             </button>
             <button
-              class="group flex min-h-36 w-full items-start gap-4 rounded-2xl border border-border-default bg-background-surface p-5 text-left transition-colors hover:border-border-strong hover:bg-background-subtle/40 focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring/30"
+              class="group flex min-h-36 w-full items-start gap-4 rounded-3xl border border-border-strong bg-background-surface p-5 text-left shadow-small transition-colors hover:border-border-strong hover:bg-background-subtle/40 focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring/30"
               type="button"
             >
               <img
                 alt=""
                 aria-hidden="true"
-                class="h-28 w-44 shrink-0 rounded-xl object-contain"
+                class="h-28 w-44 shrink-0 rounded-3xl object-contain"
                 src="/src/assets/payment-method-illustration.png"
               />
               <span
                 class="min-w-0 flex-1"
               >
                 <span
-                  class="block truncate text-2xl font-semibold text-text-primary lg:text-lg"
+                  class="block truncate text-2xl font-semibold text-text-primary lg:text-xl"
                 >
                   Master Payment Method
                 </span>
                 <span
-                  class="mt-2 block text-lg leading-7 text-text-secondary lg:text-sm lg:leading-5"
+                  class="mt-2 block text-lg leading-7 text-text-secondary"
                 >
                   Manage available payment methods
                 </span>
               </span>
             </button>
             <button
-              class="group flex min-h-36 w-full items-start gap-4 rounded-2xl border border-border-default bg-background-surface p-5 text-left transition-colors hover:border-border-strong hover:bg-background-subtle/40 focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring/30"
+              class="group flex min-h-36 w-full items-start gap-4 rounded-3xl border border-border-strong bg-background-surface p-5 text-left shadow-small transition-colors hover:border-border-strong hover:bg-background-subtle/40 focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring/30"
               type="button"
             >
               <img
                 alt=""
                 aria-hidden="true"
-                class="h-28 w-44 shrink-0 rounded-xl object-contain"
-                src="/src/assets/payment-type-illustration.png"
-              />
-              <span
-                class="min-w-0 flex-1"
-              >
-                <span
-                  class="block truncate text-2xl font-semibold text-text-primary lg:text-lg"
-                >
-                  Master Payment Type
-                </span>
-                <span
-                  class="mt-2 block text-lg leading-7 text-text-secondary lg:text-sm lg:leading-5"
-                >
-                  Manage payment types categorization
-                </span>
-              </span>
-            </button>
-            <button
-              class="group flex min-h-36 w-full items-start gap-4 rounded-2xl border border-border-default bg-background-surface p-5 text-left transition-colors hover:border-border-strong hover:bg-background-subtle/40 focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring/30"
-              type="button"
-            >
-              <img
-                alt=""
-                aria-hidden="true"
-                class="h-28 w-44 shrink-0 rounded-xl object-contain"
+                class="h-28 w-44 shrink-0 rounded-3xl object-contain"
                 src="/src/assets/voucher-illustration.png"
               />
               <span
                 class="min-w-0 flex-1"
               >
                 <span
-                  class="block truncate text-2xl font-semibold text-text-primary lg:text-lg"
+                  class="block truncate text-2xl font-semibold text-text-primary lg:text-xl"
                 >
                   Master Voucher
                 </span>
                 <span
-                  class="mt-2 block text-lg leading-7 text-text-secondary lg:text-sm lg:leading-5"
+                  class="mt-2 block text-lg leading-7 text-text-secondary"
                 >
                   Manage discount codes and vouchers
                 </span>
               </span>
             </button>
             <button
-              class="group flex min-h-36 w-full items-start gap-4 rounded-2xl border border-border-default bg-background-surface p-5 text-left transition-colors hover:border-border-strong hover:bg-background-subtle/40 focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring/30"
+              class="group flex min-h-36 w-full items-start gap-4 rounded-3xl border border-border-strong bg-background-surface p-5 text-left shadow-small transition-colors hover:border-border-strong hover:bg-background-subtle/40 focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring/30"
               type="button"
             >
               <img
                 alt=""
                 aria-hidden="true"
-                class="h-28 w-44 shrink-0 rounded-xl object-contain"
+                class="h-28 w-44 shrink-0 rounded-3xl object-contain"
                 src="/src/assets/role-illustration.png"
               />
               <span
                 class="min-w-0 flex-1"
               >
                 <span
-                  class="block truncate text-2xl font-semibold text-text-primary lg:text-lg"
+                  class="block truncate text-2xl font-semibold text-text-primary lg:text-xl"
                 >
                   Master Role
                 </span>
                 <span
-                  class="mt-2 block text-lg leading-7 text-text-secondary lg:text-sm lg:leading-5"
+                  class="mt-2 block text-lg leading-7 text-text-secondary"
                 >
                   Manage user roles and access rights
                 </span>
               </span>
             </button>
             <button
-              class="group flex min-h-36 w-full items-start gap-4 rounded-2xl border border-border-default bg-background-surface p-5 text-left transition-colors hover:border-border-strong hover:bg-background-subtle/40 focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring/30"
+              class="group flex min-h-36 w-full items-start gap-4 rounded-3xl border border-border-strong bg-background-surface p-5 text-left shadow-small transition-colors hover:border-border-strong hover:bg-background-subtle/40 focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring/30"
               type="button"
             >
               <img
                 alt=""
                 aria-hidden="true"
-                class="h-28 w-44 shrink-0 rounded-xl object-contain"
+                class="h-28 w-44 shrink-0 rounded-3xl object-contain"
                 src="/src/assets/user-illustration.png"
               />
               <span
                 class="min-w-0 flex-1"
               >
                 <span
-                  class="block truncate text-2xl font-semibold text-text-primary lg:text-lg"
+                  class="block truncate text-2xl font-semibold text-text-primary lg:text-xl"
                 >
                   Master User
                 </span>
                 <span
-                  class="mt-2 block text-lg leading-7 text-text-secondary lg:text-sm lg:leading-5"
+                  class="mt-2 block text-lg leading-7 text-text-secondary"
                 >
                   Manage system users and their roles
                 </span>
               </span>
             </button>
             <button
-              class="group flex min-h-36 w-full items-start gap-4 rounded-2xl border border-border-default bg-background-surface p-5 text-left transition-colors hover:border-border-strong hover:bg-background-subtle/40 focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring/30"
+              class="group flex min-h-36 w-full items-start gap-4 rounded-3xl border border-border-strong bg-background-surface p-5 text-left shadow-small transition-colors hover:border-border-strong hover:bg-background-subtle/40 focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring/30"
               type="button"
             >
               <img
                 alt=""
                 aria-hidden="true"
-                class="h-28 w-44 shrink-0 rounded-xl object-contain"
+                class="h-28 w-44 shrink-0 rounded-3xl object-contain"
                 src="/src/assets/pic-illustration.png"
               />
               <span
                 class="min-w-0 flex-1"
               >
                 <span
-                  class="block truncate text-2xl font-semibold text-text-primary lg:text-lg"
+                  class="block truncate text-2xl font-semibold text-text-primary lg:text-xl"
                 >
                   Master PIC
                 </span>
                 <span
-                  class="mt-2 block text-lg leading-7 text-text-secondary lg:text-sm lg:leading-5"
+                  class="mt-2 block text-lg leading-7 text-text-secondary"
                 >
                   Manage person in charge data
                 </span>
               </span>
             </button>
             <button
-              class="group flex min-h-36 w-full items-start gap-4 rounded-2xl border border-border-default bg-background-surface p-5 text-left transition-colors hover:border-border-strong hover:bg-background-subtle/40 focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring/30"
+              class="group flex min-h-36 w-full items-start gap-4 rounded-3xl border border-border-strong bg-background-surface p-5 text-left shadow-small transition-colors hover:border-border-strong hover:bg-background-subtle/40 focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring/30"
+              type="button"
+            >
+              <img
+                alt=""
+                aria-hidden="true"
+                class="h-28 w-44 shrink-0 rounded-3xl object-contain"
+                src="/src/assets/category-illustration.png"
+              />
+              <span
+                class="min-w-0 flex-1"
+              >
+                <span
+                  class="block truncate text-2xl font-semibold text-text-primary lg:text-xl"
+                >
+                  Master Order Type
+                </span>
+                <span
+                  class="mt-2 block text-lg leading-7 text-text-secondary"
+                >
+                  Manage order types and handover rules
+                </span>
+              </span>
+            </button>
+            <button
+              class="group flex min-h-36 w-full items-start gap-4 rounded-3xl border border-border-strong bg-background-surface p-5 text-left shadow-small transition-colors hover:border-border-strong hover:bg-background-subtle/40 focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring/30"
               type="button"
             >
               <span
-                class="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-action-primary-subtle text-action-primary transition-colors group-hover:bg-action-primary group-hover:text-white"
+                class="flex h-12 w-12 shrink-0 items-center justify-center rounded-3xl bg-action-primary-subtle text-action-primary transition-colors group-hover:bg-action-primary group-hover:text-white"
               >
                 <svg
                   fill="none"
@@ -380,12 +360,12 @@ exports[`MasterMainComponent matches snapshot 1`] = `
                 class="min-w-0 flex-1"
               >
                 <span
-                  class="block truncate text-2xl font-semibold text-text-primary lg:text-lg"
+                  class="block truncate text-2xl font-semibold text-text-primary lg:text-xl"
                 >
                   Master Email Sender
                 </span>
                 <span
-                  class="mt-2 block text-lg leading-7 text-text-secondary lg:text-sm lg:leading-5"
+                  class="mt-2 block text-lg leading-7 text-text-secondary"
                 >
                   Manage SMTP email sender settings
                 </span>

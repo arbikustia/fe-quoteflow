@@ -90,7 +90,7 @@ describe("QuotationComponent", () => {
     const props = createProps();
     render(<MemoryRouter><QuotationComponent {...props} /></MemoryRouter>);
 
-    expect(screen.queryByRole("button", { name: /create|add quotation/i })).toBeNull();
+    expect(screen.queryByRole("button", { name: /(?:create|add)\s+quotation/i })).toBeNull();
     expect(screen.getByText("Status")).toBeTruthy();
     expect(screen.getAllByText("QUO-001").length).toBeGreaterThan(0);
     expect(screen.getAllByText("PT Example").length).toBeGreaterThan(0);
@@ -98,9 +98,53 @@ describe("QuotationComponent", () => {
     expect(screen.getAllByText("2026-10-01").length).toBeGreaterThan(0);
     expect(screen.getAllByText("2026-11-01").length).toBeGreaterThan(0);
     expect(screen.getAllByText("2026-11-02").length).toBeGreaterThan(0);
-    expect(screen.getByText("Quotation Created")).toBeTruthy();
-    expect(screen.getByText("Approved")).toBeTruthy();
-    expect(screen.getByText("Cancelled")).toBeTruthy();
+    expect(screen.getAllByText("Quotation Created")).toHaveLength(2);
+    expect(screen.getAllByText("Approved")).toHaveLength(2);
+    expect(screen.getAllByText("Cancelled")).toHaveLength(2);
+    expect(screen.getAllByText("Quotation Created")[0].className).toContain("text-lg");
+    expect(screen.getAllByRole("button", { name: "Download PDF" })[0].className).toContain("rounded-3xl");
+  });
+
+  it("should show quotation workflow statuses on mobile cards", (): void => {
+    const props = createProps();
+    render(<MemoryRouter><QuotationComponent {...props} /></MemoryRouter>);
+
+    const expectedStatuses = ["Quotation Created", "Approved", "Cancelled"];
+    MOCK_ROWS.forEach((row, index): void => {
+      const card = screen.getAllByText(row.quotationNumber)[0].closest("button");
+      expect(card).not.toBeNull();
+      expect(card?.className).toContain("rounded-3xl");
+      expect(card?.className).toContain("border-border-strong");
+      expect(card?.className).toContain("bg-background-surface");
+      expect(card?.textContent).toContain(expectedStatuses[index]);
+      expect(card?.textContent).toContain(row.name);
+      expect(card?.textContent).toContain(row.customerName);
+      expect(card?.textContent).toContain(`Rp ${row.grandTotal.toLocaleString("id-ID")}`);
+      expect(card?.textContent).toContain("Event period");
+      expect(card?.textContent).toContain("Total");
+      expect(screen.getAllByText(row.quotationNumber)[0].className).toContain("text-lg");
+      expect(card?.querySelector(".rounded-full")?.className).toContain("text-lg");
+      expect(screen.getAllByText(row.customerName)[0].className).toContain("text-lg");
+      expect(card?.querySelectorAll(".text-xs, .text-sm, .text-base")).toHaveLength(0);
+      expect(card?.textContent).not.toMatch(/\bactive\b|\binactive\b/i);
+    });
+  });
+
+  it("handles view detail and edit quotation action click", () => {
+    const onDetail = jest.fn();
+    const onEdit = jest.fn();
+    const props = createProps({ onDetail, onEdit });
+    render(<MemoryRouter><QuotationComponent {...props} /></MemoryRouter>);
+
+    const detailButtons = screen.getAllByRole("button", { name: "View quotation detail" });
+    expect(detailButtons.length).toBeGreaterThan(0);
+    fireEvent.click(detailButtons[0]);
+    expect(onDetail).toHaveBeenCalledWith(MOCK_ROWS[0]);
+
+    const editButtons = screen.getAllByRole("button", { name: "Edit quotation" });
+    expect(editButtons.length).toBeGreaterThan(0);
+    fireEvent.click(editButtons[0]);
+    expect(onEdit).toHaveBeenCalledWith(MOCK_ROWS[0]);
   });
 
   it("handles download PDF action click", () => {
@@ -145,8 +189,16 @@ describe("QuotationComponent", () => {
     const props = createProps({ isLoading: true, paginatedData: [] });
     render(<MemoryRouter><QuotationComponent {...props} /></MemoryRouter>);
 
-    expect(screen.getByRole("status", { name: "Loading quotation table" })).toBeTruthy();
-    expect(screen.getAllByRole("status", { name: "Loading quotation card" })).toHaveLength(5);
+    const tableSkeleton = screen.getByRole("status", { name: "Loading quotation table" });
+    const cardSkeletons = screen.getAllByRole("status", { name: "Loading quotation card" });
+    expect(tableSkeleton.querySelectorAll("th")).toHaveLength(9);
+    expect(tableSkeleton.querySelectorAll("tbody tr")).toHaveLength(5);
+    expect(tableSkeleton.querySelectorAll("tbody tr:first-child td")).toHaveLength(9);
+    expect(tableSkeleton.querySelectorAll("tbody tr:first-child td:last-child span")).toHaveLength(3);
+    expect(cardSkeletons).toHaveLength(5);
+    expect(cardSkeletons[0].className).toContain("rounded-3xl");
+    expect(cardSkeletons[0].querySelectorAll(".border-t > div")).toHaveLength(2);
+    expect(screen.queryByText("QUO-001")).toBeNull();
   });
 
   it("renders error message on error", () => {

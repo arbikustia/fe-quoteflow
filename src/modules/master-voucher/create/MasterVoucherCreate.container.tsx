@@ -9,7 +9,7 @@ import Layout from "@/app/layout";
  * @returns {ReactElement} Create container
  */
 const MasterVoucherCreateContainer = (): ReactElement => (
-  <Layout mobileWhiteBackground={true} showMobileGlobalHeader={true}>
+  <Layout>
     <MasterVoucherCreateComponent {...useMasterVoucherCreateForm()} />
   </Layout>
 );

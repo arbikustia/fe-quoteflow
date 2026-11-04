@@ -14,13 +14,13 @@ import {
   LuNotebookTabs,
   LuPackage,
   LuReceiptText,
+  LuRotateCcw,
   LuShieldCheck,
   LuSquareCheck,
   LuTags,
   LuUserRound,
   LuUserRoundCog,
   LuUsers,
-  LuWalletCards,
 } from "react-icons/lu";
 
 import type { MasterNavigationItem, NavigationItem, NavigationSection } from "./Sidebar.type";
@@ -31,7 +31,6 @@ export const MASTER_DATA_ITEMS: MasterNavigationItem[] = [
   { name: "Item", description: "Manage items and inventory data", icon: LuPackage, path: "/master-item" },
   { name: "Project", description: "Manage project items and details", icon: LuFolderKanban, path: "/master-project" },
   { name: "Payment Method", description: "Manage available payment methods", icon: LuCreditCard, path: "/master-payment-method" },
-  { name: "Payment Type", description: "Manage payment types categorization", icon: LuWalletCards, path: "/master-payment-type" },
   { name: "Voucher", description: "Manage discount codes and vouchers", icon: LuBadgePercent, path: "/master-voucher" },
   { name: "Role", description: "Manage user roles and access rights", icon: LuShieldCheck, path: "/master-role" },
   { name: "User", description: "Manage system users and their roles", icon: LuUserRoundCog, path: "/master-user" },
@@ -66,6 +65,11 @@ export const NAVIGATION_CONFIG: NavigationItem[] = [
     name: "Item Checklist",
     icon: LuSquareCheck,
     path: "/item-checklist",
+  },
+  {
+    name: "Item Return",
+    icon: LuRotateCcw,
+    path: "/item-return",
   },
   {
     name: "Calendar",

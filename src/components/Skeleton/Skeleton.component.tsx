@@ -11,14 +11,14 @@ import type { CardSkeletonProps, SkeletonProps } from "./Skeleton.type";
 export const CardSkeletonComponent = ({ count = 5, className = "" }: CardSkeletonProps): ReactElement => (
   <div className={`space-y-3 ${className}`} aria-label="Loading cards" role="status">
     {Array.from({ length: count }, (_, index) => (
-      <div key={`card-skeleton-${index}`} className="animate-pulse rounded-2xl border border-border-default bg-background-surface p-5">
-        <div className="flex items-start justify-between gap-4">
-          <div className="h-6 w-2/5 rounded bg-background-subtle" />
-          <div className="h-5 w-16 rounded-full bg-background-subtle" />
+      <div key={`card-skeleton-${index}`} className="animate-pulse rounded-xl border border-border-strong bg-background-surface p-5 shadow-small">
+        <div className="flex flex-wrap items-center justify-between gap-2">
+          <div className="h-7 w-2/5 rounded bg-background-subtle" />
+          <div className="h-8 w-20 rounded-full bg-background-subtle" />
         </div>
-        <div className="mt-3 grid gap-2">
-          <div className="h-4 w-3/5 rounded bg-background-subtle" />
-          <div className="h-4 w-4/5 rounded bg-background-subtle" />
+        <div className="mt-4 grid gap-2 border-t border-border-default pt-4">
+          <div className="h-7 w-3/5 rounded bg-background-subtle" />
+          <div className="h-7 w-4/5 rounded bg-background-subtle" />
         </div>
       </div>
     ))}

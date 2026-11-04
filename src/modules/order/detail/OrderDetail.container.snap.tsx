@@ -8,6 +8,19 @@ jest.mock('@/services/order.service', () => ({
   useGetOrderByIdQuery: (): { data: undefined; error: undefined; isLoading: boolean } => ({ data: undefined, error: undefined, isLoading: false }),
 }));
 
+jest.mock('@/services/master-project.service', () => ({
+  /**
+   * Map project data.
+   * @returns {void}
+   */
+  mapProject: jest.fn(),
+  /**
+   * Mock get all projects query.
+   * @returns {{ data: undefined }} query result
+   */
+  useGetAllProjectsQuery: (): { data: undefined } => ({ data: undefined }),
+}));
+
 import OrderDetailContainer from './OrderDetail.container';
 
 jest.useFakeTimers();

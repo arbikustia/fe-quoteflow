@@ -1,7 +1,7 @@
 import { apiRtkClient } from "@/libs/ApiRtkServices/apiRtkClient";
 
 import ENDPOINT from "@/constant/endpoint.const";
-import type { ApiRentalOrder, DashboardRentalOrderParams, DashboardRentalOrderResponse, RentalOrderListParams, RentalOrderListResponse, RentalOrderResponse, ReportOrderData } from "@/modules/report/Report.type";
+import type { ApiRentalOrder, DashboardRentalOrderParams, DashboardRentalOrderResponse, RentalOrderListParams, RentalOrderListResponse, RentalOrderResponse, RentalOrderUpdatePayload, RentalOrderUpdateResponse, ReportOrderData } from "@/modules/report/Report.type";
 
 const RENTAL_ORDER_TAG = "RentalOrder";
 
@@ -17,7 +17,11 @@ export const mapRentalOrder = (order: ApiRentalOrder): ReportOrderData => {
     id: order.id,
     orderNo: order.order_no,
     transactionId: order.transaction_id,
+    invoiceId: order.invoice_id,
+    quotationId: order.quotation_id,
     invoiceNo: order.invoice?.invoice_no ?? "",
+    notes: order.notes ?? "",
+    rawOrderDate: order.order_date,
     customerName: transaction?.customer_name ?? transaction?.customer?.name ?? "",
     customerPhone: transaction?.customer_phone ?? transaction?.customer?.phone_number ?? "",
     eventName: transaction?.event_name ?? "",
@@ -62,8 +66,16 @@ export const rentalOrderService = apiRtkClient.injectEndpoints({
       }),
       providesTags: [RENTAL_ORDER_TAG],
     }),
+    updateRentalOrder: builder.mutation<RentalOrderUpdateResponse, RentalOrderUpdatePayload & { id: string }>({
+      query: ({ id, ...body }) => ({
+        url: `${ENDPOINT.RENTAL_ORDER.LIST}/${id}`,
+        method: "PUT",
+        data: body,
+      }),
+      invalidatesTags: [RENTAL_ORDER_TAG],
+    }),
   }),
   overrideExisting: false,
 });
 
-export const { useGetRentalOrdersQuery, useGetRentalOrderOptionsQuery, useGetDashboardRentalOrdersQuery } = rentalOrderService;
+export const { useGetRentalOrdersQuery, useGetRentalOrderOptionsQuery, useGetDashboardRentalOrdersQuery, useUpdateRentalOrderMutation } = rentalOrderService;

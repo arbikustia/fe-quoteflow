@@ -1,7 +1,7 @@
 import type { ReactElement } from "react";
 import { LuChevronLeft, LuChevronRight } from "react-icons/lu";
 
-import { buildCalendarDays, buildCalendarWeekEventSegments, formatCalendarMonth, formatCalendarMonthShort } from "./Calendar.helpers";
+import { buildCalendarDays, buildCalendarWeekEventSegments, formatCalendarMonth } from "./Calendar.helpers";
 import type { CalendarComponentProps, CalendarDayCell, CalendarEventItem, CalendarEventVariantClasses } from "./Calendar.type";
 
 const WEEKDAYS = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
@@ -22,7 +22,16 @@ const EVENT_VARIANTS: CalendarEventVariantClasses = {
  * @returns {ReactElement} Event pill button
  */
 const _renderEvent = (event: CalendarEventItem, onEventClick: ((event: CalendarEventItem) => void) | undefined): ReactElement => (
-  <button type="button" key={event.id} onClick={(): void => onEventClick?.(event)} className={`flex min-w-0 w-full items-center gap-1 rounded-md border px-2 py-1.5 text-left text-base font-semibold leading-5 transition-opacity hover:opacity-75 ${EVENT_VARIANTS[event.variant ?? "neutral"]}`} title={event.title}>
+  <button
+    type="button"
+    key={event.id}
+    onClick={(e): void => {
+      e.stopPropagation();
+      onEventClick?.(event);
+    }}
+    className={`flex min-w-0 w-full items-center gap-1 rounded-md border px-2 py-1.5 text-left text-base font-semibold leading-5 transition-opacity hover:opacity-75 ${EVENT_VARIANTS[event.variant ?? "neutral"]}`}
+    title={event.title}
+  >
     <span className="min-w-0 flex-1 truncate">{event.title}</span>
     {event.time && <span className="hidden shrink-0 text-sm font-medium opacity-75 lg:inline">{event.time}</span>}
   </button>
@@ -84,17 +93,148 @@ const _renderDayEvents = (events: CalendarEventItem[], onEventClick: ((event: Ca
 };
 
 /**
+ * Return background and interaction class for calendar day cell.
+ * @param {CalendarDayCell} day - Day item
+ * @param {boolean} isExpanded - Use expanded height
+ * @param {boolean} isClickable - Whether date is clickable
+ * @returns {string} CSS class
+ */
+const _getDayCellClassName = (day: CalendarDayCell, isExpanded: boolean, isClickable: boolean): string => {
+  const heightClass = isExpanded ? "min-h-[6rem]" : "min-h-[20dvh] lg:aspect-square lg:min-h-0";
+
+  if (!day.isCurrentMonth) {
+    return `relative ${heightClass} min-w-0 border-r border-border-default p-2 pointer-events-none bg-background-subtle`;
+  }
+
+  const hoverClass = isClickable
+    ? "cursor-pointer transition-colors hover:bg-background-subtle/50 focus:outline-none focus-visible:ring-1 focus-visible:ring-focus-ring"
+    : "";
+
+  return `relative ${heightClass} min-w-0 border-r border-border-default p-2 ${hoverClass}`;
+};
+
+/**
+ * Render single day cell.
+ * @param {CalendarDayCell} day - Day item
+ * @param {boolean} isExpanded - Expanded height
+ * @param {((event: CalendarEventItem) => void) | undefined} onEventClick - Event click callback
+ * @param {((date: Date, events: CalendarEventItem[]) => void) | undefined} onDateClick - Date click callback
+ * @returns {ReactElement} Day cell
+ */
+const _renderDayCell = (
+  day: CalendarDayCell,
+  isExpanded: boolean,
+  onEventClick: ((event: CalendarEventItem) => void) | undefined,
+  onDateClick?: ((date: Date, events: CalendarEventItem[]) => void) | undefined,
+): ReactElement => {
+  const isClickable = Boolean(onDateClick && day.isCurrentMonth);
+
+  return (
+    <div
+      key={day.dateKey}
+      role={isClickable ? "button" : undefined}
+      tabIndex={isClickable ? 0 : undefined}
+      onClick={(): void => {
+        if (day.isCurrentMonth && onDateClick) {
+          onDateClick(day.date, day.events);
+        }
+      }}
+      onKeyDown={(event): void => {
+        if (day.isCurrentMonth && onDateClick && (event.key === "Enter" || event.key === " ")) {
+          event.preventDefault();
+          onDateClick(day.date, day.events);
+        }
+      }}
+      aria-disabled={!day.isCurrentMonth}
+      className={_getDayCellClassName(day, isExpanded, isClickable)}
+    >
+      <span className={`inline-flex h-6 min-w-6 items-center justify-center rounded-full px-1 text-xs font-semibold ${_getDayNumberClassName(day)}`}>
+        {day.dayNumber}
+      </span>
+      {day.isCurrentMonth && _renderDayEvents(day.events, onEventClick)}
+    </div>
+  );
+};
+
+/**
  * Render one week with continuous multi-day event bars.
  * @param {CalendarDayCell[]} weekDays - Week cells
  * @param {((event: CalendarEventItem) => void) | undefined} onEventClick - Event callback
  * @param {boolean} isExpanded - Use expanded day cells
+ * @param {((date: Date, events: CalendarEventItem[]) => void) | undefined} onDateClick - Date click callback
  * @returns {ReactElement} Week row
  */
-const _renderWeek = (weekDays: CalendarDayCell[], onEventClick: ((event: CalendarEventItem) => void) | undefined, isExpanded: boolean): ReactElement => {
+const _renderWeek = (
+  weekDays: CalendarDayCell[],
+  onEventClick: ((event: CalendarEventItem) => void) | undefined,
+  isExpanded: boolean,
+  onDateClick?: ((date: Date, events: CalendarEventItem[]) => void) | undefined,
+): ReactElement => {
   const segments = buildCalendarWeekEventSegments(weekDays);
 
-  return <div className="relative grid grid-cols-7 border-b border-border-default">{weekDays.map((day) => <div key={day.dateKey} aria-disabled={!day.isCurrentMonth} className={`relative ${isExpanded ? "min-h-[6rem]" : "min-h-[20dvh] lg:aspect-square lg:min-h-0"} min-w-0 border-r border-border-default p-2 ${day.isCurrentMonth ? "" : "pointer-events-none bg-background-subtle"}`}><span className={`inline-flex h-6 min-w-6 items-center justify-center rounded-full px-1 text-xs font-semibold ${_getDayNumberClassName(day)}`}>{day.dayNumber}</span>{day.isCurrentMonth && _renderDayEvents(day.events, onEventClick)}</div>)}{segments.map((segment) => <div key={`${segment.event.id}-${segment.startColumn}`} className="absolute z-10 hidden lg:block" style={{ left: `calc(${segment.startColumn * 100 / 7}% + 0.5rem)`, width: `calc(${segment.span * 100 / 7}% - 1rem)`, top: `${2.25 + segment.row * 2.5}rem` }}>{_renderEvent(segment.event, onEventClick)}</div>)}</div>;
+  return (
+    <div className="relative grid grid-cols-7 border-b border-border-default">
+      {weekDays.map((day) => _renderDayCell(day, isExpanded, onEventClick, onDateClick))}
+      {segments.map((segment) => (
+        <div
+          key={`${segment.event.id}-${segment.startColumn}`}
+          className="absolute z-10 hidden lg:block"
+          style={{
+            left: `calc(${(segment.startColumn * 100) / 7}% + 0.5rem)`,
+            width: `calc(${(segment.span * 100) / 7}% - 1rem)`,
+            top: `${2.25 + segment.row * 2.5}rem`,
+          }}
+        >
+          {_renderEvent(segment.event, onEventClick)}
+        </div>
+      ))}
+    </div>
+  );
 };
+
+/**
+ * Render calendar navigation controls.
+ * @param {CalendarComponentProps} props - Props with navigation callbacks
+ * @returns {ReactElement} Controls element
+ */
+const _renderCalendarControls = (props: CalendarComponentProps): ReactElement => (
+  <div className="flex shrink-0 items-center text-text-secondary">
+    <div className="flex overflow-hidden rounded-3xl border border-border-default">
+      <button type="button" onClick={props.onPreviousMonth} aria-label="Previous month" className="flex h-10 w-10 items-center justify-center border-r border-border-default hover:bg-background-subtle sm:h-12 sm:w-12">
+        <LuChevronLeft size={20} />
+      </button>
+      <button type="button" onClick={props.onToday} className="h-10 px-4 text-sm font-semibold text-text-primary hover:bg-background-subtle sm:h-12 sm:px-6 sm:text-base">
+        Today
+      </button>
+      <button type="button" onClick={props.onNextMonth} aria-label="Next month" className="flex h-10 w-10 items-center justify-center border-l border-border-default hover:bg-background-subtle sm:h-12 sm:w-12">
+        <LuChevronRight size={20} />
+      </button>
+    </div>
+  </div>
+);
+
+/**
+ * Render calendar header control bar.
+ * @param {Date} currentDate - Current calendar date
+ * @param {string} monthLabel - Formatted month label
+ * @param {CalendarComponentProps} props - Props with navigation callbacks
+ * @returns {ReactElement} Calendar header
+ */
+const _renderCalendarHeader = (
+  currentDate: Date,
+  monthLabel: string,
+  props: CalendarComponentProps,
+): ReactElement => (
+  <header className="flex min-h-20 items-center justify-between gap-3 border-b border-border-default px-4 py-4 sm:px-6 lg:min-h-24 lg:gap-6 lg:px-8 lg:py-5">
+    <div className="min-w-0 flex-1">
+      <h1 className="truncate text-lg font-bold text-text-primary sm:text-xl lg:text-2xl">{monthLabel}</h1>
+      <p className="mt-0.5 truncate text-xs font-medium text-text-secondary sm:text-sm lg:mt-1 lg:text-base">
+        {new Date(currentDate.getFullYear(), currentDate.getMonth(), 1).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })} – {new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })}
+      </p>
+    </div>
+    {props.showControls !== false && _renderCalendarControls(props)}
+  </header>
+);
 
 /**
  * Render reusable month calendar.
@@ -103,22 +243,21 @@ const _renderWeek = (weekDays: CalendarDayCell[], onEventClick: ((event: Calenda
  */
 export const CalendarComponent = (props: CalendarComponentProps): ReactElement => {
   const currentDate = props.currentDate ?? new Date();
-  const today = new Date();
   const days = buildCalendarDays(currentDate, props.events);
   const monthLabel = formatCalendarMonth(currentDate);
   const visibleEvents = days.flatMap((day) => day.events).filter((event, index, events) => events.findIndex((candidate) => candidate.id === event.id) === index);
 
   return (
-    <section className={`overflow-hidden rounded-xl border border-border-default bg-background-surface ${props.className ?? ""}`} aria-label={`${monthLabel} calendar`}>
-      <header className="flex min-h-24 flex-wrap items-center justify-between gap-5 border-b border-border-default px-5 py-4 lg:px-7">
-        <div className="flex items-center gap-4">
-          <div className="flex h-14 w-14 shrink-0 flex-col items-center justify-center rounded-lg border border-border-default bg-background-surface p-2"><span className="text-xs font-semibold text-text-tertiary">{formatCalendarMonthShort(today)}</span><span className="text-xl font-bold text-action-primary">{today.getDate()}</span></div>
-          <div><div className="flex items-center gap-3"><h1 className="text-xl font-bold text-text-primary lg:text-2xl">{monthLabel}</h1><span className="rounded-md border border-border-default px-2 py-1 text-xs font-medium text-text-tertiary">Week {Math.ceil(currentDate.getDate() / 7)}</span></div><p className="mt-1.5 text-sm text-text-secondary">{new Date(currentDate.getFullYear(), currentDate.getMonth(), 1).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })} – {new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })}</p></div>
-        </div>
-        {props.showControls !== false && <div className="flex items-center text-text-secondary"><div className="flex overflow-hidden rounded-lg border border-border-default"><button type="button" onClick={props.onPreviousMonth} aria-label="Previous month" className="flex h-11 w-11 items-center justify-center border-r border-border-default hover:bg-background-subtle"><LuChevronLeft size={21} /></button><button type="button" onClick={props.onToday} className="h-11 px-5 text-sm font-semibold text-text-primary hover:bg-background-subtle">Today</button><button type="button" onClick={props.onNextMonth} aria-label="Next month" className="flex h-11 w-11 items-center justify-center border-l border-border-default hover:bg-background-subtle"><LuChevronRight size={21} /></button></div></div>}
-      </header>
-      <div className="grid grid-cols-7 border-b border-border-default">{WEEKDAYS.map((weekday) => <div key={weekday} className="py-2 text-center text-xs font-semibold text-text-tertiary">{weekday}</div>)}</div>
-      {props.isLoading ? <div className="grid min-h-[100dvh] grid-cols-7 grid-rows-5 lg:min-h-[600px]">{days.map((day) => <div key={day.dateKey} className="animate-pulse border-b border-r border-border-default bg-background-subtle" />)}</div> : <div>{Array.from({ length: 5 }, (_, weekIndex) => <div key={days[weekIndex * 7].dateKey}>{_renderWeek(days.slice(weekIndex * 7, weekIndex * 7 + 7), props.onEventClick, props.showControls === false)}</div>)}</div>}
+    <section className={`overflow-hidden rounded-3xl border border-border-default bg-background-surface ${props.className ?? ""}`} aria-label={`${monthLabel} calendar`}>
+      {_renderCalendarHeader(currentDate, monthLabel, props)}
+      <div className="grid grid-cols-7 border-b border-border-default">
+        {WEEKDAYS.map((weekday) => (
+          <div key={weekday} className="py-3 text-center text-sm font-semibold text-text-tertiary">
+            {weekday}
+          </div>
+        ))}
+      </div>
+      {props.isLoading ? <div className="grid min-h-[100dvh] grid-cols-7 grid-rows-5 lg:min-h-[600px]">{days.map((day) => <div key={day.dateKey} className="animate-pulse border-b border-r border-border-default bg-background-subtle" />)}</div> : <div>{Array.from({ length: 5 }, (_, weekIndex) => <div key={days[weekIndex * 7].dateKey}>{_renderWeek(days.slice(weekIndex * 7, weekIndex * 7 + 7), props.onEventClick, props.showControls === false, props.onDateClick)}</div>)}</div>}
       {!props.isLoading && visibleEvents.length === 0 && <p className="sr-only">No quotation events in this month.</p>}
     </section>
   );

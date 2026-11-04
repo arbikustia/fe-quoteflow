@@ -50,10 +50,13 @@ const _renderItemCard = (
  * @returns {ReactElement} Step indicator
  */
 const _renderSteps = (step: number): ReactElement => (
-  <div className="mb-6 flex items-center gap-2 text-xs font-semibold text-text-secondary">
-    <span className={step >= 1 ? "text-action-primary" : ""}>1. Items</span><span>/</span>
-    <span className={step >= 2 ? "text-action-primary" : ""}>2. Details</span><span>/</span>
-    <span className={step >= 3 ? "text-action-primary" : ""}>3. Preview</span>
+  <div aria-label="Project steps" className="mb-6 flex items-center gap-4 overflow-x-auto border-b border-border-default lg:mb-8 lg:gap-8">
+    {["Items", "Information", "Preview"].map((title, index) => (
+      <div key={title} aria-current={step === index + 1 ? "step" : undefined} className={`relative shrink-0 pb-3 text-lg ${step === index + 1 ? "font-semibold text-action-primary" : "font-normal text-text-secondary"}`}>
+        {title}
+        <span aria-hidden="true" className={`absolute inset-x-0 bottom-0 h-0.5 ${step === index + 1 ? "bg-action-primary" : "bg-transparent"}`} />
+      </div>
+    ))}
   </div>
 );
 
@@ -79,27 +82,29 @@ const _renderCurrentStep = (props: MasterProjectCreateFormState, selectedById: M
   if (props.step === 2) {
     return (
       <section className="space-y-5">
-        <h3 className="text-2xl font-semibold text-text-primary lg:text-xl">Project details</h3>
-        <InputComponent
-          id="project-name"
-          type="text"
-          label="Project Name"
-          className="[&_.ant-input]:text-xl [&_.ant-input]:placeholder:text-xl [&_label]:text-base"
-          placeholder="e.g. Stage Sound Package"
-          required
-          value={props.name}
-          errorMessage={props.isSubmitted && !props.name ? "Project name is required." : _getFieldError(props.errors?.name)}
-          onChange={props.handleNameChange}
-        />
-        <InputComponent
-          id="project-remark"
-          type="textarea"
-          label="Remark"
-          className="[&_.ant-input]:text-xl [&_.ant-input]:placeholder:text-xl [&_label]:text-base"
-          placeholder="Optional project notes"
-          value={props.remark}
-          onChange={props.handleRemarkChange}
-        />
+        <div className="grid w-full grid-cols-1 gap-x-6 gap-y-5 lg:grid-cols-2">
+          <InputComponent
+            id="project-name"
+            type="text"
+            label="Project Name"
+            className="!mb-0 [&_.ant-input]:!h-16 lg:[&_.ant-input]:!h-14 [&_.ant-input]:!rounded-2xl [&_.ant-input]:!border-2 [&_.ant-input]:!border-border-strong [&_.ant-input.ant-input-status-error]:!border-danger [&_.ant-input]:!px-4 [&_.ant-input]:!text-xl lg:[&_.ant-input]:!text-lg [&_.ant-input]:!font-normal [&_.ant-input]:placeholder:!text-xl lg:[&_.ant-input]:placeholder:!text-lg [&_label]:!text-lg [&_label]:!font-normal [&_label]:!normal-case [&_label]:!text-text-primary"
+            placeholder="e.g. Stage Sound Package"
+            required
+            value={props.name}
+            errorMessage={props.isSubmitted && !props.name ? "Project name is required." : _getFieldError(props.errors?.name)}
+            onChange={props.handleNameChange}
+          />
+          <label className="block space-y-2 lg:col-span-2">
+            <span className="text-lg font-normal text-text-primary">Remark</span>
+            <textarea
+              aria-label="Remark"
+              placeholder="Optional project notes"
+              value={props.remark}
+              onChange={props.handleRemarkChange}
+              className="min-h-36 w-full rounded-2xl border-2 border-border-strong bg-background-surface px-4 py-4 text-xl font-normal text-text-primary outline-none placeholder:text-text-tertiary focus:border-border-focus focus:ring-2 focus:ring-focus-ring/30 lg:min-h-28 lg:text-lg"
+            />
+          </label>
+        </div>
       </section>
     );
   }
@@ -120,7 +125,7 @@ const _renderActions = (props: MasterProjectCreateFormState): ReactElement => {
     submitText = props.isSubmitting ? "Saving…" : "Save Project";
   }
 
-  return <div className="mt-8 flex justify-between border-t border-border-default pt-5"><button type="button" onClick={isFirstStep ? props.goBack : props.previousStep} className="h-14 rounded-xl border border-border-default px-6">{isFirstStep ? "Cancel" : "Back"}</button><button type="submit" disabled={props.isSubmitting} className="h-14 rounded-xl bg-action-primary px-8 text-lg font-semibold text-text-inverse disabled:opacity-60 lg:text-base">{submitText}</button></div>;
+  return <div className="mt-8 flex justify-between gap-3 border-t border-border-default/60 pt-5 lg:mt-6 lg:border-border-default"><button type="button" onClick={isFirstStep ? props.goBack : props.previousStep} className="h-14 cursor-pointer rounded-xl border border-border-default px-8 text-lg font-semibold text-text-primary transition-colors hover:bg-background-subtle focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-action-primary">{isFirstStep ? "Cancel" : "Back"}</button><button type="submit" disabled={props.isSubmitting} className="h-14 cursor-pointer rounded-xl bg-action-primary px-8 text-lg font-semibold text-text-inverse shadow-xs transition-colors hover:bg-action-primary-hover focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-action-primary disabled:cursor-not-allowed disabled:opacity-60">{submitText}</button></div>;
 };
 
 /**
@@ -132,20 +137,24 @@ export const MasterProjectCreateForm = (props: MasterProjectCreateFormState): Re
   const selectedById = new Map(props.selectedItems.map((item) => [item.id, item]));
 
   return (
-    <Layout mobileWhiteBackground={true} showMobileGlobalHeader={true}>
+    <Layout>
       {props.errorMessage && <AlertComponent type="error" message={props.errorMessage} toast closable />}
       {props.successMessage && <AlertComponent type="success" message={props.successMessage} toast closable />}
-      <div className="flex h-full min-h-full w-full flex-col bg-background-surface pb-6 font-sans lg:bg-background-page">
-        <div className="sticky top-0 z-20 mb-6 flex items-center gap-3 bg-background-surface px-0 lg:hidden">
-          <button type="button" onClick={props.goBack} aria-label="Back" className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full border border-border-default bg-background-surface text-text-primary transition-colors hover:bg-background-subtle focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring/30">
+      <div className="flex h-full min-h-full w-full flex-col bg-background-page pb-6 font-sans">
+        <div className="mb-6 flex items-center gap-3 bg-background-page lg:hidden">
+          <button type="button" onClick={props.goBack} aria-label="Back" className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full border border-border-default bg-background-page text-text-primary transition-colors hover:bg-background-subtle focus-visible:ring-2 focus-visible:ring-focus-ring/30">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="h-6 w-6" aria-hidden="true"><path d="M19 12H5M12 19l-7-7 7-7" /></svg>
           </button>
-          <div className="min-w-0"><h2 className="truncate text-4xl font-semibold tracking-tight text-text-primary">New Project</h2><p className="mt-1 truncate text-sm text-text-secondary">Build project in three steps.</p></div>
+          <div className="min-w-0"><h2 className="truncate text-4xl font-semibold tracking-tight text-text-primary">New Project</h2><p className="mt-1 truncate text-lg text-text-secondary">Build project in three steps.</p></div>
         </div>
-        <div className="px-0 text-lg lg:mt-0 lg:px-0 lg:text-base">
-          <div className="mb-6 hidden lg:block"><nav aria-label="Breadcrumb" className="mb-2 flex items-center gap-2 text-[15px] font-medium text-text-secondary"><button type="button" onClick={props.goBack} className="cursor-pointer hover:text-text-primary">Master</button><span aria-hidden="true">/</span><span>Master Project</span><span aria-hidden="true">/</span><span>New Project</span></nav><h2 className="text-4xl font-semibold leading-tight tracking-tight text-text-primary">New Project</h2><p className="mt-2 text-sm text-text-secondary">Build project in three steps.</p></div>
-          {_renderSteps(props.step)}
-          <form noValidate onSubmit={props.handleSubmit} className="bg-transparent p-0">{_renderCurrentStep(props, selectedById)}{_renderActions(props)}</form>
+        <div className="flex min-h-0 w-full flex-1 flex-col pb-32 text-lg lg:pb-0">
+          <div className="mb-6 hidden lg:block"><nav aria-label="Breadcrumb" className="mb-2 flex items-center gap-2 text-[15px] font-medium text-text-secondary"><button type="button" onClick={props.goBack} className="cursor-pointer hover:text-text-primary">Master</button><span aria-hidden="true">/</span><span>Master Project</span><span aria-hidden="true">/</span><span>New Project</span></nav><h2 className="text-4xl font-semibold leading-tight tracking-tight text-text-primary">New Project</h2><p className="mt-3 text-lg font-medium text-text-secondary opacity-70">Build project in three steps.</p></div>
+          <form noValidate onSubmit={props.handleSubmit} className="mb-6 flex flex-col rounded-3xl border border-border-default bg-background-surface p-6 shadow-small sm:p-8 lg:mb-5 lg:p-10">
+            {_renderSteps(props.step)}
+            <div className="pb-6">{_renderCurrentStep(props, selectedById)}</div>
+            {_renderActions(props)}
+          </form>
+          <div className="h-24 shrink-0 lg:hidden" aria-hidden="true" />
         </div>
       </div>
     </Layout>

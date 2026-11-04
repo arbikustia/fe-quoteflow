@@ -57,6 +57,9 @@ jest.mock("@/services/rental-checklist.service", () => ({
   useUpdateRentalChecklistMutation: () => [mockUpdate, { isLoading: false }],
   useGetRentalChecklistByIdQuery: () => ({ data: { status: true, data: mockChecklist }, isLoading: false }),
 }));
+jest.mock("@/services/activity-log.service", () => ({
+  useCreateActivityLogMutation: () => [jest.fn().mockResolvedValue({ unwrap: jest.fn() }), { isLoading: false }],
+}));
 jest.mock("@/services/rental-order.service", () => ({
   useGetRentalOrderOptionsQuery: () => ({ data: { status: true, data: [] }, isLoading: false }),
 }));
@@ -65,10 +68,10 @@ jest.mock("@/services/master-item.service", () => ({
 }));
 
 const EditRoute = ({ children }: { children: ReactNode }): ReactNode => (
-  <MemoryRouter initialEntries={["/document/item-checklist/create/checklist-1"]}>
+  <MemoryRouter initialEntries={["/item-checklist/create/checklist-1"]}>
     <Routes>
-      <Route path="/document/item-checklist/create/:id" element={children} />
-      <Route path="/document/item-checklist" element={children} />
+      <Route path="/item-checklist/create/:id" element={children} />
+      <Route path="/item-checklist" element={children} />
     </Routes>
   </MemoryRouter>
 );
@@ -100,7 +103,7 @@ describe("useItemChecklistCreate edit mode", () => {
       },
     });
     expect(mockCreate).not.toHaveBeenCalled();
-    expect(result.current.location.pathname).toBe("/document/item-checklist");
+    expect(result.current.location.pathname).toBe("/item-checklist");
     expect(result.current.form.errorMessage).toBeNull();
   });
 });

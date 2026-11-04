@@ -72,6 +72,25 @@ describe("MasterCustomer Component", () => {
     expect(mockProps.onEdit).toHaveBeenCalledWith(customer);
   });
 
+  it("should render matching mobile and desktop loading skeletons", () => {
+    renderComponent({ ...mockProps, isLoading: true, paginatedData: [] });
+
+    const tableSkeleton = screen.getByRole("status", { name: "Loading customer table" });
+    const cardSkeletons = screen.getAllByRole("status", { name: "Loading customer card" });
+    expect(tableSkeleton.querySelectorAll("th")).toHaveLength(6);
+    expect(tableSkeleton.querySelectorAll("tbody tr")).toHaveLength(5);
+    expect(tableSkeleton.querySelectorAll("tbody tr:first-child td")).toHaveLength(6);
+    expect(tableSkeleton.querySelectorAll("tbody tr:first-child td:last-child span")).toHaveLength(1);
+    expect(cardSkeletons).toHaveLength(5);
+    expect(cardSkeletons[0]).toHaveClass("rounded-3xl");
+  });
+
+  it("should render empty state", () => {
+    renderComponent({ ...mockProps, isEmpty: true, paginatedData: [] });
+
+    expect(screen.getAllByText("No customers found.")).toHaveLength(2);
+  });
+
   describe("MasterCustomerComponent Snapshots", () => {
     it("default state", () => {
       const { asFragment } = renderComponent();

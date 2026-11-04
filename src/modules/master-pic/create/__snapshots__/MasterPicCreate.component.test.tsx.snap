@@ -3,14 +3,14 @@
 exports[`MasterPicCreateForm Component MasterPicCreateForm Snapshots create mode default 1`] = `
 <DocumentFragment>
   <div
-    class="flex h-full w-full flex-col bg-background-surface pb-6 font-sans lg:bg-background-page"
+    class="flex h-full w-full flex-col bg-background-page pb-6 font-sans"
   >
     <div
-      class="sticky top-0 z-20 mb-6 flex items-center gap-3 bg-background-surface px-0 lg:hidden"
+      class="mb-6 flex items-center gap-3 bg-background-page lg:hidden"
     >
       <button
         aria-label="Back"
-        class="flex h-14 w-14 shrink-0 items-center justify-center rounded-full border border-border-default bg-background-surface text-text-primary transition-colors hover:bg-background-subtle"
+        class="flex h-14 w-14 shrink-0 items-center justify-center rounded-full border border-border-default bg-background-page text-text-primary transition-colors hover:bg-background-subtle"
         type="button"
       >
         <svg
@@ -28,19 +28,23 @@ exports[`MasterPicCreateForm Component MasterPicCreateForm Snapshots create mode
           />
         </svg>
       </button>
-      <h2
-        class="truncate text-4xl font-semibold tracking-tight text-text-primary"
+      <div
+        class="min-w-0"
       >
-        New PIC
-      </h2>
-      <p
-        class="mt-1 truncate text-sm text-text-secondary"
-      >
-        Fill in the PIC details below.
-      </p>
+        <h2
+          class="truncate text-4xl font-semibold tracking-tight text-text-primary"
+        >
+          New PIC
+        </h2>
+        <p
+          class="mt-1 truncate text-lg text-text-secondary"
+        >
+          Fill in the PIC details below.
+        </p>
+      </div>
     </div>
     <div
-      class="flex min-h-0 w-full flex-1 flex-col px-0 lg:mt-0 lg:px-0"
+      class="flex min-h-0 w-full flex-1 flex-col pb-32 text-lg lg:pb-0"
     >
       <nav
         aria-label="Breadcrumb"
@@ -72,55 +76,73 @@ exports[`MasterPicCreateForm Component MasterPicCreateForm Snapshots create mode
           New PIC
         </h2>
         <p
-          class="mt-3 text-sm font-medium text-text-secondary opacity-70"
+          class="mt-3 text-lg font-medium text-text-secondary opacity-70"
         >
           Fill in the PIC details below.
         </p>
       </div>
       <form
-        class="flex min-h-0 flex-1 flex-col justify-between border-0 bg-transparent p-0 shadow-none lg:rounded-4xl lg:border lg:border-border-default lg:bg-background-surface lg:p-8 lg:shadow-xs"
+        class="mb-6 flex flex-col rounded-3xl border border-border-default bg-background-surface p-6 shadow-small sm:p-8 lg:mb-5 lg:rounded-3xl lg:p-10"
         novalidate=""
       >
         <div
-          class="space-y-4"
+          class="pb-6"
         >
-          <div
-            class="mb-4 [&_.ant-input]:text-xl [&_.ant-input]:placeholder:text-xl [&_label]:text-base"
+          <section
+            class="space-y-5"
           >
-            <label
-              class="mb-1.5 block text-sm font-semibold text-text-secondary"
-              for="pic-name"
+            <div
+              class="grid w-full grid-cols-1 gap-x-6 gap-y-5 lg:grid-cols-2"
             >
-              PIC Name
-              <span
-                aria-hidden="true"
-                class="ml-1 text-danger"
+              <div
+                class="mb-4 !mb-0 [&_.ant-input]:!h-16 lg:[&_.ant-input]:!h-14 [&_.ant-input]:!rounded-2xl [&_.ant-input]:!border-2 [&_.ant-input]:!border-border-strong [&_.ant-input.ant-input-status-error]:!border-danger [&_.ant-input]:!px-4 [&_.ant-input]:!text-xl lg:[&_.ant-input]:!text-lg [&_.ant-input]:!font-normal [&_.ant-input]:placeholder:!text-xl lg:[&_.ant-input]:placeholder:!text-lg [&_.ant-input]:placeholder:!font-normal [&_label]:!text-lg lg:[&_label]:!text-lg [&_label]:!font-normal [&_label]:!normal-case [&_label]:!text-text-primary"
               >
-                *
-              </span>
-            </label>
-            <input
-              aria-invalid="false"
-              class="ant-input ant-input-lg css-dev-only-do-not-override-eofgey ant-input-outlined h-14 w-full !rounded-2xl css-var-root ant-input-css-var"
-              id="pic-name"
-              placeholder="e.g. John Doe"
-              required=""
-              type="text"
-              value="John Doe"
-            />
-          </div>
+                <label
+                  class="mb-1.5 block text-sm font-semibold text-text-secondary"
+                  for="pic-name"
+                >
+                  PIC Name
+                  <span
+                    aria-hidden="true"
+                    class="ml-1 text-danger"
+                  >
+                    *
+                  </span>
+                </label>
+                <input
+                  aria-invalid="false"
+                  class="ant-input ant-input-lg css-dev-only-do-not-override-eofgey ant-input-outlined h-14 w-full !rounded-2xl css-var-root ant-input-css-var"
+                  id="pic-name"
+                  placeholder="e.g. John Doe"
+                  required=""
+                  type="text"
+                  value="John Doe"
+                />
+              </div>
+            </div>
+          </section>
         </div>
         <div
-          class="mt-8 flex justify-end border-t border-border-default/60 pt-5 lg:mt-6 lg:border-border-default"
+          class="mt-8 flex justify-between gap-3 border-t border-border-default/60 pt-5 lg:mt-6 lg:border-border-default"
         >
           <button
-            class="h-14 w-full cursor-pointer rounded-xl bg-action-primary px-8 text-lg font-semibold tracking-wide text-text-inverse lg:text-sm shadow-xs transition-all hover:bg-action-primary-hover disabled:opacity-60 sm:w-auto"
+            class="h-14 cursor-pointer rounded-xl border border-border-default px-8 text-lg font-semibold text-text-primary transition-colors hover:bg-background-subtle focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-action-primary disabled:cursor-not-allowed disabled:opacity-50 lg:text-lg"
+            type="button"
+          >
+            Cancel
+          </button>
+          <button
+            class="h-14 cursor-pointer rounded-xl bg-action-primary px-8 text-lg font-semibold text-text-inverse shadow-xs transition-colors hover:bg-action-primary-hover focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-action-primary disabled:cursor-not-allowed disabled:opacity-60 lg:text-lg"
             type="submit"
           >
             Create PIC
           </button>
         </div>
       </form>
+      <div
+        aria-hidden="true"
+        class="h-24 shrink-0 lg:hidden"
+      />
     </div>
   </div>
 </DocumentFragment>
@@ -129,14 +151,14 @@ exports[`MasterPicCreateForm Component MasterPicCreateForm Snapshots create mode
 exports[`MasterPicCreateForm Component MasterPicCreateForm Snapshots edit mode active 1`] = `
 <DocumentFragment>
   <div
-    class="flex h-full w-full flex-col bg-background-surface pb-6 font-sans lg:bg-background-page"
+    class="flex h-full w-full flex-col bg-background-page pb-6 font-sans"
   >
     <div
-      class="sticky top-0 z-20 mb-6 flex items-center gap-3 bg-background-surface px-0 lg:hidden"
+      class="mb-6 flex items-center gap-3 bg-background-page lg:hidden"
     >
       <button
         aria-label="Back"
-        class="flex h-14 w-14 shrink-0 items-center justify-center rounded-full border border-border-default bg-background-surface text-text-primary transition-colors hover:bg-background-subtle"
+        class="flex h-14 w-14 shrink-0 items-center justify-center rounded-full border border-border-default bg-background-page text-text-primary transition-colors hover:bg-background-subtle"
         type="button"
       >
         <svg
@@ -154,19 +176,23 @@ exports[`MasterPicCreateForm Component MasterPicCreateForm Snapshots edit mode a
           />
         </svg>
       </button>
-      <h2
-        class="truncate text-4xl font-semibold tracking-tight text-text-primary"
+      <div
+        class="min-w-0"
       >
-        Edit PIC
-      </h2>
-      <p
-        class="mt-1 truncate text-sm text-text-secondary"
-      >
-        Update the PIC details below.
-      </p>
+        <h2
+          class="truncate text-4xl font-semibold tracking-tight text-text-primary"
+        >
+          Edit PIC
+        </h2>
+        <p
+          class="mt-1 truncate text-lg text-text-secondary"
+        >
+          Update the PIC details below.
+        </p>
+      </div>
     </div>
     <div
-      class="flex min-h-0 w-full flex-1 flex-col px-0 lg:mt-0 lg:px-0"
+      class="flex min-h-0 w-full flex-1 flex-col pb-32 text-lg lg:pb-0"
     >
       <nav
         aria-label="Breadcrumb"
@@ -198,92 +224,110 @@ exports[`MasterPicCreateForm Component MasterPicCreateForm Snapshots edit mode a
           Edit PIC
         </h2>
         <p
-          class="mt-3 text-sm font-medium text-text-secondary opacity-70"
+          class="mt-3 text-lg font-medium text-text-secondary opacity-70"
         >
           Update the PIC details below.
         </p>
       </div>
       <form
-        class="flex min-h-0 flex-1 flex-col justify-between border-0 bg-transparent p-0 shadow-none lg:rounded-4xl lg:border lg:border-border-default lg:bg-background-surface lg:p-8 lg:shadow-xs"
+        class="mb-6 flex flex-col rounded-3xl border border-border-default bg-background-surface p-6 shadow-small sm:p-8 lg:mb-5 lg:rounded-3xl lg:p-10"
         novalidate=""
       >
         <div
-          class="space-y-4"
+          class="pb-6"
         >
-          <div
-            class="mb-4 [&_.ant-input]:text-xl [&_.ant-input]:placeholder:text-xl [&_label]:text-base"
+          <section
+            class="space-y-5"
           >
-            <label
-              class="mb-1.5 block text-sm font-semibold text-text-secondary"
-              for="pic-name"
-            >
-              PIC Name
-              <span
-                aria-hidden="true"
-                class="ml-1 text-danger"
-              >
-                *
-              </span>
-            </label>
-            <input
-              aria-invalid="false"
-              class="ant-input ant-input-lg css-dev-only-do-not-override-eofgey ant-input-outlined h-14 w-full !rounded-2xl css-var-root ant-input-css-var"
-              id="pic-name"
-              placeholder="e.g. John Doe"
-              required=""
-              type="text"
-              value="John Doe"
-            />
-          </div>
-          <div
-            class="flex items-center justify-between rounded-xl border border-border-default bg-background-surface px-4 py-3.5"
-          >
-            <div>
-              <p
-                class="text-lg font-semibold text-text-primary lg:text-sm"
-              >
-                Status
-              </p>
-              <p
-                class="text-base text-text-secondary lg:text-xs"
-              >
-                Toggle active or inactive status
-              </p>
-            </div>
-            <button
-              aria-checked="true"
-              aria-label="PIC status"
-              class="ant-switch css-dev-only-do-not-override-eofgey css-var-root ant-switch-checked"
-              role="switch"
-              type="button"
+            <div
+              class="grid w-full grid-cols-1 gap-x-6 gap-y-5 lg:grid-cols-2"
             >
               <div
-                class="ant-switch-handle"
-              />
-              <span
-                class="ant-switch-inner"
+                class="mb-4 !mb-0 [&_.ant-input]:!h-16 lg:[&_.ant-input]:!h-14 [&_.ant-input]:!rounded-2xl [&_.ant-input]:!border-2 [&_.ant-input]:!border-border-strong [&_.ant-input.ant-input-status-error]:!border-danger [&_.ant-input]:!px-4 [&_.ant-input]:!text-xl lg:[&_.ant-input]:!text-lg [&_.ant-input]:!font-normal [&_.ant-input]:placeholder:!text-xl lg:[&_.ant-input]:placeholder:!text-lg [&_.ant-input]:placeholder:!font-normal [&_label]:!text-lg lg:[&_label]:!text-lg [&_label]:!font-normal [&_label]:!normal-case [&_label]:!text-text-primary"
               >
-                <span
-                  class="ant-switch-inner-checked"
+                <label
+                  class="mb-1.5 block text-sm font-semibold text-text-secondary"
+                  for="pic-name"
+                >
+                  PIC Name
+                  <span
+                    aria-hidden="true"
+                    class="ml-1 text-danger"
+                  >
+                    *
+                  </span>
+                </label>
+                <input
+                  aria-invalid="false"
+                  class="ant-input ant-input-lg css-dev-only-do-not-override-eofgey ant-input-outlined h-14 w-full !rounded-2xl css-var-root ant-input-css-var"
+                  id="pic-name"
+                  placeholder="e.g. John Doe"
+                  required=""
+                  type="text"
+                  value="John Doe"
                 />
-                <span
-                  class="ant-switch-inner-unchecked"
-                />
-              </span>
-            </button>
-          </div>
+              </div>
+              <div
+                class="flex items-center justify-between rounded-xl border border-border-default bg-background-surface px-4 py-3.5 lg:col-span-2"
+              >
+                <div>
+                  <p
+                    class="text-lg font-semibold text-text-primary lg:text-sm"
+                  >
+                    Status
+                  </p>
+                  <p
+                    class="text-base text-text-secondary lg:text-xs"
+                  >
+                    Toggle active or inactive status
+                  </p>
+                </div>
+                <button
+                  aria-checked="true"
+                  aria-label="PIC status"
+                  class="ant-switch css-dev-only-do-not-override-eofgey css-var-root ant-switch-checked"
+                  role="switch"
+                  type="button"
+                >
+                  <div
+                    class="ant-switch-handle"
+                  />
+                  <span
+                    class="ant-switch-inner"
+                  >
+                    <span
+                      class="ant-switch-inner-checked"
+                    />
+                    <span
+                      class="ant-switch-inner-unchecked"
+                    />
+                  </span>
+                </button>
+              </div>
+            </div>
+          </section>
         </div>
         <div
-          class="mt-8 flex justify-end border-t border-border-default/60 pt-5 lg:mt-6 lg:border-border-default"
+          class="mt-8 flex justify-between gap-3 border-t border-border-default/60 pt-5 lg:mt-6 lg:border-border-default"
         >
           <button
-            class="h-14 w-full cursor-pointer rounded-xl bg-action-primary px-8 text-lg font-semibold tracking-wide text-text-inverse lg:text-sm shadow-xs transition-all hover:bg-action-primary-hover disabled:opacity-60 sm:w-auto"
+            class="h-14 cursor-pointer rounded-xl border border-border-default px-8 text-lg font-semibold text-text-primary transition-colors hover:bg-background-subtle focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-action-primary disabled:cursor-not-allowed disabled:opacity-50 lg:text-lg"
+            type="button"
+          >
+            Cancel
+          </button>
+          <button
+            class="h-14 cursor-pointer rounded-xl bg-action-primary px-8 text-lg font-semibold text-text-inverse shadow-xs transition-colors hover:bg-action-primary-hover focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-action-primary disabled:cursor-not-allowed disabled:opacity-60 lg:text-lg"
             type="submit"
           >
             Update PIC
           </button>
         </div>
       </form>
+      <div
+        aria-hidden="true"
+        class="h-24 shrink-0 lg:hidden"
+      />
     </div>
   </div>
 </DocumentFragment>
@@ -302,14 +346,14 @@ exports[`MasterPicCreateForm Component MasterPicCreateForm Snapshots loading ini
 exports[`MasterPicCreateForm Component MasterPicCreateForm Snapshots submitting state 1`] = `
 <DocumentFragment>
   <div
-    class="flex h-full w-full flex-col bg-background-surface pb-6 font-sans lg:bg-background-page"
+    class="flex h-full w-full flex-col bg-background-page pb-6 font-sans"
   >
     <div
-      class="sticky top-0 z-20 mb-6 flex items-center gap-3 bg-background-surface px-0 lg:hidden"
+      class="mb-6 flex items-center gap-3 bg-background-page lg:hidden"
     >
       <button
         aria-label="Back"
-        class="flex h-14 w-14 shrink-0 items-center justify-center rounded-full border border-border-default bg-background-surface text-text-primary transition-colors hover:bg-background-subtle"
+        class="flex h-14 w-14 shrink-0 items-center justify-center rounded-full border border-border-default bg-background-page text-text-primary transition-colors hover:bg-background-subtle"
         type="button"
       >
         <svg
@@ -327,19 +371,23 @@ exports[`MasterPicCreateForm Component MasterPicCreateForm Snapshots submitting 
           />
         </svg>
       </button>
-      <h2
-        class="truncate text-4xl font-semibold tracking-tight text-text-primary"
+      <div
+        class="min-w-0"
       >
-        New PIC
-      </h2>
-      <p
-        class="mt-1 truncate text-sm text-text-secondary"
-      >
-        Fill in the PIC details below.
-      </p>
+        <h2
+          class="truncate text-4xl font-semibold tracking-tight text-text-primary"
+        >
+          New PIC
+        </h2>
+        <p
+          class="mt-1 truncate text-lg text-text-secondary"
+        >
+          Fill in the PIC details below.
+        </p>
+      </div>
     </div>
     <div
-      class="flex min-h-0 w-full flex-1 flex-col px-0 lg:mt-0 lg:px-0"
+      class="flex min-h-0 w-full flex-1 flex-col pb-32 text-lg lg:pb-0"
     >
       <nav
         aria-label="Breadcrumb"
@@ -371,49 +419,64 @@ exports[`MasterPicCreateForm Component MasterPicCreateForm Snapshots submitting 
           New PIC
         </h2>
         <p
-          class="mt-3 text-sm font-medium text-text-secondary opacity-70"
+          class="mt-3 text-lg font-medium text-text-secondary opacity-70"
         >
           Fill in the PIC details below.
         </p>
       </div>
       <form
-        class="flex min-h-0 flex-1 flex-col justify-between border-0 bg-transparent p-0 shadow-none lg:rounded-4xl lg:border lg:border-border-default lg:bg-background-surface lg:p-8 lg:shadow-xs"
+        class="mb-6 flex flex-col rounded-3xl border border-border-default bg-background-surface p-6 shadow-small sm:p-8 lg:mb-5 lg:rounded-3xl lg:p-10"
         novalidate=""
       >
         <div
-          class="space-y-4"
+          class="pb-6"
         >
-          <div
-            class="mb-4 [&_.ant-input]:text-xl [&_.ant-input]:placeholder:text-xl [&_label]:text-base"
+          <section
+            class="space-y-5"
           >
-            <label
-              class="mb-1.5 block text-sm font-semibold text-text-secondary"
-              for="pic-name"
+            <div
+              class="grid w-full grid-cols-1 gap-x-6 gap-y-5 lg:grid-cols-2"
             >
-              PIC Name
-              <span
-                aria-hidden="true"
-                class="ml-1 text-danger"
+              <div
+                class="mb-4 !mb-0 [&_.ant-input]:!h-16 lg:[&_.ant-input]:!h-14 [&_.ant-input]:!rounded-2xl [&_.ant-input]:!border-2 [&_.ant-input]:!border-border-strong [&_.ant-input.ant-input-status-error]:!border-danger [&_.ant-input]:!px-4 [&_.ant-input]:!text-xl lg:[&_.ant-input]:!text-lg [&_.ant-input]:!font-normal [&_.ant-input]:placeholder:!text-xl lg:[&_.ant-input]:placeholder:!text-lg [&_.ant-input]:placeholder:!font-normal [&_label]:!text-lg lg:[&_label]:!text-lg [&_label]:!font-normal [&_label]:!normal-case [&_label]:!text-text-primary"
               >
-                *
-              </span>
-            </label>
-            <input
-              aria-invalid="false"
-              class="ant-input ant-input-lg css-dev-only-do-not-override-eofgey ant-input-outlined h-14 w-full !rounded-2xl css-var-root ant-input-css-var"
-              id="pic-name"
-              placeholder="e.g. John Doe"
-              required=""
-              type="text"
-              value="John Doe"
-            />
-          </div>
+                <label
+                  class="mb-1.5 block text-sm font-semibold text-text-secondary"
+                  for="pic-name"
+                >
+                  PIC Name
+                  <span
+                    aria-hidden="true"
+                    class="ml-1 text-danger"
+                  >
+                    *
+                  </span>
+                </label>
+                <input
+                  aria-invalid="false"
+                  class="ant-input ant-input-lg css-dev-only-do-not-override-eofgey ant-input-outlined h-14 w-full !rounded-2xl css-var-root ant-input-css-var"
+                  id="pic-name"
+                  placeholder="e.g. John Doe"
+                  required=""
+                  type="text"
+                  value="John Doe"
+                />
+              </div>
+            </div>
+          </section>
         </div>
         <div
-          class="mt-8 flex justify-end border-t border-border-default/60 pt-5 lg:mt-6 lg:border-border-default"
+          class="mt-8 flex justify-between gap-3 border-t border-border-default/60 pt-5 lg:mt-6 lg:border-border-default"
         >
           <button
-            class="h-14 w-full cursor-pointer rounded-xl bg-action-primary px-8 text-lg font-semibold tracking-wide text-text-inverse lg:text-sm shadow-xs transition-all hover:bg-action-primary-hover disabled:opacity-60 sm:w-auto"
+            class="h-14 cursor-pointer rounded-xl border border-border-default px-8 text-lg font-semibold text-text-primary transition-colors hover:bg-background-subtle focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-action-primary disabled:cursor-not-allowed disabled:opacity-50 lg:text-lg"
+            disabled=""
+            type="button"
+          >
+            Cancel
+          </button>
+          <button
+            class="h-14 cursor-pointer rounded-xl bg-action-primary px-8 text-lg font-semibold text-text-inverse shadow-xs transition-colors hover:bg-action-primary-hover focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-action-primary disabled:cursor-not-allowed disabled:opacity-60 lg:text-lg"
             disabled=""
             type="submit"
           >
@@ -421,6 +484,10 @@ exports[`MasterPicCreateForm Component MasterPicCreateForm Snapshots submitting 
           </button>
         </div>
       </form>
+      <div
+        aria-hidden="true"
+        class="h-24 shrink-0 lg:hidden"
+      />
     </div>
   </div>
 </DocumentFragment>
@@ -429,7 +496,7 @@ exports[`MasterPicCreateForm Component MasterPicCreateForm Snapshots submitting 
 exports[`MasterPicCreateForm Component MasterPicCreateForm Snapshots with error message 1`] = `
 <DocumentFragment>
   <div
-    class="flex h-full w-full flex-col bg-background-surface pb-6 font-sans lg:bg-background-page"
+    class="flex h-full w-full flex-col bg-background-page pb-6 font-sans"
   >
     <div
       class="fixed right-4 top-4 z-50 w-[calc(100vw-2rem)] max-w-md shadow-lg"
@@ -500,11 +567,11 @@ exports[`MasterPicCreateForm Component MasterPicCreateForm Snapshots with error 
       </div>
     </div>
     <div
-      class="sticky top-0 z-20 mb-6 flex items-center gap-3 bg-background-surface px-0 lg:hidden"
+      class="mb-6 flex items-center gap-3 bg-background-page lg:hidden"
     >
       <button
         aria-label="Back"
-        class="flex h-14 w-14 shrink-0 items-center justify-center rounded-full border border-border-default bg-background-surface text-text-primary transition-colors hover:bg-background-subtle"
+        class="flex h-14 w-14 shrink-0 items-center justify-center rounded-full border border-border-default bg-background-page text-text-primary transition-colors hover:bg-background-subtle"
         type="button"
       >
         <svg
@@ -522,19 +589,23 @@ exports[`MasterPicCreateForm Component MasterPicCreateForm Snapshots with error 
           />
         </svg>
       </button>
-      <h2
-        class="truncate text-4xl font-semibold tracking-tight text-text-primary"
+      <div
+        class="min-w-0"
       >
-        New PIC
-      </h2>
-      <p
-        class="mt-1 truncate text-sm text-text-secondary"
-      >
-        Fill in the PIC details below.
-      </p>
+        <h2
+          class="truncate text-4xl font-semibold tracking-tight text-text-primary"
+        >
+          New PIC
+        </h2>
+        <p
+          class="mt-1 truncate text-lg text-text-secondary"
+        >
+          Fill in the PIC details below.
+        </p>
+      </div>
     </div>
     <div
-      class="flex min-h-0 w-full flex-1 flex-col px-0 lg:mt-0 lg:px-0"
+      class="flex min-h-0 w-full flex-1 flex-col pb-32 text-lg lg:pb-0"
     >
       <nav
         aria-label="Breadcrumb"
@@ -566,55 +637,73 @@ exports[`MasterPicCreateForm Component MasterPicCreateForm Snapshots with error 
           New PIC
         </h2>
         <p
-          class="mt-3 text-sm font-medium text-text-secondary opacity-70"
+          class="mt-3 text-lg font-medium text-text-secondary opacity-70"
         >
           Fill in the PIC details below.
         </p>
       </div>
       <form
-        class="flex min-h-0 flex-1 flex-col justify-between border-0 bg-transparent p-0 shadow-none lg:rounded-4xl lg:border lg:border-border-default lg:bg-background-surface lg:p-8 lg:shadow-xs"
+        class="mb-6 flex flex-col rounded-3xl border border-border-default bg-background-surface p-6 shadow-small sm:p-8 lg:mb-5 lg:rounded-3xl lg:p-10"
         novalidate=""
       >
         <div
-          class="space-y-4"
+          class="pb-6"
         >
-          <div
-            class="mb-4 [&_.ant-input]:text-xl [&_.ant-input]:placeholder:text-xl [&_label]:text-base"
+          <section
+            class="space-y-5"
           >
-            <label
-              class="mb-1.5 block text-sm font-semibold text-text-secondary"
-              for="pic-name"
+            <div
+              class="grid w-full grid-cols-1 gap-x-6 gap-y-5 lg:grid-cols-2"
             >
-              PIC Name
-              <span
-                aria-hidden="true"
-                class="ml-1 text-danger"
+              <div
+                class="mb-4 !mb-0 [&_.ant-input]:!h-16 lg:[&_.ant-input]:!h-14 [&_.ant-input]:!rounded-2xl [&_.ant-input]:!border-2 [&_.ant-input]:!border-border-strong [&_.ant-input.ant-input-status-error]:!border-danger [&_.ant-input]:!px-4 [&_.ant-input]:!text-xl lg:[&_.ant-input]:!text-lg [&_.ant-input]:!font-normal [&_.ant-input]:placeholder:!text-xl lg:[&_.ant-input]:placeholder:!text-lg [&_.ant-input]:placeholder:!font-normal [&_label]:!text-lg lg:[&_label]:!text-lg [&_label]:!font-normal [&_label]:!normal-case [&_label]:!text-text-primary"
               >
-                *
-              </span>
-            </label>
-            <input
-              aria-invalid="false"
-              class="ant-input ant-input-lg css-dev-only-do-not-override-eofgey ant-input-outlined h-14 w-full !rounded-2xl css-var-root ant-input-css-var"
-              id="pic-name"
-              placeholder="e.g. John Doe"
-              required=""
-              type="text"
-              value="John Doe"
-            />
-          </div>
+                <label
+                  class="mb-1.5 block text-sm font-semibold text-text-secondary"
+                  for="pic-name"
+                >
+                  PIC Name
+                  <span
+                    aria-hidden="true"
+                    class="ml-1 text-danger"
+                  >
+                    *
+                  </span>
+                </label>
+                <input
+                  aria-invalid="false"
+                  class="ant-input ant-input-lg css-dev-only-do-not-override-eofgey ant-input-outlined h-14 w-full !rounded-2xl css-var-root ant-input-css-var"
+                  id="pic-name"
+                  placeholder="e.g. John Doe"
+                  required=""
+                  type="text"
+                  value="John Doe"
+                />
+              </div>
+            </div>
+          </section>
         </div>
         <div
-          class="mt-8 flex justify-end border-t border-border-default/60 pt-5 lg:mt-6 lg:border-border-default"
+          class="mt-8 flex justify-between gap-3 border-t border-border-default/60 pt-5 lg:mt-6 lg:border-border-default"
         >
           <button
-            class="h-14 w-full cursor-pointer rounded-xl bg-action-primary px-8 text-lg font-semibold tracking-wide text-text-inverse lg:text-sm shadow-xs transition-all hover:bg-action-primary-hover disabled:opacity-60 sm:w-auto"
+            class="h-14 cursor-pointer rounded-xl border border-border-default px-8 text-lg font-semibold text-text-primary transition-colors hover:bg-background-subtle focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-action-primary disabled:cursor-not-allowed disabled:opacity-50 lg:text-lg"
+            type="button"
+          >
+            Cancel
+          </button>
+          <button
+            class="h-14 cursor-pointer rounded-xl bg-action-primary px-8 text-lg font-semibold text-text-inverse shadow-xs transition-colors hover:bg-action-primary-hover focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-action-primary disabled:cursor-not-allowed disabled:opacity-60 lg:text-lg"
             type="submit"
           >
             Create PIC
           </button>
         </div>
       </form>
+      <div
+        aria-hidden="true"
+        class="h-24 shrink-0 lg:hidden"
+      />
     </div>
   </div>
 </DocumentFragment>

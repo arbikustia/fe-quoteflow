@@ -11,7 +11,7 @@ const ItemChecklistCreate = (): ReactElement => {
   const title = form.isEditMode ? "Edit Checklist" : "New Checklist";
 
   return (
-    <Layout pageTitle={title} mobileWhiteBackground={true}>
+    <Layout pageTitle={title}>
       <PageLayout
         title={title}
         subtitle={form.isEditMode ? "Update rental item checklist." : "Create rental item checklist."}

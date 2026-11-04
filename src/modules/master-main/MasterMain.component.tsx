@@ -11,15 +11,15 @@ import { PageLayout } from "../../app/shared/PageLayout";
 export const MasterMainCardSkeleton = (key: number): React.ReactElement => (
   <div
     key={key}
-    className="flex min-h-36 animate-pulse items-start gap-4 rounded-2xl border border-border-default bg-background-surface p-5"
+    className="flex min-h-36 animate-pulse items-start gap-4 rounded-3xl border border-border-strong bg-background-surface p-5 shadow-small"
     role="status"
     aria-label="Loading master data"
   >
-    <div data-testid="master-card-skeleton-image" className="h-28 w-44 shrink-0 rounded-xl bg-background-subtle" />
+    <div data-testid="master-card-skeleton-image" className="h-28 w-44 shrink-0 rounded-3xl bg-background-subtle" />
     <div className="min-w-0 flex-1 pt-1">
-      <div className="h-6 w-2/3 rounded-md bg-background-subtle" />
-      <div className="mt-3 h-4 w-full rounded-md bg-background-subtle" />
-      <div className="mt-2 h-4 w-4/5 rounded-md bg-background-subtle" />
+      <div className="h-7 w-2/3 rounded-3xl bg-background-subtle" />
+      <div className="mt-3 h-5 w-full rounded-3xl bg-background-subtle" />
+      <div className="mt-2 h-5 w-4/5 rounded-3xl bg-background-subtle" />
     </div>
   </div>
 );
@@ -36,23 +36,23 @@ export const MasterMainCard = (props: MasterMainCardProps): React.ReactElement =
     <button
       type="button"
       onClick={onClick}
-      className="group flex min-h-36 w-full items-start gap-4 rounded-2xl border border-border-default bg-background-surface p-5 text-left transition-colors hover:border-border-strong hover:bg-background-subtle/40 focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring/30"
+      className="group flex min-h-36 w-full items-start gap-4 rounded-3xl border border-border-strong bg-background-surface p-5 text-left shadow-small transition-colors hover:border-border-strong hover:bg-background-subtle/40 focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring/30"
     >
       {image ? (
         <img
           src={image}
           alt=""
           aria-hidden="true"
-          className="h-28 w-44 shrink-0 rounded-xl object-contain"
+          className="h-28 w-44 shrink-0 rounded-3xl object-contain"
         />
       ) : (
-        <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-action-primary-subtle text-action-primary transition-colors group-hover:bg-action-primary group-hover:text-white">
+        <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-3xl bg-action-primary-subtle text-action-primary transition-colors group-hover:bg-action-primary group-hover:text-white">
           {icon}
         </span>
       )}
       <span className="min-w-0 flex-1">
-        <span className="block truncate text-2xl font-semibold text-text-primary lg:text-lg">{title}</span>
-        <span className="mt-2 block text-lg leading-7 text-text-secondary lg:text-sm lg:leading-5">{description}</span>
+        <span className="block truncate text-2xl font-semibold text-text-primary lg:text-xl">{title}</span>
+        <span className="mt-2 block text-lg leading-7 text-text-secondary">{description}</span>
       </span>
     </button>
   );
@@ -80,8 +80,8 @@ export const MasterMainComponent = (props: MasterMainProps): React.ReactElement 
       mobileTitleClassName="text-4xl"
       onBack={onBack}
     >
-      <div className="relative flex h-full flex-col bg-background-surface px-0 pb-18 lg:-mt-4 lg:bg-transparent lg:pb-0">
-        <div className="flex flex-col gap-6 pb-20 pt-2 lg:pt-0">
+      <div className="relative flex h-full flex-col bg-background-page px-0 pb-18 lg:-mt-4 lg:bg-transparent lg:pb-0">
+        <div className="flex flex-col gap-4 pb-20 pt-2 lg:pt-0">
           <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
             {isLoaded
               ? cards.map((card) => (
@@ -102,5 +102,6 @@ export const MasterMainComponent = (props: MasterMainProps): React.ReactElement 
     </PageLayout>
   );
 };
+
 
 export default MasterMainComponent;

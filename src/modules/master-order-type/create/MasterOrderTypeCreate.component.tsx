@@ -19,21 +19,30 @@ const _getFieldError = (error: FieldError | undefined): string | null => error?.
  * @param {MasterOrderTypeCreateFormState} props - Form state
  * @returns {ReactElement} Field element
  */
-const _renderNameField = (props: MasterOrderTypeCreateFormState): ReactElement => (
-  <div className="lg:col-span-2">
-    <InputComponent
-      id="order-type-name"
-      type="text"
-      label="Order Type Name"
-      className="[&_.ant-input]:text-xl [&_.ant-input]:placeholder:text-xl [&_label]:text-base"
-      placeholder="e.g. Rental, Project, or Sales"
-      value={props.name}
-      required
-      errorMessage={props.isSubmitted && !props.name ? "Order type name is required." : _getFieldError(props.errors.name)}
-      onChange={props.handleNameChange}
-    />
-  </div>
-);
+const _renderNameField = (props: MasterOrderTypeCreateFormState): ReactElement => {
+  const nameError = props.isSubmitted && !props.name ? "Order type name is required." : _getFieldError(props.errors.name);
+
+  return (
+    <div className="lg:col-span-2">
+      <InputComponent
+        id="order-type-name"
+        type="text"
+        label="Order Type Name"
+        className={`!mb-0 [&_.ant-input]:!h-16 lg:[&_.ant-input]:!h-14 [&_.ant-input]:!rounded-2xl [&_.ant-input]:!border-2 ${
+          nameError
+            ? "[&_.ant-input]:!border-danger"
+            : "[&_.ant-input]:!border-border-strong"
+        } [&_.ant-input.ant-input-status-error]:!border-danger [&_.ant-input]:!px-4 [&_.ant-input]:!text-xl lg:[&_.ant-input]:!text-lg [&_.ant-input]:!font-normal [&_.ant-input]:placeholder:!text-xl lg:[&_.ant-input]:placeholder:!text-lg [&_.ant-input]:placeholder:!font-normal [&_label]:!text-lg lg:[&_label]:!text-lg [&_label]:!font-normal [&_label]:!normal-case [&_label]:!text-text-primary`}
+        placeholder="e.g. Rental, Project, or Sales"
+        value={props.name}
+        required
+        errorMessage={nameError ?? undefined}
+        onChange={props.handleNameChange}
+      />
+    </div>
+  );
+};
+
 
 /**
  * Render handover switch field.
@@ -91,12 +100,12 @@ const _renderMobileBack = (isEditMode: boolean, goBack: () => void): ReactElemen
   const title = isEditMode ? "Edit Order Type" : "New Order Type";
 
   return (
-    <div className="sticky top-0 z-20 mb-6 flex items-center gap-3 bg-background-surface px-0 lg:hidden">
+    <div className="mb-6 flex items-center gap-3 bg-background-page lg:hidden">
       <button
         type="button"
         onClick={goBack}
         aria-label="Back"
-        className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full border border-border-default bg-background-surface text-text-primary transition-colors hover:bg-background-subtle"
+        className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full border border-border-default bg-background-page text-text-primary transition-colors hover:bg-background-subtle"
       >
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="h-6 w-6" aria-hidden="true">
           <path d="M19 12H5M12 19l-7-7 7-7" />
@@ -104,7 +113,7 @@ const _renderMobileBack = (isEditMode: boolean, goBack: () => void): ReactElemen
       </button>
       <div className="min-w-0">
         <h2 className="truncate text-4xl font-semibold tracking-tight text-text-primary">{title}</h2>
-        <p className="mt-1 truncate text-sm text-text-secondary">
+        <p className="mt-1 truncate text-lg text-text-secondary">
           {isEditMode ? "Update the order type details below." : "Fill in the order type details below."}
         </p>
       </div>
@@ -120,6 +129,7 @@ const _renderMobileBack = (isEditMode: boolean, goBack: () => void): ReactElemen
  */
 const _renderHeaderSection = (isEditMode: boolean, goBack: () => void): ReactElement => {
   const title = isEditMode ? "Edit Order Type" : "New Order Type";
+  const subtitle = isEditMode ? "Update the order type details below." : "Fill in the order type details below.";
 
   return (
     <>
@@ -132,13 +142,14 @@ const _renderHeaderSection = (isEditMode: boolean, goBack: () => void): ReactEle
       </nav>
       <div className="mb-6 hidden lg:block">
         <h2 className="text-4xl font-semibold leading-tight tracking-tight text-text-primary">{title}</h2>
-        <p className="mt-3 text-[14px] font-medium text-text-secondary opacity-70">
-          {isEditMode ? "Update the order type details below." : "Fill in the order type details below."}
+        <p className="mt-3 text-lg font-medium text-text-secondary opacity-70">
+          {subtitle}
         </p>
       </div>
     </>
   );
 };
+
 
 /**
  * Render submit button section
@@ -146,16 +157,24 @@ const _renderHeaderSection = (isEditMode: boolean, goBack: () => void): ReactEle
  * @param {boolean} isEditMode - Edit mode flag
  * @returns {ReactElement} Submit section
  */
-const _renderSubmitSection = (isSubmitting: boolean, isEditMode: boolean): ReactElement => {
+const _renderSubmitSection = (isSubmitting: boolean, isEditMode: boolean, goBack: () => void): ReactElement => {
   const buttonText = isEditMode ? "Update Order Type" : "Create Order Type";
   const submittingText = isEditMode ? "Updating…" : "Creating…";
 
   return (
-    <div className="mt-8 flex justify-end border-t border-border-default/60 pt-5 lg:mt-6 lg:border-border-default">
+    <div className="mt-8 flex justify-between gap-3 border-t border-border-default/60 pt-5 lg:mt-6 lg:border-border-default">
+      <button
+        type="button"
+        onClick={goBack}
+        disabled={isSubmitting}
+        className="h-14 cursor-pointer rounded-xl border border-border-default px-8 text-lg font-semibold text-text-primary transition-colors hover:bg-background-subtle focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-action-primary disabled:cursor-not-allowed disabled:opacity-50 lg:text-lg"
+      >
+        Cancel
+      </button>
       <button
         type="submit"
         disabled={isSubmitting}
-        className="h-14 w-full cursor-pointer rounded-xl bg-action-primary px-8 text-lg font-semibold tracking-wide text-text-inverse shadow-xs transition-all hover:bg-action-primary-hover disabled:opacity-60 sm:w-auto lg:text-sm"
+        className="h-14 cursor-pointer rounded-xl bg-action-primary px-8 text-lg font-semibold text-text-inverse shadow-xs transition-colors hover:bg-action-primary-hover focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-action-primary disabled:cursor-not-allowed disabled:opacity-60 lg:text-lg"
       >
         {isSubmitting ? submittingText : buttonText}
       </button>
@@ -163,17 +182,18 @@ const _renderSubmitSection = (isSubmitting: boolean, isEditMode: boolean): React
   );
 };
 
+
 /**
  * Master Order Type Create / Edit Form Component
  * @param {MasterOrderTypeCreateFormState} props - Form state and handlers
  * @returns {ReactElement} The rendered form
  */
 export const MasterOrderTypeCreateForm = (props: MasterOrderTypeCreateFormState): ReactElement => (
-  <div className="flex h-full w-full flex-col bg-background-surface pb-6 font-sans lg:bg-background-page">
+  <div className="flex h-full w-full flex-col bg-background-page pb-6 font-sans">
     {props.errorMessage && <AlertComponent type="error" message={props.errorMessage} toast closable />}
     {props.successMessage && <AlertComponent type="success" message={props.successMessage} toast closable />}
     {_renderMobileBack(props.isEditMode, props.goBack)}
-    <div className="flex min-h-0 w-full flex-1 flex-col px-0 text-lg lg:mt-0 lg:px-0 lg:text-base">
+    <div className="flex min-h-0 w-full flex-1 flex-col pb-32 text-lg lg:pb-0">
       {_renderHeaderSection(props.isEditMode, props.goBack)}
       {props.isLoadingInitialData ? (
         <p className="py-12 text-center text-sm text-text-secondary">Loading order type data…</p>
@@ -181,16 +201,20 @@ export const MasterOrderTypeCreateForm = (props: MasterOrderTypeCreateFormState)
         <form
           noValidate
           onSubmit={props.handleSubmit}
-          className="flex min-h-0 flex-1 flex-col justify-between border-0 bg-transparent p-0 shadow-none lg:rounded-4xl lg:border lg:border-border-default lg:bg-background-surface lg:p-8 lg:shadow-xs"
+          className="mb-6 flex flex-col rounded-3xl border border-border-default bg-background-surface p-6 shadow-small sm:p-8 lg:mb-5 lg:rounded-3xl lg:p-10"
         >
-          <div className="grid w-full grid-cols-1 gap-x-6 gap-y-4 lg:grid-cols-2">
-            {_renderNameField(props)}
-            {_renderHandoverField(props)}
-            {_renderStatusField(props)}
+          <div className="pb-6">
+            <div className="grid w-full grid-cols-1 gap-x-6 gap-y-4 lg:grid-cols-2">
+              {_renderNameField(props)}
+              {_renderHandoverField(props)}
+              {_renderStatusField(props)}
+            </div>
           </div>
-          {_renderSubmitSection(props.isSubmitting, props.isEditMode)}
+          {_renderSubmitSection(props.isSubmitting, props.isEditMode, props.goBack)}
         </form>
       )}
+      <div className="h-24 shrink-0 lg:hidden" aria-hidden="true" />
     </div>
   </div>
 );
+

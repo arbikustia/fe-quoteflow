@@ -6,7 +6,7 @@ import { Icons } from "@/components/Icons";
 
 import { DASHBOARD_MENU_ITEMS } from "./Dashboard.config";
 import { useDashboardAssets, useDashboardNavigation, useDashboardOrders, useDashboardOverview, useDashboardQuotations } from "./Dashboard.hook";
-import type { DashboardMetric, DashboardOrder, DashboardQuotation, DashboardQuotationChartDatum, DashboardRoute } from "./Dashboard.type";
+import type { DashboardMetric, DashboardOrder, DashboardRoute } from "./Dashboard.type";
 import ResponsiveLayout from "../shared/ResponsiveLayout";
 import BannerApp from "../../assets/banner-app.png";
 
@@ -21,44 +21,6 @@ import BannerApp from "../../assets/banner-app.png";
  * @param {DashboardQuotation[]} quotations - Dashboard quotations
  * @param {(id: string) => void} onClick - Quotation click handler
  * @returns {ReactElement} Quotation cards
- */
-const _renderQuotationCards = (quotations: DashboardQuotation[], onClick: (id: string) => void): ReactElement => (
-  <div className="no-scrollbar flex snap-x snap-mandatory gap-4 overflow-x-auto pb-2">
-    {quotations.length > 0 ? quotations.map((quotation) => (
-      <button
-        key={quotation.id}
-        type="button"
-        onClick={(): void => onClick(quotation.id)}
-        className="flex h-52 w-[85%] shrink-0 snap-start cursor-pointer flex-col justify-between rounded-2xl border border-border-default bg-background-surface p-4 text-left transition-shadow hover:shadow-small focus:outline-none focus-visible:ring-2 focus-visible:ring-border-focus"
-      >
-        <div>
-          <div className="flex items-start justify-between gap-3">
-            <h3 className="truncate text-xl font-bold text-text-primary">{quotation.quotationNumber}</h3>
-            <span className={`shrink-0 rounded-full px-2.5 py-1 text-xs font-semibold ${quotation.status === 1 ? "bg-success-subtle text-success-strong" : "bg-danger-subtle text-danger-strong"}`}>
-              {quotation.status === 1 ? "Active" : "Inactive"}
-            </span>
-          </div>
-          <p className="mt-3 truncate text-lg font-semibold text-text-primary">{quotation.customerName}</p>
-          <p className="mt-1 truncate text-base text-text-secondary">{quotation.eventName}</p>
-        </div>
-        <div>
-          <p className="text-base text-text-secondary">{quotation.startDate} - {quotation.endDate}</p>
-          <p className="mt-1 text-lg font-bold text-action-primary">Rp {quotation.grandTotal.toLocaleString("id-ID")}</p>
-        </div>
-      </button>
-    )) : (
-      <div className="flex h-48 w-full items-center justify-center rounded-2xl border border-dashed border-border-default text-sm text-text-secondary">
-        Belum ada quotation.
-      </div>
-    )}
-  </div>
-);
-
-/**
- * Render order carousel cards.
- * @param {DashboardOrder[]} orders - Dashboard orders
- * @param {(id: string) => void} onClick - Order click handler
- * @returns {ReactElement} Order cards
  */
 const _renderOrderCards = (orders: DashboardOrder[], onClick: (id: string) => void): ReactElement => (
   <div className="no-scrollbar flex snap-x snap-mandatory gap-4 overflow-x-auto pb-2">
@@ -88,49 +50,6 @@ const _renderOrderCards = (orders: DashboardOrder[], onClick: (id: string) => vo
     )}
   </div>
 );
-
-/**
- * Render daily creation bar chart with Ant Design card surface.
- * @param {DashboardQuotationChartDatum[]} chartData - Daily counts
- * @param {string} title - Chart title
- * @param {string} description - Chart description
- * @returns {ReactElement} Creation chart
- */
-const _renderCreationChart = (
-  chartData: DashboardQuotationChartDatum[],
-  title: string,
-  description: string,
-): ReactElement => {
-  const maxCount = Math.max(...chartData.map((item) => item.count), 1);
-  const totalCount = chartData.reduce((total, item) => total + item.count, 0);
-
-  return (
-    <Card
-      title={<span className="text-xl font-bold">{title}</span>}
-      extra={<span className="text-sm font-semibold text-action-primary">{totalCount} minggu ini</span>}
-      size="small"
-      className="mt-14 overflow-hidden rounded-2xl border-border-default shadow-none"
-      styles={{ header: { borderBottom: "0", padding: "16px 16px 0" }, body: { padding: "8px 16px 16px" } }}
-    >
-      <p className="mb-3 text-base text-text-secondary">{description}</p>
-      <div className="flex h-40 items-end justify-between gap-2" role="img" aria-label="Bar chart jumlah quotation dibuat per hari">
-        {chartData.map((item) => {
-          const height = `${Math.max((item.count / maxCount) * 100, item.count > 0 ? 12 : 2)}%`;
-
-          return (
-            <div key={item.label} className="flex h-full min-w-0 flex-1 flex-col items-center justify-end gap-2">
-              <span className="text-xs font-semibold text-text-secondary">{item.count}</span>
-              <div className="flex h-24 w-full items-end rounded-t-md bg-background-subtle">
-                <div className="w-full rounded-t-md bg-action-primary transition-[height] duration-300" style={{ height }} />
-              </div>
-              <span className="w-full truncate text-center text-[11px] text-text-tertiary">{item.label}</span>
-            </div>
-          );
-        })}
-      </div>
-    </Card>
-  );
-};
 
 /**
  * Render current-month calendar preview.
@@ -197,7 +116,6 @@ const _renderDesktopDashboard = (
           <h1 className="mt-1 text-3xl font-semibold text-text-primary">Dashboard</h1>
           <p className="mt-2 text-sm text-text-secondary">Monitor quotation, invoice, payment, and voucher performance.</p>
         </div>
-        <p className="text-sm text-text-tertiary">Updated from current records</p>
       </header>
 
       <div className="grid grid-cols-4 gap-5">
@@ -353,7 +271,7 @@ const _renderMobileRentalOrderChart = (overview: ReturnType<typeof useDashboardO
  * @returns {ReactElement} Home page
  */
 export default function Dashboard(): ReactElement {
-  const { navigateTo, navigateToOrder, navigateToQuotation } = useDashboardNavigation();
+  const { navigateTo, navigateToOrder } = useDashboardNavigation();
   const { isLoading, voucherCount } = useDashboardAssets();
   const quotationState = useDashboardQuotations();
   const orderState = useDashboardOrders();
@@ -465,27 +383,6 @@ export default function Dashboard(): ReactElement {
               <h3 className="mb-3 text-lg font-semibold text-text-primary">Rental order performance</h3>
               {_renderMobileRentalOrderChart(overview)}
             </div>
-          </div>
-
-          <div className="px-4 sm:px-6">
-            <div className="mb-3 flex items-center justify-between">
-              <h2 className="text-2xl font-bold text-text-primary sm:text-3xl">Quotation Active</h2>
-            <button
-              type="button"
-              onClick={(): void => navigateTo("/document/quotation")}
-              className="cursor-pointer text-base font-semibold text-action-primary transition-colors hover:text-action-primary-hover focus:outline-none focus-visible:underline sm:text-lg"
-            >
-              Show More
-            </button>
-          </div>
-          {quotationState.isLoading ? (
-            <div className="no-scrollbar flex gap-4 overflow-hidden pb-2" role="status" aria-label="Loading quotations">
-              {[0, 1, 2].map((item) => (
-                <div key={item} className="h-48 w-[85%] shrink-0 animate-pulse rounded-2xl bg-background-subtle" />
-              ))}
-            </div>
-          ) : _renderQuotationCards(quotationState.quotations, navigateToQuotation)}
-            {!quotationState.isLoading && _renderCreationChart(quotationState.chartData, "Quotation Dibuat", "Jumlah quotation yang dibuat dalam 7 hari terakhir.")}
           </div>
         </div>
       </div>

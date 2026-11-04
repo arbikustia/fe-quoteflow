@@ -32,9 +32,9 @@ const _renderSelect = (props: OrderCreateProps): React.ReactElement => (
   <Select
     id="order-customer"
     label="Customer"
-    labelClassName="!text-lg !font-semibold !normal-case !text-text-primary"
-    className="mb-5"
-    selectClassName="!h-16 [&_.ant-select-selector]:!min-h-16 [&_.ant-select-selector]:!rounded-2xl [&_.ant-select-selection-item]:!text-2xl [&_.ant-select-selection-item]:!font-semibold [&_.ant-select-selection-placeholder]:!text-2xl"
+    labelClassName="!text-lg !font-normal !normal-case !text-text-primary lg:!text-lg"
+    className="mb-0"
+    selectClassName="!h-16 lg:!h-14 [&_.ant-select-selector]:!min-h-16 lg:[&_.ant-select-selector]:!min-h-14 [&_.ant-select-content]:!text-xl lg:[&_.ant-select-content]:!text-lg [&_.ant-select-content]:!font-normal"
     required
     errorMessage={
       props.showInformationErrors && !props.form.customer_id.trim()
@@ -63,9 +63,9 @@ const _renderPicSelect = (props: OrderCreateProps): React.ReactElement => (
   <Select
     id="order-pic"
     label="PIC"
-    labelClassName="!text-lg !font-semibold !normal-case !text-text-primary"
-    className="mb-5 [&_.ant-select-selector]:!min-h-16"
-    selectClassName="!h-16 [&_.ant-select-selector]:!rounded-2xl [&_.ant-select-selection-item]:!text-2xl [&_.ant-select-selection-item]:!font-semibold [&_.ant-select-selection-placeholder]:!text-2xl"
+    labelClassName="!text-lg !font-normal !normal-case !text-text-primary lg:!text-lg"
+    className="mb-0 [&_.ant-select-selector]:!min-h-16 lg:[&_.ant-select-selector]:!min-h-14"
+    selectClassName="!h-16 lg:!h-14 [&_.ant-select-content]:!text-xl lg:[&_.ant-select-content]:!text-lg [&_.ant-select-content]:!font-normal"
     required
     errorMessage={
       props.showInformationErrors && !props.form.pic_id.trim()
@@ -89,9 +89,9 @@ const _renderOrderTypeSelect = (props: OrderCreateProps): React.ReactElement => 
   <Select
     id="order-order-type"
     label="Order Type"
-    labelClassName="!text-lg !font-semibold !normal-case !text-text-primary"
-    className="mb-5 [&_.ant-select-selector]:!min-h-16"
-    selectClassName="!h-16 [&_.ant-select-selector]:!rounded-2xl [&_.ant-select-selection-item]:!text-2xl [&_.ant-select-selection-item]:!font-semibold [&_.ant-select-selection-placeholder]:!text-2xl"
+    labelClassName="!text-lg !font-normal !normal-case !text-text-primary lg:!text-lg"
+    className="mb-0 [&_.ant-select-selector]:!min-h-16 lg:[&_.ant-select-selector]:!min-h-14"
+    selectClassName="!h-16 lg:!h-14 [&_.ant-select-content]:!text-xl lg:[&_.ant-select-content]:!text-lg [&_.ant-select-content]:!font-normal"
     required
     errorMessage={props.showInformationErrors && !props.form.order_type_id.trim() ? "Order Type is required" : undefined}
     value={props.form.order_type_id}
@@ -113,9 +113,9 @@ const _renderHandoverTypeSelect = (
   <Select
     id="order-handover-type"
     label="Identity Type"
-    labelClassName="!text-lg !font-semibold !normal-case !text-text-primary"
-    className="mb-5 [&_.ant-select-selector]:!min-h-16"
-    selectClassName="!h-16 [&_.ant-select-selector]:!rounded-2xl [&_.ant-select-selection-item]:!text-2xl [&_.ant-select-selection-item]:!font-semibold [&_.ant-select-selection-placeholder]:!text-2xl"
+    labelClassName="!text-lg !font-normal !normal-case !text-text-primary lg:!text-lg"
+    className="mb-0 [&_.ant-select-selector]:!min-h-16 lg:[&_.ant-select-selector]:!min-h-14"
+    selectClassName="!h-16 lg:!h-14 [&_.ant-select-content]:!text-xl lg:[&_.ant-select-content]:!text-lg [&_.ant-select-content]:!font-normal"
     required
     errorMessage={props.showInformationErrors && !props.form.handover_type.trim() ? "Identity Type is required" : undefined}
     value={props.form.handover_type}
@@ -140,9 +140,9 @@ const _renderServiceTypeSelect = (
   <Select
     id="order-service-type"
     label="Service Type"
-    labelClassName="!text-lg !font-semibold !normal-case !text-text-primary"
-    className="mb-5 [&_.ant-select-selector]:!min-h-16"
-    selectClassName="!h-16 [&_.ant-select-selector]:!rounded-2xl [&_.ant-select-selection-item]:!text-2xl [&_.ant-select-selection-item]:!font-semibold [&_.ant-select-selection-placeholder]:!text-2xl"
+    labelClassName="!text-lg !font-normal !normal-case !text-text-primary lg:!text-lg"
+    className="mb-0 [&_.ant-select-selector]:!min-h-16 lg:[&_.ant-select-selector]:!min-h-14"
+    selectClassName="!h-16 lg:!h-14 [&_.ant-select-content]:!text-xl lg:[&_.ant-select-content]:!text-lg [&_.ant-select-content]:!font-normal"
     required
     errorMessage={
       props.showInformationErrors && !props.form.service_type_id.trim()
@@ -173,9 +173,9 @@ const _renderVoucherSelect = (props: OrderCreateProps): React.ReactElement => (
   <Select
     id="order-voucher"
     label="Voucher"
-    labelClassName="!text-lg !font-semibold !normal-case !text-text-primary"
-    className="mb-5 [&_.ant-select-selector]:!min-h-16"
-    selectClassName="!h-16 [&_.ant-select-selector]:!rounded-2xl [&_.ant-select-selection-item]:!text-2xl [&_.ant-select-selection-item]:!font-semibold [&_.ant-select-selection-placeholder]:!text-2xl"
+    labelClassName="!text-lg !font-normal !normal-case !text-text-primary lg:!text-lg"
+    className="mb-0 [&_.ant-select-selector]:!min-h-16 lg:[&_.ant-select-selector]:!min-h-14"
+    selectClassName="!h-16 lg:!h-14 [&_.ant-select-content]:!text-xl lg:[&_.ant-select-content]:!text-lg [&_.ant-select-content]:!font-normal"
     value={props.form.voucher_id}
     onChange={props.onVoucherChange}
     disabled={props.isVouchersLoading}
@@ -224,7 +224,7 @@ const _renderDateRange = (props: OrderCreateProps): React.ReactElement => {
 
   return (
     <DateRangePicker
-      className="mb-5 md:col-span-2 [&>div]:gap-5 [&_.ant-picker]:!h-16 [&_.ant-picker]:!rounded-2xl [&_.ant-picker-input>input]:!text-xl [&_.ant-picker-input>input]:!font-normal [&_label]:!text-lg [&_label]:!font-semibold [&_label]:!normal-case [&_label]:!text-text-primary"
+      className="mb-0 lg:col-span-2 [&>div]:gap-5 [&_.ant-picker]:!h-16 lg:[&_.ant-picker]:!h-14 [&_.ant-picker]:!rounded-2xl [&_.ant-picker]:!border-2 [&_.ant-picker:not(.ant-picker-status-error)]:!border-border-strong [&_.ant-picker.ant-picker-status-error]:!border-danger [&_.ant-picker-input>input]:!text-xl lg:[&_.ant-picker-input>input]:!text-lg [&_.ant-picker-input>input]:!font-normal [&_label]:!text-lg lg:[&_label]:!text-lg [&_label]:!font-normal [&_label]:!normal-case [&_label]:!text-text-primary"
       startLabel="Start Date *"
       endLabel="End Date *"
       startDate={props.form.start_at}
@@ -267,7 +267,11 @@ const _renderField = (
       value={value}
       onChange={handleChange}
       type={config.type ?? "text"}
-      className="mb-5 [&_.ant-input]:!h-16 [&_.ant-input]:!rounded-2xl [&_.ant-input]:!px-4 [&_.ant-input]:!text-xl [&_.ant-input]:!font-normal [&_.ant-input]:placeholder:!text-xl [&_.ant-input]:placeholder:!font-normal [&_label]:!text-lg [&_label]:!font-semibold [&_label]:!normal-case [&_label]:!text-text-primary"
+      className={`!mb-0 [&_.ant-input]:!h-16 lg:[&_.ant-input]:!h-14 [&_.ant-input]:!rounded-2xl [&_.ant-input]:!border-2 ${
+        isInvalid
+          ? "[&_.ant-input]:!border-danger"
+          : "[&_.ant-input]:!border-border-strong"
+      } [&_.ant-input.ant-input-status-error]:!border-danger [&_.ant-input]:!px-4 [&_.ant-input]:!text-xl lg:[&_.ant-input]:!text-lg [&_.ant-input]:!font-normal [&_.ant-input]:placeholder:!text-xl lg:[&_.ant-input]:placeholder:!text-lg [&_.ant-input]:placeholder:!font-normal [&_label]:!text-lg lg:[&_label]:!text-lg [&_label]:!font-normal [&_label]:!normal-case [&_label]:!text-text-primary`}
       errorMessage={isInvalid ? `${config.label} is required` : undefined}
     />
   );
@@ -302,7 +306,7 @@ const _renderServiceFee = (props: OrderCreateProps): React.ReactElement => {
       value={formattedValue}
       onChange={handleChange}
       inputMode="numeric"
-      className="mb-5 [&_.ant-input]:!h-16 [&_.ant-input]:!rounded-2xl [&_.ant-input]:!px-4 [&_.ant-input]:!text-xl [&_.ant-input]:!font-normal [&_.ant-input]:placeholder:!text-xl [&_.ant-input]:placeholder:!font-normal [&_label]:!text-lg [&_label]:!font-semibold [&_label]:!normal-case [&_label]:!text-text-primary"
+      className="!mb-0 [&_.ant-input]:!h-16 lg:[&_.ant-input]:!h-14 [&_.ant-input]:!rounded-2xl [&_.ant-input]:!border-2 [&_.ant-input]:!border-border-strong [&_.ant-input]:!px-4 [&_.ant-input]:!text-xl lg:[&_.ant-input]:!text-lg [&_.ant-input]:!font-normal [&_.ant-input]:placeholder:!text-xl lg:[&_.ant-input]:placeholder:!text-lg [&_.ant-input]:placeholder:!font-normal [&_label]:!text-lg lg:[&_label]:!text-lg [&_label]:!font-normal [&_label]:!normal-case [&_label]:!text-text-primary"
     />
   );
 };
@@ -369,15 +373,15 @@ const _renderProjectCard = (
           </div>
           <div className="min-w-0">
             <div className="flex items-center gap-2">
-              <strong className="truncate text-base font-bold text-text-primary">
+              <strong className="truncate text-lg font-bold text-text-primary">
                 {project.name}
               </strong>
-              <span className="shrink-0 rounded-full bg-action-primary-subtle px-2.5 py-0.5 text-xs font-semibold text-action-primary">
+              <span className="shrink-0 rounded-full bg-action-primary-subtle px-2.5 py-0.5 text-lg font-semibold text-action-primary">
                 {project.items.length} items
               </span>
             </div>
             {projectPriceTotal > 0 && (
-              <p className="mt-0.5 text-xs font-medium text-text-secondary">
+              <p className="mt-0.5 text-lg font-medium text-text-secondary">
                 Total: Rp {projectPriceTotal.toLocaleString("id-ID")}
               </p>
             )}
@@ -385,18 +389,18 @@ const _renderProjectCard = (
         </div>
         <span
           aria-hidden="true"
-          className={`flex h-7 w-7 shrink-0 items-center justify-center rounded-full border text-sm font-bold transition-colors ${isSelected ? "border-action-primary bg-action-primary text-text-inverse" : "border-border-default bg-background-surface text-transparent"}`}
+          className={`flex h-7 w-7 shrink-0 items-center justify-center rounded-full border text-lg font-bold transition-colors ${isSelected ? "border-action-primary bg-action-primary text-text-inverse" : "border-border-default bg-background-surface text-transparent"}`}
         >
           ✓
         </span>
       </button>
 
       <div className="border-t border-border-default/70 bg-background-subtle/30 p-4">
-        <p className="mb-2.5 text-xs font-bold uppercase tracking-wider text-text-secondary">
+        <p className="mb-2.5 text-lg font-bold uppercase tracking-wider text-text-secondary">
           Items Included
         </p>
         {project.items.length === 0 ? (
-          <p className="text-xs italic text-text-tertiary">No items in this project</p>
+          <p className="text-lg italic text-text-tertiary">No items in this project</p>
         ) : (
           <div className="grid grid-cols-1 gap-2.5 sm:grid-cols-2">
             {project.items.map((item) => {
@@ -433,10 +437,10 @@ const _renderProjectCard = (
                     </div>
                   )}
                   <div className="min-w-0 flex-1">
-                    <p className="truncate text-sm font-semibold text-text-primary">
+                    <p className="truncate text-lg font-semibold text-text-primary">
                       {itemName}
                     </p>
-                    <div className="mt-1 flex items-center gap-2 text-xs">
+                    <div className="mt-1 flex items-center gap-2 text-lg">
                       <span className="rounded bg-action-primary-subtle px-1.5 py-0.5 font-semibold text-action-primary">
                         Qty: {item.qty}
                       </span>
@@ -481,7 +485,7 @@ const _renderItemCard = (
 
   return (
     <div
-      className={`relative min-h-32 rounded-2xl border p-4 transition-colors md:h-32 md:overflow-hidden ${itemCardClass}`}
+      className={`relative rounded-2xl border p-4 transition-colors ${itemCardClass}`}
     >
       <button
         type="button"
@@ -497,12 +501,12 @@ const _renderItemCard = (
             className="h-12 w-12 shrink-0 rounded-lg object-cover"
           />
         ) : (
-          <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-lg bg-background-subtle text-xs text-text-tertiary">
+          <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-lg bg-background-subtle text-lg text-text-tertiary">
             No image
           </div>
         )}
         <span className="min-w-0 flex-1">
-          <strong className="block truncate text-sm font-semibold text-text-primary">
+          <strong className="block truncate text-lg font-semibold text-text-primary">
             {option.name}
           </strong>
           <small className="mt-1 block truncate text-text-secondary">
@@ -511,8 +515,8 @@ const _renderItemCard = (
           </small>
         </span>
         {selected && (
-          <div className="pointer-events-auto hidden shrink-0 items-center gap-3 md:flex">
-            <label className="flex flex-col gap-1 text-xs font-medium text-text-secondary">
+          <div className="pointer-events-auto hidden shrink-0 items-center gap-3 lg:flex">
+            <label className="flex flex-col gap-1 text-lg font-medium text-text-secondary">
               Qty
               <input
                 id={`order-qty-${option.id}`}
@@ -527,10 +531,10 @@ const _renderItemCard = (
                     Number(event.target.value),
                   )
                 }
-                className="h-10 w-16 rounded-lg border border-border-default bg-background-surface px-2 text-center text-sm text-text-primary"
+                className="h-10 w-16 rounded-lg border-2 border-border-strong bg-background-surface px-2 text-center text-lg text-text-primary"
               />
             </label>
-            <label className="flex w-40 flex-col gap-1 text-xs font-medium text-text-secondary">
+            <label className="flex w-40 flex-col gap-1 text-lg font-medium text-text-secondary">
               Remark
               <input
                 id={`order-remark-${option.id}`}
@@ -543,18 +547,50 @@ const _renderItemCard = (
                   )
                 }
                 placeholder="Optional note"
-                className="h-10 w-full rounded-lg border border-border-default bg-background-surface px-3 text-sm text-text-primary placeholder:text-text-tertiary"
+                className="h-10 w-full rounded-lg border-2 border-border-strong bg-background-surface px-3 text-lg text-text-primary placeholder:text-text-tertiary"
               />
             </label>
           </div>
         )}
         <span
           aria-hidden="true"
-          className={`flex h-6 w-6 shrink-0 items-center justify-center rounded-full border text-sm ${selected ? "border-action-primary bg-action-primary text-text-inverse" : "border-border-default text-transparent"}`}
+          className={`flex h-6 w-6 shrink-0 items-center justify-center rounded-full border text-lg ${selected ? "border-action-primary bg-action-primary text-text-inverse" : "border-border-default text-transparent"}`}
         >
           ✓
         </span>
       </div>
+      {selected && (
+        <div className="relative z-10 mt-4 grid grid-cols-[5rem_minmax(0,1fr)] gap-3 border-t border-border-default pt-4 lg:hidden">
+          <label className="flex flex-col gap-2 text-lg font-medium text-text-secondary">
+            Qty
+            <input
+              type="number"
+              min="1"
+              max={option.stock ?? undefined}
+              value={selected.qty}
+              onChange={(event): void => props.onItemChange(
+                props.form.rental_transaction_items.indexOf(selected),
+                "qty",
+                Number(event.target.value),
+              )}
+              className="h-12 w-full rounded-lg border-2 border-border-strong bg-background-surface px-2 text-center text-lg text-text-primary focus:border-border-focus focus:outline-none focus:ring-2 focus:ring-focus-ring/30"
+            />
+          </label>
+          <label className="flex min-w-0 flex-col gap-2 text-lg font-medium text-text-secondary">
+            Remark
+            <input
+              value={selected.remark}
+              onChange={(event): void => props.onItemChange(
+                props.form.rental_transaction_items.indexOf(selected),
+                "remark",
+                event.target.value,
+              )}
+              placeholder="Optional note"
+              className="h-12 w-full rounded-lg border-2 border-border-strong bg-background-surface px-3 text-lg text-text-primary placeholder:text-text-tertiary focus:border-border-focus focus:outline-none focus:ring-2 focus:ring-focus-ring/30"
+            />
+          </label>
+        </div>
+      )}
     </div>
   );
 };
@@ -596,7 +632,7 @@ const _renderItem = (
       <div className="flex items-center justify-between gap-3">
         <div className="flex min-w-0 items-center gap-3">
           <span
-            className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-lg text-sm font-semibold ${item.item_id ? "bg-action-primary text-text-inverse" : "bg-background-subtle text-text-tertiary"}`}
+            className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-lg text-lg font-semibold ${item.item_id ? "bg-action-primary text-text-inverse" : "bg-background-subtle text-text-tertiary"}`}
           >
             {index + 1}
           </span>
@@ -604,7 +640,7 @@ const _renderItem = (
             <h3 className="font-semibold text-text-primary">
               {item.item_name || "Select item"}
             </h3>
-            <p className="mt-0.5 text-xs text-text-secondary">
+            <p className="mt-0.5 text-lg text-text-secondary">
               Set item, project, quantity, and price.
             </p>
           </div>
@@ -613,7 +649,7 @@ const _renderItem = (
           <button
             type="button"
             onClick={handleRemove}
-            className="text-sm font-semibold text-danger"
+            className="text-lg font-semibold text-danger"
           >
             Remove
           </button>
@@ -653,7 +689,7 @@ const _renderItem = (
           value={item.item_name}
           onChange={handleText("item_name")}
           placeholder="Item name"
-          className="rounded-xl border border-border-default bg-background-surface px-4 py-3"
+          className="rounded-xl border-2 border-border-strong bg-background-surface px-4 py-3"
         />
         <input
           required
@@ -662,7 +698,7 @@ const _renderItem = (
           onChange={handleNumber("qty")}
           type="number"
           placeholder="Qty"
-          className="rounded-xl border border-border-default bg-background-surface px-4 py-3"
+          className="rounded-xl border-2 border-border-strong bg-background-surface px-4 py-3"
         />
         <input
           required
@@ -671,7 +707,7 @@ const _renderItem = (
           onChange={handleNumber("price")}
           type="number"
           placeholder="Price"
-          className="rounded-xl border border-border-default bg-background-surface px-4 py-3"
+          className="rounded-xl border-2 border-border-strong bg-background-surface px-4 py-3"
         />
         <input
           required
@@ -680,13 +716,13 @@ const _renderItem = (
           onChange={handleNumber("subtotal")}
           type="number"
           placeholder="Subtotal"
-          className="rounded-xl border border-border-default bg-background-surface px-4 py-3"
+          className="rounded-xl border-2 border-border-strong bg-background-surface px-4 py-3"
         />
         <input
           value={item.remark}
           onChange={handleText("remark")}
           placeholder="Remark"
-          className="rounded-xl border border-border-default bg-background-surface px-4 py-3 md:col-span-2"
+          className="rounded-xl border-2 border-border-strong bg-background-surface px-4 py-3 md:col-span-2"
         />
       </div>
     </div>
@@ -719,12 +755,12 @@ const _renderMobileBack = (
   isEdit: boolean,
   onBack: () => void,
 ): React.ReactElement => (
-  <div className="flex items-center gap-3 bg-background-surface px-0 pb-6 lg:hidden">
+  <div className="mb-6 flex items-center gap-3 bg-background-page lg:hidden">
     <button
       type="button"
       onClick={onBack}
       aria-label="Back"
-      className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full border border-border-default bg-background-surface text-text-primary transition-colors hover:bg-background-subtle"
+      className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full border border-border-default bg-background-page text-text-primary transition-colors hover:bg-background-subtle"
     >
       <svg
         viewBox="0 0 24 24"
@@ -739,48 +775,35 @@ const _renderMobileBack = (
         <path d="M19 12H5M12 19l-7-7 7-7" />
       </svg>
     </button>
-    <h1 className="truncate text-4xl font-semibold leading-tight text-text-primary">
-      {isEdit ? "Edit Order" : "Create Order"}
-    </h1>
+    <div className="min-w-0">
+      <h1 className="truncate text-4xl font-semibold leading-tight text-text-primary">
+        {isEdit ? "Edit Order" : "Create Order"}
+      </h1>
+      <p className="mt-1 text-lg text-text-secondary">
+        {isEdit ? "Update order details" : "Fill in order details"}
+      </p>
+    </div>
   </div>
 );
 
 /**
  * Render desktop form header.
  * @param {string} title - Form title
- * @param {() => void} onBack - Back navigation
  * @returns {React.ReactElement} Header section
  */
 const _renderHeaderSection = (
   title: string,
-  onBack: () => void,
 ): React.ReactElement => (
-  <>
-    <nav
-      aria-label="Breadcrumb"
-      className="mb-3 hidden items-center gap-2 text-sm font-medium text-text-secondary lg:flex"
-    >
-      <button
-        type="button"
-        onClick={onBack}
-        className="cursor-pointer hover:text-text-primary"
-      >
-        Order
-      </button>
-      <span aria-hidden="true">/</span>
-      <span className="text-text-primary">{title}</span>
-    </nav>
-    <div className="my-6 hidden pl-1 lg:block">
-      <h1 className="text-4xl font-semibold leading-tight tracking-tight text-text-primary">
-        {title}
-      </h1>
-      <p className="mt-3 text-[14px] font-medium text-text-secondary opacity-70">
-        {title === "Edit Order"
-          ? "Update the order details below."
-          : "Fill in the order details below."}
-      </p>
-    </div>
-  </>
+  <div className="mb-6 hidden lg:block">
+    <h1 className="text-4xl font-semibold leading-tight tracking-tight text-text-primary">
+      {title}
+    </h1>
+    <p className="mt-3 text-lg font-medium text-text-secondary opacity-70">
+      {title === "Edit Order"
+        ? "Update the order details below."
+        : "Fill in the order details below."}
+    </p>
+  </div>
 );
 
 /**
@@ -823,17 +846,17 @@ export const OrderCreateComponent = (
   const isItemsStepError = props.showItemErrors;
 
   return (
-    <Layout pageTitle={pageTitle} mobileWhiteBackground>
-      <div className="flex h-full w-full flex-col bg-background-surface pb-6 font-sans lg:bg-background-page">
+    <Layout pageTitle={pageTitle}>
+      <div className="flex h-full w-full flex-col bg-background-page pb-6 font-sans">
         {_renderMobileBack(props.isEdit, props.onBack)}
-        <div className="mt-10 flex min-h-0 w-full flex-1 flex-col px-0 text-lg lg:mt-0 lg:text-base">
-          {_renderHeaderSection(pageTitle, props.onBack)}
+        <div className="flex min-h-0 w-full flex-1 flex-col pb-32 text-lg lg:pb-0">
+          {_renderHeaderSection(pageTitle)}
           <form
             noValidate
             onSubmit={props.onPreventSubmit}
-            className="mb-5 flex flex-col justify-between border-0 bg-transparent p-0 pb-32 shadow-none lg:rounded-4xl lg:border lg:border-brand-gray-light lg:bg-brand-white lg:p-8 lg:shadow-xs"
+            className="mb-6 flex flex-col rounded-3xl border border-border-default bg-background-surface p-6 shadow-small sm:p-8 lg:mb-5 lg:rounded-3xl lg:p-10"
           >
-            <div className="mb-8 flex items-center gap-8 overflow-x-auto border-b border-border-default">
+            <div aria-label="Order steps" className="mb-6 flex items-center gap-4 overflow-x-auto border-b border-border-default lg:mb-8 lg:gap-8">
               {stepTitles.map((title, index) => {
                 const hasError =
                   (index === 0 && isInformationStepError) ||
@@ -842,9 +865,11 @@ export const OrderCreateComponent = (
                 return (
                   <div
                     key={title}
-                    className={`relative shrink-0 pb-3 text-xl lg:text-base ${_getStepTabClass(index, props.step, hasError)}`}
+                    aria-current={props.step === index + 1 ? "step" : undefined}
+                    className={`relative shrink-0 pb-3 text-lg lg:text-lg ${_getStepTabClass(index, props.step, hasError)}`}
                   >
-                    <span>{title}</span>
+                    <span className="lg:hidden">{index === 0 ? "Information" : title}</span>
+                    <span className="hidden lg:inline">{title}</span>
                     <span
                       aria-hidden="true"
                       className={`absolute inset-x-0 bottom-0 h-0.5 ${_getStepUnderlineClass(index, props.step)}`}
@@ -856,7 +881,7 @@ export const OrderCreateComponent = (
             <div className="pb-6">
               {props.step === 1 && (
                 <section className="space-y-5">
-                  <div className="grid grid-cols-1 gap-x-8 gap-y-2 md:grid-cols-2">
+                  <div className="grid w-full grid-cols-1 gap-x-6 gap-y-5 lg:grid-cols-2">
                     {_renderSelect(props)}
                     {_renderField(props, {
                       field: "customer_name",
@@ -891,14 +916,14 @@ export const OrderCreateComponent = (
                     {_renderVoucherSelect(props)}
                   </div>
                   <label className="block space-y-2">
-                    <span className="text-lg font-semibold text-text-primary">
+                    <span className="text-lg font-normal text-text-primary lg:text-lg">
                       Address
                     </span>
                     <textarea
                       value={props.form.address}
                       onChange={handleAddress}
                       placeholder="Enter address"
-                      className="min-h-36 w-full rounded-2xl border border-border-default bg-background-surface px-4 py-4 text-xl font-normal outline-none placeholder:font-normal placeholder:text-xl placeholder:text-text-tertiary focus:border-border-focus focus:ring-2 focus:ring-focus-ring/30"
+                      className="min-h-36 w-full rounded-2xl border-2 border-border-strong bg-background-surface px-4 py-4 text-xl font-normal outline-none placeholder:font-normal placeholder:text-xl placeholder:text-text-tertiary focus:border-border-focus focus:ring-2 focus:ring-focus-ring/30 lg:min-h-28 lg:text-lg lg:placeholder:text-lg"
                     />
                   </label>
                 </section>
@@ -917,7 +942,7 @@ export const OrderCreateComponent = (
                   ) : (
                     <>
                       {props.isItemsLoading && (
-                        <p className="text-sm text-text-secondary">
+                        <p className="text-lg text-text-secondary">
                           Loading items…
                         </p>
                       )}
@@ -938,15 +963,15 @@ export const OrderCreateComponent = (
                     <div className="rounded-2xl border border-border-default bg-background-surface p-5 lg:col-span-6">
                       <div className="mb-4 flex items-center gap-3">
                         <div>
-                          <p className="text-xl font-semibold text-text-primary lg:text-sm">
+                          <p className="text-xl font-semibold text-text-primary lg:text-lg">
                             Customer Information
                           </p>
-                          <p className="text-base text-text-secondary lg:text-xs">
+                          <p className="text-lg text-text-secondary lg:text-lg">
                             Contact and delivery details
                           </p>
                         </div>
                       </div>
-                      <dl className="divide-y divide-border-default text-xl lg:text-sm">
+                      <dl className="divide-y divide-border-default text-xl lg:text-lg">
                         <div className="grid grid-cols-[7rem_minmax(0,1fr)] gap-3 py-3 lg:grid-cols-[6rem_minmax(0,1fr)]">
                           <dt className="text-text-secondary">Customer</dt>
                           <dd className="break-words font-semibold text-text-primary">
@@ -976,15 +1001,15 @@ export const OrderCreateComponent = (
                     <div className="rounded-2xl border border-border-default bg-background-surface p-5 lg:col-span-6">
                       <div className="mb-4 flex items-center gap-3">
                         <div>
-                          <p className="text-xl font-semibold text-text-primary lg:text-sm">
+                          <p className="text-xl font-semibold text-text-primary lg:text-lg">
                             Order Information
                           </p>
-                          <p className="text-base text-text-secondary lg:text-xs">
+                          <p className="text-lg text-text-secondary lg:text-lg">
                             Schedule, type, and handover
                           </p>
                         </div>
                       </div>
-                      <dl className="divide-y divide-border-default text-xl lg:text-sm">
+                      <dl className="divide-y divide-border-default text-xl lg:text-lg">
                         <div className="grid grid-cols-[7rem_minmax(0,1fr)] gap-3 py-3 lg:grid-cols-[6rem_minmax(0,1fr)]">
                           <dt className="text-text-secondary">PIC</dt>
                           <dd className="break-words font-semibold text-text-primary">
@@ -1052,39 +1077,39 @@ export const OrderCreateComponent = (
                     <div className="mb-4 flex items-center justify-between gap-3">
                       <div className="flex items-center gap-3">
                         <div>
-                          <p className="text-xl font-semibold text-text-primary lg:text-sm">
+                          <p className="text-xl font-semibold text-text-primary lg:text-lg">
                             Pricing
                           </p>
-                          <p className="text-base text-text-secondary lg:text-xs">
+                          <p className="text-lg text-text-secondary lg:text-lg">
                             Order cost breakdown
                           </p>
                         </div>
                       </div>
-                      <span className="text-sm font-semibold uppercase tracking-wider text-text-secondary lg:text-xs">
+                      <span className="text-lg font-semibold uppercase tracking-wider text-text-secondary lg:text-lg">
                         IDR
                       </span>
                     </div>
-                    <div className="grid gap-3 text-xl sm:grid-cols-2 lg:grid-cols-4 lg:text-sm">
+                    <div className="grid gap-3 text-xl sm:grid-cols-2 lg:grid-cols-4 lg:text-lg">
                       <div className="rounded-xl bg-background-subtle p-4 text-text-secondary">
-                        <span className="block text-base text-text-secondary lg:text-xs">Subtotal</span>
+                        <span className="block text-lg text-text-secondary lg:text-lg">Subtotal</span>
                         <span className="mt-1 block font-semibold text-text-primary">
                           Rp {totals.subtotal.toLocaleString("id-ID")}
                         </span>
                       </div>
                       <div className="rounded-xl bg-background-subtle p-4 text-text-secondary">
-                        <span className="block text-base text-text-secondary lg:text-xs">Service Fee</span>
+                        <span className="block text-lg text-text-secondary lg:text-lg">Service Fee</span>
                         <span className="mt-1 block font-semibold text-text-primary">
                           Rp {props.form.service_fee.toLocaleString("id-ID")}
                         </span>
                       </div>
                       <div className="rounded-xl bg-background-subtle p-4 text-text-secondary">
-                        <span className="block text-base text-text-secondary lg:text-xs">Discount</span>
+                        <span className="block text-lg text-text-secondary lg:text-lg">Discount</span>
                         <span className="mt-1 block font-semibold text-text-primary">
                           Rp {props.form.discount.toLocaleString("id-ID")}
                         </span>
                       </div>
                       <div className="rounded-xl bg-action-primary-subtle p-4">
-                        <span className="block text-base font-semibold text-action-primary lg:text-xs">Grand Total</span>
+                        <span className="block text-lg font-semibold text-action-primary lg:text-lg">Grand Total</span>
                         <span className="mt-1 block text-3xl font-bold text-action-primary lg:text-lg">
                           Rp {totals.grandTotal.toLocaleString("id-ID")}
                         </span>
@@ -1092,7 +1117,7 @@ export const OrderCreateComponent = (
                     </div>
                   </div>
                   <div className="order-2 rounded-xl border border-border-default p-4 lg:order-3">
-                    <h3 className="mb-3 text-2xl font-semibold text-text-primary lg:text-base">
+                    <h3 className="mb-3 text-2xl font-semibold text-text-primary lg:text-lg">
                       Rental Items
                     </h3>
                     {props.form.service_type_name.trim().toUpperCase() ===
@@ -1116,10 +1141,10 @@ export const OrderCreateComponent = (
                                 className="overflow-hidden rounded-2xl border border-border-default bg-background-surface"
                               >
                                 <div className="flex items-center justify-between gap-3 border-b border-border-default bg-background-subtle px-4 py-3">
-                                  <h4 className="text-xl font-semibold text-text-primary lg:text-base">
+                                  <h4 className="text-xl font-semibold text-text-primary lg:text-lg">
                                     {project.name}
                                   </h4>
-                                  <span className="shrink-0 rounded-full bg-action-primary-subtle px-3 py-1 text-base font-semibold text-action-primary lg:text-xs">
+                                  <span className="shrink-0 rounded-full bg-action-primary-subtle px-3 py-1 text-lg font-semibold text-action-primary lg:text-lg">
                                     {projectItems.length} items
                                   </span>
                                 </div>
@@ -1127,18 +1152,18 @@ export const OrderCreateComponent = (
                                   {projectItems.map((item) => (
                                     <div
                                       key={`${project.id}-${item.item_id}`}
-                                      className="grid gap-2 py-4 text-xl sm:grid-cols-[minmax(0,1fr)_auto] sm:items-center lg:text-sm"
+                                      className="grid gap-2 py-4 text-xl sm:grid-cols-[minmax(0,1fr)_auto] sm:items-center lg:text-lg"
                                     >
                                       <div className="min-w-0">
                                         <p className="break-words font-semibold text-text-primary">
                                           {item.item_name || item.item_id}
                                         </p>
-                                        <p className="mt-1 text-lg text-text-secondary lg:text-xs">
+                                        <p className="mt-1 text-lg text-text-secondary lg:text-lg">
                                           Qty {item.qty} × Rp{" "}
                                           {item.price.toLocaleString("id-ID")}
                                         </p>
                                         {item.remark && (
-                                          <p className="mt-1 break-words text-lg text-text-secondary lg:text-xs">
+                                          <p className="mt-1 break-words text-lg text-text-secondary lg:text-lg">
                                             {item.remark}
                                           </p>
                                         )}
@@ -1161,7 +1186,7 @@ export const OrderCreateComponent = (
                           .map((item) => (
                             <div
                               key={`${item.item_id}-${item.remark}`}
-                              className="flex items-start justify-between gap-3 rounded-xl border border-border-default p-3 text-xl lg:text-sm"
+                              className="flex items-start justify-between gap-3 rounded-xl border border-border-default p-3 text-xl lg:text-lg"
                             >
                               <span>
                                 {item.item_name}
@@ -1183,13 +1208,13 @@ export const OrderCreateComponent = (
                     )}
                   </div>
                   <label className="order-4 block space-y-2">
-                    <span className="text-xl font-semibold text-text-secondary lg:text-xs">
+                    <span className="text-xl font-semibold text-text-secondary lg:text-lg">
                       Remarks
                     </span>
                     <textarea
                       value={props.form.remarks}
                       onChange={handleRemarks}
-                      className="min-h-24 w-full rounded-2xl border border-border-default bg-background-surface px-4 py-3 text-xl font-semibold outline-none placeholder:font-normal placeholder:text-xl"
+                      className="min-h-24 w-full rounded-2xl border-2 border-border-strong bg-background-surface px-4 py-3 text-xl font-normal text-text-primary outline-none placeholder:font-normal placeholder:text-xl focus:border-border-focus focus:ring-2 focus:ring-focus-ring/30 lg:text-lg lg:placeholder:text-lg"
                     />
                   </label>
                 </section>
@@ -1197,18 +1222,18 @@ export const OrderCreateComponent = (
               {props.errorMessage && (
                 <p
                   role="alert"
-                  className="mt-4 text-sm font-medium text-danger"
+                  className="mt-4 text-lg font-medium text-danger"
                 >
                   {props.errorMessage}
                 </p>
               )}
             </div>
-            <div className="flex justify-between border-t border-border-default pt-5">
+            <div className="mt-8 flex justify-between gap-3 border-t border-border-default/60 pt-5 lg:mt-6 lg:border-border-default">
               <button
                 type="button"
                 disabled={props.step === 1}
                 onClick={props.onPreviousStep}
-                className="h-14 rounded-xl border border-border-default px-8 font-semibold text-text-primary disabled:cursor-not-allowed disabled:opacity-50"
+                className="h-14 cursor-pointer rounded-xl border border-border-default px-8 text-lg font-semibold text-text-primary transition-colors hover:bg-background-subtle focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-action-primary disabled:cursor-not-allowed disabled:opacity-50 lg:text-lg"
               >
                 Back
               </button>
@@ -1217,7 +1242,7 @@ export const OrderCreateComponent = (
                   disabled={props.isSubmitting}
                   type="button"
                   onClick={props.onSubmit}
-                  className="h-14 rounded-xl bg-action-primary px-8 font-semibold text-text-inverse disabled:cursor-not-allowed disabled:opacity-60"
+                  className="h-14 cursor-pointer rounded-xl bg-action-primary px-8 text-lg font-semibold text-text-inverse shadow-xs transition-colors hover:bg-action-primary-hover focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-action-primary disabled:cursor-not-allowed disabled:opacity-60 lg:text-lg"
                 >
                   {submitLabel}
                 </button>
@@ -1225,13 +1250,14 @@ export const OrderCreateComponent = (
                 <button
                   type="button"
                   onClick={props.onNextStep}
-                  className="h-14 rounded-xl bg-action-primary px-8 font-semibold text-text-inverse"
+                  className="h-14 cursor-pointer rounded-xl bg-action-primary px-8 text-lg font-semibold text-text-inverse shadow-xs transition-colors hover:bg-action-primary-hover focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-action-primary lg:text-lg"
                 >
                   Next
                 </button>
               )}
             </div>
           </form>
+          <div className="h-24 shrink-0 lg:hidden" aria-hidden="true" />
         </div>
       </div>
     </Layout>

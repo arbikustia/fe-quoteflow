@@ -49,12 +49,12 @@ const _renderMobileBack = (isEditMode: boolean, goBack: () => void): ReactElemen
   const subtitle = isEditMode ? "Update the service type details below." : "Fill in the service type details below.";
 
   return (
-    <div className="sticky top-0 z-20 mb-6 flex items-center gap-3 bg-background-surface px-0 lg:hidden">
+    <div className="sticky top-0 z-20 mb-6 flex items-center gap-3 bg-background-page px-0 lg:hidden">
       <button
         type="button"
         onClick={goBack}
         aria-label="Back"
-        className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full border border-border-default bg-background-surface text-text-primary transition-colors hover:bg-background-subtle"
+        className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full border border-border-default bg-background-page text-text-primary transition-colors hover:bg-background-subtle"
       >
         <svg
           viewBox="0 0 24 24"

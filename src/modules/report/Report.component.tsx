@@ -1,13 +1,13 @@
 import * as React from "react";
-import { FiDownload } from "react-icons/fi";
+import { FiDownload, FiEdit2 } from "react-icons/fi";
+
+import { Pagination } from "@/components/Pagination";
+import { SearchFilter } from "@/components/SearchFilter";
+import type { TableColumn } from "@/components/Table";
+import Table from "@/components/Table";
 
 import Layout from "@/app/layout";
 import { PageLayout } from "@/app/shared/PageLayout";
-import { Pagination } from "@/components/Pagination";
-import { SearchFilter } from "@/components/SearchFilter";
-import { SkeletonComponent } from "@/components/Skeleton";
-import type { TableColumn } from "@/components/Table";
-import Table from "@/components/Table";
 import { generateQuotePDF } from "@/utils/pdfGenerator";
 
 import { getOrderRowNumber, OrderMobileCard, toQuoteData } from "./Report.helpers";
@@ -18,18 +18,26 @@ import type { ReportOrderData, ReportOrderProps } from "./Report.type";
  * @param {ReportOrderData} row - Report order row data
  * @returns {React.ReactElement} Status cell
  */
-const _renderStatus = (row: ReportOrderData): React.ReactElement => (
-  <span className={`rounded-full px-3 py-1 text-xs font-bold uppercase ${row.status === 1 ? "bg-green-100 text-green-600" : "bg-red-100 text-red-600"}`}>
-    {row.statusLabel}
-  </span>
-);
+const _renderStatus = (row: ReportOrderData): React.ReactElement => {
+  const isDone = row.status === 2;
+
+  return (
+    <span
+      className={`inline-flex rounded-full px-4 py-1.5 text-lg font-semibold uppercase ${
+        isDone ? "bg-success-subtle text-success-strong" : row.status === 1 ? "bg-success-subtle text-success-strong" : "bg-danger-subtle text-danger-strong"
+      }`}
+    >
+      {isDone ? "Done" : row.statusLabel}
+    </span>
+  );
+};
 
 /**
  * Render order action cell.
  * @param {ReportOrderData} row - Report order row data
  * @returns {React.ReactElement} Action cell
  */
-const _renderActions = (row: ReportOrderData): React.ReactElement => {
+const _renderActions = (row: ReportOrderData, onEditStatus: (order: ReportOrderData) => void): React.ReactElement => {
   /**
    * Handle download PDF.
    * @param {React.MouseEvent} event - Mouse event
@@ -40,15 +48,35 @@ const _renderActions = (row: ReportOrderData): React.ReactElement => {
     void generateQuotePDF(toQuoteData(row));
   };
 
+  /**
+   * Open status form.
+   * @param {React.MouseEvent} event - Mouse event
+   * @returns {void}
+   */
+  const handleEdit = (event: React.MouseEvent): void => {
+    event.stopPropagation();
+    onEditStatus(row);
+  };
+
   return (
-    <div className="flex items-center justify-center">
+    <div className="flex items-center justify-center gap-1">
       <button
         type="button"
         onClick={handleDownload}
-        className="cursor-pointer rounded-lg p-1.5 text-brand-text-medium transition-colors hover:bg-brand-blue-light hover:text-brand-blue"
+        className="cursor-pointer rounded-3xl p-2.5 text-text-secondary hover:bg-action-primary-subtle hover:text-action-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring"
         title="Download PDF"
+        aria-label="Download PDF"
       >
-        <FiDownload className="h-4 w-4" />
+        <FiDownload className="h-5 w-5" />
+      </button>
+      <button
+        type="button"
+        onClick={handleEdit}
+        className="cursor-pointer rounded-3xl p-2.5 text-text-secondary hover:bg-action-primary-subtle hover:text-action-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring"
+        title="Edit order status"
+        aria-label="Edit order status"
+      >
+        <FiEdit2 className="h-5 w-5" />
       </button>
     </div>
   );
@@ -63,7 +91,7 @@ const _renderActions = (row: ReportOrderData): React.ReactElement => {
  * @returns {React.ReactElement} Number cell
  */
 const _renderNumber = (_row: ReportOrderData, index: number, currentPage: number, pageSize: number): React.ReactElement => (
-  <span className="text-sm">{getOrderRowNumber(currentPage, pageSize, index)}</span>
+  <span className="text-lg">{getOrderRowNumber(currentPage, pageSize, index)}</span>
 );
 
 /**
@@ -72,7 +100,7 @@ const _renderNumber = (_row: ReportOrderData, index: number, currentPage: number
  * @param {number} pageSize - Active page size
  * @returns {TableColumn<ReportOrderData>[]} Report order columns
  */
-const _getColumns = (currentPage: number, pageSize: number): TableColumn<ReportOrderData>[] => {
+const _getColumns = (currentPage: number, pageSize: number, onEditStatus: (order: ReportOrderData) => void): TableColumn<ReportOrderData>[] => {
   /**
    * Render order number.
    * @param {ReportOrderData} row - Row data
@@ -80,17 +108,23 @@ const _getColumns = (currentPage: number, pageSize: number): TableColumn<ReportO
    * @returns {React.ReactElement} Number cell
    */
   const renderNumber = (row: ReportOrderData, index: number): React.ReactElement => _renderNumber(row, index, currentPage, pageSize);
+  /**
+   * Render row actions.
+   * @param {ReportOrderData} row - Row data
+   * @returns {React.ReactElement} Action cell
+   */
+  const renderActions = (row: ReportOrderData): React.ReactElement => _renderActions(row, onEditStatus);
 
   return [
     { key: "no", header: "No", align: "center", render: renderNumber },
-    { key: "orderNo", header: "Order No" },
-    { key: "customerName", header: "Customer Name" },
-    { key: "eventName", header: "Event Name" },
-    { key: "address", header: "Location" },
-    { key: "startDate", header: "Start Date" },
-    { key: "endDate", header: "End Date" },
+    { key: "orderNo", header: "Order No", render: (row): React.ReactElement => <span className="text-lg font-medium">{row.orderNo}</span> },
+    { key: "customerName", header: "Customer Name", render: (row): React.ReactElement => <span className="text-lg">{row.customerName}</span> },
+    { key: "eventName", header: "Event Name", render: (row): React.ReactElement => <span className="text-lg">{row.eventName}</span> },
+    { key: "address", header: "Location", render: (row): React.ReactElement => <span className="text-lg">{row.address}</span> },
+    { key: "startDate", header: "Start Date", render: (row): React.ReactElement => <span className="text-lg">{row.startDate}</span> },
+    { key: "endDate", header: "End Date", render: (row): React.ReactElement => <span className="text-lg">{row.endDate}</span> },
     { key: "status", header: "Status", align: "center", render: _renderStatus },
-    { key: "actions", header: "Action", align: "center", render: _renderActions },
+    { key: "actions", header: "Action", align: "center", render: renderActions },
   ];
 };
 
@@ -100,17 +134,71 @@ const _getColumns = (currentPage: number, pageSize: number): TableColumn<ReportO
  * @returns {React.ReactElement | null} The state element when no rows should render
  */
 const _renderListState = (props: ReportOrderProps): React.ReactElement | null => {
-  const { isLoading, errorMessage, isEmpty, isMissingData } = props;
+  const { errorMessage, isEmpty, isMissingData } = props;
 
-  if (isLoading) return <p className="py-10 text-center text-sm text-brand-text-medium">Loading orders…</p>;
+  if (isMissingData) return <p className="py-10 text-center text-lg text-danger">Order data is unavailable. Please try again.</p>;
 
-  if (isMissingData) return <p className="py-10 text-center text-sm text-red-600">Order data is unavailable. Please try again.</p>;
+  if (errorMessage) return <p className="py-10 text-center text-lg text-danger">{errorMessage}</p>;
 
-  if (errorMessage) return <p className="py-10 text-center text-sm text-red-600">{errorMessage}</p>;
-
-  if (isEmpty) return <p className="py-10 text-center text-sm text-brand-text-medium">No orders found.</p>;
+  if (isEmpty) return <p className="py-10 text-center text-lg text-text-secondary">No orders found.</p>;
 
   return null;
+};
+
+/**
+ * Render report table skeleton with quotation-style geometry.
+ * @param {TableColumn<ReportOrderData>[]} columns - Columns
+ * @returns {React.ReactElement} Table skeleton element
+ */
+const _renderTableSkeleton = (columns: TableColumn<ReportOrderData>[]): React.ReactElement => {
+  const widths = ["w-6", "w-28", "w-32", "w-36", "w-24", "w-24", "w-24"];
+
+  return (
+    <div className="w-full overflow-x-auto" role="status" aria-label="Loading">
+      <table className="w-full min-w-max border-separate border-spacing-0 whitespace-nowrap">
+        <thead>
+          <tr>
+            {columns.map((column, index) => (
+              <th
+                key={column.key}
+                className={`bg-table-header px-5 py-4 text-[13px] font-bold uppercase tracking-widest text-text-secondary ${
+                  column.align === "center" ? "text-center" : "text-left"
+                } ${index === 0 ? "rounded-l-3xl" : ""} ${index === columns.length - 1 ? "rounded-r-3xl" : ""}`}
+              >
+                {column.header}
+              </th>
+            ))}
+          </tr>
+        </thead>
+        <tbody>
+          {Array.from({ length: 5 }, (_value, rowIndex) => (
+            <tr key={rowIndex} className="animate-pulse">
+              {columns.map((column, columnIndex) => (
+                <td
+                  key={column.key}
+                  className={`border-b border-border-default px-5 py-4 ${
+                    column.align === "center" ? "text-center" : "text-left"
+                  }`}
+                >
+                  {column.key === "actions" ? (
+                    <div className="flex justify-center gap-1">
+                      <span className="h-10 w-10 rounded-3xl bg-background-subtle" />
+                    </div>
+                  ) : (
+                    <span
+                      className={`inline-block h-5 rounded-3xl bg-background-subtle align-middle ${
+                        column.key === "status" ? "w-28 rounded-full" : (widths[columnIndex] ?? "w-20")
+                      }`}
+                    />
+                  )}
+                </td>
+              ))}
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
 };
 
 /**
@@ -119,8 +207,8 @@ const _renderListState = (props: ReportOrderProps): React.ReactElement | null =>
  * @returns {React.ReactElement} Desktop table element
  */
 const _renderDesktopTable = (props: ReportOrderProps): React.ReactElement => {
-  const { paginatedData, currentPage, totalPages, goToPage, pageSize, changePageSize, onRowClick, setSearchTerm, totalCount } = props;
-  const columns = _getColumns(currentPage, pageSize);
+  const { paginatedData, currentPage, totalPages, goToPage, pageSize, changePageSize, onEditStatus, setSearchTerm, totalCount } = props;
+  const columns = _getColumns(currentPage, pageSize, onEditStatus);
 
   /**
    * Handle search input change.
@@ -130,16 +218,33 @@ const _renderDesktopTable = (props: ReportOrderProps): React.ReactElement => {
   const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>): void => setSearchTerm(event.target.value);
 
   return (
-    <div className="hidden rounded-4xl border border-border-default bg-background-surface px-6 shadow-xs md:mt-6 md:flex md:flex-1 md:flex-col md:overflow-hidden lg:flex">
-      <div className="flex items-center justify-between gap-4 py-6 border-brand-gray-light">
-        <SearchFilter placeholder="Search order" onChange={handleSearchChange} />
+    <div className="hidden rounded-3xl border border-border-default bg-background-surface px-6 pb-6 pt-0 shadow-xs md:mt-6 md:flex md:flex-1 md:flex-col md:overflow-hidden lg:flex">
+      <div className="flex items-center justify-between gap-4 border-b border-border-default py-6">
+        <SearchFilter placeholder="Search order" onChange={handleSearchChange} isRoundedFull={true} inputClassName="text-lg placeholder:text-lg" />
       </div>
       <div className="flex-1 overflow-auto">
         {props.isLoading ? (
-          <SkeletonComponent rows={5} columns={[{ width: "6%" }, { width: "14%" }, { width: "16%" }, { width: "16%" }, { width: "16%" }, { width: "12%" }, { width: "12%" }, { width: "8%" }]} />
-        ) : _renderListState(props) ?? <Table data={paginatedData} columns={columns} isDetail={false} onRowClick={onRowClick} keyExtractor={(r: ReportOrderData) => r.id} />}
+          _renderTableSkeleton(columns)
+        ) : (
+          _renderListState(props) ?? (
+            <Table
+              data={paginatedData}
+              columns={columns}
+              isDetail={false}
+              keyExtractor={(r: ReportOrderData): string => r.id}
+            />
+          )
+        )}
       </div>
-      <Pagination currentPage={currentPage} totalPages={totalPages} pageSize={pageSize} onPageChange={goToPage} onPageSizeChange={changePageSize} totalItems={totalCount} />
+      <Pagination
+        currentPage={currentPage}
+        totalPages={totalPages}
+        pageSize={pageSize}
+        onPageChange={goToPage}
+        onPageSizeChange={changePageSize}
+        totalItems={totalCount}
+        className="pt-4"
+      />
     </div>
   );
 };
@@ -157,8 +262,47 @@ const _renderMobileSearch = (setSearchTerm: ReportOrderProps["setSearchTerm"]): 
    */
   const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>): void => setSearchTerm(event.target.value);
 
-  return <SearchFilter placeholder="Search order" onChange={handleSearchChange} isRoundedFull={true} className="w-full sm:w-full" inputClassName="text-lg placeholder:text-lg" />;
+  return (
+    <SearchFilter
+      placeholder="Search order"
+      onChange={handleSearchChange}
+      isRoundedFull={true}
+      className="w-full sm:w-full"
+      inputClassName="!h-16 text-xl placeholder:text-xl"
+    />
+  );
 };
+
+/**
+ * Render loading card with quotation card geometry.
+ * @param {number} key - Skeleton key
+ * @returns {React.ReactElement} Loading card
+ */
+const _renderMobileCardSkeleton = (key: number): React.ReactElement => (
+  <div
+    key={key}
+    className="animate-pulse rounded-3xl border border-border-strong bg-background-surface p-5 shadow-small"
+    role="status"
+    aria-label="Loading order report card"
+  >
+    <div className="flex flex-wrap items-center justify-between gap-3">
+      <div className="h-7 w-28 rounded-3xl bg-background-subtle" />
+      <div className="h-8 w-24 rounded-full bg-background-subtle" />
+    </div>
+    <div className="mt-4 h-7 w-4/5 rounded-3xl bg-background-subtle" />
+    <div className="mt-1.5 h-7 w-3/5 rounded-3xl bg-background-subtle" />
+    <div className="mt-4 flex flex-wrap items-end justify-between gap-x-4 gap-y-3 border-t border-border-default pt-4">
+      <div className="min-w-0">
+        <div className="h-7 w-20 rounded-3xl bg-background-subtle" />
+        <div className="mt-1 h-7 w-40 rounded-3xl bg-background-subtle" />
+      </div>
+      <div className="text-right">
+        <div className="ml-auto h-7 w-12 rounded-3xl bg-background-subtle" />
+        <div className="mt-1 h-7 w-28 rounded-3xl bg-background-subtle" />
+      </div>
+    </div>
+  </div>
+);
 
 /**
  * Render mobile order cards list view.
@@ -166,15 +310,16 @@ const _renderMobileSearch = (setSearchTerm: ReportOrderProps["setSearchTerm"]): 
  * @returns {React.ReactElement} Mobile list element
  */
 const _renderMobileCards = (props: ReportOrderProps): React.ReactElement => {
-  const { paginatedData, currentPage, totalPages, goToPage, pageSize, changePageSize, setSearchTerm, totalCount, onRowClick } = props;
+  const { paginatedData, currentPage, totalPages, goToPage, pageSize, changePageSize, setSearchTerm, totalCount, onEditStatus } = props;
 
   return (
-    <div className="lg:hidden flex min-w-0 flex-col gap-4 pt-2 pb-16">
+    <div className="flex min-w-0 flex-col gap-4 pb-16 pt-2 lg:hidden">
       <div className="w-full">{_renderMobileSearch(setSearchTerm)}</div>
-      <div className="min-w-0 space-y-3">
-        {_renderListState(props) ?? paginatedData.map((order) => (
-          <OrderMobileCard key={order.id} order={order} onRowClick={onRowClick} />
-        ))}
+      <div className="flex min-w-0 flex-col gap-4">
+        {props.isLoading
+          ? Array.from({ length: 5 }, (_value, index) => _renderMobileCardSkeleton(index))
+          : _renderListState(props) ??
+            paginatedData.map((order) => <OrderMobileCard key={order.id} order={order} onEditStatus={onEditStatus} />)}
       </div>
       <Pagination
         currentPage={currentPage}
@@ -184,7 +329,7 @@ const _renderMobileCards = (props: ReportOrderProps): React.ReactElement => {
         onPageSizeChange={changePageSize}
         totalItems={totalCount}
         isCompact={true}
-        className="mt-2 w-full rounded-2xl border border-border-default bg-background-surface px-4 py-3 shadow-xs"
+        className="w-full rounded-3xl border border-border-default bg-background-surface px-5 py-4 shadow-xs"
       />
     </div>
   );
@@ -199,15 +344,16 @@ export const ReportOrderComponent = (props: ReportOrderProps): React.ReactElemen
   const { onBack } = props;
 
   return (
-    <Layout pageTitle="Order" mobileWhiteBackground={true}>
+    <Layout pageTitle="Order Report">
       <PageLayout
-        title="Order"
-        breadcrumbs={["Report", "Order"]}
+        title="Order Report"
+        subtitle="Track all rental order status and manage records."
+        breadcrumbs={["Report", "Order Report"]}
         mobileHeaderClassName="px-0"
         mobileTitleClassName="text-4xl"
         onBack={onBack}
       >
-        <div className="relative flex h-full flex-col bg-background-surface px-0 pb-18 lg:-mt-4 lg:bg-transparent lg:px-0 lg:pb-0">
+        <div className="relative flex h-full flex-col bg-background-page px-0 pb-18 lg:-mt-4 lg:bg-transparent lg:px-0 lg:pb-0">
           {_renderMobileCards(props)}
           {_renderDesktopTable(props)}
         </div>

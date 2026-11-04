@@ -87,7 +87,32 @@ const _renderItems = (props: OrderDetailProps): ReactElement => {
 
   if (!order) return <div />;
 
-  if (isProjectService) return <section className="rounded-2xl border border-border-default bg-background-surface p-5 lg:p-6"><div className="mb-4 flex items-center justify-between"><div><p className="text-base font-bold uppercase tracking-wider text-text-tertiary lg:text-xs">Line items</p><h2 className="mt-1 text-3xl font-semibold text-text-primary lg:text-lg">Rental projects</h2></div><span className="text-xl text-text-secondary lg:text-sm">{order.rental_transaction_project.length} projects</span></div><div className="space-y-3">{order.rental_transaction_project.map((rentalProject) => { const project = props.projects.find((item) => item.id === rentalProject.id); const items = project?.items ?? rentalProject.items; return <article key={rentalProject.id} className="overflow-hidden rounded-xl border border-border-default"><div className="flex items-start justify-between gap-3 border-b border-border-default bg-background-subtle px-4 py-3"><div className="min-w-0"><h3 className="break-words text-xl font-medium text-text-primary lg:text-base">{project?.name ?? rentalProject.name}</h3>{rentalProject.remark && <p className="mt-1 break-words text-lg text-text-secondary lg:text-sm">{rentalProject.remark}</p>}</div><p className="shrink-0 text-xl font-semibold text-text-primary lg:text-base">{_formatCurrency(rentalProject.subtotal)}</p></div><div className="divide-y divide-border-default">{items.map((item) => <div key={item.item_id} className="flex items-center justify-between gap-3 px-4 py-3"><p className="min-w-0 break-words text-lg font-medium text-text-primary lg:text-sm">{item.item_name ?? item.item_id}</p><span className="shrink-0 text-lg text-text-secondary lg:text-sm">Qty {item.qty}</span></div>)}</div></article>; })}</div></section>;
+  if (isProjectService) return <section className="rounded-2xl border border-border-default bg-background-surface p-5 lg:p-6"><div className="mb-4 flex items-center justify-between"><div><p className="text-base font-bold uppercase tracking-wider text-text-tertiary lg:text-xs">Line items</p><h2 className="mt-1 text-3xl font-semibold text-text-primary lg:text-lg">Rental projects</h2></div><span className="text-xl text-text-secondary lg:text-sm">{order.rental_transaction_project.length} projects</span></div>    <div className="space-y-3">
+      {order.rental_transaction_project.map((rentalProject) => {
+        const project = props.projects.find((item) => item.id === rentalProject.id);
+        const items = project?.items ?? rentalProject.items;
+
+        return (
+          <article key={rentalProject.id} className="overflow-hidden rounded-xl border border-border-default">
+            <div className="flex items-start justify-between gap-3 border-b border-border-default bg-background-subtle px-4 py-3">
+              <div className="min-w-0">
+                <h3 className="break-words text-xl font-medium text-text-primary lg:text-base">{project?.name ?? rentalProject.name}</h3>
+                {rentalProject.remark && <p className="mt-1 break-words text-lg text-text-secondary lg:text-sm">{rentalProject.remark}</p>}
+              </div>
+              <p className="shrink-0 text-xl font-semibold text-text-primary lg:text-base">{_formatCurrency(rentalProject.subtotal)}</p>
+            </div>
+            <div className="divide-y divide-border-default">
+              {items.map((item) => (
+                <div key={item.item_id} className="flex items-center justify-between gap-3 px-4 py-3">
+                  <p className="min-w-0 break-words text-lg font-medium text-text-primary lg:text-sm">{item.item_name ?? item.item_id}</p>
+                  <span className="shrink-0 text-lg text-text-secondary lg:text-sm">Qty {item.qty}</span>
+                </div>
+              ))}
+            </div>
+          </article>
+        );
+      })}
+    </div></section>;
 
   return <section className="rounded-2xl border border-border-default bg-background-surface p-5 lg:p-6"><div className="mb-4 flex items-center justify-between"><div><p className="text-base font-bold uppercase tracking-wider text-text-tertiary lg:text-xs">Line items</p><h2 className="mt-1 text-3xl font-semibold text-text-primary lg:text-lg">Rental items</h2></div><span className="text-xl text-text-secondary lg:text-sm">{order.rental_transaction_items.length} items</span></div><div className="space-y-3">{order.rental_transaction_items.map((item) => <article key={item.item_id} className="grid gap-3 rounded-xl border border-border-default p-4 sm:grid-cols-[minmax(0,1fr)_auto] sm:items-center"><div className="min-w-0"><h3 className="break-words text-xl font-medium text-text-primary lg:text-base">{item.item_name}</h3><p className="mt-1 text-lg text-text-secondary lg:text-sm">Qty {item.qty} · {_formatCurrency(item.price)}{item.remark && ` · ${item.remark}`}</p></div><p className="text-xl font-semibold text-text-primary lg:text-base sm:text-right">{_formatCurrency(item.subtotal)}</p></article>)}</div></section>;
 };
@@ -112,8 +137,19 @@ const _renderSummary = (props: OrderDetailProps): ReactElement => {
  */
 export const OrderDetailComponent = (props: OrderDetailProps): ReactElement => {
   const state = _renderState(props);
+  const breadcrumbs = props.breadcrumbs ?? ["Order", "Order Detail"];
 
-  if (state) return <Layout pageTitle="Order Detail" whiteBackground={true}><PageLayout title="Order Detail" breadcrumbs={["Order", "Order Detail"]} onBack={props.onNavigateBack}>{state}</PageLayout></Layout>;
+  if (state) return <Layout pageTitle="Order Detail" whiteBackground={true}><PageLayout title="Order Detail" breadcrumbs={breadcrumbs} onBack={props.onNavigateBack}>{state}</PageLayout></Layout>;
 
-  return <Layout pageTitle="Order Detail" whiteBackground={true}><PageLayout title="Order Detail" breadcrumbs={["Order", "Order Detail"]} onBack={props.onNavigateBack} headerRight={<button type="button" onClick={props.onEdit} className="h-14 rounded-full border-2 border-brand-blue bg-background-surface px-6 text-lg font-bold text-brand-blue transition-colors hover:bg-action-primary-subtle focus:outline-none focus:ring-2 focus:ring-focus-ring/30">Edit</button>} mobileHeaderClassName="px-0" mobileTitleClassName="text-4xl"><div className="space-y-4 pb-24 lg:space-y-6 lg:pb-0">{_renderInformation(props)}<div className="grid gap-4 lg:grid-cols-[minmax(0,1fr)_20rem] lg:items-start lg:gap-6">{_renderItems(props)}{_renderSummary(props)}</div></div></PageLayout></Layout>;
+  const headerRight = props.onEdit ? (
+    <button
+      type="button"
+      onClick={props.onEdit}
+      className="h-14 rounded-full border-2 border-brand-blue bg-background-surface px-6 text-lg font-bold text-brand-blue transition-colors hover:bg-action-primary-subtle focus:outline-none focus:ring-2 focus:ring-focus-ring/30"
+    >
+      Edit
+    </button>
+  ) : undefined;
+
+  return <Layout pageTitle="Order Detail" whiteBackground={true}><PageLayout title="Order Detail" breadcrumbs={breadcrumbs} onBack={props.onNavigateBack} headerRight={headerRight} mobileHeaderClassName="px-0" mobileTitleClassName="text-4xl"><div className="space-y-4 pb-24 lg:space-y-6 lg:pb-0">{_renderInformation(props)}<div className="grid gap-4 lg:grid-cols-[minmax(0,1fr)_20rem] lg:items-start lg:gap-6">{_renderItems(props)}{_renderSummary(props)}</div></div></PageLayout></Layout>;
 };

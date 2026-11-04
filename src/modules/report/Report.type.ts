@@ -1,3 +1,5 @@
+import type { SyntheticEvent } from "react";
+
 import type { ApiInvoice } from "@/modules/invoice/Invoice.type";
 
 export type ApiRentalOrder = {
@@ -17,6 +19,22 @@ export type ApiRentalOrder = {
 export type RentalOrderResponse = {
   status: boolean;
   data: ApiRentalOrder[];
+  messages: string[] | null;
+};
+
+export type RentalOrderUpdatePayload = {
+  transaction_id: string;
+  invoice_id: string;
+  quotation_id: string;
+  order_no: string;
+  order_date: string;
+  notes: string;
+  status: number;
+};
+
+export type RentalOrderUpdateResponse = {
+  status: boolean;
+  data: ApiRentalOrder | null;
   messages: string[] | null;
 };
 
@@ -57,7 +75,11 @@ export type ReportOrderData = {
   id: string;
   orderNo: string;
   transactionId: string;
+  invoiceId: string;
+  quotationId: string;
   invoiceNo: string;
+  notes: string;
+  rawOrderDate: string;
   customerName: string;
   customerPhone: string;
   eventName: string;
@@ -101,10 +123,20 @@ export type ReportOrderPagination = {
 
 export type ReportOrderProps = ReportOrderPagination & {
   onBack: () => void;
-  onRowClick?: (order: ReportOrderData) => void;
+  onEditStatus: (order: ReportOrderData) => void;
 };
 
 export type OrderMobileCardProps = {
   order: ReportOrderData;
-  onRowClick?: (order: ReportOrderData) => void;
+  onEditStatus: (order: ReportOrderData) => void;
+};
+
+export type ReportOrderStatusFormProps = {
+  orderNo: string | null;
+  isActive: boolean;
+  isSubmitting: boolean;
+  errorMessage: string | null;
+  handleStatusChange: (checked: boolean) => void;
+  handleSubmit: (event?: SyntheticEvent) => Promise<void>;
+  goBack: () => void;
 };

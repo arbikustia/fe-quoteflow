@@ -63,4 +63,5 @@ const dummyProps: QuotationProps = {
 
 test.assertSnapshots(QuotationComponent, [
   { props: dummyProps, desc: "renders QuotationComponent with data" },
+  { props: { ...dummyProps, isLoading: true, paginatedData: [] }, desc: "renders QuotationComponent in loading state" },
 ]);

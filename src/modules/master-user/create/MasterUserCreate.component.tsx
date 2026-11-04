@@ -1,5 +1,6 @@
 /* eslint-disable jsdoc/require-param, jsdoc/require-returns, sonarjs/no-nested-conditional */
-import type { ReactElement } from "react";
+import { type ReactElement } from "react";
+import { FiEye, FiEyeOff } from "react-icons/fi";
 import type { FieldError } from "react-hook-form";
 
 import { AlertComponent } from "@/components/Alert";
@@ -19,13 +20,35 @@ const _renderMobileBack = (isEditMode: boolean, goBack: () => void): ReactElemen
   const title = isEditMode ? "Edit User" : "New User";
 
   return (
-  <div className="sticky top-0 z-20 mb-6 flex items-center gap-3 bg-background-surface px-0 lg:hidden">
-    <button type="button" onClick={goBack} aria-label="Back" className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full border border-border-default bg-background-surface text-text-primary transition-colors hover:bg-background-subtle">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="h-6 w-6" aria-hidden="true"><path d="M19 12H5M12 19l-7-7 7-7" /></svg>
-    </button>
-    <h2 className="truncate text-4xl font-semibold tracking-tight text-text-primary">{title}</h2>
-        <p className="mt-1 truncate text-sm text-text-secondary">{isEditMode ? "Update the user details below." : "Fill in the user details below."}</p>
-  </div>
+    <div className="mb-6 flex items-center gap-3 bg-background-page lg:hidden">
+      <button
+        type="button"
+        onClick={goBack}
+        aria-label="Back"
+        className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full border border-border-default bg-background-page text-text-primary transition-colors hover:bg-background-subtle"
+      >
+        <svg
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          className="h-6 w-6"
+          aria-hidden="true"
+        >
+          <path d="M19 12H5M12 19l-7-7 7-7" />
+        </svg>
+      </button>
+      <div className="min-w-0">
+        <h2 className="truncate text-4xl font-semibold tracking-tight text-text-primary">
+          {title}
+        </h2>
+        <p className="mt-1 truncate text-lg text-text-secondary">
+          {isEditMode ? "Update the user details below." : "Fill in the user details below."}
+        </p>
+      </div>
+    </div>
   );
 };
 
@@ -36,29 +59,40 @@ const _renderHeader = (isEditMode: boolean, goBack: () => void): ReactElement =>
 
   return (
     <>
-      <nav aria-label="Breadcrumb" className="mb-2 hidden items-center gap-2 text-sm font-medium text-text-secondary lg:flex">
-        <button type="button" onClick={goBack} className="cursor-pointer hover:text-text-primary">Master User</button>
+      <nav
+        aria-label="Breadcrumb"
+        className="mb-2 hidden items-center gap-2 text-sm font-medium text-text-secondary lg:flex"
+      >
+        <button
+          type="button"
+          onClick={goBack}
+          className="cursor-pointer hover:text-text-primary"
+        >
+          Master User
+        </button>
         <span aria-hidden="true">/</span>
         <span className="text-text-primary">{title}</span>
       </nav>
       <div className="mb-6 hidden lg:block">
-        <h2 className="text-4xl font-semibold leading-tight tracking-tight text-text-primary">{title}</h2>
-        <p className="mt-3 text-[14px] font-medium text-text-secondary opacity-70">{subtitle}</p>
+        <h2 className="text-4xl font-semibold leading-tight tracking-tight text-text-primary">
+          {title}
+        </h2>
+        <p className="mt-3 text-lg font-medium text-text-secondary opacity-70">
+          {subtitle}
+        </p>
       </div>
     </>
   );
 };
 
+
 /** Render password toggle icon. */
-const _renderPasswordIcon = (isPasswordVisible: boolean): ReactElement => isPasswordVisible ? (
-  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-    <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24" /><line x1="1" x2="23" y1="1" y2="23" />
-  </svg>
-) : (
-  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-4 8-11 8-11-8-11-8z" /><circle cx="12" cy="12" r="3" />
-  </svg>
-);
+const _renderPasswordIcon = (isPasswordVisible: boolean): ReactElement =>
+  isPasswordVisible ? (
+    <FiEyeOff className="h-6 w-6" aria-hidden="true" />
+  ) : (
+    <FiEye className="h-6 w-6" aria-hidden="true" />
+  );
 
 /** Render password input field. */
 const _renderPassword = (props: MasterUserCreateFormState): ReactElement => {
@@ -70,21 +104,25 @@ const _renderPassword = (props: MasterUserCreateFormState): ReactElement => {
         id="password"
         type={props.isPasswordVisible ? "text" : "password"}
         label="Password"
-        className="[&_.ant-input]:text-xl [&_.ant-input]:placeholder:text-xl [&_label]:text-base"
+        className={`!mb-0 [&_.ant-input]:!h-16 lg:[&_.ant-input]:!h-14 [&_.ant-input]:!rounded-2xl [&_.ant-input]:!border-2 ${
+          passwordError
+            ? "[&_.ant-input]:!border-danger"
+            : "[&_.ant-input]:!border-border-strong"
+        } [&_.ant-input.ant-input-status-error]:!border-danger [&_.ant-input]:!px-4 [&_.ant-input]:!text-xl lg:[&_.ant-input]:!text-lg [&_.ant-input]:!font-normal [&_.ant-input]:placeholder:!text-xl lg:[&_.ant-input]:placeholder:!text-lg [&_.ant-input]:placeholder:!font-normal [&_label]:!text-lg lg:[&_label]:!text-lg [&_label]:!font-normal [&_label]:!normal-case [&_label]:!text-text-primary`}
         value={props.password}
         required
-        errorMessage={passwordError}
+        errorMessage={passwordError ?? undefined}
         onChange={props.handlePasswordChange}
       />
       <button
         type="button"
         onClick={props.handleTogglePasswordVisibility}
-        className="absolute right-3 top-9 p-1.5 text-text-secondary hover:text-text-primary focus:outline-none cursor-pointer"
+        className="absolute right-4 top-[3.75rem] -translate-y-1/2 p-2 text-text-secondary hover:text-text-primary focus:outline-none cursor-pointer"
         aria-label={props.isPasswordVisible ? "Sembunyikan kata sandi" : "Tampilkan kata sandi"}
       >
         {_renderPasswordIcon(props.isPasswordVisible)}
       </button>
-      <p className="-mt-2 mb-4 text-xs font-normal leading-relaxed text-text-secondary">
+      <p className="mt-2 text-sm font-normal leading-relaxed text-text-secondary">
         Password harus terdiri dari minimal 11 karakter. Gunakan kombinasi huruf besar, huruf kecil, angka, dan simbol agar password lebih aman.
       </p>
     </div>
@@ -98,12 +136,13 @@ const _renderRoleAndStatus = (props: MasterUserCreateFormState): ReactElement =>
 
   return (
     <>
-      <div className="mb-4 lg:col-span-2">
+      <div className="mb-0 lg:col-span-2">
         <Select
           id="role"
           label="Role"
-          labelClassName="text-base"
-          className="[&_.ant-select-selector]:text-xl"
+          labelClassName="!text-lg !font-normal !text-text-primary"
+          className="!mb-0"
+          selectClassName="!h-16 lg:!h-14 [&_.ant-select-content]:!text-xl lg:[&_.ant-select-content]:!text-lg"
           placeholder={props.roleOptionsLoading ? "Loading roles…" : "Select role"}
           value={props.role}
           options={options}
@@ -126,33 +165,42 @@ const _renderRoleAndStatus = (props: MasterUserCreateFormState): ReactElement =>
   );
 };
 
+
 /** Render all form inputs in grid. */
 const _renderFormInputs = (props: MasterUserCreateFormState): ReactElement => {
   const usernameError = props.isSubmitted && !props.username ? "Username is required." : _getFieldError(props.errors?.username);
   const emailError = props.isSubmitted && !props.email ? "Email is required." : _getFieldError(props.errors?.email);
 
   return (
-    <div className="grid w-full grid-cols-1 gap-x-6 gap-y-2 lg:grid-cols-2">
+    <div className="grid w-full grid-cols-1 gap-x-6 gap-y-5 lg:grid-cols-2">
       <InputComponent
         id="username"
         type="text"
         label="Username"
-        className="[&_.ant-input]:text-xl [&_.ant-input]:placeholder:text-xl [&_label]:text-base"
+        className={`!mb-0 [&_.ant-input]:!h-16 lg:[&_.ant-input]:!h-14 [&_.ant-input]:!rounded-2xl [&_.ant-input]:!border-2 ${
+          usernameError
+            ? "[&_.ant-input]:!border-danger"
+            : "[&_.ant-input]:!border-border-strong"
+        } [&_.ant-input.ant-input-status-error]:!border-danger [&_.ant-input]:!px-4 [&_.ant-input]:!text-xl lg:[&_.ant-input]:!text-lg [&_.ant-input]:!font-normal [&_.ant-input]:placeholder:!text-xl lg:[&_.ant-input]:placeholder:!text-lg [&_.ant-input]:placeholder:!font-normal [&_label]:!text-lg lg:[&_label]:!text-lg [&_label]:!font-normal [&_label]:!normal-case [&_label]:!text-text-primary`}
         placeholder="e.g. johndoe"
         value={props.username}
         required
-        errorMessage={usernameError}
+        errorMessage={usernameError ?? undefined}
         onChange={props.handleUsernameChange}
       />
       <InputComponent
         id="email"
         type="email"
         label="Email"
-        className="[&_.ant-input]:text-xl [&_.ant-input]:placeholder:text-xl [&_label]:text-base"
+        className={`!mb-0 [&_.ant-input]:!h-16 lg:[&_.ant-input]:!h-14 [&_.ant-input]:!rounded-2xl [&_.ant-input]:!border-2 ${
+          emailError
+            ? "[&_.ant-input]:!border-danger"
+            : "[&_.ant-input]:!border-border-strong"
+        } [&_.ant-input.ant-input-status-error]:!border-danger [&_.ant-input]:!px-4 [&_.ant-input]:!text-xl lg:[&_.ant-input]:!text-lg [&_.ant-input]:!font-normal [&_.ant-input]:placeholder:!text-xl lg:[&_.ant-input]:placeholder:!text-lg [&_.ant-input]:placeholder:!font-normal [&_label]:!text-lg lg:[&_label]:!text-lg [&_label]:!font-normal [&_label]:!normal-case [&_label]:!text-text-primary`}
         placeholder="e.g. john@example.com"
         value={props.email}
         required
-        errorMessage={emailError}
+        errorMessage={emailError ?? undefined}
         onChange={props.handleEmailChange}
       />
       {!props.isEditMode && _renderPassword(props)}
@@ -161,31 +209,53 @@ const _renderFormInputs = (props: MasterUserCreateFormState): ReactElement => {
   );
 };
 
-/** Render form action submit button. */
-const _renderFormActions = (isSubmitting: boolean, isEditMode: boolean): ReactElement => {
-  const submitLabel = isSubmitting ? "Saving…" : (isEditMode ? "Update User" : "Create User");
+const _renderFormActions = (props: MasterUserCreateFormState): ReactElement => {
+  const submitLabel = props.isSubmitting ? "Saving…" : (props.isEditMode ? "Update User" : "Create User");
 
   return (
-    <div className="mt-8 flex justify-end border-t border-border-default/60 pt-5 lg:mt-6 lg:border-border-default">
-      <button type="submit" disabled={isSubmitting} className="h-14 w-full cursor-pointer rounded-xl bg-action-primary px-8 text-lg font-semibold tracking-wide text-text-inverse shadow-xs transition-all hover:bg-action-primary-hover disabled:opacity-60 sm:w-auto lg:text-sm">
+    <div className="mt-8 flex justify-between gap-3 border-t border-border-default/60 pt-5 lg:mt-6 lg:border-border-default">
+      <button
+        type="button"
+        onClick={props.goBack}
+        disabled={props.isSubmitting}
+        className="h-14 cursor-pointer rounded-xl border border-border-default px-8 text-lg font-semibold text-text-primary transition-colors hover:bg-background-subtle focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-action-primary disabled:cursor-not-allowed disabled:opacity-50 lg:text-lg"
+      >
+        Cancel
+      </button>
+      <button
+        type="submit"
+        disabled={props.isSubmitting}
+        className="h-14 cursor-pointer rounded-xl bg-action-primary px-8 text-lg font-semibold text-text-inverse shadow-xs transition-colors hover:bg-action-primary-hover focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-action-primary disabled:cursor-not-allowed disabled:opacity-60 lg:text-lg"
+      >
         {submitLabel}
       </button>
     </div>
   );
 };
 
+
 /** Render master user create/edit form. */
 export const MasterUserCreateComponent = (props: MasterUserCreateFormState): ReactElement => (
-  <Layout pageTitle={props.isEditMode ? "Edit User" : "New User"} mobileWhiteBackground={true} showMobileGlobalHeader={true}>
-    <div className="flex h-full w-full flex-col bg-background-surface pb-6 font-sans lg:bg-background-page">
+  <Layout pageTitle={props.isEditMode ? "Edit User" : "New User"}>
+    <div className="flex h-full w-full flex-col bg-background-page pb-6 font-sans">
       {props.errorMessage && <AlertComponent type="error" message={props.errorMessage} toast closable />}
       {_renderMobileBack(props.isEditMode, props.goBack)}
-      <div className="flex min-h-0 w-full flex-1 flex-col px-0 text-lg lg:mt-0 lg:px-0 lg:text-base">
+      <div className="flex min-h-0 w-full flex-1 flex-col pb-32 text-lg lg:pb-0">
         {_renderHeader(props.isEditMode, props.goBack)}
-        <form noValidate onSubmit={props.handleSubmit} className="flex min-h-0 flex-1 flex-col justify-between border-0 bg-transparent p-0 shadow-none lg:rounded-4xl lg:border lg:border-brand-gray-light lg:bg-brand-white lg:p-8 lg:shadow-xs">
-          {_renderFormInputs(props)}
-          {_renderFormActions(props.isSubmitting, props.isEditMode)}
+        <form
+          noValidate
+          onSubmit={props.handleSubmit}
+          className="mb-6 flex flex-col rounded-3xl border border-border-default bg-background-surface p-6 shadow-small sm:p-8 lg:mb-5 lg:rounded-3xl lg:p-10"
+        >
+          <div className="pb-6">
+            <section className="space-y-5">
+              {_renderFormInputs(props)}
+            </section>
+          </div>
+          {_renderFormActions(props)}
         </form>
+        <div className="h-24 shrink-0 lg:hidden" aria-hidden="true" />
+
       </div>
     </div>
   </Layout>

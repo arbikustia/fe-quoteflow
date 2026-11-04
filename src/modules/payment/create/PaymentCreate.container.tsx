@@ -10,5 +10,5 @@ import Layout from "@/app/layout";
  * @returns {ReactElement} - payment create page
  */
 export default function PaymentCreateContainer(): ReactElement {
-  return <Layout mobileWhiteBackground={true}><PaymentCreateComponent {...usePaymentCreate()} /></Layout>;
+  return <Layout><PaymentCreateComponent {...usePaymentCreate()} /></Layout>;
 }

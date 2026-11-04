@@ -51,7 +51,7 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots default stat
             class="flex shrink-0 items-center gap-3"
           >
             <button
-              class="h-14 rounded-full border-2 border-brand-blue bg-background-surface px-6 text-sm font-bold text-brand-blue transition-colors hover:bg-action-primary-subtle focus:outline-none focus:ring-2 focus:ring-focus-ring/30"
+              class="h-14 rounded-full border-2 border-action-primary bg-background-surface px-6 text-lg font-bold text-action-primary transition-colors hover:bg-action-primary-subtle focus:outline-none focus:ring-2 focus:ring-focus-ring/30 lg:hidden"
               type="button"
             >
               Create New
@@ -103,7 +103,7 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots default stat
             class="shrink-0"
           >
             <button
-              class="h-14 rounded-full border-2 border-brand-blue bg-background-surface px-6 text-sm font-bold text-brand-blue transition-colors hover:bg-action-primary-subtle focus:outline-none focus:ring-2 focus:ring-focus-ring/30"
+              class="h-14 rounded-full border-2 border-action-primary bg-background-surface px-6 text-lg font-bold text-action-primary transition-colors hover:bg-action-primary-subtle focus:outline-none focus:ring-2 focus:ring-focus-ring/30 lg:hidden"
               type="button"
             >
               Create New
@@ -115,16 +115,555 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots default stat
         class="min-w-0 flex-1"
       >
         <div
-          class="relative flex h-full flex-col bg-background-surface px-0 pb-18 lg:-mt-4 lg:bg-transparent lg:px-0 lg:pb-0"
+          class="relative flex h-full flex-col bg-background-page px-0 pb-18 lg:-mt-4 lg:bg-transparent lg:px-0 lg:pb-0"
         >
           <div
-            class="lg:hidden flex min-w-0 flex-col gap-4 pt-2 pb-16"
+            class="flex min-w-0 flex-col gap-4 pb-16 pt-2 lg:hidden"
+          >
+            <label
+              class="relative block w-full sm:w-72 w-full sm:w-full"
+            >
+              <span
+                class="sr-only"
+              >
+                Search customer
+              </span>
+              <div
+                data-testid="search-icon"
+              />
+              <input
+                aria-label="Search customer"
+                class="h-14 w-full rounded-full border border-border-default bg-background-surface pl-12 pr-4 text-base font-medium text-text-primary outline-none transition-colors placeholder:font-normal placeholder:text-text-tertiary hover:border-border-strong focus:border-border-focus focus:ring-2 focus:ring-focus-ring/30 !h-16 text-xl placeholder:text-xl"
+                placeholder="Search customer"
+                type="search"
+              />
+            </label>
+            <div
+              class="flex min-w-0 flex-col gap-4"
+            >
+              <button
+                class="group block w-full min-w-0 rounded-3xl border border-border-strong bg-background-surface p-5 text-left shadow-small transition-colors hover:border-border-strong hover:bg-background-subtle/40 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-action-primary"
+                type="button"
+              >
+                <span
+                  class="flex min-w-0 flex-wrap items-center justify-between gap-3"
+                >
+                  <span
+                    class="min-w-0 break-words text-xl font-semibold text-text-primary"
+                  >
+                    PT Mega Jaya Abadi
+                  </span>
+                  <span
+                    class="rounded-full px-3.5 py-1 text-lg font-semibold uppercase bg-badge-success-subtle text-badge-success"
+                  >
+                    active
+                  </span>
+                </span>
+                <span
+                  class="mt-4 flex flex-wrap items-end justify-between gap-x-4 gap-y-3 border-t border-border-default pt-4"
+                >
+                  <span
+                    class="min-w-0 text-lg text-text-secondary"
+                  >
+                    <span
+                      class="block text-lg text-text-tertiary"
+                    >
+                      Address
+                    </span>
+                    <span
+                      class="mt-1 block break-words text-lg font-medium text-text-primary"
+                    >
+                      Jl. Sudirman No. 45, Jakarta Pusat
+                    </span>
+                  </span>
+                  <span
+                    class="text-right"
+                  >
+                    <span
+                      class="block text-lg text-text-tertiary"
+                    >
+                      Phone Number
+                    </span>
+                    <span
+                      class="mt-1 block text-lg font-medium text-text-primary"
+                    >
+                      081234567890
+                    </span>
+                  </span>
+                </span>
+              </button>
+              <button
+                class="group block w-full min-w-0 rounded-3xl border border-border-strong bg-background-surface p-5 text-left shadow-small transition-colors hover:border-border-strong hover:bg-background-subtle/40 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-action-primary"
+                type="button"
+              >
+                <span
+                  class="flex min-w-0 flex-wrap items-center justify-between gap-3"
+                >
+                  <span
+                    class="min-w-0 break-words text-xl font-semibold text-text-primary"
+                  >
+                    CV Sinar Terang
+                  </span>
+                  <span
+                    class="rounded-full px-3.5 py-1 text-lg font-semibold uppercase bg-badge-success-subtle text-badge-success"
+                  >
+                    active
+                  </span>
+                </span>
+                <span
+                  class="mt-4 flex flex-wrap items-end justify-between gap-x-4 gap-y-3 border-t border-border-default pt-4"
+                >
+                  <span
+                    class="min-w-0 text-lg text-text-secondary"
+                  >
+                    <span
+                      class="block text-lg text-text-tertiary"
+                    >
+                      Address
+                    </span>
+                    <span
+                      class="mt-1 block break-words text-lg font-medium text-text-primary"
+                    >
+                      Jl. Gatot Subroto No. 12, Bandung
+                    </span>
+                  </span>
+                  <span
+                    class="text-right"
+                  >
+                    <span
+                      class="block text-lg text-text-tertiary"
+                    >
+                      Phone Number
+                    </span>
+                    <span
+                      class="mt-1 block text-lg font-medium text-text-primary"
+                    >
+                      081298765432
+                    </span>
+                  </span>
+                </span>
+              </button>
+              <button
+                class="group block w-full min-w-0 rounded-3xl border border-border-strong bg-background-surface p-5 text-left shadow-small transition-colors hover:border-border-strong hover:bg-background-subtle/40 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-action-primary"
+                type="button"
+              >
+                <span
+                  class="flex min-w-0 flex-wrap items-center justify-between gap-3"
+                >
+                  <span
+                    class="min-w-0 break-words text-xl font-semibold text-text-primary"
+                  >
+                    Budi Santoso
+                  </span>
+                  <span
+                    class="rounded-full px-3.5 py-1 text-lg font-semibold uppercase bg-badge-danger-subtle text-badge-danger"
+                  >
+                    inactive
+                  </span>
+                </span>
+                <span
+                  class="mt-4 flex flex-wrap items-end justify-between gap-x-4 gap-y-3 border-t border-border-default pt-4"
+                >
+                  <span
+                    class="min-w-0 text-lg text-text-secondary"
+                  >
+                    <span
+                      class="block text-lg text-text-tertiary"
+                    >
+                      Address
+                    </span>
+                    <span
+                      class="mt-1 block break-words text-lg font-medium text-text-primary"
+                    >
+                      Jl. Diponegoro No. 88, Surabaya
+                    </span>
+                  </span>
+                  <span
+                    class="text-right"
+                  >
+                    <span
+                      class="block text-lg text-text-tertiary"
+                    >
+                      Phone Number
+                    </span>
+                    <span
+                      class="mt-1 block text-lg font-medium text-text-primary"
+                    >
+                      085612345678
+                    </span>
+                  </span>
+                </span>
+              </button>
+              <button
+                class="group block w-full min-w-0 rounded-3xl border border-border-strong bg-background-surface p-5 text-left shadow-small transition-colors hover:border-border-strong hover:bg-background-subtle/40 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-action-primary"
+                type="button"
+              >
+                <span
+                  class="flex min-w-0 flex-wrap items-center justify-between gap-3"
+                >
+                  <span
+                    class="min-w-0 break-words text-xl font-semibold text-text-primary"
+                  >
+                    PT Nusantara Prima
+                  </span>
+                  <span
+                    class="rounded-full px-3.5 py-1 text-lg font-semibold uppercase bg-badge-success-subtle text-badge-success"
+                  >
+                    active
+                  </span>
+                </span>
+                <span
+                  class="mt-4 flex flex-wrap items-end justify-between gap-x-4 gap-y-3 border-t border-border-default pt-4"
+                >
+                  <span
+                    class="min-w-0 text-lg text-text-secondary"
+                  >
+                    <span
+                      class="block text-lg text-text-tertiary"
+                    >
+                      Address
+                    </span>
+                    <span
+                      class="mt-1 block break-words text-lg font-medium text-text-primary"
+                    >
+                      Jl. M.H. Thamrin No. 9, Jakarta Pusat
+                    </span>
+                  </span>
+                  <span
+                    class="text-right"
+                  >
+                    <span
+                      class="block text-lg text-text-tertiary"
+                    >
+                      Phone Number
+                    </span>
+                    <span
+                      class="mt-1 block text-lg font-medium text-text-primary"
+                    >
+                      081377889900
+                    </span>
+                  </span>
+                </span>
+              </button>
+              <button
+                class="group block w-full min-w-0 rounded-3xl border border-border-strong bg-background-surface p-5 text-left shadow-small transition-colors hover:border-border-strong hover:bg-background-subtle/40 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-action-primary"
+                type="button"
+              >
+                <span
+                  class="flex min-w-0 flex-wrap items-center justify-between gap-3"
+                >
+                  <span
+                    class="min-w-0 break-words text-xl font-semibold text-text-primary"
+                  >
+                    Dewi Lestari
+                  </span>
+                  <span
+                    class="rounded-full px-3.5 py-1 text-lg font-semibold uppercase bg-badge-success-subtle text-badge-success"
+                  >
+                    active
+                  </span>
+                </span>
+                <span
+                  class="mt-4 flex flex-wrap items-end justify-between gap-x-4 gap-y-3 border-t border-border-default pt-4"
+                >
+                  <span
+                    class="min-w-0 text-lg text-text-secondary"
+                  >
+                    <span
+                      class="block text-lg text-text-tertiary"
+                    >
+                      Address
+                    </span>
+                    <span
+                      class="mt-1 block break-words text-lg font-medium text-text-primary"
+                    >
+                      Jl. Malioboro No. 23, Yogyakarta
+                    </span>
+                  </span>
+                  <span
+                    class="text-right"
+                  >
+                    <span
+                      class="block text-lg text-text-tertiary"
+                    >
+                      Phone Number
+                    </span>
+                    <span
+                      class="mt-1 block text-lg font-medium text-text-primary"
+                    >
+                      087811223344
+                    </span>
+                  </span>
+                </span>
+              </button>
+              <button
+                class="group block w-full min-w-0 rounded-3xl border border-border-strong bg-background-surface p-5 text-left shadow-small transition-colors hover:border-border-strong hover:bg-background-subtle/40 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-action-primary"
+                type="button"
+              >
+                <span
+                  class="flex min-w-0 flex-wrap items-center justify-between gap-3"
+                >
+                  <span
+                    class="min-w-0 break-words text-xl font-semibold text-text-primary"
+                  >
+                    CV Berkah Mandiri
+                  </span>
+                  <span
+                    class="rounded-full px-3.5 py-1 text-lg font-semibold uppercase bg-badge-danger-subtle text-badge-danger"
+                  >
+                    inactive
+                  </span>
+                </span>
+                <span
+                  class="mt-4 flex flex-wrap items-end justify-between gap-x-4 gap-y-3 border-t border-border-default pt-4"
+                >
+                  <span
+                    class="min-w-0 text-lg text-text-secondary"
+                  >
+                    <span
+                      class="block text-lg text-text-tertiary"
+                    >
+                      Address
+                    </span>
+                    <span
+                      class="mt-1 block break-words text-lg font-medium text-text-primary"
+                    >
+                      Jl. Pemuda No. 101, Semarang
+                    </span>
+                  </span>
+                  <span
+                    class="text-right"
+                  >
+                    <span
+                      class="block text-lg text-text-tertiary"
+                    >
+                      Phone Number
+                    </span>
+                    <span
+                      class="mt-1 block text-lg font-medium text-text-primary"
+                    >
+                      082155667788
+                    </span>
+                  </span>
+                </span>
+              </button>
+              <button
+                class="group block w-full min-w-0 rounded-3xl border border-border-strong bg-background-surface p-5 text-left shadow-small transition-colors hover:border-border-strong hover:bg-background-subtle/40 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-action-primary"
+                type="button"
+              >
+                <span
+                  class="flex min-w-0 flex-wrap items-center justify-between gap-3"
+                >
+                  <span
+                    class="min-w-0 break-words text-xl font-semibold text-text-primary"
+                  >
+                    PT Cipta Karya Solusi
+                  </span>
+                  <span
+                    class="rounded-full px-3.5 py-1 text-lg font-semibold uppercase bg-badge-success-subtle text-badge-success"
+                  >
+                    active
+                  </span>
+                </span>
+                <span
+                  class="mt-4 flex flex-wrap items-end justify-between gap-x-4 gap-y-3 border-t border-border-default pt-4"
+                >
+                  <span
+                    class="min-w-0 text-lg text-text-secondary"
+                  >
+                    <span
+                      class="block text-lg text-text-tertiary"
+                    >
+                      Address
+                    </span>
+                    <span
+                      class="mt-1 block break-words text-lg font-medium text-text-primary"
+                    >
+                      Jl. Raya Bogor KM 28, Depok
+                    </span>
+                  </span>
+                  <span
+                    class="text-right"
+                  >
+                    <span
+                      class="block text-lg text-text-tertiary"
+                    >
+                      Phone Number
+                    </span>
+                    <span
+                      class="mt-1 block text-lg font-medium text-text-primary"
+                    >
+                      081900112233
+                    </span>
+                  </span>
+                </span>
+              </button>
+              <button
+                class="group block w-full min-w-0 rounded-3xl border border-border-strong bg-background-surface p-5 text-left shadow-small transition-colors hover:border-border-strong hover:bg-background-subtle/40 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-action-primary"
+                type="button"
+              >
+                <span
+                  class="flex min-w-0 flex-wrap items-center justify-between gap-3"
+                >
+                  <span
+                    class="min-w-0 break-words text-xl font-semibold text-text-primary"
+                  >
+                    Ahmad Fauzi
+                  </span>
+                  <span
+                    class="rounded-full px-3.5 py-1 text-lg font-semibold uppercase bg-badge-success-subtle text-badge-success"
+                  >
+                    active
+                  </span>
+                </span>
+                <span
+                  class="mt-4 flex flex-wrap items-end justify-between gap-x-4 gap-y-3 border-t border-border-default pt-4"
+                >
+                  <span
+                    class="min-w-0 text-lg text-text-secondary"
+                  >
+                    <span
+                      class="block text-lg text-text-tertiary"
+                    >
+                      Address
+                    </span>
+                    <span
+                      class="mt-1 block break-words text-lg font-medium text-text-primary"
+                    >
+                      Jl. Ahmad Yani No. 50, Medan
+                    </span>
+                  </span>
+                  <span
+                    class="text-right"
+                  >
+                    <span
+                      class="block text-lg text-text-tertiary"
+                    >
+                      Phone Number
+                    </span>
+                    <span
+                      class="mt-1 block text-lg font-medium text-text-primary"
+                    >
+                      085244332211
+                    </span>
+                  </span>
+                </span>
+              </button>
+              <button
+                class="group block w-full min-w-0 rounded-3xl border border-border-strong bg-background-surface p-5 text-left shadow-small transition-colors hover:border-border-strong hover:bg-background-subtle/40 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-action-primary"
+                type="button"
+              >
+                <span
+                  class="flex min-w-0 flex-wrap items-center justify-between gap-3"
+                >
+                  <span
+                    class="min-w-0 break-words text-xl font-semibold text-text-primary"
+                  >
+                    PT Global Indo Medika
+                  </span>
+                  <span
+                    class="rounded-full px-3.5 py-1 text-lg font-semibold uppercase bg-badge-danger-subtle text-badge-danger"
+                  >
+                    inactive
+                  </span>
+                </span>
+                <span
+                  class="mt-4 flex flex-wrap items-end justify-between gap-x-4 gap-y-3 border-t border-border-default pt-4"
+                >
+                  <span
+                    class="min-w-0 text-lg text-text-secondary"
+                  >
+                    <span
+                      class="block text-lg text-text-tertiary"
+                    >
+                      Address
+                    </span>
+                    <span
+                      class="mt-1 block break-words text-lg font-medium text-text-primary"
+                    >
+                      Jl. HR Rasuna Said Kav. C-22, Jakarta Selatan
+                    </span>
+                  </span>
+                  <span
+                    class="text-right"
+                  >
+                    <span
+                      class="block text-lg text-text-tertiary"
+                    >
+                      Phone Number
+                    </span>
+                    <span
+                      class="mt-1 block text-lg font-medium text-text-primary"
+                    >
+                      081199887766
+                    </span>
+                  </span>
+                </span>
+              </button>
+              <button
+                class="group block w-full min-w-0 rounded-3xl border border-border-strong bg-background-surface p-5 text-left shadow-small transition-colors hover:border-border-strong hover:bg-background-subtle/40 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-action-primary"
+                type="button"
+              >
+                <span
+                  class="flex min-w-0 flex-wrap items-center justify-between gap-3"
+                >
+                  <span
+                    class="min-w-0 break-words text-xl font-semibold text-text-primary"
+                  >
+                    Siti Rahmawati
+                  </span>
+                  <span
+                    class="rounded-full px-3.5 py-1 text-lg font-semibold uppercase bg-badge-success-subtle text-badge-success"
+                  >
+                    active
+                  </span>
+                </span>
+                <span
+                  class="mt-4 flex flex-wrap items-end justify-between gap-x-4 gap-y-3 border-t border-border-default pt-4"
+                >
+                  <span
+                    class="min-w-0 text-lg text-text-secondary"
+                  >
+                    <span
+                      class="block text-lg text-text-tertiary"
+                    >
+                      Address
+                    </span>
+                    <span
+                      class="mt-1 block break-words text-lg font-medium text-text-primary"
+                    >
+                      Jl. Gajah Mada No. 14, Denpasar
+                    </span>
+                  </span>
+                  <span
+                    class="text-right"
+                  >
+                    <span
+                      class="block text-lg text-text-tertiary"
+                    >
+                      Phone Number
+                    </span>
+                    <span
+                      class="mt-1 block text-lg font-medium text-text-primary"
+                    >
+                      083812349988
+                    </span>
+                  </span>
+                </span>
+              </button>
+            </div>
+            <div
+              data-testid="pagination"
+            />
+          </div>
+          <div
+            class="hidden rounded-3xl border border-border-default bg-background-surface px-6 pb-6 pt-0 shadow-xs md:mt-6 md:flex md:flex-1 md:flex-col md:overflow-hidden lg:flex"
           >
             <div
-              class="w-full"
+              class="flex items-center justify-between gap-4 border-b border-border-default py-6"
             >
               <label
-                class="relative block w-full sm:w-72 w-full sm:w-full"
+                class="relative block w-full sm:w-72 "
               >
                 <span
                   class="sr-only"
@@ -141,411 +680,8 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots default stat
                   type="search"
                 />
               </label>
-            </div>
-            <div
-              class="min-w-0 space-y-3"
-            >
               <button
-                class="group flex w-full items-start gap-4 rounded-2xl border border-border-default bg-background-surface p-5 text-left transition-colors hover:border-border-strong hover:bg-background-subtle/40 focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring/30 "
-                type="button"
-              >
-                <span
-                  class="min-w-0 flex-1"
-                >
-                  <span
-                    class="block truncate font-semibold text-text-primary text-2xl"
-                  >
-                    PT Mega Jaya Abadi
-                  </span>
-                  <span
-                    class="mt-3 block text-xl"
-                  >
-                    <span
-                      class="grid gap-1 text-lg text-text-secondary"
-                    >
-                      <span
-                        class="truncate"
-                      >
-                        Jl. Sudirman No. 45, Jakarta Pusat
-                      </span>
-                      <span
-                        class="truncate"
-                      >
-                        081234567890
-                      </span>
-                    </span>
-                  </span>
-                </span>
-                <span
-                  class="shrink-0 rounded-full px-3 py-1 font-bold uppercase tracking-wider bg-success-subtle text-success-strong text-sm"
-                >
-                  active
-                </span>
-              </button>
-              <button
-                class="group flex w-full items-start gap-4 rounded-2xl border border-border-default bg-background-surface p-5 text-left transition-colors hover:border-border-strong hover:bg-background-subtle/40 focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring/30 "
-                type="button"
-              >
-                <span
-                  class="min-w-0 flex-1"
-                >
-                  <span
-                    class="block truncate font-semibold text-text-primary text-2xl"
-                  >
-                    CV Sinar Terang
-                  </span>
-                  <span
-                    class="mt-3 block text-xl"
-                  >
-                    <span
-                      class="grid gap-1 text-lg text-text-secondary"
-                    >
-                      <span
-                        class="truncate"
-                      >
-                        Jl. Gatot Subroto No. 12, Bandung
-                      </span>
-                      <span
-                        class="truncate"
-                      >
-                        081298765432
-                      </span>
-                    </span>
-                  </span>
-                </span>
-                <span
-                  class="shrink-0 rounded-full px-3 py-1 font-bold uppercase tracking-wider bg-success-subtle text-success-strong text-sm"
-                >
-                  active
-                </span>
-              </button>
-              <button
-                class="group flex w-full items-start gap-4 rounded-2xl border border-border-default bg-background-surface p-5 text-left transition-colors hover:border-border-strong hover:bg-background-subtle/40 focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring/30 "
-                type="button"
-              >
-                <span
-                  class="min-w-0 flex-1"
-                >
-                  <span
-                    class="block truncate font-semibold text-text-primary text-2xl"
-                  >
-                    Budi Santoso
-                  </span>
-                  <span
-                    class="mt-3 block text-xl"
-                  >
-                    <span
-                      class="grid gap-1 text-lg text-text-secondary"
-                    >
-                      <span
-                        class="truncate"
-                      >
-                        Jl. Diponegoro No. 88, Surabaya
-                      </span>
-                      <span
-                        class="truncate"
-                      >
-                        085612345678
-                      </span>
-                    </span>
-                  </span>
-                </span>
-                <span
-                  class="shrink-0 rounded-full px-3 py-1 font-bold uppercase tracking-wider bg-danger-subtle text-danger-strong text-sm"
-                >
-                  inactive
-                </span>
-              </button>
-              <button
-                class="group flex w-full items-start gap-4 rounded-2xl border border-border-default bg-background-surface p-5 text-left transition-colors hover:border-border-strong hover:bg-background-subtle/40 focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring/30 "
-                type="button"
-              >
-                <span
-                  class="min-w-0 flex-1"
-                >
-                  <span
-                    class="block truncate font-semibold text-text-primary text-2xl"
-                  >
-                    PT Nusantara Prima
-                  </span>
-                  <span
-                    class="mt-3 block text-xl"
-                  >
-                    <span
-                      class="grid gap-1 text-lg text-text-secondary"
-                    >
-                      <span
-                        class="truncate"
-                      >
-                        Jl. M.H. Thamrin No. 9, Jakarta Pusat
-                      </span>
-                      <span
-                        class="truncate"
-                      >
-                        081377889900
-                      </span>
-                    </span>
-                  </span>
-                </span>
-                <span
-                  class="shrink-0 rounded-full px-3 py-1 font-bold uppercase tracking-wider bg-success-subtle text-success-strong text-sm"
-                >
-                  active
-                </span>
-              </button>
-              <button
-                class="group flex w-full items-start gap-4 rounded-2xl border border-border-default bg-background-surface p-5 text-left transition-colors hover:border-border-strong hover:bg-background-subtle/40 focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring/30 "
-                type="button"
-              >
-                <span
-                  class="min-w-0 flex-1"
-                >
-                  <span
-                    class="block truncate font-semibold text-text-primary text-2xl"
-                  >
-                    Dewi Lestari
-                  </span>
-                  <span
-                    class="mt-3 block text-xl"
-                  >
-                    <span
-                      class="grid gap-1 text-lg text-text-secondary"
-                    >
-                      <span
-                        class="truncate"
-                      >
-                        Jl. Malioboro No. 23, Yogyakarta
-                      </span>
-                      <span
-                        class="truncate"
-                      >
-                        087811223344
-                      </span>
-                    </span>
-                  </span>
-                </span>
-                <span
-                  class="shrink-0 rounded-full px-3 py-1 font-bold uppercase tracking-wider bg-success-subtle text-success-strong text-sm"
-                >
-                  active
-                </span>
-              </button>
-              <button
-                class="group flex w-full items-start gap-4 rounded-2xl border border-border-default bg-background-surface p-5 text-left transition-colors hover:border-border-strong hover:bg-background-subtle/40 focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring/30 "
-                type="button"
-              >
-                <span
-                  class="min-w-0 flex-1"
-                >
-                  <span
-                    class="block truncate font-semibold text-text-primary text-2xl"
-                  >
-                    CV Berkah Mandiri
-                  </span>
-                  <span
-                    class="mt-3 block text-xl"
-                  >
-                    <span
-                      class="grid gap-1 text-lg text-text-secondary"
-                    >
-                      <span
-                        class="truncate"
-                      >
-                        Jl. Pemuda No. 101, Semarang
-                      </span>
-                      <span
-                        class="truncate"
-                      >
-                        082155667788
-                      </span>
-                    </span>
-                  </span>
-                </span>
-                <span
-                  class="shrink-0 rounded-full px-3 py-1 font-bold uppercase tracking-wider bg-danger-subtle text-danger-strong text-sm"
-                >
-                  inactive
-                </span>
-              </button>
-              <button
-                class="group flex w-full items-start gap-4 rounded-2xl border border-border-default bg-background-surface p-5 text-left transition-colors hover:border-border-strong hover:bg-background-subtle/40 focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring/30 "
-                type="button"
-              >
-                <span
-                  class="min-w-0 flex-1"
-                >
-                  <span
-                    class="block truncate font-semibold text-text-primary text-2xl"
-                  >
-                    PT Cipta Karya Solusi
-                  </span>
-                  <span
-                    class="mt-3 block text-xl"
-                  >
-                    <span
-                      class="grid gap-1 text-lg text-text-secondary"
-                    >
-                      <span
-                        class="truncate"
-                      >
-                        Jl. Raya Bogor KM 28, Depok
-                      </span>
-                      <span
-                        class="truncate"
-                      >
-                        081900112233
-                      </span>
-                    </span>
-                  </span>
-                </span>
-                <span
-                  class="shrink-0 rounded-full px-3 py-1 font-bold uppercase tracking-wider bg-success-subtle text-success-strong text-sm"
-                >
-                  active
-                </span>
-              </button>
-              <button
-                class="group flex w-full items-start gap-4 rounded-2xl border border-border-default bg-background-surface p-5 text-left transition-colors hover:border-border-strong hover:bg-background-subtle/40 focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring/30 "
-                type="button"
-              >
-                <span
-                  class="min-w-0 flex-1"
-                >
-                  <span
-                    class="block truncate font-semibold text-text-primary text-2xl"
-                  >
-                    Ahmad Fauzi
-                  </span>
-                  <span
-                    class="mt-3 block text-xl"
-                  >
-                    <span
-                      class="grid gap-1 text-lg text-text-secondary"
-                    >
-                      <span
-                        class="truncate"
-                      >
-                        Jl. Ahmad Yani No. 50, Medan
-                      </span>
-                      <span
-                        class="truncate"
-                      >
-                        085244332211
-                      </span>
-                    </span>
-                  </span>
-                </span>
-                <span
-                  class="shrink-0 rounded-full px-3 py-1 font-bold uppercase tracking-wider bg-success-subtle text-success-strong text-sm"
-                >
-                  active
-                </span>
-              </button>
-              <button
-                class="group flex w-full items-start gap-4 rounded-2xl border border-border-default bg-background-surface p-5 text-left transition-colors hover:border-border-strong hover:bg-background-subtle/40 focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring/30 "
-                type="button"
-              >
-                <span
-                  class="min-w-0 flex-1"
-                >
-                  <span
-                    class="block truncate font-semibold text-text-primary text-2xl"
-                  >
-                    PT Global Indo Medika
-                  </span>
-                  <span
-                    class="mt-3 block text-xl"
-                  >
-                    <span
-                      class="grid gap-1 text-lg text-text-secondary"
-                    >
-                      <span
-                        class="truncate"
-                      >
-                        Jl. HR Rasuna Said Kav. C-22, Jakarta Selatan
-                      </span>
-                      <span
-                        class="truncate"
-                      >
-                        081199887766
-                      </span>
-                    </span>
-                  </span>
-                </span>
-                <span
-                  class="shrink-0 rounded-full px-3 py-1 font-bold uppercase tracking-wider bg-danger-subtle text-danger-strong text-sm"
-                >
-                  inactive
-                </span>
-              </button>
-              <button
-                class="group flex w-full items-start gap-4 rounded-2xl border border-border-default bg-background-surface p-5 text-left transition-colors hover:border-border-strong hover:bg-background-subtle/40 focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring/30 "
-                type="button"
-              >
-                <span
-                  class="min-w-0 flex-1"
-                >
-                  <span
-                    class="block truncate font-semibold text-text-primary text-2xl"
-                  >
-                    Siti Rahmawati
-                  </span>
-                  <span
-                    class="mt-3 block text-xl"
-                  >
-                    <span
-                      class="grid gap-1 text-lg text-text-secondary"
-                    >
-                      <span
-                        class="truncate"
-                      >
-                        Jl. Gajah Mada No. 14, Denpasar
-                      </span>
-                      <span
-                        class="truncate"
-                      >
-                        083812349988
-                      </span>
-                    </span>
-                  </span>
-                </span>
-                <span
-                  class="shrink-0 rounded-full px-3 py-1 font-bold uppercase tracking-wider bg-success-subtle text-success-strong text-sm"
-                >
-                  active
-                </span>
-              </button>
-            </div>
-            <div
-              data-testid="pagination"
-            />
-          </div>
-          <div
-            class="hidden rounded-4xl border border-border-default bg-background-surface px-6 shadow-xs md:mt-6 md:flex md:flex-1 md:flex-col md:overflow-hidden lg:flex"
-          >
-            <div
-              class="flex items-center justify-between gap-4 py-6 border-brand-gray-light"
-            >
-              <label
-                class="relative block w-full sm:w-72 "
-              >
-                <span
-                  class="sr-only"
-                >
-                  Search customer
-                </span>
-                <div
-                  data-testid="search-icon"
-                />
-                <input
-                  aria-label="Search customer"
-                  class="h-14 w-full rounded-xl border border-border-default bg-background-surface pl-12 pr-4 text-base font-medium text-text-primary outline-none transition-colors placeholder:font-normal placeholder:text-text-tertiary hover:border-border-strong focus:border-border-focus focus:ring-2 focus:ring-focus-ring/30"
-                  placeholder="Search customer"
-                  type="search"
-                />
-              </label>
-              <button
-                class="rounded-xl bg-brand-blue h-14 px-6 text-sm font-semibold text-brand-white shadow-sm transition-colors hover:bg-brand-blue/90 focus:outline-none focus:ring-2 focus:ring-brand-blue/30"
+                class="h-14 rounded-2xl bg-action-primary px-6 text-lg font-semibold text-text-inverse hover:bg-action-primary-hover focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring"
                 type="button"
               >
                 Create Customer
@@ -610,7 +746,7 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots default stat
                             class="px-5 py-4 border-b border-border-default text-base text-center "
                           >
                             <span
-                              class="text-sm"
+                              class="text-lg"
                             >
                               1
                             </span>
@@ -618,23 +754,35 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots default stat
                           <td
                             class="px-5 py-4 border-b border-border-default text-base text-left "
                           >
-                            PT Mega Jaya Abadi
+                            <span
+                              class="text-lg font-medium"
+                            >
+                              PT Mega Jaya Abadi
+                            </span>
                           </td>
                           <td
                             class="px-5 py-4 border-b border-border-default text-base text-left "
                           >
-                            Jl. Sudirman No. 45, Jakarta Pusat
+                            <span
+                              class="text-lg"
+                            >
+                              Jl. Sudirman No. 45, Jakarta Pusat
+                            </span>
                           </td>
                           <td
                             class="px-5 py-4 border-b border-border-default text-base text-left "
                           >
-                            081234567890
+                            <span
+                              class="text-lg"
+                            >
+                              081234567890
+                            </span>
                           </td>
                           <td
                             class="px-5 py-4 border-b border-border-default text-base text-center "
                           >
                             <span
-                              class="rounded-full px-3 py-1 text-xs font-bold uppercase bg-green-100 text-green-600"
+                              class="inline-flex rounded-full px-4 py-1.5 text-lg font-semibold uppercase bg-badge-success-subtle text-badge-success"
                             >
                               active
                             </span>
@@ -642,15 +790,20 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots default stat
                           <td
                             class="px-5 py-4 border-b border-border-default text-base text-center "
                           >
-                            <button
-                              class="cursor-pointer rounded-lg p-1.5 text-brand-text-medium transition-colors hover:bg-brand-blue-light hover:text-brand-blue"
-                              title="Edit"
-                              type="button"
+                            <div
+                              class="flex items-center justify-center gap-1"
                             >
-                              <div
-                                data-testid="edit-icon"
-                              />
-                            </button>
+                              <button
+                                aria-label="Edit customer"
+                                class="cursor-pointer rounded-3xl p-2.5 text-text-secondary hover:bg-action-primary-subtle hover:text-action-primary"
+                                title="Edit customer"
+                                type="button"
+                              >
+                                <div
+                                  data-testid="edit-icon"
+                                />
+                              </button>
+                            </div>
                           </td>
                         </tr>
                         <tr
@@ -660,7 +813,7 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots default stat
                             class="px-5 py-4 border-b border-border-default text-base text-center "
                           >
                             <span
-                              class="text-sm"
+                              class="text-lg"
                             >
                               2
                             </span>
@@ -668,23 +821,35 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots default stat
                           <td
                             class="px-5 py-4 border-b border-border-default text-base text-left "
                           >
-                            CV Sinar Terang
+                            <span
+                              class="text-lg font-medium"
+                            >
+                              CV Sinar Terang
+                            </span>
                           </td>
                           <td
                             class="px-5 py-4 border-b border-border-default text-base text-left "
                           >
-                            Jl. Gatot Subroto No. 12, Bandung
+                            <span
+                              class="text-lg"
+                            >
+                              Jl. Gatot Subroto No. 12, Bandung
+                            </span>
                           </td>
                           <td
                             class="px-5 py-4 border-b border-border-default text-base text-left "
                           >
-                            081298765432
+                            <span
+                              class="text-lg"
+                            >
+                              081298765432
+                            </span>
                           </td>
                           <td
                             class="px-5 py-4 border-b border-border-default text-base text-center "
                           >
                             <span
-                              class="rounded-full px-3 py-1 text-xs font-bold uppercase bg-green-100 text-green-600"
+                              class="inline-flex rounded-full px-4 py-1.5 text-lg font-semibold uppercase bg-badge-success-subtle text-badge-success"
                             >
                               active
                             </span>
@@ -692,15 +857,20 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots default stat
                           <td
                             class="px-5 py-4 border-b border-border-default text-base text-center "
                           >
-                            <button
-                              class="cursor-pointer rounded-lg p-1.5 text-brand-text-medium transition-colors hover:bg-brand-blue-light hover:text-brand-blue"
-                              title="Edit"
-                              type="button"
+                            <div
+                              class="flex items-center justify-center gap-1"
                             >
-                              <div
-                                data-testid="edit-icon"
-                              />
-                            </button>
+                              <button
+                                aria-label="Edit customer"
+                                class="cursor-pointer rounded-3xl p-2.5 text-text-secondary hover:bg-action-primary-subtle hover:text-action-primary"
+                                title="Edit customer"
+                                type="button"
+                              >
+                                <div
+                                  data-testid="edit-icon"
+                                />
+                              </button>
+                            </div>
                           </td>
                         </tr>
                         <tr
@@ -710,7 +880,7 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots default stat
                             class="px-5 py-4 border-b border-border-default text-base text-center "
                           >
                             <span
-                              class="text-sm"
+                              class="text-lg"
                             >
                               3
                             </span>
@@ -718,23 +888,35 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots default stat
                           <td
                             class="px-5 py-4 border-b border-border-default text-base text-left "
                           >
-                            Budi Santoso
+                            <span
+                              class="text-lg font-medium"
+                            >
+                              Budi Santoso
+                            </span>
                           </td>
                           <td
                             class="px-5 py-4 border-b border-border-default text-base text-left "
                           >
-                            Jl. Diponegoro No. 88, Surabaya
+                            <span
+                              class="text-lg"
+                            >
+                              Jl. Diponegoro No. 88, Surabaya
+                            </span>
                           </td>
                           <td
                             class="px-5 py-4 border-b border-border-default text-base text-left "
                           >
-                            085612345678
+                            <span
+                              class="text-lg"
+                            >
+                              085612345678
+                            </span>
                           </td>
                           <td
                             class="px-5 py-4 border-b border-border-default text-base text-center "
                           >
                             <span
-                              class="rounded-full px-3 py-1 text-xs font-bold uppercase bg-red-100 text-red-600"
+                              class="inline-flex rounded-full px-4 py-1.5 text-lg font-semibold uppercase bg-badge-danger-subtle text-badge-danger"
                             >
                               inactive
                             </span>
@@ -742,15 +924,20 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots default stat
                           <td
                             class="px-5 py-4 border-b border-border-default text-base text-center "
                           >
-                            <button
-                              class="cursor-pointer rounded-lg p-1.5 text-brand-text-medium transition-colors hover:bg-brand-blue-light hover:text-brand-blue"
-                              title="Edit"
-                              type="button"
+                            <div
+                              class="flex items-center justify-center gap-1"
                             >
-                              <div
-                                data-testid="edit-icon"
-                              />
-                            </button>
+                              <button
+                                aria-label="Edit customer"
+                                class="cursor-pointer rounded-3xl p-2.5 text-text-secondary hover:bg-action-primary-subtle hover:text-action-primary"
+                                title="Edit customer"
+                                type="button"
+                              >
+                                <div
+                                  data-testid="edit-icon"
+                                />
+                              </button>
+                            </div>
                           </td>
                         </tr>
                         <tr
@@ -760,7 +947,7 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots default stat
                             class="px-5 py-4 border-b border-border-default text-base text-center "
                           >
                             <span
-                              class="text-sm"
+                              class="text-lg"
                             >
                               4
                             </span>
@@ -768,23 +955,35 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots default stat
                           <td
                             class="px-5 py-4 border-b border-border-default text-base text-left "
                           >
-                            PT Nusantara Prima
+                            <span
+                              class="text-lg font-medium"
+                            >
+                              PT Nusantara Prima
+                            </span>
                           </td>
                           <td
                             class="px-5 py-4 border-b border-border-default text-base text-left "
                           >
-                            Jl. M.H. Thamrin No. 9, Jakarta Pusat
+                            <span
+                              class="text-lg"
+                            >
+                              Jl. M.H. Thamrin No. 9, Jakarta Pusat
+                            </span>
                           </td>
                           <td
                             class="px-5 py-4 border-b border-border-default text-base text-left "
                           >
-                            081377889900
+                            <span
+                              class="text-lg"
+                            >
+                              081377889900
+                            </span>
                           </td>
                           <td
                             class="px-5 py-4 border-b border-border-default text-base text-center "
                           >
                             <span
-                              class="rounded-full px-3 py-1 text-xs font-bold uppercase bg-green-100 text-green-600"
+                              class="inline-flex rounded-full px-4 py-1.5 text-lg font-semibold uppercase bg-badge-success-subtle text-badge-success"
                             >
                               active
                             </span>
@@ -792,15 +991,20 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots default stat
                           <td
                             class="px-5 py-4 border-b border-border-default text-base text-center "
                           >
-                            <button
-                              class="cursor-pointer rounded-lg p-1.5 text-brand-text-medium transition-colors hover:bg-brand-blue-light hover:text-brand-blue"
-                              title="Edit"
-                              type="button"
+                            <div
+                              class="flex items-center justify-center gap-1"
                             >
-                              <div
-                                data-testid="edit-icon"
-                              />
-                            </button>
+                              <button
+                                aria-label="Edit customer"
+                                class="cursor-pointer rounded-3xl p-2.5 text-text-secondary hover:bg-action-primary-subtle hover:text-action-primary"
+                                title="Edit customer"
+                                type="button"
+                              >
+                                <div
+                                  data-testid="edit-icon"
+                                />
+                              </button>
+                            </div>
                           </td>
                         </tr>
                         <tr
@@ -810,7 +1014,7 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots default stat
                             class="px-5 py-4 border-b border-border-default text-base text-center "
                           >
                             <span
-                              class="text-sm"
+                              class="text-lg"
                             >
                               5
                             </span>
@@ -818,23 +1022,35 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots default stat
                           <td
                             class="px-5 py-4 border-b border-border-default text-base text-left "
                           >
-                            Dewi Lestari
+                            <span
+                              class="text-lg font-medium"
+                            >
+                              Dewi Lestari
+                            </span>
                           </td>
                           <td
                             class="px-5 py-4 border-b border-border-default text-base text-left "
                           >
-                            Jl. Malioboro No. 23, Yogyakarta
+                            <span
+                              class="text-lg"
+                            >
+                              Jl. Malioboro No. 23, Yogyakarta
+                            </span>
                           </td>
                           <td
                             class="px-5 py-4 border-b border-border-default text-base text-left "
                           >
-                            087811223344
+                            <span
+                              class="text-lg"
+                            >
+                              087811223344
+                            </span>
                           </td>
                           <td
                             class="px-5 py-4 border-b border-border-default text-base text-center "
                           >
                             <span
-                              class="rounded-full px-3 py-1 text-xs font-bold uppercase bg-green-100 text-green-600"
+                              class="inline-flex rounded-full px-4 py-1.5 text-lg font-semibold uppercase bg-badge-success-subtle text-badge-success"
                             >
                               active
                             </span>
@@ -842,15 +1058,20 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots default stat
                           <td
                             class="px-5 py-4 border-b border-border-default text-base text-center "
                           >
-                            <button
-                              class="cursor-pointer rounded-lg p-1.5 text-brand-text-medium transition-colors hover:bg-brand-blue-light hover:text-brand-blue"
-                              title="Edit"
-                              type="button"
+                            <div
+                              class="flex items-center justify-center gap-1"
                             >
-                              <div
-                                data-testid="edit-icon"
-                              />
-                            </button>
+                              <button
+                                aria-label="Edit customer"
+                                class="cursor-pointer rounded-3xl p-2.5 text-text-secondary hover:bg-action-primary-subtle hover:text-action-primary"
+                                title="Edit customer"
+                                type="button"
+                              >
+                                <div
+                                  data-testid="edit-icon"
+                                />
+                              </button>
+                            </div>
                           </td>
                         </tr>
                         <tr
@@ -860,7 +1081,7 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots default stat
                             class="px-5 py-4 border-b border-border-default text-base text-center "
                           >
                             <span
-                              class="text-sm"
+                              class="text-lg"
                             >
                               6
                             </span>
@@ -868,23 +1089,35 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots default stat
                           <td
                             class="px-5 py-4 border-b border-border-default text-base text-left "
                           >
-                            CV Berkah Mandiri
+                            <span
+                              class="text-lg font-medium"
+                            >
+                              CV Berkah Mandiri
+                            </span>
                           </td>
                           <td
                             class="px-5 py-4 border-b border-border-default text-base text-left "
                           >
-                            Jl. Pemuda No. 101, Semarang
+                            <span
+                              class="text-lg"
+                            >
+                              Jl. Pemuda No. 101, Semarang
+                            </span>
                           </td>
                           <td
                             class="px-5 py-4 border-b border-border-default text-base text-left "
                           >
-                            082155667788
+                            <span
+                              class="text-lg"
+                            >
+                              082155667788
+                            </span>
                           </td>
                           <td
                             class="px-5 py-4 border-b border-border-default text-base text-center "
                           >
                             <span
-                              class="rounded-full px-3 py-1 text-xs font-bold uppercase bg-red-100 text-red-600"
+                              class="inline-flex rounded-full px-4 py-1.5 text-lg font-semibold uppercase bg-badge-danger-subtle text-badge-danger"
                             >
                               inactive
                             </span>
@@ -892,15 +1125,20 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots default stat
                           <td
                             class="px-5 py-4 border-b border-border-default text-base text-center "
                           >
-                            <button
-                              class="cursor-pointer rounded-lg p-1.5 text-brand-text-medium transition-colors hover:bg-brand-blue-light hover:text-brand-blue"
-                              title="Edit"
-                              type="button"
+                            <div
+                              class="flex items-center justify-center gap-1"
                             >
-                              <div
-                                data-testid="edit-icon"
-                              />
-                            </button>
+                              <button
+                                aria-label="Edit customer"
+                                class="cursor-pointer rounded-3xl p-2.5 text-text-secondary hover:bg-action-primary-subtle hover:text-action-primary"
+                                title="Edit customer"
+                                type="button"
+                              >
+                                <div
+                                  data-testid="edit-icon"
+                                />
+                              </button>
+                            </div>
                           </td>
                         </tr>
                         <tr
@@ -910,7 +1148,7 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots default stat
                             class="px-5 py-4 border-b border-border-default text-base text-center "
                           >
                             <span
-                              class="text-sm"
+                              class="text-lg"
                             >
                               7
                             </span>
@@ -918,23 +1156,35 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots default stat
                           <td
                             class="px-5 py-4 border-b border-border-default text-base text-left "
                           >
-                            PT Cipta Karya Solusi
+                            <span
+                              class="text-lg font-medium"
+                            >
+                              PT Cipta Karya Solusi
+                            </span>
                           </td>
                           <td
                             class="px-5 py-4 border-b border-border-default text-base text-left "
                           >
-                            Jl. Raya Bogor KM 28, Depok
+                            <span
+                              class="text-lg"
+                            >
+                              Jl. Raya Bogor KM 28, Depok
+                            </span>
                           </td>
                           <td
                             class="px-5 py-4 border-b border-border-default text-base text-left "
                           >
-                            081900112233
+                            <span
+                              class="text-lg"
+                            >
+                              081900112233
+                            </span>
                           </td>
                           <td
                             class="px-5 py-4 border-b border-border-default text-base text-center "
                           >
                             <span
-                              class="rounded-full px-3 py-1 text-xs font-bold uppercase bg-green-100 text-green-600"
+                              class="inline-flex rounded-full px-4 py-1.5 text-lg font-semibold uppercase bg-badge-success-subtle text-badge-success"
                             >
                               active
                             </span>
@@ -942,15 +1192,20 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots default stat
                           <td
                             class="px-5 py-4 border-b border-border-default text-base text-center "
                           >
-                            <button
-                              class="cursor-pointer rounded-lg p-1.5 text-brand-text-medium transition-colors hover:bg-brand-blue-light hover:text-brand-blue"
-                              title="Edit"
-                              type="button"
+                            <div
+                              class="flex items-center justify-center gap-1"
                             >
-                              <div
-                                data-testid="edit-icon"
-                              />
-                            </button>
+                              <button
+                                aria-label="Edit customer"
+                                class="cursor-pointer rounded-3xl p-2.5 text-text-secondary hover:bg-action-primary-subtle hover:text-action-primary"
+                                title="Edit customer"
+                                type="button"
+                              >
+                                <div
+                                  data-testid="edit-icon"
+                                />
+                              </button>
+                            </div>
                           </td>
                         </tr>
                         <tr
@@ -960,7 +1215,7 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots default stat
                             class="px-5 py-4 border-b border-border-default text-base text-center "
                           >
                             <span
-                              class="text-sm"
+                              class="text-lg"
                             >
                               8
                             </span>
@@ -968,23 +1223,35 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots default stat
                           <td
                             class="px-5 py-4 border-b border-border-default text-base text-left "
                           >
-                            Ahmad Fauzi
+                            <span
+                              class="text-lg font-medium"
+                            >
+                              Ahmad Fauzi
+                            </span>
                           </td>
                           <td
                             class="px-5 py-4 border-b border-border-default text-base text-left "
                           >
-                            Jl. Ahmad Yani No. 50, Medan
+                            <span
+                              class="text-lg"
+                            >
+                              Jl. Ahmad Yani No. 50, Medan
+                            </span>
                           </td>
                           <td
                             class="px-5 py-4 border-b border-border-default text-base text-left "
                           >
-                            085244332211
+                            <span
+                              class="text-lg"
+                            >
+                              085244332211
+                            </span>
                           </td>
                           <td
                             class="px-5 py-4 border-b border-border-default text-base text-center "
                           >
                             <span
-                              class="rounded-full px-3 py-1 text-xs font-bold uppercase bg-green-100 text-green-600"
+                              class="inline-flex rounded-full px-4 py-1.5 text-lg font-semibold uppercase bg-badge-success-subtle text-badge-success"
                             >
                               active
                             </span>
@@ -992,15 +1259,20 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots default stat
                           <td
                             class="px-5 py-4 border-b border-border-default text-base text-center "
                           >
-                            <button
-                              class="cursor-pointer rounded-lg p-1.5 text-brand-text-medium transition-colors hover:bg-brand-blue-light hover:text-brand-blue"
-                              title="Edit"
-                              type="button"
+                            <div
+                              class="flex items-center justify-center gap-1"
                             >
-                              <div
-                                data-testid="edit-icon"
-                              />
-                            </button>
+                              <button
+                                aria-label="Edit customer"
+                                class="cursor-pointer rounded-3xl p-2.5 text-text-secondary hover:bg-action-primary-subtle hover:text-action-primary"
+                                title="Edit customer"
+                                type="button"
+                              >
+                                <div
+                                  data-testid="edit-icon"
+                                />
+                              </button>
+                            </div>
                           </td>
                         </tr>
                         <tr
@@ -1010,7 +1282,7 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots default stat
                             class="px-5 py-4 border-b border-border-default text-base text-center "
                           >
                             <span
-                              class="text-sm"
+                              class="text-lg"
                             >
                               9
                             </span>
@@ -1018,23 +1290,35 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots default stat
                           <td
                             class="px-5 py-4 border-b border-border-default text-base text-left "
                           >
-                            PT Global Indo Medika
+                            <span
+                              class="text-lg font-medium"
+                            >
+                              PT Global Indo Medika
+                            </span>
                           </td>
                           <td
                             class="px-5 py-4 border-b border-border-default text-base text-left "
                           >
-                            Jl. HR Rasuna Said Kav. C-22, Jakarta Selatan
+                            <span
+                              class="text-lg"
+                            >
+                              Jl. HR Rasuna Said Kav. C-22, Jakarta Selatan
+                            </span>
                           </td>
                           <td
                             class="px-5 py-4 border-b border-border-default text-base text-left "
                           >
-                            081199887766
+                            <span
+                              class="text-lg"
+                            >
+                              081199887766
+                            </span>
                           </td>
                           <td
                             class="px-5 py-4 border-b border-border-default text-base text-center "
                           >
                             <span
-                              class="rounded-full px-3 py-1 text-xs font-bold uppercase bg-red-100 text-red-600"
+                              class="inline-flex rounded-full px-4 py-1.5 text-lg font-semibold uppercase bg-badge-danger-subtle text-badge-danger"
                             >
                               inactive
                             </span>
@@ -1042,15 +1326,20 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots default stat
                           <td
                             class="px-5 py-4 border-b border-border-default text-base text-center "
                           >
-                            <button
-                              class="cursor-pointer rounded-lg p-1.5 text-brand-text-medium transition-colors hover:bg-brand-blue-light hover:text-brand-blue"
-                              title="Edit"
-                              type="button"
+                            <div
+                              class="flex items-center justify-center gap-1"
                             >
-                              <div
-                                data-testid="edit-icon"
-                              />
-                            </button>
+                              <button
+                                aria-label="Edit customer"
+                                class="cursor-pointer rounded-3xl p-2.5 text-text-secondary hover:bg-action-primary-subtle hover:text-action-primary"
+                                title="Edit customer"
+                                type="button"
+                              >
+                                <div
+                                  data-testid="edit-icon"
+                                />
+                              </button>
+                            </div>
                           </td>
                         </tr>
                         <tr
@@ -1060,7 +1349,7 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots default stat
                             class="px-5 py-4 border-b border-border-default text-base text-center "
                           >
                             <span
-                              class="text-sm"
+                              class="text-lg"
                             >
                               10
                             </span>
@@ -1068,23 +1357,35 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots default stat
                           <td
                             class="px-5 py-4 border-b border-border-default text-base text-left "
                           >
-                            Siti Rahmawati
+                            <span
+                              class="text-lg font-medium"
+                            >
+                              Siti Rahmawati
+                            </span>
                           </td>
                           <td
                             class="px-5 py-4 border-b border-border-default text-base text-left "
                           >
-                            Jl. Gajah Mada No. 14, Denpasar
+                            <span
+                              class="text-lg"
+                            >
+                              Jl. Gajah Mada No. 14, Denpasar
+                            </span>
                           </td>
                           <td
                             class="px-5 py-4 border-b border-border-default text-base text-left "
                           >
-                            083812349988
+                            <span
+                              class="text-lg"
+                            >
+                              083812349988
+                            </span>
                           </td>
                           <td
                             class="px-5 py-4 border-b border-border-default text-base text-center "
                           >
                             <span
-                              class="rounded-full px-3 py-1 text-xs font-bold uppercase bg-green-100 text-green-600"
+                              class="inline-flex rounded-full px-4 py-1.5 text-lg font-semibold uppercase bg-badge-success-subtle text-badge-success"
                             >
                               active
                             </span>
@@ -1092,15 +1393,20 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots default stat
                           <td
                             class="px-5 py-4 border-b border-border-default text-base text-center "
                           >
-                            <button
-                              class="cursor-pointer rounded-lg p-1.5 text-brand-text-medium transition-colors hover:bg-brand-blue-light hover:text-brand-blue"
-                              title="Edit"
-                              type="button"
+                            <div
+                              class="flex items-center justify-center gap-1"
                             >
-                              <div
-                                data-testid="edit-icon"
-                              />
-                            </button>
+                              <button
+                                aria-label="Edit customer"
+                                class="cursor-pointer rounded-3xl p-2.5 text-text-secondary hover:bg-action-primary-subtle hover:text-action-primary"
+                                title="Edit customer"
+                                type="button"
+                              >
+                                <div
+                                  data-testid="edit-icon"
+                                />
+                              </button>
+                            </div>
                           </td>
                         </tr>
                       </tbody>
@@ -1209,7 +1515,7 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots more open st
             class="flex shrink-0 items-center gap-3"
           >
             <button
-              class="h-14 rounded-full border-2 border-brand-blue bg-background-surface px-6 text-sm font-bold text-brand-blue transition-colors hover:bg-action-primary-subtle focus:outline-none focus:ring-2 focus:ring-focus-ring/30"
+              class="h-14 rounded-full border-2 border-action-primary bg-background-surface px-6 text-lg font-bold text-action-primary transition-colors hover:bg-action-primary-subtle focus:outline-none focus:ring-2 focus:ring-focus-ring/30 lg:hidden"
               type="button"
             >
               Create New
@@ -1261,7 +1567,7 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots more open st
             class="shrink-0"
           >
             <button
-              class="h-14 rounded-full border-2 border-brand-blue bg-background-surface px-6 text-sm font-bold text-brand-blue transition-colors hover:bg-action-primary-subtle focus:outline-none focus:ring-2 focus:ring-focus-ring/30"
+              class="h-14 rounded-full border-2 border-action-primary bg-background-surface px-6 text-lg font-bold text-action-primary transition-colors hover:bg-action-primary-subtle focus:outline-none focus:ring-2 focus:ring-focus-ring/30 lg:hidden"
               type="button"
             >
               Create New
@@ -1273,16 +1579,555 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots more open st
         class="min-w-0 flex-1"
       >
         <div
-          class="relative flex h-full flex-col bg-background-surface px-0 pb-18 lg:-mt-4 lg:bg-transparent lg:px-0 lg:pb-0"
+          class="relative flex h-full flex-col bg-background-page px-0 pb-18 lg:-mt-4 lg:bg-transparent lg:px-0 lg:pb-0"
         >
           <div
-            class="lg:hidden flex min-w-0 flex-col gap-4 pt-2 pb-16"
+            class="flex min-w-0 flex-col gap-4 pb-16 pt-2 lg:hidden"
+          >
+            <label
+              class="relative block w-full sm:w-72 w-full sm:w-full"
+            >
+              <span
+                class="sr-only"
+              >
+                Search customer
+              </span>
+              <div
+                data-testid="search-icon"
+              />
+              <input
+                aria-label="Search customer"
+                class="h-14 w-full rounded-full border border-border-default bg-background-surface pl-12 pr-4 text-base font-medium text-text-primary outline-none transition-colors placeholder:font-normal placeholder:text-text-tertiary hover:border-border-strong focus:border-border-focus focus:ring-2 focus:ring-focus-ring/30 !h-16 text-xl placeholder:text-xl"
+                placeholder="Search customer"
+                type="search"
+              />
+            </label>
+            <div
+              class="flex min-w-0 flex-col gap-4"
+            >
+              <button
+                class="group block w-full min-w-0 rounded-3xl border border-border-strong bg-background-surface p-5 text-left shadow-small transition-colors hover:border-border-strong hover:bg-background-subtle/40 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-action-primary"
+                type="button"
+              >
+                <span
+                  class="flex min-w-0 flex-wrap items-center justify-between gap-3"
+                >
+                  <span
+                    class="min-w-0 break-words text-xl font-semibold text-text-primary"
+                  >
+                    PT Mega Jaya Abadi
+                  </span>
+                  <span
+                    class="rounded-full px-3.5 py-1 text-lg font-semibold uppercase bg-badge-success-subtle text-badge-success"
+                  >
+                    active
+                  </span>
+                </span>
+                <span
+                  class="mt-4 flex flex-wrap items-end justify-between gap-x-4 gap-y-3 border-t border-border-default pt-4"
+                >
+                  <span
+                    class="min-w-0 text-lg text-text-secondary"
+                  >
+                    <span
+                      class="block text-lg text-text-tertiary"
+                    >
+                      Address
+                    </span>
+                    <span
+                      class="mt-1 block break-words text-lg font-medium text-text-primary"
+                    >
+                      Jl. Sudirman No. 45, Jakarta Pusat
+                    </span>
+                  </span>
+                  <span
+                    class="text-right"
+                  >
+                    <span
+                      class="block text-lg text-text-tertiary"
+                    >
+                      Phone Number
+                    </span>
+                    <span
+                      class="mt-1 block text-lg font-medium text-text-primary"
+                    >
+                      081234567890
+                    </span>
+                  </span>
+                </span>
+              </button>
+              <button
+                class="group block w-full min-w-0 rounded-3xl border border-border-strong bg-background-surface p-5 text-left shadow-small transition-colors hover:border-border-strong hover:bg-background-subtle/40 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-action-primary"
+                type="button"
+              >
+                <span
+                  class="flex min-w-0 flex-wrap items-center justify-between gap-3"
+                >
+                  <span
+                    class="min-w-0 break-words text-xl font-semibold text-text-primary"
+                  >
+                    CV Sinar Terang
+                  </span>
+                  <span
+                    class="rounded-full px-3.5 py-1 text-lg font-semibold uppercase bg-badge-success-subtle text-badge-success"
+                  >
+                    active
+                  </span>
+                </span>
+                <span
+                  class="mt-4 flex flex-wrap items-end justify-between gap-x-4 gap-y-3 border-t border-border-default pt-4"
+                >
+                  <span
+                    class="min-w-0 text-lg text-text-secondary"
+                  >
+                    <span
+                      class="block text-lg text-text-tertiary"
+                    >
+                      Address
+                    </span>
+                    <span
+                      class="mt-1 block break-words text-lg font-medium text-text-primary"
+                    >
+                      Jl. Gatot Subroto No. 12, Bandung
+                    </span>
+                  </span>
+                  <span
+                    class="text-right"
+                  >
+                    <span
+                      class="block text-lg text-text-tertiary"
+                    >
+                      Phone Number
+                    </span>
+                    <span
+                      class="mt-1 block text-lg font-medium text-text-primary"
+                    >
+                      081298765432
+                    </span>
+                  </span>
+                </span>
+              </button>
+              <button
+                class="group block w-full min-w-0 rounded-3xl border border-border-strong bg-background-surface p-5 text-left shadow-small transition-colors hover:border-border-strong hover:bg-background-subtle/40 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-action-primary"
+                type="button"
+              >
+                <span
+                  class="flex min-w-0 flex-wrap items-center justify-between gap-3"
+                >
+                  <span
+                    class="min-w-0 break-words text-xl font-semibold text-text-primary"
+                  >
+                    Budi Santoso
+                  </span>
+                  <span
+                    class="rounded-full px-3.5 py-1 text-lg font-semibold uppercase bg-badge-danger-subtle text-badge-danger"
+                  >
+                    inactive
+                  </span>
+                </span>
+                <span
+                  class="mt-4 flex flex-wrap items-end justify-between gap-x-4 gap-y-3 border-t border-border-default pt-4"
+                >
+                  <span
+                    class="min-w-0 text-lg text-text-secondary"
+                  >
+                    <span
+                      class="block text-lg text-text-tertiary"
+                    >
+                      Address
+                    </span>
+                    <span
+                      class="mt-1 block break-words text-lg font-medium text-text-primary"
+                    >
+                      Jl. Diponegoro No. 88, Surabaya
+                    </span>
+                  </span>
+                  <span
+                    class="text-right"
+                  >
+                    <span
+                      class="block text-lg text-text-tertiary"
+                    >
+                      Phone Number
+                    </span>
+                    <span
+                      class="mt-1 block text-lg font-medium text-text-primary"
+                    >
+                      085612345678
+                    </span>
+                  </span>
+                </span>
+              </button>
+              <button
+                class="group block w-full min-w-0 rounded-3xl border border-border-strong bg-background-surface p-5 text-left shadow-small transition-colors hover:border-border-strong hover:bg-background-subtle/40 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-action-primary"
+                type="button"
+              >
+                <span
+                  class="flex min-w-0 flex-wrap items-center justify-between gap-3"
+                >
+                  <span
+                    class="min-w-0 break-words text-xl font-semibold text-text-primary"
+                  >
+                    PT Nusantara Prima
+                  </span>
+                  <span
+                    class="rounded-full px-3.5 py-1 text-lg font-semibold uppercase bg-badge-success-subtle text-badge-success"
+                  >
+                    active
+                  </span>
+                </span>
+                <span
+                  class="mt-4 flex flex-wrap items-end justify-between gap-x-4 gap-y-3 border-t border-border-default pt-4"
+                >
+                  <span
+                    class="min-w-0 text-lg text-text-secondary"
+                  >
+                    <span
+                      class="block text-lg text-text-tertiary"
+                    >
+                      Address
+                    </span>
+                    <span
+                      class="mt-1 block break-words text-lg font-medium text-text-primary"
+                    >
+                      Jl. M.H. Thamrin No. 9, Jakarta Pusat
+                    </span>
+                  </span>
+                  <span
+                    class="text-right"
+                  >
+                    <span
+                      class="block text-lg text-text-tertiary"
+                    >
+                      Phone Number
+                    </span>
+                    <span
+                      class="mt-1 block text-lg font-medium text-text-primary"
+                    >
+                      081377889900
+                    </span>
+                  </span>
+                </span>
+              </button>
+              <button
+                class="group block w-full min-w-0 rounded-3xl border border-border-strong bg-background-surface p-5 text-left shadow-small transition-colors hover:border-border-strong hover:bg-background-subtle/40 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-action-primary"
+                type="button"
+              >
+                <span
+                  class="flex min-w-0 flex-wrap items-center justify-between gap-3"
+                >
+                  <span
+                    class="min-w-0 break-words text-xl font-semibold text-text-primary"
+                  >
+                    Dewi Lestari
+                  </span>
+                  <span
+                    class="rounded-full px-3.5 py-1 text-lg font-semibold uppercase bg-badge-success-subtle text-badge-success"
+                  >
+                    active
+                  </span>
+                </span>
+                <span
+                  class="mt-4 flex flex-wrap items-end justify-between gap-x-4 gap-y-3 border-t border-border-default pt-4"
+                >
+                  <span
+                    class="min-w-0 text-lg text-text-secondary"
+                  >
+                    <span
+                      class="block text-lg text-text-tertiary"
+                    >
+                      Address
+                    </span>
+                    <span
+                      class="mt-1 block break-words text-lg font-medium text-text-primary"
+                    >
+                      Jl. Malioboro No. 23, Yogyakarta
+                    </span>
+                  </span>
+                  <span
+                    class="text-right"
+                  >
+                    <span
+                      class="block text-lg text-text-tertiary"
+                    >
+                      Phone Number
+                    </span>
+                    <span
+                      class="mt-1 block text-lg font-medium text-text-primary"
+                    >
+                      087811223344
+                    </span>
+                  </span>
+                </span>
+              </button>
+              <button
+                class="group block w-full min-w-0 rounded-3xl border border-border-strong bg-background-surface p-5 text-left shadow-small transition-colors hover:border-border-strong hover:bg-background-subtle/40 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-action-primary"
+                type="button"
+              >
+                <span
+                  class="flex min-w-0 flex-wrap items-center justify-between gap-3"
+                >
+                  <span
+                    class="min-w-0 break-words text-xl font-semibold text-text-primary"
+                  >
+                    CV Berkah Mandiri
+                  </span>
+                  <span
+                    class="rounded-full px-3.5 py-1 text-lg font-semibold uppercase bg-badge-danger-subtle text-badge-danger"
+                  >
+                    inactive
+                  </span>
+                </span>
+                <span
+                  class="mt-4 flex flex-wrap items-end justify-between gap-x-4 gap-y-3 border-t border-border-default pt-4"
+                >
+                  <span
+                    class="min-w-0 text-lg text-text-secondary"
+                  >
+                    <span
+                      class="block text-lg text-text-tertiary"
+                    >
+                      Address
+                    </span>
+                    <span
+                      class="mt-1 block break-words text-lg font-medium text-text-primary"
+                    >
+                      Jl. Pemuda No. 101, Semarang
+                    </span>
+                  </span>
+                  <span
+                    class="text-right"
+                  >
+                    <span
+                      class="block text-lg text-text-tertiary"
+                    >
+                      Phone Number
+                    </span>
+                    <span
+                      class="mt-1 block text-lg font-medium text-text-primary"
+                    >
+                      082155667788
+                    </span>
+                  </span>
+                </span>
+              </button>
+              <button
+                class="group block w-full min-w-0 rounded-3xl border border-border-strong bg-background-surface p-5 text-left shadow-small transition-colors hover:border-border-strong hover:bg-background-subtle/40 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-action-primary"
+                type="button"
+              >
+                <span
+                  class="flex min-w-0 flex-wrap items-center justify-between gap-3"
+                >
+                  <span
+                    class="min-w-0 break-words text-xl font-semibold text-text-primary"
+                  >
+                    PT Cipta Karya Solusi
+                  </span>
+                  <span
+                    class="rounded-full px-3.5 py-1 text-lg font-semibold uppercase bg-badge-success-subtle text-badge-success"
+                  >
+                    active
+                  </span>
+                </span>
+                <span
+                  class="mt-4 flex flex-wrap items-end justify-between gap-x-4 gap-y-3 border-t border-border-default pt-4"
+                >
+                  <span
+                    class="min-w-0 text-lg text-text-secondary"
+                  >
+                    <span
+                      class="block text-lg text-text-tertiary"
+                    >
+                      Address
+                    </span>
+                    <span
+                      class="mt-1 block break-words text-lg font-medium text-text-primary"
+                    >
+                      Jl. Raya Bogor KM 28, Depok
+                    </span>
+                  </span>
+                  <span
+                    class="text-right"
+                  >
+                    <span
+                      class="block text-lg text-text-tertiary"
+                    >
+                      Phone Number
+                    </span>
+                    <span
+                      class="mt-1 block text-lg font-medium text-text-primary"
+                    >
+                      081900112233
+                    </span>
+                  </span>
+                </span>
+              </button>
+              <button
+                class="group block w-full min-w-0 rounded-3xl border border-border-strong bg-background-surface p-5 text-left shadow-small transition-colors hover:border-border-strong hover:bg-background-subtle/40 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-action-primary"
+                type="button"
+              >
+                <span
+                  class="flex min-w-0 flex-wrap items-center justify-between gap-3"
+                >
+                  <span
+                    class="min-w-0 break-words text-xl font-semibold text-text-primary"
+                  >
+                    Ahmad Fauzi
+                  </span>
+                  <span
+                    class="rounded-full px-3.5 py-1 text-lg font-semibold uppercase bg-badge-success-subtle text-badge-success"
+                  >
+                    active
+                  </span>
+                </span>
+                <span
+                  class="mt-4 flex flex-wrap items-end justify-between gap-x-4 gap-y-3 border-t border-border-default pt-4"
+                >
+                  <span
+                    class="min-w-0 text-lg text-text-secondary"
+                  >
+                    <span
+                      class="block text-lg text-text-tertiary"
+                    >
+                      Address
+                    </span>
+                    <span
+                      class="mt-1 block break-words text-lg font-medium text-text-primary"
+                    >
+                      Jl. Ahmad Yani No. 50, Medan
+                    </span>
+                  </span>
+                  <span
+                    class="text-right"
+                  >
+                    <span
+                      class="block text-lg text-text-tertiary"
+                    >
+                      Phone Number
+                    </span>
+                    <span
+                      class="mt-1 block text-lg font-medium text-text-primary"
+                    >
+                      085244332211
+                    </span>
+                  </span>
+                </span>
+              </button>
+              <button
+                class="group block w-full min-w-0 rounded-3xl border border-border-strong bg-background-surface p-5 text-left shadow-small transition-colors hover:border-border-strong hover:bg-background-subtle/40 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-action-primary"
+                type="button"
+              >
+                <span
+                  class="flex min-w-0 flex-wrap items-center justify-between gap-3"
+                >
+                  <span
+                    class="min-w-0 break-words text-xl font-semibold text-text-primary"
+                  >
+                    PT Global Indo Medika
+                  </span>
+                  <span
+                    class="rounded-full px-3.5 py-1 text-lg font-semibold uppercase bg-badge-danger-subtle text-badge-danger"
+                  >
+                    inactive
+                  </span>
+                </span>
+                <span
+                  class="mt-4 flex flex-wrap items-end justify-between gap-x-4 gap-y-3 border-t border-border-default pt-4"
+                >
+                  <span
+                    class="min-w-0 text-lg text-text-secondary"
+                  >
+                    <span
+                      class="block text-lg text-text-tertiary"
+                    >
+                      Address
+                    </span>
+                    <span
+                      class="mt-1 block break-words text-lg font-medium text-text-primary"
+                    >
+                      Jl. HR Rasuna Said Kav. C-22, Jakarta Selatan
+                    </span>
+                  </span>
+                  <span
+                    class="text-right"
+                  >
+                    <span
+                      class="block text-lg text-text-tertiary"
+                    >
+                      Phone Number
+                    </span>
+                    <span
+                      class="mt-1 block text-lg font-medium text-text-primary"
+                    >
+                      081199887766
+                    </span>
+                  </span>
+                </span>
+              </button>
+              <button
+                class="group block w-full min-w-0 rounded-3xl border border-border-strong bg-background-surface p-5 text-left shadow-small transition-colors hover:border-border-strong hover:bg-background-subtle/40 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-action-primary"
+                type="button"
+              >
+                <span
+                  class="flex min-w-0 flex-wrap items-center justify-between gap-3"
+                >
+                  <span
+                    class="min-w-0 break-words text-xl font-semibold text-text-primary"
+                  >
+                    Siti Rahmawati
+                  </span>
+                  <span
+                    class="rounded-full px-3.5 py-1 text-lg font-semibold uppercase bg-badge-success-subtle text-badge-success"
+                  >
+                    active
+                  </span>
+                </span>
+                <span
+                  class="mt-4 flex flex-wrap items-end justify-between gap-x-4 gap-y-3 border-t border-border-default pt-4"
+                >
+                  <span
+                    class="min-w-0 text-lg text-text-secondary"
+                  >
+                    <span
+                      class="block text-lg text-text-tertiary"
+                    >
+                      Address
+                    </span>
+                    <span
+                      class="mt-1 block break-words text-lg font-medium text-text-primary"
+                    >
+                      Jl. Gajah Mada No. 14, Denpasar
+                    </span>
+                  </span>
+                  <span
+                    class="text-right"
+                  >
+                    <span
+                      class="block text-lg text-text-tertiary"
+                    >
+                      Phone Number
+                    </span>
+                    <span
+                      class="mt-1 block text-lg font-medium text-text-primary"
+                    >
+                      083812349988
+                    </span>
+                  </span>
+                </span>
+              </button>
+            </div>
+            <div
+              data-testid="pagination"
+            />
+          </div>
+          <div
+            class="hidden rounded-3xl border border-border-default bg-background-surface px-6 pb-6 pt-0 shadow-xs md:mt-6 md:flex md:flex-1 md:flex-col md:overflow-hidden lg:flex"
           >
             <div
-              class="w-full"
+              class="flex items-center justify-between gap-4 border-b border-border-default py-6"
             >
               <label
-                class="relative block w-full sm:w-72 w-full sm:w-full"
+                class="relative block w-full sm:w-72 "
               >
                 <span
                   class="sr-only"
@@ -1299,411 +2144,8 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots more open st
                   type="search"
                 />
               </label>
-            </div>
-            <div
-              class="min-w-0 space-y-3"
-            >
               <button
-                class="group flex w-full items-start gap-4 rounded-2xl border border-border-default bg-background-surface p-5 text-left transition-colors hover:border-border-strong hover:bg-background-subtle/40 focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring/30 "
-                type="button"
-              >
-                <span
-                  class="min-w-0 flex-1"
-                >
-                  <span
-                    class="block truncate font-semibold text-text-primary text-2xl"
-                  >
-                    PT Mega Jaya Abadi
-                  </span>
-                  <span
-                    class="mt-3 block text-xl"
-                  >
-                    <span
-                      class="grid gap-1 text-lg text-text-secondary"
-                    >
-                      <span
-                        class="truncate"
-                      >
-                        Jl. Sudirman No. 45, Jakarta Pusat
-                      </span>
-                      <span
-                        class="truncate"
-                      >
-                        081234567890
-                      </span>
-                    </span>
-                  </span>
-                </span>
-                <span
-                  class="shrink-0 rounded-full px-3 py-1 font-bold uppercase tracking-wider bg-success-subtle text-success-strong text-sm"
-                >
-                  active
-                </span>
-              </button>
-              <button
-                class="group flex w-full items-start gap-4 rounded-2xl border border-border-default bg-background-surface p-5 text-left transition-colors hover:border-border-strong hover:bg-background-subtle/40 focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring/30 "
-                type="button"
-              >
-                <span
-                  class="min-w-0 flex-1"
-                >
-                  <span
-                    class="block truncate font-semibold text-text-primary text-2xl"
-                  >
-                    CV Sinar Terang
-                  </span>
-                  <span
-                    class="mt-3 block text-xl"
-                  >
-                    <span
-                      class="grid gap-1 text-lg text-text-secondary"
-                    >
-                      <span
-                        class="truncate"
-                      >
-                        Jl. Gatot Subroto No. 12, Bandung
-                      </span>
-                      <span
-                        class="truncate"
-                      >
-                        081298765432
-                      </span>
-                    </span>
-                  </span>
-                </span>
-                <span
-                  class="shrink-0 rounded-full px-3 py-1 font-bold uppercase tracking-wider bg-success-subtle text-success-strong text-sm"
-                >
-                  active
-                </span>
-              </button>
-              <button
-                class="group flex w-full items-start gap-4 rounded-2xl border border-border-default bg-background-surface p-5 text-left transition-colors hover:border-border-strong hover:bg-background-subtle/40 focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring/30 "
-                type="button"
-              >
-                <span
-                  class="min-w-0 flex-1"
-                >
-                  <span
-                    class="block truncate font-semibold text-text-primary text-2xl"
-                  >
-                    Budi Santoso
-                  </span>
-                  <span
-                    class="mt-3 block text-xl"
-                  >
-                    <span
-                      class="grid gap-1 text-lg text-text-secondary"
-                    >
-                      <span
-                        class="truncate"
-                      >
-                        Jl. Diponegoro No. 88, Surabaya
-                      </span>
-                      <span
-                        class="truncate"
-                      >
-                        085612345678
-                      </span>
-                    </span>
-                  </span>
-                </span>
-                <span
-                  class="shrink-0 rounded-full px-3 py-1 font-bold uppercase tracking-wider bg-danger-subtle text-danger-strong text-sm"
-                >
-                  inactive
-                </span>
-              </button>
-              <button
-                class="group flex w-full items-start gap-4 rounded-2xl border border-border-default bg-background-surface p-5 text-left transition-colors hover:border-border-strong hover:bg-background-subtle/40 focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring/30 "
-                type="button"
-              >
-                <span
-                  class="min-w-0 flex-1"
-                >
-                  <span
-                    class="block truncate font-semibold text-text-primary text-2xl"
-                  >
-                    PT Nusantara Prima
-                  </span>
-                  <span
-                    class="mt-3 block text-xl"
-                  >
-                    <span
-                      class="grid gap-1 text-lg text-text-secondary"
-                    >
-                      <span
-                        class="truncate"
-                      >
-                        Jl. M.H. Thamrin No. 9, Jakarta Pusat
-                      </span>
-                      <span
-                        class="truncate"
-                      >
-                        081377889900
-                      </span>
-                    </span>
-                  </span>
-                </span>
-                <span
-                  class="shrink-0 rounded-full px-3 py-1 font-bold uppercase tracking-wider bg-success-subtle text-success-strong text-sm"
-                >
-                  active
-                </span>
-              </button>
-              <button
-                class="group flex w-full items-start gap-4 rounded-2xl border border-border-default bg-background-surface p-5 text-left transition-colors hover:border-border-strong hover:bg-background-subtle/40 focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring/30 "
-                type="button"
-              >
-                <span
-                  class="min-w-0 flex-1"
-                >
-                  <span
-                    class="block truncate font-semibold text-text-primary text-2xl"
-                  >
-                    Dewi Lestari
-                  </span>
-                  <span
-                    class="mt-3 block text-xl"
-                  >
-                    <span
-                      class="grid gap-1 text-lg text-text-secondary"
-                    >
-                      <span
-                        class="truncate"
-                      >
-                        Jl. Malioboro No. 23, Yogyakarta
-                      </span>
-                      <span
-                        class="truncate"
-                      >
-                        087811223344
-                      </span>
-                    </span>
-                  </span>
-                </span>
-                <span
-                  class="shrink-0 rounded-full px-3 py-1 font-bold uppercase tracking-wider bg-success-subtle text-success-strong text-sm"
-                >
-                  active
-                </span>
-              </button>
-              <button
-                class="group flex w-full items-start gap-4 rounded-2xl border border-border-default bg-background-surface p-5 text-left transition-colors hover:border-border-strong hover:bg-background-subtle/40 focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring/30 "
-                type="button"
-              >
-                <span
-                  class="min-w-0 flex-1"
-                >
-                  <span
-                    class="block truncate font-semibold text-text-primary text-2xl"
-                  >
-                    CV Berkah Mandiri
-                  </span>
-                  <span
-                    class="mt-3 block text-xl"
-                  >
-                    <span
-                      class="grid gap-1 text-lg text-text-secondary"
-                    >
-                      <span
-                        class="truncate"
-                      >
-                        Jl. Pemuda No. 101, Semarang
-                      </span>
-                      <span
-                        class="truncate"
-                      >
-                        082155667788
-                      </span>
-                    </span>
-                  </span>
-                </span>
-                <span
-                  class="shrink-0 rounded-full px-3 py-1 font-bold uppercase tracking-wider bg-danger-subtle text-danger-strong text-sm"
-                >
-                  inactive
-                </span>
-              </button>
-              <button
-                class="group flex w-full items-start gap-4 rounded-2xl border border-border-default bg-background-surface p-5 text-left transition-colors hover:border-border-strong hover:bg-background-subtle/40 focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring/30 "
-                type="button"
-              >
-                <span
-                  class="min-w-0 flex-1"
-                >
-                  <span
-                    class="block truncate font-semibold text-text-primary text-2xl"
-                  >
-                    PT Cipta Karya Solusi
-                  </span>
-                  <span
-                    class="mt-3 block text-xl"
-                  >
-                    <span
-                      class="grid gap-1 text-lg text-text-secondary"
-                    >
-                      <span
-                        class="truncate"
-                      >
-                        Jl. Raya Bogor KM 28, Depok
-                      </span>
-                      <span
-                        class="truncate"
-                      >
-                        081900112233
-                      </span>
-                    </span>
-                  </span>
-                </span>
-                <span
-                  class="shrink-0 rounded-full px-3 py-1 font-bold uppercase tracking-wider bg-success-subtle text-success-strong text-sm"
-                >
-                  active
-                </span>
-              </button>
-              <button
-                class="group flex w-full items-start gap-4 rounded-2xl border border-border-default bg-background-surface p-5 text-left transition-colors hover:border-border-strong hover:bg-background-subtle/40 focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring/30 "
-                type="button"
-              >
-                <span
-                  class="min-w-0 flex-1"
-                >
-                  <span
-                    class="block truncate font-semibold text-text-primary text-2xl"
-                  >
-                    Ahmad Fauzi
-                  </span>
-                  <span
-                    class="mt-3 block text-xl"
-                  >
-                    <span
-                      class="grid gap-1 text-lg text-text-secondary"
-                    >
-                      <span
-                        class="truncate"
-                      >
-                        Jl. Ahmad Yani No. 50, Medan
-                      </span>
-                      <span
-                        class="truncate"
-                      >
-                        085244332211
-                      </span>
-                    </span>
-                  </span>
-                </span>
-                <span
-                  class="shrink-0 rounded-full px-3 py-1 font-bold uppercase tracking-wider bg-success-subtle text-success-strong text-sm"
-                >
-                  active
-                </span>
-              </button>
-              <button
-                class="group flex w-full items-start gap-4 rounded-2xl border border-border-default bg-background-surface p-5 text-left transition-colors hover:border-border-strong hover:bg-background-subtle/40 focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring/30 "
-                type="button"
-              >
-                <span
-                  class="min-w-0 flex-1"
-                >
-                  <span
-                    class="block truncate font-semibold text-text-primary text-2xl"
-                  >
-                    PT Global Indo Medika
-                  </span>
-                  <span
-                    class="mt-3 block text-xl"
-                  >
-                    <span
-                      class="grid gap-1 text-lg text-text-secondary"
-                    >
-                      <span
-                        class="truncate"
-                      >
-                        Jl. HR Rasuna Said Kav. C-22, Jakarta Selatan
-                      </span>
-                      <span
-                        class="truncate"
-                      >
-                        081199887766
-                      </span>
-                    </span>
-                  </span>
-                </span>
-                <span
-                  class="shrink-0 rounded-full px-3 py-1 font-bold uppercase tracking-wider bg-danger-subtle text-danger-strong text-sm"
-                >
-                  inactive
-                </span>
-              </button>
-              <button
-                class="group flex w-full items-start gap-4 rounded-2xl border border-border-default bg-background-surface p-5 text-left transition-colors hover:border-border-strong hover:bg-background-subtle/40 focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring/30 "
-                type="button"
-              >
-                <span
-                  class="min-w-0 flex-1"
-                >
-                  <span
-                    class="block truncate font-semibold text-text-primary text-2xl"
-                  >
-                    Siti Rahmawati
-                  </span>
-                  <span
-                    class="mt-3 block text-xl"
-                  >
-                    <span
-                      class="grid gap-1 text-lg text-text-secondary"
-                    >
-                      <span
-                        class="truncate"
-                      >
-                        Jl. Gajah Mada No. 14, Denpasar
-                      </span>
-                      <span
-                        class="truncate"
-                      >
-                        083812349988
-                      </span>
-                    </span>
-                  </span>
-                </span>
-                <span
-                  class="shrink-0 rounded-full px-3 py-1 font-bold uppercase tracking-wider bg-success-subtle text-success-strong text-sm"
-                >
-                  active
-                </span>
-              </button>
-            </div>
-            <div
-              data-testid="pagination"
-            />
-          </div>
-          <div
-            class="hidden rounded-4xl border border-border-default bg-background-surface px-6 shadow-xs md:mt-6 md:flex md:flex-1 md:flex-col md:overflow-hidden lg:flex"
-          >
-            <div
-              class="flex items-center justify-between gap-4 py-6 border-brand-gray-light"
-            >
-              <label
-                class="relative block w-full sm:w-72 "
-              >
-                <span
-                  class="sr-only"
-                >
-                  Search customer
-                </span>
-                <div
-                  data-testid="search-icon"
-                />
-                <input
-                  aria-label="Search customer"
-                  class="h-14 w-full rounded-xl border border-border-default bg-background-surface pl-12 pr-4 text-base font-medium text-text-primary outline-none transition-colors placeholder:font-normal placeholder:text-text-tertiary hover:border-border-strong focus:border-border-focus focus:ring-2 focus:ring-focus-ring/30"
-                  placeholder="Search customer"
-                  type="search"
-                />
-              </label>
-              <button
-                class="rounded-xl bg-brand-blue h-14 px-6 text-sm font-semibold text-brand-white shadow-sm transition-colors hover:bg-brand-blue/90 focus:outline-none focus:ring-2 focus:ring-brand-blue/30"
+                class="h-14 rounded-2xl bg-action-primary px-6 text-lg font-semibold text-text-inverse hover:bg-action-primary-hover focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring"
                 type="button"
               >
                 Create Customer
@@ -1768,7 +2210,7 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots more open st
                             class="px-5 py-4 border-b border-border-default text-base text-center "
                           >
                             <span
-                              class="text-sm"
+                              class="text-lg"
                             >
                               1
                             </span>
@@ -1776,23 +2218,35 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots more open st
                           <td
                             class="px-5 py-4 border-b border-border-default text-base text-left "
                           >
-                            PT Mega Jaya Abadi
+                            <span
+                              class="text-lg font-medium"
+                            >
+                              PT Mega Jaya Abadi
+                            </span>
                           </td>
                           <td
                             class="px-5 py-4 border-b border-border-default text-base text-left "
                           >
-                            Jl. Sudirman No. 45, Jakarta Pusat
+                            <span
+                              class="text-lg"
+                            >
+                              Jl. Sudirman No. 45, Jakarta Pusat
+                            </span>
                           </td>
                           <td
                             class="px-5 py-4 border-b border-border-default text-base text-left "
                           >
-                            081234567890
+                            <span
+                              class="text-lg"
+                            >
+                              081234567890
+                            </span>
                           </td>
                           <td
                             class="px-5 py-4 border-b border-border-default text-base text-center "
                           >
                             <span
-                              class="rounded-full px-3 py-1 text-xs font-bold uppercase bg-green-100 text-green-600"
+                              class="inline-flex rounded-full px-4 py-1.5 text-lg font-semibold uppercase bg-badge-success-subtle text-badge-success"
                             >
                               active
                             </span>
@@ -1800,15 +2254,20 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots more open st
                           <td
                             class="px-5 py-4 border-b border-border-default text-base text-center "
                           >
-                            <button
-                              class="cursor-pointer rounded-lg p-1.5 text-brand-text-medium transition-colors hover:bg-brand-blue-light hover:text-brand-blue"
-                              title="Edit"
-                              type="button"
+                            <div
+                              class="flex items-center justify-center gap-1"
                             >
-                              <div
-                                data-testid="edit-icon"
-                              />
-                            </button>
+                              <button
+                                aria-label="Edit customer"
+                                class="cursor-pointer rounded-3xl p-2.5 text-text-secondary hover:bg-action-primary-subtle hover:text-action-primary"
+                                title="Edit customer"
+                                type="button"
+                              >
+                                <div
+                                  data-testid="edit-icon"
+                                />
+                              </button>
+                            </div>
                           </td>
                         </tr>
                         <tr
@@ -1818,7 +2277,7 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots more open st
                             class="px-5 py-4 border-b border-border-default text-base text-center "
                           >
                             <span
-                              class="text-sm"
+                              class="text-lg"
                             >
                               2
                             </span>
@@ -1826,23 +2285,35 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots more open st
                           <td
                             class="px-5 py-4 border-b border-border-default text-base text-left "
                           >
-                            CV Sinar Terang
+                            <span
+                              class="text-lg font-medium"
+                            >
+                              CV Sinar Terang
+                            </span>
                           </td>
                           <td
                             class="px-5 py-4 border-b border-border-default text-base text-left "
                           >
-                            Jl. Gatot Subroto No. 12, Bandung
+                            <span
+                              class="text-lg"
+                            >
+                              Jl. Gatot Subroto No. 12, Bandung
+                            </span>
                           </td>
                           <td
                             class="px-5 py-4 border-b border-border-default text-base text-left "
                           >
-                            081298765432
+                            <span
+                              class="text-lg"
+                            >
+                              081298765432
+                            </span>
                           </td>
                           <td
                             class="px-5 py-4 border-b border-border-default text-base text-center "
                           >
                             <span
-                              class="rounded-full px-3 py-1 text-xs font-bold uppercase bg-green-100 text-green-600"
+                              class="inline-flex rounded-full px-4 py-1.5 text-lg font-semibold uppercase bg-badge-success-subtle text-badge-success"
                             >
                               active
                             </span>
@@ -1850,15 +2321,20 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots more open st
                           <td
                             class="px-5 py-4 border-b border-border-default text-base text-center "
                           >
-                            <button
-                              class="cursor-pointer rounded-lg p-1.5 text-brand-text-medium transition-colors hover:bg-brand-blue-light hover:text-brand-blue"
-                              title="Edit"
-                              type="button"
+                            <div
+                              class="flex items-center justify-center gap-1"
                             >
-                              <div
-                                data-testid="edit-icon"
-                              />
-                            </button>
+                              <button
+                                aria-label="Edit customer"
+                                class="cursor-pointer rounded-3xl p-2.5 text-text-secondary hover:bg-action-primary-subtle hover:text-action-primary"
+                                title="Edit customer"
+                                type="button"
+                              >
+                                <div
+                                  data-testid="edit-icon"
+                                />
+                              </button>
+                            </div>
                           </td>
                         </tr>
                         <tr
@@ -1868,7 +2344,7 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots more open st
                             class="px-5 py-4 border-b border-border-default text-base text-center "
                           >
                             <span
-                              class="text-sm"
+                              class="text-lg"
                             >
                               3
                             </span>
@@ -1876,23 +2352,35 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots more open st
                           <td
                             class="px-5 py-4 border-b border-border-default text-base text-left "
                           >
-                            Budi Santoso
+                            <span
+                              class="text-lg font-medium"
+                            >
+                              Budi Santoso
+                            </span>
                           </td>
                           <td
                             class="px-5 py-4 border-b border-border-default text-base text-left "
                           >
-                            Jl. Diponegoro No. 88, Surabaya
+                            <span
+                              class="text-lg"
+                            >
+                              Jl. Diponegoro No. 88, Surabaya
+                            </span>
                           </td>
                           <td
                             class="px-5 py-4 border-b border-border-default text-base text-left "
                           >
-                            085612345678
+                            <span
+                              class="text-lg"
+                            >
+                              085612345678
+                            </span>
                           </td>
                           <td
                             class="px-5 py-4 border-b border-border-default text-base text-center "
                           >
                             <span
-                              class="rounded-full px-3 py-1 text-xs font-bold uppercase bg-red-100 text-red-600"
+                              class="inline-flex rounded-full px-4 py-1.5 text-lg font-semibold uppercase bg-badge-danger-subtle text-badge-danger"
                             >
                               inactive
                             </span>
@@ -1900,15 +2388,20 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots more open st
                           <td
                             class="px-5 py-4 border-b border-border-default text-base text-center "
                           >
-                            <button
-                              class="cursor-pointer rounded-lg p-1.5 text-brand-text-medium transition-colors hover:bg-brand-blue-light hover:text-brand-blue"
-                              title="Edit"
-                              type="button"
+                            <div
+                              class="flex items-center justify-center gap-1"
                             >
-                              <div
-                                data-testid="edit-icon"
-                              />
-                            </button>
+                              <button
+                                aria-label="Edit customer"
+                                class="cursor-pointer rounded-3xl p-2.5 text-text-secondary hover:bg-action-primary-subtle hover:text-action-primary"
+                                title="Edit customer"
+                                type="button"
+                              >
+                                <div
+                                  data-testid="edit-icon"
+                                />
+                              </button>
+                            </div>
                           </td>
                         </tr>
                         <tr
@@ -1918,7 +2411,7 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots more open st
                             class="px-5 py-4 border-b border-border-default text-base text-center "
                           >
                             <span
-                              class="text-sm"
+                              class="text-lg"
                             >
                               4
                             </span>
@@ -1926,23 +2419,35 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots more open st
                           <td
                             class="px-5 py-4 border-b border-border-default text-base text-left "
                           >
-                            PT Nusantara Prima
+                            <span
+                              class="text-lg font-medium"
+                            >
+                              PT Nusantara Prima
+                            </span>
                           </td>
                           <td
                             class="px-5 py-4 border-b border-border-default text-base text-left "
                           >
-                            Jl. M.H. Thamrin No. 9, Jakarta Pusat
+                            <span
+                              class="text-lg"
+                            >
+                              Jl. M.H. Thamrin No. 9, Jakarta Pusat
+                            </span>
                           </td>
                           <td
                             class="px-5 py-4 border-b border-border-default text-base text-left "
                           >
-                            081377889900
+                            <span
+                              class="text-lg"
+                            >
+                              081377889900
+                            </span>
                           </td>
                           <td
                             class="px-5 py-4 border-b border-border-default text-base text-center "
                           >
                             <span
-                              class="rounded-full px-3 py-1 text-xs font-bold uppercase bg-green-100 text-green-600"
+                              class="inline-flex rounded-full px-4 py-1.5 text-lg font-semibold uppercase bg-badge-success-subtle text-badge-success"
                             >
                               active
                             </span>
@@ -1950,15 +2455,20 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots more open st
                           <td
                             class="px-5 py-4 border-b border-border-default text-base text-center "
                           >
-                            <button
-                              class="cursor-pointer rounded-lg p-1.5 text-brand-text-medium transition-colors hover:bg-brand-blue-light hover:text-brand-blue"
-                              title="Edit"
-                              type="button"
+                            <div
+                              class="flex items-center justify-center gap-1"
                             >
-                              <div
-                                data-testid="edit-icon"
-                              />
-                            </button>
+                              <button
+                                aria-label="Edit customer"
+                                class="cursor-pointer rounded-3xl p-2.5 text-text-secondary hover:bg-action-primary-subtle hover:text-action-primary"
+                                title="Edit customer"
+                                type="button"
+                              >
+                                <div
+                                  data-testid="edit-icon"
+                                />
+                              </button>
+                            </div>
                           </td>
                         </tr>
                         <tr
@@ -1968,7 +2478,7 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots more open st
                             class="px-5 py-4 border-b border-border-default text-base text-center "
                           >
                             <span
-                              class="text-sm"
+                              class="text-lg"
                             >
                               5
                             </span>
@@ -1976,23 +2486,35 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots more open st
                           <td
                             class="px-5 py-4 border-b border-border-default text-base text-left "
                           >
-                            Dewi Lestari
+                            <span
+                              class="text-lg font-medium"
+                            >
+                              Dewi Lestari
+                            </span>
                           </td>
                           <td
                             class="px-5 py-4 border-b border-border-default text-base text-left "
                           >
-                            Jl. Malioboro No. 23, Yogyakarta
+                            <span
+                              class="text-lg"
+                            >
+                              Jl. Malioboro No. 23, Yogyakarta
+                            </span>
                           </td>
                           <td
                             class="px-5 py-4 border-b border-border-default text-base text-left "
                           >
-                            087811223344
+                            <span
+                              class="text-lg"
+                            >
+                              087811223344
+                            </span>
                           </td>
                           <td
                             class="px-5 py-4 border-b border-border-default text-base text-center "
                           >
                             <span
-                              class="rounded-full px-3 py-1 text-xs font-bold uppercase bg-green-100 text-green-600"
+                              class="inline-flex rounded-full px-4 py-1.5 text-lg font-semibold uppercase bg-badge-success-subtle text-badge-success"
                             >
                               active
                             </span>
@@ -2000,15 +2522,20 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots more open st
                           <td
                             class="px-5 py-4 border-b border-border-default text-base text-center "
                           >
-                            <button
-                              class="cursor-pointer rounded-lg p-1.5 text-brand-text-medium transition-colors hover:bg-brand-blue-light hover:text-brand-blue"
-                              title="Edit"
-                              type="button"
+                            <div
+                              class="flex items-center justify-center gap-1"
                             >
-                              <div
-                                data-testid="edit-icon"
-                              />
-                            </button>
+                              <button
+                                aria-label="Edit customer"
+                                class="cursor-pointer rounded-3xl p-2.5 text-text-secondary hover:bg-action-primary-subtle hover:text-action-primary"
+                                title="Edit customer"
+                                type="button"
+                              >
+                                <div
+                                  data-testid="edit-icon"
+                                />
+                              </button>
+                            </div>
                           </td>
                         </tr>
                         <tr
@@ -2018,7 +2545,7 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots more open st
                             class="px-5 py-4 border-b border-border-default text-base text-center "
                           >
                             <span
-                              class="text-sm"
+                              class="text-lg"
                             >
                               6
                             </span>
@@ -2026,23 +2553,35 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots more open st
                           <td
                             class="px-5 py-4 border-b border-border-default text-base text-left "
                           >
-                            CV Berkah Mandiri
+                            <span
+                              class="text-lg font-medium"
+                            >
+                              CV Berkah Mandiri
+                            </span>
                           </td>
                           <td
                             class="px-5 py-4 border-b border-border-default text-base text-left "
                           >
-                            Jl. Pemuda No. 101, Semarang
+                            <span
+                              class="text-lg"
+                            >
+                              Jl. Pemuda No. 101, Semarang
+                            </span>
                           </td>
                           <td
                             class="px-5 py-4 border-b border-border-default text-base text-left "
                           >
-                            082155667788
+                            <span
+                              class="text-lg"
+                            >
+                              082155667788
+                            </span>
                           </td>
                           <td
                             class="px-5 py-4 border-b border-border-default text-base text-center "
                           >
                             <span
-                              class="rounded-full px-3 py-1 text-xs font-bold uppercase bg-red-100 text-red-600"
+                              class="inline-flex rounded-full px-4 py-1.5 text-lg font-semibold uppercase bg-badge-danger-subtle text-badge-danger"
                             >
                               inactive
                             </span>
@@ -2050,15 +2589,20 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots more open st
                           <td
                             class="px-5 py-4 border-b border-border-default text-base text-center "
                           >
-                            <button
-                              class="cursor-pointer rounded-lg p-1.5 text-brand-text-medium transition-colors hover:bg-brand-blue-light hover:text-brand-blue"
-                              title="Edit"
-                              type="button"
+                            <div
+                              class="flex items-center justify-center gap-1"
                             >
-                              <div
-                                data-testid="edit-icon"
-                              />
-                            </button>
+                              <button
+                                aria-label="Edit customer"
+                                class="cursor-pointer rounded-3xl p-2.5 text-text-secondary hover:bg-action-primary-subtle hover:text-action-primary"
+                                title="Edit customer"
+                                type="button"
+                              >
+                                <div
+                                  data-testid="edit-icon"
+                                />
+                              </button>
+                            </div>
                           </td>
                         </tr>
                         <tr
@@ -2068,7 +2612,7 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots more open st
                             class="px-5 py-4 border-b border-border-default text-base text-center "
                           >
                             <span
-                              class="text-sm"
+                              class="text-lg"
                             >
                               7
                             </span>
@@ -2076,23 +2620,35 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots more open st
                           <td
                             class="px-5 py-4 border-b border-border-default text-base text-left "
                           >
-                            PT Cipta Karya Solusi
+                            <span
+                              class="text-lg font-medium"
+                            >
+                              PT Cipta Karya Solusi
+                            </span>
                           </td>
                           <td
                             class="px-5 py-4 border-b border-border-default text-base text-left "
                           >
-                            Jl. Raya Bogor KM 28, Depok
+                            <span
+                              class="text-lg"
+                            >
+                              Jl. Raya Bogor KM 28, Depok
+                            </span>
                           </td>
                           <td
                             class="px-5 py-4 border-b border-border-default text-base text-left "
                           >
-                            081900112233
+                            <span
+                              class="text-lg"
+                            >
+                              081900112233
+                            </span>
                           </td>
                           <td
                             class="px-5 py-4 border-b border-border-default text-base text-center "
                           >
                             <span
-                              class="rounded-full px-3 py-1 text-xs font-bold uppercase bg-green-100 text-green-600"
+                              class="inline-flex rounded-full px-4 py-1.5 text-lg font-semibold uppercase bg-badge-success-subtle text-badge-success"
                             >
                               active
                             </span>
@@ -2100,15 +2656,20 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots more open st
                           <td
                             class="px-5 py-4 border-b border-border-default text-base text-center "
                           >
-                            <button
-                              class="cursor-pointer rounded-lg p-1.5 text-brand-text-medium transition-colors hover:bg-brand-blue-light hover:text-brand-blue"
-                              title="Edit"
-                              type="button"
+                            <div
+                              class="flex items-center justify-center gap-1"
                             >
-                              <div
-                                data-testid="edit-icon"
-                              />
-                            </button>
+                              <button
+                                aria-label="Edit customer"
+                                class="cursor-pointer rounded-3xl p-2.5 text-text-secondary hover:bg-action-primary-subtle hover:text-action-primary"
+                                title="Edit customer"
+                                type="button"
+                              >
+                                <div
+                                  data-testid="edit-icon"
+                                />
+                              </button>
+                            </div>
                           </td>
                         </tr>
                         <tr
@@ -2118,7 +2679,7 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots more open st
                             class="px-5 py-4 border-b border-border-default text-base text-center "
                           >
                             <span
-                              class="text-sm"
+                              class="text-lg"
                             >
                               8
                             </span>
@@ -2126,23 +2687,35 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots more open st
                           <td
                             class="px-5 py-4 border-b border-border-default text-base text-left "
                           >
-                            Ahmad Fauzi
+                            <span
+                              class="text-lg font-medium"
+                            >
+                              Ahmad Fauzi
+                            </span>
                           </td>
                           <td
                             class="px-5 py-4 border-b border-border-default text-base text-left "
                           >
-                            Jl. Ahmad Yani No. 50, Medan
+                            <span
+                              class="text-lg"
+                            >
+                              Jl. Ahmad Yani No. 50, Medan
+                            </span>
                           </td>
                           <td
                             class="px-5 py-4 border-b border-border-default text-base text-left "
                           >
-                            085244332211
+                            <span
+                              class="text-lg"
+                            >
+                              085244332211
+                            </span>
                           </td>
                           <td
                             class="px-5 py-4 border-b border-border-default text-base text-center "
                           >
                             <span
-                              class="rounded-full px-3 py-1 text-xs font-bold uppercase bg-green-100 text-green-600"
+                              class="inline-flex rounded-full px-4 py-1.5 text-lg font-semibold uppercase bg-badge-success-subtle text-badge-success"
                             >
                               active
                             </span>
@@ -2150,15 +2723,20 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots more open st
                           <td
                             class="px-5 py-4 border-b border-border-default text-base text-center "
                           >
-                            <button
-                              class="cursor-pointer rounded-lg p-1.5 text-brand-text-medium transition-colors hover:bg-brand-blue-light hover:text-brand-blue"
-                              title="Edit"
-                              type="button"
+                            <div
+                              class="flex items-center justify-center gap-1"
                             >
-                              <div
-                                data-testid="edit-icon"
-                              />
-                            </button>
+                              <button
+                                aria-label="Edit customer"
+                                class="cursor-pointer rounded-3xl p-2.5 text-text-secondary hover:bg-action-primary-subtle hover:text-action-primary"
+                                title="Edit customer"
+                                type="button"
+                              >
+                                <div
+                                  data-testid="edit-icon"
+                                />
+                              </button>
+                            </div>
                           </td>
                         </tr>
                         <tr
@@ -2168,7 +2746,7 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots more open st
                             class="px-5 py-4 border-b border-border-default text-base text-center "
                           >
                             <span
-                              class="text-sm"
+                              class="text-lg"
                             >
                               9
                             </span>
@@ -2176,23 +2754,35 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots more open st
                           <td
                             class="px-5 py-4 border-b border-border-default text-base text-left "
                           >
-                            PT Global Indo Medika
+                            <span
+                              class="text-lg font-medium"
+                            >
+                              PT Global Indo Medika
+                            </span>
                           </td>
                           <td
                             class="px-5 py-4 border-b border-border-default text-base text-left "
                           >
-                            Jl. HR Rasuna Said Kav. C-22, Jakarta Selatan
+                            <span
+                              class="text-lg"
+                            >
+                              Jl. HR Rasuna Said Kav. C-22, Jakarta Selatan
+                            </span>
                           </td>
                           <td
                             class="px-5 py-4 border-b border-border-default text-base text-left "
                           >
-                            081199887766
+                            <span
+                              class="text-lg"
+                            >
+                              081199887766
+                            </span>
                           </td>
                           <td
                             class="px-5 py-4 border-b border-border-default text-base text-center "
                           >
                             <span
-                              class="rounded-full px-3 py-1 text-xs font-bold uppercase bg-red-100 text-red-600"
+                              class="inline-flex rounded-full px-4 py-1.5 text-lg font-semibold uppercase bg-badge-danger-subtle text-badge-danger"
                             >
                               inactive
                             </span>
@@ -2200,15 +2790,20 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots more open st
                           <td
                             class="px-5 py-4 border-b border-border-default text-base text-center "
                           >
-                            <button
-                              class="cursor-pointer rounded-lg p-1.5 text-brand-text-medium transition-colors hover:bg-brand-blue-light hover:text-brand-blue"
-                              title="Edit"
-                              type="button"
+                            <div
+                              class="flex items-center justify-center gap-1"
                             >
-                              <div
-                                data-testid="edit-icon"
-                              />
-                            </button>
+                              <button
+                                aria-label="Edit customer"
+                                class="cursor-pointer rounded-3xl p-2.5 text-text-secondary hover:bg-action-primary-subtle hover:text-action-primary"
+                                title="Edit customer"
+                                type="button"
+                              >
+                                <div
+                                  data-testid="edit-icon"
+                                />
+                              </button>
+                            </div>
                           </td>
                         </tr>
                         <tr
@@ -2218,7 +2813,7 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots more open st
                             class="px-5 py-4 border-b border-border-default text-base text-center "
                           >
                             <span
-                              class="text-sm"
+                              class="text-lg"
                             >
                               10
                             </span>
@@ -2226,23 +2821,35 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots more open st
                           <td
                             class="px-5 py-4 border-b border-border-default text-base text-left "
                           >
-                            Siti Rahmawati
+                            <span
+                              class="text-lg font-medium"
+                            >
+                              Siti Rahmawati
+                            </span>
                           </td>
                           <td
                             class="px-5 py-4 border-b border-border-default text-base text-left "
                           >
-                            Jl. Gajah Mada No. 14, Denpasar
+                            <span
+                              class="text-lg"
+                            >
+                              Jl. Gajah Mada No. 14, Denpasar
+                            </span>
                           </td>
                           <td
                             class="px-5 py-4 border-b border-border-default text-base text-left "
                           >
-                            083812349988
+                            <span
+                              class="text-lg"
+                            >
+                              083812349988
+                            </span>
                           </td>
                           <td
                             class="px-5 py-4 border-b border-border-default text-base text-center "
                           >
                             <span
-                              class="rounded-full px-3 py-1 text-xs font-bold uppercase bg-green-100 text-green-600"
+                              class="inline-flex rounded-full px-4 py-1.5 text-lg font-semibold uppercase bg-badge-success-subtle text-badge-success"
                             >
                               active
                             </span>
@@ -2250,15 +2857,20 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots more open st
                           <td
                             class="px-5 py-4 border-b border-border-default text-base text-center "
                           >
-                            <button
-                              class="cursor-pointer rounded-lg p-1.5 text-brand-text-medium transition-colors hover:bg-brand-blue-light hover:text-brand-blue"
-                              title="Edit"
-                              type="button"
+                            <div
+                              class="flex items-center justify-center gap-1"
                             >
-                              <div
-                                data-testid="edit-icon"
-                              />
-                            </button>
+                              <button
+                                aria-label="Edit customer"
+                                class="cursor-pointer rounded-3xl p-2.5 text-text-secondary hover:bg-action-primary-subtle hover:text-action-primary"
+                                title="Edit customer"
+                                type="button"
+                              >
+                                <div
+                                  data-testid="edit-icon"
+                                />
+                              </button>
+                            </div>
                           </td>
                         </tr>
                       </tbody>

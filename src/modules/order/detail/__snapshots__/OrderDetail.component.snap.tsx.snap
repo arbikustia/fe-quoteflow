@@ -195,7 +195,7 @@ exports[`OrderDetailComponent Snapshots Should Render OrderDetailComponent 1`] =
               <a
                 class="min-h-14 flex items-center gap-3 rounded-[8px] px-4 py-3 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring/30 text-text-secondary hover:bg-background-elevated hover:text-text-primary"
                 data-discover="true"
-                href="/document/item-checklist"
+                href="/item-checklist"
               >
                 <span
                   class="shrink-0 [&_svg]:h-5 [&_svg]:w-5 text-text-tertiary"
@@ -318,6 +318,64 @@ exports[`OrderDetailComponent Snapshots Should Render OrderDetailComponent 1`] =
                   class="flex-1 truncate text-xl leading-none font-normal"
                 >
                   Activity Log
+                </span>
+              </a>
+              <a
+                class="min-h-14 flex items-center gap-3 rounded-[8px] px-4 py-3 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring/30 text-text-secondary hover:bg-background-elevated hover:text-text-primary"
+                data-discover="true"
+                href="/note"
+              >
+                <span
+                  class="shrink-0 [&_svg]:h-5 [&_svg]:w-5 text-text-tertiary"
+                >
+                  <svg
+                    fill="none"
+                    height="1em"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    viewBox="0 0 24 24"
+                    width="1em"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M2 6h4"
+                    />
+                    <path
+                      d="M2 10h4"
+                    />
+                    <path
+                      d="M2 14h4"
+                    />
+                    <path
+                      d="M2 18h4"
+                    />
+                    <rect
+                      height="20"
+                      rx="2"
+                      width="16"
+                      x="4"
+                      y="2"
+                    />
+                    <path
+                      d="M15 2v20"
+                    />
+                    <path
+                      d="M15 7h5"
+                    />
+                    <path
+                      d="M15 12h5"
+                    />
+                    <path
+                      d="M15 17h5"
+                    />
+                  </svg>
+                </span>
+                <span
+                  class="flex-1 truncate text-xl leading-none font-normal"
+                >
+                  Note
                 </span>
               </a>
               <div>
@@ -610,55 +668,12 @@ exports[`OrderDetailComponent Snapshots Should Render OrderDetailComponent 1`] =
                 />
               </svg>
             </button>
-            <div
-              class="group relative hidden max-w-lg flex-1 md:block"
-            >
-              <div
-                class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3 text-text-tertiary"
-              >
-                <svg
-                  fill="none"
-                  height="18"
-                  stroke="currentColor"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="1.8"
-                  viewBox="0 0 24 24"
-                  width="18"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <circle
-                    cx="11"
-                    cy="11"
-                    r="8"
-                  />
-                  <path
-                    d="m21 21-4.3-4.3"
-                  />
-                </svg>
-              </div>
-              <input
-                aria-label="Search anything"
-                class="w-full rounded-lg border border-border-default bg-background-surface py-2.5 pl-10 pr-12 text-sm font-medium text-text-primary transition-all placeholder:text-text-tertiary focus:border-action-primary focus:outline-none focus:ring-1 focus:ring-action-primary"
-                placeholder="Search anything"
-                type="text"
-              />
-              <div
-                class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3"
-              >
-                <span
-                  class="rounded border border-border-default bg-background-subtle px-1.5 py-0.5 text-[10px] font-medium text-text-tertiary"
-                >
-                  ⌘K
-                </span>
-              </div>
-            </div>
           </div>
           <time
             class="text-lg font-semibold tracking-wide text-text-primary tabular-nums sm:text-3xl"
             data-testid="navbar-realtime-clock"
           >
-            22-10-2026 18:45:00
+            22 Oktober 2026 18:45
           </time>
         </header>
       </div>
@@ -739,11 +754,15 @@ exports[`OrderDetailComponent Snapshots Should Render OrderDetailComponent 1`] =
                     />
                   </svg>
                 </button>
-                <h1
-                  class="min-w-0 truncate text-left text-3xl font-semibold tracking-tight text-text-primary text-4xl"
+                <div
+                  class="min-w-0 flex-1"
                 >
-                  Order Detail
-                </h1>
+                  <h1
+                    class="truncate text-left text-3xl font-semibold tracking-tight text-text-primary text-4xl"
+                  >
+                    Order Detail
+                  </h1>
+                </div>
               </div>
               <div
                 class="shrink-0"

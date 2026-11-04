@@ -1,7 +1,7 @@
 import { apiRtkClient } from "@/libs/ApiRtkServices/apiRtkClient";
 
 import ENDPOINT from "@/constant/endpoint.const";
-import type { ApiPayment, PaymentCreatePayload, PaymentCreateResponse, PaymentData, PaymentInvoiceListResponse, PaymentListParams, PaymentListResponse, PaymentMethodListResponse } from "@/modules/payment/Payment.type";
+import type { ApiPayment, PaymentCreatePayload, PaymentCreateResponse, PaymentData, PaymentDetailResponse, PaymentInvoiceListResponse, PaymentListParams, PaymentListResponse, PaymentMethodListResponse } from "@/modules/payment/Payment.type";
 
 /** Map API payment model to table row. */
 export const mapPayment = (payment: ApiPayment): PaymentData => ({
@@ -13,6 +13,7 @@ export const mapPayment = (payment: ApiPayment): PaymentData => ({
   referenceNo: payment.reference_no,
   notes: payment.notes,
   status: payment.status === 1 ? "active" : "inactive",
+  paymentStatus: payment.status,
 });
 
 export const paymentService = apiRtkClient.injectEndpoints({
@@ -31,6 +32,10 @@ export const paymentService = apiRtkClient.injectEndpoints({
     getAllPaymentMethods: builder.query<PaymentMethodListResponse, void>({
       query: () => ({ url: ENDPOINT.MASTER_PAYMENT_METHOD.ALL, method: "GET" }),
     }),
+    getPaymentById: builder.query<PaymentDetailResponse, string>({
+      query: (id) => ({ url: `${ENDPOINT.PAYMENT.DETAIL}/${id}`, method: "GET" }),
+      providesTags: ["Payment"],
+    }),
     createPayment: builder.mutation<PaymentCreateResponse, PaymentCreatePayload>({
       query: (body) => ({ url: ENDPOINT.PAYMENT.CREATE, method: "POST", data: body }),
       invalidatesTags: ["Payment"],
@@ -43,4 +48,4 @@ export const paymentService = apiRtkClient.injectEndpoints({
   overrideExisting: false,
 });
 
-export const { useGetPaymentsQuery, useGetAllInvoicesQuery, useGetAllPaymentMethodsQuery, useCreatePaymentMutation, useUpdatePaymentMutation } = paymentService;
+export const { useGetPaymentsQuery, useGetPaymentByIdQuery, useGetAllInvoicesQuery, useGetAllPaymentMethodsQuery, useCreatePaymentMutation, useUpdatePaymentMutation } = paymentService;

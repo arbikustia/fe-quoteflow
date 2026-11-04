@@ -51,6 +51,32 @@ describe("MasterCategoryComponent", () => {
     expect(screen.getAllByText("Manage product and item categories")).toHaveLength(2);
   });
 
+  it("should use quotation-sized text in mobile cards and actions", () => {
+    const { container } = renderWithRouter(createProps());
+    const mobileCard = container.querySelector(".lg\\:hidden button.group");
+
+    expect(mobileCard).not.toBeNull();
+    expect(mobileCard?.querySelector(".text-xs, .text-sm, .text-base")).toBeNull();
+    expect(mobileCard?.classList.contains("rounded-3xl")).toBe(true);
+    expect(mobileCard?.classList.contains("bg-background-surface")).toBe(true);
+    expect(mobileCard?.querySelector(".flex.flex-wrap .text-lg")?.textContent).toBe("active");
+    expect(mobileCard?.querySelector(".border-t.border-border-default")?.textContent).toContain("Created");
+    expect(container.querySelector(".lg\\:hidden .text-lg")).not.toBeNull();
+  });
+
+  it("should render matching mobile and desktop loading skeletons", () => {
+    renderWithRouter(createProps({ isLoading: true, paginatedData: [] }));
+
+    const tableSkeleton = screen.getByRole("status", { name: "Loading category table" });
+    const cardSkeletons = screen.getAllByRole("status", { name: "Loading category card" });
+    expect(tableSkeleton.querySelectorAll("th")).toHaveLength(5);
+    expect(tableSkeleton.querySelectorAll("tbody tr")).toHaveLength(5);
+    expect(tableSkeleton.querySelectorAll("tbody tr:first-child td")).toHaveLength(5);
+    expect(tableSkeleton.querySelectorAll("tbody tr:first-child td:last-child span")).toHaveLength(1);
+    expect(cardSkeletons).toHaveLength(5);
+    expect(cardSkeletons[0].classList.contains("rounded-3xl")).toBe(true);
+  });
+
   it("should handle empty data", () => {
     renderWithRouter(createProps({ paginatedData: [], totalCount: 0, totalPages: 1, isEmpty: true }));
 

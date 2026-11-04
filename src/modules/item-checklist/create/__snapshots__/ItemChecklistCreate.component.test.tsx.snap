@@ -6,13 +6,13 @@ exports[`ItemChecklistCreateForm matches snapshot 1`] = `
     class="flex flex-col gap-6"
   >
     <div
-      class="rounded-4xl border border-border-default bg-background-surface p-6 shadow-xs"
+      class="rounded-3xl border border-border-default bg-background-surface p-6 shadow-small sm:p-8 lg:p-10"
     >
       <div
         class="relative max-w-xl"
       >
         <label
-          class="mb-1.5 block text-sm font-semibold text-text-secondary "
+          class="mb-1.5 block text-sm font-semibold text-text-secondary !text-lg font-normal text-text-primary"
           for="checklist-order"
         >
           Rental Order
@@ -24,8 +24,8 @@ exports[`ItemChecklistCreateForm matches snapshot 1`] = `
           </span>
         </label>
         <div
-          class="ant-select ant-select-outlined h-14 w-full [&_.ant-select-selector]:!rounded-2xl [&_.ant-select-content]:!text-xl [&_.ant-select-content]:!font-normal  css-var-root ant-select-css-var css-dev-only-do-not-override-eofgey ant-select-single ant-select-show-arrow ant-select-show-search"
-          style="--ant-select-border-radius: 16px;"
+          class="ant-select ant-select-outlined h-14 w-full !border-2 [&_.ant-select-selector]:!rounded-2xl [&_.ant-select-content]:!text-xl [&_.ant-select-content]:!font-normal !border-border-strong [&_.ant-select-selector]:!border-2 [&_.ant-select-selector]:!border-border-strong h-14 !text-lg !border-2 !border-border-strong css-var-root ant-select-css-var css-dev-only-do-not-override-eofgey ant-select-single ant-select-show-arrow ant-select-show-search"
+          style="--ant-select-border-radius: 16px; border: 2px solid var(--border-strong);"
         >
           <div
             class="ant-select-content"
@@ -86,13 +86,13 @@ exports[`ItemChecklistCreateForm matches snapshot 2`] = `
     class="flex flex-col gap-6"
   >
     <div
-      class="rounded-4xl border border-border-default bg-background-surface p-6 shadow-xs"
+      class="rounded-3xl border border-border-default bg-background-surface p-6 shadow-small sm:p-8 lg:p-10"
     >
       <div
         class="relative max-w-xl"
       >
         <label
-          class="mb-1.5 block text-sm font-semibold text-text-secondary "
+          class="mb-1.5 block text-sm font-semibold text-text-secondary !text-lg font-normal text-text-primary"
           for="checklist-order"
         >
           Rental Order
@@ -104,8 +104,8 @@ exports[`ItemChecklistCreateForm matches snapshot 2`] = `
           </span>
         </label>
         <div
-          class="ant-select ant-select-outlined h-14 w-full [&_.ant-select-selector]:!rounded-2xl [&_.ant-select-content]:!text-xl [&_.ant-select-content]:!font-normal  css-var-root ant-select-css-var css-dev-only-do-not-override-eofgey ant-select-single ant-select-show-arrow ant-select-show-search"
-          style="--ant-select-border-radius: 16px;"
+          class="ant-select ant-select-outlined h-14 w-full !border-2 [&_.ant-select-selector]:!rounded-2xl [&_.ant-select-content]:!text-xl [&_.ant-select-content]:!font-normal !border-border-strong [&_.ant-select-selector]:!border-2 [&_.ant-select-selector]:!border-border-strong h-14 !text-lg !border-2 !border-border-strong css-var-root ant-select-css-var css-dev-only-do-not-override-eofgey ant-select-single ant-select-show-arrow ant-select-show-search"
+          style="--ant-select-border-radius: 16px; border: 2px solid var(--border-strong);"
         >
           <div
             class="ant-select-content ant-select-content-has-value"
@@ -154,27 +154,27 @@ exports[`ItemChecklistCreateForm matches snapshot 2`] = `
       </div>
     </div>
     <div
-      class="rounded-4xl border border-border-default bg-background-surface p-6 shadow-xs"
+      class="rounded-3xl border border-border-default bg-background-surface p-6 shadow-small sm:p-8 lg:p-10"
     >
       <div
-        class="mb-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between"
+        class="mb-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between"
       >
         <div
-          class="flex items-center gap-3"
+          class="flex flex-col gap-1"
         >
           <h3
-            class="text-xl font-semibold text-text-primary"
+            class="text-2xl font-semibold text-text-primary"
           >
             Order Items
           </h3>
-          <span
-            class="text-sm font-medium text-text-secondary"
+          <p
+            class="text-lg text-text-secondary"
           >
             1 move out · 0 move in
-          </span>
+          </p>
         </div>
         <div
-          class="w-full sm:w-72"
+          class="w-full sm:w-80"
         >
           <label
             class="relative block w-full sm:w-72 w-full"
@@ -211,7 +211,7 @@ exports[`ItemChecklistCreateForm matches snapshot 2`] = `
             </svg>
             <input
               aria-label="Search items..."
-              class="h-14 w-full rounded-xl border border-border-default bg-background-surface pl-12 pr-4 text-base font-medium text-text-primary outline-none transition-colors placeholder:font-normal placeholder:text-text-tertiary hover:border-border-strong focus:border-border-focus focus:ring-2 focus:ring-focus-ring/30"
+              class="h-14 w-full rounded-xl border border-border-default bg-background-surface pl-12 pr-4 text-base font-medium text-text-primary outline-none transition-colors placeholder:font-normal placeholder:text-text-tertiary hover:border-border-strong focus:border-border-focus focus:ring-2 focus:ring-focus-ring/30 h-14 !text-lg placeholder:!text-lg border-2 border-border-strong"
               placeholder="Search items..."
               type="search"
               value=""
@@ -220,7 +220,7 @@ exports[`ItemChecklistCreateForm matches snapshot 2`] = `
         </div>
       </div>
       <div
-        class="space-y-3 md:hidden"
+        class="space-y-4 md:hidden"
       >
         <article
           class="min-w-0 rounded-2xl border border-border-default bg-background-surface p-4"
@@ -231,12 +231,12 @@ exports[`ItemChecklistCreateForm matches snapshot 2`] = `
             Speaker Active
           </h4>
           <p
-            class="mt-1 break-words text-sm text-text-secondary"
+            class="mt-1 break-words text-lg text-text-secondary"
           >
             Audio · 1 unit
           </p>
           <p
-            class="mt-1 break-words text-sm text-text-secondary"
+            class="mt-1 break-words text-lg text-text-secondary"
           >
             Sign: John Doe
           </p>
@@ -244,7 +244,7 @@ exports[`ItemChecklistCreateForm matches snapshot 2`] = `
             class="mt-4 flex flex-wrap gap-x-6 gap-y-3 border-t border-border-default pt-4"
           >
             <label
-              class="ant-checkbox-wrapper ant-checkbox-wrapper-checked css-var-root ant-checkbox-css-var css-dev-only-do-not-override-eofgey"
+              class="ant-checkbox-wrapper ant-checkbox-wrapper-checked text-lg css-var-root ant-checkbox-css-var css-dev-only-do-not-override-eofgey"
             >
               <span
                 class="ant-checkbox ant-wave-target css-dev-only-do-not-override-eofgey ant-checkbox-checked"
@@ -263,7 +263,7 @@ exports[`ItemChecklistCreateForm matches snapshot 2`] = `
               </span>
             </label>
             <label
-              class="ant-checkbox-wrapper css-var-root ant-checkbox-css-var css-dev-only-do-not-override-eofgey"
+              class="ant-checkbox-wrapper text-lg css-var-root ant-checkbox-css-var css-dev-only-do-not-override-eofgey"
             >
               <span
                 class="ant-checkbox ant-wave-target css-dev-only-do-not-override-eofgey"
@@ -291,12 +291,12 @@ exports[`ItemChecklistCreateForm matches snapshot 2`] = `
             Microphone Wireless
           </h4>
           <p
-            class="mt-1 break-words text-sm text-text-secondary"
+            class="mt-1 break-words text-lg text-text-secondary"
           >
             Audio · 2 units
           </p>
           <p
-            class="mt-1 break-words text-sm text-text-secondary"
+            class="mt-1 break-words text-lg text-text-secondary"
           >
             Sign: John Doe
           </p>
@@ -304,7 +304,7 @@ exports[`ItemChecklistCreateForm matches snapshot 2`] = `
             class="mt-4 flex flex-wrap gap-x-6 gap-y-3 border-t border-border-default pt-4"
           >
             <label
-              class="ant-checkbox-wrapper css-var-root ant-checkbox-css-var css-dev-only-do-not-override-eofgey"
+              class="ant-checkbox-wrapper text-lg css-var-root ant-checkbox-css-var css-dev-only-do-not-override-eofgey"
             >
               <span
                 class="ant-checkbox ant-wave-target css-dev-only-do-not-override-eofgey"
@@ -322,7 +322,7 @@ exports[`ItemChecklistCreateForm matches snapshot 2`] = `
               </span>
             </label>
             <label
-              class="ant-checkbox-wrapper css-var-root ant-checkbox-css-var css-dev-only-do-not-override-eofgey"
+              class="ant-checkbox-wrapper text-lg css-var-root ant-checkbox-css-var css-dev-only-do-not-override-eofgey"
             >
               <span
                 class="ant-checkbox ant-wave-target css-dev-only-do-not-override-eofgey"
@@ -593,15 +593,15 @@ exports[`ItemChecklistCreateForm matches snapshot 2`] = `
         </div>
       </div>
       <div
-        class="mt-6 flex flex-col items-center justify-between gap-4 border-t border-border-default pt-5 sm:flex-row"
+        class="mt-8 flex flex-col items-center justify-between gap-4 border-t border-border-default pt-8 sm:flex-row"
       >
         <span
-          class="text-sm font-medium text-text-secondary"
+          class="text-lg font-medium text-text-secondary"
         >
           Select Move Out and Move In independently for each item.
         </span>
         <button
-          class="h-14 w-full cursor-pointer rounded-xl bg-action-primary px-8 text-lg font-semibold tracking-wide text-text-inverse shadow-xs transition-all hover:bg-action-primary-hover disabled:cursor-not-allowed disabled:opacity-50 sm:w-auto lg:text-sm"
+          class="h-14 w-full cursor-pointer rounded-2xl bg-action-primary px-10 text-lg font-semibold tracking-wide text-text-inverse shadow-xs transition-all hover:bg-action-primary-hover disabled:cursor-not-allowed disabled:opacity-50 sm:w-auto"
           type="button"
         >
           Save Checklist

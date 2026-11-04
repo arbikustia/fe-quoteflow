@@ -9,7 +9,7 @@ import MasterMain from "../../modules/master-main";
  */
 export default function MasterMainPage(): ReactElement {
   return (
-    <Layout pageTitle="Master Data" mobileWhiteBackground={true}>
+    <Layout pageTitle="Master Data" mobileWhiteBackground={false}>
       <MasterMain />
     </Layout>
   );

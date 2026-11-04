@@ -1,0 +1,119 @@
+import { fireEvent, render, screen } from "@/libs/unit-test";
+import { MemoryRouter } from "react-router-dom";
+
+import { PaymentDetailComponent } from "./PaymentDetail.component";
+import type { PaymentData, PaymentDetailState } from "../Payment.type";
+
+const PAYMENT: PaymentData = {
+  id: "pay-1",
+  invoiceId: "INV-001",
+  paymentMethodId: "BCA",
+  amount: 1500000,
+  paidAt: "2026-11-01T10:00:00.000Z",
+  referenceNo: "PAY-REF-001",
+  notes: "Full payment via BCA Transfer",
+  status: "active",
+};
+
+const createProps = (payment: PaymentData | null = PAYMENT): PaymentDetailState => ({
+  payment,
+  linkedInvoice: {
+    id: "INV-001",
+    invoice_no: "INV-2026-001",
+    customer_name: "PT Example",
+    event_name: "Annual Gala",
+  },
+  methodName: "Bank Central Asia",
+  isLoading: false,
+  errorMessage: null,
+  goBack: jest.fn(),
+  handleEdit: jest.fn(),
+  handleStatus: jest.fn(),
+});
+
+describe("PaymentDetailComponent", () => {
+  beforeEach(() => {
+    jest.clearAllMocks();
+  });
+
+  it("should render payment overview, info, and summary sections", () => {
+    const props = createProps();
+    render(
+      <MemoryRouter>
+        <PaymentDetailComponent {...props} />
+      </MemoryRouter>,
+    );
+
+    expect(screen.getAllByText("PAY-REF-001").length).toBeGreaterThan(0);
+    expect(screen.getAllByText("Bank Central Asia").length).toBeGreaterThan(0);
+    expect(screen.getAllByText("INV-2026-001").length).toBeGreaterThan(0);
+    expect(screen.getAllByText("PT Example").length).toBeGreaterThan(0);
+    expect(screen.getAllByText("Annual Gala").length).toBeGreaterThan(0);
+    expect(screen.getByText("Full payment via BCA Transfer")).toBeInTheDocument();
+    expect(screen.getAllByText("Active").length).toBeGreaterThan(0);
+  });
+
+  it("should render loading skeleton when isLoading is true", () => {
+    const props = { ...createProps(null), isLoading: true };
+    render(
+      <MemoryRouter>
+        <PaymentDetailComponent {...props} />
+      </MemoryRouter>,
+    );
+
+    expect(screen.getByRole("status", { name: "Loading payment detail" })).toBeInTheDocument();
+    expect(screen.getByLabelText("Loading payment overview")).toBeInTheDocument();
+  });
+
+  it("should render error message when errorMessage is provided", () => {
+    const props = { ...createProps(null), errorMessage: "Unable to load payment detail." };
+    render(
+      <MemoryRouter>
+        <PaymentDetailComponent {...props} />
+      </MemoryRouter>,
+    );
+
+    expect(screen.getByRole("alert")).toHaveTextContent("Unable to load payment detail.");
+  });
+
+  it("should render unavailable state when payment is null", () => {
+    const props = createProps(null);
+    render(
+      <MemoryRouter>
+        <PaymentDetailComponent {...props} />
+      </MemoryRouter>,
+    );
+
+    expect(screen.getByText("Payment detail is unavailable.")).toBeInTheDocument();
+  });
+
+  it("should trigger edit and status actions from dropdown", () => {
+    const props = createProps();
+    render(
+      <MemoryRouter>
+        <PaymentDetailComponent {...props} />
+      </MemoryRouter>,
+    );
+
+    const editButtons = screen.getAllByRole("menuitem", { name: /Edit/i });
+    fireEvent.click(editButtons[0]);
+    expect(props.handleEdit).toHaveBeenCalledTimes(1);
+
+    const statusButtons = screen.getAllByRole("menuitem", { name: /Change Status/i });
+    fireEvent.click(statusButtons[0]);
+    expect(props.handleStatus).toHaveBeenCalledTimes(1);
+  });
+
+  it("should call goBack when back button is clicked", () => {
+    const props = createProps();
+    render(
+      <MemoryRouter>
+        <PaymentDetailComponent {...props} />
+      </MemoryRouter>,
+    );
+
+    const backButtons = screen.getAllByRole("button", { name: "Back" });
+    fireEvent.click(backButtons[0]);
+    expect(props.goBack).toHaveBeenCalled();
+  });
+});

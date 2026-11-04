@@ -34,5 +34,16 @@ describe('OrderDetailComponent', () => {
 
     expect(screen.getByText('Test Event')).toBeTruthy();
     expect(screen.getByText('Spotlight')).toBeTruthy();
+    expect(screen.getAllByRole('button', { name: 'Edit' }).length).toBeGreaterThan(0);
+  });
+
+  it('should not render edit button when onEdit is not provided', () => {
+    render(
+      <MemoryRouter>
+        <OrderDetailComponent order={order} projects={[]} isLoading={false} errorMessage={null} onNavigateBack={jest.fn()} />
+      </MemoryRouter>,
+    );
+
+    expect(screen.queryAllByRole('button', { name: 'Edit' })).toHaveLength(0);
   });
 });

@@ -5,13 +5,14 @@ import type { ModalProps } from "./Modal.type";
 
 /**
  * Render modal header.
- * @param {string} title - Modal title
+ * @param {React.ReactNode} title - Modal title
+ * @param {string} titleClassName - Optional title class name
  * @param {() => void} onClose - Close handler
  * @returns {React.ReactElement} Modal header
  */
-const _renderHeader = (title: string, onClose: () => void): React.ReactElement => (
+const _renderHeader = (title: React.ReactNode, titleClassName: string, onClose: () => void): React.ReactElement => (
   <div className="flex shrink-0 items-center justify-between border-b border-border-default px-6 py-4">
-    <h2 id="modal-title" className="text-lg font-bold text-text-primary">{title}</h2>
+    <div id="modal-title" className={titleClassName || "text-lg font-bold text-text-primary"}>{title}</div>
     <button type="button" onClick={onClose} aria-label="Close modal" className="rounded-lg p-2 text-text-secondary transition-colors hover:bg-background-subtle hover:text-text-primary focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring">
       <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
@@ -26,7 +27,16 @@ const _renderHeader = (title: string, onClose: () => void): React.ReactElement =
  * @returns {React.ReactElement | null} Modal or null
  */
 export const ModalComponent = (props: ModalProps): React.ReactElement | null => {
-  const { isOpen, onClose, title, children, maxWidth = "max-w-2xl", contentClassName = "", dialogClassName = "" } = props;
+  const {
+    isOpen,
+    onClose,
+    title,
+    titleClassName = "",
+    children,
+    maxWidth = "max-w-2xl",
+    contentClassName = "",
+    dialogClassName = "",
+  } = props;
 
   if (!isOpen) {
     return null;
@@ -38,7 +48,7 @@ export const ModalComponent = (props: ModalProps): React.ReactElement | null => 
     <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/70 p-4 sm:p-6">
       <button type="button" aria-label="Close modal backdrop" className="absolute inset-0 cursor-default" onClick={onClose} />
       <div role="dialog" aria-modal="true" aria-labelledby="modal-title" className={`relative flex ${dialogHeightClassName} w-full ${maxWidth} flex-col overflow-hidden rounded-xl border border-border-default bg-background-surface shadow-medium`}>
-        {_renderHeader(title, onClose)}
+        {_renderHeader(title, titleClassName, onClose)}
         <div className={`max-h-[80vh] overflow-y-auto p-6 ${contentClassName}`}>{children}</div>
       </div>
     </div>,

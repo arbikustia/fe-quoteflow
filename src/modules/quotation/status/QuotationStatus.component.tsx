@@ -50,8 +50,8 @@ const _renderHeader = (goBack: () => void): ReactElement => (
  * @returns {ReactElement} Mobile header
  */
 const _renderMobileBack = (goBack: () => void): ReactElement => (
-  <div className="sticky top-0 z-20 flex items-center gap-3 bg-background-surface lg:hidden">
-    <button type="button" onClick={goBack} aria-label="Back" className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full border border-border-default bg-background-surface text-text-primary transition-colors hover:bg-background-subtle">
+  <div className="sticky top-0 z-20 flex items-center gap-3 bg-background-page lg:hidden">
+    <button type="button" onClick={goBack} aria-label="Back" className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full border border-border-default bg-background-page text-text-primary transition-colors hover:bg-background-subtle">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="h-6 w-6" aria-hidden="true"><path d="M19 12H5M12 19l-7-7 7-7" /></svg>
     </button>
     <h2 className="truncate text-4xl font-semibold leading-tight text-text-primary">Approve Quotation</h2>

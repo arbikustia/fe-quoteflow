@@ -1,3 +1,5 @@
+import { getUsername } from "../../../../components/Sidebar/Sidebar.helpers";
+import { useCreateActivityLogMutation } from "@/services/activity-log.service";
 import type React from "react";
 import { useEffect, useRef, useState } from "react";
 import type { NavigateFunction } from "react-router-dom";
@@ -389,6 +391,7 @@ export const useOrderCreateForm = (): OrderCreateState => {
   const [createOrder, createMutation] = useCreateOrderMutation();
   const [createProjectOrder] = useCreateProjectOrderMutation();
   const [updateOrder, updateMutation] = useUpdateOrderMutation();
+  const [createActivityLog] = useCreateActivityLogMutation();
   const mutation = id ? updateMutation : createMutation; // Edit quotation transaction when route carries transaction_id.
   const customers = customerQuery.data?.data ?? [];
   const pics = picQuery.data?.data ?? [];
@@ -436,7 +439,18 @@ export const useOrderCreateForm = (): OrderCreateState => {
     setErrorMessage(null);
 
     try {
-      await submitOrder(form, orderTypes, id, createOrder, createProjectOrder, updateOrder, navigate, setErrorMessage, returnUrl);
+      await submitOrder(
+        form,
+        orderTypes,
+        id,
+        createOrder,
+        createProjectOrder,
+        updateOrder,
+        createActivityLog,
+        navigate,
+        setErrorMessage,
+        returnUrl,
+      );
     } catch (error) {
       setErrorMessage(error instanceof Error ? `Unable to save order: ${error.message}` : "Unable to save order. Please review the form and try again.");
     }
@@ -487,6 +501,7 @@ const submitOrder = async (
   createOrder: (payload: OrderCreatePayload) => { unwrap: () => Promise<unknown> },
   createProjectOrder: (payload: ProjectOrderCreatePayload) => { unwrap: () => Promise<unknown> },
   updateOrder: (request: { id: string; payload: OrderCreatePayload }) => { unwrap: () => Promise<unknown> },
+  createActivityLog: (payload: { user_name: string; action: "create" | "edit" | "delete" | "view"; page: string; description: string }) => { unwrap: () => Promise<unknown> },
   navigate: NavigateFunction,
   setErrorMessage: React.Dispatch<React.SetStateAction<string | null>>,
   returnUrl?: string,
@@ -508,6 +523,20 @@ const submitOrder = async (
     await createProjectOrder({ ...payload, rental_transaction_items: projectItems }).unwrap();
   } else {
     await createOrder(payload).unwrap();
+  }
+
+  const userName = getUsername();
+  if (userName) {
+    try {
+      await createActivityLog({
+        user_name: userName,
+        action: id ? "edit" : "create",
+        page: "Order",
+        description: `Order ${id || payload.event_name} has been ${id ? "updated" : "created"}.`,
+      }).unwrap();
+    } catch {
+      // Activity log failure should not block user workflow
+    }
   }
 
   _resolveSubmitRoute(navigate, id, returnUrl);

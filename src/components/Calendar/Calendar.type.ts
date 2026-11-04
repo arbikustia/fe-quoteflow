@@ -10,6 +10,10 @@ export type CalendarEventItem = {
   quotationNo?: string;
   customerName?: string;
   amount?: number;
+  eventName?: string;
+  address?: string;
+  status?: number;
+  transactionId?: string;
 };
 
 export type CalendarDayCell = {
@@ -37,6 +41,7 @@ export type CalendarComponentProps = {
   currentDate?: Date;
   isLoading?: boolean;
   onEventClick?: (event: CalendarEventItem) => void;
+  onDateClick?: (date: Date, events: CalendarEventItem[]) => void;
   onPreviousMonth?: () => void;
   onNextMonth?: () => void;
   onToday?: () => void;

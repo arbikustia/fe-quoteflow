@@ -702,7 +702,7 @@ exports[`MasterServiceType.component MasterServiceTypeComponent Snapshots should
                 class="flex shrink-0 items-center gap-3"
               >
                 <button
-                  class="h-14 rounded-full border-2 border-brand-blue bg-background-surface px-6 text-sm font-bold text-brand-blue transition-colors hover:bg-action-primary-subtle focus:outline-none focus:ring-2 focus:ring-focus-ring/30"
+                  class="h-14 rounded-full border-2 border-brand-blue bg-background-surface px-6 text-lg font-bold text-brand-blue transition-colors hover:bg-action-primary-subtle focus:outline-none focus:ring-2 focus:ring-focus-ring/30"
                   type="button"
                 >
                   Create New
@@ -754,7 +754,7 @@ exports[`MasterServiceType.component MasterServiceTypeComponent Snapshots should
                 class="shrink-0"
               >
                 <button
-                  class="h-14 rounded-full border-2 border-brand-blue bg-background-surface px-6 text-sm font-bold text-brand-blue transition-colors hover:bg-action-primary-subtle focus:outline-none focus:ring-2 focus:ring-focus-ring/30"
+                  class="h-14 rounded-full border-2 border-brand-blue bg-background-surface px-6 text-lg font-bold text-brand-blue transition-colors hover:bg-action-primary-subtle focus:outline-none focus:ring-2 focus:ring-focus-ring/30"
                   type="button"
                 >
                   Create New
@@ -806,7 +806,7 @@ exports[`MasterServiceType.component MasterServiceTypeComponent Snapshots should
                   </svg>
                   <input
                     aria-label="Search service type"
-                    class="h-14 w-full rounded-full border border-border-default bg-background-surface pl-12 pr-4 text-base font-medium text-text-primary outline-none transition-colors placeholder:font-normal placeholder:text-text-tertiary hover:border-border-strong focus:border-border-focus focus:ring-2 focus:ring-focus-ring/30"
+                    class="h-14 w-full rounded-full border border-border-default bg-background-surface pl-12 pr-4 text-base font-medium text-text-primary outline-none transition-colors placeholder:font-normal placeholder:text-text-tertiary hover:border-border-strong focus:border-border-focus focus:ring-2 focus:ring-focus-ring/30 text-lg placeholder:text-lg"
                     placeholder="Search service type"
                     type="search"
                   />
@@ -815,36 +815,36 @@ exports[`MasterServiceType.component MasterServiceTypeComponent Snapshots should
                   class="min-w-0 space-y-3"
                 >
                   <button
-                    class="group flex w-full items-start gap-4 rounded-2xl border border-border-default bg-background-surface p-5 text-left transition-colors hover:border-border-strong hover:bg-background-subtle/40 focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring/30 "
+                    class="group block w-full min-w-0 rounded-xl border border-border-strong bg-background-surface p-5 text-left shadow-small transition-colors hover:bg-background-subtle/40 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-action-primary "
                     type="button"
                   >
                     <span
-                      class="min-w-0 flex-1"
+                      class="flex min-w-0 flex-wrap items-center justify-between gap-2"
                     >
                       <span
-                        class="block truncate font-semibold text-text-primary text-base"
+                        class="min-w-0 break-words font-semibold text-text-primary text-xl"
                       >
                         Standard Delivery
                       </span>
                       <span
-                        class="mt-3 block "
+                        class="rounded-full px-3 py-1 font-semibold bg-success-subtle text-success-strong text-lg"
                       >
-                        <span
-                          class="grid gap-2 text-sm text-text-secondary"
-                        >
-                          <span>
-                            Rp 50.000
-                          </span>
-                          <span>
-                            Active
-                          </span>
-                        </span>
+                        active
                       </span>
                     </span>
                     <span
-                      class="shrink-0 rounded-full px-3 py-1 font-bold uppercase tracking-wider bg-success-subtle text-success-strong text-xs"
+                      class="mt-4 block min-w-0 border-t border-border-default pt-4 text-text-secondary text-lg"
                     >
-                      active
+                      <span
+                        class="grid gap-2 text-xl text-text-secondary"
+                      >
+                        <span>
+                          Rp 50.000
+                        </span>
+                        <span>
+                          Active
+                        </span>
+                      </span>
                     </span>
                   </button>
                 </div>
@@ -2087,7 +2087,7 @@ exports[`MasterServiceType.component MasterServiceTypeComponent Snapshots should
                 class="flex shrink-0 items-center gap-3"
               >
                 <button
-                  class="h-14 rounded-full border-2 border-brand-blue bg-background-surface px-6 text-sm font-bold text-brand-blue transition-colors hover:bg-action-primary-subtle focus:outline-none focus:ring-2 focus:ring-focus-ring/30"
+                  class="h-14 rounded-full border-2 border-brand-blue bg-background-surface px-6 text-lg font-bold text-brand-blue transition-colors hover:bg-action-primary-subtle focus:outline-none focus:ring-2 focus:ring-focus-ring/30"
                   type="button"
                 >
                   Create New
@@ -2139,7 +2139,7 @@ exports[`MasterServiceType.component MasterServiceTypeComponent Snapshots should
                 class="shrink-0"
               >
                 <button
-                  class="h-14 rounded-full border-2 border-brand-blue bg-background-surface px-6 text-sm font-bold text-brand-blue transition-colors hover:bg-action-primary-subtle focus:outline-none focus:ring-2 focus:ring-focus-ring/30"
+                  class="h-14 rounded-full border-2 border-brand-blue bg-background-surface px-6 text-lg font-bold text-brand-blue transition-colors hover:bg-action-primary-subtle focus:outline-none focus:ring-2 focus:ring-focus-ring/30"
                   type="button"
                 >
                   Create New
@@ -2191,7 +2191,7 @@ exports[`MasterServiceType.component MasterServiceTypeComponent Snapshots should
                   </svg>
                   <input
                     aria-label="Search service type"
-                    class="h-14 w-full rounded-full border border-border-default bg-background-surface pl-12 pr-4 text-base font-medium text-text-primary outline-none transition-colors placeholder:font-normal placeholder:text-text-tertiary hover:border-border-strong focus:border-border-focus focus:ring-2 focus:ring-focus-ring/30"
+                    class="h-14 w-full rounded-full border border-border-default bg-background-surface pl-12 pr-4 text-base font-medium text-text-primary outline-none transition-colors placeholder:font-normal placeholder:text-text-tertiary hover:border-border-strong focus:border-border-focus focus:ring-2 focus:ring-focus-ring/30 text-lg placeholder:text-lg"
                     placeholder="Search service type"
                     type="search"
                   />
@@ -2200,36 +2200,36 @@ exports[`MasterServiceType.component MasterServiceTypeComponent Snapshots should
                   class="min-w-0 space-y-3"
                 >
                   <button
-                    class="group flex w-full items-start gap-4 rounded-2xl border border-border-default bg-background-surface p-5 text-left transition-colors hover:border-border-strong hover:bg-background-subtle/40 focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring/30 "
+                    class="group block w-full min-w-0 rounded-xl border border-border-strong bg-background-surface p-5 text-left shadow-small transition-colors hover:bg-background-subtle/40 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-action-primary "
                     type="button"
                   >
                     <span
-                      class="min-w-0 flex-1"
+                      class="flex min-w-0 flex-wrap items-center justify-between gap-2"
                     >
                       <span
-                        class="block truncate font-semibold text-text-primary text-base"
+                        class="min-w-0 break-words font-semibold text-text-primary text-xl"
                       >
                         Standard Delivery
                       </span>
                       <span
-                        class="mt-3 block "
+                        class="rounded-full px-3 py-1 font-semibold bg-success-subtle text-success-strong text-lg"
                       >
-                        <span
-                          class="grid gap-2 text-sm text-text-secondary"
-                        >
-                          <span>
-                            Rp 50.000
-                          </span>
-                          <span>
-                            Active
-                          </span>
-                        </span>
+                        active
                       </span>
                     </span>
                     <span
-                      class="shrink-0 rounded-full px-3 py-1 font-bold uppercase tracking-wider bg-success-subtle text-success-strong text-xs"
+                      class="mt-4 block min-w-0 border-t border-border-default pt-4 text-text-secondary text-lg"
                     >
-                      active
+                      <span
+                        class="grid gap-2 text-xl text-text-secondary"
+                      >
+                        <span>
+                          Rp 50.000
+                        </span>
+                        <span>
+                          Active
+                        </span>
+                      </span>
                     </span>
                   </button>
                 </div>

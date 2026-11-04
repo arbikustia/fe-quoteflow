@@ -1,6 +1,6 @@
 import { describe, expect, it, jest } from "@jest/globals";
 
-import { render, screen } from "@/libs/unit-test";
+import { fireEvent, render, screen } from "@/libs/unit-test";
 import { MemoryRouter } from "react-router-dom";
 
 import { OrderCreateComponent } from "./OrderCreate.component";
@@ -19,6 +19,31 @@ describe("OrderCreateComponent", (): void => {
     render(<MemoryRouter><OrderCreateComponent {...props} /></MemoryRouter>);
 
     expect(screen.getByText("Order Information")).toBeTruthy();
+  });
+
+  it("should let selected rental items edit quantity and remark", (): void => {
+    const onItemChange = jest.fn();
+    render(
+      <MemoryRouter>
+        <OrderCreateComponent
+          {...props}
+          step={2}
+          items={[{ id: "item-1", name: "Camera", image: null, price: 100000, stock: 5 }]}
+          form={{
+            ...props.form,
+            rental_transaction_items: [{ item_id: "item-1", item_name: "Camera", project_id: "", qty: 1, price: 100000, subtotal: 100000, remark: "" }],
+          }}
+          onItemChange={onItemChange}
+        />
+      </MemoryRouter>,
+    );
+
+    expect(screen.getByLabelText("Select Camera")).toBeTruthy();
+    expect(screen.getAllByLabelText("Qty")).toHaveLength(2);
+    fireEvent.change(screen.getAllByLabelText("Qty")[1], { target: { value: "2" } });
+    fireEvent.change(screen.getAllByLabelText("Remark")[1], { target: { value: "Tripod" } });
+    expect(onItemChange).toHaveBeenCalledWith(0, "qty", 2);
+    expect(onItemChange).toHaveBeenCalledWith(0, "remark", "Tripod");
   });
 
   it("should show error when end date is earlier than start date", (): void => {

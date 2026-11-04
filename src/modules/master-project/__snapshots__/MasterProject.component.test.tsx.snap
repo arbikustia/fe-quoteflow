@@ -10,13 +10,13 @@ exports[`MasterProjectComponent should match project list snapshot 1`] = `
         Page Back
       </button>
       <button
-        class="h-14 rounded-full border-2 border-brand-blue bg-background-surface px-6 text-sm font-bold text-brand-blue transition-colors hover:bg-action-primary-subtle focus:outline-none focus:ring-2 focus:ring-focus-ring/30"
+        class="h-14 rounded-full border-2 border-action-primary bg-background-surface px-6 text-lg font-bold text-action-primary transition-colors hover:bg-action-primary-subtle focus:outline-none focus:ring-2 focus:ring-focus-ring/30 lg:hidden"
         type="button"
       >
         Create New
       </button>
       <div
-        class="relative flex h-full flex-col bg-background-surface px-0 pb-18 lg:-mt-4 lg:bg-transparent lg:px-0 lg:pb-0"
+        class="relative flex h-full flex-col bg-background-page px-0 pb-18 lg:-mt-4 lg:bg-transparent lg:px-0 lg:pb-0"
       >
         <div
           class="flex min-w-0 flex-col gap-4 pb-16 pt-2 lg:hidden"
@@ -56,47 +56,63 @@ exports[`MasterProjectComponent should match project list snapshot 1`] = `
             </svg>
             <input
               aria-label="Search project"
-              class="h-14 w-full rounded-full border border-border-default bg-background-surface pl-12 pr-4 text-base font-medium text-text-primary outline-none transition-colors placeholder:font-normal placeholder:text-text-tertiary hover:border-border-strong focus:border-border-focus focus:ring-2 focus:ring-focus-ring/30 text-lg placeholder:text-lg"
+              class="h-14 w-full rounded-full border border-border-default bg-background-surface pl-12 pr-4 text-base font-medium text-text-primary outline-none transition-colors placeholder:font-normal placeholder:text-text-tertiary hover:border-border-strong focus:border-border-focus focus:ring-2 focus:ring-focus-ring/30 !h-16 text-xl placeholder:text-xl"
               placeholder="Search project"
               type="search"
             />
           </label>
           <div
-            class="min-w-0 space-y-3"
+            class="flex min-w-0 flex-col gap-4"
           >
             <button
-              class="group flex w-full items-start gap-4 rounded-2xl border border-border-default bg-background-surface p-5 text-left transition-colors hover:border-border-strong hover:bg-background-subtle/40 focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring/30 "
+              class="group block w-full min-w-0 rounded-3xl border border-border-strong bg-background-surface p-5 text-left shadow-small transition-colors hover:border-border-strong hover:bg-background-subtle/40 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-action-primary"
               type="button"
             >
               <span
-                class="min-w-0 flex-1"
+                class="flex min-w-0 flex-wrap items-center justify-between gap-3"
               >
                 <span
-                  class="block truncate font-semibold text-text-primary text-2xl"
+                  class="min-w-0 break-words text-xl font-semibold text-text-primary"
                 >
                   Website Revamp
                 </span>
                 <span
-                  class="mt-3 block text-xl"
+                  class="rounded-full px-3.5 py-1 text-lg font-semibold uppercase bg-badge-success-subtle text-badge-success"
                 >
-                  <span
-                    class="grid gap-2 text-xl text-text-secondary"
-                  >
-                    <span>
-                      1 item(s)
-                    </span>
-                    <span
-                      class="truncate"
-                    >
-                      High priority
-                    </span>
-                  </span>
+                  active
                 </span>
               </span>
               <span
-                class="shrink-0 rounded-full px-3 py-1 font-bold uppercase tracking-wider bg-success-subtle text-success-strong text-sm"
+                class="mt-4 flex flex-wrap items-end justify-between gap-x-4 gap-y-3 border-t border-border-default pt-4"
               >
-                active
+                <span
+                  class="min-w-0 text-lg text-text-secondary"
+                >
+                  <span
+                    class="block text-lg text-text-tertiary"
+                  >
+                    Items
+                  </span>
+                  <span
+                    class="mt-1 block text-lg font-medium text-text-primary"
+                  >
+                    1 item(s)
+                  </span>
+                </span>
+                <span
+                  class="min-w-0 text-lg text-text-secondary"
+                >
+                  <span
+                    class="block text-lg text-text-tertiary"
+                  >
+                    Remark
+                  </span>
+                  <span
+                    class="mt-1 block break-words text-lg font-medium text-text-primary"
+                  >
+                    High priority
+                  </span>
+                </span>
               </span>
             </button>
           </div>
@@ -105,10 +121,10 @@ exports[`MasterProjectComponent should match project list snapshot 1`] = `
           />
         </div>
         <div
-          class="hidden rounded-4xl border border-brand-gray-light bg-brand-white px-6 shadow-xs lg:flex md:mt-6 md:flex-1 md:flex-col md:overflow-hidden"
+          class="hidden rounded-3xl border border-border-default bg-background-surface px-6 pb-6 pt-0 shadow-xs md:mt-6 md:flex md:flex-1 md:flex-col md:overflow-hidden lg:flex"
         >
           <div
-            class="flex items-center justify-between gap-4 py-6"
+            class="flex items-center justify-between gap-4 border-b border-border-default py-6"
           >
             <label
               class="relative block w-full sm:w-72 "
@@ -145,13 +161,13 @@ exports[`MasterProjectComponent should match project list snapshot 1`] = `
               </svg>
               <input
                 aria-label="Search project"
-                class="h-14 w-full rounded-xl border border-border-default bg-background-surface pl-12 pr-4 text-base font-medium text-text-primary outline-none transition-colors placeholder:font-normal placeholder:text-text-tertiary hover:border-border-strong focus:border-border-focus focus:ring-2 focus:ring-focus-ring/30"
+                class="h-14 w-full rounded-full border border-border-default bg-background-surface pl-12 pr-4 text-base font-medium text-text-primary outline-none transition-colors placeholder:font-normal placeholder:text-text-tertiary hover:border-border-strong focus:border-border-focus focus:ring-2 focus:ring-focus-ring/30 text-lg placeholder:text-lg"
                 placeholder="Search project"
                 type="search"
               />
             </label>
             <button
-              class="h-14 rounded-xl bg-brand-blue px-6 text-sm font-semibold text-brand-white"
+              class="h-14 rounded-2xl bg-action-primary px-6 text-lg font-semibold text-text-inverse hover:bg-action-primary-hover focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring"
               type="button"
             >
               Create Project
@@ -216,7 +232,7 @@ exports[`MasterProjectComponent should match project list snapshot 1`] = `
                           class="px-5 py-4 border-b border-border-default text-base text-center "
                         >
                           <span
-                            class="text-brand-text-medium font-medium text-sm"
+                            class="text-lg text-text-secondary"
                           >
                             1
                           </span>
@@ -224,18 +240,26 @@ exports[`MasterProjectComponent should match project list snapshot 1`] = `
                         <td
                           class="px-5 py-4 border-b border-border-default text-base text-left "
                         >
-                          Website Revamp
+                          <span
+                            class="text-lg font-medium text-text-primary"
+                          >
+                            Website Revamp
+                          </span>
                         </td>
                         <td
                           class="px-5 py-4 border-b border-border-default text-base text-left "
                         >
-                          High priority
+                          <span
+                            class="text-lg text-text-secondary"
+                          >
+                            High priority
+                          </span>
                         </td>
                         <td
                           class="px-5 py-4 border-b border-border-default text-base text-center "
                         >
                           <span
-                            class="px-3 py-1 rounded-full text-xs font-bold uppercase bg-green-100 text-green-600"
+                            class="inline-flex rounded-full px-4 py-1.5 text-lg font-semibold uppercase bg-badge-success-subtle text-badge-success"
                           >
                             active
                           </span>
@@ -243,17 +267,23 @@ exports[`MasterProjectComponent should match project list snapshot 1`] = `
                         <td
                           class="px-5 py-4 border-b border-border-default text-base text-left "
                         >
-                          System
+                          <span
+                            class="text-lg text-text-secondary"
+                          >
+                            System
+                          </span>
                         </td>
                         <td
                           class="px-5 py-4 border-b border-border-default text-base text-center "
                         >
                           <button
-                            class="p-1.5 text-brand-text-medium hover:text-brand-blue hover:bg-brand-blue-light rounded-lg transition-colors cursor-pointer"
-                            title="Edit"
+                            aria-label="Edit project"
+                            class="cursor-pointer rounded-3xl p-2.5 text-text-secondary hover:bg-action-primary-subtle hover:text-action-primary"
+                            title="Edit project"
+                            type="button"
                           >
                             <svg
-                              class="w-4 h-4"
+                              class="h-5 w-5"
                               fill="none"
                               height="1em"
                               stroke="currentColor"
@@ -283,22 +313,7 @@ exports[`MasterProjectComponent should match project list snapshot 1`] = `
                 >
                   <div
                     class="flex flex-col gap-3 px-4 py-4 bg-transparent transition-colors "
-                  >
-                    <div
-                      class="flex items-center justify-between gap-2"
-                    >
-                      <span
-                        class="text-xs font-medium text-text-tertiary uppercase tracking-wider"
-                      >
-                        Project Name
-                      </span>
-                      <span
-                        class="flex-1 text-sm font-medium text-text-primary text-right truncate"
-                      >
-                        Website Revamp
-                      </span>
-                    </div>
-                  </div>
+                  />
                 </div>
               </div>
             </div>

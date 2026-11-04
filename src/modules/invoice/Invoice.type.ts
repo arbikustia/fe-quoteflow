@@ -48,6 +48,8 @@ export type InvoiceData = {
   notes: string;
 };
 
+export type InvoiceMobileCardProps = { invoice: InvoiceData; onClick: (invoice: InvoiceData) => void };
+
 export type InvoicePageData = {
   paginatedData: InvoiceData[];
   totalPages: number;

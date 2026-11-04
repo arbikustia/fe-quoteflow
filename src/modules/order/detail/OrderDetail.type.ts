@@ -1,5 +1,11 @@
 import type { ApiRentalTransactionDetail } from "../Order.type";
+
 import type { ProjectData } from "@/modules/master-project/MasterProject.type";
+
+export type OrderDetailRouteState = {
+  from?: string;
+  returnUrl?: string;
+};
 
 export type OrderDetailProps = {
   order: ApiRentalTransactionDetail | null;
@@ -7,5 +13,6 @@ export type OrderDetailProps = {
   isLoading: boolean;
   errorMessage: string | null;
   onNavigateBack: () => void;
-  onEdit: () => void;
+  onEdit?: () => void;
+  breadcrumbs?: string[];
 };

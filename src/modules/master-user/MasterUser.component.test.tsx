@@ -50,4 +50,5 @@ const props: MasterUserProps = {
 test.assertSnapshots(MasterUserComponent, [
   { props, desc: "default state" },
   { props: { ...props, paginatedData: [], isEmpty: true }, desc: "empty state" },
+  { props: { ...props, isLoading: true }, desc: "loading state" },
 ]);

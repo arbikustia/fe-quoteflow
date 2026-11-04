@@ -108,34 +108,44 @@ const setSearchTerm = (value: string): void => { setSearchTermState(value); setC
 export const useQuotationNavigation = (): QuotationNavigation => {
   const navigate = useNavigate();
   /**
- * onBack.
- * @returns {void} - result.
- */
-const onBack = (): void => { void navigate("/document"); };
+   * onBack.
+   * @returns {void} - result.
+   */
+  const onBack = (): void => { void navigate("/document"); };
+
   /**
- * onEdit.
- * @param {QuotationData} quotation - quotation value.
- * @returns {void} - result.
- */
-const onEdit = (quotation: QuotationData): void => { void navigate(`/document/quotation/${quotation.id}`); };
+   * onEdit.
+   * @param {QuotationData} quotation - quotation value.
+   * @returns {void} - result.
+   */
+  const onEdit = (quotation: QuotationData): void => {
+    const targetId = quotation.transactionId || quotation.id;
+
+    void navigate(`/order/create/${targetId}`, {
+      state: { returnUrl: "/document/quotation" },
+    });
+  };
+
   /**
- * onStatus.
- * @param {QuotationData} quotation - quotation value.
- * @returns {void} - result.
- */
-const onStatus = (quotation: QuotationData): void => { void navigate(`/document/quotation/${quotation.id}`); };
+   * onStatus.
+   * @param {QuotationData} quotation - quotation value.
+   * @returns {void} - result.
+   */
+  const onStatus = (quotation: QuotationData): void => { void navigate(`/document/quotation/${quotation.id}`); };
+
   /**
- * onDetail.
- * @param {QuotationData} quotation - quotation value.
- * @returns {void} - result.
- */
-const onDetail = (quotation: QuotationData): void => { void navigate(`/document/quotation/${quotation.id}`); };
+   * onDetail.
+   * @param {QuotationData} quotation - quotation value.
+   * @returns {void} - result.
+   */
+  const onDetail = (quotation: QuotationData): void => { void navigate(`/document/quotation/${quotation.id}`); };
+
   /**
- * onRowClick.
- * @param {QuotationData} quotation - quotation value.
- * @returns {void} - result.
- */
-const onRowClick = (quotation: QuotationData): void => { void navigate(`/document/quotation/${quotation.id}`); };
+   * onRowClick.
+   * @param {QuotationData} quotation - quotation value.
+   * @returns {void} - result.
+   */
+  const onRowClick = (quotation: QuotationData): void => { void navigate(`/document/quotation/${quotation.id}`); };
 
   return { onBack, onEdit, onDetail, onStatus, onRowClick };
 };
