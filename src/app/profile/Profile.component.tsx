@@ -41,10 +41,9 @@ export const ProfileComponent = ({
       <button 
         type="button" 
         onClick={onInstall} 
-        disabled={!canInstall}
-        className={`flex min-h-14 w-full items-center gap-3 border-t border-border-default px-5 py-4 text-left text-sm font-medium transition-colors focus-visible:outline-2 focus-visible:outline-focus-ring ${canInstall ? "text-action-primary hover:bg-background-subtle cursor-pointer" : "text-text-tertiary cursor-not-allowed opacity-60"}`}
+        className="flex min-h-14 w-full cursor-pointer items-center gap-3 border-t border-border-default px-5 py-4 text-left text-sm font-medium text-action-primary transition-colors hover:bg-background-subtle focus-visible:outline-2 focus-visible:outline-focus-ring"
       >
-        <Icons.Download />{canInstall ? "Install App" : "App Installed / Not Supported"}
+        <Icons.Download />{canInstall ? "Install App" : "Install App (Petunjuk)"}
       </button>
     </div>
 

@@ -9,10 +9,23 @@ import { useMobileProfileHeaderState } from "../shared/GlobalHeader.hook";
 import { getUsername } from "../../components/Sidebar/Sidebar.helpers";
 import { useTheme } from "../../store/theme.hook";
 
-interface BeforeInstallPromptEvent extends Event {
+type BeforeInstallPromptEvent = Event & {
   prompt: () => Promise<void>;
   userChoice: Promise<{ outcome: "accepted" | "dismissed"; platform: string }>;
-}
+};
+
+let deferredInstallPrompt: BeforeInstallPromptEvent | null = null;
+
+window.addEventListener("beforeinstallprompt", (event: Event): void => {
+  event.preventDefault();
+  deferredInstallPrompt = event as BeforeInstallPromptEvent;
+  window.dispatchEvent(new Event("quoteflow-install-available"));
+});
+
+window.addEventListener("appinstalled", (): void => {
+  deferredInstallPrompt = null;
+  window.dispatchEvent(new Event("quoteflow-app-installed"));
+});
 
 /**
  * Render profile page.
@@ -22,27 +35,30 @@ export default function ProfilePage(): ReactElement {
   const { theme, toggleTheme } = useTheme();
   const { isLogoutConfirmOpen, onOpenLogoutConfirm, onCloseLogoutConfirm, onConfirmLogout } = useMobileProfileHeaderState();
   const username = getUsername();
-  const [installPrompt, setInstallPrompt] = useState<BeforeInstallPromptEvent | null>(null);
+  const [canInstall, setCanInstall] = useState(Boolean(deferredInstallPrompt));
 
   useEffect(() => {
-    const handleBeforeInstallPrompt = (event: Event): void => {
-      event.preventDefault();
-      setInstallPrompt(event as BeforeInstallPromptEvent);
-    };
+    const onInstallAvailable = (): void => setCanInstall(true);
+    const onAppInstalled = (): void => setCanInstall(false);
 
-    window.addEventListener("beforeinstallprompt", handleBeforeInstallPrompt);
+    window.addEventListener("quoteflow-install-available", onInstallAvailable);
+    window.addEventListener("quoteflow-app-installed", onAppInstalled);
 
     return () => {
-      window.removeEventListener("beforeinstallprompt", handleBeforeInstallPrompt);
+      window.removeEventListener("quoteflow-install-available", onInstallAvailable);
+      window.removeEventListener("quoteflow-app-installed", onAppInstalled);
     };
   }, []);
 
   const handleInstall = async (): Promise<void> => {
-    if (!installPrompt) return;
-    await installPrompt.prompt();
-    const choice = await installPrompt.userChoice;
+    if (!deferredInstallPrompt) {
+      window.alert("Untuk menginstall aplikasi, gunakan menu 'Install' atau 'Add to Home Screen' di browser Anda.");
+      return;
+    }
+    await deferredInstallPrompt.prompt();
+    const choice = await deferredInstallPrompt.userChoice;
     if (choice.outcome === "accepted") {
-      setInstallPrompt(null);
+      setCanInstall(false);
     }
   };
 
@@ -60,7 +76,7 @@ export default function ProfilePage(): ReactElement {
             username={username || null}
             theme={theme}
             isLogoutConfirmOpen={isLogoutConfirmOpen}
-            canInstall={Boolean(installPrompt)}
+            canInstall={canInstall}
             onInstall={handleInstall}
             onToggleTheme={toggleTheme}
             onOpenLogoutConfirm={onOpenLogoutConfirm}
