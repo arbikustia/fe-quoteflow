@@ -138,7 +138,7 @@ export const useMasterCategoryCreate = (): MasterCategoryCreateFormState => {
    * Go back.
    * @returns {void} No return value
    */
-  const goBack = (): void => { navigate(-1); };
+  const goBack = (): void => { navigate("/master-category"); };
 
   return {
     name,

@@ -11,6 +11,7 @@ jest.mock("@/app/layout", () => ({
 const createProps = (
   overrides: Partial<MasterProjectCreateFormState> = {},
 ): MasterProjectCreateFormState => ({
+  isEditMode: false,
   step: 1,
   items: [
     {
@@ -26,13 +27,16 @@ const createProps = (
   itemsError: null,
   name: "",
   remark: "",
+  isActive: true,
   isSubmitting: false,
   errorMessage: null,
   successMessage: null,
   errors: {},
   isSubmitted: false,
+  validateStep2: jest.fn().mockResolvedValue(true),
   handleNameChange: jest.fn(),
   handleRemarkChange: jest.fn(),
+  handleStatusChange: jest.fn(),
   nextStep: jest.fn(),
   previousStep: jest.fn(),
   toggleItem: jest.fn(),
@@ -68,6 +72,21 @@ describe("MasterProjectCreateForm", () => {
     expect(props.handleNameChange).toHaveBeenCalled();
     expect(props.handleRemarkChange).toHaveBeenCalled();
     expect(screen.getAllByRole("button", { name: "Back" }).find((button) => button.textContent === "Back")).toBeInTheDocument();
+  });
+
+  it("should render status switch in edit information step", () => {
+    const handleStatusChange = jest.fn();
+    const props = Object.assign(createProps({ isEditMode: true, step: 2 }), {
+      isActive: false,
+      handleStatusChange,
+    });
+
+    render(<MasterProjectCreateForm {...props} />);
+
+    expect(screen.getByText("Status")).toBeInTheDocument();
+    expect(screen.getByText("inactive")).toBeInTheDocument();
+    fireEvent.click(screen.getByRole("switch", { name: "Project status" }));
+    expect(handleStatusChange).toHaveBeenCalledTimes(1);
   });
 
   it("should render preview, messages, and loading submit state", () => {

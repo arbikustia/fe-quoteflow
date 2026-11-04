@@ -2,6 +2,7 @@ import type { ReactElement } from "react";
 import type { FieldError } from "react-hook-form";
 
 import { AlertComponent } from "@/components/Alert";
+import { BackButton } from "@/components/BackButton";
 import { InputComponent } from "@/components/Input";
 import { Select } from "@/components/Select";
 import { SwitchComponent } from "@/components/Switch";
@@ -52,7 +53,12 @@ const _renderStatusField = (
   return (
     <div className="flex items-center justify-between rounded-2xl border-2 border-border-strong bg-background-surface px-5 py-4 lg:col-span-2">
       <div className="flex flex-col">
-        <span className="text-lg font-normal text-text-primary">Status</span>
+        <div className="flex items-center gap-2.5">
+          <span className="text-lg font-normal text-text-primary">Status</span>
+          <span className={`inline-flex rounded-full px-3 py-0.5 text-base font-semibold uppercase ${props.isActive ? "bg-success-subtle text-success-strong" : "bg-danger-subtle text-danger-strong"}`}>
+            {props.isActive ? "active" : "inactive"}
+          </span>
+        </div>
         <span className="text-base text-text-secondary">
           Toggle active or inactive status
         </span>
@@ -83,14 +89,7 @@ const _renderMobileBack = (
 
   return (
     <div className="mb-6 flex items-center gap-3 bg-background-page lg:hidden">
-      <button
-        type="button"
-        onClick={goBack}
-        aria-label="Back"
-        className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full border border-border-default bg-background-page text-text-primary transition-colors hover:bg-background-subtle"
-      >
-        {_renderBackIcon()}
-      </button>
+      <BackButton onClick={goBack} />
       <div className="min-w-0">
         <h2 className="truncate text-4xl font-semibold tracking-tight text-text-primary">
           {title}
@@ -107,6 +106,7 @@ const _renderMobileBack = (
  * @param {() => void} goBack - Back navigation
  * @returns {ReactElement} Header element
  */
+// eslint-disable-next-line max-lines-per-function
 const _renderHeaderSection = (
   isEditMode: boolean,
   goBack: () => void,
@@ -117,30 +117,32 @@ const _renderHeaderSection = (
     : "Fill in the item details below.";
 
   return (
-    <>
+    <div className="hidden lg:block">
       <nav
         aria-label="Breadcrumb"
-        className="mb-2 hidden items-center gap-2 text-sm font-medium text-text-secondary lg:flex"
+        className="mb-2 flex items-center gap-2 text-[15px] font-medium text-text-secondary"
       >
         <button
           type="button"
           onClick={goBack}
           className="cursor-pointer hover:text-text-primary"
         >
-          Master Item
+          Master
         </button>
+        <span aria-hidden="true">/</span>
+        <span>Master Item</span>
         <span aria-hidden="true">/</span>
         <span className="text-text-primary">{title}</span>
       </nav>
-      <div className="mb-6 hidden lg:block">
+      <div className="mb-6">
         <h2 className="text-4xl font-semibold leading-tight tracking-tight text-text-primary">
           {title}
         </h2>
-        <p className="mt-3 text-sm font-medium text-text-secondary opacity-70">
+        <p className="mt-2 text-sm text-text-secondary">
           {subtitle}
         </p>
       </div>
-    </>
+    </div>
   );
 };
 
@@ -151,6 +153,7 @@ const _renderHeaderSection = (
  * @param {ItemFormContentProps} props - Field props
  * @returns {ReactElement} Inputs
  */
+// eslint-disable-next-line max-lines-per-function
 const _renderBasicInputs = (props: ItemFormContentProps): ReactElement => {
   const nameError = _getFieldError(props.errors?.name);
 
@@ -203,6 +206,7 @@ const _renderBasicInputs = (props: ItemFormContentProps): ReactElement => {
  * @param {ItemFormContentProps} props - Field props
  * @returns {ReactElement} Numerical inputs
  */
+// eslint-disable-next-line max-lines-per-function
 const _renderNumericalInputs = (props: ItemFormContentProps): ReactElement => {
   const priceError = _getFieldError(props.errors?.price);
   const stockError = _getFieldError(props.errors?.stock);
@@ -269,6 +273,7 @@ const _renderNumericalInputs = (props: ItemFormContentProps): ReactElement => {
  * @param {ItemFormContentProps} props - Field props
  * @returns {ReactElement} Extra inputs
  */
+// eslint-disable-next-line max-lines-per-function
 const _renderExtraInputs = (props: ItemFormContentProps): ReactElement => (
   <>
     <div className="space-y-2">
@@ -334,10 +339,11 @@ const _renderFormActions = (
   const submittingText = isEditMode ? "Updating…" : "Creating…";
 
   return (
-    <div className="mt-8 flex justify-between gap-3 border-t border-border-default/60 pt-5 lg:mt-6 lg:border-border-default">
+    <div className="mt-auto flex justify-between gap-3 border-t border-border-default/60 pt-5 lg:border-border-default">
       <button
         type="button"
         onClick={goBack}
+        disabled={isSubmitting}
         className="h-14 cursor-pointer rounded-xl border border-border-default px-8 text-lg font-semibold text-text-primary transition-colors hover:bg-background-subtle focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-action-primary disabled:cursor-not-allowed disabled:opacity-50 lg:text-lg"
       >
         Cancel
@@ -389,11 +395,11 @@ const _renderAlerts = (
 const _renderFormCard = (
   props: MasterItemCreateFormState,
 ): ReactElement => (
-  <form
-    noValidate
-    onSubmit={props.handleSubmit}
-    className="mb-6 flex flex-col rounded-3xl border border-border-default bg-background-surface p-6 shadow-small sm:p-8 lg:mb-5 lg:rounded-3xl lg:p-10"
-  >
+    <form
+      noValidate
+      onSubmit={props.handleSubmit}
+      className="mb-6 flex flex-col rounded-3xl border border-border-default bg-background-surface p-6 shadow-small sm:p-8 lg:-mt-4 lg:mb-5 lg:flex-1 lg:rounded-3xl lg:p-10"
+    >
     <div className="pb-6">
       <section className="space-y-5">
         <div className="grid w-full grid-cols-1 gap-x-6 gap-y-5 lg:grid-cols-2">

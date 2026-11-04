@@ -8,6 +8,17 @@ jest.setSystemTime(new Date("2026-10-25T00:00:00.000Z"));
 
 afterAll(() => jest.useRealTimers());
 
+jest.mock("@/app/layout", () => ({
+  __esModule: true,
+  default: ({ children }: { children: React.ReactNode }) => <div>{children}</div>,
+}));
+
+jest.mock("@/app/shared/PageLayout", () => ({
+  PageLayout: ({ children, title }: { children: React.ReactNode; title: string }) => (
+    <section><h1>{title}</h1>{children}</section>
+  ),
+}));
+
 /**
  * No-op callback.
  * @returns {void} - no value.

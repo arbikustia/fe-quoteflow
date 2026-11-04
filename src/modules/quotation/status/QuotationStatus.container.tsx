@@ -13,7 +13,7 @@ const QuotationStatusContainer = (): ReactElement => {
   const formState = useQuotationStatusForm();
 
   return (
-    <Layout mobileWhiteBackground={true} showMobileGlobalHeader={true}>
+    <Layout showMobileGlobalHeader={true}>
       <QuotationStatusForm {...formState} />
     </Layout>
   );

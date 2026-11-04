@@ -3,6 +3,7 @@ import type { ReactElement } from "react";
 import type { FieldError } from "react-hook-form";
 
 import { AlertComponent } from "@/components/Alert";
+import { BackButton } from "@/components/BackButton";
 import { InputComponent } from "@/components/Input";
 import { SwitchComponent } from "@/components/Switch";
 
@@ -17,25 +18,7 @@ const _renderMobileBack = (isEditMode: boolean, goBack: () => void): ReactElemen
 
   return (
     <div className="mb-6 flex items-center gap-3 bg-background-page lg:hidden">
-      <button
-        type="button"
-        onClick={goBack}
-        aria-label="Back"
-        className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full border border-border-default bg-background-page text-text-primary transition-colors hover:bg-background-subtle"
-      >
-        <svg
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2.5"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          className="h-6 w-6"
-          aria-hidden="true"
-        >
-          <path d="M19 12H5M12 19l-7-7 7-7" />
-        </svg>
-      </button>
+      <BackButton onClick={goBack} />
       <div className="min-w-0">
         <h2 className="truncate text-4xl font-semibold tracking-tight text-text-primary">
           {title}
@@ -54,35 +37,38 @@ const _renderHeader = (isEditMode: boolean, goBack: () => void): ReactElement =>
   const subtitle = isEditMode ? "Update the PIC details below." : "Fill in the PIC details below.";
 
   return (
-    <>
+    <div className="hidden lg:block">
       <nav
         aria-label="Breadcrumb"
-        className="mb-2 hidden items-center gap-2 text-sm font-medium text-text-secondary lg:flex"
+        className="mb-2 flex items-center gap-2 text-[15px] font-medium text-text-secondary"
       >
         <button
           type="button"
           onClick={goBack}
           className="cursor-pointer hover:text-text-primary"
         >
-          Master PIC
+          Master
         </button>
+        <span aria-hidden="true">/</span>
+        <span>Master PIC</span>
         <span aria-hidden="true">/</span>
         <span className="text-text-primary">{title}</span>
       </nav>
-      <div className="mb-6 hidden lg:block">
+      <div className="mb-6">
         <h2 className="text-4xl font-semibold leading-tight tracking-tight text-text-primary">
           {title}
         </h2>
-        <p className="mt-3 text-sm font-medium text-text-secondary opacity-70">
+        <p className="mt-2 text-sm text-text-secondary">
           {subtitle}
         </p>
       </div>
-    </>
+    </div>
   );
 };
 
 
 /** Render PIC fields. */
+// eslint-disable-next-line max-lines-per-function
 const _renderFields = (props: MasterPicCreateState): ReactElement => {
   const nameError = props.isSubmitted && !props.name ? "PIC name is required." : _getFieldError(props.errors?.name);
 
@@ -92,7 +78,7 @@ const _renderFields = (props: MasterPicCreateState): ReactElement => {
         id="pic-name"
         type="text"
         label="PIC Name"
-        className={`!mb-0 [&_.ant-input]:!h-16 lg:[&_.ant-input]:!h-14 [&_.ant-input]:!rounded-2xl [&_.ant-input]:!border-2 ${
+        className={`!mb-0 lg:col-span-2 [&_.ant-input]:!h-16 lg:[&_.ant-input]:!h-14 [&_.ant-input]:!rounded-2xl [&_.ant-input]:!border-2 ${
           nameError
             ? "[&_.ant-input]:!border-danger"
             : "[&_.ant-input]:!border-border-strong"
@@ -104,10 +90,15 @@ const _renderFields = (props: MasterPicCreateState): ReactElement => {
         onChange={props.handleNameChange}
       />
       {props.isEditMode && (
-        <div className="flex items-center justify-between rounded-xl border border-border-default bg-background-surface px-4 py-3.5 lg:col-span-2">
-          <div>
-            <p className="text-lg font-semibold text-text-primary lg:text-sm">Status</p>
-            <p className="text-base text-text-secondary lg:text-xs">Toggle active or inactive status</p>
+        <div className="flex items-center justify-between rounded-2xl border-2 border-border-strong bg-background-surface px-5 py-4 lg:col-span-2">
+          <div className="flex flex-col">
+            <div className="flex items-center gap-2.5">
+              <span className="text-lg font-normal text-text-primary">Status</span>
+              <span className={`inline-flex rounded-full border border-current px-3 py-0.5 text-base font-semibold uppercase ${props.isActive ? "bg-success-subtle text-success-strong" : "bg-danger-subtle text-danger-strong"}`}>
+                {props.isActive ? "active" : "inactive"}
+              </span>
+            </div>
+            <span className="text-base text-text-secondary">Toggle active or inactive status</span>
           </div>
           <SwitchComponent label="PIC status" checked={props.isActive} onChange={props.handleStatusChange} />
         </div>
@@ -125,11 +116,14 @@ const _resolveSubmitText = (isSubmitting: boolean, isEditMode: boolean): string 
   return isEditMode ? "Update PIC" : "Create PIC";
 };
 
+/**
+ *
+ */
 const _renderAction = (props: MasterPicCreateState): ReactElement => {
   const actionText = _resolveSubmitText(props.isSubmitting, props.isEditMode);
 
   return (
-    <div className="mt-8 flex justify-between gap-3 border-t border-border-default/60 pt-5 lg:mt-6 lg:border-border-default">
+    <div className="mt-auto flex justify-between gap-3 border-t border-border-default/60 pt-5 lg:border-border-default">
       <button
         type="button"
         onClick={props.goBack}
@@ -163,7 +157,7 @@ export const MasterPicCreateForm = (props: MasterPicCreateState): ReactElement =
         <form
           noValidate
           onSubmit={props.handleSubmit}
-          className="mb-6 flex flex-col rounded-3xl border border-border-default bg-background-surface p-6 shadow-small sm:p-8 lg:mb-5 lg:rounded-3xl lg:p-10"
+          className="mb-6 flex flex-col rounded-3xl border border-border-default bg-background-surface p-6 shadow-small sm:p-8 lg:-mt-4 lg:mb-5 lg:flex-1 lg:rounded-3xl lg:p-10"
         >
           <div className="pb-6">
             <section className="space-y-5">{_renderFields(props)}</section>

@@ -10,6 +10,17 @@ jest.mock("@/utils/pdfGenerator", () => ({
   generateQuotationPDF: (...args: unknown[]) => mockGenerateQuotationPDF(...args),
 }));
 
+jest.mock("@/app/layout", () => ({
+  __esModule: true,
+  default: ({ children }: { children: React.ReactNode }) => <div>{children}</div>,
+}));
+
+jest.mock("@/app/shared/PageLayout", () => ({
+  PageLayout: ({ children, title }: { children: React.ReactNode; title: string }) => (
+    <section><h1>{title}</h1>{children}</section>
+  ),
+}));
+
 const MOCK_ROWS: QuotationData[] = [
   {
     id: "q-1",
@@ -17,13 +28,14 @@ const MOCK_ROWS: QuotationData[] = [
     quotationNumber: "QUO-001",
     customerName: "PT Example",
     name: "Annual Gala",
-    quotationDate: "2026-10-01",
+    quotationDate: "2026-11-20T12:00:00",
     customerPhone: "0812345678",
     location: "Jakarta Convention Center",
-    startDate: "2026-11-01",
-    endDate: "2026-11-02",
+    startDate: "2026-11-20T12:00:00",
+    endDate: "2026-11-21T15:30:00",
     grandTotal: 15000000,
     status: 1,
+    items: [{ item_id: "item-1", item_name: "Speaker", qty: 7, price: 500000, subtotal: 3500000, remark: "Main hall" }],
   },
   {
     id: "q-2",
@@ -64,6 +76,7 @@ const createProps = (overrides?: Partial<QuotationProps>): QuotationProps => {
   const setSearchTerm = jest.fn();
 
   return {
+    itemCategories: new Map([["item-1", "Audio"]]),
     currentPage: 1,
     pageSize: 10,
     totalPages: 1,
@@ -95,13 +108,15 @@ describe("QuotationComponent", () => {
     expect(screen.getAllByText("QUO-001").length).toBeGreaterThan(0);
     expect(screen.getAllByText("PT Example").length).toBeGreaterThan(0);
     expect(screen.getAllByText("Annual Gala").length).toBeGreaterThan(0);
-    expect(screen.getAllByText("2026-10-01").length).toBeGreaterThan(0);
-    expect(screen.getAllByText("2026-11-01").length).toBeGreaterThan(0);
-    expect(screen.getAllByText("2026-11-02").length).toBeGreaterThan(0);
+    expect(screen.getAllByText("20 November 2026 12:00").length).toBeGreaterThan(0);
+    expect(screen.getAllByText("21 November 2026 15:30").length).toBeGreaterThan(0);
+    expect(screen.getAllByText("20 November 2026 12:00 – 21 November 2026 15:30").length).toBeGreaterThan(0);
     expect(screen.getAllByText("Quotation Created")).toHaveLength(2);
     expect(screen.getAllByText("Approved")).toHaveLength(2);
     expect(screen.getAllByText("Cancelled")).toHaveLength(2);
-    expect(screen.getAllByText("Quotation Created")[0].className).toContain("text-lg");
+    expect(screen.getAllByText("Quotation Created")[0].className).toContain("border-current");
+    expect(screen.getAllByText("Quotation Created")[0].className).toContain("text-base");
+    expect(screen.getAllByText("Quotation Created")[0].className).toContain("uppercase");
     expect(screen.getAllByRole("button", { name: "Download PDF" })[0].className).toContain("rounded-3xl");
   });
 
@@ -123,9 +138,10 @@ describe("QuotationComponent", () => {
       expect(card?.textContent).toContain("Event period");
       expect(card?.textContent).toContain("Total");
       expect(screen.getAllByText(row.quotationNumber)[0].className).toContain("text-lg");
-      expect(card?.querySelector(".rounded-full")?.className).toContain("text-lg");
+      expect(card?.querySelector(".rounded-full")?.className).toContain("text-base");
+      expect(card?.querySelector(".rounded-full")?.className).toContain("border-current");
       expect(screen.getAllByText(row.customerName)[0].className).toContain("text-lg");
-      expect(card?.querySelectorAll(".text-xs, .text-sm, .text-base")).toHaveLength(0);
+      expect(card?.querySelectorAll(".text-xs, .text-sm")).toHaveLength(0);
       expect(card?.textContent).not.toMatch(/\bactive\b|\binactive\b/i);
     });
   });
@@ -155,7 +171,9 @@ describe("QuotationComponent", () => {
     expect(downloadButtons.length).toBeGreaterThan(0);
 
     fireEvent.click(downloadButtons[0]);
-    expect(mockGenerateQuotationPDF).toHaveBeenCalled();
+    expect(mockGenerateQuotationPDF).toHaveBeenCalledWith(expect.objectContaining({
+      pdfItems: [expect.objectContaining({ name: "Speaker", category: "Audio", qty: 7, price: 500000, remark: "Main hall" })],
+    }));
   });
 
   it("should open detail when table row is clicked", (): void => {

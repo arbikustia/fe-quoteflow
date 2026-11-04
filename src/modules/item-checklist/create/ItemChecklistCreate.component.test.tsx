@@ -72,10 +72,12 @@ const mockSelectedFormProps: ChecklistCreateFormState = {
 };
 
 describe("ItemChecklistCreateForm", () => {
-  it("should render rental order select and no table when unselected", () => {
+  it("should render rental order select and master role actions when unselected", () => {
     render(<MemoryRouter><ItemChecklistCreateForm {...mockEmptyFormProps} /></MemoryRouter>);
     expect(screen.getByLabelText("Rental Order")).toBeInTheDocument();
     expect(screen.queryByText("Order Items")).not.toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "Cancel" })).toHaveClass("h-14", "rounded-xl");
+    expect(screen.getByRole("button", { name: "Save Checklist" })).toHaveClass("h-14", "rounded-xl");
   });
 
   it("should render order items table, search filter, and checkboxes when order is selected", () => {
@@ -87,7 +89,7 @@ describe("ItemChecklistCreateForm", () => {
     expect(screen.getByRole("button", { name: "Save Checklist" })).toBeInTheDocument();
     const mobileItem = screen.getAllByText("Speaker Active")[0].closest("article");
     expect(mobileItem?.querySelectorAll(".text-xs, .text-sm, .text-base")).toHaveLength(0);
-    expect(screen.getByText("Select Move Out and Move In independently for each item.")).toHaveClass("text-lg");
+    expect(screen.getByText("Select Move Out and Move In independently for each item.")).toHaveClass("text-base");
   });
 
   it("should trigger search change on input", () => {

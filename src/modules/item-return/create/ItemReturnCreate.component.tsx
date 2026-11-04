@@ -90,6 +90,31 @@ const _renderMobileItem = (row: ReturnOrderItemRow, props: ReturnCreateFormState
   </article>
 );
 
+const _renderActions = (props: ReturnCreateFormState): ReactElement => {
+  const saveLabel = props.isEditMode ? "Update Return" : "Save Return";
+
+  return (
+    <div className="mt-auto flex items-center justify-between gap-3 border-t border-border-default/60 pt-5">
+      <button
+        type="button"
+        onClick={props.goBack}
+        disabled={props.isSubmitting}
+        className="h-14 cursor-pointer rounded-xl border border-border-default bg-background-surface px-8 text-lg font-semibold text-text-primary transition-colors hover:bg-background-subtle focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-action-primary disabled:cursor-not-allowed disabled:opacity-50"
+      >
+        Cancel
+      </button>
+      <button
+        type="button"
+        onClick={(): void => { void props.handleSave(); }}
+        disabled={props.isSubmitting}
+        className="h-14 cursor-pointer rounded-xl bg-action-primary px-8 text-lg font-semibold text-text-inverse shadow-xs transition-colors hover:bg-action-primary-hover focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-action-primary disabled:cursor-not-allowed disabled:opacity-60"
+      >
+        {props.isSubmitting ? "Saving…" : saveLabel}
+      </button>
+    </div>
+  );
+};
+
 const _getColumns = (props: ReturnCreateFormState): TableColumn<ReturnOrderItemRow>[] => [
   {
     key: "itemName",
@@ -143,7 +168,6 @@ const _getColumns = (props: ReturnCreateFormState): TableColumn<ReturnOrderItemR
  */
 export const ItemReturnCreateForm = (props: ReturnCreateFormState): ReactElement => {
   const columns = _getColumns(props);
-  const saveLabel = props.isEditMode ? "Update Return" : "Save Return";
 
   if (props.isLoadingInitialData) {
     return (
@@ -162,8 +186,8 @@ export const ItemReturnCreateForm = (props: ReturnCreateFormState): ReactElement
   }
 
   return (
-    <div className="flex flex-col gap-6 lg:gap-8">
-      <div className="rounded-3xl border border-border-default bg-background-surface p-6 sm:p-8 shadow-xs">
+    <div className="flex min-h-0 flex-1 flex-col gap-6 lg:-mt-4 lg:gap-8">
+      <div className="rounded-3xl border border-border-default bg-background-surface p-6 shadow-small sm:p-8 lg:p-10">
         <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
           {props.isEditMode ? (
             <div>
@@ -204,7 +228,7 @@ export const ItemReturnCreateForm = (props: ReturnCreateFormState): ReactElement
               value={props.returnNotes}
               onChange={(event): void => props.handleNotesChange(event.target.value)}
               disabled={props.isSubmitting}
-              className="min-h-24 w-full resize-y rounded-2xl border border-border-default bg-background-surface px-4 py-3 text-lg text-text-primary placeholder:text-text-placeholder focus:border-action-primary focus:outline-none focus:ring-1 focus:ring-action-primary md:hidden"
+              className="min-h-24 w-full resize-y rounded-2xl border-2 border-border-strong bg-background-surface px-4 py-3 text-xl text-text-primary placeholder:text-xl placeholder:text-text-placeholder focus:border-action-primary focus:outline-none focus:ring-2 focus:ring-focus-ring md:hidden"
             />
             <input
               id="return-notes"
@@ -213,7 +237,7 @@ export const ItemReturnCreateForm = (props: ReturnCreateFormState): ReactElement
               value={props.returnNotes}
               onChange={(event): void => props.handleNotesChange(event.target.value)}
               disabled={props.isSubmitting}
-              className="hidden h-14 w-full rounded-2xl border border-border-default bg-background-surface px-4 text-lg text-text-primary placeholder:text-text-placeholder focus:border-action-primary focus:outline-none focus:ring-1 focus:ring-action-primary md:block"
+              className="hidden h-14 w-full rounded-2xl border-2 border-border-strong bg-background-surface px-4 text-lg text-text-primary placeholder:text-lg placeholder:text-text-placeholder focus:border-action-primary focus:outline-none focus:ring-2 focus:ring-focus-ring md:block"
             />
           </div>
         </div>
@@ -258,7 +282,7 @@ export const ItemReturnCreateForm = (props: ReturnCreateFormState): ReactElement
         )}
       </Modal>
       {Boolean(props.selectedOrderId) && (
-        <div className="rounded-3xl border border-border-default bg-background-surface p-6 sm:p-8 shadow-xs">
+        <div className="rounded-3xl border border-border-default bg-background-surface p-6 shadow-small sm:p-8 lg:p-10">
           <div className="mb-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
             <div className="flex items-center gap-3">
               <h3 className="text-2xl font-bold text-text-primary">Order Items</h3>
@@ -296,32 +320,12 @@ export const ItemReturnCreateForm = (props: ReturnCreateFormState): ReactElement
             />
           </div>
 
-          <div className="mt-8 flex flex-col items-center justify-between gap-4 border-t border-border-default pt-6 sm:flex-row">
-            <span className="hidden text-lg font-medium text-text-secondary sm:inline-block">
-              Item photos and remarks are optional.
-            </span>
-            <div className="flex w-full items-center gap-3 sm:w-auto">
-              <button
-                type="button"
-                onClick={props.goBack}
-                className="h-14 w-full cursor-pointer rounded-2xl border border-border-default bg-background-surface px-6 text-lg font-semibold text-text-primary hover:bg-background-subtle sm:w-auto"
-              >
-                Cancel
-              </button>
-              <button
-                type="button"
-                onClick={(): void => {
-                  void props.handleSave();
-                }}
-                disabled={props.isSubmitting}
-                className="h-14 w-full cursor-pointer rounded-2xl bg-action-primary px-8 text-lg font-semibold tracking-wide text-text-inverse shadow-xs transition-all hover:bg-action-primary-hover disabled:cursor-not-allowed disabled:opacity-50 sm:w-auto"
-              >
-                {props.isSubmitting ? "Saving…" : saveLabel}
-              </button>
-            </div>
-          </div>
+          <p className="mt-8 border-t border-border-default pt-5 text-base text-text-secondary">
+            Item photos and remarks are optional.
+          </p>
         </div>
       )}
+      {_renderActions(props)}
     </div>
   );
 };

@@ -98,7 +98,7 @@ describe("MasterServiceTypeCreate.hook", () => {
     act(() => {
       result.current.goBack();
     });
-    expect(mockNavigate).toHaveBeenCalledWith(-1);
+    expect(mockNavigate).toHaveBeenCalledWith("/master-service-type");
   });
 
   it("should submit create mutation and navigate to list", async () => {
@@ -126,7 +126,9 @@ describe("MasterServiceTypeCreate.hook", () => {
       price: 500000,
       status: 1,
     });
-    expect(mockNavigate).toHaveBeenCalledWith("/master-service-type");
+    expect(mockNavigate).toHaveBeenCalledWith("/master-service-type", {
+      state: { successMessage: "Service type created successfully." },
+    });
   });
 
   it("should submit update mutation when in edit mode", async () => {
@@ -156,7 +158,9 @@ describe("MasterServiceTypeCreate.hook", () => {
       price: 200000,
       status: 1,
     });
-    expect(mockNavigate).toHaveBeenCalledWith("/master-service-type");
+    expect(mockNavigate).toHaveBeenCalledWith("/master-service-type", {
+      state: { successMessage: "Service type updated successfully." },
+    });
   });
 
   it("should display backend error message when mutation returns status false", async () => {

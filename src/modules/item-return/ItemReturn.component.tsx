@@ -8,35 +8,24 @@ import Table from "@/components/Table";
 
 import Layout from "@/app/layout";
 import { PageLayout } from "@/app/shared/PageLayout";
-import { formatDate } from "@/modules/quotation/detail/QuotationDetail.helpers";
+import { formatIndonesianDateTime } from "@/utils/date.helpers";
 
 import type { ItemReturnMobileCardProps, ReturnListState, ReturnRow } from "./ItemReturn.type";
 
 /**
  * Render return status badge.
  * @param {ReturnRow} row - Return row data
- * @param {boolean} isCard - Whether rendering inside mobile card
  * @returns {ReactElement} Badge element
  */
-const _renderStatus = (row: ReturnRow, isCard = false): ReactElement => {
-  const styles = {
-    active: "bg-success-subtle text-success-strong",
-    inactive: "bg-background-muted text-text-tertiary",
-    unavailable: "bg-warning-subtle text-warning-strong",
-  };
-  const labels = {
-    active: "Active",
-    inactive: "Inactive",
-    unavailable: "Status unavailable",
-  };
+const _renderStatus = (row: ReturnRow): ReactElement => {
+  let statusClass = "bg-warning-subtle text-warning-strong";
+  if (row.status === "active") statusClass = "bg-success-subtle text-success-strong";
+  if (row.status === "inactive") statusClass = "bg-danger-subtle text-danger-strong";
+  const label = row.status === "unavailable" ? "Status unavailable" : row.status;
 
   return (
-    <span
-      className={`inline-flex rounded-full ${
-        isCard ? "px-3.5 py-1 text-lg font-semibold" : "px-4 py-1.5 text-lg font-semibold"
-      } ${styles[row.status]}`}
-    >
-      {labels[row.status]}
+    <span className={`inline-flex rounded-full border border-current px-3 py-1 text-base font-semibold uppercase ${statusClass}`}>
+      {label}
     </span>
   );
 };
@@ -63,7 +52,7 @@ const _getColumns = (props: ReturnListState): TableColumn<ReturnRow>[] => [
   {
     key: "returnDate",
     header: "Return Date",
-    render: (row): ReactElement => <span className="text-lg">{formatDate(row.returnDate)}</span>,
+    render: (row): ReactElement => <span className="text-lg text-text-secondary">{formatIndonesianDateTime(row.returnDate)}</span>,
   },
   {
     key: "itemCount",
@@ -120,18 +109,17 @@ export const ItemReturnMobileCard = ({ row, onClick }: ItemReturnMobileCardProps
       className="group block w-full min-w-0 rounded-3xl border border-border-strong bg-background-surface p-5 text-left shadow-small transition-colors hover:border-border-strong hover:bg-background-subtle/40 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-action-primary"
     >
       <span className="flex min-w-0 flex-wrap items-center justify-between gap-3">
-        <span className="min-w-0 break-all text-lg font-medium text-text-secondary">Item Return</span>
-        {_renderStatus(row, true)}
+        <span className="min-w-0 break-words text-xl font-semibold text-text-primary">{row.orderId}</span>
+        {_renderStatus(row)}
       </span>
-      <span className="mt-4 block break-words text-xl font-semibold text-text-primary">{row.orderId}</span>
-      <span className="mt-1.5 block break-words text-lg text-text-secondary">
+      <span className="mt-4 block break-words text-lg text-text-secondary">
         {row.notes && row.notes !== "-" ? row.notes : "No remark"}
       </span>
       <span className="mt-4 flex flex-wrap items-end justify-between gap-x-4 gap-y-3 border-t border-border-default pt-4">
         <span className="min-w-0 text-lg text-text-secondary">
           <span className="block text-lg text-text-tertiary">Return date</span>
           <span className="mt-1 block break-words text-lg font-medium text-text-primary">
-            {formatDate(row.returnDate)}
+            {formatIndonesianDateTime(row.returnDate)}
           </span>
         </span>
         <span className="text-right tabular-nums">
@@ -274,11 +262,11 @@ export const ItemReturnComponent = (props: ReturnListState): ReactElement => {
     : (state ?? <Table data={props.rows} columns={columns} isDetail={true} onRowClick={props.onRowClick} keyExtractor={(row): string => row.id} />);
 
   return (
-    <Layout pageTitle="Item Return">
+    <Layout pageTitle="Item Return List">
       <PageLayout
-        title="Item Return"
-        subtitle="Manage rental item returns and status."
-        breadcrumbs={["Item Return"]}
+        title="Item Return List"
+        subtitle="Manage rental item returns and status"
+        breadcrumbs={["Item Return", "Item Return List"]}
         mobileHeaderClassName="px-0"
         mobileTitleClassName="text-4xl"
         onBack={props.onBack}
@@ -326,7 +314,7 @@ export const ItemReturnComponent = (props: ReturnListState): ReactElement => {
                 onClick={props.onCreate}
                 className="h-14 rounded-2xl bg-action-primary px-6 text-lg font-semibold text-text-inverse hover:bg-action-primary-hover"
               >
-                Create New
+                Create Item Return
               </button>
             </div>
             <div className="flex-1 overflow-auto">{desktopContent}</div>

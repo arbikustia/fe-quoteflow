@@ -98,7 +98,9 @@ describe("PaymentCreateComponent", () => {
     render(<PaymentCreateComponent {...props} />);
 
     expect(screen.getByText("Status")).toBeTruthy();
+    expect(screen.getByText("active").className).toContain("border-current");
     expect(screen.getByText("Toggle active or inactive status")).toBeTruthy();
-    expect(screen.getByRole("button", { name: "Update Payment" })).toBeTruthy();
+    expect(screen.getByRole("button", { name: "Cancel" }).className).toContain("h-14");
+    expect(screen.getByRole("button", { name: "Update Payment" }).className).toContain("rounded-xl");
   });
 });

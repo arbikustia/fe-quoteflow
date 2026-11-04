@@ -7,6 +7,7 @@ import { Pagination } from "../../components/Pagination";
 import { SearchFilter } from "../../components/SearchFilter";
 import type { TableColumn } from "../../components/Table";
 import Table from "../../components/Table";
+import { formatIndonesianDateTime } from "../../utils/date.helpers";
 
 import type { MasterPaymentMethodProps, PaymentMethodData } from "./MasterPaymentMethod.type";
 
@@ -16,6 +17,7 @@ import type { MasterPaymentMethodProps, PaymentMethodData } from "./MasterPaymen
  * @param {(paymentMethod: PaymentMethodData) => void} onEdit - Edit handler
  * @returns {TableColumn<PaymentMethodData>[]} Table columns
  */
+// eslint-disable-next-line max-lines-per-function
 const _getColumns = (currentPage: number, pageSize: number, onEdit: (paymentMethod: PaymentMethodData) => void): TableColumn<PaymentMethodData>[] => {
   /** Render row number.
    * @param {PaymentMethodData} _row - Row data
@@ -27,7 +29,11 @@ const _getColumns = (currentPage: number, pageSize: number, onEdit: (paymentMeth
    * @param {PaymentMethodData} row - Row data
    * @returns {React.ReactElement} Status cell
    */
-  const renderStatus = (row: PaymentMethodData): React.ReactElement => <span className={`inline-flex rounded-full px-4 py-1.5 text-lg font-semibold uppercase ${row.status === "active" ? "bg-badge-success-subtle text-badge-success" : "bg-badge-danger-subtle text-badge-danger"}`}>{row.status}</span>;
+  const renderStatus = (row: PaymentMethodData): React.ReactElement => (
+    <span className={`inline-flex rounded-full border border-current px-3 py-1 text-base font-semibold uppercase ${row.status === "active" ? "bg-success-subtle text-success-strong" : "bg-danger-subtle text-danger-strong"}`}>
+      {row.status}
+    </span>
+  );
   /** Render name.
    * @param {PaymentMethodData} row - Row data
    * @returns {React.ReactElement} Name cell
@@ -42,7 +48,11 @@ const _getColumns = (currentPage: number, pageSize: number, onEdit: (paymentMeth
    * @param {PaymentMethodData} row - Row data
    * @returns {React.ReactElement} Created date cell
    */
-  const renderCreatedAt = (row: PaymentMethodData): React.ReactElement => <span className="text-lg text-text-secondary">{row.createAt}</span>;
+  const renderCreatedAt = (row: PaymentMethodData): React.ReactElement => (
+    <span className="text-lg text-text-secondary">
+      {row.createAt ? formatIndonesianDateTime(row.createAt) : "-"}
+    </span>
+  );
   /** Render edit action.
    * @param {PaymentMethodData} row - Row data
    * @returns {React.ReactElement} Edit button
@@ -113,7 +123,7 @@ const _renderPaymentMethodCard = (paymentMethod: PaymentMethodData, onEdit: Mast
     >
       <span className="flex min-w-0 flex-wrap items-center justify-between gap-3">
         <span className="min-w-0 break-words text-xl font-semibold text-text-primary">{paymentMethod.name}</span>
-        <span className={`rounded-full px-3.5 py-1 text-lg font-semibold uppercase ${paymentMethod.status === "active" ? "bg-badge-success-subtle text-badge-success" : "bg-badge-danger-subtle text-badge-danger"}`}>
+        <span className={`rounded-full border border-current px-3 py-1 text-base font-semibold uppercase ${paymentMethod.status === "active" ? "bg-success-subtle text-success-strong" : "bg-danger-subtle text-danger-strong"}`}>
           {paymentMethod.status}
         </span>
       </span>

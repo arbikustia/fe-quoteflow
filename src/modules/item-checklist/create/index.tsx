@@ -6,16 +6,21 @@ import { PageLayout } from "@/app/shared/PageLayout";
 import { ItemChecklistCreateForm } from "./ItemChecklistCreate.component";
 import { useItemChecklistCreate } from "./ItemChecklistCreate.hook";
 
+/**
+ * Render Item Checklist create or edit page.
+ * @returns {ReactElement} Item Checklist page
+ */
 const ItemChecklistCreate = (): ReactElement => {
   const form = useItemChecklistCreate();
-  const title = form.isEditMode ? "Edit Checklist" : "New Checklist";
+  const title = form.isEditMode ? "Edit Item Checklist" : "New Item Checklist";
+  const subtitle = form.isEditMode ? "Update the item checklist details below." : "Fill in the item checklist details below.";
 
   return (
     <Layout pageTitle={title}>
       <PageLayout
         title={title}
-        subtitle={form.isEditMode ? "Update rental item checklist." : "Create rental item checklist."}
-        breadcrumbs={["Item Checklist", title]}
+        subtitle={subtitle}
+        breadcrumbs={["Item Checklist", "Item Checklist List", title]}
         mobileHeaderClassName="px-0"
         mobileTitleClassName="text-4xl"
         onBack={form.goBack}

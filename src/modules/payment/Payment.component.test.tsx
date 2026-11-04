@@ -5,6 +5,17 @@ import { fireEvent, render, screen } from "@/libs/unit-test";
 import { PaymentComponent } from "./Payment.component";
 import type { PaymentProps } from "./Payment.type";
 
+jest.mock("@/app/layout", () => ({
+  __esModule: true,
+  default: ({ children }: { children: React.ReactNode }) => <div>{children}</div>,
+}));
+
+jest.mock("@/app/shared/PageLayout", () => ({
+  PageLayout: ({ children, title }: { children: React.ReactNode; title: string }) => (
+    <section><h1>{title}</h1>{children}</section>
+  ),
+}));
+
 const mockProps: PaymentProps = {
   currentPage: 1,
   totalPages: 1,
@@ -47,10 +58,10 @@ describe("PaymentComponent", () => {
       </MemoryRouter>,
     );
 
-    const createNewButtons = screen.getAllByRole("button", { name: "Create New" });
+    const createButton = screen.getByRole("button", { name: "Create Payment" });
 
-    expect(createNewButtons[0]).toBeInTheDocument();
-    fireEvent.click(createNewButtons[0]);
+    expect(createButton).toBeInTheDocument();
+    fireEvent.click(createButton);
     expect(mockProps.onCreate).toHaveBeenCalledTimes(1);
   });
 
@@ -59,9 +70,11 @@ describe("PaymentComponent", () => {
 
     const card = screen.getByRole("button", { name: /REF-001.*Active.*INV-001.*Bank Transfer.*Paid at.*Amount/s });
     expect(card).toHaveClass("rounded-3xl", "border-border-strong", "bg-background-surface");
-    expect(card.querySelectorAll(".text-xs, .text-sm, .text-base")).toHaveLength(0);
+    expect(card.querySelector(".rounded-full")).toHaveClass("border-current", "text-base", "uppercase");
+    expect(card.querySelectorAll(".text-xs, .text-sm")).toHaveLength(0);
     expect(screen.getAllByText("REF-001")[0]).toHaveClass("text-lg");
-    expect(screen.getAllByText("Active")[0]).toHaveClass("text-lg");
+    expect(screen.getAllByText("Active")[0]).toHaveClass("text-base");
+    expect(screen.getAllByText("Active")[1]).toHaveClass("border-current", "text-base", "uppercase");
     const editButton = screen.getByLabelText("Edit payment");
     expect(editButton).toHaveClass("rounded-3xl");
     fireEvent.click(card);

@@ -35,7 +35,7 @@ describe("MasterPaymentType Hook", () => {
         result.current.goEdit(paymentType);
       });
 
-      expect(navigate).toHaveBeenNthCalledWith(1, -1);
+      expect(navigate).toHaveBeenNthCalledWith(1, "/master-main");
       expect(navigate).toHaveBeenNthCalledWith(2, "/master-payment-type/create");
       expect(navigate).toHaveBeenNthCalledWith(3, "/master-payment-type/edit/pt-1", { state: { paymentType } });
     });

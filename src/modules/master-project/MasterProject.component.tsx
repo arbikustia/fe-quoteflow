@@ -8,6 +8,7 @@ import { Pagination } from "../../components/Pagination";
 import { SearchFilter } from "../../components/SearchFilter";
 import type { TableColumn } from "../../components/Table";
 import Table from "../../components/Table";
+import { formatIndonesianDateTime } from "../../utils/date.helpers";
 
 import { getProjectRowNumber } from "./MasterProject.helpers";
 import type { MasterProjectProps, ProjectData } from "./MasterProject.type";
@@ -32,7 +33,7 @@ const _renderNo = (_row: ProjectData, index: number, currentPage: number, pageSi
  * @returns {React.ReactElement} span
  */
 const _renderStatus = (row: ProjectData): React.ReactElement => (
-  <span className={`inline-flex rounded-full px-4 py-1.5 text-lg font-semibold uppercase ${row.status === "active" ? "bg-badge-success-subtle text-badge-success" : "bg-badge-danger-subtle text-badge-danger"}`}>
+  <span className={`inline-flex rounded-full border border-current px-3 py-1 text-base font-semibold uppercase ${row.status === "active" ? "bg-success-subtle text-success-strong" : "bg-danger-subtle text-danger-strong"}`}>
     {row.status}
   </span>
 );
@@ -52,11 +53,15 @@ const _renderName = (row: ProjectData): ReactElement => <span className="text-lg
 const _renderRemark = (row: ProjectData): ReactElement => <span className="text-lg text-text-secondary">{row.remark}</span>;
 
 /**
- * Render creator.
+ * Render project creation date.
  * @param {ProjectData} row - Project row
- * @returns {ReactElement} Creator cell
+ * @returns {ReactElement} Date cell
  */
-const _renderCreatedBy = (row: ProjectData): ReactElement => <span className="text-lg text-text-secondary">{row.createBy}</span>;
+const _renderCreatedAt = (row: ProjectData): ReactElement => (
+  <span className="text-lg text-text-secondary">
+    {row.createAt ? formatIndonesianDateTime(row.createAt) : "-"}
+  </span>
+);
 
 /**
  * Get Basic Columns
@@ -88,7 +93,7 @@ const _getBasicColumns = (currentPage: number, pageSize: number): TableColumn<Pr
       align: "center",
       render: _renderStatus,
     },
-    { key: "createBy", header: "Created By", render: _renderCreatedBy },
+    { key: "createAt", header: "Created At", render: _renderCreatedAt },
   ];
 };
 
@@ -167,30 +172,44 @@ const _renderListState = (props: MasterProjectProps): ReactElement | null => {
  * @param {MasterProjectProps["onEdit"]} onEdit - Edit callback
  * @returns {ReactElement} Project card
  */
-const _renderProjectCard = (project: ProjectData, onEdit: MasterProjectProps["onEdit"]): ReactElement => (
-  <button
-    type="button"
-    onClick={(): void => onEdit(project)}
-    className="group block w-full min-w-0 rounded-3xl border border-border-strong bg-background-surface p-5 text-left shadow-small transition-colors hover:border-border-strong hover:bg-background-subtle/40 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-action-primary"
-  >
-    <span className="flex min-w-0 flex-wrap items-center justify-between gap-3">
-      <span className="min-w-0 break-words text-xl font-semibold text-text-primary">{project.name}</span>
-      <span className={`rounded-full px-3.5 py-1 text-lg font-semibold uppercase ${project.status === "active" ? "bg-badge-success-subtle text-badge-success" : "bg-badge-danger-subtle text-badge-danger"}`}>
-        {project.status}
+const _renderProjectCard = (project: ProjectData, onEdit: MasterProjectProps["onEdit"]): ReactElement => {
+  /**
+   * Handle project card click.
+   * @returns {void} No return value
+   */
+  const handleClick = (): void => onEdit(project);
+
+  return (
+    <button
+      type="button"
+      onClick={handleClick}
+      className="group block w-full min-w-0 rounded-3xl border border-border-strong bg-background-surface p-5 text-left shadow-small transition-colors hover:border-border-strong hover:bg-background-subtle/40 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-action-primary"
+    >
+      <span className="flex min-w-0 flex-wrap items-center justify-between gap-3">
+        <span className="min-w-0 break-words text-xl font-semibold text-text-primary">{project.name}</span>
+        <span className={`rounded-full border border-current px-3 py-1 text-base font-semibold uppercase ${project.status === "active" ? "bg-success-subtle text-success-strong" : "bg-danger-subtle text-danger-strong"}`}>
+          {project.status}
+        </span>
       </span>
-    </span>
-    <span className="mt-4 flex flex-wrap items-end justify-between gap-x-4 gap-y-3 border-t border-border-default pt-4">
-      <span className="min-w-0 text-lg text-text-secondary">
-        <span className="block text-lg text-text-tertiary">Items</span>
-        <span className="mt-1 block text-lg font-medium text-text-primary">{project.items.length} item(s)</span>
+      <span className="mt-4 grid grid-cols-2 gap-4 border-t border-border-default pt-4">
+        <span className="min-w-0">
+          <span className="block text-lg text-text-tertiary">Items</span>
+          <span className="mt-1 block text-lg font-medium text-text-primary">{project.items.length} item(s)</span>
+        </span>
+        <span className="min-w-0 text-right">
+          <span className="block text-lg text-text-tertiary">Created At</span>
+          <span className="mt-1 block text-lg font-medium text-text-primary">
+            {project.createAt ? formatIndonesianDateTime(project.createAt) : "-"}
+          </span>
+        </span>
+        <span className="col-span-2 min-w-0 border-t border-border-default pt-4">
+          <span className="block text-lg text-text-tertiary">Remark</span>
+          <span className="mt-1 block break-words text-lg font-medium text-text-primary">{project.remark || "-"}</span>
+        </span>
       </span>
-      <span className="min-w-0 text-lg text-text-secondary">
-        <span className="block text-lg text-text-tertiary">Remark</span>
-        <span className="mt-1 block break-words text-lg font-medium text-text-primary">{project.remark || "No remark"}</span>
-      </span>
-    </span>
-  </button>
-);
+    </button>
+  );
+};
 
 /**
  * Render project table loading geometry.

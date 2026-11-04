@@ -6,6 +6,11 @@ import { MemoryRouter } from "react-router-dom";
 import { OrderCreateComponent } from "./OrderCreate.component";
 import type { OrderCreateProps } from "./OrderCreate.type";
 
+jest.mock("@/app/layout", () => ({
+  __esModule: true,
+  default: ({ children }: { children: React.ReactNode }) => <div>{children}</div>,
+}));
+
 const props: OrderCreateProps = {
   form: { customer_id: "", pic_id: "", voucher_id: "", service_type_id: "", order_type_id: "", handover_type: "", handover_name: "", service_type_name: "", customer_name: "", customer_phone: "", address: "", event_name: "", start_at: "", end_at: "", subtotal: 0, discount: 0, service_fee: 0, remarks: "", grand_total: 0, status: 1, rental_transaction_items: [] },
   customers: [], pics: [], serviceTypes: [], orderTypes: [], vouchers: [], projects: [], items: [],
@@ -44,6 +49,28 @@ describe("OrderCreateComponent", (): void => {
     fireEvent.change(screen.getAllByLabelText("Remark")[1], { target: { value: "Tripod" } });
     expect(onItemChange).toHaveBeenCalledWith(0, "qty", 2);
     expect(onItemChange).toHaveBeenCalledWith(0, "remark", "Tripod");
+  });
+
+  it("should show percentage discount as a calculated Rupiah amount in review", (): void => {
+    render(
+      <MemoryRouter>
+        <OrderCreateComponent
+          {...props}
+          step={3}
+          form={{
+            ...props.form,
+            discount: 8,
+            service_fee: 25000,
+            rental_transaction_items: [
+              { item_id: "item-1", item_name: "Camera", project_id: "", qty: 1, price: 625000, subtotal: 625000, remark: "" },
+            ],
+          }}
+        />
+      </MemoryRouter>,
+    );
+
+    expect(screen.getByText("Rp 50.000 (8%)")).toBeTruthy();
+    expect(screen.getByText("Rp 600.000")).toBeTruthy();
   });
 
   it("should show error when end date is earlier than start date", (): void => {

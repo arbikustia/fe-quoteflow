@@ -17,19 +17,18 @@ export type UserListParams = ApiQueryParams;
 
 export type UserCreatePayload = {
   username: string;
-  email?: string | null;
-  password?: string;
-  role?: string[];
-  status?: number;
+  email: string;
+  password: string;
+  role: string[];
+  status: number;
 };
 
 export type UserUpdatePayload = {
   id: string;
-  username?: string;
-  email?: string | null;
-  password?: string;
-  role?: string[];
-  status?: number;
+  username: string;
+  email: string;
+  role: string[];
+  status: number;
 };
 
 export type UserData = {

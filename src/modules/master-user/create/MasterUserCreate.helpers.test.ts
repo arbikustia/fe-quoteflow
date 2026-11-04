@@ -34,6 +34,7 @@ describe("MasterUserCreate.helpers", () => {
 
       expect(result).not.toBeNull();
       expect(result?.username).toBe("john_doe");
+      expect(result?.email).toBe("john@example.com");
       expect(result?.status).toBe("active");
     });
   });

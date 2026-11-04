@@ -80,7 +80,7 @@ describe("MasterServiceTypeDetail.hook", () => {
     act(() => {
       result.current.goBack();
     });
-    expect(mockNavigate).toHaveBeenCalledWith(-1);
+    expect(mockNavigate).toHaveBeenCalledWith("/master-service-type");
   });
 
   it("should navigate to edit page on goEdit when serviceType exists", () => {

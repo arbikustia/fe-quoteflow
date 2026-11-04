@@ -2,6 +2,7 @@ import type { ReactElement } from "react";
 import type { FieldError } from "react-hook-form";
 
 import { AlertComponent } from "@/components/Alert";
+import { BackButton } from "@/components/BackButton";
 import { InputComponent } from "@/components/Input";
 import { Select } from "@/components/Select";
 import { SwitchComponent } from "@/components/Switch";
@@ -37,25 +38,6 @@ const _getPageCopy = (
 });
 
 /**
- * Render back icon.
- * @returns {ReactElement} Back icon
- */
-const _renderBackIcon = (): ReactElement => (
-  <svg
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2.5"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-    className="h-6 w-6"
-    aria-hidden="true"
-  >
-    <path d="M19 12H5M12 19l-7-7 7-7" />
-  </svg>
-);
-
-/**
  * Render mobile back bar.
  * @param {boolean} isEditMode - Edit mode flag
  * @param {() => void} goBack - Back action
@@ -69,14 +51,7 @@ const _renderMobileBack = (
 
   return (
     <div className="mb-6 flex items-center gap-3 bg-background-page lg:hidden">
-      <button
-        type="button"
-        onClick={goBack}
-        aria-label="Back"
-        className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full border border-border-default bg-background-page text-text-primary transition-colors hover:bg-background-subtle focus-visible:ring-2 focus-visible:ring-focus-ring/30"
-      >
-        {_renderBackIcon()}
-      </button>
+      <BackButton onClick={goBack} />
       <div className="min-w-0">
         <h2 className="truncate text-4xl font-semibold tracking-tight text-text-primary">
           {title}
@@ -100,19 +75,17 @@ const _renderHeader = (
   const { title, subtitle } = _getPageCopy(isEditMode);
 
   return (
-    <>
-      <nav aria-label="Breadcrumb" className="mb-2 hidden items-center gap-2 text-sm font-medium text-text-secondary lg:flex">
-        <button type="button" onClick={goBack} className="cursor-pointer hover:text-text-primary">
-          Master Voucher
-        </button>
+    <div className="mb-6 hidden lg:block">
+      <nav aria-label="Breadcrumb" className="mb-2 flex items-center gap-2 text-[15px] font-medium text-text-secondary">
+        <button type="button" onClick={goBack} className="cursor-pointer hover:text-text-primary">Master</button>
+        <span aria-hidden="true">/</span>
+        <span>Master Voucher</span>
         <span aria-hidden="true">/</span>
         <span className="text-text-primary">{title}</span>
       </nav>
-      <div className="mb-6 hidden lg:block">
-        <h2 className="text-4xl font-semibold leading-tight tracking-tight text-text-primary">{title}</h2>
-        <p className="mt-3 text-sm font-medium text-text-secondary opacity-70">{subtitle}</p>
-      </div>
-    </>
+      <h2 className="text-4xl font-semibold leading-tight tracking-tight text-text-primary">{title}</h2>
+      <p className="mt-2 text-sm text-text-secondary">{subtitle}</p>
+    </div>
   );
 };
 
@@ -215,9 +188,11 @@ const _renderStatusField = (props: MasterVoucherCreateFormState): ReactElement |
 
   return (
     <div className="flex items-center justify-between rounded-2xl border-2 border-border-strong bg-background-surface px-5 py-4 lg:col-span-2">
-      <div className="flex flex-col">
+      <div className="flex flex-col gap-2">
         <span className="text-lg font-normal text-text-primary">Status</span>
-        <span className="text-lg text-text-secondary">Toggle active or inactive status</span>
+        <span className={`w-fit rounded-full border border-current px-3 py-1 text-base font-semibold uppercase ${props.isActive ? "bg-success-subtle text-success-strong" : "bg-danger-subtle text-danger-strong"}`}>
+          {props.isActive ? "active" : "inactive"}
+        </span>
       </div>
       <SwitchComponent label="Voucher status" checked={props.isActive} onChange={props.handleStatusChange} />
     </div>
@@ -248,7 +223,7 @@ const _renderActions = (props: MasterVoucherCreateFormState): ReactElement => {
   const submittingText = props.isEditMode ? "Updating…" : "Creating…";
 
   return (
-    <div className="mt-8 flex justify-between gap-3 border-t border-border-default/60 pt-5 lg:mt-6 lg:border-border-default">
+    <div className="mt-auto flex justify-between gap-3 border-t border-border-default/60 pt-5 lg:border-border-default">
       <button type="button" onClick={props.goBack} className="h-14 cursor-pointer rounded-xl border border-border-default px-8 text-lg font-semibold text-text-primary transition-colors hover:bg-background-subtle focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-action-primary">
         Cancel
       </button>
@@ -265,7 +240,7 @@ const _renderActions = (props: MasterVoucherCreateFormState): ReactElement => {
  * @returns {ReactElement} Form card
  */
 const _renderForm = (props: MasterVoucherCreateFormState): ReactElement => (
-  <form noValidate onSubmit={props.handleSubmit} className="mb-6 flex flex-col rounded-3xl border border-border-default bg-background-surface p-6 shadow-small sm:p-8 lg:mb-5 lg:p-10">
+  <form noValidate onSubmit={props.handleSubmit} className="mb-6 flex flex-col rounded-3xl border border-border-default bg-background-surface p-6 shadow-small sm:p-8 lg:-mt-4 lg:mb-5 lg:flex-1 lg:p-10">
     <div className="pb-6">
       <section className="space-y-5">{_renderFields(props)}</section>
     </div>

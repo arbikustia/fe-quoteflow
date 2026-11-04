@@ -21,8 +21,10 @@ describe("InvoiceStatusForm", () => {
     render(<InvoiceStatusForm {...createProps()} />);
 
     expect(screen.getByText("INV-001")).toBeTruthy();
+    expect(screen.getByText("active").className).toContain("border-current");
     expect(screen.getByRole("switch", { name: "Invoice status" }).getAttribute("aria-checked")).toBe("true");
-    expect(screen.getByRole("button", { name: "Update Status" })).toBeTruthy();
+    expect(screen.getByRole("button", { name: "Cancel" }).className).toContain("h-14");
+    expect(screen.getByRole("button", { name: "Update Status" }).className).toContain("rounded-xl");
   });
 
   it("should change status without submitting automatically", (): void => {

@@ -1,3 +1,4 @@
+import { BackButton } from "@/components/BackButton";
 import type { ReactElement } from "react";
 import type { FieldError } from "react-hook-form";
 
@@ -44,11 +45,7 @@ const _renderMobileBack = (isEditMode: boolean, goBack: () => void): ReactElemen
 
   return (
   <div className="sticky top-0 z-20 mb-6 flex items-center gap-3 bg-background-page px-0 lg:hidden">
-    <button type="button" onClick={goBack} aria-label="Back" className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full border border-border-default bg-background-page text-text-primary transition-colors hover:bg-background-subtle">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="h-6 w-6" aria-hidden="true">
-        <path d="M19 12H5M12 19l-7-7 7-7" />
-      </svg>
-    </button>
+    <BackButton onClick={goBack} />
     <h2 className="truncate text-4xl font-semibold tracking-tight text-text-primary">{title}</h2>
         <p className="mt-1 truncate text-sm text-text-secondary">{isEditMode ? "Update the payment type details below." : "Fill in the payment type details below."}</p>
   </div>

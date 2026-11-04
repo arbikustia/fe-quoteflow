@@ -77,7 +77,7 @@ export const useMasterServiceTypeDetail = (): MasterServiceTypeDetailState => {
    * @returns {void} No return value
    */
   const goBack = (): void => {
-    navigate(-1);
+    navigate("/master-service-type");
   };
 
   /**

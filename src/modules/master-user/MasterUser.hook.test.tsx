@@ -39,7 +39,7 @@ describe("useMasterUserNavigation", () => {
     const { result } = renderHook(() => useMasterUserNavigation());
     
     act(() => result.current.goBack());
-    expect(navigateMock).toHaveBeenNthCalledWith(1, -1);
+    expect(navigateMock).toHaveBeenNthCalledWith(1, "/master-main");
 
     act(() => result.current.goCreate());
     expect(navigateMock).toHaveBeenNthCalledWith(2, "/master-user/create");

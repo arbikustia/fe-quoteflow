@@ -1,3 +1,4 @@
+/* eslint-disable jsdoc/require-param-description, jsdoc/require-param-type, jsdoc/require-returns */
 import * as React from "react";
 import { FiEdit2 } from "react-icons/fi";
 
@@ -7,6 +8,7 @@ import { Pagination } from "../../components/Pagination";
 import { SearchFilter } from "../../components/SearchFilter";
 import type { TableColumn } from "../../components/Table";
 import Table from "../../components/Table";
+import { formatIndonesianDateTime } from "../../utils/date.helpers";
 
 import type { MasterPicProps, PicData } from "./MasterPic.type";
 
@@ -36,7 +38,7 @@ const _renderName = (pic: PicData): React.ReactElement => (
  * @returns {React.ReactElement} Status cell
  */
 const _renderStatus = (pic: PicData): React.ReactElement => (
-  <span className={`inline-flex rounded-full px-4 py-1.5 text-lg font-semibold uppercase ${pic.status === "active" ? "bg-badge-success-subtle text-badge-success" : "bg-badge-danger-subtle text-badge-danger"}`}>
+  <span className={`inline-flex rounded-full border border-current px-3 py-1 text-base font-semibold uppercase ${pic.status === "active" ? "bg-success-subtle text-success-strong" : "bg-danger-subtle text-danger-strong"}`}>
     {pic.status}
   </span>
 );
@@ -47,7 +49,7 @@ const _renderStatus = (pic: PicData): React.ReactElement => (
  * @returns {React.ReactElement} Date cell
  */
 const _renderDate = (pic: PicData): React.ReactElement => (
-  <span className="text-lg text-text-secondary">{pic.createAt ?? "-"}</span>
+  <span className="text-lg text-text-secondary">{pic.createAt ? formatIndonesianDateTime(pic.createAt) : "-"}</span>
 );
 
 /**
@@ -57,7 +59,10 @@ const _renderDate = (pic: PicData): React.ReactElement => (
  * @returns {React.ReactElement} Action cell
  */
 const _renderActions = (pic: PicData, onEdit: MasterPicProps["onEdit"]): React.ReactElement => {
-  /** Handle edit click. */
+  /**
+   * Handle edit click.
+   * @param event
+   */
   const handleEdit = (event: React.MouseEvent): void => {
     event.stopPropagation();
     onEdit(pic);
@@ -78,7 +83,16 @@ const _renderActions = (pic: PicData, onEdit: MasterPicProps["onEdit"]): React.R
  * @returns {TableColumn<PicData>[]} PIC columns
  */
 const _getColumns = (props: MasterPicProps): TableColumn<PicData>[] => {
+  /**
+   *
+   * @param _pic
+   * @param index
+   */
   const renderNumber = (_pic: PicData, index: number): React.ReactElement => _renderNumber(props.currentPage, props.pageSize, index);
+  /**
+   *
+   * @param pic
+   */
   const renderActions = (pic: PicData): React.ReactElement => _renderActions(pic, props.onEdit);
 
   return [
@@ -117,7 +131,7 @@ const _renderActionSkeleton = (): React.ReactElement => (
  */
 const _renderTableSkeleton = (props: MasterPicProps): React.ReactElement => {
   const columns = _getColumns(props);
-  const widths = ["w-6", "w-52", "w-28", "w-28"];
+  const widths = ["w-6", "w-52", "w-28", "w-28", "w-28"];
 
   return (
     <div className="w-full overflow-x-auto" role="status" aria-label="Loading PIC table">
@@ -171,16 +185,19 @@ const _renderMobileCardSkeleton = (key: number): React.ReactElement => (
  * @returns {React.ReactElement} PIC card
  */
 const _renderPicCard = (pic: PicData, onEdit: MasterPicProps["onEdit"]): React.ReactElement => {
+  /**
+   *
+   */
   const handleClick = (): void => onEdit(pic);
 
   return (
     <button type="button" onClick={handleClick} className="group block w-full min-w-0 rounded-3xl border border-border-strong bg-background-surface p-5 text-left shadow-small transition-colors hover:border-border-strong hover:bg-background-subtle/40 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-action-primary">
       <span className="flex min-w-0 flex-wrap items-center justify-between gap-3">
         <span className="min-w-0 break-words text-xl font-semibold text-text-primary">{pic.name}</span>
-        <span className={`rounded-full px-3.5 py-1 text-lg font-semibold uppercase ${pic.status === "active" ? "bg-badge-success-subtle text-badge-success" : "bg-badge-danger-subtle text-badge-danger"}`}>{pic.status}</span>
+        <span className={`rounded-full border border-current px-3 py-1 text-base font-semibold uppercase ${pic.status === "active" ? "bg-success-subtle text-success-strong" : "bg-danger-subtle text-danger-strong"}`}>{pic.status}</span>
       </span>
       <span className="mt-4 flex flex-wrap items-end justify-between gap-x-4 gap-y-3 border-t border-border-default pt-4">
-        <span className="min-w-0"><span className="block text-lg text-text-tertiary">Created</span><span className="mt-1 block text-lg font-medium text-text-primary">{pic.createAt ?? "-"}</span></span>
+        <span className="min-w-0"><span className="block text-lg text-text-tertiary">Created At</span><span className="mt-1 block text-lg font-medium text-text-primary">{pic.createAt ? formatIndonesianDateTime(pic.createAt) : "-"}</span></span>
       </span>
     </button>
   );
@@ -192,6 +209,10 @@ const _renderPicCard = (pic: PicData, onEdit: MasterPicProps["onEdit"]): React.R
  * @returns {React.ReactElement} Mobile element
  */
 const _renderMobile = (props: MasterPicProps): React.ReactElement => {
+  /**
+   *
+   * @param event
+   */
   const handleSearch = (event: React.ChangeEvent<HTMLInputElement>): void => props.setSearchTerm(event.target.value);
 
   return (
@@ -211,6 +232,10 @@ const _renderMobile = (props: MasterPicProps): React.ReactElement => {
  * @returns {React.ReactElement} Desktop element
  */
 const _renderDesktop = (props: MasterPicProps): React.ReactElement => {
+  /**
+   *
+   * @param event
+   */
   const handleSearch = (event: React.ChangeEvent<HTMLInputElement>): void => props.setSearchTerm(event.target.value);
 
   return (

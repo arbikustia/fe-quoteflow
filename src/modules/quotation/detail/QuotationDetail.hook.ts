@@ -1,8 +1,9 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
 import type { QuotationDetailState } from "../Quotation.type";
 
+import { useGetAllItemsQuery } from "@/services/master-item.service";
 import { useApproveQuotationMutation, useGetQuotationByIdQuery } from "@/services/quotation.service";
 
 /**
@@ -31,10 +32,19 @@ export const useQuotationDetail = (): QuotationDetailState => {
     skip: !id,
     refetchOnMountOrArgChange: true,
   });
+  const { data: itemResponse } = useGetAllItemsQuery();
   const [approveQuotation, { isLoading: isApproving }] = useApproveQuotationMutation();
   const [isConfirmOpen, setIsConfirmOpen] = useState(false);
   const [submissionError, setSubmissionError] = useState<string | null>(null);
   const quotation = data?.status && data.data ? data.data : null;
+  const itemCategories = useMemo(
+    (): Map<string, string> => new Map(
+      itemResponse?.status
+        ? itemResponse.data.map((item): [string, string] => [item.id, item.category_name ?? "Uncategorized"])
+        : [],
+    ),
+    [itemResponse],
+  );
   const errorMessage = submissionError ?? _resolveErrorMessage(Boolean(error), Boolean(data && !data.status));
 
   /**
@@ -92,5 +102,5 @@ export const useQuotationDetail = (): QuotationDetailState => {
     }
   };
 
-  return { quotation, isLoading, isApproving, isConfirmOpen, errorMessage, goBack, openApproveModal, closeApproveModal, handleEdit, handleApprove };
+  return { quotation, itemCategories, isLoading, isApproving, isConfirmOpen, errorMessage, goBack, openApproveModal, closeApproveModal, handleEdit, handleApprove };
 };

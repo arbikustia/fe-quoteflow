@@ -204,7 +204,7 @@ export const useMasterUserCreateForm = (): MasterUserCreateFormState => {
   const submission = useUserSubmission({ id, isEditMode, ...formFields });
 
   /** Navigate back. */
-  const goBack = (): void => { navigate(-1); };
+  const goBack = (): void => { navigate("/master-user"); };
 
   return { isEditMode, goBack, roleOptions, roleOptionsLoading, roleOptionsError, ...formFields, ...submission };
 };

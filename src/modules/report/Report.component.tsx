@@ -8,6 +8,7 @@ import Table from "@/components/Table";
 
 import Layout from "@/app/layout";
 import { PageLayout } from "@/app/shared/PageLayout";
+import { formatIndonesianDateTime } from "@/utils/date.helpers";
 import { generateQuotePDF } from "@/utils/pdfGenerator";
 
 import { getOrderRowNumber, OrderMobileCard, toQuoteData } from "./Report.helpers";
@@ -20,13 +21,10 @@ import type { ReportOrderData, ReportOrderProps } from "./Report.type";
  */
 const _renderStatus = (row: ReportOrderData): React.ReactElement => {
   const isDone = row.status === 2;
+  const statusClass = isDone || row.status === 1 ? "bg-success-subtle text-success-strong" : "bg-danger-subtle text-danger-strong";
 
   return (
-    <span
-      className={`inline-flex rounded-full px-4 py-1.5 text-lg font-semibold uppercase ${
-        isDone ? "bg-success-subtle text-success-strong" : row.status === 1 ? "bg-success-subtle text-success-strong" : "bg-danger-subtle text-danger-strong"
-      }`}
-    >
+    <span className={`inline-flex rounded-full px-4 py-1.5 text-lg font-semibold uppercase ${statusClass}`}>
       {isDone ? "Done" : row.statusLabel}
     </span>
   );
@@ -121,8 +119,8 @@ const _getColumns = (currentPage: number, pageSize: number, onEditStatus: (order
     { key: "customerName", header: "Customer Name", render: (row): React.ReactElement => <span className="text-lg">{row.customerName}</span> },
     { key: "eventName", header: "Event Name", render: (row): React.ReactElement => <span className="text-lg">{row.eventName}</span> },
     { key: "address", header: "Location", render: (row): React.ReactElement => <span className="text-lg">{row.address}</span> },
-    { key: "startDate", header: "Start Date", render: (row): React.ReactElement => <span className="text-lg">{row.startDate}</span> },
-    { key: "endDate", header: "End Date", render: (row): React.ReactElement => <span className="text-lg">{row.endDate}</span> },
+    { key: "startDate", header: "Start Date", render: (row): React.ReactElement => <span className="text-lg">{formatIndonesianDateTime(row.startDate)}</span> },
+    { key: "endDate", header: "End Date", render: (row): React.ReactElement => <span className="text-lg">{formatIndonesianDateTime(row.endDate)}</span> },
     { key: "status", header: "Status", align: "center", render: _renderStatus },
     { key: "actions", header: "Action", align: "center", render: renderActions },
   ];

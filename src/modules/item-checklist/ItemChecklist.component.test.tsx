@@ -4,6 +4,17 @@ import test, { fireEvent, render, screen } from "@/libs/unit-test";
 import { ItemChecklistComponent } from "./ItemChecklist.component";
 import type { ChecklistListState } from "./ItemChecklist.type";
 
+jest.mock("@/app/layout", () => ({
+  __esModule: true,
+  default: ({ children }: { children: React.ReactNode }) => <div>{children}</div>,
+}));
+
+jest.mock("@/app/shared/PageLayout", () => ({
+  PageLayout: ({ children, headerRight, title }: { children: React.ReactNode; headerRight: React.ReactNode; title: string }) => (
+    <section><h1>{title}</h1>{headerRight}{children}</section>
+  ),
+}));
+
 const mockProps: ChecklistListState = {
   currentPage: 1,
   totalPages: 2,
@@ -47,15 +58,17 @@ describe("ItemChecklistComponent", () => {
 
   it("should render table data and header", () => {
     render(<MemoryRouter><ItemChecklistComponent {...mockProps} /></MemoryRouter>);
+    expect(screen.getAllByText("Item Checklist List").length).toBeGreaterThan(0);
     expect(screen.getAllByText("CHK-001")).toHaveLength(2);
-    expect(screen.getByText("Create Checklist")).toBeInTheDocument();
-    expect(screen.getAllByRole("button", { name: "Create" })).toHaveLength(2);
+    expect(screen.getByText("Create Item Checklist")).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "Create New" })).toBeInTheDocument();
+    expect(screen.getAllByText("active")[0]).toHaveClass("border-current", "px-3", "py-1", "text-base", "uppercase");
   });
 
   it("should trigger onCreate from mobile header and desktop toolbar", () => {
     render(<MemoryRouter><ItemChecklistComponent {...mockProps} /></MemoryRouter>);
-    fireEvent.click(screen.getAllByRole("button", { name: "Create" })[0]);
-    fireEvent.click(screen.getByRole("button", { name: "Create Checklist" }));
+    fireEvent.click(screen.getByRole("button", { name: "Create New" }));
+    fireEvent.click(screen.getByRole("button", { name: "Create Item Checklist" }));
     expect(mockProps.onCreate).toHaveBeenCalledTimes(2);
   });
 
@@ -71,7 +84,8 @@ describe("ItemChecklistComponent", () => {
     const card = title.closest("button");
     expect(card).toHaveClass("rounded-3xl", "border-border-strong", "bg-background-surface", "shadow-small");
     expect(title).toHaveClass("text-xl");
-    expect(card?.querySelectorAll(".text-xs, .text-sm, .text-base")).toHaveLength(0);
+    expect(card?.querySelectorAll(".text-xs, .text-sm")).toHaveLength(0);
+    expect(card?.querySelector(".text-base")).toHaveTextContent("active");
     expect(card).toHaveTextContent("2 items");
     expect(card).toHaveTextContent("Checklist date");
     fireEvent.click(title);

@@ -90,6 +90,39 @@ describe("MasterUserCreate.hook", () => {
     expect(result.current.isEditMode).toBe(true);
   });
 
+  it("should initialize email from API detail on direct edit route", () => {
+    (ReactRouterDom.useParams as jest.Mock).mockReturnValue({ id: "u-2" });
+    (MasterUserService.useGetUserByIdQuery as jest.Mock).mockReturnValue({
+      data: {
+        status: true,
+        messages: null,
+        data: {
+          id: "u-2",
+          username: "bob",
+          email: "bob@test.com",
+          password: null,
+          role: "Admin",
+          status: 1,
+          last_created: null,
+        },
+      },
+      isLoading: false,
+    });
+    (MasterUserService.mapUser as jest.Mock).mockReturnValue({
+      id: "u-2",
+      username: "bob",
+      email: "bob@test.com",
+      role: "Admin",
+      status: "active",
+      createAt: null,
+      createBy: null,
+    });
+
+    const { result } = renderHook(() => useMasterUserCreateForm());
+
+    expect(result.current.email).toBe("bob@test.com");
+  });
+
   it("should handle inputs, visibility and status toggles", () => {
     const { result } = renderHook(() => useMasterUserCreateForm());
 
@@ -128,7 +161,7 @@ describe("MasterUserCreate.hook", () => {
     act(() => {
       result.current.goBack();
     });
-    expect(mockNavigate).toHaveBeenCalledWith(-1);
+    expect(mockNavigate).toHaveBeenCalledWith("/master-user");
   });
 
   it("should submit create mutation and navigate to list", async () => {

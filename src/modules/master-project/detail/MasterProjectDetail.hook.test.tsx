@@ -97,7 +97,7 @@ describe("MasterProjectDetail.hook", () => {
       result.current.goBack();
     });
 
-    expect(mockNavigate).toHaveBeenCalledWith(-1);
+    expect(mockNavigate).toHaveBeenCalledWith("/master-project");
   });
 
   it("should trigger edit navigation on goEdit with project id", () => {

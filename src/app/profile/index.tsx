@@ -71,7 +71,7 @@ export default function ProfilePage(): ReactElement {
         mobileTitleClassName="text-4xl"
         showBackButton={false}
       >
-        <div className="relative mb-8 flex flex-col rounded-3xl border border-border-default bg-background-surface p-5 shadow-medium sm:p-6 lg:mb-10 lg:p-8">
+        <div className="mb-8 lg:mb-10">
           <ProfileComponent
             username={username || null}
             theme={theme}

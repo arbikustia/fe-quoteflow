@@ -37,6 +37,11 @@ export type ServiceTypeData = MasterBase & {
   isActive: boolean;
 };
 
+export type ServiceTypeRouteState = {
+  serviceType?: ServiceTypeData;
+  successMessage?: string;
+};
+
 export type ServiceTypeListApiState = {
   isLoading: boolean;
   errorMessage: string | null;

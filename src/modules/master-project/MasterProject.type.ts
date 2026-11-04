@@ -155,6 +155,7 @@ export type ProjectFormValues = {
 };
 
 export type MasterProjectCreateFormState = {
+  isEditMode: boolean;
   step: ProjectFormStep;
   items: ProjectItemOption[];
   selectedItems: ProjectItemSelection[];
@@ -162,13 +163,16 @@ export type MasterProjectCreateFormState = {
   itemsError: string | null;
   name: string;
   remark: string;
+  isActive: boolean;
   isSubmitting: boolean;
   errorMessage: string | null;
   successMessage: string | null;
   errors: FieldErrors<ProjectFormValues>;
   isSubmitted: boolean;
+  validateStep2: () => Promise<boolean>;
   handleNameChange: (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
   handleRemarkChange: (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
+  handleStatusChange: () => void;
   nextStep: () => void;
   previousStep: () => void;
   toggleItem: (item: ProjectItemOption) => void;
@@ -182,6 +186,7 @@ export type ProjectSubmissionParams = {
   isEdit: boolean;
   name: string;
   remark: string;
+  isActive: boolean;
   selectedItems: ProjectItemSelection[];
   validateStep2: () => Promise<boolean>;
   step: ProjectFormStep;
@@ -200,12 +205,14 @@ export type ProjectDraftFormState = {
   step: ProjectFormStep;
   name: string;
   remark: string;
+  isActive: boolean;
   selectedItems: ProjectItemSelection[];
   errors: FieldErrors<ProjectFormValues>;
   isSubmitted: boolean;
   validateStep2: () => Promise<boolean>;
   handleNameChange: (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
   handleRemarkChange: (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
+  handleStatusChange: () => void;
   toggleItem: (item: ProjectItemOption) => void;
   updateItemQuantity: (itemId: string, quantity: number) => void;
   nextStep: () => void;

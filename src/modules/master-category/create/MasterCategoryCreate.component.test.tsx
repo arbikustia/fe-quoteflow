@@ -27,8 +27,11 @@ describe("MasterCategoryCreateForm", () => {
     const { container } = render(<MasterCategoryCreateForm {...props} />);
 
     expect(screen.getByText("Category Name")).toBeTruthy();
-    expect(screen.getByText("Category Information")).toBeTruthy();
-    expect(screen.getByText("Information")).toBeTruthy();
+    expect(screen.getByRole("navigation", { name: "Breadcrumb" }).textContent).toBe(
+      "Master/Master Category",
+    );
+    expect(screen.getByText("Category List")).toBeTruthy();
+    expect(screen.getByText("Manage product and item categories")).toBeTruthy();
     expect(screen.getByRole("button", { name: "Cancel" })).toBeTruthy();
     expect(screen.getByRole("button", { name: "Create Category" })).toBeTruthy();
 
@@ -39,11 +42,22 @@ describe("MasterCategoryCreateForm", () => {
     expect(props.goBack).toHaveBeenCalledTimes(1);
   });
 
-  it("should render update button in edit mode", () => {
-    render(<MasterCategoryCreateForm {...createProps({ isEditMode: true })} />);
+  it("should render status badge and update button in edit mode", () => {
+    const { rerender } = render(
+      <MasterCategoryCreateForm {...createProps({ isEditMode: true })} />,
+    );
 
     expect(screen.getAllByText("Edit Category").length).toBeGreaterThan(0);
+    expect(screen.getByText("active")).toBeTruthy();
     expect(screen.getByRole("button", { name: "Update Category" })).toBeTruthy();
+
+    rerender(
+      <MasterCategoryCreateForm
+        {...createProps({ isEditMode: true, isActive: false })}
+      />,
+    );
+
+    expect(screen.getByText("inactive")).toBeTruthy();
   });
 
   it("should submit form using provided handler", () => {

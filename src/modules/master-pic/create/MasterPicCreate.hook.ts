@@ -133,7 +133,7 @@ export const useMasterPicCreate = (): MasterPicCreateState => {
   const submission = usePicSubmission({ id, isEditMode, ...formFields });
 
   /** Navigate back. */
-  const goBack = (): void => { navigate(-1); };
+  const goBack = (): void => { navigate("/master-pic"); };
 
   return { ...formFields, ...submission, isEditMode, isLoadingInitialData: isLoadingDetail && !routePic, goBack };
 };

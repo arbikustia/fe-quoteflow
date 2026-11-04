@@ -1,4 +1,4 @@
-import type { ReactElement } from "react";
+import { useEffect, useRef, useState, type ReactElement } from "react";
 import { DatePicker } from "antd";
 import dayjs, { type Dayjs } from "dayjs";
 
@@ -99,7 +99,7 @@ const _renderError = (
  * @returns {ReactElement} date field
  */
 const _renderDateField = (fieldProps: DateRangeFieldProps): ReactElement => {
-  const { id, label, value, error, errorMessage, onChange, pickerProps } = fieldProps;
+  const { id, label, value, error, errorMessage, onChange, open, onOpenChange, pickerProps } = fieldProps;
   const isEndDate = id === "date-range-end";
   const startDayjs = _toDayjs(pickerProps.startDate);
   const minDate = isEndDate ? (startDayjs ?? _toDayjs(pickerProps.minDate)) : _toDayjs(pickerProps.minDate);
@@ -137,8 +137,11 @@ const _renderDateField = (fieldProps: DateRangeFieldProps): ReactElement => {
         inputReadOnly
         placeholder="Select date"
         status={error ? "error" : undefined}
+        open={open}
+        onOpenChange={onOpenChange}
         placement="bottomLeft"
         className="h-14 w-full"
+        classNames={{ popup: { root: "date-range-popup" } }}
       />
       {_renderError(error, errorMessage, label)}
     </div>
@@ -160,6 +163,49 @@ const _renderRangeField = (fieldProps: DateRangeFieldProps): ReactElement => _re
 export const DateRangePicker = (props: DateRangePickerProps): ReactElement => {
   const startLabel = props.startLabel ?? "Start Date";
   const endLabel = props.endLabel ?? "End Date";
+  const [openStart, setOpenStart] = useState(false);
+  const [openEnd, setOpenEnd] = useState(false);
+  const touchStartY = useRef<number | null>(null);
+
+  // Setup mobile swipe to dismiss and backdrop click
+  useEffect(() => {
+    const handlePointerDown = (e: MouseEvent): void => {
+      const target = e.target as HTMLElement;
+      // If clicking directly on the popup backdrop
+      if (target.classList.contains("date-range-popup")) {
+        setOpenStart(false);
+        setOpenEnd(false);
+      }
+    };
+
+    const handleTouchStart = (e: TouchEvent): void => {
+      touchStartY.current = e.touches[0].clientY;
+    };
+
+    const handleTouchEnd = (e: TouchEvent): void => {
+      if (touchStartY.current === null) return;
+      const touchEndY = e.changedTouches[0].clientY;
+      const diffY = touchEndY - touchStartY.current;
+      // Hanya tutup jika swipe ke bawah dilakukan dari area header/kosong (bukan scroll list jam/menit)
+      const target = e.target as HTMLElement;
+      const isScrollArea = target.closest(".ant-picker-time-panel-column");
+      if (!isScrollArea && diffY > 60) {
+        setOpenStart(false);
+        setOpenEnd(false);
+      }
+      touchStartY.current = null;
+    };
+
+    document.addEventListener("click", handlePointerDown, true);
+    document.addEventListener("touchstart", handleTouchStart, { passive: true, capture: true });
+    document.addEventListener("touchend", handleTouchEnd, { passive: true, capture: true });
+
+    return () => {
+      document.removeEventListener("click", handlePointerDown, true);
+      document.removeEventListener("touchstart", handleTouchStart, true);
+      document.removeEventListener("touchend", handleTouchEnd, true);
+    };
+  }, []);
 
   return (
     <div className={`block ${props.className ?? ""}`}>
@@ -172,6 +218,8 @@ export const DateRangePicker = (props: DateRangePickerProps): ReactElement => {
           error: props.startError,
           errorMessage: props.startErrorMessage,
           onChange: props.onStartDateChange,
+          open: openStart,
+          onOpenChange: setOpenStart,
           pickerProps: props,
         })}
         {_renderRangeField({
@@ -181,6 +229,8 @@ export const DateRangePicker = (props: DateRangePickerProps): ReactElement => {
           error: props.endError,
           errorMessage: props.endErrorMessage,
           onChange: props.onEndDateChange,
+          open: openEnd,
+          onOpenChange: setOpenEnd,
           pickerProps: props,
         })}
       </div>

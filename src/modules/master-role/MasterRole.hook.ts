@@ -29,7 +29,7 @@ export const useMasterRoleNavigation = (): MasterRoleNavigation => {
    * @returns {void} No return value
    */
   const goBack = (): void => {
-    navigate(-1);
+    navigate("/master-main");
   };
 
   /**

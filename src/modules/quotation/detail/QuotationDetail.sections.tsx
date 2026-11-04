@@ -8,7 +8,7 @@ import type {
   ApiQuotationTransaction,
 } from "../Quotation.type";
 
-import { formatCurrency, formatDate, getQuotationStatusLabel, getStatusBadgeClass } from "./QuotationDetail.helpers";
+import { formatCurrency, formatDate, formatDiscount, getQuotationStatusLabel, getStatusBadgeClass, getStatusLabel } from "./QuotationDetail.helpers";
 
 /**
  * Render labeled value.
@@ -88,6 +88,8 @@ export const renderTransactionSection = (transaction: ApiQuotationTransaction): 
     "Transaction & Event",
     <dl className="grid grid-cols-1 gap-x-6 sm:grid-cols-2">
       {_renderField("Service Type", transaction.service_type_name)}
+      {transaction.order_type_name && _renderField("Order Type", transaction.order_type_name)}
+      {_renderField("Transaction Status", getStatusLabel(transaction.status))}
       {_renderField("Customer Name", transaction.customer_name)}
       {_renderField("Customer Phone", transaction.customer_phone)}
       {_renderField("PIC", transaction.pic?.name)}
@@ -101,6 +103,17 @@ export const renderTransactionSection = (transaction: ApiQuotationTransaction): 
   );
 
 /**
+ * Render global quotation remark.
+ * @param {string} remark - Quotation global remark
+ * @returns {ReactElement} Global remark section
+ */
+export const renderGlobalRemarkSection = (remark: string): ReactElement =>
+  _renderSection(
+    "Global Remark",
+    <dl>{_renderField("Remark", remark || "-")}</dl>,
+  );
+
+/**
  * Render pricing section.
  * @param {ApiQuotationTransaction} transaction - Transaction response
  * @returns {ReactElement} Pricing section
@@ -111,7 +124,7 @@ export const renderPricingSection = (transaction: ApiQuotationTransaction): Reac
     <dl className="grid grid-cols-1">
       {_renderField("Subtotal", formatCurrency(transaction.subtotal))}
       {_renderField("Service Fee", formatCurrency(transaction.service_fee))}
-      {_renderField("Discount", formatCurrency(transaction.discount))}
+      {_renderField("Discount", formatDiscount(transaction.subtotal, transaction.discount))}
       {_renderField("Grand Total", formatCurrency(transaction.grand_total))}
     </dl>,
   );
@@ -183,7 +196,10 @@ const _renderItem = (item: ApiQuotationItem): ReactElement => (
         {formatCurrency(item.price)}
       </p>
       {item.remark && (
-        <p className="mt-2 text-lg text-text-secondary">{item.remark}</p>
+        <p className="mt-2 text-lg text-text-secondary">
+          <span className="font-semibold text-text-primary">Remark: </span>
+          {item.remark}
+        </p>
       )}
     </div>
     <dl className="grid shrink-0 gap-2 text-right">

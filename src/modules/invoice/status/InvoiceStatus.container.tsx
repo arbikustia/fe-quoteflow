@@ -13,7 +13,7 @@ const InvoiceStatusContainer = (): ReactElement => {
   const formState = useInvoiceStatusForm();
 
   return (
-    <Layout mobileWhiteBackground={true} showMobileGlobalHeader={true}>
+    <Layout showMobileGlobalHeader={true}>
       <InvoiceStatusForm {...formState} />
     </Layout>
   );

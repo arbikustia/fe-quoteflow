@@ -64,6 +64,7 @@ describe("MasterCustomer Component", () => {
     const customer = mockProps.paginatedData[0];
     const customerName = screen.getAllByText(customer.name)[0];
 
+    expect(screen.getAllByText(customer.email ?? "No email provided")).toHaveLength(2);
     expect(screen.getAllByText(customer.address ?? "No address provided")[0]).toBeInTheDocument();
     expect(screen.getAllByText(customer.phoneNumber ?? "No phone number")[0]).toBeInTheDocument();
 
@@ -77,9 +78,9 @@ describe("MasterCustomer Component", () => {
 
     const tableSkeleton = screen.getByRole("status", { name: "Loading customer table" });
     const cardSkeletons = screen.getAllByRole("status", { name: "Loading customer card" });
-    expect(tableSkeleton.querySelectorAll("th")).toHaveLength(6);
+    expect(tableSkeleton.querySelectorAll("th")).toHaveLength(7);
     expect(tableSkeleton.querySelectorAll("tbody tr")).toHaveLength(5);
-    expect(tableSkeleton.querySelectorAll("tbody tr:first-child td")).toHaveLength(6);
+    expect(tableSkeleton.querySelectorAll("tbody tr:first-child td")).toHaveLength(7);
     expect(tableSkeleton.querySelectorAll("tbody tr:first-child td:last-child span")).toHaveLength(1);
     expect(cardSkeletons).toHaveLength(5);
     expect(cardSkeletons[0]).toHaveClass("rounded-3xl");

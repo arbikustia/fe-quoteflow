@@ -13,7 +13,7 @@ const PaymentStatusContainer = (): ReactElement => {
   const formState = usePaymentStatusForm();
 
   return (
-    <Layout mobileWhiteBackground={true} showMobileGlobalHeader={true}>
+    <Layout showMobileGlobalHeader={true}>
       <PaymentStatusForm {...formState} />
     </Layout>
   );

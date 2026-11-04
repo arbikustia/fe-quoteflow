@@ -49,6 +49,8 @@ export type ApiQuotationTransaction = {
   id: string;
   service_type_id: string;
   service_type_name: string;
+  order_type_id?: string;
+  order_type_name?: string;
   customer_name: string;
   customer_phone: string;
   address: string;
@@ -137,6 +139,7 @@ export type QuotationData = {
   endDate: string;
   grandTotal: number;
   status: number;
+  items?: ApiQuotationItem[];
 };
 
 export type QuotationMobileCardProps = {
@@ -154,6 +157,7 @@ export type QuotationListApiState = {
 };
 
 export type QuotationPagination = QuotationListApiState & {
+  itemCategories: Map<string, string>;
   currentPage: number;
   pageSize: number;
   isEmpty: boolean;
@@ -180,6 +184,7 @@ export type QuotationDetailResponse = {
 
 export type QuotationDetailState = {
   quotation: ApiQuotation | null;
+  itemCategories: Map<string, string>;
   isLoading: boolean;
   isApproving: boolean;
   isConfirmOpen: boolean;

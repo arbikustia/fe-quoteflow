@@ -3,12 +3,14 @@ import { FiCheckCircle, FiDownload, FiEdit2, FiMoreHorizontal } from "react-icon
 
 import { generateQuotationPDF } from "@/utils/pdfGenerator";
 
+import { ActionMenu } from "@/components/ActionMenu";
 import ConfirmModal from "@/components/ConfirmModal";
 
 import { quotationToQuoteData } from "../Quotation.helpers";
 import type { ApiQuotation, QuotationDetailState } from "../Quotation.type";
 
 import {
+  renderGlobalRemarkSection,
   renderItemsSection,
   renderPricingSection,
   renderProjectsSection,
@@ -37,6 +39,7 @@ const _renderDetail = (quotation: ApiQuotation): ReactElement => {
         <div className="min-w-0 lg:[&_dl]:grid-cols-3 xl:[&_dl]:grid-cols-4">
           {renderTransactionSection(quotation.transaction)}
         </div>
+        {renderGlobalRemarkSection(quotation.notes)}
         <div className="grid min-w-0 grid-cols-1 items-start gap-4 sm:gap-4 lg:grid-cols-[minmax(0,2fr)_minmax(20rem,1fr)]">
           <div className="min-w-0 space-y-4 sm:space-y-4">
             {isRegular && renderItemsSection(quotation.transaction.rental_transaction_items)}
@@ -138,7 +141,8 @@ const _renderDetailSkeleton = (): ReactElement => (
     <div className="animate-pulse" aria-hidden="true">
       {_renderSkeletonOverview()}
       <div className="mt-4 space-y-4 sm:mt-4 sm:space-y-4">
-        {_renderSkeletonSection(10, "Loading transaction and event", true)}
+        {_renderSkeletonSection(12, "Loading transaction and event", true)}
+        {_renderSkeletonSection(1, "Loading global remark")}
         <div className="grid min-w-0 grid-cols-1 items-start gap-4 sm:gap-4 lg:grid-cols-[minmax(0,2fr)_minmax(20rem,1fr)]">
           <div className="min-w-0 space-y-4 sm:space-y-4">
             {_renderSkeletonRental()}
@@ -183,34 +187,29 @@ export const QuotationDetailComponent = (props: QuotationDetailState): ReactElem
    */
   const handleDownloadPdf = (): void => {
     if (props.quotation) {
-      void generateQuotationPDF(quotationToQuoteData(props.quotation));
+      void generateQuotationPDF(quotationToQuoteData(props.quotation, props.itemCategories));
     }
   };
 
   const headerActions = props.quotation ? (
-    <details className="relative shrink-0">
-      <summary data-testid="quotation-detail-actions" className="flex h-14 w-14 cursor-pointer list-none items-center justify-center rounded-3xl border border-border-default text-text-secondary transition-colors hover:bg-background-subtle hover:text-text-primary" aria-label="More options">
-        <FiMoreHorizontal className="h-7 w-7" aria-hidden="true" />
-      </summary>
-      <div role="menu" className="absolute right-0 top-16 z-20 w-56 overflow-hidden rounded-3xl border border-border-default bg-background-surface py-2 shadow-lg">
-        {props.quotation.status === 1 && (
-          <button type="button" role="menuitem" onClick={props.handleEdit} className="flex w-full items-center gap-3 px-5 py-3.5 text-left text-lg font-semibold text-text-primary transition-colors hover:bg-background-subtle">
-            <FiEdit2 className="h-5 w-5" aria-hidden="true" />
-            Edit
-          </button>
-        )}
-        {props.quotation.status === 1 && (
-          <button type="button" role="menuitem" onClick={props.openApproveModal} className="flex w-full items-center gap-3 px-5 py-3.5 text-left text-lg font-semibold text-success-strong transition-colors hover:bg-success-subtle">
-            <FiCheckCircle className="h-5 w-5" aria-hidden="true" />
-            {approveLabel}
-          </button>
-        )}
-        <button type="button" role="menuitem" onClick={handleDownloadPdf} className="flex w-full items-center gap-3 px-5 py-3.5 text-left text-lg font-semibold text-text-primary transition-colors hover:bg-background-subtle">
-          <FiDownload className="h-5 w-5" aria-hidden="true" />
-          Download PDF
+    <ActionMenu testId="quotation-detail-actions" icon={<FiMoreHorizontal className="h-7 w-7" aria-hidden="true" />}>
+      {props.quotation.status === 1 && (
+        <button type="button" role="menuitem" onClick={props.handleEdit} className="flex w-full items-center gap-3 px-5 py-3.5 text-left text-lg font-semibold text-text-primary transition-colors hover:bg-background-subtle">
+          <FiEdit2 className="h-5 w-5" aria-hidden="true" />
+          Edit
         </button>
-      </div>
-    </details>
+      )}
+      {props.quotation.status === 1 && (
+        <button type="button" role="menuitem" onClick={props.openApproveModal} className="flex w-full items-center gap-3 px-5 py-3.5 text-left text-lg font-semibold text-success-strong transition-colors hover:bg-success-subtle">
+          <FiCheckCircle className="h-5 w-5" aria-hidden="true" />
+          {approveLabel}
+        </button>
+      )}
+      <button type="button" role="menuitem" onClick={handleDownloadPdf} className="flex w-full items-center gap-3 px-5 py-3.5 text-left text-lg font-semibold text-text-primary transition-colors hover:bg-background-subtle">
+        <FiDownload className="h-5 w-5" aria-hidden="true" />
+        Download PDF
+      </button>
+    </ActionMenu>
   ) : null;
 
   return (

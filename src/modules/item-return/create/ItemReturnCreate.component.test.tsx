@@ -99,7 +99,7 @@ const mockSelectedFormProps: ReturnCreateFormState = {
 };
 
 describe("ItemReturnCreateForm", () => {
-  it("should render rental order select and no table when unselected", () => {
+  it("should render rental order select and master role form actions when unselected", () => {
     render(
       <MemoryRouter>
         <ItemReturnCreateForm {...mockEmptyFormProps} />
@@ -107,6 +107,8 @@ describe("ItemReturnCreateForm", () => {
     );
     expect(screen.getByLabelText("Rental Order")).toBeInTheDocument();
     expect(screen.queryByText("Order Items")).not.toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "Cancel" })).toHaveClass("h-14", "rounded-xl");
+    expect(screen.getByRole("button", { name: "Save Return" })).toHaveClass("h-14", "rounded-xl");
   });
 
   it("should render order items table, search filter, and checkboxes when order is selected", () => {

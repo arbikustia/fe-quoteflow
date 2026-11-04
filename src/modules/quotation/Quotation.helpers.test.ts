@@ -25,17 +25,20 @@ describe("Quotation helpers", () => {
       endDate: "2026-11-02",
       grandTotal: 5000000,
       status: 1,
+      items: [{ item_id: "item-1", item_name: "Speaker", qty: 7, price: 500000, subtotal: 3500000, remark: "Main hall" }],
     };
 
-    const quote = quotationToQuoteData(row);
+    const quote = quotationToQuoteData(row, new Map([["item-1", "Audio"]]));
 
     expect(quote.id).toBe("QUO-001");
     expect(quote.name).toBe("Konser Musik");
+    expect(quote.customerName).toBe("PT Maju");
     expect(quote.location).toBe("Jakarta");
     expect(quote.startDate).toBe("2026-11-01");
     expect(quote.endDate).toBe("2026-11-02");
     expect(quote.grandTotal).toBe(5000000);
     expect(quote.status).toBe(1);
+    expect(quote.pdfItems).toEqual([{ name: "Speaker", category: "Audio", qty: 7, price: 500000, remark: "Main hall" }]);
   });
 
   it("converts ApiQuotation to QuoteData correctly", () => {
@@ -103,13 +106,15 @@ describe("Quotation helpers", () => {
       },
     };
 
-    const quote = quotationToQuoteData(apiQuote);
+    const quote = quotationToQuoteData(apiQuote, new Map([["item-1", "Audio System"]]));
 
     expect(quote.id).toBe("QUO-API-001");
     expect(quote.name).toBe("Festival Jazz");
+    expect(quote.customerName).toBe("PT Sonic");
     expect(quote.location).toBe("Bandung");
     expect(quote.category).toBe("Audio System");
     expect(quote.selectedItems).toEqual(["Speaker Line Array"]);
+    expect(quote.pdfItems).toEqual([{ name: "Speaker Line Array", category: "Audio System", qty: 2, price: 5000000, remark: "" }]);
     expect(quote.remark).toBe("Catatan khusus");
     expect(quote.grandTotal).toBe(10300000);
     expect(quote.status).toBe(2);

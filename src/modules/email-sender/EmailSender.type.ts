@@ -7,3 +7,4 @@ export type EmailSenderListResponse = PaginatedResponse<EmailSender>;
 export type EmailSenderAllResponse = ApiEnvelope<EmailSender[]>;
 export type EmailSenderMutationResponse = ApiEnvelope<EmailSender | null>;
 export type EmailSenderFormState = { id?: string; name: string; email: string; smtp_host: string; smtp_port: number; smtp_username: string; smtp_password: string; enable_ssl: boolean; is_default: boolean; status: number };
+export type EmailSenderRouteState = { emailSender?: EmailSender; successMessage?: string };

@@ -1,4 +1,4 @@
-import { Card } from "antd";
+import { LuFileCheck2, LuReceiptText, LuCreditCard, LuBadgePercent } from "react-icons/lu";
 import type { ReactElement } from "react";
 
 import { CalendarComponent } from "@/components/Calendar";
@@ -68,7 +68,7 @@ const _renderCalendarPreview = (
       onKeyDown={(event): void => {
         if (event.key === "Enter" || event.key === " ") onClick("/calendar");
       }}
-      className="cursor-pointer rounded-xl focus:outline-none focus-visible:ring-2 focus-visible:ring-border-focus"
+      className="cursor-pointer rounded-3xl focus:outline-none focus-visible:ring-2 focus-visible:ring-border-focus"
       aria-label="Open calendar"
     >
       <CalendarComponent
@@ -85,26 +85,68 @@ const _renderCalendarPreview = (
 const _renderDesktopDashboard = (
   overview: ReturnType<typeof useDashboardOverview>,
   quotationState: ReturnType<typeof useDashboardQuotations>,
+  orderState: ReturnType<typeof useDashboardOrders>,
   onNavigate: (route: DashboardRoute) => void,
 ): ReactElement => {
-  const metrics: DashboardMetric[] = [
-    { label: "Quotation", count: overview.quotationCount, value: overview.quotationValue, colorClassName: "bg-action-primary" },
-    { label: "Invoice", count: overview.invoiceCount, value: overview.invoiceValue, colorClassName: "bg-information" },
-    { label: "Payment", count: overview.paymentCount, value: overview.paymentValue, colorClassName: "bg-success" },
-    { label: "Voucher", count: overview.voucherCount, value: 0, colorClassName: "bg-accent-500" },
+  const metrics: Array<DashboardMetric & { icon: ReactElement }> = [
+    {
+      label: "Quotation",
+      count: overview.quotationCount,
+      description: "Active quotation records",
+      colorClassName: "text-action-primary",
+      surfaceClassName: "bg-action-primary-subtle",
+      icon: <LuFileCheck2 aria-hidden="true" />,
+    },
+    {
+      label: "Invoice",
+      count: overview.invoiceCount,
+      description: "Issued invoice records",
+      colorClassName: "text-information",
+      surfaceClassName: "bg-information-subtle",
+      icon: <LuReceiptText aria-hidden="true" />,
+    },
+    {
+      label: "Payment",
+      count: overview.paymentCount,
+      description: "Recorded payments",
+      colorClassName: "text-success",
+      surfaceClassName: "bg-success-subtle",
+      icon: <LuCreditCard aria-hidden="true" />,
+    },
+    {
+      label: "Voucher",
+      count: overview.voucherCount,
+      description: "Available vouchers",
+      colorClassName: "text-accent-600",
+      surfaceClassName: "bg-accent-50",
+      icon: <LuBadgePercent aria-hidden="true" />,
+    },
   ];
-  const rentalOrder = overview.trend[0];
+  const maxOrderCount = Math.max(...orderState.chartData.map((datum) => datum.count), 1);
+  const totalOrders = orderState.chartData.reduce((sum, datum) => sum + datum.count, 0);
   let rentalOrderContent: ReactElement;
 
-  if (overview.isChartLoading) {
+  if (orderState.isLoading) {
     rentalOrderContent = <div className="mt-6 h-40 animate-pulse rounded-lg bg-background-subtle" role="status" aria-label="Loading rental order chart" />;
-  } else if (overview.isChartError) {
+  } else if (orderState.isError) {
     rentalOrderContent = <p className="mt-6 rounded-lg border border-danger bg-danger-subtle px-4 py-3 text-sm text-danger-strong">Rental order performance unavailable.</p>;
-  } else if (rentalOrder) {
-    const chartLabel = `${rentalOrder.totalOrders.toLocaleString("id-ID")} rental orders, total value Rp ${rentalOrder.totalAmount.toLocaleString("id-ID")}, ${rentalOrder.label}`;
-    rentalOrderContent = <div className="mt-6"><div className="mb-5 flex items-end justify-between gap-6"><div><p className="text-sm text-text-secondary">Total rental value</p><p className="mt-1 tabular-nums text-2xl font-semibold text-text-primary">Rp {rentalOrder.totalAmount.toLocaleString("id-ID")}</p></div><div className="flex items-center gap-2 text-sm text-text-secondary"><span className="h-3 w-3 rounded-sm bg-action-primary" aria-hidden="true" />Rental orders</div></div><div className="grid h-[calc(100vh-38rem)] min-h-[22rem] grid-cols-[3rem_1fr] gap-4" role="img" aria-label={chartLabel}><div className="flex flex-col justify-between text-right text-xs tabular-nums text-text-tertiary"><span>{rentalOrder.totalOrders.toLocaleString("id-ID")}</span><span>0</span></div><div className="relative border-b border-l border-border-strong"><div className="pointer-events-none absolute inset-0 flex flex-col justify-between" aria-hidden="true"><span className="border-t border-border-default" /><span className="border-t border-border-default" /><span className="border-t border-border-default" /></div><div className="absolute inset-0 flex items-end justify-center px-12 pt-6"><div className="relative h-full w-32 max-w-full rounded-t-lg bg-action-primary"><span className="absolute -top-7 left-1/2 -translate-x-1/2 tabular-nums text-sm font-semibold text-text-primary">{rentalOrder.totalOrders.toLocaleString("id-ID")}</span></div></div></div></div><p className="mt-3 text-center text-sm text-text-tertiary">{rentalOrder.label}</p></div>;
   } else {
-    rentalOrderContent = <p className="mt-6 rounded-lg border border-dashed border-border-default px-4 py-10 text-center text-sm text-text-secondary">No rental order data for this period.</p>;
+    rentalOrderContent = (
+      <div className="mt-6">
+        <p className="tabular-nums text-2xl font-semibold text-text-primary">{totalOrders.toLocaleString("id-ID")} orders</p>
+        <div className="mt-6 grid h-[calc(100vh-38rem)] min-h-[22rem] grid-cols-7 items-end gap-4 border-b border-border-strong" role="img" aria-label={`${totalOrders.toLocaleString("id-ID")} rental orders created in the last 7 days`}>
+          {orderState.chartData.map((datum) => (
+            <div key={datum.label} className="flex h-full min-w-0 flex-col items-center justify-end">
+              <span className="mb-2 text-sm font-semibold tabular-nums text-text-primary">{datum.count}</span>
+              <div className="w-full max-w-20 rounded-t-lg bg-action-primary" style={{ height: datum.count > 0 ? `${Math.max((datum.count / maxOrderCount) * 100, 8)}%` : "4px" }} />
+            </div>
+          ))}
+        </div>
+        <div className="mt-3 grid grid-cols-7 gap-4">
+          {orderState.chartData.map((datum) => <span key={datum.label} className="text-center text-sm text-text-tertiary">{datum.label}</span>)}
+        </div>
+      </div>
+    );
   }
 
   return (
@@ -118,30 +160,38 @@ const _renderDesktopDashboard = (
 
       <div className="grid grid-cols-4 gap-5">
         {metrics.map((metric) => (
-          <Card key={metric.label} className="rounded-xl border-border-default bg-background-surface shadow-none">
+          <div key={metric.label} className="rounded-3xl border border-border-default bg-background-surface p-6 shadow-none">
             <div className="flex items-start justify-between gap-4">
-              <div>
-                <p className="text-sm font-medium text-text-secondary">{metric.label}</p>
-                <p className="mt-3 tabular-nums text-3xl font-semibold text-text-primary">{overview.isLoading ? "-" : metric.count.toLocaleString("id-ID")}</p>
-                {metric.value > 0 && <p className="mt-2 tabular-nums text-sm text-text-secondary">Rp {metric.value.toLocaleString("id-ID")}</p>}
+              <div className={`flex h-12 w-12 items-center justify-center rounded-2xl ${metric.surfaceClassName} ${metric.colorClassName}`}>
+                {metric.icon}
               </div>
-              <span className={`mt-1 h-2.5 w-2.5 rounded-full ${metric.colorClassName}`} aria-hidden="true" />
+              <span className="text-xs font-semibold uppercase tracking-wider text-text-tertiary">
+                {metric.label}
+              </span>
             </div>
-          </Card>
+            <div className="mt-5">
+              <p className="tabular-nums text-4xl font-bold tracking-tight text-text-primary">{overview.isLoading ? "-" : metric.count.toLocaleString("id-ID")}</p>
+              <p className="mt-1.5 text-sm text-text-secondary">{metric.description}</p>
+            </div>
+          </div>
         ))}
       </div>
 
       <div className="mt-6 grid min-h-[calc(100vh-28rem)] grid-cols-3 gap-5">
-        <Card className="col-span-2 h-full rounded-xl border-border-default bg-background-surface shadow-none">
+        <div className="col-span-2 h-full rounded-3xl border border-border-default bg-background-surface p-6 shadow-none">
           <div className="flex items-start justify-between gap-6 border-b border-border-default pb-4">
             <div>
               <h2 className="text-base font-semibold text-text-primary">Rental order performance</h2>
-              <p className="mt-1 text-sm text-text-secondary">Rental orders and value within selected 30-day period.</p>
+              <p className="mt-1 text-sm text-text-secondary">Rental orders created in the last 7 days.</p>
             </div>
-            <span className="shrink-0 text-sm text-text-tertiary">{overview.chartDateFrom} - {overview.chartDateTo}</span>
+            {orderState.chartData.length > 0 && (
+              <span className="shrink-0 text-sm text-text-tertiary">
+                {orderState.chartData[0].label} - {orderState.chartData[orderState.chartData.length - 1].label}
+              </span>
+            )}
           </div>
           {rentalOrderContent}
-        </Card>
+        </div>
         {_renderCalendarPreview(quotationState.calendarEvents, quotationState.isLoading, onNavigate)}
       </div>
     </section>
@@ -292,7 +342,7 @@ export default function Dashboard(): ReactElement {
           </header>
           <div className="grid grid-cols-4 gap-5">
             {DASHBOARD_MENU_ITEMS.slice(0, 4).map((item) => (
-              <div key={item.label} className="h-32 animate-pulse rounded-xl border border-border-default bg-background-surface p-6">
+              <div key={item.label} className="h-32 animate-pulse rounded-3xl border border-border-default bg-background-surface p-6">
                 <div className="h-4 w-20 rounded bg-background-subtle" />
                 <div className="mt-4 h-9 w-14 rounded bg-background-subtle" />
                 <div className="mt-3 h-4 w-28 rounded bg-background-subtle" />
@@ -300,14 +350,14 @@ export default function Dashboard(): ReactElement {
             ))}
           </div>
           <div className="mt-6 grid min-h-[calc(100vh-28rem)] grid-cols-3 gap-5">
-            <div className="col-span-2 rounded-xl border border-border-default bg-background-surface p-6">
+            <div className="col-span-2 rounded-3xl border border-border-default bg-background-surface p-6">
               <div className="flex items-start justify-between border-b border-border-default pb-4">
                 <div className="space-y-2"><div className="h-5 w-48 animate-pulse rounded bg-background-subtle" /><div className="h-4 w-72 animate-pulse rounded bg-background-subtle" /></div>
                 <div className="h-4 w-48 animate-pulse rounded bg-background-subtle" />
               </div>
               <div className="mt-6 h-[calc(100vh-38rem)] min-h-[22rem] animate-pulse rounded-lg bg-background-subtle" />
             </div>
-            <div className="rounded-xl border border-border-default bg-background-surface p-6">
+            <div className="rounded-3xl border border-border-default bg-background-surface p-6">
               <div className="h-16 animate-pulse rounded bg-background-subtle" />
               <div className="mt-5 grid grid-cols-7 gap-px overflow-hidden rounded border border-border-default bg-border-default">{Array.from({ length: 35 }, (_, index) => <div key={index} className="min-h-[6rem] animate-pulse bg-background-surface" />)}</div>
             </div>
@@ -325,7 +375,7 @@ export default function Dashboard(): ReactElement {
 
   return (
     <ResponsiveLayout showMobileHeader={false}>
-      {_renderDesktopDashboard(overview, quotationState, navigateTo)}
+      {_renderDesktopDashboard(overview, quotationState, orderState, navigateTo)}
       <div className="-m-4 pb-28 lg:hidden">
         <div className="relative h-64 w-full overflow-hidden">
           <img src={BannerApp} alt="" className="h-full w-full object-cover" aria-hidden="true" />

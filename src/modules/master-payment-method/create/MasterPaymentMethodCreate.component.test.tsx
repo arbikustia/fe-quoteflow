@@ -34,8 +34,8 @@ describe("MasterPaymentMethodCreateForm", () => {
     const form = nameInput.closest("form");
 
     expect(screen.getByLabelText(/description/i)).toBeTruthy();
-    expect(screen.getByText("Payment Method Information")).toBeTruthy();
-    expect(screen.getByText("Information")).toBeTruthy();
+    expect(screen.getAllByRole("heading", { name: "New Payment Method" })).toHaveLength(2);
+    expect(screen.queryByText("Information")).toBeNull();
     expect(screen.getByRole("button", { name: "Cancel" })).toBeTruthy();
     expect(form?.hasAttribute("novalidate")).toBe(true);
     expect(form?.classList.contains("rounded-3xl")).toBe(true);
@@ -60,10 +60,15 @@ describe("MasterPaymentMethodCreateForm", () => {
     expect(screen.getByText("Description is required.")).toBeTruthy();
   });
 
-  it("should render shared status switch in edit mode", () => {
+  it("should render status section like Master Role in edit mode", () => {
     const props = createProps({ isEditMode: true });
     render(<MasterPaymentMethodCreateForm {...props} />);
 
+    const statusLabel = screen.getByText("Status");
+
+    expect(statusLabel.parentElement?.classList.contains("items-center")).toBe(true);
+    expect(screen.getByText("active")).toBeTruthy();
+    expect(screen.getByText("Toggle active or inactive status")).toBeTruthy();
     fireEvent.click(screen.getByRole("switch", { name: "Payment method status" }));
     expect(props.handleStatusChange).toHaveBeenCalledTimes(1);
   });

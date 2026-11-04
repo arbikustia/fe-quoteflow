@@ -1,11 +1,12 @@
 import type { ChangeEvent, SyntheticEvent } from "react";
 import { useMemo, useState } from "react";
+import { useForm } from "react-hook-form";
 import { useNavigate, useParams } from "react-router-dom";
 
 import { formatProjectMessages, mapProjectItemOptions, mapProjectSelectedItems, validateProjectStep } from "./MasterProjectCreate.helpers";
 import { useProjectItemSelection } from "./MasterProjectCreate.items.hook";
 
-import type { ApiProject, MasterProjectCreateFormState, ProjectDraftFormState, ProjectFormStep, ProjectItemOption, ProjectSubmissionParams, ProjectSubmissionState } from "@/modules/master-project/MasterProject.type";
+import type { ApiProject, MasterProjectCreateFormState, ProjectDraftFormState, ProjectFormStep, ProjectFormValues,ProjectItemOption, ProjectSubmissionParams, ProjectSubmissionState } from "@/modules/master-project/MasterProject.type";
 import { useGetAllItemsQuery } from "@/services/master-item.service";
 import { useCreateProjectMutation, useGetProjectByIdQuery, useUpdateProjectMutation } from "@/services/master-project.service";
 
@@ -28,49 +29,99 @@ const _createInputChange = (
  * @param {ProjectItemOption[]} items - Loaded item options
  * @returns {ProjectDraftFormState} Draft form state
  */
+/* eslint-disable max-lines-per-function */
+/**
+ * Manage project form input state and step wizard.
+ * @param {ApiProject | null} project - Initial project data
+ * @param {ProjectItemOption[]} items - Loaded item options
+ * @returns {ProjectDraftFormState} Draft form state
+ */
 const useProjectDraft = (
   project: ApiProject | null,
   items: ProjectItemOption[],
 ): ProjectDraftFormState => {
-  const [step, setStep] = useState<ProjectFormStep>(1);
-  const [name, setName] = useState("");
-  const [remark, setRemark] = useState("");
-  const [initializedId, setInitializedId] = useState<string | null>(null);
-  const itemSelection = useProjectItemSelection();
+    const {
+      clearErrors,
+      register,
+      setValue,
+      trigger,
+      formState: { errors },
+    } = useForm<ProjectFormValues>({ mode: "onChange", defaultValues: { name: "" } });
+    const [step, setStep] = useState<ProjectFormStep>(1);
+    const [name, setName] = useState("");
+    const [remark, setRemark] = useState("");
+    const [isActive, setIsActive] = useState(true);
+    const [initializedId, setInitializedId] = useState<string | null>(null);
+    const [isSubmitted, setIsSubmitted] = useState(false);
+    const itemSelection = useProjectItemSelection();
 
-  if (project && items.length > 0 && project.id !== initializedId) {
-    setInitializedId(project.id);
-    setName(project.name ?? "");
-    setRemark(project.remark ?? "");
-    itemSelection.setSelectedItems(mapProjectSelectedItems(project, items));
-  }
+    register("name", { required: "Project name is required." });
 
-  const handleNameChange = _createInputChange(setName);
-  const handleRemarkChange = _createInputChange(setRemark);
-  /**
-   * Advance to next step.
-   * @returns {void} No return
-   */
-  const nextStep = (): void => { setStep((current) => (current + 1) as ProjectFormStep); };
-  /**
-   * Return to previous step.
-   * @returns {void} No return
-   */
-  const previousStep = (): void => { setStep((current) => (current - 1) as ProjectFormStep); };
+    /**
+     * Validate step 2 input.
+     * @returns {Promise<boolean>} Validation result
+     */
+    const validateStep2 = async (): Promise<boolean> => {
+      setIsSubmitted(true);
 
-  return {
-    step,
-    name,
-    remark,
-    selectedItems: itemSelection.selectedItems,
-    handleNameChange,
-    handleRemarkChange,
-    toggleItem: itemSelection.toggleItem,
-    updateItemQuantity: itemSelection.updateItemQuantity,
-    nextStep,
-    previousStep,
+      return await trigger("name");
+    };
+
+    if (project && items.length > 0 && project.id !== initializedId) {
+      setInitializedId(project.id);
+      setName(project.name ?? "");
+      setValue("name", project.name ?? "");
+      clearErrors("name");
+      setRemark(project.remark ?? "");
+      setIsActive(project.status === 1);
+      itemSelection.setSelectedItems(mapProjectSelectedItems(project, items));
+    }
+
+    /**
+     * Update project name and validation value.
+     * @param {ChangeEvent<HTMLInputElement | HTMLTextAreaElement>} event - Input event
+     * @returns {void} No return value
+     */
+    const handleNameChange = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>): void => {
+      setName(event.target.value);
+      setValue("name", event.target.value, { shouldValidate: isSubmitted });
+    };
+    const handleRemarkChange = _createInputChange(setRemark);
+    /**
+     * Toggle project active status.
+     * @returns {void} No return value
+     */
+    const handleStatusChange = (): void => { setIsActive((current) => !current); };
+    /**
+     * Advance to next step.
+     * @returns {void} No return
+     */
+    const nextStep = (): void => { setStep((current) => (current + 1) as ProjectFormStep); };
+    /**
+     * Return to previous step.
+     * @returns {void} No return
+     */
+    const previousStep = (): void => { setStep((current) => (current - 1) as ProjectFormStep); };
+
+    return {
+      step,
+      name,
+      remark,
+      isActive,
+      selectedItems: itemSelection.selectedItems,
+      handleNameChange,
+      handleRemarkChange,
+      handleStatusChange,
+      toggleItem: itemSelection.toggleItem,
+      updateItemQuantity: itemSelection.updateItemQuantity,
+      nextStep,
+      previousStep,
+      errors,
+      isSubmitted,
+      validateStep2,
+    };
   };
-};
+  /* eslint-enable max-lines-per-function */
 
 
 /**
@@ -85,11 +136,12 @@ const _sendProjectMutation = (
   createProject: ReturnType<typeof useCreateProjectMutation>[0],
   updateProject: ReturnType<typeof useUpdateProjectMutation>[0],
 ): Promise<{ status: boolean; messages: string[] | string | null }> => {
-  const { id, isEdit, name, remark, selectedItems } = params;
+  const { id, isEdit, name, remark, isActive, selectedItems } = params;
+  const status = !isEdit || isActive ? 1 : 0;
   const payload = {
     name,
     remark,
-    status: 1,
+    status,
     items: selectedItems.map((item) => ({ item_id: item.id, qty: item.qty })),
   };
 
@@ -109,18 +161,25 @@ const _sendProjectMutation = (
  * @param {(msg: string | null) => void} handlers.setSuccessMessage - Success setter
  * @returns {Promise<void>} Async result
  */
+// eslint-disable-next-line max-lines-per-function
 const _executeSubmission = async (
   params: ProjectSubmissionParams,
   createProject: ReturnType<typeof useCreateProjectMutation>[0],
   updateProject: ReturnType<typeof useUpdateProjectMutation>[0],
   handlers: {
-    navigate: (path: string) => void;
+    navigate: (path: string, options?: { state: { successMessage: string } }) => void;
     setErrorMessage: (msg: string | null) => void;
     setSuccessMessage: (msg: string | null) => void;
   },
 ): Promise<void> => {
   const { name, selectedItems, step, nextStep } = params;
   const stepError = validateProjectStep(step, selectedItems.length, name);
+
+  if (step === 2 && !await params.validateStep2()) {
+    handlers.setErrorMessage("Project name is required.");
+
+    return;
+  }
 
   if (stepError) {
     handlers.setErrorMessage(stepError);
@@ -143,8 +202,10 @@ const _executeSubmission = async (
       return;
     }
 
-    handlers.setSuccessMessage("Project created successfully.");
-    handlers.navigate("/master-project", { state: { successMessage: "Project created successfully." } });
+    const successMessage = params.isEdit ? "Project updated successfully." : "Project created successfully.";
+
+    handlers.setSuccessMessage(successMessage);
+    handlers.navigate("/master-project", { state: { successMessage } });
   } catch {
     handlers.setErrorMessage("Unable to create project. Please try again.");
   }
@@ -252,11 +313,12 @@ export const useMasterProjectCreate = (): MasterProjectCreateFormState => {
    * @returns {void} No return
    */
   const goBack = (): void => {
-    navigate(-1);
+    navigate("/master-project");
   };
 
   return {
     ...draft,
+    isEditMode: isEdit,
     nextStep,
     previousStep,
     items,

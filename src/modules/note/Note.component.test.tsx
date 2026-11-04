@@ -39,4 +39,21 @@ describe("NoteComponent", () => {
     expect(screen.getByRole("dialog")).toHaveClass("h-[80dvh]", "lg:h-[80vh]");
     expect(screen.getByRole("dialog").querySelector(".min-h-0.flex-1.p-5")).toBeInTheDocument();
   });
+
+  it("should preserve unordered and ordered list styling in note detail", (): void => {
+    const note = {
+      id: "1",
+      content: "<ul><li>Bullet item</li></ul><ol><li>Numbered item</li></ol>",
+      status: 1,
+      updatedAt: "2 Nov 2026",
+    };
+
+    render(<NoteComponent notes={[note]} selectedNote={note} deletingNote={null} isDeleting={false} errorMessage={null} onBack={jest.fn()} onCreateNote={jest.fn()} onOpenNote={jest.fn()} onCloseNote={jest.fn()} onEditNote={jest.fn()} onDeleteNote={jest.fn()} onCancelDelete={jest.fn()} onConfirmDelete={jest.fn()} />);
+
+    const dialog = screen.getByRole("dialog");
+    const content = dialog.querySelector(".max-w-none");
+    expect(content).toHaveClass("[&_ul]:list-disc", "[&_ol]:list-decimal", "[&_li]:mb-2");
+    expect(dialog.querySelector("ul > li")).toHaveTextContent("Bullet item");
+    expect(dialog.querySelector("ol > li")).toHaveTextContent("Numbered item");
+  });
 });

@@ -60,7 +60,7 @@ const _executeSubmit = async (
   updateServiceType: ReturnType<typeof useUpdateServiceTypeMutation>[0],
   handlers: {
     setErrorMessage: (msg: string | null) => void;
-    navigate: (path: string) => void;
+    navigate: (path: string, options?: { state: { successMessage: string } }) => void;
   },
 ): Promise<void> => {
   try {
@@ -76,7 +76,9 @@ const _executeSubmit = async (
       return;
     }
 
-    handlers.navigate("/master-service-type");
+    const successMessage = params.isEditMode ? "Service type updated successfully." : "Service type created successfully.";
+
+    handlers.navigate("/master-service-type", { state: { successMessage } });
   } catch {
     handlers.setErrorMessage("Unable to save service type. Please try again.");
   }
@@ -168,7 +170,7 @@ export const useMasterServiceTypeCreateForm = (): MasterServiceTypeCreateFormSta
    * @returns {void} No return value
    */
   const goBack = (): void => {
-    navigate(-1);
+    navigate("/master-service-type");
   };
 
   return {

@@ -1,6 +1,8 @@
 import jsPDF from "jspdf";
 import autoTable from "jspdf-autotable";
 
+import type { ApiRentalOrder } from "@/modules/report/Report.type";
+
 import { RENTAL_CHECKLIST_LOGO } from "./ItemChecklist.pdf-logo";
 import type { ApiChecklist } from "./ItemChecklist.type";
 
@@ -11,9 +13,36 @@ const TABLE_TOP = 213.7;
 const TABLE_BOTTOM = 547;
 const COLUMN_WIDTHS = [21.5, 185, 56, 31, 45, 73.5, 79, 43.5];
 const HEADERS = ["NO", "DESCRIPTION", "SECTION", "QTY", "UNIT", "MOVE OUT (  )", "MOVE IN  (  )", "SIGN"];
+const CHECK_MARK = "__CHECK_MARK__";
 
-/** Draw fixed company and event details copied from the supplied reference. */
-const _drawHeader = (document: jsPDF): void => {
+/** Draw vector check mark inside a checklist table cell. */
+const _drawCheckMark = (document: jsPDF, x: number, y: number, width: number, height: number): void => {
+  const centerX = x + width / 2;
+  const centerY = y + height / 2;
+
+  document.setDrawColor(0, 0, 0);
+  document.setLineWidth(1.2);
+  document.line(centerX - 4, centerY, centerX - 1, centerY + 3);
+  document.line(centerX - 1, centerY + 3, centerX + 5, centerY - 4);
+};
+
+/** Format an API date for checklist PDF metadata. */
+const _formatDate = (value: string): string => {
+  const date = new Date(value);
+
+  return Number.isNaN(date.getTime()) ? value : date.toLocaleString("id-ID", {
+    day: "2-digit",
+    month: "long",
+    year: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+    hour12: false,
+  });
+};
+
+/** Draw company and event details from checklist and rental order data. */
+const _drawHeader = (document: jsPDF, checklist: ApiChecklist, order: ApiRentalOrder): void => {
+  const transaction = order.invoice.quotation.transaction;
   document.addImage(RENTAL_CHECKLIST_LOGO, "JPEG", 42.3, 36, 119.6, 37.2);
   document.setFillColor(211, 221, 239);
   document.rect(300.5, 36.5, 272.2, 34.9, "F");
@@ -34,20 +63,20 @@ const _drawHeader = (document: jsPDF): void => {
   ].forEach((line, index): void => { document.text(line, 49.1, 79.5 + index * 11.9); });
 
   document.text("DATE", 387.1, 91.4);
-  document.text("CUSTOMER ID", 387.1, 103.3);
+  document.text("CUSTOMER NAME", 387.1, 103.3);
   document.setLineWidth(0.84);
   document.setDrawColor(0, 0, 0);
   document.rect(450.2, 83.2, 122.5, 23.8);
   document.line(450.2, 95.1, 572.7, 95.1);
-  document.text("8/1/2026", 511.5, 91.4, { align: "center" });
-  document.text("000-2015", 511.5, 103.3, { align: "center" });
+  document.text(_formatDate(checklist.checklist_date), 511.5, 91.4, { align: "center" });
+  document.text(transaction.customer_name, 511.5, 103.3, { align: "center" });
 
   const details = [
-    ["COMPANY", "Inter CP"],
-    ["EVENT NAME", "IVC"],
-    ["DATE", "4-8 AGUSTUS 26 (Loading tgl 9 Agustus, Jam - 19.00)"],
-    ["LOCATION", "Kinasih Resort - Bogor"],
-    ["PIC", "Floren"],
+    ["COMPANY", transaction.customer_name],
+    ["EVENT NAME", transaction.event_name],
+    ["DATE", _formatDate(checklist.checklist_date)],
+    ["LOCATION", transaction.address],
+    ["PIC", transaction.pic?.name ?? "-"],
   ];
   details.forEach(([label, value], index): void => {
     const y = 151.2 + index * 11.9;
@@ -76,18 +105,18 @@ const _drawFooter = (document: jsPDF, tableEnd: number): void => {
   document.text("Audio | Video | Lighting | LED Screen | Backline | Event Production", PAGE_WIDTH / 2, 649.7 + offset, { align: "center" });
 };
 
-/** Build checklist PDF with reference layout and API-sourced table rows. */
-export const createChecklistPdf = (checklist: ApiChecklist): jsPDF => {
+/** Build checklist PDF with checklist and rental order API data. */
+export const createChecklistPdf = (checklist: ApiChecklist, order: ApiRentalOrder): jsPDF => {
   const document = new jsPDF({ unit: "pt", format: "letter" });
-  _drawHeader(document);
+  _drawHeader(document, checklist, order);
   const rows = checklist.items.map((item, index): string[] => [
     String(index + 1),
     item.description || item.item_name,
     item.section ?? "",
     String(item.qty),
     item.qty === 1 ? "Unit" : "Units",
-    item.move_out ? "X" : "",
-    item.move_in ? "X" : "",
+    item.move_out ? CHECK_MARK : "",
+    item.move_in ? CHECK_MARK : "",
     item.sign,
   ]);
   while (rows.length < 27) rows.push(HEADERS.map((): string => ""));
@@ -110,6 +139,14 @@ export const createChecklistPdf = (checklist: ApiChecklist): jsPDF => {
       5: { cellWidth: COLUMN_WIDTHS[5], halign: "center" },
       6: { cellWidth: COLUMN_WIDTHS[6], halign: "center" },
       7: { cellWidth: COLUMN_WIDTHS[7], halign: "center" },
+    },
+    didParseCell: (data): void => {
+      if (data.cell.raw === CHECK_MARK) data.cell.text = [];
+    },
+    didDrawCell: (data): void => {
+      if (data.cell.raw === CHECK_MARK) {
+        _drawCheckMark(document, data.cell.x, data.cell.y, data.cell.width, data.cell.height);
+      }
     },
     didDrawPage: (data): void => {
       const top = data.pageNumber === 1 ? TABLE_TOP : 38;
@@ -134,6 +171,6 @@ export const createChecklistPdf = (checklist: ApiChecklist): jsPDF => {
 };
 
 /** Download a generated checklist PDF. */
-export const downloadChecklistPdf = (checklist: ApiChecklist): void => {
-  createChecklistPdf(checklist).save(`Item-Checklist-${checklist.checklist_no.replace(/[^a-zA-Z0-9_-]/g, "_")}.pdf`);
+export const downloadChecklistPdf = (checklist: ApiChecklist, order: ApiRentalOrder): void => {
+  createChecklistPdf(checklist, order).save(`Item-Checklist-${checklist.checklist_no.replace(/[^a-zA-Z0-9_-]/g, "_")}.pdf`);
 };

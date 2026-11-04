@@ -51,7 +51,7 @@ exports[`MasterPic Component MasterPicComponent Snapshots default state 1`] = `
             class="flex shrink-0 items-center gap-3"
           >
             <button
-              class="h-14 rounded-full border-2 border-brand-blue bg-background-surface px-6 text-lg font-bold text-brand-blue transition-colors hover:bg-action-primary-subtle focus:outline-none focus:ring-2 focus:ring-focus-ring/30"
+              class="h-14 rounded-full border-2 border-action-primary bg-background-surface px-6 text-lg font-bold text-action-primary transition-colors hover:bg-action-primary-subtle focus:outline-none focus:ring-2 focus:ring-focus-ring/30 lg:hidden"
               type="button"
             >
               Create New
@@ -66,21 +66,30 @@ exports[`MasterPic Component MasterPicComponent Snapshots default state 1`] = `
           >
             <button
               aria-label="Back"
-              class="flex h-14 w-14 shrink-0 items-center justify-center rounded-full border border-border-default text-text-primary bg-white hover:bg-background-subtle transition-colors"
+              class="flex h-14 w-14 shrink-0 items-center justify-center rounded-full border border-border-default bg-background-page text-text-primary transition-colors hover:bg-background-subtle focus-visible:ring-2 focus-visible:ring-focus-ring/30 "
               type="button"
             >
               <svg
                 aria-hidden="true"
-                class="w-6 h-6"
+                class="h-6 w-6"
                 fill="none"
+                height="1em"
                 stroke="currentColor"
                 stroke-linecap="round"
                 stroke-linejoin="round"
-                stroke-width="2.5"
+                stroke-width="2"
                 viewBox="0 0 24 24"
+                width="1em"
+                xmlns="http://www.w3.org/2000/svg"
               >
-                <path
-                  d="M19 12H5M12 19l-7-7 7-7"
+                <line
+                  x1="19"
+                  x2="5"
+                  y1="12"
+                  y2="12"
+                />
+                <polyline
+                  points="12 19 5 12 12 5"
                 />
               </svg>
             </button>
@@ -103,7 +112,7 @@ exports[`MasterPic Component MasterPicComponent Snapshots default state 1`] = `
             class="shrink-0"
           >
             <button
-              class="h-14 rounded-full border-2 border-brand-blue bg-background-surface px-6 text-lg font-bold text-brand-blue transition-colors hover:bg-action-primary-subtle focus:outline-none focus:ring-2 focus:ring-focus-ring/30"
+              class="h-14 rounded-full border-2 border-action-primary bg-background-surface px-6 text-lg font-bold text-action-primary transition-colors hover:bg-action-primary-subtle focus:outline-none focus:ring-2 focus:ring-focus-ring/30 lg:hidden"
               type="button"
             >
               Create New
@@ -115,10 +124,10 @@ exports[`MasterPic Component MasterPicComponent Snapshots default state 1`] = `
         class="min-w-0 flex-1"
       >
         <div
-          class="relative flex h-full flex-col bg-background-surface px-0 pb-18 lg:-mt-4 lg:bg-transparent lg:px-0 lg:pb-0"
+          class="relative flex h-full flex-col bg-background-page px-0 pb-18 lg:-mt-4 lg:bg-transparent lg:px-0 lg:pb-0"
         >
           <div
-            class="flex min-w-0 flex-col gap-4 pt-2 pb-16 lg:hidden"
+            class="flex min-w-0 flex-col gap-4 pb-16 pt-2 lg:hidden"
           >
             <label
               class="relative block w-full sm:w-72 w-full sm:w-full"
@@ -155,67 +164,85 @@ exports[`MasterPic Component MasterPicComponent Snapshots default state 1`] = `
               </svg>
               <input
                 aria-label="Search PIC"
-                class="h-14 w-full rounded-full border border-border-default bg-background-surface pl-12 pr-4 text-base font-medium text-text-primary outline-none transition-colors placeholder:font-normal placeholder:text-text-tertiary hover:border-border-strong focus:border-border-focus focus:ring-2 focus:ring-focus-ring/30 text-lg placeholder:text-lg"
+                class="h-14 w-full rounded-full border border-border-default bg-background-surface pl-12 pr-4 text-base font-medium text-text-primary outline-none transition-colors placeholder:font-normal placeholder:text-text-tertiary hover:border-border-strong focus:border-border-focus focus:ring-2 focus:ring-focus-ring/30 !h-16 text-xl placeholder:text-xl"
                 placeholder="Search PIC"
                 type="search"
               />
             </label>
             <div
-              class="min-w-0 space-y-3"
+              class="flex min-w-0 flex-col gap-4"
             >
               <button
-                class="group block w-full min-w-0 rounded-xl border border-border-strong bg-background-surface p-5 text-left shadow-small transition-colors hover:bg-background-subtle/40 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-action-primary "
+                class="group block w-full min-w-0 rounded-3xl border border-border-strong bg-background-surface p-5 text-left shadow-small transition-colors hover:border-border-strong hover:bg-background-subtle/40 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-action-primary"
                 type="button"
               >
                 <span
-                  class="flex min-w-0 flex-wrap items-center justify-between gap-2"
+                  class="flex min-w-0 flex-wrap items-center justify-between gap-3"
                 >
                   <span
-                    class="min-w-0 break-words font-semibold text-text-primary text-xl"
+                    class="min-w-0 break-words text-xl font-semibold text-text-primary"
                   >
                     PIC 1
                   </span>
                   <span
-                    class="rounded-full px-3 py-1 font-semibold bg-success-subtle text-success-strong text-lg"
+                    class="rounded-full border border-current px-3 py-1 text-base font-semibold uppercase bg-success-subtle text-success-strong"
                   >
                     active
                   </span>
                 </span>
                 <span
-                  class="mt-4 block min-w-0 border-t border-border-default pt-4 text-text-secondary text-lg"
+                  class="mt-4 flex flex-wrap items-end justify-between gap-x-4 gap-y-3 border-t border-border-default pt-4"
                 >
                   <span
-                    class="text-xl text-text-secondary"
+                    class="min-w-0"
                   >
-                    Created 2024-01-01
+                    <span
+                      class="block text-lg text-text-tertiary"
+                    >
+                      Created At
+                    </span>
+                    <span
+                      class="mt-1 block text-lg font-medium text-text-primary"
+                    >
+                      01 Januari 2024 07:00
+                    </span>
                   </span>
                 </span>
               </button>
               <button
-                class="group block w-full min-w-0 rounded-xl border border-border-strong bg-background-surface p-5 text-left shadow-small transition-colors hover:bg-background-subtle/40 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-action-primary "
+                class="group block w-full min-w-0 rounded-3xl border border-border-strong bg-background-surface p-5 text-left shadow-small transition-colors hover:border-border-strong hover:bg-background-subtle/40 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-action-primary"
                 type="button"
               >
                 <span
-                  class="flex min-w-0 flex-wrap items-center justify-between gap-2"
+                  class="flex min-w-0 flex-wrap items-center justify-between gap-3"
                 >
                   <span
-                    class="min-w-0 break-words font-semibold text-text-primary text-xl"
+                    class="min-w-0 break-words text-xl font-semibold text-text-primary"
                   >
                     PIC 2
                   </span>
                   <span
-                    class="rounded-full px-3 py-1 font-semibold bg-danger-subtle text-danger-strong text-lg"
+                    class="rounded-full border border-current px-3 py-1 text-base font-semibold uppercase bg-danger-subtle text-danger-strong"
                   >
                     inactive
                   </span>
                 </span>
                 <span
-                  class="mt-4 block min-w-0 border-t border-border-default pt-4 text-text-secondary text-lg"
+                  class="mt-4 flex flex-wrap items-end justify-between gap-x-4 gap-y-3 border-t border-border-default pt-4"
                 >
                   <span
-                    class="text-xl text-text-secondary"
+                    class="min-w-0"
                   >
-                    Created 2024-01-02
+                    <span
+                      class="block text-lg text-text-tertiary"
+                    >
+                      Created At
+                    </span>
+                    <span
+                      class="mt-1 block text-lg font-medium text-text-primary"
+                    >
+                      02 Januari 2024 07:00
+                    </span>
                   </span>
                 </span>
               </button>
@@ -225,10 +252,10 @@ exports[`MasterPic Component MasterPicComponent Snapshots default state 1`] = `
             />
           </div>
           <div
-            class="hidden rounded-4xl border border-brand-gray-light bg-brand-white px-6 shadow-xs md:mt-6 md:flex-1 md:flex-col md:overflow-hidden lg:flex"
+            class="hidden rounded-3xl border border-border-default bg-background-surface px-6 pb-6 pt-0 shadow-xs md:mt-6 md:flex md:flex-1 md:flex-col md:overflow-hidden lg:flex"
           >
             <div
-              class="flex items-center justify-between gap-4 py-6"
+              class="flex items-center justify-between gap-4 border-b border-border-default py-6"
             >
               <label
                 class="relative block w-full sm:w-72 "
@@ -265,13 +292,13 @@ exports[`MasterPic Component MasterPicComponent Snapshots default state 1`] = `
                 </svg>
                 <input
                   aria-label="Search PIC"
-                  class="h-14 w-full rounded-xl border border-border-default bg-background-surface pl-12 pr-4 text-base font-medium text-text-primary outline-none transition-colors placeholder:font-normal placeholder:text-text-tertiary hover:border-border-strong focus:border-border-focus focus:ring-2 focus:ring-focus-ring/30"
+                  class="h-14 w-full rounded-full border border-border-default bg-background-surface pl-12 pr-4 text-base font-medium text-text-primary outline-none transition-colors placeholder:font-normal placeholder:text-text-tertiary hover:border-border-strong focus:border-border-focus focus:ring-2 focus:ring-focus-ring/30 text-lg placeholder:text-lg"
                   placeholder="Search PIC"
                   type="search"
                 />
               </label>
               <button
-                class="h-14 rounded-xl bg-brand-blue px-6 text-sm font-semibold text-brand-white"
+                class="h-14 rounded-2xl bg-action-primary px-6 text-lg font-semibold text-text-inverse hover:bg-action-primary-hover focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring"
                 type="button"
               >
                 Create PIC
@@ -346,7 +373,7 @@ exports[`MasterPic Component MasterPicComponent Snapshots more open state 1`] = 
             class="flex shrink-0 items-center gap-3"
           >
             <button
-              class="h-14 rounded-full border-2 border-brand-blue bg-background-surface px-6 text-lg font-bold text-brand-blue transition-colors hover:bg-action-primary-subtle focus:outline-none focus:ring-2 focus:ring-focus-ring/30"
+              class="h-14 rounded-full border-2 border-action-primary bg-background-surface px-6 text-lg font-bold text-action-primary transition-colors hover:bg-action-primary-subtle focus:outline-none focus:ring-2 focus:ring-focus-ring/30 lg:hidden"
               type="button"
             >
               Create New
@@ -361,21 +388,30 @@ exports[`MasterPic Component MasterPicComponent Snapshots more open state 1`] = 
           >
             <button
               aria-label="Back"
-              class="flex h-14 w-14 shrink-0 items-center justify-center rounded-full border border-border-default text-text-primary bg-white hover:bg-background-subtle transition-colors"
+              class="flex h-14 w-14 shrink-0 items-center justify-center rounded-full border border-border-default bg-background-page text-text-primary transition-colors hover:bg-background-subtle focus-visible:ring-2 focus-visible:ring-focus-ring/30 "
               type="button"
             >
               <svg
                 aria-hidden="true"
-                class="w-6 h-6"
+                class="h-6 w-6"
                 fill="none"
+                height="1em"
                 stroke="currentColor"
                 stroke-linecap="round"
                 stroke-linejoin="round"
-                stroke-width="2.5"
+                stroke-width="2"
                 viewBox="0 0 24 24"
+                width="1em"
+                xmlns="http://www.w3.org/2000/svg"
               >
-                <path
-                  d="M19 12H5M12 19l-7-7 7-7"
+                <line
+                  x1="19"
+                  x2="5"
+                  y1="12"
+                  y2="12"
+                />
+                <polyline
+                  points="12 19 5 12 12 5"
                 />
               </svg>
             </button>
@@ -398,7 +434,7 @@ exports[`MasterPic Component MasterPicComponent Snapshots more open state 1`] = 
             class="shrink-0"
           >
             <button
-              class="h-14 rounded-full border-2 border-brand-blue bg-background-surface px-6 text-lg font-bold text-brand-blue transition-colors hover:bg-action-primary-subtle focus:outline-none focus:ring-2 focus:ring-focus-ring/30"
+              class="h-14 rounded-full border-2 border-action-primary bg-background-surface px-6 text-lg font-bold text-action-primary transition-colors hover:bg-action-primary-subtle focus:outline-none focus:ring-2 focus:ring-focus-ring/30 lg:hidden"
               type="button"
             >
               Create New
@@ -410,10 +446,10 @@ exports[`MasterPic Component MasterPicComponent Snapshots more open state 1`] = 
         class="min-w-0 flex-1"
       >
         <div
-          class="relative flex h-full flex-col bg-background-surface px-0 pb-18 lg:-mt-4 lg:bg-transparent lg:px-0 lg:pb-0"
+          class="relative flex h-full flex-col bg-background-page px-0 pb-18 lg:-mt-4 lg:bg-transparent lg:px-0 lg:pb-0"
         >
           <div
-            class="flex min-w-0 flex-col gap-4 pt-2 pb-16 lg:hidden"
+            class="flex min-w-0 flex-col gap-4 pb-16 pt-2 lg:hidden"
           >
             <label
               class="relative block w-full sm:w-72 w-full sm:w-full"
@@ -450,67 +486,85 @@ exports[`MasterPic Component MasterPicComponent Snapshots more open state 1`] = 
               </svg>
               <input
                 aria-label="Search PIC"
-                class="h-14 w-full rounded-full border border-border-default bg-background-surface pl-12 pr-4 text-base font-medium text-text-primary outline-none transition-colors placeholder:font-normal placeholder:text-text-tertiary hover:border-border-strong focus:border-border-focus focus:ring-2 focus:ring-focus-ring/30 text-lg placeholder:text-lg"
+                class="h-14 w-full rounded-full border border-border-default bg-background-surface pl-12 pr-4 text-base font-medium text-text-primary outline-none transition-colors placeholder:font-normal placeholder:text-text-tertiary hover:border-border-strong focus:border-border-focus focus:ring-2 focus:ring-focus-ring/30 !h-16 text-xl placeholder:text-xl"
                 placeholder="Search PIC"
                 type="search"
               />
             </label>
             <div
-              class="min-w-0 space-y-3"
+              class="flex min-w-0 flex-col gap-4"
             >
               <button
-                class="group block w-full min-w-0 rounded-xl border border-border-strong bg-background-surface p-5 text-left shadow-small transition-colors hover:bg-background-subtle/40 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-action-primary "
+                class="group block w-full min-w-0 rounded-3xl border border-border-strong bg-background-surface p-5 text-left shadow-small transition-colors hover:border-border-strong hover:bg-background-subtle/40 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-action-primary"
                 type="button"
               >
                 <span
-                  class="flex min-w-0 flex-wrap items-center justify-between gap-2"
+                  class="flex min-w-0 flex-wrap items-center justify-between gap-3"
                 >
                   <span
-                    class="min-w-0 break-words font-semibold text-text-primary text-xl"
+                    class="min-w-0 break-words text-xl font-semibold text-text-primary"
                   >
                     PIC 1
                   </span>
                   <span
-                    class="rounded-full px-3 py-1 font-semibold bg-success-subtle text-success-strong text-lg"
+                    class="rounded-full border border-current px-3 py-1 text-base font-semibold uppercase bg-success-subtle text-success-strong"
                   >
                     active
                   </span>
                 </span>
                 <span
-                  class="mt-4 block min-w-0 border-t border-border-default pt-4 text-text-secondary text-lg"
+                  class="mt-4 flex flex-wrap items-end justify-between gap-x-4 gap-y-3 border-t border-border-default pt-4"
                 >
                   <span
-                    class="text-xl text-text-secondary"
+                    class="min-w-0"
                   >
-                    Created 2024-01-01
+                    <span
+                      class="block text-lg text-text-tertiary"
+                    >
+                      Created At
+                    </span>
+                    <span
+                      class="mt-1 block text-lg font-medium text-text-primary"
+                    >
+                      01 Januari 2024 07:00
+                    </span>
                   </span>
                 </span>
               </button>
               <button
-                class="group block w-full min-w-0 rounded-xl border border-border-strong bg-background-surface p-5 text-left shadow-small transition-colors hover:bg-background-subtle/40 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-action-primary "
+                class="group block w-full min-w-0 rounded-3xl border border-border-strong bg-background-surface p-5 text-left shadow-small transition-colors hover:border-border-strong hover:bg-background-subtle/40 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-action-primary"
                 type="button"
               >
                 <span
-                  class="flex min-w-0 flex-wrap items-center justify-between gap-2"
+                  class="flex min-w-0 flex-wrap items-center justify-between gap-3"
                 >
                   <span
-                    class="min-w-0 break-words font-semibold text-text-primary text-xl"
+                    class="min-w-0 break-words text-xl font-semibold text-text-primary"
                   >
                     PIC 2
                   </span>
                   <span
-                    class="rounded-full px-3 py-1 font-semibold bg-danger-subtle text-danger-strong text-lg"
+                    class="rounded-full border border-current px-3 py-1 text-base font-semibold uppercase bg-danger-subtle text-danger-strong"
                   >
                     inactive
                   </span>
                 </span>
                 <span
-                  class="mt-4 block min-w-0 border-t border-border-default pt-4 text-text-secondary text-lg"
+                  class="mt-4 flex flex-wrap items-end justify-between gap-x-4 gap-y-3 border-t border-border-default pt-4"
                 >
                   <span
-                    class="text-xl text-text-secondary"
+                    class="min-w-0"
                   >
-                    Created 2024-01-02
+                    <span
+                      class="block text-lg text-text-tertiary"
+                    >
+                      Created At
+                    </span>
+                    <span
+                      class="mt-1 block text-lg font-medium text-text-primary"
+                    >
+                      02 Januari 2024 07:00
+                    </span>
                   </span>
                 </span>
               </button>
@@ -520,10 +574,10 @@ exports[`MasterPic Component MasterPicComponent Snapshots more open state 1`] = 
             />
           </div>
           <div
-            class="hidden rounded-4xl border border-brand-gray-light bg-brand-white px-6 shadow-xs md:mt-6 md:flex-1 md:flex-col md:overflow-hidden lg:flex"
+            class="hidden rounded-3xl border border-border-default bg-background-surface px-6 pb-6 pt-0 shadow-xs md:mt-6 md:flex md:flex-1 md:flex-col md:overflow-hidden lg:flex"
           >
             <div
-              class="flex items-center justify-between gap-4 py-6"
+              class="flex items-center justify-between gap-4 border-b border-border-default py-6"
             >
               <label
                 class="relative block w-full sm:w-72 "
@@ -560,13 +614,13 @@ exports[`MasterPic Component MasterPicComponent Snapshots more open state 1`] = 
                 </svg>
                 <input
                   aria-label="Search PIC"
-                  class="h-14 w-full rounded-xl border border-border-default bg-background-surface pl-12 pr-4 text-base font-medium text-text-primary outline-none transition-colors placeholder:font-normal placeholder:text-text-tertiary hover:border-border-strong focus:border-border-focus focus:ring-2 focus:ring-focus-ring/30"
+                  class="h-14 w-full rounded-full border border-border-default bg-background-surface pl-12 pr-4 text-base font-medium text-text-primary outline-none transition-colors placeholder:font-normal placeholder:text-text-tertiary hover:border-border-strong focus:border-border-focus focus:ring-2 focus:ring-focus-ring/30 text-lg placeholder:text-lg"
                   placeholder="Search PIC"
                   type="search"
                 />
               </label>
               <button
-                class="h-14 rounded-xl bg-brand-blue px-6 text-sm font-semibold text-brand-white"
+                class="h-14 rounded-2xl bg-action-primary px-6 text-lg font-semibold text-text-inverse hover:bg-action-primary-hover focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring"
                 type="button"
               >
                 Create PIC

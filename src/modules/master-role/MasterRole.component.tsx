@@ -8,6 +8,7 @@ import { SearchFilter } from "../../components/SearchFilter";
 import type { TableColumn } from "../../components/Table";
 import Table from "../../components/Table";
 
+import { formatRoleDate } from "./MasterRole.helpers";
 import type { MasterRoleProps, RoleData } from "./MasterRole.type";
 
 /**
@@ -36,7 +37,7 @@ const _renderRoleName = (role: RoleData): React.ReactElement => (
  * @returns {React.ReactElement} Status cell
  */
 const _renderStatus = (role: RoleData): React.ReactElement => (
-  <span className={`inline-flex rounded-full px-4 py-1.5 text-lg font-semibold uppercase ${role.status === "active" ? "bg-badge-success-subtle text-badge-success" : "bg-badge-danger-subtle text-badge-danger"}`}>
+  <span className={`inline-flex rounded-full border border-current px-3 py-1 text-base font-semibold uppercase ${role.status === "active" ? "bg-success-subtle text-success-strong" : "bg-danger-subtle text-danger-strong"}`}>
     {role.status}
   </span>
 );
@@ -47,7 +48,7 @@ const _renderStatus = (role: RoleData): React.ReactElement => (
  * @returns {React.ReactElement} Date cell
  */
 const _renderDate = (role: RoleData): React.ReactElement => (
-  <span className="text-lg text-text-secondary">{role.createAt ?? "-"}</span>
+  <span className="text-lg text-text-secondary">{role.createAt ? formatRoleDate(role.createAt) : "-"}</span>
 );
 
 /**
@@ -180,10 +181,10 @@ const _renderRoleCard = (role: RoleData, onEdit: MasterRoleProps["onEdit"]): Rea
     <button type="button" onClick={handleClick} className="group block w-full min-w-0 rounded-3xl border border-border-strong bg-background-surface p-5 text-left shadow-small transition-colors hover:border-border-strong hover:bg-background-subtle/40 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-action-primary">
       <span className="flex min-w-0 flex-wrap items-center justify-between gap-3">
         <span className="min-w-0 break-words text-xl font-semibold text-text-primary">{role.roleName}</span>
-        <span className={`rounded-full px-3.5 py-1 text-lg font-semibold uppercase ${role.status === "active" ? "bg-badge-success-subtle text-badge-success" : "bg-badge-danger-subtle text-badge-danger"}`}>{role.status}</span>
+        <span className={`rounded-full border border-current px-3 py-1 text-base font-semibold uppercase ${role.status === "active" ? "bg-success-subtle text-success-strong" : "bg-danger-subtle text-danger-strong"}`}>{role.status}</span>
       </span>
       <span className="mt-4 flex flex-wrap items-end justify-between gap-x-4 gap-y-3 border-t border-border-default pt-4">
-        <span className="min-w-0"><span className="block text-lg text-text-tertiary">Created</span><span className="mt-1 block text-lg font-medium text-text-primary">{role.createAt ?? "-"}</span></span>
+        <span className="min-w-0"><span className="block text-lg text-text-tertiary">Created</span><span className="mt-1 block text-lg font-medium text-text-primary">{role.createAt ? formatRoleDate(role.createAt) : "-"}</span></span>
       </span>
     </button>
   );

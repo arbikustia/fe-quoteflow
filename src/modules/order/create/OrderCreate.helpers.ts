@@ -28,14 +28,15 @@ export const isOrderInformationValid = (form: { customer_id: string; customer_na
 export const hasSelectedOrderItem = (items: ReadonlyArray<{ item_id: string }>): boolean => items.some((item) => Boolean(item.item_id.trim()));
 
 /**
- * Handle module operation.
- * @param {ReadonlyArray<{ price: number; qty: number }>} items - items value
- * @param {number} discount - discount value
- * @param {number} serviceFee - serviceFee value
- * @returns {{ subtotal: number; grandTotal: number }} - Operation result
+ * Calculate order subtotal, percentage discount amount, and grand total.
+ * @param {ReadonlyArray<{ price: number; qty: number }>} items - Order items
+ * @param {number} discountPercent - Discount percentage
+ * @param {number} serviceFee - Service fee amount
+ * @returns {{ subtotal: number; discountAmount: number; grandTotal: number }} Order totals
  */
-export const calculateOrderTotals = (items: ReadonlyArray<{ price: number; qty: number }>, discount: number, serviceFee: number): { subtotal: number; grandTotal: number } => {
+export const calculateOrderTotals = (items: ReadonlyArray<{ price: number; qty: number }>, discountPercent: number, serviceFee: number): { subtotal: number; discountAmount: number; grandTotal: number } => {
   const subtotal = items.reduce((total, item) => total + item.price * item.qty, 0);
+  const discountAmount = Math.round(subtotal * discountPercent / 100);
 
-  return { subtotal, grandTotal: subtotal + serviceFee - discount };
+  return { subtotal, discountAmount, grandTotal: subtotal + serviceFee - discountAmount };
 };

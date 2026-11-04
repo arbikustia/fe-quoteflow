@@ -7,6 +7,7 @@ import { Pagination } from "../../components/Pagination";
 import { SearchFilter } from "../../components/SearchFilter";
 import type { TableColumn } from "../../components/Table";
 import Table from "../../components/Table";
+import { formatIndonesianDateTime } from "../../utils/date.helpers";
 
 import type { MasterUserProps, UserData } from "./MasterUser.type";
 
@@ -31,6 +32,15 @@ const _renderUsername = (user: UserData): React.ReactElement => (
 );
 
 /**
+ * Render email.
+ * @param {UserData} user - User row
+ * @returns {React.ReactElement} Email cell
+ */
+const _renderEmail = (user: UserData): React.ReactElement => (
+  <span className="text-lg text-text-secondary">{user.email ?? "-"}</span>
+);
+
+/**
  * Render role.
  * @param {UserData} user - User row
  * @returns {React.ReactElement} Role cell
@@ -45,7 +55,7 @@ const _renderRole = (user: UserData): React.ReactElement => (
  * @returns {React.ReactElement} Status cell
  */
 const _renderStatus = (user: UserData): React.ReactElement => (
-  <span className={`inline-flex rounded-full px-4 py-1.5 text-lg font-semibold uppercase ${user.status === "active" ? "bg-badge-success-subtle text-badge-success" : "bg-badge-danger-subtle text-badge-danger"}`}>
+  <span className={`inline-flex rounded-full border border-current px-3 py-1 text-base font-semibold uppercase ${user.status === "active" ? "bg-success-subtle text-success-strong" : "bg-danger-subtle text-danger-strong"}`}>
     {user.status}
   </span>
 );
@@ -56,7 +66,7 @@ const _renderStatus = (user: UserData): React.ReactElement => (
  * @returns {React.ReactElement} Date cell
  */
 const _renderDate = (user: UserData): React.ReactElement => (
-  <span className="text-lg text-text-secondary">{user.createAt ?? "-"}</span>
+  <span className="text-lg text-text-secondary">{user.createAt ? formatIndonesianDateTime(user.createAt) : "-"}</span>
 );
 
 /**
@@ -93,6 +103,7 @@ const _getColumns = (props: MasterUserProps): TableColumn<UserData>[] => {
   return [
     { key: "no", header: "No", align: "center", render: renderNumber },
     { key: "username", header: "Username", render: _renderUsername },
+    { key: "email", header: "Email", render: _renderEmail },
     { key: "role", header: "Role", render: _renderRole },
     { key: "status", header: "Status", align: "center", render: _renderStatus },
     { key: "createAt", header: "Created At", render: _renderDate },
@@ -127,7 +138,7 @@ const _renderActionSkeleton = (): React.ReactElement => (
  */
 const _renderTableSkeleton = (props: MasterUserProps): React.ReactElement => {
   const columns = _getColumns(props);
-  const widths = ["w-6", "w-40", "w-32", "w-28", "w-28"];
+  const widths = ["w-6", "w-40", "w-44", "w-32", "w-28", "w-28"];
 
   return (
     <div className="w-full overflow-x-auto" role="status" aria-label="Loading user table">
@@ -188,11 +199,15 @@ const _renderUserCard = (user: UserData, onEdit: MasterUserProps["onEdit"]): Rea
     <button type="button" onClick={handleClick} className="group block w-full min-w-0 rounded-3xl border border-border-strong bg-background-surface p-5 text-left shadow-small transition-colors hover:border-border-strong hover:bg-background-subtle/40 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-action-primary">
       <span className="flex min-w-0 flex-wrap items-center justify-between gap-3">
         <span className="min-w-0 break-words text-xl font-semibold text-text-primary">{user.username}</span>
-        <span className={`rounded-full px-3.5 py-1 text-lg font-semibold uppercase ${user.status === "active" ? "bg-badge-success-subtle text-badge-success" : "bg-badge-danger-subtle text-badge-danger"}`}>{user.status}</span>
+        <span className={`rounded-full border border-current px-3 py-1 text-base font-semibold uppercase ${user.status === "active" ? "bg-success-subtle text-success-strong" : "bg-danger-subtle text-danger-strong"}`}>{user.status}</span>
       </span>
-      <span className="mt-4 flex flex-wrap items-end justify-between gap-x-4 gap-y-3 border-t border-border-default pt-4">
+      <span className="mt-4 block min-w-0 border-t border-border-default pt-4">
+        <span className="block text-lg text-text-tertiary">Email</span>
+        <span className="mt-1 block break-all text-lg font-medium text-text-primary">{user.email ?? "-"}</span>
+      </span>
+      <span className="mt-4 flex flex-wrap items-end justify-between gap-x-4 gap-y-3">
         <span className="min-w-0"><span className="block text-lg text-text-tertiary">Role</span><span className="mt-1 block text-lg font-medium text-text-primary">{user.role || "-"}</span></span>
-        <span className="min-w-0 text-right"><span className="block text-lg text-text-tertiary">Created</span><span className="mt-1 block text-lg font-medium text-text-primary">{user.createAt ?? "-"}</span></span>
+        <span className="min-w-0 text-right"><span className="block text-lg text-text-tertiary">Created</span><span className="mt-1 block text-lg font-medium text-text-primary">{user.createAt ? formatIndonesianDateTime(user.createAt) : "-"}</span></span>
       </span>
     </button>
   );

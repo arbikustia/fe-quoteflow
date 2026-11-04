@@ -1,12 +1,17 @@
 import { describe, expect, it } from "@jest/globals";
 
 import {
+  formatDiscount,
   getInvoiceStatusLabel,
   getQuotationStatusLabel,
   getStatusBadgeClass,
 } from "./QuotationDetail.helpers";
 
 describe("QuotationDetail helpers status mapping", () => {
+  it("should format percentage discount as Rupiah amount", (): void => {
+    expect(formatDiscount(625000, 8)).toBe("Rp 50.000 (8%)");
+  });
+
   it("should return correct label for quotation status", (): void => {
     expect(getQuotationStatusLabel(1)).toBe("Quotation Created");
     expect(getQuotationStatusLabel(2)).toBe("Approved");

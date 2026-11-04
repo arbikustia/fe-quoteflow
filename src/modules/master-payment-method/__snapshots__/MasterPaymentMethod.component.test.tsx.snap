@@ -66,21 +66,30 @@ exports[`MasterPaymentMethod.component MasterPaymentMethodComponent Snapshots de
           >
             <button
               aria-label="Back"
-              class="flex h-14 w-14 shrink-0 items-center justify-center rounded-full border border-border-default text-text-primary bg-white hover:bg-background-subtle transition-colors"
+              class="flex h-14 w-14 shrink-0 items-center justify-center rounded-full border border-border-default bg-background-page text-text-primary transition-colors hover:bg-background-subtle focus-visible:ring-2 focus-visible:ring-focus-ring/30 "
               type="button"
             >
               <svg
                 aria-hidden="true"
-                class="w-6 h-6"
+                class="h-6 w-6"
                 fill="none"
+                height="1em"
                 stroke="currentColor"
                 stroke-linecap="round"
                 stroke-linejoin="round"
-                stroke-width="2.5"
+                stroke-width="2"
                 viewBox="0 0 24 24"
+                width="1em"
+                xmlns="http://www.w3.org/2000/svg"
               >
-                <path
-                  d="M19 12H5M12 19l-7-7 7-7"
+                <line
+                  x1="19"
+                  x2="5"
+                  y1="12"
+                  y2="12"
+                />
+                <polyline
+                  points="12 19 5 12 12 5"
                 />
               </svg>
             </button>
@@ -176,7 +185,7 @@ exports[`MasterPaymentMethod.component MasterPaymentMethodComponent Snapshots de
                     Transfer Bank
                   </span>
                   <span
-                    class="rounded-full px-3.5 py-1 text-lg font-semibold uppercase bg-badge-success-subtle text-badge-success"
+                    class="rounded-full border border-current px-3 py-1 text-base font-semibold uppercase bg-success-subtle text-success-strong"
                   >
                     active
                   </span>
@@ -213,7 +222,7 @@ exports[`MasterPaymentMethod.component MasterPaymentMethodComponent Snapshots de
                     Credit Card
                   </span>
                   <span
-                    class="rounded-full px-3.5 py-1 text-lg font-semibold uppercase bg-badge-danger-subtle text-badge-danger"
+                    class="rounded-full border border-current px-3 py-1 text-base font-semibold uppercase bg-danger-subtle text-danger-strong"
                   >
                     inactive
                   </span>
@@ -379,21 +388,30 @@ exports[`MasterPaymentMethod.component MasterPaymentMethodComponent Snapshots mo
           >
             <button
               aria-label="Back"
-              class="flex h-14 w-14 shrink-0 items-center justify-center rounded-full border border-border-default text-text-primary bg-white hover:bg-background-subtle transition-colors"
+              class="flex h-14 w-14 shrink-0 items-center justify-center rounded-full border border-border-default bg-background-page text-text-primary transition-colors hover:bg-background-subtle focus-visible:ring-2 focus-visible:ring-focus-ring/30 "
               type="button"
             >
               <svg
                 aria-hidden="true"
-                class="w-6 h-6"
+                class="h-6 w-6"
                 fill="none"
+                height="1em"
                 stroke="currentColor"
                 stroke-linecap="round"
                 stroke-linejoin="round"
-                stroke-width="2.5"
+                stroke-width="2"
                 viewBox="0 0 24 24"
+                width="1em"
+                xmlns="http://www.w3.org/2000/svg"
               >
-                <path
-                  d="M19 12H5M12 19l-7-7 7-7"
+                <line
+                  x1="19"
+                  x2="5"
+                  y1="12"
+                  y2="12"
+                />
+                <polyline
+                  points="12 19 5 12 12 5"
                 />
               </svg>
             </button>
@@ -489,7 +507,7 @@ exports[`MasterPaymentMethod.component MasterPaymentMethodComponent Snapshots mo
                     Transfer Bank
                   </span>
                   <span
-                    class="rounded-full px-3.5 py-1 text-lg font-semibold uppercase bg-badge-success-subtle text-badge-success"
+                    class="rounded-full border border-current px-3 py-1 text-base font-semibold uppercase bg-success-subtle text-success-strong"
                   >
                     active
                   </span>
@@ -526,7 +544,7 @@ exports[`MasterPaymentMethod.component MasterPaymentMethodComponent Snapshots mo
                     Credit Card
                   </span>
                   <span
-                    class="rounded-full px-3.5 py-1 text-lg font-semibold uppercase bg-badge-danger-subtle text-badge-danger"
+                    class="rounded-full border border-current px-3 py-1 text-base font-semibold uppercase bg-danger-subtle text-danger-strong"
                   >
                     inactive
                   </span>

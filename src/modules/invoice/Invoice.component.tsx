@@ -1,6 +1,7 @@
 import * as React from "react";
 import { FiDownload, FiEdit2, FiEye } from "react-icons/fi";
 
+import { formatIndonesianDateTime } from "@/utils/date.helpers";
 import { generateInvoicePDF } from "@/utils/pdfGenerator";
 
 import { Pagination } from "@/components/Pagination";
@@ -93,7 +94,7 @@ const _renderEditAction = (row: InvoiceData, props: InvoiceProps): React.ReactEl
  * @returns {React.ReactElement} Status badge element
  */
 const _renderStatus = (row: InvoiceData): React.ReactElement => (
-  <span className={`inline-flex rounded-full px-4 py-1.5 text-lg font-semibold ${getStatusBadgeClass(row.status)}`}>
+  <span className={`inline-flex rounded-full border border-current px-3 py-1 text-base font-semibold uppercase ${getStatusBadgeClass(row.status)}`}>
     {getInvoiceStatusLabel(row.status)}
   </span>
 );
@@ -145,7 +146,7 @@ const _renderEventName = (row: InvoiceData): React.ReactElement => (
  * @returns {React.ReactElement} Invoice date element
  */
 const _renderInvoiceDate = (row: InvoiceData): React.ReactElement => (
-  <span className="text-lg">{row.invoiceDate}</span>
+  <span className="text-lg">{formatIndonesianDateTime(row.invoiceDate)}</span>
 );
 
 /**
@@ -154,7 +155,7 @@ const _renderInvoiceDate = (row: InvoiceData): React.ReactElement => (
  * @returns {React.ReactElement} Start date element
  */
 const _renderStartDate = (row: InvoiceData): React.ReactElement => (
-  <span className="text-lg">{row.startDate}</span>
+  <span className="text-lg">{formatIndonesianDateTime(row.startDate)}</span>
 );
 
 /**
@@ -163,7 +164,7 @@ const _renderStartDate = (row: InvoiceData): React.ReactElement => (
  * @returns {React.ReactElement} End date element
  */
 const _renderEndDate = (row: InvoiceData): React.ReactElement => (
-  <span className="text-lg">{row.endDate}</span>
+  <span className="text-lg">{formatIndonesianDateTime(row.endDate)}</span>
 );
 
 /**

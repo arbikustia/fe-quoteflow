@@ -134,7 +134,7 @@ export const NoteComponent = (props: NoteProps): ReactElement => (
     >
       {props.selectedNote && (
         <div
-          className="max-w-none break-words text-sm leading-relaxed text-text-primary [&_h1]:mb-4 [&_h1]:text-xl [&_h1]:font-bold [&_h2]:mb-3 [&_h2]:text-lg [&_h2]:font-bold [&_p]:mb-4 [&_ul]:mb-4 [&_ul]:list-disc [&_ul]:pl-5 lg:text-base lg:[&_h1]:text-2xl lg:[&_h2]:text-xl lg:[&_ul]:pl-6"
+          className="max-w-none break-words text-sm leading-relaxed text-text-primary [&_h1]:mb-4 [&_h1]:text-xl [&_h1]:font-bold [&_h2]:mb-3 [&_h2]:text-lg [&_h2]:font-bold [&_li]:mb-2 [&_ol]:mb-4 [&_ol]:list-decimal [&_ol]:pl-5 [&_p]:mb-4 [&_ul]:mb-4 [&_ul]:list-disc [&_ul]:pl-5 lg:text-base lg:[&_h1]:text-2xl lg:[&_h2]:text-xl lg:[&_ol]:pl-6 lg:[&_ul]:pl-6"
           dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(props.selectedNote.content) }}
         />
       )}

@@ -1,21 +1,7 @@
 import * as React from "react";
 
 import type { PageLayoutAction, PageLayoutProps } from "./PageLayout.type";
-
-const _renderBackIcon = (): React.ReactElement => (
-  <svg
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2.5"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-    className="w-6 h-6"
-    aria-hidden="true"
-  >
-    <path d="M19 12H5M12 19l-7-7 7-7" />
-  </svg>
-);
+import { BackButton } from "@/components/BackButton";
 
 /**
  * Render action menu items.
@@ -110,9 +96,7 @@ export const PageLayout = ({ title, mobileTitle, subtitle, breadcrumbs, actions 
       <div className={`flex items-center justify-between gap-3 lg:hidden ${mobileHeaderClassName}`}>
         <div className="flex items-center gap-3 min-w-0 flex-1">
           {showBackButton && onBack && (
-            <button type="button" onClick={onBack} aria-label="Back" className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full border border-border-default text-text-primary bg-background-page hover:bg-background-subtle transition-colors">
-              {_renderBackIcon()}
-            </button>
+            <BackButton onClick={onBack} />
           )}
           <div className="min-w-0 flex-1">
             <h1 className={`truncate text-left text-3xl font-semibold tracking-tight text-text-primary ${mobileTitleClassName}`}>{mobileTitle ?? title}</h1>

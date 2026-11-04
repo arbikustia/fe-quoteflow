@@ -241,7 +241,7 @@ export const useMasterVoucherCreateForm = (): MasterVoucherCreateFormState => {
   const submission = useVoucherSubmission({ id, isEditMode, ...formFields });
 
   /** Navigate back. */
-  const goBack = (): void => { navigate(-1); };
+  const goBack = (): void => { navigate("/master-voucher"); };
 
   return { isEditMode, goBack, ...formFields, ...submission };
 };

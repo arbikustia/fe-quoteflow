@@ -1,6 +1,7 @@
 import type { ReactElement } from "react";
 import { FiEdit2 } from "react-icons/fi";
 
+import { AlertComponent } from "@/components/Alert";
 import { Pagination } from "@/components/Pagination";
 import { SearchFilter } from "@/components/SearchFilter";
 import type { TableColumn } from "@/components/Table";
@@ -8,6 +9,7 @@ import Table from "@/components/Table";
 
 import Layout from "@/app/layout";
 import { PageLayout } from "@/app/shared/PageLayout";
+import { formatIndonesianDateTime } from "@/utils/date.helpers";
 
 import { useEmailSender } from "./EmailSender.hook";
 import type { EmailSender } from "./EmailSender.type";
@@ -36,14 +38,18 @@ const _renderActions = (row: EmailSender, onEdit: (row: EmailSender) => void): R
 /**
  * Get table columns.
  * @param {(row: EmailSender) => void} onEdit - Edit handler
+ * @param {number} currentPage - Current page
  * @returns {TableColumn<EmailSender>[]} Columns list
  */
-const _getColumns = (onEdit: (row: EmailSender) => void): TableColumn<EmailSender>[] => [
+const _getColumns = (onEdit: (row: EmailSender) => void, currentPage: number): TableColumn<EmailSender>[] => [
+  { key: "no", header: "No", align: "center", render: (_row, index): ReactElement => <span className="text-lg text-text-secondary">{(currentPage - 1) * 10 + index + 1}</span> },
   { key: "name", header: "Name", render: (row): ReactElement => <span className="text-lg font-medium text-text-primary">{row.name}</span> },
   { key: "email", header: "Email", render: (row): ReactElement => <span className="text-lg text-text-secondary">{row.email}</span> },
   { key: "smtp_host", header: "SMTP Host", render: (row): ReactElement => <span className="text-lg text-text-secondary">{row.smtp_host}:{row.smtp_port}</span> },
-  { key: "enable_ssl", header: "SSL", align: "center", render: (row): ReactElement => <span className="text-lg text-text-secondary">{row.enable_ssl ? "Yes" : "No"}</span> },
-  { key: "is_default", header: "Default", align: "center", render: (row): ReactElement => <span className="text-lg text-text-secondary">{row.is_default ? "Yes" : "No"}</span> },
+  { key: "enable_ssl", header: "SSL", align: "center", render: (row): ReactElement => <span className={`inline-flex rounded-full border border-current px-3 py-1 text-base font-semibold uppercase ${row.enable_ssl ? "bg-information-subtle text-information-strong" : "bg-background-subtle text-text-secondary"}`}>{row.enable_ssl ? "Yes" : "No"}</span> },
+  { key: "is_default", header: "Default", align: "center", render: (row): ReactElement => <span className={`inline-flex rounded-full border border-current px-3 py-1 text-base font-semibold uppercase ${row.is_default ? "bg-information-subtle text-information-strong" : "bg-background-subtle text-text-secondary"}`}>{row.is_default ? "Yes" : "No"}</span> },
+  { key: "status", header: "Status", align: "center", render: (row): ReactElement => <span className={`inline-flex rounded-full border border-current px-3 py-1 text-base font-semibold uppercase ${row.status === 1 ? "bg-success-subtle text-success-strong" : "bg-danger-subtle text-danger-strong"}`}>{row.status === 1 ? "active" : "inactive"}</span> },
+  { key: "created_at", header: "Created At", render: (row): ReactElement => <span className="text-lg text-text-secondary">{row.created_at ? formatIndonesianDateTime(row.created_at) : "-"}</span> },
   { key: "actions", header: "Action", align: "center", render: (row): ReactElement => _renderActions(row, onEdit) },
 ];
 
@@ -60,11 +66,13 @@ const _renderMobileCard = (row: EmailSender, onEdit: (row: EmailSender) => void)
     <button type="button" onClick={handleClick} className="group block w-full min-w-0 rounded-3xl border border-border-strong bg-background-surface p-5 text-left shadow-small transition-colors hover:border-border-strong hover:bg-background-subtle/40 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-action-primary">
       <span className="flex min-w-0 flex-wrap items-center justify-between gap-3">
         <span className="min-w-0 break-words text-xl font-semibold text-text-primary">{row.name}</span>
-        <span className={`rounded-full px-3.5 py-1 text-lg font-semibold uppercase ${row.status === 1 ? "bg-badge-success-subtle text-badge-success" : "bg-badge-danger-subtle text-badge-danger"}`}>{row.status === 1 ? "active" : "inactive"}</span>
+        <span className={`rounded-full border border-current px-3 py-1 text-base font-semibold uppercase ${row.status === 1 ? "bg-success-subtle text-success-strong" : "bg-danger-subtle text-danger-strong"}`}>{row.status === 1 ? "active" : "inactive"}</span>
       </span>
-      <span className="mt-4 flex flex-wrap items-end justify-between gap-x-4 gap-y-3 border-t border-border-default pt-4">
-        <span className="min-w-0"><span className="block text-lg text-text-tertiary">Email</span><span className="mt-1 block text-lg font-medium text-text-primary">{row.email}</span></span>
-        <span className="min-w-0 text-right"><span className="block text-lg text-text-tertiary">Host</span><span className="mt-1 block text-lg font-medium text-text-primary">{row.smtp_host}:{row.smtp_port}</span></span>
+      <span className="mt-4 grid grid-cols-1 gap-4 border-t border-border-default pt-4 sm:grid-cols-2">
+        <span className="min-w-0"><span className="block text-lg text-text-tertiary">Email</span><span className="mt-1 block break-all text-lg font-medium text-text-primary">{row.email}</span></span>
+        <span className="min-w-0 sm:text-right"><span className="block text-lg text-text-tertiary">Host</span><span className="mt-1 block break-all text-lg font-medium text-text-primary">{row.smtp_host}:{row.smtp_port}</span></span>
+        <span className="min-w-0"><span className="block text-lg text-text-tertiary">Default sender</span><span className="mt-1 block text-lg font-medium text-text-primary">{row.is_default ? "Yes" : "No"}</span></span>
+        <span className="min-w-0 sm:text-right"><span className="block text-lg text-text-tertiary">Created At</span><span className="mt-1 block text-lg font-medium text-text-primary">{row.created_at ? formatIndonesianDateTime(row.created_at) : "-"}</span></span>
       </span>
     </button>
   );
@@ -79,22 +87,28 @@ const _renderTableSkeleton = (): ReactElement => (
     <table className="w-full min-w-max border-separate border-spacing-0 whitespace-nowrap">
       <thead>
         <tr>
-          <th className="bg-table-header px-5 py-4 text-[13px] font-bold uppercase tracking-widest text-text-secondary rounded-l-3xl">Name</th>
+          <th className="bg-table-header px-5 py-4 text-center text-[13px] font-bold uppercase tracking-widest text-text-secondary rounded-l-3xl">No</th>
+          <th className="bg-table-header px-5 py-4 text-[13px] font-bold uppercase tracking-widest text-text-secondary">Name</th>
           <th className="bg-table-header px-5 py-4 text-[13px] font-bold uppercase tracking-widest text-text-secondary">Email</th>
           <th className="bg-table-header px-5 py-4 text-[13px] font-bold uppercase tracking-widest text-text-secondary">SMTP Host</th>
           <th className="bg-table-header px-5 py-4 text-[13px] font-bold uppercase tracking-widest text-text-secondary text-center">SSL</th>
           <th className="bg-table-header px-5 py-4 text-[13px] font-bold uppercase tracking-widest text-text-secondary text-center">Default</th>
+          <th className="bg-table-header px-5 py-4 text-[13px] font-bold uppercase tracking-widest text-text-secondary text-center">Status</th>
+          <th className="bg-table-header px-5 py-4 text-[13px] font-bold uppercase tracking-widest text-text-secondary">Created At</th>
           <th className="bg-table-header px-5 py-4 text-[13px] font-bold uppercase tracking-widest text-text-secondary text-center rounded-r-3xl">Action</th>
         </tr>
       </thead>
       <tbody>
         {Array.from({ length: 5 }, (_value, rowIndex) => (
           <tr key={rowIndex} className="animate-pulse">
+            <td className="border-b border-border-default px-5 py-4 text-center"><span className="inline-block h-5 w-6 rounded-3xl bg-background-subtle" /></td>
             <td className="border-b border-border-default px-5 py-4"><span className="inline-block h-5 w-40 rounded-3xl bg-background-subtle" /></td>
             <td className="border-b border-border-default px-5 py-4"><span className="inline-block h-5 w-48 rounded-3xl bg-background-subtle" /></td>
             <td className="border-b border-border-default px-5 py-4"><span className="inline-block h-5 w-36 rounded-3xl bg-background-subtle" /></td>
             <td className="border-b border-border-default px-5 py-4 text-center"><span className="inline-block h-5 w-16 rounded-3xl bg-background-subtle" /></td>
             <td className="border-b border-border-default px-5 py-4 text-center"><span className="inline-block h-5 w-16 rounded-3xl bg-background-subtle" /></td>
+            <td className="border-b border-border-default px-5 py-4 text-center"><span className="inline-block h-7 w-24 rounded-full bg-background-subtle" /></td>
+            <td className="border-b border-border-default px-5 py-4"><span className="inline-block h-5 w-36 rounded-3xl bg-background-subtle" /></td>
             <td className="border-b border-border-default px-5 py-4 text-center"><span className="inline-block h-10 w-10 rounded-3xl bg-background-subtle mx-auto" /></td>
           </tr>
         ))}
@@ -131,7 +145,8 @@ export const EmailSenderComponent = (): ReactElement => {
   );
 
   return (
-    <Layout pageTitle="Email Sender" mobileWhiteBackground={true}>
+    <Layout pageTitle="Email Sender">
+      {state.successMessage && <AlertComponent type="success" message={state.successMessage} toast closable />}
       <PageLayout title="Email Sender" subtitle="Manage SMTP email sender settings" breadcrumbs={["Master", "Email Sender"]} headerRight={createButton} onBack={state.back} mobileHeaderClassName="px-0" mobileTitleClassName="text-4xl">
         <div className="relative flex h-full flex-col bg-background-page px-0 pb-18 lg:-mt-4 lg:bg-transparent lg:px-0 lg:pb-0">
           <div className="flex min-w-0 flex-col gap-4 pb-16 pt-2 lg:hidden">
@@ -151,7 +166,7 @@ export const EmailSenderComponent = (): ReactElement => {
             <div className="flex-1 overflow-auto">
               {state.loading && _renderTableSkeleton()}
               {!state.loading && state.rows.length === 0 && <p className="py-10 text-center text-lg text-text-secondary">No email senders found.</p>}
-              {!state.loading && state.rows.length > 0 && <Table data={state.rows} columns={_getColumns(onEdit)} isDetail={false} keyExtractor={(row): string => row.id} />}
+              {!state.loading && state.rows.length > 0 && <Table data={state.rows} columns={_getColumns(onEdit, state.page)} isDetail={false} keyExtractor={(row): string => row.id} />}
             </div>
             <Pagination currentPage={state.page} totalPages={state.totalPages} pageSize={10} onPageChange={state.setPage} onPageSizeChange={(): void => undefined} totalItems={state.totalCount} className="pt-4" />
           </div>

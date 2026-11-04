@@ -12,6 +12,7 @@ describe("mapUser", () => {
       last_created: null,
     });
 
+    expect(user.email).toBe("adep@gmail.com");
     expect(user.role).toBe("superadmin");
   });
 

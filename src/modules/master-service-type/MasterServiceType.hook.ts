@@ -30,7 +30,7 @@ export const useMasterServiceTypeNavigation = (): MasterServiceTypeNavigation =>
    * @returns {void} No return value
    */
   const goBack = (): void => {
-    navigate(-1);
+    navigate("/master-main");
   };
 
   /**

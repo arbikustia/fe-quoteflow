@@ -32,6 +32,7 @@ export const mapQuotation = (quotation: ApiQuotation): QuotationData => ({
   endDate: quotation.transaction.end_at,
   grandTotal: quotation.transaction.grand_total,
   status: quotation.status,
+  items: quotation.transaction.rental_transaction_items,
 });
 
 export const quotationService = apiRtkClient.injectEndpoints({

@@ -52,6 +52,18 @@ describe("DateRangePicker", () => {
     expect(screen.getAllByRole("button", { name: "Previous month" })).toHaveLength(2);
   });
 
+  it("should close mobile picker when backdrop is clicked", (): void => {
+    render(<DateRangePicker showTime />);
+
+    fireEvent.click(screen.getByRole("textbox", { name: "Start Date" }));
+
+    const popup = document.querySelector(".date-range-popup");
+
+    expect(popup).not.toBeNull();
+    fireEvent.click(popup!);
+    expect(popup).toHaveClass("ant-picker-dropdown-hidden");
+  });
+
   it("should disable dates before start date in end date picker", (): void => {
     jest.useFakeTimers();
     jest.setSystemTime(new Date("2026-11-01T00:00:00"));

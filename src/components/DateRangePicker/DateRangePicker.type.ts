@@ -32,6 +32,8 @@ export type DateRangeFieldProps = {
   error?: boolean;
   errorMessage?: string;
   onChange?: (value: string) => void;
+  open?: boolean;
+  onOpenChange?: (open: boolean) => void;
   pickerProps: DateRangePickerProps;
 };
 

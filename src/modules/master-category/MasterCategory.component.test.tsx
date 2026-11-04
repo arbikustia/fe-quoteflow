@@ -5,8 +5,12 @@ import { MemoryRouter } from "react-router-dom";
 import { MasterCategoryComponent } from "./MasterCategory.component";
 import type { CategoryData, MasterCategoryProps } from "./MasterCategory.type";
 
+jest.mock("../../app/layout", () =>
+  ({ children }: { children: React.ReactNode }) => <div>{children}</div>,
+);
+
 const mockCategories: CategoryData[] = [
-  { id: "1", categoryName: "Audio System", status: "active", createAt: "2024-02-01", createBy: "Admin" },
+  { id: "1", categoryName: "Audio System", status: "active", createAt: "2026-06-08", createBy: "Admin" },
   { id: "2", categoryName: "Lighting", status: "inactive", createAt: "2024-03-01", createBy: "Admin" },
 ];
 
@@ -51,7 +55,7 @@ describe("MasterCategoryComponent", () => {
     expect(screen.getAllByText("Manage product and item categories")).toHaveLength(2);
   });
 
-  it("should use quotation-sized text in mobile cards and actions", () => {
+  it("should use quotation-sized text and Indonesian long date in mobile cards", () => {
     const { container } = renderWithRouter(createProps());
     const mobileCard = container.querySelector(".lg\\:hidden button.group");
 
@@ -61,6 +65,7 @@ describe("MasterCategoryComponent", () => {
     expect(mobileCard?.classList.contains("bg-background-surface")).toBe(true);
     expect(mobileCard?.querySelector(".flex.flex-wrap .text-lg")?.textContent).toBe("active");
     expect(mobileCard?.querySelector(".border-t.border-border-default")?.textContent).toContain("Created");
+    expect(screen.getAllByText("8 Juni 2026")).toHaveLength(2);
     expect(container.querySelector(".lg\\:hidden .text-lg")).not.toBeNull();
   });
 

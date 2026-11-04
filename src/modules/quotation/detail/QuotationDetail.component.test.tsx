@@ -11,6 +11,11 @@ jest.mock("@/utils/pdfGenerator", () => ({
   generateQuotationPDF: (...args: unknown[]) => mockGenerateQuotationPDF(...args),
 }));
 
+jest.mock("@/app/layout", () => ({
+  __esModule: true,
+  default: ({ children }: { children: React.ReactNode }) => <div>{children}</div>,
+}));
+
 const QUOTATION: ApiQuotation = {
   id: "quotation-1",
   transaction_id: "transaction-1",
@@ -25,6 +30,8 @@ const QUOTATION: ApiQuotation = {
     id: "transaction-1",
     service_type_id: "service-1",
     service_type_name: "REGULER",
+    order_type_id: "order-type-1",
+    order_type_name: "Delivery",
     customer_name: "PT Example",
     customer_phone: "0812345678",
     address: "Jakarta",
@@ -33,7 +40,7 @@ const QUOTATION: ApiQuotation = {
     end_at: "2026-12-02T18:00:00.000Z",
     subtotal: 1000000,
     service_fee: 100000,
-    discount: 50000,
+    discount: 5,
     grand_total: 1050000,
     status: 1,
     created_at: "2026-10-27T14:03:28.926Z",
@@ -48,6 +55,7 @@ const QUOTATION: ApiQuotation = {
 
 const createProps = (quotation: ApiQuotation | null = QUOTATION): QuotationDetailState => ({
   quotation,
+  itemCategories: new Map([["item-1", "Audio System"]]),
   isLoading: false,
   isApproving: false,
   isConfirmOpen: false,
@@ -70,7 +78,15 @@ describe("QuotationDetailComponent", () => {
     expect(screen.getAllByText("Quotation Created").length).toBeGreaterThan(0);
     expect(screen.getAllByTestId("quotation-detail-actions")).toHaveLength(2);
     expect(screen.getAllByText("REGULER").length).toBeGreaterThan(0);
+    expect(screen.getByText("Order Type")).toBeTruthy();
+    expect(screen.getByText("Delivery")).toBeTruthy();
+    expect(screen.getByText("Transaction Status")).toBeTruthy();
     expect(screen.getAllByText("Speaker").length).toBeGreaterThan(0);
+    expect(screen.getByText("Main hall")).toBeTruthy();
+    expect(screen.getByText("Global Remark")).toBeTruthy();
+    expect(screen.getByText("Valid for thirty days")).toBeTruthy();
+    const itemRemark = screen.getByText("Main hall").closest("p");
+    expect(itemRemark?.textContent).toBe("Remark: Main hall");
     const qtyElement = screen.getByText("Qty: 2");
     expect(qtyElement.className).not.toContain("bg-action-primary-subtle");
     expect(qtyElement.className).toContain("text-lg");
@@ -80,6 +96,7 @@ describe("QuotationDetailComponent", () => {
     expect(screen.queryByText("Person in Charge")).toBeNull();
     expect(screen.getAllByText("October Promo").length).toBeGreaterThan(0);
     expect(screen.getAllByText("Discount").length).toBeGreaterThan(0);
+    expect(screen.getByText("Rp 50.000 (5%)")).toBeTruthy();
     expect(screen.queryByText("Discount Percent")).toBeNull();
     expect(screen.queryByText("OCT10")).toBeNull();
     expect(screen.queryByText("quotation-1")).toBeNull();
@@ -95,6 +112,17 @@ describe("QuotationDetailComponent", () => {
     expect(rentalSection?.parentElement?.parentElement?.className).toContain("lg:grid-cols-[minmax(0,2fr)_minmax(20rem,1fr)]");
     const moreOptionsButtons = screen.getAllByTestId("quotation-detail-actions");
     expect(moreOptionsButtons[0].className).toContain("rounded-3xl");
+  });
+
+  it("should close the actions menu when clicking outside", (): void => {
+    render(<MemoryRouter><QuotationDetailComponent {...createProps()} /></MemoryRouter>);
+    const trigger = screen.getAllByTestId("quotation-detail-actions")[0];
+    const details = trigger.closest("details");
+
+    fireEvent.click(trigger);
+    expect(details?.hasAttribute("open")).toBe(true);
+    fireEvent.mouseDown(screen.getAllByText("Quotation Detail")[0]);
+    expect(details?.hasAttribute("open")).toBe(false);
   });
 
   it("should render rental projects only for project service", (): void => {
@@ -114,13 +142,13 @@ describe("QuotationDetailComponent", () => {
     render(<MemoryRouter><QuotationDetailComponent {...{ ...createProps(null), isLoading: true }} /></MemoryRouter>);
 
     const skeleton = screen.getByRole("status", { name: "Loading quotation detail" });
-    expect(skeleton.querySelectorAll("section")).toHaveLength(5);
+    expect(skeleton.querySelectorAll("section")).toHaveLength(6);
     expect(skeleton.querySelector("aside")).not.toBeNull();
     expect(skeleton.querySelector(".sm\\:grid-cols-2")).not.toBeNull();
     expect(skeleton.querySelector('[aria-label="Loading pricing summary"]')).not.toBeNull();
     const transactionSkeleton = skeleton.querySelector('[aria-label="Loading transaction and event"]');
     expect(transactionSkeleton?.querySelector(".xl\\:grid-cols-4")).not.toBeNull();
-    expect(transactionSkeleton?.nextElementSibling?.className).toContain("lg:grid-cols-[minmax(0,2fr)_minmax(20rem,1fr)]");
+    expect(transactionSkeleton?.nextElementSibling?.nextElementSibling?.className).toContain("lg:grid-cols-[minmax(0,2fr)_minmax(20rem,1fr)]");
     expect(screen.queryByText("QUO-001")).toBeNull();
     expect(screen.queryByText("Quotation detail is unavailable.")).toBeNull();
   });

@@ -2,6 +2,7 @@ import type { ChangeEvent, ReactElement } from "react";
 import React from "react";
 
 import { AlertComponent } from "@/components/Alert";
+import { BackButton } from "@/components/BackButton";
 import { DatePicker } from "@/components/DatePicker";
 import { InputComponent } from "@/components/Input";
 import { Select } from "@/components/Select";
@@ -22,25 +23,6 @@ import {
 } from "./PaymentCreate.helpers";
 
 /**
- * Render back icon SVG.
- * @returns {ReactElement} Back icon
- */
-const _renderBackIcon = (): ReactElement => (
-  <svg
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2.5"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-    className="h-6 w-6"
-    aria-hidden="true"
-  >
-    <path d="M19 12H5M12 19l-7-7 7-7" />
-  </svg>
-);
-
-/**
  * Render mobile top back bar.
  * @param {boolean | undefined} isEditMode - Edit mode flag
  * @param {() => void} goBack - Back action
@@ -55,14 +37,7 @@ const _renderMobileBack = (
 
   return (
     <div className="mb-6 flex items-center gap-3 bg-background-page lg:hidden">
-      <button
-        type="button"
-        onClick={goBack}
-        aria-label="Back"
-        className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full border border-border-default bg-background-page text-text-primary transition-colors hover:bg-background-subtle"
-      >
-        {_renderBackIcon()}
-      </button>
+      <BackButton onClick={goBack} />
       <div className="min-w-0">
         <h2 className="truncate text-4xl font-semibold tracking-tight text-text-primary">
           {title}
@@ -248,7 +223,12 @@ const _renderStatusField = (
   return (
     <div className="flex items-center justify-between rounded-2xl border-2 border-border-strong bg-background-surface px-5 py-4 lg:col-span-2">
       <div className="flex flex-col">
-        <span className="text-lg font-normal text-text-primary">Status</span>
+        <div className="flex items-center gap-2.5">
+          <span className="text-lg font-normal text-text-primary">Status</span>
+          <span className={`inline-flex rounded-full border border-current px-3 py-0.5 text-base font-semibold uppercase ${props.isActive ? "bg-success-subtle text-success-strong" : "bg-danger-subtle text-danger-strong"}`}>
+            {props.isActive ? "active" : "inactive"}
+          </span>
+        </div>
         <span className="text-base text-text-secondary">
           Toggle active or inactive status
         </span>

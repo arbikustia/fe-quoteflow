@@ -1,6 +1,6 @@
 import type { ChangeEvent, SyntheticEvent } from "react";
-import { useEffect, useState } from "react";
-import type { Control, UseFormRegister, UseFormReset, UseFormSetValue } from "react-hook-form";
+import { useState } from "react";
+import type { Control, UseFormRegister, UseFormSetValue } from "react-hook-form";
 import { useForm, useWatch } from "react-hook-form";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 
@@ -15,7 +15,7 @@ import type {
 } from "./MasterCustomerCreate.type";
 
 import type { CustomerCreateResponse, CustomerData } from "@/modules/master-customer/MasterCustomer.type";
-import { useCreateCustomerMutation, useGetCustomerByIdQuery, useUpdateCustomerMutation } from "@/services/master-customer.service";
+import { useCreateCustomerMutation, useUpdateCustomerMutation } from "@/services/master-customer.service";
 
 /**
  * Format backend messages into a display string.
@@ -33,34 +33,12 @@ const _formatMessages = (messages: string[] | string | null): string => {
 
 
 /**
- * Extract customer item from API detail payload.
- * @param {ReturnType<typeof useGetCustomerByIdQuery>["data"]} customerDetail - Detail response
- * @returns {CustomerData | null} Customer item or null
- */
-const _resolveCustomerDetail = (customerDetail: ReturnType<typeof useGetCustomerByIdQuery>["data"]): {
-  id: string;
-  name: string;
-  email: string | null;
-  address: string | null;
-  phone_number: string | null;
-  status: number;
-} | null => {
-  if (!customerDetail?.status || !customerDetail.data) {
-    return null;
-  }
-
-  return Array.isArray(customerDetail.data) ? customerDetail.data[0] : customerDetail.data;
-};
-
-/**
- * Derive initial customer field values.
- * @param {CustomerData | undefined} routeCustomer - Customer from router state
- * @param {ReturnType<typeof _resolveCustomerDetail>} customerItem - Customer from API
+ * Derive customer fields from paged route state.
+ * @param {CustomerData | undefined} routeCustomer - Customer from paged list
  * @returns {{ name: string; email: string; address: string; phoneNumber: string; isActive: boolean }} Initial values
  */
 const _getInitialFieldValues = (
   routeCustomer: CustomerData | undefined,
-  customerItem: ReturnType<typeof _resolveCustomerDetail>,
 ): {
   name: string;
   email: string;
@@ -68,11 +46,11 @@ const _getInitialFieldValues = (
   phoneNumber: string;
   isActive: boolean;
 } => ({
-  name: routeCustomer?.name ?? customerItem?.name ?? "",
-  email: routeCustomer?.email ?? customerItem?.email ?? "",
-  address: routeCustomer?.address ?? customerItem?.address ?? "",
-  phoneNumber: routeCustomer?.phoneNumber ?? customerItem?.phone_number ?? "",
-  isActive: routeCustomer ? routeCustomer.status === "active" : customerItem?.status === 1,
+  name: routeCustomer?.name ?? "",
+  email: routeCustomer?.email ?? "",
+  address: routeCustomer?.address ?? "",
+  phoneNumber: routeCustomer?.phoneNumber ?? "",
+  isActive: routeCustomer?.status !== "inactive",
 });
 
 const EMAIL_REGEX = /^[^\s@]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
@@ -93,20 +71,6 @@ const _registerCustomerFields = (register: UseFormRegister<CustomerFormValues>):
   });
   register("address", { required: "Address is required." });
   register("phoneNumber", { required: "Phone number is required.", pattern: { value: /^\d{6,15}$/, message: "Phone number must contain 6–15 digits." } });
-};
-
-/**
- * Reset form when API customer arrives.
- * @param {ReturnType<typeof _resolveCustomerDetail>} customerItem - Customer from API
- * @param {UseFormReset<CustomerFormValues>} reset - Form reset function
- * @returns {void} No return value
- */
-const useCustomerReset = (customerItem: ReturnType<typeof _resolveCustomerDetail>, reset: UseFormReset<CustomerFormValues>): void => {
-  useEffect((): void => {
-    if (customerItem) {
-      reset({ name: customerItem.name, email: customerItem.email ?? "", address: customerItem.address ?? "", phoneNumber: customerItem.phone_number ?? "", isActive: customerItem.status === 1 });
-    }
-  }, [customerItem, reset]);
 };
 
 /**
@@ -188,16 +152,14 @@ const useCustomerWatches = (control: Control<CustomerFormValues>): CustomerFormV
 
 /**
  * Manage customer form fields and validation state.
- * @param {CustomerData | undefined} routeCustomer - Customer from route state
- * @param {ReturnType<typeof _resolveCustomerDetail>} customerItem - Customer from API
+ * @param {CustomerData | undefined} routeCustomer - Customer from paged route state
  * @returns {CustomerFormFields & CustomerFormValidation} Form state and handlers
  */
 const useCustomerFormFields = (
   routeCustomer: CustomerData | undefined,
-  customerItem: ReturnType<typeof _resolveCustomerDetail>,
 ): CustomerFormFields & CustomerFormValidation => {
-  const initial = _getInitialFieldValues(routeCustomer, customerItem);
-  const { control: formControl, formState: { errors }, getValues, register, reset, setValue, trigger } = useForm<CustomerFormValues>({
+  const initial = _getInitialFieldValues(routeCustomer);
+  const { control: formControl, formState: { errors }, getValues, register, setValue, trigger } = useForm<CustomerFormValues>({
     defaultValues: initial,
     mode: "onSubmit",
     reValidateMode: "onChange",
@@ -206,8 +168,6 @@ const useCustomerFormFields = (
   _registerCustomerFields(register);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const values = useCustomerWatches(formControl);
-
-  useCustomerReset(customerItem, reset);
 
   return {
     ...values,
@@ -287,13 +247,7 @@ export const useMasterCustomerCreate = (): MasterCustomerCreateFormState => {
   const { id } = useParams<{ id?: string }>();
   const isEditMode = Boolean(id);
   const routeCustomer: CustomerData | undefined = location.state?.customer;
-
-  const { data: customerDetail, isLoading: isLoadingDetail } = useGetCustomerByIdQuery(id ?? "", {
-    skip: !isEditMode || !id || Boolean(routeCustomer),
-  });
-
-  const customerItem = _resolveCustomerDetail(customerDetail);
-  const formFields = useCustomerFormFields(routeCustomer, customerItem);
+  const formFields = useCustomerFormFields(routeCustomer);
   const submission = useCustomerSubmission({
     id,
     isEditMode,
@@ -306,12 +260,12 @@ export const useMasterCustomerCreate = (): MasterCustomerCreateFormState => {
    * Go back.
    * @returns {void}
    */
-  const goBack = (): void => { navigate(-1); };
+  const goBack = (): void => { navigate("/master-customer"); };
 
   return {
     ...formFields,
     isEditMode,
-    isLoadingInitialData: isLoadingDetail && !routeCustomer,
+    isLoadingInitialData: false,
     goBack,
     ...submission,
   };

@@ -86,7 +86,7 @@ describe("MasterRoleCreate.hook", () => {
 
     expect(result.current.roleName).toBe("Auditor");
     expect(result.current.isActive).toBe(false);
-    expect(mockNavigate).toHaveBeenCalledWith(-1);
+    expect(mockNavigate).toHaveBeenCalledWith("/master-role");
   });
 
   it("should submit create mutation and navigate to list", async () => {

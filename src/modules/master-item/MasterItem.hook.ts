@@ -161,7 +161,7 @@ export const useMasterItemNavigation = (): MasterItemNavigation => {
    * @returns {void} void
    */
   const goBack = (): void => {
-    navigate(-1);
+    navigate("/master-main");
   };
 
   /**

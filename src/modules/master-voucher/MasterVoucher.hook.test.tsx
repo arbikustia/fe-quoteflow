@@ -51,7 +51,7 @@ describe("MasterVoucher hook", () => {
     const { result } = renderHook(() => useMasterVoucherNavigation());
 
     act(() => { result.current.goBack(); });
-    expect(mockNavigate).toHaveBeenNthCalledWith(1, -1);
+    expect(mockNavigate).toHaveBeenNthCalledWith(1, "/master-main");
     act(() => { result.current.goCreate(); });
     expect(mockNavigate).toHaveBeenNthCalledWith(2, "/master-voucher/create");
     act(() => { result.current.goEdit(MOCK_VOUCHERS[0]); });

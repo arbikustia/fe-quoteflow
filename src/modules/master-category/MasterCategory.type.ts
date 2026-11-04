@@ -27,6 +27,11 @@ export type CategoryData = {
   createBy: string | null;
 };
 
+export type CategoryRouteState = {
+  category?: CategoryData;
+  successMessage?: string;
+};
+
 export type CategoryListApiState = {
   isLoading: boolean;
   errorMessage: string | null;

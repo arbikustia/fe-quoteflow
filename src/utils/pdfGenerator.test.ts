@@ -1,4 +1,5 @@
 import { describe, expect, it, jest } from "@jest/globals";
+import autoTable from "jspdf-autotable";
 
 import type { QuoteData } from "@/modules/order/Order.type";
 import { generateInvoicePDF, generateQuotationPDF, generateQuotePDF } from "./pdfGenerator";
@@ -9,6 +10,7 @@ const mockAddImage = jest.fn();
 const mockSetFontSize = jest.fn();
 const mockSetFont = jest.fn();
 const mockAddPage = jest.fn();
+const mockAutoTable = jest.mocked(autoTable);
 
 jest.mock("jspdf", () => {
   return jest.fn().mockImplementation(() => ({
@@ -26,6 +28,7 @@ jest.mock("jspdf-autotable", () => jest.fn());
 const mockQuote: QuoteData = {
   id: "Q-123",
   name: "Mega Event",
+  customerName: "Citra Bunga Lestari",
   startDate: "2026-11-01",
   endDate: "2026-11-02",
   location: "Jakarta",
@@ -60,11 +63,27 @@ describe("pdfGenerator", () => {
     expect(mockText).toHaveBeenCalledWith("PENAWARAN HARGA", 105, 40, { align: "center" });
   });
 
-  it("generateQuotationPDF should save as Quotation with QUOTATION title", async () => {
-    await generateQuotationPDF(mockQuote);
+  it("generateQuotationPDF should group transaction items under gray category rows", async () => {
+    await generateQuotationPDF({
+      ...mockQuote,
+      pdfItems: [
+        { name: "Speaker", category: "Audio", qty: 2, price: 500000, remark: "Main" },
+        { name: "Mixer", category: "Audio", qty: 1, price: 750000, remark: "" },
+        { name: "Moving Head", category: "Lighting", qty: 4, price: 250000, remark: "Stage" },
+      ],
+    });
 
     expect(mockSave).toHaveBeenCalledWith("Quotation-Q-123.pdf");
     expect(mockText).toHaveBeenCalledWith("QUOTATION", 105, 40, { align: "center" });
+    expect(mockText).toHaveBeenCalledWith(": Bpk/ Ibu Citra Bunga Lestari", 45, 58);
+    const tableOptions = mockAutoTable.mock.calls.at(-1)?.[1];
+    expect(tableOptions?.body?.slice(0, 5)).toEqual([
+      [{ content: "Audio", colSpan: 6, styles: { fontStyle: "bold", fillColor: [240, 240, 240], textColor: [0, 0, 0], halign: "left" } }],
+      [{ content: "1", styles: { halign: "center" } }, "Speaker", { content: "2", styles: { halign: "center" } }, { content: "Unit", styles: { halign: "center" } }, { content: "500.000", styles: { halign: "center" } }, "Main"],
+      [{ content: "2", styles: { halign: "center" } }, "Mixer", { content: "1", styles: { halign: "center" } }, { content: "Unit", styles: { halign: "center" } }, { content: "750.000", styles: { halign: "center" } }, ""],
+      [{ content: "Lighting", colSpan: 6, styles: { fontStyle: "bold", fillColor: [240, 240, 240], textColor: [0, 0, 0], halign: "left" } }],
+      [{ content: "3", styles: { halign: "center" } }, "Moving Head", { content: "4", styles: { halign: "center" } }, { content: "Unit", styles: { halign: "center" } }, { content: "250.000", styles: { halign: "center" } }, "Stage"],
+    ]);
   });
 
   it("generateInvoicePDF should save as Invoice with INVOICE title", async () => {

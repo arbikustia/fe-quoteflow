@@ -66,7 +66,7 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots default stat
           >
             <button
               aria-label="Back"
-              class="flex h-14 w-14 shrink-0 items-center justify-center rounded-full border border-border-default text-text-primary bg-white hover:bg-background-subtle transition-colors"
+              class="flex h-14 w-14 shrink-0 items-center justify-center rounded-full border border-border-default text-text-primary bg-background-page hover:bg-background-subtle transition-colors"
               type="button"
             >
               <svg
@@ -154,7 +154,7 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots default stat
                     PT Mega Jaya Abadi
                   </span>
                   <span
-                    class="rounded-full px-3.5 py-1 text-lg font-semibold uppercase bg-badge-success-subtle text-badge-success"
+                    class="rounded-full px-3.5 py-1 text-lg font-semibold uppercase bg-success-subtle text-success-strong"
                   >
                     active
                   </span>
@@ -167,6 +167,16 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots default stat
                   >
                     <span
                       class="block text-lg text-text-tertiary"
+                    >
+                      Email
+                    </span>
+                    <span
+                      class="mt-1 block break-all text-lg font-medium text-text-primary"
+                    >
+                      admin@megajaya.com
+                    </span>
+                    <span
+                      class="mt-3 block text-lg text-text-tertiary"
                     >
                       Address
                     </span>
@@ -205,7 +215,7 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots default stat
                     CV Sinar Terang
                   </span>
                   <span
-                    class="rounded-full px-3.5 py-1 text-lg font-semibold uppercase bg-badge-success-subtle text-badge-success"
+                    class="rounded-full px-3.5 py-1 text-lg font-semibold uppercase bg-success-subtle text-success-strong"
                   >
                     active
                   </span>
@@ -218,6 +228,16 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots default stat
                   >
                     <span
                       class="block text-lg text-text-tertiary"
+                    >
+                      Email
+                    </span>
+                    <span
+                      class="mt-1 block break-all text-lg font-medium text-text-primary"
+                    >
+                      No email provided
+                    </span>
+                    <span
+                      class="mt-3 block text-lg text-text-tertiary"
                     >
                       Address
                     </span>
@@ -256,7 +276,7 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots default stat
                     Budi Santoso
                   </span>
                   <span
-                    class="rounded-full px-3.5 py-1 text-lg font-semibold uppercase bg-badge-danger-subtle text-badge-danger"
+                    class="rounded-full px-3.5 py-1 text-lg font-semibold uppercase bg-danger-subtle text-danger-strong"
                   >
                     inactive
                   </span>
@@ -269,6 +289,16 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots default stat
                   >
                     <span
                       class="block text-lg text-text-tertiary"
+                    >
+                      Email
+                    </span>
+                    <span
+                      class="mt-1 block break-all text-lg font-medium text-text-primary"
+                    >
+                      No email provided
+                    </span>
+                    <span
+                      class="mt-3 block text-lg text-text-tertiary"
                     >
                       Address
                     </span>
@@ -307,7 +337,7 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots default stat
                     PT Nusantara Prima
                   </span>
                   <span
-                    class="rounded-full px-3.5 py-1 text-lg font-semibold uppercase bg-badge-success-subtle text-badge-success"
+                    class="rounded-full px-3.5 py-1 text-lg font-semibold uppercase bg-success-subtle text-success-strong"
                   >
                     active
                   </span>
@@ -320,6 +350,16 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots default stat
                   >
                     <span
                       class="block text-lg text-text-tertiary"
+                    >
+                      Email
+                    </span>
+                    <span
+                      class="mt-1 block break-all text-lg font-medium text-text-primary"
+                    >
+                      No email provided
+                    </span>
+                    <span
+                      class="mt-3 block text-lg text-text-tertiary"
                     >
                       Address
                     </span>
@@ -358,7 +398,7 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots default stat
                     Dewi Lestari
                   </span>
                   <span
-                    class="rounded-full px-3.5 py-1 text-lg font-semibold uppercase bg-badge-success-subtle text-badge-success"
+                    class="rounded-full px-3.5 py-1 text-lg font-semibold uppercase bg-success-subtle text-success-strong"
                   >
                     active
                   </span>
@@ -371,6 +411,16 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots default stat
                   >
                     <span
                       class="block text-lg text-text-tertiary"
+                    >
+                      Email
+                    </span>
+                    <span
+                      class="mt-1 block break-all text-lg font-medium text-text-primary"
+                    >
+                      No email provided
+                    </span>
+                    <span
+                      class="mt-3 block text-lg text-text-tertiary"
                     >
                       Address
                     </span>
@@ -409,7 +459,7 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots default stat
                     CV Berkah Mandiri
                   </span>
                   <span
-                    class="rounded-full px-3.5 py-1 text-lg font-semibold uppercase bg-badge-danger-subtle text-badge-danger"
+                    class="rounded-full px-3.5 py-1 text-lg font-semibold uppercase bg-danger-subtle text-danger-strong"
                   >
                     inactive
                   </span>
@@ -422,6 +472,16 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots default stat
                   >
                     <span
                       class="block text-lg text-text-tertiary"
+                    >
+                      Email
+                    </span>
+                    <span
+                      class="mt-1 block break-all text-lg font-medium text-text-primary"
+                    >
+                      No email provided
+                    </span>
+                    <span
+                      class="mt-3 block text-lg text-text-tertiary"
                     >
                       Address
                     </span>
@@ -460,7 +520,7 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots default stat
                     PT Cipta Karya Solusi
                   </span>
                   <span
-                    class="rounded-full px-3.5 py-1 text-lg font-semibold uppercase bg-badge-success-subtle text-badge-success"
+                    class="rounded-full px-3.5 py-1 text-lg font-semibold uppercase bg-success-subtle text-success-strong"
                   >
                     active
                   </span>
@@ -473,6 +533,16 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots default stat
                   >
                     <span
                       class="block text-lg text-text-tertiary"
+                    >
+                      Email
+                    </span>
+                    <span
+                      class="mt-1 block break-all text-lg font-medium text-text-primary"
+                    >
+                      No email provided
+                    </span>
+                    <span
+                      class="mt-3 block text-lg text-text-tertiary"
                     >
                       Address
                     </span>
@@ -511,7 +581,7 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots default stat
                     Ahmad Fauzi
                   </span>
                   <span
-                    class="rounded-full px-3.5 py-1 text-lg font-semibold uppercase bg-badge-success-subtle text-badge-success"
+                    class="rounded-full px-3.5 py-1 text-lg font-semibold uppercase bg-success-subtle text-success-strong"
                   >
                     active
                   </span>
@@ -524,6 +594,16 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots default stat
                   >
                     <span
                       class="block text-lg text-text-tertiary"
+                    >
+                      Email
+                    </span>
+                    <span
+                      class="mt-1 block break-all text-lg font-medium text-text-primary"
+                    >
+                      No email provided
+                    </span>
+                    <span
+                      class="mt-3 block text-lg text-text-tertiary"
                     >
                       Address
                     </span>
@@ -562,7 +642,7 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots default stat
                     PT Global Indo Medika
                   </span>
                   <span
-                    class="rounded-full px-3.5 py-1 text-lg font-semibold uppercase bg-badge-danger-subtle text-badge-danger"
+                    class="rounded-full px-3.5 py-1 text-lg font-semibold uppercase bg-danger-subtle text-danger-strong"
                   >
                     inactive
                   </span>
@@ -575,6 +655,16 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots default stat
                   >
                     <span
                       class="block text-lg text-text-tertiary"
+                    >
+                      Email
+                    </span>
+                    <span
+                      class="mt-1 block break-all text-lg font-medium text-text-primary"
+                    >
+                      No email provided
+                    </span>
+                    <span
+                      class="mt-3 block text-lg text-text-tertiary"
                     >
                       Address
                     </span>
@@ -613,7 +703,7 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots default stat
                     Siti Rahmawati
                   </span>
                   <span
-                    class="rounded-full px-3.5 py-1 text-lg font-semibold uppercase bg-badge-success-subtle text-badge-success"
+                    class="rounded-full px-3.5 py-1 text-lg font-semibold uppercase bg-success-subtle text-success-strong"
                   >
                     active
                   </span>
@@ -626,6 +716,16 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots default stat
                   >
                     <span
                       class="block text-lg text-text-tertiary"
+                    >
+                      Email
+                    </span>
+                    <span
+                      class="mt-1 block break-all text-lg font-medium text-text-primary"
+                    >
+                      No email provided
+                    </span>
+                    <span
+                      class="mt-3 block text-lg text-text-tertiary"
                     >
                       Address
                     </span>
@@ -717,6 +817,11 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots default stat
                           <th
                             class="bg-table-header px-5 py-4 text-[13px] font-bold text-text-secondary uppercase tracking-widest   text-left "
                           >
+                            Email
+                          </th>
+                          <th
+                            class="bg-table-header px-5 py-4 text-[13px] font-bold text-text-secondary uppercase tracking-widest   text-left "
+                          >
                             Address
                           </th>
                           <th
@@ -764,6 +869,15 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots default stat
                             class="px-5 py-4 border-b border-border-default text-base text-left "
                           >
                             <span
+                              class="text-lg text-text-secondary"
+                            >
+                              admin@megajaya.com
+                            </span>
+                          </td>
+                          <td
+                            class="px-5 py-4 border-b border-border-default text-base text-left "
+                          >
+                            <span
                               class="text-lg"
                             >
                               Jl. Sudirman No. 45, Jakarta Pusat
@@ -782,7 +896,7 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots default stat
                             class="px-5 py-4 border-b border-border-default text-base text-center "
                           >
                             <span
-                              class="inline-flex rounded-full px-4 py-1.5 text-lg font-semibold uppercase bg-badge-success-subtle text-badge-success"
+                              class="inline-flex rounded-full px-4 py-1.5 text-lg font-semibold uppercase bg-success-subtle text-success-strong"
                             >
                               active
                             </span>
@@ -831,6 +945,15 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots default stat
                             class="px-5 py-4 border-b border-border-default text-base text-left "
                           >
                             <span
+                              class="text-lg text-text-secondary"
+                            >
+                              -
+                            </span>
+                          </td>
+                          <td
+                            class="px-5 py-4 border-b border-border-default text-base text-left "
+                          >
+                            <span
                               class="text-lg"
                             >
                               Jl. Gatot Subroto No. 12, Bandung
@@ -849,7 +972,7 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots default stat
                             class="px-5 py-4 border-b border-border-default text-base text-center "
                           >
                             <span
-                              class="inline-flex rounded-full px-4 py-1.5 text-lg font-semibold uppercase bg-badge-success-subtle text-badge-success"
+                              class="inline-flex rounded-full px-4 py-1.5 text-lg font-semibold uppercase bg-success-subtle text-success-strong"
                             >
                               active
                             </span>
@@ -898,6 +1021,15 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots default stat
                             class="px-5 py-4 border-b border-border-default text-base text-left "
                           >
                             <span
+                              class="text-lg text-text-secondary"
+                            >
+                              -
+                            </span>
+                          </td>
+                          <td
+                            class="px-5 py-4 border-b border-border-default text-base text-left "
+                          >
+                            <span
                               class="text-lg"
                             >
                               Jl. Diponegoro No. 88, Surabaya
@@ -916,7 +1048,7 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots default stat
                             class="px-5 py-4 border-b border-border-default text-base text-center "
                           >
                             <span
-                              class="inline-flex rounded-full px-4 py-1.5 text-lg font-semibold uppercase bg-badge-danger-subtle text-badge-danger"
+                              class="inline-flex rounded-full px-4 py-1.5 text-lg font-semibold uppercase bg-danger-subtle text-danger-strong"
                             >
                               inactive
                             </span>
@@ -965,6 +1097,15 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots default stat
                             class="px-5 py-4 border-b border-border-default text-base text-left "
                           >
                             <span
+                              class="text-lg text-text-secondary"
+                            >
+                              -
+                            </span>
+                          </td>
+                          <td
+                            class="px-5 py-4 border-b border-border-default text-base text-left "
+                          >
+                            <span
                               class="text-lg"
                             >
                               Jl. M.H. Thamrin No. 9, Jakarta Pusat
@@ -983,7 +1124,7 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots default stat
                             class="px-5 py-4 border-b border-border-default text-base text-center "
                           >
                             <span
-                              class="inline-flex rounded-full px-4 py-1.5 text-lg font-semibold uppercase bg-badge-success-subtle text-badge-success"
+                              class="inline-flex rounded-full px-4 py-1.5 text-lg font-semibold uppercase bg-success-subtle text-success-strong"
                             >
                               active
                             </span>
@@ -1032,6 +1173,15 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots default stat
                             class="px-5 py-4 border-b border-border-default text-base text-left "
                           >
                             <span
+                              class="text-lg text-text-secondary"
+                            >
+                              -
+                            </span>
+                          </td>
+                          <td
+                            class="px-5 py-4 border-b border-border-default text-base text-left "
+                          >
+                            <span
                               class="text-lg"
                             >
                               Jl. Malioboro No. 23, Yogyakarta
@@ -1050,7 +1200,7 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots default stat
                             class="px-5 py-4 border-b border-border-default text-base text-center "
                           >
                             <span
-                              class="inline-flex rounded-full px-4 py-1.5 text-lg font-semibold uppercase bg-badge-success-subtle text-badge-success"
+                              class="inline-flex rounded-full px-4 py-1.5 text-lg font-semibold uppercase bg-success-subtle text-success-strong"
                             >
                               active
                             </span>
@@ -1099,6 +1249,15 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots default stat
                             class="px-5 py-4 border-b border-border-default text-base text-left "
                           >
                             <span
+                              class="text-lg text-text-secondary"
+                            >
+                              -
+                            </span>
+                          </td>
+                          <td
+                            class="px-5 py-4 border-b border-border-default text-base text-left "
+                          >
+                            <span
                               class="text-lg"
                             >
                               Jl. Pemuda No. 101, Semarang
@@ -1117,7 +1276,7 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots default stat
                             class="px-5 py-4 border-b border-border-default text-base text-center "
                           >
                             <span
-                              class="inline-flex rounded-full px-4 py-1.5 text-lg font-semibold uppercase bg-badge-danger-subtle text-badge-danger"
+                              class="inline-flex rounded-full px-4 py-1.5 text-lg font-semibold uppercase bg-danger-subtle text-danger-strong"
                             >
                               inactive
                             </span>
@@ -1166,6 +1325,15 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots default stat
                             class="px-5 py-4 border-b border-border-default text-base text-left "
                           >
                             <span
+                              class="text-lg text-text-secondary"
+                            >
+                              -
+                            </span>
+                          </td>
+                          <td
+                            class="px-5 py-4 border-b border-border-default text-base text-left "
+                          >
+                            <span
                               class="text-lg"
                             >
                               Jl. Raya Bogor KM 28, Depok
@@ -1184,7 +1352,7 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots default stat
                             class="px-5 py-4 border-b border-border-default text-base text-center "
                           >
                             <span
-                              class="inline-flex rounded-full px-4 py-1.5 text-lg font-semibold uppercase bg-badge-success-subtle text-badge-success"
+                              class="inline-flex rounded-full px-4 py-1.5 text-lg font-semibold uppercase bg-success-subtle text-success-strong"
                             >
                               active
                             </span>
@@ -1233,6 +1401,15 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots default stat
                             class="px-5 py-4 border-b border-border-default text-base text-left "
                           >
                             <span
+                              class="text-lg text-text-secondary"
+                            >
+                              -
+                            </span>
+                          </td>
+                          <td
+                            class="px-5 py-4 border-b border-border-default text-base text-left "
+                          >
+                            <span
                               class="text-lg"
                             >
                               Jl. Ahmad Yani No. 50, Medan
@@ -1251,7 +1428,7 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots default stat
                             class="px-5 py-4 border-b border-border-default text-base text-center "
                           >
                             <span
-                              class="inline-flex rounded-full px-4 py-1.5 text-lg font-semibold uppercase bg-badge-success-subtle text-badge-success"
+                              class="inline-flex rounded-full px-4 py-1.5 text-lg font-semibold uppercase bg-success-subtle text-success-strong"
                             >
                               active
                             </span>
@@ -1300,6 +1477,15 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots default stat
                             class="px-5 py-4 border-b border-border-default text-base text-left "
                           >
                             <span
+                              class="text-lg text-text-secondary"
+                            >
+                              -
+                            </span>
+                          </td>
+                          <td
+                            class="px-5 py-4 border-b border-border-default text-base text-left "
+                          >
+                            <span
                               class="text-lg"
                             >
                               Jl. HR Rasuna Said Kav. C-22, Jakarta Selatan
@@ -1318,7 +1504,7 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots default stat
                             class="px-5 py-4 border-b border-border-default text-base text-center "
                           >
                             <span
-                              class="inline-flex rounded-full px-4 py-1.5 text-lg font-semibold uppercase bg-badge-danger-subtle text-badge-danger"
+                              class="inline-flex rounded-full px-4 py-1.5 text-lg font-semibold uppercase bg-danger-subtle text-danger-strong"
                             >
                               inactive
                             </span>
@@ -1367,6 +1553,15 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots default stat
                             class="px-5 py-4 border-b border-border-default text-base text-left "
                           >
                             <span
+                              class="text-lg text-text-secondary"
+                            >
+                              -
+                            </span>
+                          </td>
+                          <td
+                            class="px-5 py-4 border-b border-border-default text-base text-left "
+                          >
+                            <span
                               class="text-lg"
                             >
                               Jl. Gajah Mada No. 14, Denpasar
@@ -1385,7 +1580,7 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots default stat
                             class="px-5 py-4 border-b border-border-default text-base text-center "
                           >
                             <span
-                              class="inline-flex rounded-full px-4 py-1.5 text-lg font-semibold uppercase bg-badge-success-subtle text-badge-success"
+                              class="inline-flex rounded-full px-4 py-1.5 text-lg font-semibold uppercase bg-success-subtle text-success-strong"
                             >
                               active
                             </span>
@@ -1530,7 +1725,7 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots more open st
           >
             <button
               aria-label="Back"
-              class="flex h-14 w-14 shrink-0 items-center justify-center rounded-full border border-border-default text-text-primary bg-white hover:bg-background-subtle transition-colors"
+              class="flex h-14 w-14 shrink-0 items-center justify-center rounded-full border border-border-default text-text-primary bg-background-page hover:bg-background-subtle transition-colors"
               type="button"
             >
               <svg
@@ -1618,7 +1813,7 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots more open st
                     PT Mega Jaya Abadi
                   </span>
                   <span
-                    class="rounded-full px-3.5 py-1 text-lg font-semibold uppercase bg-badge-success-subtle text-badge-success"
+                    class="rounded-full px-3.5 py-1 text-lg font-semibold uppercase bg-success-subtle text-success-strong"
                   >
                     active
                   </span>
@@ -1631,6 +1826,16 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots more open st
                   >
                     <span
                       class="block text-lg text-text-tertiary"
+                    >
+                      Email
+                    </span>
+                    <span
+                      class="mt-1 block break-all text-lg font-medium text-text-primary"
+                    >
+                      admin@megajaya.com
+                    </span>
+                    <span
+                      class="mt-3 block text-lg text-text-tertiary"
                     >
                       Address
                     </span>
@@ -1669,7 +1874,7 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots more open st
                     CV Sinar Terang
                   </span>
                   <span
-                    class="rounded-full px-3.5 py-1 text-lg font-semibold uppercase bg-badge-success-subtle text-badge-success"
+                    class="rounded-full px-3.5 py-1 text-lg font-semibold uppercase bg-success-subtle text-success-strong"
                   >
                     active
                   </span>
@@ -1682,6 +1887,16 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots more open st
                   >
                     <span
                       class="block text-lg text-text-tertiary"
+                    >
+                      Email
+                    </span>
+                    <span
+                      class="mt-1 block break-all text-lg font-medium text-text-primary"
+                    >
+                      No email provided
+                    </span>
+                    <span
+                      class="mt-3 block text-lg text-text-tertiary"
                     >
                       Address
                     </span>
@@ -1720,7 +1935,7 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots more open st
                     Budi Santoso
                   </span>
                   <span
-                    class="rounded-full px-3.5 py-1 text-lg font-semibold uppercase bg-badge-danger-subtle text-badge-danger"
+                    class="rounded-full px-3.5 py-1 text-lg font-semibold uppercase bg-danger-subtle text-danger-strong"
                   >
                     inactive
                   </span>
@@ -1733,6 +1948,16 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots more open st
                   >
                     <span
                       class="block text-lg text-text-tertiary"
+                    >
+                      Email
+                    </span>
+                    <span
+                      class="mt-1 block break-all text-lg font-medium text-text-primary"
+                    >
+                      No email provided
+                    </span>
+                    <span
+                      class="mt-3 block text-lg text-text-tertiary"
                     >
                       Address
                     </span>
@@ -1771,7 +1996,7 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots more open st
                     PT Nusantara Prima
                   </span>
                   <span
-                    class="rounded-full px-3.5 py-1 text-lg font-semibold uppercase bg-badge-success-subtle text-badge-success"
+                    class="rounded-full px-3.5 py-1 text-lg font-semibold uppercase bg-success-subtle text-success-strong"
                   >
                     active
                   </span>
@@ -1784,6 +2009,16 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots more open st
                   >
                     <span
                       class="block text-lg text-text-tertiary"
+                    >
+                      Email
+                    </span>
+                    <span
+                      class="mt-1 block break-all text-lg font-medium text-text-primary"
+                    >
+                      No email provided
+                    </span>
+                    <span
+                      class="mt-3 block text-lg text-text-tertiary"
                     >
                       Address
                     </span>
@@ -1822,7 +2057,7 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots more open st
                     Dewi Lestari
                   </span>
                   <span
-                    class="rounded-full px-3.5 py-1 text-lg font-semibold uppercase bg-badge-success-subtle text-badge-success"
+                    class="rounded-full px-3.5 py-1 text-lg font-semibold uppercase bg-success-subtle text-success-strong"
                   >
                     active
                   </span>
@@ -1835,6 +2070,16 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots more open st
                   >
                     <span
                       class="block text-lg text-text-tertiary"
+                    >
+                      Email
+                    </span>
+                    <span
+                      class="mt-1 block break-all text-lg font-medium text-text-primary"
+                    >
+                      No email provided
+                    </span>
+                    <span
+                      class="mt-3 block text-lg text-text-tertiary"
                     >
                       Address
                     </span>
@@ -1873,7 +2118,7 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots more open st
                     CV Berkah Mandiri
                   </span>
                   <span
-                    class="rounded-full px-3.5 py-1 text-lg font-semibold uppercase bg-badge-danger-subtle text-badge-danger"
+                    class="rounded-full px-3.5 py-1 text-lg font-semibold uppercase bg-danger-subtle text-danger-strong"
                   >
                     inactive
                   </span>
@@ -1886,6 +2131,16 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots more open st
                   >
                     <span
                       class="block text-lg text-text-tertiary"
+                    >
+                      Email
+                    </span>
+                    <span
+                      class="mt-1 block break-all text-lg font-medium text-text-primary"
+                    >
+                      No email provided
+                    </span>
+                    <span
+                      class="mt-3 block text-lg text-text-tertiary"
                     >
                       Address
                     </span>
@@ -1924,7 +2179,7 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots more open st
                     PT Cipta Karya Solusi
                   </span>
                   <span
-                    class="rounded-full px-3.5 py-1 text-lg font-semibold uppercase bg-badge-success-subtle text-badge-success"
+                    class="rounded-full px-3.5 py-1 text-lg font-semibold uppercase bg-success-subtle text-success-strong"
                   >
                     active
                   </span>
@@ -1937,6 +2192,16 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots more open st
                   >
                     <span
                       class="block text-lg text-text-tertiary"
+                    >
+                      Email
+                    </span>
+                    <span
+                      class="mt-1 block break-all text-lg font-medium text-text-primary"
+                    >
+                      No email provided
+                    </span>
+                    <span
+                      class="mt-3 block text-lg text-text-tertiary"
                     >
                       Address
                     </span>
@@ -1975,7 +2240,7 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots more open st
                     Ahmad Fauzi
                   </span>
                   <span
-                    class="rounded-full px-3.5 py-1 text-lg font-semibold uppercase bg-badge-success-subtle text-badge-success"
+                    class="rounded-full px-3.5 py-1 text-lg font-semibold uppercase bg-success-subtle text-success-strong"
                   >
                     active
                   </span>
@@ -1988,6 +2253,16 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots more open st
                   >
                     <span
                       class="block text-lg text-text-tertiary"
+                    >
+                      Email
+                    </span>
+                    <span
+                      class="mt-1 block break-all text-lg font-medium text-text-primary"
+                    >
+                      No email provided
+                    </span>
+                    <span
+                      class="mt-3 block text-lg text-text-tertiary"
                     >
                       Address
                     </span>
@@ -2026,7 +2301,7 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots more open st
                     PT Global Indo Medika
                   </span>
                   <span
-                    class="rounded-full px-3.5 py-1 text-lg font-semibold uppercase bg-badge-danger-subtle text-badge-danger"
+                    class="rounded-full px-3.5 py-1 text-lg font-semibold uppercase bg-danger-subtle text-danger-strong"
                   >
                     inactive
                   </span>
@@ -2039,6 +2314,16 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots more open st
                   >
                     <span
                       class="block text-lg text-text-tertiary"
+                    >
+                      Email
+                    </span>
+                    <span
+                      class="mt-1 block break-all text-lg font-medium text-text-primary"
+                    >
+                      No email provided
+                    </span>
+                    <span
+                      class="mt-3 block text-lg text-text-tertiary"
                     >
                       Address
                     </span>
@@ -2077,7 +2362,7 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots more open st
                     Siti Rahmawati
                   </span>
                   <span
-                    class="rounded-full px-3.5 py-1 text-lg font-semibold uppercase bg-badge-success-subtle text-badge-success"
+                    class="rounded-full px-3.5 py-1 text-lg font-semibold uppercase bg-success-subtle text-success-strong"
                   >
                     active
                   </span>
@@ -2090,6 +2375,16 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots more open st
                   >
                     <span
                       class="block text-lg text-text-tertiary"
+                    >
+                      Email
+                    </span>
+                    <span
+                      class="mt-1 block break-all text-lg font-medium text-text-primary"
+                    >
+                      No email provided
+                    </span>
+                    <span
+                      class="mt-3 block text-lg text-text-tertiary"
                     >
                       Address
                     </span>
@@ -2181,6 +2476,11 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots more open st
                           <th
                             class="bg-table-header px-5 py-4 text-[13px] font-bold text-text-secondary uppercase tracking-widest   text-left "
                           >
+                            Email
+                          </th>
+                          <th
+                            class="bg-table-header px-5 py-4 text-[13px] font-bold text-text-secondary uppercase tracking-widest   text-left "
+                          >
                             Address
                           </th>
                           <th
@@ -2228,6 +2528,15 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots more open st
                             class="px-5 py-4 border-b border-border-default text-base text-left "
                           >
                             <span
+                              class="text-lg text-text-secondary"
+                            >
+                              admin@megajaya.com
+                            </span>
+                          </td>
+                          <td
+                            class="px-5 py-4 border-b border-border-default text-base text-left "
+                          >
+                            <span
                               class="text-lg"
                             >
                               Jl. Sudirman No. 45, Jakarta Pusat
@@ -2246,7 +2555,7 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots more open st
                             class="px-5 py-4 border-b border-border-default text-base text-center "
                           >
                             <span
-                              class="inline-flex rounded-full px-4 py-1.5 text-lg font-semibold uppercase bg-badge-success-subtle text-badge-success"
+                              class="inline-flex rounded-full px-4 py-1.5 text-lg font-semibold uppercase bg-success-subtle text-success-strong"
                             >
                               active
                             </span>
@@ -2295,6 +2604,15 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots more open st
                             class="px-5 py-4 border-b border-border-default text-base text-left "
                           >
                             <span
+                              class="text-lg text-text-secondary"
+                            >
+                              -
+                            </span>
+                          </td>
+                          <td
+                            class="px-5 py-4 border-b border-border-default text-base text-left "
+                          >
+                            <span
                               class="text-lg"
                             >
                               Jl. Gatot Subroto No. 12, Bandung
@@ -2313,7 +2631,7 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots more open st
                             class="px-5 py-4 border-b border-border-default text-base text-center "
                           >
                             <span
-                              class="inline-flex rounded-full px-4 py-1.5 text-lg font-semibold uppercase bg-badge-success-subtle text-badge-success"
+                              class="inline-flex rounded-full px-4 py-1.5 text-lg font-semibold uppercase bg-success-subtle text-success-strong"
                             >
                               active
                             </span>
@@ -2362,6 +2680,15 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots more open st
                             class="px-5 py-4 border-b border-border-default text-base text-left "
                           >
                             <span
+                              class="text-lg text-text-secondary"
+                            >
+                              -
+                            </span>
+                          </td>
+                          <td
+                            class="px-5 py-4 border-b border-border-default text-base text-left "
+                          >
+                            <span
                               class="text-lg"
                             >
                               Jl. Diponegoro No. 88, Surabaya
@@ -2380,7 +2707,7 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots more open st
                             class="px-5 py-4 border-b border-border-default text-base text-center "
                           >
                             <span
-                              class="inline-flex rounded-full px-4 py-1.5 text-lg font-semibold uppercase bg-badge-danger-subtle text-badge-danger"
+                              class="inline-flex rounded-full px-4 py-1.5 text-lg font-semibold uppercase bg-danger-subtle text-danger-strong"
                             >
                               inactive
                             </span>
@@ -2429,6 +2756,15 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots more open st
                             class="px-5 py-4 border-b border-border-default text-base text-left "
                           >
                             <span
+                              class="text-lg text-text-secondary"
+                            >
+                              -
+                            </span>
+                          </td>
+                          <td
+                            class="px-5 py-4 border-b border-border-default text-base text-left "
+                          >
+                            <span
                               class="text-lg"
                             >
                               Jl. M.H. Thamrin No. 9, Jakarta Pusat
@@ -2447,7 +2783,7 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots more open st
                             class="px-5 py-4 border-b border-border-default text-base text-center "
                           >
                             <span
-                              class="inline-flex rounded-full px-4 py-1.5 text-lg font-semibold uppercase bg-badge-success-subtle text-badge-success"
+                              class="inline-flex rounded-full px-4 py-1.5 text-lg font-semibold uppercase bg-success-subtle text-success-strong"
                             >
                               active
                             </span>
@@ -2496,6 +2832,15 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots more open st
                             class="px-5 py-4 border-b border-border-default text-base text-left "
                           >
                             <span
+                              class="text-lg text-text-secondary"
+                            >
+                              -
+                            </span>
+                          </td>
+                          <td
+                            class="px-5 py-4 border-b border-border-default text-base text-left "
+                          >
+                            <span
                               class="text-lg"
                             >
                               Jl. Malioboro No. 23, Yogyakarta
@@ -2514,7 +2859,7 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots more open st
                             class="px-5 py-4 border-b border-border-default text-base text-center "
                           >
                             <span
-                              class="inline-flex rounded-full px-4 py-1.5 text-lg font-semibold uppercase bg-badge-success-subtle text-badge-success"
+                              class="inline-flex rounded-full px-4 py-1.5 text-lg font-semibold uppercase bg-success-subtle text-success-strong"
                             >
                               active
                             </span>
@@ -2563,6 +2908,15 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots more open st
                             class="px-5 py-4 border-b border-border-default text-base text-left "
                           >
                             <span
+                              class="text-lg text-text-secondary"
+                            >
+                              -
+                            </span>
+                          </td>
+                          <td
+                            class="px-5 py-4 border-b border-border-default text-base text-left "
+                          >
+                            <span
                               class="text-lg"
                             >
                               Jl. Pemuda No. 101, Semarang
@@ -2581,7 +2935,7 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots more open st
                             class="px-5 py-4 border-b border-border-default text-base text-center "
                           >
                             <span
-                              class="inline-flex rounded-full px-4 py-1.5 text-lg font-semibold uppercase bg-badge-danger-subtle text-badge-danger"
+                              class="inline-flex rounded-full px-4 py-1.5 text-lg font-semibold uppercase bg-danger-subtle text-danger-strong"
                             >
                               inactive
                             </span>
@@ -2630,6 +2984,15 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots more open st
                             class="px-5 py-4 border-b border-border-default text-base text-left "
                           >
                             <span
+                              class="text-lg text-text-secondary"
+                            >
+                              -
+                            </span>
+                          </td>
+                          <td
+                            class="px-5 py-4 border-b border-border-default text-base text-left "
+                          >
+                            <span
                               class="text-lg"
                             >
                               Jl. Raya Bogor KM 28, Depok
@@ -2648,7 +3011,7 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots more open st
                             class="px-5 py-4 border-b border-border-default text-base text-center "
                           >
                             <span
-                              class="inline-flex rounded-full px-4 py-1.5 text-lg font-semibold uppercase bg-badge-success-subtle text-badge-success"
+                              class="inline-flex rounded-full px-4 py-1.5 text-lg font-semibold uppercase bg-success-subtle text-success-strong"
                             >
                               active
                             </span>
@@ -2697,6 +3060,15 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots more open st
                             class="px-5 py-4 border-b border-border-default text-base text-left "
                           >
                             <span
+                              class="text-lg text-text-secondary"
+                            >
+                              -
+                            </span>
+                          </td>
+                          <td
+                            class="px-5 py-4 border-b border-border-default text-base text-left "
+                          >
+                            <span
                               class="text-lg"
                             >
                               Jl. Ahmad Yani No. 50, Medan
@@ -2715,7 +3087,7 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots more open st
                             class="px-5 py-4 border-b border-border-default text-base text-center "
                           >
                             <span
-                              class="inline-flex rounded-full px-4 py-1.5 text-lg font-semibold uppercase bg-badge-success-subtle text-badge-success"
+                              class="inline-flex rounded-full px-4 py-1.5 text-lg font-semibold uppercase bg-success-subtle text-success-strong"
                             >
                               active
                             </span>
@@ -2764,6 +3136,15 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots more open st
                             class="px-5 py-4 border-b border-border-default text-base text-left "
                           >
                             <span
+                              class="text-lg text-text-secondary"
+                            >
+                              -
+                            </span>
+                          </td>
+                          <td
+                            class="px-5 py-4 border-b border-border-default text-base text-left "
+                          >
+                            <span
                               class="text-lg"
                             >
                               Jl. HR Rasuna Said Kav. C-22, Jakarta Selatan
@@ -2782,7 +3163,7 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots more open st
                             class="px-5 py-4 border-b border-border-default text-base text-center "
                           >
                             <span
-                              class="inline-flex rounded-full px-4 py-1.5 text-lg font-semibold uppercase bg-badge-danger-subtle text-badge-danger"
+                              class="inline-flex rounded-full px-4 py-1.5 text-lg font-semibold uppercase bg-danger-subtle text-danger-strong"
                             >
                               inactive
                             </span>
@@ -2831,6 +3212,15 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots more open st
                             class="px-5 py-4 border-b border-border-default text-base text-left "
                           >
                             <span
+                              class="text-lg text-text-secondary"
+                            >
+                              -
+                            </span>
+                          </td>
+                          <td
+                            class="px-5 py-4 border-b border-border-default text-base text-left "
+                          >
+                            <span
                               class="text-lg"
                             >
                               Jl. Gajah Mada No. 14, Denpasar
@@ -2849,7 +3239,7 @@ exports[`MasterCustomer Component MasterCustomerComponent Snapshots more open st
                             class="px-5 py-4 border-b border-border-default text-base text-center "
                           >
                             <span
-                              class="inline-flex rounded-full px-4 py-1.5 text-lg font-semibold uppercase bg-badge-success-subtle text-badge-success"
+                              class="inline-flex rounded-full px-4 py-1.5 text-lg font-semibold uppercase bg-success-subtle text-success-strong"
                             >
                               active
                             </span>

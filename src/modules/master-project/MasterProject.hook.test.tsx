@@ -40,7 +40,7 @@ describe("MasterProject Navigation Hook", () => {
     const { result } = renderHook(() => useMasterProjectNavigation(), { wrapper: MemoryRouter });
 
     act(() => result.current.goBack());
-    expect(mockNavigate).toHaveBeenCalledWith(-1);
+    expect(mockNavigate).toHaveBeenCalledWith("/master-main");
 
     act(() => result.current.goCreate());
     expect(mockNavigate).toHaveBeenCalledWith("/master-project/create");

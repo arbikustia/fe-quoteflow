@@ -13,7 +13,7 @@ jest.mock("@/app/layout", () => ({ children }: { children: React.ReactNode }): R
 const props: InvoiceProps = {
   currentPage: 1,
   pageSize: 10,
-  paginatedData: [{ id: "invoice-1", transactionId: "transaction-1", invoiceNumber: "INV-001", invoiceDate: "2026-10-27", dueDate: "2026-11-27", customerName: "PT Example", name: "Annual Gala", customerPhone: "0812345678", location: "Jakarta", startDate: "2026-12-01", endDate: "2026-12-02", grandTotal: 1050000, status: 1, notes: "Invoice" }],
+  paginatedData: [{ id: "invoice-1", transactionId: "transaction-1", invoiceNumber: "INV-001", invoiceDate: "2026-11-20T12:00:00", dueDate: "2026-11-27T12:00:00", customerName: "PT Example", name: "Annual Gala", customerPhone: "0812345678", location: "Jakarta", startDate: "2026-11-20T12:00:00", endDate: "2026-11-21T15:30:00", grandTotal: 1050000, status: 1, notes: "Invoice" }],
   totalPages: 1,
   totalCount: 1,
   isLoading: false,
@@ -35,6 +35,9 @@ describe("InvoiceComponent", () => {
     expect(screen.getAllByText("INV-001").length).toBeGreaterThan(0);
     expect(screen.getAllByText("PT Example").length).toBeGreaterThan(0);
     expect(screen.getAllByText("Annual Gala").length).toBeGreaterThan(0);
+    expect(screen.getAllByText("20 November 2026 12:00").length).toBeGreaterThan(0);
+    expect(screen.getByText("21 November 2026 15:30")).toBeInTheDocument();
+    expect(screen.getByText("20 November 2026 12:00 – 21 November 2026 15:30")).toBeInTheDocument();
     expect(screen.getByRole("columnheader", { name: "Status" })).toBeInTheDocument();
     expect(screen.getAllByText("Invoice Created").length).toBeGreaterThan(0);
     expect(screen.getAllByLabelText("Edit invoice").length).toBeGreaterThan(0);
@@ -57,7 +60,7 @@ describe("InvoiceComponent", () => {
     render(<InvoiceComponent {...props} paginatedData={[{ ...props.paginatedData[0], status: 2 }]} />);
 
     const badge = screen.getAllByText("Approved")[0];
-    expect(badge).toHaveClass("text-lg");
+    expect(badge).toHaveClass("border-current", "text-base", "uppercase");
   });
 
   it("should open invoice detail from mobile card", () => {
@@ -66,7 +69,8 @@ describe("InvoiceComponent", () => {
     const card = screen.getByRole("button", { name: /INV-001.*Invoice Created.*Annual Gala/s });
     expect(card).toHaveClass("rounded-3xl");
     expect(card).toHaveClass("border-border-strong");
-    expect(card.querySelectorAll(".text-xs, .text-sm, .text-base")).toHaveLength(0);
+    expect(card.querySelector(".rounded-full")).toHaveClass("border-current", "text-base", "uppercase");
+    expect(card.querySelectorAll(".text-xs, .text-sm")).toHaveLength(0);
     expect(screen.getAllByText("INV-001")[0]).toHaveClass("text-lg");
     fireEvent.click(card);
 

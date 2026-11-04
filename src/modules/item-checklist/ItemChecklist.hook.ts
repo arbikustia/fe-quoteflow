@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { useMasterActivityLog } from "@/hooks/useMasterActivityLog";
 
 import { useGetRentalChecklistsQuery, useLazyGetRentalChecklistByIdQuery } from "@/services/rental-checklist.service";
+import { useGetRentalOrderOptionsQuery } from "@/services/rental-order.service";
 
 import { downloadChecklistPdf } from "./ItemChecklist.pdf";
 import type { ApiChecklist, ChecklistListState, ChecklistRow } from "./ItemChecklist.type";
@@ -28,6 +29,7 @@ const _mapChecklist = (checklist: ApiChecklist): ChecklistRow => {
 export const useItemChecklistNavigation = (): Pick<ChecklistListState, "onBack" | "onCreate" | "onRowClick" | "onEdit" | "onDownload" | "isDownloadingId"> => {
   const navigate = useNavigate();
   const [getChecklist] = useLazyGetRentalChecklistByIdQuery();
+  const ordersQuery = useGetRentalOrderOptionsQuery();
   const [isDownloadingId, setIsDownloadingId] = useState<string | null>(null);
   const onBack = (): void => { void navigate("/home"); };
   const onCreate = (): void => { void navigate("/item-checklist/create"); };
@@ -38,7 +40,14 @@ export const useItemChecklistNavigation = (): Pick<ChecklistListState, "onBack" 
     setIsDownloadingId(row.id);
     void getChecklist(row.id).unwrap().then((response) => {
       if (!response.status || !response.data) throw new Error(response.messages.join(" ") || "Checklist detail unavailable.");
-      downloadChecklistPdf(response.data);
+
+      const order = ordersQuery.data?.status
+        ? ordersQuery.data.data.find((entry) => entry.id === response.data?.order_id)
+        : undefined;
+
+      if (!order) throw new Error("Rental order data unavailable.");
+
+      downloadChecklistPdf(response.data, order);
     }).catch(() => {
       window.alert("Unable to download item checklist. Please try again.");
     }).finally(() => setIsDownloadingId(null));

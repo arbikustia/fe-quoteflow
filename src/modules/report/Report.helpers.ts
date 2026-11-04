@@ -1,7 +1,8 @@
 import * as React from "react";
 
 import type { QuoteData } from "@/modules/order/Order.type";
-import { formatCurrency, formatDate } from "@/modules/quotation/detail/QuotationDetail.helpers";
+import { formatCurrency } from "@/modules/quotation/detail/QuotationDetail.helpers";
+import { formatIndonesianDateTime } from "@/utils/date.helpers";
 
 import type { OrderMobileCardProps, ReportOrderData } from "./Report.type";
 
@@ -46,7 +47,7 @@ export const OrderMobileCard = (props: OrderMobileCardProps): React.ReactElement
         "span",
         { className: "min-w-0 text-lg text-text-secondary" },
         React.createElement("span", { className: "block text-lg text-text-tertiary" }, "Event period"),
-        React.createElement("span", { className: "mt-1 block break-words text-lg font-medium text-text-primary" }, `${formatDate(order.startDate)} – ${formatDate(order.endDate)}`),
+        React.createElement("span", { className: "mt-1 block break-words text-lg font-medium text-text-primary" }, `${formatIndonesianDateTime(order.startDate)} – ${formatIndonesianDateTime(order.endDate)}`),
       ),
       React.createElement(
         "span",

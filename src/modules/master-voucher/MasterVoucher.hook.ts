@@ -24,7 +24,7 @@ export const useMasterVoucherNavigation = (): MasterVoucherNavigation => {
   /**
    *
    */
-  const goBack = (): void => { navigate(-1); };
+  const goBack = (): void => { navigate("/master-main"); };
   /**
    *
    */

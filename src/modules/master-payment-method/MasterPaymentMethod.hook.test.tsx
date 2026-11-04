@@ -39,7 +39,7 @@ describe("MasterPaymentMethod.hook", () => {
       act(() => {
         result.current.goBack();
       });
-      expect(mockNavigate).toHaveBeenNthCalledWith(1, -1);
+      expect(mockNavigate).toHaveBeenNthCalledWith(1, "/master-main");
 
       act(() => {
         result.current.goCreate();

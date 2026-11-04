@@ -23,7 +23,7 @@ export const useMasterProjectNavigation = (): MasterProjectNavigation => {
    * Navigate back
    * @returns {void}
    */
-  const goBack = (): void => { navigate(-1); };
+  const goBack = (): void => { navigate("/master-main"); };
 
   /**
    * Navigate to create page

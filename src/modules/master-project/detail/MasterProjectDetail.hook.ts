@@ -49,7 +49,7 @@ export const useMasterProjectDetail = (): MasterProjectDetailState => {
    * @returns {void} No return value
    */
   const goBack = (): void => {
-    navigate(-1);
+    navigate("/master-project");
   };
 
   /**

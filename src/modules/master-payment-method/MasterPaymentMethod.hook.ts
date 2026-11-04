@@ -23,7 +23,7 @@ export const useMasterPaymentMethodNavigation = (): MasterPaymentMethodNavigatio
    * Navigate to previous page.
    * @returns {void} No return value
    */
-  const goBack = (): void => { navigate(-1); };
+  const goBack = (): void => { navigate("/master-main"); };
   /**
    * Navigate to create page.
    * @returns {void} No return value

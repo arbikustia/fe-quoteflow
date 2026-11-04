@@ -32,3 +32,14 @@ it("should close toast automatically after three seconds", (): void => {
   expect(screen.queryByRole("alert")).toBeNull();
   jest.useRealTimers();
 });
+
+it("should consume route success message when toast is shown", (): void => {
+  window.history.replaceState(
+    { idx: 1, key: "list", usr: { successMessage: "Saved", retainedValue: "keep" } },
+    document.title,
+  );
+
+  render(<AlertComponent type="success" message="Saved" toast />);
+
+  expect(window.history.state).toEqual({ idx: 1, key: "list", usr: { retainedValue: "keep" } });
+});

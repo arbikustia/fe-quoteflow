@@ -1,4 +1,5 @@
 import * as React from "react";
+import { render, screen } from "@testing-library/react";
 
 import test from "../../libs/unit-test";
 
@@ -24,7 +25,7 @@ jest.mock("../../components/SearchFilter", () => ({
 jest.mock("../../components/Table", () => () => <div data-testid="table" />);
 
 const users: UserData[] = [
-  { id: "1", username: "admin1", email: null, role: "Admin", status: "active", createAt: "2024-01-01", createBy: "Admin" },
+  { id: "1", username: "admin1", email: "admin@example.com", role: "Admin", status: "active", createAt: "2024-01-01", createBy: "Admin" },
 ];
 
 const props: MasterUserProps = {
@@ -46,6 +47,16 @@ const props: MasterUserProps = {
   onRowClick: jest.fn(),
   onBack: jest.fn(),
 };
+
+describe("MasterUserComponent", () => {
+  it("should display aligned mobile user data", () => {
+    render(React.createElement(MasterUserComponent, props));
+
+    expect(screen.getByText("admin@example.com")).toBeTruthy();
+    expect(screen.getByText("01 Januari 2024 07:00")).toBeTruthy();
+    expect(screen.getByText("active").className).toContain("border-current");
+  });
+});
 
 test.assertSnapshots(MasterUserComponent, [
   { props, desc: "default state" },

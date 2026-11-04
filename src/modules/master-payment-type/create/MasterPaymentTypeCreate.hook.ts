@@ -283,7 +283,7 @@ export const useMasterPaymentTypeCreate = (): MasterPaymentTypeCreateFormState =
    * @returns {void} No return value
    */
   const goBack = (): void => {
-    navigate(-1);
+    navigate("/master-payment-type");
   };
 
   return {

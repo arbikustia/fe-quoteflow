@@ -3,7 +3,7 @@ import autoTable from "jspdf-autotable";
 
 import FrameImage from "../assets/frame-pdf.png";
 import { MOCK_ORDER_ITEMS } from "../fixture/quotes";
-import type { QuoteData } from "../modules/order/Order.type";
+import type { QuoteData, QuotePdfItem } from "../modules/order/Order.type";
 
 type TableCell = string | number | Record<string, unknown>;
 type TableRow = TableCell[];
@@ -11,6 +11,40 @@ type TableRow = TableCell[];
 export type PdfOptions = {
   title?: string;
   filename?: string;
+};
+
+/**
+ * Append transaction items grouped by category.
+ * @param {TableRow[]} tableData - PDF table rows
+ * @param {QuotePdfItem[]} items - Transaction items
+ * @returns {number} Sum of item prices
+ */
+const _appendGroupedItems = (tableData: TableRow[], items: QuotePdfItem[]): number => {
+  const categories = new Map<string, QuotePdfItem[]>();
+  items.forEach((item): void => {
+    const categoryItems = categories.get(item.category) ?? [];
+    categoryItems.push(item);
+    categories.set(item.category, categoryItems);
+  });
+
+  let rowNumber = 1;
+  let subtotal = 0;
+  categories.forEach((categoryItems, category): void => {
+    tableData.push([{ content: category, colSpan: 6, styles: { fontStyle: "bold", fillColor: [240, 240, 240], textColor: [0, 0, 0], halign: "left" } }]);
+    categoryItems.forEach((item): void => {
+      subtotal += item.price * item.qty;
+      tableData.push([
+        { content: (rowNumber++).toString(), styles: { halign: "center" } },
+        item.name,
+        { content: item.qty.toString(), styles: { halign: "center" } },
+        { content: "Unit", styles: { halign: "center" } },
+        { content: item.price.toLocaleString("id-ID"), styles: { halign: "center" } },
+        item.remark,
+      ]);
+    });
+  });
+
+  return subtotal;
 };
 
 /**
@@ -69,7 +103,7 @@ export const generateQuotePDF = async (quote: QuoteData, options?: PdfOptions): 
 
   // --- CLIENT INFO ---
   doc.text("Kepada Yth.", 14, 58);
-  doc.text(`: Bpk/ Ibu Pimpinan Panitia ${quote.name}`, 45, 58);
+  doc.text(`: Bpk/ Ibu ${quote.customerName ?? quote.name}`, 45, 58);
   doc.text(": Di tempat", 45, 63);
 
   doc.text("Tanggal Acara", 14, 68);
@@ -97,9 +131,9 @@ export const generateQuotePDF = async (quote: QuoteData, options?: PdfOptions): 
   let no = 1;
   const rawCategories = (quote.category || "Equipment").split(", ").map(c => c.trim()).filter(Boolean);
   const categories = rawCategories.length > 0 ? rawCategories : ["Equipment"];
-  let subTotal1 = 0;
+  let subTotal1 = quote.pdfItems?.length ? _appendGroupedItems(tableData, quote.pdfItems) : 0;
 
-  categories.forEach(cat => {
+  if (!quote.pdfItems?.length) categories.forEach(cat => {
     let pricePerDay = 0;
     const catLower = cat.toLowerCase();
     if (catLower.includes("sound") || catLower.includes("audio")) pricePerDay = 15000000;

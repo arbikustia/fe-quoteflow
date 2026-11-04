@@ -3,6 +3,7 @@ import { FiCheckCircle, FiDownload, FiEdit2, FiMoreHorizontal } from "react-icon
 
 import { generateInvoicePDF } from "@/utils/pdfGenerator";
 
+import { ActionMenu } from "@/components/ActionMenu";
 import ConfirmModal from "@/components/ConfirmModal";
 
 import { invoiceToQuoteData } from "../Invoice.helpers";
@@ -10,7 +11,7 @@ import type { ApiInvoice, InvoiceDetailState } from "../Invoice.type";
 
 import Layout from "@/app/layout";
 import { PageLayout } from "@/app/shared/PageLayout";
-import { formatDate, getInvoiceStatusLabel, getStatusBadgeClass } from "@/modules/quotation/detail/QuotationDetail.helpers";
+import { formatDate, getInvoiceStatusLabel, getQuotationStatusLabel, getStatusBadgeClass } from "@/modules/quotation/detail/QuotationDetail.helpers";
 import {
   renderDetailField,
   renderItemsSection,
@@ -45,6 +46,28 @@ const _renderInvoiceOverview = (invoice: ApiInvoice): ReactElement => (
       {renderDetailField("Invoice Date", formatDate(invoice.invoice_date))}
       {renderDetailField("Due Date", formatDate(invoice.due_date))}
       {renderDetailField("Quotation No", invoice.quotation.quotation_no)}
+      {renderDetailField("Created At", formatDate(invoice.created_at))}
+      {renderDetailField("Updated At", formatDate(invoice.updated_at))}
+    </dl>
+  </section>
+);
+
+/**
+ * Render invoice and source quotation information.
+ * @param {ApiInvoice} invoice - Invoice response
+ * @returns {ReactElement} Document information section
+ */
+const _renderDocumentInformation = (invoice: ApiInvoice): ReactElement => (
+  <section className="min-w-0 overflow-hidden rounded-3xl border border-border-strong bg-background-surface shadow-small">
+    <header className="border-b border-border-default px-5 py-4 sm:px-6">
+      <h2 className="text-xl font-bold text-text-primary sm:text-lg sm:font-semibold">Document Information</h2>
+    </header>
+    <dl className="grid grid-cols-1 gap-x-8 px-5 py-1 sm:grid-cols-2 sm:px-6 sm:py-0">
+      {renderDetailField("Invoice Remark", invoice.notes || "-")}
+      {renderDetailField("Quotation Date", formatDate(invoice.quotation.quotation_date))}
+      {renderDetailField("Quotation Expired At", formatDate(invoice.quotation.expired_at))}
+      {renderDetailField("Quotation Status", getQuotationStatusLabel(invoice.quotation.status))}
+      {renderDetailField("Quotation Remark", invoice.quotation.notes || "-")}
     </dl>
   </section>
 );
@@ -65,6 +88,7 @@ const _renderDetails = (invoice: ApiInvoice): ReactElement => {
         <div className="min-w-0 lg:[&_dl]:grid-cols-3 xl:[&_dl]:grid-cols-4">
           {renderTransactionSection(transaction)}
         </div>
+        {_renderDocumentInformation(invoice)}
         <div className="grid min-w-0 grid-cols-1 items-start gap-4 sm:gap-4 lg:grid-cols-[minmax(0,2fr)_minmax(20rem,1fr)]">
           <div className="min-w-0 space-y-4 sm:space-y-4">
             {serviceTypeName === "REGULER" && renderItemsSection(transaction.rental_transaction_items)}
@@ -105,7 +129,7 @@ const _renderSkeletonOverview = (): ReactElement => (
       <div className="h-7 w-32 rounded-full bg-background-subtle" />
     </div>
     <div className="mt-4 grid grid-cols-1 gap-x-8 border-t border-border-default sm:mt-5 sm:grid-cols-2 lg:grid-cols-4">
-      {Array.from({ length: 3 }, (_value, index) => _renderSkeletonField(index))}
+      {Array.from({ length: 5 }, (_value, index) => _renderSkeletonField(index))}
     </div>
   </section>
 );
@@ -166,7 +190,8 @@ const _renderDetailSkeleton = (): ReactElement => (
     <div className="animate-pulse" aria-hidden="true">
       {_renderSkeletonOverview()}
       <div className="mt-4 space-y-4 sm:mt-4 sm:space-y-4">
-        {_renderSkeletonSection(10, "Loading transaction and event", true)}
+        {_renderSkeletonSection(12, "Loading transaction and event", true)}
+        {_renderSkeletonSection(5, "Loading document information")}
         <div className="grid min-w-0 grid-cols-1 items-start gap-4 sm:gap-4 lg:grid-cols-[minmax(0,2fr)_minmax(20rem,1fr)]">
           <div className="min-w-0 space-y-4 sm:space-y-4">
             {_renderSkeletonRental()}
@@ -216,16 +241,11 @@ const _renderHeaderActions = (props: InvoiceDetailState, approveLabel: string): 
   };
 
   return (
-    <details className="relative shrink-0">
-      <summary data-testid="invoice-detail-actions" className="flex h-14 w-14 cursor-pointer list-none items-center justify-center rounded-3xl border border-border-default text-text-secondary transition-colors hover:bg-background-subtle hover:text-text-primary" aria-label="More options">
-        <FiMoreHorizontal className="h-7 w-7" aria-hidden="true" />
-      </summary>
-      <div role="menu" className="absolute right-0 top-16 z-20 w-56 overflow-hidden rounded-3xl border border-border-default bg-background-surface py-2 shadow-lg">
-        {invoice.status === 1 && onEditClick && <button type="button" role="menuitem" onClick={onEditClick} className="flex w-full items-center gap-3 px-5 py-3.5 text-left text-lg font-semibold text-text-primary transition-colors hover:bg-background-subtle"><FiEdit2 className="h-5 w-5" aria-hidden="true" />Edit</button>}
-        {invoice.status === 1 && <button type="button" role="menuitem" onClick={props.openApproveModal} disabled={props.isApproving} className="flex w-full items-center gap-3 px-5 py-3.5 text-left text-lg font-semibold text-success-strong transition-colors hover:bg-success-subtle disabled:cursor-not-allowed disabled:opacity-60"><FiCheckCircle className="h-5 w-5" aria-hidden="true" />{approveLabel}</button>}
-        <button type="button" role="menuitem" onClick={handleDownloadPdf} className="flex w-full items-center gap-3 px-5 py-3.5 text-left text-lg font-semibold text-text-primary transition-colors hover:bg-background-subtle"><FiDownload className="h-5 w-5" aria-hidden="true" />Download PDF</button>
-      </div>
-    </details>
+    <ActionMenu testId="invoice-detail-actions" icon={<FiMoreHorizontal className="h-7 w-7" aria-hidden="true" />}>
+      {invoice.status === 1 && onEditClick && <button type="button" role="menuitem" onClick={onEditClick} className="flex w-full items-center gap-3 px-5 py-3.5 text-left text-lg font-semibold text-text-primary transition-colors hover:bg-background-subtle"><FiEdit2 className="h-5 w-5" aria-hidden="true" />Edit</button>}
+      {invoice.status === 1 && <button type="button" role="menuitem" onClick={props.openApproveModal} disabled={props.isApproving} className="flex w-full items-center gap-3 px-5 py-3.5 text-left text-lg font-semibold text-success-strong transition-colors hover:bg-success-subtle disabled:cursor-not-allowed disabled:opacity-60"><FiCheckCircle className="h-5 w-5" aria-hidden="true" />{approveLabel}</button>}
+      <button type="button" role="menuitem" onClick={handleDownloadPdf} className="flex w-full items-center gap-3 px-5 py-3.5 text-left text-lg font-semibold text-text-primary transition-colors hover:bg-background-subtle"><FiDownload className="h-5 w-5" aria-hidden="true" />Download PDF</button>
+    </ActionMenu>
   );
 };
 

@@ -6,16 +6,21 @@ import { PageLayout } from "@/app/shared/PageLayout";
 import { ItemReturnCreateForm } from "./ItemReturnCreate.component";
 import { useItemReturnCreate } from "./ItemReturnCreate.hook";
 
+/**
+ * Render Item Return create or edit page.
+ * @returns {ReactElement} Item Return page
+ */
 const ItemReturnCreate = (): ReactElement => {
   const form = useItemReturnCreate();
-  const title = form.isEditMode ? "Edit Return" : "Return Item";
+  const title = form.isEditMode ? "Edit Item Return" : "New Item Return";
+  const subtitle = form.isEditMode ? "Update the item return details below." : "Fill in the item return details below.";
 
   return (
     <Layout pageTitle={title}>
       <PageLayout
         title={title}
-        subtitle={form.isEditMode ? "Update rental item return." : "Create rental item return."}
-        breadcrumbs={["Item Return", title]}
+        subtitle={subtitle}
+        breadcrumbs={["Item Return", "Item Return List", title]}
         mobileHeaderClassName="px-0"
         mobileTitleClassName="text-4xl"
         onBack={form.goBack}

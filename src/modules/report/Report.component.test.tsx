@@ -63,6 +63,10 @@ describe("ReportOrderComponent", () => {
 
     expect(screen.getAllByText("ORDER-001").length).toBeGreaterThan(0);
     expect(screen.getAllByText("Arbi").length).toBeGreaterThan(0);
+    expect(screen.getAllByText("31 Oktober 2026 06:00").length).toBeGreaterThan(0);
+    expect(screen.getAllByText("01 November 2026 06:00").length).toBeGreaterThan(0);
+    expect(screen.queryByText("2026-10-31 06:00:00")).not.toBeInTheDocument();
+    expect(screen.queryByText("2026-11-01 06:00:00")).not.toBeInTheDocument();
   });
 
   it("should show Order Report title and quotation-style card on mobile", () => {
@@ -82,6 +86,7 @@ describe("ReportOrderComponent", () => {
     expect(card?.querySelector(".border-t")?.textContent).toContain("Total");
     expect(card?.textContent).toContain("Resepsi12");
     expect(card?.textContent).toContain("Arbi");
+    expect(card?.textContent).toContain("31 Oktober 2026 06:00 – 01 November 2026 06:00");
   });
 
   it("should open status form from desktop edit icon and mobile card", () => {

@@ -21,8 +21,10 @@ describe("QuotationStatusForm", () => {
     render(<QuotationStatusForm {...createProps()} />);
 
     expect(screen.getByText("QUO-001")).toBeTruthy();
+    expect(screen.getByText("approved").className).toContain("border-current");
     expect(screen.getByRole("switch", { name: "Approve this quotation" }).getAttribute("aria-checked")).toBe("true");
-    expect(screen.getByRole("button", { name: "Approve Quotation" })).toBeTruthy();
+    expect(screen.getByRole("button", { name: "Cancel" }).className).toContain("h-14");
+    expect(screen.getByRole("button", { name: "Approve Quotation" }).className).toContain("rounded-xl");
   });
 
   it("should change status without submitting automatically", (): void => {

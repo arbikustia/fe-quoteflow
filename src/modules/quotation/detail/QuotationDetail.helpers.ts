@@ -25,6 +25,15 @@ import type {
 export const formatCurrency = (amount: number): string => `Rp ${amount.toLocaleString("id-ID")}`;
 
 /**
+ * Format percentage discount as Rupiah amount and percentage.
+ * @param {number} subtotal - Transaction subtotal
+ * @param {number} discountPercent - Discount percentage
+ * @returns {string} Formatted discount amount and percentage
+ */
+export const formatDiscount = (subtotal: number, discountPercent: number): string =>
+  `${formatCurrency(Math.round(subtotal * discountPercent / 100))} (${discountPercent}%)`;
+
+/**
  * formatDate.
  * @param {string} dateString - dateString value.
  * @returns {string} - result.
@@ -116,7 +125,7 @@ export const mapQuotationInfo = (data: ApiQuotation): QuotationInfoSection => ({
  */
 export const mapQuotationTx = (tx: ApiQuotationTransaction): QuotationTxSummary => ({
   eventName: tx.event_name, serviceTypeName: tx.service_type_name || "-", startAt: formatDate(tx.start_at), endAt: formatDate(tx.end_at),
-  subtotal: formatCurrency(tx.subtotal), serviceFee: formatCurrency(tx.service_fee), discount: formatCurrency(tx.discount), grandTotal: formatCurrency(tx.grand_total),
+  subtotal: formatCurrency(tx.subtotal), serviceFee: formatCurrency(tx.service_fee), discount: formatDiscount(tx.subtotal, tx.discount), grandTotal: formatCurrency(tx.grand_total),
 });
 
 /**

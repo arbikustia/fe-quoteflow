@@ -44,14 +44,24 @@ export type OrderListParams = {
   searchTerm: string;
 };
 
+export type QuotePdfItem = {
+  name: string;
+  category: string;
+  qty: number;
+  price: number;
+  remark: string;
+};
+
 export type QuoteData = {
   id: string;
   name: string;
+  customerName?: string;
   startDate: string;
   endDate: string;
   location: string;
   category: string;
   selectedItems: string[];
+  pdfItems?: QuotePdfItem[];
   qty: number;
   pph: number;
   discount: number;

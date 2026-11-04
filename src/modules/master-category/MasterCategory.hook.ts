@@ -23,7 +23,7 @@ import type {
  */
 export const useMasterCategoryNavigation = (): MasterCategoryNavigation => {
   const navigate = useNavigate();
-  const goBack = (): void => { navigate(-1); };
+  const goBack = (): void => { navigate("/master-main"); };
   const goCreate = (): void => { navigate("/master-category/create"); };
   const goEdit = (category: CategoryData): void => { navigate(`/master-category/edit/${category.id}`, { state: { category } }); };
   return { goBack, goCreate, goEdit };

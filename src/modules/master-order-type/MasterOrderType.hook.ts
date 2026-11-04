@@ -24,7 +24,7 @@ export const useMasterOrderTypeNavigation = (): MasterOrderTypeNavigation => {
    * @returns {void}
    */
   const goBack = (): void => {
-    navigate(-1);
+    navigate("/master-main");
   };
 
   /**

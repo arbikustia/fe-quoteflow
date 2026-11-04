@@ -46,7 +46,7 @@ describe("MasterCustomer hook", () => {
       const { result } = renderHook(() => useMasterCustomerNavigation());
 
       act(() => { result.current.goBack(); });
-      expect(mockNavigate).toHaveBeenCalledWith(-1);
+      expect(mockNavigate).toHaveBeenCalledWith("/master-main");
 
       act(() => { result.current.goCreate(); });
       expect(mockNavigate).toHaveBeenCalledWith("/master-customer/create");

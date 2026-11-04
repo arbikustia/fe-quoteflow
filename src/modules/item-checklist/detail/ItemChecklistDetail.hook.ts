@@ -1,6 +1,7 @@
 import { useNavigate, useParams } from "react-router-dom";
 
 import { useGetRentalChecklistByIdQuery } from "@/services/rental-checklist.service";
+import { useGetRentalOrderOptionsQuery } from "@/services/rental-order.service";
 
 import type { ItemChecklistDetailState } from "./ItemChecklistDetail.type";
 import { downloadChecklistPdf } from "../ItemChecklist.pdf";
@@ -10,6 +11,7 @@ export const useItemChecklistDetail = (): ItemChecklistDetailState => {
   const navigate = useNavigate();
   const { id = "" } = useParams<{ id: string }>();
   const query = useGetRentalChecklistByIdQuery(id, { skip: !id });
+  const ordersQuery = useGetRentalOrderOptionsQuery();
   let errorMessage: string | null = null;
 
   if (!id || query.error) {
@@ -21,9 +23,18 @@ export const useItemChecklistDetail = (): ItemChecklistDetailState => {
   const goBack = (): void => { void navigate("/item-checklist"); };
   const goEdit = (): void => { if (id) void navigate(`/item-checklist/create/${id}`); };
   const onDownload = (): void => {
-    if (query.data?.data) {
-      downloadChecklistPdf(query.data.data);
+    const checklist = query.data?.data;
+    const order = checklist && ordersQuery.data?.status
+      ? ordersQuery.data.data.find((entry) => entry.id === checklist.order_id)
+      : undefined;
+
+    if (!checklist || !order) {
+      window.alert("Unable to download item checklist. Rental order data is unavailable.");
+
+      return;
     }
+
+    downloadChecklistPdf(checklist, order);
   };
 
   return { checklist: query.data?.data ?? null, isLoading: query.isLoading, errorMessage, goBack, goEdit, onDownload };

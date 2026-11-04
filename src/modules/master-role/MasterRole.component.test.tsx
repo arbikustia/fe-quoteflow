@@ -1,6 +1,7 @@
 import { fireEvent, render, screen } from "@/libs/unit-test";
 
 import { MasterRoleComponent } from "./MasterRole.component";
+import { formatRoleDate } from "./MasterRole.helpers";
 import type { MasterRoleProps, RoleData } from "./MasterRole.type";
 
 jest.mock("../../app/layout", () => ({
@@ -60,6 +61,11 @@ const createProps = (overrides: Partial<MasterRoleProps> = {}): MasterRoleProps 
 });
 
 describe("MasterRoleComponent", () => {
+  it("should format created date using Indonesian month and 24-hour time", () => {
+    expect(formatRoleDate("2026-06-01T21:51:00")).toBe("01 Juni 2026 21:51");
+    expect(formatRoleDate("invalid-date")).toBe("invalid-date");
+  });
+
   it("should render role data and forward list actions", () => {
     const props = createProps();
     render(<MasterRoleComponent {...props} />);

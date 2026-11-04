@@ -1,4 +1,5 @@
-import * as React from "react";
+/* eslint-disable jsdoc/require-param-description, jsdoc/require-param-type, jsdoc/require-returns */
+import React from "react";
 import { FiDownload, FiEdit2 } from "react-icons/fi";
 
 import Layout from "../../app/layout";
@@ -7,6 +8,7 @@ import { Pagination } from "../../components/Pagination";
 import { SearchFilter } from "../../components/SearchFilter";
 import type { TableColumn } from "../../components/Table";
 import Table from "../../components/Table";
+import { formatIndonesianDateTime } from "../../utils/date.helpers";
 
 import type { MasterVoucherProps, VoucherData } from "./MasterVoucher.type";
 
@@ -54,7 +56,7 @@ const _renderDiscount = (voucher: VoucherData): React.ReactElement => (
  * @returns {React.ReactElement} Status cell
  */
 const _renderStatus = (voucher: VoucherData): React.ReactElement => (
-  <span className={`inline-flex rounded-full px-4 py-1.5 text-lg font-semibold uppercase ${voucher.status === "active" ? "bg-badge-success-subtle text-badge-success" : "bg-badge-danger-subtle text-badge-danger"}`}>
+  <span className={`inline-flex rounded-full border border-current px-3 py-1 text-base font-semibold uppercase ${voucher.status === "active" ? "bg-success-subtle text-success-strong" : "bg-danger-subtle text-danger-strong"}`}>
     {voucher.status}
   </span>
 );
@@ -65,7 +67,7 @@ const _renderStatus = (voucher: VoucherData): React.ReactElement => (
  * @returns {React.ReactElement} Date cell
  */
 const _renderDate = (voucher: VoucherData): React.ReactElement => (
-  <span className="text-lg text-text-secondary">{voucher.createAt ?? "-"}</span>
+  <span className="text-lg text-text-secondary">{voucher.createAt ? formatIndonesianDateTime(voucher.createAt) : "-"}</span>
 );
 
 /**
@@ -76,12 +78,18 @@ const _renderDate = (voucher: VoucherData): React.ReactElement => (
  * @returns {React.ReactElement} Action cell
  */
 const _renderActions = (voucher: VoucherData, onEdit: MasterVoucherProps["onEdit"], onDownload: MasterVoucherProps["onDownload"]): React.ReactElement => {
-  /** Handle voucher download. */
+  /**
+   * Handle voucher download.
+   * @param event
+   */
   const handleDownload = (event: React.MouseEvent): void => {
     event.stopPropagation();
     onDownload?.(voucher);
   };
-  /** Handle voucher edit. */
+  /**
+   * Handle voucher edit.
+   * @param event
+   */
   const handleEdit = (event: React.MouseEvent): void => {
     event.stopPropagation();
     onEdit(voucher);
@@ -105,7 +113,16 @@ const _renderActions = (voucher: VoucherData, onEdit: MasterVoucherProps["onEdit
  * @returns {TableColumn<VoucherData>[]} Voucher columns
  */
 const _getColumns = (props: MasterVoucherProps): TableColumn<VoucherData>[] => {
+  /**
+   *
+   * @param _voucher
+   * @param index
+   */
   const renderNumber = (_voucher: VoucherData, index: number): React.ReactElement => _renderNumber(props.currentPage, props.pageSize, index);
+  /**
+   *
+   * @param voucher
+   */
   const renderActions = (voucher: VoucherData): React.ReactElement => _renderActions(voucher, props.onEdit, props.onDownload);
 
   return [
@@ -204,17 +221,20 @@ const _renderMobileCardSkeleton = (key: number): React.ReactElement => (
  * @returns {React.ReactElement} Voucher card
  */
 const _renderVoucherCard = (voucher: VoucherData, onEdit: MasterVoucherProps["onEdit"]): React.ReactElement => {
+  /**
+   *
+   */
   const handleClick = (): void => onEdit(voucher);
 
   return (
     <button type="button" onClick={handleClick} className="group block w-full min-w-0 rounded-3xl border border-border-strong bg-background-surface p-5 text-left shadow-small transition-colors hover:border-border-strong hover:bg-background-subtle/40 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-action-primary">
       <span className="flex min-w-0 flex-wrap items-center justify-between gap-3">
         <span className="min-w-0 break-words text-xl font-semibold text-text-primary">{voucher.code}</span>
-        <span className={`rounded-full px-3.5 py-1 text-lg font-semibold uppercase ${voucher.status === "active" ? "bg-badge-success-subtle text-badge-success" : "bg-badge-danger-subtle text-badge-danger"}`}>{voucher.status}</span>
+        <span className={`rounded-full border border-current px-3 py-1 text-base font-semibold uppercase ${voucher.status === "active" ? "bg-success-subtle text-success-strong" : "bg-danger-subtle text-danger-strong"}`}>{voucher.status}</span>
       </span>
       <span className="mt-4 flex flex-wrap items-end justify-between gap-x-4 gap-y-3 border-t border-border-default pt-4">
         <span className="min-w-0"><span className="block text-lg text-text-tertiary">Discount</span><span className="mt-1 block text-lg font-medium text-text-primary">{voucher.discountPercent}%</span></span>
-        <span className="min-w-0 text-right"><span className="block text-lg text-text-tertiary">Created</span><span className="mt-1 block text-lg font-medium text-text-primary">{voucher.createAt ?? "-"}</span></span>
+        <span className="min-w-0 text-right"><span className="block text-lg text-text-tertiary">Created At</span><span className="mt-1 block text-lg font-medium text-text-primary">{voucher.createAt ? formatIndonesianDateTime(voucher.createAt) : "-"}</span></span>
       </span>
     </button>
   );
@@ -226,6 +246,10 @@ const _renderVoucherCard = (voucher: VoucherData, onEdit: MasterVoucherProps["on
  * @returns {React.ReactElement} Mobile element
  */
 const _renderMobile = (props: MasterVoucherProps): React.ReactElement => {
+  /**
+   *
+   * @param event
+   */
   const handleSearch = (event: React.ChangeEvent<HTMLInputElement>): void => props.setSearchTerm(event.target.value);
 
   return (
@@ -245,6 +269,10 @@ const _renderMobile = (props: MasterVoucherProps): React.ReactElement => {
  * @returns {React.ReactElement} Desktop element
  */
 const _renderDesktop = (props: MasterVoucherProps): React.ReactElement => {
+  /**
+   *
+   * @param event
+   */
   const handleSearch = (event: React.ChangeEvent<HTMLInputElement>): void => props.setSearchTerm(event.target.value);
 
   return (

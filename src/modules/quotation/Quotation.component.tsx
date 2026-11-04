@@ -1,6 +1,7 @@
 import * as React from "react";
 import { FiDownload, FiEdit2, FiEye } from "react-icons/fi";
 
+import { formatIndonesianDateTime } from "@/utils/date.helpers";
 import { generateQuotationPDF } from "@/utils/pdfGenerator";
 
 import { Pagination } from "@/components/Pagination";
@@ -29,14 +30,15 @@ const _renderRowNumber = (_row: QuotationData, index: number, props: QuotationPr
 /**
  * Render quotation download action.
  * @param {QuotationData} row - quotation row.
+ * @param {QuotationProps} props - quotation state and item categories.
  * @returns {React.ReactElement} Download action.
  */
-const _renderDownloadAction = (row: QuotationData): React.ReactElement => (
+const _renderDownloadAction = (row: QuotationData, props: QuotationProps): React.ReactElement => (
   <button
     type="button"
     onClick={(event: React.MouseEvent): void => {
       event.stopPropagation();
-      void generateQuotationPDF(quotationToQuoteData(row));
+      void generateQuotationPDF(quotationToQuoteData(row, props.itemCategories));
     }}
     className="cursor-pointer rounded-3xl p-2.5 text-text-secondary hover:bg-action-primary-subtle hover:text-action-primary"
     title="Download PDF"
@@ -94,7 +96,7 @@ const _renderStatusAction = (row: QuotationData, props: QuotationProps): React.R
  * @returns {React.ReactElement} Status badge.
  */
 const _renderStatus = (row: QuotationData): React.ReactElement => (
-  <span className={`inline-flex rounded-full px-4 py-1.5 text-lg font-semibold ${getStatusBadgeClass(row.status)}`}>
+  <span className={`inline-flex rounded-full border border-current px-3 py-1 text-base font-semibold uppercase ${getStatusBadgeClass(row.status)}`}>
     {getQuotationStatusLabel(row.status)}
   </span>
 );
@@ -107,7 +109,7 @@ const _renderStatus = (row: QuotationData): React.ReactElement => (
  */
 const _renderActions = (row: QuotationData, props: QuotationProps): React.ReactElement => (
   <div className="flex items-center justify-center gap-1">
-    {_renderDownloadAction(row)}
+    {_renderDownloadAction(row, props)}
     {_renderDetailAction(row, props)}
     {_renderStatusAction(row, props)}
   </div>
@@ -146,7 +148,7 @@ const _renderEventName = (row: QuotationData): React.ReactElement => (
  * @returns {React.ReactElement} Quotation date element
  */
 const _renderQuotationDate = (row: QuotationData): React.ReactElement => (
-  <span className="text-lg">{row.quotationDate}</span>
+  <span className="text-lg">{formatIndonesianDateTime(row.quotationDate)}</span>
 );
 
 /**
@@ -155,7 +157,7 @@ const _renderQuotationDate = (row: QuotationData): React.ReactElement => (
  * @returns {React.ReactElement} Start date element
  */
 const _renderStartDate = (row: QuotationData): React.ReactElement => (
-  <span className="text-lg">{row.startDate}</span>
+  <span className="text-lg">{formatIndonesianDateTime(row.startDate)}</span>
 );
 
 /**
@@ -164,7 +166,7 @@ const _renderStartDate = (row: QuotationData): React.ReactElement => (
  * @returns {React.ReactElement} End date element
  */
 const _renderEndDate = (row: QuotationData): React.ReactElement => (
-  <span className="text-lg">{row.endDate}</span>
+  <span className="text-lg">{formatIndonesianDateTime(row.endDate)}</span>
 );
 
 /**

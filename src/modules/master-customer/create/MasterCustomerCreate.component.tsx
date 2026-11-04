@@ -2,6 +2,7 @@ import type { ReactElement } from "react";
 import type { FieldError } from "react-hook-form";
 
 import { AlertComponent } from "@/components/Alert";
+import { BackButton } from "@/components/BackButton";
 import { InputComponent } from "@/components/Input";
 import { SwitchComponent } from "@/components/Switch";
 
@@ -40,25 +41,17 @@ const _renderMobileBack = (
   goBack: () => void,
 ): ReactElement => {
   const title = isEditMode ? "Edit Customer" : "New Customer";
-  const subtitle = isEditMode
-    ? "Update the customer details below."
-    : "Fill in the customer details below.";
 
   return (
     <div className="mb-6 flex items-center gap-3 bg-background-page lg:hidden">
-      <button
-        type="button"
-        onClick={goBack}
-        aria-label="Back"
-        className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full border border-border-default bg-background-page text-text-primary transition-colors hover:bg-background-subtle"
-      >
-        {_renderBackIcon()}
-      </button>
+      <BackButton onClick={goBack} />
       <div className="min-w-0">
         <h2 className="truncate text-4xl font-semibold tracking-tight text-text-primary">
           {title}
         </h2>
-        <p className="mt-1 truncate text-sm text-text-secondary">{subtitle}</p>
+        <p className="mt-1 truncate text-sm text-text-secondary">
+          {isEditMode ? "Update the customer details below." : "Fill in the customer details below."}
+        </p>
       </div>
     </div>
   );
@@ -75,35 +68,35 @@ const _renderHeaderSection = (
   goBack: () => void,
 ): ReactElement => {
   const title = isEditMode ? "Edit Customer" : "New Customer";
-  const subtitle = isEditMode
-    ? "Update the customer details below."
-    : "Fill in the customer details below.";
+  const subtitle = isEditMode ? "Update the customer details below." : "Fill in the customer details below.";
 
   return (
-    <>
+    <div className="hidden lg:block">
       <nav
         aria-label="Breadcrumb"
-        className="mb-2 hidden items-center gap-2 text-sm font-medium text-text-secondary lg:flex"
+        className="mb-2 flex items-center gap-2 text-[15px] font-medium text-text-secondary"
       >
         <button
           type="button"
           onClick={goBack}
           className="cursor-pointer hover:text-text-primary"
         >
-          Master Customer
+          Master
         </button>
+        <span aria-hidden="true">/</span>
+        <span>Master Customer</span>
         <span aria-hidden="true">/</span>
         <span className="text-text-primary">{title}</span>
       </nav>
-      <div className="mb-6 hidden lg:block">
+      <div className="mb-6">
         <h2 className="text-4xl font-semibold leading-tight tracking-tight text-text-primary">
           {title}
         </h2>
-        <p className="mt-3 text-sm font-medium text-text-secondary opacity-70">
+        <p className="mt-2 text-sm text-text-secondary">
           {subtitle}
         </p>
       </div>
-    </>
+    </div>
   );
 };
 
@@ -302,10 +295,11 @@ const _renderSubmitSection = (
   const submittingText = isEditMode ? "Updating…" : "Creating…";
 
   return (
-    <div className="mt-8 flex justify-between gap-3 border-t border-border-default/60 pt-5 lg:mt-6 lg:border-border-default">
+    <div className="mt-auto flex justify-between gap-3 border-t border-border-default/60 pt-5 lg:border-border-default">
       <button
         type="button"
         onClick={goBack}
+        disabled={isSubmitting}
         className="h-14 cursor-pointer rounded-xl border border-border-default px-8 text-lg font-semibold text-text-primary transition-colors hover:bg-background-subtle focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-action-primary disabled:cursor-not-allowed disabled:opacity-50 lg:text-lg"
       >
         Cancel
@@ -329,11 +323,11 @@ const _renderSubmitSection = (
 const _renderFormCard = (
   props: MasterCustomerCreateFormState,
 ): ReactElement => (
-  <form
-    noValidate
-    onSubmit={props.handleSubmit}
-    className="mb-6 flex flex-col rounded-3xl border border-border-default bg-background-surface p-6 shadow-small sm:p-8 lg:mb-5 lg:rounded-3xl lg:p-10"
-  >
+    <form
+      noValidate
+      onSubmit={props.handleSubmit}
+      className="mb-6 flex flex-col rounded-3xl border border-border-default bg-background-surface p-6 shadow-small sm:p-8 lg:-mt-4 lg:mb-5 lg:flex-1 lg:rounded-3xl lg:p-10"
+    >
     <div className="pb-6">
       <section className="space-y-5">
         <div className="grid w-full grid-cols-1 gap-x-6 gap-y-5 lg:grid-cols-2">

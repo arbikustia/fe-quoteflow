@@ -255,7 +255,7 @@ export const useMasterOrderTypeCreate = (): MasterOrderTypeCreateFormState => {
   });
 
   const goBack = (): void => {
-    navigate(-1);
+    navigate("/master-order-type");
   };
 
   return {

@@ -37,7 +37,12 @@ const _renderPageButtons = (pages: number[], currentPage: number, onPageChange: 
  */
 const _getVisiblePages = (currentPage: number, totalPages: number, isCompact: boolean): number[] => {
   if (isCompact) {
-    return [currentPage];
+    if (totalPages <= 5) {
+      return Array.from({ length: totalPages }, (_, index) => index + 1);
+    }
+    const startPage = Math.max(1, Math.min(currentPage - 1, totalPages - 2));
+    const pages = [startPage, startPage + 1, startPage + 2];
+    return pages.filter((page) => page >= 1 && page <= totalPages);
   }
 
   if (totalPages <= 7) {
@@ -118,7 +123,7 @@ export const Pagination = (props: PaginationProps): React.ReactElement => {
             value={String(pageSize)}
             options={DEFAULT_PAGE_SIZES.map((size) => ({ value: String(size), label: String(size) }))}
             onChange={(value): void => onPageSizeChange(Number(value))}
-            className={`${isCompact ? "w-auto" : "w-[180px] sm:w-auto sm:min-w-[100px]"} shrink-0`}
+            className={`${isCompact ? "w-24" : "w-[180px] sm:w-auto sm:min-w-[100px]"} shrink-0`}
             popupClassName="pagination-page-size-dropdown"
           />
         </div>

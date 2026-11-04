@@ -2,6 +2,7 @@ import type { ReactElement } from "react";
 import type { FieldError } from "react-hook-form";
 
 import { AlertComponent } from "@/components/Alert";
+import { BackButton } from "@/components/BackButton";
 import { InputComponent } from "@/components/Input";
 import { SwitchComponent } from "@/components/Switch";
 
@@ -19,34 +20,7 @@ const _getFieldError = (error: FieldError | undefined): string | null =>
  * Render back icon.
  * @returns {ReactElement} Back icon
  */
-const _renderBackIcon = (): ReactElement => (
-  <svg
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2.5"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-    className="h-6 w-6"
-    aria-hidden="true"
-  >
-    <path d="M19 12H5M12 19l-7-7 7-7" />
-  </svg>
-);
 
-/**
- * Get page copy.
- * @param {boolean} isEditMode - Edit mode flag
- * @returns {{ title: string; subtitle: string }} Page copy
- */
-const _getPageCopy = (
-  isEditMode: boolean,
-): { title: string; subtitle: string } => ({
-  title: isEditMode ? "Edit Payment Method" : "New Payment Method",
-  subtitle: isEditMode
-    ? "Update the payment method details below."
-    : "Fill in the payment method details below.",
-});
 
 /**
  * Render mobile back bar.
@@ -58,18 +32,12 @@ const _renderMobileBack = (
   isEditMode: boolean,
   goBack: () => void,
 ): ReactElement => {
-  const { title, subtitle } = _getPageCopy(isEditMode);
+  const title = isEditMode ? "Edit Payment Method" : "New Payment Method";
+  const subtitle = isEditMode ? "Update payment method information." : "Create a payment method for transactions.";
 
   return (
     <div className="mb-6 flex items-center gap-3 bg-background-page lg:hidden">
-      <button
-        type="button"
-        onClick={goBack}
-        aria-label="Back"
-        className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full border border-border-default bg-background-page text-text-primary transition-colors hover:bg-background-subtle focus-visible:ring-2 focus-visible:ring-focus-ring/30"
-      >
-        {_renderBackIcon()}
-      </button>
+      <BackButton onClick={goBack} />
       <div className="min-w-0">
         <h2 className="truncate text-4xl font-semibold tracking-tight text-text-primary">
           {title}
@@ -90,33 +58,21 @@ const _renderHeader = (
   isEditMode: boolean,
   goBack: () => void,
 ): ReactElement => {
-  const { title, subtitle } = _getPageCopy(isEditMode);
+  const title = isEditMode ? "Edit Payment Method" : "New Payment Method";
+  const subtitle = isEditMode ? "Update payment method information." : "Create a payment method for transactions.";
 
   return (
-    <>
-      <nav
-        aria-label="Breadcrumb"
-        className="mb-2 hidden items-center gap-2 text-sm font-medium text-text-secondary lg:flex"
-      >
-        <button
-          type="button"
-          onClick={goBack}
-          className="cursor-pointer hover:text-text-primary"
-        >
-          Master Payment Method
-        </button>
+    <div className="mb-6 hidden lg:block">
+      <nav aria-label="Breadcrumb" className="mb-2 flex items-center gap-2 text-[15px] font-medium text-text-secondary">
+        <button type="button" onClick={goBack} className="cursor-pointer hover:text-text-primary">Master</button>
+        <span aria-hidden="true">/</span>
+        <span>Master Payment Method</span>
         <span aria-hidden="true">/</span>
         <span className="text-text-primary">{title}</span>
       </nav>
-      <div className="mb-6 hidden lg:block">
-        <h2 className="text-4xl font-semibold leading-tight tracking-tight text-text-primary">
-          {title}
-        </h2>
-        <p className="mt-3 text-sm font-medium text-text-secondary opacity-70">
-          {subtitle}
-        </p>
-      </div>
-    </>
+      <h2 className="text-4xl font-semibold leading-tight tracking-tight text-text-primary">{title}</h2>
+      <p className="mt-2 text-sm text-text-secondary">{subtitle}</p>
+    </div>
   );
 };
 
@@ -206,16 +162,15 @@ const _renderStatusField = (
   return (
     <div className="flex items-center justify-between rounded-2xl border-2 border-border-strong bg-background-surface px-5 py-4 lg:col-span-2">
       <div className="flex flex-col">
-        <span className="text-lg font-normal text-text-primary">Status</span>
-        <span className="text-lg text-text-secondary">
-          Toggle active or inactive status
-        </span>
+        <div className="flex items-center gap-2.5">
+          <span className="text-lg font-normal text-text-primary">Status</span>
+          <span className={`inline-flex rounded-full px-3 py-0.5 text-base font-semibold uppercase ${props.isActive ? "bg-success-subtle text-success-strong" : "bg-danger-subtle text-danger-strong"}`}>
+            {props.isActive ? "active" : "inactive"}
+          </span>
+        </div>
+        <span className="text-base text-text-secondary">Toggle active or inactive status</span>
       </div>
-      <SwitchComponent
-        label="Payment method status"
-        checked={props.isActive}
-        onChange={props.handleStatusChange}
-      />
+      <SwitchComponent label="Payment method status" checked={props.isActive} onChange={props.handleStatusChange} />
     </div>
   );
 };

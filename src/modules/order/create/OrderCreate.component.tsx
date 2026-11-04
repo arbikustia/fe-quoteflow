@@ -1,17 +1,19 @@
 import * as React from "react";
 
+import { BackButton } from "@/components/BackButton";
 import { DateRangePicker } from "@/components/DateRangePicker";
 import { InputComponent } from "@/components/Input";
 import { Select } from "@/components/Select";
 
 import Layout from "@/app/layout";
 
+import type { OrderItemPayload } from "../Order.type";
+
 import { calculateOrderTotals } from "./OrderCreate.helpers";
 import type {
   OrderCreateFormState,
   OrderCreateProps,
 } from "./OrderCreate.type";
-import type { OrderItemPayload } from "../Order.type";
 
 const RUPIAH_FORMATTER = new Intl.NumberFormat("id-ID");
 
@@ -756,25 +758,7 @@ const _renderMobileBack = (
   onBack: () => void,
 ): React.ReactElement => (
   <div className="mb-6 flex items-center gap-3 bg-background-page lg:hidden">
-    <button
-      type="button"
-      onClick={onBack}
-      aria-label="Back"
-      className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full border border-border-default bg-background-page text-text-primary transition-colors hover:bg-background-subtle"
-    >
-      <svg
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="2.5"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        className="h-6 w-6"
-        aria-hidden="true"
-      >
-        <path d="M19 12H5M12 19l-7-7 7-7" />
-      </svg>
-    </button>
+    <BackButton onClick={onBack} />
     <div className="min-w-0">
       <h1 className="truncate text-4xl font-semibold leading-tight text-text-primary">
         {isEdit ? "Edit Order" : "Create Order"}
@@ -854,7 +838,7 @@ export const OrderCreateComponent = (
           <form
             noValidate
             onSubmit={props.onPreventSubmit}
-            className="mb-6 flex flex-col rounded-3xl border border-border-default bg-background-surface p-6 shadow-small sm:p-8 lg:mb-5 lg:rounded-3xl lg:p-10"
+            className="mb-6 flex flex-col rounded-3xl border border-border-default bg-background-surface p-6 shadow-small sm:p-8 lg:mb-8 lg:rounded-3xl lg:p-10"
           >
             <div aria-label="Order steps" className="mb-6 flex items-center gap-4 overflow-x-auto border-b border-border-default lg:mb-8 lg:gap-8">
               {stepTitles.map((title, index) => {
@@ -1105,7 +1089,7 @@ export const OrderCreateComponent = (
                       <div className="rounded-xl bg-background-subtle p-4 text-text-secondary">
                         <span className="block text-lg text-text-secondary lg:text-lg">Discount</span>
                         <span className="mt-1 block font-semibold text-text-primary">
-                          Rp {props.form.discount.toLocaleString("id-ID")}
+                          Rp {totals.discountAmount.toLocaleString("id-ID")} ({props.form.discount}%)
                         </span>
                       </div>
                       <div className="rounded-xl bg-action-primary-subtle p-4">

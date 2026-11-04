@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import type {
@@ -9,6 +9,7 @@ import type {
   QuotationPagination,
 } from "./Quotation.type";
 
+import { useGetAllItemsQuery } from "@/services/master-item.service";
 import { mapQuotation, useGetQuotationsQuery } from "@/services/quotation.service";
 
 /**
@@ -70,7 +71,16 @@ export const useQuotationPagination = (): QuotationPagination => {
   const [pageSize, setPageSize] = useState(10);
   const [searchTerm, setSearchTermState] = useState("");
   const query = useGetQuotationsQuery({ pageNumber: currentPage, pageSize, searchTerm });
+  const { data: itemResponse } = useGetAllItemsQuery();
   const state = _deriveListState(query);
+  const itemCategories = useMemo(
+    (): Map<string, string> => new Map(
+      itemResponse?.status
+        ? itemResponse.data.map((item): [string, string] => [item.id, item.category_name ?? "Uncategorized"])
+        : [],
+    ),
+    [itemResponse],
+  );
   /**
  * goToPage.
  * @param {number} page - page value.
@@ -92,6 +102,7 @@ const setSearchTerm = (value: string): void => { setSearchTermState(value); setC
 
   return {
     ...state,
+    itemCategories,
     currentPage,
     pageSize,
     isEmpty: !state.isLoading && !state.errorMessage && !state.isMissingData && state.paginatedData.length === 0,

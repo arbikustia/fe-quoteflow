@@ -51,8 +51,9 @@ export type DashboardOverview = {
 export type DashboardMetric = {
   label: string;
   count: number;
-  value: number;
+  description: string;
   colorClassName: string;
+  surfaceClassName: string;
 };
 
 export type DashboardRentalOrderRange = {

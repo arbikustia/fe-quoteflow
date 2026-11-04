@@ -1,6 +1,7 @@
 import type { ReactElement } from "react";
 
 import { AlertComponent } from "@/components/Alert";
+import { BackButton } from "@/components/BackButton";
 import { SwitchComponent } from "@/components/Switch";
 
 import type { QuotationStatusFormProps } from "./QuotationStatus.type";
@@ -11,10 +12,15 @@ import type { QuotationStatusFormProps } from "./QuotationStatus.type";
  * @returns {ReactElement} Status switch field
  */
 const _renderStatusField = (props: QuotationStatusFormProps): ReactElement => (
-  <div className="flex items-center justify-between rounded-xl border border-border-default bg-background-surface px-4 py-3.5">
+  <div className="flex items-center justify-between rounded-2xl border-2 border-border-strong bg-background-surface px-5 py-4">
     <div className="flex flex-col">
-      <span className="text-lg font-semibold text-text-primary lg:text-sm">Approve this quotation</span>
-      <span className="text-base text-text-secondary lg:text-xs">Mark this quotation as approved</span>
+      <div className="flex items-center gap-2.5">
+        <span className="text-lg font-normal text-text-primary">Status</span>
+        <span className={`inline-flex rounded-full border border-current px-3 py-0.5 text-base font-semibold uppercase ${props.isApproved ? "bg-success-subtle text-success-strong" : "bg-warning-subtle text-warning-strong"}`}>
+          {props.isApproved ? "approved" : "quotation created"}
+        </span>
+      </div>
+      <span className="text-base text-text-secondary">Mark this quotation as approved</span>
     </div>
     <SwitchComponent
       label="Approve this quotation"
@@ -50,11 +56,12 @@ const _renderHeader = (goBack: () => void): ReactElement => (
  * @returns {ReactElement} Mobile header
  */
 const _renderMobileBack = (goBack: () => void): ReactElement => (
-  <div className="sticky top-0 z-20 flex items-center gap-3 bg-background-page lg:hidden">
-    <button type="button" onClick={goBack} aria-label="Back" className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full border border-border-default bg-background-page text-text-primary transition-colors hover:bg-background-subtle">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="h-6 w-6" aria-hidden="true"><path d="M19 12H5M12 19l-7-7 7-7" /></svg>
-    </button>
-    <h2 className="truncate text-4xl font-semibold leading-tight text-text-primary">Approve Quotation</h2>
+  <div className="mb-6 flex items-center gap-3 bg-background-page lg:hidden">
+    <BackButton onClick={goBack} />
+    <div className="min-w-0">
+      <h2 className="truncate text-4xl font-semibold tracking-tight text-text-primary">Approve Quotation</h2>
+      <p className="mt-1 truncate text-sm text-text-secondary">Review and approve this quotation.</p>
+    </div>
   </div>
 );
 
@@ -67,25 +74,27 @@ export const QuotationStatusForm = (props: QuotationStatusFormProps): ReactEleme
   const submitText = props.isSubmitting ? "Approving…" : "Approve Quotation";
 
   return (
-    <div className="flex h-full w-full flex-col bg-background-surface pb-6 font-sans lg:bg-background-page">
+    <div className="flex h-full w-full flex-col bg-background-page pb-6 font-sans">
       {props.errorMessage && <AlertComponent type="error" message={props.errorMessage} toast closable />}
       {_renderMobileBack(props.goBack)}
-      <div className="mt-10 flex min-h-0 w-full flex-1 flex-col px-0 text-lg lg:mt-0 lg:text-base">
+      <div className="flex min-h-0 w-full flex-1 flex-col pb-32 text-lg lg:pb-0">
         {_renderHeader(props.goBack)}
-        {props.isLoading ? <p className="py-12 text-center text-sm text-text-secondary">Loading quotation data…</p> : (
-          <form noValidate onSubmit={props.handleSubmit} className="flex min-h-0 flex-1 flex-col justify-between border-0 bg-transparent p-0 shadow-none lg:rounded-4xl lg:border lg:border-brand-gray-light lg:bg-brand-white lg:p-8 lg:shadow-xs">
-            <div className="space-y-4">
+        {props.isLoading ? <p className="py-12 text-center text-lg text-text-secondary">Loading quotation data…</p> : (
+          <form noValidate onSubmit={props.handleSubmit} className="mb-6 flex min-h-0 flex-1 flex-col rounded-3xl border border-border-default bg-background-surface p-6 shadow-small sm:p-8 lg:-mt-4 lg:mb-5 lg:p-10">
+            <div className="space-y-5 pb-6">
               <div>
-                <p className="text-sm font-medium text-text-secondary">Quotation Number</p>
-                <p className="mt-1 text-lg font-semibold text-text-primary">{props.quotationNumber}</p>
+                <p className="text-lg font-normal text-text-secondary">Quotation Number</p>
+                <p className="mt-1 text-xl font-semibold text-text-primary">{props.quotationNumber}</p>
               </div>
               {_renderStatusField(props)}
             </div>
-            <div className="mt-8 flex justify-end border-t border-border-default/60 pt-5 lg:mt-6 lg:border-border-default">
-              <button type="submit" disabled={props.isSubmitting || props.isLoading} className="h-14 w-full cursor-pointer rounded-xl bg-action-primary px-8 text-lg font-semibold tracking-wide text-text-inverse shadow-xs transition-all hover:bg-action-primary-hover disabled:cursor-not-allowed disabled:opacity-60 sm:w-auto lg:text-sm">{submitText}</button>
+            <div className="mt-auto flex items-center justify-between gap-3 border-t border-border-default/60 pt-5 lg:border-border-default">
+              <button type="button" onClick={props.goBack} disabled={props.isSubmitting} className="h-14 cursor-pointer rounded-xl border border-border-default bg-background-surface px-8 text-lg font-semibold text-text-primary transition-colors hover:bg-background-subtle focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-action-primary disabled:cursor-not-allowed disabled:opacity-50">Cancel</button>
+              <button type="submit" disabled={props.isSubmitting || props.isLoading} className="h-14 cursor-pointer rounded-xl bg-action-primary px-8 text-lg font-semibold text-text-inverse shadow-xs transition-colors hover:bg-action-primary-hover focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-action-primary disabled:cursor-not-allowed disabled:opacity-60">{submitText}</button>
             </div>
           </form>
         )}
+        <div className="h-24 shrink-0 lg:hidden" aria-hidden="true" />
       </div>
     </div>
   );

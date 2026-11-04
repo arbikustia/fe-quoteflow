@@ -5,6 +5,10 @@ import { MemoryRouter } from "react-router-dom";
 import { MasterUserCreateComponent } from "./MasterUserCreate.component";
 import type { MasterUserCreateFormState } from "./MasterUserCreate.type";
 
+jest.mock("@/app/layout", () =>
+  ({ children }: { children: React.ReactNode }) => <div data-testid="layout">{children}</div>,
+);
+
 const createMockProps = (overrides?: Partial<MasterUserCreateFormState>): MasterUserCreateFormState => ({
   username: "johndoe",
   email: "john@example.com",

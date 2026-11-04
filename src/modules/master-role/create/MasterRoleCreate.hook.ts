@@ -156,7 +156,7 @@ export const useMasterRoleCreateForm = (): MasterRoleCreateFormState => {
   const submission = useRoleSubmission({ id, isEditMode, ...formFields });
 
   /** Navigate back. */
-  const goBack = (): void => { navigate(-1); };
+  const goBack = (): void => { navigate("/master-role"); };
 
   return { isEditMode, goBack, ...formFields, ...submission };
 };

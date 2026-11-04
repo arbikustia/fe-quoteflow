@@ -3,7 +3,7 @@
 exports[`ItemChecklistCreateForm matches snapshot 1`] = `
 <DocumentFragment>
   <div
-    class="flex flex-col gap-6"
+    class="flex min-h-0 flex-1 flex-col gap-6 lg:-mt-4 lg:gap-8"
   >
     <div
       class="rounded-3xl border border-border-default bg-background-surface p-6 shadow-small sm:p-8 lg:p-10"
@@ -76,6 +76,22 @@ exports[`ItemChecklistCreateForm matches snapshot 1`] = `
         </div>
       </div>
     </div>
+    <div
+      class="mt-auto flex items-center justify-between gap-3 border-t border-border-default/60 pt-5"
+    >
+      <button
+        class="h-14 cursor-pointer rounded-xl border border-border-default bg-background-surface px-8 text-lg font-semibold text-text-primary transition-colors hover:bg-background-subtle focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-action-primary disabled:cursor-not-allowed disabled:opacity-50"
+        type="button"
+      >
+        Cancel
+      </button>
+      <button
+        class="h-14 cursor-pointer rounded-xl bg-action-primary px-8 text-lg font-semibold text-text-inverse shadow-xs transition-colors hover:bg-action-primary-hover focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-action-primary disabled:cursor-not-allowed disabled:opacity-60"
+        type="button"
+      >
+        Save Checklist
+      </button>
+    </div>
   </div>
 </DocumentFragment>
 `;
@@ -83,7 +99,7 @@ exports[`ItemChecklistCreateForm matches snapshot 1`] = `
 exports[`ItemChecklistCreateForm matches snapshot 2`] = `
 <DocumentFragment>
   <div
-    class="flex flex-col gap-6"
+    class="flex min-h-0 flex-1 flex-col gap-6 lg:-mt-4 lg:gap-8"
   >
     <div
       class="rounded-3xl border border-border-default bg-background-surface p-6 shadow-small sm:p-8 lg:p-10"
@@ -223,17 +239,26 @@ exports[`ItemChecklistCreateForm matches snapshot 2`] = `
         class="space-y-4 md:hidden"
       >
         <article
-          class="min-w-0 rounded-2xl border border-border-default bg-background-surface p-4"
+          class="min-w-0 rounded-3xl border border-border-default bg-background-surface p-5 shadow-small sm:p-6"
         >
-          <h4
-            class="break-words text-lg font-semibold text-text-primary"
+          <div
+            class="flex items-start justify-between gap-4"
           >
-            Speaker Active
-          </h4>
+            <h4
+              class="max-w-[68%] min-w-0 break-words text-xl font-semibold text-text-primary"
+            >
+              Speaker Active
+            </h4>
+            <span
+              class="shrink-0 text-right text-lg font-semibold text-text-secondary"
+            >
+              1 unit
+            </span>
+          </div>
           <p
-            class="mt-1 break-words text-lg text-text-secondary"
+            class="mt-2 break-words text-lg text-text-secondary"
           >
-            Audio · 1 unit
+            Audio
           </p>
           <p
             class="mt-1 break-words text-lg text-text-secondary"
@@ -283,17 +308,26 @@ exports[`ItemChecklistCreateForm matches snapshot 2`] = `
           </div>
         </article>
         <article
-          class="min-w-0 rounded-2xl border border-border-default bg-background-surface p-4"
+          class="min-w-0 rounded-3xl border border-border-default bg-background-surface p-5 shadow-small sm:p-6"
         >
-          <h4
-            class="break-words text-lg font-semibold text-text-primary"
+          <div
+            class="flex items-start justify-between gap-4"
           >
-            Microphone Wireless
-          </h4>
+            <h4
+              class="max-w-[68%] min-w-0 break-words text-xl font-semibold text-text-primary"
+            >
+              Microphone Wireless
+            </h4>
+            <span
+              class="shrink-0 text-right text-lg font-semibold text-text-secondary"
+            >
+              2 units
+            </span>
+          </div>
           <p
-            class="mt-1 break-words text-lg text-text-secondary"
+            class="mt-2 break-words text-lg text-text-secondary"
           >
-            Audio · 2 units
+            Audio
           </p>
           <p
             class="mt-1 break-words text-lg text-text-secondary"
@@ -592,21 +626,27 @@ exports[`ItemChecklistCreateForm matches snapshot 2`] = `
           </div>
         </div>
       </div>
-      <div
-        class="mt-8 flex flex-col items-center justify-between gap-4 border-t border-border-default pt-8 sm:flex-row"
+      <p
+        class="mt-8 border-t border-border-default pt-5 text-base text-text-secondary"
       >
-        <span
-          class="text-lg font-medium text-text-secondary"
-        >
-          Select Move Out and Move In independently for each item.
-        </span>
-        <button
-          class="h-14 w-full cursor-pointer rounded-2xl bg-action-primary px-10 text-lg font-semibold tracking-wide text-text-inverse shadow-xs transition-all hover:bg-action-primary-hover disabled:cursor-not-allowed disabled:opacity-50 sm:w-auto"
-          type="button"
-        >
-          Save Checklist
-        </button>
-      </div>
+        Select Move Out and Move In independently for each item.
+      </p>
+    </div>
+    <div
+      class="mt-auto flex items-center justify-between gap-3 border-t border-border-default/60 pt-5"
+    >
+      <button
+        class="h-14 cursor-pointer rounded-xl border border-border-default bg-background-surface px-8 text-lg font-semibold text-text-primary transition-colors hover:bg-background-subtle focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-action-primary disabled:cursor-not-allowed disabled:opacity-50"
+        type="button"
+      >
+        Cancel
+      </button>
+      <button
+        class="h-14 cursor-pointer rounded-xl bg-action-primary px-8 text-lg font-semibold text-text-inverse shadow-xs transition-colors hover:bg-action-primary-hover focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-action-primary disabled:cursor-not-allowed disabled:opacity-60"
+        type="button"
+      >
+        Save Checklist
+      </button>
     </div>
   </div>
 </DocumentFragment>

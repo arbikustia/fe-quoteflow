@@ -4,6 +4,17 @@ import { BrowserRouter } from "react-router-dom";
 import { ItemReturnComponent } from "./ItemReturn.component";
 import type { ReturnListState, ReturnRow } from "./ItemReturn.type";
 
+jest.mock("@/app/layout", () => ({
+  __esModule: true,
+  default: ({ children }: { children: React.ReactNode }) => <div>{children}</div>,
+}));
+
+jest.mock("@/app/shared/PageLayout", () => ({
+  PageLayout: ({ children, headerRight, title }: { children: React.ReactNode; headerRight: React.ReactNode; title: string }) => (
+    <section><h1>{title}</h1>{headerRight}{children}</section>
+  ),
+}));
+
 describe("ItemReturnComponent", () => {
   const mockRow: ReturnRow = {
     id: "return-1",
@@ -42,10 +53,12 @@ describe("ItemReturnComponent", () => {
   it("should render page title and return data in table and card", () => {
     renderComponent();
 
-    expect(screen.getAllByText("Item Return").length).toBeGreaterThan(0);
+    expect(screen.getAllByText("Item Return List").length).toBeGreaterThan(0);
+    expect(screen.getByRole("button", { name: "Create Item Return" })).toBeInTheDocument();
     expect(screen.getAllByText("Create New").length).toBeGreaterThan(0);
     expect(screen.getAllByText("ORD-001").length).toBeGreaterThan(0);
     expect(screen.getAllByText("3 items").length).toBeGreaterThan(0);
+    expect(screen.getAllByText("active")[0]).toHaveClass("border-current", "px-3", "py-1", "text-base", "uppercase");
   });
 
   it("should call onRowClick when mobile card is clicked", () => {

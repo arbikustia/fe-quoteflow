@@ -1,6 +1,8 @@
 import type { ChangeEvent, MouseEvent, ReactElement } from "react";
 import * as React from "react";
 import { FiDownload, FiEdit2 } from "react-icons/fi";
+import { FiChevronDown } from "react-icons/fi";
+import { Dropdown, type MenuProps } from "antd";
 
 import { CheckboxComponent } from "@/components/Checkbox";
 
@@ -23,8 +25,8 @@ import type { ItemData, MasterItemProps, MobileItemCardProps } from "./MasterIte
  */
 const _renderStatus = (row: ItemData): ReactElement => (
   <span
-    className={`rounded-full px-3 py-1 text-xs font-bold uppercase ${
-      row.status === "active" ? "bg-green-100 text-green-600" : "bg-red-100 text-red-600"
+    className={`inline-flex rounded-full border border-current px-3 py-1 text-base font-semibold uppercase ${
+      row.status === "active" ? "bg-success-subtle text-success-strong" : "bg-danger-subtle text-danger-strong"
     }`}
   >
     {row.status}
@@ -49,33 +51,31 @@ const _renderActionButton = (props: ActionButtonProps): ReactElement => {
     onEdit(row);
   };
   /**
-   * Handle format selection.
-   * @param {ChangeEvent<HTMLSelectElement>} event - Select event
+   * Download QR image.
    * @returns {void} No return value
    */
-  const handleDownload = (event: ChangeEvent<HTMLSelectElement>): void => {
-    event.stopPropagation();
-    const format = event.target.value;
-
-    if (format === "image" || format === "pdf") {
-      onDownload(row, format);
-      event.target.value = "";
-    }
-  };
+  const handleDownloadImage = (): void => onDownload(row, "image");
+  /**
+   * Download QR PDF.
+   * @returns {void} No return value
+   */
+  const handleDownloadPdf = (): void => onDownload(row, "pdf");
+  const downloadItems: MenuProps["items"] = [
+    { key: "image", label: "Download Image", onClick: handleDownloadImage },
+    { key: "pdf", label: "Download PDF", onClick: handleDownloadPdf },
+  ];
 
   return (
     <div className="flex items-center justify-center gap-1">
-      <button type="button" onClick={handleEdit} className="rounded-lg p-1.5 text-brand-text-medium hover:bg-brand-blue-light hover:text-brand-blue" title="Edit">
-        <FiEdit2 className="h-4 w-4" />
+      <button type="button" onClick={handleEdit} className="cursor-pointer rounded-3xl p-2.5 text-text-secondary hover:bg-action-primary-subtle hover:text-action-primary" title="Edit item" aria-label={`Edit item ${row.name}`}>
+        <FiEdit2 className="h-5 w-5" />
       </button>
-      <label className="flex items-center gap-1 rounded-lg p-1.5 text-brand-text-medium hover:bg-brand-blue-light hover:text-brand-blue" title="Download QR">
-        <FiDownload className="h-4 w-4" />
-        <select defaultValue="" onChange={handleDownload} className="cursor-pointer bg-transparent text-xs">
-          <option value="" disabled>Download</option>
-          <option value="image">Image</option>
-          <option value="pdf">PDF</option>
-        </select>
-      </label>
+      <Dropdown menu={{ items: downloadItems }} trigger={["click"]}>
+        <button type="button" className="flex cursor-pointer items-center gap-1 rounded-3xl p-2.5 text-text-secondary hover:bg-action-primary-subtle hover:text-action-primary" title="Download QR">
+          <FiDownload className="h-5 w-5" />
+          <FiChevronDown className="h-4 w-4" />
+        </button>
+      </Dropdown>
     </div>
   );
 };
@@ -101,11 +101,9 @@ const _renderImage = (row: ItemData): ReactElement => {
     return <span>-</span>;
   }
 
-  const fileName = row.image.split("/").pop() ?? row.image;
-
   return (
-    <a href={row.image} target="_blank" rel="noreferrer" className="text-sm text-brand-blue underline hover:text-brand-blue/80">
-      {fileName}
+    <a href={row.image} target="_blank" rel="noreferrer" className="text-lg font-medium text-action-primary underline hover:text-action-primary-hover">
+      See image
     </a>
   );
 };
@@ -250,8 +248,8 @@ const MobileItemCard = ({ item, onEdit }: MobileItemCardProps): ReactElement => 
   return (
     <MasterDataCard title={item.name} status={item.status} isLargeText={true} onClick={handleClick}>
       <span className="grid gap-2 text-xl text-text-secondary">
-        <span>{item.categoryName ?? "No category"}</span>
-        <span>Rp {item.price.toLocaleString("id-ID")} · {item.stock} unit · {item.duration} days</span>
+        <span className="text-xl text-text-secondary">{item.categoryName ?? "No category"}</span>
+        <span className="text-xl text-text-secondary">Rp {item.price.toLocaleString("id-ID")} · {item.stock} unit · {item.duration} days</span>
       </span>
     </MasterDataCard>
   );
@@ -274,7 +272,7 @@ const _renderMobile = (props: MasterItemProps): ReactElement => {
 
   return (
     <div className="flex min-w-0 flex-col gap-4 pt-2 pb-16 lg:hidden">
-      <SearchFilter placeholder="Search item" onChange={handleSearch} isRoundedFull={true} className="w-full sm:w-full" inputClassName="text-lg placeholder:text-lg" />
+      <SearchFilter placeholder="Search item" onChange={handleSearch} isRoundedFull={true} className="w-full sm:w-full" inputClassName="!h-16 text-xl placeholder:text-xl" />
       <div className="min-w-0 space-y-3">
         {props.isLoading ? (
           <CardSkeletonComponent count={5} />
@@ -302,51 +300,12 @@ const _renderMobile = (props: MasterItemProps): ReactElement => {
 };
 
 /**
- * Render desktop table header toolbar.
- * @param {MasterItemProps} props - Component props
- * @param {(event: ChangeEvent<HTMLInputElement>) => void} onSearch - Search callback
- * @returns {ReactElement} Toolbar element
- */
-const _renderDesktopToolbar = (
-  props: MasterItemProps,
-  onSearch: (event: ChangeEvent<HTMLInputElement>) => void,
-): ReactElement => (
-  <div className="flex items-center justify-between gap-4 py-6">
-    <SearchFilter placeholder="Search item" onChange={onSearch} />
-    <div className="flex items-center gap-3">
-    <button
-      type="button"
-      onClick={props.isMultiDownloadMode ? props.onDownloadSelected : props.onToggleMultiDownload}
-      disabled={props.isMultiDownloadMode && props.selectedItemIds.length === 0}
-      className="h-14 rounded-xl border border-brand-blue px-6 text-sm font-semibold text-brand-blue disabled:cursor-not-allowed disabled:opacity-50"
-      >
-      {props.isMultiDownloadMode ? `Download Multiple (${props.selectedItemIds.length})` : "Download Multiple"}
-    </button>
-    {props.isMultiDownloadMode && (
-      <button
-        type="button"
-        onClick={props.onCancelMultiDownload}
-        className="h-14 rounded-xl border border-border-default px-6 text-sm font-semibold text-text-primary"
-      >
-        Cancel
-      </button>
-    )}
-    <button
-      type="button"
-      onClick={props.onCreate}
-      className="rounded-xl bg-brand-blue h-14 px-6 text-sm font-semibold text-brand-white"
-    >
-      Create Item
-    </button>
-    </div>
-  </div>
-);
-
-/**
  * Render desktop layout table.
  * @param {MasterItemProps} props - Component props
  * @returns {ReactElement} Desktop layout element
  */
+// ponytail: keep desktop composition local until toolbar becomes reusable.
+// eslint-disable-next-line max-lines-per-function
 const _renderDesktop = (props: MasterItemProps): ReactElement => {
   /**
    * Handle search input change.
@@ -358,8 +317,36 @@ const _renderDesktop = (props: MasterItemProps): ReactElement => {
   };
 
   return (
-    <div className="hidden lg:flex rounded-4xl border border-brand-gray-light bg-brand-white px-6 shadow-xs md:flex-1 md:flex-col md:overflow-hidden md:mt-6">
-      {_renderDesktopToolbar(props, handleSearch)}
+    <div className="hidden rounded-3xl border border-border-default bg-background-surface px-6 pb-6 pt-0 shadow-xs md:mt-6 md:flex md:flex-1 md:flex-col md:overflow-hidden lg:flex">
+      <div className="flex items-center justify-between gap-4 border-b border-border-default py-6">
+        <SearchFilter placeholder="Search item" onChange={handleSearch} isRoundedFull={true} inputClassName="text-lg placeholder:text-lg" />
+        <div className="flex items-center gap-3">
+          <button
+            type="button"
+            onClick={props.isMultiDownloadMode ? props.onDownloadSelected : props.onToggleMultiDownload}
+            disabled={props.isMultiDownloadMode && props.selectedItemIds.length === 0}
+            className="h-14 rounded-2xl border border-action-primary px-6 text-lg font-semibold text-action-primary hover:bg-action-primary-subtle disabled:cursor-not-allowed disabled:opacity-50"
+          >
+            {props.isMultiDownloadMode ? `Download Multiple (${props.selectedItemIds.length})` : "Download Multiple"}
+          </button>
+          {props.isMultiDownloadMode && (
+            <button
+              type="button"
+              onClick={props.onCancelMultiDownload}
+              className="h-14 rounded-2xl border border-border-default px-6 text-lg font-semibold text-text-primary hover:bg-background-subtle"
+            >
+              Cancel
+            </button>
+          )}
+          <button
+            type="button"
+            onClick={props.onCreate}
+            className="h-14 rounded-2xl bg-action-primary px-6 text-lg font-semibold text-text-inverse hover:bg-action-primary-hover"
+          >
+            Create Item
+          </button>
+        </div>
+      </div>
       <div className="flex-1 overflow-auto">
         {props.isLoading ? (
           <SkeletonComponent rows={5} columns={[{ width: "5%" }, { width: "35%" }, { width: "20%" }, { width: "20%" }, { width: "20%" }]} />
@@ -403,7 +390,7 @@ export const MasterItemComponent = (props: MasterItemProps): ReactElement => {
   );
 
   return (
-    <Layout pageTitle="Item List" mobileWhiteBackground={true}>
+    <Layout pageTitle="Item List">
       <PageLayout
         title="Item List"
         subtitle="Manage items and inventory data"
@@ -413,7 +400,7 @@ export const MasterItemComponent = (props: MasterItemProps): ReactElement => {
         mobileTitleClassName="text-4xl"
         onBack={props.onBack}
       >
-        <div className="relative flex h-full flex-col bg-background-surface px-0 pb-18 lg:-mt-4 lg:bg-transparent lg:px-0 lg:pb-0">
+        <div className="relative flex h-full flex-col bg-background-page px-0 pb-18 lg:-mt-4 lg:bg-transparent lg:px-0 lg:pb-0">
           {_renderMobile(props)}
           {_renderDesktop(props)}
         </div>

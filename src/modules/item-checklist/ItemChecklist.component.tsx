@@ -8,27 +8,25 @@ import Table from "@/components/Table";
 
 import Layout from "@/app/layout";
 import { PageLayout } from "@/app/shared/PageLayout";
-import { formatDate } from "@/modules/quotation/detail/QuotationDetail.helpers";
+import { formatIndonesianDateTime } from "@/utils/date.helpers";
 
 import type { ChecklistListState, ChecklistRow, ItemChecklistMobileCardProps } from "./ItemChecklist.type";
 
 /** Render checklist status consistently across card and table. */
-const _renderStatus = (row: ChecklistRow, isCard = false): ReactElement => {
-  const styles = {
-    active: "bg-success-subtle text-success-strong",
-    inactive: "bg-background-muted text-text-tertiary",
-    unavailable: "bg-warning-subtle text-warning-strong",
-  };
-  const labels = { active: "Active", inactive: "Inactive", unavailable: "Status unavailable" };
+const _renderStatus = (row: ChecklistRow): ReactElement => {
+  let statusClass = "bg-warning-subtle text-warning-strong";
+  if (row.status === "active") statusClass = "bg-success-subtle text-success-strong";
+  if (row.status === "inactive") statusClass = "bg-danger-subtle text-danger-strong";
+  const label = row.status === "unavailable" ? "Status unavailable" : row.status;
 
-  return <span className={`inline-flex rounded-full px-3 py-1 ${isCard ? "text-lg" : "text-xs"} font-semibold ${styles[row.status]}`}>{labels[row.status]}</span>;
+  return <span className={`inline-flex rounded-full border border-current px-3 py-1 text-base font-semibold uppercase ${statusClass}`}>{label}</span>;
 };
 
 const _getColumns = (props: ChecklistListState): TableColumn<ChecklistRow>[] => [
-  { key: "no", header: "No", align: "center", render: (_row, index): ReactElement => <span>{(props.currentPage - 1) * props.pageSize + index + 1}</span> },
-  { key: "checklistNo", header: "Checklist No" },
-  { key: "checklistDate", header: "Checklist Date", render: (row): ReactElement => <span>{formatDate(row.checklistDate)}</span> },
-  { key: "itemCount", header: "Items", align: "center" },
+  { key: "no", header: "No", align: "center", render: (_row, index): ReactElement => <span className="text-lg text-text-secondary">{(props.currentPage - 1) * props.pageSize + index + 1}</span> },
+  { key: "checklistNo", header: "Checklist No", render: (row): ReactElement => <span className="text-lg font-medium text-text-primary">{row.checklistNo}</span> },
+  { key: "checklistDate", header: "Checklist Date", render: (row): ReactElement => <span className="text-lg text-text-secondary">{formatIndonesianDateTime(row.checklistDate)}</span> },
+  { key: "itemCount", header: "Items", align: "center", render: (row): ReactElement => <span className="text-lg">{row.itemCount}</span> },
   { key: "status", header: "Status", align: "center", render: (row): ReactElement => _renderStatus(row) },
   {
     key: "actions", header: "Action", align: "center", render: (row): ReactElement => (
@@ -36,7 +34,7 @@ const _getColumns = (props: ChecklistListState): TableColumn<ChecklistRow>[] => 
         <button
           type="button"
           onClick={(event: MouseEvent<HTMLButtonElement>): void => { event.stopPropagation(); props.onEdit(row); }}
-          className="cursor-pointer rounded-lg p-2.5 text-text-secondary hover:bg-action-primary-subtle hover:text-action-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring"
+          className="cursor-pointer rounded-3xl p-2.5 text-text-secondary hover:bg-action-primary-subtle hover:text-action-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring"
           title={`Edit ${row.checklistNo}`}
           aria-label={`Edit ${row.checklistNo}`}
         >
@@ -46,7 +44,7 @@ const _getColumns = (props: ChecklistListState): TableColumn<ChecklistRow>[] => 
           type="button"
           onClick={(event: MouseEvent<HTMLButtonElement>): void => { event.stopPropagation(); props.onDownload(row); }}
           disabled={props.isDownloadingId !== null}
-          className="cursor-pointer rounded-lg p-2.5 text-text-secondary hover:bg-action-primary-subtle hover:text-action-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring disabled:cursor-wait disabled:opacity-50"
+          className="cursor-pointer rounded-3xl p-2.5 text-text-secondary hover:bg-action-primary-subtle hover:text-action-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring disabled:cursor-wait disabled:opacity-50"
           title={`Download PDF ${row.checklistNo}`}
           aria-label={`Download PDF ${row.checklistNo}`}
         >
@@ -69,15 +67,14 @@ export const ItemChecklistMobileCard = ({ row, onClick }: ItemChecklistMobileCar
       className="group block w-full min-w-0 rounded-3xl border border-border-strong bg-background-surface p-5 text-left shadow-small transition-colors hover:border-border-strong hover:bg-background-subtle/40 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-action-primary"
     >
       <span className="flex min-w-0 flex-wrap items-center justify-between gap-3">
-        <span className="text-xl font-semibold text-text-primary">Item Checklist</span>
-        {_renderStatus(row, true)}
+        <span className="min-w-0 break-words text-xl font-semibold text-text-primary">{row.checklistNo}</span>
+        {_renderStatus(row)}
       </span>
-      <span className="mt-4 block break-all text-xl font-semibold text-text-primary">{row.checklistNo}</span>
-      <span className="mt-1 block text-lg text-text-secondary">{row.itemCount} items</span>
+      <span className="mt-4 block text-lg text-text-secondary">{row.itemCount} items</span>
       <span className="mt-4 flex flex-wrap items-end justify-between gap-x-4 gap-y-3 border-t border-border-default pt-4 text-lg text-text-secondary">
         <span className="min-w-0">
           <span className="block text-lg text-text-tertiary">Checklist date</span>
-          <span className="mt-1 block font-medium text-text-primary">{formatDate(row.checklistDate)}</span>
+          <span className="mt-1 block font-medium text-text-primary">{formatIndonesianDateTime(row.checklistDate)}</span>
         </span>
       </span>
     </button>
@@ -114,9 +111,9 @@ const _renderTableSkeleton = (columns: TableColumn<ChecklistRow>[]): ReactElemen
             {columns.map((column, index) => (
               <th
                 key={column.key}
-                className={`bg-table-header px-5 py-4 text-lg font-semibold uppercase tracking-wider text-text-secondary ${
+                className={`bg-table-header px-5 py-4 text-[13px] font-bold uppercase tracking-widest text-text-secondary ${
                   column.align === "center" ? "text-center" : "text-left"
-                } ${index === 0 ? "rounded-l-2xl" : ""} ${index === columns.length - 1 ? "rounded-r-2xl" : ""}`}
+                } ${index === 0 ? "rounded-l-3xl" : ""} ${index === columns.length - 1 ? "rounded-r-3xl" : ""}`}
               >
                 {column.header}
               </th>
@@ -135,8 +132,8 @@ const _renderTableSkeleton = (columns: TableColumn<ChecklistRow>[]): ReactElemen
                 >
                   {column.key === "actions" ? (
                     <div className="flex justify-center gap-2">
-                      <span className="h-10 w-10 rounded-lg bg-background-subtle" />
-                      <span className="h-10 w-10 rounded-lg bg-background-subtle" />
+                      <span className="h-10 w-10 rounded-3xl bg-background-subtle" />
+                      <span className="h-10 w-10 rounded-3xl bg-background-subtle" />
                     </div>
                   ) : (
                     <span
@@ -168,11 +165,11 @@ export const ItemChecklistComponent = (props: ChecklistListState): ReactElement 
   const state = _renderListState(props);
 
   return (
-    <Layout pageTitle="Item Checklist">
+    <Layout pageTitle="Item Checklist List">
       <PageLayout
-        title="Item Checklist"
-        subtitle="Manage rental item checklists and status."
-        breadcrumbs={["Item Checklist"]}
+        title="Item Checklist List"
+        subtitle="Manage rental item checklists and status"
+        breadcrumbs={["Item Checklist", "Item Checklist List"]}
         mobileHeaderClassName="px-0"
         mobileTitleClassName="text-4xl"
         onBack={props.onBack}
@@ -182,7 +179,7 @@ export const ItemChecklistComponent = (props: ChecklistListState): ReactElement 
             onClick={props.onCreate}
             className="h-14 rounded-full border-2 border-action-primary bg-background-surface px-6 text-lg font-semibold text-action-primary hover:bg-action-primary-subtle focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring lg:hidden"
           >
-            Create
+            Create New
           </button>
         }
       >
@@ -226,7 +223,7 @@ export const ItemChecklistComponent = (props: ChecklistListState): ReactElement 
                 onClick={props.onCreate}
                 className="h-14 rounded-2xl bg-action-primary px-8 text-lg font-semibold text-text-inverse hover:bg-action-primary-hover focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring"
               >
-                Create Checklist
+                Create Item Checklist
               </button>
             </div>
             <div className="flex-1 overflow-auto">

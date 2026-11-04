@@ -16,16 +16,11 @@ import Table from "../../components/Table";
  * @param {CategoryData} category - Category data
  * @returns {ReactElement} Status cell
  */
-const _renderStatus = (category: CategoryData): ReactElement => {
-  const isActive = category.status === "active";
-  const badgeClass = isActive ? "bg-badge-success-subtle text-badge-success" : "bg-badge-danger-subtle text-badge-danger";
-
-  return (
-    <span className={`inline-flex rounded-full px-4 py-1.5 text-lg font-semibold uppercase ${badgeClass}`}>
-      {category.status}
-    </span>
-  );
-};
+const _renderStatus = (category: CategoryData): ReactElement => (
+  <span className={`inline-flex rounded-full border border-current px-3 py-1 text-base font-semibold uppercase ${category.status === "active" ? "bg-success-subtle text-success-strong" : "bg-danger-subtle text-danger-strong"}`}>
+    {category.status}
+  </span>
+);
 
 /**
  * Render category row number cell.
@@ -47,15 +42,26 @@ const _renderCategoryName = (category: CategoryData): ReactElement => (
   <span className="text-lg font-medium">{category.categoryName}</span>
 );
 
+/** Format category date using Indonesian long date. */
+const _formatCreatedAt = (value: string | null): string => (
+  value
+    ? new Date(value).toLocaleDateString("id-ID", {
+        day: "2-digit",
+        month: "long",
+        year: "numeric",
+        hour: "2-digit",
+        minute: "2-digit",
+      })
+    : "-"
+);
+
 /**
  * Render created at cell.
  * @param {CategoryData} category - Category data
  * @returns {ReactElement} Created at cell
  */
 const _renderCreatedAt = (category: CategoryData): ReactElement => (
-  <span className="text-lg">
-    {category.createAt ? new Date(category.createAt).toLocaleDateString("id-ID").replaceAll("/", "-") : "-"}
-  </span>
+  <span className="text-lg">{_formatCreatedAt(category.createAt)}</span>
 );
 
 /**
@@ -229,25 +235,18 @@ const _renderMobileCardSkeleton = (key: number): ReactElement => (
  * @returns {ReactElement} Category card
  */
 const _renderCategoryCard = (category: CategoryData, onEdit: MasterCategoryProps["onEdit"]): ReactElement => {
-  const isActive = category.status === "active";
-  const badgeClass = isActive ? "bg-badge-success-subtle text-badge-success" : "bg-badge-danger-subtle text-badge-danger";
-  const formattedDate = category.createAt ? new Date(category.createAt).toLocaleDateString("id-ID").replaceAll("/", "-") : "-";
+  const badgeClass = category.status === "active" ? "bg-success-subtle text-success-strong" : "bg-danger-subtle text-danger-strong";
+  const formattedDate = _formatCreatedAt(category.createAt);
+  const handleClick = (): void => onEdit(category);
 
   return (
-    <button
-      type="button"
-      onClick={(): void => onEdit(category)}
-      className="group block w-full min-w-0 rounded-3xl border border-border-strong bg-background-surface p-5 text-left shadow-small transition-colors hover:border-border-strong hover:bg-background-subtle/40 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-action-primary"
-    >
+    <button type="button" onClick={handleClick} className="group block w-full min-w-0 rounded-3xl border border-border-strong bg-background-surface p-5 text-left shadow-small transition-colors hover:border-border-strong hover:bg-background-subtle/40 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-action-primary">
       <span className="flex min-w-0 flex-wrap items-center justify-between gap-3">
         <span className="min-w-0 break-words text-xl font-semibold text-text-primary">{category.categoryName}</span>
-        <span className={`rounded-full px-3.5 py-1 text-lg font-semibold uppercase ${badgeClass}`}>{category.status}</span>
+        <span className={`rounded-full border border-current px-3 py-1 text-base font-semibold uppercase ${badgeClass}`}>{category.status}</span>
       </span>
       <span className="mt-4 flex flex-wrap items-end justify-between gap-x-4 gap-y-3 border-t border-border-default pt-4">
-        <span className="min-w-0 text-lg text-text-secondary">
-          <span className="block text-lg text-text-tertiary">Created</span>
-          <span className="mt-1 block break-words text-lg font-medium text-text-primary">{formattedDate}</span>
-        </span>
+        <span className="min-w-0"><span className="block text-lg text-text-tertiary">Created</span><span className="mt-1 block text-lg font-medium text-text-primary">{formattedDate}</span></span>
       </span>
     </button>
   );

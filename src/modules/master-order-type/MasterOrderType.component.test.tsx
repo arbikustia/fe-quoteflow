@@ -10,6 +10,7 @@ jest.mock("../../components/Pagination", () => ({
   Pagination: () => <div data-testid="pagination" />,
 }));
 jest.mock("react-icons/fi", () => ({
+  FiArrowLeft: () => <div data-testid="back-icon" />,
   FiEdit2: () => <div data-testid="edit-icon" />,
   FiSearch: () => <div data-testid="search-icon" />,
 }));
@@ -76,11 +77,13 @@ describe("MasterOrderType Component", () => {
     expect(mockProps.onCreate).toHaveBeenCalledTimes(2);
   });
 
-  it("should render Yes or No in Handover column", () => {
+  it("should render handover and formatted created date", () => {
     renderComponent();
 
     expect(screen.getAllByText("Yes").length).toBeGreaterThan(0);
     expect(screen.getAllByText("No").length).toBeGreaterThan(0);
+    expect(screen.getAllByText("Handover Required").length).toBeGreaterThan(0);
+    expect(screen.getAllByText("01 November 2026 10:00").length).toBeGreaterThan(0);
   });
 
   it("should render loading state", () => {

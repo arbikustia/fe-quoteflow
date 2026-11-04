@@ -18,10 +18,10 @@ import type { CustomerData, MasterCustomerProps } from "./MasterCustomer.type";
  */
 const _renderStatus = (row: CustomerData): React.ReactElement => {
   const isActive = row.status === "active";
-  const badgeClass = isActive ? "bg-badge-success-subtle text-badge-success" : "bg-badge-danger-subtle text-badge-danger";
+  const badgeClass = isActive ? "bg-success-subtle text-success-strong" : "bg-danger-subtle text-danger-strong";
 
   return (
-    <span className={`inline-flex rounded-full px-4 py-1.5 text-lg font-semibold uppercase ${badgeClass}`}>
+    <span className={`inline-flex rounded-full border border-current px-3 py-1 text-base font-semibold uppercase ${badgeClass}`}>
       {row.status}
     </span>
   );
@@ -81,6 +81,15 @@ const _renderCustomerName = (row: CustomerData): React.ReactElement => (
 );
 
 /**
+ * Render customer email cell.
+ * @param {CustomerData} row - Customer row data
+ * @returns {React.ReactElement} Email cell
+ */
+const _renderEmail = (row: CustomerData): React.ReactElement => (
+  <span className="text-lg text-text-secondary">{row.email ?? "-"}</span>
+);
+
+/**
  * Render customer address cell.
  * @param {CustomerData} row - Customer row data
  * @returns {React.ReactElement} Address cell
@@ -124,6 +133,7 @@ const _getColumns = (currentPage: number, pageSize: number, onEdit: (customer: C
   return [
     { key: "no", header: "No", align: "center", render: renderNumber },
     { key: "name", header: "Customer Name", render: _renderCustomerName },
+    { key: "email", header: "Email", render: _renderEmail },
     { key: "address", header: "Address", render: _renderAddress },
     { key: "phoneNumber", header: "Phone Number", render: _renderPhoneNumber },
     { key: "status", header: "Status", align: "center", render: _renderStatus },
@@ -189,7 +199,7 @@ const _renderSkeletonRow = (columns: TableColumn<CustomerData>[], widths: string
  */
 const _renderTableSkeleton = (props: MasterCustomerProps): React.ReactElement => {
   const columns = _getColumns(props.currentPage, props.pageSize, props.onEdit);
-  const widths = ["w-6", "w-36", "w-44", "w-32", "w-28"];
+  const widths = ["w-6", "w-36", "w-44", "w-44", "w-32", "w-28"];
 
   return (
     <div className="w-full overflow-x-auto" role="status" aria-label="Loading customer table">

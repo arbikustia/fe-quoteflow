@@ -277,7 +277,7 @@ export const useMasterItemCreateForm = (): MasterItemCreateFormState => {
    * @returns {void} No return value
    */
   const goBack = (): void => {
-    navigate(-1);
+    navigate("/master-item");
   };
 
   return { ...fields, isEditMode, isSubmitting: isCreating || isUpdating, isCategoryLoading: categoryState.isLoading, categoryError: categoryState.errorMessage, categories: categoryState.categories, errorMessage: submission.errorMessage, successMessage: submission.successMessage, handleSubmit: submission.handleSubmit, goBack };

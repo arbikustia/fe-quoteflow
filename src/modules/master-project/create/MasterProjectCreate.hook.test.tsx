@@ -139,7 +139,7 @@ describe("MasterProjectCreate.hook", () => {
     act(() => {
       result.current.goBack();
     });
-    expect(mockNavigate).toHaveBeenCalledWith(-1);
+    expect(mockNavigate).toHaveBeenCalledWith("/master-project");
   });
 
   it("should submit create project successfully", async () => {
@@ -193,6 +193,7 @@ describe("MasterProjectCreate.hook", () => {
           id: "proj-123",
           name: "Existing Project",
           remark: "Existing Remark",
+          status: 0,
           items: [{ item_id: "item-1", qty: 2 }],
         },
       },
@@ -203,8 +204,96 @@ describe("MasterProjectCreate.hook", () => {
 
     expect(result.current.name).toBe("Existing Project");
     expect(result.current.remark).toBe("Existing Remark");
+    expect(result.current.isActive).toBe(false);
     expect(result.current.selectedItems).toEqual([
       { id: "item-1", name: "Camera", image: "", price: 1000, stock: 5, qty: 2 },
     ]);
+
+    act(() => {
+      result.current.handleStatusChange();
+    });
+    expect(result.current.isActive).toBe(true);
+  });
+
+  it("should clear project name error when edit default value arrives", async () => {
+    (ReactRouterDom.useParams as jest.Mock).mockReturnValue({ id: "proj-123" });
+    const projectQuery = (MasterProjectService.useGetProjectByIdQuery as jest.Mock);
+    projectQuery.mockReturnValue({ data: null, isLoading: true });
+
+    const { result, rerender } = renderHook(() => useMasterProjectCreate());
+
+    act(() => {
+      result.current.toggleItem(result.current.items[0]);
+    });
+    await act(async () => {
+      await result.current.handleSubmit({ preventDefault: jest.fn() } as unknown as React.SyntheticEvent);
+    });
+    await act(async () => {
+      await result.current.handleSubmit({ preventDefault: jest.fn() } as unknown as React.SyntheticEvent);
+    });
+    expect(result.current.errorMessage).toBe("Project name is required.");
+
+    projectQuery.mockReturnValue({
+      data: {
+        status: true,
+        data: {
+          id: "proj-123",
+          name: "Existing Project",
+          remark: "Existing Remark",
+          status: 1,
+          items: [{ item_id: "item-1", qty: 2 }],
+        },
+      },
+      isLoading: false,
+    });
+    rerender();
+
+    expect(result.current.name).toBe("Existing Project");
+    expect(result.current.errors.name).toBeUndefined();
+    await act(async () => {
+      await result.current.handleSubmit({ preventDefault: jest.fn() } as unknown as React.SyntheticEvent);
+    });
+    expect(result.current.errorMessage).toBeNull();
+    expect(result.current.step).toBe(3);
+  });
+
+  it("should submit edited project status", async () => {
+    (ReactRouterDom.useParams as jest.Mock).mockReturnValue({ id: "proj-123" });
+    (MasterProjectService.useGetProjectByIdQuery as jest.Mock).mockReturnValue({
+      data: {
+        status: true,
+        data: {
+          id: "proj-123",
+          name: "Existing Project",
+          remark: "Existing Remark",
+          status: 0,
+          items: [{ item_id: "item-1", qty: 2 }],
+        },
+      },
+      isLoading: false,
+    });
+    mockUpdateProject.mockReturnValue({
+      unwrap: () => Promise.resolve({ status: true }),
+    });
+
+    const { result } = renderHook(() => useMasterProjectCreate());
+
+    act(() => {
+      result.current.handleStatusChange();
+    });
+    await act(async () => {
+      await result.current.handleSubmit({ preventDefault: jest.fn() } as unknown as React.SyntheticEvent);
+    });
+    await act(async () => {
+      await result.current.handleSubmit({ preventDefault: jest.fn() } as unknown as React.SyntheticEvent);
+    });
+    await act(async () => {
+      await result.current.handleSubmit({ preventDefault: jest.fn() } as unknown as React.SyntheticEvent);
+    });
+
+    expect(mockUpdateProject).toHaveBeenCalledWith(expect.objectContaining({ id: "proj-123", status: 1 }));
+    expect(mockNavigate).toHaveBeenCalledWith("/master-project", {
+      state: { successMessage: "Project updated successfully." },
+    });
   });
 });

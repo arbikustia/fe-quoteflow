@@ -6,5 +6,5 @@ import { EmailSenderCreateComponent } from "./EmailSenderCreate.component";
 import { useEmailSenderCreate } from "./EmailSenderCreate.hook";
 
 export default function EmailSenderCreateContainer(): ReactElement {
-  return <Layout pageTitle="Email Sender" mobileWhiteBackground={true}><EmailSenderCreateComponent {...useEmailSenderCreate()} /></Layout>;
+  return <Layout pageTitle="Email Sender"><EmailSenderCreateComponent {...useEmailSenderCreate()} /></Layout>;
 }

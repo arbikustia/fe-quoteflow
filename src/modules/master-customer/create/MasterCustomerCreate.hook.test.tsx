@@ -8,7 +8,7 @@ import * as Router from "react-router-dom";
 import * as CustomerService from "@/services/master-customer.service";
 
 jest.mock("react-router-dom", () => ({ useLocation: jest.fn(), useNavigate: jest.fn(), useParams: jest.fn() }));
-jest.mock("@/services/master-customer.service", () => ({ useCreateCustomerMutation: jest.fn(), useGetCustomerByIdQuery: jest.fn(), useUpdateCustomerMutation: jest.fn() }));
+jest.mock("@/services/master-customer.service", () => ({ useCreateCustomerMutation: jest.fn(), useUpdateCustomerMutation: jest.fn() }));
 
 describe("useMasterCustomerCreate", (): void => {
   const createCustomer = jest.fn();
@@ -22,7 +22,6 @@ describe("useMasterCustomerCreate", (): void => {
     jest.mocked(Router.useParams).mockReturnValue({});
     jest.mocked(CustomerService.useCreateCustomerMutation).mockReturnValue([createCustomer, { isLoading: false }] as never);
     jest.mocked(CustomerService.useUpdateCustomerMutation).mockReturnValue([updateCustomer, { isLoading: false }] as never);
-    jest.mocked(CustomerService.useGetCustomerByIdQuery).mockReturnValue({ data: undefined, isLoading: false } as never);
   });
 
   it("should prevent submission when required fields are empty", async (): Promise<void> => {
@@ -80,16 +79,27 @@ describe("useMasterCustomerCreate", (): void => {
     await waitFor((): void => expect(result.current.errorMessage).toBe("Duplicate customer name"));
   });
 
-  it("should initialize edit values and submit update payload", async (): Promise<void> => {
+  it("should initialize edit values from paged route state and submit update payload", async (): Promise<void> => {
     jest.mocked(Router.useParams).mockReturnValue({ id: "customer-1" });
-    jest.mocked(CustomerService.useGetCustomerByIdQuery).mockReturnValue({ data: { status: true, messages: null, data: { id: "customer-1", name: "Existing Customer", email: "existing@example.com", address: "Existing Address", phone_number: "081999888777", status: 1, created_at: null, created_by: null } }, isLoading: false } as never);
+    jest.mocked(Router.useLocation).mockReturnValue({ state: { customer: { id: "customer-1", name: "Existing Customer", email: "existing@example.com", address: "Existing Address", phoneNumber: "081999888777", status: "active", createAt: null, createBy: null } } } as never);
     updateCustomer.mockReturnValue({ unwrap: (): Promise<{ status: boolean; messages: null; data: null }> => Promise.resolve({ status: true, messages: null, data: null }) });
     const { result } = renderHook(() => useMasterCustomerCreate());
 
-    await waitFor((): void => expect(result.current.name).toBe("Existing Customer"));
-    await waitFor((): void => expect(result.current.email).toBe("existing@example.com"));
+    expect(result.current.name).toBe("Existing Customer");
+    expect(result.current.email).toBe("existing@example.com");
+    expect(result.current.isLoadingInitialData).toBe(false);
     await act(async (): Promise<void> => { await result.current.handleSubmit({ preventDefault: jest.fn() } as never); });
 
     expect(updateCustomer).toHaveBeenCalledWith({ id: "customer-1", name: "Existing Customer", email: "existing@example.com", address: "Existing Address", phone_number: "081999888777", status: 1 });
+  });
+
+  it("should keep edit form empty when paged route state is unavailable", (): void => {
+    jest.mocked(Router.useParams).mockReturnValue({ id: "customer-1" });
+
+    const { result } = renderHook(() => useMasterCustomerCreate());
+
+    expect(result.current.name).toBe("");
+    expect(result.current.email).toBe("");
+    expect(result.current.isLoadingInitialData).toBe(false);
   });
 });

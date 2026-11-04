@@ -167,7 +167,7 @@ describe("MasterItem hook", () => {
       const { result } = renderHook(() => useMasterItemNavigation());
 
       act(() => { result.current.goBack(); });
-      expect(mockNavigate).toHaveBeenCalledWith(-1);
+      expect(mockNavigate).toHaveBeenCalledWith("/master-main");
 
       act(() => { result.current.goCreate(); });
       expect(mockNavigate).toHaveBeenCalledWith("/master-item/create");

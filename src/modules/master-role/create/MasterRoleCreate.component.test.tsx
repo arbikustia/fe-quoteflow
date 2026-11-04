@@ -55,6 +55,7 @@ describe("MasterRoleCreateComponent", () => {
     expect(screen.getByDisplayValue("Administrator")).toBeTruthy();
     expect(screen.getByText("Role already exists.")).toBeTruthy();
     expect(screen.getByText("Role name is required.")).toBeTruthy();
+    expect(screen.getByText("inactive").className).toContain("text-base");
 
     fireEvent.click(screen.getByRole("switch"));
     expect(props.handleStatusChange).toHaveBeenCalled();

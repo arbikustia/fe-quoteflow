@@ -11,6 +11,7 @@ import { SwitchComponent } from "@/components/Switch";
 import type { MasterUserCreateFormState } from "./MasterUserCreate.type";
 
 import Layout from "@/app/layout";
+import { BackButton } from "@/components/BackButton";
 
 /** Read validation message from error. */
 const _getFieldError = (error: FieldError | undefined): string | null => error?.message?.toString() ?? null;
@@ -21,25 +22,7 @@ const _renderMobileBack = (isEditMode: boolean, goBack: () => void): ReactElemen
 
   return (
     <div className="mb-6 flex items-center gap-3 bg-background-page lg:hidden">
-      <button
-        type="button"
-        onClick={goBack}
-        aria-label="Back"
-        className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full border border-border-default bg-background-page text-text-primary transition-colors hover:bg-background-subtle"
-      >
-        <svg
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2.5"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          className="h-6 w-6"
-          aria-hidden="true"
-        >
-          <path d="M19 12H5M12 19l-7-7 7-7" />
-        </svg>
-      </button>
+      <BackButton onClick={goBack} />
       <div className="min-w-0">
         <h2 className="truncate text-4xl font-semibold tracking-tight text-text-primary">
           {title}
@@ -58,30 +41,32 @@ const _renderHeader = (isEditMode: boolean, goBack: () => void): ReactElement =>
   const subtitle = isEditMode ? "Update the user details below." : "Fill in the user details below.";
 
   return (
-    <>
+    <div className="hidden lg:block">
       <nav
         aria-label="Breadcrumb"
-        className="mb-2 hidden items-center gap-2 text-sm font-medium text-text-secondary lg:flex"
+        className="mb-2 flex items-center gap-2 text-[15px] font-medium text-text-secondary"
       >
         <button
           type="button"
           onClick={goBack}
           className="cursor-pointer hover:text-text-primary"
         >
-          Master User
+          Master
         </button>
+        <span aria-hidden="true">/</span>
+        <span>Master User</span>
         <span aria-hidden="true">/</span>
         <span className="text-text-primary">{title}</span>
       </nav>
-      <div className="mb-6 hidden lg:block">
+      <div className="mb-6">
         <h2 className="text-4xl font-semibold leading-tight tracking-tight text-text-primary">
           {title}
         </h2>
-        <p className="mt-3 text-sm font-medium text-text-secondary opacity-70">
+        <p className="mt-2 text-sm text-text-secondary">
           {subtitle}
         </p>
       </div>
-    </>
+    </div>
   );
 };
 
@@ -129,6 +114,26 @@ const _renderPassword = (props: MasterUserCreateFormState): ReactElement => {
   );
 };
 
+/** Render user status card. */
+const _renderStatusCard = (props: MasterUserCreateFormState): ReactElement | null => {
+  if (!props.isEditMode) return null;
+
+  return (
+    <div className="flex items-center justify-between rounded-2xl border-2 border-border-strong bg-background-surface px-5 py-4 lg:col-span-2">
+      <div className="flex flex-col">
+        <div className="flex items-center gap-2.5">
+          <span className="text-lg font-normal text-text-primary">Status</span>
+          <span className={`inline-flex rounded-full px-3 py-0.5 text-base font-semibold uppercase ${props.isActive ? "bg-success-subtle text-success-strong" : "bg-danger-subtle text-danger-strong"}`}>
+            {props.isActive ? "active" : "inactive"}
+          </span>
+        </div>
+        <span className="text-base text-text-secondary">Toggle active or inactive status</span>
+      </div>
+      <SwitchComponent label="User status" checked={props.isActive} onChange={props.handleStatusChange} />
+    </div>
+  );
+};
+
 /** Render role select and status toggle. */
 const _renderRoleAndStatus = (props: MasterUserCreateFormState): ReactElement => {
   const roleError = props.isSubmitted && !props.role ? "Role is required." : _getFieldError(props.errors?.role);
@@ -152,15 +157,7 @@ const _renderRoleAndStatus = (props: MasterUserCreateFormState): ReactElement =>
           errorMessage={roleError || props.roleOptionsError}
         />
       </div>
-      {props.isEditMode && (
-        <div className="flex items-center justify-between rounded-xl border border-border-default bg-background-surface px-4 py-3.5 lg:col-span-2">
-          <div className="flex flex-col">
-            <span className="text-lg font-semibold text-text-primary lg:text-sm">Status</span>
-            <span className="text-base text-text-secondary lg:text-xs">Toggle active or inactive status</span>
-          </div>
-          <SwitchComponent label="User status" checked={props.isActive} onChange={props.handleStatusChange} />
-        </div>
-      )}
+      {_renderStatusCard(props)}
     </>
   );
 };
@@ -213,7 +210,7 @@ const _renderFormActions = (props: MasterUserCreateFormState): ReactElement => {
   const submitLabel = props.isSubmitting ? "Saving…" : (props.isEditMode ? "Update User" : "Create User");
 
   return (
-    <div className="mt-8 flex justify-between gap-3 border-t border-border-default/60 pt-5 lg:mt-6 lg:border-border-default">
+    <div className="mt-auto flex justify-between gap-3 border-t border-border-default/60 pt-5 lg:border-border-default">
       <button
         type="button"
         onClick={props.goBack}
@@ -245,7 +242,7 @@ export const MasterUserCreateComponent = (props: MasterUserCreateFormState): Rea
         <form
           noValidate
           onSubmit={props.handleSubmit}
-          className="mb-6 flex flex-col rounded-3xl border border-border-default bg-background-surface p-6 shadow-small sm:p-8 lg:mb-5 lg:rounded-3xl lg:p-10"
+          className="mb-6 flex flex-col rounded-3xl border border-border-default bg-background-surface p-6 shadow-small sm:p-8 lg:-mt-4 lg:mb-5 lg:flex-1 lg:rounded-3xl lg:p-10"
         >
           <div className="pb-6">
             <section className="space-y-5">

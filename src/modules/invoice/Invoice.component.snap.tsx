@@ -6,6 +6,17 @@ import test from "@/libs/unit-test";
 import { InvoiceComponent } from "./Invoice.component";
 import type { InvoiceProps } from "./Invoice.type";
 
+jest.mock("@/app/layout", () => ({
+  __esModule: true,
+  default: ({ children }: { children: React.ReactNode }) => <div>{children}</div>,
+}));
+
+jest.mock("@/app/shared/PageLayout", () => ({
+  PageLayout: ({ children, title }: { children: React.ReactNode; title: string }) => (
+    <section><h1>{title}</h1>{children}</section>
+  ),
+}));
+
 const props: InvoiceProps = {
   currentPage: 1,
   pageSize: 10,

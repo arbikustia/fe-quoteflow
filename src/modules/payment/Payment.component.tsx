@@ -83,7 +83,7 @@ const _renderNotes = (row: PaymentData): React.ReactElement => (
  * @returns {React.ReactElement} Status badge element
  */
 const _renderStatus = (row: PaymentData): React.ReactElement => (
-  <span className={`inline-flex rounded-full px-4 py-1.5 text-lg font-semibold ${row.status === "active" ? "bg-success-subtle text-success-strong" : "bg-background-muted text-text-tertiary"}`}>
+  <span className={`inline-flex rounded-full border border-current px-3 py-1 text-base font-semibold uppercase ${row.status === "active" ? "bg-success-subtle text-success-strong" : "bg-danger-subtle text-danger-strong"}`}>
     {row.status === "active" ? "Active" : "Inactive"}
   </span>
 );
@@ -193,7 +193,7 @@ export const PaymentMobileCard = ({ payment, onClick }: PaymentMobileCardProps):
   >
     <span className="flex min-w-0 flex-wrap items-center justify-between gap-3">
       <span className="min-w-0 break-all text-lg font-medium text-text-secondary">{payment.referenceNo}</span>
-      <span className={`rounded-full px-3.5 py-1 text-lg font-semibold ${payment.status === "active" ? "bg-success-subtle text-success-strong" : "bg-background-muted text-text-tertiary"}`}>
+      <span className={`rounded-full border border-current px-3 py-1 text-base font-semibold uppercase ${payment.status === "active" ? "bg-success-subtle text-success-strong" : "bg-danger-subtle text-danger-strong"}`}>
         {payment.status === "active" ? "Active" : "Inactive"}
       </span>
     </span>

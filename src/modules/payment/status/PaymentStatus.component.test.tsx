@@ -1,0 +1,41 @@
+import { describe, expect, it, jest } from "@jest/globals";
+
+import { fireEvent, render, screen } from "@/libs/unit-test";
+
+import { PaymentStatusForm } from "./PaymentStatus.component";
+import type { PaymentStatusFormProps } from "./PaymentStatus.type";
+
+const createProps = (overrides?: Partial<PaymentStatusFormProps>): PaymentStatusFormProps => ({
+  referenceNo: "REF-001",
+  isActive: true,
+  isLoading: false,
+  isSubmitting: false,
+  errorMessage: null,
+  handleStatusChange: jest.fn(),
+  handleSubmit: async (): Promise<void> => undefined,
+  goBack: jest.fn(),
+  ...overrides,
+});
+
+describe("PaymentStatusForm", () => {
+  it("should render Master Role status form pattern", (): void => {
+    render(<PaymentStatusForm {...createProps()} />);
+
+    expect(screen.getByText("REF-001")).toBeTruthy();
+    expect(screen.getByText("active").className).toContain("border-current");
+    expect(screen.getByRole("switch", { name: "Payment status" }).getAttribute("aria-checked")).toBe("true");
+    expect(screen.getByRole("button", { name: "Cancel" }).className).toContain("h-14");
+    expect(screen.getByRole("button", { name: "Update Status" }).className).toContain("rounded-xl");
+  });
+
+  it("should change status without submitting automatically", (): void => {
+    const handleStatusChange = jest.fn();
+    const handleSubmit = jest.fn(async (): Promise<void> => undefined);
+
+    render(<PaymentStatusForm {...createProps({ handleStatusChange, handleSubmit })} />);
+    fireEvent.click(screen.getByRole("switch", { name: "Payment status" }));
+
+    expect(handleStatusChange).toHaveBeenCalledWith(false, expect.anything());
+    expect(handleSubmit).not.toHaveBeenCalled();
+  });
+});
