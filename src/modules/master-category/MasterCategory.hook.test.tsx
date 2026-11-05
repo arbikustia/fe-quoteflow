@@ -1,4 +1,5 @@
-import { renderHook, act } from "@testing-library/react";
+import { act, renderHook } from "@/libs/unit-test";
+
 import { useMasterCategoryState } from "./MasterCategory.hook";
 import type { CategoryData } from "./MasterCategory.type";
 

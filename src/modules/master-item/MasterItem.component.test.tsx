@@ -1,7 +1,13 @@
+import React from "react";
 import { render, screen, fireEvent } from "@/libs/unit-test";
 import { MemoryRouter } from "react-router-dom";
 import { MasterItemComponent } from "./MasterItem.component";
 import type { ItemData } from "./MasterItem.type";
+
+jest.mock("../../app/layout", () => ({
+  __esModule: true,
+  default: ({ children }: { children: React.ReactNode }) => React.createElement("div", {}, children),
+}));
 
 jest.useFakeTimers();
 jest.setSystemTime(new Date("2026-10-18T00:31:00+07:00"));
@@ -16,6 +22,9 @@ const mockItems: ItemData[] = [
 const mockColumns: any[] = [{ key: "name", header: "Item Name" }];
 
 const defaultProps = {
+  onEdit: jest.fn(),
+  onBack: jest.fn(),
+  onMore: jest.fn(),
   paginatedData: mockItems,
   columns: mockColumns,
   currentPage: 1,
@@ -32,12 +41,16 @@ const defaultProps = {
   changePageSize: jest.fn(),
   setSearchTerm: jest.fn(),
   onCreate: jest.fn(),
-  onEdit: jest.fn(),
-  onBack: jest.fn(),
-  onMore: jest.fn(),
   isMoreOpen: false,
   onCloseMore: jest.fn(),
   onDelete: jest.fn(),
+  selectedItemIds: [],
+  isMultiDownloadMode: false,
+  onToggleItem: jest.fn(),
+  onToggleMultiDownload: jest.fn(),
+  onCancelMultiDownload: jest.fn(),
+  onDownload: jest.fn(),
+  onDownloadSelected: jest.fn(),
 };
 
 const renderWithRouter = (props = defaultProps) =>

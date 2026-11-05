@@ -1,6 +1,7 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
-import { render, screen } from "@testing-library/react";
 import { BrowserRouter } from "react-router-dom";
+
+import { render, screen } from "@/libs/unit-test";
 
 import MasterCategoryContainer from "./MasterCategory.container";
 import * as hooks from "./MasterCategory.hook";
@@ -26,7 +27,6 @@ describe("MasterCategory Container", () => {
       goBack: jest.fn(),
       goCreate: jest.fn(),
       goEdit: jest.fn(),
-      goDetail: jest.fn(),
     });
 
     jest.mocked(hooks.useMasterCategoryContainerState).mockReturnValue({

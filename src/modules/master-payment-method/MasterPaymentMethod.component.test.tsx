@@ -1,7 +1,6 @@
 import * as React from "react";
 
-import { render, screen } from "../../libs/unit-test";
-import test from "../../libs/unit-test";
+import test, { render, screen } from "@/libs/unit-test";
 
 import { MasterPaymentMethodComponent } from "./MasterPaymentMethod.component";
 import type { MasterPaymentMethodProps, PaymentMethodData } from "./MasterPaymentMethod.type";

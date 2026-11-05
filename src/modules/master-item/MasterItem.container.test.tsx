@@ -1,3 +1,4 @@
+import React from "react";
 import { fireEvent, render, screen } from "@/libs/unit-test";
 import { BrowserRouter } from "react-router-dom";
 import MasterItemContainer from "./MasterItem.container";
@@ -6,20 +7,7 @@ import { useGetItemsQuery } from "@/services/master-item.service";
 jest.mock("@/services/master-item.service", () => ({
   useGetItemsQuery: jest.fn(),
   useCreateItemMutation: jest.fn(),
-  mapItem: (item: {
-    id: string;
-    name: string;
-    category_id: string | null;
-    price: number | null;
-    stock: number | null;
-    image: string | null;
-    duration: string | null;
-    remark: string | null;
-    unit: string | null;
-    status: number;
-    created_at: string | null;
-    created_by: string | null;
-  }) => ({
+  mapItem: (item: any) => ({
     id: item.id,
     name: item.name,
     categoryId: item.category_id ?? "",
@@ -32,6 +20,29 @@ jest.mock("@/services/master-item.service", () => ({
     createAt: item.created_at ?? "",
     createBy: item.created_by ?? "",
   }),
+}));
+
+jest.mock("../../app/layout", () => ({
+  __esModule: true,
+  default: ({ children }: { children: React.ReactNode }) => React.createElement("div", {}, children),
+}));
+
+jest.mock("@/components/Sidebar/Sidebar.container", () => ({
+  __esModule: true,
+  default: () => React.createElement("div", {}, "Sidebar"),
+}));
+
+jest.mock("react-redux", () => ({
+  ...jest.requireActual("react-redux"),
+  useDispatch: jest.fn(),
+  useSelector: jest.fn(),
+}));
+
+jest.mock("@reduxjs/toolkit/query/react", () => ({
+  ...jest.requireActual("@reduxjs/toolkit/query/react"),
+  useCreateActivityLogMutation: jest.fn(() => [jest.fn()]),
+  useGetItemsQuery: jest.fn(),
+  useCreateItemMutation: jest.fn(),
 }));
 
 const mockQueryResult = {

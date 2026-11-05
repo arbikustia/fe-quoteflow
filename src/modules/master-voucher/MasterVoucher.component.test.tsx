@@ -1,7 +1,15 @@
-import { render, screen, fireEvent } from "@testing-library/react";
+import type * as React from "react";
 import { MemoryRouter } from "react-router-dom";
+
+import { fireEvent, render, screen } from "@/libs/unit-test";
+
 import { MasterVoucherComponent } from "./MasterVoucher.component";
 import type { MasterVoucherProps, VoucherData } from "./MasterVoucher.type";
+
+jest.mock("../../app/layout", () => ({
+  __esModule: true,
+  default: ({ children }: { children: React.ReactNode }) => <div data-testid="layout">{children}</div>,
+}));
 
 const mockVoucher: VoucherData = {
   id: "1",
@@ -68,7 +76,7 @@ describe("MasterVoucherComponent", () => {
     expect(screen.getAllByText("No vouchers found.").length).toBeGreaterThan(0);
   });
 
-  it("calls onBack when back button clicked", () => {
+  it("should call onBack when back button is clicked", () => {
     const onBack = jest.fn();
     renderWithRouter({ ...defaultProps, onBack });
     const backBtn = screen.getByLabelText("Back");
@@ -87,13 +95,13 @@ describe("MasterVoucherComponent", () => {
     expect(tableSkeleton.querySelectorAll("tbody tr:first-child td:last-child span")).toHaveLength(2);
   });
 
-  it("matches snapshot", () => {
+  it("should match populated snapshot", () => {
     const { asFragment } = renderWithRouter();
     expect(asFragment()).toMatchSnapshot();
   });
 
-  it("matches snapshot with empty data and closed menu", () => {
-    const { asFragment } = renderWithRouter({ ...defaultProps, paginatedData: [] as VoucherData[], totalCount: 0, totalPages: 1, isMoreOpen: false });
+  it("should match empty snapshot with closed menu", () => {
+    const { asFragment } = renderWithRouter({ ...defaultProps, paginatedData: [], totalCount: 0, totalPages: 1, isMoreOpen: false });
     expect(asFragment()).toMatchSnapshot();
   });
 });

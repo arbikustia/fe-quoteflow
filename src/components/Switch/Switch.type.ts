@@ -5,6 +5,6 @@ export type SwitchProps = {
   onChange: (checked: boolean) => void;
   disabled?: boolean;
   loading?: boolean;
-  size?: "small" | "default";
+  size?: "small" | "medium";
   className?: string;
 };

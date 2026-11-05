@@ -1,4 +1,4 @@
-import { renderHook, act } from "@/libs/unit-test";
+import { act, renderHook } from "@/libs/unit-test";
 import { useNavigate } from "react-router-dom";
 
 import type { PaymentMethodData } from "./MasterPaymentMethod.type";
@@ -49,9 +49,6 @@ describe("MasterPaymentMethod.hook", () => {
       act(() => {
         result.current.goEdit(paymentMethod);
       });
-
-      act(() => {
-        });
       assertPaymentMethodNavigation(mockNavigate);
     });
   });

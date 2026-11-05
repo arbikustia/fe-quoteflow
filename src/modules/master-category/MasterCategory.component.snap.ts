@@ -1,3 +1,5 @@
+import React from "react";
+
 import test from "@/libs/unit-test";
 
 jest.useFakeTimers();
@@ -7,6 +9,11 @@ afterAll(() => jest.useRealTimers());
 
 import { MasterCategoryComponent } from "./MasterCategory.component";
 import type { CategoryData, MasterCategoryProps } from "./MasterCategory.type";
+
+jest.mock("../../app/layout", () => ({
+  __esModule: true,
+  default: ({ children }: { children: React.ReactNode }) => React.createElement("div", {}, children),
+}));
 
 const mockCategories: CategoryData[] = [{ id: "1", categoryName: "Audio System", status: "active", createAt: "2024-02-01", createBy: "Admin" }];
 const defaultProps: MasterCategoryProps = {

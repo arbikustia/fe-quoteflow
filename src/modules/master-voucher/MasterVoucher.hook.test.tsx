@@ -1,4 +1,4 @@
-import { act, renderHook } from "@testing-library/react";
+import { act, renderHook } from "@/libs/unit-test";
 
 import { MOCK_VOUCHERS } from "../../fixture/master-voucher";
 import { useGetVouchersQuery } from "@/services/master-voucher.service";

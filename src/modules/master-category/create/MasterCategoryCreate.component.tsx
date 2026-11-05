@@ -2,11 +2,11 @@ import type { ReactElement } from "react";
 import type { FieldError } from "react-hook-form";
 
 import { AlertComponent } from "@/components/Alert";
+import { BackButton } from "@/components/BackButton";
 import { InputComponent } from "@/components/Input";
 import { SwitchComponent } from "@/components/Switch";
 
 import type { MasterCategoryCreateFormState } from "./MasterCategoryCreate.type";
-import { BackButton } from "@/components/BackButton";
 
 /**
  * Render back icon SVG.

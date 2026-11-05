@@ -28,10 +28,10 @@ describe("MasterCategoryCreateForm", () => {
 
     expect(screen.getByText("Category Name")).toBeTruthy();
     expect(screen.getByRole("navigation", { name: "Breadcrumb" }).textContent).toBe(
-      "Master/Master Category",
+      "Master/Master Category/New Category",
     );
-    expect(screen.getByText("Category List")).toBeTruthy();
-    expect(screen.getByText("Manage product and item categories")).toBeTruthy();
+    expect(screen.getAllByText("New Category")).toHaveLength(3);
+    expect(screen.getAllByText("Fill in the category details below.")).toHaveLength(2);
     expect(screen.getByRole("button", { name: "Cancel" })).toBeTruthy();
     expect(screen.getByRole("button", { name: "Create Category" })).toBeTruthy();
 

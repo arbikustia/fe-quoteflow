@@ -2,1076 +2,295 @@
 
 exports[`should match MasterCategoryComponent snapshots 1`] = `
 <DocumentFragment>
-  <div
-    class="flex h-full min-h-0 w-full overflow-hidden font-sans text-text-primary relative items-stretch transition-colors duration-200 bg-background-page"
-  >
+  <div>
     <div
-      class="hidden lg:flex h-full min-h-0 shrink-0 self-stretch"
+      class="flex min-h-full flex-col"
     >
-      <aside
-        aria-label="Sidebar"
-        class="w-[290px] h-full min-h-0 self-stretch bg-sidebar-background border border-border-default flex flex-col shrink-0 overflow-hidden transition-[width] duration-[250ms] ease-in-out"
-        style="border-radius: 0;"
+      <header
+        class="mb-6 shrink-0"
       >
         <div
-          class="h-[72px] mb-16 flex items-center shrink-0 px-4"
+          class="hidden items-start justify-between gap-4 lg:flex"
         >
-          <img
-            alt="Sonicline"
-            class="h-12 w-auto object-contain"
-            src="/src/assets/Sonicline-dark.png"
-          />
-        </div>
-        <div
-          class="min-h-0 flex-1 overflow-y-auto overflow-x-hidden pb-6 px-4 space-y-5 scrollbar-thin"
-        >
-          <div>
-            <p
-              class="px-2 mb-2 text-[15px] font-semibold tracking-widest uppercase text-text-tertiary"
-            >
-              Menu
-            </p>
+          <div
+            class="min-w-0"
+          >
             <nav
-              aria-label="Menu"
-              class="space-y-1"
+              aria-label="Breadcrumb"
+              class="mb-2 flex flex-wrap items-center gap-2 text-[15px] font-medium text-text-secondary"
             >
-              <a
-                class="min-h-14 flex items-center gap-3 rounded-[8px] px-4 py-3 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring/30 text-text-secondary hover:bg-background-elevated hover:text-text-primary"
-                data-discover="true"
-                href="/home"
+              <button
+                class="cursor-pointer hover:text-text-primary"
+                type="button"
               >
-                <span
-                  class="shrink-0 [&_svg]:h-5 [&_svg]:w-5 text-text-tertiary"
-                >
-                  <svg
-                    fill="none"
-                    height="1em"
-                    stroke="currentColor"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    viewBox="0 0 24 24"
-                    width="1em"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <rect
-                      height="9"
-                      rx="1"
-                      width="7"
-                      x="3"
-                      y="3"
-                    />
-                    <rect
-                      height="5"
-                      rx="1"
-                      width="7"
-                      x="14"
-                      y="3"
-                    />
-                    <rect
-                      height="9"
-                      rx="1"
-                      width="7"
-                      x="14"
-                      y="12"
-                    />
-                    <rect
-                      height="5"
-                      rx="1"
-                      width="7"
-                      x="3"
-                      y="16"
-                    />
-                  </svg>
-                </span>
-                <span
-                  class="flex-1 truncate text-xl leading-none font-normal"
-                >
-                  Dashboard
-                </span>
-              </a>
-              <a
-                class="min-h-14 flex items-center gap-3 rounded-[8px] px-4 py-3 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring/30 text-text-secondary hover:bg-background-elevated hover:text-text-primary"
-                data-discover="true"
-                href="/order/create"
+                Master
+              </button>
+              <span
+                aria-hidden="true"
               >
-                <span
-                  class="shrink-0 [&_svg]:h-5 [&_svg]:w-5 text-text-tertiary"
-                >
-                  <svg
-                    fill="none"
-                    height="1em"
-                    stroke="currentColor"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    viewBox="0 0 24 24"
-                    width="1em"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M4 22h14a2 2 0 0 0 2-2V7l-5-5H6a2 2 0 0 0-2 2v4"
-                    />
-                    <path
-                      d="M14 2v4a2 2 0 0 0 2 2h4"
-                    />
-                    <path
-                      d="M3 15h6"
-                    />
-                    <path
-                      d="M6 12v6"
-                    />
-                  </svg>
-                </span>
-                <span
-                  class="flex-1 truncate text-xl leading-none font-normal"
-                >
-                  Create Order
-                </span>
-              </a>
-              <div>
-                <button
-                  aria-expanded="false"
-                  class="w-full min-h-14 py-3 flex items-center gap-3 rounded-[8px] px-4 text-left transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring/30 text-text-secondary hover:bg-background-elevated hover:text-text-primary"
-                  type="button"
-                >
-                  <span
-                    class="shrink-0 [&_svg]:h-5 [&_svg]:w-5 text-text-tertiary"
-                  >
-                    <svg
-                      fill="none"
-                      height="1em"
-                      stroke="currentColor"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      viewBox="0 0 24 24"
-                      width="1em"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"
-                      />
-                      <path
-                        d="M14 2v4a2 2 0 0 0 2 2h4"
-                      />
-                      <path
-                        d="M10 9H8"
-                      />
-                      <path
-                        d="M16 13H8"
-                      />
-                      <path
-                        d="M16 17H8"
-                      />
-                    </svg>
-                  </span>
-                  <span
-                    class="flex-1 truncate text-xl leading-none font-normal"
-                  >
-                    Document
-                  </span>
-                  <span
-                    class="shrink-0 text-text-tertiary transition-transform duration-200 "
-                  >
-                    <svg
-                      fill="none"
-                      height="14"
-                      stroke="currentColor"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      viewBox="0 0 24 24"
-                      width="14"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="m6 9 6 6 6-6"
-                      />
-                    </svg>
-                  </span>
-                </button>
-              </div>
-              <a
-                class="min-h-14 flex items-center gap-3 rounded-[8px] px-4 py-3 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring/30 text-text-secondary hover:bg-background-elevated hover:text-text-primary"
-                data-discover="true"
-                href="/item-checklist"
-              >
-                <span
-                  class="shrink-0 [&_svg]:h-5 [&_svg]:w-5 text-text-tertiary"
-                >
-                  <svg
-                    fill="none"
-                    height="1em"
-                    stroke="currentColor"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    viewBox="0 0 24 24"
-                    width="1em"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <rect
-                      height="18"
-                      rx="2"
-                      width="18"
-                      x="3"
-                      y="3"
-                    />
-                    <path
-                      d="m9 12 2 2 4-4"
-                    />
-                  </svg>
-                </span>
-                <span
-                  class="flex-1 truncate text-xl leading-none font-normal"
-                >
-                  Item Checklist
-                </span>
-              </a>
-              <a
-                class="min-h-14 flex items-center gap-3 rounded-[8px] px-4 py-3 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring/30 text-text-secondary hover:bg-background-elevated hover:text-text-primary"
-                data-discover="true"
-                href="/item-return"
-              >
-                <span
-                  class="shrink-0 [&_svg]:h-5 [&_svg]:w-5 text-text-tertiary"
-                >
-                  <svg
-                    fill="none"
-                    height="1em"
-                    stroke="currentColor"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    viewBox="0 0 24 24"
-                    width="1em"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"
-                    />
-                    <path
-                      d="M3 3v5h5"
-                    />
-                  </svg>
-                </span>
-                <span
-                  class="flex-1 truncate text-xl leading-none font-normal"
-                >
-                  Item Return
-                </span>
-              </a>
-              <a
-                class="min-h-14 flex items-center gap-3 rounded-[8px] px-4 py-3 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring/30 text-text-secondary hover:bg-background-elevated hover:text-text-primary"
-                data-discover="true"
-                href="/calendar"
-              >
-                <span
-                  class="shrink-0 [&_svg]:h-5 [&_svg]:w-5 text-text-tertiary"
-                >
-                  <svg
-                    fill="none"
-                    height="1em"
-                    stroke="currentColor"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    viewBox="0 0 24 24"
-                    width="1em"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M8 2v4"
-                    />
-                    <path
-                      d="M16 2v4"
-                    />
-                    <rect
-                      height="18"
-                      rx="2"
-                      width="18"
-                      x="3"
-                      y="4"
-                    />
-                    <path
-                      d="M3 10h18"
-                    />
-                    <path
-                      d="M8 14h.01"
-                    />
-                    <path
-                      d="M12 14h.01"
-                    />
-                    <path
-                      d="M16 14h.01"
-                    />
-                    <path
-                      d="M8 18h.01"
-                    />
-                    <path
-                      d="M12 18h.01"
-                    />
-                    <path
-                      d="M16 18h.01"
-                    />
-                  </svg>
-                </span>
-                <span
-                  class="flex-1 truncate text-xl leading-none font-normal"
-                >
-                  Calendar
-                </span>
-              </a>
-              <a
-                class="min-h-14 flex items-center gap-3 rounded-[8px] px-4 py-3 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring/30 text-text-secondary hover:bg-background-elevated hover:text-text-primary"
-                data-discover="true"
-                href="/activity-log"
-              >
-                <span
-                  class="shrink-0 [&_svg]:h-5 [&_svg]:w-5 text-text-tertiary"
-                >
-                  <svg
-                    fill="none"
-                    height="1em"
-                    stroke="currentColor"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    viewBox="0 0 24 24"
-                    width="1em"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M22 12h-2.48a2 2 0 0 0-1.93 1.46l-2.35 8.36a.25.25 0 0 1-.48 0L9.24 2.18a.25.25 0 0 0-.48 0l-2.35 8.36A2 2 0 0 1 4.49 12H2"
-                    />
-                  </svg>
-                </span>
-                <span
-                  class="flex-1 truncate text-xl leading-none font-normal"
-                >
-                  Activity Log
-                </span>
-              </a>
-              <a
-                class="min-h-14 flex items-center gap-3 rounded-[8px] px-4 py-3 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring/30 text-text-secondary hover:bg-background-elevated hover:text-text-primary"
-                data-discover="true"
-                href="/note"
-              >
-                <span
-                  class="shrink-0 [&_svg]:h-5 [&_svg]:w-5 text-text-tertiary"
-                >
-                  <svg
-                    fill="none"
-                    height="1em"
-                    stroke="currentColor"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    viewBox="0 0 24 24"
-                    width="1em"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M2 6h4"
-                    />
-                    <path
-                      d="M2 10h4"
-                    />
-                    <path
-                      d="M2 14h4"
-                    />
-                    <path
-                      d="M2 18h4"
-                    />
-                    <rect
-                      height="20"
-                      rx="2"
-                      width="16"
-                      x="4"
-                      y="2"
-                    />
-                    <path
-                      d="M15 2v20"
-                    />
-                    <path
-                      d="M15 7h5"
-                    />
-                    <path
-                      d="M15 12h5"
-                    />
-                    <path
-                      d="M15 17h5"
-                    />
-                  </svg>
-                </span>
-                <span
-                  class="flex-1 truncate text-xl leading-none font-normal"
-                >
-                  Note
-                </span>
-              </a>
-              <div>
-                <button
-                  aria-expanded="false"
-                  class="w-full min-h-14 py-3 flex items-center gap-3 rounded-[8px] px-4 text-left transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring/30 text-text-secondary hover:bg-background-elevated hover:text-text-primary"
-                  type="button"
-                >
-                  <span
-                    class="shrink-0 [&_svg]:h-5 [&_svg]:w-5 text-text-tertiary"
-                  >
-                    <svg
-                      fill="none"
-                      height="1em"
-                      stroke="currentColor"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      viewBox="0 0 24 24"
-                      width="1em"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="M12 16v5"
-                      />
-                      <path
-                        d="M16 14v7"
-                      />
-                      <path
-                        d="M20 10v11"
-                      />
-                      <path
-                        d="m22 3-8.646 8.646a.5.5 0 0 1-.708 0L9.354 8.354a.5.5 0 0 0-.707 0L2 15"
-                      />
-                      <path
-                        d="M4 18v3"
-                      />
-                      <path
-                        d="M8 14v7"
-                      />
-                    </svg>
-                  </span>
-                  <span
-                    class="flex-1 truncate text-xl leading-none font-normal"
-                  >
-                    Report
-                  </span>
-                  <span
-                    class="shrink-0 text-text-tertiary transition-transform duration-200 "
-                  >
-                    <svg
-                      fill="none"
-                      height="14"
-                      stroke="currentColor"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      viewBox="0 0 24 24"
-                      width="14"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="m6 9 6 6 6-6"
-                      />
-                    </svg>
-                  </span>
-                </button>
-              </div>
-              <div>
-                <button
-                  aria-expanded="false"
-                  class="w-full min-h-14 py-3 flex items-center gap-3 rounded-[8px] px-4 text-left transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring/30 text-text-secondary hover:bg-background-elevated hover:text-text-primary"
-                  type="button"
-                >
-                  <span
-                    class="shrink-0 [&_svg]:h-5 [&_svg]:w-5 text-text-tertiary"
-                  >
-                    <svg
-                      fill="none"
-                      height="1em"
-                      stroke="currentColor"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      viewBox="0 0 24 24"
-                      width="1em"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="M11 21.73a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73z"
-                      />
-                      <path
-                        d="M12 22V12"
-                      />
-                      <path
-                        d="m3.3 7 7.703 4.734a2 2 0 0 0 1.994 0L20.7 7"
-                      />
-                      <path
-                        d="m7.5 4.27 9 5.15"
-                      />
-                    </svg>
-                  </span>
-                  <span
-                    class="flex-1 truncate text-xl leading-none font-normal"
-                  >
-                    Master Data
-                  </span>
-                  <span
-                    class="shrink-0 text-text-tertiary transition-transform duration-200 "
-                  >
-                    <svg
-                      fill="none"
-                      height="14"
-                      stroke="currentColor"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      viewBox="0 0 24 24"
-                      width="14"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="m6 9 6 6 6-6"
-                      />
-                    </svg>
-                  </span>
-                </button>
-              </div>
+                /
+              </span>
+              <span>
+                Master Category
+              </span>
             </nav>
+            <h1
+              class="truncate text-4xl font-semibold leading-tight tracking-tight text-text-primary"
+            >
+              Category List
+            </h1>
+            <p
+              class="mt-2 text-sm text-text-secondary"
+            >
+              Manage product and item categories
+            </p>
+          </div>
+          <div
+            class="flex shrink-0 items-center gap-3"
+          >
+            <button
+              class="h-14 rounded-full border-2 border-action-primary bg-background-surface px-6 text-lg font-bold text-action-primary transition-colors hover:bg-action-primary-subtle focus:outline-none focus:ring-2 focus:ring-focus-ring/30 lg:hidden"
+              type="button"
+            >
+              Create New
+            </button>
           </div>
         </div>
         <div
-          class="shrink-0 border-t border-border-default p-3"
+          class="flex items-center justify-between gap-3 lg:hidden px-0"
         >
-          <button
-            aria-checked="false"
-            aria-label="Toggle dark theme"
-            class="mb-2 flex min-h-12 w-full cursor-pointer items-center rounded-[8px] bg-background-subtle text-text-secondary transition-colors hover:bg-action-primary-subtle focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring gap-3 px-4 py-3"
-            role="switch"
-            type="button"
+          <div
+            class="flex items-center gap-3 min-w-0 flex-1"
           >
-            <span
-              aria-hidden="true"
-              class="shrink-0 [&_svg]:h-5 [&_svg]:w-5"
+            <button
+              aria-label="Back"
+              class="flex h-14 w-14 shrink-0 items-center justify-center rounded-full border border-border-default bg-background-page text-text-primary transition-colors hover:bg-background-subtle focus-visible:ring-2 focus-visible:ring-focus-ring/30 "
+              type="button"
             >
               <svg
+                aria-hidden="true"
+                class="h-6 w-6"
                 fill="none"
-                height="20"
-                stroke="currentColor"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="1.8"
-                viewBox="0 0 24 24"
-                width="20"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"
-                />
-              </svg>
-            </span>
-            <span
-              class="flex-1 text-left text-xl font-medium"
-            >
-              Dark theme
-            </span>
-          </button>
-          <button
-            aria-label="Log out"
-            class="mb-2 flex min-h-12 w-full cursor-pointer items-center rounded-[8px] bg-danger-subtle text-danger-strong transition-colors hover:bg-danger/20 focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring gap-3 px-4 py-3"
-            type="button"
-          >
-            <span
-              aria-hidden="true"
-              class="shrink-0 [&_svg]:h-5 [&_svg]:w-5"
-            >
-              <svg
-                fill="none"
-                height="16"
-                stroke="currentColor"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="1.8"
-                viewBox="0 0 24 24"
-                width="16"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"
-                />
-                <polyline
-                  points="16 17 21 12 16 7"
-                />
-                <line
-                  x1="21"
-                  x2="9"
-                  y1="12"
-                  y2="12"
-                />
-              </svg>
-            </span>
-            <span
-              class="flex-1 text-left text-xl font-medium"
-            >
-              Log out
-            </span>
-          </button>
-          <button
-            aria-expanded="false"
-            aria-haspopup="menu"
-            class="flex w-full cursor-pointer items-center rounded-[10px] transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring/30 hover:bg-background-elevated gap-3 px-4 py-3"
-            type="button"
-          >
-            <span
-              aria-hidden="true"
-              class="w-10 h-10 rounded-full bg-action-primary-subtle text-action-primary flex items-center justify-center text-sm font-semibold shrink-0"
-            >
-              US
-            </span>
-            <span
-              class="flex-1 min-w-0 text-left"
-            >
-              <span
-                class="block truncate text-xl font-semibold leading-tight text-text-primary"
-              >
-                User
-              </span>
-            </span>
-            <span
-              class="shrink-0 text-text-tertiary transition-transform duration-200 [&_svg]:h-5 [&_svg]:w-5 "
-            >
-              <svg
-                fill="none"
-                height="14"
+                height="1em"
                 stroke="currentColor"
                 stroke-linecap="round"
                 stroke-linejoin="round"
                 stroke-width="2"
                 viewBox="0 0 24 24"
-                width="14"
+                width="1em"
                 xmlns="http://www.w3.org/2000/svg"
               >
-                <path
-                  d="m6 9 6 6 6-6"
+                <line
+                  x1="19"
+                  x2="5"
+                  y1="12"
+                  y2="12"
                 />
-              </svg>
-            </span>
-          </button>
-        </div>
-      </aside>
-    </div>
-    <div
-      class="flex-1 flex flex-col min-w-0 min-h-0 overflow-hidden relative transition-colors duration-200 bg-background-page"
-    >
-      <div
-        class="hidden lg:block shrink-0"
-      >
-        <header
-          class="sticky top-0 z-10 flex h-20 items-center justify-between border-b border-border-default bg-background-surface px-8 transition-all"
-        >
-          <div
-            class="flex flex-1 items-center gap-4"
-          >
-            <button
-              aria-expanded="true"
-              aria-label="Close sidebar"
-              class="flex h-10 w-10 items-center justify-center rounded-lg border border-border-default bg-background-surface text-text-secondary transition-colors hover:bg-background-subtle hover:text-text-primary focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring/30"
-              type="button"
-            >
-              <svg
-                fill="none"
-                height="20"
-                stroke="currentColor"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="1.8"
-                viewBox="0 0 24 24"
-                width="20"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <rect
-                  height="18"
-                  rx="3"
-                  width="18"
-                  x="3"
-                  y="3"
-                />
-                <path
-                  d="M9 3v18"
+                <polyline
+                  points="12 19 5 12 12 5"
                 />
               </svg>
             </button>
+            <div
+              class="min-w-0 flex-1"
+            >
+              <h1
+                class="truncate text-left text-3xl font-semibold tracking-tight text-text-primary text-4xl"
+              >
+                Category List
+              </h1>
+              <p
+                class="mt-1 truncate text-sm text-text-secondary"
+              >
+                Manage product and item categories
+              </p>
+            </div>
           </div>
-          <time
-            class="text-lg font-semibold tracking-wide text-text-primary tabular-nums sm:text-3xl"
-            data-testid="navbar-realtime-clock"
+          <div
+            class="shrink-0"
           >
-            18 Oktober 2026 01:01
-          </time>
-        </header>
-      </div>
+            <button
+              class="h-14 rounded-full border-2 border-action-primary bg-background-surface px-6 text-lg font-bold text-action-primary transition-colors hover:bg-action-primary-subtle focus:outline-none focus:ring-2 focus:ring-focus-ring/30 lg:hidden"
+              type="button"
+            >
+              Create New
+            </button>
+          </div>
+        </div>
+      </header>
       <main
-        class="relative z-0 flex-1 overflow-y-auto px-4 pt-4 pb-20 lg:p-8"
+        class="min-w-0 flex-1"
       >
         <div
-          class="flex min-h-full flex-col"
+          class="relative flex h-full flex-col bg-background-page px-0 pb-18 lg:-mt-4 lg:bg-transparent lg:px-0 lg:pb-0"
         >
-          <header
-            class="mb-6 shrink-0"
+          <div
+            class="flex min-w-0 flex-col gap-4 pb-16 pt-2 lg:hidden"
           >
-            <div
-              class="hidden items-start justify-between gap-4 lg:flex"
+            <label
+              class="relative block w-full sm:w-72 w-full sm:w-full"
             >
-              <div
-                class="min-w-0"
+              <span
+                class="sr-only"
               >
-                <nav
-                  aria-label="Breadcrumb"
-                  class="mb-2 flex flex-wrap items-center gap-2 text-[15px] font-medium text-text-secondary"
+                Search category
+              </span>
+              <svg
+                aria-hidden="true"
+                class="pointer-events-none absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-text-tertiary"
+                fill="none"
+                height="1em"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+                width="1em"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <circle
+                  cx="11"
+                  cy="11"
+                  r="8"
+                />
+                <line
+                  x1="21"
+                  x2="16.65"
+                  y1="21"
+                  y2="16.65"
+                />
+              </svg>
+              <input
+                aria-label="Search category"
+                class="h-14 w-full rounded-full border border-border-default bg-background-surface pl-12 pr-4 text-base font-medium text-text-primary outline-none transition-colors placeholder:font-normal placeholder:text-text-tertiary hover:border-border-strong focus:border-border-focus focus:ring-2 focus:ring-focus-ring/30 !h-16 text-xl placeholder:text-xl"
+                placeholder="Search category"
+                type="search"
+              />
+            </label>
+            <div
+              class="flex min-w-0 flex-col gap-4"
+            >
+              <button
+                class="group block w-full min-w-0 rounded-3xl border border-border-strong bg-background-surface p-5 text-left shadow-small transition-colors hover:border-border-strong hover:bg-background-subtle/40 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-action-primary"
+                type="button"
+              >
+                <span
+                  class="flex min-w-0 flex-wrap items-center justify-between gap-3"
                 >
-                  <button
-                    class="cursor-pointer hover:text-text-primary"
-                    type="button"
-                  >
-                    Master
-                  </button>
                   <span
-                    aria-hidden="true"
+                    class="min-w-0 break-words text-xl font-semibold text-text-primary"
                   >
-                    /
+                    Audio System
                   </span>
-                  <span>
-                    Master Category
+                  <span
+                    class="rounded-full border border-current px-3 py-1 text-base font-semibold uppercase bg-success-subtle text-success-strong"
+                  >
+                    active
                   </span>
-                </nav>
-                <h1
-                  class="truncate text-4xl font-semibold leading-tight tracking-tight text-text-primary"
+                </span>
+                <span
+                  class="mt-4 flex flex-wrap items-end justify-between gap-x-4 gap-y-3 border-t border-border-default pt-4"
                 >
-                  Category List
-                </h1>
-                <p
-                  class="mt-2 text-sm text-text-secondary"
-                >
-                  Manage product and item categories
-                </p>
-              </div>
-              <div
-                class="flex shrink-0 items-center gap-3"
-              >
-                <button
-                  class="h-14 rounded-full border-2 border-action-primary bg-background-surface px-6 text-lg font-bold text-action-primary transition-colors hover:bg-action-primary-subtle focus:outline-none focus:ring-2 focus:ring-focus-ring/30 lg:hidden"
-                  type="button"
-                >
-                  Create New
-                </button>
-              </div>
+                  <span
+                    class="min-w-0"
+                  >
+                    <span
+                      class="block text-lg text-text-tertiary"
+                    >
+                      Created
+                    </span>
+                    <span
+                      class="mt-1 block text-lg font-medium text-text-primary"
+                    >
+                      01 Februari 2024 pukul 07.00
+                    </span>
+                  </span>
+                </span>
+              </button>
             </div>
             <div
-              class="flex items-center justify-between gap-3 lg:hidden px-0"
+              class="flex flex-col gap-3 py-4 w-full rounded-3xl border border-border-default bg-background-surface px-5 py-4 shadow-xs"
             >
               <div
-                class="flex items-center gap-3 min-w-0 flex-1"
+                class="flex w-full items-center justify-between gap-2 overflow-x-auto"
               >
-                <button
-                  aria-label="Back"
-                  class="flex h-14 w-14 shrink-0 items-center justify-center rounded-full border border-border-default text-text-primary bg-white hover:bg-background-subtle transition-colors"
-                  type="button"
-                >
-                  <svg
-                    aria-hidden="true"
-                    class="w-6 h-6"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2.5"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      d="M19 12H5M12 19l-7-7 7-7"
-                    />
-                  </svg>
-                </button>
                 <div
-                  class="min-w-0 flex-1"
+                  class="flex shrink-0 items-center gap-1.5 sm:gap-2"
                 >
-                  <h1
-                    class="truncate text-left text-3xl font-semibold tracking-tight text-text-primary text-4xl"
-                  >
-                    Category List
-                  </h1>
                   <p
-                    class="mt-1 truncate text-sm text-text-secondary"
+                    class="whitespace-nowrap text-xs text-text-secondary sm:text-sm"
                   >
-                    Manage product and item categories
+                    Show 1/5 data
                   </p>
-                </div>
-              </div>
-              <div
-                class="shrink-0"
-              >
-                <button
-                  class="h-14 rounded-full border-2 border-action-primary bg-background-surface px-6 text-lg font-bold text-action-primary transition-colors hover:bg-action-primary-subtle focus:outline-none focus:ring-2 focus:ring-focus-ring/30 lg:hidden"
-                  type="button"
-                >
-                  Create New
-                </button>
-              </div>
-            </div>
-          </header>
-          <main
-            class="min-w-0 flex-1"
-          >
-            <div
-              class="relative flex h-full flex-col bg-background-page px-0 pb-18 lg:-mt-4 lg:bg-transparent lg:px-0 lg:pb-0"
-            >
-              <div
-                class="flex min-w-0 flex-col gap-4 pb-16 pt-2 lg:hidden"
-              >
-                <label
-                  class="relative block w-full sm:w-72 w-full sm:w-full"
-                >
-                  <span
-                    class="sr-only"
-                  >
-                    Search category
-                  </span>
-                  <svg
-                    aria-hidden="true"
-                    class="pointer-events-none absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-text-tertiary"
-                    fill="none"
-                    height="1em"
-                    stroke="currentColor"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    viewBox="0 0 24 24"
-                    width="1em"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <circle
-                      cx="11"
-                      cy="11"
-                      r="8"
-                    />
-                    <line
-                      x1="21"
-                      x2="16.65"
-                      y1="21"
-                      y2="16.65"
-                    />
-                  </svg>
-                  <input
-                    aria-label="Search category"
-                    class="h-14 w-full rounded-full border border-border-default bg-background-surface pl-12 pr-4 text-base font-medium text-text-primary outline-none transition-colors placeholder:font-normal placeholder:text-text-tertiary hover:border-border-strong focus:border-border-focus focus:ring-2 focus:ring-focus-ring/30 !h-16 text-xl placeholder:text-xl"
-                    placeholder="Search category"
-                    type="search"
-                  />
-                </label>
-                <div
-                  class="flex min-w-0 flex-col gap-4"
-                >
-                  <button
-                    class="group block w-full min-w-0 rounded-3xl border border-border-strong bg-background-surface p-5 text-left shadow-small transition-colors hover:border-border-strong hover:bg-background-subtle/40 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-action-primary"
-                    type="button"
-                  >
-                    <span
-                      class="flex min-w-0 flex-wrap items-center justify-between gap-3"
-                    >
-                      <span
-                        class="min-w-0 break-words text-xl font-semibold text-text-primary"
-                      >
-                        Audio System
-                      </span>
-                      <span
-                        class="rounded-full px-3.5 py-1 text-lg font-semibold uppercase bg-badge-success-subtle text-badge-success"
-                      >
-                        active
-                      </span>
-                    </span>
-                    <span
-                      class="mt-4 flex flex-wrap items-end justify-between gap-x-4 gap-y-3 border-t border-border-default pt-4"
-                    >
-                      <span
-                        class="min-w-0 text-lg text-text-secondary"
-                      >
-                        <span
-                          class="block text-lg text-text-tertiary"
-                        >
-                          Created
-                        </span>
-                        <span
-                          class="mt-1 block break-words text-lg font-medium text-text-primary"
-                        >
-                          1-2-2024
-                        </span>
-                      </span>
-                    </span>
-                  </button>
-                </div>
-                <div
-                  class="flex flex-col gap-3 py-4 w-full rounded-3xl border border-border-default bg-background-surface px-5 py-4 shadow-xs"
-                >
                   <div
-                    class="flex w-full items-center justify-between gap-2 overflow-x-auto"
+                    class="relative w-24 shrink-0"
                   >
-                    <div
-                      class="flex shrink-0 items-center gap-1.5 sm:gap-2"
+                    <label
+                      class="mb-1.5 block text-sm font-semibold text-text-secondary sr-only"
+                      for="documents-per-page"
                     >
-                      <p
-                        class="whitespace-nowrap text-xs text-text-secondary sm:text-sm"
-                      >
-                        Show 1/5 data
-                      </p>
+                      Documents per page
+                    </label>
+                    <div
+                      class="ant-select ant-select-outlined h-14 w-full !border-2 [&_.ant-select-selector]:!rounded-2xl [&_.ant-select-content]:!text-xl [&_.ant-select-content]:!font-normal !border-border-strong [&_.ant-select-selector]:!border-2 [&_.ant-select-selector]:!border-border-strong  css-var-root ant-select-css-var css-dev-only-do-not-override-eofgey ant-select-single ant-select-show-arrow ant-select-show-search"
+                      style="--ant-select-border-radius: 16px; border: 2px solid var(--border-strong);"
+                    >
                       <div
-                        class="relative w-auto shrink-0"
+                        class="ant-select-content ant-select-content-has-value"
+                        title="5"
                       >
-                        <label
-                          class="mb-1.5 block text-sm font-semibold text-text-secondary sr-only"
-                          for="documents-per-page"
+                        5
+                        <input
+                          aria-autocomplete="list"
+                          aria-expanded="false"
+                          aria-haspopup="listbox"
+                          aria-invalid="false"
+                          aria-label="Documents per page"
+                          autocomplete="new-password"
+                          class="ant-select-input"
+                          id="documents-per-page"
+                          role="combobox"
+                          type="text"
+                          value=""
+                        />
+                      </div>
+                      <div
+                        class="ant-select-suffix"
+                      >
+                        <span
+                          aria-label="down"
+                          class="anticon anticon-down"
+                          role="img"
                         >
-                          Documents per page
-                        </label>
-                        <div
-                          class="ant-select ant-select-outlined h-14 w-full !border-2 [&_.ant-select-selector]:!rounded-2xl [&_.ant-select-content]:!text-xl [&_.ant-select-content]:!font-normal !border-border-strong [&_.ant-select-selector]:!border-2 [&_.ant-select-selector]:!border-border-strong  css-var-root ant-select-css-var css-dev-only-do-not-override-eofgey ant-select-single ant-select-show-arrow ant-select-show-search"
-                          style="--ant-select-border-radius: 16px; border: 2px solid var(--border-strong);"
-                        >
-                          <div
-                            class="ant-select-content ant-select-content-has-value"
-                            title="5"
+                          <svg
+                            aria-hidden="true"
+                            data-icon="down"
+                            fill="currentColor"
+                            focusable="false"
+                            height="1em"
+                            viewBox="64 64 896 896"
+                            width="1em"
                           >
-                            5
-                            <input
-                              aria-autocomplete="list"
-                              aria-expanded="false"
-                              aria-haspopup="listbox"
-                              aria-invalid="false"
-                              aria-label="Documents per page"
-                              autocomplete="new-password"
-                              class="ant-select-input"
-                              id="documents-per-page"
-                              role="combobox"
-                              type="text"
-                              value=""
+                            <path
+                              d="M884 256h-75c-5.1 0-9.9 2.5-12.9 6.6L512 654.2 227.9 262.6c-3-4.1-7.8-6.6-12.9-6.6h-75c-6.5 0-10.3 7.4-6.5 12.7l352.6 486.1c12.8 17.6 39 17.6 51.7 0l352.6-486.1c3.9-5.3.1-12.7-6.4-12.7z"
                             />
-                          </div>
-                          <div
-                            class="ant-select-suffix"
-                          >
-                            <span
-                              aria-label="down"
-                              class="anticon anticon-down"
-                              role="img"
-                            >
-                              <svg
-                                aria-hidden="true"
-                                data-icon="down"
-                                fill="currentColor"
-                                focusable="false"
-                                height="1em"
-                                viewBox="64 64 896 896"
-                                width="1em"
-                              >
-                                <path
-                                  d="M884 256h-75c-5.1 0-9.9 2.5-12.9 6.6L512 654.2 227.9 262.6c-3-4.1-7.8-6.6-12.9-6.6h-75c-6.5 0-10.3 7.4-6.5 12.7l352.6 486.1c12.8 17.6 39 17.6 51.7 0l352.6-486.1c3.9-5.3.1-12.7-6.4-12.7z"
-                                />
-                              </svg>
-                            </span>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div
-                      class="flex shrink-0 items-center justify-end gap-1 sm:gap-2"
-                    >
-                      <button
-                        aria-label="Previous"
-                        class="flex h-10 items-center justify-center gap-1 rounded-xl border border-border-default text-sm font-semibold transition-colors w-10 cursor-not-allowed bg-background-disabled text-text-disabled"
-                        disabled=""
-                        type="button"
-                      >
-                        <svg
-                          class="h-5 w-3.5 sm:h-5 sm:w-5"
-                          fill="none"
-                          height="1em"
-                          stroke="currentColor"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          stroke-width="2"
-                          viewBox="0 0 24 24"
-                          width="1em"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <polyline
-                            points="15 18 9 12 15 6"
-                          />
-                        </svg>
-                        <span
-                          class="sr-only"
-                        >
-                          Previous
+                          </svg>
                         </span>
-                      </button>
-                      <div
-                        class="flex min-w-0 items-center justify-center gap-1"
-                      >
-                        <button
-                          aria-current="page"
-                          class="flex h-10 w-10 items-center justify-center rounded-xl text-sm font-semibold transition-colors bg-action-primary text-text-inverse shadow-sm"
-                          type="button"
-                        >
-                          1
-                        </button>
                       </div>
-                      <button
-                        aria-label="Next"
-                        class="flex h-10 items-center justify-center gap-1 rounded-xl border border-border-default text-sm font-semibold transition-colors w-10 cursor-not-allowed bg-background-disabled text-text-disabled"
-                        disabled=""
-                        type="button"
-                      >
-                        <span
-                          class="sr-only"
-                        >
-                          Next
-                        </span>
-                        <svg
-                          class="h-5 w-3.5 sm:h-5 sm:w-5"
-                          fill="none"
-                          height="1em"
-                          stroke="currentColor"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          stroke-width="2"
-                          viewBox="0 0 24 24"
-                          width="1em"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <polyline
-                            points="9 18 15 12 9 6"
-                          />
-                        </svg>
-                      </button>
                     </div>
                   </div>
                 </div>
-              </div>
-              <div
-                class="hidden rounded-3xl border border-border-default bg-background-surface px-6 pb-6 pt-0 shadow-xs md:mt-6 md:flex md:flex-1 md:flex-col md:overflow-hidden lg:flex"
-              >
                 <div
-                  class="flex items-center justify-between gap-4 border-b border-border-default py-6"
+                  class="flex shrink-0 items-center justify-end gap-1 sm:gap-2"
                 >
-                  <label
-                    class="relative block w-full sm:w-72 "
+                  <button
+                    aria-label="Previous"
+                    class="flex h-10 items-center justify-center gap-1 rounded-xl border border-border-default text-sm font-semibold transition-colors w-10 cursor-not-allowed bg-background-disabled text-text-disabled"
+                    disabled=""
+                    type="button"
                   >
-                    <span
-                      class="sr-only"
-                    >
-                      Search category
-                    </span>
                     <svg
-                      aria-hidden="true"
-                      class="pointer-events-none absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-text-tertiary"
+                      class="h-5 w-3.5 sm:h-5 sm:w-5"
                       fill="none"
                       height="1em"
                       stroke="currentColor"
@@ -1082,315 +301,393 @@ exports[`should match MasterCategoryComponent snapshots 1`] = `
                       width="1em"
                       xmlns="http://www.w3.org/2000/svg"
                     >
-                      <circle
-                        cx="11"
-                        cy="11"
-                        r="8"
-                      />
-                      <line
-                        x1="21"
-                        x2="16.65"
-                        y1="21"
-                        y2="16.65"
+                      <polyline
+                        points="15 18 9 12 15 6"
                       />
                     </svg>
-                    <input
-                      aria-label="Search category"
-                      class="h-14 w-full rounded-full border border-border-default bg-background-surface pl-12 pr-4 text-base font-medium text-text-primary outline-none transition-colors placeholder:font-normal placeholder:text-text-tertiary hover:border-border-strong focus:border-border-focus focus:ring-2 focus:ring-focus-ring/30 text-lg placeholder:text-lg"
-                      placeholder="Search category"
-                      type="search"
-                    />
-                  </label>
+                    <span
+                      class="sr-only"
+                    >
+                      Previous
+                    </span>
+                  </button>
+                  <div
+                    class="flex min-w-0 items-center justify-center gap-1"
+                  >
+                    <button
+                      aria-current="page"
+                      class="flex h-10 w-10 items-center justify-center rounded-xl text-sm font-semibold transition-colors bg-action-primary text-text-inverse shadow-sm"
+                      type="button"
+                    >
+                      1
+                    </button>
+                  </div>
                   <button
-                    class="h-14 rounded-2xl bg-action-primary px-6 text-lg font-semibold text-text-inverse hover:bg-action-primary-hover focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring"
+                    aria-label="Next"
+                    class="flex h-10 items-center justify-center gap-1 rounded-xl border border-border-default text-sm font-semibold transition-colors w-10 cursor-not-allowed bg-background-disabled text-text-disabled"
+                    disabled=""
                     type="button"
                   >
-                    Create Category
+                    <span
+                      class="sr-only"
+                    >
+                      Next
+                    </span>
+                    <svg
+                      class="h-5 w-3.5 sm:h-5 sm:w-5"
+                      fill="none"
+                      height="1em"
+                      stroke="currentColor"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      viewBox="0 0 24 24"
+                      width="1em"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <polyline
+                        points="9 18 15 12 9 6"
+                      />
+                    </svg>
                   </button>
                 </div>
+              </div>
+            </div>
+          </div>
+          <div
+            class="hidden rounded-3xl border border-border-default bg-background-surface px-6 pb-6 pt-0 shadow-xs md:mt-6 md:flex md:flex-1 md:flex-col md:overflow-hidden lg:flex"
+          >
+            <div
+              class="flex items-center justify-between gap-4 border-b border-border-default py-6"
+            >
+              <label
+                class="relative block w-full sm:w-72 "
+              >
+                <span
+                  class="sr-only"
+                >
+                  Search category
+                </span>
+                <svg
+                  aria-hidden="true"
+                  class="pointer-events-none absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-text-tertiary"
+                  fill="none"
+                  height="1em"
+                  stroke="currentColor"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  viewBox="0 0 24 24"
+                  width="1em"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <circle
+                    cx="11"
+                    cy="11"
+                    r="8"
+                  />
+                  <line
+                    x1="21"
+                    x2="16.65"
+                    y1="21"
+                    y2="16.65"
+                  />
+                </svg>
+                <input
+                  aria-label="Search category"
+                  class="h-14 w-full rounded-full border border-border-default bg-background-surface pl-12 pr-4 text-base font-medium text-text-primary outline-none transition-colors placeholder:font-normal placeholder:text-text-tertiary hover:border-border-strong focus:border-border-focus focus:ring-2 focus:ring-focus-ring/30 text-lg placeholder:text-lg"
+                  placeholder="Search category"
+                  type="search"
+                />
+              </label>
+              <button
+                class="h-14 rounded-2xl bg-action-primary px-6 text-lg font-semibold text-text-inverse hover:bg-action-primary-hover focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring"
+                type="button"
+              >
+                Create Category
+              </button>
+            </div>
+            <div
+              class="flex-1 overflow-auto"
+            >
+              <div
+                class="flex flex-col bg-transparent overflow-hidden"
+              >
                 <div
-                  class="flex-1 overflow-auto"
+                  class="hidden md:flex flex-1 overflow-auto"
                 >
                   <div
-                    class="flex flex-col bg-transparent overflow-hidden"
+                    class="w-full overflow-x-auto"
                   >
-                    <div
-                      class="hidden md:flex flex-1 overflow-auto"
+                    <table
+                      class="w-full min-w-max border-separate border-spacing-0 whitespace-nowrap"
                     >
-                      <div
-                        class="w-full overflow-x-auto"
-                      >
-                        <table
-                          class="w-full min-w-max border-separate border-spacing-0 whitespace-nowrap"
-                        >
-                          <thead>
-                            <tr>
-                              <th
-                                class="bg-table-header px-5 py-4 text-[13px] font-bold text-text-secondary uppercase tracking-widest rounded-l-xl  text-center "
-                              >
-                                No
-                              </th>
-                              <th
-                                class="bg-table-header px-5 py-4 text-[13px] font-bold text-text-secondary uppercase tracking-widest   text-left "
-                              >
-                                Category Name
-                              </th>
-                              <th
-                                class="bg-table-header px-5 py-4 text-[13px] font-bold text-text-secondary uppercase tracking-widest   text-center "
-                              >
-                                Status
-                              </th>
-                              <th
-                                class="bg-table-header px-5 py-4 text-[13px] font-bold text-text-secondary uppercase tracking-widest   text-left "
-                              >
-                                Created At
-                              </th>
-                              <th
-                                class="bg-table-header px-5 py-4 text-[13px] font-bold text-text-secondary uppercase tracking-widest  rounded-r-xl text-center "
-                              >
-                                Action
-                              </th>
-                            </tr>
-                          </thead>
-                          <tbody
-                            class="divide-y divide-border-default"
+                      <thead>
+                        <tr>
+                          <th
+                            class="bg-table-header px-5 py-4 text-[13px] font-bold text-text-secondary uppercase tracking-widest rounded-l-xl  text-center "
                           >
-                            <tr
-                              class="hover:bg-background-subtle/50 transition-colors "
-                            >
-                              <td
-                                class="px-5 py-4 border-b border-border-default text-base text-center "
-                              >
-                                <span
-                                  class="text-lg"
-                                >
-                                  1
-                                </span>
-                              </td>
-                              <td
-                                class="px-5 py-4 border-b border-border-default text-base text-left "
-                              >
-                                <span
-                                  class="text-lg font-medium"
-                                >
-                                  Audio System
-                                </span>
-                              </td>
-                              <td
-                                class="px-5 py-4 border-b border-border-default text-base text-center "
-                              >
-                                <span
-                                  class="inline-flex rounded-full px-4 py-1.5 text-lg font-semibold uppercase bg-badge-success-subtle text-badge-success"
-                                >
-                                  active
-                                </span>
-                              </td>
-                              <td
-                                class="px-5 py-4 border-b border-border-default text-base text-left "
-                              >
-                                <span
-                                  class="text-lg"
-                                >
-                                  1-2-2024
-                                </span>
-                              </td>
-                              <td
-                                class="px-5 py-4 border-b border-border-default text-base text-center "
-                              >
-                                <div
-                                  class="flex items-center justify-center gap-1"
-                                >
-                                  <button
-                                    aria-label="Edit category"
-                                    class="cursor-pointer rounded-3xl p-2.5 text-text-secondary hover:bg-action-primary-subtle hover:text-action-primary"
-                                    title="Edit category"
-                                    type="button"
-                                  >
-                                    <svg
-                                      class="h-5 w-5"
-                                      fill="none"
-                                      height="1em"
-                                      stroke="currentColor"
-                                      stroke-linecap="round"
-                                      stroke-linejoin="round"
-                                      stroke-width="2"
-                                      viewBox="0 0 24 24"
-                                      width="1em"
-                                      xmlns="http://www.w3.org/2000/svg"
-                                    >
-                                      <path
-                                        d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"
-                                      />
-                                    </svg>
-                                  </button>
-                                </div>
-                              </td>
-                            </tr>
-                          </tbody>
-                        </table>
-                      </div>
-                    </div>
-                    <div
-                      class="md:hidden bg-background-surface rounded-xl border border-border-default shadow-sm overflow-hidden"
-                    >
-                      <div
-                        class="bg-background-surface overflow-hidden divide-y divide-border-default"
+                            No
+                          </th>
+                          <th
+                            class="bg-table-header px-5 py-4 text-[13px] font-bold text-text-secondary uppercase tracking-widest   text-left "
+                          >
+                            Category Name
+                          </th>
+                          <th
+                            class="bg-table-header px-5 py-4 text-[13px] font-bold text-text-secondary uppercase tracking-widest   text-center "
+                          >
+                            Status
+                          </th>
+                          <th
+                            class="bg-table-header px-5 py-4 text-[13px] font-bold text-text-secondary uppercase tracking-widest   text-left "
+                          >
+                            Created At
+                          </th>
+                          <th
+                            class="bg-table-header px-5 py-4 text-[13px] font-bold text-text-secondary uppercase tracking-widest  rounded-r-xl text-center "
+                          >
+                            Action
+                          </th>
+                        </tr>
+                      </thead>
+                      <tbody
+                        class="divide-y divide-border-default"
                       >
-                        <div
-                          class="flex flex-col gap-3 px-4 py-4 bg-transparent transition-colors "
-                        />
-                      </div>
-                    </div>
+                        <tr
+                          class="hover:bg-background-subtle/50 transition-colors "
+                        >
+                          <td
+                            class="px-5 py-4 border-b border-border-default text-base text-center "
+                          >
+                            <span
+                              class="text-lg"
+                            >
+                              1
+                            </span>
+                          </td>
+                          <td
+                            class="px-5 py-4 border-b border-border-default text-base text-left "
+                          >
+                            <span
+                              class="text-lg font-medium"
+                            >
+                              Audio System
+                            </span>
+                          </td>
+                          <td
+                            class="px-5 py-4 border-b border-border-default text-base text-center "
+                          >
+                            <span
+                              class="inline-flex rounded-full border border-current px-3 py-1 text-base font-semibold uppercase bg-success-subtle text-success-strong"
+                            >
+                              active
+                            </span>
+                          </td>
+                          <td
+                            class="px-5 py-4 border-b border-border-default text-base text-left "
+                          >
+                            <span
+                              class="text-lg"
+                            >
+                              01 Februari 2024 pukul 07.00
+                            </span>
+                          </td>
+                          <td
+                            class="px-5 py-4 border-b border-border-default text-base text-center "
+                          >
+                            <div
+                              class="flex items-center justify-center gap-1"
+                            >
+                              <button
+                                aria-label="Edit category"
+                                class="cursor-pointer rounded-3xl p-2.5 text-text-secondary hover:bg-action-primary-subtle hover:text-action-primary"
+                                title="Edit category"
+                                type="button"
+                              >
+                                <svg
+                                  class="h-5 w-5"
+                                  fill="none"
+                                  height="1em"
+                                  stroke="currentColor"
+                                  stroke-linecap="round"
+                                  stroke-linejoin="round"
+                                  stroke-width="2"
+                                  viewBox="0 0 24 24"
+                                  width="1em"
+                                  xmlns="http://www.w3.org/2000/svg"
+                                >
+                                  <path
+                                    d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"
+                                  />
+                                </svg>
+                              </button>
+                            </div>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
                   </div>
                 </div>
                 <div
-                  class="flex flex-col gap-3 py-4 pt-4"
+                  class="md:hidden bg-background-surface rounded-xl border border-border-default shadow-sm overflow-hidden"
                 >
                   <div
-                    class="flex w-full items-center justify-between gap-2 overflow-x-auto"
+                    class="bg-background-surface overflow-hidden divide-y divide-border-default"
                   >
                     <div
-                      class="flex shrink-0 items-center gap-1.5 sm:gap-2"
-                    >
-                      <p
-                        class="whitespace-nowrap text-xs text-text-secondary sm:text-sm"
-                      >
-                        Show 1/5 data
-                      </p>
-                      <div
-                        class="relative w-[180px] sm:w-auto sm:min-w-[100px] shrink-0"
-                      >
-                        <label
-                          class="mb-1.5 block text-sm font-semibold text-text-secondary sr-only"
-                          for="documents-per-page"
-                        >
-                          Documents per page
-                        </label>
-                        <div
-                          class="ant-select ant-select-outlined h-14 w-full !border-2 [&_.ant-select-selector]:!rounded-2xl [&_.ant-select-content]:!text-xl [&_.ant-select-content]:!font-normal !border-border-strong [&_.ant-select-selector]:!border-2 [&_.ant-select-selector]:!border-border-strong  css-var-root ant-select-css-var css-dev-only-do-not-override-eofgey ant-select-single ant-select-show-arrow ant-select-show-search"
-                          style="--ant-select-border-radius: 16px; border: 2px solid var(--border-strong);"
-                        >
-                          <div
-                            class="ant-select-content ant-select-content-has-value"
-                            title="5"
-                          >
-                            5
-                            <input
-                              aria-autocomplete="list"
-                              aria-expanded="false"
-                              aria-haspopup="listbox"
-                              aria-invalid="false"
-                              aria-label="Documents per page"
-                              autocomplete="new-password"
-                              class="ant-select-input"
-                              id="documents-per-page"
-                              role="combobox"
-                              type="text"
-                              value=""
-                            />
-                          </div>
-                          <div
-                            class="ant-select-suffix"
-                          >
-                            <span
-                              aria-label="down"
-                              class="anticon anticon-down"
-                              role="img"
-                            >
-                              <svg
-                                aria-hidden="true"
-                                data-icon="down"
-                                fill="currentColor"
-                                focusable="false"
-                                height="1em"
-                                viewBox="64 64 896 896"
-                                width="1em"
-                              >
-                                <path
-                                  d="M884 256h-75c-5.1 0-9.9 2.5-12.9 6.6L512 654.2 227.9 262.6c-3-4.1-7.8-6.6-12.9-6.6h-75c-6.5 0-10.3 7.4-6.5 12.7l352.6 486.1c12.8 17.6 39 17.6 51.7 0l352.6-486.1c3.9-5.3.1-12.7-6.4-12.7z"
-                                />
-                              </svg>
-                            </span>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div
-                      class="flex shrink-0 items-center justify-end gap-1 sm:gap-2"
-                    >
-                      <button
-                        aria-label="Previous"
-                        class="flex h-10 items-center justify-center gap-1 rounded-xl border border-border-default text-sm font-semibold transition-colors px-3 sm:px-4 cursor-not-allowed bg-background-disabled text-text-disabled"
-                        disabled=""
-                        type="button"
-                      >
-                        <svg
-                          class="h-5 w-3.5 sm:h-5 sm:w-5"
-                          fill="none"
-                          height="1em"
-                          stroke="currentColor"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          stroke-width="2"
-                          viewBox="0 0 24 24"
-                          width="1em"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <polyline
-                            points="15 18 9 12 15 6"
-                          />
-                        </svg>
-                        <span
-                          class="hidden sm:inline"
-                        >
-                          Previous
-                        </span>
-                      </button>
-                      <div
-                        class="flex min-w-0 items-center justify-center gap-1"
-                      >
-                        <button
-                          aria-current="page"
-                          class="flex h-10 w-10 items-center justify-center rounded-xl text-sm font-semibold transition-colors bg-action-primary text-text-inverse shadow-sm"
-                          type="button"
-                        >
-                          1
-                        </button>
-                      </div>
-                      <button
-                        aria-label="Next"
-                        class="flex h-10 items-center justify-center gap-1 rounded-xl border border-border-default text-sm font-semibold transition-colors px-3 sm:px-4 cursor-not-allowed bg-background-disabled text-text-disabled"
-                        disabled=""
-                        type="button"
-                      >
-                        <span
-                          class="hidden sm:inline"
-                        >
-                          Next
-                        </span>
-                        <svg
-                          class="h-5 w-3.5 sm:h-5 sm:w-5"
-                          fill="none"
-                          height="1em"
-                          stroke="currentColor"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          stroke-width="2"
-                          viewBox="0 0 24 24"
-                          width="1em"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <polyline
-                            points="9 18 15 12 9 6"
-                          />
-                        </svg>
-                      </button>
-                    </div>
+                      class="flex flex-col gap-3 px-4 py-4 bg-transparent transition-colors "
+                    />
                   </div>
                 </div>
               </div>
             </div>
-          </main>
+            <div
+              class="flex flex-col gap-3 py-4 pt-4"
+            >
+              <div
+                class="flex w-full items-center justify-between gap-2 overflow-x-auto"
+              >
+                <div
+                  class="flex shrink-0 items-center gap-1.5 sm:gap-2"
+                >
+                  <p
+                    class="whitespace-nowrap text-xs text-text-secondary sm:text-sm"
+                  >
+                    Show 1/5 data
+                  </p>
+                  <div
+                    class="relative w-[180px] sm:w-auto sm:min-w-[100px] shrink-0"
+                  >
+                    <label
+                      class="mb-1.5 block text-sm font-semibold text-text-secondary sr-only"
+                      for="documents-per-page"
+                    >
+                      Documents per page
+                    </label>
+                    <div
+                      class="ant-select ant-select-outlined h-14 w-full !border-2 [&_.ant-select-selector]:!rounded-2xl [&_.ant-select-content]:!text-xl [&_.ant-select-content]:!font-normal !border-border-strong [&_.ant-select-selector]:!border-2 [&_.ant-select-selector]:!border-border-strong  css-var-root ant-select-css-var css-dev-only-do-not-override-eofgey ant-select-single ant-select-show-arrow ant-select-show-search"
+                      style="--ant-select-border-radius: 16px; border: 2px solid var(--border-strong);"
+                    >
+                      <div
+                        class="ant-select-content ant-select-content-has-value"
+                        title="5"
+                      >
+                        5
+                        <input
+                          aria-autocomplete="list"
+                          aria-expanded="false"
+                          aria-haspopup="listbox"
+                          aria-invalid="false"
+                          aria-label="Documents per page"
+                          autocomplete="new-password"
+                          class="ant-select-input"
+                          id="documents-per-page"
+                          role="combobox"
+                          type="text"
+                          value=""
+                        />
+                      </div>
+                      <div
+                        class="ant-select-suffix"
+                      >
+                        <span
+                          aria-label="down"
+                          class="anticon anticon-down"
+                          role="img"
+                        >
+                          <svg
+                            aria-hidden="true"
+                            data-icon="down"
+                            fill="currentColor"
+                            focusable="false"
+                            height="1em"
+                            viewBox="64 64 896 896"
+                            width="1em"
+                          >
+                            <path
+                              d="M884 256h-75c-5.1 0-9.9 2.5-12.9 6.6L512 654.2 227.9 262.6c-3-4.1-7.8-6.6-12.9-6.6h-75c-6.5 0-10.3 7.4-6.5 12.7l352.6 486.1c12.8 17.6 39 17.6 51.7 0l352.6-486.1c3.9-5.3.1-12.7-6.4-12.7z"
+                            />
+                          </svg>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="flex shrink-0 items-center justify-end gap-1 sm:gap-2"
+                >
+                  <button
+                    aria-label="Previous"
+                    class="flex h-10 items-center justify-center gap-1 rounded-xl border border-border-default text-sm font-semibold transition-colors px-3 sm:px-4 cursor-not-allowed bg-background-disabled text-text-disabled"
+                    disabled=""
+                    type="button"
+                  >
+                    <svg
+                      class="h-5 w-3.5 sm:h-5 sm:w-5"
+                      fill="none"
+                      height="1em"
+                      stroke="currentColor"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      viewBox="0 0 24 24"
+                      width="1em"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <polyline
+                        points="15 18 9 12 15 6"
+                      />
+                    </svg>
+                    <span
+                      class="hidden sm:inline"
+                    >
+                      Previous
+                    </span>
+                  </button>
+                  <div
+                    class="flex min-w-0 items-center justify-center gap-1"
+                  >
+                    <button
+                      aria-current="page"
+                      class="flex h-10 w-10 items-center justify-center rounded-xl text-sm font-semibold transition-colors bg-action-primary text-text-inverse shadow-sm"
+                      type="button"
+                    >
+                      1
+                    </button>
+                  </div>
+                  <button
+                    aria-label="Next"
+                    class="flex h-10 items-center justify-center gap-1 rounded-xl border border-border-default text-sm font-semibold transition-colors px-3 sm:px-4 cursor-not-allowed bg-background-disabled text-text-disabled"
+                    disabled=""
+                    type="button"
+                  >
+                    <span
+                      class="hidden sm:inline"
+                    >
+                      Next
+                    </span>
+                    <svg
+                      class="h-5 w-3.5 sm:h-5 sm:w-5"
+                      fill="none"
+                      height="1em"
+                      stroke="currentColor"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      viewBox="0 0 24 24"
+                      width="1em"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <polyline
+                        points="9 18 15 12 9 6"
+                      />
+                    </svg>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </main>
     </div>
@@ -1400,1044 +697,263 @@ exports[`should match MasterCategoryComponent snapshots 1`] = `
 
 exports[`should match MasterCategoryComponent snapshots 2`] = `
 <DocumentFragment>
-  <div
-    class="flex h-full min-h-0 w-full overflow-hidden font-sans text-text-primary relative items-stretch transition-colors duration-200 bg-background-page"
-  >
+  <div>
     <div
-      class="hidden lg:flex h-full min-h-0 shrink-0 self-stretch"
+      class="flex min-h-full flex-col"
     >
-      <aside
-        aria-label="Sidebar"
-        class="w-[290px] h-full min-h-0 self-stretch bg-sidebar-background border border-border-default flex flex-col shrink-0 overflow-hidden transition-[width] duration-[250ms] ease-in-out"
-        style="border-radius: 0;"
+      <header
+        class="mb-6 shrink-0"
       >
         <div
-          class="h-[72px] mb-16 flex items-center shrink-0 px-4"
+          class="hidden items-start justify-between gap-4 lg:flex"
         >
-          <img
-            alt="Sonicline"
-            class="h-12 w-auto object-contain"
-            src="/src/assets/Sonicline-dark.png"
-          />
-        </div>
-        <div
-          class="min-h-0 flex-1 overflow-y-auto overflow-x-hidden pb-6 px-4 space-y-5 scrollbar-thin"
-        >
-          <div>
-            <p
-              class="px-2 mb-2 text-[15px] font-semibold tracking-widest uppercase text-text-tertiary"
-            >
-              Menu
-            </p>
+          <div
+            class="min-w-0"
+          >
             <nav
-              aria-label="Menu"
-              class="space-y-1"
+              aria-label="Breadcrumb"
+              class="mb-2 flex flex-wrap items-center gap-2 text-[15px] font-medium text-text-secondary"
             >
-              <a
-                class="min-h-14 flex items-center gap-3 rounded-[8px] px-4 py-3 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring/30 text-text-secondary hover:bg-background-elevated hover:text-text-primary"
-                data-discover="true"
-                href="/home"
+              <button
+                class="cursor-pointer hover:text-text-primary"
+                type="button"
               >
-                <span
-                  class="shrink-0 [&_svg]:h-5 [&_svg]:w-5 text-text-tertiary"
-                >
-                  <svg
-                    fill="none"
-                    height="1em"
-                    stroke="currentColor"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    viewBox="0 0 24 24"
-                    width="1em"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <rect
-                      height="9"
-                      rx="1"
-                      width="7"
-                      x="3"
-                      y="3"
-                    />
-                    <rect
-                      height="5"
-                      rx="1"
-                      width="7"
-                      x="14"
-                      y="3"
-                    />
-                    <rect
-                      height="9"
-                      rx="1"
-                      width="7"
-                      x="14"
-                      y="12"
-                    />
-                    <rect
-                      height="5"
-                      rx="1"
-                      width="7"
-                      x="3"
-                      y="16"
-                    />
-                  </svg>
-                </span>
-                <span
-                  class="flex-1 truncate text-xl leading-none font-normal"
-                >
-                  Dashboard
-                </span>
-              </a>
-              <a
-                class="min-h-14 flex items-center gap-3 rounded-[8px] px-4 py-3 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring/30 text-text-secondary hover:bg-background-elevated hover:text-text-primary"
-                data-discover="true"
-                href="/order/create"
+                Master
+              </button>
+              <span
+                aria-hidden="true"
               >
-                <span
-                  class="shrink-0 [&_svg]:h-5 [&_svg]:w-5 text-text-tertiary"
-                >
-                  <svg
-                    fill="none"
-                    height="1em"
-                    stroke="currentColor"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    viewBox="0 0 24 24"
-                    width="1em"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M4 22h14a2 2 0 0 0 2-2V7l-5-5H6a2 2 0 0 0-2 2v4"
-                    />
-                    <path
-                      d="M14 2v4a2 2 0 0 0 2 2h4"
-                    />
-                    <path
-                      d="M3 15h6"
-                    />
-                    <path
-                      d="M6 12v6"
-                    />
-                  </svg>
-                </span>
-                <span
-                  class="flex-1 truncate text-xl leading-none font-normal"
-                >
-                  Create Order
-                </span>
-              </a>
-              <div>
-                <button
-                  aria-expanded="false"
-                  class="w-full min-h-14 py-3 flex items-center gap-3 rounded-[8px] px-4 text-left transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring/30 text-text-secondary hover:bg-background-elevated hover:text-text-primary"
-                  type="button"
-                >
-                  <span
-                    class="shrink-0 [&_svg]:h-5 [&_svg]:w-5 text-text-tertiary"
-                  >
-                    <svg
-                      fill="none"
-                      height="1em"
-                      stroke="currentColor"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      viewBox="0 0 24 24"
-                      width="1em"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"
-                      />
-                      <path
-                        d="M14 2v4a2 2 0 0 0 2 2h4"
-                      />
-                      <path
-                        d="M10 9H8"
-                      />
-                      <path
-                        d="M16 13H8"
-                      />
-                      <path
-                        d="M16 17H8"
-                      />
-                    </svg>
-                  </span>
-                  <span
-                    class="flex-1 truncate text-xl leading-none font-normal"
-                  >
-                    Document
-                  </span>
-                  <span
-                    class="shrink-0 text-text-tertiary transition-transform duration-200 "
-                  >
-                    <svg
-                      fill="none"
-                      height="14"
-                      stroke="currentColor"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      viewBox="0 0 24 24"
-                      width="14"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="m6 9 6 6 6-6"
-                      />
-                    </svg>
-                  </span>
-                </button>
-              </div>
-              <a
-                class="min-h-14 flex items-center gap-3 rounded-[8px] px-4 py-3 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring/30 text-text-secondary hover:bg-background-elevated hover:text-text-primary"
-                data-discover="true"
-                href="/item-checklist"
-              >
-                <span
-                  class="shrink-0 [&_svg]:h-5 [&_svg]:w-5 text-text-tertiary"
-                >
-                  <svg
-                    fill="none"
-                    height="1em"
-                    stroke="currentColor"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    viewBox="0 0 24 24"
-                    width="1em"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <rect
-                      height="18"
-                      rx="2"
-                      width="18"
-                      x="3"
-                      y="3"
-                    />
-                    <path
-                      d="m9 12 2 2 4-4"
-                    />
-                  </svg>
-                </span>
-                <span
-                  class="flex-1 truncate text-xl leading-none font-normal"
-                >
-                  Item Checklist
-                </span>
-              </a>
-              <a
-                class="min-h-14 flex items-center gap-3 rounded-[8px] px-4 py-3 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring/30 text-text-secondary hover:bg-background-elevated hover:text-text-primary"
-                data-discover="true"
-                href="/item-return"
-              >
-                <span
-                  class="shrink-0 [&_svg]:h-5 [&_svg]:w-5 text-text-tertiary"
-                >
-                  <svg
-                    fill="none"
-                    height="1em"
-                    stroke="currentColor"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    viewBox="0 0 24 24"
-                    width="1em"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"
-                    />
-                    <path
-                      d="M3 3v5h5"
-                    />
-                  </svg>
-                </span>
-                <span
-                  class="flex-1 truncate text-xl leading-none font-normal"
-                >
-                  Item Return
-                </span>
-              </a>
-              <a
-                class="min-h-14 flex items-center gap-3 rounded-[8px] px-4 py-3 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring/30 text-text-secondary hover:bg-background-elevated hover:text-text-primary"
-                data-discover="true"
-                href="/calendar"
-              >
-                <span
-                  class="shrink-0 [&_svg]:h-5 [&_svg]:w-5 text-text-tertiary"
-                >
-                  <svg
-                    fill="none"
-                    height="1em"
-                    stroke="currentColor"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    viewBox="0 0 24 24"
-                    width="1em"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M8 2v4"
-                    />
-                    <path
-                      d="M16 2v4"
-                    />
-                    <rect
-                      height="18"
-                      rx="2"
-                      width="18"
-                      x="3"
-                      y="4"
-                    />
-                    <path
-                      d="M3 10h18"
-                    />
-                    <path
-                      d="M8 14h.01"
-                    />
-                    <path
-                      d="M12 14h.01"
-                    />
-                    <path
-                      d="M16 14h.01"
-                    />
-                    <path
-                      d="M8 18h.01"
-                    />
-                    <path
-                      d="M12 18h.01"
-                    />
-                    <path
-                      d="M16 18h.01"
-                    />
-                  </svg>
-                </span>
-                <span
-                  class="flex-1 truncate text-xl leading-none font-normal"
-                >
-                  Calendar
-                </span>
-              </a>
-              <a
-                class="min-h-14 flex items-center gap-3 rounded-[8px] px-4 py-3 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring/30 text-text-secondary hover:bg-background-elevated hover:text-text-primary"
-                data-discover="true"
-                href="/activity-log"
-              >
-                <span
-                  class="shrink-0 [&_svg]:h-5 [&_svg]:w-5 text-text-tertiary"
-                >
-                  <svg
-                    fill="none"
-                    height="1em"
-                    stroke="currentColor"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    viewBox="0 0 24 24"
-                    width="1em"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M22 12h-2.48a2 2 0 0 0-1.93 1.46l-2.35 8.36a.25.25 0 0 1-.48 0L9.24 2.18a.25.25 0 0 0-.48 0l-2.35 8.36A2 2 0 0 1 4.49 12H2"
-                    />
-                  </svg>
-                </span>
-                <span
-                  class="flex-1 truncate text-xl leading-none font-normal"
-                >
-                  Activity Log
-                </span>
-              </a>
-              <a
-                class="min-h-14 flex items-center gap-3 rounded-[8px] px-4 py-3 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring/30 text-text-secondary hover:bg-background-elevated hover:text-text-primary"
-                data-discover="true"
-                href="/note"
-              >
-                <span
-                  class="shrink-0 [&_svg]:h-5 [&_svg]:w-5 text-text-tertiary"
-                >
-                  <svg
-                    fill="none"
-                    height="1em"
-                    stroke="currentColor"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    viewBox="0 0 24 24"
-                    width="1em"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M2 6h4"
-                    />
-                    <path
-                      d="M2 10h4"
-                    />
-                    <path
-                      d="M2 14h4"
-                    />
-                    <path
-                      d="M2 18h4"
-                    />
-                    <rect
-                      height="20"
-                      rx="2"
-                      width="16"
-                      x="4"
-                      y="2"
-                    />
-                    <path
-                      d="M15 2v20"
-                    />
-                    <path
-                      d="M15 7h5"
-                    />
-                    <path
-                      d="M15 12h5"
-                    />
-                    <path
-                      d="M15 17h5"
-                    />
-                  </svg>
-                </span>
-                <span
-                  class="flex-1 truncate text-xl leading-none font-normal"
-                >
-                  Note
-                </span>
-              </a>
-              <div>
-                <button
-                  aria-expanded="false"
-                  class="w-full min-h-14 py-3 flex items-center gap-3 rounded-[8px] px-4 text-left transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring/30 text-text-secondary hover:bg-background-elevated hover:text-text-primary"
-                  type="button"
-                >
-                  <span
-                    class="shrink-0 [&_svg]:h-5 [&_svg]:w-5 text-text-tertiary"
-                  >
-                    <svg
-                      fill="none"
-                      height="1em"
-                      stroke="currentColor"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      viewBox="0 0 24 24"
-                      width="1em"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="M12 16v5"
-                      />
-                      <path
-                        d="M16 14v7"
-                      />
-                      <path
-                        d="M20 10v11"
-                      />
-                      <path
-                        d="m22 3-8.646 8.646a.5.5 0 0 1-.708 0L9.354 8.354a.5.5 0 0 0-.707 0L2 15"
-                      />
-                      <path
-                        d="M4 18v3"
-                      />
-                      <path
-                        d="M8 14v7"
-                      />
-                    </svg>
-                  </span>
-                  <span
-                    class="flex-1 truncate text-xl leading-none font-normal"
-                  >
-                    Report
-                  </span>
-                  <span
-                    class="shrink-0 text-text-tertiary transition-transform duration-200 "
-                  >
-                    <svg
-                      fill="none"
-                      height="14"
-                      stroke="currentColor"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      viewBox="0 0 24 24"
-                      width="14"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="m6 9 6 6 6-6"
-                      />
-                    </svg>
-                  </span>
-                </button>
-              </div>
-              <div>
-                <button
-                  aria-expanded="false"
-                  class="w-full min-h-14 py-3 flex items-center gap-3 rounded-[8px] px-4 text-left transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring/30 text-text-secondary hover:bg-background-elevated hover:text-text-primary"
-                  type="button"
-                >
-                  <span
-                    class="shrink-0 [&_svg]:h-5 [&_svg]:w-5 text-text-tertiary"
-                  >
-                    <svg
-                      fill="none"
-                      height="1em"
-                      stroke="currentColor"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      viewBox="0 0 24 24"
-                      width="1em"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="M11 21.73a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73z"
-                      />
-                      <path
-                        d="M12 22V12"
-                      />
-                      <path
-                        d="m3.3 7 7.703 4.734a2 2 0 0 0 1.994 0L20.7 7"
-                      />
-                      <path
-                        d="m7.5 4.27 9 5.15"
-                      />
-                    </svg>
-                  </span>
-                  <span
-                    class="flex-1 truncate text-xl leading-none font-normal"
-                  >
-                    Master Data
-                  </span>
-                  <span
-                    class="shrink-0 text-text-tertiary transition-transform duration-200 "
-                  >
-                    <svg
-                      fill="none"
-                      height="14"
-                      stroke="currentColor"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      viewBox="0 0 24 24"
-                      width="14"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="m6 9 6 6 6-6"
-                      />
-                    </svg>
-                  </span>
-                </button>
-              </div>
+                /
+              </span>
+              <span>
+                Master Category
+              </span>
             </nav>
+            <h1
+              class="truncate text-4xl font-semibold leading-tight tracking-tight text-text-primary"
+            >
+              Category List
+            </h1>
+            <p
+              class="mt-2 text-sm text-text-secondary"
+            >
+              Manage product and item categories
+            </p>
+          </div>
+          <div
+            class="flex shrink-0 items-center gap-3"
+          >
+            <button
+              class="h-14 rounded-full border-2 border-action-primary bg-background-surface px-6 text-lg font-bold text-action-primary transition-colors hover:bg-action-primary-subtle focus:outline-none focus:ring-2 focus:ring-focus-ring/30 lg:hidden"
+              type="button"
+            >
+              Create New
+            </button>
           </div>
         </div>
         <div
-          class="shrink-0 border-t border-border-default p-3"
+          class="flex items-center justify-between gap-3 lg:hidden px-0"
         >
-          <button
-            aria-checked="false"
-            aria-label="Toggle dark theme"
-            class="mb-2 flex min-h-12 w-full cursor-pointer items-center rounded-[8px] bg-background-subtle text-text-secondary transition-colors hover:bg-action-primary-subtle focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring gap-3 px-4 py-3"
-            role="switch"
-            type="button"
+          <div
+            class="flex items-center gap-3 min-w-0 flex-1"
           >
-            <span
-              aria-hidden="true"
-              class="shrink-0 [&_svg]:h-5 [&_svg]:w-5"
+            <button
+              aria-label="Back"
+              class="flex h-14 w-14 shrink-0 items-center justify-center rounded-full border border-border-default bg-background-page text-text-primary transition-colors hover:bg-background-subtle focus-visible:ring-2 focus-visible:ring-focus-ring/30 "
+              type="button"
             >
               <svg
+                aria-hidden="true"
+                class="h-6 w-6"
                 fill="none"
-                height="20"
-                stroke="currentColor"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="1.8"
-                viewBox="0 0 24 24"
-                width="20"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"
-                />
-              </svg>
-            </span>
-            <span
-              class="flex-1 text-left text-xl font-medium"
-            >
-              Dark theme
-            </span>
-          </button>
-          <button
-            aria-label="Log out"
-            class="mb-2 flex min-h-12 w-full cursor-pointer items-center rounded-[8px] bg-danger-subtle text-danger-strong transition-colors hover:bg-danger/20 focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring gap-3 px-4 py-3"
-            type="button"
-          >
-            <span
-              aria-hidden="true"
-              class="shrink-0 [&_svg]:h-5 [&_svg]:w-5"
-            >
-              <svg
-                fill="none"
-                height="16"
-                stroke="currentColor"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="1.8"
-                viewBox="0 0 24 24"
-                width="16"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"
-                />
-                <polyline
-                  points="16 17 21 12 16 7"
-                />
-                <line
-                  x1="21"
-                  x2="9"
-                  y1="12"
-                  y2="12"
-                />
-              </svg>
-            </span>
-            <span
-              class="flex-1 text-left text-xl font-medium"
-            >
-              Log out
-            </span>
-          </button>
-          <button
-            aria-expanded="false"
-            aria-haspopup="menu"
-            class="flex w-full cursor-pointer items-center rounded-[10px] transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring/30 hover:bg-background-elevated gap-3 px-4 py-3"
-            type="button"
-          >
-            <span
-              aria-hidden="true"
-              class="w-10 h-10 rounded-full bg-action-primary-subtle text-action-primary flex items-center justify-center text-sm font-semibold shrink-0"
-            >
-              US
-            </span>
-            <span
-              class="flex-1 min-w-0 text-left"
-            >
-              <span
-                class="block truncate text-xl font-semibold leading-tight text-text-primary"
-              >
-                User
-              </span>
-            </span>
-            <span
-              class="shrink-0 text-text-tertiary transition-transform duration-200 [&_svg]:h-5 [&_svg]:w-5 "
-            >
-              <svg
-                fill="none"
-                height="14"
+                height="1em"
                 stroke="currentColor"
                 stroke-linecap="round"
                 stroke-linejoin="round"
                 stroke-width="2"
                 viewBox="0 0 24 24"
-                width="14"
+                width="1em"
                 xmlns="http://www.w3.org/2000/svg"
               >
-                <path
-                  d="m6 9 6 6 6-6"
+                <line
+                  x1="19"
+                  x2="5"
+                  y1="12"
+                  y2="12"
                 />
-              </svg>
-            </span>
-          </button>
-        </div>
-      </aside>
-    </div>
-    <div
-      class="flex-1 flex flex-col min-w-0 min-h-0 overflow-hidden relative transition-colors duration-200 bg-background-page"
-    >
-      <div
-        class="hidden lg:block shrink-0"
-      >
-        <header
-          class="sticky top-0 z-10 flex h-20 items-center justify-between border-b border-border-default bg-background-surface px-8 transition-all"
-        >
-          <div
-            class="flex flex-1 items-center gap-4"
-          >
-            <button
-              aria-expanded="true"
-              aria-label="Close sidebar"
-              class="flex h-10 w-10 items-center justify-center rounded-lg border border-border-default bg-background-surface text-text-secondary transition-colors hover:bg-background-subtle hover:text-text-primary focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring/30"
-              type="button"
-            >
-              <svg
-                fill="none"
-                height="20"
-                stroke="currentColor"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="1.8"
-                viewBox="0 0 24 24"
-                width="20"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <rect
-                  height="18"
-                  rx="3"
-                  width="18"
-                  x="3"
-                  y="3"
-                />
-                <path
-                  d="M9 3v18"
+                <polyline
+                  points="12 19 5 12 12 5"
                 />
               </svg>
             </button>
+            <div
+              class="min-w-0 flex-1"
+            >
+              <h1
+                class="truncate text-left text-3xl font-semibold tracking-tight text-text-primary text-4xl"
+              >
+                Category List
+              </h1>
+              <p
+                class="mt-1 truncate text-sm text-text-secondary"
+              >
+                Manage product and item categories
+              </p>
+            </div>
           </div>
-          <time
-            class="text-lg font-semibold tracking-wide text-text-primary tabular-nums sm:text-3xl"
-            data-testid="navbar-realtime-clock"
+          <div
+            class="shrink-0"
           >
-            18 Oktober 2026 01:01
-          </time>
-        </header>
-      </div>
+            <button
+              class="h-14 rounded-full border-2 border-action-primary bg-background-surface px-6 text-lg font-bold text-action-primary transition-colors hover:bg-action-primary-subtle focus:outline-none focus:ring-2 focus:ring-focus-ring/30 lg:hidden"
+              type="button"
+            >
+              Create New
+            </button>
+          </div>
+        </div>
+      </header>
       <main
-        class="relative z-0 flex-1 overflow-y-auto px-4 pt-4 pb-20 lg:p-8"
+        class="min-w-0 flex-1"
       >
         <div
-          class="flex min-h-full flex-col"
+          class="relative flex h-full flex-col bg-background-page px-0 pb-18 lg:-mt-4 lg:bg-transparent lg:px-0 lg:pb-0"
         >
-          <header
-            class="mb-6 shrink-0"
+          <div
+            class="flex min-w-0 flex-col gap-4 pb-16 pt-2 lg:hidden"
           >
-            <div
-              class="hidden items-start justify-between gap-4 lg:flex"
+            <label
+              class="relative block w-full sm:w-72 w-full sm:w-full"
             >
-              <div
-                class="min-w-0"
+              <span
+                class="sr-only"
               >
-                <nav
-                  aria-label="Breadcrumb"
-                  class="mb-2 flex flex-wrap items-center gap-2 text-[15px] font-medium text-text-secondary"
-                >
-                  <button
-                    class="cursor-pointer hover:text-text-primary"
-                    type="button"
-                  >
-                    Master
-                  </button>
-                  <span
-                    aria-hidden="true"
-                  >
-                    /
-                  </span>
-                  <span>
-                    Master Category
-                  </span>
-                </nav>
-                <h1
-                  class="truncate text-4xl font-semibold leading-tight tracking-tight text-text-primary"
-                >
-                  Category List
-                </h1>
-                <p
-                  class="mt-2 text-sm text-text-secondary"
-                >
-                  Manage product and item categories
-                </p>
-              </div>
-              <div
-                class="flex shrink-0 items-center gap-3"
+                Search category
+              </span>
+              <svg
+                aria-hidden="true"
+                class="pointer-events-none absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-text-tertiary"
+                fill="none"
+                height="1em"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+                width="1em"
+                xmlns="http://www.w3.org/2000/svg"
               >
-                <button
-                  class="h-14 rounded-full border-2 border-action-primary bg-background-surface px-6 text-lg font-bold text-action-primary transition-colors hover:bg-action-primary-subtle focus:outline-none focus:ring-2 focus:ring-focus-ring/30 lg:hidden"
-                  type="button"
-                >
-                  Create New
-                </button>
-              </div>
+                <circle
+                  cx="11"
+                  cy="11"
+                  r="8"
+                />
+                <line
+                  x1="21"
+                  x2="16.65"
+                  y1="21"
+                  y2="16.65"
+                />
+              </svg>
+              <input
+                aria-label="Search category"
+                class="h-14 w-full rounded-full border border-border-default bg-background-surface pl-12 pr-4 text-base font-medium text-text-primary outline-none transition-colors placeholder:font-normal placeholder:text-text-tertiary hover:border-border-strong focus:border-border-focus focus:ring-2 focus:ring-focus-ring/30 !h-16 text-xl placeholder:text-xl"
+                placeholder="Search category"
+                type="search"
+              />
+            </label>
+            <div
+              class="flex min-w-0 flex-col gap-4"
+            >
+              <p
+                class="py-10 text-center text-lg text-text-tertiary"
+              >
+                No categories found.
+              </p>
             </div>
             <div
-              class="flex items-center justify-between gap-3 lg:hidden px-0"
+              class="flex flex-col gap-3 py-4 w-full rounded-3xl border border-border-default bg-background-surface px-5 py-4 shadow-xs"
             >
               <div
-                class="flex items-center gap-3 min-w-0 flex-1"
+                class="flex w-full items-center justify-between gap-2 overflow-x-auto"
               >
-                <button
-                  aria-label="Back"
-                  class="flex h-14 w-14 shrink-0 items-center justify-center rounded-full border border-border-default text-text-primary bg-white hover:bg-background-subtle transition-colors"
-                  type="button"
-                >
-                  <svg
-                    aria-hidden="true"
-                    class="w-6 h-6"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2.5"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      d="M19 12H5M12 19l-7-7 7-7"
-                    />
-                  </svg>
-                </button>
                 <div
-                  class="min-w-0 flex-1"
-                >
-                  <h1
-                    class="truncate text-left text-3xl font-semibold tracking-tight text-text-primary text-4xl"
-                  >
-                    Category List
-                  </h1>
-                  <p
-                    class="mt-1 truncate text-sm text-text-secondary"
-                  >
-                    Manage product and item categories
-                  </p>
-                </div>
-              </div>
-              <div
-                class="shrink-0"
-              >
-                <button
-                  class="h-14 rounded-full border-2 border-action-primary bg-background-surface px-6 text-lg font-bold text-action-primary transition-colors hover:bg-action-primary-subtle focus:outline-none focus:ring-2 focus:ring-focus-ring/30 lg:hidden"
-                  type="button"
-                >
-                  Create New
-                </button>
-              </div>
-            </div>
-          </header>
-          <main
-            class="min-w-0 flex-1"
-          >
-            <div
-              class="relative flex h-full flex-col bg-background-page px-0 pb-18 lg:-mt-4 lg:bg-transparent lg:px-0 lg:pb-0"
-            >
-              <div
-                class="flex min-w-0 flex-col gap-4 pb-16 pt-2 lg:hidden"
-              >
-                <label
-                  class="relative block w-full sm:w-72 w-full sm:w-full"
-                >
-                  <span
-                    class="sr-only"
-                  >
-                    Search category
-                  </span>
-                  <svg
-                    aria-hidden="true"
-                    class="pointer-events-none absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-text-tertiary"
-                    fill="none"
-                    height="1em"
-                    stroke="currentColor"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    viewBox="0 0 24 24"
-                    width="1em"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <circle
-                      cx="11"
-                      cy="11"
-                      r="8"
-                    />
-                    <line
-                      x1="21"
-                      x2="16.65"
-                      y1="21"
-                      y2="16.65"
-                    />
-                  </svg>
-                  <input
-                    aria-label="Search category"
-                    class="h-14 w-full rounded-full border border-border-default bg-background-surface pl-12 pr-4 text-base font-medium text-text-primary outline-none transition-colors placeholder:font-normal placeholder:text-text-tertiary hover:border-border-strong focus:border-border-focus focus:ring-2 focus:ring-focus-ring/30 !h-16 text-xl placeholder:text-xl"
-                    placeholder="Search category"
-                    type="search"
-                  />
-                </label>
-                <div
-                  class="flex min-w-0 flex-col gap-4"
+                  class="flex shrink-0 items-center gap-1.5 sm:gap-2"
                 >
                   <p
-                    class="py-10 text-center text-lg text-text-tertiary"
+                    class="whitespace-nowrap text-xs text-text-secondary sm:text-sm"
                   >
-                    No categories found.
+                    Show 0/5 data
                   </p>
-                </div>
-                <div
-                  class="flex flex-col gap-3 py-4 w-full rounded-3xl border border-border-default bg-background-surface px-5 py-4 shadow-xs"
-                >
                   <div
-                    class="flex w-full items-center justify-between gap-2 overflow-x-auto"
+                    class="relative w-24 shrink-0"
                   >
-                    <div
-                      class="flex shrink-0 items-center gap-1.5 sm:gap-2"
+                    <label
+                      class="mb-1.5 block text-sm font-semibold text-text-secondary sr-only"
+                      for="documents-per-page"
                     >
-                      <p
-                        class="whitespace-nowrap text-xs text-text-secondary sm:text-sm"
-                      >
-                        Show 0/5 data
-                      </p>
+                      Documents per page
+                    </label>
+                    <div
+                      class="ant-select ant-select-outlined h-14 w-full !border-2 [&_.ant-select-selector]:!rounded-2xl [&_.ant-select-content]:!text-xl [&_.ant-select-content]:!font-normal !border-border-strong [&_.ant-select-selector]:!border-2 [&_.ant-select-selector]:!border-border-strong  css-var-root ant-select-css-var css-dev-only-do-not-override-eofgey ant-select-single ant-select-show-arrow ant-select-show-search"
+                      style="--ant-select-border-radius: 16px; border: 2px solid var(--border-strong);"
+                    >
                       <div
-                        class="relative w-auto shrink-0"
+                        class="ant-select-content ant-select-content-has-value"
+                        title="5"
                       >
-                        <label
-                          class="mb-1.5 block text-sm font-semibold text-text-secondary sr-only"
-                          for="documents-per-page"
+                        5
+                        <input
+                          aria-autocomplete="list"
+                          aria-expanded="false"
+                          aria-haspopup="listbox"
+                          aria-invalid="false"
+                          aria-label="Documents per page"
+                          autocomplete="new-password"
+                          class="ant-select-input"
+                          id="documents-per-page"
+                          role="combobox"
+                          type="text"
+                          value=""
+                        />
+                      </div>
+                      <div
+                        class="ant-select-suffix"
+                      >
+                        <span
+                          aria-label="down"
+                          class="anticon anticon-down"
+                          role="img"
                         >
-                          Documents per page
-                        </label>
-                        <div
-                          class="ant-select ant-select-outlined h-14 w-full !border-2 [&_.ant-select-selector]:!rounded-2xl [&_.ant-select-content]:!text-xl [&_.ant-select-content]:!font-normal !border-border-strong [&_.ant-select-selector]:!border-2 [&_.ant-select-selector]:!border-border-strong  css-var-root ant-select-css-var css-dev-only-do-not-override-eofgey ant-select-single ant-select-show-arrow ant-select-show-search"
-                          style="--ant-select-border-radius: 16px; border: 2px solid var(--border-strong);"
-                        >
-                          <div
-                            class="ant-select-content ant-select-content-has-value"
-                            title="5"
+                          <svg
+                            aria-hidden="true"
+                            data-icon="down"
+                            fill="currentColor"
+                            focusable="false"
+                            height="1em"
+                            viewBox="64 64 896 896"
+                            width="1em"
                           >
-                            5
-                            <input
-                              aria-autocomplete="list"
-                              aria-expanded="false"
-                              aria-haspopup="listbox"
-                              aria-invalid="false"
-                              aria-label="Documents per page"
-                              autocomplete="new-password"
-                              class="ant-select-input"
-                              id="documents-per-page"
-                              role="combobox"
-                              type="text"
-                              value=""
+                            <path
+                              d="M884 256h-75c-5.1 0-9.9 2.5-12.9 6.6L512 654.2 227.9 262.6c-3-4.1-7.8-6.6-12.9-6.6h-75c-6.5 0-10.3 7.4-6.5 12.7l352.6 486.1c12.8 17.6 39 17.6 51.7 0l352.6-486.1c3.9-5.3.1-12.7-6.4-12.7z"
                             />
-                          </div>
-                          <div
-                            class="ant-select-suffix"
-                          >
-                            <span
-                              aria-label="down"
-                              class="anticon anticon-down"
-                              role="img"
-                            >
-                              <svg
-                                aria-hidden="true"
-                                data-icon="down"
-                                fill="currentColor"
-                                focusable="false"
-                                height="1em"
-                                viewBox="64 64 896 896"
-                                width="1em"
-                              >
-                                <path
-                                  d="M884 256h-75c-5.1 0-9.9 2.5-12.9 6.6L512 654.2 227.9 262.6c-3-4.1-7.8-6.6-12.9-6.6h-75c-6.5 0-10.3 7.4-6.5 12.7l352.6 486.1c12.8 17.6 39 17.6 51.7 0l352.6-486.1c3.9-5.3.1-12.7-6.4-12.7z"
-                                />
-                              </svg>
-                            </span>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div
-                      class="flex shrink-0 items-center justify-end gap-1 sm:gap-2"
-                    >
-                      <button
-                        aria-label="Previous"
-                        class="flex h-10 items-center justify-center gap-1 rounded-xl border border-border-default text-sm font-semibold transition-colors w-10 cursor-not-allowed bg-background-disabled text-text-disabled"
-                        disabled=""
-                        type="button"
-                      >
-                        <svg
-                          class="h-5 w-3.5 sm:h-5 sm:w-5"
-                          fill="none"
-                          height="1em"
-                          stroke="currentColor"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          stroke-width="2"
-                          viewBox="0 0 24 24"
-                          width="1em"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <polyline
-                            points="15 18 9 12 15 6"
-                          />
-                        </svg>
-                        <span
-                          class="sr-only"
-                        >
-                          Previous
+                          </svg>
                         </span>
-                      </button>
-                      <div
-                        class="flex min-w-0 items-center justify-center gap-1"
-                      >
-                        <button
-                          aria-current="page"
-                          class="flex h-10 w-10 items-center justify-center rounded-xl text-sm font-semibold transition-colors bg-action-primary text-text-inverse shadow-sm"
-                          type="button"
-                        >
-                          1
-                        </button>
                       </div>
-                      <button
-                        aria-label="Next"
-                        class="flex h-10 items-center justify-center gap-1 rounded-xl border border-border-default text-sm font-semibold transition-colors w-10 cursor-not-allowed bg-background-disabled text-text-disabled"
-                        disabled=""
-                        type="button"
-                      >
-                        <span
-                          class="sr-only"
-                        >
-                          Next
-                        </span>
-                        <svg
-                          class="h-5 w-3.5 sm:h-5 sm:w-5"
-                          fill="none"
-                          height="1em"
-                          stroke="currentColor"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          stroke-width="2"
-                          viewBox="0 0 24 24"
-                          width="1em"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <polyline
-                            points="9 18 15 12 9 6"
-                          />
-                        </svg>
-                      </button>
                     </div>
                   </div>
                 </div>
-              </div>
-              <div
-                class="hidden rounded-3xl border border-border-default bg-background-surface px-6 pb-6 pt-0 shadow-xs md:mt-6 md:flex md:flex-1 md:flex-col md:overflow-hidden lg:flex"
-              >
                 <div
-                  class="flex items-center justify-between gap-4 border-b border-border-default py-6"
+                  class="flex shrink-0 items-center justify-end gap-1 sm:gap-2"
                 >
-                  <label
-                    class="relative block w-full sm:w-72 "
+                  <button
+                    aria-label="Previous"
+                    class="flex h-10 items-center justify-center gap-1 rounded-xl border border-border-default text-sm font-semibold transition-colors w-10 cursor-not-allowed bg-background-disabled text-text-disabled"
+                    disabled=""
+                    type="button"
                   >
-                    <span
-                      class="sr-only"
-                    >
-                      Search category
-                    </span>
                     <svg
-                      aria-hidden="true"
-                      class="pointer-events-none absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-text-tertiary"
+                      class="h-5 w-3.5 sm:h-5 sm:w-5"
                       fill="none"
                       height="1em"
                       stroke="currentColor"
@@ -2448,189 +964,267 @@ exports[`should match MasterCategoryComponent snapshots 2`] = `
                       width="1em"
                       xmlns="http://www.w3.org/2000/svg"
                     >
-                      <circle
-                        cx="11"
-                        cy="11"
-                        r="8"
-                      />
-                      <line
-                        x1="21"
-                        x2="16.65"
-                        y1="21"
-                        y2="16.65"
+                      <polyline
+                        points="15 18 9 12 15 6"
                       />
                     </svg>
-                    <input
-                      aria-label="Search category"
-                      class="h-14 w-full rounded-full border border-border-default bg-background-surface pl-12 pr-4 text-base font-medium text-text-primary outline-none transition-colors placeholder:font-normal placeholder:text-text-tertiary hover:border-border-strong focus:border-border-focus focus:ring-2 focus:ring-focus-ring/30 text-lg placeholder:text-lg"
-                      placeholder="Search category"
-                      type="search"
-                    />
-                  </label>
+                    <span
+                      class="sr-only"
+                    >
+                      Previous
+                    </span>
+                  </button>
+                  <div
+                    class="flex min-w-0 items-center justify-center gap-1"
+                  >
+                    <button
+                      aria-current="page"
+                      class="flex h-10 w-10 items-center justify-center rounded-xl text-sm font-semibold transition-colors bg-action-primary text-text-inverse shadow-sm"
+                      type="button"
+                    >
+                      1
+                    </button>
+                  </div>
                   <button
-                    class="h-14 rounded-2xl bg-action-primary px-6 text-lg font-semibold text-text-inverse hover:bg-action-primary-hover focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring"
+                    aria-label="Next"
+                    class="flex h-10 items-center justify-center gap-1 rounded-xl border border-border-default text-sm font-semibold transition-colors w-10 cursor-not-allowed bg-background-disabled text-text-disabled"
+                    disabled=""
                     type="button"
                   >
-                    Create Category
+                    <span
+                      class="sr-only"
+                    >
+                      Next
+                    </span>
+                    <svg
+                      class="h-5 w-3.5 sm:h-5 sm:w-5"
+                      fill="none"
+                      height="1em"
+                      stroke="currentColor"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      viewBox="0 0 24 24"
+                      width="1em"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <polyline
+                        points="9 18 15 12 9 6"
+                      />
+                    </svg>
                   </button>
-                </div>
-                <div
-                  class="flex-1 overflow-auto"
-                >
-                  <p
-                    class="py-10 text-center text-lg text-text-tertiary"
-                  >
-                    No categories found.
-                  </p>
-                </div>
-                <div
-                  class="flex flex-col gap-3 py-4 pt-4"
-                >
-                  <div
-                    class="flex w-full items-center justify-between gap-2 overflow-x-auto"
-                  >
-                    <div
-                      class="flex shrink-0 items-center gap-1.5 sm:gap-2"
-                    >
-                      <p
-                        class="whitespace-nowrap text-xs text-text-secondary sm:text-sm"
-                      >
-                        Show 0/5 data
-                      </p>
-                      <div
-                        class="relative w-[180px] sm:w-auto sm:min-w-[100px] shrink-0"
-                      >
-                        <label
-                          class="mb-1.5 block text-sm font-semibold text-text-secondary sr-only"
-                          for="documents-per-page"
-                        >
-                          Documents per page
-                        </label>
-                        <div
-                          class="ant-select ant-select-outlined h-14 w-full !border-2 [&_.ant-select-selector]:!rounded-2xl [&_.ant-select-content]:!text-xl [&_.ant-select-content]:!font-normal !border-border-strong [&_.ant-select-selector]:!border-2 [&_.ant-select-selector]:!border-border-strong  css-var-root ant-select-css-var css-dev-only-do-not-override-eofgey ant-select-single ant-select-show-arrow ant-select-show-search"
-                          style="--ant-select-border-radius: 16px; border: 2px solid var(--border-strong);"
-                        >
-                          <div
-                            class="ant-select-content ant-select-content-has-value"
-                            title="5"
-                          >
-                            5
-                            <input
-                              aria-autocomplete="list"
-                              aria-expanded="false"
-                              aria-haspopup="listbox"
-                              aria-invalid="false"
-                              aria-label="Documents per page"
-                              autocomplete="new-password"
-                              class="ant-select-input"
-                              id="documents-per-page"
-                              role="combobox"
-                              type="text"
-                              value=""
-                            />
-                          </div>
-                          <div
-                            class="ant-select-suffix"
-                          >
-                            <span
-                              aria-label="down"
-                              class="anticon anticon-down"
-                              role="img"
-                            >
-                              <svg
-                                aria-hidden="true"
-                                data-icon="down"
-                                fill="currentColor"
-                                focusable="false"
-                                height="1em"
-                                viewBox="64 64 896 896"
-                                width="1em"
-                              >
-                                <path
-                                  d="M884 256h-75c-5.1 0-9.9 2.5-12.9 6.6L512 654.2 227.9 262.6c-3-4.1-7.8-6.6-12.9-6.6h-75c-6.5 0-10.3 7.4-6.5 12.7l352.6 486.1c12.8 17.6 39 17.6 51.7 0l352.6-486.1c3.9-5.3.1-12.7-6.4-12.7z"
-                                />
-                              </svg>
-                            </span>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div
-                      class="flex shrink-0 items-center justify-end gap-1 sm:gap-2"
-                    >
-                      <button
-                        aria-label="Previous"
-                        class="flex h-10 items-center justify-center gap-1 rounded-xl border border-border-default text-sm font-semibold transition-colors px-3 sm:px-4 cursor-not-allowed bg-background-disabled text-text-disabled"
-                        disabled=""
-                        type="button"
-                      >
-                        <svg
-                          class="h-5 w-3.5 sm:h-5 sm:w-5"
-                          fill="none"
-                          height="1em"
-                          stroke="currentColor"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          stroke-width="2"
-                          viewBox="0 0 24 24"
-                          width="1em"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <polyline
-                            points="15 18 9 12 15 6"
-                          />
-                        </svg>
-                        <span
-                          class="hidden sm:inline"
-                        >
-                          Previous
-                        </span>
-                      </button>
-                      <div
-                        class="flex min-w-0 items-center justify-center gap-1"
-                      >
-                        <button
-                          aria-current="page"
-                          class="flex h-10 w-10 items-center justify-center rounded-xl text-sm font-semibold transition-colors bg-action-primary text-text-inverse shadow-sm"
-                          type="button"
-                        >
-                          1
-                        </button>
-                      </div>
-                      <button
-                        aria-label="Next"
-                        class="flex h-10 items-center justify-center gap-1 rounded-xl border border-border-default text-sm font-semibold transition-colors px-3 sm:px-4 cursor-not-allowed bg-background-disabled text-text-disabled"
-                        disabled=""
-                        type="button"
-                      >
-                        <span
-                          class="hidden sm:inline"
-                        >
-                          Next
-                        </span>
-                        <svg
-                          class="h-5 w-3.5 sm:h-5 sm:w-5"
-                          fill="none"
-                          height="1em"
-                          stroke="currentColor"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          stroke-width="2"
-                          viewBox="0 0 24 24"
-                          width="1em"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <polyline
-                            points="9 18 15 12 9 6"
-                          />
-                        </svg>
-                      </button>
-                    </div>
-                  </div>
                 </div>
               </div>
             </div>
-          </main>
+          </div>
+          <div
+            class="hidden rounded-3xl border border-border-default bg-background-surface px-6 pb-6 pt-0 shadow-xs md:mt-6 md:flex md:flex-1 md:flex-col md:overflow-hidden lg:flex"
+          >
+            <div
+              class="flex items-center justify-between gap-4 border-b border-border-default py-6"
+            >
+              <label
+                class="relative block w-full sm:w-72 "
+              >
+                <span
+                  class="sr-only"
+                >
+                  Search category
+                </span>
+                <svg
+                  aria-hidden="true"
+                  class="pointer-events-none absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-text-tertiary"
+                  fill="none"
+                  height="1em"
+                  stroke="currentColor"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  viewBox="0 0 24 24"
+                  width="1em"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <circle
+                    cx="11"
+                    cy="11"
+                    r="8"
+                  />
+                  <line
+                    x1="21"
+                    x2="16.65"
+                    y1="21"
+                    y2="16.65"
+                  />
+                </svg>
+                <input
+                  aria-label="Search category"
+                  class="h-14 w-full rounded-full border border-border-default bg-background-surface pl-12 pr-4 text-base font-medium text-text-primary outline-none transition-colors placeholder:font-normal placeholder:text-text-tertiary hover:border-border-strong focus:border-border-focus focus:ring-2 focus:ring-focus-ring/30 text-lg placeholder:text-lg"
+                  placeholder="Search category"
+                  type="search"
+                />
+              </label>
+              <button
+                class="h-14 rounded-2xl bg-action-primary px-6 text-lg font-semibold text-text-inverse hover:bg-action-primary-hover focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring"
+                type="button"
+              >
+                Create Category
+              </button>
+            </div>
+            <div
+              class="flex-1 overflow-auto"
+            >
+              <p
+                class="py-10 text-center text-lg text-text-tertiary"
+              >
+                No categories found.
+              </p>
+            </div>
+            <div
+              class="flex flex-col gap-3 py-4 pt-4"
+            >
+              <div
+                class="flex w-full items-center justify-between gap-2 overflow-x-auto"
+              >
+                <div
+                  class="flex shrink-0 items-center gap-1.5 sm:gap-2"
+                >
+                  <p
+                    class="whitespace-nowrap text-xs text-text-secondary sm:text-sm"
+                  >
+                    Show 0/5 data
+                  </p>
+                  <div
+                    class="relative w-[180px] sm:w-auto sm:min-w-[100px] shrink-0"
+                  >
+                    <label
+                      class="mb-1.5 block text-sm font-semibold text-text-secondary sr-only"
+                      for="documents-per-page"
+                    >
+                      Documents per page
+                    </label>
+                    <div
+                      class="ant-select ant-select-outlined h-14 w-full !border-2 [&_.ant-select-selector]:!rounded-2xl [&_.ant-select-content]:!text-xl [&_.ant-select-content]:!font-normal !border-border-strong [&_.ant-select-selector]:!border-2 [&_.ant-select-selector]:!border-border-strong  css-var-root ant-select-css-var css-dev-only-do-not-override-eofgey ant-select-single ant-select-show-arrow ant-select-show-search"
+                      style="--ant-select-border-radius: 16px; border: 2px solid var(--border-strong);"
+                    >
+                      <div
+                        class="ant-select-content ant-select-content-has-value"
+                        title="5"
+                      >
+                        5
+                        <input
+                          aria-autocomplete="list"
+                          aria-expanded="false"
+                          aria-haspopup="listbox"
+                          aria-invalid="false"
+                          aria-label="Documents per page"
+                          autocomplete="new-password"
+                          class="ant-select-input"
+                          id="documents-per-page"
+                          role="combobox"
+                          type="text"
+                          value=""
+                        />
+                      </div>
+                      <div
+                        class="ant-select-suffix"
+                      >
+                        <span
+                          aria-label="down"
+                          class="anticon anticon-down"
+                          role="img"
+                        >
+                          <svg
+                            aria-hidden="true"
+                            data-icon="down"
+                            fill="currentColor"
+                            focusable="false"
+                            height="1em"
+                            viewBox="64 64 896 896"
+                            width="1em"
+                          >
+                            <path
+                              d="M884 256h-75c-5.1 0-9.9 2.5-12.9 6.6L512 654.2 227.9 262.6c-3-4.1-7.8-6.6-12.9-6.6h-75c-6.5 0-10.3 7.4-6.5 12.7l352.6 486.1c12.8 17.6 39 17.6 51.7 0l352.6-486.1c3.9-5.3.1-12.7-6.4-12.7z"
+                            />
+                          </svg>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="flex shrink-0 items-center justify-end gap-1 sm:gap-2"
+                >
+                  <button
+                    aria-label="Previous"
+                    class="flex h-10 items-center justify-center gap-1 rounded-xl border border-border-default text-sm font-semibold transition-colors px-3 sm:px-4 cursor-not-allowed bg-background-disabled text-text-disabled"
+                    disabled=""
+                    type="button"
+                  >
+                    <svg
+                      class="h-5 w-3.5 sm:h-5 sm:w-5"
+                      fill="none"
+                      height="1em"
+                      stroke="currentColor"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      viewBox="0 0 24 24"
+                      width="1em"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <polyline
+                        points="15 18 9 12 15 6"
+                      />
+                    </svg>
+                    <span
+                      class="hidden sm:inline"
+                    >
+                      Previous
+                    </span>
+                  </button>
+                  <div
+                    class="flex min-w-0 items-center justify-center gap-1"
+                  >
+                    <button
+                      aria-current="page"
+                      class="flex h-10 w-10 items-center justify-center rounded-xl text-sm font-semibold transition-colors bg-action-primary text-text-inverse shadow-sm"
+                      type="button"
+                    >
+                      1
+                    </button>
+                  </div>
+                  <button
+                    aria-label="Next"
+                    class="flex h-10 items-center justify-center gap-1 rounded-xl border border-border-default text-sm font-semibold transition-colors px-3 sm:px-4 cursor-not-allowed bg-background-disabled text-text-disabled"
+                    disabled=""
+                    type="button"
+                  >
+                    <span
+                      class="hidden sm:inline"
+                    >
+                      Next
+                    </span>
+                    <svg
+                      class="h-5 w-3.5 sm:h-5 sm:w-5"
+                      fill="none"
+                      height="1em"
+                      stroke="currentColor"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      viewBox="0 0 24 24"
+                      width="1em"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <polyline
+                        points="9 18 15 12 9 6"
+                      />
+                    </svg>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </main>
     </div>

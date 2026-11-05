@@ -8,7 +8,7 @@ import type { SwitchProps } from "./Switch.type";
  * @param {SwitchProps} props - Switch state and behavior
  * @returns {ReactElement} Switch control
  */
-export const SwitchComponent = ({ id, label, checked, onChange, disabled = false, loading = false, size = "default", className = "" }: SwitchProps): ReactElement => (
+export const SwitchComponent = ({ id, label, checked, onChange, disabled = false, loading = false, size = "medium", className = "" }: SwitchProps): ReactElement => (
   <AntSwitch
     id={id}
     aria-label={label}

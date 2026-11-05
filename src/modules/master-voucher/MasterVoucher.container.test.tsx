@@ -1,8 +1,16 @@
-import { fireEvent, render, screen } from "@/libs/unit-test";
+import type * as React from "react";
 import { MemoryRouter } from "react-router-dom";
-import MasterVoucherContainer from "./MasterVoucher.container";
+
+import { fireEvent, render, screen } from "@/libs/unit-test";
 import { useGetVouchersQuery } from "@/services/master-voucher.service";
+
+import MasterVoucherContainer from "./MasterVoucher.container";
 import type { VoucherData } from "./MasterVoucher.type";
+
+jest.mock("../../app/layout", () => ({
+  __esModule: true,
+  default: ({ children }: { children: React.ReactNode }) => <div data-testid="layout">{children}</div>,
+}));
 
 jest.mock("@/services/master-voucher.service", () => ({
   useGetVouchersQuery: jest.fn(),
@@ -58,7 +66,7 @@ describe("MasterVoucherContainer", () => {
     });
   });
 
-  it("renders container component correctly", () => {
+  it("should render container component correctly", () => {
     const { container } = render(
       <MemoryRouter>
         <MasterVoucherContainer />
@@ -68,7 +76,7 @@ describe("MasterVoucherContainer", () => {
     expect(screen.getAllByPlaceholderText(/Search/i).length).toBeGreaterThan(0);
   });
 
-  it("matches snapshot", () => {
+  it("should match snapshot", () => {
     const { asFragment } = render(
       <MemoryRouter>
         <MasterVoucherContainer />

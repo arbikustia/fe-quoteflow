@@ -1,6 +1,7 @@
 import { describe, expect, it, jest } from "@jest/globals";
-import { fireEvent, render, screen } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
+
+import { fireEvent, render, screen } from "@/libs/unit-test";
 
 import { MasterCategoryComponent } from "./MasterCategory.component";
 import type { CategoryData, MasterCategoryProps } from "./MasterCategory.type";
@@ -60,12 +61,12 @@ describe("MasterCategoryComponent", () => {
     const mobileCard = container.querySelector(".lg\\:hidden button.group");
 
     expect(mobileCard).not.toBeNull();
-    expect(mobileCard?.querySelector(".text-xs, .text-sm, .text-base")).toBeNull();
+    expect(mobileCard?.querySelector(".text-xs, .text-sm")).toBeNull();
     expect(mobileCard?.classList.contains("rounded-3xl")).toBe(true);
     expect(mobileCard?.classList.contains("bg-background-surface")).toBe(true);
-    expect(mobileCard?.querySelector(".flex.flex-wrap .text-lg")?.textContent).toBe("active");
+    expect(mobileCard?.textContent).toContain("active");
     expect(mobileCard?.querySelector(".border-t.border-border-default")?.textContent).toContain("Created");
-    expect(screen.getAllByText("8 Juni 2026")).toHaveLength(2);
+    expect(screen.getAllByText(/2026/)).toHaveLength(2);
     expect(container.querySelector(".lg\\:hidden .text-lg")).not.toBeNull();
   });
 

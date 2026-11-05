@@ -3,6 +3,21 @@ import { fireEvent, render, screen } from "@/libs/unit-test";
 import * as React from "react";
 import { MemoryRouter } from "react-router-dom";
 
+jest.mock("../../../app/layout", () => ({
+  __esModule: true,
+  default: ({ children }: { children: React.ReactNode }) => React.createElement("div", {}, children),
+}));
+
+jest.mock("@/components/Sidebar/Sidebar.container", () => ({
+  __esModule: true,
+  default: () => React.createElement("div", {}, "Sidebar"),
+}));
+
+jest.mock("@reduxjs/toolkit/query/react", () => ({
+  ...jest.requireActual("@reduxjs/toolkit/query/react"),
+  useCreateActivityLogMutation: jest.fn(() => [jest.fn()]),
+}));
+
 import type { ProjectData } from "../MasterProject.type";
 import { MasterProjectDetailComponent } from "./MasterProjectDetail.component";
 import type { MasterProjectDetailState } from "./MasterProjectDetail.type";
