@@ -8,12 +8,15 @@ export const mapPayment = (payment: ApiPayment): PaymentData => ({
   id: payment.id,
   invoiceId: payment.invoice_id,
   paymentMethodId: payment.payment_method_id,
+  invoiceNo: payment.invoice?.invoice_no ?? "-",
+  customerName: payment.invoice?.customer.name ?? "-",
   amount: payment.amount,
   paidAt: payment.paid_at,
   referenceNo: payment.reference_no,
   notes: payment.notes,
   status: payment.status === 1 ? "active" : "inactive",
   paymentStatus: payment.status,
+  createdAt: payment.created_at,
 });
 
 export const paymentService = apiRtkClient.injectEndpoints({

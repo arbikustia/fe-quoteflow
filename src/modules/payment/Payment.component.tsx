@@ -1,6 +1,6 @@
 /* eslint-disable jsdoc/require-jsdoc */
 import * as React from "react";
-import { FiEdit2 } from "react-icons/fi";
+import { FiEdit2, FiEye } from "react-icons/fi";
 
 import { Pagination } from "@/components/Pagination";
 import { SearchFilter } from "@/components/SearchFilter";
@@ -24,21 +24,12 @@ const _renderRowNumber = (props: PaymentProps, index: number): React.ReactElemen
 );
 
 /**
- * Render reference no cell.
- * @param {PaymentData} row - Payment row
- * @returns {React.ReactElement} Reference no element
- */
-const _renderReferenceNo = (row: PaymentData): React.ReactElement => (
-  <span className="text-lg font-medium">{row.referenceNo}</span>
-);
-
-/**
  * Render invoice id cell.
  * @param {PaymentData} row - Payment row
  * @returns {React.ReactElement} Invoice id element
  */
-const _renderInvoiceId = (row: PaymentData): React.ReactElement => (
-  <span className="text-lg">{row.invoiceId}</span>
+const _renderInvoiceNo = (row: PaymentData): React.ReactElement => (
+  <span className="text-lg font-medium">{row.invoiceNo}</span>
 );
 
 /**
@@ -46,8 +37,8 @@ const _renderInvoiceId = (row: PaymentData): React.ReactElement => (
  * @param {PaymentData} row - Payment row
  * @returns {React.ReactElement} Payment method element
  */
-const _renderPaymentMethod = (row: PaymentData): React.ReactElement => (
-  <span className="text-lg">{row.paymentMethodId}</span>
+const _renderCustomerName = (row: PaymentData): React.ReactElement => (
+  <span className="text-lg">{row.customerName}</span>
 );
 
 /**
@@ -68,13 +59,8 @@ const _renderPaidAt = (row: PaymentData): React.ReactElement => (
   <span className="text-lg">{formatDate(row.paidAt)}</span>
 );
 
-/**
- * Render payment notes cell.
- * @param {PaymentData} row - Payment row
- * @returns {React.ReactElement} Notes element
- */
-const _renderNotes = (row: PaymentData): React.ReactElement => (
-  <span className="text-lg">{row.notes || "-"}</span>
+const _renderCreatedAt = (row: PaymentData): React.ReactElement => (
+  <span className="text-lg">{formatDate(row.createdAt)}</span>
 );
 
 /**
@@ -94,19 +80,37 @@ const _renderStatus = (row: PaymentData): React.ReactElement => (
  * @param {(payment: PaymentData) => void} onEdit - Edit callback
  * @returns {React.ReactElement} Edit button
  */
-const _renderEditAction = (payment: PaymentData, onEdit: (payment: PaymentData) => void): React.ReactElement => (
-  <button
-    type="button"
-    onClick={(event: React.MouseEvent): void => {
-      event.stopPropagation();
-      onEdit(payment);
-    }}
-    className="cursor-pointer rounded-3xl p-2.5 text-text-secondary hover:bg-action-primary-subtle hover:text-action-primary"
-    title="Edit payment"
-    aria-label="Edit payment"
-  >
-    <FiEdit2 className="h-5 w-5" />
-  </button>
+const _renderActions = (
+  payment: PaymentData,
+  onDetail: (payment: PaymentData) => void,
+  onEdit: (payment: PaymentData) => void,
+): React.ReactElement => (
+  <div className="flex items-center justify-center gap-1">
+    <button
+      type="button"
+      onClick={(event: React.MouseEvent): void => {
+        event.stopPropagation();
+        onDetail(payment);
+      }}
+      className="cursor-pointer rounded-3xl p-2.5 text-text-secondary hover:bg-action-primary-subtle hover:text-action-primary"
+      title="View payment detail"
+      aria-label="View payment detail"
+    >
+      <FiEye className="h-5 w-5" />
+    </button>
+    <button
+      type="button"
+      onClick={(event: React.MouseEvent): void => {
+        event.stopPropagation();
+        onEdit(payment);
+      }}
+      className="cursor-pointer rounded-3xl p-2.5 text-text-secondary hover:bg-action-primary-subtle hover:text-action-primary"
+      title="Edit payment"
+      aria-label="Edit payment"
+    >
+      <FiEdit2 className="h-5 w-5" />
+    </button>
+  </div>
 );
 
 /**
@@ -116,14 +120,13 @@ const _renderEditAction = (payment: PaymentData, onEdit: (payment: PaymentData) 
  */
 const _getColumns = (props: PaymentProps): TableColumn<PaymentData>[] => [
   { key: "no", header: "No", align: "center", render: (_row: PaymentData, index: number): React.ReactElement => _renderRowNumber(props, index) },
-  { key: "referenceNo", header: "Reference No", render: _renderReferenceNo },
-  { key: "invoiceId", header: "Invoice ID", render: _renderInvoiceId },
-  { key: "paymentMethodId", header: "Payment Method", render: _renderPaymentMethod },
+  { key: "invoiceNo", header: "Invoice No", render: _renderInvoiceNo },
+  { key: "customerName", header: "Customer Name", render: _renderCustomerName },
   { key: "amount", header: "Amount", align: "right", render: _renderAmount },
   { key: "paidAt", header: "Paid At", render: _renderPaidAt },
-  { key: "notes", header: "Notes", render: _renderNotes },
+  { key: "createdAt", header: "Created At", render: _renderCreatedAt },
   { key: "status", header: "Status", align: "center", render: _renderStatus },
-  { key: "actions", header: "Action", align: "center", render: (row: PaymentData): React.ReactElement => _renderEditAction(row, props.onEdit) },
+  { key: "actions", header: "Action", align: "center", render: (row: PaymentData): React.ReactElement => _renderActions(row, props.onDetail ?? props.onRowClick, props.onEdit) },
 ];
 
 /**
@@ -197,8 +200,8 @@ export const PaymentMobileCard = ({ payment, onClick }: PaymentMobileCardProps):
         {payment.status === "active" ? "Active" : "Inactive"}
       </span>
     </span>
-    <span className="mt-4 block break-all text-xl font-semibold text-text-primary">{payment.invoiceId}</span>
-    <span className="mt-1.5 block break-words text-lg text-text-secondary">{payment.paymentMethodId}</span>
+    <span className="mt-4 block break-all text-xl font-semibold text-text-primary">{payment.invoiceNo}</span>
+    <span className="mt-1.5 block break-words text-lg text-text-secondary">{payment.customerName}</span>
     <span className="mt-4 flex flex-wrap items-end justify-between gap-x-4 gap-y-3 border-t border-border-default pt-4">
       <span className="min-w-0 text-lg text-text-secondary">
         <span className="block text-lg text-text-tertiary">Paid at</span>

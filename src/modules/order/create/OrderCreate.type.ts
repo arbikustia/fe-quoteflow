@@ -28,7 +28,7 @@ export type OrderCreateFormState = {
 
 export type SelectOption = { id: string; name: string };
 export type OrderItemOption = SelectOption & { image: string | null; price: number | null; stock: number | null };
-export type OrderProjectOption = SelectOption & { items: ReadonlyArray<{ item_id: string; item_name: string | null; qty: number }> };
+export type OrderProjectOption = SelectOption & { price: number; items: ReadonlyArray<{ item_id: string; item_name: string | null; qty: number }> };
 export type OrderTypeOption = SelectOption & { is_handover: boolean };
 
 export type OrderCreateProps = {
@@ -59,6 +59,7 @@ export type OrderCreateProps = {
   onCustomerChange: (customerId: string) => void;
   onPicChange: (picId: string) => void;
   onVoucherChange: (voucherId: string) => void;
+  onVoucherSearch: (code: string) => void;
   onServiceTypeChange: (serviceTypeId: string) => void;
   onOrderTypeChange: (orderTypeId: string) => void;
   onHandoverTypeChange: (handoverType: string) => void;
@@ -102,6 +103,7 @@ export type OrderCreateState = {
   onCustomerChange: (customerId: string) => void;
   onPicChange: (picId: string) => void;
   onVoucherChange: (voucherId: string) => void;
+  onVoucherSearch: (code: string) => void;
   onServiceTypeChange: (serviceTypeId: string) => void;
   onOrderTypeChange: (orderTypeId: string) => void;
   onHandoverTypeChange: (handoverType: string) => void;

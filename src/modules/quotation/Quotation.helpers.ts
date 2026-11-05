@@ -47,7 +47,10 @@ const _fromQuotationData = (quotation: QuotationData, itemCategories: Map<string
 const _fromApiQuotation = (quotation: ApiQuotation, itemCategories: Map<string, string>): QuoteData => {
   const tx = quotation.transaction;
   const transactionItems = tx?.rental_transaction_items ?? [];
-  const items = transactionItems.map((item) => item.item_name);
+  const regularItems = transactionItems.filter(
+    (item) => Boolean(item.item_id && item.item_name),
+  );
+  const items = regularItems.map((item) => item.item_name ?? "");
 
   return {
     id: quotation.quotation_no || quotation.id,
@@ -58,16 +61,32 @@ const _fromApiQuotation = (quotation: ApiQuotation, itemCategories: Map<string, 
     location: tx?.address || "-",
     category: tx?.service_type_name || "",
     selectedItems: items,
-    pdfItems: transactionItems.map((item) => ({
-      name: item.item_name,
-      category: itemCategories.get(item.item_id) ?? "Uncategorized",
+    pdfItems: regularItems.map((item) => ({
+      name: item.item_name ?? "",
+      category: item.category_name ?? itemCategories.get(item.item_id ?? "") ?? "Uncategorized",
       qty: item.qty,
       price: item.price,
-      remark: item.remark,
+      remark: item.remark ?? "",
+    })),
+    pdfProjects: tx?.rental_transaction_project.map((project) => ({
+      name: project.name,
+      qty: project.qty,
+      price: project.price,
+      remark: project.remark,
+      items: project.items.map((item) => ({
+        name: item.item_name,
+        qty: item.qty,
+        remark: transactionItems.find(
+          (transactionItem) =>
+            transactionItem.project_id === project.id &&
+            transactionItem.item_id === item.item_id,
+        )?.remark ?? "",
+      })),
     })),
     qty: 1,
     pph: 0,
     discount: tx?.discount ?? 0,
+    serviceFee: tx?.service_fee ?? 0,
     remark: quotation.notes || "",
     grandTotal: tx?.grand_total ?? 0,
     status: quotation.status,

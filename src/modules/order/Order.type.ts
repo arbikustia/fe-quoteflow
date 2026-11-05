@@ -52,6 +52,20 @@ export type QuotePdfItem = {
   remark: string;
 };
 
+export type QuotePdfProjectItem = {
+  name: string;
+  qty: number;
+  remark: string;
+};
+
+export type QuotePdfProject = {
+  name: string;
+  qty: number;
+  price: number;
+  remark: string;
+  items: QuotePdfProjectItem[];
+};
+
 export type QuoteData = {
   id: string;
   name: string;
@@ -62,9 +76,11 @@ export type QuoteData = {
   category: string;
   selectedItems: string[];
   pdfItems?: QuotePdfItem[];
+  pdfProjects?: QuotePdfProject[];
   qty: number;
   pph: number;
   discount: number;
+  serviceFee?: number;
   remark: string;
   grandTotal: number;
   status: number;
@@ -122,12 +138,14 @@ export type ApiRentalTransactionProjectItem = {
   item_name: string;
   qty: number;
   price: number;
+  remark: string;
 };
 
 export type ApiRentalTransactionProject = {
   id: string;
   name: string;
   remark: string;
+  price: number;
   qty: number;
   subtotal: number;
   items: ApiRentalTransactionProjectItem[];
@@ -163,6 +181,13 @@ export type ApiRentalTransactionDetail = {
   updated_at: string;
   rental_transaction_items: ApiRentalTransactionDetailItem[];
   rental_transaction_project: ApiRentalTransactionProject[];
+  rental_handovers?: Array<{
+    id: string;
+    order_type_id: string;
+    type: string;
+    name: string;
+    status: number;
+  }>;
 };
 
 export type OrderDetailResponse = {

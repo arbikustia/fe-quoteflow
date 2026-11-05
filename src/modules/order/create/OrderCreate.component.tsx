@@ -342,17 +342,15 @@ const _renderProjectCard = (
     cardClass = "border-danger bg-background-surface";
   }
 
-  const projectPriceTotal = project.items.reduce((accumulator, item) => {
-    const itemDetail = props.items.find((option) => option.id === item.item_id);
-
-    return accumulator + (itemDetail?.price ?? 0) * item.qty;
-  }, 0);
-
   /**
    * Handle toggling project selection.
    * @returns {void} No return value.
    */
   const handleToggle = (): void => props.onToggleProject(project.id);
+  const projectHeaderIndex = props.form.rental_transaction_items.findIndex(
+    (item) => item.project_id === project.id && item.item_id === project.id,
+  );
+  const projectRemark = props.form.rental_transaction_items[projectHeaderIndex]?.remark ?? "";
 
   return (
     <div
@@ -389,9 +387,9 @@ const _renderProjectCard = (
                 {project.items.length} items
               </span>
             </div>
-            {projectPriceTotal > 0 && (
+            {project.price > 0 && (
               <p className="mt-0.5 text-lg font-medium text-text-secondary">
-                Total: Rp {projectPriceTotal.toLocaleString("id-ID")}
+                Price / day: Rp {project.price.toLocaleString("id-ID")}
               </p>
             )}
           </div>
@@ -465,6 +463,17 @@ const _renderProjectCard = (
             })}
           </div>
         )}
+        <label className="mt-4 block space-y-2">
+          <span className="text-lg font-semibold text-text-secondary">Project Remark</span>
+          <input
+            aria-label="Project Remark"
+            value={projectRemark}
+            disabled={!isSelected}
+            onChange={(event) => props.onItemChange(projectHeaderIndex, "remark", event.target.value)}
+            placeholder="Add a remark for this project"
+            className="w-full rounded-lg border border-border-default px-3 py-2 text-lg"
+          />
+        </label>
       </div>
     </div>
   );
@@ -817,6 +826,11 @@ export const OrderCreateComponent = (
    * @param {React.ChangeEvent<HTMLInputElement>} event - Input event.
    * @returns {void} Nothing.
    */
+  /**
+   * Handle input change.
+   * @param {React.ChangeEvent<HTMLInputElement>} event - Input event.
+   * @returns {void} Nothing.
+   */
   const handleRemarks = (event: React.ChangeEvent<HTMLTextAreaElement>): void =>
     props.onChange("remarks", event.target.value);
 
@@ -826,6 +840,8 @@ export const OrderCreateComponent = (
     props.form.rental_transaction_items.filter((item) => item.item_id),
     props.form.discount,
     props.form.service_fee,
+    props.form.start_at,
+    props.form.end_at,
   );
 
   const isLastStep = props.step === 3;

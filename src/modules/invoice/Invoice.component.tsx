@@ -1,5 +1,5 @@
 import * as React from "react";
-import { FiDownload, FiEdit2, FiEye } from "react-icons/fi";
+import { FiDownload, FiEye } from "react-icons/fi";
 
 import { formatIndonesianDateTime } from "@/utils/date.helpers";
 import { generateInvoicePDF } from "@/utils/pdfGenerator";
@@ -68,27 +68,6 @@ const _renderDetailAction = (row: InvoiceData, props: InvoiceProps): React.React
 );
 
 /**
- * Render invoice edit action.
- * @param {InvoiceData} row - Invoice row
- * @param {InvoiceProps} props - Invoice props
- * @returns {React.ReactElement} Edit action button
- */
-const _renderEditAction = (row: InvoiceData, props: InvoiceProps): React.ReactElement => (
-  <button
-    type="button"
-    onClick={(event: React.MouseEvent): void => {
-      event.stopPropagation();
-      props.onEdit(row);
-    }}
-    className="cursor-pointer rounded-3xl p-2.5 text-text-secondary hover:bg-action-primary-subtle hover:text-action-primary"
-    title="Edit invoice"
-    aria-label="Edit invoice"
-  >
-    <FiEdit2 className="h-5 w-5" />
-  </button>
-);
-
-/**
  * Render invoice status badge.
  * @param {InvoiceData} row - Invoice row
  * @returns {React.ReactElement} Status badge element
@@ -109,7 +88,6 @@ const _renderActions = (row: InvoiceData, props: InvoiceProps): React.ReactEleme
   <div className="flex items-center justify-center gap-1">
     {_renderDownloadAction(row)}
     {_renderDetailAction(row, props)}
-    {row.status !== 2 && _renderEditAction(row, props)}
   </div>
 );
 

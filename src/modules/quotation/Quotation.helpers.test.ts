@@ -72,14 +72,32 @@ describe("Quotation helpers", () => {
         rental_transaction_items: [
           {
             item_id: "item-1",
-            item_name: "Speaker Line Array",
-            qty: 2,
+            item_name: "Speaker",
+            category_name: "Audio",
+            qty: 1,
             price: 5000000,
-            subtotal: 10000000,
+            subtotal: 5000000,
             remark: "",
           },
+          {
+            project_id: "project-1",
+            qty: 1,
+            price: 5000000,
+            subtotal: 10000000,
+            remark: "Remark from transaction item",
+          },
         ],
-        rental_transaction_project: [],
+        rental_transaction_project: [
+          {
+            id: "project-1",
+            name: "Audio Package",
+            remark: "Project remark",
+            price: 5000000,
+            qty: 1,
+            subtotal: 5000000,
+            items: [],
+          },
+        ],
         rental_handovers: [],
         customer: {
           id: "c-1",
@@ -114,8 +132,8 @@ describe("Quotation helpers", () => {
     expect(quote.customerName).toBe("PT Sonic");
     expect(quote.location).toBe("Bandung");
     expect(quote.category).toBe("Audio System");
-    expect(quote.selectedItems).toEqual(["Speaker Line Array"]);
-    expect(quote.pdfItems).toEqual([{ name: "Speaker Line Array", category: "Audio System", qty: 2, price: 5000000, remark: "" }]);
+    expect(quote.selectedItems).toEqual(["Speaker"]);
+    expect(quote.pdfProjects?.[0]?.remark).toBe("Project remark");
     expect(quote.remark).toBe("Catatan khusus");
     expect(quote.grandTotal).toBe(10300000);
     expect(quote.status).toBe(2);

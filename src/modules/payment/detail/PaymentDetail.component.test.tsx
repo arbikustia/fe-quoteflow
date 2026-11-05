@@ -4,15 +4,29 @@ import { MemoryRouter } from "react-router-dom";
 import { PaymentDetailComponent } from "./PaymentDetail.component";
 import type { PaymentData, PaymentDetailState } from "../Payment.type";
 
+jest.mock("@/app/layout", () => ({
+  __esModule: true,
+  default: ({ children }: { children: React.ReactNode }) => <div>{children}</div>,
+}));
+
+jest.mock("@/app/shared/PageLayout", () => ({
+  PageLayout: ({ children, title, onBack, headerRight }: { children: React.ReactNode; title: string; onBack: () => void; headerRight?: React.ReactNode }) => (
+    <section><h1>{title}</h1><button type="button" onClick={onBack}>Back</button>{headerRight}{children}</section>
+  ),
+}));
+
 const PAYMENT: PaymentData = {
   id: "pay-1",
   invoiceId: "INV-001",
   paymentMethodId: "BCA",
+  invoiceNo: "INV-2026-001",
+  customerName: "PT Example",
   amount: 1500000,
   paidAt: "2026-11-01T10:00:00.000Z",
   referenceNo: "PAY-REF-001",
   notes: "Full payment via BCA Transfer",
   status: "active",
+  createdAt: "2026-11-05T10:00:00.000Z",
 };
 
 const createProps = (payment: PaymentData | null = PAYMENT): PaymentDetailState => ({
@@ -44,12 +58,13 @@ describe("PaymentDetailComponent", () => {
       </MemoryRouter>,
     );
 
-    expect(screen.getAllByText("PAY-REF-001").length).toBeGreaterThan(0);
+    expect(screen.queryByText("PAY-REF-001")).not.toBeInTheDocument();
     expect(screen.getAllByText("Bank Central Asia").length).toBeGreaterThan(0);
     expect(screen.getAllByText("INV-2026-001").length).toBeGreaterThan(0);
     expect(screen.getAllByText("PT Example").length).toBeGreaterThan(0);
     expect(screen.getAllByText("Annual Gala").length).toBeGreaterThan(0);
-    expect(screen.getByText("Full payment via BCA Transfer")).toBeInTheDocument();
+    expect(screen.queryByText("Full payment via BCA Transfer")).not.toBeInTheDocument();
+    expect(screen.getByText("Created At")).toBeInTheDocument();
     expect(screen.getAllByText("Active").length).toBeGreaterThan(0);
   });
 
@@ -87,7 +102,7 @@ describe("PaymentDetailComponent", () => {
     expect(screen.getByText("Payment detail is unavailable.")).toBeInTheDocument();
   });
 
-  it("should trigger edit and status actions from dropdown", () => {
+  it("should trigger edit action from mobile dropdown", () => {
     const props = createProps();
     render(
       <MemoryRouter>
@@ -95,13 +110,14 @@ describe("PaymentDetailComponent", () => {
       </MemoryRouter>,
     );
 
+    const summary = screen.getByTestId("payment-detail-actions");
+    fireEvent.click(summary);
     const editButtons = screen.getAllByRole("menuitem", { name: /Edit/i });
     fireEvent.click(editButtons[0]);
     expect(props.handleEdit).toHaveBeenCalledTimes(1);
 
-    const statusButtons = screen.getAllByRole("menuitem", { name: /Change Status/i });
-    fireEvent.click(statusButtons[0]);
-    expect(props.handleStatus).toHaveBeenCalledTimes(1);
+    const statusButtons = screen.queryByRole("menuitem", { name: /Change Status/i });
+    expect(statusButtons).not.toBeInTheDocument();
   });
 
   it("should call goBack when back button is clicked", () => {

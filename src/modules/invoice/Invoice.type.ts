@@ -1,5 +1,5 @@
-export type InvoiceItem = { item_id: string; item_name: string; category_name?: string; qty: number; price: number; subtotal: number; remark?: string };
-export type InvoiceProjectItem = { id: string; item_id: string; item_name: string; category_name?: string; qty: number; price: number };
+export type InvoiceItem = { item_id?: string; project_id?: string; item_name?: string; category_name?: string; qty: number; price: number; subtotal: number; remark?: string };
+export type InvoiceProjectItem = { id: string; item_id: string; item_name: string; category_name?: string; qty: number; price: number; remark?: string };
 export type InvoiceProject = { id: string; name: string; remark: string; price: number; qty: number; subtotal: number; items: InvoiceProjectItem[] };
 export type InvoiceCustomer = { id: string; name: string; address: string; phone_number: string; status: number; created_at: string; updated_at: string };
 export type InvoiceReference = { id: string; name: string; status: number; created_at: string; updated_at: string; code?: string; discount_percent?: number };
@@ -75,7 +75,6 @@ export type InvoiceProps = InvoicePagination & {
   onBack: () => void;
   onRowClick: (invoice: InvoiceData) => void;
   onDetail: (invoice: InvoiceData) => void;
-  onEdit: (invoice: InvoiceData) => void;
 };
 
 export type InvoiceDetailState = {

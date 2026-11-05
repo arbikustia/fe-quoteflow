@@ -1,5 +1,5 @@
 import type { ReactElement } from "react";
-import { FiCheckCircle, FiEdit2, FiMoreHorizontal } from "react-icons/fi";
+import { FiEdit2, FiMoreHorizontal } from "react-icons/fi";
 
 import type { PaymentData, PaymentDetailState, PaymentInvoiceOption } from "../Payment.type";
 
@@ -17,7 +17,6 @@ import { renderDetailField } from "@/modules/quotation/detail/QuotationDetail.se
  */
 const _renderPaymentOverview = (
   payment: PaymentData,
-  linkedInvoice?: PaymentInvoiceOption | null,
   methodName?: string,
 ): ReactElement => (
   <section className="min-w-0 rounded-3xl border border-border-strong bg-background-surface p-5 shadow-small sm:p-6">
@@ -44,8 +43,8 @@ const _renderPaymentOverview = (
     <dl className="mt-4 grid grid-cols-1 gap-x-8 border-t border-border-default sm:mt-5 sm:grid-cols-2 lg:grid-cols-4">
       {renderDetailField("Payment Date", formatDate(payment.paidAt))}
       {renderDetailField("Amount", formatCurrency(payment.amount))}
-      {renderDetailField("Invoice ID", linkedInvoice?.invoice_no ?? payment.invoiceId)}
-      {renderDetailField("Payment Method", methodName ?? payment.paymentMethodId)}
+      {renderDetailField("Invoice No", payment.invoiceNo)}
+      {renderDetailField("Customer Name", payment.customerName)}
     </dl>
   </section>
 );
@@ -129,63 +128,25 @@ const _renderDetail = (
   methodName?: string,
 ): ReactElement => (
   <div className="w-full space-y-4 pb-32 sm:space-y-4 lg:pb-8">
-    {_renderPaymentOverview(payment, linkedInvoice, methodName)}
-    <div className="space-y-4 sm:space-y-4">
-      <div className="grid min-w-0 grid-cols-1 items-start gap-4 sm:gap-4 lg:grid-cols-[minmax(0,2fr)_minmax(20rem,1fr)]">
-        <div className="min-w-0 space-y-4 sm:space-y-4">
-          <section className="min-w-0 overflow-hidden rounded-3xl border border-border-strong bg-background-surface shadow-small">
-            <header className="border-b border-border-default px-5 py-4 sm:px-6">
-              <h2 className="text-xl font-bold text-text-primary sm:text-lg sm:font-semibold">
-                Payment Information
-              </h2>
-            </header>
-            <div className="px-5 py-1 sm:px-6 sm:py-0">
-              <dl className="grid grid-cols-1 sm:grid-cols-2">
-                {renderDetailField("Reference No", payment.referenceNo)}
-                {renderDetailField("Payment Method", methodName ?? payment.paymentMethodId)}
-                {renderDetailField("Payment Date", formatDate(payment.paidAt))}
-                {renderDetailField("Status", payment.status === "active" ? "Active" : "Inactive")}
-                {renderDetailField("Notes", payment.notes || "-")}
-              </dl>
-            </div>
-          </section>
-
-          {linkedInvoice && (
-            <section className="min-w-0 overflow-hidden rounded-3xl border border-border-strong bg-background-surface shadow-small">
-              <header className="border-b border-border-default px-5 py-4 sm:px-6">
-                <h2 className="text-xl font-bold text-text-primary sm:text-lg sm:font-semibold">
-                  Invoice Information
-                </h2>
-              </header>
-              <div className="px-5 py-1 sm:px-6 sm:py-0">
-                <dl className="grid grid-cols-1 sm:grid-cols-2">
-                  {renderDetailField("Invoice No", linkedInvoice.invoice_no)}
-                  {linkedInvoice.customer_name && renderDetailField("Customer", linkedInvoice.customer_name)}
-                  {linkedInvoice.event_name && renderDetailField("Event", linkedInvoice.event_name)}
-                </dl>
-              </div>
-            </section>
-          )}
-        </div>
-
-        <aside className="min-w-0 space-y-4 sm:space-y-4">
-          <section className="min-w-0 overflow-hidden rounded-3xl border border-border-strong bg-background-surface shadow-small">
-            <header className="border-b border-border-default px-5 py-4 sm:px-6">
-              <h2 className="text-xl font-bold text-text-primary sm:text-lg sm:font-semibold">
-                Payment Summary
-              </h2>
-            </header>
-            <div className="px-5 py-1 sm:px-6 sm:py-0">
-              <dl>
-                {renderDetailField("Total Paid", formatCurrency(payment.amount))}
-                {renderDetailField("Method", methodName ?? payment.paymentMethodId)}
-                {renderDetailField("Status", payment.status === "active" ? "Active" : "Inactive")}
-              </dl>
-            </div>
-          </section>
-        </aside>
+    <section className="min-w-0 overflow-hidden rounded-3xl border border-border-strong bg-background-surface shadow-small">
+      <header className="border-b border-border-default px-5 py-4 sm:px-6">
+        <h2 className="text-xl font-bold text-text-primary sm:text-lg sm:font-semibold">
+          Payment Details
+        </h2>
+      </header>
+      <div className="px-5 py-6 sm:px-6 sm:py-6">
+        <dl className="grid grid-cols-1 gap-x-6 gap-y-6 sm:grid-cols-3">
+          {renderDetailField("Invoice No", payment.invoiceNo)}
+          {renderDetailField("Customer Name", payment.customerName)}
+          {renderDetailField("Payment Date", formatDate(payment.paidAt))}
+          {renderDetailField("Amount", formatCurrency(payment.amount))}
+          {renderDetailField("Payment Method", methodName ?? payment.paymentMethodId)}
+          {renderDetailField("Created At", formatDate(payment.createdAt))}
+          {renderDetailField("Status", payment.status === "active" ? "Active" : "Inactive")}
+          {linkedInvoice?.event_name && renderDetailField("Event", linkedInvoice.event_name)}
+        </dl>
       </div>
-    </div>
+    </section>
   </div>
 );
 
@@ -196,39 +157,41 @@ const _renderDetail = (
  */
 // eslint-disable-next-line max-lines-per-function
 export const PaymentDetailComponent = (props: PaymentDetailState): ReactElement => {
-  const headerActions = props.payment ? (
-    <details className="relative shrink-0">
-      <summary
-        data-testid="payment-detail-actions"
-        className="flex h-14 w-14 cursor-pointer list-none items-center justify-center rounded-3xl border border-border-default text-text-secondary transition-colors hover:bg-background-subtle hover:text-text-primary"
-        aria-label="More options"
+const headerActions = props.payment ? (
+    <div className="flex items-center gap-4">
+      <button
+        type="button"
+        onClick={props.handleEdit}
+        className="hidden h-14 items-center gap-3 rounded-3xl border border-action-primary bg-background-surface px-6 text-lg font-bold text-action-primary transition-colors hover:bg-action-primary-subtle lg:flex"
       >
-        <FiMoreHorizontal className="h-7 w-7" aria-hidden="true" />
-      </summary>
-      <div
-        role="menu"
-        className="absolute right-0 top-16 z-20 w-56 overflow-hidden rounded-3xl border border-border-default bg-background-surface py-2 shadow-lg"
-      >
-        <button
-          type="button"
-          role="menuitem"
-          onClick={props.handleEdit}
-          className="flex w-full items-center gap-3 px-5 py-3.5 text-left text-lg font-semibold text-text-primary transition-colors hover:bg-background-subtle"
+        <FiEdit2 className="h-5 w-5" aria-hidden="true" />
+        Edit
+      </button>
+
+      <details className="relative shrink-0 lg:hidden">
+        <summary
+          data-testid="payment-detail-actions"
+          className="flex h-14 w-14 cursor-pointer list-none items-center justify-center rounded-3xl border border-border-default text-text-secondary transition-colors hover:bg-background-subtle hover:text-text-primary"
+          aria-label="More options"
         >
-          <FiEdit2 className="h-5 w-5" aria-hidden="true" />
-          Edit
-        </button>
-        <button
-          type="button"
-          role="menuitem"
-          onClick={props.handleStatus}
-          className="flex w-full items-center gap-3 px-5 py-3.5 text-left text-lg font-semibold text-text-primary transition-colors hover:bg-background-subtle"
+          <FiMoreHorizontal className="h-7 w-7" aria-hidden="true" />
+        </summary>
+        <div
+          role="menu"
+          className="absolute right-0 top-16 z-20 w-56 overflow-hidden rounded-3xl border border-border-default bg-background-surface py-2 shadow-lg"
         >
-          <FiCheckCircle className="h-5 w-5" aria-hidden="true" />
-          Change Status
-        </button>
-      </div>
-    </details>
+          <button
+            type="button"
+            role="menuitem"
+            onClick={props.handleEdit}
+            className="flex w-full items-center gap-3 px-5 py-3.5 text-left text-lg font-semibold text-text-primary transition-colors hover:bg-background-subtle"
+          >
+            <FiEdit2 className="h-5 w-5" aria-hidden="true" />
+            Edit
+          </button>
+        </div>
+      </details>
+    </div>
   ) : null;
 
   return (

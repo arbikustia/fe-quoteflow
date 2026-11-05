@@ -76,6 +76,7 @@ describe("Invoice helpers", () => {
             {
               item_id: "item-1",
               item_name: "LED Videowall P2.9",
+              category_name: "Visual",
               qty: 1,
               price: 20000000,
               subtotal: 20000000,

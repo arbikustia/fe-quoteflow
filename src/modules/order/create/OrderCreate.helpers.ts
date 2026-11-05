@@ -32,10 +32,39 @@ export const hasSelectedOrderItem = (items: ReadonlyArray<{ item_id: string }>):
  * @param {ReadonlyArray<{ price: number; qty: number }>} items - Order items
  * @param {number} discountPercent - Discount percentage
  * @param {number} serviceFee - Service fee amount
+ * @param {string} startAt - Event start date
+ * @param {string} endAt - Event end date
  * @returns {{ subtotal: number; discountAmount: number; grandTotal: number }} Order totals
  */
-export const calculateOrderTotals = (items: ReadonlyArray<{ price: number; qty: number }>, discountPercent: number, serviceFee: number): { subtotal: number; discountAmount: number; grandTotal: number } => {
-  const subtotal = items.reduce((total, item) => total + item.price * item.qty, 0);
+export const calculateRentalDays = (startAt?: string, endAt?: string): number => {
+  const startDate = startAt ? Date.parse(startAt.slice(0, 10)) : NaN;
+  const endDate = endAt ? Date.parse(endAt.slice(0, 10)) : NaN;
+
+  return (!isNaN(startDate) && !isNaN(endDate)) ? Math.max(1, Math.round((endDate - startDate) / 86_400_000) + 1) : 1;
+};
+
+/**
+ * Calculate order totals.
+ * @param items Order items.
+ * @param discountPercent Discount percentage.
+ * @param serviceFee Service fee.
+ * @param startAt Start date.
+ * @param endAt End date.
+ * @returns Order totals.
+ */
+export const calculateOrderTotals = (
+  items: ReadonlyArray<{ item_id?: string; project_id?: string | null; price: number; qty: number; subtotal?: number }>,
+  discountPercent: number,
+  serviceFee: number,
+  startAt?: string,
+  endAt?: string
+): { subtotal: number; discountAmount: number; grandTotal: number } => {
+  const totalDays = calculateRentalDays(startAt, endAt);
+  const dailySubtotal = items.reduce((total, item) => {
+    const isProject = Boolean(item.item_id && item.project_id && item.item_id === item.project_id);
+    return total + (isProject ? item.price : item.subtotal ?? item.price * item.qty);
+  }, 0);
+  const subtotal = dailySubtotal * totalDays;
   const discountAmount = Math.round(subtotal * discountPercent / 100);
 
   return { subtotal, discountAmount, grandTotal: subtotal + serviceFee - discountAmount };

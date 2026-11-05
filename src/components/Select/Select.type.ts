@@ -26,4 +26,6 @@ export type SelectProps = {
   selectClassName?: string;
   labelClassName?: string;
   popupClassName?: string;
+  onSearch?: (value: string) => void;
+  isRemoteSearch?: boolean;
 };

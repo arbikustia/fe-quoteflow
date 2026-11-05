@@ -8,6 +8,7 @@ export type ProjectItem = {
   item_id: string;
   item_name?: string | null;
   qty: number;
+  price: number;
 };
 
 export type ApiProjectItem = {
@@ -15,6 +16,7 @@ export type ApiProjectItem = {
   item_id: string;
   item_name: string | null;
   qty: number;
+  price: number;
   status: number;
 };
 
@@ -22,6 +24,7 @@ export type ApiProject = {
   id: string;
   name: string;
   remark: string | null;
+  price: number;
   status: number;
   created_at: string | null;
   created_by: string | null;
@@ -60,6 +63,7 @@ export type ProjectListApiState = {
 export type ProjectCreatePayload = {
   name: string;
   remark: string;
+  price: number;
   status: number;
   items: ProjectItem[];
 };
@@ -152,6 +156,7 @@ export type InputFieldProps = {
 
 export type ProjectFormValues = {
   name: string;
+  price: string;
 };
 
 export type MasterProjectCreateFormState = {
@@ -162,6 +167,7 @@ export type MasterProjectCreateFormState = {
   isItemsLoading: boolean;
   itemsError: string | null;
   name: string;
+  price: string;
   remark: string;
   isActive: boolean;
   isSubmitting: boolean;
@@ -171,6 +177,7 @@ export type MasterProjectCreateFormState = {
   isSubmitted: boolean;
   validateStep2: () => Promise<boolean>;
   handleNameChange: (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
+  handlePriceChange: (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
   handleRemarkChange: (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
   handleStatusChange: () => void;
   nextStep: () => void;
@@ -185,6 +192,7 @@ export type ProjectSubmissionParams = {
   id: string | undefined;
   isEdit: boolean;
   name: string;
+  price: string;
   remark: string;
   isActive: boolean;
   selectedItems: ProjectItemSelection[];
@@ -204,6 +212,7 @@ export type ProjectSubmissionState = {
 export type ProjectDraftFormState = {
   step: ProjectFormStep;
   name: string;
+  price: string;
   remark: string;
   isActive: boolean;
   selectedItems: ProjectItemSelection[];
@@ -211,6 +220,7 @@ export type ProjectDraftFormState = {
   isSubmitted: boolean;
   validateStep2: () => Promise<boolean>;
   handleNameChange: (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
+  handlePriceChange: (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
   handleRemarkChange: (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
   handleStatusChange: () => void;
   toggleItem: (item: ProjectItemOption) => void;

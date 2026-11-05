@@ -49,6 +49,7 @@ const useProjectDraft = (
     } = useForm<ProjectFormValues>({ mode: "onChange", defaultValues: { name: "" } });
     const [step, setStep] = useState<ProjectFormStep>(1);
     const [name, setName] = useState("");
+    const [price, setPrice] = useState("");
     const [remark, setRemark] = useState("");
     const [isActive, setIsActive] = useState(true);
     const [initializedId, setInitializedId] = useState<string | null>(null);
@@ -56,6 +57,7 @@ const useProjectDraft = (
     const itemSelection = useProjectItemSelection();
 
     register("name", { required: "Project name is required." });
+    register("price", { required: "Project price is required." });
 
     /**
      * Validate step 2 input.
@@ -71,7 +73,9 @@ const useProjectDraft = (
       setInitializedId(project.id);
       setName(project.name ?? "");
       setValue("name", project.name ?? "");
-      clearErrors("name");
+      setPrice(String(project.price ?? 0));
+      setValue("price", String(project.price ?? 0));
+      clearErrors();
       setRemark(project.remark ?? "");
       setIsActive(project.status === 1);
       itemSelection.setSelectedItems(mapProjectSelectedItems(project, items));
@@ -85,6 +89,10 @@ const useProjectDraft = (
     const handleNameChange = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>): void => {
       setName(event.target.value);
       setValue("name", event.target.value, { shouldValidate: isSubmitted });
+    };
+    const handlePriceChange = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>): void => {
+      setPrice(event.target.value);
+      setValue("price", event.target.value, { shouldValidate: isSubmitted });
     };
     const handleRemarkChange = _createInputChange(setRemark);
     /**
@@ -106,10 +114,12 @@ const useProjectDraft = (
     return {
       step,
       name,
+      price,
       remark,
       isActive,
       selectedItems: itemSelection.selectedItems,
       handleNameChange,
+      handlePriceChange,
       handleRemarkChange,
       handleStatusChange,
       toggleItem: itemSelection.toggleItem,
@@ -136,13 +146,14 @@ const _sendProjectMutation = (
   createProject: ReturnType<typeof useCreateProjectMutation>[0],
   updateProject: ReturnType<typeof useUpdateProjectMutation>[0],
 ): Promise<{ status: boolean; messages: string[] | string | null }> => {
-  const { id, isEdit, name, remark, isActive, selectedItems } = params;
+  const { id, isEdit, name, price, remark, isActive, selectedItems } = params;
   const status = !isEdit || isActive ? 1 : 0;
   const payload = {
     name,
     remark,
+    price: Number(price),
     status,
-    items: selectedItems.map((item) => ({ item_id: item.id, qty: item.qty })),
+    items: selectedItems.map((item) => ({ item_id: item.id, qty: item.qty, price: item.price })),
   };
 
   return isEdit && id

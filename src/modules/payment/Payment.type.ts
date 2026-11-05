@@ -11,6 +11,12 @@ export type ApiPayment = {
   status: number;
   created_at: string;
   updated_at: string;
+  invoice?: {
+    invoice_no: string;
+    customer: {
+      name: string;
+    };
+  };
 };
 
 export type PaymentInvoiceListResponse = { status: boolean; data: PaymentInvoiceOption[]; messages: string[] };
@@ -84,12 +90,15 @@ export type PaymentData = {
   id: string;
   invoiceId: string;
   paymentMethodId: string;
+  invoiceNo: string;
+  customerName: string;
   amount: number;
   paidAt: string;
   referenceNo: string;
   notes: string;
   status: "active" | "inactive";
   paymentStatus?: number;
+  createdAt: string;
 };
 
 export type PaymentMobileCardProps = {

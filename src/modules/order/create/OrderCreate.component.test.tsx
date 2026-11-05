@@ -51,6 +51,47 @@ describe("OrderCreateComponent", (): void => {
     expect(onItemChange).toHaveBeenCalledWith(0, "remark", "Tripod");
   });
 
+  it("should edit one project remark instead of item remarks", (): void => {
+    const onItemChange = jest.fn();
+    render(
+      <MemoryRouter>
+        <OrderCreateComponent
+          {...props}
+          step={2}
+          projects={[
+            {
+              id: "project-1",
+              name: "Lighting Package",
+              price: 1000000,
+              items: [
+                { item_id: "item-1", item_name: "Beam 290", qty: 1 },
+                { item_id: "item-2", item_name: "Beam 450", qty: 1 },
+              ],
+            },
+          ]}
+          form={{
+            ...props.form,
+            service_type_name: "PROJECT",
+            rental_transaction_items: [
+              { item_id: "project-1", project_id: "project-1", item_name: "Lighting Package", qty: 1, price: 1000000, subtotal: 1000000, remark: "Delivery" },
+              { item_id: "item-1", project_id: "project-1", item_name: "Beam 290", qty: 1, price: 0, subtotal: 0, remark: "" },
+              { item_id: "item-2", project_id: "project-1", item_name: "Beam 450", qty: 1, price: 0, subtotal: 0, remark: "" },
+            ],
+          }}
+          onItemChange={onItemChange}
+        />
+      </MemoryRouter>,
+    );
+
+    expect(screen.queryByLabelText("Remark Beam 290")).toBeNull();
+    expect(screen.queryByLabelText("Remark Beam 450")).toBeNull();
+    const projectRemark = screen.getByLabelText("Project Remark");
+    expect(projectRemark).toHaveValue("Delivery");
+    fireEvent.change(projectRemark, { target: { value: "Pickup" } });
+    expect(onItemChange).toHaveBeenCalledTimes(1);
+    expect(onItemChange).toHaveBeenCalledWith(0, "remark", "Pickup");
+  });
+
   it("should show percentage discount as a calculated Rupiah amount in review", (): void => {
     render(
       <MemoryRouter>
@@ -71,8 +112,9 @@ describe("OrderCreateComponent", (): void => {
       </MemoryRouter>,
     );
 
-    expect(screen.getByText("Rp 50.000 (8%)")).toBeTruthy();
-    expect(screen.getByText("Rp 600.000")).toBeTruthy();
+    expect(screen.getByText("Rp 150.000 (8%)")).toBeTruthy();
+    expect(screen.getByText("Rp 1.750.000")).toBeTruthy();
+    expect(screen.getByText("Rp 1.875.000")).toBeTruthy();
     expect(screen.getByText("12 November 2026")).toBeTruthy();
     expect(screen.getByText("14 November 2026")).toBeTruthy();
     const customerSection = screen.getByText("Customer Information").parentElement?.parentElement?.parentElement;

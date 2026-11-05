@@ -3,7 +3,7 @@ import autoTable from "jspdf-autotable";
 
 import FrameImage from "../assets/frame-pdf.png";
 import { MOCK_ORDER_ITEMS } from "../fixture/quotes";
-import type { QuoteData, QuotePdfItem } from "../modules/order/Order.type";
+import type { QuoteData, QuotePdfItem, QuotePdfProject, QuotePdfProjectItem } from "../modules/order/Order.type";
 
 type TableCell = string | number | Record<string, unknown>;
 type TableRow = TableCell[];
@@ -37,14 +37,51 @@ const _appendGroupedItems = (tableData: TableRow[], items: QuotePdfItem[]): numb
         { content: (rowNumber++).toString(), styles: { halign: "center" } },
         item.name,
         { content: item.qty.toString(), styles: { halign: "center" } },
-        { content: "Unit", styles: { halign: "center" } },
-        { content: item.price.toLocaleString("id-ID"), styles: { halign: "center" } },
+        { content: item.qty > 1 ? "Units" : "Unit", styles: { halign: "center" } },
+        { content: item.price.toLocaleString("id-ID"), styles: { halign: "right" } },
         item.remark,
       ]);
     });
   });
 
   return subtotal;
+};
+
+/**
+ * Append projects to table.
+ * @param {TableRow[]} tableData - PDF table rows
+ * @param {QuotePdfProject[]} projects - Projects
+ * @param {number} startRowNumber - Starting row number
+ * @returns {{ subtotal: number; rowNumber: number }} Result
+ */
+const _appendProjects = (tableData: TableRow[], projects: QuotePdfProject[], startRowNumber: number): { subtotal: number; rowNumber: number } => {
+  let subtotal = 0;
+  let rowNumber = startRowNumber;
+
+  projects.forEach((project) => {
+    subtotal += project.price;
+    tableData.push([
+      { content: (rowNumber++).toString(), styles: { halign: "center" } },
+      { content: project.name, styles: { fontStyle: "bold" } },
+      { content: "1", styles: { halign: "center" } },
+      { content: "Unit", styles: { halign: "center" } },
+      { content: project.price.toLocaleString("id-ID"), styles: { halign: 'right' } },
+      project.remark,
+    ]);
+
+    project.items.forEach((item: QuotePdfProjectItem) => {
+      tableData.push([
+        "",
+        { content: `  • ${item.name}`, styles: { fontStyle: "normal" } },
+        { content: item.qty.toString(), styles: { halign: "center" } },
+        { content: item.qty > 1 ? "Units" : "Unit", styles: { halign: "center" } },
+        "",
+        item.remark,
+      ]);
+    });
+  });
+
+  return { subtotal, rowNumber };
 };
 
 /**
@@ -113,18 +150,21 @@ export const generateQuotePDF = async (quote: QuoteData, options?: PdfOptions): 
   if (quote.startDate !== quote.endDate) {
     dateRange = `${startDateStr} - ${endDateStr}`;
   }
-  doc.text(`: ${dateRange} (Loading H-1, Jam 15.00)`, 45, 68);
-  
+  doc.text(`: ${dateRange}`, 45, 68);
+
   doc.text("Lokasi", 14, 73);
   doc.text(`: ${quote.location}`, 45, 73);
 
-  doc.text("Dengan hormat,", 14, 83);
+  doc.text("Remark", 14, 78);
+  doc.text(`: ${quote.remark}`, 45, 78);
+
+  doc.text("Dengan hormat,", 14, 88);
   doc.text(
     `Berikut ini kami dari SONICLINE Divisi rental alat-alat event memberikan penawaran harga sesuai kebutuhan acara`,
     14,
-    88
+    93
   );
-  doc.text(`${quote.name} di ${quote.location}, sebagai berikut :`, 14, 93);
+  doc.text(`${quote.name} di ${quote.location}, sebagai berikut :`, 14, 98);
 
   // --- TABLE DATA PREPARATION ---
   const tableData: TableRow[] = [];
@@ -132,8 +172,12 @@ export const generateQuotePDF = async (quote: QuoteData, options?: PdfOptions): 
   const rawCategories = (quote.category || "Equipment").split(", ").map(c => c.trim()).filter(Boolean);
   const categories = rawCategories.length > 0 ? rawCategories : ["Equipment"];
   let subTotal1 = quote.pdfItems?.length ? _appendGroupedItems(tableData, quote.pdfItems) : 0;
+  if (quote.pdfProjects?.length) {
+    const projectResult = _appendProjects(tableData, quote.pdfProjects, (quote.pdfItems?.length ?? 0) + 1);
+    subTotal1 += projectResult.subtotal;
+  }
 
-  if (!quote.pdfItems?.length) categories.forEach(cat => {
+  if (!quote.pdfItems?.length && !quote.pdfProjects?.length) categories.forEach(cat => {
     let pricePerDay = 0;
     const catLower = cat.toLowerCase();
     if (catLower.includes("sound") || catLower.includes("audio")) pricePerDay = 15000000;
@@ -163,7 +207,7 @@ export const generateQuotePDF = async (quote: QuoteData, options?: PdfOptions): 
         { content: (no++).toString(), styles: { halign: 'center' } }, 
         item, 
         { content: quote.qty.toString(), styles: { halign: 'center' } }, 
-        { content: "Unit", styles: { halign: 'center' } }
+        { content: quote.qty > 1 ? "Units" : "Unit", styles: { halign: 'center' } }
       ];
       
       if (index === 0) {
@@ -179,14 +223,14 @@ export const generateQuotePDF = async (quote: QuoteData, options?: PdfOptions): 
     });
   });
 
-  const startT = new Date(quote.startDate).getTime();
-  const endT = new Date(quote.endDate).getTime();
-  const days = Math.max(1, Math.ceil((endT - startT) / (1000 * 60 * 60 * 24)) + 1);
-  
+  const startT = Date.parse(quote.startDate.slice(0, 10));
+  const endT = Date.parse(quote.endDate.slice(0, 10));
+  const days = Math.max(1, Math.round((endT - startT) / 86_400_000) + 1);
   const subTotal2 = subTotal1 * days;
-  const discount = quote.discount || 0;
-  const ppn = quote.pph ? Math.round((subTotal2 - discount) * (quote.pph / 100)) : 0;
-  const total = subTotal2 - discount + ppn;
+  const discountPercent = quote.discount || 0;
+  const discountAmount = Math.round(subTotal2 * (discountPercent / 100));
+  const ppn = quote.pph ? Math.round((subTotal2 - discountAmount) * (quote.pph / 100)) : 0;
+  const total = subTotal2 - discountAmount + ppn + (quote.serviceFee || 0);
 
   // Bottom Rows for Totals
   tableData.push([
@@ -196,7 +240,7 @@ export const generateQuotePDF = async (quote: QuoteData, options?: PdfOptions): 
     { content: `Rp ${subTotal1.toLocaleString("id-ID")}`, styles: { halign: 'right' } },
     ""
   ]);
-  
+
   if (days > 1) {
     tableData.push([
       { content: "", colSpan: 2 },
@@ -207,21 +251,26 @@ export const generateQuotePDF = async (quote: QuoteData, options?: PdfOptions): 
     ]);
   }
 
-  if (discount > 0) {
-    const discountPercent = Math.round((discount / subTotal2) * 100);
+  tableData.push([
+    { content: `PPn ${quote.pph || 0}%`, colSpan: 2, styles: { halign: 'right' } },
+    "", "",
+    { content: `Rp ${ppn > 0 ? ppn.toLocaleString("id-ID") : "-"}`, styles: { halign: 'right' } },
+    ""
+  ]);
+
+  if (discountPercent > 0) {
     tableData.push([
-      { content: "Discount", colSpan: 2, styles: { halign: 'right' } },
-      { content: discountPercent.toString(), styles: { halign: 'center' } },
-      { content: "%", styles: { halign: 'center' } },
-      { content: `Rp ${discount.toLocaleString("id-ID")}`, styles: { halign: 'right' } },
+      { content: "Voucher", colSpan: 2, styles: { halign: 'right' } },
+      "", "",
+      { content: `Rp -${discountAmount.toLocaleString("id-ID")} (${discountPercent}%)`, styles: { halign: 'right' } },
       ""
     ]);
   }
 
   tableData.push([
-    { content: `PPn ${quote.pph || 0}%`, colSpan: 2, styles: { halign: 'right' } },
-    "", "", 
-    { content: `Rp ${ppn > 0 ? ppn.toLocaleString("id-ID") : "-"}`, styles: { halign: 'right' } },
+    { content: "Service Fee", colSpan: 2, styles: { halign: 'right' } },
+    "", "",
+    { content: `Rp ${quote.serviceFee ? quote.serviceFee.toLocaleString("id-ID") : "-"}`, styles: { halign: 'right' } },
     ""
   ]);
 
@@ -239,7 +288,7 @@ export const generateQuotePDF = async (quote: QuoteData, options?: PdfOptions): 
 
   // --- RENDER TABLE ---
   autoTable(doc, {
-    startY: 98,
+    startY: 103,
     head: [[
       { content: "No", styles: { halign: 'center' } },
       { content: "Description", styles: { halign: 'center' } },
@@ -268,7 +317,7 @@ export const generateQuotePDF = async (quote: QuoteData, options?: PdfOptions): 
       1: { cellWidth: 'auto' },               // Description
       2: { cellWidth: 12, halign: 'center' }, // Qty (num)
       3: { cellWidth: 15, halign: 'center' }, // Qty (unit)
-      4: { cellWidth: 35, halign: 'center' }, // Price
+      4: { cellWidth: 35, halign: 'right' },  // Price
       5: { cellWidth: 40, halign: 'center' }  // Remarks
     },
     margin: { top: 40 }

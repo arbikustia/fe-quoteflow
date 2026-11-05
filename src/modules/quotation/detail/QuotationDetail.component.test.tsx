@@ -106,7 +106,9 @@ describe("QuotationDetailComponent", () => {
     expect(screen.queryByText("Person in Charge")).toBeNull();
     expect(screen.getAllByText("October Promo").length).toBeGreaterThan(0);
     expect(screen.getAllByText("Discount").length).toBeGreaterThan(0);
-    expect(screen.getByText("Rp 50.000 (5%)")).toBeTruthy();
+    const pricingSection = screen.getByRole("heading", { name: "Pricing Summary" }).closest("section");
+    expect(pricingSection?.textContent).toContain("Rp 1.000.000");
+    expect(pricingSection?.textContent).toContain("Rp 50.000 (5%)");
     expect(screen.getByText("Discount Percent")).toBeTruthy();
     expect(screen.getByText("OCT10")).toBeTruthy();
     const voucherSection = screen.getByRole("heading", { name: "Voucher" }).closest("section");

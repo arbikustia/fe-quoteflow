@@ -1,6 +1,12 @@
 import { useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
+import { generateQuotationPDF } from "@/utils/pdfGenerator";
+
+import { quotationToQuoteData } from "./Quotation.helpers";
+
+import { useLazyGetQuotationByIdQuery } from "@/services/quotation.service";
+
 import type {
   QuotationData,
   QuotationListApiState,
@@ -118,6 +124,16 @@ const setSearchTerm = (value: string): void => { setSearchTermState(value); setC
  */
 export const useQuotationNavigation = (): QuotationNavigation => {
   const navigate = useNavigate();
+  const [getQuotation] = useLazyGetQuotationByIdQuery();
+  const { data: itemResponse } = useGetAllItemsQuery();
+  const itemCategories = useMemo(
+    (): Map<string, string> => new Map(
+      itemResponse?.status
+        ? itemResponse.data.map((item): [string, string] => [item.id, item.category_name ?? "Uncategorized"])
+        : [],
+    ),
+    [itemResponse],
+  );
   /**
    * onBack.
    * @returns {void} - result.
@@ -158,5 +174,12 @@ export const useQuotationNavigation = (): QuotationNavigation => {
    */
   const onRowClick = (quotation: QuotationData): void => { void navigate(`/document/quotation/${quotation.id}`); };
 
-  return { onBack, onEdit, onDetail, onStatus, onRowClick };
+  const onDownload = async (quotation: QuotationData): Promise<void> => {
+    const response = await getQuotation(quotation.id).unwrap();
+    if (response.data) {
+      generateQuotationPDF(quotationToQuoteData(response.data, itemCategories));
+    }
+  };
+
+  return { onBack, onEdit, onDetail, onStatus, onRowClick, onDownload };
 };

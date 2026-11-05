@@ -16,7 +16,7 @@ const _getOptions = (options: SelectOption[]): SelectOption[] => options.filter(
  * @returns {ReactElement} Select component
  */
 export const Select = (props: SelectProps): ReactElement => {
-  const { id, label, placeholder, value, options, onChange, required, disabled, errorMessage, className = "", selectClassName = "", labelClassName = "", popupClassName = "" } = props;
+  const { id, label, placeholder, value, options, onChange, onSearch, isRemoteSearch, required, disabled, errorMessage, className = "", selectClassName = "", labelClassName = "", popupClassName = "" } = props;
   const errorId = `${id}-error`;
   const isError = Boolean(errorMessage);
 
@@ -43,9 +43,10 @@ export const Select = (props: SelectProps): ReactElement => {
         options={_getOptions(options)}
         showSearch
         optionFilterProp="label"
-        filterOption={(input, option): boolean => String(option?.label ?? "").toLowerCase().includes(input.toLowerCase())}
+        filterOption={isRemoteSearch ? false : (input, option): boolean => String(option?.label ?? "").toLowerCase().includes(input.toLowerCase())}
         placeholder={placeholder}
         onChange={handleChange}
+        onSearch={onSearch}
         disabled={disabled}
         status={isError ? "error" : undefined}
         className={`h-14 w-full !border-2 [&_.ant-select-selector]:!rounded-2xl [&_.ant-select-content]:!text-xl [&_.ant-select-content]:!font-normal ${

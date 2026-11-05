@@ -1,7 +1,8 @@
 
 export type ApiQuotationItem = {
-  item_id: string;
-  item_name: string;
+  item_id?: string;
+  project_id?: string;
+  item_name?: string;
   category_name?: string;
   qty: number;
   price: number;
@@ -16,6 +17,7 @@ export type ApiQuotationProjectItem = {
   category_name?: string;
   qty: number;
   price: number;
+  remark?: string;
 };
 
 export type ApiQuotationProject = {
@@ -172,6 +174,7 @@ export type QuotationPagination = QuotationListApiState & {
 
 export type QuotationNavigation = {
   onBack: () => void;
+  onDownload: (quotation: QuotationData) => Promise<void>;
   onEdit: (quotation: QuotationData) => void;
   onDetail: (quotation: QuotationData) => void;
   onStatus: (quotation: QuotationData) => void;

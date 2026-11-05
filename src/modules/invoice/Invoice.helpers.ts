@@ -36,7 +36,8 @@ const _fromInvoiceData = (invoice: InvoiceData): QuoteData => ({
  */
 const _fromApiInvoice = (invoice: ApiInvoice): QuoteData => {
   const tx = invoice.quotation?.transaction;
-  const items = tx?.rental_transaction_items?.map((item) => item.item_name) ?? [];
+  const transactionItems = tx?.rental_transaction_items ?? [];
+  const items = transactionItems.map((item) => item.item_name);
 
   return {
     id: invoice.invoice_no || invoice.id,
@@ -46,9 +47,28 @@ const _fromApiInvoice = (invoice: ApiInvoice): QuoteData => {
     location: tx?.address || "-",
     category: tx?.service_type_name || "",
     selectedItems: items,
+    pdfItems: tx?.rental_transaction_items?.map((item) => ({
+      name: item.item_name,
+      category: item.category_name ?? "Uncategorized",
+      qty: item.qty,
+      price: item.price,
+      remark: item.remark ?? "",
+    })) ?? [],
+    pdfProjects: tx?.rental_transaction_project.map((project) => ({
+      name: project.name,
+      qty: project.qty,
+      price: project.price,
+      remark: project.remark,
+      items: project.items.map((item) => ({
+        name: item.item_name,
+        qty: item.qty,
+        remark: item.remark ?? "",
+      })),
+    })),
     qty: 1,
     pph: 0,
     discount: tx?.discount ?? 0,
+    serviceFee: tx?.service_fee ?? 0,
     remark: invoice.notes || "",
     grandTotal: tx?.grand_total ?? 0,
     status: invoice.status,

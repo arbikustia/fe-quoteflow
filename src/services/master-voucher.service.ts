@@ -32,11 +32,12 @@ export const masterVoucherService = apiRtkClient.injectEndpoints({
      * @param params
      */
     query: (params) => ({ url: ENDPOINT.MASTER_VOUCHER.PAGED, method: "GET", params: { PageNumber: params.pageNumber, PageSize: params.pageSize, SearchTerm: params.searchTerm } }), providesTags: ["Voucher"] }),
-    getVoucherById: builder.query<VoucherDetailResponse, string>({ /**
-     *
-     * @param id
-     */
-    query: (id) => ({ url: `${ENDPOINT.MASTER_VOUCHER.DETAIL}/${id}`, method: "GET" }) }),
+    getVoucherById: builder.query<VoucherDetailResponse, string>({
+      query: (id) => ({ url: `${ENDPOINT.MASTER_VOUCHER.DETAIL}/${id}`, method: "GET" }),
+    }),
+    getVoucherByCode: builder.query<VoucherDetailResponse, string>({
+      query: (code) => ({ url: `${ENDPOINT.MASTER_VOUCHER.BY_CODE}/${encodeURIComponent(code)}`, method: "GET" }),
+    }),
     createVoucher: builder.mutation<VoucherCreateResponse, VoucherCreatePayload>({ /**
      *
      * @param body
@@ -58,4 +59,4 @@ export const masterVoucherService = apiRtkClient.injectEndpoints({
   overrideExisting: false,
 });
 
-export const { useGetAllVouchersQuery, useGetVouchersQuery, useGetVoucherByIdQuery, useCreateVoucherMutation, useUpdateVoucherMutation } = masterVoucherService;
+export const { useGetAllVouchersQuery, useGetVouchersQuery, useGetVoucherByIdQuery, useGetVoucherByCodeQuery, useCreateVoucherMutation, useUpdateVoucherMutation } = masterVoucherService;

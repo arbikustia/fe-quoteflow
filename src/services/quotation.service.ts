@@ -79,6 +79,7 @@ export const quotationService = apiRtkClient.injectEndpoints({
 export const {
   useGetQuotationsQuery,
   useGetQuotationByIdQuery,
+  useLazyGetQuotationByIdQuery,
   useUpdateQuotationMutation,
   useApproveQuotationMutation,
 } = quotationService;

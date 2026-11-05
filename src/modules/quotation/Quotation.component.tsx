@@ -2,7 +2,6 @@ import * as React from "react";
 import { FiDownload, FiEdit2, FiEye } from "react-icons/fi";
 
 import { formatIndonesianDateTime } from "@/utils/date.helpers";
-import { generateQuotationPDF } from "@/utils/pdfGenerator";
 
 import { Pagination } from "@/components/Pagination";
 import { SearchFilter } from "@/components/SearchFilter";
@@ -10,7 +9,7 @@ import type { TableColumn } from "@/components/Table";
 import Table from "@/components/Table";
 
 import { getQuotationStatusLabel, getStatusBadgeClass } from "./detail/QuotationDetail.helpers";
-import { getQuotationRowNumber, QuotationMobileCard, quotationToQuoteData } from "./Quotation.helpers";
+import { getQuotationRowNumber, QuotationMobileCard } from "./Quotation.helpers";
 import type { QuotationData, QuotationProps } from "./Quotation.type";
 
 import Layout from "@/app/layout";
@@ -38,7 +37,7 @@ const _renderDownloadAction = (row: QuotationData, props: QuotationProps): React
     type="button"
     onClick={(event: React.MouseEvent): void => {
       event.stopPropagation();
-      void generateQuotationPDF(quotationToQuoteData(row, props.itemCategories));
+      void props.onDownload(row);
     }}
     className="cursor-pointer rounded-3xl p-2.5 text-text-secondary hover:bg-action-primary-subtle hover:text-action-primary"
     title="Download PDF"

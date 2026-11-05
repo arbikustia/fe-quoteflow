@@ -100,6 +100,20 @@ const _renderCurrentStep = (
             errorMessage={props.isSubmitted && !props.name ? "Project name is required." : _getFieldError(props.errors?.name)}
             onChange={props.handleNameChange}
           />
+          <label className="block space-y-2 lg:col-span-2" htmlFor="project-price">
+            <span className="text-lg font-normal text-text-primary">Project Price <span aria-hidden="true">*</span></span>
+            <input
+              id="project-price"
+              type="number"
+              min="0"
+              required
+              value={props.price}
+              onChange={props.handlePriceChange}
+              placeholder="e.g. 5000000"
+              className="h-16 w-full rounded-2xl border-2 border-border-strong bg-background-surface px-4 text-xl text-text-primary outline-none focus:border-border-focus focus:ring-2 focus:ring-focus-ring/30 lg:h-14 lg:text-lg"
+            />
+            {props.isSubmitted && !props.price && <span className="text-danger">Project price is required.</span>}
+          </label>
           <label className="block space-y-2 lg:col-span-2">
             <span className="text-lg font-normal text-text-primary">Remark</span>
             <textarea

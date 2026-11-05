@@ -6,7 +6,7 @@ import type { NavigateFunction } from "react-router-dom";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 
 import type { ApiRentalTransactionDetail, OrderCreatePayload, OrderItemPayload, OrderType, ProjectOrderCreatePayload, ProjectOrderItemPayload, RentalHandoverPayload } from "../../Order.type";
-import { calculateOrderTotals, getNextOrderStep, getPreviousOrderStep, hasSelectedOrderItem, isOrderInformationValid } from "../OrderCreate.helpers";
+import { calculateOrderTotals, calculateRentalDays, getNextOrderStep, getPreviousOrderStep, hasSelectedOrderItem, isOrderInformationValid } from "../OrderCreate.helpers";
 import type { OrderCreateFormState, OrderCreateState, OrderItemOption, OrderProjectOption, SelectOption } from "../OrderCreate.type";
 
 import { useGetAllCustomersQuery } from "@/services/master-customer.service";
@@ -14,7 +14,7 @@ import { useGetAllItemsQuery } from "@/services/master-item.service";
 import { useGetAllPicsQuery } from "@/services/master-pic.service";
 import { useGetAllProjectsQuery } from "@/services/master-project.service";
 import { useGetAllServiceTypesQuery } from "@/services/master-service-type.service";
-import { useGetAllVouchersQuery } from "@/services/master-voucher.service";
+import { useGetAllVouchersQuery, useGetVoucherByCodeQuery } from "@/services/master-voucher.service";
 import { useCreateOrderMutation, useCreateProjectOrderMutation, useGetAllOrderTypesQuery, useGetOrderByIdQuery, useUpdateOrderMutation } from "@/services/order.service";
 
 type CustomerOption = SelectOption & { address: string; phone_number: string };
@@ -73,17 +73,29 @@ const _buildEditFormItems = (order: ApiRentalTransactionDetail): OrderItemPayloa
   const serviceTypeName = (order.service_type_name ?? order.service_type?.name ?? "").trim().toUpperCase();
 
   if (serviceTypeName === "PROJECT") {
-    const projectItems = (order.rental_transaction_project ?? []).flatMap((project) =>
-      project.items.map((projectItem) => ({
-        item_id: projectItem.item_id,
-        project_id: project.id,
-        item_name: projectItem.item_name,
-        qty: projectItem.qty,
-        price: projectItem.price,
-        subtotal: projectItem.price * projectItem.qty,
-        remark: project.remark ?? "",
-      })),
-    );
+    const projectItems = (order.rental_transaction_project ?? []).flatMap((project) => {
+      const headerRemark = project.remark ?? "";
+      return [
+        {
+          item_id: project.id,
+          project_id: project.id,
+          item_name: project.name,
+          qty: 1,
+          price: project.price,
+          subtotal: project.price,
+          remark: headerRemark,
+        },
+        ...project.items.map((projectItem) => ({
+          item_id: projectItem.item_id,
+          project_id: project.id,
+          item_name: projectItem.item_name,
+          qty: projectItem.qty,
+          price: 0,
+          subtotal: 0,
+          remark: "",
+        })),
+      ];
+    });
 
     return projectItems.length > 0 ? projectItems : [EMPTY_ITEM];
   }
@@ -112,8 +124,8 @@ export const buildEditForm = (order: ApiRentalTransactionDetail): OrderCreateFor
   voucher_id: order.voucher_id ?? order.voucher?.id ?? "",
   service_type_id: order.service_type_id ?? order.service_type?.id ?? "",
   order_type_id: order.order_type_id ?? order.order_type?.id ?? "",
-  handover_type: "",
-  handover_name: "",
+  handover_type: order.rental_handovers?.[0]?.type ?? "",
+  handover_name: order.rental_handovers?.[0]?.name ?? "",
   service_type_name: order.service_type_name ?? order.service_type?.name ?? "",
   customer_name: order.customer_name ?? order.customer?.name ?? "",
   customer_phone: order.customer_phone ?? order.customer?.phone_number ?? order.customer?.phone ?? "",
@@ -124,7 +136,7 @@ export const buildEditForm = (order: ApiRentalTransactionDetail): OrderCreateFor
   subtotal: order.subtotal ?? 0,
   discount: order.discount ?? 0,
   service_fee: order.service_fee ?? 0,
-  remarks: order.remark ?? order.remarks ?? "",
+  remarks: order.rental_transaction_project[0]?.remark ?? order.remark ?? order.remarks ?? "",
   grand_total: order.grand_total ?? 0,
   status: order.status ?? 1,
   rental_transaction_items: _buildEditFormItems(order),
@@ -144,14 +156,18 @@ const formatOrderDate = (value: string): string => {
  * Build selected project payload items. @param {OrderItemPayload[]} items - selected items. @returns {ProjectOrderItemPayload[]} project items.
  * @param items
  */
-const buildProjectItems = (items: OrderItemPayload[]): ProjectOrderItemPayload[] => {
+const buildProjectItems = (items: OrderItemPayload[], projects: ProjectData[], startAt: string, endAt: string): ProjectOrderItemPayload[] => {
   const projectIds = Array.from(new Set(items.map((item) => item.project_id).filter((projectId): projectId is string => Boolean(projectId))));
+  const totalDays = calculateRentalDays(startAt, endAt);
 
   return projectIds.map((projectId) => {
-    const projectItems = items.filter((item) => item.project_id === projectId);
-    const subtotal = projectItems.reduce((total, item) => total + item.subtotal, 0);
+    const projectHeader = items.find(
+      (item) => item.project_id === projectId && item.item_id === projectId,
+    );
+    const price = projects.find((project) => project.id === projectId)?.price ?? 0;
+    const subtotal = price * totalDays;
 
-    return { project_id: projectId, qty: 1, price: subtotal, subtotal, remark: projectItems.map((item) => item.remark).filter(Boolean).join("; ") };
+    return { project_id: projectId, qty: 1, price, subtotal, remark: projectHeader?.remark ?? "" };
   });
 };
 
@@ -265,7 +281,7 @@ const createFormActions = (setForm: FormSetter, customers: CustomerOption[], vou
    *
    * @param projectId
    */
-  const onToggleProject = (projectId: string): void => setForm((previous) => toggleProject(previous, projectId, projects, items));
+  const onToggleProject = (projectId: string): void => setForm((previous) => toggleProject(previous, projectId, projects));
 
   return { onToggleItem, onToggleProject, onCustomerChange, onPicChange, onVoucherChange, onServiceTypeChange, onOrderTypeChange, onHandoverTypeChange, onProjectSelect, onItemSelect, onChange, onItemChange, onAddItem, onRemoveItem };
 };
@@ -331,13 +347,15 @@ const replaceItem = (form: OrderCreateFormState, index: number, itemId: string, 
  * @param projects
  * @param items
  */
-const toggleProject = (form: OrderCreateFormState, projectId: string, projects: ProjectData[], items: OrderItemOption[]): OrderCreateFormState => {
+const toggleProject = (form: OrderCreateFormState, projectId: string, projects: ProjectData[]): OrderCreateFormState => {
   if (form.rental_transaction_items.some((item) => item.project_id === projectId)) return { ...form, rental_transaction_items: form.rental_transaction_items.filter((item) => item.project_id !== projectId) };
 
   const project = projects.find((option) => option.id === projectId);
-  const projectItems = project?.items.map((item) => ({ ...EMPTY_ITEM, item_id: item.item_id, project_id: project.id, item_name: item.item_name ?? "", qty: item.qty, price: items.find((option) => option.id === item.item_id)?.price ?? 0, subtotal: (items.find((option) => option.id === item.item_id)?.price ?? 0) * item.qty }));
+  if (!project) return form;
+  const projectItems = project.items.map((item) => ({ ...EMPTY_ITEM, item_id: item.item_id, project_id: project.id, item_name: item.item_name ?? "", qty: item.qty, price: 0, subtotal: 0 }));
+  const projectHeader = { ...EMPTY_ITEM, item_id: project.id, project_id: project.id, item_name: project.name, qty: 1, price: project.price, subtotal: project.price };
 
-  return projectItems ? { ...form, rental_transaction_items: [...form.rental_transaction_items, ...projectItems] } : form;
+  return { ...form, rental_transaction_items: [...form.rental_transaction_items, projectHeader, ...projectItems] };
 };
 
 /**
@@ -346,7 +364,7 @@ const toggleProject = (form: OrderCreateFormState, projectId: string, projects: 
  * @param items
  */
 const buildOrderPayload = (form: OrderCreateFormState, items: OrderItemPayload[], orderTypes: OrderType[]): OrderCreatePayload => {
-  const totals = calculateOrderTotals(items, form.discount, form.service_fee);
+  const totals = calculateOrderTotals(items, form.discount, form.service_fee, form.start_at, form.end_at);
   const selectedOrderType = orderTypes.find((orderType) => orderType.id === form.order_type_id);
   const rentalHandover: RentalHandoverPayload | undefined = selectedOrderType?.is_handover
     ? {
@@ -397,10 +415,38 @@ export const useOrderCreateForm = (): OrderCreateState => {
   const pics = picQuery.data?.data ?? [];
   const serviceTypes = serviceTypeQuery.data?.data ?? [];
   const orderTypes = orderTypeQuery.data?.data ?? [];
-  const vouchers = voucherQuery.data?.data ?? [];
+  const [voucherSearchInput, setVoucherSearchInput] = useState("");
+  const [voucherSearchCode, setVoucherSearchCode] = useState("");
+
+  useEffect(() => {
+    const timer = window.setTimeout(() => {
+      setVoucherSearchCode(voucherSearchInput.trim());
+    }, 500);
+
+    return (): void => window.clearTimeout(timer);
+  }, [voucherSearchInput]);
+
+  const { data: searchedVoucher } = useGetVoucherByCodeQuery(voucherSearchCode, { skip: !voucherSearchCode });
+  const voucherSearchResult = searchedVoucher?.data;
+  const voucherData = Array.isArray(voucherSearchResult) ? voucherSearchResult[0] : voucherSearchResult;
+
+  const vouchers = (voucherSearchInput.trim() && voucherData)
+    ? [{ id: voucherData.id, name: voucherData.name, discount_percent: voucherData.discount_percent }]
+    : (voucherQuery.data?.data ?? []);
+
   const items = itemQuery.data?.data ?? [];
-  const projects = (projectQuery.data?.data ?? []).map((project) => ({ id: project.id, name: project.name, items: project.items ?? [] }));
+  const projects = (projectQuery.data?.data ?? []).map((project) => ({ id: project.id, name: project.name, price: project.price, items: project.items ?? [] }));
   const actions = createFormActions(setForm, customers, vouchers, serviceTypes, items, projects);
+
+  const onVoucherSearch = (code: string): void => {
+    setVoucherSearchInput(code);
+
+    if (!code.trim()) {
+      setVoucherSearchCode("");
+      void voucherQuery.refetch();
+    }
+  };
+  const actionsWithSearch = { ...actions, onVoucherSearch };
   /**
    *
    */
@@ -442,6 +488,7 @@ export const useOrderCreateForm = (): OrderCreateState => {
       await submitOrder(
         form,
         orderTypes,
+        projects,
         id,
         createOrder,
         createProjectOrder,
@@ -456,7 +503,7 @@ export const useOrderCreateForm = (): OrderCreateState => {
     }
   };
 
-  return { form, customers, pics, serviceTypes, orderTypes, vouchers, projects, items, isCustomersLoading: customerQuery.isLoading, isPicsLoading: picQuery.isLoading, isServiceTypesLoading: serviceTypeQuery.isLoading, isOrderTypesLoading: orderTypeQuery.isLoading, isVouchersLoading: voucherQuery.isLoading, isProjectsLoading: projectQuery.isLoading, isItemsLoading: itemQuery.isLoading, isEdit: Boolean(id), isSubmitting: mutation.isLoading, errorMessage, showInformationErrors, showItemErrors, step, onBack, onNextStep, onPreviousStep, ...actions, onSubmit, onPreventSubmit };
+  return { form, customers, pics, serviceTypes, orderTypes, vouchers, projects, items, isCustomersLoading: customerQuery.isLoading, isPicsLoading: picQuery.isLoading, isServiceTypesLoading: serviceTypeQuery.isLoading, isOrderTypesLoading: orderTypeQuery.isLoading, isVouchersLoading: voucherQuery.isLoading, isProjectsLoading: projectQuery.isLoading, isItemsLoading: itemQuery.isLoading, isEdit: Boolean(id), isSubmitting: mutation.isLoading, errorMessage, showInformationErrors, showItemErrors, step, onBack, onNextStep, onPreviousStep, ...actionsWithSearch, onSubmit, onPreventSubmit };
 };
 
 /**
@@ -497,6 +544,7 @@ const _resolveSubmitRoute = (
 const submitOrder = async (
   form: OrderCreateFormState,
   orderTypes: OrderType[],
+  projects: ProjectData[],
   id: string | undefined,
   createOrder: (payload: OrderCreatePayload) => { unwrap: () => Promise<unknown> },
   createProjectOrder: (payload: ProjectOrderCreatePayload) => { unwrap: () => Promise<unknown> },
@@ -507,12 +555,15 @@ const submitOrder = async (
   returnUrl?: string,
 ): Promise<void> => {
   const items = form.rental_transaction_items.filter((item) => item.item_id);
-  const payload = buildOrderPayload(form, items, orderTypes);
+  const payloadItems = form.service_type_name.trim().toUpperCase() === "PROJECT"
+    ? items.filter((item) => item.item_id === item.project_id)
+    : items;
+  const payload = buildOrderPayload(form, payloadItems, orderTypes);
 
   if (id) {
     await updateOrder({ id, payload: { ...payload, status: form.status } }).unwrap();
   } else if (form.service_type_name.trim().toUpperCase() === "PROJECT") {
-    const projectItems = buildProjectItems(items);
+    const projectItems = buildProjectItems(items, projects, form.start_at, form.end_at);
 
     if (!projectItems.length) {
       setErrorMessage("Please select at least one project with items.");

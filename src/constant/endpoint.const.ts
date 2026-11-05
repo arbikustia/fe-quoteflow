@@ -37,6 +37,7 @@ const ENDPOINT = {
     ALL: "/api/voucher",
     CREATE: "/api/voucher",
     DETAIL: "/api/voucher",
+    BY_CODE: "/api/voucher/by-code",
   },
   MASTER_PAYMENT_METHOD: {
     PAGED: "/api/payment-method/paged",
