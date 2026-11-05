@@ -7,7 +7,6 @@ import type {
   CustomerCreatePayload,
   CustomerCreateResponse,
   CustomerData,
-  CustomerDetailResponse,
   CustomerListParams,
   CustomerListResponse,
   CustomerUpdatePayload,
@@ -72,7 +71,7 @@ export const masterCustomerService = apiRtkClient.injectEndpoints({
       }),
       invalidatesTags: [CUSTOMER_TAG],
     }),
-    getCustomerById: builder.query<CustomerDetailResponse, string>({
+    getCustomerById: builder.query<CustomerCreateResponse, string>({
       /**
        *
        * @param id

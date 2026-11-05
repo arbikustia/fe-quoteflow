@@ -16,18 +16,16 @@ import type {
 
 import type { CustomerCreateResponse, CustomerData } from "@/modules/master-customer/MasterCustomer.type";
 import {
-  mapCustomer,
   useCreateCustomerMutation,
-  useGetCustomerByIdQuery,
   useUpdateCustomerMutation,
 } from "@/services/master-customer.service";
 
 /**
  * Format backend messages into a display string.
- * @param {string[] | string | null} messages - Backend response messages
+ * @param {string[] | string} [messages] - Backend response messages
  * @returns {string} Display message
  */
-const _formatMessages = (messages: string[] | string | null): string => {
+const _formatMessages = (messages?: string[] | string): string => {
   if (Array.isArray(messages)) {
     return messages.join(" ");
   }
@@ -199,8 +197,8 @@ const useCustomerSubmission = (params: CustomerSubmissionParams): CustomerSubmis
   const navigate = useNavigate();
   const [createCustomer, { isLoading: isCreating }] = useCreateCustomerMutation();
   const [updateCustomer, { isLoading: isUpdating }] = useUpdateCustomerMutation();
-  const [errorMessage, setErrorMessage] = useState<string | null>(null);
-  const [successMessage, setSuccessMessage] = useState<string | null>(null);
+  const [errorMessage, setErrorMessage] = useState<string>();
+  const [successMessage, setSuccessMessage] = useState<string>();
 
   /**
    * Submit customer form.
@@ -216,8 +214,8 @@ const useCustomerSubmission = (params: CustomerSubmissionParams): CustomerSubmis
 
     const { name, email, address, phoneNumber } = getValues();
 
-    setErrorMessage(null);
-    setSuccessMessage(null);
+    setErrorMessage(undefined);
+    setSuccessMessage(undefined);
 
     try {
       const response: CustomerCreateResponse = isEditMode && id

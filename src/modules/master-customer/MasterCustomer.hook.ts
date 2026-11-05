@@ -41,6 +41,22 @@ export const useMasterCustomerNavigation = (): MasterCustomerNavigation => {
 };
 
 /**
+ * Create customer list state without paginated data.
+ * @param {boolean} isLoading - Whether customer data is loading
+ * @param {boolean} isMissingData - Whether API response data is missing
+ * @param {string} [errorMessage] - Customer list error message
+ * @returns {CustomerListApiState} Empty customer list state
+ */
+const _createCustomerListState = (isLoading: boolean, isMissingData: boolean, errorMessage?: string): CustomerListApiState => ({
+  isLoading,
+  errorMessage,
+  isMissingData,
+  paginatedData: [],
+  totalPages: 0,
+  totalCount: 0,
+});
+
+/**
  * Derive paginated state from API response envelope.
  * Handles loading, HTTP error, envelope status false, missing data explicitly.
  * @param {ReturnType<typeof useGetCustomersQuery>} queryResult - RTK Query result
@@ -50,37 +66,17 @@ const _deriveCustomerListState = (queryResult: ReturnType<typeof useGetCustomers
   const { data, error, isLoading } = queryResult;
 
   if (isLoading) {
-    return {
-      isLoading: true,
-      isMissingData: false,
-      paginatedData: [],
-      totalPages: 0,
-      totalCount: 0,
-    };
+    return _createCustomerListState(true, false);
   }
 
   if (error) {
-    return {
-      isLoading: false,
-      errorMessage: "Unable to load customers.",
-      isMissingData: false,
-      paginatedData: [],
-      totalPages: 0,
-      totalCount: 0,
-    };
+    return _createCustomerListState(false, false, "Unable to load customers.");
   }
 
   const response = data;
 
   if (!response?.data) {
-    return {
-      isLoading: false,
-      errorMessage: "Response is missing data.",
-      isMissingData: true,
-      paginatedData: [],
-      totalPages: 0,
-      totalCount: 0,
-    };
+    return _createCustomerListState(false, true, "Response is missing data.");
   }
 
   return {
