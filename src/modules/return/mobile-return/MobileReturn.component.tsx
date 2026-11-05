@@ -35,7 +35,7 @@ const getStatusStyles = (status: string): string => {
   
   if (status === "Cancel") return "bg-[#fee2e2] text-[#ef4444]";
   
-  return "bg-gray-100 text-gray-600";
+  return "bg-background-subtle text-text-secondary";
 };
 
 /**
@@ -52,12 +52,12 @@ const getShortStatus = (status: string): string => status;
  */
 const ReturnRow = ({ quote, onNavigateDetail }: { quote: QuoteData; onNavigateDetail: (id: string) => void }): ReactElement => {
   return (
-    <div onClick={(): void => onNavigateDetail(quote.id)} className="bg-white rounded-3xl px-5 py-4 mb-3 flex items-center shadow-[0_4px_15px_rgba(0,0,0,0.02)] border border-gray-100 transition-transform hover:scale-[1.01] cursor-pointer">
+    <div onClick={(): void => onNavigateDetail(quote.id)} className="bg-background-surface rounded-3xl px-5 py-4 mb-3 flex items-center shadow-[0_4px_15px_rgba(0,0,0,0.02)] border border-border-default transition-transform hover:scale-[1.01] cursor-pointer">
       <div className="w-1/2 flex flex-col">
-        <span className="font-bold text-[13px] text-gray-800 truncate pr-2">{quote.name}</span>
-        <span className="font-medium text-[11px] text-gray-500 truncate pr-2">{quote.location}</span>
+        <span className="font-bold text-[13px] text-text-primary truncate pr-2">{quote.name}</span>
+        <span className="font-medium text-[11px] text-text-tertiary truncate pr-2">{quote.location}</span>
       </div>
-      <div className="w-1/4 font-semibold text-[12px] text-gray-600 text-center">{formatDate(quote.startDate)}</div>
+      <div className="w-1/4 font-semibold text-[12px] text-text-secondary text-center">{formatDate(quote.startDate)}</div>
       <div className="w-1/4 flex justify-end">
         <div className={`rounded-full px-2.5 py-1 text-[9px] font-bold tracking-wider ${getStatusStyles(quote.status)}`}>
           {getShortStatus(quote.status)}
@@ -74,12 +74,12 @@ const ReturnRow = ({ quote, onNavigateDetail }: { quote: QuoteData; onNavigateDe
  */
 export const MobileReturnComponent = (props: MobileReturnProps): ReactElement => {
   return (
-    <div className="flex-1 w-full min-h-full bg-[#f8f9fb] font-sans pb-32 relative overflow-y-auto">
+    <div className="flex-1 w-full min-h-full bg-background-page font-sans pb-32 relative overflow-y-auto">
       <div className="px-6 mt-4">
-        <h2 className="text-[28px] font-bold text-[#1a233a] mb-0.5">Return History</h2>
-        <p className="text-[14px] text-gray-500 font-medium">Your recent returns.</p>
+        <h2 className="text-[28px] font-bold text-text-primary mb-0.5">Return History</h2>
+        <p className="text-[14px] text-text-tertiary font-medium">Your recent returns.</p>
         
-        <div className="flex items-center mt-8 mb-3 px-3 text-[11px] font-bold text-gray-400 tracking-widest uppercase">
+        <div className="flex items-center mt-8 mb-3 px-3 text-[11px] font-bold text-text-disabled tracking-widest uppercase">
           <div className="w-1/2">Event Info</div>
           <div className="w-1/4 text-center">Date</div>
           <div className="w-1/4 text-right pr-2">Status</div>

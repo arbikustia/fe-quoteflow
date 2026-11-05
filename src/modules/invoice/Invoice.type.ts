@@ -1,15 +1,16 @@
-export type InvoiceItem = { item_id: string; item_name: string; qty: number; price: number; subtotal: number; remark: string };
-export type InvoiceProjectItem = { id: string; item_id: string; item_name: string; qty: number; price: number };
-export type InvoiceProject = { id: string; name: string; remark: string; qty: number; subtotal: number; items: InvoiceProjectItem[] };
-export type InvoiceEntity = { id: string; name: string; status: number; created_at: string; updated_at: string; address: string; phone_number: string; code?: string; discount_percent?: number };
+export type InvoiceItem = { item_id: string; item_name: string; category_name?: string; qty: number; price: number; subtotal: number; remark?: string };
+export type InvoiceProjectItem = { id: string; item_id: string; item_name: string; category_name?: string; qty: number; price: number };
+export type InvoiceProject = { id: string; name: string; remark: string; price: number; qty: number; subtotal: number; items: InvoiceProjectItem[] };
+export type InvoiceCustomer = { id: string; name: string; address: string; phone_number: string; status: number; created_at: string; updated_at: string };
+export type InvoiceReference = { id: string; name: string; status: number; created_at: string; updated_at: string; code?: string; discount_percent?: number };
 export type InvoiceTransaction = {
   id: string; service_type_id: string; service_type_name: string; order_type_id?: string; order_type_name?: string; customer_name: string; customer_phone: string; address: string; event_name: string; start_at: string; end_at: string;
   subtotal: number; service_fee: number; discount: number; grand_total: number; status: number; created_at: string; updated_at: string;
-  rental_transaction_items: InvoiceItem[]; rental_transaction_project: InvoiceProject[]; customer: InvoiceEntity; pic: InvoiceEntity; voucher: InvoiceEntity;
+  rental_transaction_items: InvoiceItem[]; rental_transaction_project: InvoiceProject[]; rental_handovers: []; customer: InvoiceCustomer; pic: InvoiceReference; voucher: InvoiceReference;
 };
 export type InvoiceQuotation = { id: string; transaction_id: string; quotation_no: string; quotation_date: string; expired_at: string; notes: string; status: number; created_at: string; updated_at: string; transaction: InvoiceTransaction };
 export type ApiInvoice = {
-  id: string; transaction_id: string; invoice_no: string; invoice_date: string; due_date: string; notes: string; status: number; created_at: string; updated_at: string; quotation: InvoiceQuotation;
+  id: string; transaction_id: string; invoice_no: string; invoice_date: string; due_date: string; notes: string; status: number; created_at: string; updated_at: string; quotation: InvoiceQuotation; payments: [];
 };
 export type InvoiceDetailResponse = { status: boolean; data: ApiInvoice | null; messages: string[] };
 

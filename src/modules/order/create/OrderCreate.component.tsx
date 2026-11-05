@@ -22,8 +22,15 @@ const RUPIAH_FORMATTER = new Intl.NumberFormat("id-ID");
  * @param {string} [value] - ISO date string.
  * @returns {string} Formatted date.
  */
-const _formatReviewDate = (value?: string): string =>
-  value ? value.replace("T", " ") : "-";
+const _formatReviewDate = (value?: string): string => {
+  if (!value) return "-";
+
+  const date = new Date(value);
+
+  return Number.isNaN(date.getTime())
+    ? "-"
+    : date.toLocaleDateString("id-ID", { day: "numeric", month: "long", year: "numeric" });
+};
 
 /**
  * Render _renderSelect.
@@ -943,8 +950,8 @@ export const OrderCreateComponent = (
               )}
               {props.step === 3 && (
                 <section className="flex flex-col gap-6">
-                  <div className="order-1 grid grid-cols-1 gap-5 lg:grid-cols-12">
-                    <div className="rounded-2xl border border-border-default bg-background-surface p-5 lg:col-span-6">
+                  <div className="order-1 grid grid-cols-1 gap-5">
+                    <div className="rounded-2xl bg-background-subtle p-5">
                       <div className="mb-4 flex items-center gap-3">
                         <div>
                           <p className="text-xl font-semibold text-text-primary lg:text-lg">
@@ -955,34 +962,34 @@ export const OrderCreateComponent = (
                           </p>
                         </div>
                       </div>
-                      <dl className="divide-y divide-border-default text-xl lg:text-lg">
-                        <div className="grid grid-cols-[7rem_minmax(0,1fr)] gap-3 py-3 lg:grid-cols-[6rem_minmax(0,1fr)]">
+                      <dl className="grid grid-cols-1 gap-x-8 text-xl sm:grid-cols-3 lg:text-lg">
+                        <div className="border-b border-border-default py-3">
                           <dt className="text-text-secondary">Customer</dt>
-                          <dd className="break-words font-semibold text-text-primary">
+                          <dd className="mt-1 break-words font-semibold text-text-primary">
                             {props.customers.find((customer) => customer.id === props.form.customer_id)?.name || "-"}
                           </dd>
                         </div>
-                        <div className="grid grid-cols-[7rem_minmax(0,1fr)] gap-3 py-3 lg:grid-cols-[6rem_minmax(0,1fr)]">
+                        <div className="border-b border-border-default py-3">
                           <dt className="text-text-secondary">Name</dt>
-                          <dd className="break-words font-semibold text-text-primary">
+                          <dd className="mt-1 break-words font-semibold text-text-primary">
                             {props.form.customer_name || "-"}
                           </dd>
                         </div>
-                        <div className="grid grid-cols-[7rem_minmax(0,1fr)] gap-3 py-3 lg:grid-cols-[6rem_minmax(0,1fr)]">
+                        <div className="border-b border-border-default py-3">
                           <dt className="text-text-secondary">Phone</dt>
-                          <dd className="break-words font-semibold text-text-primary">
+                          <dd className="mt-1 break-words font-semibold text-text-primary">
                             {props.form.customer_phone || "-"}
                           </dd>
                         </div>
-                        <div className="grid grid-cols-[7rem_minmax(0,1fr)] gap-3 py-3 lg:grid-cols-[6rem_minmax(0,1fr)]">
+                        <div className="py-3">
                           <dt className="text-text-secondary">Address</dt>
-                          <dd className="break-words font-semibold text-text-primary">
+                          <dd className="mt-1 break-words font-semibold text-text-primary">
                             {props.form.address || "-"}
                           </dd>
                         </div>
                       </dl>
                     </div>
-                    <div className="rounded-2xl border border-border-default bg-background-surface p-5 lg:col-span-6">
+                    <div className="rounded-2xl bg-background-subtle p-5">
                       <div className="mb-4 flex items-center gap-3">
                         <div>
                           <p className="text-xl font-semibold text-text-primary lg:text-lg">
@@ -993,71 +1000,71 @@ export const OrderCreateComponent = (
                           </p>
                         </div>
                       </div>
-                      <dl className="divide-y divide-border-default text-xl lg:text-lg">
-                        <div className="grid grid-cols-[7rem_minmax(0,1fr)] gap-3 py-3 lg:grid-cols-[6rem_minmax(0,1fr)]">
+                      <dl className="grid grid-cols-1 gap-x-8 text-xl sm:grid-cols-3 lg:text-lg">
+                        <div className="border-b border-border-default py-3">
                           <dt className="text-text-secondary">PIC</dt>
-                          <dd className="break-words font-semibold text-text-primary">
+                          <dd className="mt-1 break-words font-semibold text-text-primary">
                             {props.pics.find((pic) => pic.id === props.form.pic_id)?.name || "-"}
                           </dd>
                         </div>
-                        <div className="grid grid-cols-[7rem_minmax(0,1fr)] gap-3 py-3 lg:grid-cols-[6rem_minmax(0,1fr)]">
+                        <div className="border-b border-border-default py-3">
                           <dt className="text-text-secondary">Event</dt>
-                          <dd className="break-words font-semibold text-text-primary">
+                          <dd className="mt-1 break-words font-semibold text-text-primary">
                             {props.form.event_name || "-"}
                           </dd>
                         </div>
-                        <div className="grid grid-cols-[7rem_minmax(0,1fr)] gap-3 py-3 lg:grid-cols-[6rem_minmax(0,1fr)]">
+                        <div className="border-b border-border-default py-3">
                           <dt className="text-text-secondary">Order Type</dt>
-                          <dd className="break-words font-semibold text-text-primary">
+                          <dd className="mt-1 break-words font-semibold text-text-primary">
                             {props.orderTypes.find((orderType) => orderType.id === props.form.order_type_id)?.name || "-"}
                           </dd>
                         </div>
                         {isHandoverOrderType && (
                           <>
-                            <div className="grid grid-cols-[7rem_minmax(0,1fr)] gap-3 py-3 lg:grid-cols-[6rem_minmax(0,1fr)]">
+                            <div className="border-b border-border-default py-3">
                               <dt className="text-text-secondary">ID Type</dt>
-                              <dd className="break-words font-semibold text-text-primary">
+                              <dd className="mt-1 break-words font-semibold text-text-primary">
                                 {props.form.handover_type || "-"}
                               </dd>
                             </div>
-                            <div className="grid grid-cols-[7rem_minmax(0,1fr)] gap-3 py-3 lg:grid-cols-[6rem_minmax(0,1fr)]">
+                            <div className="border-b border-border-default py-3">
                               <dt className="text-text-secondary">Owner</dt>
-                              <dd className="break-words font-semibold text-text-primary">
+                              <dd className="mt-1 break-words font-semibold text-text-primary">
                                 {props.form.handover_name || "-"}
                               </dd>
                             </div>
                           </>
                         )}
-                        <div className="grid grid-cols-[7rem_minmax(0,1fr)] gap-3 py-3 lg:grid-cols-[6rem_minmax(0,1fr)]">
+                        <div className="border-b border-border-default py-3">
                           <dt className="text-text-secondary">Service</dt>
-                          <dd className="break-words font-semibold text-text-primary">
+                          <dd className="mt-1 break-words font-semibold text-text-primary">
                             {props.serviceTypes.find((serviceType) => serviceType.id === props.form.service_type_id)?.name || props.form.service_type_name || "-"}
                           </dd>
                         </div>
                         {props.form.voucher_id && (
-                          <div className="grid grid-cols-[7rem_minmax(0,1fr)] gap-3 py-3 lg:grid-cols-[6rem_minmax(0,1fr)]">
+                          <div className="border-b border-border-default py-3">
                             <dt className="text-text-secondary">Voucher</dt>
-                            <dd className="break-words font-semibold text-text-primary">
+                            <dd className="mt-1 break-words font-semibold text-text-primary">
                               {props.vouchers.find((voucher) => voucher.id === props.form.voucher_id)?.name || "-"}
                             </dd>
                           </div>
                         )}
-                        <div className="grid grid-cols-[7rem_minmax(0,1fr)] gap-3 py-3 lg:grid-cols-[6rem_minmax(0,1fr)]">
+                        <div className="border-b border-border-default py-3">
                           <dt className="text-text-secondary">Start</dt>
-                          <dd className="break-words font-semibold text-text-primary">
+                          <dd className="mt-1 break-words font-semibold text-text-primary">
                             {_formatReviewDate(props.form.start_at)}
                           </dd>
                         </div>
-                        <div className="grid grid-cols-[7rem_minmax(0,1fr)] gap-3 py-3 lg:grid-cols-[6rem_minmax(0,1fr)]">
+                        <div className="py-3">
                           <dt className="text-text-secondary">End</dt>
-                          <dd className="break-words font-semibold text-text-primary">
+                          <dd className="mt-1 break-words font-semibold text-text-primary">
                             {_formatReviewDate(props.form.end_at)}
                           </dd>
                         </div>
                       </dl>
                     </div>
                   </div>
-                  <div className="order-3 rounded-2xl border border-action-primary/30 p-5 lg:order-2">
+                  <div className="order-3 rounded-2xl bg-background-subtle p-5">
                     <div className="mb-4 flex items-center justify-between gap-3">
                       <div className="flex items-center gap-3">
                         <div>
@@ -1074,25 +1081,25 @@ export const OrderCreateComponent = (
                       </span>
                     </div>
                     <div className="grid gap-3 text-xl sm:grid-cols-2 lg:grid-cols-4 lg:text-lg">
-                      <div className="rounded-xl bg-background-subtle p-4 text-text-secondary">
+                      <div className="py-3 text-text-secondary">
                         <span className="block text-lg text-text-secondary lg:text-lg">Subtotal</span>
                         <span className="mt-1 block font-semibold text-text-primary">
                           Rp {totals.subtotal.toLocaleString("id-ID")}
                         </span>
                       </div>
-                      <div className="rounded-xl bg-background-subtle p-4 text-text-secondary">
+                      <div className="py-3 text-text-secondary">
                         <span className="block text-lg text-text-secondary lg:text-lg">Service Fee</span>
                         <span className="mt-1 block font-semibold text-text-primary">
                           Rp {props.form.service_fee.toLocaleString("id-ID")}
                         </span>
                       </div>
-                      <div className="rounded-xl bg-background-subtle p-4 text-text-secondary">
+                      <div className="py-3 text-text-secondary">
                         <span className="block text-lg text-text-secondary lg:text-lg">Discount</span>
                         <span className="mt-1 block font-semibold text-text-primary">
                           Rp {totals.discountAmount.toLocaleString("id-ID")} ({props.form.discount}%)
                         </span>
                       </div>
-                      <div className="rounded-xl bg-action-primary-subtle p-4">
+                      <div className="border-t border-border-default py-3 sm:border-l sm:border-t-0 sm:pl-4">
                         <span className="block text-lg font-semibold text-action-primary lg:text-lg">Grand Total</span>
                         <span className="mt-1 block text-3xl font-bold text-action-primary lg:text-lg">
                           Rp {totals.grandTotal.toLocaleString("id-ID")}
@@ -1100,7 +1107,7 @@ export const OrderCreateComponent = (
                       </div>
                     </div>
                   </div>
-                  <div className="order-2 rounded-xl border border-border-default p-4 lg:order-3">
+                  <div className="order-2 rounded-2xl bg-background-subtle p-5">
                     <h3 className="mb-3 text-2xl font-semibold text-text-primary lg:text-lg">
                       Rental Items
                     </h3>
@@ -1122,17 +1129,17 @@ export const OrderCreateComponent = (
                             return (
                               <section
                                 key={project.id}
-                                className="overflow-hidden rounded-2xl border border-border-default bg-background-surface"
+                                className="border-b border-border-default py-3"
                               >
-                                <div className="flex items-center justify-between gap-3 border-b border-border-default bg-background-subtle px-4 py-3">
+                                <div className="flex items-center justify-between gap-3 pb-2">
                                   <h4 className="text-xl font-semibold text-text-primary lg:text-lg">
                                     {project.name}
                                   </h4>
-                                  <span className="shrink-0 rounded-full bg-action-primary-subtle px-3 py-1 text-lg font-semibold text-action-primary lg:text-lg">
+                                  <span className="shrink-0 text-lg font-semibold text-text-secondary lg:text-lg">
                                     {projectItems.length} items
                                   </span>
                                 </div>
-                                <div className="divide-y divide-border-default px-4">
+                                <div className="divide-y divide-border-default">
                                   {projectItems.map((item) => (
                                     <div
                                       key={`${project.id}-${item.item_id}`}
@@ -1170,7 +1177,7 @@ export const OrderCreateComponent = (
                           .map((item) => (
                             <div
                               key={`${item.item_id}-${item.remark}`}
-                              className="flex items-start justify-between gap-3 rounded-xl border border-border-default p-3 text-xl lg:text-lg"
+                              className="flex items-start justify-between gap-3 border-b border-border-default py-3 text-xl lg:text-lg"
                             >
                               <span>
                                 {item.item_name}
@@ -1191,7 +1198,7 @@ export const OrderCreateComponent = (
                       </div>
                     )}
                   </div>
-                  <label className="order-4 block space-y-2">
+                  <label className="order-4 block space-y-2 rounded-2xl bg-background-subtle p-5">
                     <span className="text-xl font-semibold text-text-secondary lg:text-lg">
                       Remarks
                     </span>

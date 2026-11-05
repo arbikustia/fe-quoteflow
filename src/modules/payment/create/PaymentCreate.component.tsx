@@ -90,29 +90,6 @@ const _renderHeaderSection = (
 };
 
 /**
- * Render information step tab.
- * @returns {ReactElement} Step tab element
- */
-const _renderInformationStepTab = (): ReactElement => (
-  <div
-    aria-label="Payment steps"
-    className="mb-6 flex items-center gap-4 overflow-x-auto border-b border-border-default lg:mb-8 lg:gap-8"
-  >
-    <div
-      aria-current="step"
-      className="relative shrink-0 pb-3 text-lg font-semibold text-action-primary lg:text-lg"
-    >
-      <span className="lg:hidden">Information</span>
-      <span className="hidden lg:inline">Payment Information</span>
-      <span
-        aria-hidden="true"
-        className="absolute inset-x-0 bottom-0 h-0.5 bg-action-primary"
-      />
-    </div>
-  </div>
-);
-
-/**
  * Render select form field.
  * @param {PaymentSelectFieldConfig} config - Select configuration
  * @returns {ReactElement} Select field
@@ -420,7 +397,6 @@ const _renderFormCard = (
     onSubmit={props.handleSubmit}
     className="mb-6 flex flex-col rounded-3xl border border-border-default bg-background-surface p-6 shadow-small sm:p-8 lg:mb-5 lg:rounded-3xl lg:p-10"
   >
-    {_renderInformationStepTab()}
     <div className="pb-6">
       <section className="space-y-5">
         {_renderFormFields(config)}

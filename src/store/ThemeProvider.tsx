@@ -34,7 +34,7 @@ export const ThemeProvider = ({ children }: ThemeProviderProps): React.ReactElem
       theme={{
         algorithm: theme === "dark" ? antdTheme.darkAlgorithm : antdTheme.defaultAlgorithm,
         token: {
-          colorPrimary: theme === "dark" ? "#7188FA" : "#3550D7",
+          colorPrimary: theme === "dark" ? "#8DA9F8" : "#3550D7",
           colorBgContainer: "var(--background-surface)",
           colorBgElevated: "var(--background-elevated)",
           colorBgLayout: "var(--background-page)",

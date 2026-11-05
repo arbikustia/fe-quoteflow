@@ -1,4 +1,4 @@
-import { fireEvent, render, screen } from "@testing-library/react";
+import { fireEvent, render, screen } from "@/libs/unit-test";
 
 import { InvoiceComponent } from "./Invoice.component";
 import type { InvoiceProps } from "./Invoice.type";
@@ -56,11 +56,14 @@ describe("InvoiceComponent", () => {
     expect(mockGenerateInvoicePDF).toHaveBeenCalled();
   });
 
-  it("should render invoice status badge properly", () => {
+  it("should render approved status and hide edit action", () => {
     render(<InvoiceComponent {...props} paginatedData={[{ ...props.paginatedData[0], status: 2 }]} />);
 
     const badge = screen.getAllByText("Approved")[0];
     expect(badge).toHaveClass("border-current", "text-base", "uppercase");
+    expect(screen.queryByRole("button", { name: "Edit invoice" })).toBeNull();
+    expect(screen.getByRole("button", { name: "View invoice detail" })).toBeTruthy();
+    expect(screen.getByRole("button", { name: "Download PDF" })).toBeTruthy();
   });
 
   it("should open invoice detail from mobile card", () => {
@@ -71,6 +74,10 @@ describe("InvoiceComponent", () => {
     expect(card).toHaveClass("border-border-strong");
     expect(card.querySelector(".rounded-full")).toHaveClass("border-current", "text-base", "uppercase");
     expect(card.querySelectorAll(".text-xs, .text-sm")).toHaveLength(0);
+    expect(card).toHaveTextContent("Event");
+    expect(card).toHaveTextContent("Customer");
+    expect(card).toHaveTextContent("Event period");
+    expect(card).toHaveTextContent("Total");
     expect(screen.getAllByText("INV-001")[0]).toHaveClass("text-lg");
     fireEvent.click(card);
 
@@ -104,6 +111,7 @@ describe("InvoiceComponent", () => {
     const cardSkeletons = screen.getAllByRole("status", { name: "Loading invoice card" });
     expect(cardSkeletons).toHaveLength(5);
     expect(cardSkeletons[0]).toHaveClass("rounded-3xl");
+    expect(cardSkeletons[0].querySelectorAll(".border-t")).toHaveLength(2);
   });
 
   it("should render empty invoice state", () => {

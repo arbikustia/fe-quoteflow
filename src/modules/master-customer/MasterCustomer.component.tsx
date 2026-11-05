@@ -8,7 +8,7 @@ import { SearchFilter } from "../../components/SearchFilter";
 import type { TableColumn } from "../../components/Table";
 import Table from "../../components/Table";
 
-import { CustomerMobileCard, getCustomerRowNumber } from "./MasterCustomer.helpers";
+import { CustomerMobileCard, formatCustomerDisplayValue, getCustomerRowNumber } from "./MasterCustomer.helpers";
 import type { CustomerData, MasterCustomerProps } from "./MasterCustomer.type";
 
 /**
@@ -86,7 +86,7 @@ const _renderCustomerName = (row: CustomerData): React.ReactElement => (
  * @returns {React.ReactElement} Email cell
  */
 const _renderEmail = (row: CustomerData): React.ReactElement => (
-  <span className="text-lg text-text-secondary">{row.email ?? "-"}</span>
+  <span className="text-lg text-text-secondary">{formatCustomerDisplayValue(row.email)}</span>
 );
 
 /**
@@ -95,7 +95,7 @@ const _renderEmail = (row: CustomerData): React.ReactElement => (
  * @returns {React.ReactElement} Address cell
  */
 const _renderAddress = (row: CustomerData): React.ReactElement => (
-  <span className="text-lg">{row.address || "-"}</span>
+  <span className="text-lg">{formatCustomerDisplayValue(row.address)}</span>
 );
 
 /**
@@ -104,7 +104,7 @@ const _renderAddress = (row: CustomerData): React.ReactElement => (
  * @returns {React.ReactElement} Phone number cell
  */
 const _renderPhoneNumber = (row: CustomerData): React.ReactElement => (
-  <span className="text-lg">{row.phoneNumber || "-"}</span>
+  <span className="text-lg">{formatCustomerDisplayValue(row.phoneNumber)}</span>
 );
 
 /**

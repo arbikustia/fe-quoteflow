@@ -49,7 +49,6 @@ export type SidebarProps = {
   isProfileOpen: boolean;
   onToggleProfile: () => void;
   theme: "light" | "dark";
-  onToggleTheme: () => void;
   onLogout: () => void;
 };
 
@@ -61,7 +60,7 @@ export type SidebarItemProps = Omit<SidebarNavigationProps, "sections"> & {
   item: NavigationItem;
 };
 
-export type SidebarProfileProps = Pick<SidebarProps, "isCollapsed" | "isProfileOpen" | "onToggleProfile" | "theme" | "onToggleTheme" | "onLogout"> & {
+export type SidebarProfileProps = Pick<SidebarProps, "isCollapsed" | "onLogout"> & {
   displayName: string;
   initials: string;
 };

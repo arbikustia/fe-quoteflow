@@ -1,4 +1,4 @@
-import { fireEvent, render, screen } from "@/libs/unit-test";
+import { render, screen } from "@/libs/unit-test";
 import React from "react";
 import { MemoryRouter } from "react-router-dom";
 
@@ -16,7 +16,6 @@ describe("SidebarComponent Test", () => {
     isProfileOpen: false,
     onToggleProfile: jest.fn(),
     theme: "light",
-    onToggleTheme: jest.fn(),
     onLogout: jest.fn(),
   };
 
@@ -32,6 +31,7 @@ describe("SidebarComponent Test", () => {
     expect(screen.getByRole("link", { name: "Dashboard" })).toHaveAttribute("href", "/home");
     expect(screen.getByRole("link", { name: "Create Order" })).toHaveAttribute("href", "/order/create");
   });
+
 
   it("should render Document sub-menus", () => {
     render(
@@ -49,33 +49,5 @@ describe("SidebarComponent Test", () => {
     expect(screen.getByRole("link", { name: "Payment" })).toHaveAttribute("href", "/document/payment");
     expect(screen.getByRole("link", { name: "Calendar" })).toHaveAttribute("href", "/calendar");
     expect(screen.getByRole("link", { name: "Order" })).toHaveAttribute("href", "/report");
-  });
-
-  it("should call onToggleTheme when theme switch is clicked", () => {
-    const onToggleTheme = jest.fn();
-
-    render(
-      React.createElement(
-        MemoryRouter,
-        null,
-        React.createElement(SidebarComponent, { ...defaultProps, onToggleTheme }),
-      ),
-    );
-
-    fireEvent.click(screen.getByRole("switch", { name: /Toggle dark theme/i }));
-
-    expect(onToggleTheme).toHaveBeenCalled();
-  });
-
-  it("should render theme switch in collapsed sidebar", () => {
-    render(
-      React.createElement(
-        MemoryRouter,
-        null,
-        React.createElement(SidebarComponent, { ...defaultProps, isCollapsed: true }),
-      ),
-    );
-
-    expect(screen.getByRole("switch", { name: /Toggle dark theme/i })).toBeDefined();
   });
 });

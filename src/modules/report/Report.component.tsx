@@ -287,16 +287,15 @@ const _renderMobileCardSkeleton = (key: number): React.ReactElement => (
       <div className="h-7 w-28 rounded-3xl bg-background-subtle" />
       <div className="h-8 w-24 rounded-full bg-background-subtle" />
     </div>
-    <div className="mt-4 h-7 w-4/5 rounded-3xl bg-background-subtle" />
-    <div className="mt-1.5 h-7 w-3/5 rounded-3xl bg-background-subtle" />
-    <div className="mt-4 flex flex-wrap items-end justify-between gap-x-4 gap-y-3 border-t border-border-default pt-4">
-      <div className="min-w-0">
-        <div className="h-7 w-20 rounded-3xl bg-background-subtle" />
-        <div className="mt-1 h-7 w-40 rounded-3xl bg-background-subtle" />
-      </div>
-      <div className="text-right">
-        <div className="ml-auto h-7 w-12 rounded-3xl bg-background-subtle" />
-        <div className="mt-1 h-7 w-28 rounded-3xl bg-background-subtle" />
+    <div className="mt-4 grid grid-cols-3 gap-x-3 gap-y-2">
+      <div className="h-6 w-14 rounded-3xl bg-background-subtle" /><div className="col-span-2 h-6 w-4/5 rounded-3xl bg-background-subtle" />
+      <div className="h-6 w-16 rounded-3xl bg-background-subtle" /><div className="col-span-2 h-6 w-3/5 rounded-3xl bg-background-subtle" />
+    </div>
+    <div className="mt-4 border-t border-border-default pt-4">
+      <div className="h-6 w-20 rounded-3xl bg-background-subtle" />
+      <div className="mt-1 h-6 w-full rounded-3xl bg-background-subtle" />
+      <div className="mt-4 flex items-end justify-between gap-4 border-t border-border-default pt-4">
+        <div className="h-6 w-12 rounded-3xl bg-background-subtle" /><div className="h-7 w-28 rounded-3xl bg-background-subtle" />
       </div>
     </div>
   </div>

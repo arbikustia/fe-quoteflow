@@ -61,6 +61,8 @@ describe("OrderCreateComponent", (): void => {
             ...props.form,
             discount: 8,
             service_fee: 25000,
+            start_at: "2026-11-12T06:00",
+            end_at: "2026-11-14T06:00",
             rental_transaction_items: [
               { item_id: "item-1", item_name: "Camera", project_id: "", qty: 1, price: 625000, subtotal: 625000, remark: "" },
             ],
@@ -71,6 +73,28 @@ describe("OrderCreateComponent", (): void => {
 
     expect(screen.getByText("Rp 50.000 (8%)")).toBeTruthy();
     expect(screen.getByText("Rp 600.000")).toBeTruthy();
+    expect(screen.getByText("12 November 2026")).toBeTruthy();
+    expect(screen.getByText("14 November 2026")).toBeTruthy();
+    const customerSection = screen.getByText("Customer Information").parentElement?.parentElement?.parentElement;
+    const pricingSection = screen.getByText("Pricing").parentElement?.parentElement?.parentElement?.parentElement;
+    const rentalSection = screen.getByRole("heading", { name: "Rental Items" }).parentElement;
+    expect(customerSection?.className).toContain("rounded-2xl");
+    expect(customerSection?.className).not.toContain("border-t");
+    expect(customerSection?.parentElement?.className).not.toContain("lg:grid-cols-12");
+    const orderSectionTitle = screen.getAllByText("Order Information").find((element) => element.tagName === "P");
+    const orderSection = orderSectionTitle?.parentElement?.parentElement?.parentElement;
+    expect(orderSection?.className).not.toContain("lg:col-span-6");
+    expect(customerSection?.querySelector("dl")?.className).toContain("sm:grid-cols-3");
+    expect(orderSection?.querySelector("dl")?.className).toContain("sm:grid-cols-3");
+    expect(customerSection?.querySelector("dt")?.nextElementSibling?.className).toContain("mt-1");
+    expect(orderSection?.querySelector("dt")?.nextElementSibling?.className).toContain("mt-1");
+    expect(screen.getByText("Address").parentElement?.className).not.toContain("border-b");
+    expect(screen.getByText("End").parentElement?.className).not.toContain("border-b");
+    expect(pricingSection?.className).toContain("rounded-2xl");
+    expect(pricingSection?.className).not.toContain("border-y");
+    expect(pricingSection?.className).not.toContain("lg:order-2");
+    expect(rentalSection?.className).toContain("rounded-2xl");
+    expect(rentalSection?.className).not.toContain("lg:order-3");
   });
 
   it("should show error when end date is earlier than start date", (): void => {

@@ -83,6 +83,7 @@ describe("Invoice helpers", () => {
             },
           ],
           rental_transaction_project: [],
+          rental_handovers: [],
           customer: {
             id: "c-1",
             name: "PT Multi Solusi",
@@ -98,8 +99,6 @@ describe("Invoice helpers", () => {
             status: 1,
             created_at: "2026-09-20",
             updated_at: "2026-09-20",
-            address: "",
-            phone_number: "",
           },
           voucher: {
             id: "v-1",
@@ -107,11 +106,10 @@ describe("Invoice helpers", () => {
             status: 1,
             created_at: "2026-09-20",
             updated_at: "2026-09-20",
-            address: "",
-            phone_number: "",
           },
         },
       },
+      payments: [],
     };
 
     const quote = invoiceToQuoteData(apiInvoice);

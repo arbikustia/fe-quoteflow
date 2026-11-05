@@ -4,8 +4,6 @@ import { useNavigate } from "react-router-dom";
 import type {
   CustomerData,
   CustomerListApiState,
-  CustomerListResponse,
-  MasterCustomerContainerState,
   MasterCustomerNavigation,
   MasterCustomerPagination,
 } from "./MasterCustomer.type";
@@ -52,102 +50,47 @@ const _deriveCustomerListState = (queryResult: ReturnType<typeof useGetCustomers
   const { data, error, isLoading } = queryResult;
 
   if (isLoading) {
-    return _createLoadingState();
+    return {
+      isLoading: true,
+      isMissingData: false,
+      paginatedData: [],
+      totalPages: 0,
+      totalCount: 0,
+    };
   }
 
   if (error) {
-    return _createErrorState();
+    return {
+      isLoading: false,
+      errorMessage: "Unable to load customers.",
+      isMissingData: false,
+      paginatedData: [],
+      totalPages: 0,
+      totalCount: 0,
+    };
   }
 
-  const response: CustomerListResponse | undefined = data;
+  const response = data;
 
-  if (!response) {
-    return _createMissingResponseState();
+  if (!response?.data) {
+    return {
+      isLoading: false,
+      errorMessage: "Response is missing data.",
+      isMissingData: true,
+      paginatedData: [],
+      totalPages: 0,
+      totalCount: 0,
+    };
   }
 
-  const customerList = response.data;
-
-  if (!customerList) {
-    return _createMissingPayloadState();
-  }
-
-  const customers = customerList.map(mapCustomer);
-
-  return _createSuccessState(customers, response.total_pages, response.total_count);
+  return {
+    isLoading: false,
+    isMissingData: false,
+    paginatedData: response.data.map(mapCustomer),
+    totalPages: response.total_pages,
+    totalCount: response.total_count,
+  };
 };
-
-/**
- * Create loading state.
- * @returns {CustomerListApiState} Loading state
- */
-const _createLoadingState = (): CustomerListApiState => ({
-  isLoading: true,
-  errorMessage: null,
-  isEnvelopeError: false,
-  isMissingData: false,
-  paginatedData: [],
-  totalPages: 0,
-  totalCount: 0,
-});
-
-/**
- * Create HTTP error state.
- * @returns {CustomerListApiState} Error state
- */
-const _createErrorState = (): CustomerListApiState => ({
-  isLoading: false,
-  errorMessage: "Unable to load customers.",
-  isEnvelopeError: false,
-  isMissingData: false,
-  paginatedData: [],
-  totalPages: 0,
-  totalCount: 0,
-});
-
-/**
- * Create missing response state.
- * @returns {CustomerListApiState} Missing response state
- */
-const _createMissingResponseState = (): CustomerListApiState => ({
-  isLoading: false,
-  errorMessage: "No response received from server.",
-  isEnvelopeError: false,
-  isMissingData: true,
-  paginatedData: [],
-  totalPages: 0,
-  totalCount: 0,
-});
-
-/**
- * Create missing payload state.
- * @returns {CustomerListApiState} Missing payload state
- */
-const _createMissingPayloadState = (): CustomerListApiState => ({
-  isLoading: false,
-  errorMessage: "Response is missing data payload.",
-  isEnvelopeError: false,
-  isMissingData: true,
-  paginatedData: [],
-  totalPages: 0,
-  totalCount: 0,
-});
-
-/**
- * Create success state.
- * @param {CustomerData[]} customers - Mapped customer data
- * @param {number} totalPages - Total pages from API
- * @param {number} totalCount - Total count from API
- * @returns {CustomerListApiState} Success state
- */
-const _createSuccessState = (customers: CustomerData[], totalPages: number, totalCount: number): CustomerListApiState => ({
-  isLoading: false,
-  errorMessage: null,
-  isEnvelopeError: false,
-  isMissingData: false,
-  paginatedData: customers,
-  totalPages,
-  totalCount,
-});
 
 /**
  * Hook for API-backed master customer pagination.
@@ -170,22 +113,14 @@ export const useMasterCustomerPagination = (): MasterCustomerPagination => {
    * @returns {void}
    */
   const goToPage = (page: number): void => setCurrentPage(Math.max(1, Math.min(page, derived.totalPages)));
-  /**
- * Handle next page
-   * @returns {void}
-   */
-  const nextPage = (): void => { if (!derived.isLoading && !derived.errorMessage && derived.paginatedData.length > 0 && queryResult.data?.has_next) goToPage(currentPage + 1); };
-  /**
-   * Handle prev page
-   * @returns {void}
-   */
-  const prevPage = (): void => { if (!derived.isLoading && !derived.errorMessage && derived.paginatedData.length > 0 && queryResult.data?.has_previous) goToPage(currentPage - 1); };
+
   /**
    * Handle page size change
    * @param {number} size - The new page size
    * @returns {void}
    */
   const changePageSize = (size: number): void => { setPageSize(size); setCurrentPage(1); };
+
   /**
    * Handle search term change
    * @param {string} value - The search term
@@ -204,38 +139,7 @@ export const useMasterCustomerPagination = (): MasterCustomerPagination => {
     isEmpty: !derived.isLoading && !derived.errorMessage && !derived.isMissingData && derived.paginatedData.length === 0,
     isMissingData: derived.isMissingData,
     goToPage,
-    nextPage,
-    prevPage,
     changePageSize,
     setSearchTerm: handleSearchTerm,
   };
-};
-
-/**
- * Hook for master customer container state.
- * @returns {MasterCustomerContainerState} Container state and handlers
- */
-export const useMasterCustomerContainerState = (): MasterCustomerContainerState => {
-  const pagination = useMasterCustomerPagination();
-  const [isMoreOpen, setIsMoreOpen] = useState(false);
-
-  /**
-   * Toggle more menu
-   * @returns {void}
-   */
-  const toggleMore = (): void => setIsMoreOpen((previous) => !previous);
-
-  /**
-   * Close more menu
-   * @returns {void}
-   */
-  const handleCloseMore = (): void => setIsMoreOpen(false);
-
-  /**
-   * Handle delete action
-   * @returns {void}
-   */
-  const goDelete = (): void => handleCloseMore();
-
-  return { pagination, isMoreOpen, toggleMore, handleCloseMore, goDelete };
 };

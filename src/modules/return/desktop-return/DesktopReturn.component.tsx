@@ -19,7 +19,7 @@ const ItemPhoto = (props: ItemPhotoProps): React.ReactElement => (
         </label>
       </div>
     ) : (
-      <label className="flex flex-col items-center justify-center w-full h-32 bg-brand-gray-light border-2 border-dashed border-gray-300 rounded-xl cursor-pointer hover:bg-brand-gray-light hover:border-indigo-300 transition-colors">
+      <label className="flex flex-col items-center justify-center w-full h-32 bg-brand-gray-light border-2 border-dashed border-border-strong rounded-xl cursor-pointer hover:bg-brand-gray-light hover:border-indigo-300 transition-colors">
         <FiUpload className="w-6 h-6 text-brand-text-medium mb-2 group-hover:text-brand-blue transition-colors" />
         <span className="text-xs font-medium text-brand-text-medium group-hover:text-brand-blue">Upload Photo</span>
         <input type="file" accept="image/*" className="hidden" onChange={props.onUpload} />

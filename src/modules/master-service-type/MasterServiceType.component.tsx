@@ -38,7 +38,7 @@ const _getColumns = (currentPage: number, pageSize: number, onEdit: (serviceType
    * @param {ServiceTypeData} row - Service type row
    * @returns {React.ReactElement} Active cell
    */
-  const renderIsActive = (row: ServiceTypeData): React.ReactElement => <span className={`rounded px-2 py-0.5 text-xs font-semibold ${row.isActive ? "bg-blue-50 text-blue-600" : "bg-gray-100 text-gray-500"}`}>{row.isActive ? "Yes" : "No"}</span>;
+  const renderIsActive = (row: ServiceTypeData): React.ReactElement => <span className={`rounded px-2 py-0.5 text-xs font-semibold ${row.isActive ? "bg-information-subtle text-information-strong" : "bg-background-subtle text-text-tertiary"}`}>{row.isActive ? "Yes" : "No"}</span>;
   /**
    * Render status.
    * @param {ServiceTypeData} row - Service type row

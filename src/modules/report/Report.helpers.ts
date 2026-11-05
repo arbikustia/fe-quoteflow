@@ -7,6 +7,38 @@ import { formatIndonesianDateTime } from "@/utils/date.helpers";
 import type { OrderMobileCardProps, ReportOrderData } from "./Report.type";
 
 /**
+ * Render mobile order identity details.
+ * @param {ReportOrderData} order - Report order row
+ * @returns {React.ReactElement} Identity details
+ */
+const _renderMobileIdentity = (order: ReportOrderData): React.ReactElement => React.createElement(
+  "span",
+  { className: "mt-4 grid min-w-0 grid-cols-3 gap-x-3 gap-y-2" },
+  React.createElement("span", { className: "text-lg text-text-tertiary" }, "Event"),
+  React.createElement("span", { className: "col-span-2 break-words text-lg font-semibold text-text-primary" }, order.eventName || order.orderNo),
+  React.createElement("span", { className: "text-lg text-text-tertiary" }, "Customer"),
+  React.createElement("span", { className: "col-span-2 break-words text-lg text-text-secondary" }, order.customerName || "No customer name"),
+);
+
+/**
+ * Render mobile order period and total.
+ * @param {ReportOrderData} order - Report order row
+ * @returns {React.ReactElement} Period and total details
+ */
+const _renderMobileSummary = (order: ReportOrderData): React.ReactElement => React.createElement(
+  "span",
+  { className: "mt-4 block border-t border-border-default pt-4" },
+  React.createElement("span", { className: "block text-lg text-text-tertiary" }, "Event period"),
+  React.createElement("span", { className: "mt-1 block break-words text-lg font-medium leading-relaxed text-text-primary" }, `${formatIndonesianDateTime(order.startDate)} – ${formatIndonesianDateTime(order.endDate)}`),
+  React.createElement(
+    "span",
+    { className: "mt-4 flex items-end justify-between gap-4 border-t border-border-default pt-4" },
+    React.createElement("span", { className: "text-lg text-text-tertiary" }, "Total"),
+    React.createElement("span", { className: "text-right text-xl font-semibold tabular-nums text-text-primary" }, formatCurrency(order.grandTotal)),
+  ),
+);
+
+/**
  * Render single order card on mobile following quotation list card pattern.
  * @param {OrderMobileCardProps} props - Order card props
  * @returns {React.ReactElement} Order card
@@ -38,24 +70,8 @@ export const OrderMobileCard = (props: OrderMobileCardProps): React.ReactElement
         className: `rounded-full px-3.5 py-1 text-lg font-semibold uppercase ${statusClass}`,
       }, displayStatus),
     ),
-    React.createElement("span", { className: "mt-4 block break-words text-xl font-semibold text-text-primary" }, order.eventName || order.orderNo),
-    React.createElement("span", { className: "mt-1.5 block break-words text-lg text-text-secondary" }, order.customerName || "No customer name"),
-    React.createElement(
-      "span",
-      { className: "mt-4 flex flex-wrap items-end justify-between gap-x-4 gap-y-3 border-t border-border-default pt-4" },
-      React.createElement(
-        "span",
-        { className: "min-w-0 text-lg text-text-secondary" },
-        React.createElement("span", { className: "block text-lg text-text-tertiary" }, "Event period"),
-        React.createElement("span", { className: "mt-1 block break-words text-lg font-medium text-text-primary" }, `${formatIndonesianDateTime(order.startDate)} – ${formatIndonesianDateTime(order.endDate)}`),
-      ),
-      React.createElement(
-        "span",
-        { className: "text-right tabular-nums" },
-        React.createElement("span", { className: "block text-lg text-text-tertiary" }, "Total"),
-        React.createElement("span", { className: "mt-1 block text-xl font-semibold text-text-primary" }, formatCurrency(order.grandTotal)),
-      ),
-    ),
+    _renderMobileIdentity(order),
+    _renderMobileSummary(order),
   );
 };
 

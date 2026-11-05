@@ -1,8 +1,8 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
-import { act, renderHook } from "@testing-library/react";
 
+import { act, renderHook } from "@/libs/unit-test";
 import { MOCK_CUSTOMERS } from "../../fixture/master-customer";
-import { useMasterCustomerContainerState, useMasterCustomerNavigation } from "./MasterCustomer.hook";
+import { useMasterCustomerNavigation, useMasterCustomerPagination } from "./MasterCustomer.hook";
 
 const mockNavigate = jest.fn();
 const mockUseGetCustomersQuery = jest.fn();
@@ -12,16 +12,26 @@ jest.mock("react-router-dom", () => ({
 }));
 
 jest.mock("@/services/master-customer.service", () => ({
-  mapCustomer: (customer: { id: string; name: string; address: string | null; phone_number: string | null; status: number; created_at: string | null; created_by: string | null }) => ({
+  mapCustomer: (customer: {
+    id: string;
+    name: string;
+    email?: string;
+    address?: string;
+    phone_number?: string;
+    status: number;
+    created_at?: string;
+    created_by?: string;
+  }) => ({
     id: customer.id,
     name: customer.name,
-    address: customer.address ?? "",
-    phoneNumber: customer.phone_number ?? "",
+    email: customer.email || "",
+    address: customer.address || "",
+    phoneNumber: customer.phone_number || "",
     status: customer.status === 1 ? "active" : "inactive",
-    createAt: customer.created_at ?? "",
-    createBy: customer.created_by ?? "",
+    createAt: customer.created_at || "",
+    createBy: customer.created_by || "",
   }),
-  useGetCustomersQuery: (...args: unknown[]) => mockUseGetCustomersQuery(...args),
+  useGetCustomersQuery: (...args: never[]) => mockUseGetCustomersQuery(...args),
 }));
 
 describe("MasterCustomer hook", () => {
@@ -41,90 +51,63 @@ describe("MasterCustomer hook", () => {
     });
   });
 
-  describe("useMasterCustomerNavigation", () => {
-    it("should handle navigation correctly", () => {
-      const { result } = renderHook(() => useMasterCustomerNavigation());
+  it("should handle navigation", () => {
+    const { result } = renderHook(() => useMasterCustomerNavigation());
 
-      act(() => { result.current.goBack(); });
-      expect(mockNavigate).toHaveBeenCalledWith("/master-main");
+    act(result.current.goBack);
+    expect(mockNavigate).toHaveBeenCalledWith("/master-main");
 
-      act(() => { result.current.goCreate(); });
-      expect(mockNavigate).toHaveBeenCalledWith("/master-customer/create");
+    act(result.current.goCreate);
+    expect(mockNavigate).toHaveBeenCalledWith("/master-customer/create");
 
-      const mockCustomer = MOCK_CUSTOMERS[0];
-      act(() => { result.current.goEdit(mockCustomer); });
-      expect(mockNavigate).toHaveBeenCalledWith(`/master-customer/edit/${mockCustomer.id}`, { state: { customer: mockCustomer } });
-
+    const customer = MOCK_CUSTOMERS[0];
+    act(() => result.current.goEdit(customer));
+    expect(mockNavigate).toHaveBeenCalledWith(`/master-customer/edit/${customer.id}`, {
+      state: { customer },
     });
   });
 
-  describe("useMasterCustomerContainerState", () => {
-    it("should initialize with empty API state", () => {
-      const { result } = renderHook(() => useMasterCustomerContainerState());
+  it("should expose empty pagination state", () => {
+    const { result } = renderHook(() => useMasterCustomerPagination());
 
-      expect(result.current.pagination.currentPage).toBe(1);
-      expect(result.current.pagination.pageSize).toBe(10);
-      expect(result.current.pagination.totalCount).toBe(0);
-      expect(result.current.pagination.paginatedData).toEqual([]);
-      expect(result.current.pagination.isEmpty).toBe(true);
-      expect(result.current.pagination.isMissingData).toBe(false);
+    expect(result.current.currentPage).toBe(1);
+    expect(result.current.pageSize).toBe(10);
+    expect(result.current.totalCount).toBe(0);
+    expect(result.current.paginatedData).toEqual([]);
+    expect(result.current.isEmpty).toBe(true);
+    expect(result.current.isMissingData).toBe(false);
+  });
+
+  it("should expose missing response state", () => {
+    mockUseGetCustomersQuery.mockReturnValue({ data: undefined, error: undefined, isLoading: false });
+
+    const { result } = renderHook(() => useMasterCustomerPagination());
+
+    expect(result.current.errorMessage).toBe("Response is missing data.");
+    expect(result.current.isEmpty).toBe(false);
+    expect(result.current.isMissingData).toBe(true);
+  });
+
+  it("should expose transport error state", () => {
+    mockUseGetCustomersQuery.mockReturnValue({
+      data: undefined,
+      error: { status: 500, data: "Server error" },
+      isLoading: false,
     });
 
-    it("should expose missing response state", () => {
-      mockUseGetCustomersQuery.mockReturnValue({
-        data: undefined,
-        error: undefined,
-        isLoading: false,
-      });
+    const { result } = renderHook(() => useMasterCustomerPagination());
 
-      const { result } = renderHook(() => useMasterCustomerContainerState());
+    expect(result.current.errorMessage).toBe("Unable to load customers.");
+    expect(result.current.isEmpty).toBe(false);
+  });
 
-      expect(result.current.pagination.errorMessage).toBe("No response received from server.");
-      expect(result.current.pagination.isEmpty).toBe(false);
-      expect(result.current.pagination.isMissingData).toBe(true);
-    });
+  it("should handle pagination controls", () => {
+    const { result } = renderHook(() => useMasterCustomerPagination());
 
-    it("should expose missing payload state", () => {
-      mockUseGetCustomersQuery.mockReturnValue({
-        data: { status: true, messages: null, data: null },
-        error: undefined,
-        isLoading: false,
-      });
+    act(() => result.current.changePageSize(5));
+    expect(result.current.pageSize).toBe(5);
 
-      const { result } = renderHook(() => useMasterCustomerContainerState());
-
-      expect(result.current.pagination.errorMessage).toBe("Response is missing data payload.");
-      expect(result.current.pagination.isEmpty).toBe(false);
-      expect(result.current.pagination.isMissingData).toBe(true);
-    });
-
-    it("should expose transport error state", () => {
-      mockUseGetCustomersQuery.mockReturnValue({
-        data: undefined,
-        error: { status: 500, data: "Server error" },
-        isLoading: false,
-      });
-
-      const { result } = renderHook(() => useMasterCustomerContainerState());
-
-      expect(result.current.pagination.errorMessage).toBe("Unable to load customers.");
-      expect(result.current.pagination.isEmpty).toBe(false);
-    });
-
-    it("should handle menu and pagination controls", () => {
-      const { result } = renderHook(() => useMasterCustomerContainerState());
-
-      act(() => { result.current.toggleMore(); });
-      expect(result.current.isMoreOpen).toBe(true);
-
-      act(() => { result.current.goDelete(); });
-      expect(result.current.isMoreOpen).toBe(false);
-
-      act(() => { result.current.pagination.changePageSize(5); });
-      expect(result.current.pagination.pageSize).toBe(5);
-
-      act(() => { result.current.pagination.goToPage(2); });
-      expect(result.current.pagination.currentPage).toBe(1);
-    });
+    act(() => result.current.goToPage(2));
+    expect(result.current.currentPage).toBe(1);
   });
 });

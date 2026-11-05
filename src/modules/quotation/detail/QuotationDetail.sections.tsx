@@ -2,6 +2,7 @@ import type { ReactElement, ReactNode } from "react";
 
 import type {
   ApiQuotation,
+  ApiQuotationCustomer,
   ApiQuotationItem,
   ApiQuotationProject,
   ApiQuotationReference,
@@ -28,6 +29,13 @@ export const renderDetailField = (label: string, value: ReactNode): ReactElement
 );
 
 const _renderField = renderDetailField;
+
+/**
+ * Render value unavailable from API.
+ * @param {string} value - API text value
+ * @returns {string} Display value
+ */
+const _renderTextValue = (value?: string): string => value || "Unavailable";
 
 /**
  * Render section shell.
@@ -69,9 +77,8 @@ export const renderQuotationOverview = (quotation: ApiQuotation): ReactElement =
         </div>
       </div>
     </div>
-    <dl className="mt-4 grid grid-cols-1 gap-x-8 border-t border-border-default sm:mt-5 sm:grid-cols-2 lg:grid-cols-4">
+    <dl className="mt-4 grid grid-cols-1 gap-x-8 border-t border-border-default sm:mt-5 sm:grid-cols-3 [&>div:last-child]:!border-b">
       {_renderField("Quotation Date", formatDate(quotation.quotation_date))}
-      {_renderField("Expired At", formatDate(quotation.expired_at))}
       {_renderField("Created At", formatDate(quotation.created_at))}
       {_renderField("Updated At", formatDate(quotation.updated_at))}
     </dl>
@@ -88,7 +95,7 @@ export const renderTransactionSection = (transaction: ApiQuotationTransaction): 
     "Transaction & Event",
     <dl className="grid grid-cols-1 gap-x-6 sm:grid-cols-2">
       {_renderField("Service Type", transaction.service_type_name)}
-      {transaction.order_type_name && _renderField("Order Type", transaction.order_type_name)}
+      {_renderField("Order Type", _renderTextValue(transaction.order_type_name))}
       {_renderField("Transaction Status", getStatusLabel(transaction.status))}
       {_renderField("Customer Name", transaction.customer_name)}
       {_renderField("Customer Phone", transaction.customer_phone)}
@@ -103,14 +110,36 @@ export const renderTransactionSection = (transaction: ApiQuotationTransaction): 
   );
 
 /**
+ * Render quotation transaction without audit metadata.
+ * @param {ApiQuotationTransaction} transaction - Transaction response
+ * @returns {ReactElement} Transaction summary section
+ */
+export const renderTransactionSummarySection = (transaction: ApiQuotationTransaction): ReactElement =>
+  _renderSection(
+    "Transaction & Event",
+    <dl className="grid grid-cols-1 gap-x-6 sm:grid-cols-2">
+      {_renderField("Service Type", transaction.service_type_name)}
+      {_renderField("Order Type", _renderTextValue(transaction.order_type_name))}
+      {_renderField("Transaction Status", getStatusLabel(transaction.status))}
+      {_renderField("Customer Name", transaction.customer_name)}
+      {_renderField("Customer Phone", transaction.customer_phone)}
+      {_renderField("PIC", transaction.pic?.name)}
+      {_renderField("Address", transaction.address)}
+      {_renderField("Event Name", transaction.event_name)}
+      {_renderField("Event Start", formatDate(transaction.start_at))}
+      {_renderField("Event End", formatDate(transaction.end_at))}
+    </dl>,
+  );
+
+/**
  * Render global quotation remark.
  * @param {string} remark - Quotation global remark
  * @returns {ReactElement} Global remark section
  */
 export const renderGlobalRemarkSection = (remark: string): ReactElement =>
   _renderSection(
-    "Global Remark",
-    <dl>{_renderField("Remark", remark || "-")}</dl>,
+    "Remark",
+    <p className="py-4 text-lg font-medium text-text-primary">{remark || "-"}</p>,
   );
 
 /**
@@ -130,17 +159,20 @@ export const renderPricingSection = (transaction: ApiQuotationTransaction): Reac
   );
 
 /**
- * Render customer section from quotation detail transaction response.
- * @param {ApiQuotationTransaction} transaction - Quotation detail transaction
+ * Render customer section from quotation detail response.
+ * @param {ApiQuotationCustomer} customer - Customer response
  * @returns {ReactElement} Customer section
  */
-export const renderCustomerSection = (transaction: ApiQuotationTransaction): ReactElement =>
+export const renderCustomerSection = (customer: ApiQuotationCustomer): ReactElement =>
   _renderSection(
     "Customer",
-    <dl className="grid grid-cols-1 gap-x-8 sm:grid-cols-2">
-      {_renderField("Name", transaction.customer_name)}
-      {_renderField("Phone Number", transaction.customer_phone)}
-      {_renderField("Address", transaction.address)}
+    <dl>
+      {_renderField("Name", customer.name)}
+      {_renderField("Address", customer.address)}
+      {_renderField("Phone Number", customer.phone_number)}
+      {_renderField("Status", getStatusLabel(customer.status))}
+      {_renderField("Created At", formatDate(customer.created_at))}
+      {_renderField("Updated At", formatDate(customer.updated_at))}
     </dl>,
   );
 
@@ -158,6 +190,9 @@ export const renderReferenceSection = (
     title,
     <dl>
       {_renderField("Name", reference.name)}
+      {_renderField("Status", getStatusLabel(reference.status))}
+      {_renderField("Created At", formatDate(reference.created_at))}
+      {_renderField("Updated At", formatDate(reference.updated_at))}
     </dl>,
   );
 
@@ -169,13 +204,39 @@ export const renderReferenceSection = (
 export const renderVoucherSection = (voucher: ApiQuotationReference): ReactElement =>
   _renderSection(
     "Voucher",
-    <dl className="grid grid-cols-1 gap-x-8 sm:grid-cols-2">
+    <dl>
       {_renderField("Name", voucher.name)}
-      {_renderField(
-        "Discount",
-        voucher.discount_percent !== undefined ? `${voucher.discount_percent}%` : "-",
-      )}
+      {_renderField("Code", voucher.code || "Unavailable")}
+      {_renderField("Discount Percent", voucher.discount_percent !== undefined ? `${voucher.discount_percent}%` : "Unavailable")}
+      {_renderField("Status", getStatusLabel(voucher.status))}
+      {_renderField("Created At", formatDate(voucher.created_at))}
+      {_renderField("Updated At", formatDate(voucher.updated_at))}
     </dl>,
+  );
+
+/**
+ * Render quotation voucher without audit metadata.
+ * @param {ApiQuotationReference} voucher - Voucher response
+ * @returns {ReactElement} Voucher summary section
+ */
+export const renderVoucherSummarySection = (voucher: ApiQuotationReference): ReactElement =>
+  _renderSection(
+    "Voucher",
+    <dl className="grid grid-cols-1 gap-x-8 sm:grid-cols-3">
+      {_renderField("Name", voucher.name)}
+      {_renderField("Code", voucher.code || "Unavailable")}
+      {_renderField("Discount Percent", voucher.discount_percent !== undefined ? `${voucher.discount_percent}%` : "Unavailable")}
+    </dl>,
+  );
+
+/**
+ * Render empty rental handovers section.
+ * @returns {ReactElement} Rental handover section
+ */
+export const renderHandoversSection = (): ReactElement =>
+  _renderSection(
+    "Rental Handovers",
+    <p className="py-5 text-lg text-text-secondary">No rental handovers.</p>,
   );
 
 /**
@@ -183,6 +244,7 @@ export const renderVoucherSection = (voucher: ApiQuotationReference): ReactEleme
  * @param {ApiQuotationItem} item - Rental item
  * @returns {ReactElement} Rental item row
  */
+// eslint-disable-next-line max-lines-per-function
 const _renderItem = (item: ApiQuotationItem): ReactElement => (
   <article
     key={item.item_id}
@@ -192,15 +254,16 @@ const _renderItem = (item: ApiQuotationItem): ReactElement => (
       <h3 className="break-words text-xl font-semibold text-text-primary">
         {item.item_name}
       </h3>
+      <p className="mt-1 text-lg font-medium text-text-secondary">
+        Category: {_renderTextValue(item.category_name)}
+      </p>
       <p className="mt-1 text-lg font-semibold text-text-secondary">
         {formatCurrency(item.price)}
       </p>
-      {item.remark && (
-        <p className="mt-2 text-lg text-text-secondary">
-          <span className="font-semibold text-text-primary">Remark: </span>
-          {item.remark}
-        </p>
-      )}
+      <p className="mt-2 text-lg text-text-secondary">
+        <span className="font-semibold text-text-primary">Remark: </span>
+        {_renderTextValue(item.remark)}
+      </p>
     </div>
     <dl className="grid shrink-0 gap-2 text-right">
       <div>
@@ -237,19 +300,22 @@ export const renderItemsSection = (items: ApiQuotationItem[]): ReactElement =>
 /**
  * Render project section.
  * @param {ApiQuotationProject} project - Rental project
+ * @param {boolean} isProjectMetaVisible - Show project quantity and price
  * @returns {ReactElement} Project section
  */
 // eslint-disable-next-line max-lines-per-function
-const _renderProject = (project: ApiQuotationProject): ReactElement => (
+const _renderProject = (project: ApiQuotationProject, isProjectMetaVisible: boolean): ReactElement => (
   <article key={project.id} className="border-b border-border-default/70 py-5 last:border-b-0">
     <div className="flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between">
       <div>
         <h3 className="text-xl font-bold text-text-primary">
           {project.name}
         </h3>
-        <p className="mt-1 text-lg font-medium text-text-secondary">
-          Qty: {project.qty}
-        </p>
+        {isProjectMetaVisible && (
+          <p className="mt-1 text-lg font-medium text-text-secondary">
+            Qty: {project.qty} · Price: {formatCurrency(project.price)}
+          </p>
+        )}
       </div>
       <strong className="text-xl font-bold tabular-nums text-action-primary sm:text-lg">
         {formatCurrency(project.subtotal)}
@@ -266,6 +332,9 @@ const _renderProject = (project: ApiQuotationProject): ReactElement => (
         >
           <div>
             <p className="font-semibold text-text-primary">{item.item_name}</p>
+            <p className="mt-1 text-lg font-medium text-text-secondary">
+              Category: {_renderTextValue(item.category_name)}
+            </p>
             <p className="mt-1 text-lg font-medium text-text-secondary">
               {formatCurrency(item.price)}
             </p>
@@ -284,14 +353,15 @@ const _renderProject = (project: ApiQuotationProject): ReactElement => (
 /**
  * Render rental projects section.
  * @param {ApiQuotationProject[]} projects - Rental projects
+ * @param {boolean} [isProjectMetaVisible] - Show project quantity and price
  * @returns {ReactElement} Rental projects section
  */
-export const renderProjectsSection = (projects: ApiQuotationProject[]): ReactElement =>
+export const renderProjectsSection = (projects: ApiQuotationProject[], isProjectMetaVisible = true): ReactElement =>
   _renderSection(
     "Rental Projects",
     projects.length === 0 ? (
       <p className="py-5 text-lg text-text-secondary">No rental projects.</p>
     ) : (
-      <div>{projects.map(_renderProject)}</div>
+      <div>{projects.map((project) => _renderProject(project, isProjectMetaVisible))}</div>
     ),
   );

@@ -56,7 +56,7 @@ describe("Calendar.helpers", () => {
       expect(event.customerName).toBe("Budi");
       expect(event.quotationNo).toBe("ORD-001");
       expect(event.amount).toBe(5000000);
-      expect(event.variant).toBe("green");
+      expect(event.variant).toBe("pink");
     });
 
     it("should fallback to event_name or order_no when title is empty", () => {
@@ -78,7 +78,7 @@ describe("Calendar.helpers", () => {
 
       expect(event.title).toBe("Birthday Party");
       expect(event.endDate).toBeUndefined();
-      expect(event.variant).toBe("neutral");
+      expect(event.variant).toBe("pink");
     });
   });
 
@@ -102,7 +102,7 @@ describe("Calendar.helpers", () => {
 
       expect(event.id).toBe("q-1");
       expect(event.title).toBe("Concert");
-      expect(event.variant).toBe("blue");
+      expect(event.variant).toBe("purple");
     });
   });
 });

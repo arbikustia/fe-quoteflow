@@ -187,29 +187,29 @@ Components must consume semantic tokens instead of raw palette values. For examp
 
 | Semantic token | Value |
 |---|---|
-| `background-page` | `#080F1F` |
-| `background-surface` | `#0F172A` |
-| `background-subtle` | `#162033` |
-| `background-elevated` | `#1E293B` |
-| `background-disabled` | `#1E293B` |
-| `text-primary` | `#F8FAFC` |
-| `text-secondary` | `#CBD5E1` |
-| `text-tertiary` | `#94A3B8` |
-| `text-disabled` | `#64748B` |
-| `text-inverse` | `#0F172A` |
-| `border-default` | `#293548` |
-| `border-strong` | `#3B4A60` |
-| `border-focus` | `#4A75F5` |
-| `action-primary` | `#7188FA` |
-| `action-primary-hover` | `#8FA0FC` |
-| `action-primary-pressed` | `#A5B4FC` |
-| `action-primary-subtle` | `#172047` |
-| `focus-ring` | `#4A75F5` |
-| `sidebar-background` | `#0B1324` |
-| `table-header` | `#162033` |
-| `overlay` | `rgba(0, 0, 0, 0.64)` |
+| `background-page` | `#181919` |
+| `background-surface` | `#202121` |
+| `background-subtle` | `#292A2A` |
+| `background-elevated` | `#242525` |
+| `background-disabled` | `#202121` |
+| `text-primary` | `#F1F1F0` |
+| `text-secondary` | `#A6A7A8` |
+| `text-tertiary` | `#777B82` |
+| `text-disabled` | `#666A70` |
+| `text-inverse` | `#171818` |
+| `border-default` | `#383A3A` |
+| `border-strong` | `#4A4C4C` |
+| `border-focus` | `#9EBBE5` |
+| `action-primary` | `#8DA9F8` |
+| `action-primary-hover` | `#A8BCFA` |
+| `action-primary-pressed` | `#C1CFFA` |
+| `action-primary-subtle` | `#252B3B` |
+| `focus-ring` | `#9EBBE5` |
+| `sidebar-background` | `#171818` |
+| `table-header` | `#1D1E1E` |
+| `overlay` | `rgba(0, 0, 0, 0.68)` |
 
-Dark mode must use layered dark navy surfaces. It must not be implemented by simply inverting light-theme colors or using pure black for every surface.
+Dark mode must use layered charcoal surfaces. It must not be implemented by simply inverting light-theme colors or using pure black for every surface.
 
 ## 8. Quotation and Order Status
 

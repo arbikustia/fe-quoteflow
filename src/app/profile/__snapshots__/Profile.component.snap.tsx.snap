@@ -4,245 +4,251 @@ exports[`ProfileComponent snapshots should match profile settings snapshot 1`] =
 <DocumentFragment>
   <section
     aria-label="Profile content"
-    class="grid w-full gap-6 lg:grid-cols-[minmax(280px,0.8fr)_minmax(0,1.6fr)] lg:items-start"
+    class="w-full space-y-6"
   >
     <section
-      aria-labelledby="profile-account-title"
-      class="rounded-3xl border border-border-default bg-background-surface p-6 shadow-xs lg:p-8"
+      aria-labelledby="profile-user-title"
+      class="flex w-full items-center gap-4 rounded-2xl border border-border-default bg-background-surface p-6 shadow-xs lg:px-8"
     >
-      <h2
-        class="text-xl font-semibold text-text-primary"
-        id="profile-account-title"
+      <span
+        aria-hidden="true"
+        class="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-action-primary-subtle text-action-primary"
       >
-        Account information
-      </h2>
-      <p
-        class="mt-1 text-sm text-text-secondary"
-      >
-        Current account used to access QuoteFlow.
-      </p>
+        <svg
+          fill="none"
+          height="20"
+          stroke="currentColor"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="1.8"
+          viewBox="0 0 24 24"
+          width="20"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"
+          />
+          <circle
+            cx="12"
+            cy="7"
+            r="4"
+          />
+        </svg>
+      </span>
       <div
-        class="mt-6 flex items-center gap-4 border-t border-border-default pt-6 lg:flex-col lg:items-start"
+        class="min-w-0"
       >
-        <span
-          aria-hidden="true"
-          class="flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-action-primary-subtle text-action-primary [&_svg]:h-6 [&_svg]:w-6"
+        <p
+          class="text-sm text-text-secondary"
         >
-          <svg
-            fill="none"
-            height="20"
-            stroke="currentColor"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="1.8"
-            viewBox="0 0 24 24"
-            width="20"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"
-            />
-            <circle
-              cx="12"
-              cy="7"
-              r="4"
-            />
-          </svg>
-        </span>
-        <div
-          class="min-w-0"
+          Logged in as
+        </p>
+        <h2
+          class="mt-1 truncate text-lg font-semibold text-text-primary"
+          id="profile-user-title"
         >
-          <p
-            class="text-sm font-medium text-text-tertiary"
-          >
-            Username
-          </p>
-          <p
-            class="mt-1 break-words text-xl font-semibold text-text-primary"
-          >
-            alice
-          </p>
-        </div>
+          alice
+        </h2>
       </div>
     </section>
-    <div
-      class="space-y-6"
+    <section
+      aria-labelledby="profile-preferences-title"
+      class="overflow-hidden rounded-2xl border border-border-default bg-background-surface shadow-xs"
     >
-      <section
-        aria-labelledby="profile-preferences-title"
-        class="overflow-hidden rounded-3xl border border-border-default bg-background-surface shadow-xs"
+      <div
+        class="border-b border-border-default px-6 py-5 lg:px-8 lg:py-6"
       >
-        <div
-          class="px-6 py-5 lg:px-8 lg:py-6"
+        <h2
+          class="text-xl font-semibold tracking-tight text-text-primary"
+          id="profile-preferences-title"
         >
-          <h2
-            class="text-xl font-semibold text-text-primary"
-            id="profile-preferences-title"
-          >
-            Preferences
-          </h2>
-          <p
-            class="mt-1 text-sm text-text-secondary"
-          >
-            Adjust application appearance and installation.
-          </p>
-        </div>
+          Preferences
+        </h2>
+        <p
+          class="mt-1 text-sm leading-6 text-text-secondary"
+        >
+          Customize how QuoteFlow works on this device.
+        </p>
+      </div>
+      <div
+        class="divide-y divide-border-default"
+      >
         <button
           aria-label="Theme mode: light. Switch to dark mode"
-          class="flex min-h-16 w-full items-center justify-between gap-4 border-t border-border-default px-6 py-4 text-left transition-colors hover:bg-background-subtle focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-focus-ring lg:px-8"
+          class="group flex min-h-20 w-full items-center gap-4 px-6 py-5 text-left transition-colors hover:bg-background-subtle focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-focus-ring lg:px-8"
           type="button"
         >
           <span
-            class="flex items-center gap-4 text-base font-medium text-text-primary"
+            aria-hidden="true"
+            class="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-border-default bg-background-subtle text-text-secondary group-hover:text-action-primary"
           >
-            <span
-              aria-hidden="true"
-              class="text-text-secondary"
+            <svg
+              fill="none"
+              height="20"
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="1.8"
+              viewBox="0 0 24 24"
+              width="20"
+              xmlns="http://www.w3.org/2000/svg"
             >
-              <svg
-                fill="none"
-                height="20"
-                stroke="currentColor"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="1.8"
-                viewBox="0 0 24 24"
-                width="20"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <circle
-                  cx="12"
-                  cy="12"
-                  r="5"
-                />
-                <path
-                  d="M12 1v2"
-                />
-                <path
-                  d="M12 21v2"
-                />
-                <path
-                  d="M4.22 4.22l1.42 1.42"
-                />
-                <path
-                  d="M18.36 18.36l1.42 1.42"
-                />
-                <path
-                  d="M1 12h2"
-                />
-                <path
-                  d="M21 12h2"
-                />
-                <path
-                  d="M4.22 19.78l1.42-1.42"
-                />
-                <path
-                  d="M18.36 5.64l1.42-1.42"
-                />
-              </svg>
-            </span>
-            Theme mode
+              <circle
+                cx="12"
+                cy="12"
+                r="5"
+              />
+              <path
+                d="M12 1v2"
+              />
+              <path
+                d="M12 21v2"
+              />
+              <path
+                d="M4.22 4.22l1.42 1.42"
+              />
+              <path
+                d="M18.36 18.36l1.42 1.42"
+              />
+              <path
+                d="M1 12h2"
+              />
+              <path
+                d="M21 12h2"
+              />
+              <path
+                d="M4.22 19.78l1.42-1.42"
+              />
+              <path
+                d="M18.36 5.64l1.42-1.42"
+              />
+            </svg>
           </span>
           <span
-            class="rounded-full bg-background-subtle px-3 py-1 text-sm font-medium text-text-secondary"
+            class="min-w-0 flex-1"
+          >
+            <span
+              class="block text-base font-semibold text-text-primary"
+            >
+              Theme mode
+            </span>
+            <span
+              class="mt-1 block text-sm text-text-secondary"
+            >
+              Switch between light and dark appearance.
+            </span>
+          </span>
+          <span
+            class="rounded-full border border-border-default bg-background-page px-3 py-1 text-sm font-medium text-text-secondary"
           >
             Light
           </span>
         </button>
         <button
-          class="flex min-h-16 w-full items-center justify-between gap-4 border-t border-border-default px-6 py-4 text-left transition-colors hover:bg-background-subtle focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-focus-ring lg:px-8"
+          class="group flex min-h-20 w-full items-center gap-4 px-6 py-5 text-left transition-colors hover:bg-background-subtle focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-focus-ring lg:px-8"
           type="button"
         >
           <span
-            class="flex items-center gap-4 text-base font-medium text-text-primary"
+            aria-hidden="true"
+            class="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-border-default bg-background-subtle text-text-secondary group-hover:text-action-primary"
+          >
+            <svg
+              fill="none"
+              height="20"
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="1.8"
+              viewBox="0 0 24 24"
+              width="20"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"
+              />
+              <polyline
+                points="7 10 12 15 17 10"
+              />
+              <line
+                x1="12"
+                x2="12"
+                y1="15"
+                y2="3"
+              />
+            </svg>
+          </span>
+          <span
+            class="min-w-0 flex-1"
           >
             <span
-              aria-hidden="true"
-              class="text-text-secondary"
+              class="block text-base font-semibold text-text-primary"
             >
-              <svg
-                fill="none"
-                height="20"
-                stroke="currentColor"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="1.8"
-                viewBox="0 0 24 24"
-                width="20"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"
-                />
-                <polyline
-                  points="7 10 12 15 17 10"
-                />
-                <line
-                  x1="12"
-                  x2="12"
-                  y1="15"
-                  y2="3"
-                />
-              </svg>
+              Install application
             </span>
-            Install application
+            <span
+              class="mt-1 block text-sm text-text-secondary"
+            >
+              Open QuoteFlow faster from your desktop.
+            </span>
           </span>
           <span
-            class="text-sm font-medium text-action-primary"
+            class="text-sm font-semibold text-action-primary"
           >
-            View instructions
+            Instructions
           </span>
         </button>
-      </section>
-      <section
-        aria-labelledby="profile-session-title"
-        class="rounded-3xl border border-border-default bg-background-surface p-6 shadow-xs lg:flex lg:items-center lg:justify-between lg:gap-6 lg:p-8"
+      </div>
+    </section>
+    <section
+      aria-labelledby="profile-session-title"
+      class="rounded-2xl border border-border-default bg-background-surface p-6 shadow-xs lg:flex lg:items-center lg:justify-between lg:gap-8 lg:p-8"
+    >
+      <div
+        class="max-w-xl"
       >
-        <div>
-          <h2
-            class="text-xl font-semibold text-text-primary"
-            id="profile-session-title"
-          >
-            Session
-          </h2>
-          <p
-            class="mt-1 text-sm text-text-secondary"
-          >
-            End current session on this device.
-          </p>
-        </div>
-        <button
-          class="mt-5 flex h-14 w-full items-center justify-center gap-3 rounded-3xl border border-danger-default px-6 text-base font-semibold text-danger-strong transition-colors hover:bg-danger-subtle focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus-ring lg:mt-0 lg:w-auto"
-          type="button"
+        <h2
+          class="text-xl font-semibold tracking-tight text-text-primary"
+          id="profile-session-title"
         >
-          <svg
-            fill="none"
-            height="16"
-            stroke="currentColor"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="1.8"
-            viewBox="0 0 24 24"
-            width="16"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"
-            />
-            <polyline
-              points="16 17 21 12 16 7"
-            />
-            <line
-              x1="21"
-              x2="9"
-              y1="12"
-              y2="12"
-            />
-          </svg>
-          Log out
-        </button>
-      </section>
-    </div>
+          Session
+        </h2>
+        <p
+          class="mt-2 text-sm leading-6 text-text-secondary"
+        >
+          Sign out from QuoteFlow on this device. You will need to enter your credentials again.
+        </p>
+      </div>
+      <button
+        class="mt-5 flex h-11 w-full shrink-0 items-center justify-center gap-2 rounded-xl border border-danger-default px-5 text-sm font-semibold text-danger-strong transition-colors hover:bg-danger-subtle focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus-ring lg:mt-0 lg:w-auto"
+        type="button"
+      >
+        <svg
+          fill="none"
+          height="16"
+          stroke="currentColor"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="1.8"
+          viewBox="0 0 24 24"
+          width="16"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"
+          />
+          <polyline
+            points="16 17 21 12 16 7"
+          />
+          <line
+            x1="21"
+            x2="9"
+            y1="12"
+            y2="12"
+          />
+        </svg>
+        Log out
+      </button>
+    </section>
   </section>
 </DocumentFragment>
 `;

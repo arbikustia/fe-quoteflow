@@ -39,6 +39,7 @@ jest.mock("@/services/quotation.service", () => ({
             updated_at: "2026-10-24T16:44:53.633Z",
             rental_transaction_items: [],
             rental_transaction_project: [],
+            rental_handovers: [],
             customer: { id: "c-1", name: "John", address: "Jakarta", phone_number: "0812345678", status: 1, created_at: "", updated_at: "" },
             pic: { id: "p-1", name: "PIC", status: 1, created_at: "", updated_at: "" },
             voucher: { id: "v-1", name: "V", code: "V", discount_percent: 0, status: 1, created_at: "", updated_at: "" },

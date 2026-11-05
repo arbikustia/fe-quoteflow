@@ -2,7 +2,7 @@ import type { ReactElement } from "react";
 import { LuChevronLeft, LuChevronRight } from "react-icons/lu";
 
 import { buildCalendarDays, buildCalendarWeekEventSegments, formatCalendarMonth } from "./Calendar.helpers";
-import type { CalendarComponentProps, CalendarDayCell, CalendarEventItem, CalendarEventVariantClasses } from "./Calendar.type";
+import type { CalendarComponentProps, CalendarDayCell, CalendarEventItem, CalendarEventVariantClasses, CalendarWeekEventSegment } from "./Calendar.type";
 
 const WEEKDAYS = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
@@ -11,7 +11,7 @@ const EVENT_VARIANTS: CalendarEventVariantClasses = {
   blue: "border-primary-200 bg-primary-50 text-primary-700",
   pink: "border-pink-200 bg-pink-50 text-pink-700",
   green: "border-green-200 bg-green-50 text-green-700",
-  purple: "border-primary-200 bg-primary-50 text-primary-700",
+  purple: "border-purple-200 bg-purple-50 text-purple-700",
   orange: "border-orange-200 bg-orange-50 text-orange-700",
 };
 
@@ -54,40 +54,45 @@ const _getDayNumberClassName = (day: CalendarDayCell): string => {
   return "text-text-disabled opacity-40";
 };
 
-const MAX_MOBILE_EVENTS = 1;
+const MAX_DASHBOARD_EVENTS = 1;
+const MAX_MOBILE_EVENTS = 3;
 const MAX_DESKTOP_EVENTS = 5;
 
 /**
  * Render day events list.
  * @param {CalendarEventItem[]} events - Day events
- * @param {((event: CalendarEventItem) => void) | undefined} onEventClick - Event click handler
+ * @param {boolean} isDashboard - Whether calendar uses compact dashboard mode
  * @returns {ReactElement} Events container
  */
-const _renderDayEvents = (events: CalendarEventItem[], onEventClick: ((event: CalendarEventItem) => void) | undefined): ReactElement => {
-  const singleDayEvents = events.filter((event) => !event.endDate || event.endDate === event.date);
-  const mobileVisible = events.slice(0, MAX_MOBILE_EVENTS);
+const _renderDayEvents = (events: CalendarEventItem[], isDashboard: boolean): ReactElement => {
+  const dashboardRemainingCount = events.length - MAX_DASHBOARD_EVENTS;
   const mobileRemainingCount = events.length - MAX_MOBILE_EVENTS;
-  const desktopVisible = singleDayEvents.slice(0, MAX_DESKTOP_EVENTS);
-  const desktopRemainingCount = singleDayEvents.length - MAX_DESKTOP_EVENTS;
+  const desktopRemainingCount = events.length - MAX_DESKTOP_EVENTS;
+
+  if (isDashboard) {
+    return (
+      <div className="mt-12">
+        {dashboardRemainingCount > 0 && (
+          <span className="block px-1 text-xs font-semibold text-text-secondary">
+            +{dashboardRemainingCount} more {dashboardRemainingCount === 1 ? "event" : "events"}
+          </span>
+        )}
+      </div>
+    );
+  }
 
   return (
-    <div className="mt-2 space-y-2">
-      <div className="space-y-2 lg:hidden">
-        {mobileVisible.map((event) => _renderEvent(event, onEventClick))}
-        {mobileRemainingCount > 0 && (
-          <span className="block px-1 text-xs font-semibold text-text-secondary">
-            {mobileRemainingCount} more...
-          </span>
-        )}
-      </div>
-      <div className="hidden space-y-2 lg:block">
-        {desktopVisible.map((event) => _renderEvent(event, onEventClick))}
-        {desktopRemainingCount > 0 && (
-          <span className="block px-1 text-xs font-semibold text-text-secondary">
-            {desktopRemainingCount} more...
-          </span>
-        )}
-      </div>
+    <div>
+      {mobileRemainingCount > 0 && (
+        <span className="absolute left-2 top-[9.5rem] z-20 block text-xs font-semibold text-text-secondary lg:hidden">
+          +{mobileRemainingCount} more
+        </span>
+      )}
+      {desktopRemainingCount > 0 && (
+        <span className="absolute left-2 top-[14.5rem] z-20 hidden text-xs font-semibold text-text-secondary lg:block">
+          +{desktopRemainingCount} more
+        </span>
+      )}
     </div>
   );
 };
@@ -116,15 +121,13 @@ const _getDayCellClassName = (day: CalendarDayCell, isExpanded: boolean, isClick
 /**
  * Render single day cell.
  * @param {CalendarDayCell} day - Day item
- * @param {boolean} isExpanded - Expanded height
- * @param {((event: CalendarEventItem) => void) | undefined} onEventClick - Event click callback
+ * @param {boolean} isExpanded - Expanded dashboard mode
  * @param {((date: Date, events: CalendarEventItem[]) => void) | undefined} onDateClick - Date click callback
  * @returns {ReactElement} Day cell
  */
 const _renderDayCell = (
   day: CalendarDayCell,
   isExpanded: boolean,
-  onEventClick: ((event: CalendarEventItem) => void) | undefined,
   onDateClick?: ((date: Date, events: CalendarEventItem[]) => void) | undefined,
 ): ReactElement => {
   const isClickable = Boolean(onDateClick && day.isCurrentMonth);
@@ -151,7 +154,32 @@ const _renderDayCell = (
       <span className={`inline-flex h-6 min-w-6 items-center justify-center rounded-full px-1 text-xs font-semibold ${_getDayNumberClassName(day)}`}>
         {day.dayNumber}
       </span>
-      {day.isCurrentMonth && _renderDayEvents(day.events, onEventClick)}
+      {day.isCurrentMonth && _renderDayEvents(day.events, isExpanded)}
+    </div>
+  );
+};
+
+/**
+ * Render responsive event bar segment.
+ * @param {CalendarWeekEventSegment} segment - Calendar segment
+ * @param {"mobile" | "desktop"} viewport - Target viewport
+ * @param {((event: CalendarEventItem) => void) | undefined} onEventClick - Event callback
+ * @returns {ReactElement} Event segment
+ */
+const _renderEventSegment = (segment: CalendarWeekEventSegment, viewport: "mobile" | "desktop", onEventClick: ((event: CalendarEventItem) => void) | undefined): ReactElement => {
+  const isMobile = viewport === "mobile";
+
+  return (
+    <div
+      key={`${viewport}-${segment.event.id}-${segment.startColumn}`}
+      className={`absolute z-10 ${isMobile ? "block lg:hidden" : "hidden lg:block"}`}
+      style={{
+        left: `calc(${(segment.startColumn * 100) / 7}% + ${isMobile ? "0.25rem" : "0.5rem"})`,
+        width: `calc(${(segment.span * 100) / 7}% - ${isMobile ? "0.5rem" : "1rem"})`,
+        top: `${2.25 + segment.row * 2.5}rem`,
+      }}
+    >
+      {_renderEvent(segment.event, onEventClick)}
     </div>
   );
 };
@@ -160,7 +188,7 @@ const _renderDayCell = (
  * Render one week with continuous multi-day event bars.
  * @param {CalendarDayCell[]} weekDays - Week cells
  * @param {((event: CalendarEventItem) => void) | undefined} onEventClick - Event callback
- * @param {boolean} isExpanded - Use expanded day cells
+ * @param {boolean} isExpanded - Use expanded dashboard mode
  * @param {((date: Date, events: CalendarEventItem[]) => void) | undefined} onDateClick - Date click callback
  * @returns {ReactElement} Week row
  */
@@ -174,20 +202,9 @@ const _renderWeek = (
 
   return (
     <div className="relative grid grid-cols-7 border-b border-border-default">
-      {weekDays.map((day) => _renderDayCell(day, isExpanded, onEventClick, onDateClick))}
-      {segments.map((segment) => (
-        <div
-          key={`${segment.event.id}-${segment.startColumn}`}
-          className="absolute z-10 hidden lg:block"
-          style={{
-            left: `calc(${(segment.startColumn * 100) / 7}% + 0.5rem)`,
-            width: `calc(${(segment.span * 100) / 7}% - 1rem)`,
-            top: `${2.25 + segment.row * 2.5}rem`,
-          }}
-        >
-          {_renderEvent(segment.event, onEventClick)}
-        </div>
-      ))}
+      {weekDays.map((day) => _renderDayCell(day, isExpanded, onDateClick))}
+      {segments.filter((segment) => segment.row < (isExpanded ? MAX_DASHBOARD_EVENTS : MAX_MOBILE_EVENTS)).map((segment) => _renderEventSegment(segment, "mobile", onEventClick))}
+      {segments.filter((segment) => segment.row < (isExpanded ? MAX_DASHBOARD_EVENTS : MAX_DESKTOP_EVENTS)).map((segment) => _renderEventSegment(segment, "desktop", onEventClick))}
     </div>
   );
 };
@@ -246,6 +263,7 @@ export const CalendarComponent = (props: CalendarComponentProps): ReactElement =
   const days = buildCalendarDays(currentDate, props.events);
   const monthLabel = formatCalendarMonth(currentDate);
   const visibleEvents = days.flatMap((day) => day.events).filter((event, index, events) => events.findIndex((candidate) => candidate.id === event.id) === index);
+  const isDashboard = props.showControls === false;
 
   return (
     <section className={`overflow-hidden rounded-3xl border border-border-default bg-background-surface ${props.className ?? ""}`} aria-label={`${monthLabel} calendar`}>
@@ -257,7 +275,7 @@ export const CalendarComponent = (props: CalendarComponentProps): ReactElement =
           </div>
         ))}
       </div>
-      {props.isLoading ? <div className="grid min-h-[100dvh] grid-cols-7 grid-rows-5 lg:min-h-[600px]">{days.map((day) => <div key={day.dateKey} className="animate-pulse border-b border-r border-border-default bg-background-subtle" />)}</div> : <div>{Array.from({ length: 5 }, (_, weekIndex) => <div key={days[weekIndex * 7].dateKey}>{_renderWeek(days.slice(weekIndex * 7, weekIndex * 7 + 7), props.onEventClick, props.showControls === false, props.onDateClick)}</div>)}</div>}
+      {props.isLoading ? <div className="grid min-h-[100dvh] grid-cols-7 grid-rows-5 lg:min-h-[600px]">{days.map((day) => <div key={day.dateKey} className="animate-pulse border-b border-r border-border-default bg-background-subtle" />)}</div> : <div>{Array.from({ length: 5 }, (_, weekIndex) => <div key={days[weekIndex * 7].dateKey}>{_renderWeek(days.slice(weekIndex * 7, weekIndex * 7 + 7), props.onEventClick, isDashboard, props.onDateClick)}</div>)}</div>}
       {!props.isLoading && visibleEvents.length === 0 && <p className="sr-only">No quotation events in this month.</p>}
     </section>
   );

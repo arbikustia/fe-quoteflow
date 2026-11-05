@@ -44,14 +44,14 @@ export const buildCalendarDays = (currentDate: Date, events: CalendarEventItem[]
 export const buildCalendarWeekEventSegments = (weekDays: CalendarDayCell[]): CalendarWeekEventSegment[] => {
   const firstDateKey = weekDays[0].dateKey;
   const lastDateKey = weekDays[WEEKDAY_COUNT - 1].dateKey;
-  const weekEvents = weekDays.flatMap((day) => day.events).filter((event, index, events) => events.findIndex((candidate) => candidate.id === event.id) === index).filter((event) => event.endDate !== undefined && event.endDate !== event.date);
+  const weekEvents = weekDays.flatMap((day) => day.events).filter((event, index, events) => events.findIndex((candidate) => candidate.id === event.id) === index);
   const occupiedColumns: boolean[][] = [];
 
   return weekEvents.map((event) => {
     const startColumn = Math.max(0, weekDays.findIndex((day) => day.dateKey === event.date));
-    const endColumn = Math.min(WEEKDAY_COUNT - 1, weekDays.findIndex((day) => day.dateKey === event.endDate));
-    const actualStartColumn = event.date < firstDateKey ? 0 : startColumn;
     const eventEndDate = event.endDate ?? event.date;
+    const endColumn = Math.min(WEEKDAY_COUNT - 1, weekDays.findIndex((day) => day.dateKey === eventEndDate));
+    const actualStartColumn = event.date < firstDateKey ? 0 : startColumn;
     const actualEndColumn = eventEndDate > lastDateKey ? WEEKDAY_COUNT - 1 : endColumn;
     const span = actualEndColumn - actualStartColumn + 1;
     let row = 0;

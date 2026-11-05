@@ -1,4 +1,4 @@
-import { fireEvent, render, screen } from "@testing-library/react";
+import { fireEvent, render, screen } from "@/libs/unit-test";
 import { BrowserRouter } from "react-router-dom";
 
 import { MasterCustomerComponent } from "./MasterCustomer.component";
@@ -8,6 +8,7 @@ jest.mock("../../components/Pagination", () => ({
   Pagination: () => <div data-testid="pagination" />,
 }));
 jest.mock("react-icons/fi", () => ({
+  FiArrowLeft: () => <div data-testid="arrow-left-icon" />,
   FiChevronRight: () => <div data-testid="chevron-right-icon" />,
   FiEdit2: () => <div data-testid="edit-icon" />,
   FiMapPin: () => <div data-testid="map-pin-icon" />,
@@ -59,18 +60,20 @@ describe("MasterCustomer Component", () => {
   };
 
   it("should render customer card and open edit", () => {
-    renderComponent();
+    const mockOnEdit = jest.fn();
+    renderComponent({ ...mockProps, onEdit: mockOnEdit });
 
     const customer = mockProps.paginatedData[0];
     const customerName = screen.getAllByText(customer.name)[0];
 
-    expect(screen.getAllByText(customer.email ?? "No email provided")).toHaveLength(2);
-    expect(screen.getAllByText(customer.address ?? "No address provided")[0]).toBeInTheDocument();
-    expect(screen.getAllByText(customer.phoneNumber ?? "No phone number")[0]).toBeInTheDocument();
+    // Gunakan helper formatCustomerDisplayValue di test sesuai implementasi baru
+    expect(screen.getAllByText(customer.email || "—")).toHaveLength(2);
+    expect(screen.getAllByText(customer.address || "—")[0]).toBeInTheDocument();
+    expect(screen.getAllByText(customer.phoneNumber || "—")[0]).toBeInTheDocument();
 
     fireEvent.click(customerName.closest("button")!);
 
-    expect(mockProps.onEdit).toHaveBeenCalledWith(customer);
+    expect(mockOnEdit).toHaveBeenCalledWith(customer);
   });
 
   it("should render matching mobile and desktop loading skeletons", () => {

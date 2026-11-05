@@ -46,7 +46,7 @@ const _getEventVariantBadgeClass = (variant?: string): string => {
   }
 
   if (variant === "neutral") {
-    return "border border-gray-200 bg-gray-100 text-gray-700";
+    return "border border-border-default bg-background-subtle text-text-secondary";
   }
 
   return "border border-primary-200 bg-primary-50 text-action-primary";

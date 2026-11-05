@@ -1,6 +1,6 @@
-# ASUM React FE Code Convention (AI-Readable Rules)
+# QUOTEFLOW React FE Code Convention (AI-Readable Rules)
 
-Project: React Frontend (ASUM FE). Stack: React, TypeScript, Redux / RTK Query, Axios, Jest.
+Project: React Frontend (QUOTEFLOW FE). Stack: React, TypeScript, Redux / RTK Query, Axios, Jest.
 
 This project uses framework-agnostic React. Do not introduce Next.js-specific APIs, conventions, directives, routing, Server Components, or file structures unless the project explicitly adopts Next.js in the future.
 
@@ -23,6 +23,9 @@ This project uses framework-agnostic React. Do not introduce Next.js-specific AP
 | R-HOOK-01 | `useState` / `useEffect` MUST NOT be written inside a component. Move them to `ModuleName.hook.ts`. |
 | R-TYPE-01 | Types live ONLY in `.type.ts`. Use `type`, NOT `interface`. |
 | R-TYPE-02 | `any`, `unknown`, `object`, `*`, `Record<string, unknown>`, index signatures, and `as` type assertions are forbidden. |
+| R-TYPE-04 | For optional properties and parameters, use `?`; do not add `undefined` to the type. |
+| R-TYPE-05 | Do not use `null` as a type or value. Represent optional data with `?` and omit absent values. |
+| R-TYPE-06 | Every field MUST have one real, concrete semantic type. Ambiguous primitive unions such as `string | number` are forbidden. |
 | R-CFG-01 | `.config.ts` is static data only. No logic, no JSX. |
 | R-JSDOC-01 | JSDoc is mandatory on public functions. Explicit return types are mandatory everywhere. |
 | R-JSDOC-02 | Optional params MUST be last in the signature. JSDoc writes optional as `{number} [c]`, never `{number \| undefined}`. |
@@ -33,9 +36,9 @@ This project uses framework-agnostic React. Do not introduce Next.js-specific AP
 | R-NAME-02 | Booleans start with `is` / `has` / `can` / `should`. Arrays are plural. |
 | R-NAME-03 | `_` is reserved ONLY for private helper functions. Hooks start with `use`. |
 | R-NAME-04 | Prefer arrow functions. Use `function` declarations only when hoisting is needed. Avoid `var`. |
-| R-TEST-01 | Jest is mandatory. Snapshot + unit tests are mandatory. Coverage MUST be >= 70%. |
+| R-TEST-01 | Jest is the only test framework. All React test utilities MUST be imported from `@/libs/unit-test`; direct imports from other test utility modules are forbidden. |
 | R-GIT-01 | Branch: `<type>/<TICKET>-<kebab-description>`. Commit: `<type>(<scope>): [<TICKET>] - <message>`. |
-| R-DATA-01 | Do not invent or silently substitute fallback data. Handle missing data explicitly. |
+| R-DATA-01 | Do not add fallback data at consumers. If a fallback is required, normalize it once at the data source so downstream code does not repeat validation. |
 | R-REUSE-01 | Inspect and reuse all global/shared folders before creating new code. |
 
 ---
@@ -173,7 +176,7 @@ const mapDispatchToProps = (dispatch: AppDispatch) => ({});
 export default connect(mapStateToProps, mapDispatchToProps)(UserCardContainer);
 ```
 
-The container MUST handle loading, error, and missing-data states explicitly before rendering `UserCardComponent`. It MUST NOT hide missing API data with fallback values such as `?? ''`, `|| []`, placeholder objects, or hard-coded mock data.
+The container MUST handle loading, error, and missing-data states explicitly before rendering `UserCardComponent`. It MUST NOT hide missing API data with fallback values such as `?? ''`, `|| []`, placeholder objects, or hard-coded mock data. If an intentional fallback is part of the data contract, normalize it once at the source boundary and pass the normalized value to the container.
 
 ### 4.3 `ModuleName.type.ts`
 
@@ -303,14 +306,39 @@ export { default } from './ModuleName.container';
 | Type assertion | `const value = { ... } as User;` |
 
 - Instead: define an explicit type with named fields.
+- R-TYPE-04: For optional properties and parameters, use `?` instead of adding `undefined` to the type. Write `email?: string`, not `email: string | undefined`; write `limit?: number`, not `limit: number | undefined`.
+- R-TYPE-05: Do not use `null` as a type, union member, argument, return value, object property value, or initial state. Represent optional data with `?` and omit absent values. Write `email?: string`, not `email: string | null`; do not initialize optional state with `null`.
+- R-TYPE-06: Every property, parameter, return value, state value, and API field MUST use its real semantic type. Ambiguous primitive unions such as `string | number`, `number | string`, `string | boolean`, and unions containing `null` or `undefined` are forbidden.
+- R-TYPE-07: Normalize external data once at its source boundary. For example, convert a numeric API string to `number` in the response mapper; downstream types and consumers MUST use only `number`.
+- R-TYPE-08: A discriminated union MAY be used only when it represents distinct, real domain states with a shared literal discriminator. It MUST NOT be used to avoid choosing or normalizing a field's actual type.
+
+Incorrect:
 
 ```ts
-// Correct
-export type User = {
-  name: string;
-  age: number;
-  active: boolean;
+export type Order = {
+  id: string | number;
+  total: number | string;
+  status: string | null;
 };
+```
+
+Correct:
+
+```ts
+export type Order = {
+  id: string;
+  total: number;
+  status?: string;
+};
+```
+
+Correct domain-state union:
+
+```ts
+export type RequestState =
+  | { status: 'loading' }
+  | { status: 'success'; order: Order }
+  | { status: 'error'; message: string };
 ```
 
 ### 5.4 JSDoc policy (R-JSDOC)
@@ -363,19 +391,36 @@ Incorrect (and why):
 ### 5.6 Data integrity and fallback policy (R-DATA)
 
 - R-DATA-01: Do not create fallback data merely to make rendering, tests, or TypeScript pass.
-- R-DATA-02: Do not replace missing API data with `?? ''`, `|| []`, `|| {}`, fabricated objects, mock records, or hard-coded business values.
-- R-DATA-03: Handle loading, empty, error, and unavailable states explicitly.
-- R-DATA-04: A default value MAY be used only when it is an intentional product requirement or domain default. Its name or an adjacent comment MUST communicate that intent.
-- R-DATA-05: Test fixtures are allowed only inside tests or dedicated fixture files and MUST NOT leak into production code.
+- R-DATA-02: Consumers MUST NOT replace missing data with `?? ''`, `|| []`, `|| {}`, fabricated objects, mock records, or hard-coded business values.
+- R-DATA-03: When an intentional product or domain fallback is required, apply it once at the data source or normalization boundary, such as an API response mapper, RTK Query `transformResponse`, selector, or form initialization.
+- R-DATA-04: Downstream consumers MUST use the normalized contract directly. Do not repeat fallback expressions or missing-data validation in components, helpers, and call sites.
+- R-DATA-05: Handle loading, empty, error, and unavailable states explicitly at the owning boundary. A fallback MUST NOT hide an API or domain error.
+- R-DATA-06: The fallback name or an adjacent comment MUST communicate the product or domain reason.
+- R-DATA-07: Test fixtures are allowed only inside tests or dedicated fixture files and MUST NOT leak into production code.
 
-Incorrect:
+Incorrect — fallback repeated at a consumer:
 
 ```ts
-const users = response.data || [];
+const orders = orderResponse.orders || [];
 const userName = user?.name ?? 'Unknown User';
 ```
 
-Correct:
+Correct — normalize once where data originates:
+
+```ts
+const normalizeOrderResponse = (
+  orderResponse: OrderResponse,
+): NormalizedOrderResponse => ({
+  ...orderResponse,
+  orders: orderResponse.orders || [],
+});
+```
+
+```ts
+const orders = normalizedOrderResponse.orders;
+```
+
+If missing data represents an error rather than an intentional default, handle it at the source boundary instead of converting it to fallback data:
 
 ```ts
 if (!response.data) {
@@ -389,16 +434,32 @@ const users = response.data;
 
 ## 6. Testing Policy (R-TEST)
 
-- R-TEST-01: Jest is mandatory.
-- R-TEST-02: Both snapshot tests and unit tests are mandatory (`.snap.*` and `.test.*` files).
-- R-TEST-03: Minimum coverage: >= 70%.
-- R-TEST-04: A PR is rejected if coverage is below the threshold.
-- R-TEST-05: Test names use the format `should + expected behavior`.
-- R-TEST-06: Unit tests MUST focus on the logic or component under test.
-- R-TEST-07: Mock only direct external dependencies required to isolate the subject. Do not test imported libraries, global helpers, framework internals, or unrelated child components again.
-- R-TEST-08: Assertions MUST verify observable behavior, output, state transition, rendered content, or interaction owned by the subject under test. Avoid assertions tied only to internal implementation details.
-- R-TEST-09: Each test file MUST have one clear primary subject. Unrelated logic belongs in its own test file.
-- R-TEST-10: Reuse existing global test utilities, render helpers, fixtures, and mocks before creating local duplicates.
+- R-TEST-01: Jest is the only allowed test framework. Do not introduce or use another unit-testing framework.
+- R-TEST-02: All React test utilities provided by the project, including `render`, `renderHook`, `screen`, `fireEvent`, `waitFor`, and `act`, MUST be imported from `@/libs/unit-test`.
+- R-TEST-03: Do not import React test utilities directly from `@testing-library/react` or another test utility module. If a required utility is missing, add and export it through `@/libs/unit-test` first.
+- R-TEST-04: Jest globals MAY use the configured global environment or explicit imports from `@jest/globals`. Do not import Jest globals from `@/libs/unit-test` because that module does not export them.
+- R-TEST-05: Both snapshot tests and unit tests are mandatory (`.snap.*` and `.test.*` files).
+- R-TEST-06: Minimum coverage: >= 70%.
+- R-TEST-07: A PR is rejected if coverage is below the threshold.
+- R-TEST-08: Test names use the format `should + expected behavior`.
+- R-TEST-09: Unit tests MUST focus on the logic or component under test.
+- R-TEST-10: Mock only direct external dependencies required to isolate the subject. Do not test imported libraries, global helpers, framework internals, or unrelated child components again.
+- R-TEST-11: Assertions MUST verify observable behavior, output, state transition, rendered content, or interaction owned by the subject under test. Avoid assertions tied only to internal implementation details.
+- R-TEST-12: Each test file MUST have one clear primary subject. Unrelated logic belongs in its own test file.
+- R-TEST-13: Reuse existing global test utilities, render helpers, fixtures, and mocks before creating local duplicates.
+
+Correct:
+
+```ts
+import { describe, expect, it, jest } from '@jest/globals';
+import { fireEvent, render, screen } from '@/libs/unit-test';
+```
+
+Incorrect:
+
+```ts
+import { render, screen } from '@testing-library/react';
+```
 
 ```ts
 it("should return user data when API succeeds", () => {});
@@ -612,13 +673,20 @@ All of these MUST pass before merge:
 - [ ] No API calls or Redux in `.component.tsx`.
 - [ ] No logic or JSX in `.config.ts` / `.type.ts` / `.style.ts`.
 - [ ] Types use `type`, no `interface`, no `any` / `unknown` / `object` / `Record<string, unknown>` / index signature / `as`.
+- [ ] Optional properties and parameters use `?`, not an explicit `| undefined` type.
+- [ ] No `null` types or values; absent optional data is omitted.
+- [ ] Every field uses one real semantic type; no ambiguous primitive unions such as `string | number` or `number | string`.
+- [ ] External values are normalized once at their source boundary before reaching downstream consumers.
 - [ ] Every function has an explicit return type; public functions have JSDoc in the correct format.
 - [ ] Optional params are last and documented as `[name]`.
 - [ ] Event handlers passed by reference.
 - [ ] No direct `fetch`; API uses RTK Query / Axios client.
-- [ ] No fabricated or silent fallback data; missing/loading/error/empty states are handled explicitly.
+- [ ] No fallback data is added at consumers; missing/loading/error/empty states are handled explicitly.
+- [ ] Intentional product/domain fallbacks are normalized once at the data source, then consumed without repeated fallback expressions or validation.
 - [ ] All relevant global/shared folders (`components`, `constant`, `fixture`, `hooks`, `types`, `utils`, and `libs`) were searched before creating code.
 - [ ] Existing global code is reused through its public export; duplicate helpers/utilities/hooks/components were not introduced.
+- [ ] Jest is the only unit-test framework; no alternative test framework was introduced.
+- [ ] React test utilities are imported only from `@/libs/unit-test`, never directly from `@testing-library/react` or another test utility module.
 - [ ] Unit tests focus only on the logic or component under test and reuse existing test utilities.
 - [ ] Names follow Section 9 (booleans, arrays, constants, `_` only for private helpers, `use*` for hooks).
 - [ ] Semicolons, blank line before `return`/`if`/`switch`/`while`, one blank line at EOF.

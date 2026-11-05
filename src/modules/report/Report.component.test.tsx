@@ -1,4 +1,4 @@
-import { render, screen } from "@testing-library/react";
+import { render, screen } from "@/libs/unit-test";
 import { BrowserRouter } from "react-router-dom";
 
 import { ReportOrderComponent } from "./Report.component";
@@ -83,7 +83,10 @@ describe("ReportOrderComponent", () => {
     expect(desktopTitle?.textContent).toBe("Order Report");
     expect(card?.classList.contains("bg-background-surface")).toBe(true);
     expect(card?.querySelector(".text-xs, .text-sm, .text-base")).toBeNull();
-    expect(card?.querySelector(".border-t")?.textContent).toContain("Total");
+    expect(card?.textContent).toContain("Event");
+    expect(card?.textContent).toContain("Customer");
+    expect(card?.textContent).toContain("Event period");
+    expect(card?.textContent).toContain("Total");
     expect(card?.textContent).toContain("Resepsi12");
     expect(card?.textContent).toContain("Arbi");
     expect(card?.textContent).toContain("31 Oktober 2026 06:00 – 01 November 2026 06:00");
@@ -112,7 +115,9 @@ describe("ReportOrderComponent", () => {
     );
 
     expect(screen.getByRole("status", { name: "Loading" })).toBeTruthy();
-    expect(screen.getAllByRole("status", { name: "Loading order report card" })).toHaveLength(5);
+    const cardSkeletons = screen.getAllByRole("status", { name: "Loading order report card" });
+    expect(cardSkeletons).toHaveLength(5);
+    expect(cardSkeletons[0].querySelectorAll(".border-t")).toHaveLength(2);
   });
 
   it("renders empty state", () => {

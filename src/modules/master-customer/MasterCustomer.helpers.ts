@@ -3,6 +3,13 @@ import * as React from "react";
 import type { CustomerMobileCardProps } from "./MasterCustomer.type";
 
 /**
+ * Format an optional display value without changing source data.
+ * @param {string} value - Source display value
+ * @returns {string} Display value
+ */
+export const formatCustomerDisplayValue = (value: string): string => value || "—";
+
+/**
  * Render customer mobile card footer with address and phone number.
  * @param {CustomerMobileCardProps["customer"]} customer - Customer data
  * @returns {React.ReactElement} Card footer element
@@ -15,15 +22,15 @@ const _renderCustomerCardFooter = (customer: CustomerMobileCardProps["customer"]
       "span",
       { className: "min-w-0" },
       React.createElement("span", { className: "block text-lg text-text-tertiary" }, "Email"),
-      React.createElement("span", { className: "mt-1 block break-all text-lg font-medium text-text-primary" }, customer.email ?? "-"),
+      React.createElement("span", { className: "mt-1 block break-all text-lg font-medium text-text-primary" }, formatCustomerDisplayValue(customer.email)),
       React.createElement("span", { className: "mt-3 block text-lg text-text-tertiary" }, "Address"),
-      React.createElement("span", { className: "mt-1 block break-words text-lg font-medium text-text-primary" }, customer.address || "-"),
+      React.createElement("span", { className: "mt-1 block break-words text-lg font-medium text-text-primary" }, formatCustomerDisplayValue(customer.address)),
     ),
     React.createElement(
       "span",
       { className: "text-right" },
       React.createElement("span", { className: "block text-lg text-text-tertiary" }, "Phone"),
-      React.createElement("span", { className: "mt-1 block text-lg font-medium text-text-primary" }, customer.phoneNumber || "-"),
+      React.createElement("span", { className: "mt-1 block text-lg font-medium text-text-primary" }, formatCustomerDisplayValue(customer.phoneNumber)),
     ),
   );
 

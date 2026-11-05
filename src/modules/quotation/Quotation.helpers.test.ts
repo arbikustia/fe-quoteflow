@@ -80,6 +80,7 @@ describe("Quotation helpers", () => {
           },
         ],
         rental_transaction_project: [],
+        rental_handovers: [],
         customer: {
           id: "c-1",
           name: "PT Sonic",

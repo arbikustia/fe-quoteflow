@@ -19,7 +19,7 @@ export type CustomerFormValidation = {
 
 
 export type CustomerSubmissionParams = {
-  id: string | undefined;
+  id?: string;
   isEditMode: boolean;
   isActive: boolean;
   getValues: () => CustomerFormValues;
@@ -28,8 +28,8 @@ export type CustomerSubmissionParams = {
 
 export type CustomerSubmissionState = {
   isSubmitting: boolean;
-  errorMessage: string | null;
-  successMessage: string | null;
+  errorMessage?: string;
+  successMessage?: string;
   handleSubmit: (event: SyntheticEvent) => Promise<void>;
 };
 
@@ -47,7 +47,7 @@ export type CustomerFormFields = {
 };
 
 export type CustomerFieldConfig = {
-  errorMessage: string | null;
+  errorMessage?: string;
   id: string;
   inputMode?: "numeric";
   label: string;
@@ -72,8 +72,8 @@ export type MasterCustomerCreateFormState = {
   handleStatusChange: () => void;
   isLoadingInitialData: boolean;
   isSubmitting: boolean;
-  errorMessage: string | null;
-  successMessage: string | null;
+  errorMessage?: string;
+  successMessage?: string;
   errors: FieldErrors<CustomerFormValues>;
   isSubmitted: boolean;
   handleNameChange: (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;

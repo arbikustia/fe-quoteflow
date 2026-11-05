@@ -72,32 +72,38 @@ exports[`QuotationComponent Snapshots renders QuotationComponent in loading stat
                 />
               </div>
               <div
-                class="mt-4 h-7 w-4/5 rounded-3xl bg-background-subtle"
-              />
-              <div
-                class="mt-1.5 h-7 w-3/5 rounded-3xl bg-background-subtle"
-              />
-              <div
-                class="mt-4 flex flex-wrap items-end justify-between gap-x-4 gap-y-3 border-t border-border-default pt-4"
+                class="mt-4 grid grid-cols-3 gap-x-3 gap-y-2"
               >
                 <div
-                  class="min-w-0"
-                >
-                  <div
-                    class="h-7 w-20 rounded-3xl bg-background-subtle"
-                  />
-                  <div
-                    class="mt-1 h-7 w-40 rounded-3xl bg-background-subtle"
-                  />
-                </div>
+                  class="h-6 w-14 rounded-3xl bg-background-subtle"
+                />
                 <div
-                  class="text-right"
+                  class="col-span-2 h-6 w-4/5 rounded-3xl bg-background-subtle"
+                />
+                <div
+                  class="h-6 w-16 rounded-3xl bg-background-subtle"
+                />
+                <div
+                  class="col-span-2 h-6 w-3/5 rounded-3xl bg-background-subtle"
+                />
+              </div>
+              <div
+                class="mt-4 border-t border-border-default pt-4"
+              >
+                <div
+                  class="h-6 w-20 rounded-3xl bg-background-subtle"
+                />
+                <div
+                  class="mt-1 h-6 w-full rounded-3xl bg-background-subtle"
+                />
+                <div
+                  class="mt-4 flex items-end justify-between gap-4 border-t border-border-default pt-4"
                 >
                   <div
-                    class="ml-auto h-7 w-12 rounded-3xl bg-background-subtle"
+                    class="h-6 w-12 rounded-3xl bg-background-subtle"
                   />
                   <div
-                    class="mt-1 h-7 w-28 rounded-3xl bg-background-subtle"
+                    class="h-7 w-28 rounded-3xl bg-background-subtle"
                   />
                 </div>
               </div>
@@ -118,32 +124,38 @@ exports[`QuotationComponent Snapshots renders QuotationComponent in loading stat
                 />
               </div>
               <div
-                class="mt-4 h-7 w-4/5 rounded-3xl bg-background-subtle"
-              />
-              <div
-                class="mt-1.5 h-7 w-3/5 rounded-3xl bg-background-subtle"
-              />
-              <div
-                class="mt-4 flex flex-wrap items-end justify-between gap-x-4 gap-y-3 border-t border-border-default pt-4"
+                class="mt-4 grid grid-cols-3 gap-x-3 gap-y-2"
               >
                 <div
-                  class="min-w-0"
-                >
-                  <div
-                    class="h-7 w-20 rounded-3xl bg-background-subtle"
-                  />
-                  <div
-                    class="mt-1 h-7 w-40 rounded-3xl bg-background-subtle"
-                  />
-                </div>
+                  class="h-6 w-14 rounded-3xl bg-background-subtle"
+                />
                 <div
-                  class="text-right"
+                  class="col-span-2 h-6 w-4/5 rounded-3xl bg-background-subtle"
+                />
+                <div
+                  class="h-6 w-16 rounded-3xl bg-background-subtle"
+                />
+                <div
+                  class="col-span-2 h-6 w-3/5 rounded-3xl bg-background-subtle"
+                />
+              </div>
+              <div
+                class="mt-4 border-t border-border-default pt-4"
+              >
+                <div
+                  class="h-6 w-20 rounded-3xl bg-background-subtle"
+                />
+                <div
+                  class="mt-1 h-6 w-full rounded-3xl bg-background-subtle"
+                />
+                <div
+                  class="mt-4 flex items-end justify-between gap-4 border-t border-border-default pt-4"
                 >
                   <div
-                    class="ml-auto h-7 w-12 rounded-3xl bg-background-subtle"
+                    class="h-6 w-12 rounded-3xl bg-background-subtle"
                   />
                   <div
-                    class="mt-1 h-7 w-28 rounded-3xl bg-background-subtle"
+                    class="h-7 w-28 rounded-3xl bg-background-subtle"
                   />
                 </div>
               </div>
@@ -164,32 +176,38 @@ exports[`QuotationComponent Snapshots renders QuotationComponent in loading stat
                 />
               </div>
               <div
-                class="mt-4 h-7 w-4/5 rounded-3xl bg-background-subtle"
-              />
-              <div
-                class="mt-1.5 h-7 w-3/5 rounded-3xl bg-background-subtle"
-              />
-              <div
-                class="mt-4 flex flex-wrap items-end justify-between gap-x-4 gap-y-3 border-t border-border-default pt-4"
+                class="mt-4 grid grid-cols-3 gap-x-3 gap-y-2"
               >
                 <div
-                  class="min-w-0"
-                >
-                  <div
-                    class="h-7 w-20 rounded-3xl bg-background-subtle"
-                  />
-                  <div
-                    class="mt-1 h-7 w-40 rounded-3xl bg-background-subtle"
-                  />
-                </div>
+                  class="h-6 w-14 rounded-3xl bg-background-subtle"
+                />
                 <div
-                  class="text-right"
+                  class="col-span-2 h-6 w-4/5 rounded-3xl bg-background-subtle"
+                />
+                <div
+                  class="h-6 w-16 rounded-3xl bg-background-subtle"
+                />
+                <div
+                  class="col-span-2 h-6 w-3/5 rounded-3xl bg-background-subtle"
+                />
+              </div>
+              <div
+                class="mt-4 border-t border-border-default pt-4"
+              >
+                <div
+                  class="h-6 w-20 rounded-3xl bg-background-subtle"
+                />
+                <div
+                  class="mt-1 h-6 w-full rounded-3xl bg-background-subtle"
+                />
+                <div
+                  class="mt-4 flex items-end justify-between gap-4 border-t border-border-default pt-4"
                 >
                   <div
-                    class="ml-auto h-7 w-12 rounded-3xl bg-background-subtle"
+                    class="h-6 w-12 rounded-3xl bg-background-subtle"
                   />
                   <div
-                    class="mt-1 h-7 w-28 rounded-3xl bg-background-subtle"
+                    class="h-7 w-28 rounded-3xl bg-background-subtle"
                   />
                 </div>
               </div>
@@ -210,32 +228,38 @@ exports[`QuotationComponent Snapshots renders QuotationComponent in loading stat
                 />
               </div>
               <div
-                class="mt-4 h-7 w-4/5 rounded-3xl bg-background-subtle"
-              />
-              <div
-                class="mt-1.5 h-7 w-3/5 rounded-3xl bg-background-subtle"
-              />
-              <div
-                class="mt-4 flex flex-wrap items-end justify-between gap-x-4 gap-y-3 border-t border-border-default pt-4"
+                class="mt-4 grid grid-cols-3 gap-x-3 gap-y-2"
               >
                 <div
-                  class="min-w-0"
-                >
-                  <div
-                    class="h-7 w-20 rounded-3xl bg-background-subtle"
-                  />
-                  <div
-                    class="mt-1 h-7 w-40 rounded-3xl bg-background-subtle"
-                  />
-                </div>
+                  class="h-6 w-14 rounded-3xl bg-background-subtle"
+                />
                 <div
-                  class="text-right"
+                  class="col-span-2 h-6 w-4/5 rounded-3xl bg-background-subtle"
+                />
+                <div
+                  class="h-6 w-16 rounded-3xl bg-background-subtle"
+                />
+                <div
+                  class="col-span-2 h-6 w-3/5 rounded-3xl bg-background-subtle"
+                />
+              </div>
+              <div
+                class="mt-4 border-t border-border-default pt-4"
+              >
+                <div
+                  class="h-6 w-20 rounded-3xl bg-background-subtle"
+                />
+                <div
+                  class="mt-1 h-6 w-full rounded-3xl bg-background-subtle"
+                />
+                <div
+                  class="mt-4 flex items-end justify-between gap-4 border-t border-border-default pt-4"
                 >
                   <div
-                    class="ml-auto h-7 w-12 rounded-3xl bg-background-subtle"
+                    class="h-6 w-12 rounded-3xl bg-background-subtle"
                   />
                   <div
-                    class="mt-1 h-7 w-28 rounded-3xl bg-background-subtle"
+                    class="h-7 w-28 rounded-3xl bg-background-subtle"
                   />
                 </div>
               </div>
@@ -256,32 +280,38 @@ exports[`QuotationComponent Snapshots renders QuotationComponent in loading stat
                 />
               </div>
               <div
-                class="mt-4 h-7 w-4/5 rounded-3xl bg-background-subtle"
-              />
-              <div
-                class="mt-1.5 h-7 w-3/5 rounded-3xl bg-background-subtle"
-              />
-              <div
-                class="mt-4 flex flex-wrap items-end justify-between gap-x-4 gap-y-3 border-t border-border-default pt-4"
+                class="mt-4 grid grid-cols-3 gap-x-3 gap-y-2"
               >
                 <div
-                  class="min-w-0"
-                >
-                  <div
-                    class="h-7 w-20 rounded-3xl bg-background-subtle"
-                  />
-                  <div
-                    class="mt-1 h-7 w-40 rounded-3xl bg-background-subtle"
-                  />
-                </div>
+                  class="h-6 w-14 rounded-3xl bg-background-subtle"
+                />
                 <div
-                  class="text-right"
+                  class="col-span-2 h-6 w-4/5 rounded-3xl bg-background-subtle"
+                />
+                <div
+                  class="h-6 w-16 rounded-3xl bg-background-subtle"
+                />
+                <div
+                  class="col-span-2 h-6 w-3/5 rounded-3xl bg-background-subtle"
+                />
+              </div>
+              <div
+                class="mt-4 border-t border-border-default pt-4"
+              >
+                <div
+                  class="h-6 w-20 rounded-3xl bg-background-subtle"
+                />
+                <div
+                  class="mt-1 h-6 w-full rounded-3xl bg-background-subtle"
+                />
+                <div
+                  class="mt-4 flex items-end justify-between gap-4 border-t border-border-default pt-4"
                 >
                   <div
-                    class="ml-auto h-7 w-12 rounded-3xl bg-background-subtle"
+                    class="h-6 w-12 rounded-3xl bg-background-subtle"
                   />
                   <div
-                    class="mt-1 h-7 w-28 rounded-3xl bg-background-subtle"
+                    class="h-7 w-28 rounded-3xl bg-background-subtle"
                   />
                 </div>
               </div>
@@ -1157,42 +1187,52 @@ exports[`QuotationComponent Snapshots renders QuotationComponent with data 1`] =
                 </span>
               </span>
               <span
-                class="mt-4 block break-words text-xl font-semibold text-text-primary"
-              >
-                Event Test
-              </span>
-              <span
-                class="mt-1.5 block break-words text-lg text-text-secondary"
-              >
-                PT Example
-              </span>
-              <span
-                class="mt-4 flex flex-wrap items-end justify-between gap-x-4 gap-y-3 border-t border-border-default pt-4"
+                class="mt-4 grid min-w-0 grid-cols-3 gap-x-3 gap-y-2"
               >
                 <span
-                  class="min-w-0 text-lg text-text-secondary"
+                  class="text-lg text-text-tertiary"
                 >
-                  <span
-                    class="block text-lg text-text-tertiary"
-                  >
-                    Event period
-                  </span>
-                  <span
-                    class="mt-1 block break-words text-lg font-medium text-text-primary"
-                  >
-                    1 Nov 2026 – 2 Nov 2026
-                  </span>
+                  Event
                 </span>
                 <span
-                  class="text-right tabular-nums"
+                  class="col-span-2 break-words text-lg font-semibold text-text-primary"
+                >
+                  Event Test
+                </span>
+                <span
+                  class="text-lg text-text-tertiary"
+                >
+                  Customer
+                </span>
+                <span
+                  class="col-span-2 break-words text-lg text-text-secondary"
+                >
+                  PT Example
+                </span>
+              </span>
+              <span
+                class="mt-4 block border-t border-border-default pt-4"
+              >
+                <span
+                  class="block text-lg text-text-tertiary"
+                >
+                  Event period
+                </span>
+                <span
+                  class="mt-1 block break-words text-lg font-medium leading-relaxed text-text-primary"
+                >
+                  01 November 2026 07:00 – 02 November 2026 07:00
+                </span>
+                <span
+                  class="mt-4 flex items-end justify-between gap-4 border-t border-border-default pt-4"
                 >
                   <span
-                    class="block text-lg text-text-tertiary"
+                    class="text-lg text-text-tertiary"
                   >
                     Total
                   </span>
                   <span
-                    class="mt-1 block text-xl font-semibold text-text-primary"
+                    class="text-right text-xl font-semibold tabular-nums text-text-primary"
                   >
                     Rp 5.000.000
                   </span>
@@ -1505,7 +1545,7 @@ exports[`QuotationComponent Snapshots renders QuotationComponent with data 1`] =
                           <span
                             class="text-lg"
                           >
-                            2026-10-01
+                            01 Oktober 2026 07:00
                           </span>
                         </td>
                         <td
@@ -1514,7 +1554,7 @@ exports[`QuotationComponent Snapshots renders QuotationComponent with data 1`] =
                           <span
                             class="text-lg"
                           >
-                            2026-11-01
+                            01 November 2026 07:00
                           </span>
                         </td>
                         <td
@@ -1523,7 +1563,7 @@ exports[`QuotationComponent Snapshots renders QuotationComponent with data 1`] =
                           <span
                             class="text-lg"
                           >
-                            2026-11-02
+                            02 November 2026 07:00
                           </span>
                         </td>
                         <td

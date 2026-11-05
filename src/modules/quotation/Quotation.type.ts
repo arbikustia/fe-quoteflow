@@ -2,16 +2,18 @@
 export type ApiQuotationItem = {
   item_id: string;
   item_name: string;
+  category_name?: string;
   qty: number;
   price: number;
   subtotal: number;
-  remark: string;
+  remark?: string;
 };
 
 export type ApiQuotationProjectItem = {
   id: string;
   item_id: string;
   item_name: string;
+  category_name?: string;
   qty: number;
   price: number;
 };
@@ -20,6 +22,7 @@ export type ApiQuotationProject = {
   id: string;
   name: string;
   remark: string;
+  price: number;
   qty: number;
   subtotal: number;
   items: ApiQuotationProjectItem[];
@@ -66,6 +69,7 @@ export type ApiQuotationTransaction = {
   updated_at: string;
   rental_transaction_items: ApiQuotationItem[];
   rental_transaction_project: ApiQuotationProject[];
+  rental_handovers: [];
   customer: ApiQuotationCustomer;
   pic: ApiQuotationReference;
   voucher: ApiQuotationReference;

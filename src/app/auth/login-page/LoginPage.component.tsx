@@ -1,6 +1,7 @@
 import type { ReactElement } from 'react';
 
 import SoniclineLogo from '@/assets/Sonicline.png';
+import SoniclineLightLogo from '@/assets/Sonicline-light.png';
 
 import type { LoginPageProps } from './LoginPage.type';
 
@@ -144,7 +145,7 @@ const _renderVisualPanel = (): ReactElement => (
       <h3 className="text-xl xl:text-2xl font-bold tracking-tight text-text-primary">
         Kelola rental lebih mudah, dari pemesanan hingga pengembalian.
       </h3>
-      <p className="text-sm text-slate-600 leading-relaxed max-w-lg">
+      <p className="text-sm text-text-secondary leading-relaxed max-w-lg">
         Pantau ketersediaan barang, transaksi, pelanggan, dan jadwal rental dalam satu sistem terintegrasi.
       </p>
     </div>
@@ -180,7 +181,12 @@ export const LoginPageComponent = (props: LoginPageProps): ReactElement => {
             <img
               src={SoniclineLogo}
               alt="Sonicline Logo"
-              className="h-10 sm:h-14 lg:h-16 w-auto object-contain"
+              className="h-10 w-auto object-contain sm:h-14 lg:h-16 dark:hidden"
+            />
+            <img
+              src={SoniclineLightLogo}
+              alt="Sonicline Logo"
+              className="hidden h-10 w-auto object-contain sm:h-14 lg:h-16 dark:block"
             />
             <span className="lg:hidden text-xs font-semibold uppercase tracking-[0.2em] text-text-tertiary">Rental workspace</span>
           </div>
@@ -196,7 +202,7 @@ export const LoginPageComponent = (props: LoginPageProps): ReactElement => {
               <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-text-primary mb-2">
                 Selamat datang kembali
               </h1>
-              <p className="text-sm sm:text-base text-[#4b5563]">
+              <p className="text-sm sm:text-base text-text-secondary">
                 Masuk untuk mengelola bisnis rental Anda.
               </p>
             </div>
@@ -205,7 +211,7 @@ export const LoginPageComponent = (props: LoginPageProps): ReactElement => {
               <div className="w-full">
                 <label
                   htmlFor="identifier"
-                  className="block text-sm font-semibold text-[#1f2937] mb-2 text-left"
+                  className="block text-sm font-semibold text-text-primary mb-2 text-left"
                 >
                   Nama pengguna
                 </label>
@@ -216,14 +222,14 @@ export const LoginPageComponent = (props: LoginPageProps): ReactElement => {
                   value={identifier}
                   onChange={onIdentifierChange}
                   placeholder="nama@sonicline.co.id"
-                  className="w-full h-12 px-4 rounded-xl border border-[#d1d5db] bg-white text-base text-[#111827] placeholder:text-[#9ca3af] focus:border-[#3550D7] focus:outline-none focus:ring-2 focus:ring-[#3550D7]/25 transition-all"
+                  className="w-full h-12 px-4 rounded-xl border border-border-strong bg-background-surface text-base text-text-primary placeholder:text-text-disabled focus:border-action-primary focus:outline-none focus:ring-2 focus:ring-action-primary/25 transition-all"
                 />
               </div>
 
               <div className="w-full">
                 <label
                   htmlFor="password"
-                  className="block text-sm font-semibold text-[#1f2937] mb-2 text-left"
+                  className="block text-sm font-semibold text-text-primary mb-2 text-left"
                 >
                   Kata sandi
                 </label>
@@ -235,12 +241,12 @@ export const LoginPageComponent = (props: LoginPageProps): ReactElement => {
                     value={password}
                     onChange={onPasswordChange}
                     placeholder="••••••••"
-                    className="login-password-input w-full h-12 px-4 pr-12 rounded-xl border border-[#d1d5db] bg-white text-base text-[#111827] placeholder:text-[#9ca3af] focus:border-[#3550D7] focus:outline-none focus:ring-2 focus:ring-[#3550D7]/25 transition-all"
+                    className="login-password-input w-full h-12 px-4 pr-12 rounded-xl border border-border-strong bg-background-surface text-base text-text-primary placeholder:text-text-disabled focus:border-action-primary focus:outline-none focus:ring-2 focus:ring-action-primary/25 transition-all"
                   />
                   <button
                     type="button"
                     onClick={onTogglePasswordVisibility}
-                    className="absolute right-3 top-1/2 -translate-y-1/2 text-[#6b7280] hover:text-[#111827] focus:outline-none p-1.5 cursor-pointer"
+                    className="absolute right-3 top-1/2 -translate-y-1/2 text-text-tertiary hover:text-text-primary focus:outline-none p-1.5 cursor-pointer"
                     aria-label={isPasswordVisible ? "Sembunyikan kata sandi" : "Tampilkan kata sandi"}
                   >
                     {isPasswordVisible ? (
@@ -253,18 +259,18 @@ export const LoginPageComponent = (props: LoginPageProps): ReactElement => {
               </div>
 
               <div className="flex items-center justify-between pt-1 w-full">
-                <label className="flex items-center gap-2.5 cursor-pointer text-sm font-medium text-[#4b5563] select-none">
+                <label className="flex items-center gap-2.5 cursor-pointer text-sm font-medium text-text-secondary select-none">
                   <input
                     type="checkbox"
                     checked={isRemembered}
                     onChange={onRememberedChange}
-                    className="h-4 w-4 rounded border-[#d1d5db] text-[#3550D7] focus:ring-[#3550D7]/30 cursor-pointer"
+                    className="h-4 w-4 rounded border-border-strong text-action-primary focus:ring-action-primary/30 cursor-pointer"
                   />
                   <span>Ingat saya</span>
                 </label>
                 <a
                   href="#"
-                  className="text-sm font-semibold text-[#3550D7] hover:text-[#2D43B8] transition-colors"
+                  className="text-sm font-semibold text-action-primary hover:text-action-primary-hover transition-colors"
                 >
                   Lupa kata sandi?
                 </a>
@@ -274,7 +280,7 @@ export const LoginPageComponent = (props: LoginPageProps): ReactElement => {
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="w-full h-12 rounded-xl bg-[#3550D7] hover:bg-[#2D43B8] active:bg-[#293A91] text-white text-base font-semibold shadow-md transition-all flex items-center justify-center mt-2 cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-[#3550D7] disabled:cursor-not-allowed disabled:opacity-60"
+                className="w-full h-12 rounded-xl bg-action-primary hover:bg-action-primary-hover active:bg-action-primary-pressed text-white text-base font-semibold shadow-md transition-all flex items-center justify-center mt-2 cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring disabled:cursor-not-allowed disabled:opacity-60"
               >
                 {isSubmitting ? "Memproses…" : "Masuk"}
               </button>

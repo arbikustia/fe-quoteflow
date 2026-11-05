@@ -15,7 +15,12 @@ import type {
 } from "./MasterCustomerCreate.type";
 
 import type { CustomerCreateResponse, CustomerData } from "@/modules/master-customer/MasterCustomer.type";
-import { useCreateCustomerMutation, useUpdateCustomerMutation } from "@/services/master-customer.service";
+import {
+  mapCustomer,
+  useCreateCustomerMutation,
+  useGetCustomerByIdQuery,
+  useUpdateCustomerMutation,
+} from "@/services/master-customer.service";
 
 /**
  * Format backend messages into a display string.

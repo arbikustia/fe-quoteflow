@@ -44,12 +44,12 @@ export type CustomerListParams = {
 export type CustomerData = {
   id: string;
   name: string;
-  email?: string | null;
-  address: string | null;
-  phoneNumber: string | null;
+  email: string;
+  address: string;
+  phoneNumber: string;
   status: "active" | "inactive";
-  createAt: string | null;
-  createBy: string | null;
+  createAt: string;
+  createBy: string;
 };
 
 export type CustomerMobileCardProps = {
@@ -59,8 +59,7 @@ export type CustomerMobileCardProps = {
 
 export type CustomerListApiState = {
   isLoading: boolean;
-  errorMessage: string | null;
-  isEnvelopeError: boolean;
+  errorMessage?: string;
   isMissingData: boolean;
   paginatedData: CustomerData[];
   totalPages: number;
@@ -92,22 +91,12 @@ export type MasterCustomerPagination = {
   paginatedData: CustomerData[];
   totalCount: number;
   isLoading: boolean;
-  errorMessage: string | null;
+  errorMessage?: string;
   isEmpty: boolean;
   isMissingData: boolean;
   goToPage: (page: number) => void;
-  nextPage: () => void;
-  prevPage: () => void;
   changePageSize: (size: number) => void;
   setSearchTerm: (searchTerm: string) => void;
-};
-
-export type MasterCustomerContainerState = {
-  pagination: MasterCustomerPagination;
-  isMoreOpen: boolean;
-  toggleMore: () => void;
-  handleCloseMore: () => void;
-  goDelete: () => void;
 };
 
 export type MasterCustomerProps = {
@@ -116,23 +105,16 @@ export type MasterCustomerProps = {
   pageSize: number;
   paginatedData: CustomerData[];
   totalCount: number;
-  isMoreOpen: boolean;
   isLoading: boolean;
-  errorMessage: string | null;
+  errorMessage?: string;
   isEmpty: boolean;
   isMissingData: boolean;
   goToPage: (page: number) => void;
-  nextPage: () => void;
-  prevPage: () => void;
   changePageSize: (size: number) => void;
   setSearchTerm: (searchTerm: string) => void;
   onCreate: () => void;
-  successMessage?: string;
   onEdit: (customer: CustomerData) => void;
   onRowClick?: (customer: CustomerData) => void;
   onBack: () => void;
-  onMore: () => void;
-  onCloseMore: () => void;
-  onDelete: () => void;
 };
 

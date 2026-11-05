@@ -106,7 +106,7 @@ const _buildEditFormItems = (order: ApiRentalTransactionDetail): OrderItemPayloa
  * @param {ApiRentalTransactionDetail} order - Order detail.
  * @returns {OrderCreateFormState} - Populated edit form.
  */
-const buildEditForm = (order: ApiRentalTransactionDetail): OrderCreateFormState => ({
+export const buildEditForm = (order: ApiRentalTransactionDetail): OrderCreateFormState => ({
   customer_id: order.customer_id ?? order.customer?.id ?? "",
   pic_id: order.pic_id ?? order.pic?.id ?? "",
   voucher_id: order.voucher_id ?? order.voucher?.id ?? "",
@@ -124,7 +124,7 @@ const buildEditForm = (order: ApiRentalTransactionDetail): OrderCreateFormState 
   subtotal: order.subtotal ?? 0,
   discount: order.discount ?? 0,
   service_fee: order.service_fee ?? 0,
-  remarks: order.remarks ?? "",
+  remarks: order.remark ?? order.remarks ?? "",
   grand_total: order.grand_total ?? 0,
   status: order.status ?? 1,
   rental_transaction_items: _buildEditFormItems(order),

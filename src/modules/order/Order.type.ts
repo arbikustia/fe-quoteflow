@@ -155,6 +155,7 @@ export type ApiRentalTransactionDetail = {
   subtotal: number;
   service_fee: number;
   discount: number;
+  remark?: string;
   remarks?: string;
   grand_total: number;
   status: number;

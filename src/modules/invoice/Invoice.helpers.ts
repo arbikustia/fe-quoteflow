@@ -70,6 +70,38 @@ export const invoiceToQuoteData = (invoice: InvoiceData | ApiInvoice): QuoteData
 };
 
 /**
+ * Render mobile invoice identity details.
+ * @param {InvoiceData} invoice - Invoice row
+ * @returns {React.ReactElement} Identity details
+ */
+const _renderMobileIdentity = (invoice: InvoiceData): React.ReactElement => React.createElement(
+  "span",
+  { className: "mt-4 grid min-w-0 grid-cols-3 gap-x-3 gap-y-2" },
+  React.createElement("span", { className: "text-lg text-text-tertiary" }, "Event"),
+  React.createElement("span", { className: "col-span-2 break-words text-lg font-semibold text-text-primary" }, invoice.name),
+  React.createElement("span", { className: "text-lg text-text-tertiary" }, "Customer"),
+  React.createElement("span", { className: "col-span-2 break-words text-lg text-text-secondary" }, invoice.customerName),
+);
+
+/**
+ * Render mobile invoice period and total.
+ * @param {InvoiceData} invoice - Invoice row
+ * @returns {React.ReactElement} Period and total details
+ */
+const _renderMobileSummary = (invoice: InvoiceData): React.ReactElement => React.createElement(
+  "span",
+  { className: "mt-4 block border-t border-border-default pt-4" },
+  React.createElement("span", { className: "block text-lg text-text-tertiary" }, "Event period"),
+  React.createElement("span", { className: "mt-1 block break-words text-lg font-medium leading-relaxed text-text-primary" }, `${formatIndonesianDateTime(invoice.startDate)} – ${formatIndonesianDateTime(invoice.endDate)}`),
+  React.createElement(
+    "span",
+    { className: "mt-4 flex items-end justify-between gap-4 border-t border-border-default pt-4" },
+    React.createElement("span", { className: "text-lg text-text-tertiary" }, "Total"),
+    React.createElement("span", { className: "text-right text-xl font-semibold tabular-nums text-text-primary" }, formatCurrency(invoice.grandTotal)),
+  ),
+);
+
+/**
  * Render invoice card on mobile.
  * @param {InvoiceMobileCardProps} props - Invoice card props
  * @returns {React.ReactElement} Invoice card
@@ -98,20 +130,8 @@ export const InvoiceMobileCard = (props: InvoiceMobileCardProps): React.ReactEle
         className: `rounded-full border border-current px-3 py-1 text-base font-semibold uppercase ${getStatusBadgeClass(invoice.status)}`,
       }, getInvoiceStatusLabel(invoice.status)),
     ),
-    React.createElement("span", { className: "mt-4 block break-words text-xl font-semibold text-text-primary" }, invoice.name),
-    React.createElement("span", { className: "mt-1.5 block break-words text-lg text-text-secondary" }, invoice.customerName),
-    React.createElement(
-      "span",
-      { className: "mt-4 flex flex-wrap items-end justify-between gap-x-4 gap-y-3 border-t border-border-default pt-4" },
-      React.createElement("span", { className: "min-w-0 text-lg text-text-secondary" },
-        React.createElement("span", { className: "block text-lg text-text-tertiary" }, "Event period"),
-        React.createElement("span", { className: "mt-1 block break-words text-lg font-medium text-text-primary" }, `${formatIndonesianDateTime(invoice.startDate)} – ${formatIndonesianDateTime(invoice.endDate)}`),
-      ),
-      React.createElement("span", { className: "text-right tabular-nums" },
-        React.createElement("span", { className: "block text-lg text-text-tertiary" }, "Total"),
-        React.createElement("span", { className: "mt-1 block text-xl font-semibold text-text-primary" }, formatCurrency(invoice.grandTotal)),
-      ),
-    ),
+    _renderMobileIdentity(invoice),
+    _renderMobileSummary(invoice),
   );
 };
 

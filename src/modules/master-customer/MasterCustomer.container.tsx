@@ -4,7 +4,7 @@ import { useLocation } from "react-router-dom";
 import { AlertComponent } from "../../components/Alert";
 
 import { MasterCustomerComponent } from "./MasterCustomer.component";
-import { useMasterCustomerContainerState, useMasterCustomerNavigation } from "./MasterCustomer.hook";
+import { useMasterCustomerNavigation, useMasterCustomerPagination } from "./MasterCustomer.hook";
 import type { CustomerRouteState } from "./MasterCustomer.type";
 
 /**
@@ -13,22 +13,18 @@ import type { CustomerRouteState } from "./MasterCustomer.type";
  */
 const MasterCustomerContainer = (): React.ReactElement => {
   const location = useLocation();
-  const routeState: CustomerRouteState | null = location.state;
+  const routeState: CustomerRouteState | undefined = location.state;
   const { goBack, goCreate, goEdit } = useMasterCustomerNavigation();
-  const { pagination, isMoreOpen, toggleMore, handleCloseMore, goDelete } = useMasterCustomerContainerState();
+  const pagination = useMasterCustomerPagination();
 
   return (
     <>
       {routeState?.successMessage && <AlertComponent type="success" message={routeState.successMessage} toast closable />}
       <MasterCustomerComponent
         {...pagination}
-        isMoreOpen={isMoreOpen}
         onBack={goBack}
         onCreate={goCreate}
         onEdit={goEdit}
-        onMore={toggleMore}
-        onCloseMore={handleCloseMore}
-        onDelete={goDelete}
       />
     </>
   );

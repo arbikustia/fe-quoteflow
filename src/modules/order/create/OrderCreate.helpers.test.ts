@@ -1,3 +1,6 @@
+import type { ApiRentalTransactionDetail } from "../Order.type";
+
+import { buildEditForm } from "./helpers/OrderCreateForm.helpers";
 import { calculateOrderTotals, getNextOrderStep, getPreviousOrderStep, hasSelectedOrderItem, isOrderInformationValid } from "./OrderCreate.helpers";
 
 describe("OrderCreate step helpers", () => {
@@ -37,5 +40,31 @@ describe("OrderCreate step helpers", () => {
   it("should require at least one selected item", (): void => {
     expect(hasSelectedOrderItem([{ item_id: "" }])).toBe(false);
     expect(hasSelectedOrderItem([{ item_id: "item-1" }])).toBe(true);
+  });
+
+  it("should use API remark as edit form default remarks", (): void => {
+    const order: ApiRentalTransactionDetail = {
+      id: "order-1",
+      service_type_id: "service-1",
+      service_type_name: "REGULER",
+      customer_name: "Customer",
+      customer_phone: "0812",
+      address: "Address",
+      event_name: "Event",
+      start_at: "2026-11-12 06:00:00",
+      end_at: "2026-11-14 06:00:00",
+      subtotal: 100000,
+      service_fee: 0,
+      discount: 0,
+      remark: "Prepare before event",
+      grand_total: 100000,
+      status: 1,
+      created_at: "2026-11-01 00:00:00",
+      updated_at: "2026-11-01 00:00:00",
+      rental_transaction_items: [],
+      rental_transaction_project: [],
+    };
+
+    expect(buildEditForm(order).remarks).toBe("Prepare before event");
   });
 });

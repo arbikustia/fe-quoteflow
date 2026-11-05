@@ -136,6 +136,8 @@ describe("QuotationComponent", () => {
       expect(card?.textContent).toContain(row.customerName);
       expect(card?.textContent).toContain(`Rp ${row.grandTotal.toLocaleString("id-ID")}`);
       expect(card?.textContent).toContain("Event period");
+      expect(card?.textContent).toContain("Event");
+      expect(card?.textContent).toContain("Customer");
       expect(card?.textContent).toContain("Total");
       expect(screen.getAllByText(row.quotationNumber)[0].className).toContain("text-lg");
       expect(card?.querySelector(".rounded-full")?.className).toContain("text-base");
@@ -161,6 +163,15 @@ describe("QuotationComponent", () => {
     expect(editButtons.length).toBeGreaterThan(0);
     fireEvent.click(editButtons[0]);
     expect(onEdit).toHaveBeenCalledWith(MOCK_ROWS[0]);
+  });
+
+  it("should hide edit action for approved quotation", (): void => {
+    const props = createProps({ paginatedData: [MOCK_ROWS[1]] });
+    render(<MemoryRouter><QuotationComponent {...props} /></MemoryRouter>);
+
+    expect(screen.queryByRole("button", { name: "Edit quotation" })).toBeNull();
+    expect(screen.getByRole("button", { name: "View quotation detail" })).toBeTruthy();
+    expect(screen.getByRole("button", { name: "Download PDF" })).toBeTruthy();
   });
 
   it("handles download PDF action click", () => {
@@ -215,7 +226,7 @@ describe("QuotationComponent", () => {
     expect(tableSkeleton.querySelectorAll("tbody tr:first-child td:last-child span")).toHaveLength(3);
     expect(cardSkeletons).toHaveLength(5);
     expect(cardSkeletons[0].className).toContain("rounded-3xl");
-    expect(cardSkeletons[0].querySelectorAll(".border-t > div")).toHaveLength(2);
+    expect(cardSkeletons[0].querySelectorAll(".border-t")).toHaveLength(2);
     expect(screen.queryByText("QUO-001")).toBeNull();
   });
 

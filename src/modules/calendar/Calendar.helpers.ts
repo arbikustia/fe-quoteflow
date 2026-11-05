@@ -32,21 +32,17 @@ export const getCalendarMonthRange = (date: Date): CalendarQueryParams => {
   };
 };
 
+const CALENDAR_EVENT_VARIANTS: CalendarEventVariant[] = ["blue", "green", "purple", "orange", "pink"];
+
 /**
- * Resolve calendar event variant by quotation status.
- * @param {number} status - Quotation status
+ * Resolve a stable calendar color from event identity.
+ * @param {string} eventId - Event identity
  * @returns {CalendarEventVariant} Calendar event variant
  */
-const _resolveCalendarEventVariant = (status: number): CalendarEventVariant => {
-  if (status === 2) {
-    return "green";
-  }
+const _resolveCalendarEventVariant = (eventId: string): CalendarEventVariant => {
+  const colorIndex = Array.from(eventId).reduce((total, character) => total + character.charCodeAt(0), 0) % CALENDAR_EVENT_VARIANTS.length;
 
-  if (status === 0) {
-    return "neutral";
-  }
-
-  return "blue";
+  return CALENDAR_EVENT_VARIANTS[colorIndex];
 };
 
 /** Map quotation rental schedule into calendar event. */
@@ -56,7 +52,7 @@ export const mapQuotationToCalendarEvent = (quotation: ApiQuotation): CalendarEv
   date: quotation.transaction.start_at.slice(0, 10),
   endDate: quotation.transaction.end_at.slice(0, 10),
   time: formatCalendarTime(quotation.transaction.start_at),
-  variant: _resolveCalendarEventVariant(quotation.status),
+  variant: _resolveCalendarEventVariant(quotation.id),
   quotationNo: quotation.quotation_no,
   customerName: quotation.transaction.customer_name,
   amount: quotation.transaction.grand_total,
@@ -69,7 +65,7 @@ export const mapCalendarItemToEvent = (item: ApiCalendarItem): CalendarEventItem
   date: item.start ? item.start.slice(0, 10) : "",
   endDate: item.end ? item.end.slice(0, 10) : undefined,
   time: item.start ? formatCalendarTime(item.start) : "",
-  variant: _resolveCalendarEventVariant(item.status),
+  variant: _resolveCalendarEventVariant(item.id || item.transaction_id),
   quotationNo: item.order_no,
   customerName: item.customer_name,
   amount: item.total_amount,

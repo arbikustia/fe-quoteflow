@@ -15,8 +15,8 @@ import {
   renderPricingSection,
   renderProjectsSection,
   renderQuotationOverview,
-  renderTransactionSection,
-  renderVoucherSection,
+  renderTransactionSummarySection,
+  renderVoucherSummarySection,
 } from "./QuotationDetail.sections";
 
 import Layout from "@/app/layout";
@@ -28,26 +28,25 @@ import { PageLayout } from "@/app/shared/PageLayout";
  * @returns {ReactElement} Detail sections
  */
 const _renderDetail = (quotation: ApiQuotation): ReactElement => {
-  const serviceTypeName = quotation.transaction.service_type_name.toUpperCase();
-  const isRegular = serviceTypeName === "REGULER";
-  const isProject = serviceTypeName === "PROJECT";
+  const isProject = quotation.transaction.service_type_name.toUpperCase() === "PROJECT";
 
   return (
     <div className="w-full space-y-4 pb-32 sm:space-y-4 lg:pb-8">
       {renderQuotationOverview(quotation)}
       <div className="space-y-4 sm:space-y-4">
         <div className="min-w-0 lg:[&_dl]:grid-cols-3 xl:[&_dl]:grid-cols-4">
-          {renderTransactionSection(quotation.transaction)}
+          {renderTransactionSummarySection(quotation.transaction)}
         </div>
+        {renderVoucherSummarySection(quotation.transaction.voucher)}
         {renderGlobalRemarkSection(quotation.notes)}
         <div className="grid min-w-0 grid-cols-1 items-start gap-4 sm:gap-4 lg:grid-cols-[minmax(0,2fr)_minmax(20rem,1fr)]">
           <div className="min-w-0 space-y-4 sm:space-y-4">
-            {isRegular && renderItemsSection(quotation.transaction.rental_transaction_items)}
-            {isProject && renderProjectsSection(quotation.transaction.rental_transaction_project)}
+            {isProject
+              ? renderProjectsSection(quotation.transaction.rental_transaction_project, false)
+              : renderItemsSection(quotation.transaction.rental_transaction_items)}
           </div>
           <aside className="min-w-0 space-y-4 sm:space-y-4">
             {renderPricingSection(quotation.transaction)}
-            {renderVoucherSection(quotation.transaction.voucher)}
           </aside>
         </div>
       </div>
@@ -95,8 +94,8 @@ const _renderSkeletonOverview = (): ReactElement => (
       <div className="h-7 w-24 rounded-full bg-background-subtle" />
       <div className="h-7 w-32 rounded-full bg-background-subtle" />
     </div>
-    <div className="mt-4 grid grid-cols-1 gap-x-8 border-t border-border-default sm:mt-5 sm:grid-cols-2 lg:grid-cols-4">
-      {Array.from({ length: 4 }, (_value, index) => _renderSkeletonField(index))}
+    <div className="mt-4 grid grid-cols-1 gap-x-8 border-t border-border-default sm:mt-5 sm:grid-cols-3">
+      {Array.from({ length: 3 }, (_value, index) => _renderSkeletonField(index))}
     </div>
   </section>
 );
@@ -192,24 +191,42 @@ export const QuotationDetailComponent = (props: QuotationDetailState): ReactElem
   };
 
   const headerActions = props.quotation ? (
-    <ActionMenu testId="quotation-detail-actions" icon={<FiMoreHorizontal className="h-7 w-7" aria-hidden="true" />}>
-      {props.quotation.status === 1 && (
-        <button type="button" role="menuitem" onClick={props.handleEdit} className="flex w-full items-center gap-3 px-5 py-3.5 text-left text-lg font-semibold text-text-primary transition-colors hover:bg-background-subtle">
-          <FiEdit2 className="h-5 w-5" aria-hidden="true" />
-          Edit
-        </button>
-      )}
-      {props.quotation.status === 1 && (
-        <button type="button" role="menuitem" onClick={props.openApproveModal} className="flex w-full items-center gap-3 px-5 py-3.5 text-left text-lg font-semibold text-success-strong transition-colors hover:bg-success-subtle">
+    <>
+      <div className="hidden items-center gap-3 lg:flex" data-testid="quotation-detail-desktop-actions">
+        {props.quotation.status === 1 && (
+          <button type="button" onClick={props.handleEdit} className="inline-flex h-11 items-center gap-2 rounded-3xl border border-border-default px-4 text-lg font-semibold text-text-primary transition-colors hover:bg-background-subtle">
+            <FiEdit2 className="h-5 w-5" aria-hidden="true" />
+            Edit
+          </button>
+        )}
+        <button type="button" onClick={props.openApproveModal} disabled={isApproved || props.isApproving} className="inline-flex h-11 items-center gap-2 rounded-3xl bg-success-strong px-4 text-lg font-semibold text-white transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-60">
           <FiCheckCircle className="h-5 w-5" aria-hidden="true" />
           {approveLabel}
         </button>
-      )}
-      <button type="button" role="menuitem" onClick={handleDownloadPdf} className="flex w-full items-center gap-3 px-5 py-3.5 text-left text-lg font-semibold text-text-primary transition-colors hover:bg-background-subtle">
-        <FiDownload className="h-5 w-5" aria-hidden="true" />
-        Download PDF
-      </button>
-    </ActionMenu>
+        <button type="button" onClick={handleDownloadPdf} className="inline-flex h-11 items-center gap-2 rounded-3xl bg-action-primary px-4 text-lg font-semibold text-white transition-opacity hover:opacity-90">
+          <FiDownload className="h-5 w-5" aria-hidden="true" />
+          Download PDF
+        </button>
+      </div>
+      <div className="lg:hidden">
+        <ActionMenu testId="quotation-detail-actions" icon={<FiMoreHorizontal className="h-7 w-7" aria-hidden="true" />}>
+          {props.quotation.status === 1 && (
+            <button type="button" role="menuitem" onClick={props.handleEdit} className="flex w-full items-center gap-3 px-5 py-3.5 text-left text-lg font-semibold text-text-primary transition-colors hover:bg-background-subtle">
+              <FiEdit2 className="h-5 w-5" aria-hidden="true" />
+              Edit
+            </button>
+          )}
+          <button type="button" role="menuitem" onClick={props.openApproveModal} disabled={isApproved || props.isApproving} className="flex w-full items-center gap-3 px-5 py-3.5 text-left text-lg font-semibold text-success-strong transition-colors hover:bg-success-subtle disabled:cursor-not-allowed disabled:opacity-60">
+            <FiCheckCircle className="h-5 w-5" aria-hidden="true" />
+            {approveLabel}
+          </button>
+          <button type="button" role="menuitem" onClick={handleDownloadPdf} className="flex w-full items-center gap-3 px-5 py-3.5 text-left text-lg font-semibold text-text-primary transition-colors hover:bg-background-subtle">
+            <FiDownload className="h-5 w-5" aria-hidden="true" />
+            Download PDF
+          </button>
+        </ActionMenu>
+      </div>
+    </>
   ) : null;
 
   return (

@@ -45,8 +45,8 @@ describe("PaymentCreateComponent", () => {
     expect(screen.getByText("Paid At")).toBeTruthy();
     expect(screen.queryByText("Reference No")).toBeNull();
     expect(screen.getByText("Notes")).toBeTruthy();
-    expect(screen.getByText("Payment Information")).toBeTruthy();
-    expect(screen.getByText("Information")).toBeTruthy();
+    expect(screen.queryByText("Payment Information")).toBeNull();
+    expect(screen.queryByText("Information")).toBeNull();
     expect(screen.getByRole("button", { name: "Cancel" })).toBeTruthy();
     expect(screen.getByRole("button", { name: "Create Payment" })).toBeTruthy();
 

@@ -1,19 +1,17 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
-import { render, screen } from "@testing-library/react";
-import "@testing-library/jest-dom";
+import { render, screen } from "@/libs/unit-test";
 import { BrowserRouter } from "react-router-dom";
-
 import MasterCustomerContainer from "./MasterCustomer.container";
 import * as hooks from "./MasterCustomer.hook";
 
 jest.mock("./MasterCustomer.hook", () => ({
   useMasterCustomerNavigation: jest.fn(),
-  useMasterCustomerContainerState: jest.fn(),
+  useMasterCustomerPagination: jest.fn(),
 }));
 
 jest.mock("./MasterCustomer.component", () => ({
-  MasterCustomerComponent: (props: { currentPage: number }) => (
-    <div data-testid="mock-component" data-page={props.currentPage} />
+  MasterCustomerComponent: (props: { totalCount: number }) => (
+    <div data-testid="mock-component" data-count={props.totalCount} />
   ),
 }));
 
@@ -22,42 +20,34 @@ describe("MasterCustomer Container", () => {
     jest.clearAllMocks();
   });
 
-  it("should render component with hook state and columns", () => {
+  it("should render component with hook state", () => {
     jest.mocked(hooks.useMasterCustomerNavigation).mockReturnValue({
       goBack: jest.fn(),
       goCreate: jest.fn(),
       goEdit: jest.fn(),
     });
 
-    jest.mocked(hooks.useMasterCustomerContainerState).mockReturnValue({
-      pagination: {
-        currentPage: 1,
-        totalPages: 2,
-        pageSize: 10,
-        paginatedData: [],
-        totalCount: 0,
-        isLoading: false,
-        errorMessage: null,
-        isEmpty: true,
-        isMissingData: false,
-        goToPage: jest.fn(),
-        nextPage: jest.fn(),
-        prevPage: jest.fn(),
-        changePageSize: jest.fn(),
-        setSearchTerm: jest.fn(),
-      },
-      isMoreOpen: false,
-      toggleMore: jest.fn(),
-      handleCloseMore: jest.fn(),
-      goDelete: jest.fn(),
+    jest.mocked(hooks.useMasterCustomerPagination).mockReturnValue({
+      currentPage: 1,
+      totalPages: 2,
+      pageSize: 10,
+      paginatedData: [],
+      totalCount: 5,
+      isLoading: false,
+      errorMessage: undefined,
+      isEmpty: false,
+      isMissingData: false,
+      goToPage: jest.fn(),
+      changePageSize: jest.fn(),
+      setSearchTerm: jest.fn(),
     });
 
     render(
       <BrowserRouter>
         <MasterCustomerContainer />
-      </BrowserRouter>,
+      </BrowserRouter>
     );
 
-    expect(screen.getByTestId("mock-component")).toBeTruthy();
+    expect(screen.getByTestId("mock-component").getAttribute("data-count")).toBe("5");
   });
 });

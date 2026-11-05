@@ -1,10 +1,11 @@
 import type { ReactElement } from "react";
 
+import { BackButton } from "@/components/BackButton";
+
 import { formatRupiahInput } from "./MasterServiceTypeCreate.helpers";
 import type { MasterServiceTypeCreateFormState } from "./MasterServiceTypeCreate.type";
 
 import Layout from "@/app/layout";
-import { BackButton } from "@/components/BackButton";
 
 /**
  * Render status switch field (edit mode only).
@@ -30,7 +31,7 @@ const _renderStatusField = (props: MasterServiceTypeCreateFormState): ReactEleme
         }`}
       >
         <span
-          className={`pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow-lg ring-0 transition duration-250 ease-in-out ${
+          className={`pointer-events-none inline-block h-5 w-5 transform rounded-full bg-background-surface shadow-lg ring-0 transition duration-250 ease-in-out ${
             props.isActive ? "translate-x-5" : "translate-x-0"
           }`}
         />

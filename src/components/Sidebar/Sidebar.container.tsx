@@ -40,7 +40,7 @@ const SidebarContainer = (props: SidebarContainerProps = {}): React.ReactElement
     isProfileOpen,
     onToggleProfile,
   } = useSidebarState();
-  const { theme, toggleTheme } = useTheme();
+  const { theme } = useTheme();
   const logoutState = useLogoutState();
 
   return (
@@ -54,7 +54,6 @@ const SidebarContainer = (props: SidebarContainerProps = {}): React.ReactElement
         isProfileOpen={isProfileOpen}
         onToggleProfile={onToggleProfile}
         theme={theme}
-        onToggleTheme={toggleTheme}
         onLogout={logoutState.handleLogout}
       />
       {_renderLogoutConfirmModal(logoutState)}
