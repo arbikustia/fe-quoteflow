@@ -12,10 +12,19 @@ import type { CategoryData, MasterCategoryProps } from "./MasterCategory.type";
 
 jest.mock("../../app/layout", () => ({
   __esModule: true,
-  default: ({ children }: { children: React.ReactNode }) => React.createElement("div", {}, children),
+  default: ({ children }: { children: React.ReactNode }) =>
+    React.createElement("div", {}, children),
 }));
 
-const mockCategories: CategoryData[] = [{ id: "1", categoryName: "Audio System", status: "active", createAt: "2024-02-01", createBy: "Admin" }];
+const mockCategories: CategoryData[] = [
+  {
+    id: "1",
+    categoryName: "Audio System",
+    status: "active",
+    createAt: "2024-02-01",
+    createBy: "Admin",
+  },
+];
 const defaultProps: MasterCategoryProps = {
   paginatedData: mockCategories,
   currentPage: 1,

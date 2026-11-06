@@ -1,0 +1,77 @@
+import { apiRtkClient } from "@/libs/ApiRtkServices/apiRtkClient";
+
+import type { ApiEnvelope } from "@/types/api.type";
+
+import ENDPOINT from "@/constants/endpoint.constant";
+import type { ApiRentalTransaction, OrderCreatePayload, OrderCreateResponse, OrderDetailResponse, OrderListParams, OrderListResponse, OrderType, ProjectOrderCreatePayload, QuoteData, UpdateOrderRequest } from "@/modules/order/Order.type";
+
+const ORDER_TAG = "Order";
+
+const mapOrder = (order: ApiRentalTransaction): QuoteData => {
+  const rentalItems = order.rental_transaction_items ?? [];
+
+  return {
+    id: order.id,
+    name: order.event_name,
+    startDate: order.start_at,
+    endDate: order.end_at,
+    location: order.address,
+    category: "",
+    selectedItems: rentalItems.map((item) => item.item_name),
+    qty: rentalItems.reduce((total, item) => total + item.qty, 0),
+    pph: order.grand_total,
+    discount: 0,
+    remark: "",
+    grandTotal: order.grand_total,
+    status: order.status,
+    customerPhone: order.customer_phone,
+  };
+};
+
+export const orderService = apiRtkClient.injectEndpoints({
+  endpoints: (builder) => ({
+    getOrders: builder.query<OrderListResponse, OrderListParams>({
+      query: (params) => ({
+        url: ENDPOINT.ORDER.PAGED,
+        method: "GET",
+        params: {
+          PageNumber: params.pageNumber,
+          PageSize: params.pageSize,
+          Type: params.type,
+          Status: params.status,
+          StartDate: params.startDate,
+          EndDate: params.endDate,
+          SearchTerm: params.searchTerm,
+        },
+      }),
+      providesTags: [ORDER_TAG],
+    }),
+    getOrderById: builder.query<OrderDetailResponse, string>({
+      query: (id) => ({
+        url: `${ENDPOINT.ORDER.DETAIL}/${id}`,
+        method: "GET",
+      }),
+      providesTags: [ORDER_TAG],
+    }),
+    getAllOrderTypes: builder.query<ApiEnvelope<OrderType[]>, void>({
+      query: () => ({ url: ENDPOINT.ORDER.TYPES, method: "GET" }),
+      providesTags: [ORDER_TAG],
+    }),
+    createOrder: builder.mutation<OrderCreateResponse, OrderCreatePayload>({
+      query: (body) => ({ url: ENDPOINT.ORDER.CREATE, method: "POST", data: body }),
+      invalidatesTags: [ORDER_TAG, "Quotation"],
+    }),
+    createProjectOrder: builder.mutation<OrderCreateResponse, ProjectOrderCreatePayload>({
+      query: (body) => ({ url: ENDPOINT.ORDER.PROJECT_CREATE, method: "POST", data: body }),
+      invalidatesTags: [ORDER_TAG, "Quotation"],
+    }),
+    updateOrder: builder.mutation<OrderCreateResponse, UpdateOrderRequest>({
+      query: ({ id, payload }) => ({ url: `${ENDPOINT.ORDER.DETAIL}/${id}`, method: "PUT", data: payload }),
+      invalidatesTags: [ORDER_TAG, "Quotation", "Invoice"],
+    }),
+  }),
+  overrideExisting: false,
+});
+
+export const { useGetOrdersQuery, useGetOrderByIdQuery, useGetAllOrderTypesQuery, useCreateOrderMutation, useCreateProjectOrderMutation, useUpdateOrderMutation } = orderService;
+export { mapOrder };
