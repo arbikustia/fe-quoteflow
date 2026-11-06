@@ -12,7 +12,7 @@ import type {
   RoleListParams,
   RoleListResponse,
   RoleUpdatePayload,
-} from "@/modules/master-role/MasterRole.type";
+} from "@/modules/master-data/master-role/MasterRole.type";
 
 /**
  * Map API role model to UI model.

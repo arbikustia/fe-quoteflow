@@ -1,1 +1,1 @@
-export { default } from "@/modules/master-category";
+export { default } from "@/modules/master-data/master-category";

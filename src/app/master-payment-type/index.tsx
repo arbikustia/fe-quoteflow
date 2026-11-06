@@ -1,1 +1,1 @@
-export { default } from "@/modules/master-payment-type";
+export { default } from "@/modules/master-data/master-payment-type";

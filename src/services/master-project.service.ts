@@ -1,7 +1,7 @@
 import { apiRtkClient } from "@/libs/ApiRtkServices/apiRtkClient";
 
 import ENDPOINT from "@/constant/endpoint.const";
-import type { ProjectAllResponse, ProjectCreatePayload, ProjectCreateResponse, ProjectData, ProjectDetailResponse, ProjectListParams, ProjectListResponse, ProjectUpdatePayload, ProjectUpdateResponse } from "@/modules/master-project/MasterProject.type";
+import type { ProjectAllResponse, ProjectCreatePayload, ProjectCreateResponse, ProjectData, ProjectDetailResponse, ProjectListParams, ProjectListResponse, ProjectUpdatePayload, ProjectUpdateResponse } from "@/modules/master-data/master-project/MasterProject.type";
 
 /**
  * Map API project model to UI model.

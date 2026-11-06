@@ -3,7 +3,7 @@ import { apiRtkClient } from "@/libs/ApiRtkServices/apiRtkClient";
 import type { ApiBaseData, ApiBaseItem } from "@/types/api.type";
 
 import ENDPOINT from "@/constants/endpoint.constant";
-import type { ApiVoucher, VoucherAllResponse, VoucherCreatePayload, VoucherCreateResponse, VoucherData, VoucherDetailResponse, VoucherListParams, VoucherListResponse, VoucherUpdatePayload } from "@/modules/master-voucher/MasterVoucher.type";
+import type { ApiVoucher, VoucherAllResponse, VoucherCreatePayload, VoucherCreateResponse, VoucherData, VoucherDetailResponse, VoucherListParams, VoucherListResponse, VoucherUpdatePayload } from "@/modules/master-data/master-voucher/MasterVoucher.type";
 
 /**
  * Normalize raw voucher detail at service boundary.

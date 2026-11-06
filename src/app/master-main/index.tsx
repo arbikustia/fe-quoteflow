@@ -1,7 +1,7 @@
 import type { ReactElement } from "react";
 
 import Layout from "../layout";
-import MasterMain from "../../modules/master-main";
+import MasterMain from "../../modules/master-data/master-main";
 
 /**
  * Render responsive master data landing page.

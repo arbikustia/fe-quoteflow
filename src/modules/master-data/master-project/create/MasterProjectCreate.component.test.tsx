@@ -1,0 +1,113 @@
+import { fireEvent, render, screen } from "@/libs/unit-test";
+
+import { MasterProjectCreateForm } from "./MasterProjectCreate.component";
+import type { MasterProjectCreateFormState } from "@/modules/master-data/master-project/MasterProject.type";
+
+jest.mock("@/app/layout", () => ({
+  __esModule: true,
+  default: ({ children }: { children: React.ReactNode }) => <div>{children}</div>,
+}));
+
+const createProps = (
+  overrides: Partial<MasterProjectCreateFormState> = {},
+): MasterProjectCreateFormState => ({
+  isEditMode: false,
+  step: 1,
+  items: [
+    {
+      id: "item-1",
+      name: "Camera",
+      image: "",
+      price: 100000,
+      stock: 5,
+    },
+  ],
+  selectedItems: [],
+  isItemsLoading: false,
+  itemsError: null,
+  name: "",
+  remark: "",
+  isActive: true,
+  isSubmitting: false,
+  errorMessage: null,
+  successMessage: null,
+  errors: {},
+  isSubmitted: false,
+  validateStep2: jest.fn().mockResolvedValue(true),
+  handleNameChange: jest.fn(),
+  handleRemarkChange: jest.fn(),
+  handleStatusChange: jest.fn(),
+  nextStep: jest.fn(),
+  previousStep: jest.fn(),
+  toggleItem: jest.fn(),
+  updateItemQuantity: jest.fn(),
+  handleSubmit: jest.fn(),
+  goBack: jest.fn(),
+  ...overrides,
+});
+
+describe("MasterProjectCreateForm", () => {
+  it("should render item selection and handle item toggle", () => {
+    const props = createProps();
+    render(<MasterProjectCreateForm {...props} />);
+
+    expect(screen.getAllByRole("heading", { name: "New Project" })[0]).toBeInTheDocument();
+    expect(screen.getByText("Camera")).toBeInTheDocument();
+    expect(screen.getByText("Information")).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "Cancel" })).toBeInTheDocument();
+    fireEvent.click(screen.getByRole("button", { name: /Camera/ }));
+
+    expect(props.toggleItem).toHaveBeenCalledWith(props.items[0]);
+  });
+
+  it("should render details step and forward field changes", () => {
+    const props = createProps({ step: 2 });
+    const { container } = render(<MasterProjectCreateForm {...props} />);
+
+    expect(container.querySelector('form')?.classList.contains('rounded-3xl')).toBe(true);
+    expect(screen.getByText("Information")).toHaveAttribute("aria-current", "step");
+    fireEvent.change(screen.getByLabelText(/project name/i), { target: { value: "Event Project" } });
+    fireEvent.change(screen.getByLabelText(/remark/i), { target: { value: "Outdoor event" } });
+
+    expect(props.handleNameChange).toHaveBeenCalled();
+    expect(props.handleRemarkChange).toHaveBeenCalled();
+    expect(screen.getAllByRole("button", { name: "Back" }).find((button) => button.textContent === "Back")).toBeInTheDocument();
+  });
+
+  it("should render status switch in edit information step", () => {
+    const handleStatusChange = jest.fn();
+    const props = Object.assign(createProps({ isEditMode: true, step: 2 }), {
+      isActive: false,
+      handleStatusChange,
+    });
+
+    render(<MasterProjectCreateForm {...props} />);
+
+    expect(screen.getByText("Status")).toBeInTheDocument();
+    expect(screen.getByText("inactive")).toBeInTheDocument();
+    fireEvent.click(screen.getByRole("switch", { name: "Project status" }));
+    expect(handleStatusChange).toHaveBeenCalledTimes(1);
+  });
+
+  it("should render preview, messages, and loading submit state", () => {
+    const props = createProps({
+      step: 3,
+      name: "Event Project",
+      remark: "Outdoor event",
+      selectedItems: [{ ...createProps().items[0], qty: 2 }],
+      errorMessage: "Unable to save project.",
+      isSubmitting: true,
+    });
+    render(<MasterProjectCreateForm {...props} />);
+
+    expect(screen.getByText("Event Project")).toBeInTheDocument();
+    expect(screen.getByRole("alert")).toHaveTextContent("Unable to save project.");
+    expect(screen.getByRole("button", { name: "Saving…" })).toBeDisabled();
+  });
+
+  it("should match project form snapshot", () => {
+    const { asFragment } = render(<MasterProjectCreateForm {...createProps()} />);
+
+    expect(asFragment()).toMatchSnapshot();
+  });
+});

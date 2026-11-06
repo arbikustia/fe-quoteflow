@@ -1,1 +1,1 @@
-export { default } from "@/modules/master-pic/create";
+export { default } from "@/modules/master-data/master-pic/create";

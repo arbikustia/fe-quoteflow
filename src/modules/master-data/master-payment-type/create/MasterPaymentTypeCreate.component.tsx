@@ -1,0 +1,127 @@
+import type { ReactElement } from "react";
+import type { FieldError } from "react-hook-form";
+
+import { AlertComponent } from "@/components/Alert";
+import { BackButton } from "@/components/BackButton";
+import { InputComponent } from "@/components/Input";
+import { SwitchComponent } from "@/components/Switch";
+
+import type { MasterPaymentTypeCreateFormState } from "./MasterPaymentTypeCreate.type";
+
+/**
+ * Read validation message from React Hook Form.
+ * @param {FieldError | undefined} error - Field validation error
+ * @returns {string | null} Validation message
+ */
+const _getFieldError = (error: FieldError | undefined): string | null => error?.message?.toString() ?? null;
+
+/**
+ * Render status switch field.
+ * @param {MasterPaymentTypeCreateFormState} props - Form state
+ * @returns {ReactElement | null} Status field
+ */
+const _renderStatusField = (props: MasterPaymentTypeCreateFormState): ReactElement | null => {
+  if (!props.isEditMode) return null;
+
+  return (
+    <div className="flex items-center justify-between rounded-xl border border-border-default bg-background-surface px-4 py-3.5">
+      <div className="flex flex-col">
+        <span className="text-lg font-semibold text-text-primary lg:text-sm">Status</span>
+        <span className="text-base text-text-secondary lg:text-xs">Toggle active or inactive status</span>
+      </div>
+      <SwitchComponent label="Payment type status" checked={props.isActive} onChange={props.handleStatusChange} />
+    </div>
+  );
+};
+
+/**
+ * Render mobile back bar.
+ * @param {boolean} isEditMode - Edit mode flag
+ * @param {() => void} goBack - Back action
+ * @returns {ReactElement} Back bar
+ */
+const _renderMobileBack = (isEditMode: boolean, goBack: () => void): ReactElement => {
+  const title = isEditMode ? "Edit Payment Type" : "New Payment Type";
+
+  return (
+  <div className="sticky top-0 z-20 mb-6 flex items-center gap-3 bg-background-page px-0 lg:hidden">
+    <BackButton onClick={goBack} />
+    <h2 className="truncate text-4xl font-semibold tracking-tight text-text-primary">{title}</h2>
+        <p className="mt-1 truncate text-sm text-text-secondary">{isEditMode ? "Update the payment type details below." : "Fill in the payment type details below."}</p>
+  </div>
+  );
+};
+
+/**
+ * Render form header.
+ * @param {boolean} isEditMode - Edit mode flag
+ * @param {() => void} goBack - Back action
+ * @returns {ReactElement} Header
+ */
+const _renderHeader = (isEditMode: boolean, goBack: () => void): ReactElement => {
+  const title = isEditMode ? "Edit Payment Type" : "New Payment Type";
+
+  return (
+    <>
+      <nav aria-label="Breadcrumb" className="mb-2 hidden items-center gap-2 text-sm font-medium text-text-secondary lg:flex">
+        <button type="button" onClick={goBack} className="cursor-pointer hover:text-text-primary">Master Payment Type</button>
+        <span aria-hidden="true">/</span>
+        <span className="text-text-primary">{title}</span>
+      </nav>
+      <div className="mb-6 hidden lg:block">
+        <h2 className="text-4xl font-semibold leading-tight tracking-tight text-text-primary">{title}</h2>
+        <p className="mt-2 text-sm font-medium text-text-secondary opacity-70">{isEditMode ? "Update the payment type details below." : "Fill in the payment type details below."}</p>
+      </div>
+    </>
+  );
+};
+
+/**
+ * Render payment type form body.
+ * @param {MasterPaymentTypeCreateFormState} props - Form state
+ * @returns {ReactElement} Form body
+ */
+const _renderForm = (props: MasterPaymentTypeCreateFormState): ReactElement => {
+  const buttonText = props.isEditMode ? "Update Payment Type" : "Create Payment Type";
+  const submittingText = props.isEditMode ? "Updating…" : "Creating…";
+  const nameError = props.isSubmitted && !props.name ? "Payment type name is required." : _getFieldError(props.errors?.name);
+
+  return (
+    <form noValidate onSubmit={props.handleSubmit} className="flex min-h-0 flex-1 flex-col justify-between border-0 bg-transparent p-0 shadow-none lg:rounded-4xl lg:border lg:border-border-default lg:bg-background-surface lg:p-8 lg:shadow-xs">
+      <div className="space-y-4">
+        <InputComponent
+          id="payment-type-name"
+          type="text"
+          label="Payment Type Name"
+          className="[&_.ant-input]:text-xl [&_.ant-input]:placeholder:text-xl [&_label]:text-base"
+          placeholder="e.g. Full Payment"
+          value={props.name}
+          required
+          errorMessage={nameError}
+          onChange={props.handleNameChange}
+        />
+        {_renderStatusField(props)}
+      </div>
+      <div className="mt-8 flex justify-end border-t border-border-default/60 pt-5 lg:mt-6 lg:border-border-default">
+        <button type="submit" disabled={props.isSubmitting} className="h-14 w-full cursor-pointer rounded-xl bg-action-primary px-8 text-lg font-semibold tracking-wide text-text-inverse shadow-xs transition-all hover:bg-action-primary-hover disabled:opacity-60 sm:w-auto lg:text-sm">{props.isSubmitting ? submittingText : buttonText}</button>
+      </div>
+    </form>
+  );
+};
+
+/**
+ * Render payment type create/edit form.
+ * @param {MasterPaymentTypeCreateFormState} props - Form state
+ * @returns {ReactElement} Form
+ */
+export const MasterPaymentTypeCreateForm = (props: MasterPaymentTypeCreateFormState): ReactElement => (
+  <div className="flex h-full w-full flex-col bg-background-surface pb-6 font-sans lg:bg-background-page">
+    {props.errorMessage && <AlertComponent type="error" message={props.errorMessage} toast closable />}
+    {props.successMessage && <AlertComponent type="success" message={props.successMessage} toast closable />}
+    {_renderMobileBack(props.isEditMode, props.goBack)}
+    <div className="flex min-h-0 w-full flex-1 flex-col px-0 text-lg lg:mt-0 lg:px-0 lg:text-base">
+      {_renderHeader(props.isEditMode, props.goBack)}
+      {props.isLoadingInitialData ? <p className="py-12 text-center text-sm text-text-secondary">Loading payment type data…</p> : _renderForm(props)}
+    </div>
+  </div>
+);

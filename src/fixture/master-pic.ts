@@ -1,4 +1,4 @@
-import type { PicData } from "../modules/master-pic/MasterPic.type";
+import type { PicData } from "../../modules/master-data/master-pic/MasterPic.type";
 
 export const MOCK_PICS: PicData[] = [
   { id: "1", name: "PIC 1", status: "active", createAt: "2024-02-01T00:00:00Z", createBy: "Admin" },

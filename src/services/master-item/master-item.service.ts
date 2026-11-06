@@ -12,7 +12,7 @@ import type {
   ItemListParams,
   ItemListResponse,
   ItemUpdatePayload,
-} from "@/modules/master-item/MasterItem.type";
+} from "@/modules/master-data/master-item/MasterItem.type";
 
 /**
  * Map API item model to UI model.

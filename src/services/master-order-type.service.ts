@@ -11,7 +11,7 @@ import type {
   OrderTypeListParams,
   OrderTypeListResponse,
   OrderTypeUpdatePayload,
-} from "@/modules/master-order-type/MasterOrderType.type";
+} from "@/modules/master-data/master-order-type/MasterOrderType.type";
 
 const ORDER_TYPE_TAG = "OrderType";
 

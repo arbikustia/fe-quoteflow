@@ -1,4 +1,4 @@
-import type { RoleData } from "../modules/master-role/MasterRole.type";
+import type { RoleData } from "../../modules/master-data/master-role/MasterRole.type";
 
 export const MOCK_ROLES: RoleData[] = [
   { id: "1", roleName: "Role 1", status: "active", createAt: "2024-02-01T00:00:00Z", createBy: "Admin" },

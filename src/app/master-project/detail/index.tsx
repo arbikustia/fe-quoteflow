@@ -1,1 +1,1 @@
-export { default } from "@/modules/master-project/detail";
+export { default } from "@/modules/master-data/master-project/detail";

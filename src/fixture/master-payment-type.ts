@@ -1,4 +1,4 @@
-import type { PaymentTypeData } from "../modules/master-payment-type/MasterPaymentType.type";
+import type { PaymentTypeData } from "../../modules/master-data/master-payment-type/MasterPaymentType.type";
 
 export const MOCK_PAYMENT_TYPES: PaymentTypeData[] = [
   { id: "1", name: "Payment Type 1", status: "active", createAt: "2024-02-01T00:00:00Z", createBy: "Admin" },

@@ -1,4 +1,4 @@
-import type { ItemData } from "../modules/master-item/MasterItem.type";
+import type { ItemData } from "../../modules/master-data/master-item/MasterItem.type";
 
 export const MOCK_ITEMS: ItemData[] = [
   { 

@@ -10,7 +10,7 @@ import type {
   CustomerListParams,
   CustomerListResponse,
   CustomerUpdatePayload,
-} from "@/modules/master-customer/MasterCustomer.type";
+} from "@/modules/master-data/master-customer/MasterCustomer.type";
 
 const CUSTOMER_TAG = "Customer";
 

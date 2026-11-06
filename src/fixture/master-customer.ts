@@ -1,4 +1,4 @@
-import type { CustomerData } from "../modules/master-customer/MasterCustomer.type";
+import type { CustomerData } from "../../modules/master-data/master-customer/MasterCustomer.type";
 
 export const MOCK_CUSTOMERS: CustomerData[] = [
   {

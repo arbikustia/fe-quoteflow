@@ -1,7 +1,7 @@
 import { apiRtkClient } from "@/libs/ApiRtkServices/apiRtkClient";
 
 import ENDPOINT from "@/constant/endpoint.const";
-import type { ServiceTypeAllResponse, ServiceTypeCreatePayload, ServiceTypeCreateResponse, ServiceTypeData, ServiceTypeListParams, ServiceTypeListResponse, ServiceTypeUpdatePayload } from "@/modules/master-service-type/MasterServiceType.type";
+import type { ServiceTypeAllResponse, ServiceTypeCreatePayload, ServiceTypeCreateResponse, ServiceTypeData, ServiceTypeListParams, ServiceTypeListResponse, ServiceTypeUpdatePayload } from "@/modules/master-data/master-service-type/MasterServiceType.type";
 
 /**
  * Map API service type model to UI model.

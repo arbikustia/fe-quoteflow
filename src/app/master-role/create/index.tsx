@@ -1,1 +1,1 @@
-export { default } from "@/modules/master-role/create";
+export { default } from "@/modules/master-data/master-role/create";

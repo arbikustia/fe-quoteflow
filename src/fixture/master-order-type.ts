@@ -1,4 +1,4 @@
-import type { OrderTypeData } from "../modules/master-order-type/MasterOrderType.type";
+import type { OrderTypeData } from "../../modules/master-data/master-order-type/MasterOrderType.type";
 
 export const MOCK_ORDER_TYPES: OrderTypeData[] = [
   {

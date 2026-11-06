@@ -11,7 +11,7 @@ import type {
   PicListParams,
   PicListResponse,
   PicUpdatePayload,
-} from "@/modules/master-pic/MasterPic.type";
+} from "@/modules/master-data/master-pic/MasterPic.type";
 
 /**
  * Map API PIC model to UI model.

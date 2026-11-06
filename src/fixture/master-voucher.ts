@@ -1,4 +1,4 @@
-import type { VoucherData } from "../modules/master-voucher/MasterVoucher.type";
+import type { VoucherData } from "../../modules/master-data/master-voucher/MasterVoucher.type";
 
 export const MOCK_VOUCHERS: VoucherData[] = [
   { id: "1", name: "Voucher 001", code: "VOUCHER001", discountPercent: 5, status: "active", createAt: "2024-02-01T00:00:00Z", createBy: "Admin" },

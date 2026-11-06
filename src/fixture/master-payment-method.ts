@@ -1,4 +1,4 @@
-import type { PaymentMethodData } from "../modules/master-payment-method/MasterPaymentMethod.type";
+import type { PaymentMethodData } from "../../modules/master-data/master-payment-method/MasterPaymentMethod.type";
 
 export const MOCK_PAYMENT_METHODS: PaymentMethodData[] = [
   {

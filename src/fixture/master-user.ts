@@ -1,4 +1,4 @@
-import type { UserData } from "../modules/master-user/MasterUser.type";
+import type { UserData } from "../../modules/master-data/master-user/MasterUser.type";
 
 export const MOCK_USERS: UserData[] = [
   {

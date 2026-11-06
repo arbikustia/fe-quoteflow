@@ -1,1 +1,1 @@
-export { default } from "@/modules/master-service-type/detail";
+export { default } from "@/modules/master-data/master-service-type/detail";

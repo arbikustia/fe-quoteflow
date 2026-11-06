@@ -1,1 +1,1 @@
-export { default } from "@/modules/master-voucher";
+export { default } from "@/modules/master-data/master-voucher";

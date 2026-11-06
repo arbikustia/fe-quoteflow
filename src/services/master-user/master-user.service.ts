@@ -12,7 +12,7 @@ import type {
   UserListParams,
   UserListResponse,
   UserUpdatePayload,
-} from "@/modules/master-user/MasterUser.type";
+} from "@/modules/master-data/master-user/MasterUser.type";
 
 /** Normalize API messages to one source shape. */
 const _normalizeMessages = (messages: ApiBaseData["messages"]): string[] => {

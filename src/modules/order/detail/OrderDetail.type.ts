@@ -1,6 +1,6 @@
 import type { ApiRentalTransactionDetail } from "../Order.type";
 
-import type { ProjectData } from "@/modules/master-project/MasterProject.type";
+import type { ProjectData } from "@/modules/master-data/master-project/MasterProject.type";
 
 export type OrderDetailRouteState = {
   from?: string;

@@ -1,4 +1,4 @@
-import type { ServiceTypeData } from "../modules/master-service-type/MasterServiceType.type";
+import type { ServiceTypeData } from "../../modules/master-data/master-service-type/MasterServiceType.type";
 
 export const MOCK_SERVICE_TYPES: ServiceTypeData[] = [
   {

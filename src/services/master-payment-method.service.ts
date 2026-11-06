@@ -10,7 +10,7 @@ import type {
   PaymentMethodListParams,
   PaymentMethodListResponse,
   PaymentMethodUpdatePayload,
-} from "@/modules/master-payment-method/MasterPaymentMethod.type";
+} from "@/modules/master-data/master-payment-method/MasterPaymentMethod.type";
 
 export type {
   ApiPaymentMethod,

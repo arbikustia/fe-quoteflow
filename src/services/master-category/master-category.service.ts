@@ -11,7 +11,7 @@ import type {
   CategoryListParams,
   CategoryListResponse,
   CategoryUpdatePayload,
-} from "@/modules/master-category/MasterCategory.type";
+} from "@/modules/master-data/master-category/MasterCategory.type";
 
 const CATEGORY_TAG = "Category";
 

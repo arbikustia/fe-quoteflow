@@ -1,1 +1,1 @@
-export { default } from "@/modules/master-order-type/create";
+export { default } from "@/modules/master-data/master-order-type/create";
