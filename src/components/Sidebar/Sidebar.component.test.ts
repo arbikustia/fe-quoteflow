@@ -30,6 +30,7 @@ describe("SidebarComponent Test", () => {
 
     expect(screen.getByRole("link", { name: "Dashboard" })).toHaveAttribute("href", "/home");
     expect(screen.getByRole("link", { name: "Create Order" })).toHaveAttribute("href", "/order/create");
+    expect(screen.getByRole("link", { name: "Mail" })).toHaveAttribute("href", "/mail");
   });
 
 

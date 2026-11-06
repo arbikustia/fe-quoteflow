@@ -87,6 +87,11 @@ export const NAVIGATION_CONFIG: NavigationItem[] = [
     path: "/note",
   },
   {
+    name: "Mail",
+    icon: LuMail,
+    path: "/mail",
+  },
+  {
     name: "Report",
     icon: LuChartNoAxesCombined,
     children: [{ name: "Order", icon: LuClipboardList, path: "/report" }],

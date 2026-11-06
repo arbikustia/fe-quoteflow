@@ -406,6 +406,43 @@ exports[`SidebarContainer matches snapshot 1`] = `
               Note
             </span>
           </a>
+          <a
+            class="min-h-14 flex items-center gap-3 rounded-[8px] px-4 py-3 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring/30 text-text-secondary hover:bg-background-elevated hover:text-text-primary"
+            data-discover="true"
+            href="/mail"
+          >
+            <span
+              class="shrink-0 [&_svg]:h-5 [&_svg]:w-5 text-text-tertiary"
+            >
+              <svg
+                fill="none"
+                height="1em"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+                width="1em"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <rect
+                  height="16"
+                  rx="2"
+                  width="20"
+                  x="2"
+                  y="4"
+                />
+                <path
+                  d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"
+                />
+              </svg>
+            </span>
+            <span
+              class="flex-1 truncate text-xl leading-none font-normal"
+            >
+              Mail
+            </span>
+          </a>
           <div>
             <button
               aria-expanded="false"
@@ -539,39 +576,6 @@ exports[`SidebarContainer matches snapshot 1`] = `
       class="shrink-0 border-t border-border-default p-3"
     >
       <button
-        aria-checked="false"
-        aria-label="Toggle dark theme"
-        class="mb-2 flex min-h-12 w-full cursor-pointer items-center rounded-[8px] bg-background-subtle text-text-secondary transition-colors hover:bg-action-primary-subtle focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring gap-3 px-4 py-3"
-        role="switch"
-        type="button"
-      >
-        <span
-          aria-hidden="true"
-          class="shrink-0 [&_svg]:h-5 [&_svg]:w-5"
-        >
-          <svg
-            fill="none"
-            height="20"
-            stroke="currentColor"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="1.8"
-            viewBox="0 0 24 24"
-            width="20"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"
-            />
-          </svg>
-        </span>
-        <span
-          class="flex-1 text-left text-xl font-medium"
-        >
-          Dark theme
-        </span>
-      </button>
-      <button
         aria-label="Log out"
         class="mb-2 flex min-h-12 w-full cursor-pointer items-center rounded-[8px] bg-danger-subtle text-danger-strong transition-colors hover:bg-danger/20 focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring gap-3 px-4 py-3"
         type="button"
@@ -611,11 +615,11 @@ exports[`SidebarContainer matches snapshot 1`] = `
           Log out
         </span>
       </button>
-      <button
-        aria-expanded="false"
-        aria-haspopup="menu"
+      <a
+        aria-label="Profile"
         class="flex w-full cursor-pointer items-center rounded-[10px] transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring/30 hover:bg-background-elevated gap-3 px-4 py-3"
-        type="button"
+        data-discover="true"
+        href="/profile"
       >
         <span
           aria-hidden="true"
@@ -632,26 +636,7 @@ exports[`SidebarContainer matches snapshot 1`] = `
             User
           </span>
         </span>
-        <span
-          class="shrink-0 text-text-tertiary transition-transform duration-200 [&_svg]:h-5 [&_svg]:w-5 "
-        >
-          <svg
-            fill="none"
-            height="14"
-            stroke="currentColor"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2"
-            viewBox="0 0 24 24"
-            width="14"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="m6 9 6 6 6-6"
-            />
-          </svg>
-        </span>
-      </button>
+      </a>
     </div>
   </aside>
 </DocumentFragment>

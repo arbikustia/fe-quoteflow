@@ -1,0 +1,107 @@
+import { describe, expect, it, jest } from "@jest/globals";
+
+import { fireEvent, render, screen } from "@/libs/unit-test";
+import { BrowserRouter } from "react-router-dom";
+
+import { MailCreateForm } from "./MailCreate.component";
+import type { MailComposeFormState } from "./MailCreate.type";
+
+const buildProps = (overrides: Partial<MailComposeFormState> = {}): MailComposeFormState => ({
+  senderId: "",
+  template: "quotation",
+  to: "",
+  subject: "",
+  body: "",
+  attachmentName: "",
+  attachmentUrl: "",
+  senderOptions: [{ label: "sales@example.com", value: "sales@example.com" }],
+  templateOptions: [
+    { label: "Quotation", value: "quotation" },
+    { label: "Invoice", value: "invoice" },
+  ],
+  isSenderLoading: false,
+  isSubmitting: false,
+  handleSenderChange: jest.fn(),
+  handleTemplateChange: jest.fn(),
+  handleToChange: jest.fn(),
+  handleSubjectChange: jest.fn(),
+  handleBodyChange: jest.fn(),
+  handleAttachmentChange: jest.fn(),
+  handleAttachmentRemove: jest.fn(),
+  handleSubmit: jest.fn(),
+  goBack: jest.fn(),
+  ...overrides,
+});
+
+const renderForm = (props: MailComposeFormState): void => {
+  render(
+    <BrowserRouter>
+      <MailCreateForm {...props} />
+    </BrowserRouter>,
+  );
+};
+
+describe("MailCreateForm", () => {
+  it("should render every compose field", () => {
+    renderForm(buildProps());
+
+    expect(screen.getByLabelText(/From/)).toBeDefined();
+    expect(screen.getByLabelText(/Template/)).toBeDefined();
+    expect(screen.getByLabelText(/To/)).toBeDefined();
+    expect(screen.getByLabelText(/Subject/)).toBeDefined();
+    expect(screen.getByLabelText(/Body/)).toBeDefined();
+    expect(screen.getByLabelText("Attachment")).toBeDefined();
+  });
+
+  it("should default the template select to the current template", () => {
+    renderForm(buildProps({ template: "quotation" }));
+
+    expect(screen.getByText("Quotation")).toBeDefined();
+  });
+
+  it("should render field errors", () => {
+    renderForm(buildProps({ toError: "Recipient email is required.", bodyError: "Message body is required." }));
+
+    expect(screen.getByText("Recipient email is required.")).toBeDefined();
+    expect(screen.getByText("Message body is required.")).toBeDefined();
+  });
+
+  it("should call the recipient handler on input", () => {
+    const handleToChange = jest.fn();
+
+    renderForm(buildProps({ handleToChange }));
+
+    fireEvent.change(screen.getByLabelText(/To/), { target: { value: "a@b.com" } });
+
+    expect(handleToChange).toHaveBeenCalled();
+  });
+
+  it("should accept only pdf attachments", () => {
+    renderForm(buildProps());
+
+    expect(screen.getByLabelText("Attachment").getAttribute("accept")).toBe("application/pdf");
+  });
+
+  it("should show an openable preview for the selected attachment", () => {
+    renderForm(buildProps({ attachmentName: "quotation.pdf", attachmentUrl: "blob:quotation-preview" }));
+
+    expect(screen.getByText("quotation.pdf")).toBeDefined();
+    expect(screen.getByText("Open attachment").getAttribute("href")).toBe("blob:quotation-preview");
+  });
+
+  it("should let the user remove the selected attachment", () => {
+    const handleAttachmentRemove = jest.fn();
+
+    renderForm(buildProps({ attachmentName: "quotation.pdf", attachmentUrl: "blob:quotation-preview", handleAttachmentRemove }));
+
+    fireEvent.click(screen.getByLabelText("Remove attachment"));
+
+    expect(handleAttachmentRemove).toHaveBeenCalled();
+  });
+
+  it("should disable the sender select while loading", () => {
+    renderForm(buildProps({ isSenderLoading: true, senderOptions: [] }));
+
+    expect(screen.getByText("Loading senders...")).toBeDefined();
+  });
+});

@@ -57,6 +57,7 @@ export const apiRtkClient = createApi({
     "Payment",
     "Note",
     "EmailSender",
+    "Mail",
     "ActivityLog",
     "RentalOrder",
     "RentalChecklist",

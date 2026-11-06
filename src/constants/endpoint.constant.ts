@@ -72,10 +72,15 @@ const ENDPOINT = {
     CREATE: "/api/notes",
   },
   MASTER_EMAIL_SENDER: {
-    PAGED: "/api/master-email-sender/paged",
+    PAGED: "/api/email-sender/paged",
     ALL: "/api/master-email-sender",
     CREATE: "/api/master-email-sender",
     DETAIL: "/api/master-email-sender",
+  },
+  MAIL: {
+    PAGED: "/api/mail/paged",
+    SENDERS: "/api/email-sender",
+    SEND: "/api/email/send",
   },
   QUOTATION: {
     PAGED: "/api/quotation/paged",

@@ -1,0 +1,1314 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`MailCreateForm Snapshots should render mail compose form 1`] = `
+<DocumentFragment>
+  <div
+    class="flex h-full w-full flex-col bg-background-page pb-6 font-sans"
+  >
+    <div
+      class="mb-6 flex items-center gap-3 bg-background-page lg:hidden"
+    >
+      <button
+        aria-label="Back"
+        class="flex h-14 w-14 shrink-0 items-center justify-center rounded-full border border-border-default bg-background-page text-text-primary transition-colors hover:bg-background-subtle focus-visible:ring-2 focus-visible:ring-focus-ring/30 "
+        type="button"
+      >
+        <svg
+          aria-hidden="true"
+          class="h-6 w-6"
+          fill="none"
+          height="1em"
+          stroke="currentColor"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          viewBox="0 0 24 24"
+          width="1em"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <line
+            x1="19"
+            x2="5"
+            y1="12"
+            y2="12"
+          />
+          <polyline
+            points="12 19 5 12 12 5"
+          />
+        </svg>
+      </button>
+      <div
+        class="min-w-0"
+      >
+        <h2
+          class="truncate text-4xl font-semibold tracking-tight text-text-primary"
+        >
+          New Mail
+        </h2>
+        <p
+          class="mt-1 truncate text-sm text-text-secondary"
+        >
+          Fill in the mail details below.
+        </p>
+      </div>
+    </div>
+    <div
+      class="flex min-h-0 w-full flex-1 flex-col pb-32 text-lg lg:pb-0"
+    >
+      <div
+        class="hidden lg:block"
+      >
+        <nav
+          aria-label="Breadcrumb"
+          class="mb-2 flex items-center gap-2 text-[15px] font-medium text-text-secondary"
+        >
+          <span>
+            Mail
+          </span>
+          <span
+            aria-hidden="true"
+          >
+            /
+          </span>
+          <span
+            class="text-text-primary"
+          >
+            New Mail
+          </span>
+        </nav>
+        <div
+          class="mb-6"
+        >
+          <h2
+            class="text-4xl font-semibold leading-tight tracking-tight text-text-primary"
+          >
+            New Mail
+          </h2>
+          <p
+            class="mt-2 text-sm text-text-secondary"
+          >
+            Fill in the mail details below.
+          </p>
+        </div>
+      </div>
+      <form
+        class="mb-6 flex flex-col rounded-3xl border border-border-default bg-background-surface p-6 shadow-small sm:p-8 lg:-mt-4 lg:mb-5 lg:flex-1 lg:p-10"
+        novalidate=""
+      >
+        <div
+          class="pb-6"
+        >
+          <div
+            class="grid w-full grid-cols-1 gap-x-6 gap-y-5 lg:grid-cols-2"
+          >
+            <div>
+              <div
+                class="relative mb-0 [&_.ant-select-selector]:!min-h-16 lg:[&_.ant-select-selector]:!min-h-14"
+              >
+                <label
+                  class="mb-1.5 block text-sm font-semibold text-text-secondary !text-lg !font-normal !normal-case !text-text-primary lg:!text-lg"
+                  for="mail-sender"
+                >
+                  From
+                  <span
+                    aria-hidden="true"
+                    class="ml-1 text-danger"
+                  >
+                    *
+                  </span>
+                </label>
+                <div
+                  class="ant-select ant-select-outlined h-14 w-full !border-2 [&_.ant-select-selector]:!rounded-2xl [&_.ant-select-content]:!text-xl [&_.ant-select-content]:!font-normal !border-border-strong [&_.ant-select-selector]:!border-2 [&_.ant-select-selector]:!border-border-strong !h-16 lg:!h-14 [&_.ant-select-content]:!text-xl lg:[&_.ant-select-content]:!text-lg [&_.ant-select-content]:!font-normal css-var-root ant-select-css-var css-dev-only-do-not-override-eofgey ant-select-single ant-select-show-arrow ant-select-show-search"
+                  style="--ant-select-border-radius: 16px; border: 2px solid var(--border-strong);"
+                >
+                  <div
+                    class="ant-select-content ant-select-content-has-value"
+                    title="sales@example.com"
+                  >
+                    sales@example.com
+                    <input
+                      aria-autocomplete="list"
+                      aria-expanded="false"
+                      aria-haspopup="listbox"
+                      aria-invalid="false"
+                      aria-label="From"
+                      aria-required="true"
+                      autocomplete="new-password"
+                      class="ant-select-input"
+                      id="mail-sender"
+                      role="combobox"
+                      type="text"
+                      value=""
+                    />
+                  </div>
+                  <div
+                    class="ant-select-suffix"
+                  >
+                    <span
+                      aria-label="down"
+                      class="anticon anticon-down"
+                      role="img"
+                    >
+                      <svg
+                        aria-hidden="true"
+                        data-icon="down"
+                        fill="currentColor"
+                        focusable="false"
+                        height="1em"
+                        viewBox="64 64 896 896"
+                        width="1em"
+                      >
+                        <path
+                          d="M884 256h-75c-5.1 0-9.9 2.5-12.9 6.6L512 654.2 227.9 262.6c-3-4.1-7.8-6.6-12.9-6.6h-75c-6.5 0-10.3 7.4-6.5 12.7l352.6 486.1c12.8 17.6 39 17.6 51.7 0l352.6-486.1c3.9-5.3.1-12.7-6.4-12.7z"
+                        />
+                      </svg>
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div>
+              <div
+                class="relative mb-0 [&_.ant-select-selector]:!min-h-16 lg:[&_.ant-select-selector]:!min-h-14"
+              >
+                <label
+                  class="mb-1.5 block text-sm font-semibold text-text-secondary !text-lg !font-normal !normal-case !text-text-primary lg:!text-lg"
+                  for="mail-template"
+                >
+                  Template
+                  <span
+                    aria-hidden="true"
+                    class="ml-1 text-danger"
+                  >
+                    *
+                  </span>
+                </label>
+                <div
+                  class="ant-select ant-select-outlined h-14 w-full !border-2 [&_.ant-select-selector]:!rounded-2xl [&_.ant-select-content]:!text-xl [&_.ant-select-content]:!font-normal !border-border-strong [&_.ant-select-selector]:!border-2 [&_.ant-select-selector]:!border-border-strong !h-16 lg:!h-14 [&_.ant-select-content]:!text-xl lg:[&_.ant-select-content]:!text-lg [&_.ant-select-content]:!font-normal css-var-root ant-select-css-var css-dev-only-do-not-override-eofgey ant-select-single ant-select-show-arrow ant-select-show-search"
+                  style="--ant-select-border-radius: 16px; border: 2px solid var(--border-strong);"
+                >
+                  <div
+                    class="ant-select-content ant-select-content-has-value"
+                    title="Quotation"
+                  >
+                    Quotation
+                    <input
+                      aria-autocomplete="list"
+                      aria-expanded="false"
+                      aria-haspopup="listbox"
+                      aria-invalid="false"
+                      aria-label="Template"
+                      aria-required="true"
+                      autocomplete="new-password"
+                      class="ant-select-input"
+                      id="mail-template"
+                      role="combobox"
+                      type="text"
+                      value=""
+                    />
+                  </div>
+                  <div
+                    class="ant-select-suffix"
+                  >
+                    <span
+                      aria-label="down"
+                      class="anticon anticon-down"
+                      role="img"
+                    >
+                      <svg
+                        aria-hidden="true"
+                        data-icon="down"
+                        fill="currentColor"
+                        focusable="false"
+                        height="1em"
+                        viewBox="64 64 896 896"
+                        width="1em"
+                      >
+                        <path
+                          d="M884 256h-75c-5.1 0-9.9 2.5-12.9 6.6L512 654.2 227.9 262.6c-3-4.1-7.8-6.6-12.9-6.6h-75c-6.5 0-10.3 7.4-6.5 12.7l352.6 486.1c12.8 17.6 39 17.6 51.7 0l352.6-486.1c3.9-5.3.1-12.7-6.4-12.7z"
+                        />
+                      </svg>
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              class="mb-4 !mb-0 [&_.ant-input]:!h-16 lg:[&_.ant-input]:!h-14 [&_.ant-input]:!rounded-2xl [&_.ant-input]:!border-2 [&_.ant-input]:!border-border-strong [&_.ant-input]:!px-4 [&_.ant-input]:!text-xl lg:[&_.ant-input]:!text-lg [&_label]:!text-lg [&_label]:!font-normal [&_label]:!normal-case [&_label]:!text-text-primary"
+            >
+              <label
+                class="mb-1.5 block text-sm font-semibold text-text-secondary"
+                for="mail-to"
+              >
+                To
+                <span
+                  aria-hidden="true"
+                  class="ml-1 text-danger"
+                >
+                  *
+                </span>
+              </label>
+              <input
+                aria-invalid="false"
+                class="ant-input ant-input-lg css-dev-only-do-not-override-eofgey ant-input-outlined h-14 w-full !rounded-2xl css-var-root ant-input-css-var"
+                id="mail-to"
+                placeholder="e.g. customer@example.com"
+                required=""
+                type="email"
+                value="customer@example.com"
+              />
+            </div>
+            <div
+              class="mb-4 !mb-0 [&_.ant-input]:!h-16 lg:[&_.ant-input]:!h-14 [&_.ant-input]:!rounded-2xl [&_.ant-input]:!border-2 [&_.ant-input]:!border-border-strong [&_.ant-input]:!px-4 [&_.ant-input]:!text-xl lg:[&_.ant-input]:!text-lg [&_label]:!text-lg [&_label]:!font-normal [&_label]:!normal-case [&_label]:!text-text-primary"
+            >
+              <label
+                class="mb-1.5 block text-sm font-semibold text-text-secondary"
+                for="mail-subject"
+              >
+                Subject
+                <span
+                  aria-hidden="true"
+                  class="ml-1 text-danger"
+                >
+                  *
+                </span>
+              </label>
+              <input
+                aria-invalid="false"
+                class="ant-input ant-input-lg css-dev-only-do-not-override-eofgey ant-input-outlined h-14 w-full !rounded-2xl css-var-root ant-input-css-var"
+                id="mail-subject"
+                placeholder="e.g. Quotation follow up"
+                required=""
+                type="text"
+                value="Quotation follow up"
+              />
+            </div>
+            <label
+              class="block space-y-2 lg:col-span-2"
+            >
+              <span
+                class="text-lg font-normal text-text-primary"
+              >
+                Body
+                <span
+                  aria-hidden="true"
+                  class="ml-1 text-danger"
+                >
+                  *
+                </span>
+              </span>
+              <textarea
+                class="min-h-36 w-full rounded-2xl border-2 border-border-strong bg-background-surface px-4 py-4 text-xl font-normal outline-none placeholder:text-xl placeholder:text-text-tertiary focus:border-border-focus focus:ring-2 focus:ring-focus-ring/30 lg:min-h-28 lg:text-lg lg:placeholder:text-lg"
+                id="mail-body"
+                placeholder="Write the mail content"
+              >
+                Hello
+              </textarea>
+            </label>
+            <div
+              class="space-y-2 lg:col-span-2"
+            >
+              <label
+                class="block text-lg font-normal text-text-primary"
+                for="mail-attachment"
+              >
+                Attachment
+              </label>
+              <input
+                accept="application/pdf"
+                class="block w-full cursor-pointer rounded-2xl border-2 border-dashed border-border-strong bg-background-surface px-4 py-4 text-lg font-normal text-text-secondary outline-none file:mr-4 file:cursor-pointer file:rounded-xl file:border-0 file:bg-action-primary file:px-4 file:py-2 file:text-sm file:font-semibold file:text-text-inverse hover:border-action-primary hover:file:bg-action-primary-hover focus-visible:border-border-focus focus-visible:ring-2 focus-visible:ring-focus-ring/30 disabled:cursor-not-allowed disabled:opacity-60"
+                id="mail-attachment"
+                type="file"
+              />
+              <div
+                class="flex items-center justify-between gap-4 rounded-2xl border-2 border-action-primary/40 bg-action-primary-subtle px-4 py-3"
+              >
+                <div
+                  class="flex min-w-0 items-center gap-3"
+                >
+                  <svg
+                    aria-hidden="true"
+                    class="h-8 w-8 shrink-0 text-action-primary"
+                    fill="none"
+                    height="1em"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    viewBox="0 0 24 24"
+                    width="1em"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"
+                    />
+                    <polyline
+                      points="14 2 14 8 20 8"
+                    />
+                    <line
+                      x1="16"
+                      x2="8"
+                      y1="13"
+                      y2="13"
+                    />
+                    <line
+                      x1="16"
+                      x2="8"
+                      y1="17"
+                      y2="17"
+                    />
+                    <polyline
+                      points="10 9 9 9 8 9"
+                    />
+                  </svg>
+                  <div
+                    class="min-w-0"
+                  >
+                    <p
+                      class="truncate text-lg font-semibold text-text-primary"
+                    >
+                      quotation.pdf
+                    </p>
+                    <a
+                      class="text-sm font-semibold text-action-primary underline underline-offset-2 hover:text-action-primary-hover"
+                      href="blob:quotation-preview"
+                      rel="noreferrer"
+                      target="_blank"
+                    >
+                      Open attachment
+                    </a>
+                  </div>
+                </div>
+                <button
+                  aria-label="Remove attachment"
+                  class="shrink-0 cursor-pointer rounded-xl p-2 text-text-secondary transition-colors hover:bg-danger-subtle hover:text-danger-strong focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-action-primary disabled:cursor-not-allowed disabled:opacity-50"
+                  type="button"
+                >
+                  <svg
+                    class="h-5 w-5"
+                    fill="none"
+                    height="1em"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    viewBox="0 0 24 24"
+                    width="1em"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <line
+                      x1="18"
+                      x2="6"
+                      y1="6"
+                      y2="18"
+                    />
+                    <line
+                      x1="6"
+                      x2="18"
+                      y1="6"
+                      y2="18"
+                    />
+                  </svg>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          class="mt-auto flex justify-between gap-3 border-t border-border-default/60 pt-5"
+        >
+          <button
+            class="h-14 cursor-pointer rounded-xl border border-border-default px-8 text-lg font-semibold text-text-primary transition-colors hover:bg-background-subtle focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-action-primary disabled:cursor-not-allowed disabled:opacity-50"
+            type="button"
+          >
+            Cancel
+          </button>
+          <button
+            class="h-14 cursor-pointer rounded-xl bg-action-primary px-8 text-lg font-semibold text-text-inverse shadow-xs transition-colors hover:bg-action-primary-hover focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-action-primary disabled:cursor-not-allowed disabled:opacity-60"
+            type="submit"
+          >
+            Send Mail
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`MailCreateForm Snapshots should render mail compose form while loading senders 1`] = `
+<DocumentFragment>
+  <div
+    class="flex h-full w-full flex-col bg-background-page pb-6 font-sans"
+  >
+    <div
+      class="mb-6 flex items-center gap-3 bg-background-page lg:hidden"
+    >
+      <button
+        aria-label="Back"
+        class="flex h-14 w-14 shrink-0 items-center justify-center rounded-full border border-border-default bg-background-page text-text-primary transition-colors hover:bg-background-subtle focus-visible:ring-2 focus-visible:ring-focus-ring/30 "
+        type="button"
+      >
+        <svg
+          aria-hidden="true"
+          class="h-6 w-6"
+          fill="none"
+          height="1em"
+          stroke="currentColor"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          viewBox="0 0 24 24"
+          width="1em"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <line
+            x1="19"
+            x2="5"
+            y1="12"
+            y2="12"
+          />
+          <polyline
+            points="12 19 5 12 12 5"
+          />
+        </svg>
+      </button>
+      <div
+        class="min-w-0"
+      >
+        <h2
+          class="truncate text-4xl font-semibold tracking-tight text-text-primary"
+        >
+          New Mail
+        </h2>
+        <p
+          class="mt-1 truncate text-sm text-text-secondary"
+        >
+          Fill in the mail details below.
+        </p>
+      </div>
+    </div>
+    <div
+      class="flex min-h-0 w-full flex-1 flex-col pb-32 text-lg lg:pb-0"
+    >
+      <div
+        class="hidden lg:block"
+      >
+        <nav
+          aria-label="Breadcrumb"
+          class="mb-2 flex items-center gap-2 text-[15px] font-medium text-text-secondary"
+        >
+          <span>
+            Mail
+          </span>
+          <span
+            aria-hidden="true"
+          >
+            /
+          </span>
+          <span
+            class="text-text-primary"
+          >
+            New Mail
+          </span>
+        </nav>
+        <div
+          class="mb-6"
+        >
+          <h2
+            class="text-4xl font-semibold leading-tight tracking-tight text-text-primary"
+          >
+            New Mail
+          </h2>
+          <p
+            class="mt-2 text-sm text-text-secondary"
+          >
+            Fill in the mail details below.
+          </p>
+        </div>
+      </div>
+      <form
+        class="mb-6 flex flex-col rounded-3xl border border-border-default bg-background-surface p-6 shadow-small sm:p-8 lg:-mt-4 lg:mb-5 lg:flex-1 lg:p-10"
+        novalidate=""
+      >
+        <div
+          class="pb-6"
+        >
+          <div
+            class="grid w-full grid-cols-1 gap-x-6 gap-y-5 lg:grid-cols-2"
+          >
+            <div>
+              <div
+                class="relative mb-0 [&_.ant-select-selector]:!min-h-16 lg:[&_.ant-select-selector]:!min-h-14"
+              >
+                <label
+                  class="mb-1.5 block text-sm font-semibold text-text-secondary !text-lg !font-normal !normal-case !text-text-primary lg:!text-lg"
+                  for="mail-sender"
+                >
+                  From
+                  <span
+                    aria-hidden="true"
+                    class="ml-1 text-danger"
+                  >
+                    *
+                  </span>
+                </label>
+                <div
+                  class="ant-select ant-select-outlined h-14 w-full !border-2 [&_.ant-select-selector]:!rounded-2xl [&_.ant-select-content]:!text-xl [&_.ant-select-content]:!font-normal !border-border-strong [&_.ant-select-selector]:!border-2 [&_.ant-select-selector]:!border-border-strong !h-16 lg:!h-14 [&_.ant-select-content]:!text-xl lg:[&_.ant-select-content]:!text-lg [&_.ant-select-content]:!font-normal css-var-root ant-select-css-var css-dev-only-do-not-override-eofgey ant-select-single ant-select-show-arrow ant-select-disabled ant-select-show-search"
+                  style="--ant-select-border-radius: 16px; border: 2px solid var(--border-strong);"
+                >
+                  <div
+                    class="ant-select-content ant-select-content-has-value"
+                    title="sales@example.com"
+                  >
+                    sales@example.com
+                    <input
+                      aria-autocomplete="list"
+                      aria-expanded="false"
+                      aria-haspopup="listbox"
+                      aria-invalid="false"
+                      aria-label="From"
+                      aria-required="true"
+                      autocomplete="new-password"
+                      class="ant-select-input"
+                      disabled=""
+                      id="mail-sender"
+                      role="combobox"
+                      type="text"
+                      value=""
+                    />
+                  </div>
+                  <div
+                    class="ant-select-suffix"
+                  >
+                    <span
+                      aria-label="down"
+                      class="anticon anticon-down"
+                      role="img"
+                    >
+                      <svg
+                        aria-hidden="true"
+                        data-icon="down"
+                        fill="currentColor"
+                        focusable="false"
+                        height="1em"
+                        viewBox="64 64 896 896"
+                        width="1em"
+                      >
+                        <path
+                          d="M884 256h-75c-5.1 0-9.9 2.5-12.9 6.6L512 654.2 227.9 262.6c-3-4.1-7.8-6.6-12.9-6.6h-75c-6.5 0-10.3 7.4-6.5 12.7l352.6 486.1c12.8 17.6 39 17.6 51.7 0l352.6-486.1c3.9-5.3.1-12.7-6.4-12.7z"
+                        />
+                      </svg>
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div>
+              <div
+                class="relative mb-0 [&_.ant-select-selector]:!min-h-16 lg:[&_.ant-select-selector]:!min-h-14"
+              >
+                <label
+                  class="mb-1.5 block text-sm font-semibold text-text-secondary !text-lg !font-normal !normal-case !text-text-primary lg:!text-lg"
+                  for="mail-template"
+                >
+                  Template
+                  <span
+                    aria-hidden="true"
+                    class="ml-1 text-danger"
+                  >
+                    *
+                  </span>
+                </label>
+                <div
+                  class="ant-select ant-select-outlined h-14 w-full !border-2 [&_.ant-select-selector]:!rounded-2xl [&_.ant-select-content]:!text-xl [&_.ant-select-content]:!font-normal !border-border-strong [&_.ant-select-selector]:!border-2 [&_.ant-select-selector]:!border-border-strong !h-16 lg:!h-14 [&_.ant-select-content]:!text-xl lg:[&_.ant-select-content]:!text-lg [&_.ant-select-content]:!font-normal css-var-root ant-select-css-var css-dev-only-do-not-override-eofgey ant-select-single ant-select-show-arrow ant-select-show-search"
+                  style="--ant-select-border-radius: 16px; border: 2px solid var(--border-strong);"
+                >
+                  <div
+                    class="ant-select-content ant-select-content-has-value"
+                    title="Quotation"
+                  >
+                    Quotation
+                    <input
+                      aria-autocomplete="list"
+                      aria-expanded="false"
+                      aria-haspopup="listbox"
+                      aria-invalid="false"
+                      aria-label="Template"
+                      aria-required="true"
+                      autocomplete="new-password"
+                      class="ant-select-input"
+                      id="mail-template"
+                      role="combobox"
+                      type="text"
+                      value=""
+                    />
+                  </div>
+                  <div
+                    class="ant-select-suffix"
+                  >
+                    <span
+                      aria-label="down"
+                      class="anticon anticon-down"
+                      role="img"
+                    >
+                      <svg
+                        aria-hidden="true"
+                        data-icon="down"
+                        fill="currentColor"
+                        focusable="false"
+                        height="1em"
+                        viewBox="64 64 896 896"
+                        width="1em"
+                      >
+                        <path
+                          d="M884 256h-75c-5.1 0-9.9 2.5-12.9 6.6L512 654.2 227.9 262.6c-3-4.1-7.8-6.6-12.9-6.6h-75c-6.5 0-10.3 7.4-6.5 12.7l352.6 486.1c12.8 17.6 39 17.6 51.7 0l352.6-486.1c3.9-5.3.1-12.7-6.4-12.7z"
+                        />
+                      </svg>
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              class="mb-4 !mb-0 [&_.ant-input]:!h-16 lg:[&_.ant-input]:!h-14 [&_.ant-input]:!rounded-2xl [&_.ant-input]:!border-2 [&_.ant-input]:!border-border-strong [&_.ant-input]:!px-4 [&_.ant-input]:!text-xl lg:[&_.ant-input]:!text-lg [&_label]:!text-lg [&_label]:!font-normal [&_label]:!normal-case [&_label]:!text-text-primary"
+            >
+              <label
+                class="mb-1.5 block text-sm font-semibold text-text-secondary"
+                for="mail-to"
+              >
+                To
+                <span
+                  aria-hidden="true"
+                  class="ml-1 text-danger"
+                >
+                  *
+                </span>
+              </label>
+              <input
+                aria-invalid="false"
+                class="ant-input ant-input-lg css-dev-only-do-not-override-eofgey ant-input-outlined h-14 w-full !rounded-2xl css-var-root ant-input-css-var"
+                id="mail-to"
+                placeholder="e.g. customer@example.com"
+                required=""
+                type="email"
+                value="customer@example.com"
+              />
+            </div>
+            <div
+              class="mb-4 !mb-0 [&_.ant-input]:!h-16 lg:[&_.ant-input]:!h-14 [&_.ant-input]:!rounded-2xl [&_.ant-input]:!border-2 [&_.ant-input]:!border-border-strong [&_.ant-input]:!px-4 [&_.ant-input]:!text-xl lg:[&_.ant-input]:!text-lg [&_label]:!text-lg [&_label]:!font-normal [&_label]:!normal-case [&_label]:!text-text-primary"
+            >
+              <label
+                class="mb-1.5 block text-sm font-semibold text-text-secondary"
+                for="mail-subject"
+              >
+                Subject
+                <span
+                  aria-hidden="true"
+                  class="ml-1 text-danger"
+                >
+                  *
+                </span>
+              </label>
+              <input
+                aria-invalid="false"
+                class="ant-input ant-input-lg css-dev-only-do-not-override-eofgey ant-input-outlined h-14 w-full !rounded-2xl css-var-root ant-input-css-var"
+                id="mail-subject"
+                placeholder="e.g. Quotation follow up"
+                required=""
+                type="text"
+                value="Quotation follow up"
+              />
+            </div>
+            <label
+              class="block space-y-2 lg:col-span-2"
+            >
+              <span
+                class="text-lg font-normal text-text-primary"
+              >
+                Body
+                <span
+                  aria-hidden="true"
+                  class="ml-1 text-danger"
+                >
+                  *
+                </span>
+              </span>
+              <textarea
+                class="min-h-36 w-full rounded-2xl border-2 border-border-strong bg-background-surface px-4 py-4 text-xl font-normal outline-none placeholder:text-xl placeholder:text-text-tertiary focus:border-border-focus focus:ring-2 focus:ring-focus-ring/30 lg:min-h-28 lg:text-lg lg:placeholder:text-lg"
+                id="mail-body"
+                placeholder="Write the mail content"
+              >
+                Hello
+              </textarea>
+            </label>
+            <div
+              class="space-y-2 lg:col-span-2"
+            >
+              <label
+                class="block text-lg font-normal text-text-primary"
+                for="mail-attachment"
+              >
+                Attachment
+              </label>
+              <input
+                accept="application/pdf"
+                class="block w-full cursor-pointer rounded-2xl border-2 border-dashed border-border-strong bg-background-surface px-4 py-4 text-lg font-normal text-text-secondary outline-none file:mr-4 file:cursor-pointer file:rounded-xl file:border-0 file:bg-action-primary file:px-4 file:py-2 file:text-sm file:font-semibold file:text-text-inverse hover:border-action-primary hover:file:bg-action-primary-hover focus-visible:border-border-focus focus-visible:ring-2 focus-visible:ring-focus-ring/30 disabled:cursor-not-allowed disabled:opacity-60"
+                id="mail-attachment"
+                type="file"
+              />
+              <div
+                class="flex items-center justify-between gap-4 rounded-2xl border-2 border-action-primary/40 bg-action-primary-subtle px-4 py-3"
+              >
+                <div
+                  class="flex min-w-0 items-center gap-3"
+                >
+                  <svg
+                    aria-hidden="true"
+                    class="h-8 w-8 shrink-0 text-action-primary"
+                    fill="none"
+                    height="1em"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    viewBox="0 0 24 24"
+                    width="1em"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"
+                    />
+                    <polyline
+                      points="14 2 14 8 20 8"
+                    />
+                    <line
+                      x1="16"
+                      x2="8"
+                      y1="13"
+                      y2="13"
+                    />
+                    <line
+                      x1="16"
+                      x2="8"
+                      y1="17"
+                      y2="17"
+                    />
+                    <polyline
+                      points="10 9 9 9 8 9"
+                    />
+                  </svg>
+                  <div
+                    class="min-w-0"
+                  >
+                    <p
+                      class="truncate text-lg font-semibold text-text-primary"
+                    >
+                      quotation.pdf
+                    </p>
+                    <a
+                      class="text-sm font-semibold text-action-primary underline underline-offset-2 hover:text-action-primary-hover"
+                      href="blob:quotation-preview"
+                      rel="noreferrer"
+                      target="_blank"
+                    >
+                      Open attachment
+                    </a>
+                  </div>
+                </div>
+                <button
+                  aria-label="Remove attachment"
+                  class="shrink-0 cursor-pointer rounded-xl p-2 text-text-secondary transition-colors hover:bg-danger-subtle hover:text-danger-strong focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-action-primary disabled:cursor-not-allowed disabled:opacity-50"
+                  type="button"
+                >
+                  <svg
+                    class="h-5 w-5"
+                    fill="none"
+                    height="1em"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    viewBox="0 0 24 24"
+                    width="1em"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <line
+                      x1="18"
+                      x2="6"
+                      y1="6"
+                      y2="18"
+                    />
+                    <line
+                      x1="6"
+                      x2="18"
+                      y1="6"
+                      y2="18"
+                    />
+                  </svg>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          class="mt-auto flex justify-between gap-3 border-t border-border-default/60 pt-5"
+        >
+          <button
+            class="h-14 cursor-pointer rounded-xl border border-border-default px-8 text-lg font-semibold text-text-primary transition-colors hover:bg-background-subtle focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-action-primary disabled:cursor-not-allowed disabled:opacity-50"
+            type="button"
+          >
+            Cancel
+          </button>
+          <button
+            class="h-14 cursor-pointer rounded-xl bg-action-primary px-8 text-lg font-semibold text-text-inverse shadow-xs transition-colors hover:bg-action-primary-hover focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-action-primary disabled:cursor-not-allowed disabled:opacity-60"
+            type="submit"
+          >
+            Send Mail
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`MailCreateForm Snapshots should render mail compose form while sending 1`] = `
+<DocumentFragment>
+  <div
+    class="flex h-full w-full flex-col bg-background-page pb-6 font-sans"
+  >
+    <div
+      class="mb-6 flex items-center gap-3 bg-background-page lg:hidden"
+    >
+      <button
+        aria-label="Back"
+        class="flex h-14 w-14 shrink-0 items-center justify-center rounded-full border border-border-default bg-background-page text-text-primary transition-colors hover:bg-background-subtle focus-visible:ring-2 focus-visible:ring-focus-ring/30 "
+        type="button"
+      >
+        <svg
+          aria-hidden="true"
+          class="h-6 w-6"
+          fill="none"
+          height="1em"
+          stroke="currentColor"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          viewBox="0 0 24 24"
+          width="1em"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <line
+            x1="19"
+            x2="5"
+            y1="12"
+            y2="12"
+          />
+          <polyline
+            points="12 19 5 12 12 5"
+          />
+        </svg>
+      </button>
+      <div
+        class="min-w-0"
+      >
+        <h2
+          class="truncate text-4xl font-semibold tracking-tight text-text-primary"
+        >
+          New Mail
+        </h2>
+        <p
+          class="mt-1 truncate text-sm text-text-secondary"
+        >
+          Fill in the mail details below.
+        </p>
+      </div>
+    </div>
+    <div
+      class="flex min-h-0 w-full flex-1 flex-col pb-32 text-lg lg:pb-0"
+    >
+      <div
+        class="hidden lg:block"
+      >
+        <nav
+          aria-label="Breadcrumb"
+          class="mb-2 flex items-center gap-2 text-[15px] font-medium text-text-secondary"
+        >
+          <span>
+            Mail
+          </span>
+          <span
+            aria-hidden="true"
+          >
+            /
+          </span>
+          <span
+            class="text-text-primary"
+          >
+            New Mail
+          </span>
+        </nav>
+        <div
+          class="mb-6"
+        >
+          <h2
+            class="text-4xl font-semibold leading-tight tracking-tight text-text-primary"
+          >
+            New Mail
+          </h2>
+          <p
+            class="mt-2 text-sm text-text-secondary"
+          >
+            Fill in the mail details below.
+          </p>
+        </div>
+      </div>
+      <form
+        class="mb-6 flex flex-col rounded-3xl border border-border-default bg-background-surface p-6 shadow-small sm:p-8 lg:-mt-4 lg:mb-5 lg:flex-1 lg:p-10"
+        novalidate=""
+      >
+        <div
+          class="pb-6"
+        >
+          <div
+            class="grid w-full grid-cols-1 gap-x-6 gap-y-5 lg:grid-cols-2"
+          >
+            <div>
+              <div
+                class="relative mb-0 [&_.ant-select-selector]:!min-h-16 lg:[&_.ant-select-selector]:!min-h-14"
+              >
+                <label
+                  class="mb-1.5 block text-sm font-semibold text-text-secondary !text-lg !font-normal !normal-case !text-text-primary lg:!text-lg"
+                  for="mail-sender"
+                >
+                  From
+                  <span
+                    aria-hidden="true"
+                    class="ml-1 text-danger"
+                  >
+                    *
+                  </span>
+                </label>
+                <div
+                  class="ant-select ant-select-outlined h-14 w-full !border-2 [&_.ant-select-selector]:!rounded-2xl [&_.ant-select-content]:!text-xl [&_.ant-select-content]:!font-normal !border-border-strong [&_.ant-select-selector]:!border-2 [&_.ant-select-selector]:!border-border-strong !h-16 lg:!h-14 [&_.ant-select-content]:!text-xl lg:[&_.ant-select-content]:!text-lg [&_.ant-select-content]:!font-normal css-var-root ant-select-css-var css-dev-only-do-not-override-eofgey ant-select-single ant-select-show-arrow ant-select-show-search"
+                  style="--ant-select-border-radius: 16px; border: 2px solid var(--border-strong);"
+                >
+                  <div
+                    class="ant-select-content ant-select-content-has-value"
+                    title="sales@example.com"
+                  >
+                    sales@example.com
+                    <input
+                      aria-autocomplete="list"
+                      aria-expanded="false"
+                      aria-haspopup="listbox"
+                      aria-invalid="false"
+                      aria-label="From"
+                      aria-required="true"
+                      autocomplete="new-password"
+                      class="ant-select-input"
+                      id="mail-sender"
+                      role="combobox"
+                      type="text"
+                      value=""
+                    />
+                  </div>
+                  <div
+                    class="ant-select-suffix"
+                  >
+                    <span
+                      aria-label="down"
+                      class="anticon anticon-down"
+                      role="img"
+                    >
+                      <svg
+                        aria-hidden="true"
+                        data-icon="down"
+                        fill="currentColor"
+                        focusable="false"
+                        height="1em"
+                        viewBox="64 64 896 896"
+                        width="1em"
+                      >
+                        <path
+                          d="M884 256h-75c-5.1 0-9.9 2.5-12.9 6.6L512 654.2 227.9 262.6c-3-4.1-7.8-6.6-12.9-6.6h-75c-6.5 0-10.3 7.4-6.5 12.7l352.6 486.1c12.8 17.6 39 17.6 51.7 0l352.6-486.1c3.9-5.3.1-12.7-6.4-12.7z"
+                        />
+                      </svg>
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div>
+              <div
+                class="relative mb-0 [&_.ant-select-selector]:!min-h-16 lg:[&_.ant-select-selector]:!min-h-14"
+              >
+                <label
+                  class="mb-1.5 block text-sm font-semibold text-text-secondary !text-lg !font-normal !normal-case !text-text-primary lg:!text-lg"
+                  for="mail-template"
+                >
+                  Template
+                  <span
+                    aria-hidden="true"
+                    class="ml-1 text-danger"
+                  >
+                    *
+                  </span>
+                </label>
+                <div
+                  class="ant-select ant-select-outlined h-14 w-full !border-2 [&_.ant-select-selector]:!rounded-2xl [&_.ant-select-content]:!text-xl [&_.ant-select-content]:!font-normal !border-border-strong [&_.ant-select-selector]:!border-2 [&_.ant-select-selector]:!border-border-strong !h-16 lg:!h-14 [&_.ant-select-content]:!text-xl lg:[&_.ant-select-content]:!text-lg [&_.ant-select-content]:!font-normal css-var-root ant-select-css-var css-dev-only-do-not-override-eofgey ant-select-single ant-select-show-arrow ant-select-show-search"
+                  style="--ant-select-border-radius: 16px; border: 2px solid var(--border-strong);"
+                >
+                  <div
+                    class="ant-select-content ant-select-content-has-value"
+                    title="Quotation"
+                  >
+                    Quotation
+                    <input
+                      aria-autocomplete="list"
+                      aria-expanded="false"
+                      aria-haspopup="listbox"
+                      aria-invalid="false"
+                      aria-label="Template"
+                      aria-required="true"
+                      autocomplete="new-password"
+                      class="ant-select-input"
+                      id="mail-template"
+                      role="combobox"
+                      type="text"
+                      value=""
+                    />
+                  </div>
+                  <div
+                    class="ant-select-suffix"
+                  >
+                    <span
+                      aria-label="down"
+                      class="anticon anticon-down"
+                      role="img"
+                    >
+                      <svg
+                        aria-hidden="true"
+                        data-icon="down"
+                        fill="currentColor"
+                        focusable="false"
+                        height="1em"
+                        viewBox="64 64 896 896"
+                        width="1em"
+                      >
+                        <path
+                          d="M884 256h-75c-5.1 0-9.9 2.5-12.9 6.6L512 654.2 227.9 262.6c-3-4.1-7.8-6.6-12.9-6.6h-75c-6.5 0-10.3 7.4-6.5 12.7l352.6 486.1c12.8 17.6 39 17.6 51.7 0l352.6-486.1c3.9-5.3.1-12.7-6.4-12.7z"
+                        />
+                      </svg>
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              class="mb-4 !mb-0 [&_.ant-input]:!h-16 lg:[&_.ant-input]:!h-14 [&_.ant-input]:!rounded-2xl [&_.ant-input]:!border-2 [&_.ant-input]:!border-border-strong [&_.ant-input]:!px-4 [&_.ant-input]:!text-xl lg:[&_.ant-input]:!text-lg [&_label]:!text-lg [&_label]:!font-normal [&_label]:!normal-case [&_label]:!text-text-primary"
+            >
+              <label
+                class="mb-1.5 block text-sm font-semibold text-text-secondary"
+                for="mail-to"
+              >
+                To
+                <span
+                  aria-hidden="true"
+                  class="ml-1 text-danger"
+                >
+                  *
+                </span>
+              </label>
+              <input
+                aria-invalid="false"
+                class="ant-input ant-input-lg css-dev-only-do-not-override-eofgey ant-input-outlined h-14 w-full !rounded-2xl css-var-root ant-input-css-var"
+                id="mail-to"
+                placeholder="e.g. customer@example.com"
+                required=""
+                type="email"
+                value="customer@example.com"
+              />
+            </div>
+            <div
+              class="mb-4 !mb-0 [&_.ant-input]:!h-16 lg:[&_.ant-input]:!h-14 [&_.ant-input]:!rounded-2xl [&_.ant-input]:!border-2 [&_.ant-input]:!border-border-strong [&_.ant-input]:!px-4 [&_.ant-input]:!text-xl lg:[&_.ant-input]:!text-lg [&_label]:!text-lg [&_label]:!font-normal [&_label]:!normal-case [&_label]:!text-text-primary"
+            >
+              <label
+                class="mb-1.5 block text-sm font-semibold text-text-secondary"
+                for="mail-subject"
+              >
+                Subject
+                <span
+                  aria-hidden="true"
+                  class="ml-1 text-danger"
+                >
+                  *
+                </span>
+              </label>
+              <input
+                aria-invalid="false"
+                class="ant-input ant-input-lg css-dev-only-do-not-override-eofgey ant-input-outlined h-14 w-full !rounded-2xl css-var-root ant-input-css-var"
+                id="mail-subject"
+                placeholder="e.g. Quotation follow up"
+                required=""
+                type="text"
+                value="Quotation follow up"
+              />
+            </div>
+            <label
+              class="block space-y-2 lg:col-span-2"
+            >
+              <span
+                class="text-lg font-normal text-text-primary"
+              >
+                Body
+                <span
+                  aria-hidden="true"
+                  class="ml-1 text-danger"
+                >
+                  *
+                </span>
+              </span>
+              <textarea
+                class="min-h-36 w-full rounded-2xl border-2 border-border-strong bg-background-surface px-4 py-4 text-xl font-normal outline-none placeholder:text-xl placeholder:text-text-tertiary focus:border-border-focus focus:ring-2 focus:ring-focus-ring/30 lg:min-h-28 lg:text-lg lg:placeholder:text-lg"
+                id="mail-body"
+                placeholder="Write the mail content"
+              >
+                Hello
+              </textarea>
+            </label>
+            <div
+              class="space-y-2 lg:col-span-2"
+            >
+              <label
+                class="block text-lg font-normal text-text-primary"
+                for="mail-attachment"
+              >
+                Attachment
+              </label>
+              <input
+                accept="application/pdf"
+                class="block w-full cursor-pointer rounded-2xl border-2 border-dashed border-border-strong bg-background-surface px-4 py-4 text-lg font-normal text-text-secondary outline-none file:mr-4 file:cursor-pointer file:rounded-xl file:border-0 file:bg-action-primary file:px-4 file:py-2 file:text-sm file:font-semibold file:text-text-inverse hover:border-action-primary hover:file:bg-action-primary-hover focus-visible:border-border-focus focus-visible:ring-2 focus-visible:ring-focus-ring/30 disabled:cursor-not-allowed disabled:opacity-60"
+                disabled=""
+                id="mail-attachment"
+                type="file"
+              />
+              <div
+                class="flex items-center justify-between gap-4 rounded-2xl border-2 border-action-primary/40 bg-action-primary-subtle px-4 py-3"
+              >
+                <div
+                  class="flex min-w-0 items-center gap-3"
+                >
+                  <svg
+                    aria-hidden="true"
+                    class="h-8 w-8 shrink-0 text-action-primary"
+                    fill="none"
+                    height="1em"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    viewBox="0 0 24 24"
+                    width="1em"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"
+                    />
+                    <polyline
+                      points="14 2 14 8 20 8"
+                    />
+                    <line
+                      x1="16"
+                      x2="8"
+                      y1="13"
+                      y2="13"
+                    />
+                    <line
+                      x1="16"
+                      x2="8"
+                      y1="17"
+                      y2="17"
+                    />
+                    <polyline
+                      points="10 9 9 9 8 9"
+                    />
+                  </svg>
+                  <div
+                    class="min-w-0"
+                  >
+                    <p
+                      class="truncate text-lg font-semibold text-text-primary"
+                    >
+                      quotation.pdf
+                    </p>
+                    <a
+                      class="text-sm font-semibold text-action-primary underline underline-offset-2 hover:text-action-primary-hover"
+                      href="blob:quotation-preview"
+                      rel="noreferrer"
+                      target="_blank"
+                    >
+                      Open attachment
+                    </a>
+                  </div>
+                </div>
+                <button
+                  aria-label="Remove attachment"
+                  class="shrink-0 cursor-pointer rounded-xl p-2 text-text-secondary transition-colors hover:bg-danger-subtle hover:text-danger-strong focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-action-primary disabled:cursor-not-allowed disabled:opacity-50"
+                  disabled=""
+                  type="button"
+                >
+                  <svg
+                    class="h-5 w-5"
+                    fill="none"
+                    height="1em"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    viewBox="0 0 24 24"
+                    width="1em"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <line
+                      x1="18"
+                      x2="6"
+                      y1="6"
+                      y2="18"
+                    />
+                    <line
+                      x1="6"
+                      x2="18"
+                      y1="6"
+                      y2="18"
+                    />
+                  </svg>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          class="mt-auto flex justify-between gap-3 border-t border-border-default/60 pt-5"
+        >
+          <button
+            class="h-14 cursor-pointer rounded-xl border border-border-default px-8 text-lg font-semibold text-text-primary transition-colors hover:bg-background-subtle focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-action-primary disabled:cursor-not-allowed disabled:opacity-50"
+            disabled=""
+            type="button"
+          >
+            Cancel
+          </button>
+          <button
+            class="h-14 cursor-pointer rounded-xl bg-action-primary px-8 text-lg font-semibold text-text-inverse shadow-xs transition-colors hover:bg-action-primary-hover focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-action-primary disabled:cursor-not-allowed disabled:opacity-60"
+            disabled=""
+            type="submit"
+          >
+            Sending…
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</DocumentFragment>
+`;

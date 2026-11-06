@@ -20,6 +20,8 @@ import ItemChecklistCreatePage from "./app/item-checklist/create";
 import ItemChecklistDetailPage from "./app/item-checklist/detail";
 import ItemReturnPage from "./app/item-return";
 import ItemReturnCreatePage from "./app/item-return/create";
+import MailPage from "./app/mail";
+import MailCreatePage from "./app/mail/create";
 import MasterCategory from "./app/master-category";
 import MasterCategoryCreate from "./app/master-category/create";
 import MasterCustomer from "./app/master-customer";
@@ -82,6 +84,8 @@ function App(): React.ReactElement {
         <Route path="/note" element={<NotePage />} />
         <Route path="/note/create" element={<NoteCreatePage />} />
         <Route path="/note/edit/:id" element={<NoteCreatePage />} />
+        <Route path="/mail" element={<MailPage />} />
+        <Route path="/mail/create" element={<MailCreatePage />} />
         <Route path="/profile" element={<ProfilePage />} />
         <Route path="/master-main" element={<MasterMain />} />
         
