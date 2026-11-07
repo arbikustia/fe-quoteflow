@@ -1,4 +1,5 @@
 import type { DashboardMenuItem } from "./Dashboard.type";
+import { LuMail } from "react-icons/lu";
 import DocumentMenuIcon from "../../assets/icon-document-menu.png";
 import MasterDataMenuIcon from "../../assets/icon-masterdata-menu.png";
 import OrderMenuIcon from "../../assets/icon-order-menu.png";
@@ -13,6 +14,7 @@ export const DASHBOARD_MENU_ITEMS: DashboardMenuItem[] = [
   { route: "/item-checklist", label: "Item Checklist", icon: ItemChecklistMenuIcon, backgroundClassName: "bg-background-subtle" },
   { route: "/item-return", label: "Item Return", icon: ReturnMenuIcon, backgroundClassName: "bg-action-primary-subtle" },
   { route: "/master-main", label: "Master Data", icon: MasterDataMenuIcon, backgroundClassName: "bg-background-subtle" },
+  { route: "/mail", label: "Mail", Icon: LuMail, backgroundClassName: "bg-action-primary-subtle" },
   { route: "/report", label: "Report", icon: ReportMenuIcon, backgroundClassName: "bg-action-primary-subtle" },
   { route: "/activity-log", label: "Activity Log", icon: ActivityLogMenuIcon, backgroundClassName: "bg-action-primary-subtle" },
 ];

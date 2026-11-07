@@ -10,22 +10,6 @@ import type { TableColumn } from "../../components/Table";
 import Table from "../../components/Table";
 
 /**
- * Render mail status cell.
- * @param {MailData} row - Mail row data
- * @returns {ReactElement} Status cell
- */
-const _renderStatus = (row: MailData): ReactElement => {
-  const isActive = row.status === "active";
-  const badgeClass = isActive ? "bg-success-subtle text-success-strong" : "bg-danger-subtle text-danger-strong";
-
-  return (
-    <span className={`inline-flex rounded-full border border-current px-3 py-1 text-base font-semibold uppercase ${badgeClass}`}>
-      {row.status}
-    </span>
-  );
-};
-
-/**
  * Render mail subject cell.
  * @param {MailData} row - Mail row data
  * @returns {ReactElement} Subject cell
@@ -87,7 +71,6 @@ const _getColumns = (currentPage: number, pageSize: number): TableColumn<MailDat
     { key: "sender", header: "From", render: _renderSender },
     { key: "recipient", header: "To", render: _renderRecipient },
     { key: "createAt", header: "Created At", render: _renderCreatedAt },
-    { key: "status", header: "Status", align: "center", render: _renderStatus },
   ];
 };
 
@@ -97,14 +80,22 @@ const _getColumns = (currentPage: number, pageSize: number): TableColumn<MailDat
  * @returns {ReactElement} Card skeleton
  */
 const _renderMobileCardSkeleton = (key: number): ReactElement => (
-  <div key={key} className="animate-pulse rounded-3xl border border-border-strong bg-background-surface p-5 shadow-small" role="status" aria-label="Loading mail card">
-    <div className="flex flex-wrap items-center justify-between gap-3">
-      <div className="h-7 w-40 rounded-3xl bg-background-subtle" />
-      <div className="h-8 w-24 rounded-full bg-background-subtle" />
-    </div>
+  <div
+    key={key}
+    className="animate-pulse rounded-3xl border border-border-strong bg-background-surface p-5 shadow-small"
+    role="status"
+    aria-label="Loading mail card"
+  >
+    <div className="h-7 w-40 rounded-3xl bg-background-subtle" />
     <div className="mt-4 flex flex-wrap items-end justify-between gap-x-4 gap-y-3 border-t border-border-default pt-4">
-      <div className="h-7 w-36 rounded-3xl bg-background-subtle" />
-      <div className="h-7 w-24 rounded-3xl bg-background-subtle" />
+      <div className="min-w-0">
+        <div className="h-7 w-20 rounded-3xl bg-background-subtle" />
+        <div className="mt-1 h-7 w-36 rounded-3xl bg-background-subtle" />
+      </div>
+      <div className="text-right">
+        <div className="ml-auto h-7 w-24 rounded-3xl bg-background-subtle" />
+        <div className="mt-1 h-7 w-28 rounded-3xl bg-background-subtle" />
+      </div>
     </div>
   </div>
 );

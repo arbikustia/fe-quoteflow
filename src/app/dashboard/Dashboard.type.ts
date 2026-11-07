@@ -1,6 +1,8 @@
+import type { ComponentType, SVGProps } from "react";
+
 import type { CalendarEventItem } from "@/components/Calendar";
 
-export type DashboardRoute = "/order" | "/order/create" | "/return" | "/item-return" | "/document" | "/document/quotation" | "/item-checklist" | "/master-main" | "/master-voucher" | "/report" | "/calendar" | "/activity-log";
+export type DashboardRoute = "/order" | "/order/create" | "/return" | "/item-return" | "/document" | "/document/quotation" | "/item-checklist" | "/master-main" | "/master-voucher" | "/report" | "/calendar" | "/activity-log" | "/mail";
 
 export type DashboardOrder = {
   id: string;
@@ -28,7 +30,8 @@ export type DashboardOrderState = {
 export type DashboardMenuItem = {
   route?: DashboardRoute;
   label: string;
-  icon: string;
+  icon?: string;
+  Icon?: ComponentType<SVGProps<SVGSVGElement>>;
   backgroundClassName: string;
 };
 

@@ -259,7 +259,7 @@ export const useDashboardAssets = (): DashboardAssets => {
 
   useEffect(() => {
     let isMounted = true;
-    const sources = [BannerApp, ...DASHBOARD_MENU_ITEMS.map((item) => item.icon)];
+    const sources = [BannerApp, ...DASHBOARD_MENU_ITEMS.flatMap((item) => (item.icon ? [item.icon] : []))];
     let loadedCount = 0;
 
     const checkComplete = (): void => {

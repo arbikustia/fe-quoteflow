@@ -165,22 +165,13 @@ exports[`MailComponent Snapshots should render mail list 1`] = `
               class="flex min-w-0 flex-col gap-4"
             >
               <article
-                class="group block w-full min-w-0 rounded-3xl border border-border-strong bg-background-surface p-5 text-left shadow-small"
+                class="group block w-full min-w-0 rounded-3xl border border-border-strong bg-background-surface p-5 text-left shadow-small transition-colors hover:border-border-strong hover:bg-background-subtle/40 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-action-primary"
               >
-                <div
-                  class="flex min-w-0 flex-wrap items-center justify-between gap-3"
+                <span
+                  class="block min-w-0 break-words text-xl font-semibold text-text-primary"
                 >
-                  <span
-                    class="min-w-0 break-words text-xl font-semibold text-text-primary"
-                  >
-                    Quotation follow up
-                  </span>
-                  <span
-                    class="rounded-full border border-current px-3 py-1 text-base font-semibold uppercase text-text-secondary"
-                  >
-                    active
-                  </span>
-                </div>
+                  Quotation follow up
+                </span>
                 <span
                   class="mt-4 flex flex-wrap items-end justify-between gap-x-4 gap-y-3 border-t border-border-default pt-4"
                 >
@@ -197,12 +188,8 @@ exports[`MailComponent Snapshots should render mail list 1`] = `
                     >
                       sender@example.com
                     </span>
-                  </span>
-                  <span
-                    class="min-w-0"
-                  >
                     <span
-                      class="block text-lg text-text-tertiary"
+                      class="mt-3 block text-lg text-text-tertiary"
                     >
                       To
                     </span>
@@ -466,14 +453,9 @@ exports[`MailComponent Snapshots should render mail list 1`] = `
                             To
                           </th>
                           <th
-                            class="bg-table-header px-5 py-4 text-[13px] font-bold text-text-secondary uppercase tracking-widest   text-left "
+                            class="bg-table-header px-5 py-4 text-[13px] font-bold text-text-secondary uppercase tracking-widest  rounded-r-xl text-left "
                           >
                             Created At
-                          </th>
-                          <th
-                            class="bg-table-header px-5 py-4 text-[13px] font-bold text-text-secondary uppercase tracking-widest  rounded-r-xl text-center "
-                          >
-                            Status
                           </th>
                         </tr>
                       </thead>
@@ -526,15 +508,6 @@ exports[`MailComponent Snapshots should render mail list 1`] = `
                               class="text-lg"
                             >
                               2026-01-01 10:00
-                            </span>
-                          </td>
-                          <td
-                            class="px-5 py-4 border-b border-border-default text-base text-center "
-                          >
-                            <span
-                              class="inline-flex rounded-full border border-current px-3 py-1 text-base font-semibold uppercase bg-success-subtle text-success-strong"
-                            >
-                              active
                             </span>
                           </td>
                         </tr>
@@ -878,24 +851,31 @@ exports[`MailComponent Snapshots should render mail list while loading 1`] = `
                 role="status"
               >
                 <div
-                  class="flex flex-wrap items-center justify-between gap-3"
-                >
-                  <div
-                    class="h-7 w-40 rounded-3xl bg-background-subtle"
-                  />
-                  <div
-                    class="h-8 w-24 rounded-full bg-background-subtle"
-                  />
-                </div>
+                  class="h-7 w-40 rounded-3xl bg-background-subtle"
+                />
                 <div
                   class="mt-4 flex flex-wrap items-end justify-between gap-x-4 gap-y-3 border-t border-border-default pt-4"
                 >
                   <div
-                    class="h-7 w-36 rounded-3xl bg-background-subtle"
-                  />
+                    class="min-w-0"
+                  >
+                    <div
+                      class="h-7 w-20 rounded-3xl bg-background-subtle"
+                    />
+                    <div
+                      class="mt-1 h-7 w-36 rounded-3xl bg-background-subtle"
+                    />
+                  </div>
                   <div
-                    class="h-7 w-24 rounded-3xl bg-background-subtle"
-                  />
+                    class="text-right"
+                  >
+                    <div
+                      class="ml-auto h-7 w-24 rounded-3xl bg-background-subtle"
+                    />
+                    <div
+                      class="mt-1 h-7 w-28 rounded-3xl bg-background-subtle"
+                    />
+                  </div>
                 </div>
               </div>
               <div
@@ -904,24 +884,31 @@ exports[`MailComponent Snapshots should render mail list while loading 1`] = `
                 role="status"
               >
                 <div
-                  class="flex flex-wrap items-center justify-between gap-3"
-                >
-                  <div
-                    class="h-7 w-40 rounded-3xl bg-background-subtle"
-                  />
-                  <div
-                    class="h-8 w-24 rounded-full bg-background-subtle"
-                  />
-                </div>
+                  class="h-7 w-40 rounded-3xl bg-background-subtle"
+                />
                 <div
                   class="mt-4 flex flex-wrap items-end justify-between gap-x-4 gap-y-3 border-t border-border-default pt-4"
                 >
                   <div
-                    class="h-7 w-36 rounded-3xl bg-background-subtle"
-                  />
+                    class="min-w-0"
+                  >
+                    <div
+                      class="h-7 w-20 rounded-3xl bg-background-subtle"
+                    />
+                    <div
+                      class="mt-1 h-7 w-36 rounded-3xl bg-background-subtle"
+                    />
+                  </div>
                   <div
-                    class="h-7 w-24 rounded-3xl bg-background-subtle"
-                  />
+                    class="text-right"
+                  >
+                    <div
+                      class="ml-auto h-7 w-24 rounded-3xl bg-background-subtle"
+                    />
+                    <div
+                      class="mt-1 h-7 w-28 rounded-3xl bg-background-subtle"
+                    />
+                  </div>
                 </div>
               </div>
               <div
@@ -930,24 +917,31 @@ exports[`MailComponent Snapshots should render mail list while loading 1`] = `
                 role="status"
               >
                 <div
-                  class="flex flex-wrap items-center justify-between gap-3"
-                >
-                  <div
-                    class="h-7 w-40 rounded-3xl bg-background-subtle"
-                  />
-                  <div
-                    class="h-8 w-24 rounded-full bg-background-subtle"
-                  />
-                </div>
+                  class="h-7 w-40 rounded-3xl bg-background-subtle"
+                />
                 <div
                   class="mt-4 flex flex-wrap items-end justify-between gap-x-4 gap-y-3 border-t border-border-default pt-4"
                 >
                   <div
-                    class="h-7 w-36 rounded-3xl bg-background-subtle"
-                  />
+                    class="min-w-0"
+                  >
+                    <div
+                      class="h-7 w-20 rounded-3xl bg-background-subtle"
+                    />
+                    <div
+                      class="mt-1 h-7 w-36 rounded-3xl bg-background-subtle"
+                    />
+                  </div>
                   <div
-                    class="h-7 w-24 rounded-3xl bg-background-subtle"
-                  />
+                    class="text-right"
+                  >
+                    <div
+                      class="ml-auto h-7 w-24 rounded-3xl bg-background-subtle"
+                    />
+                    <div
+                      class="mt-1 h-7 w-28 rounded-3xl bg-background-subtle"
+                    />
+                  </div>
                 </div>
               </div>
               <div
@@ -956,24 +950,31 @@ exports[`MailComponent Snapshots should render mail list while loading 1`] = `
                 role="status"
               >
                 <div
-                  class="flex flex-wrap items-center justify-between gap-3"
-                >
-                  <div
-                    class="h-7 w-40 rounded-3xl bg-background-subtle"
-                  />
-                  <div
-                    class="h-8 w-24 rounded-full bg-background-subtle"
-                  />
-                </div>
+                  class="h-7 w-40 rounded-3xl bg-background-subtle"
+                />
                 <div
                   class="mt-4 flex flex-wrap items-end justify-between gap-x-4 gap-y-3 border-t border-border-default pt-4"
                 >
                   <div
-                    class="h-7 w-36 rounded-3xl bg-background-subtle"
-                  />
+                    class="min-w-0"
+                  >
+                    <div
+                      class="h-7 w-20 rounded-3xl bg-background-subtle"
+                    />
+                    <div
+                      class="mt-1 h-7 w-36 rounded-3xl bg-background-subtle"
+                    />
+                  </div>
                   <div
-                    class="h-7 w-24 rounded-3xl bg-background-subtle"
-                  />
+                    class="text-right"
+                  >
+                    <div
+                      class="ml-auto h-7 w-24 rounded-3xl bg-background-subtle"
+                    />
+                    <div
+                      class="mt-1 h-7 w-28 rounded-3xl bg-background-subtle"
+                    />
+                  </div>
                 </div>
               </div>
               <div
@@ -982,24 +983,31 @@ exports[`MailComponent Snapshots should render mail list while loading 1`] = `
                 role="status"
               >
                 <div
-                  class="flex flex-wrap items-center justify-between gap-3"
-                >
-                  <div
-                    class="h-7 w-40 rounded-3xl bg-background-subtle"
-                  />
-                  <div
-                    class="h-8 w-24 rounded-full bg-background-subtle"
-                  />
-                </div>
+                  class="h-7 w-40 rounded-3xl bg-background-subtle"
+                />
                 <div
                   class="mt-4 flex flex-wrap items-end justify-between gap-x-4 gap-y-3 border-t border-border-default pt-4"
                 >
                   <div
-                    class="h-7 w-36 rounded-3xl bg-background-subtle"
-                  />
+                    class="min-w-0"
+                  >
+                    <div
+                      class="h-7 w-20 rounded-3xl bg-background-subtle"
+                    />
+                    <div
+                      class="mt-1 h-7 w-36 rounded-3xl bg-background-subtle"
+                    />
+                  </div>
                   <div
-                    class="h-7 w-24 rounded-3xl bg-background-subtle"
-                  />
+                    class="text-right"
+                  >
+                    <div
+                      class="ml-auto h-7 w-24 rounded-3xl bg-background-subtle"
+                    />
+                    <div
+                      class="mt-1 h-7 w-28 rounded-3xl bg-background-subtle"
+                    />
+                  </div>
                 </div>
               </div>
             </div>
@@ -1236,14 +1244,9 @@ exports[`MailComponent Snapshots should render mail list while loading 1`] = `
                         To
                       </th>
                       <th
-                        class="bg-table-header px-5 py-4 text-[13px] font-bold uppercase tracking-widest text-text-secondary text-left  "
+                        class="bg-table-header px-5 py-4 text-[13px] font-bold uppercase tracking-widest text-text-secondary text-left  rounded-r-3xl"
                       >
                         Created At
-                      </th>
-                      <th
-                        class="bg-table-header px-5 py-4 text-[13px] font-bold uppercase tracking-widest text-text-secondary text-center  rounded-r-3xl"
-                      >
-                        Status
                       </th>
                     </tr>
                   </thead>
@@ -1286,8 +1289,40 @@ exports[`MailComponent Snapshots should render mail list while loading 1`] = `
                           class="inline-block h-5 w-32 rounded-3xl bg-background-subtle align-middle"
                         />
                       </td>
+                    </tr>
+                    <tr
+                      class="animate-pulse"
+                    >
                       <td
                         class="border-b border-border-default px-5 py-4 text-center"
+                      >
+                        <span
+                          class="inline-block h-5 w-32 rounded-3xl bg-background-subtle align-middle"
+                        />
+                      </td>
+                      <td
+                        class="border-b border-border-default px-5 py-4 text-left"
+                      >
+                        <span
+                          class="inline-block h-5 w-32 rounded-3xl bg-background-subtle align-middle"
+                        />
+                      </td>
+                      <td
+                        class="border-b border-border-default px-5 py-4 text-left"
+                      >
+                        <span
+                          class="inline-block h-5 w-32 rounded-3xl bg-background-subtle align-middle"
+                        />
+                      </td>
+                      <td
+                        class="border-b border-border-default px-5 py-4 text-left"
+                      >
+                        <span
+                          class="inline-block h-5 w-32 rounded-3xl bg-background-subtle align-middle"
+                        />
+                      </td>
+                      <td
+                        class="border-b border-border-default px-5 py-4 text-left"
                       >
                         <span
                           class="inline-block h-5 w-32 rounded-3xl bg-background-subtle align-middle"
@@ -1332,13 +1367,6 @@ exports[`MailComponent Snapshots should render mail list while loading 1`] = `
                           class="inline-block h-5 w-32 rounded-3xl bg-background-subtle align-middle"
                         />
                       </td>
-                      <td
-                        class="border-b border-border-default px-5 py-4 text-center"
-                      >
-                        <span
-                          class="inline-block h-5 w-32 rounded-3xl bg-background-subtle align-middle"
-                        />
-                      </td>
                     </tr>
                     <tr
                       class="animate-pulse"
@@ -1378,13 +1406,6 @@ exports[`MailComponent Snapshots should render mail list while loading 1`] = `
                           class="inline-block h-5 w-32 rounded-3xl bg-background-subtle align-middle"
                         />
                       </td>
-                      <td
-                        class="border-b border-border-default px-5 py-4 text-center"
-                      >
-                        <span
-                          class="inline-block h-5 w-32 rounded-3xl bg-background-subtle align-middle"
-                        />
-                      </td>
                     </tr>
                     <tr
                       class="animate-pulse"
@@ -1419,59 +1440,6 @@ exports[`MailComponent Snapshots should render mail list while loading 1`] = `
                       </td>
                       <td
                         class="border-b border-border-default px-5 py-4 text-left"
-                      >
-                        <span
-                          class="inline-block h-5 w-32 rounded-3xl bg-background-subtle align-middle"
-                        />
-                      </td>
-                      <td
-                        class="border-b border-border-default px-5 py-4 text-center"
-                      >
-                        <span
-                          class="inline-block h-5 w-32 rounded-3xl bg-background-subtle align-middle"
-                        />
-                      </td>
-                    </tr>
-                    <tr
-                      class="animate-pulse"
-                    >
-                      <td
-                        class="border-b border-border-default px-5 py-4 text-center"
-                      >
-                        <span
-                          class="inline-block h-5 w-32 rounded-3xl bg-background-subtle align-middle"
-                        />
-                      </td>
-                      <td
-                        class="border-b border-border-default px-5 py-4 text-left"
-                      >
-                        <span
-                          class="inline-block h-5 w-32 rounded-3xl bg-background-subtle align-middle"
-                        />
-                      </td>
-                      <td
-                        class="border-b border-border-default px-5 py-4 text-left"
-                      >
-                        <span
-                          class="inline-block h-5 w-32 rounded-3xl bg-background-subtle align-middle"
-                        />
-                      </td>
-                      <td
-                        class="border-b border-border-default px-5 py-4 text-left"
-                      >
-                        <span
-                          class="inline-block h-5 w-32 rounded-3xl bg-background-subtle align-middle"
-                        />
-                      </td>
-                      <td
-                        class="border-b border-border-default px-5 py-4 text-left"
-                      >
-                        <span
-                          class="inline-block h-5 w-32 rounded-3xl bg-background-subtle align-middle"
-                        />
-                      </td>
-                      <td
-                        class="border-b border-border-default px-5 py-4 text-center"
                       >
                         <span
                           class="inline-block h-5 w-32 rounded-3xl bg-background-subtle align-middle"
