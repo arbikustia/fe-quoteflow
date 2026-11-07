@@ -13,7 +13,7 @@ export type ApiPayment = {
   updated_at: string;
   invoice?: {
     invoice_no: string;
-    customer: {
+    customer?: {
       name: string;
     };
   };

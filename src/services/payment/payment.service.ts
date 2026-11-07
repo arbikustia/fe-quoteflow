@@ -9,7 +9,7 @@ export const mapPayment = (payment: ApiPayment): PaymentData => ({
   invoiceId: payment.invoice_id,
   paymentMethodId: payment.payment_method_id,
   invoiceNo: payment.invoice?.invoice_no ?? "-",
-  customerName: payment.invoice?.customer.name ?? "-",
+  customerName: payment.invoice?.customer?.name ?? "-",
   amount: payment.amount,
   paidAt: payment.paid_at,
   referenceNo: payment.reference_no,
