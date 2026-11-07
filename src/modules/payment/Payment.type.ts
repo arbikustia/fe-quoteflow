@@ -4,7 +4,7 @@ export type ApiPayment = {
   id: string;
   invoice_id: string;
   payment_method_id: string;
-  amount: number;
+  amount?: number;
   paid_at: string;
   reference_no: string;
   notes: string;

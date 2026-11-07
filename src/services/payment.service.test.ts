@@ -26,4 +26,10 @@ describe("mapPayment", () => {
       customerName: "-",
     }));
   });
+
+  it("uses a numeric fallback when amount is missing", () => {
+    const payment = { ...PAYMENT, amount: undefined } as unknown as ApiPayment;
+
+    expect(mapPayment(payment).amount).toBe(0);
+  });
 });

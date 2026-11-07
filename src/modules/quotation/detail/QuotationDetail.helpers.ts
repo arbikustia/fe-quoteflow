@@ -19,10 +19,10 @@ import type {
 
 /**
  * formatCurrency.
- * @param {number} amount - amount value.
+ * @param {number} [amount] - amount value.
  * @returns {string} - result.
  */
-export const formatCurrency = (amount: number): string => `Rp ${amount.toLocaleString("id-ID")}`;
+export const formatCurrency = (amount?: number): string => `Rp ${(amount ?? 0).toLocaleString("id-ID")}`;
 
 /**
  * Format percentage discount as Rupiah amount and percentage.
