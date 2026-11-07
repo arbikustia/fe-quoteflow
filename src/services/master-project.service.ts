@@ -1,6 +1,6 @@
 import { apiRtkClient } from "@/libs/ApiRtkServices/apiRtkClient";
 
-import ENDPOINT from "@/constant/endpoint.const";
+import ENDPOINT from "@/constants/endpoint.constant";
 import type { ProjectAllResponse, ProjectCreatePayload, ProjectCreateResponse, ProjectData, ProjectDetailResponse, ProjectListParams, ProjectListResponse, ProjectUpdatePayload, ProjectUpdateResponse } from "@/modules/master-data/master-project/MasterProject.type";
 
 /**

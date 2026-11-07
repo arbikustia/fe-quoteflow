@@ -1,6 +1,6 @@
 import { apiRtkClient } from "@/libs/ApiRtkServices/apiRtkClient";
 
-import ENDPOINT from "@/constant/endpoint.const";
+import ENDPOINT from "@/constants/endpoint.constant";
 import type { ApiPayment, ApiPaymentSummary, PaymentCreatePayload, PaymentCreateResponse, PaymentData, PaymentDetailResponse, PaymentInvoiceListResponse, PaymentListParams, PaymentListResponse, PaymentMethodListResponse } from "@/modules/payment/Payment.type";
 
 /**

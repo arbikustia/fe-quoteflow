@@ -1,4 +1,4 @@
-import ENDPOINT from "@/constant/endpoint.const";
+import ENDPOINT from "@/constants/endpoint.constant";
 
 import { rentalReturnService } from "./rental-return.service";
 

@@ -1,6 +1,6 @@
 import { apiRtkClient } from "@/libs/ApiRtkServices/apiRtkClient";
 
-import ENDPOINT from "@/constant/endpoint.const";
+import ENDPOINT from "@/constants/endpoint.constant";
 import type { ActivityLogData, ActivityLogListParams, ActivityLogListResponse, ApiActivityLog } from "@/modules/activity-log/ActivityLog.type";
 
 /** Map API activity log model to table row. */

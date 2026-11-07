@@ -1,6 +1,6 @@
 import { apiRtkClient } from "@/libs/ApiRtkServices/apiRtkClient";
 
-import ENDPOINT from "@/constant/endpoint.const";
+import ENDPOINT from "@/constants/endpoint.constant";
 import type { ApiRentalOrder, DashboardRentalOrderParams, DashboardRentalOrderResponse, RentalOrderListParams, RentalOrderListResponse, RentalOrderResponse, RentalOrderUpdatePayload, RentalOrderUpdateResponse, ReportOrderData } from "@/modules/report/Report.type";
 
 const RENTAL_ORDER_TAG = "RentalOrder";

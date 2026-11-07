@@ -1,6 +1,6 @@
 import type { PaymentRequiredFields } from "../Payment.type";
 
-import { NON_DIGIT_PATTERN } from "@/constant/regex.const";
+import { NON_DIGIT_PATTERN } from "@/constants/regex.constant";
 
 export const PAYMENT_STATUS_OPTIONS = [
   { value: "1", label: "DP" },

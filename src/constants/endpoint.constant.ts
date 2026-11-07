@@ -119,6 +119,7 @@ const ENDPOINT = {
   RENTAL_ORDER: {
     LIST: "/api/rental-order",
     PAGED: "/api/rental-order/paged",
+    EXPORT: "/api/rental-order/export",
     DASHBOARD: "/api/dashboard/rental-orders",
   },
   RENTAL_CHECKLIST: {

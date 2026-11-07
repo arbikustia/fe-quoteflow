@@ -1,6 +1,6 @@
 import { apiRtkClient } from "@/libs/ApiRtkServices/apiRtkClient";
 
-import ENDPOINT from "@/constant/endpoint.const";
+import ENDPOINT from "@/constants/endpoint.constant";
 import type { NoteApiRecord, NoteCreatePayload, NoteDeletePayload, NoteListResponse, NoteResponse, NoteUpdatePayload } from "@/modules/note/Note.type";
 
 const NOTE_TAG = "Note";

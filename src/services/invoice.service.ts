@@ -1,6 +1,6 @@
 import { apiRtkClient } from "@/libs/ApiRtkServices/apiRtkClient";
 
-import ENDPOINT from "@/constant/endpoint.const";
+import ENDPOINT from "@/constants/endpoint.constant";
 import type { ApiInvoice, InvoiceAllResponse, InvoiceApproveRequest, InvoiceData, InvoiceDetailResponse, InvoiceListParams, InvoiceListResponse, InvoiceUpdateRequest, InvoiceUpdateResponse } from "@/modules/invoice/Invoice.type";
 
 /** Map API invoice to table row. */

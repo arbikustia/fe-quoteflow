@@ -6,7 +6,6 @@ import apiClient from "@/libs/api/ApiClient/ApiClient";
 
 import { useMasterActivityLog } from "@/hooks/useMasterActivityLog";
 
-import ENDPOINT from "@/constant/endpoint.const";
 import { mapRentalOrder, useGetRentalOrdersQuery, useUpdateRentalOrderMutation } from "@/services/rental-order.service";
 
 import { sortReportOrders } from "./Report.helpers";
@@ -17,6 +16,8 @@ import type {
   ReportOrderPagination,
   ReportOrderStatusFormProps,
 } from "./Report.type";
+
+import ENDPOINT from "@/constants/endpoint.constant";
 
 /**
  * Hook for report order navigation.
