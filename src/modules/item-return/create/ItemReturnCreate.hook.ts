@@ -17,7 +17,7 @@ import {
 import { stampReturnPhoto } from "./ItemReturnCreate.helpers";
 import type { ReturnCreateFormState, ReturnOrderItemRow } from "./ItemReturnCreate.type";
 import type { ReturnCreatePayload } from "../ItemReturn.type";
-import type { ApiReturn } from "../ItemReturn.type";
+import type { ApiReturn, StagedPhoto } from "../ItemReturn.type";
 
 const _getCustomerName = (order: ApiRentalOrder): string =>
   order.invoice?.quotation?.transaction?.customer_name ??
@@ -30,6 +30,12 @@ const _getOrderOptions = (orders: ApiRentalOrder[]): SelectOption[] =>
     label: `${_getCustomerName(order)} — ${order.order_no}`,
   }));
 
+const _firstOrFallback = (list?: string[], single?: string): string[] => {
+  if (list?.length) return list;
+
+  return single ? [single] : [];
+};
+
 const _getReturnItems = (returnData: ApiReturn, categories: Map<string, string>): ReturnOrderItemRow[] =>
   returnData.items.map((item): ReturnOrderItemRow => ({
     id: item.id,
@@ -40,8 +46,8 @@ const _getReturnItems = (returnData: ApiReturn, categories: Map<string, string>)
     unit: item.qty === 1 ? "unit" : "units",
     condition: item.condition || "Good",
     notes: item.notes || "",
-    fileUrl: item.file_url,
-    fileName: item.file_name,
+    fileUrls: _firstOrFallback(item.file_urls, item.file_url),
+    fileNames: _firstOrFallback(item.file_names, item.file_name),
   }));
 
 const _getOrderItems = (
@@ -59,13 +65,13 @@ const _getOrderItems = (
       id: `${item.item_id}-${index}`,
       itemId: item.item_id,
       itemName: item.item_name,
-      category: itemCategoryMap.get(item.item_id) ?? "-",
+      category: item.category_name || itemCategoryMap.get(item.item_id) || "-",
       qty: item.qty,
       unit: item.qty === 1 ? "unit" : "units",
       condition: "Good",
       notes: "",
-      fileUrl: "",
-      fileName: "",
+      fileUrls: [],
+      fileNames: [],
     });
   });
 
@@ -76,13 +82,13 @@ const _getOrderItems = (
         id: `${item.item_id}-proj-${projectIndex}-${itemIndex}`,
         itemId: item.item_id,
         itemName: item.item_name,
-        category: itemCategoryMap.get(item.item_id) ?? "-",
+        category: item.category_name || itemCategoryMap.get(item.item_id) || "-",
         qty: item.qty,
         unit: item.qty === 1 ? "unit" : "units",
         condition: "Good",
         notes: "",
-        fileUrl: "",
-        fileName: "",
+        fileUrls: [],
+        fileNames: [],
       });
     });
   });
@@ -119,8 +125,8 @@ const _buildPayload = (
       qty: row.qty,
       condition: "",
       notes: row.notes,
-      file_url: row.fileUrl || "",
-      file_name: row.fileName || "",
+      file_urls: row.fileUrls,
+      file_names: row.fileNames,
     })),
 });
 
@@ -142,14 +148,14 @@ export const useItemReturnCreate = (): ReturnCreateFormState => {
   const { logCreate, logEdit } = useMasterActivityLog("Item Return");
   const [uploadImage] = useUploadImageMutation();
   const [uploadingItemId, setUploadingItemId] = useState<string | null>(null);
-  const [stagedPhotos, setStagedPhotos] = useState<Map<string, { file: File; url: string }>>(new Map());
-  const stagedPhotosRef = useRef<Map<string, { file: File; url: string }>>(new Map());
-  const uploadedPhotosRef = useRef<Map<string, { fileUrl: string; fileName: string }>>(new Map());
+  const [stagedPhotos, setStagedPhotos] = useState<Map<string, StagedPhoto[]>>(new Map());
+  const stagedPhotosRef = useRef<Map<string, StagedPhoto[]>>(new Map());
+  const uploadedPhotosRef = useRef<Map<string, { fileUrls: string[]; fileNames: string[] }>>(new Map());
   const orderIdRef = useRef("");
   const uploadRef = useRef(false);
   const isSavingRef = useRef(false);
-  const pendingPhoto = useRef<File | null>(null);
-  const previewUrl = useRef<string | null>(null);
+  const pendingPhotos = useRef<{ itemId: string; photos: StagedPhoto[] } | null>(null);
+  const previewUrls = useRef<string[]>([]);
   const [photoPreview, setPhotoPreview] = useState<{ itemId: string; itemName: string; url: string } | null>(null);
   const [viewedPhoto, setViewedPhoto] = useState<{ itemName: string; url: string } | null>(null);
   const viewedPhotoRef = useRef<{ itemName: string; url: string } | null>(null);
@@ -228,7 +234,7 @@ export const useItemReturnCreate = (): ReturnCreateFormState => {
   const openPhoto = (itemId: string): void => {
     const row = orderItems.find((item) => item.id === itemId);
     if (!row) return;
-    const url = stagedPhotosRef.current.get(itemId)?.url ?? row.fileUrl;
+    const url = stagedPhotosRef.current.get(itemId)?.[0]?.url ?? row.fileUrls[0];
     if (!url) return;
 
     viewedPhotoRef.current = { itemName: row.itemName, url };
@@ -248,7 +254,9 @@ export const useItemReturnCreate = (): ReturnCreateFormState => {
   }, [orderItems, searchTerm]);
 
   const clearStagedPhotos = (): void => {
-    stagedPhotosRef.current.forEach((staged): void => URL.revokeObjectURL(staged.url));
+    stagedPhotosRef.current.forEach((staged): void => {
+      staged.forEach((photo): void => URL.revokeObjectURL(photo.url));
+    });
     stagedPhotosRef.current.clear();
     setStagedPhotos(new Map());
     closeViewedPhoto();
@@ -256,15 +264,17 @@ export const useItemReturnCreate = (): ReturnCreateFormState => {
 
   const closePhotoPreview = (): void => {
     if (uploadRef.current || isSavingRef.current) return;
-    if (previewUrl.current) URL.revokeObjectURL(previewUrl.current);
-    previewUrl.current = null;
-    pendingPhoto.current = null;
+    previewUrls.current.forEach((url): void => URL.revokeObjectURL(url));
+    previewUrls.current = [];
+    pendingPhotos.current = null;
     setPhotoPreview(null);
   };
 
   useEffect(() => (): void => {
-    if (previewUrl.current) URL.revokeObjectURL(previewUrl.current);
-    stagedPhotosRef.current.forEach((staged): void => URL.revokeObjectURL(staged.url));
+    previewUrls.current.forEach((url): void => URL.revokeObjectURL(url));
+    stagedPhotosRef.current.forEach((staged): void => {
+      staged.forEach((photo): void => URL.revokeObjectURL(photo.url));
+    });
   }, []);
 
   const handleOrderChange = (value: string): void => {
@@ -291,9 +301,9 @@ export const useItemReturnCreate = (): ReturnCreateFormState => {
     setReturnNotes(notes);
   };
 
-  const onCaptureItem = async (itemId: string, file: File): Promise<void> => {
+  const onCaptureItem = async (itemId: string, files: File[]): Promise<void> => {
     const selectedItem = orderItems.find((item) => item.id === itemId);
-    if (uploadRef.current || isSavingRef.current || !selectedItem) return;
+    if (uploadRef.current || isSavingRef.current || !selectedItem || files.length === 0) return;
 
     uploadRef.current = true;
     setUploadingItemId(itemId);
@@ -301,14 +311,23 @@ export const useItemReturnCreate = (): ReturnCreateFormState => {
     const currentOrderId = orderIdRef.current;
 
     try {
-      const stampedFile = await stampReturnPhoto(file);
-      if (currentOrderId !== orderIdRef.current) return;
+      const photos: StagedPhoto[] = [];
 
-      if (previewUrl.current) URL.revokeObjectURL(previewUrl.current);
-      const url = URL.createObjectURL(stampedFile);
-      previewUrl.current = url;
-      pendingPhoto.current = stampedFile;
-      setPhotoPreview({ itemId, itemName: selectedItem.itemName, url });
+      for (const file of files) {
+        const stampedFile = await stampReturnPhoto(file);
+
+        photos.push({ file: stampedFile, url: URL.createObjectURL(stampedFile) });
+      }
+
+      if (currentOrderId !== orderIdRef.current) {
+        photos.forEach((photo): void => URL.revokeObjectURL(photo.url));
+        return;
+      }
+
+      previewUrls.current.forEach((url): void => URL.revokeObjectURL(url));
+      previewUrls.current = photos.map((photo) => photo.url);
+      pendingPhotos.current = { itemId, photos };
+      setPhotoPreview({ itemId, itemName: selectedItem.itemName, url: photos[0].url });
     } catch (error) {
       setSaveErrorMessage(error instanceof Error ? error.message : "Photo processing failed. Retry capture.");
     } finally {
@@ -318,21 +337,18 @@ export const useItemReturnCreate = (): ReturnCreateFormState => {
   };
 
   const confirmPhoto = (): void => {
-    const file = pendingPhoto.current;
+    const pending = pendingPhotos.current;
     const preview = photoPreview;
-    if (!file || !preview || uploadRef.current || isSavingRef.current) return;
+    if (!pending || !preview || uploadRef.current || isSavingRef.current) return;
 
-    const previous = stagedPhotosRef.current.get(preview.itemId);
-    if (previous) {
-      if (viewedPhotoRef.current?.url === previous.url) closeViewedPhoto();
-      URL.revokeObjectURL(previous.url);
-    }
-    const staged = { file, url: preview.url };
-    stagedPhotosRef.current.set(preview.itemId, staged);
+    const staged = stagedPhotosRef.current.get(preview.itemId) ?? [];
+    const merged = [...staged, ...pending.photos];
+
+    stagedPhotosRef.current.set(preview.itemId, merged);
     setStagedPhotos(new Map(stagedPhotosRef.current));
     uploadedPhotosRef.current.delete(preview.itemId);
-    previewUrl.current = null;
-    pendingPhoto.current = null;
+    previewUrls.current = [];
+    pendingPhotos.current = null;
     setPhotoPreview(null);
     setSaveErrorMessage(null);
   };
@@ -354,19 +370,27 @@ export const useItemReturnCreate = (): ReturnCreateFormState => {
   const uploadStagedPhotos = async (rows: ReturnOrderItemRow[]): Promise<ReturnOrderItemRow[]> => {
     for (const row of rows) {
       const staged = stagedPhotosRef.current.get(row.id);
-      if (!staged || uploadedPhotosRef.current.has(row.id)) continue;
+      if (!staged?.length || uploadedPhotosRef.current.has(row.id)) continue;
 
       setUploadingItemId(row.id);
-      const formData = new FormData();
-      formData.append("file", staged.file);
-      const uploadResult = await uploadImage(formData).unwrap();
-      if (!uploadResult.url || !uploadResult.file_name) {
-        throw new Error(`Upload returned incomplete photo data for ${row.itemName}.`);
+      const fileUrls: string[] = [];
+      const fileNames: string[] = [];
+
+      for (const photo of staged) {
+        const formData = new FormData();
+        formData.append("file", photo.file);
+        const uploadResult = await uploadImage(formData).unwrap();
+        if (!uploadResult.url || !uploadResult.file_name) {
+          throw new Error(`Upload returned incomplete photo data for ${row.itemName}.`);
+        }
+
+        fileUrls.push(uploadResult.url);
+        fileNames.push(uploadResult.file_name);
       }
 
-      uploadedPhotosRef.current.set(row.id, { fileUrl: uploadResult.url, fileName: uploadResult.file_name });
-      if (viewedPhotoRef.current?.url === staged.url) closeViewedPhoto();
-      URL.revokeObjectURL(staged.url);
+      uploadedPhotosRef.current.set(row.id, { fileUrls, fileNames });
+      if (viewedPhotoRef.current?.url === staged[0].url) closeViewedPhoto();
+      staged.forEach((photo): void => URL.revokeObjectURL(photo.url));
       stagedPhotosRef.current.delete(row.id);
       setStagedPhotos(new Map(stagedPhotosRef.current));
     }
@@ -376,7 +400,7 @@ export const useItemReturnCreate = (): ReturnCreateFormState => {
     return rows.map((row): ReturnOrderItemRow => {
       const uploaded = uploadedPhotosRef.current.get(row.id);
 
-      return { ...row, fileUrl: uploaded?.fileUrl ?? row.fileUrl, fileName: uploaded?.fileName ?? row.fileName };
+      return uploaded ? { ...row, fileUrls: uploaded.fileUrls, fileNames: uploaded.fileNames } : row;
     });
   };
 
@@ -465,7 +489,7 @@ export const useItemReturnCreate = (): ReturnCreateFormState => {
     returnItemIds,
     uploadingItemId,
     photoPreview,
-    stagedPhotoUrls: new Map([...stagedPhotos].map(([itemId, staged]) => [itemId, staged.url])),
+    stagedPhotoUrls: new Map([...stagedPhotos].map(([itemId, staged]) => [itemId, staged.map((photo) => photo.url)])),
     viewedPhoto,
     openPhoto,
     closeViewedPhoto,

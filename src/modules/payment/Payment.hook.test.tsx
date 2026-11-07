@@ -7,6 +7,7 @@ import { usePaymentPagination } from "./Payment.hook";
 
 jest.mock("@/services/payment.service", () => ({
   mapPayment: jest.fn(),
+  mapPaymentSummary: jest.fn((summary) => summary),
   useGetPaymentsQuery: jest.fn(),
 }));
 

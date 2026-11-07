@@ -341,12 +341,13 @@ exports[`ItemReturnCreateForm matches snapshot 2`] = `
             <label
               class="relative inline-flex min-h-12 cursor-pointer items-center justify-center rounded-2xl border border-border-default bg-background-surface px-5 py-2.5 text-lg font-medium text-text-primary hover:bg-background-subtle focus-within:ring-2 focus-within:ring-focus-ring"
             >
-              Take photo
+              Add photos
               <input
                 accept="image/*"
-                aria-label="Take photo for Speaker Active"
+                aria-label="Add photos for Speaker Active"
                 capture="environment"
                 class="absolute inset-0 h-full w-full cursor-pointer opacity-0 disabled:cursor-not-allowed"
+                multiple=""
                 type="file"
               />
             </label>
@@ -391,12 +392,13 @@ exports[`ItemReturnCreateForm matches snapshot 2`] = `
             <label
               class="relative inline-flex min-h-12 cursor-pointer items-center justify-center rounded-2xl border border-border-default bg-background-surface px-5 py-2.5 text-lg font-medium text-text-primary hover:bg-background-subtle focus-within:ring-2 focus-within:ring-focus-ring"
             >
-              Take photo
+              Add photos
               <input
                 accept="image/*"
-                aria-label="Take photo for Microphone Wireless"
+                aria-label="Add photos for Microphone Wireless"
                 capture="environment"
                 class="absolute inset-0 h-full w-full cursor-pointer opacity-0 disabled:cursor-not-allowed"
+                multiple=""
                 type="file"
               />
             </label>
@@ -492,12 +494,13 @@ exports[`ItemReturnCreateForm matches snapshot 2`] = `
                         <label
                           class="relative inline-flex min-h-12 cursor-pointer items-center justify-center rounded-2xl border border-border-default bg-background-surface px-5 py-2.5 text-lg font-medium text-text-primary hover:bg-background-subtle focus-within:ring-2 focus-within:ring-focus-ring"
                         >
-                          Take photo
+                          Add photos
                           <input
                             accept="image/*"
-                            aria-label="Take photo for Speaker Active"
+                            aria-label="Add photos for Speaker Active"
                             capture="environment"
                             class="absolute inset-0 h-full w-full cursor-pointer opacity-0 disabled:cursor-not-allowed"
+                            multiple=""
                             type="file"
                           />
                         </label>
@@ -562,12 +565,13 @@ exports[`ItemReturnCreateForm matches snapshot 2`] = `
                         <label
                           class="relative inline-flex min-h-12 cursor-pointer items-center justify-center rounded-2xl border border-border-default bg-background-surface px-5 py-2.5 text-lg font-medium text-text-primary hover:bg-background-subtle focus-within:ring-2 focus-within:ring-focus-ring"
                         >
-                          Take photo
+                          Add photos
                           <input
                             accept="image/*"
-                            aria-label="Take photo for Microphone Wireless"
+                            aria-label="Add photos for Microphone Wireless"
                             capture="environment"
                             class="absolute inset-0 h-full w-full cursor-pointer opacity-0 disabled:cursor-not-allowed"
+                            multiple=""
                             type="file"
                           />
                         </label>

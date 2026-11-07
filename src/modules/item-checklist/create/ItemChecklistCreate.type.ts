@@ -1,5 +1,7 @@
 import type { SelectOption } from "@/components/Select";
 
+export type ChecklistFocusAt = "moveIn" | "moveOut";
+
 export type ChecklistOrderItemRow = {
   id: string;
   itemId: string;
@@ -18,6 +20,7 @@ export type ChecklistCreateFormState = {
   isLoadingInitialData: boolean;
   isEditMode: boolean;
   selectedOrderId: string;
+  focusAt: ChecklistFocusAt;
   orderItems: ChecklistOrderItemRow[];
   filteredOrderItems: ChecklistOrderItemRow[];
   moveOutItemIds: string[];
@@ -26,6 +29,7 @@ export type ChecklistCreateFormState = {
   isSubmitting: boolean;
   errorMessage: string | null;
   handleOrderChange: (value: string) => void;
+  handleFocusAtChange: (value: string) => void;
   handleSearchChange: (term: string) => void;
   onToggleMoveOut: (id: string) => void;
   onToggleMoveIn: (id: string) => void;

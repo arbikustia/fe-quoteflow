@@ -4,6 +4,7 @@ import { FiFileText, FiX } from "react-icons/fi";
 import { AlertComponent } from "@/components/Alert";
 import { BackButton } from "@/components/BackButton";
 import { InputComponent } from "@/components/Input";
+import { RichTextEditor } from "@/components/RichTextEditor";
 import { Select } from "@/components/Select";
 
 import { buildMailHtmlTemplate } from "@/services/mail/mail.service";
@@ -78,6 +79,54 @@ const _renderTemplateField = (props: MailComposeFormState): ReactElement => (
 );
 
 /**
+ * Render the quotation select.
+ * @param {MailComposeFormState} props - Form state
+ * @returns {ReactElement} Quotation select
+ */
+const _renderQuotationField = (props: MailComposeFormState): ReactElement => (
+  <div className="space-y-3 pb-2 lg:col-span-2">
+    <Select
+      id="mail-quotation"
+      label="Quotation Attachment"
+      labelClassName="!text-lg !font-normal !normal-case !text-text-primary lg:!text-lg"
+      className="mb-0 [&_.ant-select-selector]:!min-h-16 lg:[&_.ant-select-selector]:!min-h-14"
+      selectClassName="!h-16 lg:!h-14 [&_.ant-select-content]:!text-xl lg:[&_.ant-select-content]:!text-lg [&_.ant-select-content]:!font-normal"
+      required={true}
+      value={props.quotationId}
+      placeholder="Select quotation to attach"
+      options={props.quotationOptions}
+      onChange={props.handleQuotationChange}
+      errorMessage={props.attachmentError}
+    />
+    {props.attachmentName && _renderAttachmentPreview(props)}
+  </div>
+);
+
+/**
+ * Render the invoice select used by the invoice template.
+ * @param {MailComposeFormState} props - Form state
+ * @returns {ReactElement} Invoice select
+ */
+const _renderInvoiceField = (props: MailComposeFormState): ReactElement => (
+  <div className="space-y-3 pb-2 lg:col-span-2">
+    <Select
+      id="mail-invoice"
+      label="Invoice Attachment"
+      labelClassName="!text-lg !font-normal !normal-case !text-text-primary lg:!text-lg"
+      className="mb-0 [&_.ant-select-selector]:!min-h-16 lg:[&_.ant-select-selector]:!min-h-14"
+      selectClassName="!h-16 lg:!h-14 [&_.ant-select-content]:!text-xl lg:[&_.ant-select-content]:!text-lg [&_.ant-select-content]:!font-normal"
+      required={true}
+      value={props.invoiceId}
+      placeholder="Select invoice to attach"
+      options={props.invoiceOptions}
+      onChange={props.handleInvoiceChange}
+      errorMessage={props.attachmentError}
+    />
+    {props.attachmentName && _renderAttachmentPreview(props)}
+  </div>
+);
+
+/**
  * Render the To recipient field.
  * @param {MailComposeFormState} props - Form state
  * @returns {ReactElement} Recipient field
@@ -116,28 +165,22 @@ const _renderSubjectField = (props: MailComposeFormState): ReactElement =>
  * @returns {ReactElement} Body field
  */
 const _renderBodyField = (props: MailComposeFormState): ReactElement => (
-  <label className="block space-y-2 lg:col-span-2">
+  <div className="space-y-2 lg:col-span-2">
     <span className="text-lg font-normal text-text-primary">
       Body
       <span aria-hidden="true" className="ml-1 text-danger">
         *
       </span>
     </span>
-    <textarea
-      id="mail-body"
-      value={props.body}
-      onChange={props.handleBodyChange}
-      placeholder="Write the mail content"
-      className={`min-h-36 w-full rounded-2xl border-2 ${
-        props.bodyError ? "border-danger" : "border-border-strong"
-      } bg-background-surface px-4 py-4 text-xl font-normal outline-none placeholder:text-xl placeholder:text-text-tertiary focus:border-border-focus focus:ring-2 focus:ring-focus-ring/30 lg:min-h-28 lg:text-lg lg:placeholder:text-lg`}
-    />
+    <div id="mail-body">
+      <RichTextEditor value={props.body} onChange={props.handleBodyChange} placeholder="Write the mail content" />
+    </div>
     {props.bodyError && (
       <p role="alert" className="mt-1.5 text-sm text-danger">
         {props.bodyError}
       </p>
     )}
-  </label>
+  </div>
 );
 
 /**
@@ -146,7 +189,7 @@ const _renderBodyField = (props: MailComposeFormState): ReactElement => (
  * @returns {ReactElement} Attachment card
  */
 const _renderAttachmentPreview = (props: MailComposeFormState): ReactElement => (
-  <div className="flex items-center justify-between gap-4 rounded-2xl border-2 border-action-primary/40 bg-action-primary-subtle px-4 py-3">
+  <div className="mt-3 flex items-center justify-between gap-4 rounded-2xl border-2 border-action-primary/40 bg-action-primary-subtle px-4 py-3">
     <div className="flex min-w-0 items-center gap-3">
       <FiFileText aria-hidden="true" className="h-8 w-8 shrink-0 text-action-primary" />
       <div className="min-w-0">
@@ -273,7 +316,7 @@ const _renderTemplatePreview = (props: MailComposeFormState): ReactElement => (
     </h3>
     <iframe
       title="Mail template preview"
-      srcDoc={buildMailHtmlTemplate(props.body, props.template)}
+      srcDoc={buildMailHtmlTemplate(props.body, props.template, props.selectedQuotation, props.selectedInvoice)}
       sandbox=""
       className="h-[560px] w-full rounded-2xl border border-border-default bg-white lg:h-[720px]"
     />
@@ -293,8 +336,8 @@ const _renderFormCard = (props: MailComposeFormState): ReactElement => (
         {_renderTemplateField(props)}
         {_renderToField(props)}
         {_renderSubjectField(props)}
+        {props.template === "invoice" ? _renderInvoiceField(props) : _renderQuotationField(props)}
         {_renderBodyField(props)}
-        {_renderAttachmentField(props)}
       </div>
     </div>
     {_renderSubmitSection(props)}

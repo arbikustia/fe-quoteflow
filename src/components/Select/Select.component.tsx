@@ -8,7 +8,7 @@ import type { SelectOption, SelectProps } from "./Select.type";
  * @param {SelectOption[]} options - Select options
  * @returns {SelectOption[]} Visible options
  */
-const _getOptions = (options: SelectOption[]): SelectOption[] => options.filter((option) => option.value !== "" && option.label.trim() !== "");
+const _getOptions = (options?: SelectOption[]): SelectOption[] => (options ?? []).filter((option) => option.value !== "" && option.label.trim() !== "");
 
 /**
  * Render reusable Ant Design select field.
@@ -16,7 +16,7 @@ const _getOptions = (options: SelectOption[]): SelectOption[] => options.filter(
  * @returns {ReactElement} Select component
  */
 export const Select = (props: SelectProps): ReactElement => {
-  const { id, label, placeholder, value, options, onChange, onSearch, isRemoteSearch, required, disabled, isClearable, errorMessage, className = "", selectClassName = "", labelClassName = "", popupClassName = "" } = props;
+  const { id, label, placeholder, value, options, onChange, onSearch, isRemoteSearch, required, disabled, isClearable, isLoadingOptions, errorMessage, className = "", selectClassName = "", labelClassName = "", popupClassName = "", onPopupScroll } = props;
   const errorId = `${id}-error`;
   const isError = Boolean(errorMessage);
 
@@ -47,6 +47,8 @@ export const Select = (props: SelectProps): ReactElement => {
         placeholder={placeholder}
         onChange={handleChange}
         onSearch={onSearch}
+        onPopupScroll={onPopupScroll}
+        notFoundContent={isLoadingOptions ? "Loading…" : undefined}
         disabled={disabled}
         allowClear={isClearable}
         status={isError ? "error" : undefined}

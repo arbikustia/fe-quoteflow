@@ -60,7 +60,7 @@ const _renderSection = (title: string, children: ReactNode): ReactElement => (
  * @returns {ReactElement} Overview section
  */
 export const renderQuotationOverview = (quotation: ApiQuotation): ReactElement => (
-  <section className="min-w-0 rounded-3xl border border-border-strong bg-background-surface p-5 shadow-small sm:p-6">
+  <section className="min-w-0 rounded-3xl border border-border-strong bg-action-primary-subtle p-5 shadow-small sm:p-6">
     <div className="flex min-w-0 flex-col gap-3 sm:flex-row sm:items-start sm:justify-between sm:gap-4">
       <div className="min-w-0">
         <p className="text-lg font-semibold uppercase tracking-widest text-text-tertiary">Quotation</p>

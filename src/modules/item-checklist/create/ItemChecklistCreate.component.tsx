@@ -9,6 +9,12 @@ import Table from "@/components/Table";
 
 import type { ChecklistCreateFormState, ChecklistOrderItemRow } from "./ItemChecklistCreate.type";
 
+const MOVE_CHECKBOX_CLASS = "text-lg [&_.ant-checkbox]:h-7! [&_.ant-checkbox]:w-7! [&_.ant-checkbox]:rounded-lg! [&_.ant-checkbox]:border-2! [&_.ant-checkbox]:border-text-primary! [&_.ant-checkbox::after]:h-3.5! [&_.ant-checkbox::after]:w-2! [&_.ant-checkbox::after]:border-2! [&_.ant-checkbox::after]:border-t-0! [&_.ant-checkbox::after]:border-l-0!";
+const FOCUS_AT_OPTIONS = [
+  { value: "moveOut", label: "Move Out" },
+  { value: "moveIn", label: "Move In" },
+];
+
 const _renderMoveCheckbox = (
   row: ChecklistOrderItemRow,
   checkedItemIds: string[],
@@ -23,7 +29,7 @@ const _renderMoveCheckbox = (
       ariaLabel={`${label} ${row.itemName}`}
       checked={checkedItemIds.includes(row.id)}
       onChange={(): void => onToggle(row.id)}
-      className="[&_.ant-checkbox-inner]:h-7 [&_.ant-checkbox-inner]:w-7 [&_.ant-checkbox-inner]:rounded-lg [&_.ant-checkbox-inner]:border-2 [&_.ant-checkbox-inner]:border-border-strong [&_.ant-checkbox-inner::after]:h-3.5 [&_.ant-checkbox-inner::after]:w-2"
+      className={MOVE_CHECKBOX_CLASS}
     />
   </div>
 );
@@ -39,14 +45,14 @@ const _renderMobileItem = (row: ChecklistOrderItemRow, props: ChecklistCreateFor
     <div className="mt-4 flex flex-wrap gap-x-6 gap-y-3 border-t border-border-default pt-4">
       <CheckboxComponent
         label="Move Out"
-        className="text-lg [&_.ant-checkbox-inner]:h-7 [&_.ant-checkbox-inner]:w-7 [&_.ant-checkbox-inner]:rounded-lg [&_.ant-checkbox-inner]:border-2 [&_.ant-checkbox-inner]:border-border-strong"
+        className={MOVE_CHECKBOX_CLASS}
         ariaLabel={`Move out ${row.itemName}`}
         checked={props.moveOutItemIds.includes(row.id)}
         onChange={(): void => props.onToggleMoveOut(row.id)}
       />
       <CheckboxComponent
         label="Move In"
-        className="text-lg [&_.ant-checkbox-inner]:h-7 [&_.ant-checkbox-inner]:w-7 [&_.ant-checkbox-inner]:rounded-lg [&_.ant-checkbox-inner]:border-2 [&_.ant-checkbox-inner]:border-border-strong"
+        className={MOVE_CHECKBOX_CLASS}
         ariaLabel={`Move in ${row.itemName}`}
         checked={props.moveInItemIds.includes(row.id)}
         onChange={(): void => props.onToggleMoveIn(row.id)}
@@ -117,27 +123,39 @@ export const ItemChecklistCreateForm = (props: ChecklistCreateFormState): ReactE
   return (
     <div className="flex min-h-0 flex-1 flex-col gap-6 lg:-mt-4 lg:gap-8">
       <div className="rounded-3xl border border-border-default bg-background-surface p-6 shadow-small sm:p-8 lg:p-10">
-        {props.isEditMode ? (
-          <div className="max-w-xl">
-            <p className="text-lg font-medium text-text-secondary">Rental Order</p>
-            <p className="mt-2 text-xl font-semibold text-text-primary">{props.orderOptions.find((option) => option.value === props.selectedOrderId)?.label ?? "Linked to this checklist"}</p>
-          </div>
-        ) : (
+        <div className="grid gap-4 md:grid-cols-2">
+          {props.isEditMode ? (
+            <div>
+              <p className="text-lg font-medium text-text-secondary">Rental Order</p>
+              <p className="mt-2 text-xl font-semibold text-text-primary">{props.orderOptions.find((option) => option.value === props.selectedOrderId)?.label ?? "Linked to this checklist"}</p>
+            </div>
+          ) : (
+            <Select
+              id="checklist-order"
+              label="Rental Order"
+              placeholder={props.isOrdersLoading ? "Loading rental orders..." : "Select customer and order number"}
+              value={props.selectedOrderId}
+              options={props.orderOptions}
+              onChange={props.handleOrderChange}
+              disabled={props.isOrdersLoading}
+              required
+              labelClassName="!text-lg font-normal text-text-primary"
+              selectClassName="h-14 !text-lg !border-2 !border-border-strong"
+              popupClassName="text-lg"
+            />
+          )}
           <Select
-            id="checklist-order"
-            label="Rental Order"
-            placeholder={props.isOrdersLoading ? "Loading rental orders..." : "Select customer and order number"}
-            value={props.selectedOrderId}
-            options={props.orderOptions}
-            onChange={props.handleOrderChange}
-            disabled={props.isOrdersLoading}
-            required
-            className="max-w-xl"
+            id="checklist-focus-at"
+            label="Focus At"
+            placeholder="Select checklist focus"
+            value={props.focusAt}
+            options={FOCUS_AT_OPTIONS}
+            onChange={props.handleFocusAtChange}
             labelClassName="!text-lg font-normal text-text-primary"
             selectClassName="h-14 !text-lg !border-2 !border-border-strong"
             popupClassName="text-lg"
           />
-        )}
+        </div>
         {props.errorMessage && <p role="alert" className="mt-3 text-lg text-danger">{props.errorMessage}</p>}
       </div>
 

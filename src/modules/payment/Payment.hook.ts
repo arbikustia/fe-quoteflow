@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 
 import type { PaymentData, PaymentPagination, PaymentProps } from "./Payment.type";
 
-import { mapPayment, useGetPaymentsQuery } from "@/services/payment.service";
+import { mapPaymentSummary, useGetPaymentsQuery } from "@/services/payment.service";
 
 /**
  * Fetch payments and expose paginated list state.
@@ -17,7 +17,7 @@ export const usePaymentPagination = (): PaymentPagination => {
   const response = query.data;
   const isMissingData = !query.isLoading && !query.error && !response;
   const isEnvelopeError = Boolean(response && !response.status);
-  const paginatedData = response?.status ? response.data.map(mapPayment) : [];
+  const paginatedData = response?.status ? response.data.map(mapPaymentSummary) : [];
   const totalPages = response?.status ? Math.max(1, response.total_pages) : 1;
   const totalCount = response?.status ? response.total_count : 0;
   let errorMessage: string | null = null;
@@ -70,12 +70,12 @@ export const usePaymentNavigation = (): Pick<PaymentProps, "onBack" | "onCreate"
    *
    * @param {PaymentData} payment - payment
    */
-  const onEdit = (payment: PaymentData): void => { void navigate(`/document/payment/${payment.id}/edit`, { state: payment }); };
+  const onEdit = (payment: PaymentData): void => { void navigate(`/document/payment/${payment.invoiceNo}/edit`, { state: payment }); };
   /**
    *
    * @param {PaymentData} payment - payment
    */
-  const onDetail = (payment: PaymentData): void => { void navigate(`/document/payment/${payment.id}`, { state: payment }); };
+  const onDetail = (payment: PaymentData): void => { void navigate(`/document/payment/${payment.invoiceNo}`, { state: payment }); };
   /**
    *
    * @param {PaymentData} payment - payment

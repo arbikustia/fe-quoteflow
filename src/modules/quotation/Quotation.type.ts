@@ -108,6 +108,12 @@ export type QuotationListParams = {
   searchTerm: string;
 };
 
+export type QuotationAllResponse = {
+  status: boolean;
+  data: ApiQuotation[];
+  messages: string[];
+};
+
 export type QuotationUpdatePayload = {
   transaction_id: string;
   quotation_no: string;

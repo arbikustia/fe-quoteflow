@@ -10,9 +10,10 @@ import Table from "@/components/Table";
 import type { ReturnCreateFormState, ReturnOrderItemRow } from "./ItemReturnCreate.type";
 
 const _renderCaptureButton = (row: ReturnOrderItemRow, props: ReturnCreateFormState): ReactElement => {
-  const displayUrl = props.stagedPhotoUrls.get(row.id) ?? (row.fileUrl || null);
-  let label = "Take photo";
-  if (displayUrl) label = "Retake photo";
+  const stagedUrls = props.stagedPhotoUrls.get(row.id) ?? [];
+  const hasPhoto = stagedUrls.length > 0 || row.fileUrls.length > 0;
+  let label = "Add photos";
+  if (hasPhoto) label = "Add more photos";
   if (props.uploadingItemId === row.id) label = "Uploading…";
 
   return (
@@ -21,13 +22,14 @@ const _renderCaptureButton = (row: ReturnOrderItemRow, props: ReturnCreateFormSt
       <input
         type="file"
         accept="image/*"
+        multiple
         capture="environment"
-        aria-label={`Take photo for ${row.itemName}`}
+        aria-label={`Add photos for ${row.itemName}`}
         disabled={props.isSubmitting}
         className="absolute inset-0 h-full w-full cursor-pointer opacity-0 disabled:cursor-not-allowed"
         onChange={(event): void => {
-          const file = event.target.files?.[0];
-          if (file) void props.onCaptureItem(row.id, file);
+          const files = Array.from(event.target.files ?? []);
+          if (files.length) void props.onCaptureItem(row.id, files);
           event.target.value = "";
         }}
       />
@@ -36,8 +38,9 @@ const _renderCaptureButton = (row: ReturnOrderItemRow, props: ReturnCreateFormSt
 };
 
 const _renderViewPhotoButton = (row: ReturnOrderItemRow, props: ReturnCreateFormState): ReactElement | null => {
-  const displayUrl = props.stagedPhotoUrls.get(row.id) ?? (row.fileUrl || null);
-  if (!displayUrl) return null;
+  const stagedUrls = props.stagedPhotoUrls.get(row.id) ?? [];
+  const photos = stagedUrls.length ? stagedUrls : row.fileUrls;
+  if (!photos.length) return null;
 
   return (
     <button
@@ -47,11 +50,11 @@ const _renderViewPhotoButton = (row: ReturnOrderItemRow, props: ReturnCreateForm
       aria-label="View photo"
     >
       <img
-        src={displayUrl}
+        src={photos[0]}
         alt=""
         className="h-7 w-7 rounded-lg object-cover"
       />
-      <span className="font-semibold tracking-wide">View photo</span>
+      <span className="font-semibold tracking-wide">View photo ({photos.length})</span>
     </button>
   );
 };

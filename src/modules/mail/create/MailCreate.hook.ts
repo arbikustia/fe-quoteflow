@@ -1,14 +1,18 @@
 import type { ChangeEvent, SyntheticEvent } from "react";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { MAIL_CONFIG } from "@/modules/mail/Mail.config";
 import type { MailTemplate } from "@/modules/mail/Mail.type";
+import { quotationToQuoteData } from "@/modules/quotation/Quotation.helpers";
+import { useGetInvoiceOptionsQuery } from "@/services/invoice.service";
 import {
   buildMailSendFormData,
   useGetMailSendersQuery,
   useSendMailMutation,
 } from "@/services/mail/mail.service";
+import { useGetQuotationOptionsQuery } from "@/services/quotation/quotation.service";
+import { generateQuotationPdfBlob } from "@/utils/pdfGenerator";
 
 import { getSelectedFile, isPdfFile, validateMailValues } from "./MailCreate.helpers";
 import type {
@@ -133,8 +137,49 @@ const useComposeFields = (): MailComposeFieldState => {
   const [to, setTo] = useState("");
   const [subject, setSubject] = useState("");
   const [body, setBody] = useState("");
+  const [quotationId, setQuotationId] = useState("");
+  const [invoiceId, setInvoiceId] = useState("");
   const [errors, setErrors] = useState<MailCompositeErrors>({});
   const attachmentField = useAttachmentField();
+
+  const { data: quotationsData } = useGetQuotationOptionsQuery();
+  const quotations = quotationsData?.status ? quotationsData.data : [];
+  const { data: invoicesData } = useGetInvoiceOptionsQuery();
+  const invoices = invoicesData?.status ? invoicesData.data : [];
+  const pendingPdf = useRef<Promise<File> | undefined>(undefined);
+  const isInvoiceTemplate = template === "invoice";
+  const selectedQuotation = isInvoiceTemplate ? undefined : quotations.find((q) => q.id === quotationId);
+  const selectedInvoice = isInvoiceTemplate ? invoices.find((i) => i.id === invoiceId) : undefined;
+  const documentQuotation = selectedInvoice?.quotation ?? selectedQuotation;
+
+  useEffect(() => {
+    if (documentQuotation) {
+      pendingPdf.current = generateQuotationPdfBlob(quotationToQuoteData(documentQuotation)).then((file) => {
+        attachmentField.handleAttachmentChange({ target: { files: [file] } } as unknown as ChangeEvent<HTMLInputElement>);
+
+        return file;
+      }).catch((error: Error) => {
+        attachmentField.handleAttachmentRemove();
+        throw error;
+      });
+    } else if (quotationId || invoiceId) {
+      attachmentField.handleAttachmentRemove();
+    }
+  }, [documentQuotation, quotationId, invoiceId]);
+
+  /**
+   * Resolve the quotation PDF attachment, waiting for generation when still running.
+   * @returns {Promise<File | undefined>} Attachment file
+   */
+  const getAttachment = async (): Promise<File | undefined> => {
+    if (!pendingPdf.current) return attachmentField.attachment;
+
+    try {
+      return await pendingPdf.current;
+    } catch {
+      return undefined;
+    }
+  };
 
   const values: MailComposeValues = {
     senderId,
@@ -143,6 +188,8 @@ const useComposeFields = (): MailComposeFieldState => {
     subject,
     body,
     attachment: attachmentField.attachment,
+    quotation: selectedQuotation,
+    invoice: selectedInvoice,
   };
 
   /**
@@ -178,11 +225,13 @@ const useComposeFields = (): MailComposeFieldState => {
    * @param {ChangeEvent<HTMLTextAreaElement>} event - Change event
    * @returns {void}
    */
-  const handleBodyChange = (event: ChangeEvent<HTMLTextAreaElement>): void => setBody(event.target.value);
+  const handleBodyChange = (value: string): void => setBody(value);
+
+  const handleQuotationChange = (value: string): void => setQuotationId(value);
+  const handleInvoiceChange = (value: string): void => setInvoiceId(value);
 
   /**
    * Validate the current values.
-   * @returns {boolean} Whether the values are valid
    */
   const validate = (): boolean => {
     const nextErrors = validateMailValues(values);
@@ -194,6 +243,19 @@ const useComposeFields = (): MailComposeFieldState => {
 
   return {
     ...values,
+    quotationId,
+    invoiceId,
+    selectedQuotation,
+    selectedInvoice,
+    quotationOptions: quotations.map((q) => ({
+      label: q.transaction?.customer_name ? `${q.quotation_no} - ${q.transaction.customer_name}` : q.quotation_no,
+      value: q.id,
+    })),
+    invoiceOptions: invoices.map((invoice) => {
+      const customerName = invoice.customer?.name ?? invoice.quotation?.transaction?.customer_name;
+
+      return { label: customerName ? `${invoice.invoice_no} - ${customerName}` : invoice.invoice_no, value: invoice.id };
+    }),
     errors: { ...errors, attachmentError: attachmentField.attachmentError },
     attachmentUrl: attachmentField.attachmentUrl,
     handleSenderChange,
@@ -201,8 +263,11 @@ const useComposeFields = (): MailComposeFieldState => {
     handleToChange,
     handleSubjectChange,
     handleBodyChange,
+    handleQuotationChange,
+    handleInvoiceChange,
     handleAttachmentChange: attachmentField.handleAttachmentChange,
     handleAttachmentRemove: attachmentField.handleAttachmentRemove,
+    getAttachment,
     validate,
   };
 };
@@ -227,7 +292,15 @@ const useMailSend = (): {
   const send = async (values: MailComposeValues): Promise<boolean> => {
     setErrorMessage(undefined);
 
-    const formData = buildMailSendFormData(values.senderId, values.to, values.subject, values.body, values.attachment, values.template);
+    const formData = buildMailSendFormData(
+      values.senderId,
+      values.to,
+      values.subject,
+      values.body,
+      values.attachment,
+      values.template,
+      values.quotation,
+    );
 
     try {
       const response = await sendMail(formData).unwrap();
@@ -277,7 +350,9 @@ export const useMailCreate = (): MailComposeFormState => {
       to: fields.to,
       subject: fields.subject,
       body: fields.body,
-      attachment: fields.attachment,
+      attachment: await fields.getAttachment(),
+      quotation: fields.quotation,
+      invoice: fields.invoice,
     };
 
     if (await submission.send(payload)) {
@@ -292,6 +367,12 @@ export const useMailCreate = (): MailComposeFormState => {
     to: fields.to,
     subject: fields.subject,
     body: fields.body,
+    quotationId: fields.quotationId,
+    quotationOptions: fields.quotationOptions,
+    invoiceId: fields.invoiceId,
+    invoiceOptions: fields.invoiceOptions,
+    selectedQuotation: fields.selectedQuotation,
+    selectedInvoice: fields.selectedInvoice,
     attachmentName: fields.attachment?.name ?? "",
     attachmentUrl: fields.attachmentUrl,
     senderOptions: senderState.senderOptions,
@@ -308,6 +389,8 @@ export const useMailCreate = (): MailComposeFormState => {
     handleToChange: fields.handleToChange,
     handleSubjectChange: fields.handleSubjectChange,
     handleBodyChange: fields.handleBodyChange,
+    handleQuotationChange: fields.handleQuotationChange,
+    handleInvoiceChange: fields.handleInvoiceChange,
     handleAttachmentChange: fields.handleAttachmentChange,
     handleAttachmentRemove: fields.handleAttachmentRemove,
     handleSubmit,

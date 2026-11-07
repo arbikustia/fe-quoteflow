@@ -23,10 +23,12 @@ export type SelectProps = {
   disabled?: boolean;
   isClearable?: boolean;
   errorMessage?: string | null;
+  isLoadingOptions?: boolean;
   className?: string;
   selectClassName?: string;
   labelClassName?: string;
   popupClassName?: string;
   onSearch?: (value: string) => void;
+  onPopupScroll?: (e: React.UIEvent<HTMLDivElement, UIEvent>) => void;
   isRemoteSearch?: boolean;
 };

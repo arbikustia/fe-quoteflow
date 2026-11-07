@@ -9,69 +9,130 @@ exports[`ItemChecklistCreateForm matches snapshot 1`] = `
       class="rounded-3xl border border-border-default bg-background-surface p-6 shadow-small sm:p-8 lg:p-10"
     >
       <div
-        class="relative max-w-xl"
+        class="grid gap-4 md:grid-cols-2"
       >
-        <label
-          class="mb-1.5 block text-sm font-semibold text-text-secondary !text-lg font-normal text-text-primary"
-          for="checklist-order"
-        >
-          Rental Order
-          <span
-            aria-hidden="true"
-            class="ml-1 text-danger"
-          >
-            *
-          </span>
-        </label>
         <div
-          class="ant-select ant-select-outlined h-14 w-full !border-2 [&_.ant-select-selector]:!rounded-2xl [&_.ant-select-content]:!text-xl [&_.ant-select-content]:!font-normal !border-border-strong [&_.ant-select-selector]:!border-2 [&_.ant-select-selector]:!border-border-strong h-14 !text-lg !border-2 !border-border-strong css-var-root ant-select-css-var css-dev-only-do-not-override-eofgey ant-select-single ant-select-show-arrow ant-select-show-search"
-          style="--ant-select-border-radius: 16px; border: 2px solid var(--border-strong);"
+          class="relative "
         >
+          <label
+            class="mb-1.5 block text-sm font-semibold text-text-secondary !text-lg font-normal text-text-primary"
+            for="checklist-order"
+          >
+            Rental Order
+            <span
+              aria-hidden="true"
+              class="ml-1 text-danger"
+            >
+              *
+            </span>
+          </label>
           <div
-            class="ant-select-content"
+            class="ant-select ant-select-outlined h-14 w-full !border-2 [&_.ant-select-selector]:!rounded-2xl [&_.ant-select-content]:!text-xl [&_.ant-select-content]:!font-normal !border-border-strong [&_.ant-select-selector]:!border-2 [&_.ant-select-selector]:!border-border-strong h-14 !text-lg !border-2 !border-border-strong css-var-root ant-select-css-var css-dev-only-do-not-override-eofgey ant-select-single ant-select-show-arrow ant-select-show-search"
+            style="--ant-select-border-radius: 16px; border: 2px solid var(--border-strong);"
           >
             <div
-              class="ant-select-placeholder"
+              class="ant-select-content"
             >
-              Select customer and order number
-            </div>
-            <input
-              aria-autocomplete="list"
-              aria-expanded="false"
-              aria-haspopup="listbox"
-              aria-invalid="false"
-              aria-label="Rental Order"
-              aria-required="true"
-              autocomplete="new-password"
-              class="ant-select-input"
-              id="checklist-order"
-              role="combobox"
-              type="text"
-              value=""
-            />
-          </div>
-          <div
-            class="ant-select-suffix"
-          >
-            <span
-              aria-label="down"
-              class="anticon anticon-down"
-              role="img"
-            >
-              <svg
-                aria-hidden="true"
-                data-icon="down"
-                fill="currentColor"
-                focusable="false"
-                height="1em"
-                viewBox="64 64 896 896"
-                width="1em"
+              <div
+                class="ant-select-placeholder"
               >
-                <path
-                  d="M884 256h-75c-5.1 0-9.9 2.5-12.9 6.6L512 654.2 227.9 262.6c-3-4.1-7.8-6.6-12.9-6.6h-75c-6.5 0-10.3 7.4-6.5 12.7l352.6 486.1c12.8 17.6 39 17.6 51.7 0l352.6-486.1c3.9-5.3.1-12.7-6.4-12.7z"
-                />
-              </svg>
-            </span>
+                Select customer and order number
+              </div>
+              <input
+                aria-autocomplete="list"
+                aria-expanded="false"
+                aria-haspopup="listbox"
+                aria-invalid="false"
+                aria-label="Rental Order"
+                aria-required="true"
+                autocomplete="new-password"
+                class="ant-select-input"
+                id="checklist-order"
+                role="combobox"
+                type="text"
+                value=""
+              />
+            </div>
+            <div
+              class="ant-select-suffix"
+            >
+              <span
+                aria-label="down"
+                class="anticon anticon-down"
+                role="img"
+              >
+                <svg
+                  aria-hidden="true"
+                  data-icon="down"
+                  fill="currentColor"
+                  focusable="false"
+                  height="1em"
+                  viewBox="64 64 896 896"
+                  width="1em"
+                >
+                  <path
+                    d="M884 256h-75c-5.1 0-9.9 2.5-12.9 6.6L512 654.2 227.9 262.6c-3-4.1-7.8-6.6-12.9-6.6h-75c-6.5 0-10.3 7.4-6.5 12.7l352.6 486.1c12.8 17.6 39 17.6 51.7 0l352.6-486.1c3.9-5.3.1-12.7-6.4-12.7z"
+                  />
+                </svg>
+              </span>
+            </div>
+          </div>
+        </div>
+        <div
+          class="relative "
+        >
+          <label
+            class="mb-1.5 block text-sm font-semibold text-text-secondary !text-lg font-normal text-text-primary"
+            for="checklist-focus-at"
+          >
+            Focus At
+          </label>
+          <div
+            class="ant-select ant-select-outlined h-14 w-full !border-2 [&_.ant-select-selector]:!rounded-2xl [&_.ant-select-content]:!text-xl [&_.ant-select-content]:!font-normal !border-border-strong [&_.ant-select-selector]:!border-2 [&_.ant-select-selector]:!border-border-strong h-14 !text-lg !border-2 !border-border-strong css-var-root ant-select-css-var css-dev-only-do-not-override-eofgey ant-select-single ant-select-show-arrow ant-select-show-search"
+            style="--ant-select-border-radius: 16px; border: 2px solid var(--border-strong);"
+          >
+            <div
+              class="ant-select-content ant-select-content-has-value"
+              title="Move Out"
+            >
+              Move Out
+              <input
+                aria-autocomplete="list"
+                aria-expanded="false"
+                aria-haspopup="listbox"
+                aria-invalid="false"
+                aria-label="Focus At"
+                autocomplete="new-password"
+                class="ant-select-input"
+                id="checklist-focus-at"
+                role="combobox"
+                type="text"
+                value=""
+              />
+            </div>
+            <div
+              class="ant-select-suffix"
+            >
+              <span
+                aria-label="down"
+                class="anticon anticon-down"
+                role="img"
+              >
+                <svg
+                  aria-hidden="true"
+                  data-icon="down"
+                  fill="currentColor"
+                  focusable="false"
+                  height="1em"
+                  viewBox="64 64 896 896"
+                  width="1em"
+                >
+                  <path
+                    d="M884 256h-75c-5.1 0-9.9 2.5-12.9 6.6L512 654.2 227.9 262.6c-3-4.1-7.8-6.6-12.9-6.6h-75c-6.5 0-10.3 7.4-6.5 12.7l352.6 486.1c12.8 17.6 39 17.6 51.7 0l352.6-486.1c3.9-5.3.1-12.7-6.4-12.7z"
+                  />
+                </svg>
+              </span>
+            </div>
           </div>
         </div>
       </div>
@@ -105,66 +166,127 @@ exports[`ItemChecklistCreateForm matches snapshot 2`] = `
       class="rounded-3xl border border-border-default bg-background-surface p-6 shadow-small sm:p-8 lg:p-10"
     >
       <div
-        class="relative max-w-xl"
+        class="grid gap-4 md:grid-cols-2"
       >
-        <label
-          class="mb-1.5 block text-sm font-semibold text-text-secondary !text-lg font-normal text-text-primary"
-          for="checklist-order"
-        >
-          Rental Order
-          <span
-            aria-hidden="true"
-            class="ml-1 text-danger"
-          >
-            *
-          </span>
-        </label>
         <div
-          class="ant-select ant-select-outlined h-14 w-full !border-2 [&_.ant-select-selector]:!rounded-2xl [&_.ant-select-content]:!text-xl [&_.ant-select-content]:!font-normal !border-border-strong [&_.ant-select-selector]:!border-2 [&_.ant-select-selector]:!border-border-strong h-14 !text-lg !border-2 !border-border-strong css-var-root ant-select-css-var css-dev-only-do-not-override-eofgey ant-select-single ant-select-show-arrow ant-select-show-search"
-          style="--ant-select-border-radius: 16px; border: 2px solid var(--border-strong);"
+          class="relative "
         >
-          <div
-            class="ant-select-content ant-select-content-has-value"
-            title="PT Customer — ORD-001"
+          <label
+            class="mb-1.5 block text-sm font-semibold text-text-secondary !text-lg font-normal text-text-primary"
+            for="checklist-order"
           >
-            PT Customer — ORD-001
-            <input
-              aria-autocomplete="list"
-              aria-expanded="false"
-              aria-haspopup="listbox"
-              aria-invalid="false"
-              aria-label="Rental Order"
-              aria-required="true"
-              autocomplete="new-password"
-              class="ant-select-input"
-              id="checklist-order"
-              role="combobox"
-              type="text"
-              value=""
-            />
-          </div>
-          <div
-            class="ant-select-suffix"
-          >
+            Rental Order
             <span
-              aria-label="down"
-              class="anticon anticon-down"
-              role="img"
+              aria-hidden="true"
+              class="ml-1 text-danger"
             >
-              <svg
-                aria-hidden="true"
-                data-icon="down"
-                fill="currentColor"
-                focusable="false"
-                height="1em"
-                viewBox="64 64 896 896"
-                width="1em"
-              >
-                <path
-                  d="M884 256h-75c-5.1 0-9.9 2.5-12.9 6.6L512 654.2 227.9 262.6c-3-4.1-7.8-6.6-12.9-6.6h-75c-6.5 0-10.3 7.4-6.5 12.7l352.6 486.1c12.8 17.6 39 17.6 51.7 0l352.6-486.1c3.9-5.3.1-12.7-6.4-12.7z"
-                />
-              </svg>
+              *
             </span>
+          </label>
+          <div
+            class="ant-select ant-select-outlined h-14 w-full !border-2 [&_.ant-select-selector]:!rounded-2xl [&_.ant-select-content]:!text-xl [&_.ant-select-content]:!font-normal !border-border-strong [&_.ant-select-selector]:!border-2 [&_.ant-select-selector]:!border-border-strong h-14 !text-lg !border-2 !border-border-strong css-var-root ant-select-css-var css-dev-only-do-not-override-eofgey ant-select-single ant-select-show-arrow ant-select-show-search"
+            style="--ant-select-border-radius: 16px; border: 2px solid var(--border-strong);"
+          >
+            <div
+              class="ant-select-content ant-select-content-has-value"
+              title="PT Customer — ORD-001"
+            >
+              PT Customer — ORD-001
+              <input
+                aria-autocomplete="list"
+                aria-expanded="false"
+                aria-haspopup="listbox"
+                aria-invalid="false"
+                aria-label="Rental Order"
+                aria-required="true"
+                autocomplete="new-password"
+                class="ant-select-input"
+                id="checklist-order"
+                role="combobox"
+                type="text"
+                value=""
+              />
+            </div>
+            <div
+              class="ant-select-suffix"
+            >
+              <span
+                aria-label="down"
+                class="anticon anticon-down"
+                role="img"
+              >
+                <svg
+                  aria-hidden="true"
+                  data-icon="down"
+                  fill="currentColor"
+                  focusable="false"
+                  height="1em"
+                  viewBox="64 64 896 896"
+                  width="1em"
+                >
+                  <path
+                    d="M884 256h-75c-5.1 0-9.9 2.5-12.9 6.6L512 654.2 227.9 262.6c-3-4.1-7.8-6.6-12.9-6.6h-75c-6.5 0-10.3 7.4-6.5 12.7l352.6 486.1c12.8 17.6 39 17.6 51.7 0l352.6-486.1c3.9-5.3.1-12.7-6.4-12.7z"
+                  />
+                </svg>
+              </span>
+            </div>
+          </div>
+        </div>
+        <div
+          class="relative "
+        >
+          <label
+            class="mb-1.5 block text-sm font-semibold text-text-secondary !text-lg font-normal text-text-primary"
+            for="checklist-focus-at"
+          >
+            Focus At
+          </label>
+          <div
+            class="ant-select ant-select-outlined h-14 w-full !border-2 [&_.ant-select-selector]:!rounded-2xl [&_.ant-select-content]:!text-xl [&_.ant-select-content]:!font-normal !border-border-strong [&_.ant-select-selector]:!border-2 [&_.ant-select-selector]:!border-border-strong h-14 !text-lg !border-2 !border-border-strong css-var-root ant-select-css-var css-dev-only-do-not-override-eofgey ant-select-single ant-select-show-arrow ant-select-show-search"
+            style="--ant-select-border-radius: 16px; border: 2px solid var(--border-strong);"
+          >
+            <div
+              class="ant-select-content ant-select-content-has-value"
+              title="Move Out"
+            >
+              Move Out
+              <input
+                aria-autocomplete="list"
+                aria-expanded="false"
+                aria-haspopup="listbox"
+                aria-invalid="false"
+                aria-label="Focus At"
+                autocomplete="new-password"
+                class="ant-select-input"
+                id="checklist-focus-at"
+                role="combobox"
+                type="text"
+                value=""
+              />
+            </div>
+            <div
+              class="ant-select-suffix"
+            >
+              <span
+                aria-label="down"
+                class="anticon anticon-down"
+                role="img"
+              >
+                <svg
+                  aria-hidden="true"
+                  data-icon="down"
+                  fill="currentColor"
+                  focusable="false"
+                  height="1em"
+                  viewBox="64 64 896 896"
+                  width="1em"
+                >
+                  <path
+                    d="M884 256h-75c-5.1 0-9.9 2.5-12.9 6.6L512 654.2 227.9 262.6c-3-4.1-7.8-6.6-12.9-6.6h-75c-6.5 0-10.3 7.4-6.5 12.7l352.6 486.1c12.8 17.6 39 17.6 51.7 0l352.6-486.1c3.9-5.3.1-12.7-6.4-12.7z"
+                  />
+                </svg>
+              </span>
+            </div>
           </div>
         </div>
       </div>
@@ -269,7 +391,7 @@ exports[`ItemChecklistCreateForm matches snapshot 2`] = `
             class="mt-4 flex flex-wrap gap-x-6 gap-y-3 border-t border-border-default pt-4"
           >
             <label
-              class="ant-checkbox-wrapper ant-checkbox-wrapper-checked text-lg [&_.ant-checkbox-inner]:h-7 [&_.ant-checkbox-inner]:w-7 [&_.ant-checkbox-inner]:rounded-lg [&_.ant-checkbox-inner]:border-2 [&_.ant-checkbox-inner]:border-border-strong css-var-root ant-checkbox-css-var css-dev-only-do-not-override-eofgey"
+              class="ant-checkbox-wrapper ant-checkbox-wrapper-checked text-lg [&_.ant-checkbox]:h-7! [&_.ant-checkbox]:w-7! [&_.ant-checkbox]:rounded-lg! [&_.ant-checkbox]:border-2! [&_.ant-checkbox]:border-text-primary! [&_.ant-checkbox::after]:h-3.5! [&_.ant-checkbox::after]:w-2! [&_.ant-checkbox::after]:border-2! [&_.ant-checkbox::after]:border-t-0! [&_.ant-checkbox::after]:border-l-0! css-var-root ant-checkbox-css-var css-dev-only-do-not-override-eofgey"
             >
               <span
                 class="ant-checkbox ant-wave-target css-dev-only-do-not-override-eofgey ant-checkbox-checked"
@@ -288,7 +410,7 @@ exports[`ItemChecklistCreateForm matches snapshot 2`] = `
               </span>
             </label>
             <label
-              class="ant-checkbox-wrapper text-lg [&_.ant-checkbox-inner]:h-7 [&_.ant-checkbox-inner]:w-7 [&_.ant-checkbox-inner]:rounded-lg [&_.ant-checkbox-inner]:border-2 [&_.ant-checkbox-inner]:border-border-strong css-var-root ant-checkbox-css-var css-dev-only-do-not-override-eofgey"
+              class="ant-checkbox-wrapper text-lg [&_.ant-checkbox]:h-7! [&_.ant-checkbox]:w-7! [&_.ant-checkbox]:rounded-lg! [&_.ant-checkbox]:border-2! [&_.ant-checkbox]:border-text-primary! [&_.ant-checkbox::after]:h-3.5! [&_.ant-checkbox::after]:w-2! [&_.ant-checkbox::after]:border-2! [&_.ant-checkbox::after]:border-t-0! [&_.ant-checkbox::after]:border-l-0! css-var-root ant-checkbox-css-var css-dev-only-do-not-override-eofgey"
             >
               <span
                 class="ant-checkbox ant-wave-target css-dev-only-do-not-override-eofgey"
@@ -338,7 +460,7 @@ exports[`ItemChecklistCreateForm matches snapshot 2`] = `
             class="mt-4 flex flex-wrap gap-x-6 gap-y-3 border-t border-border-default pt-4"
           >
             <label
-              class="ant-checkbox-wrapper text-lg [&_.ant-checkbox-inner]:h-7 [&_.ant-checkbox-inner]:w-7 [&_.ant-checkbox-inner]:rounded-lg [&_.ant-checkbox-inner]:border-2 [&_.ant-checkbox-inner]:border-border-strong css-var-root ant-checkbox-css-var css-dev-only-do-not-override-eofgey"
+              class="ant-checkbox-wrapper text-lg [&_.ant-checkbox]:h-7! [&_.ant-checkbox]:w-7! [&_.ant-checkbox]:rounded-lg! [&_.ant-checkbox]:border-2! [&_.ant-checkbox]:border-text-primary! [&_.ant-checkbox::after]:h-3.5! [&_.ant-checkbox::after]:w-2! [&_.ant-checkbox::after]:border-2! [&_.ant-checkbox::after]:border-t-0! [&_.ant-checkbox::after]:border-l-0! css-var-root ant-checkbox-css-var css-dev-only-do-not-override-eofgey"
             >
               <span
                 class="ant-checkbox ant-wave-target css-dev-only-do-not-override-eofgey"
@@ -356,7 +478,7 @@ exports[`ItemChecklistCreateForm matches snapshot 2`] = `
               </span>
             </label>
             <label
-              class="ant-checkbox-wrapper text-lg [&_.ant-checkbox-inner]:h-7 [&_.ant-checkbox-inner]:w-7 [&_.ant-checkbox-inner]:rounded-lg [&_.ant-checkbox-inner]:border-2 [&_.ant-checkbox-inner]:border-border-strong css-var-root ant-checkbox-css-var css-dev-only-do-not-override-eofgey"
+              class="ant-checkbox-wrapper text-lg [&_.ant-checkbox]:h-7! [&_.ant-checkbox]:w-7! [&_.ant-checkbox]:rounded-lg! [&_.ant-checkbox]:border-2! [&_.ant-checkbox]:border-text-primary! [&_.ant-checkbox::after]:h-3.5! [&_.ant-checkbox::after]:w-2! [&_.ant-checkbox::after]:border-2! [&_.ant-checkbox::after]:border-t-0! [&_.ant-checkbox::after]:border-l-0! css-var-root ant-checkbox-css-var css-dev-only-do-not-override-eofgey"
             >
               <span
                 class="ant-checkbox ant-wave-target css-dev-only-do-not-override-eofgey"
@@ -463,7 +585,7 @@ exports[`ItemChecklistCreateForm matches snapshot 2`] = `
                         class="flex items-center justify-center"
                       >
                         <label
-                          class="ant-checkbox-wrapper ant-checkbox-wrapper-checked [&_.ant-checkbox-inner]:h-7 [&_.ant-checkbox-inner]:w-7 [&_.ant-checkbox-inner]:rounded-lg [&_.ant-checkbox-inner]:border-2 [&_.ant-checkbox-inner]:border-border-strong [&_.ant-checkbox-inner::after]:h-3.5 [&_.ant-checkbox-inner::after]:w-2 css-var-root ant-checkbox-css-var css-dev-only-do-not-override-eofgey"
+                          class="ant-checkbox-wrapper ant-checkbox-wrapper-checked text-lg [&_.ant-checkbox]:h-7! [&_.ant-checkbox]:w-7! [&_.ant-checkbox]:rounded-lg! [&_.ant-checkbox]:border-2! [&_.ant-checkbox]:border-text-primary! [&_.ant-checkbox::after]:h-3.5! [&_.ant-checkbox::after]:w-2! [&_.ant-checkbox::after]:border-2! [&_.ant-checkbox::after]:border-t-0! [&_.ant-checkbox::after]:border-l-0! css-var-root ant-checkbox-css-var css-dev-only-do-not-override-eofgey"
                         >
                           <span
                             class="ant-checkbox ant-wave-target css-dev-only-do-not-override-eofgey ant-checkbox-checked"
@@ -485,7 +607,7 @@ exports[`ItemChecklistCreateForm matches snapshot 2`] = `
                         class="flex items-center justify-center"
                       >
                         <label
-                          class="ant-checkbox-wrapper [&_.ant-checkbox-inner]:h-7 [&_.ant-checkbox-inner]:w-7 [&_.ant-checkbox-inner]:rounded-lg [&_.ant-checkbox-inner]:border-2 [&_.ant-checkbox-inner]:border-border-strong [&_.ant-checkbox-inner::after]:h-3.5 [&_.ant-checkbox-inner::after]:w-2 css-var-root ant-checkbox-css-var css-dev-only-do-not-override-eofgey"
+                          class="ant-checkbox-wrapper text-lg [&_.ant-checkbox]:h-7! [&_.ant-checkbox]:w-7! [&_.ant-checkbox]:rounded-lg! [&_.ant-checkbox]:border-2! [&_.ant-checkbox]:border-text-primary! [&_.ant-checkbox::after]:h-3.5! [&_.ant-checkbox::after]:w-2! [&_.ant-checkbox::after]:border-2! [&_.ant-checkbox::after]:border-t-0! [&_.ant-checkbox::after]:border-l-0! css-var-root ant-checkbox-css-var css-dev-only-do-not-override-eofgey"
                         >
                           <span
                             class="ant-checkbox ant-wave-target css-dev-only-do-not-override-eofgey"
@@ -535,7 +657,7 @@ exports[`ItemChecklistCreateForm matches snapshot 2`] = `
                         class="flex items-center justify-center"
                       >
                         <label
-                          class="ant-checkbox-wrapper [&_.ant-checkbox-inner]:h-7 [&_.ant-checkbox-inner]:w-7 [&_.ant-checkbox-inner]:rounded-lg [&_.ant-checkbox-inner]:border-2 [&_.ant-checkbox-inner]:border-border-strong [&_.ant-checkbox-inner::after]:h-3.5 [&_.ant-checkbox-inner::after]:w-2 css-var-root ant-checkbox-css-var css-dev-only-do-not-override-eofgey"
+                          class="ant-checkbox-wrapper text-lg [&_.ant-checkbox]:h-7! [&_.ant-checkbox]:w-7! [&_.ant-checkbox]:rounded-lg! [&_.ant-checkbox]:border-2! [&_.ant-checkbox]:border-text-primary! [&_.ant-checkbox::after]:h-3.5! [&_.ant-checkbox::after]:w-2! [&_.ant-checkbox::after]:border-2! [&_.ant-checkbox::after]:border-t-0! [&_.ant-checkbox::after]:border-l-0! css-var-root ant-checkbox-css-var css-dev-only-do-not-override-eofgey"
                         >
                           <span
                             class="ant-checkbox ant-wave-target css-dev-only-do-not-override-eofgey"
@@ -556,7 +678,7 @@ exports[`ItemChecklistCreateForm matches snapshot 2`] = `
                         class="flex items-center justify-center"
                       >
                         <label
-                          class="ant-checkbox-wrapper [&_.ant-checkbox-inner]:h-7 [&_.ant-checkbox-inner]:w-7 [&_.ant-checkbox-inner]:rounded-lg [&_.ant-checkbox-inner]:border-2 [&_.ant-checkbox-inner]:border-border-strong [&_.ant-checkbox-inner::after]:h-3.5 [&_.ant-checkbox-inner::after]:w-2 css-var-root ant-checkbox-css-var css-dev-only-do-not-override-eofgey"
+                          class="ant-checkbox-wrapper text-lg [&_.ant-checkbox]:h-7! [&_.ant-checkbox]:w-7! [&_.ant-checkbox]:rounded-lg! [&_.ant-checkbox]:border-2! [&_.ant-checkbox]:border-text-primary! [&_.ant-checkbox::after]:h-3.5! [&_.ant-checkbox::after]:w-2! [&_.ant-checkbox::after]:border-2! [&_.ant-checkbox::after]:border-t-0! [&_.ant-checkbox::after]:border-l-0! css-var-root ant-checkbox-css-var css-dev-only-do-not-override-eofgey"
                         >
                           <span
                             class="ant-checkbox ant-wave-target css-dev-only-do-not-override-eofgey"

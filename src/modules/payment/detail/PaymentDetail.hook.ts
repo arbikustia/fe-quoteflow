@@ -1,13 +1,10 @@
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 
-import { MOCK_PAYMENT_RESPONSE } from "@/fixture/payments";
-
 import type { PaymentData, PaymentDetailState } from "../Payment.type";
 
 import {
-  mapPayment,
+  mapPaymentSummary,
   useGetAllInvoicesQuery,
-  useGetAllPaymentMethodsQuery,
   useGetPaymentByIdQuery,
 } from "@/services/payment.service";
 
@@ -23,25 +20,21 @@ export const usePaymentDetail = (): PaymentDetailState => {
   const routeState = location.state as { payment?: PaymentData } | PaymentData | null;
   const initialPayment = routeState && "id" in routeState ? routeState : routeState?.payment ?? null;
 
-  const { data, error, isLoading } = useGetPaymentByIdQuery(id ?? "", {
-    skip: !id,
+  const invoiceNo = id ?? "";
+  const { data, error, isLoading } = useGetPaymentByIdQuery(invoiceNo, {
+    skip: !invoiceNo,
     refetchOnMountOrArgChange: true,
   });
 
   const invoiceQuery = useGetAllInvoicesQuery();
-  const paymentMethodQuery = useGetAllPaymentMethodsQuery();
 
-  const apiPayment = data?.status && data.data ? mapPayment(data.data) : null;
-  const fixtureMatch = MOCK_PAYMENT_RESPONSE.data.find((item) => item.id === id);
-  const fixturePayment = fixtureMatch ? mapPayment(fixtureMatch) : null;
-  const payment = apiPayment ?? initialPayment ?? fixturePayment;
+  const summary = data?.status ? data.data : null;
+  const apiPayment = summary ? mapPaymentSummary(summary) : null;
+  const payment = apiPayment ?? initialPayment;
+  const paymentEntries = summary?.payments ?? [];
 
   const linkedInvoice = invoiceQuery.data?.status && payment
-    ? invoiceQuery.data.data.find((item) => item.id === payment.invoiceId || item.invoice_no === payment.invoiceId)
-    : null;
-
-  const linkedMethod = paymentMethodQuery.data?.status && payment
-    ? paymentMethodQuery.data.data.find((item) => item.id === payment.paymentMethodId || item.name === payment.paymentMethodId)
+    ? invoiceQuery.data.data.find((item) => item.id === payment.invoiceId || item.invoice_no === payment.invoiceNo)
     : null;
 
   let errorMessage: string | null = null;
@@ -80,8 +73,9 @@ export const usePaymentDetail = (): PaymentDetailState => {
 
   return {
     payment,
+    paymentEntries,
     linkedInvoice,
-    methodName: linkedMethod?.name ?? payment?.paymentMethodId,
+    methodName: paymentEntries[0]?.payment_method_name ?? payment?.paymentMethodId,
     isLoading: isLoading && !payment,
     errorMessage,
     goBack,

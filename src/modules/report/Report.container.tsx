@@ -1,7 +1,7 @@
 import * as React from "react";
 
 import { ReportOrderComponent } from "./Report.component";
-import { useReportOrderNavigation, useReportOrderPagination } from "./Report.hook";
+import { useReportOrderExport, useReportOrderNavigation, useReportOrderPagination } from "./Report.hook";
 
 /**
  * Report Order Container.
@@ -10,12 +10,15 @@ import { useReportOrderNavigation, useReportOrderPagination } from "./Report.hoo
 const ReportOrderContainer = (): React.ReactElement => {
   const { goBack, goToStatus } = useReportOrderNavigation();
   const pagination = useReportOrderPagination();
+  const { isExporting, onExport } = useReportOrderExport();
 
   return (
     <ReportOrderComponent
       {...pagination}
       onBack={goBack}
       onEditStatus={goToStatus}
+      onExport={onExport}
+      isExporting={isExporting}
     />
   );
 };

@@ -1,11 +1,10 @@
 import * as React from "react";
 
+import type { QuoteData } from "@/modules/order/Order.type";
 import { formatIndonesianDateTime } from "@/utils/date.helpers";
 
 import { formatCurrency, getQuotationStatusLabel, getStatusBadgeClass } from "./detail/QuotationDetail.helpers";
 import type { ApiQuotation, QuotationData, QuotationMobileCardProps } from "./Quotation.type";
-
-import type { QuoteData } from "@/modules/order/Order.type";
 
 /**
  * Map quotation list row to quote data.
@@ -68,12 +67,12 @@ const _fromApiQuotation = (quotation: ApiQuotation, itemCategories: Map<string, 
       price: item.price,
       remark: item.remark ?? "",
     })),
-    pdfProjects: tx?.rental_transaction_project.map((project) => ({
+    pdfProjects: (tx?.rental_transaction_project ?? []).map((project) => ({
       name: project.name,
       qty: project.qty,
       price: project.price,
       remark: project.remark,
-      items: project.items.map((item) => ({
+      items: (project.items ?? []).map((item) => ({
         name: item.item_name,
         qty: item.qty,
         remark: transactionItems.find(

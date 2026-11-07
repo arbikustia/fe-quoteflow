@@ -1,4 +1,4 @@
-import { render, screen } from "@/libs/unit-test";
+import { fireEvent, render, screen } from "@/libs/unit-test";
 import { BrowserRouter } from "react-router-dom";
 
 import { ReportOrderComponent } from "./Report.component";
@@ -52,7 +52,20 @@ describe("ReportOrderComponent", () => {
     setSearchTerm: jest.fn(),
     onBack: jest.fn(),
     onEditStatus: jest.fn(),
+    onExport: jest.fn(),
+    isExporting: false,
   };
+
+  it("should export order report from button above the table", () => {
+    render(
+      <BrowserRouter>
+        <ReportOrderComponent {...mockProps} />
+      </BrowserRouter>,
+    );
+
+    fireEvent.click(screen.getByRole("button", { name: "Export PDF" }));
+    expect(mockProps.onExport).toHaveBeenCalledTimes(1);
+  });
 
   it("renders order table and cards correctly", () => {
     render(
@@ -65,6 +78,7 @@ describe("ReportOrderComponent", () => {
     expect(screen.getAllByText("Arbi").length).toBeGreaterThan(0);
     expect(screen.getAllByText("31 Oktober 2026 06:00").length).toBeGreaterThan(0);
     expect(screen.getAllByText("01 November 2026 06:00").length).toBeGreaterThan(0);
+    expect(screen.queryByRole("button", { name: "Download PDF" })).not.toBeInTheDocument();
     expect(screen.queryByText("2026-10-31 06:00:00")).not.toBeInTheDocument();
     expect(screen.queryByText("2026-11-01 06:00:00")).not.toBeInTheDocument();
   });

@@ -1,7 +1,33 @@
 import { apiRtkClient } from "@/libs/ApiRtkServices/apiRtkClient";
 
 import ENDPOINT from "@/constant/endpoint.const";
-import type { ApiPayment, PaymentCreatePayload, PaymentCreateResponse, PaymentData, PaymentDetailResponse, PaymentInvoiceListResponse, PaymentListParams, PaymentListResponse, PaymentMethodListResponse } from "@/modules/payment/Payment.type";
+import type { ApiPayment, ApiPaymentSummary, PaymentCreatePayload, PaymentCreateResponse, PaymentData, PaymentDetailResponse, PaymentInvoiceListResponse, PaymentListParams, PaymentListResponse, PaymentMethodListResponse } from "@/modules/payment/Payment.type";
+
+/**
+ * Map an invoice payment summary to a table row.
+ * @param {ApiPaymentSummary} summary - Payment summary per invoice
+ * @returns {PaymentData} Table row
+ */
+export const mapPaymentSummary = (summary: ApiPaymentSummary): PaymentData => {
+  const lastPayment = summary.payments?.at(-1);
+
+  return {
+    id: summary.invoice_id,
+    invoiceId: summary.invoice_id,
+    paymentMethodId: lastPayment?.payment_method_id ?? "",
+    invoiceNo: summary.invoice_no,
+    customerName: summary.customer_name,
+    amount: summary.total_paid ?? 0,
+    paidAt: lastPayment?.paid_at ?? "",
+    referenceNo: "",
+    notes: lastPayment?.notes ?? "",
+    status: summary.remaining_amount > 0 ? "inactive" : "active",
+    statusLabel: summary.status,
+    grandTotal: summary.grand_total,
+    remainingAmount: summary.remaining_amount,
+    createdAt: "",
+  };
+};
 
 /** Map API payment model to table row. */
 export const mapPayment = (payment: ApiPayment): PaymentData => ({

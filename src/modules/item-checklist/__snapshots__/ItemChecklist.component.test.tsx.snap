@@ -81,6 +81,11 @@ exports[`ItemChecklistComponent matches snapshot 1`] = `
                 </span>
               </span>
               <span
+                class="mt-1.5 block break-words text-lg text-text-secondary"
+              >
+                PT Customer
+              </span>
+              <span
                 class="mt-4 block text-lg text-text-secondary"
               >
                 2 items

@@ -6,6 +6,42 @@ const EMAIL_REGEX = /^[^\s@]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 const PDF_MIME_TYPE = "application/pdf";
 
 /**
+ * Strip html tags from a rich text string.
+ * @param {string} html - Rich text
+ * @returns {string} Plain text
+ */
+const _stripTags = (html: string): string => {
+  let text = "";
+  let depth = 0;
+
+  for (let index = 0; index < html.length; index += 1) {
+    const char = html[index];
+
+    if (char === "<") {
+      depth += 1;
+    } else if (char === ">" && depth > 0) {
+      depth -= 1;
+      text += " ";
+    } else if (depth === 0) {
+      text += char;
+    }
+  }
+
+  return text;
+};
+
+/**
+ * Check whether rich text content has no visible text.
+ * @param {string} html - Rich text body
+ * @returns {boolean} Whether the body is visually empty
+ */
+export const isBlankBody = (html: string): boolean => {
+  const text = _stripTags(html).replace(/&nbsp;/g, " ");
+
+  return text.trim().length === 0;
+};
+
+/**
  * Validate a compose form payload.
  * @param {Pick<MailComposeValues, "senderId" | "to" | "subject" | "body">} values - Form values
  * @returns {MailCompositeErrors} Validation errors keyed by field
@@ -27,7 +63,7 @@ export const validateMailValues = (values: Pick<MailComposeValues, "senderId" | 
     errors.subjectError = "Subject is required.";
   }
 
-  if (!values.body) {
+  if (!values.body || isBlankBody(values.body)) {
     errors.bodyError = "Message body is required.";
   }
 

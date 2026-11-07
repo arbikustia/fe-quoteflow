@@ -7,6 +7,7 @@ import { useItemChecklistCreate } from "./ItemChecklistCreate.hook";
 
 const mockUpdate = jest.fn().mockResolvedValue({ data: { status: true, messages: [], data: null } });
 const mockCreate = jest.fn().mockResolvedValue({ data: { status: true, messages: [], data: null } });
+let mockRentalOrders: unknown[] = [];
 
 const mockChecklist: ApiChecklist = {
   id: "checklist-1",
@@ -61,7 +62,7 @@ jest.mock("@/services/activity-log.service", () => ({
   useCreateActivityLogMutation: () => [jest.fn().mockResolvedValue({ unwrap: jest.fn() }), { isLoading: false }],
 }));
 jest.mock("@/services/rental-order.service", () => ({
-  useGetRentalOrderOptionsQuery: () => ({ data: { status: true, data: [] }, isLoading: false }),
+  useGetRentalOrderOptionsQuery: () => ({ data: { status: true, data: mockRentalOrders }, isLoading: false }),
 }));
 jest.mock("@/services/master-item.service", () => ({
   useGetAllItemsQuery: () => ({ data: { status: true, data: [] } }),
@@ -76,10 +77,82 @@ const EditRoute = ({ children }: { children: ReactNode }): ReactNode => (
   </MemoryRouter>
 );
 
-describe("useItemChecklistCreate edit mode", () => {
+const CreateRoute = ({ children }: { children: ReactNode }): ReactNode => (
+  <MemoryRouter initialEntries={["/item-checklist/create"]}>
+    <Routes>
+      <Route path="/item-checklist/create" element={children} />
+    </Routes>
+  </MemoryRouter>
+);
+
+describe("useItemChecklistCreate", () => {
   beforeEach(() => {
     mockUpdate.mockClear();
     mockCreate.mockClear();
+    mockRentalOrders = [];
+  });
+
+  it("should use rental transaction category_name in create form", async () => {
+    mockRentalOrders = [{
+      id: "order-1",
+      order_no: "ORD-001",
+      invoice: {
+        quotation: {
+          transaction: {
+            customer_name: "Customer",
+            pic: { name: "PIC" },
+            rental_transaction_items: [{
+              item_id: "item-1",
+              item_name: "Speaker",
+              category_name: "Sound System",
+              qty: 1,
+            }],
+            rental_transaction_project: [],
+          },
+        },
+      },
+    }];
+    const { result } = renderHook(() => useItemChecklistCreate(), { wrapper: CreateRoute });
+
+    act(() => result.current.handleOrderChange("order-1"));
+
+    await waitFor(() => expect(result.current.orderItems[0]?.category).toBe("Sound System"));
+  });
+
+  it("should scan item ID globally into the selected focus without focusing search", async () => {
+    mockRentalOrders = [{
+      id: "order-1",
+      order_no: "ORD-001",
+      invoice: {
+        quotation: {
+          transaction: {
+            customer_name: "Customer",
+            pic: { name: "PIC" },
+            rental_transaction_items: [{ item_id: "item-1", item_name: "Speaker", qty: 1 }],
+            rental_transaction_project: [],
+          },
+        },
+      },
+    }];
+    const { result } = renderHook(() => useItemChecklistCreate(), { wrapper: CreateRoute });
+
+    act(() => result.current.handleOrderChange("order-1"));
+    act(() => result.current.handleFocusAtChange("moveIn"));
+    act(() => result.current.handleSearchChange("missing-item"));
+    expect(result.current.filteredOrderItems).toHaveLength(0);
+
+    act(() => {
+      "item-1".split("").forEach((key) => window.dispatchEvent(new KeyboardEvent("keydown", { key })));
+      window.dispatchEvent(new KeyboardEvent("keydown", { key: "Enter" }));
+    });
+
+    await waitFor(() => expect(result.current.moveInItemIds).toEqual(["item-1-0"]));
+    expect(result.current.moveOutItemIds).toEqual([]);
+    expect(result.current.searchTerm).toBe("");
+    expect(result.current.filteredOrderItems).toHaveLength(1);
+
+    act(() => result.current.handleSearchChange("item-1"));
+    expect(result.current.filteredOrderItems).toHaveLength(1);
   });
 
   it("should load saved flags and update checklist without checklist_date", async () => {

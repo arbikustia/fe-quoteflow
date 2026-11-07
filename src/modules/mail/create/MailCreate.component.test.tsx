@@ -12,6 +12,8 @@ const buildProps = (overrides: Partial<MailComposeFormState> = {}): MailComposeF
   to: "",
   subject: "",
   body: "",
+  quotationId: "",
+  quotationOptions: [{ label: "QUOT20261107151923", value: "q-1" }],
   attachmentName: "",
   attachmentUrl: "",
   senderOptions: [{ label: "sales@example.com", value: "sales@example.com" }],
@@ -26,6 +28,7 @@ const buildProps = (overrides: Partial<MailComposeFormState> = {}): MailComposeF
   handleToChange: jest.fn(),
   handleSubjectChange: jest.fn(),
   handleBodyChange: jest.fn(),
+  handleQuotationChange: jest.fn(),
   handleAttachmentChange: jest.fn(),
   handleAttachmentRemove: jest.fn(),
   handleSubmit: jest.fn(),
@@ -50,7 +53,7 @@ describe("MailCreateForm", () => {
     expect(screen.getByLabelText(/To/)).toBeDefined();
     expect(screen.getByLabelText(/Subject/)).toBeDefined();
     expect(screen.getByLabelText(/Body/)).toBeDefined();
-    expect(screen.getByLabelText("Attachment")).toBeDefined();
+    expect(screen.getByLabelText(/Quotation Attachment/)).toBeDefined();
   });
 
   it("should default the template select to the current template", () => {
@@ -76,27 +79,11 @@ describe("MailCreateForm", () => {
     expect(handleToChange).toHaveBeenCalled();
   });
 
-  it("should accept only pdf attachments", () => {
-    renderForm(buildProps());
+  it("should show the generated attachment preview", () => {
+    renderForm(buildProps({ attachmentName: "Quotation-QUOT20261107151923.pdf", attachmentUrl: "blob:quotation-preview" }));
 
-    expect(screen.getByLabelText("Attachment").getAttribute("accept")).toBe("application/pdf");
-  });
-
-  it("should show an openable preview for the selected attachment", () => {
-    renderForm(buildProps({ attachmentName: "quotation.pdf", attachmentUrl: "blob:quotation-preview" }));
-
-    expect(screen.getByText("quotation.pdf")).toBeDefined();
+    expect(screen.getByText("Quotation-QUOT20261107151923.pdf")).toBeDefined();
     expect(screen.getByText("Open attachment").getAttribute("href")).toBe("blob:quotation-preview");
-  });
-
-  it("should let the user remove the selected attachment", () => {
-    const handleAttachmentRemove = jest.fn();
-
-    renderForm(buildProps({ attachmentName: "quotation.pdf", attachmentUrl: "blob:quotation-preview", handleAttachmentRemove }));
-
-    fireEvent.click(screen.getByLabelText("Remove attachment"));
-
-    expect(handleAttachmentRemove).toHaveBeenCalled();
   });
 
   it("should disable the sender select while loading", () => {
@@ -111,7 +98,7 @@ describe("MailCreateForm", () => {
     const preview = screen.getByTitle("Mail template preview");
 
     expect(preview).toBeDefined();
-    expect(preview.getAttribute("srcdoc")).toContain("Congrats, your quotation has been");
+    expect(preview.getAttribute("srcdoc")).toContain("Penawaran Harga");
     expect(preview.getAttribute("srcdoc")).toContain("Hello");
   });
 
@@ -120,6 +107,6 @@ describe("MailCreateForm", () => {
 
     const preview = screen.getByTitle("Mail template preview");
 
-    expect(preview.getAttribute("srcdoc")).toContain("Congrats, your invoice has been");
+    expect(preview.getAttribute("srcdoc")).toContain(">Invoice<");
   });
 });

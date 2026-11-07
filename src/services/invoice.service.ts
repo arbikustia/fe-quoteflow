@@ -1,7 +1,7 @@
 import { apiRtkClient } from "@/libs/ApiRtkServices/apiRtkClient";
 
 import ENDPOINT from "@/constant/endpoint.const";
-import type { ApiInvoice, InvoiceApproveRequest, InvoiceData, InvoiceDetailResponse, InvoiceListParams, InvoiceListResponse, InvoiceUpdateRequest, InvoiceUpdateResponse } from "@/modules/invoice/Invoice.type";
+import type { ApiInvoice, InvoiceAllResponse, InvoiceApproveRequest, InvoiceData, InvoiceDetailResponse, InvoiceListParams, InvoiceListResponse, InvoiceUpdateRequest, InvoiceUpdateResponse } from "@/modules/invoice/Invoice.type";
 
 /** Map API invoice to table row. */
 export const mapInvoice = (invoice: ApiInvoice): InvoiceData => ({
@@ -31,6 +31,10 @@ export const invoiceService = apiRtkClient.injectEndpoints({
       }),
       providesTags: ["Invoice"],
     }),
+    getInvoiceOptions: builder.query<InvoiceAllResponse, void>({
+      query: () => ({ url: ENDPOINT.INVOICE.ALL, method: "GET" }),
+      providesTags: ["Invoice"],
+    }),
     getInvoiceById: builder.query<InvoiceDetailResponse, string>({
       query: (id) => ({ url: `${ENDPOINT.INVOICE.DETAIL}/${id}`, method: "GET" }),
       providesTags: ["Invoice"],
@@ -51,6 +55,6 @@ export const invoiceService = apiRtkClient.injectEndpoints({
   overrideExisting: false,
 });
 
-export const { useGetInvoicesQuery, useGetInvoiceByIdQuery, useUpdateInvoiceMutation, useApproveInvoiceMutation } = invoiceService;
+export const { useGetInvoicesQuery, useGetInvoiceOptionsQuery, useGetInvoiceByIdQuery, useUpdateInvoiceMutation, useApproveInvoiceMutation } = invoiceService;
 
 export const useGetAllInvoicesQuery = invoiceService.endpoints.getInvoices.useQuery;

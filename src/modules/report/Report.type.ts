@@ -124,6 +124,8 @@ export type ReportOrderPagination = {
 export type ReportOrderProps = ReportOrderPagination & {
   onBack: () => void;
   onEditStatus: (order: ReportOrderData) => void;
+  onExport: () => void;
+  isExporting: boolean;
 };
 
 export type OrderMobileCardProps = {

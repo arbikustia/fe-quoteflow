@@ -48,8 +48,8 @@ const mockOrderItems = [
     unit: "unit",
     condition: "Good",
     notes: "",
-    fileUrl: "",
-    fileName: "",
+    fileUrls: [],
+    fileNames: [],
   },
   {
     id: "itm-2-0",
@@ -60,8 +60,8 @@ const mockOrderItems = [
     unit: "units",
     condition: "Good",
     notes: "",
-    fileUrl: "",
-    fileName: "",
+    fileUrls: [],
+    fileNames: [],
   },
 ];
 
@@ -166,11 +166,11 @@ describe("ItemReturnCreateForm", () => {
     );
     expect(screen.getByRole("button", { name: "Update Return" })).toBeInTheDocument();
     expect(screen.queryByRole("checkbox")).not.toBeInTheDocument();
-    const cameraInputs = screen.getAllByLabelText("Take photo for Speaker Active");
+    const cameraInputs = screen.getAllByLabelText("Add photos for Speaker Active");
     expect(cameraInputs[0]).toHaveAttribute("capture", "environment");
     const photo = new File(["photo"], "photo.jpg", { type: "image/jpeg" });
     fireEvent.change(cameraInputs[0], { target: { files: [photo] } });
-    expect(mockSelectedFormProps.onCaptureItem).toHaveBeenCalledWith("itm-1-0", photo);
+    expect(mockSelectedFormProps.onCaptureItem).toHaveBeenCalledWith("itm-1-0", [photo]);
   });
 
   it("should preview captured photo and wait for confirmation before staging", () => {
@@ -186,14 +186,13 @@ describe("ItemReturnCreateForm", () => {
   it("should open saved photo in modal instead of a new tab", () => {
     const props = {
       ...mockSelectedFormProps,
-      stagedPhotoUrls: new Map([["itm-1-0", "blob:staged"]]),
+      stagedPhotoUrls: new Map([["itm-1-0", ["blob:staged"]]]),
       viewedPhoto: { itemName: "Speaker Active", url: "blob:staged" },
     };
     render(<MemoryRouter><ItemReturnCreateForm {...props} /></MemoryRouter>);
 
-    expect(screen.queryByRole("link", { name: "View photo" })).not.toBeInTheDocument();
     expect(screen.getByRole("img", { name: "Return photo for Speaker Active" })).toHaveAttribute("src", "blob:staged");
-    fireEvent.click(screen.getAllByRole("button", { name: "View photo" })[0]);
+    fireEvent.click(screen.getAllByRole("button", { name: /View photo/ })[0]);
     expect(mockSelectedFormProps.openPhoto).toHaveBeenCalledWith("itm-1-0");
     fireEvent.click(screen.getByRole("button", { name: "Close modal" }));
     expect(mockSelectedFormProps.closeViewedPhoto).toHaveBeenCalled();

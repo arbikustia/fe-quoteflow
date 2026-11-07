@@ -84,12 +84,10 @@ export type MailRouteState = {
 export type MailTemplate = "quotation" | "invoice";
 
 export type MailTemplateContent = {
-  eyebrow: string;
-  heading: string;
-  accent: string;
-  intro: string;
-  note: string;
-  closing: string;
+  title: string;
+  subtitle: string;
+  footerNote: string;
+  footerSign: string;
 };
 
 export type EmailSenderListItem = {

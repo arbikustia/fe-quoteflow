@@ -58,13 +58,14 @@ describe("ItemChecklistComponent", () => {
   beforeEach(() => { jest.clearAllMocks(); });
 
   it("should render table data and header", () => {
-    render(<MemoryRouter><ItemChecklistComponent {...mockProps} /></MemoryRouter>);
+    render(<MemoryRouter><ItemChecklistComponent {...mockProps} rows={[{ ...mockProps.rows[0], status: "inactive" }]} /></MemoryRouter>);
     expect(screen.getAllByText("Item Checklist List").length).toBeGreaterThan(0);
     expect(screen.getAllByText("CHK-001")).toHaveLength(2);
     expect(screen.getByText("Create Item Checklist")).toBeInTheDocument();
     expect(screen.getByRole("button", { name: "Create New" })).toBeInTheDocument();
-    expect(screen.getAllByText("Done")[0]).toHaveClass("border-current", "px-3", "py-1", "text-base", "uppercase");
+    expect(screen.getAllByText("On Progress")[0]).toHaveClass("border-current", "px-3", "py-1", "text-base", "uppercase");
     expect(screen.getByRole("columnheader", { name: "Customer Name" })).toBeInTheDocument();
+    expect(screen.getAllByText("PT Customer")).toHaveLength(2);
   });
 
   it("should trigger onCreate from mobile header and desktop toolbar", () => {

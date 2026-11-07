@@ -26,11 +26,26 @@ const PAYMENT: PaymentData = {
   referenceNo: "PAY-REF-001",
   notes: "Full payment via BCA Transfer",
   status: "active",
-  createdAt: "2026-11-05T10:00:00.000Z",
+  statusLabel: "Lunas",
+  grandTotal: 1500000,
+  remainingAmount: 0,
+  createdAt: "",
 };
+
+const ENTRIES = [
+  {
+    id: "entry-1",
+    payment_method_id: "method-1",
+    payment_method_name: "BCA",
+    amount: 1500000,
+    paid_at: "2026-11-01 00:00:00",
+    notes: "Full payment via BCA Transfer",
+  },
+];
 
 const createProps = (payment: PaymentData | null = PAYMENT): PaymentDetailState => ({
   payment,
+  paymentEntries: ENTRIES,
   linkedInvoice: {
     id: "INV-001",
     invoice_no: "INV-2026-001",
@@ -58,14 +73,14 @@ describe("PaymentDetailComponent", () => {
       </MemoryRouter>,
     );
 
-    expect(screen.queryByText("PAY-REF-001")).not.toBeInTheDocument();
     expect(screen.getAllByText("Bank Central Asia").length).toBeGreaterThan(0);
     expect(screen.getAllByText("INV-2026-001").length).toBeGreaterThan(0);
     expect(screen.getAllByText("PT Example").length).toBeGreaterThan(0);
     expect(screen.getAllByText("Annual Gala").length).toBeGreaterThan(0);
-    expect(screen.queryByText("Full payment via BCA Transfer")).not.toBeInTheDocument();
-    expect(screen.getByText("Created At")).toBeInTheDocument();
-    expect(screen.getAllByText("Active").length).toBeGreaterThan(0);
+    expect(screen.getByText("Grand Total")).toBeInTheDocument();
+    expect(screen.getByText("Payment History (1)")).toBeInTheDocument();
+    expect(screen.getByText("Full payment via BCA Transfer")).toBeInTheDocument();
+    expect(screen.getAllByText("Lunas").length).toBeGreaterThan(0);
   });
 
   it("should render loading skeleton when isLoading is true", () => {

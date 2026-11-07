@@ -107,8 +107,11 @@ describe("InvoiceDetailComponent", () => {
     expect(screen.getAllByTestId("invoice-detail-desktop-actions")[0].className).toContain("lg:flex");
     expect(screen.getAllByRole("menuitem", { name: "Edit" })).toHaveLength(2);
     expect(screen.getAllByRole("menuitem", { name: "Approve" })).toHaveLength(2);
-    expect(screen.getAllByText("Invoice Created").length).toBeGreaterThan(0);
+    const invoiceCreatedBadges = screen.getAllByText("Invoice Created");
+    expect(invoiceCreatedBadges.length).toBeGreaterThan(0);
     const invoiceSection = screen.getAllByText("Invoice").find((element) => element.tagName === "P")?.closest("section");
+    expect(invoiceSection).toHaveClass("bg-accent-50");
+    expect(invoiceCreatedBadges.find((element) => element.closest("section") === invoiceSection)).toHaveClass("bg-accent-600", "text-text-inverse");
     expect(invoiceSection?.querySelector("dl")?.className).toContain("sm:grid-cols-3");
     expect(screen.getAllByText("Speaker").length).toBeGreaterThan(0);
     expect(screen.queryByText("Audio Package")).toBeNull();

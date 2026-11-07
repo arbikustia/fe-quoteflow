@@ -131,7 +131,7 @@ const _renderExpandedMenu = (props: SidebarItemProps): React.ReactElement => {
     <div key={item.name}>
       <button type="button" onClick={handleToggleMenu} aria-expanded={isMenuOpen} className={`w-full min-h-14 py-3 flex items-center gap-3 rounded-[8px] px-4 text-left transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring/30 ${isActive || isMenuOpen ? "bg-background-subtle text-text-primary" : "text-text-secondary hover:bg-background-elevated hover:text-text-primary"}`}>
         <span className={`shrink-0 [&_svg]:h-5 [&_svg]:w-5 ${isActive || isMenuOpen ? "text-text-primary" : "text-text-tertiary"}`}><item.icon /></span>
-        <span className={`flex-1 truncate text-xl leading-none ${isActive || isMenuOpen ? "font-medium text-text-primary" : "font-normal"}`}>{item.name}</span>
+        <span className={`flex-1 truncate text-xl leading-tight ${isActive || isMenuOpen ? "font-medium text-text-primary" : "font-normal"}`}>{item.name}</span>
         {_renderBadge(item.badge, false)}
         <span className={`shrink-0 text-text-tertiary transition-transform duration-200 ${isMenuOpen ? "rotate-180" : ""}`}><Icons.ChevronDown /></span>
       </button>
@@ -152,7 +152,7 @@ const _renderExpandedLink = (props: SidebarItemProps): React.ReactElement => {
   return (
     <Link key={item.name} to={item.path ?? "#"} aria-current={isActive ? "page" : undefined} className={`min-h-14 flex items-center gap-3 rounded-[8px] px-4 py-3 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring/30 ${isActive ? "bg-background-subtle text-text-primary" : "text-text-secondary hover:bg-background-elevated hover:text-text-primary"}`}>
       <span className={`shrink-0 [&_svg]:h-5 [&_svg]:w-5 ${isActive ? "text-text-primary" : "text-text-tertiary"}`}><item.icon /></span>
-      <span className={`flex-1 truncate text-xl leading-none ${isActive ? "font-medium text-text-primary" : "font-normal"}`}>{item.name}</span>
+      <span className={`flex-1 truncate text-xl leading-tight ${isActive ? "font-medium text-text-primary" : "font-normal"}`}>{item.name}</span>
       {_renderBadge(item.badge, false)}
     </Link>
   );

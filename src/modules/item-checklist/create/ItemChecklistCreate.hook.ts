@@ -10,7 +10,7 @@ import { useGetAllItemsQuery } from "@/services/master-item.service";
 import { useCreateRentalChecklistMutation, useGetRentalChecklistByIdQuery, useUpdateRentalChecklistMutation } from "@/services/rental-checklist.service";
 import { useGetRentalOrderOptionsQuery } from "@/services/rental-order.service";
 
-import type { ChecklistCreateFormState, ChecklistOrderItemRow } from "./ItemChecklistCreate.type";
+import type { ChecklistCreateFormState, ChecklistFocusAt, ChecklistOrderItemRow } from "./ItemChecklistCreate.type";
 import { getOrderCustomerName } from "../ItemChecklist.helpers";
 import type { ApiChecklist, ChecklistCreatePayload } from "../ItemChecklist.type";
 
@@ -35,10 +35,7 @@ const _getChecklistItems = (checklist: ApiChecklist, categories: Map<string, str
     sign: item.sign,
   }));
 
-const _getOrderItems = (
-  order: ApiRentalOrder | undefined,
-  itemCategoryMap: Map<string, string>,
-): ChecklistOrderItemRow[] => {
+const _getOrderItems = (order: ApiRentalOrder | undefined): ChecklistOrderItemRow[] => {
   if (!order) return [];
 
   const transaction = order.invoice?.quotation?.transaction;
@@ -51,7 +48,7 @@ const _getOrderItems = (
       id: `${item.item_id}-${index}`,
       itemId: item.item_id,
       itemName: item.item_name,
-      category: itemCategoryMap.get(item.item_id) ?? "-",
+      category: item.category_name ?? "-",
       qty: item.qty,
       unit: item.qty === 1 ? "unit" : "units",
       moveOut: "",
@@ -67,7 +64,7 @@ const _getOrderItems = (
         id: `${item.item_id}-proj-${projectIndex}-${itemIndex}`,
         itemId: item.item_id,
         itemName: item.item_name,
-        category: itemCategoryMap.get(item.item_id) ?? "-",
+        category: item.category_name ?? "-",
         qty: item.qty,
         unit: item.qty === 1 ? "unit" : "units",
         moveOut: "",
@@ -112,7 +109,10 @@ export const useItemChecklistCreate = (): ChecklistCreateFormState => {
   const ordersQuery = useGetRentalOrderOptionsQuery();
   const itemsQuery = useGetAllItemsQuery();
   const initializedChecklistId = useRef<string | null>(null);
+  const scanBuffer = useRef("");
+  const scanResetTimer = useRef(0);
   const [selectedOrderId, setSelectedOrderId] = useState("");
+  const [focusAt, setFocusAt] = useState<ChecklistFocusAt>("moveOut");
   const [moveOutItemIds, setMoveOutItemIds] = useState<string[]>([]);
   const [moveInItemIds, setMoveInItemIds] = useState<string[]>([]);
   const [searchTerm, setSearchTerm] = useState("");
@@ -143,8 +143,45 @@ export const useItemChecklistCreate = (): ChecklistCreateFormState => {
       return _getChecklistItems(checklist, itemCategoryMap);
     }
 
-    return _getOrderItems(selectedOrder, itemCategoryMap);
+    return _getOrderItems(selectedOrder);
   }, [isEditMode, checklist, selectedOrder, itemCategoryMap]);
+
+  useEffect((): (() => void) => {
+    const handleScan = (event: KeyboardEvent): void => {
+      const target = event.target;
+      if (target instanceof HTMLInputElement || target instanceof HTMLTextAreaElement || target instanceof HTMLSelectElement) return;
+
+      if (event.key === "Enter") {
+        const scannedItemId = scanBuffer.current;
+        scanBuffer.current = "";
+        window.clearTimeout(scanResetTimer.current);
+        const row = orderItems.find((item) => item.itemId === scannedItemId);
+        if (!row) return;
+
+        setSearchTerm("");
+
+        if (focusAt === "moveIn") {
+          setMoveInItemIds((currentIds) => currentIds.includes(row.id) ? currentIds : [...currentIds, row.id]);
+        } else {
+          setMoveOutItemIds((currentIds) => currentIds.includes(row.id) ? currentIds : [...currentIds, row.id]);
+        }
+
+        return;
+      }
+
+      if (event.key.length !== 1 || event.ctrlKey || event.metaKey || event.altKey) return;
+      scanBuffer.current += event.key;
+      window.clearTimeout(scanResetTimer.current);
+      scanResetTimer.current = window.setTimeout((): void => { scanBuffer.current = ""; }, 100);
+    };
+
+    window.addEventListener("keydown", handleScan);
+
+    return (): void => {
+      window.removeEventListener("keydown", handleScan);
+      window.clearTimeout(scanResetTimer.current);
+    };
+  }, [focusAt, orderItems]);
 
   useEffect((): void => {
     if (!id || !checklist || initializedChecklistId.current === id) return;
@@ -161,6 +198,7 @@ export const useItemChecklistCreate = (): ChecklistCreateFormState => {
 
     return orderItems.filter(
       (item) =>
+        item.itemId.toLowerCase().includes(lower) ||
         item.itemName.toLowerCase().includes(lower) ||
         item.category.toLowerCase().includes(lower) ||
         item.sign.toLowerCase().includes(lower),
@@ -173,6 +211,10 @@ export const useItemChecklistCreate = (): ChecklistCreateFormState => {
     setMoveInItemIds([]);
     setSearchTerm("");
     setSaveErrorMessage(null);
+  };
+
+  const handleFocusAtChange = (value: string): void => {
+    if (value === "moveIn" || value === "moveOut") setFocusAt(value);
   };
 
   const handleSearchChange = (term: string): void => {
@@ -256,6 +298,7 @@ export const useItemChecklistCreate = (): ChecklistCreateFormState => {
     isLoadingInitialData: isEditMode && detailQuery.isLoading,
     isEditMode,
     selectedOrderId,
+    focusAt,
     orderItems,
     filteredOrderItems,
     moveOutItemIds,
@@ -264,6 +307,7 @@ export const useItemChecklistCreate = (): ChecklistCreateFormState => {
     isSubmitting: isCreating || isUpdating,
     errorMessage,
     handleOrderChange,
+    handleFocusAtChange,
     handleSearchChange,
     onToggleMoveOut,
     onToggleMoveIn,

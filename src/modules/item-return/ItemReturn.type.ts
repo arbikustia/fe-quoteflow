@@ -1,3 +1,5 @@
+export type StagedPhoto = { file: File; url: string };
+
 export type ApiReturnItem = {
   id: string;
   return_id: string;
@@ -7,6 +9,8 @@ export type ApiReturnItem = {
   notes: string;
   file_url: string;
   file_name: string;
+  file_urls?: string[];
+  file_names?: string[];
   status: number;
   created_at: string;
   updated_at: string;
@@ -46,8 +50,8 @@ export type ReturnItemPayload = {
   qty: number;
   condition: string;
   notes: string;
-  file_url: string;
-  file_name: string;
+  file_urls: string[];
+  file_names: string[];
 };
 
 export type ReturnCreatePayload = {

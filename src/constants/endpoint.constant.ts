@@ -84,6 +84,7 @@ const ENDPOINT = {
   },
   QUOTATION: {
     PAGED: "/api/quotation/paged",
+    ALL: "/api/quotation",
     DETAIL: "/api/quotation",
     STATUS: "/api/quotation",
   },

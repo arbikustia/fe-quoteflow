@@ -26,8 +26,8 @@ export type ReturnOrderItemRow = {
   unit: string;
   condition: string;
   notes: string;
-  fileUrl: string;
-  fileName: string;
+  fileUrls: string[];
+  fileNames: string[];
 };
 
 export type ReturnCreateFormState = {
@@ -41,7 +41,7 @@ export type ReturnCreateFormState = {
   returnItemIds: string[];
   uploadingItemId: string | null;
   photoPreview: { itemId: string; itemName: string; url: string } | null;
-  stagedPhotoUrls: Map<string, string>;
+  stagedPhotoUrls: Map<string, string[]>;
   viewedPhoto: { itemName: string; url: string } | null;
   openPhoto: (itemId: string) => void;
   closeViewedPhoto: () => void;
@@ -56,7 +56,7 @@ export type ReturnCreateFormState = {
   handleSearchChange: (term: string) => void;
   handleDateChange: (date: string) => void;
   handleNotesChange: (notes: string) => void;
-  onCaptureItem: (id: string, file: File) => Promise<void>;
+  onCaptureItem: (id: string, files: File[]) => Promise<void>;
   onItemConditionChange: (id: string, condition: string) => void;
   onItemNotesChange: (id: string, notes: string) => void;
   handleSave: () => Promise<void>;

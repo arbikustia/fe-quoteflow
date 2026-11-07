@@ -14,8 +14,10 @@ import { getOrderCustomerName } from "./ItemChecklist.helpers";
 const _mapChecklist = (checklist: ApiChecklist, customerName: string): ChecklistRow => {
   let status: ChecklistRow["status"] = "unavailable";
 
-  if (checklist.status !== null) {
-    status = checklist.status === 1 ? "active" : "inactive";
+  if (checklist.status === 1) {
+    status = "inactive";
+  } else if (checklist.status === 2) {
+    status = "active";
   }
 
   return {

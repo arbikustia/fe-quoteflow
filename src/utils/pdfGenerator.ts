@@ -15,9 +15,6 @@ export type PdfOptions = {
 
 /**
  * Append transaction items grouped by category.
- * @param {TableRow[]} tableData - PDF table rows
- * @param {QuotePdfItem[]} items - Transaction items
- * @returns {number} Sum of item prices
  */
 const _appendGroupedItems = (tableData: TableRow[], items: QuotePdfItem[]): number => {
   const categories = new Map<string, QuotePdfItem[]>();
@@ -49,10 +46,6 @@ const _appendGroupedItems = (tableData: TableRow[], items: QuotePdfItem[]): numb
 
 /**
  * Append projects to table.
- * @param {TableRow[]} tableData - PDF table rows
- * @param {QuotePdfProject[]} projects - Projects
- * @param {number} startRowNumber - Starting row number
- * @returns {{ subtotal: number; rowNumber: number }} Result
  */
 const _appendProjects = (tableData: TableRow[], projects: QuotePdfProject[], startRowNumber: number): { subtotal: number; rowNumber: number } => {
   let subtotal = 0;
@@ -85,12 +78,9 @@ const _appendProjects = (tableData: TableRow[], projects: QuotePdfProject[], sta
 };
 
 /**
- * Generate PDF for a Quote
- * @param {QuoteData} quote - the quote data
- * @param {PdfOptions} [options] - custom options like title and filename
- * @returns {Promise<void>} promise
+ * Internal PDF generator returning Blob.
  */
-export const generateQuotePDF = async (quote: QuoteData, options?: PdfOptions): Promise<void> => {
+const _generateQuoteBlob = async (quote: QuoteData, options?: PdfOptions): Promise<Blob> => {
   const doc = new jsPDF();
   const frameData = await new Promise<string>((resolve) => {
     const img = new Image();
@@ -112,10 +102,8 @@ export const generateQuotePDF = async (quote: QuoteData, options?: PdfOptions): 
     }
   };
 
-  // Add background to first page
   addBackground();
 
-  // Patch addPage to add background on new pages
   const originalAddPage = doc.addPage.bind(doc);
   doc.addPage = function (...args) {
     originalAddPage(...args);
@@ -123,12 +111,10 @@ export const generateQuotePDF = async (quote: QuoteData, options?: PdfOptions): 
     return this;
   };
 
-  // --- TITLE ---
   doc.setFontSize(14);
   doc.setFont("helvetica", "bold");
   doc.text(options?.title ?? "PENAWARAN HARGA", 105, 40, { align: "center" });
 
-  // --- DATE ---
   const dateStr = new Date().toLocaleDateString("id-ID", {
     year: "numeric",
     month: "long",
@@ -138,7 +124,6 @@ export const generateQuotePDF = async (quote: QuoteData, options?: PdfOptions): 
   doc.setFont("helvetica", "normal");
   doc.text(`Bekasi, ${dateStr}`, 196, 48, { align: "right" });
 
-  // --- CLIENT INFO ---
   doc.text("Kepada Yth.", 14, 58);
   doc.text(`: Bpk/ Ibu ${quote.customerName ?? quote.name}`, 45, 58);
   doc.text(": Di tempat", 45, 63);
@@ -166,7 +151,6 @@ export const generateQuotePDF = async (quote: QuoteData, options?: PdfOptions): 
   );
   doc.text(`${quote.name} di ${quote.location}, sebagai berikut :`, 14, 98);
 
-  // --- TABLE DATA PREPARATION ---
   const tableData: TableRow[] = [];
   let no = 1;
   const rawCategories = (quote.category || "Equipment").split(", ").map(c => c.trim()).filter(Boolean);
@@ -194,10 +178,11 @@ export const generateQuotePDF = async (quote: QuoteData, options?: PdfOptions): 
     ]);
 
     const catItems = MOCK_ORDER_ITEMS[cat] || quote.selectedItems;
-    let itemsInCat = quote.selectedItems.filter(i => catItems.includes(i));
+    const selectedItems = quote.selectedItems ?? [];
+    let itemsInCat = selectedItems.filter(i => catItems.includes(i));
     
     if (itemsInCat.length === 0) {
-      itemsInCat = quote.selectedItems.length > 0 ? quote.selectedItems : [`Paket ${cat}`];
+      itemsInCat = selectedItems.length > 0 ? selectedItems : [`Paket ${cat}`];
     }
     
     const count = itemsInCat.length;
@@ -232,7 +217,6 @@ export const generateQuotePDF = async (quote: QuoteData, options?: PdfOptions): 
   const ppn = quote.pph ? Math.round((subTotal2 - discountAmount) * (quote.pph / 100)) : 0;
   const total = subTotal2 - discountAmount + ppn + (quote.serviceFee || 0);
 
-  // Bottom Rows for Totals
   tableData.push([
     { content: "Sub Total", colSpan: 2, styles: { halign: 'right' } },
     { content: "1", styles: { halign: 'center' } },
@@ -286,7 +270,6 @@ export const generateQuotePDF = async (quote: QuoteData, options?: PdfOptions): 
     { content: quote.remark || "** INCLUDE OPERATOR DAN CREW BERPENGALAMAN", colSpan: 6, styles: { fontStyle: 'bold', halign: 'left', fillColor: [255, 255, 255] } }
   ]);
 
-  // --- RENDER TABLE ---
   autoTable(doc, {
     startY: 103,
     head: [[
@@ -313,29 +296,23 @@ export const generateQuotePDF = async (quote: QuoteData, options?: PdfOptions): 
       lineColor: [0, 0, 0]
     },
     columnStyles: {
-      0: { cellWidth: 10, halign: 'center' }, // No
-      1: { cellWidth: 'auto' },               // Description
-      2: { cellWidth: 12, halign: 'center' }, // Qty (num)
-      3: { cellWidth: 15, halign: 'center' }, // Qty (unit)
-      4: { cellWidth: 35, halign: 'right' },  // Price
-      5: { cellWidth: 40, halign: 'center' }  // Remarks
+      0: { cellWidth: 10, halign: 'center' },
+      1: { cellWidth: 'auto' },               
+      2: { cellWidth: 12, halign: 'center' }, 
+      3: { cellWidth: 15, halign: 'center' }, 
+      4: { cellWidth: 35, halign: 'right' },  
+      5: { cellWidth: 40, halign: 'center' }  
     },
     margin: { top: 40 }
   });
 
-  // --- FOOTER NOTES ---
   const lastAutoTable = ((doc as unknown) as { lastAutoTable?: { finalY: number } }).lastAutoTable;
   let finalY = (lastAutoTable?.finalY ?? 180) + 8;
-  
-  // The company name is omitted as requested because the frame image has it
-  // Or the user does not want it duplicated below the table.
-  
   finalY += 2;
 
   doc.setFontSize(9);
   doc.setFont("helvetica", "bold");
   doc.text("Keterangan :", 14, finalY);
-  
   doc.setFontSize(8.5);
   doc.setFont("helvetica", "normal");
   doc.text("1. Harga tidak termasuk PPN (Jika ada)", 14, finalY + 5);
@@ -344,42 +321,62 @@ export const generateQuotePDF = async (quote: QuoteData, options?: PdfOptions): 
   doc.text("4. Segala kerusakan yang diakibatkan kelalaian dari pemakaian, akan dibebankan ke penyewa", 14, finalY + 20);
   doc.text("5. Harga tidak termasuk tempat untuk crew dan operator yang bertugas (jika event lebih 1 hari)", 14, finalY + 25);
   doc.text("6. Pembayaran DP minimal 50%, sisa pembayaran dilunasi sebelum acara", 14, finalY + 30);
-  
   doc.setFont("helvetica", "bold");
   doc.text("7. Pembayaran ke BCA – Cikarang | No. rekening: 688 099 6191 | Derik Sitanggang", 14, finalY + 35);
-
   doc.setFont("helvetica", "normal");
   doc.text("Demikian Penawaran ini kami sampaikan, besar harapan kami dapan menjalin kerjasama dan atas perhatian dan", 14, finalY + 45);
   doc.text("kerjasamanya kami ucapkan terima kasih.", 14, finalY + 50);
-
   doc.text("Hormat kami,", 14, finalY + 65);
   doc.text("Derik", 14, finalY + 85);
 
-  // --- SAVE ---
-  const filename = options?.filename ?? `Invoice-${quote.id}.pdf`;
-  doc.save(filename);
+  return doc.output('blob');
 };
 
 /**
- * Generate PDF for a Quotation
- * @param {QuoteData} quote - the quote data
- * @returns {Promise<void>} promise
+ * Generate Blob for a Quotation to be used as attachment.
  */
-export const generateQuotationPDF = async (quote: QuoteData): Promise<void> => {
-  await generateQuotePDF(quote, {
+export const generateQuotationPdfBlob = async (quote: QuoteData): Promise<File> => {
+  const blob = await _generateQuoteBlob(quote, {
     title: "QUOTATION",
     filename: `Quotation-${quote.id}.pdf`,
   });
+  return new File([blob], `Quotation-${quote.id}.pdf`, { type: "application/pdf" });
+};
+
+/**
+ * Generate PDF for a Quote
+ */
+export const generateQuotePDF = async (quote: QuoteData, options?: PdfOptions): Promise<void> => {
+  const blob = await _generateQuoteBlob(quote, options);
+  const link = document.createElement("a");
+  link.href = URL.createObjectURL(blob);
+  link.download = options?.filename ?? `Quote-${quote.id}.pdf`;
+  link.click();
+};
+/**
+ * Generate PDF for a Quotation
+ */
+export const generateQuotationPDF = async (quote: QuoteData): Promise<void> => {
+  const blob = await _generateQuoteBlob(quote, {
+    title: "QUOTATION",
+    filename: `Quotation-${quote.id}.pdf`,
+  });
+  const link = document.createElement("a");
+  link.href = URL.createObjectURL(blob);
+  link.download = `Quotation-${quote.id}.pdf`;
+  link.click();
 };
 
 /**
  * Generate PDF for an Invoice
- * @param {QuoteData} quote - the quote data
- * @returns {Promise<void>} promise
  */
 export const generateInvoicePDF = async (quote: QuoteData): Promise<void> => {
-  await generateQuotePDF(quote, {
+  const blob = await _generateQuoteBlob(quote, {
     title: "INVOICE",
     filename: `Invoice-${quote.id}.pdf`,
   });
+  const link = document.createElement("a");
+  link.setAttribute("href", URL.createObjectURL(blob));
+  link.setAttribute("download", `Invoice-${quote.id}.pdf`);
+  link.click();
 };

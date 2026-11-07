@@ -11,7 +11,7 @@ const TABLE_LEFT = 38.4;
 const TABLE_RIGHT = 573;
 const TABLE_TOP = 213.7;
 const TABLE_BOTTOM = 547;
-const COLUMN_WIDTHS = [21.5, 185, 56, 31, 45, 73.5, 79, 43.5];
+const COLUMN_WIDTHS = [21.5, 150, 91, 31, 45, 73.5, 79, 43.5];
 const HEADERS = ["NO", "DESCRIPTION", "SECTION", "QTY", "UNIT", "MOVE OUT (  )", "MOVE IN  (  )", "SIGN"];
 const CHECK_MARK = "__CHECK_MARK__";
 
@@ -62,14 +62,14 @@ const _drawHeader = (document: jsPDF, checklist: ApiChecklist, order: ApiRentalO
     "Mobile number : 082246487057",
   ].forEach((line, index): void => { document.text(line, 49.1, 79.5 + index * 11.9); });
 
-  document.text("DATE", 387.1, 91.4);
-  document.text("CUSTOMER NAME", 387.1, 103.3);
+  document.text("DATE", 345, 91.4);
+  document.text("CUSTOMER NAME", 345, 103.3);
   document.setLineWidth(0.84);
   document.setDrawColor(0, 0, 0);
-  document.rect(450.2, 83.2, 122.5, 23.8);
-  document.line(450.2, 95.1, 572.7, 95.1);
-  document.text(_formatDate(checklist.checklist_date), 511.5, 91.4, { align: "center" });
-  document.text(transaction.customer_name, 511.5, 103.3, { align: "center" });
+  document.rect(430, 83.2, 142.7, 23.8);
+  document.line(430, 95.1, 572.7, 95.1);
+  document.text(_formatDate(checklist.checklist_date), 501.3, 91.4, { align: "center" });
+  document.text(transaction.customer_name, 501.3, 103.3, { align: "center" });
 
   const details = [
     ["COMPANY", transaction.customer_name],
@@ -112,7 +112,7 @@ export const createChecklistPdf = (checklist: ApiChecklist, order: ApiRentalOrde
   const rows = checklist.items.map((item, index): string[] => [
     String(index + 1),
     item.description || item.item_name,
-    item.section ?? "",
+    item.category_name ?? "",
     String(item.qty),
     item.qty === 1 ? "Unit" : "Units",
     item.move_out ? CHECK_MARK : "",

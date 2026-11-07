@@ -33,7 +33,7 @@ export const hasSelectedOrderItem = (items: ReadonlyArray<{ item_id: string }>):
  * @param {number} stock - Available stock
  * @returns {number} - Quantity capped by stock
  */
-export const clampQtyToStock = (qty: number, stock: number): number => Math.max(1, Math.min(qty, stock));
+export const clampQtyToStock = (qty: number, stock: number): number => Math.max(0, Math.min(Math.max(1, qty), stock));
 
 /**
  * Check every selected item quantity is within stock.

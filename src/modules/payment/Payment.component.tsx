@@ -59,9 +59,24 @@ const _renderPaidAt = (row: PaymentData): React.ReactElement => (
   <span className="text-lg">{formatDate(row.paidAt)}</span>
 );
 
-const _renderCreatedAt = (row: PaymentData): React.ReactElement => (
-  <span className="text-lg">{formatDate(row.createdAt)}</span>
+const _renderRemaining = (row: PaymentData): React.ReactElement => (
+  <span className="text-lg font-semibold">{formatCurrency(row.remainingAmount ?? 0)}</span>
 );
+
+/**
+ * Render invoice payment status badge.
+ * @param {PaymentData} row - Payment row
+ * @returns {React.ReactElement} Status badge
+ */
+const _renderStatus = (row: PaymentData): React.ReactElement => {
+  const isSettled = (row.remainingAmount ?? 0) <= 0;
+
+  return (
+    <span className={`rounded-full px-3 py-1 text-base font-semibold uppercase ${isSettled ? "bg-success-subtle text-success-strong" : "bg-warning-subtle text-warning-strong"}`}>
+      {row.statusLabel || (isSettled ? "Paid" : "Unpaid")}
+    </span>
+  );
+};
 
 /**
  * Render payment edit action.
@@ -112,8 +127,9 @@ const _getColumns = (props: PaymentProps): TableColumn<PaymentData>[] => [
   { key: "invoiceNo", header: "Invoice No", render: _renderInvoiceNo },
   { key: "customerName", header: "Customer Name", render: _renderCustomerName },
   { key: "amount", header: "Amount", align: "right", render: _renderAmount },
-  { key: "paidAt", header: "Paid At", render: _renderPaidAt },
-  { key: "createdAt", header: "Created At", render: _renderCreatedAt },
+  { key: "paidAt", header: "Last Payment", render: _renderPaidAt },
+  { key: "remainingAmount", header: "Remaining", align: "right", render: _renderRemaining },
+  { key: "status", header: "Status", align: "center", render: _renderStatus },
   { key: "actions", header: "Action", align: "center", render: (row: PaymentData): React.ReactElement => _renderActions(row, props.onDetail ?? props.onRowClick, props.onEdit) },
 ];
 
@@ -183,12 +199,12 @@ export const PaymentMobileCard = ({ payment, onClick }: PaymentMobileCardProps):
     className="group block w-full min-w-0 rounded-3xl border border-border-strong bg-background-surface p-5 text-left shadow-small transition-colors hover:border-border-strong hover:bg-background-subtle/40 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-action-primary"
   >
     <span className="flex min-w-0 flex-wrap items-center justify-between gap-3">
-      <span className="min-w-0 break-all text-lg font-medium text-text-secondary">{payment.referenceNo}</span>
-      <span className={`rounded-full border border-current px-3 py-1 text-base font-semibold uppercase ${payment.status === "active" ? "bg-success-subtle text-success-strong" : "bg-danger-subtle text-danger-strong"}`}>
-        {payment.status === "active" ? "Active" : "Inactive"}
+      <span className="min-w-0 break-all text-lg font-medium text-text-primary">{payment.invoiceNo}</span>
+      <span className={`rounded-full border border-current px-3 py-1 text-base font-semibold uppercase ${(payment.remainingAmount ?? 0) > 0 ? "bg-warning-subtle text-warning-strong" : "bg-success-subtle text-success-strong"}`}>
+        {payment.statusLabel || ((payment.remainingAmount ?? 0) > 0 ? "Unpaid" : "Paid")}
       </span>
     </span>
-    <span className="mt-4 block break-all text-xl font-semibold text-text-primary">{payment.invoiceNo}</span>
+    <span className="mt-4 block break-all text-xl font-semibold text-text-primary">{formatCurrency(payment.amount)}</span>
     <span className="mt-1.5 block break-words text-lg text-text-secondary">{payment.customerName}</span>
     <span className="mt-4 flex flex-wrap items-end justify-between gap-x-4 gap-y-3 border-t border-border-default pt-4">
       <span className="min-w-0 text-lg text-text-secondary">

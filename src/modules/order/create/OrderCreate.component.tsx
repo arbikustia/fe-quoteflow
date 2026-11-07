@@ -9,7 +9,7 @@ import Layout from "@/app/layout";
 
 import type { OrderItemPayload } from "../Order.type";
 
-import { calculateOrderTotals } from "./OrderCreate.helpers";
+import { calculateOrderTotals, clampQtyToStock } from "./OrderCreate.helpers";
 import type {
   OrderCreateFormState,
   OrderCreateProps,
@@ -481,6 +481,73 @@ const _renderProjectCard = (
 };
 
 /**
+ * Render quantity stepper with decrease and increase buttons.
+ * @param {OrderCreateProps} props - Component properties.
+ * @param {OrderItemPayload} item - Selected item row.
+ * @param {number} index - Item index.
+ * @param {string} itemId - Option identifier.
+ * @param {number | null} stock - Available stock.
+ * @param {string} sizeClass - Input height class.
+ * @returns {React.ReactElement} Quantity stepper.
+ */
+const _renderQtyControl = (
+  props: OrderCreateProps,
+  item: OrderItemPayload,
+  index: number,
+  itemId: string,
+  stock: number | null,
+  sizeClass: string,
+): React.ReactElement => {
+  const maxQty = stock === null ? Number.POSITIVE_INFINITY : stock;
+  /**
+   * Apply a quantity delta with stock clamping.
+   * @param {number} delta - Step direction.
+   * @returns {() => void} Click handler.
+   */
+  const handleStep = (delta: number) => (): void => {
+    const nextQty = stock === null ? item.qty + delta : clampQtyToStock(item.qty + delta, stock);
+    props.onItemChange(index, "qty", Math.max(1, nextQty));
+  };
+
+  return (
+    <div className="flex items-center gap-1">
+      <button
+        type="button"
+        onClick={handleStep(-1)}
+        disabled={item.qty <= 1}
+        aria-label={`Decrease ${item.item_name} quantity`}
+        className={`${sizeClass} flex w-10 shrink-0 cursor-pointer items-center justify-center rounded-lg border-2 border-border-strong bg-background-surface text-xl font-bold text-text-primary transition-colors hover:bg-background-subtle disabled:cursor-not-allowed disabled:opacity-40`}
+      >
+        −
+      </button>
+      <input
+        id={`order-qty-${itemId}`}
+        type="number"
+        min="1"
+        max={stock ?? undefined}
+        value={item.qty}
+        aria-label="Qty"
+        onChange={(event): void => props.onItemChange(
+          index,
+          "qty",
+          stock === null ? Number(event.target.value) : clampQtyToStock(Number(event.target.value), stock),
+        )}
+        className={`${sizeClass} w-14 rounded-lg border-2 border-border-strong bg-background-surface px-1 text-center text-lg text-text-primary focus:border-border-focus focus:outline-none focus:ring-2 focus:ring-focus-ring/30 [appearance:textfield] [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none`}
+      />
+      <button
+        type="button"
+        onClick={handleStep(1)}
+        disabled={item.qty >= maxQty}
+        aria-label={`Increase ${item.item_name} quantity`}
+        className={`${sizeClass} flex w-10 shrink-0 cursor-pointer items-center justify-center rounded-lg border-2 border-border-strong bg-background-surface text-xl font-bold text-text-primary transition-colors hover:bg-background-subtle disabled:cursor-not-allowed disabled:opacity-40`}
+      >
+        +
+      </button>
+    </div>
+  );
+};
+
+/**
  * Render _renderItemCard.
  * @param {OrderCreateProps} props - Component properties.
  * @param {OrderCreateProps["items"][number]} option - Render option.
@@ -535,24 +602,17 @@ const _renderItemCard = (
         </span>
         {selected && (
           <div className="pointer-events-auto hidden shrink-0 items-center gap-3 lg:flex">
-            <label className="flex flex-col gap-1 text-lg font-medium text-text-secondary">
-              Qty
-              <input
-                id={`order-qty-${option.id}`}
-                type="number"
-                min="1"
-                max={option.stock ?? undefined}
-                value={selected.qty}
-                onChange={(event) =>
-                  props.onItemChange(
-                    props.form.rental_transaction_items.indexOf(selected),
-                    "qty",
-                    Number(event.target.value),
-                  )
-                }
-                className="h-10 w-16 rounded-lg border-2 border-border-strong bg-background-surface px-2 text-center text-lg text-text-primary"
-              />
-            </label>
+            <div className="flex flex-col gap-1 text-lg font-medium text-text-secondary">
+              <span>Qty</span>
+              {_renderQtyControl(
+                props,
+                selected,
+                props.form.rental_transaction_items.indexOf(selected),
+                option.id,
+                option.stock,
+                "h-10",
+              )}
+            </div>
             <label className="flex w-40 flex-col gap-1 text-lg font-medium text-text-secondary">
               Remark
               <input
@@ -579,22 +639,18 @@ const _renderItemCard = (
         </span>
       </div>
       {selected && (
-        <div className="relative z-10 mt-4 grid grid-cols-[5rem_minmax(0,1fr)] gap-3 border-t border-border-default pt-4 lg:hidden">
-          <label className="flex flex-col gap-2 text-lg font-medium text-text-secondary">
-            Qty
-            <input
-              type="number"
-              min="1"
-              max={option.stock ?? undefined}
-              value={selected.qty}
-              onChange={(event): void => props.onItemChange(
-                props.form.rental_transaction_items.indexOf(selected),
-                "qty",
-                Number(event.target.value),
-              )}
-              className="h-12 w-full rounded-lg border-2 border-border-strong bg-background-surface px-2 text-center text-lg text-text-primary focus:border-border-focus focus:outline-none focus:ring-2 focus:ring-focus-ring/30"
-            />
-          </label>
+        <div className="relative z-10 mt-4 grid grid-cols-[9rem_minmax(0,1fr)] gap-3 border-t border-border-default pt-4 lg:hidden">
+          <div className="flex flex-col gap-2 text-lg font-medium text-text-secondary">
+            <span>Qty</span>
+            {_renderQtyControl(
+              props,
+              selected,
+              props.form.rental_transaction_items.indexOf(selected),
+              option.id,
+              option.stock,
+              "h-12",
+            )}
+          </div>
           <label className="flex min-w-0 flex-col gap-2 text-lg font-medium text-text-secondary">
             Remark
             <input

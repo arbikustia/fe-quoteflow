@@ -6,6 +6,10 @@ import { useMasterActivityLog } from "@/hooks/useMasterActivityLog";
 
 import { mapRentalOrder, useGetRentalOrdersQuery, useUpdateRentalOrderMutation } from "@/services/rental-order.service";
 
+import apiClient from "@/libs/api/ApiClient/ApiClient";
+
+import ENDPOINT from "@/constant/endpoint.const";
+
 import type {
   RentalOrderListResponse,
   ReportOrderApiState,
@@ -135,6 +139,38 @@ const _deriveReportOrderListState = (queryResult: ReturnType<typeof useGetRental
   const orders = orderList.map(mapRentalOrder);
 
   return _createSuccessState(orders, response.total_pages, response.total_count);
+};
+
+/**
+ * Hook for exporting the rental order report PDF.
+ * @returns {{ isExporting: boolean; onExport: () => void }} Export state and handler
+ */
+export const useReportOrderExport = (): { isExporting: boolean; onExport: () => void } => {
+  const [isExporting, setIsExporting] = useState(false);
+
+  /**
+   * Download order report PDF from the export endpoint.
+   * @returns {void}
+   */
+  const onExport = (): void => {
+    if (isExporting) return;
+
+    setIsExporting(true);
+
+    void apiClient.get<Blob>(ENDPOINT.RENTAL_ORDER.EXPORT, { responseType: "blob" }).then((response) => {
+      const objectUrl = URL.createObjectURL(response.data);
+      const link = document.createElement("a");
+
+      link.href = objectUrl;
+      link.download = "rental-order-report.xlsx";
+      link.click();
+      URL.revokeObjectURL(objectUrl);
+    }).catch(() => {
+      window.alert("Unable to export order report. Please try again.");
+    }).finally(() => setIsExporting(false));
+  };
+
+  return { isExporting, onExport };
 };
 
 /**

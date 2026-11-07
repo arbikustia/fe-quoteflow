@@ -84,6 +84,7 @@ describe("OrderCreate step helpers", () => {
   it("should clamp item quantity to available stock", (): void => {
     expect(clampQtyToStock(8, 5)).toBe(5);
     expect(clampQtyToStock(3, 5)).toBe(3);
+    expect(clampQtyToStock(1, 0)).toBe(0);
   });
 
   it("should hydrate Project daily price and remark without multiplying rental days", (): void => {

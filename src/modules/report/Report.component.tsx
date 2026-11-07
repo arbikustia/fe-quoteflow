@@ -9,9 +9,8 @@ import Table from "@/components/Table";
 import Layout from "@/app/layout";
 import { PageLayout } from "@/app/shared/PageLayout";
 import { formatIndonesianDateTime } from "@/utils/date.helpers";
-import { generateQuotePDF } from "@/utils/pdfGenerator";
 
-import { getOrderRowNumber, OrderMobileCard, toQuoteData } from "./Report.helpers";
+import { getOrderRowNumber, OrderMobileCard } from "./Report.helpers";
 import type { ReportOrderData, ReportOrderProps } from "./Report.type";
 
 /**
@@ -37,16 +36,6 @@ const _renderStatus = (row: ReportOrderData): React.ReactElement => {
  */
 const _renderActions = (row: ReportOrderData, onEditStatus: (order: ReportOrderData) => void): React.ReactElement => {
   /**
-   * Handle download PDF.
-   * @param {React.MouseEvent} event - Mouse event
-   * @returns {void}
-   */
-  const handleDownload = (event: React.MouseEvent): void => {
-    event.stopPropagation();
-    void generateQuotePDF(toQuoteData(row));
-  };
-
-  /**
    * Open status form.
    * @param {React.MouseEvent} event - Mouse event
    * @returns {void}
@@ -57,26 +46,15 @@ const _renderActions = (row: ReportOrderData, onEditStatus: (order: ReportOrderD
   };
 
   return (
-    <div className="flex items-center justify-center gap-1">
-      <button
-        type="button"
-        onClick={handleDownload}
-        className="cursor-pointer rounded-3xl p-2.5 text-text-secondary hover:bg-action-primary-subtle hover:text-action-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring"
-        title="Download PDF"
-        aria-label="Download PDF"
-      >
-        <FiDownload className="h-5 w-5" />
-      </button>
-      <button
-        type="button"
-        onClick={handleEdit}
-        className="cursor-pointer rounded-3xl p-2.5 text-text-secondary hover:bg-action-primary-subtle hover:text-action-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring"
-        title="Edit order status"
-        aria-label="Edit order status"
-      >
-        <FiEdit2 className="h-5 w-5" />
-      </button>
-    </div>
+    <button
+      type="button"
+      onClick={handleEdit}
+      className="cursor-pointer rounded-3xl p-2.5 text-text-secondary hover:bg-action-primary-subtle hover:text-action-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring"
+      title="Edit order status"
+      aria-label="Edit order status"
+    >
+      <FiEdit2 className="h-5 w-5" />
+    </button>
   );
 };
 
@@ -219,6 +197,16 @@ const _renderDesktopTable = (props: ReportOrderProps): React.ReactElement => {
     <div className="hidden rounded-3xl border border-border-default bg-background-surface px-6 pb-6 pt-0 shadow-xs md:mt-6 md:flex md:flex-1 md:flex-col md:overflow-hidden lg:flex">
       <div className="flex items-center justify-between gap-4 border-b border-border-default py-6">
         <SearchFilter placeholder="Search order" onChange={handleSearchChange} isRoundedFull={true} inputClassName="text-lg placeholder:text-lg" />
+        <button
+          type="button"
+          onClick={props.onExport}
+          disabled={props.isExporting}
+          aria-label="Export PDF"
+          className="inline-flex h-12 shrink-0 items-center gap-2 rounded-full border-2 border-action-primary bg-background-surface px-6 text-lg font-semibold text-action-primary transition-colors hover:bg-action-primary-subtle focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring disabled:cursor-wait disabled:opacity-60"
+        >
+          <FiDownload className="h-5 w-5" aria-hidden="true" />
+          {props.isExporting ? "Exporting…" : "Export"}
+        </button>
       </div>
       <div className="flex-1 overflow-auto">
         {props.isLoading ? (

@@ -79,6 +79,7 @@ export const ItemChecklistMobileCard = ({ row, onClick }: ItemChecklistMobileCar
         <span className="min-w-0 break-words text-xl font-semibold text-text-primary">{row.checklistNo}</span>
         {_renderStatus(row)}
       </span>
+      <span className="mt-1.5 block break-words text-lg text-text-secondary">{row.customerName || "No customer name"}</span>
       <span className="mt-4 block text-lg text-text-secondary">{row.itemCount} items</span>
       <span className="mt-4 flex flex-wrap items-end justify-between gap-x-4 gap-y-3 border-t border-border-default pt-4 text-lg text-text-secondary">
         <span className="min-w-0">

@@ -1,6 +1,5 @@
 import * as React from "react";
 
-import type { QuoteData } from "@/modules/order/Order.type";
 import { formatCurrency } from "@/modules/quotation/detail/QuotationDetail.helpers";
 import { formatIndonesianDateTime } from "@/utils/date.helpers";
 
@@ -83,25 +82,3 @@ export const OrderMobileCard = (props: OrderMobileCardProps): React.ReactElement
  * @returns {number} Display row number
  */
 export const getOrderRowNumber = (currentPage: number, pageSize: number, rowIndex: number): number => (currentPage - 1) * pageSize + rowIndex + 1;
-
-/**
- * Convert report order data to quote data for PDF generation.
- * @param {ReportOrderData} order - Report order data
- * @returns {QuoteData} Quote data
- */
-export const toQuoteData = (order: ReportOrderData): QuoteData => ({
-  id: order.id,
-  name: order.eventName || order.orderNo,
-  startDate: order.startDate,
-  endDate: order.endDate,
-  location: order.address,
-  category: "",
-  selectedItems: [],
-  qty: 1,
-  pph: order.grandTotal,
-  discount: 0,
-  remark: "",
-  grandTotal: order.grandTotal,
-  status: order.status,
-  customerPhone: order.customerPhone,
-});

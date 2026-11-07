@@ -1,54 +1,94 @@
 import { describe, expect, it } from "@jest/globals";
 
+import type { ApiInvoice } from "@/modules/invoice/Invoice.type";
+import type { ApiQuotation } from "@/modules/quotation/Quotation.type";
 import { buildMailHtmlTemplate, buildMailSendFormData } from "@/services/mail/mail.service";
 
 describe("buildMailHtmlTemplate", () => {
-  it("should render the template with the default quotation copy", () => {
+  it("should render the quotation template with the default copy", () => {
     const html = buildMailHtmlTemplate("Hello team");
 
     expect(html).toContain("<!DOCTYPE html>");
     expect(html).toContain("Hello team");
-    expect(html).toContain("Congrats, your quotation has been");
-    expect(html).toContain(">Ready<");
+    expect(html).toContain("Penawaran Harga");
+    expect(html).toContain(">Quotation<");
   });
 
-  it("should switch the hero copy to invoice", () => {
+  it("should switch the header to invoice", () => {
     const html = buildMailHtmlTemplate("Hello team", "invoice");
 
-    expect(html).toContain("Congrats, your invoice has been");
-    expect(html).toContain(">Confirmed<");
-    expect(html).not.toContain("Congrats, your quotation has been");
+    expect(html).toContain(">Invoice<");
+    expect(html).not.toContain(">Quotation<");
   });
 
-  it("should fall back to the template note when the body is empty", () => {
-    expect(buildMailHtmlTemplate("")).toContain("We&#39;ve put together a quotation");
+  it("should not hardcode any copy in the body area", () => {
+    const html = buildMailHtmlTemplate("");
+
+    expect(html).not.toContain("Yth.");
+    expect(html).not.toContain("Hormat kami");
+    expect(html).not.toContain("Tim Kami");
   });
 
-  it("should convert newlines to line breaks", () => {
-    expect(buildMailHtmlTemplate("line one\nline two")).toContain("line one<br />line two");
-  });
+  it("should keep the rich text formatting and strip unsafe markup", () => {
+    const html = buildMailHtmlTemplate('<p><strong>Hello</strong></p><script>alert("x")</script>');
 
-  it("should escape html in the body", () => {
-    const html = buildMailHtmlTemplate("<script>alert('x')</script>");
-
+    expect(html).toContain("<strong>Hello</strong>");
     expect(html).not.toContain("<script>");
-    expect(html).toContain("&lt;script&gt;");
   });
 
-  it("should render the logo mark and colour-scheme overrides", () => {
+  it("should render the logo mark in the header", () => {
     const html = buildMailHtmlTemplate("Hello team");
 
     expect(html).toContain("logo.png");
-    expect(html).toContain('name="color-scheme" content="light dark"');
-    expect(html).toContain("@media (prefers-color-scheme:dark)");
   });
 
-  it("should default to a light gray page and keep dark only as an override", () => {
+  it("should use a neutral header so the brand logo keeps its contrast", () => {
     const html = buildMailHtmlTemplate("Hello team");
 
-    expect(html).toContain("background-color:#F7F8FA");
-    expect(html).not.toContain("background-color:#C8D0D8");
-    expect(html).not.toContain("background-color:#16202E;");
+    expect(html).toContain("background-color:#6B7280");
+    expect(html).not.toContain("#3F51B5");
+    expect(html).not.toContain("#FF6E02");
+  });
+
+  it("should append the selected quotation transaction below the body", () => {
+    const quotation = {
+      id: "quotation-1",
+      quotation_no: "QUO-001",
+      quotation_date: "2026-11-07T00:00:00.000Z",
+      transaction: {
+        customer_name: "PT Example",
+        event_name: "Wedding",
+        start_at: "2026-11-08T00:00:00.000Z",
+        end_at: "2026-11-09T00:00:00.000Z",
+        grand_total: 1500000,
+      },
+    } as unknown as ApiQuotation;
+
+    const html = buildMailHtmlTemplate("Hello team", "quotation", quotation);
+
+    expect(html).toContain("Quotation No");
+    expect(html).toContain("QUO-001");
+    expect(html).toContain("PT Example");
+    expect(html).toContain("Rp 1.500.000");
+  });
+
+  it("should append the selected invoice transaction below the body", () => {
+    const invoice = {
+      id: "invoice-1",
+      invoice_no: "INV-001",
+      invoice_date: "2026-11-07T00:00:00.000Z",
+      due_date: "2026-11-10T00:00:00.000Z",
+      quotation: {
+        transaction: { customer_name: "PT Example", event_name: "Wedding", grand_total: 2000000 },
+      },
+    } as unknown as ApiInvoice;
+
+    const html = buildMailHtmlTemplate("Hello team", "invoice", undefined, invoice);
+
+    expect(html).toContain("Invoice No");
+    expect(html).toContain("INV-001");
+    expect(html).toContain("Due Date");
+    expect(html).toContain("Rp 2.000.000");
   });
 });
 
@@ -67,7 +107,7 @@ describe("buildMailSendFormData", () => {
   it("should render the selected template in the body", () => {
     const formData = buildMailSendFormData("sales@example.com", "customer@example.com", "Follow up", "Hello", undefined, "invoice");
 
-    expect(formData.get("body")).toContain(">Confirmed<");
+    expect(formData.get("body")).toContain(">Invoice<");
   });
 
   it("should append the pdf attachment when provided", () => {

@@ -10,6 +10,7 @@ const mockEmptyFormProps: ChecklistCreateFormState = {
   isLoadingInitialData: false,
   isEditMode: false,
   selectedOrderId: "",
+  focusAt: "moveOut",
   orderItems: [],
   filteredOrderItems: [],
   moveOutItemIds: [],
@@ -18,6 +19,7 @@ const mockEmptyFormProps: ChecklistCreateFormState = {
   isSubmitting: false,
   errorMessage: null,
   handleOrderChange: jest.fn(),
+  handleFocusAtChange: jest.fn(),
   handleSearchChange: jest.fn(),
   onToggleMoveOut: jest.fn(),
   onToggleMoveIn: jest.fn(),
@@ -56,6 +58,7 @@ const mockSelectedFormProps: ChecklistCreateFormState = {
   isLoadingInitialData: false,
   isEditMode: false,
   selectedOrderId: "order-1",
+  focusAt: "moveOut",
   orderItems: mockOrderItems,
   filteredOrderItems: mockOrderItems,
   moveOutItemIds: ["itm-1-0"],
@@ -64,6 +67,7 @@ const mockSelectedFormProps: ChecklistCreateFormState = {
   isSubmitting: false,
   errorMessage: null,
   handleOrderChange: jest.fn(),
+  handleFocusAtChange: jest.fn(),
   handleSearchChange: jest.fn(),
   onToggleMoveOut: jest.fn(),
   onToggleMoveIn: jest.fn(),
@@ -75,6 +79,7 @@ describe("ItemChecklistCreateForm", () => {
   it("should render rental order select and master role actions when unselected", () => {
     render(<MemoryRouter><ItemChecklistCreateForm {...mockEmptyFormProps} /></MemoryRouter>);
     expect(screen.getByLabelText("Rental Order")).toBeInTheDocument();
+    expect(screen.getByLabelText("Focus At")).toBeInTheDocument();
     expect(screen.queryByText("Order Items")).not.toBeInTheDocument();
     expect(screen.getByRole("button", { name: "Cancel" })).toHaveClass("h-14", "rounded-xl");
     expect(screen.getByRole("button", { name: "Save Checklist" })).toHaveClass("h-14", "rounded-xl");
@@ -90,6 +95,9 @@ describe("ItemChecklistCreateForm", () => {
     const mobileItem = screen.getAllByText("Speaker Active")[0].closest("article");
     expect(mobileItem?.querySelectorAll(".text-xs, .text-sm, .text-base")).toHaveLength(0);
     expect(screen.getByText("Select Move Out and Move In independently for each item.")).toHaveClass("text-base");
+    screen.getAllByRole("checkbox", { name: "Move out Speaker Active" }).forEach((checkbox) => {
+      expect(checkbox.closest("label")).toHaveClass("[&_.ant-checkbox]:h-7!", "[&_.ant-checkbox]:w-7!", "[&_.ant-checkbox]:border-2!", "[&_.ant-checkbox::after]:border-t-0!", "[&_.ant-checkbox::after]:border-l-0!");
+    });
   });
 
   it("should trigger search change on input", () => {

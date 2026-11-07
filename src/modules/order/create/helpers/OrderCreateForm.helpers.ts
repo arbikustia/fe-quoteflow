@@ -6,7 +6,7 @@ import type { NavigateFunction } from "react-router-dom";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 
 import type { ApiRentalTransactionDetail, OrderCreatePayload, OrderItemPayload, OrderType, ProjectOrderCreatePayload, ProjectOrderItemPayload, RentalHandoverPayload } from "../../Order.type";
-import { calculateOrderTotals, calculateRentalDays, clampQtyToStock, getNextOrderStep, getPreviousOrderStep, hasSelectedOrderItem, isOrderInformationValid } from "../OrderCreate.helpers";
+import { calculateOrderTotals, calculateRentalDays, clampQtyToStock, getNextOrderStep, getPreviousOrderStep, hasItemQtyWithinStock, hasSelectedOrderItem, isOrderInformationValid } from "../OrderCreate.helpers";
 import type { OrderCreateFormState, OrderCreateState, OrderItemOption, OrderProjectOption, SelectOption } from "../OrderCreate.type";
 
 import { useGetAllCustomersQuery } from "@/services/master-customer.service";
@@ -298,12 +298,13 @@ const createFormActions = (setForm: FormSetter, customers: CustomerOption[], vou
  * @param row
  * @param selectedItem
  */
-const updateSelectedItem = (row: OrderItemPayload, selectedItem: OrderItemOption | undefined): OrderItemPayload => {
+export const updateSelectedItem = (row: OrderItemPayload, selectedItem: OrderItemOption | undefined): OrderItemPayload => {
   if (!selectedItem) return EMPTY_ITEM;
 
   const price = selectedItem.price ?? 0;
+  const qty = selectedItem.stock === null ? row.qty : clampQtyToStock(row.qty, selectedItem.stock);
 
-  return { ...row, item_id: selectedItem.id, item_name: selectedItem.name, price, subtotal: price * row.qty };
+  return { ...row, item_id: selectedItem.id, item_name: selectedItem.name, qty, price, subtotal: price * qty };
 };
 
 /**
@@ -469,6 +470,10 @@ export const useOrderCreateForm = (): OrderCreateState => {
  return; }
 
     if (step === 2 && !hasSelectedOrderItem(form.rental_transaction_items)) { setShowItemErrors(true); setErrorMessage("Please select at least one item.");
+
+ return; }
+
+    if (step === 2 && !hasItemQtyWithinStock(form.rental_transaction_items, items)) { setShowItemErrors(true); setErrorMessage("Item quantity cannot exceed available stock.");
 
  return; }
 

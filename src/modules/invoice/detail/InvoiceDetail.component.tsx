@@ -28,7 +28,7 @@ import {
  * @returns {ReactElement} Invoice overview
  */
 const _renderInvoiceOverview = (invoice: ApiInvoice): ReactElement => (
-  <section className="min-w-0 rounded-3xl border border-border-strong bg-background-surface p-5 shadow-small sm:p-6">
+  <section className="min-w-0 rounded-3xl border border-border-strong bg-accent-50 p-5 shadow-small sm:p-6">
     <div className="flex min-w-0 flex-col gap-3 sm:flex-row sm:items-start sm:justify-between sm:gap-4">
       <div className="min-w-0">
         <p className="text-lg font-semibold uppercase tracking-widest text-text-tertiary">Invoice</p>
@@ -37,7 +37,7 @@ const _renderInvoiceOverview = (invoice: ApiInvoice): ReactElement => (
           <span className="inline-flex w-fit rounded-full bg-action-primary-subtle px-3.5 py-1 text-lg font-bold uppercase tracking-wide text-action-primary">
             {invoice.quotation.transaction.service_type_name}
           </span>
-          <span className={`inline-flex w-fit shrink-0 rounded-full px-3.5 py-1 text-lg font-semibold ${getStatusBadgeClass(invoice.status)}`}>
+          <span className={`inline-flex w-fit shrink-0 rounded-full px-3.5 py-1 text-lg font-semibold ${invoice.status === 1 ? "bg-accent-600 text-text-inverse" : getStatusBadgeClass(invoice.status)}`}>
             {getInvoiceStatusLabel(invoice.status)}
           </span>
         </div>

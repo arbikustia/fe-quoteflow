@@ -46,9 +46,33 @@ describe("OrderCreateComponent", (): void => {
     expect(screen.getByLabelText("Select Camera")).toBeTruthy();
     expect(screen.getAllByLabelText("Qty")).toHaveLength(2);
     fireEvent.change(screen.getAllByLabelText("Qty")[1], { target: { value: "2" } });
+    fireEvent.click(screen.getAllByRole("button", { name: "Increase Camera quantity" })[0]);
+    expect(screen.getAllByRole("button", { name: "Decrease Camera quantity" })[0]).toBeDisabled();
     fireEvent.change(screen.getAllByLabelText("Remark")[1], { target: { value: "Tripod" } });
     expect(onItemChange).toHaveBeenCalledWith(0, "qty", 2);
     expect(onItemChange).toHaveBeenCalledWith(0, "remark", "Tripod");
+  });
+
+  it("should cap entered item quantity at available stock", (): void => {
+    const onItemChange = jest.fn();
+    render(
+      <MemoryRouter>
+        <OrderCreateComponent
+          {...props}
+          step={2}
+          items={[{ id: "item-1", name: "Camera", image: null, price: 100000, stock: 5 }]}
+          form={{
+            ...props.form,
+            rental_transaction_items: [{ item_id: "item-1", item_name: "Camera", project_id: "", qty: 1, price: 100000, subtotal: 100000, remark: "" }],
+          }}
+          onItemChange={onItemChange}
+        />
+      </MemoryRouter>,
+    );
+
+    fireEvent.change(screen.getAllByLabelText("Qty")[1], { target: { value: "8" } });
+
+    expect(onItemChange).toHaveBeenCalledWith(0, "qty", 5);
   });
 
   it("should edit one project remark instead of item remarks", (): void => {

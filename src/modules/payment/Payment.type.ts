@@ -19,12 +19,32 @@ export type ApiPayment = {
   };
 };
 
+export type ApiPaymentSummaryPayment = {
+  id: string;
+  payment_method_id: string;
+  payment_method_name: string;
+  amount: number;
+  paid_at: string;
+  notes: string;
+};
+
+export type ApiPaymentSummary = {
+  invoice_id: string;
+  invoice_no: string;
+  customer_name: string;
+  grand_total: number;
+  total_paid: number;
+  remaining_amount: number;
+  status: string;
+  payments: ApiPaymentSummaryPayment[];
+};
+
 export type PaymentInvoiceListResponse = { status: boolean; data: PaymentInvoiceOption[]; messages: string[] };
 export type PaymentMethodListResponse = { status: boolean; data: PaymentMethodOption[]; messages: string[] };
 
 export type PaymentListResponse = {
   status: boolean;
-  data: ApiPayment[];
+  data: ApiPaymentSummary[];
   messages: string[];
   page_number: number;
   total_pages: number;
@@ -45,7 +65,7 @@ export type PaymentCreatePayload = {
   notes: string;
 };
 export type PaymentCreateResponse = { status: boolean; data: ApiPayment | null; messages: string[] };
-export type PaymentDetailResponse = { status: boolean; data: ApiPayment | null; messages: string[] };
+export type PaymentDetailResponse = { status: boolean; data: ApiPaymentSummary | null; messages: string[] };
 export type PaymentInvoiceOption = { id: string; invoice_no: string; customer_name?: string; event_name?: string };
 export type PaymentMethodOption = { id: string; name: string };
 export type PaymentRequiredFields = {
@@ -97,7 +117,10 @@ export type PaymentData = {
   referenceNo: string;
   notes: string;
   status: "active" | "inactive";
+  statusLabel?: string;
   paymentStatus?: number;
+  grandTotal?: number;
+  remainingAmount?: number;
   createdAt: string;
 };
 
@@ -172,6 +195,7 @@ export type PaymentProps = PaymentPagination & {
 
 export type PaymentDetailState = {
   payment: PaymentData | null;
+  paymentEntries: ApiPaymentSummaryPayment[];
   linkedInvoice?: PaymentInvoiceOption | null;
   methodName?: string;
   isLoading: boolean;

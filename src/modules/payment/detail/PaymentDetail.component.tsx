@@ -1,7 +1,7 @@
 import type { ReactElement } from "react";
 import { FiEdit2, FiMoreHorizontal } from "react-icons/fi";
 
-import type { PaymentData, PaymentDetailState, PaymentInvoiceOption } from "../Payment.type";
+import type { ApiPaymentSummaryPayment, PaymentData, PaymentDetailState, PaymentInvoiceOption } from "../Payment.type";
 
 import Layout from "@/app/layout";
 import { PageLayout } from "@/app/shared/PageLayout";
@@ -18,36 +18,42 @@ import { renderDetailField } from "@/modules/quotation/detail/QuotationDetail.se
 const _renderPaymentOverview = (
   payment: PaymentData,
   methodName?: string,
-): ReactElement => (
-  <section className="min-w-0 rounded-3xl border border-border-strong bg-background-surface p-5 shadow-small sm:p-6">
-    <div className="flex min-w-0 flex-col gap-3 sm:flex-row sm:items-start sm:justify-between sm:gap-4">
-      <div className="min-w-0">
-        <p className="text-lg font-semibold uppercase tracking-widest text-text-tertiary">Payment</p>
-        <div className="mt-1 flex flex-wrap items-center gap-3">
-          <h2 className="break-all text-2xl font-bold tracking-tight text-text-primary sm:break-words lg:text-3xl">
-            {payment.referenceNo}
-          </h2>
-          <span className="inline-flex w-fit rounded-full bg-action-primary-subtle px-3.5 py-1 text-lg font-bold uppercase tracking-wide text-action-primary">
-            {methodName ?? payment.paymentMethodId}
-          </span>
-          <span
-            className={`inline-flex w-fit shrink-0 rounded-full px-3.5 py-1 text-lg font-semibold ${
-              payment.status === "active" ? "bg-success-subtle text-success-strong" : "bg-background-muted text-text-tertiary"
-            }`}
-          >
-            {payment.status === "active" ? "Active" : "Inactive"}
-          </span>
+): ReactElement => {
+  const isSettled = (payment.remainingAmount ?? 0) <= 0;
+
+  return (
+    <section className="min-w-0 rounded-3xl border border-border-strong bg-background-surface p-5 shadow-small sm:p-6">
+      <div className="flex min-w-0 flex-col gap-3 sm:flex-row sm:items-start sm:justify-between sm:gap-4">
+        <div className="min-w-0">
+          <p className="text-lg font-semibold uppercase tracking-widest text-text-tertiary">Invoice</p>
+          <div className="mt-1 flex flex-wrap items-center gap-3">
+            <h2 className="break-all text-2xl font-bold tracking-tight text-text-primary sm:break-words lg:text-3xl">
+              {payment.invoiceNo}
+            </h2>
+            {methodName && (
+              <span className="inline-flex w-fit rounded-full bg-action-primary-subtle px-3.5 py-1 text-lg font-bold uppercase tracking-wide text-action-primary">
+                {methodName}
+              </span>
+            )}
+            <span
+              className={`inline-flex w-fit shrink-0 rounded-full px-3.5 py-1 text-lg font-semibold ${
+                isSettled ? "bg-success-subtle text-success-strong" : "bg-warning-subtle text-warning-strong"
+              }`}
+            >
+              {payment.statusLabel || (isSettled ? "Paid" : "Unpaid")}
+            </span>
+          </div>
         </div>
       </div>
-    </div>
-    <dl className="mt-4 grid grid-cols-1 gap-x-8 border-t border-border-default sm:mt-5 sm:grid-cols-2 lg:grid-cols-4">
-      {renderDetailField("Payment Date", formatDate(payment.paidAt))}
-      {renderDetailField("Amount", formatCurrency(payment.amount))}
-      {renderDetailField("Invoice No", payment.invoiceNo)}
-      {renderDetailField("Customer Name", payment.customerName)}
-    </dl>
-  </section>
-);
+      <dl className="mt-4 grid grid-cols-1 gap-x-8 border-t border-border-default sm:mt-5 sm:grid-cols-2 lg:grid-cols-4">
+        {renderDetailField("Customer Name", payment.customerName)}
+        {renderDetailField("Grand Total", formatCurrency(payment.grandTotal ?? 0))}
+        {renderDetailField("Total Paid", formatCurrency(payment.amount))}
+        {renderDetailField("Remaining", formatCurrency(payment.remainingAmount ?? 0))}
+      </dl>
+    </section>
+  );
+};
 
 /**
  * Render loading description field aligned with detail fields.
@@ -124,8 +130,9 @@ const _renderDetailSkeleton = (): ReactElement => (
 // eslint-disable-next-line max-lines-per-function
 const _renderDetail = (
   payment: PaymentData,
-  linkedInvoice?: PaymentInvoiceOption | null,
-  methodName?: string,
+  linkedInvoice: PaymentInvoiceOption | null | undefined,
+  methodName: string | undefined,
+  entries: ApiPaymentSummaryPayment[],
 ): ReactElement => (
   <div className="w-full space-y-4 pb-32 sm:space-y-4 lg:pb-8">
     <section className="min-w-0 overflow-hidden rounded-3xl border border-border-strong bg-background-surface shadow-small">
@@ -138,13 +145,41 @@ const _renderDetail = (
         <dl className="grid grid-cols-1 gap-x-6 gap-y-6 sm:grid-cols-3">
           {renderDetailField("Invoice No", payment.invoiceNo)}
           {renderDetailField("Customer Name", payment.customerName)}
-          {renderDetailField("Payment Date", formatDate(payment.paidAt))}
-          {renderDetailField("Amount", formatCurrency(payment.amount))}
-          {renderDetailField("Payment Method", methodName ?? payment.paymentMethodId)}
-          {renderDetailField("Created At", formatDate(payment.createdAt))}
-          {renderDetailField("Status", payment.status === "active" ? "Active" : "Inactive")}
+          {renderDetailField("Grand Total", formatCurrency(payment.grandTotal ?? 0))}
+          {renderDetailField("Total Paid", formatCurrency(payment.amount))}
+          {renderDetailField("Remaining", formatCurrency(payment.remainingAmount ?? 0))}
+          {renderDetailField("Payment Method", methodName ?? "-")}
+          {renderDetailField("Status", payment.statusLabel || "-")}
           {linkedInvoice?.event_name && renderDetailField("Event", linkedInvoice.event_name)}
         </dl>
+      </div>
+    </section>
+
+    <section className="min-w-0 overflow-hidden rounded-3xl border border-border-strong bg-background-surface shadow-small">
+      <header className="border-b border-border-default px-5 py-4 sm:px-6">
+        <h2 className="text-xl font-bold text-text-primary sm:text-lg sm:font-semibold">
+          Payment History ({entries.length})
+        </h2>
+      </header>
+      <div className="px-5 py-5 sm:px-6">
+        {entries.length === 0 ? (
+          <p className="py-6 text-center text-lg text-text-secondary">No payment recorded for this invoice.</p>
+        ) : (
+          <ul className="space-y-3">
+            {entries.map((entry): ReactElement => (
+              <li key={entry.id} className="rounded-2xl border border-border-default px-4 py-3">
+                <div className="flex flex-wrap items-center justify-between gap-2">
+                  <span className="text-lg font-semibold text-text-primary">{entry.payment_method_name}</span>
+                  <span className="text-lg font-semibold tabular-nums text-text-primary">{formatCurrency(entry.amount)}</span>
+                </div>
+                <div className="mt-1 flex flex-wrap items-center justify-between gap-2 text-lg text-text-secondary">
+                  <span>{formatDate(entry.paid_at)}</span>
+                  {entry.notes && <span className="break-words">{entry.notes}</span>}
+                </div>
+              </li>
+            ))}
+          </ul>
+        )}
       </div>
     </section>
   </div>
@@ -218,7 +253,7 @@ const headerActions = props.payment ? (
             </div>
           )}
           {!props.isLoading && !props.errorMessage && props.payment && (
-            _renderDetail(props.payment, props.linkedInvoice, props.methodName)
+            _renderDetail(props.payment, props.linkedInvoice, props.methodName, props.paymentEntries)
           )}
         </div>
       </PageLayout>

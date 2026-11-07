@@ -10,9 +10,10 @@ export type InvoiceTransaction = {
 };
 export type InvoiceQuotation = { id: string; transaction_id: string; quotation_no: string; quotation_date: string; expired_at: string; notes: string; status: number; created_at: string; updated_at: string; transaction: InvoiceTransaction };
 export type ApiInvoice = {
-  id: string; transaction_id: string; invoice_no: string; invoice_date: string; due_date: string; notes: string; status: number; created_at: string; updated_at: string; quotation: InvoiceQuotation; payments: [];
+  id: string; transaction_id: string; invoice_no: string; invoice_date: string; due_date: string; notes: string; status: number; created_at: string; updated_at: string; quotation: InvoiceQuotation; payments: []; customer?: InvoiceCustomer;
 };
 export type InvoiceDetailResponse = { status: boolean; data: ApiInvoice | null; messages: string[] };
+export type InvoiceAllResponse = { status: boolean; data: ApiInvoice[]; messages: string[] };
 
 export type InvoiceListResponse = {
   status: boolean;

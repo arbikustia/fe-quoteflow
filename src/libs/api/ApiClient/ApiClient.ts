@@ -2,9 +2,6 @@ import axios from "axios";
 
 const apiClient = axios.create({
   baseURL: "https://hostmail.bantuit.com",
-  headers: {
-    "Content-Type": "application/json",
-  },
 });
 
 const MASTER_ACTIVITY_CONFIG: { endpoint: string; page: string }[] = [

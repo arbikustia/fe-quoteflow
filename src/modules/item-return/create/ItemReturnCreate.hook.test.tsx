@@ -65,6 +65,7 @@ jest.mock("@/services/rental-order.service", () => ({
                   {
                     item_id: "item-1",
                     item_name: "Speaker",
+                    category_name: "Sound System",
                     qty: 2,
                   },
                   {
@@ -140,9 +141,16 @@ describe("ItemReturnCreate.hook", () => {
     expect(result.current.selectedOrderId).toBe("order-1");
     expect(result.current.orderItems).toHaveLength(2);
     expect(result.current.orderItems[0].itemName).toBe("Speaker");
-    expect(result.current.orderItems[0].category).toBe("Audio");
+    expect(result.current.orderItems[0].category).toBe("Sound System");
 
     expect(result.current.returnItemIds).toEqual(["item-1-0", "item-2-1"]);
+  });
+
+  it("should read the category from the rental order transaction items", () => {
+    const { result } = renderHook(() => useItemReturnCreate(), { wrapper: CreateRoute });
+    act(() => result.current.handleOrderChange("order-1"));
+
+    expect(result.current.orderItems.map((item) => item.category)).toEqual(["Sound System", "-"]);
   });
 
   it("should populate initial values in edit mode and submit update", async () => {
@@ -187,7 +195,7 @@ describe("ItemReturnCreate.hook", () => {
     expect(result.current.returnItemIds).toEqual(["item-1-0", "item-2-1"]);
 
     await act(async () => {
-      await result.current.onCaptureItem(result.current.orderItems[0].id, new File(["photo"], "photo.jpg", { type: "image/jpeg" }));
+      await result.current.onCaptureItem(result.current.orderItems[0].id, [new File(["photo"], "photo.jpg", { type: "image/jpeg" })]);
       result.current.handleNotesChange("Catatan kembalian");
     });
     expect(result.current.photoPreview).toEqual({ itemId: "item-1-0", itemName: "Speaker", url: "blob:preview" });
@@ -203,7 +211,7 @@ describe("ItemReturnCreate.hook", () => {
       await result.current.confirmPhoto();
     });
     expect(result.current.returnItemIds).toEqual(["item-1-0", "item-2-1"]);
-    expect(result.current.stagedPhotoUrls.get("item-1-0")).toBe("blob:preview");
+    expect(result.current.stagedPhotoUrls.get("item-1-0")).toEqual(["blob:preview"]);
     expect(mockUpload).not.toHaveBeenCalled();
     expect(mockRevokeObjectURL).not.toHaveBeenCalledWith("blob:preview");
 
@@ -223,8 +231,8 @@ describe("ItemReturnCreate.hook", () => {
         status: 1,
         return_date: expect.stringMatching(/^\d{2}-\d{2}-\d{4} 12:00:00$/),
         items: [
-          { item_id: "item-1", qty: 2, condition: "", notes: "", file_url: "/photos/return.jpg", file_name: "return.jpg" },
-          { item_id: "item-2", qty: 1, condition: "", notes: "", file_url: "", file_name: "" },
+          { item_id: "item-1", qty: 2, condition: "", notes: "", file_urls: ["/photos/return.jpg"], file_names: ["return.jpg"] },
+          { item_id: "item-2", qty: 1, condition: "", notes: "", file_urls: [], file_names: [] },
         ],
       }),
     );
@@ -248,8 +256,8 @@ describe("ItemReturnCreate.hook", () => {
         status: 1,
         return_date: expect.stringMatching(/^\d{2}-\d{2}-\d{4} 12:00:00$/),
         items: [
-          { item_id: "item-1", qty: 2, condition: "", notes: "", file_url: "", file_name: "" },
-          { item_id: "item-2", qty: 1, condition: "", notes: "", file_url: "", file_name: "" },
+          { item_id: "item-1", qty: 2, condition: "", notes: "", file_urls: [], file_names: [] },
+          { item_id: "item-2", qty: 1, condition: "", notes: "", file_urls: [], file_names: [] },
         ],
       }),
     );
@@ -261,7 +269,7 @@ describe("ItemReturnCreate.hook", () => {
     act(() => result.current.handleOrderChange("order-1"));
 
     await act(async () => {
-      await result.current.onCaptureItem(result.current.orderItems[0].id, new File(["photo"], "photo.jpg", { type: "image/jpeg" }));
+      await result.current.onCaptureItem(result.current.orderItems[0].id, [new File(["photo"], "photo.jpg", { type: "image/jpeg" })]);
     });
     act(() => result.current.confirmPhoto());
 
@@ -270,7 +278,7 @@ describe("ItemReturnCreate.hook", () => {
     });
 
     expect(result.current.returnItemIds).toEqual(["item-1-0", "item-2-1"]);
-    expect(result.current.stagedPhotoUrls.get("item-1-0")).toBe("blob:preview");
+    expect(result.current.stagedPhotoUrls.get("item-1-0")).toEqual(["blob:preview"]);
     expect(result.current.errorMessage).toBe("Upload failed");
     expect(mockCreate).not.toHaveBeenCalled();
 
@@ -287,7 +295,7 @@ describe("ItemReturnCreate.hook", () => {
     act(() => result.current.onItemNotesChange("item-1-0", "Case dented"));
 
     await act(async () => {
-      await result.current.onCaptureItem("item-1-0", new File(["photo"], "photo.jpg", { type: "image/jpeg" }));
+      await result.current.onCaptureItem("item-1-0", [new File(["photo"], "photo.jpg", { type: "image/jpeg" })]);
     });
     act(() => result.current.confirmPhoto());
     await act(async () => {
@@ -296,8 +304,8 @@ describe("ItemReturnCreate.hook", () => {
 
     expect(mockCreate).toHaveBeenCalledWith(expect.objectContaining({
       items: [
-        expect.objectContaining({ item_id: "item-1", notes: "Case dented", file_url: "/photos/return.jpg" }),
-        expect.objectContaining({ item_id: "item-2", notes: "", file_url: "" }),
+        expect.objectContaining({ item_id: "item-1", notes: "Case dented", file_urls: ["/photos/return.jpg"] }),
+        expect.objectContaining({ item_id: "item-2", notes: "", file_urls: [] }),
       ],
     }));
   });
@@ -311,12 +319,12 @@ describe("ItemReturnCreate.hook", () => {
     act(() => result.current.handleOrderChange("order-1"));
 
     await act(async () => {
-      await result.current.onCaptureItem("item-1-0", new File(["photo1"], "photo1.jpg", { type: "image/jpeg" }));
+      await result.current.onCaptureItem("item-1-0", [new File(["photo1"], "photo1.jpg", { type: "image/jpeg" })]);
     });
     act(() => result.current.confirmPhoto());
 
     await act(async () => {
-      await result.current.onCaptureItem("item-2-1", new File(["photo2"], "photo2.jpg", { type: "image/jpeg" }));
+      await result.current.onCaptureItem("item-2-1", [new File(["photo2"], "photo2.jpg", { type: "image/jpeg" })]);
     });
     act(() => result.current.confirmPhoto());
 
@@ -334,9 +342,45 @@ describe("ItemReturnCreate.hook", () => {
       expect.objectContaining({
         order_id: "order-1",
         items: [
-          expect.objectContaining({ item_id: "item-1", file_url: "/photos/item-1.jpg", file_name: "item-1.jpg" }),
-          expect.objectContaining({ item_id: "item-2", file_url: "/photos/item-2.jpg", file_name: "item-2.jpg" }),
+          expect.objectContaining({ item_id: "item-1", file_urls: ["/photos/item-1.jpg"], file_names: ["item-1.jpg"] }),
+          expect.objectContaining({ item_id: "item-2", file_urls: ["/photos/item-2.jpg"], file_names: ["item-2.jpg"] }),
         ],
+      }),
+    );
+  });
+
+  it("should upload every photo picked for one item and send both urls", async () => {
+    mockUpload
+      .mockReturnValueOnce({ unwrap: () => Promise.resolve({ url: "/photos/a.jpg", file_name: "a.jpg" }) })
+      .mockReturnValueOnce({ unwrap: () => Promise.resolve({ url: "/photos/b.jpg", file_name: "b.jpg" }) });
+
+    const { result } = renderHook(() => useItemReturnCreate(), { wrapper: CreateRoute });
+    act(() => result.current.handleOrderChange("order-1"));
+
+    await act(async () => {
+      await result.current.onCaptureItem("item-1-0", [
+        new File(["a"], "a.jpg", { type: "image/jpeg" }),
+        new File(["b"], "b.jpg", { type: "image/jpeg" }),
+      ]);
+    });
+    act(() => result.current.confirmPhoto());
+
+    expect(result.current.stagedPhotoUrls.get("item-1-0")).toHaveLength(2);
+
+    await act(async () => {
+      await result.current.handleSave();
+    });
+
+    expect(mockUpload).toHaveBeenCalledTimes(2);
+    expect(mockCreate).toHaveBeenCalledWith(
+      expect.objectContaining({
+        items: expect.arrayContaining([
+          expect.objectContaining({
+            item_id: "item-1",
+            file_urls: ["/photos/a.jpg", "/photos/b.jpg"],
+            file_names: ["a.jpg", "b.jpg"],
+          }),
+        ]),
       }),
     );
   });
@@ -346,7 +390,7 @@ describe("ItemReturnCreate.hook", () => {
     act(() => result.current.handleOrderChange("order-1"));
 
     await act(async () => {
-      await result.current.onCaptureItem("item-1-0", new File(["photo"], "photo.jpg", { type: "image/jpeg" }));
+      await result.current.onCaptureItem("item-1-0", [new File(["photo"], "photo.jpg", { type: "image/jpeg" })]);
     });
     act(() => result.current.confirmPhoto());
     act(() => result.current.openPhoto("item-1-0"));
@@ -361,7 +405,7 @@ describe("ItemReturnCreate.hook", () => {
     const { result } = renderHook(() => useItemReturnCreate(), { wrapper: CreateRoute });
     act(() => result.current.handleOrderChange("order-1"));
     await act(async () => {
-      await result.current.onCaptureItem(result.current.orderItems[0].id, new File(["photo"], "photo.jpg", { type: "image/jpeg" }));
+      await result.current.onCaptureItem(result.current.orderItems[0].id, [new File(["photo"], "photo.jpg", { type: "image/jpeg" })]);
     });
 
     act(() => result.current.closePhotoPreview());

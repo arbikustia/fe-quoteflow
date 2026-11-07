@@ -1,5 +1,6 @@
 import { apiRtkClient } from "@/libs/ApiRtkServices/apiRtkClient";
 
+import type { ApiInvoice } from "@/modules/invoice/Invoice.type";
 import { MAIL_CONFIG } from "@/modules/mail/Mail.config";
 import type {
   ApiEmailHistoryItem,
@@ -10,6 +11,7 @@ import type {
   MailSendResponse,
   MailTemplate,
 } from "@/modules/mail/Mail.type";
+import type { ApiQuotation } from "@/modules/quotation/Quotation.type";
 
 import { buildMailHtmlTemplate } from "./mail-template";
 
@@ -51,17 +53,19 @@ export const buildMailSendFormData = (
   body: string,
   attachment?: File,
   template: MailTemplate = MAIL_CONFIG.DEFAULT_TEMPLATE,
+  quotation?: ApiQuotation,
+  invoice?: ApiInvoice,
 ): FormData => {
   const formData = new FormData();
 
   formData.append("senderId", senderId);
   formData.append("to", to);
   formData.append("subject", subject);
-  formData.append("body", buildMailHtmlTemplate(body, template));
+  formData.append("body", buildMailHtmlTemplate(body, template, quotation, invoice));
   formData.append("isHtml", "true");
 
   if (attachment) {
-    formData.append("attachments", attachment);
+    formData.append("attachments", attachment, attachment.name);
   }
 
   return formData;
@@ -90,7 +94,6 @@ export const mailService = apiRtkClient.injectEndpoints({
         url: ENDPOINT.MAIL.SEND,
         method: "POST",
         data: body,
-        headers: { "Content-Type": "multipart/form-data" },
       }),
       invalidatesTags: [MAIL_TAG],
     }),
