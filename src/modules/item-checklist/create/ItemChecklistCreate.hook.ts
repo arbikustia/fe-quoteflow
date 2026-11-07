@@ -11,12 +11,10 @@ import { useCreateRentalChecklistMutation, useGetRentalChecklistByIdQuery, useUp
 import { useGetRentalOrderOptionsQuery } from "@/services/rental-order.service";
 
 import type { ChecklistCreateFormState, ChecklistOrderItemRow } from "./ItemChecklistCreate.type";
+import { getOrderCustomerName } from "../ItemChecklist.helpers";
 import type { ApiChecklist, ChecklistCreatePayload } from "../ItemChecklist.type";
 
-const _getCustomerName = (order: ApiRentalOrder): string =>
-  order.invoice?.quotation?.transaction?.customer_name ??
-  order.invoice?.quotation?.transaction?.customer?.name ??
-  "";
+const _getCustomerName = (order: ApiRentalOrder): string => getOrderCustomerName(order);
 
 const _getOrderOptions = (orders: ApiRentalOrder[]): SelectOption[] =>
   orders.map((order) => ({

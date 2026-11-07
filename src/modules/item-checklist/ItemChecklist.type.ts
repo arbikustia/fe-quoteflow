@@ -56,7 +56,7 @@ export type ChecklistCreatePayload = {
 export type ChecklistCreateResponse = { status: boolean; data: ApiChecklist | null; messages: string[] };
 export type ChecklistUpdateRequest = { id: string; body: ChecklistCreatePayload };
 
-export type ChecklistRow = { id: string; checklistNo: string; checklistDate: string; itemCount: number; status: "active" | "inactive" | "unavailable"; orderId: string };
+export type ChecklistRow = { id: string; checklistNo: string; customerName: string; checklistDate: string; itemCount: number; status: "active" | "inactive" | "unavailable"; orderId: string };
 
 export type ItemChecklistMobileCardProps = {
   row: ChecklistRow;

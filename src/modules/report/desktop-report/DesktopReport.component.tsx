@@ -7,7 +7,6 @@ import Table, { type TableColumn } from "@/components/Table";
 
 import Layout from "@/app/layout";
 import type { QuoteData } from "@/modules/order/Order.type";
-import { generateQuotePDF } from "@/utils/pdfGenerator";
 
 import type { DesktopReportProps } from "./DesktopReport.type";
 
@@ -50,29 +49,6 @@ const getDesktopReportColumns = (currentPage: number, pageSize: number): TableCo
       <span className="px-3 py-1 rounded-full text-xs font-bold bg-brand-blue-light text-brand-blue">
         {row.status || "Completed"}
       </span>
-    ),
-  },
-  {
-    key: "actions",
-    header: "Action",
-    align: "center",
-    /**
-     * Render Action column
-     * @param {QuoteData} row - row data
-     * @returns {React.ReactElement} - rendered element
-     */
-    render: (row): React.ReactElement => (
-      <div className="flex items-center justify-center gap-2">
-        <button
-          onClick={(): void => {
-            void generateQuotePDF(row);
-          }}
-          className="p-1.5 text-brand-text-medium hover:text-brand-blue hover:bg-brand-blue-light rounded-lg transition-colors cursor-pointer"
-          title="Download PDF"
-        >
-          <FiDownload className="w-4 h-4" />
-        </button>
-      </div>
     ),
   },
 ];

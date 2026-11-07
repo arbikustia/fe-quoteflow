@@ -36,7 +36,7 @@ export const ItemChecklistDetailComponent = (props: ItemChecklistDetailState): R
   let statusLabel = "Unavailable";
 
   if (checklist?.status !== null && checklist?.status !== undefined) {
-    statusLabel = checklist.status === 1 ? "Active" : "Inactive";
+    statusLabel = checklist.status === 1 ? "Done" : "On Progress";
   }
 
   if (isLoading) {

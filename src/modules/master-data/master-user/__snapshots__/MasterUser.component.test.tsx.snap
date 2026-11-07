@@ -80,7 +80,7 @@ exports[`MasterUserComponent Snapshots default state 1`] = `
                   <span
                     class="mt-1 block text-lg font-medium text-text-primary"
                   >
-                    01 Januari 2024 07:00
+                    01 Januari 2024 08:00
                   </span>
                 </span>
               </span>
@@ -453,11 +453,6 @@ exports[`MasterUserComponent Snapshots loading state 1`] = `
                       Role
                     </th>
                     <th
-                      class="bg-table-header px-5 py-4 text-[13px] font-bold uppercase tracking-widest text-text-secondary text-center  "
-                    >
-                      Status
-                    </th>
-                    <th
                       class="bg-table-header px-5 py-4 text-[13px] font-bold uppercase tracking-widest text-text-secondary text-left  "
                     >
                       Created At
@@ -502,10 +497,53 @@ exports[`MasterUserComponent Snapshots loading state 1`] = `
                       />
                     </td>
                     <td
+                      class="border-b border-border-default px-5 py-4 text-left"
+                    >
+                      <span
+                        class="inline-block h-5 rounded-3xl bg-background-subtle align-middle w-28"
+                      />
+                    </td>
+                    <td
+                      class="border-b border-border-default px-5 py-4 text-center"
+                    >
+                      <div
+                        class="flex justify-center gap-1"
+                      >
+                        <span
+                          class="h-10 w-10 rounded-3xl bg-background-subtle"
+                        />
+                      </div>
+                    </td>
+                  </tr>
+                  <tr
+                    class="animate-pulse"
+                  >
+                    <td
                       class="border-b border-border-default px-5 py-4 text-center"
                     >
                       <span
-                        class="inline-block h-5 rounded-3xl bg-background-subtle align-middle w-28 rounded-full"
+                        class="inline-block h-5 rounded-3xl bg-background-subtle align-middle w-6"
+                      />
+                    </td>
+                    <td
+                      class="border-b border-border-default px-5 py-4 text-left"
+                    >
+                      <span
+                        class="inline-block h-5 rounded-3xl bg-background-subtle align-middle w-40"
+                      />
+                    </td>
+                    <td
+                      class="border-b border-border-default px-5 py-4 text-left"
+                    >
+                      <span
+                        class="inline-block h-5 rounded-3xl bg-background-subtle align-middle w-44"
+                      />
+                    </td>
+                    <td
+                      class="border-b border-border-default px-5 py-4 text-left"
+                    >
+                      <span
+                        class="inline-block h-5 rounded-3xl bg-background-subtle align-middle w-32"
                       />
                     </td>
                     <td
@@ -559,13 +597,6 @@ exports[`MasterUserComponent Snapshots loading state 1`] = `
                       />
                     </td>
                     <td
-                      class="border-b border-border-default px-5 py-4 text-center"
-                    >
-                      <span
-                        class="inline-block h-5 rounded-3xl bg-background-subtle align-middle w-28 rounded-full"
-                      />
-                    </td>
-                    <td
                       class="border-b border-border-default px-5 py-4 text-left"
                     >
                       <span
@@ -616,13 +647,6 @@ exports[`MasterUserComponent Snapshots loading state 1`] = `
                       />
                     </td>
                     <td
-                      class="border-b border-border-default px-5 py-4 text-center"
-                    >
-                      <span
-                        class="inline-block h-5 rounded-3xl bg-background-subtle align-middle w-28 rounded-full"
-                      />
-                    </td>
-                    <td
                       class="border-b border-border-default px-5 py-4 text-left"
                     >
                       <span
@@ -670,70 +694,6 @@ exports[`MasterUserComponent Snapshots loading state 1`] = `
                     >
                       <span
                         class="inline-block h-5 rounded-3xl bg-background-subtle align-middle w-32"
-                      />
-                    </td>
-                    <td
-                      class="border-b border-border-default px-5 py-4 text-center"
-                    >
-                      <span
-                        class="inline-block h-5 rounded-3xl bg-background-subtle align-middle w-28 rounded-full"
-                      />
-                    </td>
-                    <td
-                      class="border-b border-border-default px-5 py-4 text-left"
-                    >
-                      <span
-                        class="inline-block h-5 rounded-3xl bg-background-subtle align-middle w-28"
-                      />
-                    </td>
-                    <td
-                      class="border-b border-border-default px-5 py-4 text-center"
-                    >
-                      <div
-                        class="flex justify-center gap-1"
-                      >
-                        <span
-                          class="h-10 w-10 rounded-3xl bg-background-subtle"
-                        />
-                      </div>
-                    </td>
-                  </tr>
-                  <tr
-                    class="animate-pulse"
-                  >
-                    <td
-                      class="border-b border-border-default px-5 py-4 text-center"
-                    >
-                      <span
-                        class="inline-block h-5 rounded-3xl bg-background-subtle align-middle w-6"
-                      />
-                    </td>
-                    <td
-                      class="border-b border-border-default px-5 py-4 text-left"
-                    >
-                      <span
-                        class="inline-block h-5 rounded-3xl bg-background-subtle align-middle w-40"
-                      />
-                    </td>
-                    <td
-                      class="border-b border-border-default px-5 py-4 text-left"
-                    >
-                      <span
-                        class="inline-block h-5 rounded-3xl bg-background-subtle align-middle w-44"
-                      />
-                    </td>
-                    <td
-                      class="border-b border-border-default px-5 py-4 text-left"
-                    >
-                      <span
-                        class="inline-block h-5 rounded-3xl bg-background-subtle align-middle w-32"
-                      />
-                    </td>
-                    <td
-                      class="border-b border-border-default px-5 py-4 text-center"
-                    >
-                      <span
-                        class="inline-block h-5 rounded-3xl bg-background-subtle align-middle w-28 rounded-full"
                       />
                     </td>
                     <td

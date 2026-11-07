@@ -15,9 +15,17 @@ import type { ChecklistListState, ChecklistRow, ItemChecklistMobileCardProps } f
 /** Render checklist status consistently across card and table. */
 const _renderStatus = (row: ChecklistRow): ReactElement => {
   let statusClass = "bg-warning-subtle text-warning-strong";
-  if (row.status === "active") statusClass = "bg-success-subtle text-success-strong";
-  if (row.status === "inactive") statusClass = "bg-danger-subtle text-danger-strong";
-  const label = row.status === "unavailable" ? "Status unavailable" : row.status;
+  let label = "Pending";
+
+  if (row.status === "active") {
+    statusClass = "bg-success-subtle text-success-strong";
+    label = "Done";
+  }
+
+  if (row.status === "inactive") {
+    statusClass = "bg-info-subtle text-info-strong";
+    label = "On Progress";
+  }
 
   return <span className={`inline-flex rounded-full border border-current px-3 py-1 text-base font-semibold uppercase ${statusClass}`}>{label}</span>;
 };
@@ -25,6 +33,7 @@ const _renderStatus = (row: ChecklistRow): ReactElement => {
 const _getColumns = (props: ChecklistListState): TableColumn<ChecklistRow>[] => [
   { key: "no", header: "No", align: "center", render: (_row, index): ReactElement => <span className="text-lg text-text-secondary">{(props.currentPage - 1) * props.pageSize + index + 1}</span> },
   { key: "checklistNo", header: "Checklist No", render: (row): ReactElement => <span className="text-lg font-medium text-text-primary">{row.checklistNo}</span> },
+  { key: "customerName", header: "Customer Name", render: (row): ReactElement => <span className="text-lg text-text-secondary">{row.customerName || "-"}</span> },
   { key: "checklistDate", header: "Checklist Date", render: (row): ReactElement => <span className="text-lg text-text-secondary">{formatIndonesianDateTime(row.checklistDate)}</span> },
   { key: "itemCount", header: "Items", align: "center", render: (row): ReactElement => <span className="text-lg">{row.itemCount}</span> },
   { key: "status", header: "Status", align: "center", render: (row): ReactElement => _renderStatus(row) },

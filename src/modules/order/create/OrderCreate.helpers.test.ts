@@ -1,7 +1,7 @@
 import type { ApiRentalTransactionDetail } from "../Order.type";
 
 import { buildEditForm } from "./helpers/OrderCreateForm.helpers";
-import { calculateOrderTotals, getNextOrderStep, getPreviousOrderStep, hasSelectedOrderItem, isOrderInformationValid } from "./OrderCreate.helpers";
+import { calculateOrderTotals, clampQtyToStock, getNextOrderStep, getPreviousOrderStep, hasItemQtyWithinStock, hasSelectedOrderItem, isOrderInformationValid } from "./OrderCreate.helpers";
 
 describe("OrderCreate step helpers", () => {
   it("should advance until pricing step", (): void => {
@@ -68,6 +68,22 @@ describe("OrderCreate step helpers", () => {
   it("should require at least one selected item", (): void => {
     expect(hasSelectedOrderItem([{ item_id: "" }])).toBe(false);
     expect(hasSelectedOrderItem([{ item_id: "item-1" }])).toBe(true);
+  });
+
+  it("should reject item quantities above available stock", (): void => {
+    expect(hasItemQtyWithinStock(
+      [{ item_id: "item-1", qty: 6 }],
+      [{ id: "item-1", stock: 5 }],
+    )).toBe(false);
+    expect(hasItemQtyWithinStock(
+      [{ item_id: "item-1", qty: 5 }],
+      [{ id: "item-1", stock: 5 }],
+    )).toBe(true);
+  });
+
+  it("should clamp item quantity to available stock", (): void => {
+    expect(clampQtyToStock(8, 5)).toBe(5);
+    expect(clampQtyToStock(3, 5)).toBe(3);
   });
 
   it("should hydrate Project daily price and remark without multiplying rental days", (): void => {

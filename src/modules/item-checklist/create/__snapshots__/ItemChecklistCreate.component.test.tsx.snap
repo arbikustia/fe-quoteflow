@@ -269,7 +269,7 @@ exports[`ItemChecklistCreateForm matches snapshot 2`] = `
             class="mt-4 flex flex-wrap gap-x-6 gap-y-3 border-t border-border-default pt-4"
           >
             <label
-              class="ant-checkbox-wrapper ant-checkbox-wrapper-checked text-lg css-var-root ant-checkbox-css-var css-dev-only-do-not-override-eofgey"
+              class="ant-checkbox-wrapper ant-checkbox-wrapper-checked text-lg [&_.ant-checkbox-inner]:h-7 [&_.ant-checkbox-inner]:w-7 [&_.ant-checkbox-inner]:rounded-lg [&_.ant-checkbox-inner]:border-2 [&_.ant-checkbox-inner]:border-border-strong css-var-root ant-checkbox-css-var css-dev-only-do-not-override-eofgey"
             >
               <span
                 class="ant-checkbox ant-wave-target css-dev-only-do-not-override-eofgey ant-checkbox-checked"
@@ -288,7 +288,7 @@ exports[`ItemChecklistCreateForm matches snapshot 2`] = `
               </span>
             </label>
             <label
-              class="ant-checkbox-wrapper text-lg css-var-root ant-checkbox-css-var css-dev-only-do-not-override-eofgey"
+              class="ant-checkbox-wrapper text-lg [&_.ant-checkbox-inner]:h-7 [&_.ant-checkbox-inner]:w-7 [&_.ant-checkbox-inner]:rounded-lg [&_.ant-checkbox-inner]:border-2 [&_.ant-checkbox-inner]:border-border-strong css-var-root ant-checkbox-css-var css-dev-only-do-not-override-eofgey"
             >
               <span
                 class="ant-checkbox ant-wave-target css-dev-only-do-not-override-eofgey"
@@ -338,7 +338,7 @@ exports[`ItemChecklistCreateForm matches snapshot 2`] = `
             class="mt-4 flex flex-wrap gap-x-6 gap-y-3 border-t border-border-default pt-4"
           >
             <label
-              class="ant-checkbox-wrapper text-lg css-var-root ant-checkbox-css-var css-dev-only-do-not-override-eofgey"
+              class="ant-checkbox-wrapper text-lg [&_.ant-checkbox-inner]:h-7 [&_.ant-checkbox-inner]:w-7 [&_.ant-checkbox-inner]:rounded-lg [&_.ant-checkbox-inner]:border-2 [&_.ant-checkbox-inner]:border-border-strong css-var-root ant-checkbox-css-var css-dev-only-do-not-override-eofgey"
             >
               <span
                 class="ant-checkbox ant-wave-target css-dev-only-do-not-override-eofgey"
@@ -356,7 +356,7 @@ exports[`ItemChecklistCreateForm matches snapshot 2`] = `
               </span>
             </label>
             <label
-              class="ant-checkbox-wrapper text-lg css-var-root ant-checkbox-css-var css-dev-only-do-not-override-eofgey"
+              class="ant-checkbox-wrapper text-lg [&_.ant-checkbox-inner]:h-7 [&_.ant-checkbox-inner]:w-7 [&_.ant-checkbox-inner]:rounded-lg [&_.ant-checkbox-inner]:border-2 [&_.ant-checkbox-inner]:border-border-strong css-var-root ant-checkbox-css-var css-dev-only-do-not-override-eofgey"
             >
               <span
                 class="ant-checkbox ant-wave-target css-dev-only-do-not-override-eofgey"
@@ -463,7 +463,7 @@ exports[`ItemChecklistCreateForm matches snapshot 2`] = `
                         class="flex items-center justify-center"
                       >
                         <label
-                          class="ant-checkbox-wrapper ant-checkbox-wrapper-checked css-var-root ant-checkbox-css-var css-dev-only-do-not-override-eofgey"
+                          class="ant-checkbox-wrapper ant-checkbox-wrapper-checked [&_.ant-checkbox-inner]:h-7 [&_.ant-checkbox-inner]:w-7 [&_.ant-checkbox-inner]:rounded-lg [&_.ant-checkbox-inner]:border-2 [&_.ant-checkbox-inner]:border-border-strong [&_.ant-checkbox-inner::after]:h-3.5 [&_.ant-checkbox-inner::after]:w-2 css-var-root ant-checkbox-css-var css-dev-only-do-not-override-eofgey"
                         >
                           <span
                             class="ant-checkbox ant-wave-target css-dev-only-do-not-override-eofgey ant-checkbox-checked"
@@ -485,7 +485,7 @@ exports[`ItemChecklistCreateForm matches snapshot 2`] = `
                         class="flex items-center justify-center"
                       >
                         <label
-                          class="ant-checkbox-wrapper css-var-root ant-checkbox-css-var css-dev-only-do-not-override-eofgey"
+                          class="ant-checkbox-wrapper [&_.ant-checkbox-inner]:h-7 [&_.ant-checkbox-inner]:w-7 [&_.ant-checkbox-inner]:rounded-lg [&_.ant-checkbox-inner]:border-2 [&_.ant-checkbox-inner]:border-border-strong [&_.ant-checkbox-inner::after]:h-3.5 [&_.ant-checkbox-inner::after]:w-2 css-var-root ant-checkbox-css-var css-dev-only-do-not-override-eofgey"
                         >
                           <span
                             class="ant-checkbox ant-wave-target css-dev-only-do-not-override-eofgey"
@@ -535,7 +535,7 @@ exports[`ItemChecklistCreateForm matches snapshot 2`] = `
                         class="flex items-center justify-center"
                       >
                         <label
-                          class="ant-checkbox-wrapper css-var-root ant-checkbox-css-var css-dev-only-do-not-override-eofgey"
+                          class="ant-checkbox-wrapper [&_.ant-checkbox-inner]:h-7 [&_.ant-checkbox-inner]:w-7 [&_.ant-checkbox-inner]:rounded-lg [&_.ant-checkbox-inner]:border-2 [&_.ant-checkbox-inner]:border-border-strong [&_.ant-checkbox-inner::after]:h-3.5 [&_.ant-checkbox-inner::after]:w-2 css-var-root ant-checkbox-css-var css-dev-only-do-not-override-eofgey"
                         >
                           <span
                             class="ant-checkbox ant-wave-target css-dev-only-do-not-override-eofgey"
@@ -556,7 +556,7 @@ exports[`ItemChecklistCreateForm matches snapshot 2`] = `
                         class="flex items-center justify-center"
                       >
                         <label
-                          class="ant-checkbox-wrapper css-var-root ant-checkbox-css-var css-dev-only-do-not-override-eofgey"
+                          class="ant-checkbox-wrapper [&_.ant-checkbox-inner]:h-7 [&_.ant-checkbox-inner]:w-7 [&_.ant-checkbox-inner]:rounded-lg [&_.ant-checkbox-inner]:border-2 [&_.ant-checkbox-inner]:border-border-strong [&_.ant-checkbox-inner::after]:h-3.5 [&_.ant-checkbox-inner::after]:w-2 css-var-root ant-checkbox-css-var css-dev-only-do-not-override-eofgey"
                         >
                           <span
                             class="ant-checkbox ant-wave-target css-dev-only-do-not-override-eofgey"

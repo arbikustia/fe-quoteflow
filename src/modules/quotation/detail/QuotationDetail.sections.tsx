@@ -313,12 +313,12 @@ const _renderProject = (project: ApiQuotationProject, isProjectMetaVisible: bool
         </h3>
         {isProjectMetaVisible && (
           <p className="mt-1 text-lg font-medium text-text-secondary">
-            Qty: {project.qty} · Price: {formatCurrency(project.price)}
+            Qty: {project.qty}
           </p>
         )}
       </div>
       <strong className="text-xl font-bold tabular-nums text-action-primary sm:text-lg">
-        {formatCurrency(project.subtotal)}
+        {formatCurrency(project.price)}
       </strong>
     </div>
     {project.remark && (

@@ -28,6 +28,31 @@ export const isOrderInformationValid = (form: { customer_id: string; customer_na
 export const hasSelectedOrderItem = (items: ReadonlyArray<{ item_id: string }>): boolean => items.some((item) => Boolean(item.item_id.trim()));
 
 /**
+ * Clamp item quantity to available stock.
+ * @param {number} qty - Requested quantity
+ * @param {number} stock - Available stock
+ * @returns {number} - Quantity capped by stock
+ */
+export const clampQtyToStock = (qty: number, stock: number): number => Math.max(1, Math.min(qty, stock));
+
+/**
+ * Check every selected item quantity is within stock.
+ * @param {ReadonlyArray<{ item_id: string; qty: number }>} items - Selected order items
+ * @param {ReadonlyArray<{ id: string; stock: number | null }>} options - Item options with stock
+ * @returns {boolean} - True when all quantities fit stock
+ */
+export const hasItemQtyWithinStock = (
+  items: ReadonlyArray<{ item_id: string; qty: number }>,
+  options: ReadonlyArray<{ id: string; stock: number | null }>,
+): boolean => items.every((item) => {
+  const option = options.find((entry) => entry.id === item.item_id);
+
+  if (!option || option.stock === null) return true;
+
+  return item.qty <= option.stock;
+});
+
+/**
  * Calculate order subtotal, percentage discount amount, and grand total.
  * @param {ReadonlyArray<{ price: number; qty: number }>} items - Order items
  * @param {number} discountPercent - Discount percentage

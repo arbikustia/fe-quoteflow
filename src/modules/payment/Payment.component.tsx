@@ -64,17 +64,6 @@ const _renderCreatedAt = (row: PaymentData): React.ReactElement => (
 );
 
 /**
- * Render payment status badge cell.
- * @param {PaymentData} row - Payment row
- * @returns {React.ReactElement} Status badge element
- */
-const _renderStatus = (row: PaymentData): React.ReactElement => (
-  <span className={`inline-flex rounded-full border border-current px-3 py-1 text-base font-semibold uppercase ${row.status === "active" ? "bg-success-subtle text-success-strong" : "bg-danger-subtle text-danger-strong"}`}>
-    {row.status === "active" ? "Active" : "Inactive"}
-  </span>
-);
-
-/**
  * Render payment edit action.
  * @param {PaymentData} payment - Payment row
  * @param {(payment: PaymentData) => void} onEdit - Edit callback
@@ -125,7 +114,6 @@ const _getColumns = (props: PaymentProps): TableColumn<PaymentData>[] => [
   { key: "amount", header: "Amount", align: "right", render: _renderAmount },
   { key: "paidAt", header: "Paid At", render: _renderPaidAt },
   { key: "createdAt", header: "Created At", render: _renderCreatedAt },
-  { key: "status", header: "Status", align: "center", render: _renderStatus },
   { key: "actions", header: "Action", align: "center", render: (row: PaymentData): React.ReactElement => _renderActions(row, props.onDetail ?? props.onRowClick, props.onEdit) },
 ];
 

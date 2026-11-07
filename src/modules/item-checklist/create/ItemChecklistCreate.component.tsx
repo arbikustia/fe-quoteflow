@@ -23,6 +23,7 @@ const _renderMoveCheckbox = (
       ariaLabel={`${label} ${row.itemName}`}
       checked={checkedItemIds.includes(row.id)}
       onChange={(): void => onToggle(row.id)}
+      className="[&_.ant-checkbox-inner]:h-7 [&_.ant-checkbox-inner]:w-7 [&_.ant-checkbox-inner]:rounded-lg [&_.ant-checkbox-inner]:border-2 [&_.ant-checkbox-inner]:border-border-strong [&_.ant-checkbox-inner::after]:h-3.5 [&_.ant-checkbox-inner::after]:w-2"
     />
   </div>
 );
@@ -38,14 +39,14 @@ const _renderMobileItem = (row: ChecklistOrderItemRow, props: ChecklistCreateFor
     <div className="mt-4 flex flex-wrap gap-x-6 gap-y-3 border-t border-border-default pt-4">
       <CheckboxComponent
         label="Move Out"
-        className="text-lg"
+        className="text-lg [&_.ant-checkbox-inner]:h-7 [&_.ant-checkbox-inner]:w-7 [&_.ant-checkbox-inner]:rounded-lg [&_.ant-checkbox-inner]:border-2 [&_.ant-checkbox-inner]:border-border-strong"
         ariaLabel={`Move out ${row.itemName}`}
         checked={props.moveOutItemIds.includes(row.id)}
         onChange={(): void => props.onToggleMoveOut(row.id)}
       />
       <CheckboxComponent
         label="Move In"
-        className="text-lg"
+        className="text-lg [&_.ant-checkbox-inner]:h-7 [&_.ant-checkbox-inner]:w-7 [&_.ant-checkbox-inner]:rounded-lg [&_.ant-checkbox-inner]:border-2 [&_.ant-checkbox-inner]:border-border-strong"
         ariaLabel={`Move in ${row.itemName}`}
         checked={props.moveInItemIds.includes(row.id)}
         onChange={(): void => props.onToggleMoveIn(row.id)}

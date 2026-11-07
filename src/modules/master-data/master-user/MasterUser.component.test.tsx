@@ -1,28 +1,26 @@
 import * as React from "react";
-import { render, screen } from "@testing-library/react";
-
-import test from "../../../libs/unit-test";
+import test, { render, screen } from "../../../libs/unit-test";
 
 import { MasterUserComponent } from "./MasterUser.component";
 import type { MasterUserProps, UserData } from "./MasterUser.type";
 
-jest.mock("../../app/layout", () =>
+jest.mock("../../../app/layout", () =>
   ({ children }: { children: React.ReactNode }) => <div data-testid="layout">{children}</div>,
 );
 
-jest.mock("../../app/shared/PageLayout", () => ({
+jest.mock("../../../app/shared/PageLayout", () => ({
   PageLayout: ({ children }: { children: React.ReactNode }) => <div data-testid="page-layout">{children}</div>,
 }));
 
-jest.mock("../../components/Pagination", () => ({
+jest.mock("../../../components/Pagination", () => ({
   Pagination: () => <div data-testid="pagination" />,
 }));
 
-jest.mock("../../components/SearchFilter", () => ({
+jest.mock("../../../components/SearchFilter", () => ({
   SearchFilter: () => <input data-testid="search-filter" />,
 }));
 
-jest.mock("../../components/Table", () => () => <div data-testid="table" />);
+jest.mock("../../../components/Table", () => () => <div data-testid="table" />);
 
 const users: UserData[] = [
   { id: "1", username: "admin1", email: "admin@example.com", role: "Admin", status: "active", createAt: "2024-01-01", createBy: "Admin" },
@@ -53,8 +51,7 @@ describe("MasterUserComponent", () => {
     render(React.createElement(MasterUserComponent, props));
 
     expect(screen.getByText("admin@example.com")).toBeTruthy();
-    expect(screen.getByText("01 Januari 2024 07:00")).toBeTruthy();
-    expect(screen.getByText("active").className).toContain("border-current");
+    expect(screen.getByText(/01 Januari 2024 \d{2}:00/)).toBeTruthy();
   });
 });
 

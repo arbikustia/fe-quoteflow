@@ -49,17 +49,6 @@ const _renderRole = (user: UserData): React.ReactElement => (
 );
 
 /**
- * Render status.
- * @param {UserData} user - User row
- * @returns {React.ReactElement} Status cell
- */
-const _renderStatus = (user: UserData): React.ReactElement => (
-  <span className={`inline-flex rounded-full border border-current px-3 py-1 text-base font-semibold uppercase ${user.status === "active" ? "bg-success-subtle text-success-strong" : "bg-danger-subtle text-danger-strong"}`}>
-    {user.status}
-  </span>
-);
-
-/**
  * Render creation date.
  * @param {UserData} user - User row
  * @returns {React.ReactElement} Date cell
@@ -104,7 +93,6 @@ const _getColumns = (props: MasterUserProps): TableColumn<UserData>[] => {
     { key: "username", header: "Username", render: _renderUsername },
     { key: "email", header: "Email", render: _renderEmail },
     { key: "role", header: "Role", render: _renderRole },
-    { key: "status", header: "Status", align: "center", render: _renderStatus },
     { key: "createAt", header: "Created At", render: _renderDate },
     { key: "actions", header: "Action", align: "center", render: renderActions },
   ];

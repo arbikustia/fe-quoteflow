@@ -6,7 +6,7 @@ import type { NavigateFunction } from "react-router-dom";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 
 import type { ApiRentalTransactionDetail, OrderCreatePayload, OrderItemPayload, OrderType, ProjectOrderCreatePayload, ProjectOrderItemPayload, RentalHandoverPayload } from "../../Order.type";
-import { calculateOrderTotals, calculateRentalDays, getNextOrderStep, getPreviousOrderStep, hasSelectedOrderItem, isOrderInformationValid } from "../OrderCreate.helpers";
+import { calculateOrderTotals, calculateRentalDays, clampQtyToStock, getNextOrderStep, getPreviousOrderStep, hasSelectedOrderItem, isOrderInformationValid } from "../OrderCreate.helpers";
 import type { OrderCreateFormState, OrderCreateState, OrderItemOption, OrderProjectOption, SelectOption } from "../OrderCreate.type";
 
 import { useGetAllCustomersQuery } from "@/services/master-customer.service";
@@ -270,7 +270,14 @@ const createFormActions = (setForm: FormSetter, customers: CustomerOption[], vou
    * @param field
    * @param value
    */
-  const onItemChange = (index: number, field: keyof OrderItemPayload, value: string | number): void => setForm((previous) => ({ ...previous, rental_transaction_items: previous.rental_transaction_items.map((item, itemIndex) => itemIndex === index ? updateItem(item, field, value) : item) }));
+  const onItemChange = (index: number, field: keyof OrderItemPayload, value: string | number): void => setForm((previous) => ({ ...previous, rental_transaction_items: previous.rental_transaction_items.map((item, itemIndex) => {
+    if (itemIndex !== index) return item;
+
+    const stock = items.find((option) => option.id === item.item_id)?.stock;
+    const nextValue = field === "qty" && stock !== null && stock !== undefined ? clampQtyToStock(Number(value), stock) : value;
+
+    return updateItem(item, field, nextValue);
+  }) }));
 
   /**
    *

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { useMasterActivityLog } from "@/hooks/useMasterActivityLog";
@@ -8,8 +8,10 @@ import { useGetRentalOrderOptionsQuery } from "@/services/rental-order.service";
 
 import { downloadChecklistPdf } from "./ItemChecklist.pdf";
 import type { ApiChecklist, ChecklistListState, ChecklistRow } from "./ItemChecklist.type";
+import type { ApiRentalOrder } from "@/modules/report/Report.type";
+import { getOrderCustomerName } from "./ItemChecklist.helpers";
 
-const _mapChecklist = (checklist: ApiChecklist): ChecklistRow => {
+const _mapChecklist = (checklist: ApiChecklist, customerName: string): ChecklistRow => {
   let status: ChecklistRow["status"] = "unavailable";
 
   if (checklist.status !== null) {
@@ -19,6 +21,7 @@ const _mapChecklist = (checklist: ApiChecklist): ChecklistRow => {
   return {
     id: checklist.id,
     checklistNo: checklist.checklist_no,
+    customerName,
     checklistDate: checklist.checklist_date,
     itemCount: checklist.items.length,
     status,
@@ -74,7 +77,18 @@ export const useItemChecklistList = (): Omit<ChecklistListState, "onBack" | "onC
   }, [logView]);
 
   const query = useGetRentalChecklistsQuery({ pageNumber: currentPage, pageSize, searchTerm });
-  const rows = query.data?.status ? query.data.data.map(_mapChecklist) : [];
+  const ordersQuery = useGetRentalOrderOptionsQuery();
+  const orderMap = useMemo(() => {
+    const map = new Map<string, ApiRentalOrder>();
+    if (ordersQuery.data?.status && ordersQuery.data.data) {
+      ordersQuery.data.data.forEach((order) => map.set(order.id, order));
+    }
+    return map;
+  }, [ordersQuery.data]);
+
+  const rows = query.data?.status
+    ? query.data.data.map((checklist) => _mapChecklist(checklist, getOrderCustomerName(orderMap.get(checklist.order_id))))
+    : [];
   let errorMessage: string | null = null;
 
   if (query.error) {

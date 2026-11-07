@@ -24,6 +24,7 @@ const mockProps: ChecklistListState = {
     {
       id: "chk-1",
       checklistNo: "CHK-001",
+      customerName: "PT Customer",
       checklistDate: "2026-11-01T07:01:19.094Z",
       itemCount: 2,
       status: "active",
@@ -62,7 +63,8 @@ describe("ItemChecklistComponent", () => {
     expect(screen.getAllByText("CHK-001")).toHaveLength(2);
     expect(screen.getByText("Create Item Checklist")).toBeInTheDocument();
     expect(screen.getByRole("button", { name: "Create New" })).toBeInTheDocument();
-    expect(screen.getAllByText("active")[0]).toHaveClass("border-current", "px-3", "py-1", "text-base", "uppercase");
+    expect(screen.getAllByText("Done")[0]).toHaveClass("border-current", "px-3", "py-1", "text-base", "uppercase");
+    expect(screen.getByRole("columnheader", { name: "Customer Name" })).toBeInTheDocument();
   });
 
   it("should trigger onCreate from mobile header and desktop toolbar", () => {
@@ -85,7 +87,7 @@ describe("ItemChecklistComponent", () => {
     expect(card).toHaveClass("rounded-3xl", "border-border-strong", "bg-background-surface", "shadow-small");
     expect(title).toHaveClass("text-xl");
     expect(card?.querySelectorAll(".text-xs, .text-sm")).toHaveLength(0);
-    expect(card?.querySelector(".text-base")).toHaveTextContent("active");
+    expect(card?.querySelector(".text-base")).toHaveTextContent("Done");
     expect(card).toHaveTextContent("2 items");
     expect(card).toHaveTextContent("Checklist date");
     fireEvent.click(title);
@@ -99,7 +101,7 @@ describe("ItemChecklistComponent", () => {
 
   it("should show unavailable status inside card", () => {
     render(<MemoryRouter><ItemChecklistComponent {...mockProps} rows={[{ ...mockProps.rows[0], status: "unavailable" }]} /></MemoryRouter>);
-    expect(screen.getAllByText("Status unavailable")).toHaveLength(2);
+    expect(screen.getAllByText("Pending")).toHaveLength(2);
     expect(screen.queryByText("ord-1")).not.toBeInTheDocument();
   });
 
@@ -109,9 +111,9 @@ describe("ItemChecklistComponent", () => {
     expect(cards).toHaveLength(5);
     expect(cards[0]).toHaveClass("rounded-3xl", "border-border-strong", "shadow-small");
     const table = screen.getByRole("status", { name: "Loading item checklist table" });
-    expect(table.querySelectorAll("thead th")).toHaveLength(6);
+    expect(table.querySelectorAll("thead th")).toHaveLength(7);
     expect(table.querySelectorAll("tbody tr")).toHaveLength(5);
-    expect(table.querySelectorAll("tbody tr:first-child td")).toHaveLength(6);
+    expect(table.querySelectorAll("tbody tr:first-child td")).toHaveLength(7);
   });
 
   it("should trigger onEdit directly when desktop edit button is clicked", () => {

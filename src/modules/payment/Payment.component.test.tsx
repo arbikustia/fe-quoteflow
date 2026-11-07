@@ -73,11 +73,9 @@ describe("PaymentComponent", () => {
 
     const card = screen.getByRole("button", { name: /REF-001.*Active.*INV-001.*ADE PUTRI.*Paid at.*Amount/s });
     expect(card).toHaveClass("rounded-3xl", "border-border-strong", "bg-background-surface");
-    expect(card.querySelector(".rounded-full")).toHaveClass("border-current", "text-base", "uppercase");
     expect(card.querySelectorAll(".text-xs, .text-sm")).toHaveLength(0);
     expect(screen.getAllByText("REF-001")[0]).toHaveClass("text-lg");
     expect(screen.getAllByText("Active")[0]).toHaveClass("text-base");
-    expect(screen.getAllByText("Active")[1]).toHaveClass("border-current", "text-base", "uppercase");
     const viewButton = screen.getByLabelText("View payment detail");
     expect(viewButton).toHaveClass("rounded-3xl");
     fireEvent.click(viewButton);
@@ -85,8 +83,8 @@ describe("PaymentComponent", () => {
     expect(screen.getByLabelText("Edit payment")).toHaveClass("rounded-3xl");
     fireEvent.click(card);
     expect(mockProps.onRowClick).toHaveBeenCalledTimes(2);
-    expect(screen.getByRole("columnheader", { name: "Status" })).toBeInTheDocument();
-    expect(screen.getAllByText("Active")).toHaveLength(2);
+    expect(screen.queryByRole("columnheader", { name: "Status" })).not.toBeInTheDocument();
+    expect(screen.getAllByText("Active")).toHaveLength(1);
   });
 
   it("should match loading card and table columns", () => {
@@ -97,9 +95,9 @@ describe("PaymentComponent", () => {
     expect(cards[0]).toHaveClass("rounded-3xl", "border-border-strong", "shadow-small");
     expect(cards[0].querySelectorAll(".border-t")).toHaveLength(1);
     const table = screen.getByRole("status", { name: "Loading payment table" });
-    expect(table.querySelectorAll("thead th")).toHaveLength(8);
+    expect(table.querySelectorAll("thead th")).toHaveLength(7);
     expect(table.querySelectorAll("tbody tr")).toHaveLength(5);
-    expect(table.querySelectorAll("tbody tr:first-child td")).toHaveLength(8);
+    expect(table.querySelectorAll("tbody tr:first-child td")).toHaveLength(7);
   });
 
   it("should trigger search when input changes", () => {
