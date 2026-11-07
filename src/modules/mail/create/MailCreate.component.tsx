@@ -6,6 +6,8 @@ import { BackButton } from "@/components/BackButton";
 import { InputComponent } from "@/components/Input";
 import { Select } from "@/components/Select";
 
+import { buildMailHtmlTemplate } from "@/services/mail/mail.service";
+
 import type { MailComposeFormState, MailTextFieldConfig } from "./MailCreate.type";
 
 /**
@@ -257,16 +259,34 @@ const _renderHeaderSection = (): ReactElement => (
 );
 
 /**
+ * Render the selected mail template preview.
+ * @param {MailComposeFormState} props - Form state
+ * @returns {ReactElement} Template preview
+ */
+const _renderTemplatePreview = (props: MailComposeFormState): ReactElement => (
+  <section
+    className="min-w-0 rounded-3xl border border-border-default bg-background-surface p-4 shadow-small lg:sticky lg:top-6 lg:h-fit"
+    aria-labelledby="mail-template-preview-title"
+  >
+    <h3 id="mail-template-preview-title" className="mb-4 text-lg font-semibold text-text-primary">
+      Template preview
+    </h3>
+    <iframe
+      title="Mail template preview"
+      srcDoc={buildMailHtmlTemplate(props.body, props.template)}
+      sandbox=""
+      className="h-[560px] w-full rounded-2xl border border-border-default bg-white lg:h-[720px]"
+    />
+  </section>
+);
+
+/**
  * Render the compose form card.
  * @param {MailComposeFormState} props - Form state
  * @returns {ReactElement} Form card
  */
 const _renderFormCard = (props: MailComposeFormState): ReactElement => (
-  <form
-    noValidate
-    onSubmit={props.handleSubmit}
-    className="mb-6 flex flex-col rounded-3xl border border-border-default bg-background-surface p-6 shadow-small sm:p-8 lg:-mt-4 lg:mb-5 lg:flex-1 lg:p-10"
-  >
+  <form noValidate onSubmit={props.handleSubmit} className="flex min-w-0 flex-col rounded-3xl border border-border-default bg-background-surface p-6 shadow-small sm:p-8 lg:p-10">
     <div className="pb-6">
       <div className="grid w-full grid-cols-1 gap-x-6 gap-y-5 lg:grid-cols-2">
         {_renderSenderField(props)}
@@ -292,7 +312,10 @@ export const MailCreateForm = (props: MailComposeFormState): ReactElement => (
     {_renderMobileBack(props.goBack)}
     <div className="flex min-h-0 w-full flex-1 flex-col pb-32 text-lg lg:pb-0">
       {_renderHeaderSection()}
-      {_renderFormCard(props)}
+      <div className="flex flex-col gap-6 lg:-mt-4 lg:mb-5 lg:grid lg:grid-cols-12 lg:items-start lg:gap-6">
+        <div className="min-w-0 lg:col-span-4">{_renderTemplatePreview(props)}</div>
+        <div className="min-w-0 lg:col-span-8">{_renderFormCard(props)}</div>
+      </div>
     </div>
   </div>
 );

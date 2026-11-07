@@ -190,6 +190,20 @@ exports[`MailComponent Snapshots should render mail list 1`] = `
                     <span
                       class="block text-lg text-text-tertiary"
                     >
+                      From
+                    </span>
+                    <span
+                      class="mt-1 block break-all text-lg font-medium text-text-primary"
+                    >
+                      sender@example.com
+                    </span>
+                  </span>
+                  <span
+                    class="min-w-0"
+                  >
+                    <span
+                      class="block text-lg text-text-tertiary"
+                    >
                       To
                     </span>
                     <span
@@ -444,6 +458,11 @@ exports[`MailComponent Snapshots should render mail list 1`] = `
                           <th
                             class="bg-table-header px-5 py-4 text-[13px] font-bold text-text-secondary uppercase tracking-widest   text-left "
                           >
+                            From
+                          </th>
+                          <th
+                            class="bg-table-header px-5 py-4 text-[13px] font-bold text-text-secondary uppercase tracking-widest   text-left "
+                          >
                             To
                           </th>
                           <th
@@ -480,6 +499,15 @@ exports[`MailComponent Snapshots should render mail list 1`] = `
                               class="text-lg font-medium"
                             >
                               Quotation follow up
+                            </span>
+                          </td>
+                          <td
+                            class="px-5 py-4 border-b border-border-default text-base text-left "
+                          >
+                            <span
+                              class="text-lg text-text-secondary"
+                            >
+                              sender@example.com
                             </span>
                           </td>
                           <td
@@ -1200,6 +1228,11 @@ exports[`MailComponent Snapshots should render mail list while loading 1`] = `
                       <th
                         class="bg-table-header px-5 py-4 text-[13px] font-bold uppercase tracking-widest text-text-secondary text-left  "
                       >
+                        From
+                      </th>
+                      <th
+                        class="bg-table-header px-5 py-4 text-[13px] font-bold uppercase tracking-widest text-text-secondary text-left  "
+                      >
                         To
                       </th>
                       <th
@@ -1247,38 +1280,6 @@ exports[`MailComponent Snapshots should render mail list while loading 1`] = `
                         />
                       </td>
                       <td
-                        class="border-b border-border-default px-5 py-4 text-center"
-                      >
-                        <span
-                          class="inline-block h-5 w-32 rounded-3xl bg-background-subtle align-middle"
-                        />
-                      </td>
-                    </tr>
-                    <tr
-                      class="animate-pulse"
-                    >
-                      <td
-                        class="border-b border-border-default px-5 py-4 text-center"
-                      >
-                        <span
-                          class="inline-block h-5 w-32 rounded-3xl bg-background-subtle align-middle"
-                        />
-                      </td>
-                      <td
-                        class="border-b border-border-default px-5 py-4 text-left"
-                      >
-                        <span
-                          class="inline-block h-5 w-32 rounded-3xl bg-background-subtle align-middle"
-                        />
-                      </td>
-                      <td
-                        class="border-b border-border-default px-5 py-4 text-left"
-                      >
-                        <span
-                          class="inline-block h-5 w-32 rounded-3xl bg-background-subtle align-middle"
-                        />
-                      </td>
-                      <td
                         class="border-b border-border-default px-5 py-4 text-left"
                       >
                         <span
@@ -1325,6 +1326,59 @@ exports[`MailComponent Snapshots should render mail list while loading 1`] = `
                         />
                       </td>
                       <td
+                        class="border-b border-border-default px-5 py-4 text-left"
+                      >
+                        <span
+                          class="inline-block h-5 w-32 rounded-3xl bg-background-subtle align-middle"
+                        />
+                      </td>
+                      <td
+                        class="border-b border-border-default px-5 py-4 text-center"
+                      >
+                        <span
+                          class="inline-block h-5 w-32 rounded-3xl bg-background-subtle align-middle"
+                        />
+                      </td>
+                    </tr>
+                    <tr
+                      class="animate-pulse"
+                    >
+                      <td
+                        class="border-b border-border-default px-5 py-4 text-center"
+                      >
+                        <span
+                          class="inline-block h-5 w-32 rounded-3xl bg-background-subtle align-middle"
+                        />
+                      </td>
+                      <td
+                        class="border-b border-border-default px-5 py-4 text-left"
+                      >
+                        <span
+                          class="inline-block h-5 w-32 rounded-3xl bg-background-subtle align-middle"
+                        />
+                      </td>
+                      <td
+                        class="border-b border-border-default px-5 py-4 text-left"
+                      >
+                        <span
+                          class="inline-block h-5 w-32 rounded-3xl bg-background-subtle align-middle"
+                        />
+                      </td>
+                      <td
+                        class="border-b border-border-default px-5 py-4 text-left"
+                      >
+                        <span
+                          class="inline-block h-5 w-32 rounded-3xl bg-background-subtle align-middle"
+                        />
+                      </td>
+                      <td
+                        class="border-b border-border-default px-5 py-4 text-left"
+                      >
+                        <span
+                          class="inline-block h-5 w-32 rounded-3xl bg-background-subtle align-middle"
+                        />
+                      </td>
+                      <td
                         class="border-b border-border-default px-5 py-4 text-center"
                       >
                         <span
@@ -1364,6 +1418,13 @@ exports[`MailComponent Snapshots should render mail list while loading 1`] = `
                         />
                       </td>
                       <td
+                        class="border-b border-border-default px-5 py-4 text-left"
+                      >
+                        <span
+                          class="inline-block h-5 w-32 rounded-3xl bg-background-subtle align-middle"
+                        />
+                      </td>
+                      <td
                         class="border-b border-border-default px-5 py-4 text-center"
                       >
                         <span
@@ -1376,6 +1437,13 @@ exports[`MailComponent Snapshots should render mail list while loading 1`] = `
                     >
                       <td
                         class="border-b border-border-default px-5 py-4 text-center"
+                      >
+                        <span
+                          class="inline-block h-5 w-32 rounded-3xl bg-background-subtle align-middle"
+                        />
+                      </td>
+                      <td
+                        class="border-b border-border-default px-5 py-4 text-left"
                       >
                         <span
                           class="inline-block h-5 w-32 rounded-3xl bg-background-subtle align-middle"

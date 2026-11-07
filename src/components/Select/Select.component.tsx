@@ -16,16 +16,16 @@ const _getOptions = (options: SelectOption[]): SelectOption[] => options.filter(
  * @returns {ReactElement} Select component
  */
 export const Select = (props: SelectProps): ReactElement => {
-  const { id, label, placeholder, value, options, onChange, onSearch, isRemoteSearch, required, disabled, errorMessage, className = "", selectClassName = "", labelClassName = "", popupClassName = "" } = props;
+  const { id, label, placeholder, value, options, onChange, onSearch, isRemoteSearch, required, disabled, isClearable, errorMessage, className = "", selectClassName = "", labelClassName = "", popupClassName = "" } = props;
   const errorId = `${id}-error`;
   const isError = Boolean(errorMessage);
 
   /**
-   * Handle Ant Design selection.
-   * @param {string} selectedValue - Selected option value
+   * Handle Ant Design selection, including clearing the value.
+   * @param {string} [selectedValue] - Selected option value, empty when cleared
    * @returns {void} No return value
    */
-  const handleChange = (selectedValue: string): void => onChange(selectedValue);
+  const handleChange = (selectedValue?: string): void => onChange(selectedValue ?? "");
 
   return (
     <div className={`relative ${className}`}>
@@ -48,6 +48,7 @@ export const Select = (props: SelectProps): ReactElement => {
         onChange={handleChange}
         onSearch={onSearch}
         disabled={disabled}
+        allowClear={isClearable}
         status={isError ? "error" : undefined}
         className={`h-14 w-full !border-2 [&_.ant-select-selector]:!rounded-2xl [&_.ant-select-content]:!text-xl [&_.ant-select-content]:!font-normal ${
           isError

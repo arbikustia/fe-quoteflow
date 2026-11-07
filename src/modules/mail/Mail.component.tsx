@@ -38,7 +38,16 @@ const _renderSubject = (row: MailData): ReactElement => <span className="text-lg
  * @returns {ReactElement} Recipient cell
  */
 const _renderRecipient = (row: MailData): ReactElement => (
-  <span className="text-lg text-text-secondary">{formatMailDisplayValue(row.recipient)}</span>
+  <span className="text-lg text-text-secondary">{formatMailDisplayValue(row.recipientEmail)}</span>
+);
+
+/**
+ * Render mail sender cell.
+ * @param {MailData} row - Mail row data
+ * @returns {ReactElement} Sender cell
+ */
+const _renderSender = (row: MailData): ReactElement => (
+  <span className="text-lg text-text-secondary">{formatMailDisplayValue(row.senderEmail)}</span>
 );
 
 /**
@@ -46,7 +55,7 @@ const _renderRecipient = (row: MailData): ReactElement => (
  * @param {MailData} row - Mail row data
  * @returns {ReactElement} Created date cell
  */
-const _renderCreatedAt = (row: MailData): ReactElement => <span className="text-lg">{formatMailDisplayValue(row.createAt)}</span>;
+const _renderCreatedAt = (row: MailData): ReactElement => <span className="text-lg">{formatMailDisplayValue(row.createdAt)}</span>;
 
 /**
  * Get mail row key.
@@ -75,6 +84,7 @@ const _getColumns = (currentPage: number, pageSize: number): TableColumn<MailDat
   return [
     { key: "no", header: "No", align: "center", render: renderNumber },
     { key: "subject", header: "Subject", render: _renderSubject },
+    { key: "sender", header: "From", render: _renderSender },
     { key: "recipient", header: "To", render: _renderRecipient },
     { key: "createAt", header: "Created At", render: _renderCreatedAt },
     { key: "status", header: "Status", align: "center", render: _renderStatus },

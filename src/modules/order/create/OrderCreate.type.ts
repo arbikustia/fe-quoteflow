@@ -5,7 +5,7 @@ import type { OrderCreatePayload, OrderItemPayload } from "../Order.type";
 export type OrderCreateFormState = {
   customer_id: string;
   pic_id: string;
-  voucher_id: string;
+  voucher_id: string | null;
   service_type_id: string;
   order_type_id: string;
   handover_type: string;
@@ -58,7 +58,7 @@ export type OrderCreateProps = {
   onPreviousStep: () => void;
   onCustomerChange: (customerId: string) => void;
   onPicChange: (picId: string) => void;
-  onVoucherChange: (voucherId: string) => void;
+  onVoucherChange: (voucherId: string | null) => void;
   onVoucherSearch: (code: string) => void;
   onServiceTypeChange: (serviceTypeId: string) => void;
   onOrderTypeChange: (orderTypeId: string) => void;
@@ -102,7 +102,7 @@ export type OrderCreateState = {
   onPreviousStep: () => void;
   onCustomerChange: (customerId: string) => void;
   onPicChange: (picId: string) => void;
-  onVoucherChange: (voucherId: string) => void;
+  onVoucherChange: (voucherId: string | null) => void;
   onVoucherSearch: (code: string) => void;
   onServiceTypeChange: (serviceTypeId: string) => void;
   onOrderTypeChange: (orderTypeId: string) => void;

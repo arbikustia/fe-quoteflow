@@ -21,6 +21,7 @@ export type SelectProps = {
   onChange: (value: string) => void;
   required?: boolean;
   disabled?: boolean;
+  isClearable?: boolean;
   errorMessage?: string | null;
   className?: string;
   selectClassName?: string;

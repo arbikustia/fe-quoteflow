@@ -10,19 +10,23 @@ import type { MailMobileCardProps } from "./Mail.type";
 export const formatMailDisplayValue = (value: string): string => value || "—";
 
 /**
- * Render mobile card footer with recipient and created date.
+ * Render mobile card footer with sender, recipient and created date.
  * @param {MailMobileCardProps["mail"]} mail - Mail data
  * @returns {React.ReactElement} Card footer element
  */
 const _renderMailCardFooter = (mail: MailMobileCardProps["mail"]): React.ReactElement => (
   <span className="mt-4 flex flex-wrap items-end justify-between gap-x-4 gap-y-3 border-t border-border-default pt-4">
     <span className="min-w-0">
+      <span className="block text-lg text-text-tertiary">From</span>
+      <span className="mt-1 block break-all text-lg font-medium text-text-primary">{formatMailDisplayValue(mail.senderEmail)}</span>
+    </span>
+    <span className="min-w-0">
       <span className="block text-lg text-text-tertiary">To</span>
-      <span className="mt-1 block break-all text-lg font-medium text-text-primary">{formatMailDisplayValue(mail.recipient)}</span>
+      <span className="mt-1 block break-all text-lg font-medium text-text-primary">{formatMailDisplayValue(mail.recipientEmail)}</span>
     </span>
     <span className="text-right">
       <span className="block text-lg text-text-tertiary">Created</span>
-      <span className="mt-1 block text-lg font-medium text-text-primary">{formatMailDisplayValue(mail.createAt)}</span>
+      <span className="mt-1 block text-lg font-medium text-text-primary">{formatMailDisplayValue(mail.createdAt)}</span>
     </span>
   </span>
 );

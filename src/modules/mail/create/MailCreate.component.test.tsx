@@ -46,7 +46,7 @@ describe("MailCreateForm", () => {
     renderForm(buildProps());
 
     expect(screen.getByLabelText(/From/)).toBeDefined();
-    expect(screen.getByLabelText(/Template/)).toBeDefined();
+    expect(screen.getByLabelText("Template", { exact: true })).toBeDefined();
     expect(screen.getByLabelText(/To/)).toBeDefined();
     expect(screen.getByLabelText(/Subject/)).toBeDefined();
     expect(screen.getByLabelText(/Body/)).toBeDefined();
@@ -103,5 +103,23 @@ describe("MailCreateForm", () => {
     renderForm(buildProps({ isSenderLoading: true, senderOptions: [] }));
 
     expect(screen.getByText("Loading senders...")).toBeDefined();
+  });
+
+  it("should render the selected template preview", () => {
+    renderForm(buildProps({ template: "quotation", body: "Hello" }));
+
+    const preview = screen.getByTitle("Mail template preview");
+
+    expect(preview).toBeDefined();
+    expect(preview.getAttribute("srcdoc")).toContain("Congrats, your quotation has been");
+    expect(preview.getAttribute("srcdoc")).toContain("Hello");
+  });
+
+  it("should render the invoice template preview when invoice is selected", () => {
+    renderForm(buildProps({ template: "invoice" }));
+
+    const preview = screen.getByTitle("Mail template preview");
+
+    expect(preview.getAttribute("srcdoc")).toContain("Congrats, your invoice has been");
   });
 });

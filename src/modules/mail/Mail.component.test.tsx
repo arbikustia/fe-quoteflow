@@ -9,12 +9,12 @@ import type { MailData, MailProps } from "./Mail.type";
 const MOCK_MAILS: MailData[] = [
   {
     id: "mail-1",
-    recipient: "customer@example.com",
+    senderEmail: "sender@example.com",
+    recipientEmail: "customer@example.com",
     subject: "Quotation follow up",
-    body: "Hello",
     status: "active",
-    createAt: "2026-01-01 10:00",
-    createBy: "admin",
+    sentAt: "2026-01-01 10:00",
+    createdAt: "2026-01-01 10:00",
   },
 ];
 

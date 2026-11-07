@@ -65,4 +65,42 @@ describe("Select component", () => {
 
     expect(screen.getByRole("alert").textContent).toBe("Please select an option");
   });
+
+  it("should emit an empty value when the selected option is cleared", () => {
+    const handleChange = jest.fn();
+    const { container } = render(
+      <Select
+        id="test-select"
+        label="Test Select"
+        placeholder="Choose option"
+        value="val-1"
+        options={options}
+        isClearable
+        onChange={handleChange}
+      />
+    );
+
+    const clearButton = container.querySelector(".ant-select-clear");
+
+    expect(clearButton).not.toBeNull();
+
+    fireEvent.click(clearButton as Element);
+
+    expect(handleChange).toHaveBeenCalledWith("");
+  });
+
+  it("should not render a clear control when the select is not clearable", () => {
+    const { container } = render(
+      <Select
+        id="test-select"
+        label="Test Select"
+        placeholder="Choose option"
+        value="val-1"
+        options={options}
+        onChange={jest.fn()}
+      />
+    );
+
+    expect(container.querySelector(".ant-select-clear")).toBeNull();
+  });
 });

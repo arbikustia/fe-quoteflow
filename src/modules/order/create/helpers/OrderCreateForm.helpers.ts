@@ -27,7 +27,7 @@ type ActionResult = {
   onToggleProject: (projectId: string) => void;
   onCustomerChange: (customerId: string) => void;
   onPicChange: (picId: string) => void;
-  onVoucherChange: (voucherId: string) => void;
+  onVoucherChange: (voucherId: string | null) => void;
   onServiceTypeChange: (serviceTypeId: string) => void;
   onOrderTypeChange: (orderTypeId: string) => void;
   onHandoverTypeChange: (handoverType: string) => void;
@@ -62,7 +62,7 @@ const getDefaultDateRange = (): { start_at: string; end_at: string } => {
 };
 
 const DEFAULT_DATE_RANGE = getDefaultDateRange();
-const INITIAL_FORM: OrderCreateFormState = { customer_id: "", pic_id: "", voucher_id: "", service_type_id: "", order_type_id: "", handover_type: "", handover_name: "", service_type_name: "", customer_name: "", customer_phone: "", address: "", event_name: "", start_at: DEFAULT_DATE_RANGE.start_at, end_at: DEFAULT_DATE_RANGE.end_at, subtotal: 0, discount: 0, service_fee: 0, remarks: "", grand_total: 0, status: 1, rental_transaction_items: [EMPTY_ITEM] };
+const INITIAL_FORM: OrderCreateFormState = { customer_id: "", pic_id: "", voucher_id: null, service_type_id: "", order_type_id: "", handover_type: "", handover_name: "", service_type_name: "", customer_name: "", customer_phone: "", address: "", event_name: "", start_at: DEFAULT_DATE_RANGE.start_at, end_at: DEFAULT_DATE_RANGE.end_at, subtotal: 0, discount: 0, service_fee: 0, remarks: "", grand_total: 0, status: 1, rental_transaction_items: [EMPTY_ITEM] };
 
 /**
  * Build edit form item list from order detail.
@@ -121,7 +121,7 @@ const _buildEditFormItems = (order: ApiRentalTransactionDetail): OrderItemPayloa
 export const buildEditForm = (order: ApiRentalTransactionDetail): OrderCreateFormState => ({
   customer_id: order.customer_id ?? order.customer?.id ?? "",
   pic_id: order.pic_id ?? order.pic?.id ?? "",
-  voucher_id: order.voucher_id ?? order.voucher?.id ?? "",
+  voucher_id: order.voucher_id ?? order.voucher?.id ?? null,
   service_type_id: order.service_type_id ?? order.service_type?.id ?? "",
   order_type_id: order.order_type_id ?? order.order_type?.id ?? "",
   handover_type: order.rental_handovers?.[0]?.type ?? "",
@@ -233,10 +233,10 @@ const createFormActions = (setForm: FormSetter, customers: CustomerOption[], vou
    *
    * @param voucherId
    */
-  const onVoucherChange = (voucherId: string): void => {
-    const voucher = vouchers.find((option) => option.id === voucherId);
+  const onVoucherChange = (voucherId: string | null): void => {
+    const voucher = voucherId ? vouchers.find((option) => option.id === voucherId) : undefined;
 
-    setForm((previous) => ({ ...previous, voucher_id: voucherId, discount: voucher?.discount_percent ?? 0 }));
+    setForm((previous) => ({ ...previous, voucher_id: voucherId || null, discount: voucher?.discount_percent ?? 0 }));
   };
   /**
    *
@@ -375,7 +375,7 @@ const buildOrderPayload = (form: OrderCreateFormState, items: OrderItemPayload[]
       }
     : undefined;
 
-  return { customer_id: form.customer_id, pic_id: form.pic_id, voucher_id: form.voucher_id, service_type_id: form.service_type_id, order_type_id: form.order_type_id, customer_name: form.customer_name, customer_phone: form.customer_phone, address: form.address, event_name: form.event_name, start_at: formatOrderDate(form.start_at), end_at: formatOrderDate(form.end_at), subtotal: totals.subtotal, discount: form.discount, service_fee: form.service_fee, remarks: form.remarks, grand_total: totals.grandTotal, status: 1, rental_transaction_items: items, ...(rentalHandover ? { rental_handover: rentalHandover } : {}) };
+  return { customer_id: form.customer_id, pic_id: form.pic_id, voucher_id: form.voucher_id || null, service_type_id: form.service_type_id, order_type_id: form.order_type_id, customer_name: form.customer_name, customer_phone: form.customer_phone, address: form.address, event_name: form.event_name, start_at: formatOrderDate(form.start_at), end_at: formatOrderDate(form.end_at), subtotal: totals.subtotal, discount: form.discount, service_fee: form.service_fee, remarks: form.remarks, grand_total: totals.grandTotal, status: 1, rental_transaction_items: items, ...(rentalHandover ? { rental_handover: rentalHandover } : {}) };
 };
 
 /** Manage order creation form state, validation, and submission. @returns {OrderCreateState} order creation state and handlers. */

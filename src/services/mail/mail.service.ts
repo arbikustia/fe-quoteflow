@@ -2,7 +2,7 @@ import { apiRtkClient } from "@/libs/ApiRtkServices/apiRtkClient";
 
 import { MAIL_CONFIG } from "@/modules/mail/Mail.config";
 import type {
-  ApiMail,
+  ApiEmailHistoryItem,
   EmailSenderListResponse,
   MailData,
   MailListParams,
@@ -20,18 +20,18 @@ export { buildMailHtmlTemplate };
 const MAIL_TAG = "Mail";
 
 /**
- * Map API mail model to UI model.
- * @param {ApiMail} mail - API mail model
+ * Map API email-history item to UI mail model.
+ * @param {ApiEmailHistoryItem} mail - API email-history item
  * @returns {MailData} Mail UI model
  */
-export const mapMail = (mail: ApiMail): MailData => ({
+export const mapMail = (mail: ApiEmailHistoryItem): MailData => ({
   id: mail.id,
-  recipient: mail.recipient,
-  subject: mail.subject,
-  body: mail.body ?? "",
+  senderEmail: mail.sender_email ?? "",
+  recipientEmail: mail.recipient_email ?? "",
+  subject: mail.subject ?? "",
   status: mail.status === 1 ? "active" : "inactive",
-  createAt: mail.created_at ?? "",
-  createBy: mail.created_by ?? "",
+  sentAt: mail.sent_at ?? "",
+  createdAt: mail.created_at ?? "",
 });
 
 /**

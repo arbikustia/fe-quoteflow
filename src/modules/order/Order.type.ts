@@ -233,7 +233,7 @@ export type RentalHandoverPayload = {
 export type ProjectOrderCreatePayload = {
   customer_id: string;
   pic_id: string;
-  voucher_id: string;
+  voucher_id: string | null;
   service_type_id: string;
   order_type_id: string;
   customer_name: string;
@@ -266,7 +266,7 @@ export type UpdateOrderRequest = {
 export type OrderCreatePayload = {
   customer_id: string;
   pic_id: string;
-  voucher_id: string;
+  voucher_id: string | null;
   service_type_id: string;
   order_type_id: string;
   customer_name: string;

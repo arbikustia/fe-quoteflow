@@ -102,6 +102,7 @@ describe("OrderCreate step helpers", () => {
 
     const form = buildEditForm(order);
 
+    expect(form.voucher_id).toBeNull();
     expect(form.rental_transaction_items[0]).toEqual(expect.objectContaining({
       item_id: "project-1",
       project_id: "project-1",

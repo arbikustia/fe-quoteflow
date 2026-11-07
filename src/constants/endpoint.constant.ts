@@ -78,7 +78,7 @@ const ENDPOINT = {
     DETAIL: "/api/master-email-sender",
   },
   MAIL: {
-    PAGED: "/api/mail/paged",
+    PAGED: "/api/email-history/paged",
     SENDERS: "/api/email-sender",
     SEND: "/api/email/send",
   },

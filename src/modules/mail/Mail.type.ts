@@ -1,17 +1,22 @@
 import type { ApiMessages, PaginatedResponse } from "@/types/api.type";
 import type { ActiveStatus } from "@/types/common.type";
 
-export type ApiMail = {
+export type ApiEmailHistoryItem = {
   id: string;
-  recipient: string;
-  subject: string;
+  sender_id?: string;
+  sender_email?: string;
+  recipient_email?: string;
+  subject?: string;
   body?: string;
+  is_html?: boolean;
   status: number;
+  error_message?: string;
+  sent_at?: string;
   created_at?: string;
-  created_by?: string;
+  updated_at?: string;
 };
 
-export type MailListResponse = PaginatedResponse<ApiMail>;
+export type MailListResponse = PaginatedResponse<ApiEmailHistoryItem>;
 
 export type MailListParams = {
   pageNumber: number;
@@ -26,12 +31,12 @@ export type MailSendResponse = {
 
 export type MailData = {
   id: string;
-  recipient: string;
+  senderEmail: string;
+  recipientEmail: string;
   subject: string;
-  body: string;
   status: ActiveStatus;
-  createAt: string;
-  createBy: string;
+  sentAt: string;
+  createdAt: string;
 };
 
 export type MailMobileCardProps = {

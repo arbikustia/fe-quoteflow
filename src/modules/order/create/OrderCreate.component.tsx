@@ -185,9 +185,10 @@ const _renderVoucherSelect = (props: OrderCreateProps): React.ReactElement => (
     labelClassName="!text-lg !font-normal !normal-case !text-text-primary lg:!text-lg"
     className="mb-0 [&_.ant-select-selector]:!min-h-16 lg:[&_.ant-select-selector]:!min-h-14"
     selectClassName="!h-16 lg:!h-14 [&_.ant-select-content]:!text-xl lg:[&_.ant-select-content]:!text-lg [&_.ant-select-content]:!font-normal"
-    value={props.form.voucher_id}
+    value={props.form.voucher_id ?? ""}
     onChange={props.onVoucherChange}
     disabled={props.isVouchersLoading}
+    isClearable
     placeholder={
       props.isVouchersLoading ? "Loading vouchers…" : "Select voucher"
     }
