@@ -1,4 +1,8 @@
+import type { ReactNode } from 'react';
+
 import test from '@/libs/unit-test';
+
+jest.mock('@/app/layout', () => ({ children }: { children: ReactNode }): ReactNode => children);
 
 import DesktopReportContainer from './DesktopReport.container';
 

@@ -2,14 +2,14 @@ import type { SyntheticEvent } from "react";
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 
-import { useMasterActivityLog } from "@/hooks/useMasterActivityLog";
-
-import { mapRentalOrder, useGetRentalOrdersQuery, useUpdateRentalOrderMutation } from "@/services/rental-order.service";
-
 import apiClient from "@/libs/api/ApiClient/ApiClient";
 
-import ENDPOINT from "@/constant/endpoint.const";
+import { useMasterActivityLog } from "@/hooks/useMasterActivityLog";
 
+import ENDPOINT from "@/constant/endpoint.const";
+import { mapRentalOrder, useGetRentalOrdersQuery, useUpdateRentalOrderMutation } from "@/services/rental-order.service";
+
+import { sortReportOrders } from "./Report.helpers";
 import type {
   RentalOrderListResponse,
   ReportOrderApiState,
@@ -136,7 +136,7 @@ const _deriveReportOrderListState = (queryResult: ReturnType<typeof useGetRental
 
   if (!orderList) return _createMissingPayloadState();
 
-  const orders = orderList.map(mapRentalOrder);
+  const orders = sortReportOrders(orderList.map(mapRentalOrder));
 
   return _createSuccessState(orders, response.total_pages, response.total_count);
 };

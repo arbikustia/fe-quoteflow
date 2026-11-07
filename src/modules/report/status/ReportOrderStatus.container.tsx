@@ -3,8 +3,8 @@ import type { ReactElement } from "react";
 import Layout from "@/app/layout";
 import { PageLayout } from "@/app/shared/PageLayout";
 
-import { useReportOrderStatusForm } from "../Report.hook";
 import { ReportOrderStatusForm } from "./ReportOrderStatus.component";
+import { useReportOrderStatusForm } from "../Report.hook";
 
 /**
  * Render report order status container.

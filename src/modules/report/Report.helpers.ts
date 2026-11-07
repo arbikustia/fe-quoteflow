@@ -82,3 +82,14 @@ export const OrderMobileCard = (props: OrderMobileCardProps): React.ReactElement
  * @returns {number} Display row number
  */
 export const getOrderRowNumber = (currentPage: number, pageSize: number, rowIndex: number): number => (currentPage - 1) * pageSize + rowIndex + 1;
+
+/**
+ * Sort report orders from newest to oldest.
+ * @param {ReportOrderData[]} orders - Report order rows
+ * @returns {ReportOrderData[]} Sorted report order rows
+ */
+export const sortReportOrders = (orders: ReportOrderData[]): ReportOrderData[] => [...orders].sort((firstOrder, secondOrder) => {
+  const dateDifference = Date.parse(secondOrder.rawOrderDate) - Date.parse(firstOrder.rawOrderDate);
+
+  return dateDifference || secondOrder.orderNo.localeCompare(firstOrder.orderNo);
+});
