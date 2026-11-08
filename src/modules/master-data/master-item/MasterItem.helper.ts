@@ -18,6 +18,7 @@ const LABEL_GAP_MM = 2;
 
 /**
  * Get label width from longest printed content.
+ *
  * @param {jsPDF} document - PDF document
  * @param {ItemData} item - Item label data
  * @returns {number} Label width in millimetres
@@ -37,6 +38,7 @@ const _getLabelWidth = (document: jsPDF, item: ItemData): number => {
 
 /**
  * Get packed label positions without crossing page bounds.
+ *
  * @param {number[]} labelWidths - Label widths
  * @param {number} pageWidth - PDF page width
  * @param {number} pageHeight - PDF page height
@@ -71,10 +73,11 @@ const _getLabelPositions = (labelWidths: number[], pageWidth: number, pageHeight
 
 /**
  * Draw one bordered QR label.
+ *
  * @param {jsPDF} document - PDF document
  * @param {ItemData} item - Item label data
  * @param {string} qr - QR data URL
- * @param {{x: number, y: number, width: number}} position - Label position and width
+ * @param {{ x: number; y: number; width: number }} position - Label position and width
  * @returns {void} No return value
  */
 const _drawPdfLabel = (document: jsPDF, item: ItemData, qr: string, position: { x: number; y: number; width: number }): void => {
@@ -97,6 +100,7 @@ const _drawPdfLabel = (document: jsPDF, item: ItemData, qr: string, position: { 
 
 /**
  * Create QR data URL from item ID.
+ *
  * @param {ItemData} item - Item to encode
  * @returns {Promise<string>} QR image data URL
  */
@@ -108,6 +112,7 @@ const _createQrDataUrl = (item: ItemData): Promise<string> => QRCode.toDataURL(i
 
 /**
  * Trigger browser file download.
+ *
  * @param {string} dataUrl - File data URL
  * @param {string} filename - Download filename
  * @returns {void} No return value
@@ -122,6 +127,7 @@ const _downloadDataUrl = (dataUrl: string, filename: string): void => {
 
 /**
  * Download item label as JPEG at 33 mm x 15 mm.
+ *
  * @param {ItemData} item - Item label data
  * @returns {Promise<void>} Completion promise
  */
@@ -144,8 +150,9 @@ export const downloadItemQrImage = async (item: ItemData): Promise<void> => {
 
   qrImage.src = qr;
   await new Promise<void>((resolve) => {
-    /**
+        /**
      * Resolve image loading.
+     *
      * @returns {void} No return value
      */
     const handleLoad = (): void => resolve();
@@ -169,6 +176,7 @@ export const downloadItemQrImage = async (item: ItemData): Promise<void> => {
 
 /**
  * Download selected item labels on A4 grid.
+ *
  * @param {ItemData[]} items - Items to print
  * @returns {Promise<void>} Completion promise
  */

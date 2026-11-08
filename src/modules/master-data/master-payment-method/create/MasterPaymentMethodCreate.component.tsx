@@ -10,6 +10,7 @@ import type { MasterPaymentMethodCreateFormState } from "./MasterPaymentMethodCr
 
 /**
  * Read validation message from React Hook Form.
+ *
  * @param {FieldError | undefined} error - Field validation error
  * @returns {string | null} Validation message
  */
@@ -24,6 +25,7 @@ const _getFieldError = (error: FieldError | undefined): string | null =>
 
 /**
  * Render mobile back bar.
+ *
  * @param {boolean} isEditMode - Edit mode flag
  * @param {() => void} goBack - Back action
  * @returns {ReactElement} Back bar
@@ -50,6 +52,7 @@ const _renderMobileBack = (
 
 /**
  * Render desktop page header.
+ *
  * @param {boolean} isEditMode - Edit mode flag
  * @param {() => void} goBack - Back action
  * @returns {ReactElement} Page header
@@ -82,6 +85,7 @@ const FIELD_CLASS_NAME = "!mb-0 [&_.ant-input]:!rounded-2xl [&_.ant-input]:!bord
 
 /**
  * Render payment method name field.
+ *
  * @param {MasterPaymentMethodCreateFormState} props - Form state
  * @returns {ReactElement} Name field
  */
@@ -109,6 +113,7 @@ const _renderNameField = (
 
 /**
  * Render payment method description field.
+ *
  * @param {MasterPaymentMethodCreateFormState} props - Form state
  * @returns {ReactElement} Description field
  */
@@ -136,6 +141,7 @@ const _renderDescriptionField = (
 
 /**
  * Render payment method fields.
+ *
  * @param {MasterPaymentMethodCreateFormState} props - Form state
  * @returns {ReactElement} Fields grid
  */
@@ -151,6 +157,7 @@ const _renderFields = (
 
 /**
  * Render status switch field.
+ *
  * @param {MasterPaymentMethodCreateFormState} props - Form state
  * @returns {ReactElement | null} Status field
  */
@@ -177,6 +184,7 @@ const _renderStatusField = (
 
 /**
  * Render form actions.
+ *
  * @param {MasterPaymentMethodCreateFormState} props - Form state
  * @returns {ReactElement} Form actions
  */
@@ -210,6 +218,7 @@ const _renderActions = (
 
 /**
  * Render form card.
+ *
  * @param {MasterPaymentMethodCreateFormState} props - Form state
  * @returns {ReactElement} Form card
  */
@@ -230,6 +239,7 @@ const _renderForm = (
 
 /**
  * Render payment method create/edit form.
+ *
  * @param {MasterPaymentMethodCreateFormState} props - Form state
  * @returns {ReactElement} Form
  */

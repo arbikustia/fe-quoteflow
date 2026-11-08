@@ -1,8 +1,6 @@
 import * as React from "react";
 import { FiEdit2 } from "react-icons/fi";
 
-import { CustomerMobileCard, formatCustomerDisplayValue, getCustomerRowNumber } from "./MasterCustomer.helpers";
-import type { CustomerData, MasterCustomerProps } from "./MasterCustomer.type";
 import Layout from "../../../app/layout";
 import { PageLayout } from "../../../app/shared/PageLayout";
 import { Pagination } from "../../../components/Pagination";
@@ -10,8 +8,12 @@ import { SearchFilter } from "../../../components/SearchFilter";
 import type { TableColumn } from "../../../components/Table";
 import Table from "../../../components/Table";
 
+import { CustomerMobileCard, formatCustomerDisplayValue, getCustomerRowNumber } from "./MasterCustomer.helpers";
+import type { CustomerData, MasterCustomerProps } from "./MasterCustomer.type";
+
 /**
  * Render customer status cell.
+ *
  * @param {CustomerData} row - Customer row data
  * @returns {React.ReactElement} Status cell
  */
@@ -28,13 +30,15 @@ const _renderStatus = (row: CustomerData): React.ReactElement => {
 
 /**
  * Render customer action cell.
+ *
  * @param {CustomerData} row - Customer row data
  * @param {(customer: CustomerData) => void} onEdit - Edit handler
  * @returns {React.ReactElement} Action cell
  */
 const _renderActions = (row: CustomerData, onEdit: (customer: CustomerData) => void): React.ReactElement => {
-  /**
+    /**
    * Handle edit button.
+   *
    * @param {React.MouseEvent} event - Mouse event
    * @returns {void} No return value
    */
@@ -60,6 +64,7 @@ const _renderActions = (row: CustomerData, onEdit: (customer: CustomerData) => v
 
 /**
  * Render customer row number cell.
+ *
  * @param {CustomerData} _row - Customer row data
  * @param {number} index - Zero-based row index
  * @param {number} currentPage - Active page
@@ -72,6 +77,7 @@ const _renderNumber = (_row: CustomerData, index: number, currentPage: number, p
 
 /**
  * Render customer name cell.
+ *
  * @param {CustomerData} row - Customer row data
  * @returns {React.ReactElement} Name cell
  */
@@ -81,6 +87,7 @@ const _renderCustomerName = (row: CustomerData): React.ReactElement => (
 
 /**
  * Render customer email cell.
+ *
  * @param {CustomerData} row - Customer row data
  * @returns {React.ReactElement} Email cell
  */
@@ -90,6 +97,7 @@ const _renderEmail = (row: CustomerData): React.ReactElement => (
 
 /**
  * Render customer address cell.
+ *
  * @param {CustomerData} row - Customer row data
  * @returns {React.ReactElement} Address cell
  */
@@ -99,6 +107,7 @@ const _renderAddress = (row: CustomerData): React.ReactElement => (
 
 /**
  * Render customer phone number cell.
+ *
  * @param {CustomerData} row - Customer row data
  * @returns {React.ReactElement} Phone number cell
  */
@@ -108,22 +117,25 @@ const _renderPhoneNumber = (row: CustomerData): React.ReactElement => (
 
 /**
  * Build customer table columns.
+ *
  * @param {number} currentPage - Active page
  * @param {number} pageSize - Active page size
  * @param {(customer: CustomerData) => void} onEdit - Edit handler
  * @returns {TableColumn<CustomerData>[]} Customer columns
  */
 const _getColumns = (currentPage: number, pageSize: number, onEdit: (customer: CustomerData) => void): TableColumn<CustomerData>[] => {
-  /**
+    /**
    * Render customer number.
+   *
    * @param {CustomerData} row - Customer row data
    * @param {number} index - Zero-based row index
    * @returns {React.ReactElement} Number cell
    */
   const renderNumber = (row: CustomerData, index: number): React.ReactElement => _renderNumber(row, index, currentPage, pageSize);
 
-  /**
+    /**
    * Render customer action.
+   *
    * @param {CustomerData} row - Customer row data
    * @returns {React.ReactElement} Action cell
    */
@@ -142,6 +154,7 @@ const _getColumns = (currentPage: number, pageSize: number, onEdit: (customer: C
 
 /**
  * Render loading, empty, and error states.
+ *
  * @param {MasterCustomerProps} props - The component props
  * @returns {React.ReactElement | null} The state element when no rows should render
  */
@@ -159,6 +172,7 @@ const _renderListState = (props: MasterCustomerProps): React.ReactElement | null
 
 /**
  * Render action cell skeleton.
+ *
  * @returns {React.ReactElement} Skeleton action cell
  */
 const _renderActionSkeleton = (): React.ReactElement => (
@@ -169,6 +183,7 @@ const _renderActionSkeleton = (): React.ReactElement => (
 
 /**
  * Render single skeleton row in customer table.
+ *
  * @param {TableColumn<CustomerData>[]} columns - Table columns
  * @param {string[]} widths - Column widths
  * @param {number} rowIndex - Row index
@@ -193,6 +208,7 @@ const _renderSkeletonRow = (columns: TableColumn<CustomerData>[], widths: string
 
 /**
  * Render customer table skeleton with matching columns.
+ *
  * @param {MasterCustomerProps} props - Component props
  * @returns {React.ReactElement} Customer table skeleton
  */
@@ -225,6 +241,7 @@ const _renderTableSkeleton = (props: MasterCustomerProps): React.ReactElement =>
 
 /**
  * Render customer mobile card skeleton.
+ *
  * @param {number} key - Skeleton key
  * @returns {React.ReactElement} Customer mobile card skeleton
  */
@@ -254,6 +271,7 @@ const _renderMobileCardSkeleton = (key: number): React.ReactElement => (
 
 /**
  * Render desktop toolbar with search and create button.
+ *
  * @param {(event: React.ChangeEvent<HTMLInputElement>) => void} handleSearch - Search change handler
  * @param {() => void} onCreate - Create handler
  * @returns {React.ReactElement} Toolbar element
@@ -281,6 +299,7 @@ const _renderDesktopToolbar = (
 
 /**
  * Render desktop table view.
+ *
  * @param {MasterCustomerProps} props - The component props
  * @returns {React.ReactElement} The desktop table element
  */
@@ -288,8 +307,9 @@ const _renderDesktopTable = (props: MasterCustomerProps): React.ReactElement => 
   const { paginatedData, currentPage, totalPages, goToPage, pageSize, changePageSize, onRowClick, onCreate, setSearchTerm, totalCount, onEdit } = props;
   const columns = _getColumns(currentPage, pageSize, onEdit);
 
-  /**
+    /**
    * Handle search input change.
+   *
    * @param {React.ChangeEvent<HTMLInputElement>} event - The change event
    * @returns {void}
    */
@@ -324,14 +344,16 @@ const _renderDesktopTable = (props: MasterCustomerProps): React.ReactElement => 
 
 /**
  * Render mobile customer cards list view.
+ *
  * @param {MasterCustomerProps} props - The component props
  * @returns {React.ReactElement} The mobile list element
  */
 const _renderMobileCards = (props: MasterCustomerProps): React.ReactElement => {
   const { paginatedData, currentPage, totalPages, goToPage, pageSize, changePageSize, setSearchTerm, totalCount, onEdit } = props;
 
-  /**
+    /**
    * Handle mobile search input.
+   *
    * @param {React.ChangeEvent<HTMLInputElement>} event - Search change event
    * @returns {void}
    */
@@ -369,6 +391,7 @@ const _renderMobileCards = (props: MasterCustomerProps): React.ReactElement => {
 
 /**
  * Master Customer Component.
+ *
  * @param {MasterCustomerProps} props - The component props
  * @returns {React.ReactElement} The component
  */

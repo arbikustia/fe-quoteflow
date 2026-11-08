@@ -9,6 +9,7 @@ import type { UserRouteState } from "./MasterUser.type";
 
 /**
  * Master User Container
+ *
  * @returns {React.ReactElement} Container component
  */
 const MasterUserContainer = (): React.ReactElement => {

@@ -10,6 +10,7 @@ import type { MasterOrderTypeCreateFormState } from "./MasterOrderTypeCreate.typ
 
 /**
  * Read validation message from React Hook Form.
+ *
  * @param {FieldError | undefined} error - Field validation error
  * @returns {string | null} Validation message
  */
@@ -17,6 +18,7 @@ const _getFieldError = (error: FieldError | undefined): string | null => error?.
 
 /**
  * Render name field
+ *
  * @param {MasterOrderTypeCreateFormState} props - Form state
  * @returns {ReactElement} Field element
  */
@@ -47,6 +49,7 @@ const _renderNameField = (props: MasterOrderTypeCreateFormState): ReactElement =
 
 /**
  * Render handover switch field.
+ *
  * @param {MasterOrderTypeCreateFormState} props - Form state
  * @returns {ReactElement} Field element
  */
@@ -69,6 +72,7 @@ const _renderHandoverField = (props: MasterOrderTypeCreateFormState): ReactEleme
 
 /**
  * Render status switch field (edit mode only)
+ *
  * @param {MasterOrderTypeCreateFormState} props - Form state
  * @returns {ReactElement | null} Field element
  */
@@ -98,6 +102,7 @@ const _renderStatusField = (props: MasterOrderTypeCreateFormState): ReactElement
 
 /**
  * Render mobile top back bar
+ *
  * @param {boolean} isEditMode - Edit mode flag
  * @param {() => void} goBack - Back action
  * @returns {ReactElement} Bar element
@@ -120,6 +125,7 @@ const _renderMobileBack = (isEditMode: boolean, goBack: () => void): ReactElemen
 
 /**
  * Render page header with breadcrumb
+ *
  * @param {boolean} isEditMode - Edit mode flag
  * @param {() => void} goBack - Back action
  * @returns {ReactElement} Header section
@@ -148,8 +154,10 @@ const _renderHeaderSection = (isEditMode: boolean, goBack: () => void): ReactEle
 
 /**
  * Render submit button section
+ *
  * @param {boolean} isSubmitting - Submitting state
  * @param {boolean} isEditMode - Edit mode flag
+ * @param {() => void} goBack - Go back
  * @returns {ReactElement} Submit section
  */
 const _renderSubmitSection = (isSubmitting: boolean, isEditMode: boolean, goBack: () => void): ReactElement => {
@@ -180,6 +188,7 @@ const _renderSubmitSection = (isSubmitting: boolean, isEditMode: boolean, goBack
 
 /**
  * Master Order Type Create / Edit Form Component
+ *
  * @param {MasterOrderTypeCreateFormState} props - Form state and handlers
  * @returns {ReactElement} The rendered form
  */

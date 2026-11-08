@@ -4,7 +4,7 @@ import { MemoryRouter } from "react-router-dom";
 import { MasterItemComponent } from "./MasterItem.component";
 import type { ItemData } from "./MasterItem.type";
 
-jest.mock("../../app/layout", () => ({
+jest.mock("../../../app/layout", () => ({
   __esModule: true,
   default: ({ children }: { children: React.ReactNode }) => React.createElement("div", {}, children),
 }));

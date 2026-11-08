@@ -1,7 +1,6 @@
 import * as React from "react";
 import { FiEdit2 } from "react-icons/fi";
 
-import type { MasterUserProps, UserData } from "./MasterUser.type";
 import Layout from "../../../app/layout";
 import { PageLayout } from "../../../app/shared/PageLayout";
 import { Pagination } from "../../../components/Pagination";
@@ -10,8 +9,11 @@ import type { TableColumn } from "../../../components/Table";
 import Table from "../../../components/Table";
 import { formatIndonesianDateTime } from "../../../utils/date.helpers";
 
+import type { MasterUserProps, UserData } from "./MasterUser.type";
+
 /**
  * Render user row number.
+ *
  * @param {number} currentPage - Current page
  * @param {number} pageSize - Page size
  * @param {number} index - Row index
@@ -23,6 +25,7 @@ const _renderNumber = (currentPage: number, pageSize: number, index: number): Re
 
 /**
  * Render username.
+ *
  * @param {UserData} user - User row
  * @returns {React.ReactElement} Username cell
  */
@@ -32,6 +35,7 @@ const _renderUsername = (user: UserData): React.ReactElement => (
 
 /**
  * Render email.
+ *
  * @param {UserData} user - User row
  * @returns {React.ReactElement} Email cell
  */
@@ -41,6 +45,7 @@ const _renderEmail = (user: UserData): React.ReactElement => (
 
 /**
  * Render role.
+ *
  * @param {UserData} user - User row
  * @returns {React.ReactElement} Role cell
  */
@@ -50,6 +55,7 @@ const _renderRole = (user: UserData): React.ReactElement => (
 
 /**
  * Render creation date.
+ *
  * @param {UserData} user - User row
  * @returns {React.ReactElement} Date cell
  */
@@ -59,12 +65,17 @@ const _renderDate = (user: UserData): React.ReactElement => (
 
 /**
  * Render row actions.
+ *
  * @param {UserData} user - User row
  * @param {MasterUserProps["onEdit"]} onEdit - Edit handler
  * @returns {React.ReactElement} Action cell
  */
 const _renderActions = (user: UserData, onEdit: MasterUserProps["onEdit"]): React.ReactElement => {
-  /** Handle edit click. */
+    /**
+   * Handle edit click.
+   *
+   * @param {React.MouseEvent} event - Event
+   */
   const handleEdit = (event: React.MouseEvent): void => {
     event.stopPropagation();
     onEdit(user);
@@ -81,11 +92,21 @@ const _renderActions = (user: UserData, onEdit: MasterUserProps["onEdit"]): Reac
 
 /**
  * Build user table columns.
+ *
  * @param {MasterUserProps} props - Component props
  * @returns {TableColumn<UserData>[]} User columns
  */
 const _getColumns = (props: MasterUserProps): TableColumn<UserData>[] => {
+    /**
+   * @param {UserData} _user - User
+   * @param {number} index - Index
+   * @returns {React.ReactElement} Rendered element
+   */
   const renderNumber = (_user: UserData, index: number): React.ReactElement => _renderNumber(props.currentPage, props.pageSize, index);
+    /**
+   * @param {UserData} user - User
+   * @returns {React.ReactElement} Rendered element
+   */
   const renderActions = (user: UserData): React.ReactElement => _renderActions(user, props.onEdit);
 
   return [
@@ -100,6 +121,7 @@ const _getColumns = (props: MasterUserProps): TableColumn<UserData>[] => {
 
 /**
  * Render user list state.
+ *
  * @param {MasterUserProps} props - Component props
  * @returns {React.ReactElement | null} List state
  */
@@ -111,7 +133,11 @@ const _renderListState = (props: MasterUserProps): React.ReactElement | null => 
   return null;
 };
 
-/** Render action skeleton. */
+/**
+ * Render action skeleton.
+ *
+ * @returns {React.ReactElement} Rendered element
+ */
 const _renderActionSkeleton = (): React.ReactElement => (
   <div className="flex justify-center gap-1">
     <span className="h-10 w-10 rounded-3xl bg-background-subtle" />
@@ -120,6 +146,7 @@ const _renderActionSkeleton = (): React.ReactElement => (
 
 /**
  * Render table skeleton.
+ *
  * @param {MasterUserProps} props - Component props
  * @returns {React.ReactElement} Table skeleton
  */
@@ -157,6 +184,7 @@ const _renderTableSkeleton = (props: MasterUserProps): React.ReactElement => {
 
 /**
  * Render mobile card skeleton.
+ *
  * @param {number} key - Skeleton key
  * @returns {React.ReactElement} Card skeleton
  */
@@ -175,11 +203,15 @@ const _renderMobileCardSkeleton = (key: number): React.ReactElement => (
 
 /**
  * Render mobile user card.
+ *
  * @param {UserData} user - User data
  * @param {MasterUserProps["onEdit"]} onEdit - Edit action
  * @returns {React.ReactElement} User card
  */
 const _renderUserCard = (user: UserData, onEdit: MasterUserProps["onEdit"]): React.ReactElement => {
+    /**
+   * @returns {void} Resolved value
+   */
   const handleClick = (): void => onEdit(user);
 
   return (
@@ -202,10 +234,15 @@ const _renderUserCard = (user: UserData, onEdit: MasterUserProps["onEdit"]): Rea
 
 /**
  * Render mobile user list.
+ *
  * @param {MasterUserProps} props - Component props
  * @returns {React.ReactElement} Mobile element
  */
 const _renderMobile = (props: MasterUserProps): React.ReactElement => {
+    /**
+   * @param {React.ChangeEvent<HTMLInputElement>} event - Event
+   * @returns {void} Resolved value
+   */
   const handleSearch = (event: React.ChangeEvent<HTMLInputElement>): void => props.setSearchTerm(event.target.value);
 
   return (
@@ -221,10 +258,15 @@ const _renderMobile = (props: MasterUserProps): React.ReactElement => {
 
 /**
  * Render desktop user table.
+ *
  * @param {MasterUserProps} props - Component props
  * @returns {React.ReactElement} Desktop element
  */
 const _renderDesktop = (props: MasterUserProps): React.ReactElement => {
+    /**
+   * @param {React.ChangeEvent<HTMLInputElement>} event - Event
+   * @returns {void} Resolved value
+   */
   const handleSearch = (event: React.ChangeEvent<HTMLInputElement>): void => props.setSearchTerm(event.target.value);
 
   return (
@@ -243,6 +285,7 @@ const _renderDesktop = (props: MasterUserProps): React.ReactElement => {
 
 /**
  * Render master user page component.
+ *
  * @param {MasterUserProps} props - Component props
  * @returns {React.ReactElement} Page element
  */

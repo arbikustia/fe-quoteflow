@@ -1,4 +1,3 @@
-/* eslint-disable jsdoc/require-param, jsdoc/require-returns */
 import type { ReactElement } from "react";
 import type { FieldError } from "react-hook-form";
 
@@ -9,10 +8,21 @@ import { SwitchComponent } from "@/components/Switch";
 
 import type { MasterPicCreateState } from "./MasterPicCreate.type";
 
-/** Read validation message. */
+/**
+ * Read validation message.
+ *
+ * @param {FieldError | undefined} error - Error
+ * @returns {string | null} Resolved value
+ */
 const _getFieldError = (error: FieldError | undefined): string | null => error?.message?.toString() ?? null;
 
-/** Render mobile back button. */
+/**
+ * Render mobile back button.
+ *
+ * @param {boolean} isEditMode - Whether edit mode
+ * @param {() => void} goBack - Go back
+ * @returns {ReactElement} Rendered element
+ */
 const _renderMobileBack = (isEditMode: boolean, goBack: () => void): ReactElement => {
   const title = isEditMode ? "Edit PIC" : "New PIC";
 
@@ -31,7 +41,13 @@ const _renderMobileBack = (isEditMode: boolean, goBack: () => void): ReactElemen
   );
 };
 
-/** Render page header. */
+/**
+ * Render page header.
+ *
+ * @param {boolean} isEditMode - Whether edit mode
+ * @param {() => void} goBack - Go back
+ * @returns {ReactElement} Rendered element
+ */
 const _renderHeader = (isEditMode: boolean, goBack: () => void): ReactElement => {
   const title = isEditMode ? "Edit PIC" : "New PIC";
   const subtitle = isEditMode ? "Update the PIC details below." : "Fill in the PIC details below.";
@@ -67,8 +83,37 @@ const _renderHeader = (isEditMode: boolean, goBack: () => void): ReactElement =>
 };
 
 
-/** Render PIC fields. */
-// eslint-disable-next-line max-lines-per-function
+/**
+ * Render the PIC status toggle field.
+ *
+ * @param {MasterPicCreateState} props - Component props
+ * @returns {ReactElement | null} Status field
+ */
+const _renderStatusField = (props: MasterPicCreateState): ReactElement | null => {
+  if (!props.isEditMode) return null;
+
+  return (
+    <div className="flex items-center justify-between rounded-2xl border-2 border-border-strong bg-background-surface px-5 py-4 lg:col-span-2">
+      <div className="flex flex-col">
+        <div className="flex items-center gap-2.5">
+          <span className="text-lg font-normal text-text-primary">Status</span>
+          <span className={`inline-flex rounded-full border border-current px-3 py-0.5 text-base font-semibold uppercase ${props.isActive ? "bg-success-subtle text-success-strong" : "bg-danger-subtle text-danger-strong"}`}>
+            {props.isActive ? "active" : "inactive"}
+          </span>
+        </div>
+        <span className="text-base text-text-secondary">Toggle active or inactive status</span>
+      </div>
+      <SwitchComponent label="PIC status" checked={props.isActive} onChange={props.handleStatusChange} />
+    </div>
+  );
+};
+
+/**
+ * Render PIC fields.
+ *
+ * @param {MasterPicCreateState} props - Props
+ * @returns {ReactElement} Rendered element
+ */
 const _renderFields = (props: MasterPicCreateState): ReactElement => {
   const nameError = props.isSubmitted && !props.name ? "PIC name is required." : _getFieldError(props.errors?.name);
 
@@ -79,9 +124,7 @@ const _renderFields = (props: MasterPicCreateState): ReactElement => {
         type="text"
         label="PIC Name"
         className={`!mb-0 lg:col-span-2 [&_.ant-input]:!h-16 lg:[&_.ant-input]:!h-14 [&_.ant-input]:!rounded-2xl [&_.ant-input]:!border-2 ${
-          nameError
-            ? "[&_.ant-input]:!border-danger"
-            : "[&_.ant-input]:!border-border-strong"
+          nameError ? "[&_.ant-input]:!border-danger" : "[&_.ant-input]:!border-border-strong"
         } [&_.ant-input.ant-input-status-error]:!border-danger [&_.ant-input]:!px-4 [&_.ant-input]:!text-xl lg:[&_.ant-input]:!text-lg [&_.ant-input]:!font-normal [&_.ant-input]:placeholder:!text-xl lg:[&_.ant-input]:placeholder:!text-lg [&_.ant-input]:placeholder:!font-normal [&_label]:!text-lg lg:[&_label]:!text-lg [&_label]:!font-normal [&_label]:!normal-case [&_label]:!text-text-primary`}
         placeholder="e.g. John Doe"
         value={props.name}
@@ -89,25 +132,18 @@ const _renderFields = (props: MasterPicCreateState): ReactElement => {
         errorMessage={nameError ?? undefined}
         onChange={props.handleNameChange}
       />
-      {props.isEditMode && (
-        <div className="flex items-center justify-between rounded-2xl border-2 border-border-strong bg-background-surface px-5 py-4 lg:col-span-2">
-          <div className="flex flex-col">
-            <div className="flex items-center gap-2.5">
-              <span className="text-lg font-normal text-text-primary">Status</span>
-              <span className={`inline-flex rounded-full border border-current px-3 py-0.5 text-base font-semibold uppercase ${props.isActive ? "bg-success-subtle text-success-strong" : "bg-danger-subtle text-danger-strong"}`}>
-                {props.isActive ? "active" : "inactive"}
-              </span>
-            </div>
-            <span className="text-base text-text-secondary">Toggle active or inactive status</span>
-          </div>
-          <SwitchComponent label="PIC status" checked={props.isActive} onChange={props.handleStatusChange} />
-        </div>
-      )}
+      {_renderStatusField(props)}
     </div>
   );
 };
 
-/** Resolve submit text. */
+/**
+ * Resolve submit text.
+ *
+ * @param {boolean} isSubmitting - Whether submitting
+ * @param {boolean} isEditMode - Whether edit mode
+ * @returns {string} Resolved string
+ */
 const _resolveSubmitText = (isSubmitting: boolean, isEditMode: boolean): string => {
   if (isSubmitting) {
     return isEditMode ? "Updating…" : "Creating…";
@@ -117,7 +153,8 @@ const _resolveSubmitText = (isSubmitting: boolean, isEditMode: boolean): string 
 };
 
 /**
- *
+ * @param {MasterPicCreateState} props - Props
+ * @returns {ReactElement} Rendered element
  */
 const _renderAction = (props: MasterPicCreateState): ReactElement => {
   const actionText = _resolveSubmitText(props.isSubmitting, props.isEditMode);
@@ -144,7 +181,12 @@ const _renderAction = (props: MasterPicCreateState): ReactElement => {
 };
 
 
-/** Render PIC create/edit form. */
+/**
+ * Render PIC create/edit form.
+ *
+ * @param {MasterPicCreateState} props - Props
+ * @returns {ReactElement} Rendered element
+ */
 export const MasterPicCreateForm = (props: MasterPicCreateState): ReactElement => {
   if (props.isLoadingInitialData) return <p className="py-12 text-center text-sm text-text-secondary">Loading PIC data…</p>;
 

@@ -176,8 +176,9 @@ describe("MasterProjectCreate.hook", () => {
     expect(mockCreateProject).toHaveBeenCalledWith({
       name: "Project Alpha",
       remark: "",
+      price: 0,
       status: 1,
-      items: [{ item_id: "item-1", qty: 1 }],
+      items: [{ item_id: "item-1", qty: 1, price: 1000 }],
     });
     expect(mockNavigate).toHaveBeenCalledWith("/master-project", {
       state: { successMessage: "Project created successfully." },

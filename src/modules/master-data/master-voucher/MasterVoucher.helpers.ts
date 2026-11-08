@@ -1,5 +1,6 @@
-import type { VoucherData } from "./MasterVoucher.type";
 import voucherTemplate from "../../../assets/voucher_template.jpeg";
+
+import type { VoucherData } from "./MasterVoucher.type";
 
 const VOUCHER_WIDTH = 1600;
 const VOUCHER_HEIGHT = 800;
@@ -10,6 +11,7 @@ const CODE_ORANGE = "#F04416";
 
 /**
  * Build a safe JPEG filename for a voucher download.
+ *
  * @param {VoucherData} voucher - Voucher row
  * @returns {string} Download filename
  */
@@ -18,6 +20,7 @@ export const getVoucherDownloadFilename = (voucher: VoucherData): string =>
 
 /**
  * Load an image resource.
+ *
  * @param {string} source - Image source URL
  * @returns {Promise<HTMLImageElement>} Loaded image
  */
@@ -41,6 +44,7 @@ const _loadImage = (source: string): Promise<HTMLImageElement> =>
 
 /**
  * Draw voucher discount onto canvas.
+ *
  * @param {CanvasRenderingContext2D} context - Canvas context
  * @param {number} discountPercent - Discount value
  * @returns {void} No return value
@@ -67,6 +71,7 @@ const _drawVoucherDiscount = (
 
 /**
  * Draw voucher code card onto canvas.
+ *
  * @param {CanvasRenderingContext2D} context - Canvas context
  * @param {string} code - Voucher code
  * @returns {void} No return value
@@ -112,6 +117,7 @@ const _drawVoucherCode = (
 /**
  * Download a 1600 x 800 JPEG from source template artwork.
  * Only discount and voucher code values are dynamic.
+ *
  * @param {VoucherData} voucher - Voucher row data
  * @returns {Promise<void>} Resolves after download starts
  */

@@ -29,28 +29,26 @@ const _resolveErrorMessage = (hasError: boolean, isMissingData: boolean): string
 };
 
 /**
- * Load invoice detail and expose navigation.
- * @returns {InvoiceDetailState} - invoice detail state
+ * Manage invoice approval flow.
+ * @param {ApiInvoice | null} invoice - Invoice detail
+ * @param {string} [id] - Route invoice ID
+ * @returns {{isApproving: boolean; isConfirmOpen: boolean; submissionError: string | null; openApproveModal: () => void; closeApproveModal: () => void; handleApprove: () => Promise<void>}} Approval state
  */
-// eslint-disable-next-line max-lines-per-function
-export const useInvoiceDetail = (): InvoiceDetailState => {
+const useInvoiceApproval = (
+  invoice: ApiInvoice | null,
+  id?: string,
+): {
+  isApproving: boolean;
+  isConfirmOpen: boolean;
+  submissionError: string | null;
+  openApproveModal: () => void;
+  closeApproveModal: () => void;
+  handleApprove: () => Promise<void>;
+} => {
   const navigate = useNavigate();
-  const { id } = useParams<{ id: string }>();
-  const { data, error, isLoading } = useGetInvoiceByIdQuery(id ?? "", {
-    skip: !id,
-    refetchOnMountOrArgChange: true,
-  });
   const [approveInvoice, { isLoading: isApproving }] = useApproveInvoiceMutation();
   const [isConfirmOpen, setIsConfirmOpen] = useState(false);
   const [submissionError, setSubmissionError] = useState<string | null>(null);
-  const invoice = data?.status && data.data ? data.data : null;
-  const errorMessage = submissionError ?? _resolveErrorMessage(Boolean(error), Boolean(data && !data.status));
-
-  /**
-   * Navigate back from invoice detail.
-   * @returns {void} - no return value
-   */
-  const goBack = (): void => { void navigate(-1); };
 
   /**
    * Open approval confirmation.
@@ -63,6 +61,52 @@ export const useInvoiceDetail = (): InvoiceDetailState => {
    * @returns {void} No return value
    */
   const closeApproveModal = (): void => setIsConfirmOpen(false);
+
+  /**
+   * Approve current invoice.
+   * @returns {Promise<void>} Completion promise
+   */
+  const handleApprove = async (): Promise<void> => {
+    if (!id || !invoice) return;
+
+    setSubmissionError(null);
+
+    try {
+      const response = await approveInvoice({ id: invoice.id || id }).unwrap();
+
+      if (!response.status) {
+        setSubmissionError(response.messages.join(" ") || "Unable to approve invoice.");
+
+        return;
+      }
+
+      setIsConfirmOpen(false);
+      void navigate("/document/invoice");
+    } catch {
+      setSubmissionError("Unable to approve invoice.");
+    }
+  };
+
+  return { isApproving, isConfirmOpen, submissionError, openApproveModal, closeApproveModal, handleApprove };
+};
+
+/**
+ * Load invoice detail and expose navigation.
+ * @returns {InvoiceDetailState} - invoice detail state
+ */
+export const useInvoiceDetail = (): InvoiceDetailState => {
+  const navigate = useNavigate();
+  const { id } = useParams<{ id: string }>();
+  const { data, error, isLoading } = useGetInvoiceByIdQuery(id ?? "", { skip: !id, refetchOnMountOrArgChange: true });
+  const invoice = data?.status && data.data ? data.data : null;
+  const approval = useInvoiceApproval(invoice, id);
+  const queryError = _resolveErrorMessage(Boolean(error), Boolean(data && !data.status));
+
+  /**
+   * Navigate back from invoice detail.
+   * @returns {void} - no return value
+   */
+  const goBack = (): void => { void navigate(-1); };
 
   /**
    * Open order form in transaction edit mode.
@@ -80,44 +124,17 @@ export const useInvoiceDetail = (): InvoiceDetailState => {
     });
   };
 
-  /**
-   * Approve current invoice.
-   * @returns {Promise<void>} Completion promise
-   */
-  const handleApprove = async (): Promise<void> => {
-    if (!id || !invoice) return;
-
-    setSubmissionError(null);
-
-    try {
-      const response = await approveInvoice({
-        id: invoice.id ?? id,
-      }).unwrap();
-
-      if (!response.status) {
-        setSubmissionError(response.messages?.join(" ") || "Unable to approve invoice.");
-
-        return;
-      }
-
-      closeApproveModal();
-      void navigate("/document/invoice");
-    } catch {
-      setSubmissionError("Unable to approve invoice.");
-    }
-  };
-
   return {
     invoice,
     isLoading,
-    isApproving,
-    isConfirmOpen,
-    errorMessage,
+    isApproving: approval.isApproving,
+    isConfirmOpen: approval.isConfirmOpen,
+    errorMessage: approval.submissionError ?? queryError,
     goBack,
     goEdit: handleEdit,
     handleEdit,
-    openApproveModal,
-    closeApproveModal,
-    handleApprove,
+    openApproveModal: approval.openApproveModal,
+    closeApproveModal: approval.closeApproveModal,
+    handleApprove: approval.handleApprove,
   };
 };

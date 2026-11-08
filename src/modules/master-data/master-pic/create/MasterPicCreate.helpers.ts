@@ -1,5 +1,6 @@
 /**
  * Validate required PIC fields.
+ *
  * @param {string} name - PIC name
  * @returns {string | null} Validation error
  */

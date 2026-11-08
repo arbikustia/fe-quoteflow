@@ -3,7 +3,7 @@ import { fireEvent, render, screen } from "@/libs/unit-test";
 import * as React from "react";
 import { MemoryRouter } from "react-router-dom";
 
-jest.mock("../../../app/layout", () => ({
+jest.mock("@/app/layout", () => ({
   __esModule: true,
   default: ({ children }: { children: React.ReactNode }) => React.createElement("div", {}, children),
 }));

@@ -1,6 +1,8 @@
 import type { ChangeEvent, SyntheticEvent } from "react";
 import type { FieldErrors, UseFormRegister } from "react-hook-form";
 
+import type { useCreateCustomerMutation, useUpdateCustomerMutation } from "@/services/master-customer.service";
+
 export type CustomerFormValues = {
   name: string;
   email: string;
@@ -44,6 +46,27 @@ export type CustomerFormFields = {
   handlePhoneNumberChange: (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
   handleAddressChange: (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
   handleStatusChange: () => void;
+};
+
+export type CustomerFormHandlers = Pick<
+  CustomerFormFields,
+  "handleNameChange" | "handleEmailChange" | "handlePhoneNumberChange" | "handleAddressChange" | "handleStatusChange"
+>;
+
+export type CustomerRequestContext = {
+  id?: string;
+  isEditMode: boolean;
+  isActive: boolean;
+  values: CustomerFormValues;
+  createCustomer: ReturnType<typeof useCreateCustomerMutation>[0];
+  updateCustomer: ReturnType<typeof useUpdateCustomerMutation>[0];
+};
+
+export type CustomerSubmitContext = CustomerRequestContext & {
+  validateForm: () => Promise<boolean>;
+  navigate: (path: string, options: { state: { successMessage: string } }) => void;
+  setErrorMessage: (message?: string) => void;
+  setSuccessMessage: (message?: string) => void;
 };
 
 export type CustomerFieldConfig = {

@@ -1,14 +1,21 @@
+import * as React from "react";
 
 import test from "@/libs/unit-test";
 
+import type { TableColumn } from "../../../components/Table";
+
 import { MasterItemComponent } from "./MasterItem.component";
 import type { ItemData } from "./MasterItem.type";
-import type { TableColumn } from "../../../components/Table";
 
 jest.useFakeTimers();
 jest.setSystemTime(new Date("2026-10-18T00:31:00+07:00"));
 
 afterAll(() => jest.useRealTimers());
+
+jest.mock("../../../app/layout", () => ({
+  __esModule: true,
+  default: jest.fn(({ children }: { children: React.ReactNode }): React.ReactElement => React.createElement(React.Fragment, {}, children)),
+}));
 
 const mockItems: ItemData[] = [
   {

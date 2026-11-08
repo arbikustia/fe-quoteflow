@@ -9,6 +9,7 @@ import type { PaymentTypeRouteState } from "./MasterPaymentType.type";
 
 /**
  * Master Payment Type Container.
+ *
  * @returns {React.ReactElement} Container component
  */
 const MasterPaymentTypeContainer = (): React.ReactElement => {

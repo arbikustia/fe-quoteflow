@@ -9,12 +9,36 @@ import {
 } from "@/services/payment.service";
 
 /**
+ * Manage payment detail navigation.
+ * @param {PaymentData | null} payment - Payment data
+ * @param {string} [id] - Payment ID
+ * @returns {Pick<PaymentDetailState, "goBack" | "handleEdit" | "handleStatus">} Navigation handlers
+ */
+const usePaymentDetailNavigation = (
+  payment: PaymentData | null,
+  id?: string,
+): Pick<PaymentDetailState, "goBack" | "handleEdit" | "handleStatus"> => {
+  const navigate = useNavigate();
+
+  /** Navigate back. @returns {void} No return value */
+  const goBack = (): void => { void navigate("/document/payment"); };
+  /** Navigate to edit. @returns {void} No return value */
+  const handleEdit = (): void => {
+    if (id && payment) void navigate(`/document/payment/${id}/edit`, { state: payment });
+  };
+  /** Navigate to status. @returns {void} No return value */
+  const handleStatus = (): void => {
+    if (id && payment) void navigate(`/document/payment/${id}/status`, { state: payment });
+  };
+
+  return { goBack, handleEdit, handleStatus };
+};
+
+/**
  * Manage payment detail state.
  * @returns {PaymentDetailState} Payment detail state
  */
-// eslint-disable-next-line max-lines-per-function
 export const usePaymentDetail = (): PaymentDetailState => {
-  const navigate = useNavigate();
   const location = useLocation();
   const { id } = useParams<{ id: string }>();
   const routeState = location.state as { payment?: PaymentData } | PaymentData | null;
@@ -43,33 +67,7 @@ export const usePaymentDetail = (): PaymentDetailState => {
     errorMessage = error ? "Unable to load payment detail." : "Payment detail is unavailable.";
   }
 
-  /**
-   * Navigate back to payment list.
-   * @returns {void}
-   */
-  const goBack = (): void => {
-    void navigate("/document/payment");
-  };
-
-  /**
-   * Navigate to payment edit page.
-   * @returns {void}
-   */
-  const handleEdit = (): void => {
-    if (!id || !payment) return;
-
-    void navigate(`/document/payment/${id}/edit`, { state: payment });
-  };
-
-  /**
-   * Navigate to payment status page.
-   * @returns {void}
-   */
-  const handleStatus = (): void => {
-    if (!id || !payment) return;
-
-    void navigate(`/document/payment/${id}/status`, { state: payment });
-  };
+  const navigation = usePaymentDetailNavigation(payment, id);
 
   return {
     payment,
@@ -78,8 +76,8 @@ export const usePaymentDetail = (): PaymentDetailState => {
     methodName: paymentEntries[0]?.payment_method_name ?? payment?.paymentMethodId,
     isLoading: isLoading && !payment,
     errorMessage,
-    goBack,
-    handleEdit,
-    handleStatus,
+    goBack: navigation.goBack,
+    handleEdit: navigation.handleEdit,
+    handleStatus: navigation.handleStatus,
   };
 };

@@ -9,6 +9,7 @@ import type { ProjectRouteState } from "./MasterProject.type";
 
 /**
  * Master Project Container
+ *
  * @returns {React.ReactElement} Container component
  */
 const MasterProjectContainer = (): React.ReactElement => {

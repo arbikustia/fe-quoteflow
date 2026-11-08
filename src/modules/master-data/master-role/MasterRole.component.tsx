@@ -1,8 +1,6 @@
 import * as React from "react";
 import { FiEdit2 } from "react-icons/fi";
 
-import { formatRoleDate } from "./MasterRole.helpers";
-import type { MasterRoleProps, RoleData } from "./MasterRole.type";
 import Layout from "../../../app/layout";
 import { PageLayout } from "../../../app/shared/PageLayout";
 import { Pagination } from "../../../components/Pagination";
@@ -10,8 +8,12 @@ import { SearchFilter } from "../../../components/SearchFilter";
 import type { TableColumn } from "../../../components/Table";
 import Table from "../../../components/Table";
 
+import { formatRoleDate } from "./MasterRole.helpers";
+import type { MasterRoleProps, RoleData } from "./MasterRole.type";
+
 /**
  * Render role row number.
+ *
  * @param {number} currentPage - Current page
  * @param {number} pageSize - Page size
  * @param {number} index - Row index
@@ -23,6 +25,7 @@ const _renderNumber = (currentPage: number, pageSize: number, index: number): Re
 
 /**
  * Render role name.
+ *
  * @param {RoleData} role - Role row
  * @returns {React.ReactElement} Name cell
  */
@@ -32,6 +35,7 @@ const _renderRoleName = (role: RoleData): React.ReactElement => (
 
 /**
  * Render role status.
+ *
  * @param {RoleData} role - Role row
  * @returns {React.ReactElement} Status cell
  */
@@ -43,6 +47,7 @@ const _renderStatus = (role: RoleData): React.ReactElement => (
 
 /**
  * Render role creation date.
+ *
  * @param {RoleData} role - Role row
  * @returns {React.ReactElement} Date cell
  */
@@ -52,12 +57,17 @@ const _renderDate = (role: RoleData): React.ReactElement => (
 
 /**
  * Render role row actions.
+ *
  * @param {RoleData} role - Role row
  * @param {MasterRoleProps["onEdit"]} onEdit - Edit handler
  * @returns {React.ReactElement} Action cell
  */
 const _renderActions = (role: RoleData, onEdit: MasterRoleProps["onEdit"]): React.ReactElement => {
-  /** Handle edit click. */
+    /**
+   * Handle edit click.
+   *
+   * @param {React.MouseEvent} event - Event
+   */
   const handleEdit = (event: React.MouseEvent): void => {
     event.stopPropagation();
     onEdit(role);
@@ -74,11 +84,21 @@ const _renderActions = (role: RoleData, onEdit: MasterRoleProps["onEdit"]): Reac
 
 /**
  * Build role table columns.
+ *
  * @param {MasterRoleProps} props - Component props
  * @returns {TableColumn<RoleData>[]} Role columns
  */
 const _getColumns = (props: MasterRoleProps): TableColumn<RoleData>[] => {
+    /**
+   * @param {RoleData} _role - Role
+   * @param {number} index - Index
+   * @returns {React.ReactElement} Rendered element
+   */
   const renderNumber = (_role: RoleData, index: number): React.ReactElement => _renderNumber(props.currentPage, props.pageSize, index);
+    /**
+   * @param {RoleData} role - Role
+   * @returns {React.ReactElement} Rendered element
+   */
   const renderActions = (role: RoleData): React.ReactElement => _renderActions(role, props.onEdit);
 
   return [
@@ -92,6 +112,7 @@ const _getColumns = (props: MasterRoleProps): TableColumn<RoleData>[] => {
 
 /**
  * Render role list state.
+ *
  * @param {MasterRoleProps} props - Component props
  * @returns {React.ReactElement | null} List state
  */
@@ -105,7 +126,11 @@ const _renderListState = (props: MasterRoleProps): React.ReactElement | null => 
   return null;
 };
 
-/** Render action skeleton. */
+/**
+ * Render action skeleton.
+ *
+ * @returns {React.ReactElement} Rendered element
+ */
 const _renderActionSkeleton = (): React.ReactElement => (
   <div className="flex justify-center gap-1">
     <span className="h-10 w-10 rounded-3xl bg-background-subtle" />
@@ -114,6 +139,7 @@ const _renderActionSkeleton = (): React.ReactElement => (
 
 /**
  * Render table skeleton.
+ *
  * @param {MasterRoleProps} props - Component props
  * @returns {React.ReactElement} Table skeleton
  */
@@ -151,6 +177,7 @@ const _renderTableSkeleton = (props: MasterRoleProps): React.ReactElement => {
 
 /**
  * Render mobile card skeleton.
+ *
  * @param {number} key - Skeleton key
  * @returns {React.ReactElement} Card skeleton
  */
@@ -169,11 +196,15 @@ const _renderMobileCardSkeleton = (key: number): React.ReactElement => (
 
 /**
  * Render mobile role card.
+ *
  * @param {RoleData} role - Role data
  * @param {MasterRoleProps["onEdit"]} onEdit - Edit action
  * @returns {React.ReactElement} Role card
  */
 const _renderRoleCard = (role: RoleData, onEdit: MasterRoleProps["onEdit"]): React.ReactElement => {
+    /**
+   * @returns {void} Resolved value
+   */
   const handleClick = (): void => onEdit(role);
 
   return (
@@ -191,10 +222,15 @@ const _renderRoleCard = (role: RoleData, onEdit: MasterRoleProps["onEdit"]): Rea
 
 /**
  * Render mobile role list.
+ *
  * @param {MasterRoleProps} props - Component props
  * @returns {React.ReactElement} Mobile element
  */
 const _renderMobile = (props: MasterRoleProps): React.ReactElement => {
+    /**
+   * @param {React.ChangeEvent<HTMLInputElement>} event - Event
+   * @returns {void} Resolved value
+   */
   const handleSearch = (event: React.ChangeEvent<HTMLInputElement>): void => props.setSearchTerm(event.target.value);
 
   return (
@@ -210,10 +246,15 @@ const _renderMobile = (props: MasterRoleProps): React.ReactElement => {
 
 /**
  * Render desktop role table.
+ *
  * @param {MasterRoleProps} props - Component props
  * @returns {React.ReactElement} Desktop element
  */
 const _renderDesktop = (props: MasterRoleProps): React.ReactElement => {
+    /**
+   * @param {React.ChangeEvent<HTMLInputElement>} event - Event
+   * @returns {void} Resolved value
+   */
   const handleSearch = (event: React.ChangeEvent<HTMLInputElement>): void => props.setSearchTerm(event.target.value);
 
   return (
@@ -232,6 +273,7 @@ const _renderDesktop = (props: MasterRoleProps): React.ReactElement => {
 
 /**
  * Render master role page component.
+ *
  * @param {MasterRoleProps} props - Component props
  * @returns {React.ReactElement} Page element
  */

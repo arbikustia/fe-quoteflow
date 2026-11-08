@@ -9,6 +9,7 @@ import { useMasterItemContainerState } from "./MasterItem.hook";
 
 /**
  * Master Item container
+ *
  * @returns {React.ReactElement} Container component
  */
 const MasterItemContainer = (): React.ReactElement => {

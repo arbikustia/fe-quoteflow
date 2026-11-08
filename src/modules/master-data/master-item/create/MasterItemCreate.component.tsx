@@ -15,6 +15,7 @@ import type {
 
 /**
  * Extract error message from field error.
+ *
  * @param {FieldError | undefined} error - Field error object
  * @returns {string | null} Error message or null
  */
@@ -23,6 +24,7 @@ const _getFieldError = (error: FieldError | undefined): string | null =>
 
 /**
  * Render back icon SVG.
+ *
  * @returns {ReactElement} Back icon
  */
 const _renderBackIcon = (): ReactElement => (
@@ -42,6 +44,7 @@ const _renderBackIcon = (): ReactElement => (
 
 /**
  * Render status switch field (edit mode only).
+ *
  * @param {MasterItemCreateFormState} props - Form state
  * @returns {ReactElement | null} Field element
  */
@@ -74,6 +77,7 @@ const _renderStatusField = (
 
 /**
  * Render mobile top back bar.
+ *
  * @param {boolean} isEditMode - Edit mode flag
  * @param {() => void} goBack - Back action
  * @returns {ReactElement} Bar element
@@ -101,12 +105,38 @@ const _renderMobileBack = (
 };
 
 /**
+ * Render the desktop breadcrumb navigation.
+ *
+ * @param {string} title - Page title
+ * @param {() => void} goBack - Back navigation
+ * @returns {ReactElement} Breadcrumb element
+ */
+const _renderBreadcrumb = (title: string, goBack: () => void): ReactElement => (
+  <nav
+    aria-label="Breadcrumb"
+    className="mb-2 flex items-center gap-2 text-[15px] font-medium text-text-secondary"
+  >
+    <button
+      type="button"
+      onClick={goBack}
+      className="cursor-pointer hover:text-text-primary"
+    >
+      Master
+    </button>
+    <span aria-hidden="true">/</span>
+    <span>Master Item</span>
+    <span aria-hidden="true">/</span>
+    <span className="text-text-primary">{title}</span>
+  </nav>
+);
+
+/**
  * Render page header with breadcrumb.
+ *
  * @param {boolean} isEditMode - Edit mode flag
  * @param {() => void} goBack - Back navigation
  * @returns {ReactElement} Header element
  */
-// eslint-disable-next-line max-lines-per-function
 const _renderHeaderSection = (
   isEditMode: boolean,
   goBack: () => void,
@@ -118,22 +148,7 @@ const _renderHeaderSection = (
 
   return (
     <div className="hidden lg:block">
-      <nav
-        aria-label="Breadcrumb"
-        className="mb-2 flex items-center gap-2 text-[15px] font-medium text-text-secondary"
-      >
-        <button
-          type="button"
-          onClick={goBack}
-          className="cursor-pointer hover:text-text-primary"
-        >
-          Master
-        </button>
-        <span aria-hidden="true">/</span>
-        <span>Master Item</span>
-        <span aria-hidden="true">/</span>
-        <span className="text-text-primary">{title}</span>
-      </nav>
+      {_renderBreadcrumb(title, goBack)}
       <div className="mb-6">
         <h2 className="text-4xl font-semibold leading-tight tracking-tight text-text-primary">
           {title}
@@ -149,11 +164,22 @@ const _renderHeaderSection = (
 // _renderInformationStepTab removed
 
 /**
+ * Build the shared input field class string.
+ *
+ * @param {boolean} hasError - Whether the field currently has an error
+ * @returns {string} Class names
+ */
+const _inputClassName = (hasError: boolean): string =>
+  `!mb-0 [&_.ant-input]:!h-16 lg:[&_.ant-input]:!h-14 [&_.ant-input]:!rounded-2xl [&_.ant-input]:!border-2 ${
+    hasError ? "[&_.ant-input]:!border-danger" : "[&_.ant-input]:!border-border-strong"
+  } [&_.ant-input.ant-input-status-error]:!border-danger [&_.ant-input]:!px-4 [&_.ant-input]:!text-xl lg:[&_.ant-input]:!text-lg [&_.ant-input]:!font-normal [&_.ant-input]:placeholder:!text-xl lg:[&_.ant-input]:placeholder:!text-lg [&_.ant-input]:placeholder:!font-normal [&_label]:!text-lg lg:[&_label]:!text-lg [&_label]:!font-normal [&_label]:!normal-case [&_label]:!text-text-primary`;
+
+/**
  * Render basic input fields for item.
+ *
  * @param {ItemFormContentProps} props - Field props
  * @returns {ReactElement} Inputs
  */
-// eslint-disable-next-line max-lines-per-function
 const _renderBasicInputs = (props: ItemFormContentProps): ReactElement => {
   const nameError = _getFieldError(props.errors?.name);
 
@@ -168,163 +194,207 @@ const _renderBasicInputs = (props: ItemFormContentProps): ReactElement => {
         value={props.name}
         errorMessage={nameError ?? undefined}
         onChange={props.handleNameChange}
-        className={`!mb-0 [&_.ant-input]:!h-16 lg:[&_.ant-input]:!h-14 [&_.ant-input]:!rounded-2xl [&_.ant-input]:!border-2 ${
-          nameError
-            ? "[&_.ant-input]:!border-danger"
-            : "[&_.ant-input]:!border-border-strong"
-        } [&_.ant-input.ant-input-status-error]:!border-danger [&_.ant-input]:!px-4 [&_.ant-input]:!text-xl lg:[&_.ant-input]:!text-lg [&_.ant-input]:!font-normal [&_.ant-input]:placeholder:!text-xl lg:[&_.ant-input]:placeholder:!text-lg [&_.ant-input]:placeholder:!font-normal [&_label]:!text-lg lg:[&_label]:!text-lg [&_label]:!font-normal [&_label]:!normal-case [&_label]:!text-text-primary`}
+        className={_inputClassName(Boolean(nameError))}
       />
-      <div>
-        <Select
-          id="item-category"
-          label="Category"
-          labelClassName="!text-lg !font-normal !normal-case !text-text-primary lg:!text-lg"
-          className="mb-0 [&_.ant-select-selector]:!min-h-16 lg:[&_.ant-select-selector]:!min-h-14"
-          selectClassName="!h-16 lg:!h-14 [&_.ant-select-content]:!text-xl lg:[&_.ant-select-content]:!text-lg [&_.ant-select-content]:!font-normal"
-          required
-          value={props.categoryId}
-          disabled={props.isCategoryLoading}
-          placeholder={
-            props.isCategoryLoading ? "Loading categories..." : "Select category"
-          }
-          options={props.categories.map((cat) => ({
-            label: cat.category_name,
-            value: cat.id,
-          }))}
-          onChange={props.handleCategoryChange}
-          errorMessage={
-            props.categoryError ?? _getFieldError(props.errors?.categoryId)
-          }
-        />
-      </div>
+      {_renderCategoryField(props)}
     </>
+  );
+};
+
+/**
+ * Render the category select field.
+ *
+ * @param {ItemFormContentProps} props - Field props
+ * @returns {ReactElement} Category field
+ */
+const _renderCategoryField = (props: ItemFormContentProps): ReactElement => (
+  <div>
+    <Select
+      id="item-category"
+      label="Category"
+      labelClassName="!text-lg !font-normal !normal-case !text-text-primary lg:!text-lg"
+      className="mb-0 [&_.ant-select-selector]:!min-h-16 lg:[&_.ant-select-selector]:!min-h-14"
+      selectClassName="!h-16 lg:!h-14 [&_.ant-select-content]:!text-xl lg:[&_.ant-select-content]:!text-lg [&_.ant-select-content]:!font-normal"
+      required
+      value={props.categoryId}
+      disabled={props.isCategoryLoading}
+      placeholder={props.isCategoryLoading ? "Loading categories..." : "Select category"}
+      options={props.categories.map((cat) => ({ label: cat.category_name, value: cat.id }))}
+      onChange={props.handleCategoryChange}
+      errorMessage={props.categoryError ?? _getFieldError(props.errors?.categoryId)}
+    />
+  </div>
+);
+
+/**
+ * Render the price input field.
+ *
+ * @param {ItemFormContentProps} props - Field props
+ * @returns {ReactElement} Price field
+ */
+const _renderPriceField = (props: ItemFormContentProps): ReactElement => {
+  const priceError = _getFieldError(props.errors?.price);
+
+  return (
+    <InputComponent
+      id="item-price"
+      type="text"
+      label="Price"
+      placeholder="Rp 0"
+      required
+      inputMode="numeric"
+      value={formatRupiahInput(props.price)}
+      errorMessage={priceError ?? undefined}
+      onChange={props.handlePriceChange}
+      className={_inputClassName(Boolean(priceError))}
+    />
+  );
+};
+
+/**
+ * Render the stock input field.
+ *
+ * @param {ItemFormContentProps} props - Field props
+ * @returns {ReactElement} Stock field
+ */
+const _renderStockField = (props: ItemFormContentProps): ReactElement => {
+  const stockError = _getFieldError(props.errors?.stock);
+
+  return (
+    <InputComponent
+      id="item-stock"
+      type="text"
+      label="Stock"
+      placeholder="0"
+      required
+      inputMode="numeric"
+      value={props.stock}
+      errorMessage={stockError ?? undefined}
+      onChange={props.handleStockChange}
+      className={_inputClassName(Boolean(stockError))}
+    />
+  );
+};
+
+/**
+ * Render the duration input field.
+ *
+ * @param {ItemFormContentProps} props - Field props
+ * @returns {ReactElement} Duration field
+ */
+const _renderDurationField = (props: ItemFormContentProps): ReactElement => {
+  const durationError = _getFieldError(props.errors?.duration);
+
+  return (
+    <div className="lg:col-span-2">
+      <InputComponent
+        id="item-duration"
+        type="text"
+        label="Duration (Days)"
+        placeholder="1"
+        required
+        inputMode="numeric"
+        value={props.duration}
+        errorMessage={durationError ?? undefined}
+        onChange={props.handleDurationChange}
+        className={_inputClassName(Boolean(durationError))}
+      />
+    </div>
   );
 };
 
 /**
  * Render numerical fields for item.
+ *
  * @param {ItemFormContentProps} props - Field props
  * @returns {ReactElement} Numerical inputs
  */
-// eslint-disable-next-line max-lines-per-function
-const _renderNumericalInputs = (props: ItemFormContentProps): ReactElement => {
-  const priceError = _getFieldError(props.errors?.price);
-  const stockError = _getFieldError(props.errors?.stock);
-  const durationError = _getFieldError(props.errors?.duration);
-
-  return (
-    <>
-      <InputComponent
-        id="item-price"
-        type="text"
-        label="Price"
-        placeholder="Rp 0"
-        required
-        inputMode="numeric"
-        value={formatRupiahInput(props.price)}
-        errorMessage={priceError ?? undefined}
-        onChange={props.handlePriceChange}
-        className={`!mb-0 [&_.ant-input]:!h-16 lg:[&_.ant-input]:!h-14 [&_.ant-input]:!rounded-2xl [&_.ant-input]:!border-2 ${
-          priceError
-            ? "[&_.ant-input]:!border-danger"
-            : "[&_.ant-input]:!border-border-strong"
-        } [&_.ant-input.ant-input-status-error]:!border-danger [&_.ant-input]:!px-4 [&_.ant-input]:!text-xl lg:[&_.ant-input]:!text-lg [&_.ant-input]:!font-normal [&_.ant-input]:placeholder:!text-xl lg:[&_.ant-input]:placeholder:!text-lg [&_.ant-input]:placeholder:!font-normal [&_label]:!text-lg lg:[&_label]:!text-lg [&_label]:!font-normal [&_label]:!normal-case [&_label]:!text-text-primary`}
-      />
-      <InputComponent
-        id="item-stock"
-        type="text"
-        label="Stock"
-        placeholder="0"
-        required
-        inputMode="numeric"
-        value={props.stock}
-        errorMessage={stockError ?? undefined}
-        onChange={props.handleStockChange}
-        className={`!mb-0 [&_.ant-input]:!h-16 lg:[&_.ant-input]:!h-14 [&_.ant-input]:!rounded-2xl [&_.ant-input]:!border-2 ${
-          stockError
-            ? "[&_.ant-input]:!border-danger"
-            : "[&_.ant-input]:!border-border-strong"
-        } [&_.ant-input.ant-input-status-error]:!border-danger [&_.ant-input]:!px-4 [&_.ant-input]:!text-xl lg:[&_.ant-input]:!text-lg [&_.ant-input]:!font-normal [&_.ant-input]:placeholder:!text-xl lg:[&_.ant-input]:placeholder:!text-lg [&_.ant-input]:placeholder:!font-normal [&_label]:!text-lg lg:[&_label]:!text-lg [&_label]:!font-normal [&_label]:!normal-case [&_label]:!text-text-primary`}
-      />
-      <div className="lg:col-span-2">
-        <InputComponent
-          id="item-duration"
-          type="text"
-          label="Duration (Days)"
-          placeholder="1"
-          required
-          inputMode="numeric"
-          value={props.duration}
-          errorMessage={durationError ?? undefined}
-          onChange={props.handleDurationChange}
-          className={`!mb-0 [&_.ant-input]:!h-16 lg:[&_.ant-input]:!h-14 [&_.ant-input]:!rounded-2xl [&_.ant-input]:!border-2 ${
-            durationError
-              ? "[&_.ant-input]:!border-danger"
-              : "[&_.ant-input]:!border-border-strong"
-          } [&_.ant-input.ant-input-status-error]:!border-danger [&_.ant-input]:!px-4 [&_.ant-input]:!text-xl lg:[&_.ant-input]:!text-lg [&_.ant-input]:!font-normal [&_.ant-input]:placeholder:!text-xl lg:[&_.ant-input]:placeholder:!text-lg [&_.ant-input]:placeholder:!font-normal [&_label]:!text-lg lg:[&_label]:!text-lg [&_label]:!font-normal [&_label]:!normal-case [&_label]:!text-text-primary`}
-        />
-      </div>
-    </>
-  );
-};
-
-/**
- * Render extra fields for item.
- * @param {ItemFormContentProps} props - Field props
- * @returns {ReactElement} Extra inputs
- */
-// eslint-disable-next-line max-lines-per-function
-const _renderExtraInputs = (props: ItemFormContentProps): ReactElement => (
+const _renderNumericalInputs = (props: ItemFormContentProps): ReactElement => (
   <>
-    <div className="space-y-2">
-      <span className="text-lg font-normal text-text-primary lg:text-lg">
-        Upload Image
-      </span>
-      <input
-        id="item-image"
-        type="file"
-        accept="image/*"
-        aria-label="Upload image"
-        onChange={props.handleImageChange}
-        disabled={props.isImageUploading}
-        className="h-16 w-full rounded-2xl border-2 border-border-strong bg-background-surface px-4 py-3 text-xl font-normal outline-none file:mr-4 file:rounded-xl file:border-0 file:bg-action-primary file:px-4 file:py-2 file:text-sm file:font-semibold file:text-text-inverse hover:file:bg-action-primary-hover lg:h-14 lg:text-lg"
-      />
-      {props.isImageUploading && (
-        <p className="text-sm text-text-secondary">Uploading image…</p>
-      )}
-      {props.imageUploadError !== null && (
-        <p role="alert" className="text-sm text-danger">
-          {props.imageUploadError}
-        </p>
-      )}
-      {props.image && (
-        <a
-          href={props.image}
-          target="_blank"
-          rel="noreferrer"
-          className="block truncate text-sm font-medium text-action-primary underline hover:text-action-primary-hover"
-        >
-          Uploaded: {props.image.split("/").pop()}
-        </a>
-      )}
-    </div>
-    <label className="block space-y-2 lg:col-span-2">
-      <span className="text-lg font-normal text-text-primary lg:text-lg">
-        Remarks
-      </span>
-      <textarea
-        value={props.remark}
-        onChange={props.handleRemarkChange}
-        placeholder="Optional notes"
-        aria-label="Remarks"
-        className="min-h-36 w-full rounded-2xl border-2 border-border-strong bg-background-surface px-4 py-4 text-xl font-normal outline-none placeholder:font-normal placeholder:text-xl placeholder:text-text-tertiary focus:border-border-focus focus:ring-2 focus:ring-focus-ring/30 lg:min-h-28 lg:text-lg lg:placeholder:text-lg"
-      />
-    </label>
+    {_renderPriceField(props)}
+    {_renderStockField(props)}
+    {_renderDurationField(props)}
   </>
 );
 
 /**
+ * Render extra fields for item.
+ *
+ * @param {ItemFormContentProps} props - Field props
+ * @returns {ReactElement} Extra inputs
+ */
+const _renderExtraInputs = (props: ItemFormContentProps): ReactElement => (
+  <>
+    {_renderImageField(props)}
+    {_renderRemarkField(props)}
+  </>
+);
+
+/**
+ * Render the image upload field.
+ *
+ * @param {ItemFormContentProps} props - Field props
+ * @returns {ReactElement} Image field
+ */
+const _renderImageField = (props: ItemFormContentProps): ReactElement => (
+  <div className="space-y-2">
+    <span className="text-lg font-normal text-text-primary lg:text-lg">
+      Upload Image
+    </span>
+    <input
+      id="item-image"
+      type="file"
+      accept="image/*"
+      aria-label="Upload image"
+      onChange={props.handleImageChange}
+      disabled={props.isImageUploading}
+      className="h-16 w-full rounded-2xl border-2 border-border-strong bg-background-surface px-4 py-3 text-xl font-normal outline-none file:mr-4 file:rounded-xl file:border-0 file:bg-action-primary file:px-4 file:py-2 file:text-sm file:font-semibold file:text-text-inverse hover:file:bg-action-primary-hover lg:h-14 lg:text-lg"
+    />
+    {props.isImageUploading && (
+      <p className="text-sm text-text-secondary">Uploading image…</p>
+    )}
+    {props.imageUploadError !== null && (
+      <p role="alert" className="text-sm text-danger">
+        {props.imageUploadError}
+      </p>
+    )}
+    {props.image && (
+      <a
+        href={props.image}
+        target="_blank"
+        rel="noreferrer"
+        className="block truncate text-sm font-medium text-action-primary underline hover:text-action-primary-hover"
+      >
+        Uploaded: {props.image.split("/").pop()}
+      </a>
+    )}
+  </div>
+);
+
+/**
+ * Render the remark textarea field.
+ *
+ * @param {ItemFormContentProps} props - Field props
+ * @returns {ReactElement} Remark field
+ */
+const _renderRemarkField = (props: ItemFormContentProps): ReactElement => (
+  <label className="block space-y-2 lg:col-span-2">
+    <span className="text-lg font-normal text-text-primary lg:text-lg">
+      Remarks
+    </span>
+    <textarea
+      value={props.remark}
+      onChange={props.handleRemarkChange}
+      placeholder="Optional notes"
+      aria-label="Remarks"
+      className="min-h-36 w-full rounded-2xl border-2 border-border-strong bg-background-surface px-4 py-4 text-xl font-normal outline-none placeholder:font-normal placeholder:text-xl placeholder:text-text-tertiary focus:border-border-focus focus:ring-2 focus:ring-focus-ring/30 lg:min-h-28 lg:text-lg lg:placeholder:text-lg"
+    />
+  </label>
+);
+
+/**
  * Render form action footer.
+ *
  * @param {boolean} isEditMode - Edit mode flag
  * @param {boolean} isSubmitting - Submitting state
  * @param {() => void} goBack - Back navigation
@@ -361,6 +431,7 @@ const _renderFormActions = (
 
 /**
  * Render notification alerts.
+ *
  * @param {string | null} errorMessage - Error alert text
  * @param {string | null} successMessage - Success alert text
  * @returns {ReactElement | null} Alert element
@@ -389,6 +460,7 @@ const _renderAlerts = (
 
 /**
  * Render form card container.
+ *
  * @param {MasterItemCreateFormState} props - Form state
  * @returns {ReactElement} Form element
  */
@@ -416,6 +488,7 @@ const _renderFormCard = (
 
 /**
  * Render create item form.
+ *
  * @param {MasterItemCreateFormState} props - Form state
  * @returns {ReactElement} Form
  */

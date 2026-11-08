@@ -1,12 +1,13 @@
 import type { ReactElement } from "react";
 
-import Layout from "@/app/layout";
-
 import { MasterCategoryCreateForm } from "./MasterCategoryCreate.component";
 import { useMasterCategoryCreate } from "./MasterCategoryCreate.hook";
 
+import Layout from "@/app/layout";
+
 /**
  * Master Category Create page container.
+ *
  * @returns {ReactElement} create page element
  */
 const MasterCategoryCreateContainer = (): ReactElement => {

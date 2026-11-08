@@ -1,7 +1,8 @@
 import { apiRtkClient } from "@/libs/ApiRtkServices/apiRtkClient";
 
-import ENDPOINT from "@/constants/endpoint.constant";
 import type { ApiInvoice, InvoiceAllResponse, InvoiceApproveRequest, InvoiceData, InvoiceDetailResponse, InvoiceListParams, InvoiceListResponse, InvoiceUpdateRequest, InvoiceUpdateResponse } from "@/modules/invoice/Invoice.type";
+
+import ENDPOINT from "@/constants/endpoint.constant";
 
 /** Map API invoice to table row. */
 export const mapInvoice = (invoice: ApiInvoice): InvoiceData => ({
@@ -55,6 +56,6 @@ export const invoiceService = apiRtkClient.injectEndpoints({
   overrideExisting: false,
 });
 
-export const { useGetInvoicesQuery, useGetInvoiceOptionsQuery, useGetInvoiceByIdQuery, useUpdateInvoiceMutation, useApproveInvoiceMutation } = invoiceService;
+export const { useGetInvoicesQuery, useGetInvoiceOptionsQuery, useGetInvoiceByIdQuery, useLazyGetInvoiceByIdQuery, useUpdateInvoiceMutation, useApproveInvoiceMutation } = invoiceService;
 
 export const useGetAllInvoicesQuery = invoiceService.endpoints.getInvoices.useQuery;

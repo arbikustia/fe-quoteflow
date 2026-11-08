@@ -13,12 +13,14 @@ import Table from "../../../components/Table";
 
 /**
  * Get columns for master payment type table
+ *
  * @param {GetColumnsParams} params - The parameters for generating columns
  * @returns {TableColumn<PaymentTypeData>[]} The table columns
  */
 const _getColumns = ({ currentPage, pageSize, onEdit }: GetColumnsParams): TableColumn<PaymentTypeData>[] => {
-  /**
+    /**
    * Render number column
+   *
    * @param {PaymentTypeData} _row - The row data
    * @param {number} index - The row index
    * @returns {React.ReactElement} The number cell
@@ -27,8 +29,9 @@ const _getColumns = ({ currentPage, pageSize, onEdit }: GetColumnsParams): Table
     <span className="text-sm">{(currentPage - 1) * pageSize + index + 1}</span>
   );
 
-  /**
+    /**
    * Render status column
+   *
    * @param {PaymentTypeData} row - The row data
    * @returns {React.ReactElement} The status cell
    */
@@ -38,14 +41,16 @@ const _getColumns = ({ currentPage, pageSize, onEdit }: GetColumnsParams): Table
     </span>
   );
 
-  /**
+    /**
    * Render actions column
+   *
    * @param {PaymentTypeData} row - The row data
    * @returns {React.ReactElement} The actions cell
    */
   const renderActions = (row: PaymentTypeData): React.ReactElement => {
-    /**
+        /**
      * Handle edit
+     *
      * @param {React.MouseEvent} e - The mouse event
      * @returns {void}
      */
@@ -77,6 +82,7 @@ const _getColumns = ({ currentPage, pageSize, onEdit }: GetColumnsParams): Table
 
 /**
  * Render list state.
+ *
  * @param {MasterPaymentTypeProps} props - Component props
  * @returns {React.ReactElement | null} State element
  */
@@ -94,13 +100,15 @@ const _renderListState = (props: MasterPaymentTypeProps): React.ReactElement | n
 
 /**
  * Render payment type mobile card.
+ *
  * @param {PaymentTypeData} paymentType - Payment type data
  * @param {MasterPaymentTypeProps["onEdit"]} onEdit - Edit action
  * @returns {React.ReactElement} Card element
  */
 const _renderPaymentTypeCard = (paymentType: PaymentTypeData, onEdit: MasterPaymentTypeProps["onEdit"]): React.ReactElement => {
-  /**
+    /**
    * Open payment type editing.
+   *
    * @returns {void} No return value
    */
   const handleCardClick = (): void => onEdit(paymentType);
@@ -114,13 +122,15 @@ const _renderPaymentTypeCard = (paymentType: PaymentTypeData, onEdit: MasterPaym
 
 /**
  * Render mobile list.
+ *
  * @param {MasterPaymentTypeProps} props - Component props
  * @returns {React.ReactElement} Mobile list
  */
 const _renderMobile = (props: MasterPaymentTypeProps): React.ReactElement => {
   const { paginatedData, currentPage, totalPages, pageSize, totalCount, goToPage, changePageSize, setSearchTerm, onEdit } = props;
-  /**
+    /**
    * Update search term.
+   *
    * @param {React.ChangeEvent<HTMLInputElement>} event - Search input event
    * @returns {void} No return value
    */
@@ -152,20 +162,23 @@ const _renderMobile = (props: MasterPaymentTypeProps): React.ReactElement => {
 
 /**
  * Render desktop table.
+ *
  * @param {MasterPaymentTypeProps} props - Component props
  * @returns {React.ReactElement} Desktop table
  */
 const _renderDesktop = (props: MasterPaymentTypeProps): React.ReactElement => {
   const { paginatedData, onEdit, currentPage, totalPages, pageSize, totalCount, goToPage, changePageSize, setSearchTerm, onCreate } = props;
   const columns = _getColumns({ currentPage, pageSize, onEdit });
-  /**
+    /**
    * Update search term.
+   *
    * @param {React.ChangeEvent<HTMLInputElement>} event - Search input event
    * @returns {void} No return value
    */
   const handleSearch = (event: React.ChangeEvent<HTMLInputElement>): void => setSearchTerm(event.target.value);
-  /**
+    /**
    * Extract payment type row key.
+   *
    * @param {PaymentTypeData} row - Payment type row
    * @returns {string} Payment type ID
    */
@@ -191,6 +204,7 @@ const _renderDesktop = (props: MasterPaymentTypeProps): React.ReactElement => {
 
 /**
  * Render master payment type page.
+ *
  * @param {MasterPaymentTypeProps} props - Component props
  * @returns {React.ReactElement} Page element
  */

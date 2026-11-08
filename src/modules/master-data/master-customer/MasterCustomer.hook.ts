@@ -1,11 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-import {
-  mapCustomer,
-  useGetCustomersQuery,
-} from "@/services/master-customer.service";
-
 import type {
   CustomerData,
   CustomerListApiState,
@@ -13,30 +8,39 @@ import type {
   MasterCustomerPagination,
 } from "./MasterCustomer.type";
 
+import {
+  mapCustomer,
+  useGetCustomersQuery,
+} from "@/services/master-customer.service";
+
 /**
  * Hook for master customer navigation.
+ *
  * @returns {MasterCustomerNavigation} Navigation functions
  */
 export const useMasterCustomerNavigation = (): MasterCustomerNavigation => {
   const navigate = useNavigate();
 
-  /**
+    /**
    * Navigate back
+   *
    * @returns {void}
    */
   const goBack = (): void => {
     navigate("/master-main");
   };
 
-  /**
+    /**
    * Navigate to create page
+   *
    * @returns {void}
    */
   const goCreate = (): void => {
     navigate("/master-customer/create");
   };
-  /**
+    /**
    * Navigate to edit page
+   *
    * @param {CustomerData} customer - The customer data
    * @returns {void}
    */
@@ -49,6 +53,7 @@ export const useMasterCustomerNavigation = (): MasterCustomerNavigation => {
 
 /**
  * Create customer list state without paginated data.
+ *
  * @param {boolean} isLoading - Whether customer data is loading
  * @param {boolean} isMissingData - Whether API response data is missing
  * @param {string} [errorMessage] - Customer list error message
@@ -70,6 +75,7 @@ const _createCustomerListState = (
 /**
  * Derive paginated state from API response envelope.
  * Handles loading, HTTP error, envelope status false, missing data explicitly.
+ *
  * @param {ReturnType<typeof useGetCustomersQuery>} queryResult - RTK Query result
  * @returns {CustomerListApiState} Derived state
  */
@@ -102,51 +108,65 @@ const _deriveCustomerListState = (
 };
 
 /**
+ * Build pagination handlers bound to the current state.
+ *
+ * @param {number} totalPages - Total available pages
+ * @param {(page: number) => void} setPage - Page setter
+ * @param {(size: number) => void} setSize - Page size setter
+ * @param {(term: string) => void} setTerm - Search term setter
+ * @returns {{ goToPage: (page: number) => void; changePageSize: (size: number) => void; handleSearchTerm: (value: string) => void }} Pagination handlers
+ */
+const _buildPaginationHandlers = (
+  totalPages: number,
+  setPage: (page: number) => void,
+  setSize: (size: number) => void,
+  setTerm: (term: string) => void,
+): { goToPage: (page: number) => void; changePageSize: (size: number) => void; handleSearchTerm: (value: string) => void } => {
+  /**
+   * Handle page change.
+   *
+   * @param {number} page - The new page number
+   * @returns {void}
+   */
+  const goToPage = (page: number): void => setPage(Math.max(1, Math.min(page, totalPages)));
+
+  /**
+   * Handle page size change.
+   *
+   * @param {number} size - The new page size
+   * @returns {void}
+   */
+  const changePageSize = (size: number): void => {
+    setSize(size);
+    setPage(1);
+  };
+
+  /**
+   * Handle search term change.
+   *
+   * @param {string} value - The search term
+   * @returns {void}
+   */
+  const handleSearchTerm = (value: string): void => {
+    setTerm(value);
+    setPage(1);
+  };
+
+  return { goToPage, changePageSize, handleSearchTerm };
+};
+
+/**
  * Hook for API-backed master customer pagination.
+ *
  * @returns {MasterCustomerPagination} Customer pagination state and handlers
  */
 export const useMasterCustomerPagination = (): MasterCustomerPagination => {
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize, setPageSize] = useState(10);
   const [searchTerm, setSearchTerm] = useState("");
-
-  /**
-   * Fetch customers with current pagination and search
-   */
-  const queryResult = useGetCustomersQuery({
-    pageNumber: currentPage,
-    pageSize,
-    searchTerm,
-  });
+  const queryResult = useGetCustomersQuery({ pageNumber: currentPage, pageSize, searchTerm });
   const derived = _deriveCustomerListState(queryResult);
-
-  /**
-   * Handle page change
-   * @param {number} page - The new page number
-   * @returns {void}
-   */
-  const goToPage = (page: number): void =>
-    setCurrentPage(Math.max(1, Math.min(page, derived.totalPages)));
-
-  /**
-   * Handle page size change
-   * @param {number} size - The new page size
-   * @returns {void}
-   */
-  const changePageSize = (size: number): void => {
-    setPageSize(size);
-    setCurrentPage(1);
-  };
-
-  /**
-   * Handle search term change
-   * @param {string} value - The search term
-   * @returns {void}
-   */
-  const handleSearchTerm = (value: string): void => {
-    setSearchTerm(value);
-    setCurrentPage(1);
-  };
+  const handlers = _buildPaginationHandlers(derived.totalPages, setCurrentPage, setPageSize, setSearchTerm);
 
   return {
     currentPage,
@@ -156,14 +176,10 @@ export const useMasterCustomerPagination = (): MasterCustomerPagination => {
     totalCount: derived.totalCount,
     isLoading: derived.isLoading,
     errorMessage: derived.errorMessage,
-    isEmpty:
-      !derived.isLoading &&
-      !derived.errorMessage &&
-      !derived.isMissingData &&
-      derived.paginatedData.length === 0,
+    isEmpty: !derived.isLoading && !derived.errorMessage && !derived.isMissingData && derived.paginatedData.length === 0,
     isMissingData: derived.isMissingData,
-    goToPage,
-    changePageSize,
-    setSearchTerm: handleSearchTerm,
+    goToPage: handlers.goToPage,
+    changePageSize: handlers.changePageSize,
+    setSearchTerm: handlers.handleSearchTerm,
   };
 };

@@ -17,6 +17,7 @@ const FIELD_CLASS_NAME = "!mb-0 [&_.ant-input]:!rounded-2xl [&_.ant-input]:!bord
 
 /**
  * Read validation message from error.
+ *
  * @param {FieldError | undefined} error - Field validation error
  * @returns {string | null} Validation message
  */
@@ -25,6 +26,7 @@ const _getFieldError = (error: FieldError | undefined): string | null =>
 
 /**
  * Get voucher page copy.
+ *
  * @param {boolean} isEditMode - Edit mode flag
  * @returns {{ title: string; subtitle: string }} Page copy
  */
@@ -39,6 +41,7 @@ const _getPageCopy = (
 
 /**
  * Render mobile back bar.
+ *
  * @param {boolean} isEditMode - Edit mode flag
  * @param {() => void} goBack - Back action
  * @returns {ReactElement} Back bar
@@ -64,6 +67,7 @@ const _renderMobileBack = (
 
 /**
  * Render desktop page header.
+ *
  * @param {boolean} isEditMode - Edit mode flag
  * @param {() => void} goBack - Back action
  * @returns {ReactElement} Page header
@@ -93,6 +97,7 @@ const _renderHeader = (
 
 /**
  * Render voucher name field.
+ *
  * @param {MasterVoucherCreateFormState} props - Form state
  * @returns {ReactElement} Name field
  */
@@ -118,6 +123,7 @@ const _renderNameField = (props: MasterVoucherCreateFormState): ReactElement => 
 
 /**
  * Render code option and optional code field.
+ *
  * @param {MasterVoucherCreateFormState} props - Form state
  * @returns {ReactElement} Code fields
  */
@@ -153,6 +159,7 @@ const _renderCodeFields = (props: MasterVoucherCreateFormState): ReactElement =>
 
 /**
  * Render discount field.
+ *
  * @param {MasterVoucherCreateFormState} props - Form state
  * @returns {ReactElement} Discount field
  */
@@ -180,6 +187,7 @@ const _renderDiscountField = (props: MasterVoucherCreateFormState): ReactElement
 
 /**
  * Render status switch field.
+ *
  * @param {MasterVoucherCreateFormState} props - Form state
  * @returns {ReactElement | null} Status field
  */
@@ -201,6 +209,7 @@ const _renderStatusField = (props: MasterVoucherCreateFormState): ReactElement |
 
 /**
  * Render voucher form fields.
+ *
  * @param {MasterVoucherCreateFormState} props - Form state
  * @returns {ReactElement} Form fields
  */
@@ -215,6 +224,7 @@ const _renderFields = (props: MasterVoucherCreateFormState): ReactElement => (
 
 /**
  * Render form actions.
+ *
  * @param {MasterVoucherCreateFormState} props - Form state
  * @returns {ReactElement} Form actions
  */
@@ -236,6 +246,7 @@ const _renderActions = (props: MasterVoucherCreateFormState): ReactElement => {
 
 /**
  * Render voucher form card.
+ *
  * @param {MasterVoucherCreateFormState} props - Form state
  * @returns {ReactElement} Form card
  */
@@ -250,6 +261,7 @@ const _renderForm = (props: MasterVoucherCreateFormState): ReactElement => (
 
 /**
  * Render master voucher create/edit form.
+ *
  * @param {MasterVoucherCreateFormState} props - Form state
  * @returns {ReactElement} Voucher form
  */

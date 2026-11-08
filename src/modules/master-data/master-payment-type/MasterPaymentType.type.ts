@@ -17,9 +17,9 @@ export type PaymentTypeFormValidation = {
 };
 
 
-import type { ApiEnvelope, ApiQueryParams, PaginatedResponse } from "@/types/api.type";
+import type { PaginationResult } from "../../../hooks/usePagination";
 
-import type { PaginationResult } from "../../hooks/usePagination";
+import type { ApiEnvelope, ApiQueryParams, PaginatedResponse } from "@/types/api.type";
 
 export type ApiPaymentType = {
   id: string;

@@ -4,15 +4,6 @@ import type { FieldError, UseFormSetValue, UseFormTrigger } from "react-hook-for
 import { useForm, useWatch } from "react-hook-form";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 
-import type { PaymentMethodCreateResponse, PaymentMethodDetailResponse } from "@/services/master-payment-method.service";
-import {
-  mapPaymentMethod,
-  useCreatePaymentMethodMutation,
-  useGetPaymentMethodByIdQuery,
-  useUpdatePaymentMethodMutation,
-} from "@/services/master-payment-method.service";
-
-import type { MasterPaymentMethodCreateFormState } from "./MasterPaymentMethodCreate.type";
 import type {
   PaymentMethodData,
   PaymentMethodFormFieldsState,
@@ -21,8 +12,19 @@ import type {
   PaymentMethodSubmissionState,
 } from "../MasterPaymentMethod.type";
 
+import type { MasterPaymentMethodCreateFormState } from "./MasterPaymentMethodCreate.type";
+
+import type { PaymentMethodCreateResponse, PaymentMethodDetailResponse } from "@/services/master-payment-method.service";
+import {
+  mapPaymentMethod,
+  useCreatePaymentMethodMutation,
+  useGetPaymentMethodByIdQuery,
+  useUpdatePaymentMethodMutation,
+} from "@/services/master-payment-method.service";
+
 /**
  * Format backend messages into a display string.
+ *
  * @param {string[] | string | null} messages - Backend response messages
  * @returns {string} Display message
  */
@@ -36,6 +38,7 @@ const _formatMessages = (messages: string[] | string | null): string => {
 
 /**
  * Register payment method validation rules.
+ *
  * @param {ReturnType<typeof useForm<PaymentMethodFormValues>>["register"]} register - Register function
  * @returns {void} No return value
  */
@@ -48,6 +51,7 @@ const _registerPaymentMethodFields = (
 
 /**
  * Resolve detail response into single UI payment method.
+ *
  * @param {PaymentMethodDetailResponse | undefined} response - Detail response
  * @returns {PaymentMethodData | null} Payment method or null
  */
@@ -63,6 +67,7 @@ const _resolvePaymentMethodDetail = (response: PaymentMethodDetailResponse | und
 
 /**
  * Send create or update mutation to API.
+ *
  * @param {PaymentMethodSubmissionParams} params - Submission parameters
  * @param {ReturnType<typeof useCreatePaymentMethodMutation>[0]} createPaymentMethod - Create mutation trigger
  * @param {ReturnType<typeof useUpdatePaymentMethodMutation>[0]} updatePaymentMethod - Update mutation trigger
@@ -85,6 +90,7 @@ const _sendPaymentMethodMutation = (
 
 /**
  * Handle form submission logic for create or update.
+ *
  * @param {PaymentMethodSubmissionParams} params - Submission parameters
  * @returns {PaymentMethodSubmissionState} Submission state
  */
@@ -99,8 +105,9 @@ const usePaymentMethodSubmission = (
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
   const isSubmitting = isCreating || isUpdating;
 
-  /**
+    /**
    * Submit payment method form.
+   *
    * @param {SyntheticEvent} event - Submit event
    * @returns {Promise<void>} Async result
    */
@@ -138,6 +145,7 @@ const usePaymentMethodSubmission = (
 
 /**
  * Resolve initial active toggle state.
+ *
  * @param {PaymentMethodData | undefined} routePaymentMethod - Route item
  * @param {PaymentMethodData | null} apiItem - API item
  * @returns {boolean} Initial active state
@@ -159,6 +167,7 @@ const _resolveInitialIsActive = (
 
 /**
  * Create text input change handler.
+ *
  * @param {UseFormSetValue<PaymentMethodFormValues>} setValue - Form value setter
  * @param {"name" | "description"} fieldName - Target field
  * @param {FieldError | undefined} error - Field error
@@ -176,6 +185,7 @@ const _createFieldChange = (
 
 /**
  * Create status toggle handler.
+ *
  * @param {UseFormSetValue<PaymentMethodFormValues>} setValue - Form value setter
  * @param {boolean} isActive - Current status
  * @returns {() => void} Toggle handler
@@ -191,6 +201,7 @@ const _createStatusToggle = (
 
 /**
  * Create form validation trigger.
+ *
  * @param {UseFormTrigger<PaymentMethodFormValues>} trigger - Form trigger
  * @returns {() => Promise<boolean>} Validation function
  */
@@ -202,6 +213,7 @@ const _createFormValidator = (
 
 /**
  * Synchronize API item with form values.
+ *
  * @param {PaymentMethodData | null} apiItem - API item
  * @param {string | null} initializedId - Current initialized ID
  * @param {(id: string | null) => void} setInitializedId - ID setter
@@ -224,6 +236,7 @@ const _syncApiItem = (
 
 /**
  * Hook managing form fields and synchronization.
+ *
  * @param {PaymentMethodData | undefined} routePaymentMethod - Route payment method
  * @param {PaymentMethodData | null} apiItem - API fetched payment method
  * @returns {PaymentMethodFormFieldsState} Form fields state
@@ -267,6 +280,7 @@ const usePaymentMethodFormFields = (
 
 /**
  * Hook managing master payment method form state.
+ *
  * @returns {MasterPaymentMethodCreateFormState} Form state
  */
 export const useMasterPaymentMethodCreate = (): MasterPaymentMethodCreateFormState => {
@@ -285,8 +299,9 @@ export const useMasterPaymentMethodCreate = (): MasterPaymentMethodCreateFormSta
   const submission = usePaymentMethodSubmission({ id, isEditMode, ...formFields });
   const isLoadingInitialData = isLoadingDetail && !routePaymentMethod;
 
-  /**
+    /**
    * Navigate back.
+   *
    * @returns {void} No return value
    */
   const goBack = (): void => {

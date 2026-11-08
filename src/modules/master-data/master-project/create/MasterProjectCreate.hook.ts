@@ -3,15 +3,16 @@ import { useMemo, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate, useParams } from "react-router-dom";
 
-import type { ApiProject, MasterProjectCreateFormState, ProjectDraftFormState, ProjectFormStep, ProjectFormValues,ProjectItemOption, ProjectSubmissionParams, ProjectSubmissionState } from "@/modules/master-data/master-project/MasterProject.type";
-import { useGetAllItemsQuery } from "@/services/master-item.service";
-import { useCreateProjectMutation, useGetProjectByIdQuery, useUpdateProjectMutation } from "@/services/master-project.service";
-
 import { formatProjectMessages, mapProjectItemOptions, mapProjectSelectedItems, validateProjectStep } from "./MasterProjectCreate.helpers";
 import { useProjectItemSelection } from "./MasterProjectCreate.items.hook";
 
+import type { ApiProject, MasterProjectCreateFormState, ProjectDraftFormState, ProjectDraftHandlers, ProjectDraftHandlersInput, ProjectDraftSetters, ProjectDraftStateApi, ProjectFormStep, ProjectFormValues, ProjectItemOption, ProjectSubmissionHandlers, ProjectSubmissionParams, ProjectSubmissionState } from "@/modules/master-data/master-project/MasterProject.type";
+import { useGetAllItemsQuery } from "@/services/master-item.service";
+import { useCreateProjectMutation, useGetProjectByIdQuery, useUpdateProjectMutation } from "@/services/master-project.service";
+
 /**
  * Create input field change handler.
+ *
  * @param {(val: string) => void} setter - State setter
  * @returns {(event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void} Change handler
  */
@@ -24,14 +25,158 @@ const _createInputChange = (
 );
 
 /**
- * Manage project form input state and step wizard.
- * @param {ApiProject | null} project - Initial project data
+ * Apply loaded project data into the draft form state.
+ *
+ * @param {ApiProject} project - Loaded project
  * @param {ProjectItemOption[]} items - Loaded item options
+ * @param {string | null} initializedId - Last applied project id
+ * @param {ProjectDraftSetters} setters - Draft setters
+ * @returns {void} No return value
+ */
+const _applyLoadedProject = (
+  project: ApiProject,
+  items: ProjectItemOption[],
+  initializedId: string | null,
+  setters: ProjectDraftSetters,
+): void => {
+  if (items.length === 0 || project.id === initializedId) return;
+
+  const price = String(project.price ?? 0);
+
+  setters.setInitializedId(project.id);
+  setters.setName(project.name ?? "");
+  setters.setValue("name", project.name ?? "");
+  setters.setPrice(price);
+  setters.setValue("price", price);
+  setters.clearErrors();
+  setters.setRemark(project.remark ?? "");
+  setters.setIsActive(project.status === 1);
+  setters.setSelectedItems(mapProjectSelectedItems(project, items));
+};
+
+/**
+ * Build the project draft change handlers.
+ *
+ * @param {ProjectDraftHandlersInput} input - Handler inputs
+ * @returns {ProjectDraftHandlers} Change handlers
+ */
+const _buildProjectDraftHandlers = (input: ProjectDraftHandlersInput): ProjectDraftHandlers => ({
+  /**
+   * Update project name and validation value.
+   *
+   * @param {ChangeEvent<HTMLInputElement | HTMLTextAreaElement>} event - Input event
+   * @returns {void} No return value
+   */
+  handleNameChange: (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>): void => {
+    input.setName(event.target.value);
+    input.setValue("name", event.target.value, { shouldValidate: input.isSubmitted });
+  },
+  /**
+   * Update project price and validation value.
+   *
+   * @param {ChangeEvent<HTMLInputElement | HTMLTextAreaElement>} event - Input event
+   * @returns {void} No return value
+   */
+  handlePriceChange: (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>): void => {
+    input.setPrice(event.target.value);
+    input.setValue("price", event.target.value, { shouldValidate: input.isSubmitted });
+  },
+  handleRemarkChange: _createInputChange(input.setRemark),
+  /**
+   * Toggle project active status.
+   *
+   * @returns {void} No return value
+   */
+  handleStatusChange: (): void => {
+    input.setIsActive((current) => !current);
+  },
+});
+
+/**
+ * Create the project draft state container.
+ *
+ * @returns {ProjectDraftStateApi} Draft state and setters
+ */
+const useProjectDraftState = (): ProjectDraftStateApi => {
+  const form = useForm<ProjectFormValues>({ mode: "onChange", defaultValues: { name: "" } });
+  const [step, setStep] = useState<ProjectFormStep>(1);
+  const [name, setName] = useState("");
+  const [price, setPrice] = useState("");
+  const [remark, setRemark] = useState("");
+  const [isActive, setIsActive] = useState(true);
+  const [initializedId, setInitializedId] = useState<string | null>(null);
+  const [isSubmitted, setIsSubmitted] = useState(false);
+  const itemSelection = useProjectItemSelection();
+
+  form.register("name", { required: "Project name is required." });
+  form.register("price", { required: "Project price is required." });
+
+  return {
+    form,
+    step,
+    setStep,
+    name,
+    setName,
+    price,
+    setPrice,
+    remark,
+    setRemark,
+    isActive,
+    setIsActive,
+    initializedId,
+    setInitializedId,
+    isSubmitted,
+    setIsSubmitted,
+    itemSelection,
+  };
+};
+
+/**
+ * Build the draft form state returned by the draft hook.
+ *
+ * @param {ProjectDraftStateApi} state - Draft state container
+ * @param {ProjectDraftHandlers} handlers - Change handlers
+ * @param {() => Promise<boolean>} validateStep2 - Step 2 validator
  * @returns {ProjectDraftFormState} Draft form state
  */
-/* eslint-disable max-lines-per-function */
+const _buildDraftFormState = (
+  state: ProjectDraftStateApi,
+  handlers: ProjectDraftHandlers,
+  validateStep2: () => Promise<boolean>,
+): ProjectDraftFormState => ({
+  step: state.step,
+  name: state.name,
+  price: state.price,
+  remark: state.remark,
+  isActive: state.isActive,
+  selectedItems: state.itemSelection.selectedItems,
+  ...handlers,
+  toggleItem: state.itemSelection.toggleItem,
+  updateItemQuantity: state.itemSelection.updateItemQuantity,
+  /**
+   * Advance to next step.
+   *
+   * @returns {void} No return value
+   */
+  nextStep: (): void => {
+    state.setStep((current) => (current + 1) as ProjectFormStep);
+  },
+  /**
+   * Return to previous step.
+   *
+   * @returns {void} No return value
+   */
+  previousStep: (): void => {
+    state.setStep((current) => (current - 1) as ProjectFormStep);
+  },
+  errors: state.form.formState.errors,
+  isSubmitted: state.isSubmitted,
+  validateStep2,
+});
+
 /**
  * Manage project form input state and step wizard.
+ *
  * @param {ApiProject | null} project - Initial project data
  * @param {ProjectItemOption[]} items - Loaded item options
  * @returns {ProjectDraftFormState} Draft form state
@@ -40,102 +185,49 @@ const useProjectDraft = (
   project: ApiProject | null,
   items: ProjectItemOption[],
 ): ProjectDraftFormState => {
-    const {
-      clearErrors,
-      register,
-      setValue,
-      trigger,
-      formState: { errors },
-    } = useForm<ProjectFormValues>({ mode: "onChange", defaultValues: { name: "" } });
-    const [step, setStep] = useState<ProjectFormStep>(1);
-    const [name, setName] = useState("");
-    const [price, setPrice] = useState("");
-    const [remark, setRemark] = useState("");
-    const [isActive, setIsActive] = useState(true);
-    const [initializedId, setInitializedId] = useState<string | null>(null);
-    const [isSubmitted, setIsSubmitted] = useState(false);
-    const itemSelection = useProjectItemSelection();
+  const state = useProjectDraftState();
+  const { form, itemSelection } = state;
 
-    register("name", { required: "Project name is required." });
-    register("price", { required: "Project price is required." });
+  /**
+   * Validate step 2 input.
+   *
+   * @returns {Promise<boolean>} Validation result
+   */
+  const validateStep2 = async (): Promise<boolean> => {
+    state.setIsSubmitted(true);
 
-    /**
-     * Validate step 2 input.
-     * @returns {Promise<boolean>} Validation result
-     */
-    const validateStep2 = async (): Promise<boolean> => {
-      setIsSubmitted(true);
-
-      return await trigger("name");
-    };
-
-    if (project && items.length > 0 && project.id !== initializedId) {
-      setInitializedId(project.id);
-      setName(project.name ?? "");
-      setValue("name", project.name ?? "");
-      setPrice(String(project.price ?? 0));
-      setValue("price", String(project.price ?? 0));
-      clearErrors();
-      setRemark(project.remark ?? "");
-      setIsActive(project.status === 1);
-      itemSelection.setSelectedItems(mapProjectSelectedItems(project, items));
-    }
-
-    /**
-     * Update project name and validation value.
-     * @param {ChangeEvent<HTMLInputElement | HTMLTextAreaElement>} event - Input event
-     * @returns {void} No return value
-     */
-    const handleNameChange = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>): void => {
-      setName(event.target.value);
-      setValue("name", event.target.value, { shouldValidate: isSubmitted });
-    };
-    const handlePriceChange = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>): void => {
-      setPrice(event.target.value);
-      setValue("price", event.target.value, { shouldValidate: isSubmitted });
-    };
-    const handleRemarkChange = _createInputChange(setRemark);
-    /**
-     * Toggle project active status.
-     * @returns {void} No return value
-     */
-    const handleStatusChange = (): void => { setIsActive((current) => !current); };
-    /**
-     * Advance to next step.
-     * @returns {void} No return
-     */
-    const nextStep = (): void => { setStep((current) => (current + 1) as ProjectFormStep); };
-    /**
-     * Return to previous step.
-     * @returns {void} No return
-     */
-    const previousStep = (): void => { setStep((current) => (current - 1) as ProjectFormStep); };
-
-    return {
-      step,
-      name,
-      price,
-      remark,
-      isActive,
-      selectedItems: itemSelection.selectedItems,
-      handleNameChange,
-      handlePriceChange,
-      handleRemarkChange,
-      handleStatusChange,
-      toggleItem: itemSelection.toggleItem,
-      updateItemQuantity: itemSelection.updateItemQuantity,
-      nextStep,
-      previousStep,
-      errors,
-      isSubmitted,
-      validateStep2,
-    };
+    return await form.trigger("name");
   };
-  /* eslint-enable max-lines-per-function */
+
+  if (project) {
+    _applyLoadedProject(project, items, state.initializedId, {
+      setInitializedId: state.setInitializedId,
+      setName: state.setName,
+      setValue: form.setValue,
+      setPrice: state.setPrice,
+      clearErrors: form.clearErrors,
+      setRemark: state.setRemark,
+      setIsActive: state.setIsActive,
+      setSelectedItems: itemSelection.setSelectedItems,
+    });
+  }
+
+  const handlers = _buildProjectDraftHandlers({
+    setName: state.setName,
+    setValue: form.setValue,
+    isSubmitted: state.isSubmitted,
+    setPrice: state.setPrice,
+    setRemark: state.setRemark,
+    setIsActive: state.setIsActive,
+  });
+
+  return _buildDraftFormState(state, handlers, validateStep2);
+};
 
 
 /**
  * Send project create or update mutation.
+ *
  * @param {ProjectSubmissionParams} params - Submission params
  * @param {ReturnType<typeof useCreateProjectMutation>[0]} createProject - Create trigger
  * @param {ReturnType<typeof useUpdateProjectMutation>[0]} updateProject - Update trigger
@@ -162,47 +254,56 @@ const _sendProjectMutation = (
 };
 
 /**
- * Handle form submission execution.
+ * Validate the current wizard step and advance when possible.
+ *
  * @param {ProjectSubmissionParams} params - Params
- * @param {ReturnType<typeof useCreateProjectMutation>[0]} createProject - Create mutation
- * @param {ReturnType<typeof useUpdateProjectMutation>[0]} updateProject - Update mutation
- * @param {object} handlers - Status setters and navigator
- * @param {(path: string) => void} handlers.navigate - Router navigation
- * @param {(msg: string | null) => void} handlers.setErrorMessage - Error setter
- * @param {(msg: string | null) => void} handlers.setSuccessMessage - Success setter
- * @returns {Promise<void>} Async result
+ * @param {ProjectSubmissionHandlers} handlers - Status setters and navigator
+ * @returns {Promise<boolean>} Whether the form may submit now
  */
-// eslint-disable-next-line max-lines-per-function
-const _executeSubmission = async (
+const _passSubmissionStep = async (
   params: ProjectSubmissionParams,
-  createProject: ReturnType<typeof useCreateProjectMutation>[0],
-  updateProject: ReturnType<typeof useUpdateProjectMutation>[0],
-  handlers: {
-    navigate: (path: string, options?: { state: { successMessage: string } }) => void;
-    setErrorMessage: (msg: string | null) => void;
-    setSuccessMessage: (msg: string | null) => void;
-  },
-): Promise<void> => {
+  handlers: ProjectSubmissionHandlers,
+): Promise<boolean> => {
   const { name, selectedItems, step, nextStep } = params;
   const stepError = validateProjectStep(step, selectedItems.length, name);
 
   if (step === 2 && !await params.validateStep2()) {
     handlers.setErrorMessage("Project name is required.");
 
-    return;
+    return false;
   }
 
   if (stepError) {
     handlers.setErrorMessage(stepError);
 
-    return;
+    return false;
   }
 
   if (step !== 3) {
     nextStep();
 
-    return;
+    return false;
   }
+
+  return true;
+};
+
+/**
+ * Handle form submission execution.
+ *
+ * @param {ProjectSubmissionParams} params - Params
+ * @param {ReturnType<typeof useCreateProjectMutation>[0]} createProject - Create mutation
+ * @param {ReturnType<typeof useUpdateProjectMutation>[0]} updateProject - Update mutation
+ * @param {ProjectSubmissionHandlers} handlers - Status setters and navigator
+ * @returns {Promise<void>} Async result
+ */
+const _executeSubmission = async (
+  params: ProjectSubmissionParams,
+  createProject: ReturnType<typeof useCreateProjectMutation>[0],
+  updateProject: ReturnType<typeof useUpdateProjectMutation>[0],
+  handlers: ProjectSubmissionHandlers,
+): Promise<void> => {
+  if (!await _passSubmissionStep(params, handlers)) return;
 
   try {
     const response = await _sendProjectMutation(params, createProject, updateProject);
@@ -224,6 +325,7 @@ const _executeSubmission = async (
 
 /**
  * Handle API project submission.
+ *
  * @param {ProjectSubmissionParams} params - Submission params
  * @returns {ProjectSubmissionState} Submission state
  */
@@ -234,8 +336,9 @@ const useProjectSubmission = (params: ProjectSubmissionParams): ProjectSubmissio
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
 
-  /**
+    /**
    * Submit project form to backend.
+   *
    * @param {SyntheticEvent} event - Submit event
    * @returns {Promise<void>} Async result
    */
@@ -262,6 +365,7 @@ const useProjectSubmission = (params: ProjectSubmissionParams): ProjectSubmissio
 
 /**
  * Create step navigation handlers.
+ *
  * @param {ProjectDraftFormState} draft - Draft state
  * @param {ProjectSubmissionState} submission - Submission state
  * @returns {object} Navigation handlers
@@ -270,8 +374,9 @@ const _createStepNavigators = (
   draft: ProjectDraftFormState,
   submission: ProjectSubmissionState,
 ): { nextStep: () => void; previousStep: () => void } => {
-  /**
+    /**
    * Advance to next step.
+   *
    * @returns {void} No return
    */
   const nextStep = (): void => {
@@ -287,8 +392,9 @@ const _createStepNavigators = (
     draft.nextStep();
   };
 
-  /**
+    /**
    * Return to previous step.
+   *
    * @returns {void} No return
    */
   const previousStep = (): void => {
@@ -301,6 +407,7 @@ const _createStepNavigators = (
 
 /**
  * Manage master project create form state and submission.
+ *
  * @returns {MasterProjectCreateFormState} Form state and handlers
  */
 export const useMasterProjectCreate = (): MasterProjectCreateFormState => {
@@ -319,8 +426,9 @@ export const useMasterProjectCreate = (): MasterProjectCreateFormState => {
   const submission = useProjectSubmission({ id, isEdit, ...draft });
   const { nextStep, previousStep } = _createStepNavigators(draft, submission);
 
-  /**
+    /**
    * Navigate back.
+   *
    * @returns {void} No return
    */
   const goBack = (): void => {

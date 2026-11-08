@@ -1,8 +1,6 @@
-/* eslint-disable jsdoc/require-param-description, jsdoc/require-param-type, jsdoc/require-returns */
 import React from "react";
 import { FiDownload, FiEdit2 } from "react-icons/fi";
 
-import type { MasterVoucherProps, VoucherData } from "./MasterVoucher.type";
 import Layout from "../../../app/layout";
 import { PageLayout } from "../../../app/shared/PageLayout";
 import { Pagination } from "../../../components/Pagination";
@@ -11,8 +9,11 @@ import type { TableColumn } from "../../../components/Table";
 import Table from "../../../components/Table";
 import { formatIndonesianDateTime } from "../../../utils/date.helpers";
 
+import type { MasterVoucherProps, VoucherData } from "./MasterVoucher.type";
+
 /**
  * Render voucher row number.
+ *
  * @param {number} currentPage - Current page
  * @param {number} pageSize - Page size
  * @param {number} index - Row index
@@ -24,6 +25,7 @@ const _renderNumber = (currentPage: number, pageSize: number, index: number): Re
 
 /**
  * Render voucher name.
+ *
  * @param {VoucherData} voucher - Voucher row
  * @returns {React.ReactElement} Name cell
  */
@@ -33,6 +35,7 @@ const _renderName = (voucher: VoucherData): React.ReactElement => (
 
 /**
  * Render voucher code.
+ *
  * @param {VoucherData} voucher - Voucher row
  * @returns {React.ReactElement} Code cell
  */
@@ -42,6 +45,7 @@ const _renderCode = (voucher: VoucherData): React.ReactElement => (
 
 /**
  * Render voucher discount.
+ *
  * @param {VoucherData} voucher - Voucher row
  * @returns {React.ReactElement} Discount cell
  */
@@ -51,6 +55,7 @@ const _renderDiscount = (voucher: VoucherData): React.ReactElement => (
 
 /**
  * Render voucher status.
+ *
  * @param {VoucherData} voucher - Voucher row
  * @returns {React.ReactElement} Status cell
  */
@@ -62,6 +67,7 @@ const _renderStatus = (voucher: VoucherData): React.ReactElement => (
 
 /**
  * Render voucher creation date.
+ *
  * @param {VoucherData} voucher - Voucher row
  * @returns {React.ReactElement} Date cell
  */
@@ -71,23 +77,26 @@ const _renderDate = (voucher: VoucherData): React.ReactElement => (
 
 /**
  * Render voucher row actions.
+ *
  * @param {VoucherData} voucher - Voucher row
  * @param {MasterVoucherProps["onEdit"]} onEdit - Edit handler
  * @param {MasterVoucherProps["onDownload"]} onDownload - Download handler
  * @returns {React.ReactElement} Action cell
  */
 const _renderActions = (voucher: VoucherData, onEdit: MasterVoucherProps["onEdit"], onDownload: MasterVoucherProps["onDownload"]): React.ReactElement => {
-  /**
+    /**
    * Handle voucher download.
-   * @param event
+   *
+   * @param {React.MouseEvent} event - Event
    */
   const handleDownload = (event: React.MouseEvent): void => {
     event.stopPropagation();
     onDownload?.(voucher);
   };
-  /**
+    /**
    * Handle voucher edit.
-   * @param event
+   *
+   * @param {React.MouseEvent} event - Event
    */
   const handleEdit = (event: React.MouseEvent): void => {
     event.stopPropagation();
@@ -108,19 +117,20 @@ const _renderActions = (voucher: VoucherData, onEdit: MasterVoucherProps["onEdit
 
 /**
  * Build voucher table columns.
+ *
  * @param {MasterVoucherProps} props - Component props
  * @returns {TableColumn<VoucherData>[]} Voucher columns
  */
 const _getColumns = (props: MasterVoucherProps): TableColumn<VoucherData>[] => {
-  /**
-   *
-   * @param _voucher
-   * @param index
+    /**
+   * @param {VoucherData} _voucher - Voucher
+   * @param {number} index - Index
+   * @returns {React.ReactElement} Rendered element
    */
   const renderNumber = (_voucher: VoucherData, index: number): React.ReactElement => _renderNumber(props.currentPage, props.pageSize, index);
-  /**
-   *
-   * @param voucher
+    /**
+   * @param {VoucherData} voucher - Voucher
+   * @returns {React.ReactElement} Rendered element
    */
   const renderActions = (voucher: VoucherData): React.ReactElement => _renderActions(voucher, props.onEdit, props.onDownload);
 
@@ -137,6 +147,7 @@ const _getColumns = (props: MasterVoucherProps): TableColumn<VoucherData>[] => {
 
 /**
  * Render voucher list state.
+ *
  * @param {MasterVoucherProps} props - Component props
  * @returns {React.ReactElement | null} List state
  */
@@ -150,7 +161,11 @@ const _renderListState = (props: MasterVoucherProps): React.ReactElement | null 
   return null;
 };
 
-/** Render voucher action skeleton. */
+/**
+ * Render voucher action skeleton.
+ *
+ * @returns {React.ReactElement} Rendered element
+ */
 const _renderActionSkeleton = (): React.ReactElement => (
   <div className="flex justify-center gap-1">
     <span className="h-10 w-10 rounded-3xl bg-background-subtle" />
@@ -160,6 +175,7 @@ const _renderActionSkeleton = (): React.ReactElement => (
 
 /**
  * Render voucher table skeleton.
+ *
  * @param {MasterVoucherProps} props - Component props
  * @returns {React.ReactElement} Table skeleton
  */
@@ -197,6 +213,7 @@ const _renderTableSkeleton = (props: MasterVoucherProps): React.ReactElement => 
 
 /**
  * Render voucher mobile card skeleton.
+ *
  * @param {number} key - Skeleton key
  * @returns {React.ReactElement} Card skeleton
  */
@@ -215,13 +232,14 @@ const _renderMobileCardSkeleton = (key: number): React.ReactElement => (
 
 /**
  * Render voucher mobile card.
+ *
  * @param {VoucherData} voucher - Voucher row
  * @param {MasterVoucherProps["onEdit"]} onEdit - Edit action
  * @returns {React.ReactElement} Voucher card
  */
 const _renderVoucherCard = (voucher: VoucherData, onEdit: MasterVoucherProps["onEdit"]): React.ReactElement => {
-  /**
-   *
+    /**
+   * @returns {void} Resolved value
    */
   const handleClick = (): void => onEdit(voucher);
 
@@ -241,13 +259,14 @@ const _renderVoucherCard = (voucher: VoucherData, onEdit: MasterVoucherProps["on
 
 /**
  * Render voucher mobile list.
+ *
  * @param {MasterVoucherProps} props - Component props
  * @returns {React.ReactElement} Mobile element
  */
 const _renderMobile = (props: MasterVoucherProps): React.ReactElement => {
-  /**
-   *
-   * @param event
+    /**
+   * @param {React.ChangeEvent<HTMLInputElement>} event - Event
+   * @returns {void} Resolved value
    */
   const handleSearch = (event: React.ChangeEvent<HTMLInputElement>): void => props.setSearchTerm(event.target.value);
 
@@ -264,13 +283,14 @@ const _renderMobile = (props: MasterVoucherProps): React.ReactElement => {
 
 /**
  * Render voucher desktop table.
+ *
  * @param {MasterVoucherProps} props - Component props
  * @returns {React.ReactElement} Desktop element
  */
 const _renderDesktop = (props: MasterVoucherProps): React.ReactElement => {
-  /**
-   *
-   * @param event
+    /**
+   * @param {React.ChangeEvent<HTMLInputElement>} event - Event
+   * @returns {void} Resolved value
    */
   const handleSearch = (event: React.ChangeEvent<HTMLInputElement>): void => props.setSearchTerm(event.target.value);
 
@@ -290,6 +310,7 @@ const _renderDesktop = (props: MasterVoucherProps): React.ReactElement => {
 
 /**
  * Render master voucher page component.
+ *
  * @param {MasterVoucherProps} props - Component props
  * @returns {React.ReactElement} Page element
  */

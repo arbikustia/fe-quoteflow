@@ -9,6 +9,7 @@ import type { useGetAllItemsQuery } from "@/services/master-item.service";
 
 /**
  * Format backend messages into a display string.
+ *
  * @param {string[] | string | null} messages - Backend response messages
  * @returns {string} Display message
  */
@@ -22,6 +23,7 @@ export const formatProjectMessages = (messages: string[] | string | null): strin
 
 /**
  * Map API items to project item options.
+ *
  * @param {ReturnType<typeof useGetAllItemsQuery>["data"]} response - Item response
  * @returns {ProjectItemOption[]} Item options
  */
@@ -40,6 +42,7 @@ export const mapProjectItemOptions = (
 
 /**
  * Calculate updated item list when toggling an item selection.
+ *
  * @param {ProjectItemSelection[]} current - Currently selected items
  * @param {ProjectItemOption} item - Item option to toggle
  * @returns {ProjectItemSelection[]} Updated selected items
@@ -54,6 +57,7 @@ export const toggleSelectedItem = (
 
 /**
  * Calculate updated item list when changing quantity.
+ *
  * @param {ProjectItemSelection[]} current - Currently selected items
  * @param {string} itemId - Target item ID
  * @param {number} quantity - New quantity
@@ -72,6 +76,7 @@ export const updateSelectedQuantity = (
 
 /**
  * Validate current step before advancing.
+ *
  * @param {ProjectFormStep} step - Current step
  * @param {number} selectedItemsCount - Count of selected items
  * @param {string} name - Project name
@@ -95,6 +100,7 @@ export const validateProjectStep = (
 
 /**
  * Map project response items to selected items.
+ *
  * @param {ApiProject | null | undefined} project - Project details
  * @param {ProjectItemOption[]} items - Item options
  * @returns {ProjectItemSelection[]} Mapped selected items

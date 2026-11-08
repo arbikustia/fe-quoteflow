@@ -22,7 +22,7 @@ jest.mock("@/services/master-item.service", () => ({
   }),
 }));
 
-jest.mock("../../app/layout", () => ({
+jest.mock("../../../app/layout", () => ({
   __esModule: true,
   default: ({ children }: { children: React.ReactNode }) => React.createElement("div", {}, children),
 }));

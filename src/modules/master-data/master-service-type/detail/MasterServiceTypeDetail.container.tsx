@@ -5,6 +5,7 @@ import { useMasterServiceTypeDetail } from "./MasterServiceTypeDetail.hook";
 
 /**
  * Render Master Service Type Detail Container.
+ *
  * @returns {ReactElement} Container
  */
 const MasterServiceTypeDetailContainer = (): ReactElement => {

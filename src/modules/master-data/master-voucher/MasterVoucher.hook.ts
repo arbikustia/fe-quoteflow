@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-import { mapVoucher, useGetVouchersQuery } from "@/services/master-voucher.service";
 import { createPaginationHandlers } from "@/utils/pagination.helpers";
 
 import type {
@@ -13,23 +12,25 @@ import type {
   VoucherListResponse,
 } from "./MasterVoucher.type";
 
+import { mapVoucher, useGetVouchersQuery } from "@/services/master-voucher.service";
+
 /**
  * Provide master voucher navigation.
+ *
  * @returns {MasterVoucherNavigation} Navigation handlers
  */
 export const useMasterVoucherNavigation = (): MasterVoucherNavigation => {
   const navigate = useNavigate();
 
-  /**
-   *
+    /**
    */
   const goBack = (): void => { navigate("/master-main"); };
-  /**
-   *
+    /**
    */
   const goCreate = (): void => { navigate("/master-voucher/create"); };
-  /**
+    /**
    * Navigate to edit voucher page.
+   *
    * @param {VoucherData} voucher - Voucher data
    * @returns {void} No return value
    */
@@ -42,6 +43,7 @@ export const useMasterVoucherNavigation = (): MasterVoucherNavigation => {
 
 /**
  * Derive explicit list state from RTK Query result.
+ *
  * @param {ReturnType<typeof useGetVouchersQuery>} queryResult - Query result
  * @returns {VoucherListApiState} Derived list state
  */
@@ -86,6 +88,7 @@ const _deriveVoucherListState = (
 
 /**
  * Provide API-backed voucher pagination.
+ *
  * @returns {MasterVoucherPagination} Voucher pagination state
  */
 export const useMasterVoucherPagination = (): MasterVoucherPagination => {
@@ -126,6 +129,7 @@ export const useMasterVoucherPagination = (): MasterVoucherPagination => {
 
 /**
  * Provide complete master voucher container state.
+ *
  * @returns {MasterVoucherContainerState} Container state
  */
 export const useMasterVoucherContainerState = (): MasterVoucherContainerState => {
@@ -133,16 +137,13 @@ export const useMasterVoucherContainerState = (): MasterVoucherContainerState =>
   const pagination = useMasterVoucherPagination();
   const [isMoreOpen, setIsMoreOpen] = useState(false);
 
-  /**
-   *
+    /**
    */
   const toggleMore = (): void => { setIsMoreOpen((previous) => !previous); };
-  /**
-   *
+    /**
    */
   const handleCloseMore = (): void => { setIsMoreOpen(false); };
-  /**
-   *
+    /**
    */
   const goDelete = (): void => { handleCloseMore(); };
 

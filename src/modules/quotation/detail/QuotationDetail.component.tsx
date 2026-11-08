@@ -171,63 +171,117 @@ const _getApproveLabel = (isApproved: boolean, isApproving: boolean): string => 
 };
 
 /**
+ * Render approval button label and disabled state.
+ * @param {QuotationDetailState} props - Detail state
+ * @param {number} status - Quotation status
+ * @returns {{approveLabel: string; isApproved: boolean}} Approval presentation
+ */
+const _getApprovalPresentation = (
+  props: QuotationDetailState,
+  status: number,
+): { approveLabel: string; isApproved: boolean } => {
+  const isApproved = status === 2;
+
+  return { approveLabel: _getApproveLabel(isApproved, props.isApproving), isApproved };
+};
+
+/**
+ * Render desktop quotation header actions.
+ * @param {QuotationDetailState} props - Detail state
+ * @param {string} approveLabel - Approval label
+ * @param {boolean} isApproved - Approved state
+ * @param {() => void} handleDownloadPdf - PDF handler
+ * @returns {ReactElement} Desktop actions
+ */
+const _renderDesktopActions = (
+  props: QuotationDetailState,
+  approveLabel: string,
+  isApproved: boolean,
+  handleDownloadPdf: () => void,
+): ReactElement => (
+  <div className="hidden items-center gap-3 lg:flex" data-testid="quotation-detail-desktop-actions">
+    {props.quotation?.status === 1 && (
+      <button type="button" onClick={props.handleEdit} className="inline-flex h-11 items-center gap-2 rounded-3xl border border-border-default px-4 text-lg font-semibold text-text-primary transition-colors hover:bg-background-subtle">
+        <FiEdit2 className="h-5 w-5" aria-hidden="true" />
+        Edit
+      </button>
+    )}
+    <button type="button" onClick={props.openApproveModal} disabled={isApproved || props.isApproving} className="inline-flex h-11 items-center gap-2 rounded-3xl bg-success-strong px-4 text-lg font-semibold text-white transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-60">
+      <FiCheckCircle className="h-5 w-5" aria-hidden="true" />
+      {approveLabel}
+    </button>
+    <button type="button" onClick={handleDownloadPdf} className="inline-flex h-11 items-center gap-2 rounded-3xl bg-action-primary px-4 text-lg font-semibold text-white transition-opacity hover:opacity-90">
+      <FiDownload className="h-5 w-5" aria-hidden="true" />
+      Download PDF
+    </button>
+  </div>
+);
+
+/**
+ * Render mobile quotation header action menu.
+ * @param {QuotationDetailState} props - Detail state
+ * @param {string} approveLabel - Approval label
+ * @param {boolean} isApproved - Approved state
+ * @param {() => void} handleDownloadPdf - PDF handler
+ * @returns {ReactElement} Mobile actions
+ */
+const _renderMobileActions = (
+  props: QuotationDetailState,
+  approveLabel: string,
+  isApproved: boolean,
+  handleDownloadPdf: () => void,
+): ReactElement => (
+  <div className="lg:hidden">
+    <ActionMenu testId="quotation-detail-actions" icon={<FiMoreHorizontal className="h-7 w-7" aria-hidden="true" />}>
+      {props.quotation?.status === 1 && (
+        <button type="button" role="menuitem" onClick={props.handleEdit} className="flex w-full items-center gap-3 px-5 py-3.5 text-left text-lg font-semibold text-text-primary transition-colors hover:bg-background-subtle">
+          <FiEdit2 className="h-5 w-5" aria-hidden="true" />
+          Edit
+        </button>
+      )}
+      <button type="button" role="menuitem" onClick={props.openApproveModal} disabled={isApproved || props.isApproving} className="flex w-full items-center gap-3 px-5 py-3.5 text-left text-lg font-semibold text-success-strong transition-colors hover:bg-success-subtle disabled:cursor-not-allowed disabled:opacity-60">
+        <FiCheckCircle className="h-5 w-5" aria-hidden="true" />
+        {approveLabel}
+      </button>
+      <button type="button" role="menuitem" onClick={handleDownloadPdf} className="flex w-full items-center gap-3 px-5 py-3.5 text-left text-lg font-semibold text-text-primary transition-colors hover:bg-background-subtle">
+        <FiDownload className="h-5 w-5" aria-hidden="true" />
+        Download PDF
+      </button>
+    </ActionMenu>
+  </div>
+);
+
+/**
+ * Render quotation header actions.
+ * @param {QuotationDetailState} props - Detail state
+ * @returns {ReactElement | null} Header actions
+ */
+const _renderHeaderActions = (props: QuotationDetailState): ReactElement | null => {
+  const quotation = props.quotation;
+
+  if (!quotation) return null;
+
+  const { approveLabel, isApproved } = _getApprovalPresentation(props, quotation.status);
+  /** Download current quotation PDF. */
+  const handleDownloadPdf = (): void => {
+    void generateQuotationPDF(quotationToQuoteData(quotation, props.itemCategories));
+  };
+
+  return (
+    <>
+      {_renderDesktopActions(props, approveLabel, isApproved, handleDownloadPdf)}
+      {_renderMobileActions(props, approveLabel, isApproved, handleDownloadPdf)}
+    </>
+  );
+};
+
+/**
  * Render quotation detail page.
  * @param {QuotationDetailState} props - Detail state
  * @returns {ReactElement} Quotation detail page
  */
-// eslint-disable-next-line max-lines-per-function
 export const QuotationDetailComponent = (props: QuotationDetailState): ReactElement => {
-  const isApproved = props.quotation?.status === 2;
-  const approveLabel = _getApproveLabel(isApproved, props.isApproving);
-
-  /**
-   * Handle quotation PDF download.
-   * @returns {void}
-   */
-  const handleDownloadPdf = (): void => {
-    if (props.quotation) {
-      void generateQuotationPDF(quotationToQuoteData(props.quotation, props.itemCategories));
-    }
-  };
-
-  const headerActions = props.quotation ? (
-    <>
-      <div className="hidden items-center gap-3 lg:flex" data-testid="quotation-detail-desktop-actions">
-        {props.quotation.status === 1 && (
-          <button type="button" onClick={props.handleEdit} className="inline-flex h-11 items-center gap-2 rounded-3xl border border-border-default px-4 text-lg font-semibold text-text-primary transition-colors hover:bg-background-subtle">
-            <FiEdit2 className="h-5 w-5" aria-hidden="true" />
-            Edit
-          </button>
-        )}
-        <button type="button" onClick={props.openApproveModal} disabled={isApproved || props.isApproving} className="inline-flex h-11 items-center gap-2 rounded-3xl bg-success-strong px-4 text-lg font-semibold text-white transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-60">
-          <FiCheckCircle className="h-5 w-5" aria-hidden="true" />
-          {approveLabel}
-        </button>
-        <button type="button" onClick={handleDownloadPdf} className="inline-flex h-11 items-center gap-2 rounded-3xl bg-action-primary px-4 text-lg font-semibold text-white transition-opacity hover:opacity-90">
-          <FiDownload className="h-5 w-5" aria-hidden="true" />
-          Download PDF
-        </button>
-      </div>
-      <div className="lg:hidden">
-        <ActionMenu testId="quotation-detail-actions" icon={<FiMoreHorizontal className="h-7 w-7" aria-hidden="true" />}>
-          {props.quotation.status === 1 && (
-            <button type="button" role="menuitem" onClick={props.handleEdit} className="flex w-full items-center gap-3 px-5 py-3.5 text-left text-lg font-semibold text-text-primary transition-colors hover:bg-background-subtle">
-              <FiEdit2 className="h-5 w-5" aria-hidden="true" />
-              Edit
-            </button>
-          )}
-          <button type="button" role="menuitem" onClick={props.openApproveModal} disabled={isApproved || props.isApproving} className="flex w-full items-center gap-3 px-5 py-3.5 text-left text-lg font-semibold text-success-strong transition-colors hover:bg-success-subtle disabled:cursor-not-allowed disabled:opacity-60">
-            <FiCheckCircle className="h-5 w-5" aria-hidden="true" />
-            {approveLabel}
-          </button>
-          <button type="button" role="menuitem" onClick={handleDownloadPdf} className="flex w-full items-center gap-3 px-5 py-3.5 text-left text-lg font-semibold text-text-primary transition-colors hover:bg-background-subtle">
-            <FiDownload className="h-5 w-5" aria-hidden="true" />
-            Download PDF
-          </button>
-        </ActionMenu>
-      </div>
-    </>
-  ) : null;
+  const headerActions = _renderHeaderActions(props);
 
   return (
     <Layout pageTitle="Quotation Detail">

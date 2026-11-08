@@ -1,10 +1,12 @@
 import * as React from "react";
 
-import type { OrderTypeData, OrderTypeMobileCardProps } from "./MasterOrderType.type";
 import { MasterDataCard } from "../../../components/MasterDataCard";
+
+import type { OrderTypeData, OrderTypeMobileCardProps } from "./MasterOrderType.type";
 
 /**
  * Render order type details.
+ *
  * @param {OrderTypeData} orderType - Order type data
  * @returns {React.ReactElement} Details node
  */
@@ -21,14 +23,16 @@ const _renderDetails = (orderType: OrderTypeData): React.ReactElement =>
 
 /**
  * Render single order type card on mobile.
+ *
  * @param {OrderTypeMobileCardProps} props - Order type card props
  * @returns {React.ReactElement} Order type card
  */
 export const OrderTypeMobileCard = (props: OrderTypeMobileCardProps): React.ReactElement => {
   const { orderType, onEdit } = props;
 
-  /**
+    /**
    * Handle card click.
+   *
    * @returns {void} No return value
    */
   const handleClick = (): void => {
@@ -49,6 +53,7 @@ export const OrderTypeMobileCard = (props: OrderTypeMobileCardProps): React.Reac
 
 /**
  * Calculate order type table row number.
+ *
  * @param {number} currentPage - Active page
  * @param {number} pageSize - Active page size
  * @param {number} rowIndex - Zero-based row index

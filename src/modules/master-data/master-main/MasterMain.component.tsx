@@ -1,10 +1,12 @@
 import * as React from "react";
 
-import type { MasterMainCardProps, MasterMainProps } from "./MasterMain.type";
 import { PageLayout } from "../../../app/shared/PageLayout";
+
+import type { MasterMainCardProps, MasterMainProps } from "./MasterMain.type";
 
 /**
  * Render Master Main Card Skeleton
+ *
  * @param {number} key - skeleton key
  * @returns {React.ReactElement} - skeleton card
  */
@@ -26,6 +28,7 @@ export const MasterMainCardSkeleton = (key: number): React.ReactElement => (
 
 /**
  * Render Master Main Card
+ *
  * @param {MasterMainCardProps} props - card props
  * @returns {React.ReactElement} - card
  */
@@ -60,6 +63,7 @@ export const MasterMainCard = (props: MasterMainCardProps): React.ReactElement =
 
 /**
  * Master Main Component
+ *
  * @param {object} props - component props
  * @param {MasterMainCardProps[]} props.cards - master cards list
  * @param {(path: string) => void} props.onCardClick - card click handler

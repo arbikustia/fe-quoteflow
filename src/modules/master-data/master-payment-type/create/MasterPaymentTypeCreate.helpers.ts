@@ -1,5 +1,6 @@
 /**
  * Validate required payment type fields.
+ *
  * @param {string} name - Payment type name
  * @returns {string | null} Validation error
  */

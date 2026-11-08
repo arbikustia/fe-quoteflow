@@ -4,9 +4,6 @@ import { useNavigate } from "react-router-dom";
 import { generateQuotationPDF } from "@/utils/pdfGenerator";
 
 import { quotationToQuoteData } from "./Quotation.helpers";
-
-import { useLazyGetQuotationByIdQuery } from "@/services/quotation.service";
-
 import type {
   QuotationData,
   QuotationListApiState,
@@ -16,6 +13,7 @@ import type {
 } from "./Quotation.type";
 
 import { useGetAllItemsQuery } from "@/services/master-item.service";
+import { useLazyGetQuotationByIdQuery } from "@/services/quotation.service";
 import { mapQuotation, useGetQuotationsQuery } from "@/services/quotation.service";
 
 /**
@@ -93,18 +91,26 @@ export const useQuotationPagination = (): QuotationPagination => {
  * @returns {void} - result.
  */
 const goToPage = (page: number): void => setCurrentPage(Math.max(1, Math.min(page, state.totalPages)));
-  /**
- * changePageSize.
- * @param {number} size - size value.
- * @returns {void} - result.
+
+/**
+ * Change quotation page size.
+ * @param {number} size - Requested page size
+ * @returns {void} No return value
  */
-const changePageSize = (size: number): void => { setPageSize(size); setCurrentPage(1); };
-  /**
- * setSearchTerm.
- * @param {string} value - value value.
- * @returns {void} - result.
+const changePageSize = (size: number): void => {
+  setPageSize(size);
+  setCurrentPage(1);
+};
+
+/**
+ * Change quotation search term.
+ * @param {string} value - Search value
+ * @returns {void} No return value
  */
-const setSearchTerm = (value: string): void => { setSearchTermState(value); setCurrentPage(1); };
+const setSearchTerm = (value: string): void => {
+  setSearchTermState(value);
+  setCurrentPage(1);
+};
 
   return {
     ...state,
@@ -174,8 +180,14 @@ export const useQuotationNavigation = (): QuotationNavigation => {
    */
   const onRowClick = (quotation: QuotationData): void => { void navigate(`/document/quotation/${quotation.id}`); };
 
+  /**
+   * Download quotation using complete detail data.
+   * @param {QuotationData} quotation - Selected quotation
+   * @returns {Promise<void>} Completion promise
+   */
   const onDownload = async (quotation: QuotationData): Promise<void> => {
     const response = await getQuotation(quotation.id).unwrap();
+
     if (response.data) {
       generateQuotationPDF(quotationToQuoteData(response.data, itemCategories));
     }

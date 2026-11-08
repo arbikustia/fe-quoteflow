@@ -1,4 +1,3 @@
-/* eslint-disable jsdoc/require-param, jsdoc/require-returns, sonarjs/no-nested-conditional */
 import { type ReactElement } from "react";
 import type { FieldError } from "react-hook-form";
 import { FiEye, FiEyeOff } from "react-icons/fi";
@@ -9,14 +8,25 @@ import { InputComponent } from "@/components/Input";
 import { Select } from "@/components/Select";
 import { SwitchComponent } from "@/components/Switch";
 
-import Layout from "@/app/layout";
-
 import type { MasterUserCreateFormState } from "./MasterUserCreate.type";
 
-/** Read validation message from error. */
+import Layout from "@/app/layout";
+
+/**
+ * Read validation message from error.
+ *
+ * @param {FieldError | undefined} error - Error
+ * @returns {string | null} Resolved value
+ */
 const _getFieldError = (error: FieldError | undefined): string | null => error?.message?.toString() ?? null;
 
-/** Render mobile back button. */
+/**
+ * Render mobile back button.
+ *
+ * @param {boolean} isEditMode - Whether edit mode
+ * @param {() => void} goBack - Go back
+ * @returns {ReactElement} Rendered element
+ */
 const _renderMobileBack = (isEditMode: boolean, goBack: () => void): ReactElement => {
   const title = isEditMode ? "Edit User" : "New User";
 
@@ -35,7 +45,13 @@ const _renderMobileBack = (isEditMode: boolean, goBack: () => void): ReactElemen
   );
 };
 
-/** Render header section. */
+/**
+ * Render header section.
+ *
+ * @param {boolean} isEditMode - Whether edit mode
+ * @param {() => void} goBack - Go back
+ * @returns {ReactElement} Rendered element
+ */
 const _renderHeader = (isEditMode: boolean, goBack: () => void): ReactElement => {
   const title = isEditMode ? "Edit User" : "New User";
   const subtitle = isEditMode ? "Update the user details below." : "Fill in the user details below.";
@@ -71,7 +87,12 @@ const _renderHeader = (isEditMode: boolean, goBack: () => void): ReactElement =>
 };
 
 
-/** Render password toggle icon. */
+/**
+ * Render password toggle icon.
+ *
+ * @param {boolean} isPasswordVisible - Whether password visible
+ * @returns {ReactElement} Rendered element
+ */
 const _renderPasswordIcon = (isPasswordVisible: boolean): ReactElement =>
   isPasswordVisible ? (
     <FiEyeOff className="h-6 w-6" aria-hidden="true" />
@@ -79,7 +100,12 @@ const _renderPasswordIcon = (isPasswordVisible: boolean): ReactElement =>
     <FiEye className="h-6 w-6" aria-hidden="true" />
   );
 
-/** Render password input field. */
+/**
+ * Render password input field.
+ *
+ * @param {MasterUserCreateFormState} props - Props
+ * @returns {ReactElement} Rendered element
+ */
 const _renderPassword = (props: MasterUserCreateFormState): ReactElement => {
   const passwordError = props.isSubmitted && !props.password ? "Password is required." : _getFieldError(props.errors?.password);
 
@@ -114,7 +140,12 @@ const _renderPassword = (props: MasterUserCreateFormState): ReactElement => {
   );
 };
 
-/** Render user status card. */
+/**
+ * Render user status card.
+ *
+ * @param {MasterUserCreateFormState} props - Props
+ * @returns {ReactElement | null} Rendered element
+ */
 const _renderStatusCard = (props: MasterUserCreateFormState): ReactElement | null => {
   if (!props.isEditMode) return null;
 
@@ -134,7 +165,12 @@ const _renderStatusCard = (props: MasterUserCreateFormState): ReactElement | nul
   );
 };
 
-/** Render role select and status toggle. */
+/**
+ * Render role select and status toggle.
+ *
+ * @param {MasterUserCreateFormState} props - Props
+ * @returns {ReactElement} Rendered element
+ */
 const _renderRoleAndStatus = (props: MasterUserCreateFormState): ReactElement => {
   const roleError = props.isSubmitted && !props.role ? "Role is required." : _getFieldError(props.errors?.role);
   const options = props.roleOptions.map((opt) => ({ label: opt.role, value: opt.role }));
@@ -163,22 +199,34 @@ const _renderRoleAndStatus = (props: MasterUserCreateFormState): ReactElement =>
 };
 
 
-/** Render all form inputs in grid. */
-const _renderFormInputs = (props: MasterUserCreateFormState): ReactElement => {
+/**
+ * Build the shared input class names, switching the border on error.
+ *
+ * @param {string | null} error - Field error message
+ * @returns {string} Input class names
+ */
+const _getInputClassName = (error: string | null): string =>
+  `!mb-0 [&_.ant-input]:!h-16 lg:[&_.ant-input]:!h-14 [&_.ant-input]:!rounded-2xl [&_.ant-input]:!border-2 ${
+    error ? "[&_.ant-input]:!border-danger" : "[&_.ant-input]:!border-border-strong"
+  } [&_.ant-input.ant-input-status-error]:!border-danger [&_.ant-input]:!px-4 [&_.ant-input]:!text-xl lg:[&_.ant-input]:!text-lg [&_.ant-input]:!font-normal [&_.ant-input]:placeholder:!text-xl lg:[&_.ant-input]:placeholder:!text-lg [&_.ant-input]:placeholder:!font-normal [&_label]:!text-lg lg:[&_label]:!text-lg [&_label]:!font-normal [&_label]:!normal-case [&_label]:!text-text-primary`;
+
+/**
+ * Render username and email inputs.
+ *
+ * @param {MasterUserCreateFormState} props - Props
+ * @returns {ReactElement} Rendered element
+ */
+const _renderCredentialFields = (props: MasterUserCreateFormState): ReactElement => {
   const usernameError = props.isSubmitted && !props.username ? "Username is required." : _getFieldError(props.errors?.username);
   const emailError = props.isSubmitted && !props.email ? "Email is required." : _getFieldError(props.errors?.email);
 
   return (
-    <div className="grid w-full grid-cols-1 gap-x-6 gap-y-5 lg:grid-cols-2">
+    <>
       <InputComponent
         id="username"
         type="text"
         label="Username"
-        className={`!mb-0 [&_.ant-input]:!h-16 lg:[&_.ant-input]:!h-14 [&_.ant-input]:!rounded-2xl [&_.ant-input]:!border-2 ${
-          usernameError
-            ? "[&_.ant-input]:!border-danger"
-            : "[&_.ant-input]:!border-border-strong"
-        } [&_.ant-input.ant-input-status-error]:!border-danger [&_.ant-input]:!px-4 [&_.ant-input]:!text-xl lg:[&_.ant-input]:!text-lg [&_.ant-input]:!font-normal [&_.ant-input]:placeholder:!text-xl lg:[&_.ant-input]:placeholder:!text-lg [&_.ant-input]:placeholder:!font-normal [&_label]:!text-lg lg:[&_label]:!text-lg [&_label]:!font-normal [&_label]:!normal-case [&_label]:!text-text-primary`}
+        className={_getInputClassName(usernameError)}
         placeholder="e.g. johndoe"
         value={props.username}
         required
@@ -189,25 +237,51 @@ const _renderFormInputs = (props: MasterUserCreateFormState): ReactElement => {
         id="email"
         type="email"
         label="Email"
-        className={`!mb-0 [&_.ant-input]:!h-16 lg:[&_.ant-input]:!h-14 [&_.ant-input]:!rounded-2xl [&_.ant-input]:!border-2 ${
-          emailError
-            ? "[&_.ant-input]:!border-danger"
-            : "[&_.ant-input]:!border-border-strong"
-        } [&_.ant-input.ant-input-status-error]:!border-danger [&_.ant-input]:!px-4 [&_.ant-input]:!text-xl lg:[&_.ant-input]:!text-lg [&_.ant-input]:!font-normal [&_.ant-input]:placeholder:!text-xl lg:[&_.ant-input]:placeholder:!text-lg [&_.ant-input]:placeholder:!font-normal [&_label]:!text-lg lg:[&_label]:!text-lg [&_label]:!font-normal [&_label]:!normal-case [&_label]:!text-text-primary`}
+        className={_getInputClassName(emailError)}
         placeholder="e.g. john@example.com"
         value={props.email}
         required
         errorMessage={emailError ?? undefined}
         onChange={props.handleEmailChange}
       />
-      {!props.isEditMode && _renderPassword(props)}
-      {_renderRoleAndStatus(props)}
-    </div>
+    </>
   );
 };
 
+/**
+ * Render all form inputs in grid.
+ *
+ * @param {MasterUserCreateFormState} props - Props
+ * @returns {ReactElement} Rendered element
+ */
+const _renderFormInputs = (props: MasterUserCreateFormState): ReactElement => (
+  <div className="grid w-full grid-cols-1 gap-x-6 gap-y-5 lg:grid-cols-2">
+    {_renderCredentialFields(props)}
+    {!props.isEditMode && _renderPassword(props)}
+    {_renderRoleAndStatus(props)}
+  </div>
+);
+
+/**
+ * Resolve submit button label.
+ *
+ * @param {MasterUserCreateFormState} props - Form state
+ * @returns {string} Submit label
+ */
+const _getSubmitLabel = (props: MasterUserCreateFormState): string => {
+  if (props.isSubmitting) return "Saving…";
+
+  return props.isEditMode ? "Update User" : "Create User";
+};
+
+/**
+ * Render form action buttons.
+ *
+ * @param {MasterUserCreateFormState} props - Form state
+ * @returns {ReactElement} Form actions
+ */
 const _renderFormActions = (props: MasterUserCreateFormState): ReactElement => {
-  const submitLabel = props.isSubmitting ? "Saving…" : (props.isEditMode ? "Update User" : "Create User");
+  const submitLabel = _getSubmitLabel(props);
 
   return (
     <div className="mt-auto flex justify-between gap-3 border-t border-border-default/60 pt-5 lg:border-border-default">
@@ -231,7 +305,12 @@ const _renderFormActions = (props: MasterUserCreateFormState): ReactElement => {
 };
 
 
-/** Render master user create/edit form. */
+/**
+ * Render master user create/edit form.
+ *
+ * @param {MasterUserCreateFormState} props - Props
+ * @returns {ReactElement} Rendered element
+ */
 export const MasterUserCreateComponent = (props: MasterUserCreateFormState): ReactElement => (
   <Layout pageTitle={props.isEditMode ? "Edit User" : "New User"}>
     <div className="flex h-full w-full flex-col bg-background-page pb-6 font-sans">

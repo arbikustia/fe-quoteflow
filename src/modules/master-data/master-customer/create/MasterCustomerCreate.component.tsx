@@ -13,6 +13,7 @@ import type {
 
 /**
  * Render back icon SVG.
+ *
  * @returns {ReactElement} Back icon
  */
 const _renderBackIcon = (): ReactElement => (
@@ -32,6 +33,7 @@ const _renderBackIcon = (): ReactElement => (
 
 /**
  * Render mobile top back bar.
+ *
  * @param {boolean} isEditMode - Edit mode flag
  * @param {() => void} goBack - Back action
  * @returns {ReactElement} Bar element
@@ -59,6 +61,7 @@ const _renderMobileBack = (
 
 /**
  * Render page header with breadcrumb.
+ *
  * @param {boolean} isEditMode - Edit mode flag
  * @param {() => void} goBack - Back navigation
  * @returns {ReactElement} Header element
@@ -104,6 +107,7 @@ const _renderHeaderSection = (
 
 /**
  * Read validation message from React Hook Form.
+ *
  * @param {FieldError | undefined} error - Field validation error
  * @returns {string | null} Validation message
  */
@@ -112,6 +116,7 @@ const _getFieldError = (error: FieldError | undefined): string | null =>
 
 /**
  * Render standard input field.
+ *
  * @param {CustomerFieldConfig} config - Input configuration
  * @returns {ReactElement} Field element
  */
@@ -138,6 +143,7 @@ const _renderInputField = (config: CustomerFieldConfig): ReactElement => (
 
 /**
  * Render name field.
+ *
  * @param {MasterCustomerCreateFormState} props - Form state
  * @returns {ReactElement} Field element
  */
@@ -162,6 +168,7 @@ const _renderNameField = (
 
 /**
  * Render email field.
+ *
  * @param {MasterCustomerCreateFormState} props - Form state
  * @returns {ReactElement} Field element
  */
@@ -187,6 +194,7 @@ const _renderEmailField = (
 
 /**
  * Render phone field.
+ *
  * @param {MasterCustomerCreateFormState} props - Form state
  * @returns {ReactElement} Field element
  */
@@ -215,6 +223,7 @@ const _renderPhoneField = (
 
 /**
  * Render address field.
+ *
  * @param {MasterCustomerCreateFormState} props - Form state
  * @returns {ReactElement} Field element
  */
@@ -254,6 +263,7 @@ const _renderAddressField = (
 
 /**
  * Render status switch field (edit mode only).
+ *
  * @param {MasterCustomerCreateFormState} props - Form state
  * @returns {ReactElement | null} Field element
  */
@@ -281,6 +291,7 @@ const _renderStatusField = (
 
 /**
  * Render submit button section.
+ *
  * @param {boolean} isSubmitting - Submitting state
  * @param {boolean} isEditMode - Edit mode flag
  * @param {() => void} goBack - Back action
@@ -317,6 +328,7 @@ const _renderSubmitSection = (
 
 /**
  * Render form card container.
+ *
  * @param {MasterCustomerCreateFormState} props - Form state
  * @returns {ReactElement} Form element
  */
@@ -345,6 +357,7 @@ const _renderFormCard = (
 
 /**
  * Render notification alerts.
+ *
  * @param {string | null} errorMessage - Error alert text
  * @param {string | null} successMessage - Success alert text
  * @returns {ReactElement | null} Alert element
@@ -373,6 +386,7 @@ const _renderAlerts = (
 
 /**
  * Master Customer Create Form.
+ *
  * @param {MasterCustomerCreateFormState} props - Form props
  * @returns {ReactElement} Create form
  */

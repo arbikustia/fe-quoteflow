@@ -5,6 +5,7 @@ import { useMasterProjectCreate } from "./MasterProjectCreate.hook";
 
 /**
  * Master project create page container.
+ *
  * @returns {ReactElement} Create page element
  */
 const MasterProjectCreateContainer = (): ReactElement => {

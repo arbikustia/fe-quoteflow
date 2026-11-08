@@ -9,6 +9,7 @@ import type { CategoryRouteState } from "./MasterCategory.type";
 
 /**
  * Master Category Container.
+ *
  * @returns {React.ReactElement} Container element
  */
 const MasterCategoryContainer = (): React.ReactElement => {

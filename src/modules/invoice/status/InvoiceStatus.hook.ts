@@ -7,36 +7,29 @@ import type { InvoiceStatusFormProps } from "./InvoiceStatus.type";
 import { useGetInvoiceByIdQuery, useUpdateInvoiceMutation } from "@/services/invoice.service";
 
 /**
- * Manage invoice status form state.
- * @returns {InvoiceStatusFormProps} Status form state
+ * Resolve active status from selection or invoice.
+ * @param {boolean | null} selectedStatus - Selected status
+ * @param {boolean} isInvoiceActive - Invoice status derived flag
+ * @returns {boolean} Active status
  */
-// eslint-disable-next-line max-lines-per-function
-export const useInvoiceStatusForm = (): InvoiceStatusFormProps => {
+const _resolveActiveStatus = (selectedStatus: boolean | null, isInvoiceActive: boolean): boolean =>
+  selectedStatus ?? isInvoiceActive;
+
+/**
+ * Manage invoice status submission.
+ * @param {boolean} isActive - Target active status
+ * @param {string} transactionId - Transaction ID for payload
+ * @param {string} [id] - Invoice ID
+ * @returns {{isSubmitting: boolean; submissionError: string | null; handleSubmit: InvoiceStatusFormProps["handleSubmit"]}} Submission state
+ */
+const useInvoiceStatusSubmit = (
+  isActive: boolean,
+  transactionId: string,
+  id?: string,
+): Pick<InvoiceStatusFormProps, "isSubmitting" | "handleSubmit"> & { submissionError: string | null } => {
   const navigate = useNavigate();
-  const { id } = useParams<{ id: string }>();
-  const { data, isLoading } = useGetInvoiceByIdQuery(id ?? "", { skip: !id });
   const [updateInvoice, { isLoading: isSubmitting }] = useUpdateInvoiceMutation();
-
-  const invoice = data?.status && data.data ? data.data : null;
-
-  const [selectedStatus, setSelectedStatus] = useState<boolean | null>(null);
   const [submissionError, setSubmissionError] = useState<string | null>(null);
-
-  const isActive = selectedStatus ?? (invoice ? invoice.status === 1 : true);
-  const errorMessage = submissionError ?? (!id || !invoice ? "Invoice data is unavailable." : null);
-
-  /**
-   * Handle invoice status change.
-   * @param {boolean} checked - New active status
-   * @returns {void} No return value
-   */
-  const handleStatusChange = (checked: boolean): void => setSelectedStatus(checked);
-
-  /**
-   * Navigate back to invoice list.
-   * @returns {void} No return value
-   */
-  const goBack = (): void => { void navigate("/document/invoice"); };
 
   /**
    * Submit invoice status update.
@@ -46,7 +39,7 @@ export const useInvoiceStatusForm = (): InvoiceStatusFormProps => {
   const handleSubmit = async (event: SyntheticEvent<HTMLFormElement>): Promise<void> => {
     event.preventDefault();
 
-    if (!id || !invoice) {
+    if (!id) {
       setSubmissionError("Invoice data is unavailable.");
 
       return;
@@ -57,10 +50,7 @@ export const useInvoiceStatusForm = (): InvoiceStatusFormProps => {
     try {
       const response = await updateInvoice({
         id,
-        payload: {
-          transaction_id: invoice.quotation?.transaction?.id ?? invoice.quotation?.transaction_id ?? invoice.transaction_id ?? "",
-          status: isActive ? 1 : 0,
-        },
+        payload: { transaction_id: transactionId, status: isActive ? 1 : 0 },
       }).unwrap();
 
       if (!response.status) {
@@ -75,14 +65,48 @@ export const useInvoiceStatusForm = (): InvoiceStatusFormProps => {
     }
   };
 
+  return { isSubmitting, submissionError, handleSubmit };
+};
+
+/**
+ * Manage invoice status form state.
+ * @returns {InvoiceStatusFormProps} Status form state
+ */
+export const useInvoiceStatusForm = (): InvoiceStatusFormProps => {
+  const navigate = useNavigate();
+  const { id } = useParams<{ id: string }>();
+  const { data, isLoading } = useGetInvoiceByIdQuery(id ?? "", { skip: !id });
+  const invoice = data?.status && data.data ? data.data : null;
+  const [selectedStatus, setSelectedStatus] = useState<boolean | null>(null);
+  const isActive = _resolveActiveStatus(selectedStatus, invoice ? invoice.status === 1 : true);
+  const transactionId = invoice?.quotation?.transaction?.id
+    ?? invoice?.quotation?.transaction_id
+    ?? invoice?.transaction_id
+    ?? "";
+  const submit = useInvoiceStatusSubmit(isActive, transactionId, id);
+  const missingDataError = id && invoice ? null : "Invoice data is unavailable.";
+
+  /**
+   * Handle invoice status change.
+   * @param {boolean} checked - New active status
+   * @returns {void} No return value
+   */
+  const handleStatusChange = (checked: boolean): void => setSelectedStatus(checked);
+
+  /**
+   * Navigate back to invoice list.
+   * @returns {void} No return value
+   */
+  const goBack = (): void => { void navigate("/document/invoice"); };
+
   return {
     invoiceNumber: invoice?.invoice_no ?? null,
     isActive,
     isLoading,
-    isSubmitting,
-    errorMessage,
+    isSubmitting: submit.isSubmitting,
+    errorMessage: submit.submissionError ?? missingDataError,
     handleStatusChange,
-    handleSubmit,
+    handleSubmit: submit.handleSubmit,
     goBack,
   };
 };

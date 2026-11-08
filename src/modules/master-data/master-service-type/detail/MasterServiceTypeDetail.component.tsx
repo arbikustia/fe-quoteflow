@@ -1,12 +1,13 @@
  
 import type { ReactElement } from "react";
 
-import type { MasterServiceTypeDetailState } from "./MasterServiceTypeDetail.type";
-
 import Layout from "@/app/layout";
+
+import type { MasterServiceTypeDetailState } from "./MasterServiceTypeDetail.type";
 
 /**
  * Render service type detail.
+ *
  * @param {MasterServiceTypeDetailState} props - Detail state
  * @returns {ReactElement} Detail component
  */

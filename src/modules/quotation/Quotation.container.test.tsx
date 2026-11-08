@@ -6,6 +6,7 @@ import QuotationContainer from "./Quotation.container";
 import type { QuotationListResponse } from "./Quotation.type";
 
 jest.mock("@/services/quotation.service", () => ({
+  useLazyGetQuotationByIdQuery: (): [jest.Mock] => [jest.fn()],
   useGetQuotationsQuery: (): { data: QuotationListResponse; isLoading: boolean; error: string | null } => ({
     data: {
       status: true,
@@ -70,6 +71,21 @@ jest.mock("@/services/quotation.service", () => ({
     endDate: q.transaction.end_at,
     grandTotal: q.transaction.grand_total,
     status: 1,
+  }),
+}));
+
+jest.mock("@/app/layout", () => ({
+  __esModule: true,
+  default: ({ children }: { children: React.ReactNode }) => <div>{children}</div>,
+}));
+
+jest.mock("@/app/shared/PageLayout", () => ({
+  PageLayout: ({ children }: { children: React.ReactNode }) => <section>{children}</section>,
+}));
+
+jest.mock("@/services/master-item.service", () => ({
+  useGetAllItemsQuery: (): { data: { status: boolean; data: [] } } => ({
+    data: { status: true, data: [] },
   }),
 }));
 

@@ -1,8 +1,6 @@
-/* eslint-disable jsdoc/require-param-description, jsdoc/require-param-type, jsdoc/require-returns */
 import * as React from "react";
 import { FiEdit2 } from "react-icons/fi";
 
-import type { MasterPicProps, PicData } from "./MasterPic.type";
 import Layout from "../../../app/layout";
 import { PageLayout } from "../../../app/shared/PageLayout";
 import { Pagination } from "../../../components/Pagination";
@@ -11,8 +9,11 @@ import type { TableColumn } from "../../../components/Table";
 import Table from "../../../components/Table";
 import { formatIndonesianDateTime } from "../../../utils/date.helpers";
 
+import type { MasterPicProps, PicData } from "./MasterPic.type";
+
 /**
  * Render PIC row number.
+ *
  * @param {number} currentPage - Current page
  * @param {number} pageSize - Page size
  * @param {number} index - Row index
@@ -24,6 +25,7 @@ const _renderNumber = (currentPage: number, pageSize: number, index: number): Re
 
 /**
  * Render PIC name.
+ *
  * @param {PicData} pic - PIC row
  * @returns {React.ReactElement} Name cell
  */
@@ -33,6 +35,7 @@ const _renderName = (pic: PicData): React.ReactElement => (
 
 /**
  * Render PIC status.
+ *
  * @param {PicData} pic - PIC row
  * @returns {React.ReactElement} Status cell
  */
@@ -44,6 +47,7 @@ const _renderStatus = (pic: PicData): React.ReactElement => (
 
 /**
  * Render PIC creation date.
+ *
  * @param {PicData} pic - PIC row
  * @returns {React.ReactElement} Date cell
  */
@@ -53,14 +57,16 @@ const _renderDate = (pic: PicData): React.ReactElement => (
 
 /**
  * Render PIC row actions.
+ *
  * @param {PicData} pic - PIC row
  * @param {MasterPicProps["onEdit"]} onEdit - Edit handler
  * @returns {React.ReactElement} Action cell
  */
 const _renderActions = (pic: PicData, onEdit: MasterPicProps["onEdit"]): React.ReactElement => {
-  /**
+    /**
    * Handle edit click.
-   * @param event
+   *
+   * @param {React.MouseEvent} event - Event
    */
   const handleEdit = (event: React.MouseEvent): void => {
     event.stopPropagation();
@@ -78,19 +84,20 @@ const _renderActions = (pic: PicData, onEdit: MasterPicProps["onEdit"]): React.R
 
 /**
  * Build PIC table columns.
+ *
  * @param {MasterPicProps} props - Component props
  * @returns {TableColumn<PicData>[]} PIC columns
  */
 const _getColumns = (props: MasterPicProps): TableColumn<PicData>[] => {
-  /**
-   *
-   * @param _pic
-   * @param index
+    /**
+   * @param {PicData} _pic - Pic
+   * @param {number} index - Index
+   * @returns {React.ReactElement} Rendered element
    */
   const renderNumber = (_pic: PicData, index: number): React.ReactElement => _renderNumber(props.currentPage, props.pageSize, index);
-  /**
-   *
-   * @param pic
+    /**
+   * @param {PicData} pic - Pic
+   * @returns {React.ReactElement} Rendered element
    */
   const renderActions = (pic: PicData): React.ReactElement => _renderActions(pic, props.onEdit);
 
@@ -105,6 +112,7 @@ const _getColumns = (props: MasterPicProps): TableColumn<PicData>[] => {
 
 /**
  * Render PIC list state.
+ *
  * @param {MasterPicProps} props - Component props
  * @returns {React.ReactElement | null} List state
  */
@@ -116,7 +124,11 @@ const _renderListState = (props: MasterPicProps): React.ReactElement | null => {
   return null;
 };
 
-/** Render action skeleton. */
+/**
+ * Render action skeleton.
+ *
+ * @returns {React.ReactElement} Rendered element
+ */
 const _renderActionSkeleton = (): React.ReactElement => (
   <div className="flex justify-center gap-1">
     <span className="h-10 w-10 rounded-3xl bg-background-subtle" />
@@ -125,6 +137,7 @@ const _renderActionSkeleton = (): React.ReactElement => (
 
 /**
  * Render table skeleton.
+ *
  * @param {MasterPicProps} props - Component props
  * @returns {React.ReactElement} Table skeleton
  */
@@ -162,6 +175,7 @@ const _renderTableSkeleton = (props: MasterPicProps): React.ReactElement => {
 
 /**
  * Render mobile card skeleton.
+ *
  * @param {number} key - Skeleton key
  * @returns {React.ReactElement} Card skeleton
  */
@@ -179,13 +193,14 @@ const _renderMobileCardSkeleton = (key: number): React.ReactElement => (
 
 /**
  * Render mobile PIC card.
+ *
  * @param {PicData} pic - PIC data
  * @param {MasterPicProps["onEdit"]} onEdit - Edit action
  * @returns {React.ReactElement} PIC card
  */
 const _renderPicCard = (pic: PicData, onEdit: MasterPicProps["onEdit"]): React.ReactElement => {
-  /**
-   *
+    /**
+   * @returns {void} Resolved value
    */
   const handleClick = (): void => onEdit(pic);
 
@@ -204,13 +219,14 @@ const _renderPicCard = (pic: PicData, onEdit: MasterPicProps["onEdit"]): React.R
 
 /**
  * Render mobile PIC list.
+ *
  * @param {MasterPicProps} props - Component props
  * @returns {React.ReactElement} Mobile element
  */
 const _renderMobile = (props: MasterPicProps): React.ReactElement => {
-  /**
-   *
-   * @param event
+    /**
+   * @param {React.ChangeEvent<HTMLInputElement>} event - Event
+   * @returns {void} Resolved value
    */
   const handleSearch = (event: React.ChangeEvent<HTMLInputElement>): void => props.setSearchTerm(event.target.value);
 
@@ -227,13 +243,14 @@ const _renderMobile = (props: MasterPicProps): React.ReactElement => {
 
 /**
  * Render desktop PIC table.
+ *
  * @param {MasterPicProps} props - Component props
  * @returns {React.ReactElement} Desktop element
  */
 const _renderDesktop = (props: MasterPicProps): React.ReactElement => {
-  /**
-   *
-   * @param event
+    /**
+   * @param {React.ChangeEvent<HTMLInputElement>} event - Event
+   * @returns {void} Resolved value
    */
   const handleSearch = (event: React.ChangeEvent<HTMLInputElement>): void => props.setSearchTerm(event.target.value);
 
@@ -253,6 +270,7 @@ const _renderDesktop = (props: MasterPicProps): React.ReactElement => {
 
 /**
  * Render master PIC page component.
+ *
  * @param {MasterPicProps} props - Component props
  * @returns {React.ReactElement} Page element
  */

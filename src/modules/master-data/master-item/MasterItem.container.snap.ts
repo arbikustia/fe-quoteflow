@@ -7,6 +7,10 @@ jest.setSystemTime(new Date("2026-10-18T00:31:00+07:00"));
 
 afterAll(() => jest.useRealTimers());
 
+jest.mock("./MasterItem.component", () => ({
+  MasterItemComponent: jest.fn((): null => null),
+}));
+
 const mockApiItem = {
   id: "1",
   name: "Line Array Speaker",

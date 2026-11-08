@@ -2,8 +2,6 @@ import type { ChangeEvent, ReactElement } from "react";
 import * as React from "react";
 import { FiEdit2 } from "react-icons/fi";
 
-import { getProjectRowNumber } from "./MasterProject.helpers";
-import type { MasterProjectProps, ProjectData } from "./MasterProject.type";
 import Layout from "../../../app/layout";
 import { PageLayout } from "../../../app/shared/PageLayout";
 import { Pagination } from "../../../components/Pagination";
@@ -12,8 +10,12 @@ import type { TableColumn } from "../../../components/Table";
 import Table from "../../../components/Table";
 import { formatIndonesianDateTime } from "../../../utils/date.helpers";
 
+import { getProjectRowNumber } from "./MasterProject.helpers";
+import type { MasterProjectProps, ProjectData } from "./MasterProject.type";
+
 /**
  * Render No
+ *
  * @param {_row} _row - data
  * @param {number} index - index
  * @param {number} currentPage - current page
@@ -28,6 +30,7 @@ const _renderNo = (_row: ProjectData, index: number, currentPage: number, pageSi
 
 /**
  * Render Status
+ *
  * @param {ProjectData} row - data
  * @returns {React.ReactElement} span
  */
@@ -39,6 +42,7 @@ const _renderStatus = (row: ProjectData): React.ReactElement => (
 
 /**
  * Render project name.
+ *
  * @param {ProjectData} row - Project row
  * @returns {ReactElement} Name cell
  */
@@ -46,6 +50,7 @@ const _renderName = (row: ProjectData): ReactElement => <span className="text-lg
 
 /**
  * Render project remark.
+ *
  * @param {ProjectData} row - Project row
  * @returns {ReactElement} Remark cell
  */
@@ -53,6 +58,7 @@ const _renderRemark = (row: ProjectData): ReactElement => <span className="text-
 
 /**
  * Render project creation date.
+ *
  * @param {ProjectData} row - Project row
  * @returns {ReactElement} Date cell
  */
@@ -64,13 +70,15 @@ const _renderCreatedAt = (row: ProjectData): ReactElement => (
 
 /**
  * Get Basic Columns
+ *
  * @param {number} currentPage - current page
  * @param {number} pageSize - page size
  * @returns {TableColumn<ProjectData>[]} columns
  */
 const _getBasicColumns = (currentPage: number, pageSize: number): TableColumn<ProjectData>[] => {
-  /**
+    /**
    * Render No wrapper
+   *
    * @param {ProjectData} _row - data
    * @param {number} index - index
    * @returns {React.ReactElement} cell
@@ -98,20 +106,23 @@ const _getBasicColumns = (currentPage: number, pageSize: number): TableColumn<Pr
 
 /**
  * Build project table columns.
+ *
  * @param {number} currentPage - Active page
  * @param {number} pageSize - Active page size
  * @param {MasterProjectProps["onEdit"]} onEdit - Edit handler
  * @returns {TableColumn<ProjectData>[]} Project columns
  */
 const _getColumns = (currentPage: number, pageSize: number, onEdit: MasterProjectProps["onEdit"]): TableColumn<ProjectData>[] => {
-  /**
+    /**
    * Render actions
+   *
    * @param {ProjectData} row - row
    * @returns {React.ReactElement} action
    */
   const renderActions = (row: ProjectData): React.ReactElement => {
-    /**
+        /**
      * Handle click
+     *
      * @param {React.MouseEvent} e - event
      * @returns {void} void
      */
@@ -146,6 +157,7 @@ const _getColumns = (currentPage: number, pageSize: number, onEdit: MasterProjec
 
 /**
  * Render project list state.
+ *
  * @param {MasterProjectProps} props - Project list props
  * @returns {ReactElement | null} List state or null
  */
@@ -167,13 +179,15 @@ const _renderListState = (props: MasterProjectProps): ReactElement | null => {
 
 /**
  * Render project card.
+ *
  * @param {ProjectData} project - Project data
  * @param {MasterProjectProps["onEdit"]} onEdit - Edit callback
  * @returns {ReactElement} Project card
  */
 const _renderProjectCard = (project: ProjectData, onEdit: MasterProjectProps["onEdit"]): ReactElement => {
-  /**
+    /**
    * Handle project card click.
+   *
    * @returns {void} No return value
    */
   const handleClick = (): void => onEdit(project);
@@ -212,6 +226,7 @@ const _renderProjectCard = (project: ProjectData, onEdit: MasterProjectProps["on
 
 /**
  * Render project table loading geometry.
+ *
  * @param {MasterProjectProps} props - Project list props
  * @returns {ReactElement} Loading table
  */
@@ -239,6 +254,7 @@ const _renderTableSkeleton = (props: MasterProjectProps): ReactElement => {
 
 /**
  * Render project mobile card loading geometry.
+ *
  * @param {number} key - Skeleton key
  * @returns {ReactElement} Loading card
  */
@@ -254,6 +270,7 @@ const _renderMobileCardSkeleton = (key: number): ReactElement => (
 
 /**
  * Handle project search.
+ *
  * @param {MasterProjectProps["setSearchTerm"]} setSearchTerm - Search setter
  * @param {ChangeEvent<HTMLInputElement>} event - Search event
  * @returns {void} No return value
@@ -264,6 +281,7 @@ const _handleSearch = (setSearchTerm: MasterProjectProps["setSearchTerm"], event
 
 /**
  * Render mobile project list.
+ *
  * @param {MasterProjectProps} props - Project list props
  * @returns {ReactElement} Mobile list
  */
@@ -279,6 +297,7 @@ const _renderMobile = (props: MasterProjectProps): ReactElement => (
 
 /**
  * Render desktop project list.
+ *
  * @param {MasterProjectProps} props - Project list props
  * @returns {ReactElement} Desktop list
  */
@@ -295,6 +314,7 @@ const _renderDesktop = (props: MasterProjectProps): ReactElement => (
 
 /**
  * Render master project list.
+ *
  * @param {MasterProjectProps} props - Project list props
  * @returns {ReactElement} Project list
  */

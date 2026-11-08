@@ -9,6 +9,7 @@ import type { PicRouteState } from "./MasterPic.type";
 
 /**
  * Master PIC container component
+ *
  * @returns {React.ReactElement} The container component
  */
 const MasterPicContainer = (): React.ReactElement => {

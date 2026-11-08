@@ -25,17 +25,26 @@ export type CalendarResponse = {
   messages: string[];
 };
 
-export type CalendarPageState = {
-  events: CalendarEventItem[];
+export type CalendarNavigationState = {
   currentDate: Date;
-  isLoading: boolean;
-  isError: boolean;
-  selectedDate: Date | null;
-  selectedDayEvents: CalendarEventItem[];
   onPreviousMonth: () => void;
   onNextMonth: () => void;
   onToday: () => void;
+};
+
+export type CalendarSelectionState = {
+  selectedDate: Date | null;
+  selectedDayEvents: CalendarEventItem[];
   onSelectDate: (date: Date, events: CalendarEventItem[]) => void;
   onCloseDayModal: () => void;
+};
+
+export type CalendarPageData = {
+  events: CalendarEventItem[];
+  isLoading: boolean;
+  isError: boolean;
+};
+
+export type CalendarPageState = CalendarPageData & CalendarNavigationState & CalendarSelectionState & {
   onNavigateToOrderDetail?: (orderId: string) => void;
 };

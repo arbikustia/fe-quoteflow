@@ -54,6 +54,27 @@ export type NoteProps = {
   onConfirmDelete: () => void;
 };
 
+export type DeleteNoteContext = {
+  note: NoteCard | null;
+  deleteNote: (payload: NoteDeletePayload) => { unwrap: () => Promise<NoteResponse> };
+  logDelete: (description: string) => Promise<void>;
+  setDeletingNote: (note: NoteCard | null) => void;
+  setErrorMessage: (message: string | null) => void;
+};
+
+export type NoteSubmitContext = {
+  id?: string;
+  isEditMode: boolean;
+  editorContent: string;
+  isActive: boolean;
+  createNote: (payload: NoteCreatePayload) => { unwrap: () => Promise<NoteResponse> };
+  updateNote: (payload: NoteUpdatePayload) => { unwrap: () => Promise<NoteResponse> };
+  logCreate: (title: string) => Promise<void>;
+  logEdit: (title: string) => Promise<void>;
+  navigate: (path: string) => void;
+  setErrorMessage: (message: string | null) => void;
+};
+
 export type NoteCreateProps = {
   editorContent: string;
   isActive: boolean;

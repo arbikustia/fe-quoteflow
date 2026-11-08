@@ -1,7 +1,7 @@
-/* eslint-disable jsdoc/require-param-type, jsdoc/require-param-description, jsdoc/require-returns */
 import type { ChangeEvent, SyntheticEvent } from "react";
 import { useState } from "react";
 import type {
+  Control,
   FieldError,
   UseFormSetValue,
   UseFormTrigger,
@@ -9,12 +9,7 @@ import type {
 import { useForm, useWatch } from "react-hook-form";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 
-import { useGetAllRolesQuery } from "@/services/master-role.service";
-import {
-  useCreateUserMutation,
-  useGetUserByIdQuery,
-  useUpdateUserMutation,
-} from "@/services/master-user.service";
+import type { UserData, UserRouteState } from "../MasterUser.type";
 
 import {
   getRoleOptionsError,
@@ -25,16 +20,27 @@ import {
 import type {
   MasterUserCreateFormState,
   UserFormFieldsState,
+  UserFormHandlers,
+  UserFormHandlersInput,
   UserFormValues,
+  UserReferenceDataState,
+  UserRouteParamsState,
   UserSubmissionParams,
   UserSubmissionState,
 } from "./MasterUserCreate.type";
-import type { UserData, UserRouteState } from "../MasterUser.type";
+
+import { useGetAllRolesQuery } from "@/services/master-role.service";
+import {
+  useCreateUserMutation,
+  useGetUserByIdQuery,
+  useUpdateUserMutation,
+} from "@/services/master-user.service";
 
 /**
  * Register validation rules on user form.
- * @param register
- * @param isEditMode
+ *
+ * @param {ReturnType<typeof useForm<UserFormValues>>["register"]} register - Register
+ * @param {boolean} isEditMode - Whether edit mode
  */
 const _registerUserFields = (
   register: ReturnType<typeof useForm<UserFormValues>>["register"],
@@ -43,9 +49,9 @@ const _registerUserFields = (
   register("username", { required: "Username is required." });
   register("email", {
     required: "Email is required.",
-    /**
-     *
-     * @param value
+        /**
+     * @param {string} value - Value
+     * @returns {string | boolean} Resolved value
      */
     validate: (value: string): string | boolean =>
       (value.includes("@") && value.includes(".")) || "Invalid email address.",
@@ -59,9 +65,11 @@ const _registerUserFields = (
 
 /**
  * Create input change handler.
- * @param field
- * @param setValue
- * @param error
+ *
+ * @param {"username" | "email" | "password"} field - Field
+ * @param {UseFormSetValue<UserFormValues>} setValue - Set value
+ * @param {FieldError | undefined} error - Error
+ * @returns {((event: ChangeEvent<HTMLInputElement>) => void)} Resolved value
  */
 const _createFieldChange =
   (
@@ -74,7 +82,9 @@ const _createFieldChange =
 
 /**
  * Create role select handler.
- * @param setValue
+ *
+ * @param {UseFormSetValue<UserFormValues>} setValue - Set value
+ * @returns {((value: string | ChangeEvent<HTMLSelectElement>) => void)} Resolved value
  */
 const _createRoleChange =
   (
@@ -88,8 +98,10 @@ const _createRoleChange =
 
 /**
  * Create status toggle handler.
- * @param setValue
- * @param isActive
+ *
+ * @param {UseFormSetValue<UserFormValues>} setValue - Set value
+ * @param {boolean} isActive - Whether active
+ * @returns {(() => void)} Resolved value
  */
 const _createStatusToggle =
   (
@@ -101,7 +113,9 @@ const _createStatusToggle =
 
 /**
  * Create form validator.
- * @param trigger
+ *
+ * @param {UseFormTrigger<UserFormValues>} trigger - Trigger
+ * @returns {(() => Promise<boolean>)} Resolved value
  */
 const _createFormValidator =
   (trigger: UseFormTrigger<UserFormValues>): (() => Promise<boolean>) =>
@@ -110,7 +124,9 @@ const _createFormValidator =
 
 /**
  * Handle form submission logic for create or update.
- * @param params
+ *
+ * @param {UserSubmissionParams} params - Params
+ * @returns {UserSubmissionState} Resolved value
  */
 const useUserSubmission = (
   params: UserSubmissionParams,
@@ -120,9 +136,10 @@ const useUserSubmission = (
   const [updateUser, { isLoading: isUpdating }] = useUpdateUserMutation();
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
-  /**
+    /**
    * Submit user form.
-   * @param event
+   *
+   * @param {SyntheticEvent} event - Event
    */
   const handleSubmit = async (event: SyntheticEvent): Promise<void> => {
     event.preventDefault();
@@ -158,10 +175,11 @@ const useUserSubmission = (
 
 /**
  * Sync api user details to state.
- * @param apiItem
- * @param initializedId
- * @param setInitializedId
- * @param setValue
+ *
+ * @param {UserData | null} apiItem - Api item
+ * @param {string | null} initializedId - Initialized id
+ * @param {(id: string | null) => void} setInitializedId - Set initialized id
+ * @param {UseFormSetValue<UserFormValues>} setValue - Set value
  */
 const _syncUserApiData = (
   apiItem: UserData | null,
@@ -179,10 +197,60 @@ const _syncUserApiData = (
 };
 
 /**
+ * Read initial form values from the route user.
+ *
+ * @param {UserData | undefined} routeUser - Route user
+ * @returns {UserFormValues} Initial values
+ */
+const _getUserFormDefaults = (routeUser: UserData | undefined): UserFormValues => ({
+  username: routeUser?.username ?? "",
+  email: routeUser?.email ?? "",
+  password: "",
+  role: routeUser?.role ?? "User",
+  isActive: routeUser?.status !== "inactive",
+});
+
+/**
+ * Build the user form change handlers.
+ *
+ * @param {UserFormHandlersInput} input - Handler inputs
+ * @returns {UserFormHandlers} Change handlers
+ */
+const _buildUserFormHandlers = (input: UserFormHandlersInput): UserFormHandlers => ({
+  handleUsernameChange: _createFieldChange("username", input.setValue, input.errors.username),
+  handleEmailChange: _createFieldChange("email", input.setValue, input.errors.email),
+  handlePasswordChange: _createFieldChange("password", input.setValue, input.errors.password),
+  /**
+   * Toggle password visibility.
+   *
+   * @returns {void} No return value
+   */
+  handleTogglePasswordVisibility: (): void => input.setIsPasswordVisible((v) => !v),
+  handleRoleChange: _createRoleChange(input.setValue),
+  handleStatusChange: _createStatusToggle(input.setValue, input.isActive),
+});
+
+/**
+ * Watch all user form values.
+ *
+ * @param {Control<UserFormValues>} control - Form control
+ * @returns {UserFormValues} Watched values
+ */
+const useUserFormWatches = (control: Control<UserFormValues>): UserFormValues => ({
+  username: useWatch({ control, name: "username" }),
+  email: useWatch({ control, name: "email" }),
+  password: useWatch({ control, name: "password" }),
+  role: useWatch({ control, name: "role" }),
+  isActive: useWatch({ control, name: "isActive" }),
+});
+
+/**
  * Hook managing user form fields and React Hook Form state.
- * @param routeUser
- * @param apiItem
- * @param isEditMode
+ *
+ * @param {UserData | undefined} routeUser - Route user
+ * @param {UserData | null} apiItem - Api item
+ * @param {boolean} isEditMode - Whether edit mode
+ * @returns {UserFormFieldsState} Resolved value
  */
 const useUserFormFields = (
   routeUser: UserData | undefined,
@@ -197,62 +265,58 @@ const useUserFormFields = (
     setValue,
     trigger,
   } = useForm<UserFormValues>({
-    defaultValues: {
-      username: routeUser?.username ?? "",
-      email: routeUser?.email ?? "",
-      password: "",
-      role: routeUser?.role ?? "User",
-      isActive: routeUser?.status !== "inactive",
-    },
+    defaultValues: _getUserFormDefaults(routeUser),
     mode: "onSubmit",
     reValidateMode: "onChange",
   });
 
   _registerUserFields(register, isEditMode);
-  const [initializedId, setInitializedId] = useState<string | null>(
-    routeUser?.id ?? null,
-  );
+  const [initializedId, setInitializedId] = useState<string | null>(routeUser?.id ?? null);
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
-  const username = useWatch({ control, name: "username" });
-  const email = useWatch({ control, name: "email" });
-  const password = useWatch({ control, name: "password" });
-  const role = useWatch({ control, name: "role" });
-  const isActive = useWatch({ control, name: "isActive" });
+  const values = useUserFormWatches(control);
 
   _syncUserApiData(apiItem, initializedId, setInitializedId, setValue);
 
   return {
-    username,
-    email,
-    password,
+    ...values,
     isPasswordVisible,
-    role,
-    isActive,
     errors,
     isSubmitted,
     getValues,
     validateForm: _createFormValidator(trigger),
-    handleUsernameChange: _createFieldChange(
-      "username",
-      setValue,
-      errors.username,
-    ),
-    handleEmailChange: _createFieldChange("email", setValue, errors.email),
-    handlePasswordChange: _createFieldChange(
-      "password",
-      setValue,
-      errors.password,
-    ),
-    /**
-     *
-     */
-    handleTogglePasswordVisibility: (): void => setIsPasswordVisible((v) => !v),
-    handleRoleChange: _createRoleChange(setValue),
-    handleStatusChange: _createStatusToggle(setValue, isActive),
+    ..._buildUserFormHandlers({ setValue, errors, isActive: values.isActive, setIsPasswordVisible }),
   };
 };
 
-/** Manage master user create/edit form. */
+/**
+ * Load reference data for the user form.
+ *
+ * @param {UserRouteParamsState} route - Route params
+ * @returns {UserReferenceDataState} Loaded reference data
+ */
+const useUserReferenceData = (route: UserRouteParamsState): UserReferenceDataState => {
+  const { data: detailData } = useGetUserByIdQuery(route.id ?? "", {
+    skip: !route.isEditMode || !route.id || Boolean(route.routeUser),
+  });
+  const {
+    data: roleResponse,
+    error: roleError,
+    isLoading: roleOptionsLoading,
+  } = useGetAllRolesQuery();
+
+  return {
+    apiItem: resolveUserDetail(detailData),
+    roleOptions: roleResponse?.status ? roleResponse.data : [],
+    roleOptionsLoading,
+    roleOptionsError: getRoleOptionsError(Boolean(roleError), roleResponse?.status),
+  };
+};
+
+/**
+ * Manage master user create/edit form.
+ *
+ * @returns {MasterUserCreateFormState} Resolved value
+ */
 export const useMasterUserCreateForm = (): MasterUserCreateFormState => {
   const navigate = useNavigate();
   const location = useLocation();
@@ -260,27 +324,16 @@ export const useMasterUserCreateForm = (): MasterUserCreateFormState => {
   const isEditMode = Boolean(id);
   const routeState: UserRouteState | null = location.state;
   const routeUser = routeState?.user;
-  const { data: detailData } = useGetUserByIdQuery(id ?? "", {
-    skip: !isEditMode || !id || Boolean(routeUser),
-  });
-  const {
-    data: roleResponse,
-    error: roleError,
-    isLoading: roleOptionsLoading,
-  } = useGetAllRolesQuery();
-  const roleOptions = roleResponse?.status ? roleResponse.data : [];
-  const roleOptionsError = getRoleOptionsError(
-    Boolean(roleError),
-    roleResponse?.status,
-  );
-  const formFields = useUserFormFields(
-    routeUser,
-    resolveUserDetail(detailData),
-    isEditMode,
-  );
+  const { apiItem, roleOptions, roleOptionsLoading, roleOptionsError } =
+    useUserReferenceData({ id, isEditMode, routeUser });
+  const formFields = useUserFormFields(routeUser, apiItem, isEditMode);
   const submission = useUserSubmission({ id, isEditMode, ...formFields });
 
-  /** Navigate back. */
+  /**
+   * Navigate back.
+   *
+   * @returns {void} No return value
+   */
   const goBack = (): void => {
     navigate("/master-user");
   };

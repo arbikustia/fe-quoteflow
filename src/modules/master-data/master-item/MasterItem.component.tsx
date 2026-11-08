@@ -1,13 +1,11 @@
-import { Dropdown, type MenuProps } from "antd";
 import type { ChangeEvent, MouseEvent, ReactElement } from "react";
 import * as React from "react";
 import { FiDownload, FiEdit2 } from "react-icons/fi";
 import { FiChevronDown } from "react-icons/fi";
+import { Dropdown, type MenuProps } from "antd";
 
 import { CheckboxComponent } from "@/components/Checkbox";
 
-import type { ActionButtonProps, GetColumnsParams } from "./MasterItem.type";
-import type { ItemData, MasterItemProps, MobileItemCardProps } from "./MasterItem.type";
 import Layout from "../../../app/layout";
 import { PageLayout } from "../../../app/shared/PageLayout";
 import { MasterDataCard } from "../../../components/MasterDataCard";
@@ -17,8 +15,12 @@ import { CardSkeletonComponent, SkeletonComponent } from "../../../components/Sk
 import type { TableColumn } from "../../../components/Table";
 import Table from "../../../components/Table";
 
+import type { ActionButtonProps, GetColumnsParams } from "./MasterItem.type";
+import type { ItemData, MasterItemProps, MobileItemCardProps } from "./MasterItem.type";
+
 /**
  * Render status badge.
+ *
  * @param {ItemData} row - Row item data
  * @returns {ReactElement} Status element
  */
@@ -34,14 +36,16 @@ const _renderStatus = (row: ItemData): ReactElement => (
 
 /**
  * Render action edit button.
+ *
  * @param {ActionButtonProps} props - Action button props
  * @returns {ReactElement} Edit button element
  */
 const _renderActionButton = (props: ActionButtonProps): ReactElement => {
   const { row, onEdit, onDownload } = props;
 
-  /**
+    /**
    * Handle edit click.
+   *
    * @param {MouseEvent<HTMLButtonElement>} event - Click event
    * @returns {void} No return value
    */
@@ -49,13 +53,15 @@ const _renderActionButton = (props: ActionButtonProps): ReactElement => {
     event.stopPropagation();
     onEdit(row);
   };
-  /**
+    /**
    * Download QR image.
+   *
    * @returns {void} No return value
    */
   const handleDownloadImage = (): void => onDownload(row, "image");
-  /**
+    /**
    * Download QR PDF.
+   *
    * @returns {void} No return value
    */
   const handleDownloadPdf = (): void => onDownload(row, "pdf");
@@ -81,6 +87,7 @@ const _renderActionButton = (props: ActionButtonProps): ReactElement => {
 
 /**
  * Render index column number.
+ *
  * @param {number} currentPage - Active page
  * @param {number} pageSize - Active page size
  * @param {number} index - Row index
@@ -92,6 +99,7 @@ const _renderIndex = (currentPage: number, pageSize: number, index: number): Rea
 
 /**
  * Render image thumbnail or dash.
+ *
  * @param {ItemData} row - Row item
  * @returns {ReactElement} Thumbnail element
  */
@@ -109,6 +117,7 @@ const _renderImage = (row: ItemData): ReactElement => {
 
 /**
  * Render formatted price.
+ *
  * @param {ItemData} row - Row item
  * @returns {string} Formatted price
  */
@@ -116,14 +125,16 @@ const _renderPrice = (row: ItemData): string => `Rp ${row.price.toLocaleString("
 
 /**
  * Render selection checkbox.
+ *
  * @param {ItemData} row - Row item
  * @param {string[]} selectedItemIds - Selected IDs
  * @param {(item: ItemData) => void} onToggleItem - Toggle callback
  * @returns {ReactElement} Checkbox element
  */
 const _renderSelection = (row: ItemData, selectedItemIds: string[], onToggleItem: (item: ItemData) => void): ReactElement => {
-  /**
+    /**
    * Toggle row checkbox.
+   *
    * @param {boolean} _checked - New checked state
    * @returns {void} No return value
    */
@@ -134,6 +145,7 @@ const _renderSelection = (row: ItemData, selectedItemIds: string[], onToggleItem
 
 /**
  * Render selection column when multi download is active.
+ *
  * @param {boolean} isMultiDownloadMode - Multi download active
  * @param {string[]} selectedItemIds - Selected IDs
  * @param {(item: ItemData) => void} onToggleItem - Toggle callback
@@ -152,8 +164,9 @@ const _getSelectColumn = (
     key: "select",
     header: "",
     align: "center",
-    /**
+        /**
      * Render row selection.
+     *
      * @param {ItemData} row - Row item
      * @returns {ReactElement} Checkbox
      */
@@ -163,6 +176,7 @@ const _getSelectColumn = (
 
 /**
  * Build column configurations for Master Item table.
+ *
  * @param {GetColumnsParams} params - Column parameters
  * @returns {TableColumn<ItemData>[]} Column definitions
  */
@@ -176,8 +190,9 @@ const _getColumns = (params: GetColumnsParams): TableColumn<ItemData>[] => {
       key: "no",
       header: "No",
       align: "center",
-      /**
+            /**
        * Render row index.
+       *
        * @param {ItemData} _row - Row item
        * @param {number} index - Index
        * @returns {ReactElement} Node
@@ -196,8 +211,9 @@ const _getColumns = (params: GetColumnsParams): TableColumn<ItemData>[] => {
       key: "actions",
       header: "Action",
       align: "center",
-      /**
+            /**
        * Render action button.
+       *
        * @param {ItemData} row - Row item
        * @returns {ReactElement} Action element
        */
@@ -208,6 +224,7 @@ const _getColumns = (params: GetColumnsParams): TableColumn<ItemData>[] => {
 
 /**
  * Render empty or loading state message.
+ *
  * @param {MasterItemProps} props - Component props
  * @returns {ReactElement | null} State message element or null
  */
@@ -233,12 +250,12 @@ const _renderListState = (props: MasterItemProps): ReactElement | null => {
 
 /**
  * Render mobile item card.
+ *
  * @param {MobileItemCardProps} props - Item card props
  * @returns {ReactElement} Mobile item card
  */
 const MobileItemCard = ({ item, onEdit }: MobileItemCardProps): ReactElement => {
-  /**
-   *
+    /**
    */
   const handleClick = (): void => {
     onEdit(item);
@@ -256,12 +273,14 @@ const MobileItemCard = ({ item, onEdit }: MobileItemCardProps): ReactElement => 
 
 /**
  * Render mobile layout list.
+ *
  * @param {MasterItemProps} props - Component props
  * @returns {ReactElement} Mobile layout element
  */
 const _renderMobile = (props: MasterItemProps): ReactElement => {
-  /**
+    /**
    * Handle search input change.
+   *
    * @param {ChangeEvent<HTMLInputElement>} event - Change event
    * @returns {void}
    */
@@ -299,15 +318,77 @@ const _renderMobile = (props: MasterItemProps): ReactElement => {
 };
 
 /**
+ * Resolve the table row key.
+ *
+ * @param {ItemData} row - Item row
+ * @returns {string} Row key
+ */
+const _getRowKey = (row: ItemData): string => row.id;
+
+/**
+ * Render the desktop toolbar action buttons.
+ *
+ * @param {MasterItemProps} props - Component props
+ * @returns {ReactElement} Toolbar actions
+ */
+const _renderDesktopActions = (props: MasterItemProps): ReactElement => (
+  <div className="flex items-center gap-3">
+    <button
+      type="button"
+      onClick={props.isMultiDownloadMode ? props.onDownloadSelected : props.onToggleMultiDownload}
+      disabled={props.isMultiDownloadMode && props.selectedItemIds.length === 0}
+      className="h-14 rounded-2xl border border-action-primary px-6 text-lg font-semibold text-action-primary hover:bg-action-primary-subtle disabled:cursor-not-allowed disabled:opacity-50"
+    >
+      {props.isMultiDownloadMode ? `Download Multiple (${props.selectedItemIds.length})` : "Download Multiple"}
+    </button>
+    {props.isMultiDownloadMode && (
+      <button
+        type="button"
+        onClick={props.onCancelMultiDownload}
+        className="h-14 rounded-2xl border border-border-default px-6 text-lg font-semibold text-text-primary hover:bg-background-subtle"
+      >
+        Cancel
+      </button>
+    )}
+    <button
+      type="button"
+      onClick={props.onCreate}
+      className="h-14 rounded-2xl bg-action-primary px-6 text-lg font-semibold text-text-inverse hover:bg-action-primary-hover"
+    >
+      Create Item
+    </button>
+  </div>
+);
+
+/**
+ * Render the desktop list body.
+ *
+ * @param {MasterItemProps} props - Component props
+ * @returns {ReactElement} Table or state element
+ */
+const _renderDesktopBody = (props: MasterItemProps): ReactElement => {
+  if (props.isLoading) {
+    return <SkeletonComponent rows={5} columns={[{ width: "5%" }, { width: "35%" }, { width: "20%" }, { width: "20%" }, { width: "20%" }]} />;
+  }
+
+  const stateElement = _renderListState(props);
+
+  if (stateElement) return stateElement;
+
+  return <Table data={props.paginatedData} columns={_getColumns(props)} isDetail={false} keyExtractor={_getRowKey} />;
+};
+
+/**
  * Render desktop layout table.
+ *
  * @param {MasterItemProps} props - Component props
  * @returns {ReactElement} Desktop layout element
  */
 // ponytail: keep desktop composition local until toolbar becomes reusable.
-// eslint-disable-next-line max-lines-per-function
 const _renderDesktop = (props: MasterItemProps): ReactElement => {
   /**
    * Handle search input change.
+   *
    * @param {ChangeEvent<HTMLInputElement>} event - Change event
    * @returns {void}
    */
@@ -319,47 +400,9 @@ const _renderDesktop = (props: MasterItemProps): ReactElement => {
     <div className="hidden rounded-3xl border border-border-default bg-background-surface px-6 pb-6 pt-0 shadow-xs md:mt-6 md:flex md:flex-1 md:flex-col md:overflow-hidden lg:flex">
       <div className="flex items-center justify-between gap-4 border-b border-border-default py-6">
         <SearchFilter placeholder="Search item" onChange={handleSearch} isRoundedFull={true} inputClassName="text-lg placeholder:text-lg" />
-        <div className="flex items-center gap-3">
-          <button
-            type="button"
-            onClick={props.isMultiDownloadMode ? props.onDownloadSelected : props.onToggleMultiDownload}
-            disabled={props.isMultiDownloadMode && props.selectedItemIds.length === 0}
-            className="h-14 rounded-2xl border border-action-primary px-6 text-lg font-semibold text-action-primary hover:bg-action-primary-subtle disabled:cursor-not-allowed disabled:opacity-50"
-          >
-            {props.isMultiDownloadMode ? `Download Multiple (${props.selectedItemIds.length})` : "Download Multiple"}
-          </button>
-          {props.isMultiDownloadMode && (
-            <button
-              type="button"
-              onClick={props.onCancelMultiDownload}
-              className="h-14 rounded-2xl border border-border-default px-6 text-lg font-semibold text-text-primary hover:bg-background-subtle"
-            >
-              Cancel
-            </button>
-          )}
-          <button
-            type="button"
-            onClick={props.onCreate}
-            className="h-14 rounded-2xl bg-action-primary px-6 text-lg font-semibold text-text-inverse hover:bg-action-primary-hover"
-          >
-            Create Item
-          </button>
-        </div>
+        {_renderDesktopActions(props)}
       </div>
-      <div className="flex-1 overflow-auto">
-        {props.isLoading ? (
-          <SkeletonComponent rows={5} columns={[{ width: "5%" }, { width: "35%" }, { width: "20%" }, { width: "20%" }, { width: "20%" }]} />
-        ) : (
-          _renderListState(props) ?? (
-            <Table
-              data={props.paginatedData}
-              columns={_getColumns(props)}
-              isDetail={false}
-              keyExtractor={(row: ItemData): string => row.id}
-            />
-          )
-        )}
-      </div>
+      <div className="flex-1 overflow-auto">{_renderDesktopBody(props)}</div>
       <Pagination
         currentPage={props.currentPage}
         totalPages={props.totalPages}
@@ -374,6 +417,7 @@ const _renderDesktop = (props: MasterItemProps): ReactElement => {
 
 /**
  * Render Master Item list view.
+ *
  * @param {MasterItemProps} props - Component props
  * @returns {ReactElement} Component element
  */

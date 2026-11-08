@@ -1,8 +1,6 @@
 import * as React from "react";
 import { FiEdit2 } from "react-icons/fi";
 
-import { getOrderTypeRowNumber } from "./MasterOrderType.helpers";
-import type { MasterOrderTypeProps, OrderTypeData } from "./MasterOrderType.type";
 import Layout from "../../../app/layout";
 import { PageLayout } from "../../../app/shared/PageLayout";
 import { Pagination } from "../../../components/Pagination";
@@ -12,8 +10,12 @@ import type { TableColumn } from "../../../components/Table";
 import Table from "../../../components/Table";
 import { formatIndonesianDateTime } from "../../../utils/date.helpers";
 
+import { getOrderTypeRowNumber } from "./MasterOrderType.helpers";
+import type { MasterOrderTypeProps, OrderTypeData } from "./MasterOrderType.type";
+
 /**
  * Render order type row number.
+ *
  * @param {number} currentPage - Current page
  * @param {number} pageSize - Page size
  * @param {number} index - Row index
@@ -25,6 +27,7 @@ const _renderNumber = (currentPage: number, pageSize: number, index: number): Re
 
 /**
  * Render order type status.
+ *
  * @param {OrderTypeData} row - Order type row data
  * @returns {React.ReactElement} Status cell
  */
@@ -36,6 +39,7 @@ const _renderStatus = (row: OrderTypeData): React.ReactElement => (
 
 /**
  * Render order type handover cell.
+ *
  * @param {OrderTypeData} row - Order type row data
  * @returns {React.ReactElement} Handover cell
  */
@@ -47,6 +51,7 @@ const _renderHandover = (row: OrderTypeData): React.ReactElement => (
 
 /**
  * Render order type creation date.
+ *
  * @param {OrderTypeData} row - Order type row data
  * @returns {React.ReactElement} Date cell
  */
@@ -56,11 +61,15 @@ const _renderDate = (row: OrderTypeData): React.ReactElement => (
 
 /**
  * Render order type action cell.
+ *
  * @param {OrderTypeData} row - Order type row data
  * @param {(orderType: OrderTypeData) => void} onEdit - Edit handler
  * @returns {React.ReactElement} Action cell
  */
 const _renderActions = (row: OrderTypeData, onEdit: (orderType: OrderTypeData) => void): React.ReactElement => {
+    /**
+   * @param {React.MouseEvent} event - Event
+   */
   const handleEdit = (event: React.MouseEvent): void => {
     event.stopPropagation();
     onEdit(row);
@@ -76,17 +85,41 @@ const _renderActions = (row: OrderTypeData, onEdit: (orderType: OrderTypeData) =
 };
 
 /**
+ * Render order type name cell.
+ *
+ * @param {OrderTypeData} row - Order type row
+ * @returns {React.ReactElement} Name cell
+ */
+const _renderName = (row: OrderTypeData): React.ReactElement => (
+  <span className="text-lg font-medium text-text-primary">{row.name}</span>
+);
+
+/**
  * Build order type table columns.
+ *
  * @param {MasterOrderTypeProps} props - Component props
  * @returns {TableColumn<OrderTypeData>[]} Order type columns
  */
 const _getColumns = (props: MasterOrderTypeProps): TableColumn<OrderTypeData>[] => {
+  /**
+   * Render row number cell.
+   *
+   * @param {OrderTypeData} _row - Order type row
+   * @param {number} index - Row index
+   * @returns {React.ReactElement} Number cell
+   */
   const renderNumber = (_row: OrderTypeData, index: number): React.ReactElement => _renderNumber(props.currentPage, props.pageSize, index);
+  /**
+   * Render action cell.
+   *
+   * @param {OrderTypeData} row - Order type row
+   * @returns {React.ReactElement} Action cell
+   */
   const renderAction = (row: OrderTypeData): React.ReactElement => _renderActions(row, props.onEdit);
 
   return [
     { key: "no", header: "No", align: "center", render: renderNumber },
-    { key: "name", header: "Order Type Name", render: (row): React.ReactElement => <span className="text-lg font-medium text-text-primary">{row.name}</span> },
+    { key: "name", header: "Order Type Name", render: _renderName },
     { key: "isHandover", header: "Handover", align: "center", render: _renderHandover },
     { key: "status", header: "Status", align: "center", render: _renderStatus },
     { key: "createAt", header: "Created At", render: _renderDate },
@@ -96,18 +129,28 @@ const _getColumns = (props: MasterOrderTypeProps): TableColumn<OrderTypeData>[] 
 
 /**
  * Render loading, empty, and error states.
+ *
  * @param {MasterOrderTypeProps} props - The component props
  * @returns {React.ReactElement | null} The state element when no rows should render
  */
 const _renderListState = (props: MasterOrderTypeProps): React.ReactElement | null => {
   if (props.isLoading) return <p className="py-10 text-center text-lg text-text-secondary">Loading order types…</p>;
+
   if (props.isMissingData) return <p className="py-10 text-center text-lg text-danger">Order type data is unavailable. Please try again.</p>;
+
   if (props.errorMessage) return <p className="py-10 text-center text-lg text-danger">{props.errorMessage}</p>;
+
   if (props.isEmpty) return <p className="py-10 text-center text-lg text-text-secondary">No order types found.</p>;
+
   return null;
 };
 
-/** Render table skeleton. */
+/**
+ * Render table skeleton.
+ *
+ * @param {MasterOrderTypeProps} props - Props
+ * @returns {React.ReactElement} Rendered element
+ */
 const _renderTableSkeleton = (props: MasterOrderTypeProps): React.ReactElement => {
   const columns = _getColumns(props);
   const widths = ["w-6", "w-52", "w-28", "w-28", "w-28", "w-28"];
@@ -140,8 +183,17 @@ const _renderTableSkeleton = (props: MasterOrderTypeProps): React.ReactElement =
   );
 };
 
-/** Render desktop table. */
+/**
+ * Render desktop table.
+ *
+ * @param {MasterOrderTypeProps} props - Props
+ * @returns {React.ReactElement} Rendered element
+ */
 const _renderDesktop = (props: MasterOrderTypeProps): React.ReactElement => {
+    /**
+   * @param {React.ChangeEvent<HTMLInputElement>} event - Event
+   * @returns {void} Resolved value
+   */
   const handleSearch = (event: React.ChangeEvent<HTMLInputElement>): void => props.setSearchTerm(event.target.value);
 
   return (
@@ -160,11 +212,15 @@ const _renderDesktop = (props: MasterOrderTypeProps): React.ReactElement => {
 
 /**
  * Render mobile order type card.
+ *
  * @param {OrderTypeData} orderType - Order type data
  * @param {MasterOrderTypeProps["onEdit"]} onEdit - Edit handler
  * @returns {React.ReactElement} Order type card
  */
 const _renderMobileCard = (orderType: OrderTypeData, onEdit: MasterOrderTypeProps["onEdit"]): React.ReactElement => {
+    /**
+   * @returns {void} Resolved value
+   */
   const handleClick = (): void => onEdit(orderType);
 
   return (
@@ -181,8 +237,17 @@ const _renderMobileCard = (orderType: OrderTypeData, onEdit: MasterOrderTypeProp
   );
 };
 
-/** Render mobile list. */
+/**
+ * Render mobile list.
+ *
+ * @param {MasterOrderTypeProps} props - Props
+ * @returns {React.ReactElement} Rendered element
+ */
 const _renderMobile = (props: MasterOrderTypeProps): React.ReactElement => {
+    /**
+   * @param {React.ChangeEvent<HTMLInputElement>} event - Event
+   * @returns {void} Resolved value
+   */
   const handleSearch = (event: React.ChangeEvent<HTMLInputElement>): void => props.setSearchTerm(event.target.value);
 
   return (
@@ -196,6 +261,10 @@ const _renderMobile = (props: MasterOrderTypeProps): React.ReactElement => {
   );
 };
 
+/**
+ * @param {MasterOrderTypeProps} props - Props
+ * @returns {React.ReactElement} Rendered element
+ */
 export const MasterOrderTypeComponent = (props: MasterOrderTypeProps): React.ReactElement => {
   const createButton = (
     <button type="button" onClick={props.onCreate} className="h-14 rounded-full border-2 border-action-primary bg-background-surface px-6 text-lg font-bold text-action-primary transition-colors hover:bg-action-primary-subtle focus:outline-none focus:ring-2 focus:ring-focus-ring/30 lg:hidden">

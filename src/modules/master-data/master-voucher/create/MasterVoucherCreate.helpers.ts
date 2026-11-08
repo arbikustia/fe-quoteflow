@@ -5,6 +5,7 @@ const VOUCHER_CODE_REGEX = /^[A-Za-z0-9]{7,8}$/;
 /**
  * Generate cryptographically secure random 8-character voucher code starting with SL.
  * Format: SL + 6 random alphanumeric characters (total 8 chars).
+ *
  * @returns {string} Generated voucher code
  */
 export const generateSecureVoucherCode = (): string => {
@@ -32,6 +33,7 @@ export const generateSecureVoucherCode = (): string => {
 /**
  * Validate typed voucher code.
  * Must be 7 to 8 alphanumeric characters.
+ *
  * @param {string} code - Voucher code to validate
  * @returns {string | null} Error message or null if valid
  */

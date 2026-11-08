@@ -10,9 +10,15 @@ afterAll(() => jest.useRealTimers());
 import { MasterCategoryComponent } from "./MasterCategory.component";
 import type { CategoryData, MasterCategoryProps } from "./MasterCategory.type";
 
-jest.mock("../../app/layout", () => ({
+jest.mock("../../../app/layout", () => ({
   __esModule: true,
-  default: ({ children }: { children: React.ReactNode }) =>
+  /**
+   * Render mock layout wrapper.
+   *
+   * @param {React.PropsWithChildren} props - Layout props
+   * @returns {React.ReactElement} Layout wrapper
+   */
+  default: ({ children }: React.PropsWithChildren): React.ReactElement =>
     React.createElement("div", {}, children),
 }));
 
@@ -25,6 +31,10 @@ const mockCategories: CategoryData[] = [
     createBy: "Admin",
   },
 ];
+
+/** No-op handler used by mock props. */
+const noop = (): void => {};
+
 const defaultProps: MasterCategoryProps = {
   paginatedData: mockCategories,
   currentPage: 1,
@@ -36,17 +46,17 @@ const defaultProps: MasterCategoryProps = {
   isEmpty: false,
   isMissingData: false,
   isMoreOpen: false,
-  goToPage: (): void => {},
-  nextPage: (): void => {},
-  prevPage: (): void => {},
-  changePageSize: (): void => {},
-  setSearchTerm: (): void => {},
-  onCreate: (): void => {},
-  onEdit: (): void => {},
-  onBack: (): void => {},
-  onMore: (): void => {},
-  onCloseMore: (): void => {},
-  onDelete: (): void => {},
+  goToPage: noop,
+  nextPage: noop,
+  prevPage: noop,
+  changePageSize: noop,
+  setSearchTerm: noop,
+  onCreate: noop,
+  onEdit: noop,
+  onBack: noop,
+  onMore: noop,
+  onCloseMore: noop,
+  onDelete: noop,
 };
 
 const configs = [

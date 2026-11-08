@@ -3,12 +3,12 @@ import { fireEvent, render, screen } from "@/libs/unit-test";
 import { MasterProjectComponent } from "./MasterProject.component";
 import type { MasterProjectProps, ProjectData } from "./MasterProject.type";
 
-jest.mock("../../app/layout", () => ({
+jest.mock("@/app/layout", () => ({
   __esModule: true,
   default: ({ children }: { children: React.ReactNode }) => <div>{children}</div>,
 }));
 
-jest.mock("../../app/shared/PageLayout", () => ({
+jest.mock("@/app/shared/PageLayout", () => ({
   PageLayout: ({ children, headerRight, onBack }: { children: React.ReactNode; headerRight: React.ReactNode; onBack: () => void }) => (
     <section>
       <button type="button" onClick={onBack}>Page Back</button>
@@ -18,7 +18,7 @@ jest.mock("../../app/shared/PageLayout", () => ({
   ),
 }));
 
-jest.mock("../../components/Pagination", () => ({ Pagination: () => <div data-testid="pagination" /> }));
+jest.mock("@/components/Pagination", () => ({ Pagination: () => <div data-testid="pagination" /> }));
 const mockProject: ProjectData = {
   id: "1",
   name: "Website Revamp",

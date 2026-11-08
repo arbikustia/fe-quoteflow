@@ -4,6 +4,19 @@ import type { UseFormRegister, UseFormReset } from "react-hook-form";
 import { useForm, useWatch } from "react-hook-form";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 
+import type {
+  MasterOrderTypeCreateFormState,
+  OrderTypeCreateFormInput,
+  OrderTypeFieldHandlers,
+  OrderTypeFormApi,
+  OrderTypeFormFields,
+  OrderTypeFormValidation,
+  OrderTypeFormValues,
+  OrderTypeSubmissionParams,
+  OrderTypeSubmissionState,
+  OrderTypeSubmitContext,
+} from "./MasterOrderTypeCreate.type";
+
 import type { OrderTypeCreateResponse, OrderTypeData } from "@/modules/master-data/master-order-type/MasterOrderType.type";
 import {
   useCreateOrderTypeMutation,
@@ -11,17 +24,9 @@ import {
   useUpdateOrderTypeMutation,
 } from "@/services/master-order-type.service";
 
-import type {
-  MasterOrderTypeCreateFormState,
-  OrderTypeFormFields,
-  OrderTypeFormValidation,
-  OrderTypeFormValues,
-  OrderTypeSubmissionParams,
-  OrderTypeSubmissionState,
-} from "./MasterOrderTypeCreate.type";
-
 /**
  * Format backend messages into a display string.
+ *
  * @param {string[] | string | null} messages - Backend response messages
  * @returns {string} Display message
  */
@@ -35,6 +40,7 @@ const _formatMessages = (messages: string[] | string | null): string => {
 
 /**
  * Extract order type item from API detail payload.
+ *
  * @param {ReturnType<typeof useGetOrderTypeByIdQuery>["data"]} orderTypeDetail - Detail response
  * @returns {OrderTypeData | null} Order type item or null
  */
@@ -57,6 +63,7 @@ const _resolveOrderTypeDetail = (
 
 /**
  * Derive initial order type field values.
+ *
  * @param {OrderTypeData | undefined} routeOrderType - Order type from router state
  * @param {ReturnType<typeof _resolveOrderTypeDetail>} orderTypeItem - Order type from API
  * @returns {{ name: string; isHandover: boolean; isActive: boolean }} Initial values
@@ -76,6 +83,7 @@ const _getInitialFieldValues = (
 
 /**
  * Register order type validation rules.
+ *
  * @param {UseFormRegister<OrderTypeFormValues>} register - Form register function
  * @returns {void} No return value
  */
@@ -85,6 +93,7 @@ const _registerOrderTypeFields = (register: UseFormRegister<OrderTypeFormValues>
 
 /**
  * Reset form when API order type arrives.
+ *
  * @param {ReturnType<typeof _resolveOrderTypeDetail>} orderTypeItem - Order type from API
  * @param {UseFormReset<OrderTypeFormValues>} reset - Form reset function
  * @returns {void} No return value
@@ -105,15 +114,16 @@ const useOrderTypeReset = (
 };
 
 /**
- * Manage order type form fields and validation state.
+ * Register the order type form with react-hook-form.
+ *
  * @param {OrderTypeData | undefined} routeOrderType - Order type from route state
  * @param {ReturnType<typeof _resolveOrderTypeDetail>} orderTypeItem - Order type from API
- * @returns {OrderTypeFormFields & OrderTypeFormValidation} Form state and handlers
+ * @returns {OrderTypeFormApi} Form API
  */
-const useOrderTypeFormFields = (
+const useOrderTypeFormApi = (
   routeOrderType: OrderTypeData | undefined,
   orderTypeItem: ReturnType<typeof _resolveOrderTypeDetail>,
-): OrderTypeFormFields & OrderTypeFormValidation => {
+): OrderTypeFormApi => {
   const initial = _getInitialFieldValues(routeOrderType, orderTypeItem);
   const {
     control: formControl,
@@ -130,48 +140,150 @@ const useOrderTypeFormFields = (
   });
 
   _registerOrderTypeFields(register);
-  const [isSubmitted, setIsSubmitted] = useState(false);
-  const name = useWatch({ control: formControl, name: "name" });
-  const isHandover = useWatch({ control: formControl, name: "isHandover" });
-  const isActive = useWatch({ control: formControl, name: "isActive" });
-
   useOrderTypeReset(orderTypeItem, reset);
 
-  const handleNameChange = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>): void => {
-    setValue("name", event.target.value, { shouldValidate: isSubmitted });
+  return {
+    control: formControl,
+    errors,
+    getValues,
+    register,
+    setValue,
+    trigger,
   };
+};
 
-  const handleHandoverChange = (): void => {
-    setValue("isHandover", !isHandover, { shouldValidate: true });
-  };
+/**
+ * Build the order type field change handlers.
+ *
+ * @param {OrderTypeFormApi} api - Form API
+ * @param {boolean} isSubmitted - Whether the form has been submitted
+ * @param {boolean} isHandover - Current handover flag
+ * @param {boolean} isActive - Current active status
+ * @returns {OrderTypeFieldHandlers} Field handlers
+ */
+const _buildOrderTypeFieldHandlers = (
+  api: OrderTypeFormApi,
+  isSubmitted: boolean,
+  isHandover: boolean,
+  isActive: boolean,
+): OrderTypeFieldHandlers => ({
+  /**
+   * Handle name change.
+   *
+   * @param {ChangeEvent<HTMLInputElement | HTMLTextAreaElement>} event - Change event
+   * @returns {void} No return value
+   */
+  handleNameChange: (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>): void => {
+    api.setValue("name", event.target.value, { shouldValidate: isSubmitted });
+  },
+  /**
+   * Toggle handover flag.
+   *
+   * @returns {void} No return value
+   */
+  handleHandoverChange: (): void => {
+    api.setValue("isHandover", !isHandover, { shouldValidate: true });
+  },
+  /**
+   * Toggle active status.
+   *
+   * @returns {void} No return value
+   */
+  handleStatusChange: (): void => {
+    api.setValue("isActive", !isActive, { shouldValidate: true });
+  },
+});
 
-  const handleStatusChange = (): void => {
-    setValue("isActive", !isActive, { shouldValidate: true });
-  };
+/**
+ * Manage order type form fields and validation state.
+ *
+ * @param {OrderTypeData | undefined} routeOrderType - Order type from route state
+ * @param {ReturnType<typeof _resolveOrderTypeDetail>} orderTypeItem - Order type from API
+ * @returns {OrderTypeFormFields & OrderTypeFormValidation} Form state and handlers
+ */
+const useOrderTypeFormFields = (
+  routeOrderType: OrderTypeData | undefined,
+  orderTypeItem: ReturnType<typeof _resolveOrderTypeDetail>,
+): OrderTypeFormFields & OrderTypeFormValidation => {
+  const api = useOrderTypeFormApi(routeOrderType, orderTypeItem);
+  const [isSubmitted, setIsSubmitted] = useState(false);
+  const name = useWatch({ control: api.control, name: "name" });
+  const isHandover = useWatch({ control: api.control, name: "isHandover" });
+  const isActive = useWatch({ control: api.control, name: "isActive" });
 
-  const validateForm = async (): Promise<boolean> => {
+  /**
+   * Validate the order type form.
+   *
+   * @returns {Promise<boolean>} Whether the form is valid
+   */
+  const validateForm = (): Promise<boolean> => {
     setIsSubmitted(true);
 
-    return trigger();
+    return api.trigger();
   };
 
   return {
     name,
     isHandover,
     isActive,
-    errors,
+    errors: api.errors,
     isSubmitted,
-    getValues,
-    register,
+    getValues: api.getValues,
+    register: api.register,
     validateForm,
-    handleNameChange,
-    handleHandoverChange,
-    handleStatusChange,
+    ..._buildOrderTypeFieldHandlers(api, isSubmitted, isHandover, isActive),
   };
 };
 
 /**
+ * Send the order type create or update request.
+ *
+ * @param {OrderTypeSubmitContext} context - Bound submit context
+ * @returns {Promise<OrderTypeCreateResponse>} Mutation response
+ */
+const _sendOrderTypeMutation = (context: OrderTypeSubmitContext): Promise<OrderTypeCreateResponse> => {
+  const { name } = context.values;
+
+  if (context.isEditMode && context.id) {
+    return context.updateOrderType({ id: context.id, name, is_handover: context.isHandover, status: context.isActive ? 1 : 0 }).unwrap();
+  }
+
+  return context.createOrderType({ name, is_handover: context.isHandover, status: 1 }).unwrap();
+};
+
+/**
+ * Submit the order type form and report the result.
+ *
+ * @param {OrderTypeSubmitContext} context - Bound submit context
+ * @returns {Promise<void>} Resolves after submission settles
+ */
+const _submitOrderType = async (context: OrderTypeSubmitContext): Promise<void> => {
+  if (!(await context.validateForm())) return;
+
+  context.setErrorMessage(null);
+  context.setSuccessMessage(null);
+
+  try {
+    const response = await _sendOrderTypeMutation(context);
+
+    if (!response.status) {
+      context.setErrorMessage(_formatMessages(response.messages));
+
+      return;
+    }
+
+    const successMsg = context.isEditMode ? "Order type updated successfully." : "Order type created successfully.";
+
+    context.setSuccessMessage(successMsg);
+    context.navigate("/master-order-type", { state: { successMessage: successMsg } });
+  } catch {
+    context.setErrorMessage(context.isEditMode ? "Unable to update order type. Please try again." : "Unable to create order type. Please try again.");
+  }
+};
+
+/**
  * Handle order type form submission.
+ *
  * @param {OrderTypeSubmissionParams} params - Submission parameters
  * @returns {OrderTypeSubmissionState} Submission state
  */
@@ -183,41 +295,28 @@ const useOrderTypeSubmission = (params: OrderTypeSubmissionParams): OrderTypeSub
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
 
+  /**
+   * Submit the order type form.
+   *
+   * @param {SyntheticEvent} event - Form submission event
+   * @returns {Promise<void>} Completion promise
+   */
   const handleSubmit = async (event: SyntheticEvent): Promise<void> => {
     event.preventDefault();
 
-    if (!(await validateForm())) {
-      return;
-    }
-
-    const { name } = getValues();
-
-    setErrorMessage(null);
-    setSuccessMessage(null);
-
-    try {
-      const response: OrderTypeCreateResponse =
-        isEditMode && id
-          ? await updateOrderType({ id, name, is_handover: isHandover, status: isActive ? 1 : 0 }).unwrap()
-          : await createOrderType({ name, is_handover: isHandover, status: 1 }).unwrap();
-
-      if (!response.status) {
-        setErrorMessage(_formatMessages(response.messages));
-
-        return;
-      }
-
-      const successMsg = isEditMode ? "Order type updated successfully." : "Order type created successfully.";
-
-      setSuccessMessage(successMsg);
-      navigate("/master-order-type", { state: { successMessage: successMsg } });
-    } catch {
-      setErrorMessage(
-        isEditMode
-          ? "Unable to update order type. Please try again."
-          : "Unable to create order type. Please try again.",
-      );
-    }
+    await _submitOrderType({
+      id,
+      isEditMode,
+      isActive,
+      isHandover,
+      values: getValues(),
+      validateForm,
+      createOrderType,
+      updateOrderType,
+      navigate,
+      setErrorMessage,
+      setSuccessMessage,
+    });
   };
 
   return {
@@ -229,7 +328,32 @@ const useOrderTypeSubmission = (params: OrderTypeSubmissionParams): OrderTypeSub
 };
 
 /**
+ * Build the master order type create form state.
+ *
+ * @param {OrderTypeCreateFormInput} input - Form state inputs
+ * @returns {MasterOrderTypeCreateFormState} Form state
+ */
+const _buildCreateFormState = (input: OrderTypeCreateFormInput): MasterOrderTypeCreateFormState => ({
+  name: input.formFields.name,
+  isHandover: input.formFields.isHandover,
+  isActive: input.formFields.isActive,
+  isEditMode: input.isEditMode,
+  isLoadingInitialData: input.isLoadingDetail,
+  isSubmitting: input.submission.isSubmitting,
+  errorMessage: input.submission.errorMessage,
+  successMessage: input.submission.successMessage,
+  errors: input.formFields.errors,
+  isSubmitted: input.formFields.isSubmitted,
+  handleNameChange: input.formFields.handleNameChange,
+  handleHandoverChange: input.formFields.handleHandoverChange,
+  handleStatusChange: input.formFields.handleStatusChange,
+  handleSubmit: input.submission.handleSubmit,
+  goBack: input.goBack,
+});
+
+/**
  * Hook managing master order type form state.
+ *
  * @returns {MasterOrderTypeCreateFormState} Form state
  */
 export const useMasterOrderTypeCreate = (): MasterOrderTypeCreateFormState => {
@@ -238,13 +362,10 @@ export const useMasterOrderTypeCreate = (): MasterOrderTypeCreateFormState => {
   const { id } = useParams<{ id?: string }>();
   const isEditMode = Boolean(id);
   const routeOrderType: OrderTypeData | undefined = location.state?.orderType;
-
   const { data: orderTypeDetail, isLoading: isLoadingDetail } = useGetOrderTypeByIdQuery(id ?? "", {
     skip: !isEditMode || !id || Boolean(routeOrderType),
   });
-
-  const orderTypeItem = _resolveOrderTypeDetail(orderTypeDetail);
-  const formFields = useOrderTypeFormFields(routeOrderType, orderTypeItem);
+  const formFields = useOrderTypeFormFields(routeOrderType, _resolveOrderTypeDetail(orderTypeDetail));
   const submission = useOrderTypeSubmission({
     id,
     isEditMode,
@@ -254,25 +375,14 @@ export const useMasterOrderTypeCreate = (): MasterOrderTypeCreateFormState => {
     validateForm: formFields.validateForm,
   });
 
+  /**
+   * Go back to the order type list.
+   *
+   * @returns {void} No return value
+   */
   const goBack = (): void => {
     navigate("/master-order-type");
   };
 
-  return {
-    name: formFields.name,
-    isHandover: formFields.isHandover,
-    isActive: formFields.isActive,
-    isEditMode,
-    isLoadingInitialData: isLoadingDetail,
-    isSubmitting: submission.isSubmitting,
-    errorMessage: submission.errorMessage,
-    successMessage: submission.successMessage,
-    errors: formFields.errors,
-    isSubmitted: formFields.isSubmitted,
-    handleNameChange: formFields.handleNameChange,
-    handleHandoverChange: formFields.handleHandoverChange,
-    handleStatusChange: formFields.handleStatusChange,
-    handleSubmit: submission.handleSubmit,
-    goBack,
-  };
+  return _buildCreateFormState({ formFields, submission, isEditMode, isLoadingDetail, goBack });
 };

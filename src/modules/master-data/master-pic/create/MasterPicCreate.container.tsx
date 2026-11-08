@@ -1,12 +1,13 @@
 import type { ReactElement } from "react";
 
-import Layout from "@/app/layout";
-
 import { MasterPicCreateForm } from "./MasterPicCreate.component";
 import { useMasterPicCreate } from "./MasterPicCreate.hook";
 
+import Layout from "@/app/layout";
+
 /**
  * Render PIC create container.
+ *
  * @returns {ReactElement} Container
  */
 const MasterPicCreateContainer = (): ReactElement => {

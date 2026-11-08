@@ -9,6 +9,7 @@ import type { RoleRouteState } from "./MasterRole.type";
 
 /**
  * Master Role Container
+ *
  * @returns {React.ReactElement} Container component
  */
 const MasterRoleContainer = (): React.ReactElement => {

@@ -4,6 +4,7 @@ import type { RequiredItemFields } from "../MasterItem.type";
 
 /**
  * Convert formatted Rupiah input into digit-only value.
+ *
  * @param {string} value - Formatted input value
  * @returns {string} Digit-only value
  */
@@ -11,6 +12,7 @@ export const parseRupiahInput = (value: string): string => value.replace(NON_DIG
 
 /**
  * Format digit-only value as Indonesian Rupiah.
+ *
  * @param {string} value - Digit-only value
  * @returns {string} Formatted Rupiah value
  */
@@ -24,6 +26,7 @@ export const formatRupiahInput = (value: string): string => {
 
 /**
  * Validate required item fields (all required except remark and image).
+ *
  * @param {RequiredItemFields} fields - Field values to validate
  * @returns {string | null} Error message or null
  */

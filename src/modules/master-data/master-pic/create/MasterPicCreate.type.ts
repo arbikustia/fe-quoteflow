@@ -1,5 +1,7 @@
 import type * as React from "react";
-import type { FieldErrors } from "react-hook-form";
+import type { Control, FieldErrors, UseFormRegister, UseFormSetValue } from "react-hook-form";
+
+import type { useCreatePicMutation, useUpdatePicMutation } from "@/services/master-pic.service";
 
 export type PicFormValues = {
   name: string;
@@ -24,6 +26,26 @@ export type PicSubmissionParams = {
   isActive: boolean;
   getValues: () => PicFormValues;
   validateForm: () => Promise<boolean>;
+};
+
+export type PicFormInstance = {
+  control: Control<PicFormValues>;
+  formState: {
+    errors: FieldErrors<PicFormValues>;
+    isSubmitted: boolean;
+  };
+  getValues: () => PicFormValues;
+  register: UseFormRegister<PicFormValues>;
+  setValue: UseFormSetValue<PicFormValues>;
+  trigger: () => Promise<boolean>;
+};
+
+export type PicSubmitContext = {
+  params: PicSubmissionParams;
+  createPic: ReturnType<typeof useCreatePicMutation>[0];
+  updatePic: ReturnType<typeof useUpdatePicMutation>[0];
+  navigate: (path: string, options: { state: { successMessage: string } }) => void;
+  setErrorMessage: (message: string | null) => void;
 };
 
 export type MasterPicCreateState = {

@@ -13,45 +13,52 @@ import Table from "../../../components/Table";
 
 /**
  * Build service type table columns.
+ *
  * @param {number} currentPage - Current page
  * @param {number} pageSize - Page size
  * @param {(serviceType: ServiceTypeData) => void} onEdit - Edit handler
  * @returns {TableColumn<ServiceTypeData>[]} Service type columns
  */
 const _getColumns = (currentPage: number, pageSize: number, onEdit: (serviceType: ServiceTypeData) => void): TableColumn<ServiceTypeData>[] => {
-  /**
+    /**
    * Render row number.
+   *
    * @param {ServiceTypeData} _row - Service type row
    * @param {number} index - Row index
    * @returns {React.ReactElement} Number cell
    */
   const renderNo = (_row: ServiceTypeData, index: number): React.ReactElement => <span className="text-sm font-medium text-brand-text-medium">{(currentPage - 1) * pageSize + index + 1}</span>;
-  /**
+    /**
    * Render price.
+   *
    * @param {ServiceTypeData} row - Service type row
    * @returns {React.ReactElement} Price cell
    */
   const renderPrice = (row: ServiceTypeData): React.ReactElement => <span>Rp {row.price.toLocaleString("id-ID")}</span>;
-  /**
+    /**
    * Render active state.
+   *
    * @param {ServiceTypeData} row - Service type row
    * @returns {React.ReactElement} Active cell
    */
   const renderIsActive = (row: ServiceTypeData): React.ReactElement => <span className={`rounded px-2 py-0.5 text-xs font-semibold ${row.isActive ? "bg-information-subtle text-information-strong" : "bg-background-subtle text-text-tertiary"}`}>{row.isActive ? "Yes" : "No"}</span>;
-  /**
+    /**
    * Render status.
+   *
    * @param {ServiceTypeData} row - Service type row
    * @returns {React.ReactElement} Status cell
    */
   const renderStatus = (row: ServiceTypeData): React.ReactElement => <span className={`rounded-full px-3 py-1 text-xs font-bold uppercase ${row.status === "active" ? "bg-green-100 text-green-600" : "bg-red-100 text-red-600"}`}>{row.status}</span>;
-  /**
+    /**
    * Render edit action.
+   *
    * @param {ServiceTypeData} row - Service type row
    * @returns {React.ReactElement} Action cell
    */
   const renderActions = (row: ServiceTypeData): React.ReactElement => {
-    /**
+        /**
      * Handle edit click.
+     *
      * @param {React.MouseEvent} event - Click event
      * @returns {void} No return value
      */
@@ -76,6 +83,7 @@ const _getColumns = (currentPage: number, pageSize: number, onEdit: (serviceType
 
 /**
  * Render loading, empty, and error states.
+ *
  * @param {MasterServiceTypeProps} props - Component props
  * @returns {React.ReactElement | null} State element
  */
@@ -95,13 +103,15 @@ const _renderListState = (props: MasterServiceTypeProps): React.ReactElement | n
 
 /**
  * Render mobile service type card.
+ *
  * @param {ServiceTypeData} serviceType - Service type data
  * @param {MasterServiceTypeProps["onEdit"]} onEdit - Edit action
  * @returns {React.ReactElement} Card element
  */
 const _renderServiceTypeCard = (serviceType: ServiceTypeData, onEdit: MasterServiceTypeProps["onEdit"]): React.ReactElement => {
-  /**
+    /**
    * Open service type editing.
+   *
    * @returns {void} No return value
    */
   const handleEdit = (): void => onEdit(serviceType);
@@ -118,13 +128,15 @@ const _renderServiceTypeCard = (serviceType: ServiceTypeData, onEdit: MasterServ
 
 /**
  * Render mobile cards view.
+ *
  * @param {MasterServiceTypeProps} props - Component props
  * @returns {React.ReactElement} Mobile view
  */
 const _renderMobile = (props: MasterServiceTypeProps): React.ReactElement => {
   const { paginatedData, currentPage, totalPages, pageSize, totalCount, goToPage, changePageSize, setSearchTerm, onEdit } = props;
-  /**
+    /**
    * Update service type search term.
+   *
    * @param {React.ChangeEvent<HTMLInputElement>} event - Search input event
    * @returns {void} No return value
    */
@@ -152,14 +164,16 @@ const _renderMobile = (props: MasterServiceTypeProps): React.ReactElement => {
 
 /**
  * Render desktop table view.
+ *
  * @param {MasterServiceTypeProps} props - Component props
  * @returns {React.ReactElement} Desktop view
  */
 const _renderDesktop = (props: MasterServiceTypeProps): React.ReactElement => {
   const { paginatedData, currentPage, totalPages, pageSize, totalCount, goToPage, changePageSize, setSearchTerm, onCreate, onEdit, onRowClick } = props;
   const columns = _getColumns(currentPage, pageSize, onEdit);
-  /**
+    /**
    * Update service type search term.
+   *
    * @param {React.ChangeEvent<HTMLInputElement>} event - Search input event
    * @returns {void} No return value
    */
@@ -181,6 +195,7 @@ const _renderDesktop = (props: MasterServiceTypeProps): React.ReactElement => {
 
 /**
  * Render master service type list.
+ *
  * @param {MasterServiceTypeProps} props - Component props
  * @returns {React.ReactElement} List element
  */

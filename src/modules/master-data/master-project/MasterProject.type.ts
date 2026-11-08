@@ -1,5 +1,5 @@
 import type * as React from "react";
-import type { FieldErrors } from "react-hook-form";
+import type { FieldErrors, UseFormSetValue } from "react-hook-form";
 
 import type { ApiEnvelope, PaginatedResponse } from "../../../types/api.type";
 import type { MasterBase } from "../../../types/master";
@@ -216,6 +216,12 @@ export type ProjectSubmissionState = {
   handleSubmit: (event: React.SyntheticEvent) => Promise<void>;
 };
 
+export type ProjectSubmissionHandlers = {
+  navigate: (path: string, options?: { state: { successMessage: string } }) => void;
+  setErrorMessage: (msg: string | null) => void;
+  setSuccessMessage: (msg: string | null) => void;
+};
+
 export type ProjectDraftFormState = {
   step: ProjectFormStep;
   name: string;
@@ -240,6 +246,50 @@ export type ProjectDraftFormState = {
   updateItemQuantity: (itemId: string, quantity: number) => void;
   nextStep: () => void;
   previousStep: () => void;
+};
+
+export type ProjectDraftHandlers = Pick<
+  ProjectDraftFormState,
+  "handleNameChange" | "handlePriceChange" | "handleRemarkChange" | "handleStatusChange"
+>;
+
+export type ProjectDraftHandlersInput = {
+  setName: (value: string) => void;
+  setValue: UseFormSetValue<ProjectFormValues>;
+  isSubmitted: boolean;
+  setPrice: (value: string) => void;
+  setRemark: (value: string) => void;
+  setIsActive: React.Dispatch<React.SetStateAction<boolean>>;
+};
+
+export type ProjectDraftSetters = {
+  setInitializedId: (id: string) => void;
+  setName: (value: string) => void;
+  setValue: UseFormSetValue<ProjectFormValues>;
+  setPrice: (value: string) => void;
+  clearErrors: () => void;
+  setRemark: (value: string) => void;
+  setIsActive: (value: boolean) => void;
+  setSelectedItems: (items: ProjectItemSelection[]) => void;
+};
+
+export type ProjectDraftStateApi = {
+  form: UseFormReturn<ProjectFormValues>;
+  step: ProjectFormStep;
+  setStep: React.Dispatch<React.SetStateAction<ProjectFormStep>>;
+  name: string;
+  setName: (value: string) => void;
+  price: string;
+  setPrice: (value: string) => void;
+  remark: string;
+  setRemark: (value: string) => void;
+  isActive: boolean;
+  setIsActive: React.Dispatch<React.SetStateAction<boolean>>;
+  initializedId: string | null;
+  setInitializedId: (id: string) => void;
+  isSubmitted: boolean;
+  setIsSubmitted: (value: boolean) => void;
+  itemSelection: ProjectItemSelectionApi;
 };
 
 export type ProjectRouteState = {

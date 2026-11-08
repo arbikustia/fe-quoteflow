@@ -5,6 +5,7 @@ import { useMasterUserCreateForm } from "./MasterUserCreate.hook";
 
 /**
  * Render master user create container.
+ *
  * @returns {ReactElement} Container element
  */
 const MasterUserCreateContainer = (): ReactElement => <MasterUserCreateComponent {...useMasterUserCreateForm()} />;

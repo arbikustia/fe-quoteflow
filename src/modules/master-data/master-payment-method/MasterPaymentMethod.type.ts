@@ -1,5 +1,9 @@
 import type * as React from "react";
-import type { FieldErrors, UseFormGetValues, UseFormRegister } from "react-hook-form";
+import type {
+  FieldErrors,
+  UseFormGetValues,
+  UseFormRegister,
+} from "react-hook-form";
 
 export type PaymentMethodFormValues = {
   name: string;
@@ -17,10 +21,13 @@ export type PaymentMethodRouteState = {
   successMessage?: string;
 };
 
+import type {
+  ApiEnvelope,
+  ApiQueryParams,
+  PaginatedResponse,
+} from "@/types/api.type";
 
-import type { ApiEnvelope, ApiQueryParams, PaginatedResponse } from "@/types/api.type";
-
-import type { PaginationResult } from "../../hooks/usePagination";
+import type { PaginationResult } from "../../../hooks/usePagination";
 
 export type ApiPaymentMethod = {
   id: string;
@@ -33,7 +40,9 @@ export type ApiPaymentMethod = {
 };
 
 export type PaymentMethodListResponse = PaginatedResponse<ApiPaymentMethod>;
-export type PaymentMethodDetailResponse = ApiEnvelope<ApiPaymentMethod | ApiPaymentMethod[] | null>;
+export type PaymentMethodDetailResponse = ApiEnvelope<
+  ApiPaymentMethod | ApiPaymentMethod[] | null
+>;
 export type PaymentMethodCreateResponse = ApiEnvelope<ApiPaymentMethod | null>;
 export type PaymentMethodListParams = ApiQueryParams;
 
@@ -77,8 +86,12 @@ export type PaymentMethodFormFieldsState = PaymentMethodFormValidation & {
   isActive: boolean;
   getValues: UseFormGetValues<PaymentMethodFormValues>;
   validateForm: () => Promise<boolean>;
-  handleNameChange: (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
-  handleDescriptionChange: (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
+  handleNameChange: (
+    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+  ) => void;
+  handleDescriptionChange: (
+    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+  ) => void;
   handleStatusChange: () => void;
 };
 
@@ -123,18 +136,20 @@ export type MasterPaymentMethodNavigation = {
   goEdit: (p: PaymentMethodData) => void;
 };
 
-export type MasterPaymentMethodPagination = PaginationResult<PaymentMethodData> & {
-  isLoading: boolean;
-  errorMessage: string | null;
-  isMissingData: boolean;
-  isEmpty: boolean;
-  setSearchTerm: (searchTerm: string) => void;
-};
+export type MasterPaymentMethodPagination =
+  PaginationResult<PaymentMethodData> & {
+    isLoading: boolean;
+    errorMessage: string | null;
+    isMissingData: boolean;
+    isEmpty: boolean;
+    setSearchTerm: (searchTerm: string) => void;
+  };
 
-export type MasterPaymentMethodContainerState = MasterPaymentMethodNavigation & {
-  pagination: MasterPaymentMethodPagination;
-  isMoreOpen: boolean;
-  toggleMore: () => void;
-  goDelete: () => void;
-  handleCloseMore: () => void;
-};
+export type MasterPaymentMethodContainerState =
+  MasterPaymentMethodNavigation & {
+    pagination: MasterPaymentMethodPagination;
+    isMoreOpen: boolean;
+    toggleMore: () => void;
+    goDelete: () => void;
+    handleCloseMore: () => void;
+  };

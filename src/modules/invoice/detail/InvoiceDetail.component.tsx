@@ -1,5 +1,5 @@
 import type { ReactElement } from "react";
-import { FiCheckCircle, FiDownload, FiMoreHorizontal } from "react-icons/fi";
+import { FiCheckCircle, FiDownload, FiEdit2, FiMoreHorizontal } from "react-icons/fi";
 
 import { generateInvoicePDF } from "@/utils/pdfGenerator";
 
@@ -245,11 +245,17 @@ const _renderHeaderActions = (props: InvoiceDetailState, approveLabel: string): 
   return (
     <>
       <div className="hidden items-center gap-3 lg:flex" data-testid="invoice-detail-desktop-actions">
+        {invoice.status === 1 && (
+          <button type="button" onClick={props.handleEdit} className="inline-flex h-11 items-center gap-2 rounded-3xl border border-border-default px-4 text-lg font-semibold text-text-primary transition-colors hover:bg-background-subtle"><FiEdit2 className="h-5 w-5" aria-hidden="true" />Edit</button>
+        )}
         <button type="button" onClick={props.openApproveModal} disabled={invoice.status === 2 || props.isApproving} className="inline-flex h-11 items-center gap-2 rounded-3xl bg-success-strong px-4 text-lg font-semibold text-white transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-60"><FiCheckCircle className="h-5 w-5" aria-hidden="true" />{approveLabel}</button>
         <button type="button" onClick={handleDownloadPdf} className="inline-flex h-11 items-center gap-2 rounded-3xl bg-action-primary px-4 text-lg font-semibold text-white transition-opacity hover:opacity-90"><FiDownload className="h-5 w-5" aria-hidden="true" />Download PDF</button>
       </div>
       <div className="lg:hidden">
         <ActionMenu testId="invoice-detail-actions" icon={<FiMoreHorizontal className="h-7 w-7" aria-hidden="true" />}>
+          {invoice.status === 1 && (
+            <button type="button" role="menuitem" onClick={props.handleEdit} className="flex w-full items-center gap-3 px-5 py-3.5 text-left text-lg font-semibold text-text-primary transition-colors hover:bg-background-subtle"><FiEdit2 className="h-5 w-5" aria-hidden="true" />Edit</button>
+          )}
           <button type="button" role="menuitem" onClick={props.openApproveModal} disabled={invoice.status === 2 || props.isApproving} className="flex w-full items-center gap-3 px-5 py-3.5 text-left text-lg font-semibold text-success-strong transition-colors hover:bg-success-subtle disabled:cursor-not-allowed disabled:opacity-60"><FiCheckCircle className="h-5 w-5" aria-hidden="true" />{approveLabel}</button>
           <button type="button" role="menuitem" onClick={handleDownloadPdf} className="flex w-full items-center gap-3 px-5 py-3.5 text-left text-lg font-semibold text-text-primary transition-colors hover:bg-background-subtle"><FiDownload className="h-5 w-5" aria-hidden="true" />Download PDF</button>
         </ActionMenu>

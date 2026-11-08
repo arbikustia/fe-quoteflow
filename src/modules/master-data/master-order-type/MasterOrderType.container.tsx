@@ -1,13 +1,15 @@
 import * as React from "react";
 import { useLocation } from "react-router-dom";
 
+import { AlertComponent } from "../../../components/Alert";
+
 import { MasterOrderTypeComponent } from "./MasterOrderType.component";
 import { useMasterOrderTypeContainerState, useMasterOrderTypeNavigation } from "./MasterOrderType.hook";
 import type { OrderTypeRouteState } from "./MasterOrderType.type";
-import { AlertComponent } from "../../../components/Alert";
 
 /**
  * Master Order Type Container
+ *
  * @returns {React.ReactElement} Container element
  */
 const MasterOrderTypeContainer = (): React.ReactElement => {

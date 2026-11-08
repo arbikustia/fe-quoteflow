@@ -5,6 +5,7 @@ import { useMasterProjectDetail } from "./MasterProjectDetail.hook";
 
 /**
  * Render Master Project Detail Container.
+ *
  * @returns {ReactElement} Container
  */
 const MasterProjectDetailContainer = (): ReactElement => {

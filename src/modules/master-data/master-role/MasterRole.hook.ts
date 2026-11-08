@@ -1,11 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-import {
-  mapRole,
-  useCreateRoleMutation,
-  useGetRolesQuery,
-} from "@/services/master-role.service";
 import { createPaginationHandlers } from "@/utils/pagination.helpers";
 
 import type {
@@ -16,31 +11,41 @@ import type {
   RoleListApiState,
 } from "./MasterRole.type";
 
+import {
+  mapRole,
+  useCreateRoleMutation,
+  useGetRolesQuery,
+} from "@/services/master-role.service";
+
 /**
  * Navigation hook
+ *
  * @returns {MasterRoleNavigation} navigation state
  */
 export const useMasterRoleNavigation = (): MasterRoleNavigation => {
   const navigate = useNavigate();
 
-  /**
+    /**
    * Navigate back.
+   *
    * @returns {void} No return value
    */
   const goBack = (): void => {
     navigate("/master-main");
   };
 
-  /**
+    /**
    * Navigate to create role.
+   *
    * @returns {void} No return value
    */
   const goCreate = (): void => {
     navigate("/master-role/create");
   };
 
-  /**
+    /**
    * Navigate to edit role.
+   *
    * @param {RoleData} role - Role record
    * @returns {void} No return value
    */
@@ -53,6 +58,7 @@ export const useMasterRoleNavigation = (): MasterRoleNavigation => {
 
 /**
  * Derive role list state from API response.
+ *
  * @param {ReturnType<typeof useGetRolesQuery>} queryResult - RTK Query result
  * @returns {RoleListApiState} derived role list state
  */
@@ -85,6 +91,7 @@ const _deriveRoleListState = (
 
 /**
  * Create loading state.
+ *
  * @returns {RoleListApiState} loading state
  */
 const _createLoadingState = (): RoleListApiState => ({
@@ -98,6 +105,7 @@ const _createLoadingState = (): RoleListApiState => ({
 
 /**
  * Create HTTP error state.
+ *
  * @returns {RoleListApiState} error state
  */
 const _createErrorState = (): RoleListApiState => ({
@@ -111,6 +119,7 @@ const _createErrorState = (): RoleListApiState => ({
 
 /**
  * Create missing response state.
+ *
  * @returns {RoleListApiState} missing response state
  */
 const _createMissingResponseState = (): RoleListApiState => ({
@@ -124,6 +133,7 @@ const _createMissingResponseState = (): RoleListApiState => ({
 
 /**
  * Hook for API-backed master role pagination.
+ *
  * @returns {MasterRolePagination} role pagination state and handlers
  */
 export const useMasterRolePagination = (): MasterRolePagination => {
@@ -160,6 +170,7 @@ export { useMasterRoleCreateForm } from "./create/MasterRoleCreate.hook";
 
 /**
  * Hook for master role create mutation.
+ *
  * @returns {ReturnType<typeof useCreateRoleMutation>} role create mutation
  */
 export const useMasterRoleCreateRole = (): ReturnType<
@@ -168,6 +179,7 @@ export const useMasterRoleCreateRole = (): ReturnType<
 
 /**
  * Container state hook
+ *
  * @returns {MasterRoleContainerState} container state
  */
 export const useMasterRoleContainerState = (): MasterRoleContainerState => {
@@ -175,20 +187,23 @@ export const useMasterRoleContainerState = (): MasterRoleContainerState => {
   const pagination = useMasterRolePagination();
   const [isMoreOpen, setIsMoreOpen] = useState(false);
 
-  /**
+    /**
    * Toggle more menu.
+   *
    * @returns {void} void
    */
   const toggleMore = (): void => setIsMoreOpen((previous) => !previous);
 
-  /**
+    /**
    * Handle delete action.
+   *
    * @returns {void} void
    */
   const goDelete = (): void => setIsMoreOpen(false);
 
-  /**
+    /**
    * Close more menu.
+   *
    * @returns {void} void
    */
   const handleCloseMore = (): void => setIsMoreOpen(false);

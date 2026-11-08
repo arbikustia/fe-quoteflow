@@ -10,6 +10,7 @@ import type { MasterPaymentTypeCreateFormState } from "./MasterPaymentTypeCreate
 
 /**
  * Read validation message from React Hook Form.
+ *
  * @param {FieldError | undefined} error - Field validation error
  * @returns {string | null} Validation message
  */
@@ -17,6 +18,7 @@ const _getFieldError = (error: FieldError | undefined): string | null => error?.
 
 /**
  * Render status switch field.
+ *
  * @param {MasterPaymentTypeCreateFormState} props - Form state
  * @returns {ReactElement | null} Status field
  */
@@ -36,6 +38,7 @@ const _renderStatusField = (props: MasterPaymentTypeCreateFormState): ReactEleme
 
 /**
  * Render mobile back bar.
+ *
  * @param {boolean} isEditMode - Edit mode flag
  * @param {() => void} goBack - Back action
  * @returns {ReactElement} Back bar
@@ -54,6 +57,7 @@ const _renderMobileBack = (isEditMode: boolean, goBack: () => void): ReactElemen
 
 /**
  * Render form header.
+ *
  * @param {boolean} isEditMode - Edit mode flag
  * @param {() => void} goBack - Back action
  * @returns {ReactElement} Header
@@ -78,6 +82,7 @@ const _renderHeader = (isEditMode: boolean, goBack: () => void): ReactElement =>
 
 /**
  * Render payment type form body.
+ *
  * @param {MasterPaymentTypeCreateFormState} props - Form state
  * @returns {ReactElement} Form body
  */
@@ -111,6 +116,7 @@ const _renderForm = (props: MasterPaymentTypeCreateFormState): ReactElement => {
 
 /**
  * Render payment type create/edit form.
+ *
  * @param {MasterPaymentTypeCreateFormState} props - Form state
  * @returns {ReactElement} Form
  */

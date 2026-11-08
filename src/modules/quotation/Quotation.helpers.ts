@@ -1,10 +1,11 @@
 import * as React from "react";
 
-import type { QuoteData } from "@/modules/order/Order.type";
 import { formatIndonesianDateTime } from "@/utils/date.helpers";
 
 import { formatCurrency, getQuotationStatusLabel, getStatusBadgeClass } from "./detail/QuotationDetail.helpers";
-import type { ApiQuotation, QuotationData, QuotationMobileCardProps } from "./Quotation.type";
+import type { ApiQuotation, ApiQuotationItem, ApiQuotationProject, QuotationData, QuotationMobileCardProps } from "./Quotation.type";
+
+import type { QuoteData, QuotePdfProject } from "@/modules/order/Order.type";
 
 /**
  * Map quotation list row to quote data.
@@ -38,6 +39,31 @@ const _fromQuotationData = (quotation: QuotationData, itemCategories: Map<string
 });
 
 /**
+ * Map quotation project to PDF project row.
+ * @param {ApiQuotationProject} project - Quotation project
+ * @param {ApiQuotationItem[]} transactionItems - Transaction items for remark lookup
+ * @returns {QuoteProjectRow} PDF project row
+ */
+const _mapPdfProject = (
+  project: ApiQuotationProject,
+  transactionItems: ApiQuotationItem[],
+): QuotePdfProject => ({
+  name: project.name,
+  qty: project.qty,
+  price: project.price,
+  remark: project.remark,
+  items: (project.items ?? []).map((item) => ({
+    name: item.item_name,
+    qty: item.qty,
+    remark: transactionItems.find(
+      (transactionItem) =>
+        transactionItem.project_id === project.id &&
+        transactionItem.item_id === item.item_id,
+    )?.remark ?? "",
+  })),
+});
+
+/**
  * Map api quotation to quote data.
  * @param {ApiQuotation} quotation - Api quotation
  * @param {Map<string, string>} itemCategories - Item category names by item ID
@@ -49,7 +75,6 @@ const _fromApiQuotation = (quotation: ApiQuotation, itemCategories: Map<string, 
   const regularItems = transactionItems.filter(
     (item) => Boolean(item.item_id && item.item_name),
   );
-  const items = regularItems.map((item) => item.item_name ?? "");
 
   return {
     id: quotation.quotation_no || quotation.id,
@@ -59,7 +84,7 @@ const _fromApiQuotation = (quotation: ApiQuotation, itemCategories: Map<string, 
     endDate: tx?.end_at || quotation.quotation_date,
     location: tx?.address || "-",
     category: tx?.service_type_name || "",
-    selectedItems: items,
+    selectedItems: regularItems.map((item) => item.item_name ?? ""),
     pdfItems: regularItems.map((item) => ({
       name: item.item_name ?? "",
       category: item.category_name ?? itemCategories.get(item.item_id ?? "") ?? "Uncategorized",
@@ -67,21 +92,9 @@ const _fromApiQuotation = (quotation: ApiQuotation, itemCategories: Map<string, 
       price: item.price,
       remark: item.remark ?? "",
     })),
-    pdfProjects: (tx?.rental_transaction_project ?? []).map((project) => ({
-      name: project.name,
-      qty: project.qty,
-      price: project.price,
-      remark: project.remark,
-      items: (project.items ?? []).map((item) => ({
-        name: item.item_name,
-        qty: item.qty,
-        remark: transactionItems.find(
-          (transactionItem) =>
-            transactionItem.project_id === project.id &&
-            transactionItem.item_id === item.item_id,
-        )?.remark ?? "",
-      })),
-    })),
+    pdfProjects: (tx?.rental_transaction_project ?? []).map((project) =>
+      _mapPdfProject(project, transactionItems),
+    ),
     qty: 1,
     pph: 0,
     discount: tx?.discount ?? 0,

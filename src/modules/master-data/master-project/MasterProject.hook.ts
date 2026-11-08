@@ -1,8 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-import { mapProject, useGetProjectsQuery } from "@/services/master-project.service";
-
 import type {
   MasterProjectContainerState,
   MasterProjectNavigation,
@@ -12,32 +10,39 @@ import type {
   ProjectListResponse,
 } from "./MasterProject.type";
 
+import { mapProject, useGetProjectsQuery } from "@/services/master-project.service";
+
 /**
  * Hook for master project navigation.
+ *
  * @returns {MasterProjectNavigation} Navigation functions
  */
 export const useMasterProjectNavigation = (): MasterProjectNavigation => {
   const navigate = useNavigate();
 
-  /**
+    /**
    * Navigate back
+   *
    * @returns {void}
    */
   const goBack = (): void => { navigate("/master-main"); };
 
-  /**
+    /**
    * Navigate to create page
+   *
    * @returns {void}
    */
   const goCreate = (): void => { navigate("/master-project/create"); };
-  /**
+    /**
    * Navigate to edit page
+   *
    * @param {ProjectData} project - The project data
    * @returns {void}
    */
   const goEdit = (project: ProjectData): void => { navigate(`/master-project/edit/${project.id}`); };
-  /**
+    /**
    * Navigate to detail page
+   *
    * @param {ProjectData} project - The project data
    * @returns {void}
    */
@@ -49,6 +54,7 @@ export const useMasterProjectNavigation = (): MasterProjectNavigation => {
 /**
  * Derive paginated state from API response envelope.
  * Handles loading, HTTP error, envelope status false, missing data explicitly.
+ *
  * @param {ReturnType<typeof useGetProjectsQuery>} queryResult - RTK Query result
  * @returns {ProjectListApiState} Derived state
  */
@@ -82,6 +88,7 @@ const _deriveProjectListState = (queryResult: ReturnType<typeof useGetProjectsQu
 
 /**
  * Create loading state.
+ *
  * @returns {ProjectListApiState} Loading state
  */
 const _createLoadingState = (): ProjectListApiState => ({
@@ -96,6 +103,7 @@ const _createLoadingState = (): ProjectListApiState => ({
 
 /**
  * Create HTTP error state.
+ *
  * @returns {ProjectListApiState} Error state
  */
 const _createErrorState = (): ProjectListApiState => ({
@@ -110,6 +118,7 @@ const _createErrorState = (): ProjectListApiState => ({
 
 /**
  * Create missing response state.
+ *
  * @returns {ProjectListApiState} Missing response state
  */
 const _createMissingResponseState = (): ProjectListApiState => ({
@@ -124,6 +133,7 @@ const _createMissingResponseState = (): ProjectListApiState => ({
 
 /**
  * Create missing payload state.
+ *
  * @returns {ProjectListApiState} Missing payload state
  */
 const _createMissingPayloadState = (): ProjectListApiState => ({
@@ -138,6 +148,7 @@ const _createMissingPayloadState = (): ProjectListApiState => ({
 
 /**
  * Create success state.
+ *
  * @param {ProjectData[]} projects - Mapped project data
  * @param {number} totalPages - Total pages from API
  * @param {number} totalCount - Total count from API
@@ -155,6 +166,7 @@ const _createSuccessState = (projects: ProjectData[], totalPages: number, totalC
 
 /**
  * Hook for API-backed master project pagination.
+ *
  * @returns {MasterProjectPagination} Project pagination state and handlers
  */
 export const useMasterProjectPagination = (): MasterProjectPagination => {
@@ -168,30 +180,35 @@ export const useMasterProjectPagination = (): MasterProjectPagination => {
   const queryResult = useGetProjectsQuery({ pageNumber: currentPage, pageSize, searchTerm });
   const derived = _deriveProjectListState(queryResult);
 
-  /**
+    /**
    * Handle page change
+   *
    * @param {number} page - The new page number
    * @returns {void}
    */
   const goToPage = (page: number): void => setCurrentPage(Math.max(1, Math.min(page, derived.totalPages)));
-  /**
+    /**
    * Handle next page
+   *
    * @returns {void}
    */
   const nextPage = (): void => { if (!derived.isLoading && !derived.errorMessage && derived.paginatedData.length > 0 && queryResult.data?.has_next) goToPage(currentPage + 1); };
-  /**
+    /**
    * Handle prev page
+   *
    * @returns {void}
    */
   const prevPage = (): void => { if (!derived.isLoading && !derived.errorMessage && derived.paginatedData.length > 0 && queryResult.data?.has_previous) goToPage(currentPage - 1); };
-  /**
+    /**
    * Handle page size change
+   *
    * @param {number} size - The new page size
    * @returns {void}
    */
   const changePageSize = (size: number): void => { setPageSize(size); setCurrentPage(1); };
-  /**
+    /**
    * Handle search term change
+   *
    * @param {string} value - The search term
    * @returns {void}
    */
@@ -217,26 +234,30 @@ export const useMasterProjectPagination = (): MasterProjectPagination => {
 
 /**
  * Hook for master project container state.
+ *
  * @returns {MasterProjectContainerState} Container state and handlers
  */
 export const useMasterProjectContainerState = (): MasterProjectContainerState => {
   const pagination = useMasterProjectPagination();
   const [isMoreOpen, setIsMoreOpen] = useState(false);
 
-  /**
+    /**
    * Toggle more menu
+   *
    * @returns {void}
    */
   const toggleMore = (): void => setIsMoreOpen((previous) => !previous);
 
-  /**
+    /**
    * Close more menu
+   *
    * @returns {void}
    */
   const handleCloseMore = (): void => setIsMoreOpen(false);
 
-  /**
+    /**
    * Handle delete action
+   *
    * @returns {void}
    */
   const goDelete = (): void => handleCloseMore();

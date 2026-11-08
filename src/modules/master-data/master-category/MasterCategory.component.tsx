@@ -2,8 +2,6 @@ import type { ChangeEvent, ReactElement } from "react";
 import * as React from "react";
 import { FiEdit2 } from "react-icons/fi";
 
-import { getCategoryRowNumber } from "./MasterCategory.helpers";
-import type { CategoryData, MasterCategoryProps } from "./MasterCategory.type";
 import Layout from "../../../app/layout";
 import { PageLayout } from "../../../app/shared/PageLayout";
 import { Pagination } from "../../../components/Pagination";
@@ -11,8 +9,12 @@ import { SearchFilter } from "../../../components/SearchFilter";
 import type { TableColumn } from "../../../components/Table";
 import Table from "../../../components/Table";
 
+import { getCategoryRowNumber } from "./MasterCategory.helpers";
+import type { CategoryData, MasterCategoryProps } from "./MasterCategory.type";
+
 /**
  * Render category status table cell.
+ *
  * @param {CategoryData} category - Category data
  * @returns {ReactElement} Status cell
  */
@@ -24,6 +26,7 @@ const _renderStatus = (category: CategoryData): ReactElement => (
 
 /**
  * Render category row number cell.
+ *
  * @param {number} currentPage - Active page
  * @param {number} pageSize - Active page size
  * @param {number} index - Row index
@@ -35,6 +38,7 @@ const _renderNumber = (currentPage: number, pageSize: number, index: number): Re
 
 /**
  * Render category name cell.
+ *
  * @param {CategoryData} category - Category data
  * @returns {ReactElement} Category name cell
  */
@@ -42,7 +46,12 @@ const _renderCategoryName = (category: CategoryData): ReactElement => (
   <span className="text-lg font-medium">{category.categoryName}</span>
 );
 
-/** Format category date using Indonesian long date. */
+/**
+ * Format category date using Indonesian long date.
+ *
+ * @param {string | null} value - Value
+ * @returns {string} Resolved string
+ */
 const _formatCreatedAt = (value: string | null): string => (
   value
     ? new Date(value).toLocaleDateString("id-ID", {
@@ -57,6 +66,7 @@ const _formatCreatedAt = (value: string | null): string => (
 
 /**
  * Render created at cell.
+ *
  * @param {CategoryData} category - Category data
  * @returns {ReactElement} Created at cell
  */
@@ -66,13 +76,15 @@ const _renderCreatedAt = (category: CategoryData): ReactElement => (
 
 /**
  * Render category action cell.
+ *
  * @param {CategoryData} category - Category data
  * @param {MasterCategoryProps["onEdit"]} onEdit - Edit handler
  * @returns {ReactElement} Action cell
  */
 const _renderActions = (category: CategoryData, onEdit: MasterCategoryProps["onEdit"]): ReactElement => {
-  /**
+    /**
    * Handle edit action click.
+   *
    * @param {React.MouseEvent} event - Mouse event
    * @returns {void}
    */
@@ -98,13 +110,23 @@ const _renderActions = (category: CategoryData, onEdit: MasterCategoryProps["onE
 
 /**
  * Build category table columns.
+ *
  * @param {number} currentPage - Active page
  * @param {number} pageSize - Active page size
  * @param {(category: CategoryData) => void} onEdit - Edit handler
  * @returns {TableColumn<CategoryData>[]} Category columns
  */
 const _getColumns = (currentPage: number, pageSize: number, onEdit: (category: CategoryData) => void): TableColumn<CategoryData>[] => {
+    /**
+   * @param {CategoryData} _category - Category
+   * @param {number} index - Index
+   * @returns {ReactElement} Rendered element
+   */
   const renderNumber = (_category: CategoryData, index: number): ReactElement => _renderNumber(currentPage, pageSize, index);
+    /**
+   * @param {CategoryData} category - Category
+   * @returns {ReactElement} Rendered element
+   */
   const renderAction = (category: CategoryData): ReactElement => _renderActions(category, onEdit);
 
   return [
@@ -118,6 +140,7 @@ const _getColumns = (currentPage: number, pageSize: number, onEdit: (category: C
 
 /**
  * Render category list state.
+ *
  * @param {MasterCategoryProps} props - Category list props
  * @returns {ReactElement | null} List state or null
  */
@@ -139,6 +162,7 @@ const _renderListState = (props: MasterCategoryProps): ReactElement | null => {
 
 /**
  * Render action cell skeleton.
+ *
  * @returns {ReactElement} Skeleton action cell
  */
 const _renderActionSkeleton = (): ReactElement => (
@@ -149,6 +173,7 @@ const _renderActionSkeleton = (): ReactElement => (
 
 /**
  * Render single skeleton row.
+ *
  * @param {TableColumn<CategoryData>[]} columns - Columns
  * @param {string[]} widths - Widths
  * @param {number} rowIndex - Row index
@@ -173,6 +198,7 @@ const _renderSkeletonRow = (columns: TableColumn<CategoryData>[], widths: string
 
 /**
  * Render category table skeleton.
+ *
  * @param {MasterCategoryProps} props - Component props
  * @returns {ReactElement} Table skeleton
  */
@@ -205,6 +231,7 @@ const _renderTableSkeleton = (props: MasterCategoryProps): ReactElement => {
 
 /**
  * Render mobile card skeleton.
+ *
  * @param {number} key - Key
  * @returns {ReactElement} Mobile skeleton
  */
@@ -230,6 +257,7 @@ const _renderMobileCardSkeleton = (key: number): ReactElement => (
 
 /**
  * Render category mobile card.
+ *
  * @param {CategoryData} category - Category data
  * @param {MasterCategoryProps["onEdit"]} onEdit - Edit callback
  * @returns {ReactElement} Category card
@@ -237,6 +265,9 @@ const _renderMobileCardSkeleton = (key: number): ReactElement => (
 const _renderCategoryCard = (category: CategoryData, onEdit: MasterCategoryProps["onEdit"]): ReactElement => {
   const badgeClass = category.status === "active" ? "bg-success-subtle text-success-strong" : "bg-danger-subtle text-danger-strong";
   const formattedDate = _formatCreatedAt(category.createAt);
+    /**
+   * @returns {void} Resolved value
+   */
   const handleClick = (): void => onEdit(category);
 
   return (
@@ -254,6 +285,7 @@ const _renderCategoryCard = (category: CategoryData, onEdit: MasterCategoryProps
 
 /**
  * Render desktop toolbar with search and create button.
+ *
  * @param {(event: ChangeEvent<HTMLInputElement>) => void} handleSearch - Search change handler
  * @param {() => void} onCreate - Create handler
  * @returns {ReactElement} Toolbar element
@@ -281,12 +313,14 @@ const _renderDesktopToolbar = (
 
 /**
  * Render desktop category list.
+ *
  * @param {MasterCategoryProps} props - Category list props
  * @returns {ReactElement} Desktop category list
  */
 const _renderDesktop = (props: MasterCategoryProps): ReactElement => {
-  /**
+    /**
    * Handle desktop search change.
+   *
    * @param {ChangeEvent<HTMLInputElement>} event - Search change event
    * @returns {void}
    */
@@ -321,12 +355,14 @@ const _renderDesktop = (props: MasterCategoryProps): ReactElement => {
 
 /**
  * Render mobile category list.
+ *
  * @param {MasterCategoryProps} props - Category list props
  * @returns {ReactElement} Mobile category list
  */
 const _renderMobile = (props: MasterCategoryProps): ReactElement => {
-  /**
+    /**
    * Handle mobile search change.
+   *
    * @param {ChangeEvent<HTMLInputElement>} event - Search change event
    * @returns {void}
    */
@@ -366,6 +402,7 @@ const _renderMobile = (props: MasterCategoryProps): ReactElement => {
 
 /**
  * Render master category list.
+ *
  * @param {MasterCategoryProps} props - Category list props
  * @returns {ReactElement} Category list
  */

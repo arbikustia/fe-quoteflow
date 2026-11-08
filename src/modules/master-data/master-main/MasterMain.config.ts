@@ -1,6 +1,5 @@
 import * as React from "react";
 
-import type { MasterMainCardProps } from "./MasterMain.type";
 import categoryIllustration from "../../../assets/category-illustration.png";
 import customerIllustration from "../../../assets/customer-illustration.png";
 import itemIllustration from "../../../assets/item-illustration.png";
@@ -11,6 +10,8 @@ import roleIllustration from "../../../assets/role-illustration.png";
 import userIllustration from "../../../assets/user-illustration.png";
 import voucherIllustration from "../../../assets/voucher-illustration.png";
 import { MASTER_DATA_ITEMS } from "../../../components/Sidebar/Sidebar.config";
+
+import type { MasterMainCardProps } from "./MasterMain.type";
 
 export const MASTER_MAIN_IMAGES = new Map<string, string>([
   ["/master-customer", customerIllustration],

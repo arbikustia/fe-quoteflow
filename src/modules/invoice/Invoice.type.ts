@@ -66,17 +66,21 @@ export type InvoicePagination = {
   totalCount: number;
   isLoading: boolean;
   isEmpty: boolean;
-  errorMessage: string | null;
+  errorMessage?: string;
   setSearchTerm: (value: string) => void;
   goToPage: (page: number) => void;
   changePageSize: (size: number) => void;
 };
 
-export type InvoiceProps = InvoicePagination & {
+export type InvoiceNavigation = {
   onBack: () => void;
   onRowClick: (invoice: InvoiceData) => void;
   onDetail: (invoice: InvoiceData) => void;
+  onEdit: (invoice: InvoiceData) => void;
+  onDownload: (invoice: InvoiceData) => Promise<void>;
 };
+
+export type InvoiceProps = InvoicePagination & InvoiceNavigation;
 
 export type InvoiceDetailState = {
   invoice: ApiInvoice | null;

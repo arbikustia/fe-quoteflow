@@ -31,14 +31,16 @@ import {
 
 /**
  * Modal state hook
+ *
  * @returns {ModalState} Modal state
  */
 const useModalState = (): ModalState => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingItem, setEditingItem] = useState<ItemData | null>(null);
 
-  /**
+    /**
    * Open create modal
+   *
    * @returns {void} void
    */
   const openCreateModal = (): void => {
@@ -46,8 +48,9 @@ const useModalState = (): ModalState => {
     setIsModalOpen(true);
   };
 
-  /**
+    /**
    * Open edit modal
+   *
    * @param {ItemData} item - item data
    * @returns {void} void
    */
@@ -56,8 +59,9 @@ const useModalState = (): ModalState => {
     setIsModalOpen(true);
   };
 
-  /**
+    /**
    * Close modal
+   *
    * @returns {void} void
    */
   const closeModal = (): void => {
@@ -76,14 +80,16 @@ const useModalState = (): ModalState => {
 
 /**
  * Confirm modal state hook
+ *
  * @returns {ConfirmModalState} Confirm modal state
  */
 const useConfirmModalState = (): ConfirmModalState => {
   const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false);
   const [deletingItem, setDeletingItem] = useState<ItemData | null>(null);
 
-  /**
+    /**
    * Open confirm modal
+   *
    * @param {ItemData} item - item data
    * @returns {void} void
    */
@@ -92,8 +98,9 @@ const useConfirmModalState = (): ConfirmModalState => {
     setIsConfirmModalOpen(true);
   };
 
-  /**
+    /**
    * Close confirm modal
+   *
    * @returns {void} void
    */
   const closeConfirmModal = (): void => {
@@ -101,8 +108,9 @@ const useConfirmModalState = (): ConfirmModalState => {
     setTimeout((): void => setDeletingItem(null), 200);
   };
 
-  /**
+    /**
    * Handle confirm delete
+   *
    * @returns {void} void
    */
   const onConfirmDelete = (): void => {
@@ -120,6 +128,7 @@ const useConfirmModalState = (): ConfirmModalState => {
 
 /**
  * Main Master Item state hook
+ *
  * @returns {ModalState & ConfirmModalState} base state
  */
 export const useMasterItemState = (): ModalState & ConfirmModalState => {
@@ -131,14 +140,16 @@ export const useMasterItemState = (): ModalState & ConfirmModalState => {
 
 /**
  * Hook for creating master items.
+ *
  * @returns {MasterItemCreateState} Create action and loading state
  */
 export const useMasterItemCreate = (): MasterItemCreateState => {
   const [createItemRequest, { isLoading: isCreating }] =
     useCreateItemMutation();
 
-  /**
+    /**
    * Submit item creation payload.
+   *
    * @param {ItemCreatePayload} payload - Item creation payload
    * @returns {Promise<ItemCreateResponse>} Created item response
    */
@@ -151,29 +162,33 @@ export const useMasterItemCreate = (): MasterItemCreateState => {
 
 /**
  * Navigation hook
+ *
  * @returns {MasterItemNavigation} navigation state
  */
 export const useMasterItemNavigation = (): MasterItemNavigation => {
   const navigate = useNavigate();
 
-  /**
+    /**
    * Navigate back
+   *
    * @returns {void} void
    */
   const goBack = (): void => {
     navigate("/master-main");
   };
 
-  /**
+    /**
    * Navigate to create
+   *
    * @returns {void} void
    */
   const goCreate = (): void => {
     navigate("/master-item/create");
   };
 
-  /**
+    /**
    * Navigate to edit
+   *
    * @param {ItemData} item - item data
    * @returns {void} void
    */
@@ -187,6 +202,7 @@ export const useMasterItemNavigation = (): MasterItemNavigation => {
 /**
  * Derive paginated state from API response envelope.
  * Handles loading, HTTP error, envelope status false, missing data explicitly.
+ *
  * @param {ReturnType<typeof useGetItemsQuery>} queryResult - RTK Query result
  * @returns {ItemListApiState} Derived state
  */
@@ -226,6 +242,7 @@ const _deriveItemListState = (
 
 /**
  * Create loading state.
+ *
  * @returns {ItemListApiState} Loading state
  */
 const _createLoadingState = (): ItemListApiState => ({
@@ -239,6 +256,7 @@ const _createLoadingState = (): ItemListApiState => ({
 
 /**
  * Create HTTP error state.
+ *
  * @returns {ItemListApiState} Error state
  */
 const _createErrorState = (): ItemListApiState => ({
@@ -252,6 +270,7 @@ const _createErrorState = (): ItemListApiState => ({
 
 /**
  * Create API envelope error state.
+ *
  * @param {string | string[] | null | undefined} messages - API error messages
  * @returns {ItemListApiState} Error state
  */
@@ -268,6 +287,7 @@ const _createEnvelopeErrorState = (
 
 /**
  * Create missing response state.
+ *
  * @returns {ItemListApiState} Missing response state
  */
 const _createMissingResponseState = (): ItemListApiState => ({
@@ -281,6 +301,7 @@ const _createMissingResponseState = (): ItemListApiState => ({
 
 /**
  * Create missing payload state.
+ *
  * @returns {ItemListApiState} Missing payload state
  */
 const _createMissingPayloadState = (): ItemListApiState => ({
@@ -294,6 +315,7 @@ const _createMissingPayloadState = (): ItemListApiState => ({
 
 /**
  * Create success state.
+ *
  * @param {ItemData[]} items - Mapped item data
  * @param {number} totalPages - Total pages from API
  * @param {number} totalCount - Total count from API
@@ -314,6 +336,7 @@ const _createSuccessState = (
 
 /**
  * Hook for API-backed master item pagination.
+ *
  * @returns {ItemListApiState & { goToPage, nextPage, prevPage, changePageSize, setSearchTerm, isEmpty }} Pagination state and handlers
  */
 export const useMasterItemPagination = (): MasterItemPagination => {
@@ -355,23 +378,27 @@ const useMasterItemMenuState = (): Pick<
   "isMoreOpen" | "toggleMore" | "goDelete" | "handleCloseMore" | "handleConfirm"
 > => {
   const [isMoreOpen, setIsMoreOpen] = useState(false);
-  /**
+    /**
    * Toggle more menu.
+   *
    * @returns {void} No return value
    */
   const toggleMore = (): void => setIsMoreOpen((previous) => !previous);
-  /**
+    /**
    * Close more menu.
+   *
    * @returns {void} No return value
    */
   const handleCloseMore = (): void => setIsMoreOpen(false);
-  /**
+    /**
    * Close menu before delete flow.
+   *
    * @returns {void} No return value
    */
   const goDelete = (): void => handleCloseMore();
-  /**
+    /**
    * Confirm delete action.
+   *
    * @returns {void} No return value
    */
   const handleConfirm = (): void => {};
@@ -381,6 +408,7 @@ const useMasterItemMenuState = (): Pick<
 
 /**
  * Manage Master Item container state.
+ *
  * @returns {MasterItemContainerState} Container state
  */
 export const useMasterItemContainerState = (): MasterItemContainerState => {
@@ -390,31 +418,35 @@ export const useMasterItemContainerState = (): MasterItemContainerState => {
   const [selectedItemIds, setSelectedItemIds] = useState<string[]>([]);
   const [isMultiDownloadMode, setIsMultiDownloadMode] = useState(false);
 
-  /**
+    /**
    * Toggle item selection.
+   *
    * @param {ItemData} item - Selected item
    * @returns {void} No return value
    */
   const onToggleItem = (item: ItemData): void => {
     setSelectedItemIds((itemIds) => itemIds.includes(item.id) ? itemIds.filter((id) => id !== item.id) : [...itemIds, item.id]);
   };
-  /**
+    /**
    * Enable multi-download selection mode.
+   *
    * @returns {void} No return value
    */
   const onToggleMultiDownload = (): void => {
     setIsMultiDownloadMode(true);
   };
-  /**
+    /**
    * Hide multi-download checkboxes and clear selections.
+   *
    * @returns {void} No return value
    */
   const onCancelMultiDownload = (): void => {
     setSelectedItemIds([]);
     setIsMultiDownloadMode(false);
   };
-  /**
+    /**
    * Download one item in selected format.
+   *
    * @param {ItemData} item - Item to download
    * @param {"image" | "pdf"} format - Output format
    * @returns {void} No return value
@@ -428,7 +460,9 @@ export const useMasterItemContainerState = (): MasterItemContainerState => {
 
     void downloadItemQrPdf([item]);
   };
-  /** Download selected labels. */
+    /**
+   * Download selected labels.
+   */
   const onDownloadSelected = (): void => {
     const selectedItems = pagination.paginatedData.filter((item) => selectedItemIds.includes(item.id));
 

@@ -5,11 +5,6 @@ import { MemoryRouter } from "react-router-dom";
 import { QuotationComponent } from "./Quotation.component";
 import type { QuotationData, QuotationProps } from "./Quotation.type";
 
-const mockGenerateQuotationPDF = jest.fn();
-jest.mock("@/utils/pdfGenerator", () => ({
-  generateQuotationPDF: (...args: unknown[]) => mockGenerateQuotationPDF(...args),
-}));
-
 jest.mock("@/app/layout", () => ({
   __esModule: true,
   default: ({ children }: { children: React.ReactNode }) => <div>{children}</div>,
@@ -74,6 +69,7 @@ const createProps = (overrides?: Partial<QuotationProps>): QuotationProps => {
   const goToPage = jest.fn();
   const changePageSize = jest.fn();
   const setSearchTerm = jest.fn();
+  const onDownload = jest.fn<QuotationProps["onDownload"]>();
 
   return {
     itemCategories: new Map([["item-1", "Audio"]]),
@@ -90,6 +86,7 @@ const createProps = (overrides?: Partial<QuotationProps>): QuotationProps => {
     changePageSize,
     setSearchTerm,
     onBack,
+    onDownload,
     onEdit,
     onDetail: jest.fn(),
     onStatus: jest.fn(),
@@ -174,17 +171,16 @@ describe("QuotationComponent", () => {
     expect(screen.getByRole("button", { name: "Download PDF" })).toBeTruthy();
   });
 
-  it("handles download PDF action click", () => {
-    const props = createProps();
+  it("should download selected quotation", (): void => {
+    const onDownload = jest.fn<QuotationProps["onDownload"]>();
+    const props = createProps({ onDownload });
     render(<MemoryRouter><QuotationComponent {...props} /></MemoryRouter>);
 
     const downloadButtons = screen.getAllByRole("button", { name: "Download PDF" });
     expect(downloadButtons.length).toBeGreaterThan(0);
 
     fireEvent.click(downloadButtons[0]);
-    expect(mockGenerateQuotationPDF).toHaveBeenCalledWith(expect.objectContaining({
-      pdfItems: [expect.objectContaining({ name: "Speaker", category: "Audio", qty: 7, price: 500000, remark: "Main hall" })],
-    }));
+    expect(onDownload).toHaveBeenCalledWith(MOCK_ROWS[0]);
   });
 
   it("should open detail when table row is clicked", (): void => {

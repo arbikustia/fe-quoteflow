@@ -4,14 +4,6 @@ import type { FieldErrors, UseFormSetValue } from "react-hook-form";
 import { useForm, useWatch } from "react-hook-form";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 
-import { useCategorySelectOptions } from "@/modules/master-data/master-category/MasterCategory.hook";
-import type { ItemCreatePayload, ItemCreateResponse } from "@/modules/master-data/master-item/MasterItem.type";
-import {
-  useCreateItemMutation,
-  useUpdateItemMutation,
-  useUploadImageMutation,
-} from "@/services/master-item.service";
-
 import { parseRupiahInput } from "./MasterItemCreate.helpers";
 import type {
   ImageUploadMutation,
@@ -25,8 +17,17 @@ import type {
   MasterItemCreateFormState,
 } from "./MasterItemCreate.type";
 
+import { useCategorySelectOptions } from "@/modules/master-data/master-category/MasterCategory.hook";
+import type { ItemCreatePayload, ItemCreateResponse } from "@/modules/master-data/master-item/MasterItem.type";
+import {
+  useCreateItemMutation,
+  useUpdateItemMutation,
+  useUploadImageMutation,
+} from "@/services/master-item.service";
+
 /**
  * Format backend messages into a display string.
+ *
  * @param {string[] | string | null} messages - Backend response messages
  * @returns {string} Display message
  */
@@ -40,6 +41,7 @@ const _formatMessages = (messages: string[] | string | null): string => {
 
 /**
  * Create validated text field change handler.
+ *
  * @param {keyof ItemFormValues} field - Form field name
  * @param {UseFormSetValue<ItemFormValues>} setValue - React Hook Form value setter
  * @param {FieldErrors<ItemFormValues>} errors - Current validation errors
@@ -52,6 +54,7 @@ const _createTextHandler = (field: keyof ItemFormValues, setValue: UseFormSetVal
 
 /**
  * Register validation rules for item text fields.
+ *
  * @param {import("react-hook-form").UseFormRegister<ItemFormValues>} register - Form register function
  * @returns {void} No return value
  */
@@ -65,6 +68,7 @@ const _registerItemFields = (register: import("react-hook-form").UseFormRegister
 
 /**
  * Manage item text form fields.
+ *
  * @param {ItemRouteState} routeState - Route state
  * @returns {ItemTextFieldsState} Text fields and handlers
  */
@@ -92,8 +96,9 @@ const useItemTextFields = (routeState: ItemRouteState): ItemTextFieldsState => {
   const [isActive, setIsActive] = useState(routeItem?.status === "active");
   const [isSubmitted, setIsSubmitted] = useState(false);
   const handleNameChange = _createTextHandler("name", setValue, errors, (v: string): string => v);
-  /**
+    /**
    * Update category selection.
+   *
    * @param {string} value - Category ID
    * @returns {void} No return value
    */
@@ -101,19 +106,22 @@ const useItemTextFields = (routeState: ItemRouteState): ItemTextFieldsState => {
   const handlePriceChange = _createTextHandler("price", setValue, errors, parseRupiahInput);
   const handleStockChange = _createTextHandler("stock", setValue, errors, (value: string): string => value);
   const handleDurationChange = _createTextHandler("duration", setValue, errors, (value: string): string => value);
-  /**
+    /**
    * Update optional remark.
+   *
    * @param {ChangeEvent<HTMLInputElement>} event - Remark change event
    * @returns {void} No return value
    */
   const handleRemarkChange = (event: ChangeEvent<HTMLInputElement>): void => { setRemark(event.target.value); };
-  /**
+    /**
    * Toggle item status.
+   *
    * @returns {void} No return value
    */
   const handleStatusChange = (): void => { setIsActive((current) => !current); };
-  /**
+    /**
    * Validate required item fields.
+   *
    * @returns {Promise<boolean>} Validation result
    */
   const validateForm = async (): Promise<boolean> => {
@@ -127,6 +135,7 @@ const useItemTextFields = (routeState: ItemRouteState): ItemTextFieldsState => {
 
 /**
  * Manage item image field.
+ *
  * @param {ItemRouteState} routeState - Route state
  * @param {ImageUploadMutation} uploadImage - Image upload mutation
  * @param {boolean} isImageUploading - Image upload loading state
@@ -140,8 +149,9 @@ const useItemImageField = (
   const [image, setImage] = useState(routeState.item?.image ?? "");
   const [imageUploadError, setImageUploadError] = useState<string | null>(null);
 
-  /**
+    /**
    * Upload selected image and store returned URL.
+   *
    * @param {ChangeEvent<HTMLInputElement>} event - File input event
    * @returns {Promise<void>} Upload result
    */
@@ -171,6 +181,7 @@ const useItemImageField = (
 
 /**
  * Manage item form input states.
+ *
  * @param {ItemRouteState} routeState - Route state
  * @param {ImageUploadMutation} uploadImage - Image upload mutation
  * @param {boolean} isImageUploading - Image upload loading state
@@ -187,6 +198,7 @@ const useItemFormFields = (
 
 /**
  * Send create or update mutation.
+ *
  * @param {ItemSubmissionParams} params - Submission parameters
  * @returns {Promise<ItemCreateResponse>} Mutation response
  */
@@ -212,6 +224,7 @@ const _sendItemMutation = (params: ItemSubmissionParams): Promise<ItemCreateResp
 
 /**
  * Manage item form submission logic.
+ *
  * @param {ItemSubmissionParams} params - Submission parameters
  * @returns {ItemSubmissionState} Submission state
  */
@@ -220,8 +233,9 @@ const useItemSubmission = (params: ItemSubmissionParams): ItemSubmissionState =>
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
 
-  /**
+    /**
    * Submit item form.
+   *
    * @param {SyntheticEvent} event - Submit event
    * @returns {Promise<void>} Submission result
    */
@@ -257,6 +271,7 @@ const useItemSubmission = (params: ItemSubmissionParams): ItemSubmissionState =>
 
 /**
  * Manage master item create and update form state.
+ *
  * @returns {MasterItemCreateFormState} Form state
  */
 export const useMasterItemCreateForm = (): MasterItemCreateFormState => {
@@ -272,8 +287,9 @@ export const useMasterItemCreateForm = (): MasterItemCreateFormState => {
   const fields = useItemFormFields(routeState, uploadImage, isImageUploading);
   const submission = useItemSubmission({ id, isEditMode, fields, createItem, updateItem });
 
-  /**
+    /**
    * Navigate back to previous page.
+   *
    * @returns {void} No return value
    */
   const goBack = (): void => {

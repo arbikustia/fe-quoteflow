@@ -10,14 +10,24 @@ afterAll(() => jest.useRealTimers());
 
 jest.mock("@/app/layout", () => ({
   __esModule: true,
-  default: ({ children }: { children: React.ReactNode }) => <div>{children}</div>,
+  default: jest.fn(({ children }: { children: React.ReactNode }): React.ReactElement => <div>{children}</div>),
 }));
 
 jest.mock("@/app/shared/PageLayout", () => ({
-  PageLayout: ({ children, title }: { children: React.ReactNode; title: string }) => (
+  PageLayout: jest.fn(({ children, title }: { children: React.ReactNode; title: string }): React.ReactElement => (
     <section><h1>{title}</h1>{children}</section>
-  ),
+  )),
 }));
+
+jest.mock("@/services/master-item.service", () => ({
+  useGetAllItemsQuery: jest.fn((): { data: { status: boolean; data: [] } } => ({ data: { status: true, data: [] } })),
+}));
+
+/**
+ * Resolve download callback.
+ * @returns {Promise<void>} Resolved promise
+ */
+const onDownload = (): Promise<void> => Promise.resolve();
 
 /**
  * No-op callback.
@@ -26,6 +36,7 @@ jest.mock("@/app/shared/PageLayout", () => ({
 const noop = (): void => undefined;
 
 const dummyProps: QuotationProps = {
+  itemCategories: new Map(),
   currentPage: 1,
   pageSize: 10,
   totalPages: 1,
@@ -66,6 +77,7 @@ const dummyProps: QuotationProps = {
    *
    */
   onBack: noop,
+  onDownload,
   onEdit: noop,
   onDetail: noop,
   onStatus: noop,

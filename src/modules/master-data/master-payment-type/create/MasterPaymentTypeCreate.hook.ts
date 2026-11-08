@@ -23,6 +23,7 @@ import type {
 
 /**
  * Format backend messages into a display string.
+ *
  * @param {string[] | string | null} messages - Backend response messages
  * @returns {string} Display message
  */
@@ -36,6 +37,7 @@ const _formatMessages = (messages: string[] | string | null): string => {
 
 /**
  * Register payment type validation rules.
+ *
  * @param {ReturnType<typeof useForm<PaymentTypeFormValues>>["register"]} register - Register function
  * @returns {void} No return value
  */
@@ -47,6 +49,7 @@ const _registerPaymentTypeFields = (
 
 /**
  * Create name input change handler.
+ *
  * @param {UseFormSetValue<PaymentTypeFormValues>} setValue - Form value setter
  * @param {FieldError | undefined} error - Field error
  * @returns {(event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void} Change handler
@@ -62,6 +65,7 @@ const _createNameChange = (
 
 /**
  * Create status toggle handler.
+ *
  * @param {UseFormSetValue<PaymentTypeFormValues>} setValue - Form value setter
  * @param {boolean} isActive - Current status
  * @returns {() => void} Toggle handler
@@ -77,6 +81,7 @@ const _createStatusToggle = (
 
 /**
  * Create form validation trigger.
+ *
  * @param {UseFormTrigger<PaymentTypeFormValues>} trigger - Form trigger
  * @returns {() => Promise<boolean>} Validation function
  */
@@ -88,6 +93,7 @@ const _createFormValidator = (
 
 /**
  * Resolve detail response into single UI payment type.
+ *
  * @param {PaymentTypeDetailResponse | undefined} response - Detail response
  * @returns {PaymentTypeData | null} Payment type or null
  */
@@ -103,6 +109,7 @@ const _resolvePaymentTypeDetail = (response: PaymentTypeDetailResponse | undefin
 
 /**
  * Synchronize API item with form values.
+ *
  * @param {PaymentTypeData | null} apiItem - API item
  * @param {string | null} initializedId - Current initialized ID
  * @param {(id: string | null) => void} setInitializedId - ID setter
@@ -124,6 +131,7 @@ const _syncApiItem = (
 
 /**
  * Send create or update payment type mutation.
+ *
  * @param {PaymentTypeSubmissionParams} params - Submission parameters
  * @param {ReturnType<typeof useCreatePaymentTypeMutation>[0]} createPaymentType - Create trigger
  * @param {ReturnType<typeof useUpdatePaymentTypeMutation>[0]} updatePaymentType - Update trigger
@@ -146,6 +154,7 @@ const _sendPaymentTypeMutation = (
 
 /**
  * Handle form submission logic for create or update.
+ *
  * @param {PaymentTypeSubmissionParams} params - Submission parameters
  * @returns {PaymentTypeSubmissionState} Submission state
  */
@@ -160,8 +169,9 @@ const usePaymentTypeSubmission = (
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
   const isSubmitting = isCreating || isUpdating;
 
-  /**
+    /**
    * Submit payment type form.
+   *
    * @param {SyntheticEvent} event - Submit event
    * @returns {Promise<void>} Async result
    */
@@ -199,6 +209,7 @@ const usePaymentTypeSubmission = (
 
 /**
  * Resolve initial active state.
+ *
  * @param {PaymentTypeData | undefined} routePaymentType - Route item
  * @param {PaymentTypeData | null} apiItem - API item
  * @returns {boolean} Initial active state
@@ -220,6 +231,7 @@ const _resolveInitialIsActive = (
 
 /**
  * Hook managing form fields and synchronization.
+ *
  * @param {PaymentTypeData | undefined} routePaymentType - Route payment type
  * @param {PaymentTypeData | null} apiItem - API fetched payment type
  * @returns {PaymentTypeFormFieldsState} Form fields state
@@ -259,6 +271,7 @@ const usePaymentTypeFormFields = (
 
 /**
  * Hook managing master payment type form state.
+ *
  * @returns {MasterPaymentTypeCreateFormState} Form state
  */
 export const useMasterPaymentTypeCreate = (): MasterPaymentTypeCreateFormState => {
@@ -277,8 +290,9 @@ export const useMasterPaymentTypeCreate = (): MasterPaymentTypeCreateFormState =
   const submission = usePaymentTypeSubmission({ id, isEditMode, ...formFields });
   const isLoadingInitialData = isLoadingDetail && !routePaymentType;
 
-  /**
+    /**
    * Navigate back.
+   *
    * @returns {void} No return value
    */
   const goBack = (): void => {

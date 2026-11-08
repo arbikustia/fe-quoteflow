@@ -8,13 +8,13 @@ import type { InvoiceProps } from "./Invoice.type";
 
 jest.mock("@/app/layout", () => ({
   __esModule: true,
-  default: ({ children }: { children: React.ReactNode }) => <div>{children}</div>,
+  default: jest.fn(({ children }: { children: React.ReactNode }): React.ReactElement => <div>{children}</div>),
 }));
 
 jest.mock("@/app/shared/PageLayout", () => ({
-  PageLayout: ({ children, title }: { children: React.ReactNode; title: string }) => (
+  PageLayout: jest.fn(({ children, title }: { children: React.ReactNode; title: string }): React.ReactElement => (
     <section><h1>{title}</h1>{children}</section>
-  ),
+  )),
 }));
 
 const props: InvoiceProps = {
@@ -25,7 +25,7 @@ const props: InvoiceProps = {
   totalCount: 0,
   isLoading: false,
   isEmpty: true,
-  errorMessage: null,
+  errorMessage: undefined,
   setSearchTerm: jest.fn(),
   goToPage: jest.fn(),
   changePageSize: jest.fn(),
@@ -33,6 +33,7 @@ const props: InvoiceProps = {
   onRowClick: jest.fn(),
   onDetail: jest.fn(),
   onEdit: jest.fn(),
+  onDownload: jest.fn((): Promise<void> => Promise.resolve()),
 };
 
 test.assertSnapshots(InvoiceComponent, [

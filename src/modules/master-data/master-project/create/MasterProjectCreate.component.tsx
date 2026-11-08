@@ -16,6 +16,7 @@ import type {
 
 /**
  * Read field validation message.
+ *
  * @param {FieldError | undefined} error - Field error
  * @returns {string | null} Error message or null
  */
@@ -23,6 +24,7 @@ const _getFieldError = (error: FieldError | undefined): string | null => error?.
 
 /**
  * Render item selection card.
+ *
  * @param {ProjectItemOption} item - Item option
  * @param {ProjectItemSelection | undefined} selected - Selected item
  * @param {(item: ProjectItemOption) => void} toggleItem - Toggle callback
@@ -48,6 +50,7 @@ const _renderItemCard = (
 
 /**
  * Render step indicator.
+ *
  * @param {number} step - Current step
  * @returns {ReactElement} Step indicator
  */
@@ -64,15 +67,165 @@ const _renderSteps = (step: number): ReactElement => (
 
 /**
  * Render item selection step.
+ *
  * @param {MasterProjectCreateFormState} props - Form state
  * @param {Map<string, ProjectItemSelection>} selectedById - Selected items
  * @returns {ReactElement} Item selection step
  */
 const _renderItemStep = (props: MasterProjectCreateFormState, selectedById: Map<string, ProjectItemSelection>): ReactElement => <section><h3 className="mb-4 text-2xl font-semibold text-text-primary lg:text-xl">Select items</h3>{props.isItemsLoading && <p className="text-sm text-text-secondary">Loading items…</p>}{props.itemsError && <p role="alert" className="text-sm text-red-700">{props.itemsError}</p>}<div className="max-h-[min(34rem,calc(100vh-20rem))] space-y-3 overflow-y-auto pr-1">{props.items.map((item) => <Fragment key={item.id}>{_renderItemCard(item, selectedById.get(item.id), props.toggleItem, props.updateItemQuantity)}</Fragment>)}</div></section>;
 
-/* eslint-disable max-lines-per-function */
+/**
+ * Render project name field.
+ *
+ * @param {MasterProjectCreateFormState} props - Form state
+ * @returns {ReactElement} Name field
+ */
+const _renderNameField = (props: MasterProjectCreateFormState): ReactElement => (
+  <InputComponent
+    id="project-name"
+    type="text"
+    label="Project Name"
+    className={`!mb-0 lg:col-span-2 [&_.ant-input]:!h-16 lg:[&_.ant-input]:!h-14 [&_.ant-input]:!rounded-2xl [&_.ant-input]:!border-2 ${props.isSubmitted && !props.name || props.errors?.name ? "[&_.ant-input]:!border-danger" : "[&_.ant-input]:!border-border-strong"} [&_.ant-input.ant-input-status-error]:!border-danger [&_.ant-input]:!px-4 [&_.ant-input]:!text-xl lg:[&_.ant-input]:!text-lg [&_.ant-input]:!font-normal [&_.ant-input]:placeholder:!text-xl lg:[&_.ant-input]:placeholder:!text-lg [&_label]:!text-lg [&_label]:!font-normal [&_label]:!normal-case [&_label]:!text-text-primary`}
+    placeholder="e.g. Stage Sound Package"
+    required
+    value={props.name}
+    errorMessage={props.isSubmitted && !props.name ? "Project name is required." : _getFieldError(props.errors?.name)}
+    onChange={props.handleNameChange}
+  />
+);
+
+/**
+ * Render project price field.
+ *
+ * @param {MasterProjectCreateFormState} props - Form state
+ * @returns {ReactElement} Price field
+ */
+const _renderPriceField = (props: MasterProjectCreateFormState): ReactElement => (
+  <label className="block space-y-2 lg:col-span-2" htmlFor="project-price">
+    <span className="text-lg font-normal text-text-primary">Project Price <span aria-hidden="true">*</span></span>
+    <input
+      id="project-price"
+      type="number"
+      min="0"
+      required
+      value={props.price}
+      onChange={props.handlePriceChange}
+      placeholder="e.g. 5000000"
+      className="h-16 w-full rounded-2xl border-2 border-border-strong bg-background-surface px-4 text-xl text-text-primary outline-none focus:border-border-focus focus:ring-2 focus:ring-focus-ring/30 lg:h-14 lg:text-lg"
+    />
+    {props.isSubmitted && !props.price && <span className="text-danger">Project price is required.</span>}
+  </label>
+);
+
+/**
+ * Render project remark field.
+ *
+ * @param {MasterProjectCreateFormState} props - Form state
+ * @returns {ReactElement} Remark field
+ */
+const _renderRemarkField = (props: MasterProjectCreateFormState): ReactElement => (
+  <label className="block space-y-2 lg:col-span-2">
+    <span className="text-lg font-normal text-text-primary">Remark</span>
+    <textarea
+      aria-label="Remark"
+      placeholder="Optional project notes"
+      value={props.remark}
+      onChange={props.handleRemarkChange}
+      className="min-h-36 w-full rounded-2xl border-2 border-border-strong bg-background-surface px-4 py-4 text-xl font-normal text-text-primary outline-none placeholder:text-text-tertiary focus:border-border-focus focus:ring-2 focus:ring-focus-ring/30 lg:min-h-28 lg:text-lg"
+    />
+  </label>
+);
+
+/**
+ * Render project information step.
+ *
+ * @param {MasterProjectCreateFormState} props - Form state
+ * @returns {ReactElement} Information step
+ */
+const _renderInformationStep = (props: MasterProjectCreateFormState): ReactElement => (
+  <section className="space-y-5">
+    <div className="grid w-full grid-cols-1 gap-x-6 gap-y-5 lg:grid-cols-2">
+      {_renderNameField(props)}
+      {_renderPriceField(props)}
+      {_renderRemarkField(props)}
+      {_renderStatusField(props)}
+    </div>
+  </section>
+);
+
+/**
+ * Render project status field in edit mode.
+ *
+ * @param {MasterProjectCreateFormState} props - Form state
+ * @returns {ReactElement | null} Status field
+ */
+const _renderStatusField = (props: MasterProjectCreateFormState): ReactElement | null => {
+  if (!props.isEditMode) return null;
+
+  return (
+    <div className="flex items-center justify-between rounded-2xl border-2 border-border-strong bg-background-surface px-5 py-4 lg:col-span-2">
+      <div className="flex flex-col">
+        <div className="flex items-center gap-2.5">
+          <span className="text-lg font-normal text-text-primary">Status</span>
+          <span className={`inline-flex rounded-full border border-current px-3 py-0.5 text-base font-semibold uppercase ${props.isActive ? "bg-success-subtle text-success-strong" : "bg-danger-subtle text-danger-strong"}`}>
+            {props.isActive ? "active" : "inactive"}
+          </span>
+        </div>
+        <span className="text-base text-text-secondary">Toggle active or inactive status</span>
+      </div>
+      <SwitchComponent id="project-status" label="Project status" checked={props.isActive} onChange={props.handleStatusChange} />
+    </div>
+  );
+};
+
+/**
+ * Render selected item summary card.
+ *
+ * @param {ProjectItemSelection} item - Selected item
+ * @returns {ReactElement} Selected item card
+ */
+const _renderSelectedItem = (item: ProjectItemSelection): ReactElement => (
+  <div className="flex items-center justify-between gap-4 rounded-2xl border border-border-default bg-background-surface p-5 shadow-small">
+    <span className="min-w-0 break-words text-xl font-semibold text-text-primary">{item.name}</span>
+    <span className="shrink-0 rounded-full border border-border-strong bg-background-subtle px-4 py-2 text-lg font-semibold text-text-primary">
+      Qty: {item.qty}
+    </span>
+  </div>
+);
+
+/**
+ * Render project preview step.
+ *
+ * @param {MasterProjectCreateFormState} props - Form state
+ * @returns {ReactElement} Preview step
+ */
+const _renderPreviewStep = (props: MasterProjectCreateFormState): ReactElement => (
+  <section className="space-y-8">
+    <h3 className="text-3xl font-bold text-text-primary">Preview Project</h3>
+    <dl className="grid gap-4 lg:grid-cols-2">
+      <div className="rounded-2xl border border-border-default bg-background-subtle p-6">
+        <dt className="mb-2 text-lg font-medium text-text-secondary">Project Name</dt>
+        <dd className="break-words text-2xl font-semibold text-text-primary">{props.name}</dd>
+      </div>
+      <div className="rounded-2xl border border-border-default bg-background-subtle p-6">
+        <dt className="mb-2 text-lg font-medium text-text-secondary">Remark</dt>
+        <dd className="break-words text-xl text-text-primary">{props.remark || "-"}</dd>
+      </div>
+    </dl>
+    <div>
+      <h4 className="mb-4 text-2xl font-semibold text-text-primary">Selected Items</h4>
+      <div className="grid gap-3 lg:grid-cols-2">
+        {props.selectedItems.map((item) => (
+          <Fragment key={item.id}>{_renderSelectedItem(item)}</Fragment>
+        ))}
+      </div>
+    </div>
+  </section>
+);
+
 /**
  * Render current form step.
+ *
  * @param {MasterProjectCreateFormState} props - Form state
  * @param {Map<string, ProjectItemSelection>} selectedById - Selected items by ID
  * @returns {ReactElement} Current form step
@@ -86,99 +239,15 @@ const _renderCurrentStep = (
   }
 
   if (props.step === 2) {
-    return (
-      <section className="space-y-5">
-        <div className="grid w-full grid-cols-1 gap-x-6 gap-y-5 lg:grid-cols-2">
-          <InputComponent
-            id="project-name"
-            type="text"
-            label="Project Name"
-            className={`!mb-0 lg:col-span-2 [&_.ant-input]:!h-16 lg:[&_.ant-input]:!h-14 [&_.ant-input]:!rounded-2xl [&_.ant-input]:!border-2 ${props.isSubmitted && !props.name || props.errors?.name ? "[&_.ant-input]:!border-danger" : "[&_.ant-input]:!border-border-strong"} [&_.ant-input.ant-input-status-error]:!border-danger [&_.ant-input]:!px-4 [&_.ant-input]:!text-xl lg:[&_.ant-input]:!text-lg [&_.ant-input]:!font-normal [&_.ant-input]:placeholder:!text-xl lg:[&_.ant-input]:placeholder:!text-lg [&_label]:!text-lg [&_label]:!font-normal [&_label]:!normal-case [&_label]:!text-text-primary`}
-            placeholder="e.g. Stage Sound Package"
-            required
-            value={props.name}
-            errorMessage={props.isSubmitted && !props.name ? "Project name is required." : _getFieldError(props.errors?.name)}
-            onChange={props.handleNameChange}
-          />
-          <label className="block space-y-2 lg:col-span-2" htmlFor="project-price">
-            <span className="text-lg font-normal text-text-primary">Project Price <span aria-hidden="true">*</span></span>
-            <input
-              id="project-price"
-              type="number"
-              min="0"
-              required
-              value={props.price}
-              onChange={props.handlePriceChange}
-              placeholder="e.g. 5000000"
-              className="h-16 w-full rounded-2xl border-2 border-border-strong bg-background-surface px-4 text-xl text-text-primary outline-none focus:border-border-focus focus:ring-2 focus:ring-focus-ring/30 lg:h-14 lg:text-lg"
-            />
-            {props.isSubmitted && !props.price && <span className="text-danger">Project price is required.</span>}
-          </label>
-          <label className="block space-y-2 lg:col-span-2">
-            <span className="text-lg font-normal text-text-primary">Remark</span>
-            <textarea
-              aria-label="Remark"
-              placeholder="Optional project notes"
-              value={props.remark}
-              onChange={props.handleRemarkChange}
-              className="min-h-36 w-full rounded-2xl border-2 border-border-strong bg-background-surface px-4 py-4 text-xl font-normal text-text-primary outline-none placeholder:text-text-tertiary focus:border-border-focus focus:ring-2 focus:ring-focus-ring/30 lg:min-h-28 lg:text-lg"
-            />
-          </label>
-          {props.isEditMode && (
-            <div className="flex items-center justify-between rounded-2xl border-2 border-border-strong bg-background-surface px-5 py-4 lg:col-span-2">
-              <div className="flex flex-col">
-                <div className="flex items-center gap-2.5">
-                  <span className="text-lg font-normal text-text-primary">Status</span>
-                  <span className={`inline-flex rounded-full border border-current px-3 py-0.5 text-base font-semibold uppercase ${props.isActive ? "bg-success-subtle text-success-strong" : "bg-danger-subtle text-danger-strong"}`}>
-                    {props.isActive ? "active" : "inactive"}
-                  </span>
-                </div>
-                <span className="text-base text-text-secondary">Toggle active or inactive status</span>
-              </div>
-              <SwitchComponent id="project-status" label="Project status" checked={props.isActive} onChange={props.handleStatusChange} />
-            </div>
-          )}
-        </div>
-      </section>
-    );
+    return _renderInformationStep(props);
   }
 
-  return (
-    <section className="space-y-8">
-      <h3 className="text-3xl font-bold text-text-primary">Preview Project</h3>
-      <dl className="grid gap-4 lg:grid-cols-2">
-        <div className="rounded-2xl border border-border-default bg-background-subtle p-6">
-          <dt className="mb-2 text-lg font-medium text-text-secondary">Project Name</dt>
-          <dd className="break-words text-2xl font-semibold text-text-primary">{props.name}</dd>
-        </div>
-        <div className="rounded-2xl border border-border-default bg-background-subtle p-6">
-          <dt className="mb-2 text-lg font-medium text-text-secondary">Remark</dt>
-          <dd className="break-words text-xl text-text-primary">{props.remark || "-"}</dd>
-        </div>
-      </dl>
-      <div>
-        <h4 className="mb-4 text-2xl font-semibold text-text-primary">Selected Items</h4>
-        <div className="grid gap-3 lg:grid-cols-2">
-          {props.selectedItems.map((item) => (
-            <div
-              key={item.id}
-              className="flex items-center justify-between gap-4 rounded-2xl border border-border-default bg-background-surface p-5 shadow-small"
-            >
-              <span className="min-w-0 break-words text-xl font-semibold text-text-primary">{item.name}</span>
-              <span className="shrink-0 rounded-full border border-border-strong bg-background-subtle px-4 py-2 text-lg font-semibold text-text-primary">
-                Qty: {item.qty}
-              </span>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
+  return _renderPreviewStep(props);
 };
-/* eslint-enable max-lines-per-function */
 
 /**
  * Render form footer actions.
+ *
  * @param {MasterProjectCreateFormState} props - Form state
  * @returns {ReactElement} Form actions
  */
@@ -197,6 +266,7 @@ const _renderActions = (props: MasterProjectCreateFormState): ReactElement => {
 
 /**
  * Render master project multi-step form.
+ *
  * @param {MasterProjectCreateFormState} props - Form state
  * @returns {ReactElement} Project form
  */

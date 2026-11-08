@@ -9,9 +9,22 @@ import { formatCurrency, formatDate } from "@/modules/quotation/detail/Quotation
 import { renderDetailField } from "@/modules/quotation/detail/QuotationDetail.sections";
 
 /**
+ * Render payment overview summary fields.
+ * @param {PaymentData} payment - Payment row
+ * @returns {ReactElement} Summary fields
+ */
+const _renderOverviewFields = (payment: PaymentData): ReactElement => (
+  <dl className="mt-4 grid grid-cols-1 gap-x-8 border-t border-border-default sm:mt-5 sm:grid-cols-2 lg:grid-cols-4">
+    {renderDetailField("Customer Name", payment.customerName)}
+    {renderDetailField("Grand Total", formatCurrency(payment.grandTotal ?? 0))}
+    {renderDetailField("Total Paid", formatCurrency(payment.amount))}
+    {renderDetailField("Remaining", formatCurrency(payment.remainingAmount ?? 0))}
+  </dl>
+);
+
+/**
  * Render payment overview card matching quotation overview.
  * @param {PaymentData} payment - Payment row
- * @param {PaymentInvoiceOption | null | undefined} linkedInvoice - Linked invoice
  * @param {string | undefined} methodName - Method name
  * @returns {ReactElement} Payment overview
  */
@@ -45,12 +58,7 @@ const _renderPaymentOverview = (
           </div>
         </div>
       </div>
-      <dl className="mt-4 grid grid-cols-1 gap-x-8 border-t border-border-default sm:mt-5 sm:grid-cols-2 lg:grid-cols-4">
-        {renderDetailField("Customer Name", payment.customerName)}
-        {renderDetailField("Grand Total", formatCurrency(payment.grandTotal ?? 0))}
-        {renderDetailField("Total Paid", formatCurrency(payment.amount))}
-        {renderDetailField("Remaining", formatCurrency(payment.remainingAmount ?? 0))}
-      </dl>
+      {_renderOverviewFields(payment)}
     </section>
   );
 };
@@ -121,13 +129,65 @@ const _renderDetailSkeleton = (): ReactElement => (
 );
 
 /**
+ * Render payment detail fields.
+ * @param {PaymentData} payment - Payment row
+ * @param {PaymentInvoiceOption | undefined} linkedInvoice - Linked invoice
+ * @param {string | undefined} methodName - Method name
+ * @returns {ReactElement} Detail fields
+ */
+const _renderDetailFields = (
+  payment: PaymentData,
+  linkedInvoice: PaymentInvoiceOption | null | undefined,
+  methodName: string | undefined,
+): ReactElement => (
+  <dl className="grid grid-cols-1 gap-x-6 gap-y-6 sm:grid-cols-3">
+    {renderDetailField("Invoice No", payment.invoiceNo)}
+    {renderDetailField("Customer Name", payment.customerName)}
+    {renderDetailField("Grand Total", formatCurrency(payment.grandTotal ?? 0))}
+    {renderDetailField("Total Paid", formatCurrency(payment.amount))}
+    {renderDetailField("Remaining", formatCurrency(payment.remainingAmount ?? 0))}
+    {renderDetailField("Payment Method", methodName ?? "-")}
+    {renderDetailField("Status", payment.statusLabel || "-")}
+    {linkedInvoice?.event_name && renderDetailField("Event", linkedInvoice.event_name)}
+  </dl>
+);
+
+/**
+ * Render payment history entries.
+ * @param {ApiPaymentSummaryPayment[]} entries - Payment entries
+ * @returns {ReactElement} History entries
+ */
+const _renderHistoryEntries = (entries: ApiPaymentSummaryPayment[]): ReactElement => {
+  if (entries.length === 0) {
+    return <p className="py-6 text-center text-lg text-text-secondary">No payment recorded for this invoice.</p>;
+  }
+
+  return (
+    <ul className="space-y-3">
+      {entries.map((entry): ReactElement => (
+        <li key={entry.id} className="rounded-2xl border border-border-default px-4 py-3">
+          <div className="flex flex-wrap items-center justify-between gap-2">
+            <span className="text-lg font-semibold text-text-primary">{entry.payment_method_name}</span>
+            <span className="text-lg font-semibold tabular-nums text-text-primary">{formatCurrency(entry.amount)}</span>
+          </div>
+          <div className="mt-1 flex flex-wrap items-center justify-between gap-2 text-lg text-text-secondary">
+            <span>{formatDate(entry.paid_at)}</span>
+            {entry.notes && <span className="break-words">{entry.notes}</span>}
+          </div>
+        </li>
+      ))}
+    </ul>
+  );
+};
+
+/**
  * Render payment detail sections.
  * @param {PaymentData} payment - Payment row
- * @param {PaymentInvoiceOption | null | undefined} linkedInvoice - Linked invoice
+ * @param {PaymentInvoiceOption | undefined} linkedInvoice - Linked invoice
  * @param {string | undefined} methodName - Method name
+ * @param {ApiPaymentSummaryPayment[]} entries - Payment entries
  * @returns {ReactElement} Payment sections
  */
-// eslint-disable-next-line max-lines-per-function
 const _renderDetail = (
   payment: PaymentData,
   linkedInvoice: PaymentInvoiceOption | null | undefined,
@@ -142,16 +202,7 @@ const _renderDetail = (
         </h2>
       </header>
       <div className="px-5 py-6 sm:px-6 sm:py-6">
-        <dl className="grid grid-cols-1 gap-x-6 gap-y-6 sm:grid-cols-3">
-          {renderDetailField("Invoice No", payment.invoiceNo)}
-          {renderDetailField("Customer Name", payment.customerName)}
-          {renderDetailField("Grand Total", formatCurrency(payment.grandTotal ?? 0))}
-          {renderDetailField("Total Paid", formatCurrency(payment.amount))}
-          {renderDetailField("Remaining", formatCurrency(payment.remainingAmount ?? 0))}
-          {renderDetailField("Payment Method", methodName ?? "-")}
-          {renderDetailField("Status", payment.statusLabel || "-")}
-          {linkedInvoice?.event_name && renderDetailField("Event", linkedInvoice.event_name)}
-        </dl>
+        {_renderDetailFields(payment, linkedInvoice, methodName)}
       </div>
     </section>
 
@@ -162,80 +213,47 @@ const _renderDetail = (
         </h2>
       </header>
       <div className="px-5 py-5 sm:px-6">
-        {entries.length === 0 ? (
-          <p className="py-6 text-center text-lg text-text-secondary">No payment recorded for this invoice.</p>
-        ) : (
-          <ul className="space-y-3">
-            {entries.map((entry): ReactElement => (
-              <li key={entry.id} className="rounded-2xl border border-border-default px-4 py-3">
-                <div className="flex flex-wrap items-center justify-between gap-2">
-                  <span className="text-lg font-semibold text-text-primary">{entry.payment_method_name}</span>
-                  <span className="text-lg font-semibold tabular-nums text-text-primary">{formatCurrency(entry.amount)}</span>
-                </div>
-                <div className="mt-1 flex flex-wrap items-center justify-between gap-2 text-lg text-text-secondary">
-                  <span>{formatDate(entry.paid_at)}</span>
-                  {entry.notes && <span className="break-words">{entry.notes}</span>}
-                </div>
-              </li>
-            ))}
-          </ul>
-        )}
+        {_renderHistoryEntries(entries)}
       </div>
     </section>
   </div>
 );
 
 /**
+ * Render detail header actions.
+ * @param {PaymentDetailState} props - Detail state
+ * @returns {ReactElement | null} Header actions
+ */
+const _renderHeaderActions = (props: PaymentDetailState): ReactElement | null => props.payment ? (
+  <div className="flex items-center gap-4">
+    <button type="button" onClick={props.handleEdit} className="hidden h-14 items-center gap-3 rounded-3xl border border-action-primary bg-background-surface px-6 text-lg font-bold text-action-primary transition-colors hover:bg-action-primary-subtle lg:flex">
+      <FiEdit2 className="h-5 w-5" aria-hidden="true" /> Edit
+    </button>
+    <details className="relative shrink-0 lg:hidden">
+      <summary data-testid="payment-detail-actions" className="flex h-14 w-14 cursor-pointer list-none items-center justify-center rounded-3xl border border-border-default text-text-secondary transition-colors hover:bg-background-subtle hover:text-text-primary" aria-label="More options">
+        <FiMoreHorizontal className="h-7 w-7" aria-hidden="true" />
+      </summary>
+      <div role="menu" className="absolute right-0 top-16 z-20 w-56 overflow-hidden rounded-3xl border border-border-default bg-background-surface py-2 shadow-lg">
+        <button type="button" role="menuitem" onClick={props.handleEdit} className="flex w-full items-center gap-3 px-5 py-3.5 text-left text-lg font-semibold text-text-primary transition-colors hover:bg-background-subtle">
+          <FiEdit2 className="h-5 w-5" aria-hidden="true" /> Edit
+        </button>
+      </div>
+    </details>
+  </div>
+) : null;
+
+/**
  * Render payment detail component.
  * @param {PaymentDetailState} props - Detail state
  * @returns {ReactElement} Detail page
  */
-// eslint-disable-next-line max-lines-per-function
-export const PaymentDetailComponent = (props: PaymentDetailState): ReactElement => {
-const headerActions = props.payment ? (
-    <div className="flex items-center gap-4">
-      <button
-        type="button"
-        onClick={props.handleEdit}
-        className="hidden h-14 items-center gap-3 rounded-3xl border border-action-primary bg-background-surface px-6 text-lg font-bold text-action-primary transition-colors hover:bg-action-primary-subtle lg:flex"
-      >
-        <FiEdit2 className="h-5 w-5" aria-hidden="true" />
-        Edit
-      </button>
-
-      <details className="relative shrink-0 lg:hidden">
-        <summary
-          data-testid="payment-detail-actions"
-          className="flex h-14 w-14 cursor-pointer list-none items-center justify-center rounded-3xl border border-border-default text-text-secondary transition-colors hover:bg-background-subtle hover:text-text-primary"
-          aria-label="More options"
-        >
-          <FiMoreHorizontal className="h-7 w-7" aria-hidden="true" />
-        </summary>
-        <div
-          role="menu"
-          className="absolute right-0 top-16 z-20 w-56 overflow-hidden rounded-3xl border border-border-default bg-background-surface py-2 shadow-lg"
-        >
-          <button
-            type="button"
-            role="menuitem"
-            onClick={props.handleEdit}
-            className="flex w-full items-center gap-3 px-5 py-3.5 text-left text-lg font-semibold text-text-primary transition-colors hover:bg-background-subtle"
-          >
-            <FiEdit2 className="h-5 w-5" aria-hidden="true" />
-            Edit
-          </button>
-        </div>
-      </details>
-    </div>
-  ) : null;
-
-  return (
+export const PaymentDetailComponent = (props: PaymentDetailState): ReactElement => (
     <Layout pageTitle="Payment Detail">
       <PageLayout
         title="Payment Detail"
         subtitle="View payment details and transaction information"
         breadcrumbs={["Payment", "Detail"]}
-        headerRight={headerActions}
+        headerRight={_renderHeaderActions(props)}
         mobileHeaderClassName="px-0"
         mobileTitleClassName="text-4xl"
         onBack={props.goBack}
@@ -258,5 +276,4 @@ const headerActions = props.payment ? (
         </div>
       </PageLayout>
     </Layout>
-  );
-};
+);

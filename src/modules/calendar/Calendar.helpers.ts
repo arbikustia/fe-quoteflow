@@ -1,8 +1,8 @@
 import { type CalendarEventItem, type CalendarEventVariant, formatCalendarTime } from "@/components/Calendar";
 
-import type { ApiQuotation } from "@/modules/quotation/Quotation.type";
-
 import type { ApiCalendarItem, CalendarQueryParams } from "./Calendar.type";
+
+import type { ApiQuotation } from "@/modules/quotation/Quotation.type";
 
 /**
  * Format date into MM-DD-YYYY for calendar API query.
@@ -45,7 +45,11 @@ const _resolveCalendarEventVariant = (eventId: string): CalendarEventVariant => 
   return CALENDAR_EVENT_VARIANTS[colorIndex];
 };
 
-/** Map quotation rental schedule into calendar event. */
+/**
+ * Map quotation rental schedule into calendar event.
+ * @param {ApiQuotation} quotation - Quotation schedule
+ * @returns {CalendarEventItem} Calendar event
+ */
 export const mapQuotationToCalendarEvent = (quotation: ApiQuotation): CalendarEventItem => ({
   id: quotation.id,
   title: quotation.transaction.event_name || quotation.quotation_no,
@@ -58,7 +62,11 @@ export const mapQuotationToCalendarEvent = (quotation: ApiQuotation): CalendarEv
   amount: quotation.transaction.grand_total,
 });
 
-/** Map API calendar item into CalendarEventItem for rendering. */
+/**
+ * Map API calendar item into CalendarEventItem for rendering.
+ * @param {ApiCalendarItem} item - API calendar item
+ * @returns {CalendarEventItem} Calendar event
+ */
 export const mapCalendarItemToEvent = (item: ApiCalendarItem): CalendarEventItem => ({
   id: item.id || item.transaction_id,
   title: item.title || item.event_name || item.order_no,

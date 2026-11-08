@@ -2,6 +2,12 @@ import { MemoryRouter } from "react-router-dom";
 
 import test, { fireEvent, render, screen } from "@/libs/unit-test";
 
+jest.mock("@/app/layout", () => ({
+  __esModule: true,
+  /** Render test layout content. */
+  default: ({ children }: React.PropsWithChildren): React.ReactElement => <div>{children}</div>,
+}));
+
 import { ActivityLogComponent } from "./ActivityLog.component";
 import type { ActivityLogProps } from "./ActivityLog.type";
 

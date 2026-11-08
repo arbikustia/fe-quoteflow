@@ -7,6 +7,7 @@ import { useMasterPaymentTypeCreate } from "./MasterPaymentTypeCreate.hook";
 
 /**
  * Render payment type create container.
+ *
  * @returns {ReactElement} Container
  */
 const MasterPaymentTypeCreateContainer = (): ReactElement => {

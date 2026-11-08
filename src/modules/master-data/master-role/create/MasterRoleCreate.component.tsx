@@ -10,6 +10,7 @@ import type { MasterRoleCreateFormState } from "./MasterRoleCreate.type";
 
 /**
  * Get validation message.
+ *
  * @param {FieldError | undefined} error - Field error
  * @returns {string | null} Error message
  */
@@ -17,6 +18,7 @@ const _getFieldError = (error: FieldError | undefined): string | null => error?.
 
 /**
  * Render mobile back bar.
+ *
  * @param {boolean} isEditMode - Edit mode flag
  * @param {() => void} goBack - Back navigation
  * @returns {ReactElement} Back bar
@@ -42,6 +44,7 @@ const _renderMobileBack = (isEditMode: boolean, goBack: () => void): ReactElemen
 
 /**
  * Render form header.
+ *
  * @param {boolean} isEditMode - Edit mode flag
  * @param {() => void} goBack - Back navigation
  * @returns {ReactElement} Header
@@ -83,6 +86,7 @@ const _renderHeader = (isEditMode: boolean, goBack: () => void): ReactElement =>
 
 /**
  * Render form fields.
+ *
  * @param {MasterRoleCreateFormState} props - Form state
  * @returns {ReactElement} Form fields
  */
@@ -113,6 +117,7 @@ const _renderFields = (props: MasterRoleCreateFormState): ReactElement => {
 
 /**
  * Render status card.
+ *
  * @param {MasterRoleCreateFormState} props - Form state
  * @returns {ReactElement | null} Status card
  */
@@ -139,6 +144,7 @@ const _renderStatusCard = (props: MasterRoleCreateFormState): ReactElement | nul
 
 /**
  * Render role form.
+ *
  * @param {MasterRoleCreateFormState} props - Form state
  * @returns {ReactElement} Form
  */
@@ -179,6 +185,7 @@ const _renderForm = (props: MasterRoleCreateFormState): ReactElement => {
 
 /**
  * Render master role form.
+ *
  * @param {MasterRoleCreateFormState} props - Form state
  * @returns {ReactElement} Role form
  */

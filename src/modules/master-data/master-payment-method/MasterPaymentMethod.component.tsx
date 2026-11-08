@@ -1,7 +1,6 @@
 import * as React from "react";
 import { FiEdit2 } from "react-icons/fi";
 
-import type { MasterPaymentMethodProps, PaymentMethodData } from "./MasterPaymentMethod.type";
 import Layout from "../../../app/layout";
 import { PageLayout } from "../../../app/shared/PageLayout";
 import { Pagination } from "../../../components/Pagination";
@@ -10,84 +9,128 @@ import type { TableColumn } from "../../../components/Table";
 import Table from "../../../components/Table";
 import { formatIndonesianDateTime } from "../../../utils/date.helpers";
 
-/** Build payment method table columns.
+import type { MasterPaymentMethodProps, PaymentMethodData } from "./MasterPaymentMethod.type";
+
+/**
+ * Render row number cell.
+ *
+ * @param {number} currentPage - Active page
+ * @param {number} pageSize - Active page size
+ * @param {number} index - Row index
+ * @returns {React.ReactElement} Number cell
+ */
+const _renderNumber = (currentPage: number, pageSize: number, index: number): React.ReactElement => (
+  <span className="text-lg text-text-secondary">{(currentPage - 1) * pageSize + index + 1}</span>
+);
+
+/**
+ * Render status.
+ *
+ * @param {PaymentMethodData} row - Row data
+ * @returns {React.ReactElement} Status cell
+ */
+const _renderStatus = (row: PaymentMethodData): React.ReactElement => (
+  <span className={`inline-flex rounded-full border border-current px-3 py-1 text-base font-semibold uppercase ${row.status === "active" ? "bg-success-subtle text-success-strong" : "bg-danger-subtle text-danger-strong"}`}>
+    {row.status}
+  </span>
+);
+
+/**
+ * Render name.
+ *
+ * @param {PaymentMethodData} row - Row data
+ * @returns {React.ReactElement} Name cell
+ */
+const _renderName = (row: PaymentMethodData): React.ReactElement => <span className="text-lg font-medium text-text-primary">{row.name}</span>;
+
+/**
+ * Render description.
+ *
+ * @param {PaymentMethodData} row - Row data
+ * @returns {React.ReactElement} Description cell
+ */
+const _renderDescription = (row: PaymentMethodData): React.ReactElement => <span className="text-lg text-text-secondary">{row.description}</span>;
+
+/**
+ * Render created date.
+ *
+ * @param {PaymentMethodData} row - Row data
+ * @returns {React.ReactElement} Created date cell
+ */
+const _renderCreatedAt = (row: PaymentMethodData): React.ReactElement => (
+  <span className="text-lg text-text-secondary">
+    {row.createAt ? formatIndonesianDateTime(row.createAt) : "-"}
+  </span>
+);
+
+/**
+ * Render edit action.
+ *
+ * @param {(paymentMethod: PaymentMethodData) => void} onEdit - Edit handler
+ * @param {PaymentMethodData} row - Row data
+ * @returns {React.ReactElement} Edit button
+ */
+const _renderActions = (onEdit: (paymentMethod: PaymentMethodData) => void, row: PaymentMethodData): React.ReactElement => {
+  /**
+   * Open editing without triggering row navigation.
+   *
+   * @param {React.MouseEvent} event - Click event
+   * @returns {void} No return value
+   */
+  const handleEdit = (event: React.MouseEvent): void => { event.stopPropagation(); onEdit(row); };
+
+  return (
+    <button
+      type="button"
+      onClick={handleEdit}
+      className="cursor-pointer rounded-3xl p-2.5 text-text-secondary hover:bg-action-primary-subtle hover:text-action-primary"
+      title="Edit payment method"
+      aria-label="Edit payment method"
+    >
+      <FiEdit2 className="h-5 w-5" />
+    </button>
+  );
+};
+
+/**
+ * Build payment method table columns.
+ *
  * @param {number} currentPage - Active page
  * @param {number} pageSize - Active page size
  * @param {(paymentMethod: PaymentMethodData) => void} onEdit - Edit handler
  * @returns {TableColumn<PaymentMethodData>[]} Table columns
  */
-// eslint-disable-next-line max-lines-per-function
 const _getColumns = (currentPage: number, pageSize: number, onEdit: (paymentMethod: PaymentMethodData) => void): TableColumn<PaymentMethodData>[] => {
-  /** Render row number.
+  /**
+   * Render row number for a row.
+   *
    * @param {PaymentMethodData} _row - Row data
    * @param {number} index - Row index
    * @returns {React.ReactElement} Number cell
    */
-  const renderNumber = (_row: PaymentMethodData, index: number): React.ReactElement => <span className="text-lg text-text-secondary">{(currentPage - 1) * pageSize + index + 1}</span>;
-  /** Render status.
-   * @param {PaymentMethodData} row - Row data
-   * @returns {React.ReactElement} Status cell
-   */
-  const renderStatus = (row: PaymentMethodData): React.ReactElement => (
-    <span className={`inline-flex rounded-full border border-current px-3 py-1 text-base font-semibold uppercase ${row.status === "active" ? "bg-success-subtle text-success-strong" : "bg-danger-subtle text-danger-strong"}`}>
-      {row.status}
-    </span>
-  );
-  /** Render name.
-   * @param {PaymentMethodData} row - Row data
-   * @returns {React.ReactElement} Name cell
-   */
-  const renderName = (row: PaymentMethodData): React.ReactElement => <span className="text-lg font-medium text-text-primary">{row.name}</span>;
-  /** Render description.
-   * @param {PaymentMethodData} row - Row data
-   * @returns {React.ReactElement} Description cell
-   */
-  const renderDescription = (row: PaymentMethodData): React.ReactElement => <span className="text-lg text-text-secondary">{row.description}</span>;
-  /** Render created date.
-   * @param {PaymentMethodData} row - Row data
-   * @returns {React.ReactElement} Created date cell
-   */
-  const renderCreatedAt = (row: PaymentMethodData): React.ReactElement => (
-    <span className="text-lg text-text-secondary">
-      {row.createAt ? formatIndonesianDateTime(row.createAt) : "-"}
-    </span>
-  );
-  /** Render edit action.
+  const renderNumber = (_row: PaymentMethodData, index: number): React.ReactElement => _renderNumber(currentPage, pageSize, index);
+
+  /**
+   * Render edit action for a row.
+   *
    * @param {PaymentMethodData} row - Row data
    * @returns {React.ReactElement} Edit button
    */
-  const renderActions = (row: PaymentMethodData): React.ReactElement => {
-    /** Open editing without triggering row navigation.
-     * @param {React.MouseEvent} event - Click event
-     * @returns {void} No return value
-     */
-    const handleEdit = (event: React.MouseEvent): void => { event.stopPropagation(); onEdit(row); };
-
-    return (
-      <button
-        type="button"
-        onClick={handleEdit}
-        className="cursor-pointer rounded-3xl p-2.5 text-text-secondary hover:bg-action-primary-subtle hover:text-action-primary"
-        title="Edit payment method"
-        aria-label="Edit payment method"
-      >
-        <FiEdit2 className="h-5 w-5" />
-      </button>
-    );
-  };
+  const renderEdit = (row: PaymentMethodData): React.ReactElement => _renderActions(onEdit, row);
 
   return [
     { key: "no", header: "No", align: "center", render: renderNumber },
-    { key: "name", header: "Payment Method", render: renderName },
-    { key: "description", header: "Description", render: renderDescription },
-    { key: "status", header: "Status", align: "center", render: renderStatus },
-    { key: "createAt", header: "Created At", render: renderCreatedAt },
-    { key: "actions", header: "Action", align: "center", render: renderActions },
+    { key: "name", header: "Payment Method", render: _renderName },
+    { key: "description", header: "Description", render: _renderDescription },
+    { key: "status", header: "Status", align: "center", render: _renderStatus },
+    { key: "createAt", header: "Created At", render: _renderCreatedAt },
+    { key: "actions", header: "Action", align: "center", render: renderEdit },
   ];
 };
 
 /**
  * Render list state.
+ *
  * @param {MasterPaymentMethodProps} props - Component props
  * @returns {React.ReactElement | null} State element
  */
@@ -103,13 +146,15 @@ const _renderListState = (props: MasterPaymentMethodProps): React.ReactElement |
 
 /**
  * Render payment method mobile card.
+ *
  * @param {PaymentMethodData} paymentMethod - Payment method data
  * @param {MasterPaymentMethodProps["onEdit"]} onEdit - Edit action
  * @returns {React.ReactElement} Card element
  */
 const _renderPaymentMethodCard = (paymentMethod: PaymentMethodData, onEdit: MasterPaymentMethodProps["onEdit"]): React.ReactElement => {
-  /**
+    /**
    * Open payment method editing.
+   *
    * @returns {void} No return value
    */
   const handleCardClick = (): void => onEdit(paymentMethod);
@@ -138,6 +183,7 @@ const _renderPaymentMethodCard = (paymentMethod: PaymentMethodData, onEdit: Mast
 
 /**
  * Render payment method table skeleton.
+ *
  * @param {MasterPaymentMethodProps} props - Component props
  * @returns {React.ReactElement} Table skeleton
  */
@@ -179,6 +225,7 @@ const _renderTableSkeleton = (props: MasterPaymentMethodProps): React.ReactEleme
 
 /**
  * Render payment method mobile card skeleton.
+ *
  * @param {number} key - Skeleton key
  * @returns {React.ReactElement} Card skeleton
  */
@@ -199,13 +246,15 @@ const _renderMobileCardSkeleton = (key: number): React.ReactElement => (
 
 /**
  * Render mobile list.
+ *
  * @param {MasterPaymentMethodProps} props - Component props
  * @returns {React.ReactElement} Mobile list
  */
 const _renderMobile = (props: MasterPaymentMethodProps): React.ReactElement => {
   const { paginatedData, currentPage, totalPages, pageSize, totalCount, goToPage, changePageSize, setSearchTerm, onEdit } = props;
-  /**
+    /**
    * Update search term.
+   *
    * @param {React.ChangeEvent<HTMLInputElement>} event - Search input event
    * @returns {void} No return value
    */
@@ -239,20 +288,23 @@ const _renderMobile = (props: MasterPaymentMethodProps): React.ReactElement => {
 
 /**
  * Render desktop table.
+ *
  * @param {MasterPaymentMethodProps} props - Component props
  * @returns {React.ReactElement} Desktop table
  */
 const _renderDesktop = (props: MasterPaymentMethodProps): React.ReactElement => {
   const { paginatedData, currentPage, totalPages, pageSize, totalCount, goToPage, changePageSize, setSearchTerm, onCreate, onEdit } = props;
   const columns = _getColumns(currentPage, pageSize, onEdit);
-  /**
+    /**
    * Update search term.
+   *
    * @param {React.ChangeEvent<HTMLInputElement>} event - Search input event
    * @returns {void} No return value
    */
   const handleSearch = (event: React.ChangeEvent<HTMLInputElement>): void => setSearchTerm(event.target.value);
-  /**
+    /**
    * Extract payment method row key.
+   *
    * @param {PaymentMethodData} row - Payment method row
    * @returns {string} Payment method ID
    */
@@ -278,6 +330,7 @@ const _renderDesktop = (props: MasterPaymentMethodProps): React.ReactElement => 
 
 /**
  * Render master payment method page.
+ *
  * @param {MasterPaymentMethodProps} props - Component props
  * @returns {React.ReactElement} Page element
  */

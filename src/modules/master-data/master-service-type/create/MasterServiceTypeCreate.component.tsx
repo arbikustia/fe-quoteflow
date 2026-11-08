@@ -2,13 +2,14 @@ import type { ReactElement } from "react";
 
 import { BackButton } from "@/components/BackButton";
 
+import Layout from "@/app/layout";
+
 import { formatRupiahInput } from "./MasterServiceTypeCreate.helpers";
 import type { MasterServiceTypeCreateFormState } from "./MasterServiceTypeCreate.type";
 
-import Layout from "@/app/layout";
-
 /**
  * Render status switch field (edit mode only).
+ *
  * @param {MasterServiceTypeCreateFormState} props - Form state
  * @returns {ReactElement | null} Field element
  */
@@ -42,6 +43,7 @@ const _renderStatusField = (props: MasterServiceTypeCreateFormState): ReactEleme
 
 /**
  * Render mobile top back bar.
+ *
  * @param {boolean} isEditMode - Whether form edits existing service type
  * @param {() => void} goBack - Back navigation
  * @returns {ReactElement} Bar element
@@ -63,6 +65,7 @@ const _renderMobileBack = (isEditMode: boolean, goBack: () => void): ReactElemen
 
 /**
  * Render page header with breadcrumb.
+ *
  * @param {boolean} isEditMode - Edit mode flag
  * @param {() => void} goBack - Back navigation
  * @returns {ReactElement} Header element
@@ -91,6 +94,7 @@ const _renderHeaderSection = (isEditMode: boolean, goBack: () => void): ReactEle
 
 /**
  * Render service type form fields.
+ *
  * @param {MasterServiceTypeCreateFormState} props - Form state
  * @param {string} fieldClass - input class name
  * @returns {ReactElement} Form fields
@@ -106,6 +110,7 @@ const _renderFields = (props: MasterServiceTypeCreateFormState, fieldClass: stri
 
 /**
  * Render service type create/edit form.
+ *
  * @param {MasterServiceTypeCreateFormState} props - Form state
  * @returns {ReactElement} Service type form
  */

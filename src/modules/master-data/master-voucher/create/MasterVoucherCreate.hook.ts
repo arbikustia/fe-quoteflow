@@ -1,19 +1,9 @@
-/* eslint-disable jsdoc/require-param-type, jsdoc/require-param-description, jsdoc/require-returns */
 import type { ChangeEvent, SyntheticEvent } from "react";
 import { useState } from "react";
 import type { FieldError, UseFormSetError, UseFormSetValue, UseFormTrigger } from "react-hook-form";
 import { useForm, useWatch } from "react-hook-form";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 
-import {
-  mapVoucher,
-  useCreateVoucherMutation,
-  useGetVoucherByIdQuery,
-  useUpdateVoucherMutation,
-} from "@/services/master-voucher.service";
-
-import { generateSecureVoucherCode, validateTypedVoucherCode } from "./MasterVoucherCreate.helpers";
-import type { MasterVoucherCreateFormState } from "./MasterVoucherCreate.type";
 import type {
   VoucherCreatePayload,
   VoucherCreateResponse,
@@ -27,15 +17,29 @@ import type {
   VoucherUpdatePayload,
 } from "../MasterVoucher.type";
 
+import { generateSecureVoucherCode, validateTypedVoucherCode } from "./MasterVoucherCreate.helpers";
+import type { MasterVoucherCreateFormState } from "./MasterVoucherCreate.type";
+
+import {
+  mapVoucher,
+  useCreateVoucherMutation,
+  useGetVoucherByIdQuery,
+  useUpdateVoucherMutation,
+} from "@/services/master-voucher.service";
+
 /**
  * Format backend messages for display.
- * @param messages
+ *
+ * @param {string[] | string | null} messages - Messages
+ * @returns {string} Resolved string
  */
 const _formatMessages = (messages: string[] | string | null): string => Array.isArray(messages) ? messages.join(" ") : (messages ?? "Voucher request failed.");
 
 /**
  * Resolve response to voucher data.
- * @param response
+ *
+ * @param {VoucherDetailResponse | undefined} response - Response
+ * @returns {VoucherData | null} Resolved value
  */
 const _resolveVoucherDetail = (response: VoucherDetailResponse | undefined): VoucherData | null => {
   if (!response?.status || !response.data) return null;
@@ -47,25 +51,28 @@ const _resolveVoucherDetail = (response: VoucherDetailResponse | undefined): Vou
 
 /**
  * Register voucher validation rules.
- * @param register
+ *
+ * @param {ReturnType<typeof useForm<VoucherFormValues>>["register"]} register - Register
  */
 const _registerVoucherFields = (register: ReturnType<typeof useForm<VoucherFormValues>>["register"]): void => {
   register("name", { required: "Voucher name is required." });
   register("discountPercent", {
     required: "Discount percentage is required.",
-    /**
-     *
-     * @param value
-     */
+                /**
+         * @param {string} value - Value
+         * @returns {string | boolean} Resolved value
+         */
     validate: (value: string): string | boolean => Number(value) >= 0 && Number(value) <= 100 || "Discount must be between 0 and 100.",
   });
 };
 
 /**
  * Create text field change handler.
- * @param field
- * @param setValue
- * @param error
+ *
+ * @param {"name" | "code"} field - Field
+ * @param {UseFormSetValue<VoucherFormValues>} setValue - Set value
+ * @param {FieldError | undefined} error - Error
+ * @returns {((event: ChangeEvent<HTMLInputElement>) => void)} Resolved value
  */
 const _createTextChange = (field: "name" | "code", setValue: UseFormSetValue<VoucherFormValues>, error: FieldError | undefined): ((event: ChangeEvent<HTMLInputElement>) => void) => (
   (event: ChangeEvent<HTMLInputElement>): void => setValue(field, event.target.value, { shouldValidate: Boolean(error) })
@@ -73,8 +80,10 @@ const _createTextChange = (field: "name" | "code", setValue: UseFormSetValue<Vou
 
 /**
  * Create discount field change handler.
- * @param setValue
- * @param error
+ *
+ * @param {UseFormSetValue<VoucherFormValues>} setValue - Set value
+ * @param {FieldError | undefined} error - Error
+ * @returns {((value: number | null) => void)} Resolved value
  */
 const _createDiscountChange = (setValue: UseFormSetValue<VoucherFormValues>, error: FieldError | undefined): ((value: number | null) => void) => (
   (value: number | null): void => setValue("discountPercent", value === null ? "" : String(value), { shouldValidate: Boolean(error) })
@@ -82,7 +91,9 @@ const _createDiscountChange = (setValue: UseFormSetValue<VoucherFormValues>, err
 
 /**
  * Create code mode change handler.
- * @param setValue
+ *
+ * @param {UseFormSetValue<VoucherFormValues>} setValue - Set value
+ * @returns {((value: string) => void)} Resolved value
  */
 const _createCodeModeChange = (setValue: UseFormSetValue<VoucherFormValues>): ((value: string) => void) => (
   (value: string): void => {
@@ -95,8 +106,10 @@ const _createCodeModeChange = (setValue: UseFormSetValue<VoucherFormValues>): ((
 
 /**
  * Create status toggle handler.
- * @param setValue
- * @param isActive
+ *
+ * @param {UseFormSetValue<VoucherFormValues>} setValue - Set value
+ * @param {boolean} isActive - Whether active
+ * @returns {(() => void)} Resolved value
  */
 const _createStatusToggle = (setValue: UseFormSetValue<VoucherFormValues>, isActive: boolean): (() => void) => (
   (): void => setValue("isActive", !isActive, { shouldDirty: true })
@@ -104,9 +117,11 @@ const _createStatusToggle = (setValue: UseFormSetValue<VoucherFormValues>, isAct
 
 /**
  * Create form validator including conditional code rule.
- * @param trigger
- * @param getValues
- * @param setError
+ *
+ * @param {UseFormTrigger<VoucherFormValues>} trigger - Trigger
+ * @param {() => VoucherFormValues} getValues - Get values
+ * @param {UseFormSetError<VoucherFormValues>} setError - Set error
+ * @returns {(() => Promise<boolean>)} Resolved value
  */
 const _createFormValidator = (trigger: UseFormTrigger<VoucherFormValues>, getValues: () => VoucherFormValues, setError: UseFormSetError<VoucherFormValues>): (() => Promise<boolean>) => (
   async (): Promise<boolean> => {
@@ -122,10 +137,11 @@ const _createFormValidator = (trigger: UseFormTrigger<VoucherFormValues>, getVal
 
 /**
  * Synchronize fetched voucher into form.
- * @param apiItem
- * @param initializedId
- * @param setInitializedId
- * @param setValue
+ *
+ * @param {VoucherData | null} apiItem - Api item
+ * @param {string | null} initializedId - Initialized id
+ * @param {(id: string | null) => void} setInitializedId - Set initialized id
+ * @param {UseFormSetValue<VoucherFormValues>} setValue - Set value
  */
 const _syncApiVoucher = (apiItem: VoucherData | null, initializedId: string | null, setInitializedId: (id: string | null) => void, setValue: UseFormSetValue<VoucherFormValues>): void => {
   if (!apiItem || apiItem.id === initializedId) return;
@@ -140,10 +156,12 @@ const _syncApiVoucher = (apiItem: VoucherData | null, initializedId: string | nu
 
 /**
  * Send create or update mutation.
- * @param params
- * @param finalCode
- * @param createVoucher
- * @param updateVoucher
+ *
+ * @param {VoucherSubmissionParams} params - Params
+ * @param {string} finalCode - Final code
+ * @param {(payload: VoucherCreatePayload) => { unwrap: () => Promise<VoucherCreateResponse> }} createVoucher - Create voucher
+ * @param {(payload: VoucherUpdatePayload) => { unwrap: () => Promise<VoucherCreateResponse> }} updateVoucher - Update voucher
+ * @returns {Promise<VoucherCreateResponse>} Resolved promise value
  */
 const _sendVoucherMutation = (params: VoucherSubmissionParams, finalCode: string, createVoucher: (payload: VoucherCreatePayload) => { unwrap: () => Promise<VoucherCreateResponse> }, updateVoucher: (payload: VoucherUpdatePayload) => { unwrap: () => Promise<VoucherCreateResponse> }): Promise<VoucherCreateResponse> => {
   const values = params.getValues();
@@ -156,7 +174,9 @@ const _sendVoucherMutation = (params: VoucherSubmissionParams, finalCode: string
 
 /**
  * Manage voucher submission.
- * @param params
+ *
+ * @param {VoucherSubmissionParams} params - Params
+ * @returns {VoucherSubmissionState} Resolved value
  */
 const useVoucherSubmission = (params: VoucherSubmissionParams): VoucherSubmissionState => {
   const navigate = useNavigate();
@@ -164,10 +184,11 @@ const useVoucherSubmission = (params: VoucherSubmissionParams): VoucherSubmissio
   const [updateVoucher, { isLoading: isUpdating }] = useUpdateVoucherMutation();
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
-  /**
-   * Submit voucher form.
-   * @param event
-   */
+        /**
+     * Submit voucher form.
+     *
+     * @param {SyntheticEvent} event - Event
+     */
   const handleSubmit = async (event: SyntheticEvent): Promise<void> => {
     event.preventDefault();
     setErrorMessage(null);
@@ -203,9 +224,11 @@ const useVoucherSubmission = (params: VoucherSubmissionParams): VoucherSubmissio
 
 /**
  * Manage voucher form fields.
- * @param routeVoucher
- * @param apiItem
- * @param isEditMode
+ *
+ * @param {VoucherData | undefined} routeVoucher - Route voucher
+ * @param {VoucherData | null} apiItem - Api item
+ * @param {boolean} isEditMode - Whether edit mode
+ * @returns {VoucherFormFieldsState} Resolved value
  */
 const useVoucherFormFields = (routeVoucher: VoucherData | undefined, apiItem: VoucherData | null, isEditMode: boolean): VoucherFormFieldsState => {
   const initialMode = isEditMode ? "type" : "generate";
@@ -227,7 +250,11 @@ const useVoucherFormFields = (routeVoucher: VoucherData | undefined, apiItem: Vo
   return { name, code, codeMode, discountPercent, isActive, errors, isSubmitted, getValues, validateForm: _createFormValidator(trigger, getValues, setError), handleNameChange: _createTextChange("name", setValue, errors.name), handleCodeChange: _createTextChange("code", setValue, errors.code), handleCodeModeChange: _createCodeModeChange(setValue), handleDiscountChange: _createDiscountChange(setValue, errors.discountPercent), handleStatusChange: _createStatusToggle(setValue, isActive) };
 };
 
-/** Provide voucher create/edit form state. */
+/**
+ * Provide voucher create/edit form state.
+ *
+ * @returns {MasterVoucherCreateFormState} Resolved value
+ */
 export const useMasterVoucherCreateForm = (): MasterVoucherCreateFormState => {
   const navigate = useNavigate();
   const location = useLocation();
@@ -239,7 +266,9 @@ export const useMasterVoucherCreateForm = (): MasterVoucherCreateFormState => {
   const formFields = useVoucherFormFields(routeVoucher, _resolveVoucherDetail(detailData), isEditMode);
   const submission = useVoucherSubmission({ id, isEditMode, ...formFields });
 
-  /** Navigate back. */
+        /**
+     * Navigate back.
+     */
   const goBack = (): void => { navigate("/master-voucher"); };
 
   return { isEditMode, goBack, ...formFields, ...submission };

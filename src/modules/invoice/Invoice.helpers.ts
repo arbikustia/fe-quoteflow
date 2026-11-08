@@ -30,14 +30,26 @@ const _fromInvoiceData = (invoice: InvoiceData): QuoteData => ({
 });
 
 /**
+ * Map invoice items for PDF.
+ * @param {ApiInvoice} invoice - API invoice
+ * @returns {NonNullable<QuoteData["pdfItems"]>} PDF items
+ */
+const _mapPdfItems = (invoice: ApiInvoice): NonNullable<QuoteData["pdfItems"]> =>
+  invoice.quotation?.transaction?.rental_transaction_items?.map((item) => ({
+    name: item.item_name ?? "Unknown item",
+    category: item.category_name ?? "Uncategorized",
+    qty: item.qty,
+    price: item.price,
+    remark: item.remark ?? "",
+  })) ?? [];
+
+/**
  * Map api invoice to quote data.
  * @param {ApiInvoice} invoice - Api invoice
  * @returns {QuoteData} Quote data
  */
 const _fromApiInvoice = (invoice: ApiInvoice): QuoteData => {
   const tx = invoice.quotation?.transaction;
-  const transactionItems = tx?.rental_transaction_items ?? [];
-  const items = transactionItems.map((item) => item.item_name);
 
   return {
     id: invoice.invoice_no || invoice.id,
@@ -46,14 +58,8 @@ const _fromApiInvoice = (invoice: ApiInvoice): QuoteData => {
     endDate: tx?.end_at || invoice.invoice_date,
     location: tx?.address || "-",
     category: tx?.service_type_name || "",
-    selectedItems: items,
-    pdfItems: tx?.rental_transaction_items?.map((item) => ({
-      name: item.item_name,
-      category: item.category_name ?? "Uncategorized",
-      qty: item.qty,
-      price: item.price,
-      remark: item.remark ?? "",
-    })) ?? [],
+    selectedItems: _mapPdfItems(invoice).map((item) => item.name),
+    pdfItems: _mapPdfItems(invoice),
     pdfProjects: tx?.rental_transaction_project.map((project) => ({
       name: project.name,
       qty: project.qty,

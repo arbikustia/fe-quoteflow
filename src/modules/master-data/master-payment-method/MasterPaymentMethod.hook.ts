@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-import { mapPaymentMethod, useGetPaymentMethodsQuery } from "@/services/master-payment-method.service";
 import { createPaginationHandlers } from "@/utils/pagination.helpers";
 
 import type {
@@ -12,24 +11,30 @@ import type {
   PaymentMethodListApiState,
 } from "./MasterPaymentMethod.type";
 
+import { mapPaymentMethod, useGetPaymentMethodsQuery } from "@/services/master-payment-method.service";
+
 /**
  * Provide payment method navigation.
+ *
  * @returns {MasterPaymentMethodNavigation} Navigation handlers
  */
 export const useMasterPaymentMethodNavigation = (): MasterPaymentMethodNavigation => {
   const navigate = useNavigate();
-  /**
+    /**
    * Navigate to previous page.
+   *
    * @returns {void} No return value
    */
   const goBack = (): void => { navigate("/master-main"); };
-  /**
+    /**
    * Navigate to create page.
+   *
    * @returns {void} No return value
    */
   const goCreate = (): void => { navigate("/master-payment-method/create"); };
-  /**
+    /**
    * Navigate to edit page.
+   *
    * @param {PaymentMethodData} paymentMethod - Payment method to edit
    * @returns {void} No return value
    */
@@ -43,6 +48,7 @@ export const useMasterPaymentMethodNavigation = (): MasterPaymentMethodNavigatio
 
 /**
  * Derive API payment method list state.
+ *
  * @param {ReturnType<typeof useGetPaymentMethodsQuery>} queryResult - Query result
  * @returns {PaymentMethodListApiState} List state
  */
@@ -71,6 +77,7 @@ const _derivePaymentMethodListState = (
 
 /**
  * Provide API-backed payment method pagination.
+ *
  * @returns {MasterPaymentMethodPagination} Pagination state
  */
 export const useMasterPaymentMethodPagination = (): MasterPaymentMethodPagination => {
@@ -110,22 +117,20 @@ export const useMasterPaymentMethodPagination = (): MasterPaymentMethodPaginatio
 
 /**
  * Provide payment method container state.
+ *
  * @returns {MasterPaymentMethodContainerState} Container state
  */
 export const useMasterPaymentMethodContainerState = (): MasterPaymentMethodContainerState => {
   const pagination = useMasterPaymentMethodPagination();
   const navigation = useMasterPaymentMethodNavigation();
   const [isMoreOpen, setIsMoreOpen] = useState(false);
-  /**
-   *
+    /**
    */
   const toggleMore = (): void => { setIsMoreOpen((previous) => !previous); };
-  /**
-   *
+    /**
    */
   const goDelete = (): void => { setIsMoreOpen(false); };
-  /**
-   *
+    /**
    */
   const handleCloseMore = (): void => { setIsMoreOpen(false); };
 

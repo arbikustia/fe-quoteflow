@@ -1,5 +1,6 @@
 /**
  * Calculate project table row number.
+ *
  * @param {number} currentPage - Active page
  * @param {number} pageSize - Active page size
  * @param {number} rowIndex - Zero-based row index

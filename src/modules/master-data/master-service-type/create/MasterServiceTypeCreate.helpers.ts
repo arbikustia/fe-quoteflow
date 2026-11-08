@@ -2,6 +2,7 @@ import { NON_DIGIT_PATTERN } from "@/constants/regex.constant";
 
 /**
  * Remove non-digit characters from Rupiah input.
+ *
  * @param {string} value - Input value
  * @returns {string} Digits only
  */
@@ -9,6 +10,7 @@ export const parseRupiahInput = (value: string): string => value.replace(NON_DIG
 
 /**
  * Format digits as Rupiah display text.
+ *
  * @param {string} value - Numeric string
  * @returns {string} Formatted Rupiah value
  */
@@ -22,6 +24,7 @@ export const formatRupiahInput = (value: string): string => {
 
 /**
  * Format backend messages into a display string.
+ *
  * @param {string[] | string | null} messages - Backend response messages
  * @returns {string} Display message
  */
@@ -35,6 +38,7 @@ export const formatServiceTypeMessages = (messages: string[] | string | null): s
 
 /**
  * Resolve status code for payload.
+ *
  * @param {boolean} isEditMode - Edit mode flag
  * @param {boolean} isActive - Active switch status
  * @returns {number} Status code

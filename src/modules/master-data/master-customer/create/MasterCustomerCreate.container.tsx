@@ -1,12 +1,13 @@
 import type { ReactElement } from "react";
 
-import Layout from "@/app/layout";
-
 import { MasterCustomerCreateForm } from "./MasterCustomerCreate.component";
 import { useMasterCustomerCreate } from "./MasterCustomerCreate.hook";
 
+import Layout from "@/app/layout";
+
 /**
  * Master Customer Create page container.
+ *
  * @returns {ReactElement} create page element
  */
 const MasterCustomerCreateContainer = (): ReactElement => {

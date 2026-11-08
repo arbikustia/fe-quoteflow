@@ -5,6 +5,7 @@ import { useMasterServiceTypeCreateForm } from "./MasterServiceTypeCreate.hook";
 
 /**
  * Render Master Service Type Create Container.
+ *
  * @returns {ReactElement} Container
  */
 const MasterServiceTypeCreateContainer = (): ReactElement => {

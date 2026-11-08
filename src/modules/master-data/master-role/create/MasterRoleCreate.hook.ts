@@ -1,18 +1,9 @@
-/* eslint-disable jsdoc/require-param, jsdoc/require-returns */
 import type { ChangeEvent, SyntheticEvent } from "react";
 import { useState } from "react";
 import type { FieldError, UseFormSetValue, UseFormTrigger } from "react-hook-form";
 import { useForm, useWatch } from "react-hook-form";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 
-import {
-  mapRole,
-  useCreateRoleMutation,
-  useGetRoleByIdQuery,
-  useUpdateRoleMutation,
-} from "@/services/master-role.service";
-
-import type { MasterRoleCreateFormState } from "./MasterRoleCreate.type";
 import type {
   RoleCreateResponse,
   RoleData,
@@ -24,8 +15,18 @@ import type {
   RoleSubmissionState,
 } from "../MasterRole.type";
 
+import type { MasterRoleCreateFormState } from "./MasterRoleCreate.type";
+
+import {
+  mapRole,
+  useCreateRoleMutation,
+  useGetRoleByIdQuery,
+  useUpdateRoleMutation,
+} from "@/services/master-role.service";
+
 /**
  * Format backend messages into display text.
+ *
  * @param {string[] | string | null} messages - Backend messages
  * @returns {string} Display message
  */
@@ -35,6 +36,7 @@ const _formatMessages = (messages: string[] | string | null): string => Array.is
 
 /**
  * Resolve detail response into role data.
+ *
  * @param {RoleDetailResponse | undefined} response - Detail response
  * @returns {RoleData | null} Role data
  */
@@ -46,27 +48,55 @@ const _resolveRoleDetail = (response: RoleDetailResponse | undefined): RoleData 
   return rawItem ? mapRole(rawItem) : null;
 };
 
-/** Register role validation rules. */
+/**
+ * Register role validation rules.
+ *
+ * @param {ReturnType<typeof useForm<RoleFormValues>>["register"]} register - Register
+ */
 const _registerRoleFields = (register: ReturnType<typeof useForm<RoleFormValues>>["register"]): void => {
   register("roleName", { required: "Role name is required." });
 };
 
-/** Create role name change handler. */
+/**
+ * Create role name change handler.
+ *
+ * @param {UseFormSetValue<RoleFormValues>} setValue - Set value
+ * @param {FieldError | undefined} error - Error
+ * @returns {((event: ChangeEvent<HTMLInputElement>) => void)} Resolved value
+ */
 const _createRoleNameChange = (setValue: UseFormSetValue<RoleFormValues>, error: FieldError | undefined): ((event: ChangeEvent<HTMLInputElement>) => void) => (
   (event: ChangeEvent<HTMLInputElement>): void => setValue("roleName", event.target.value, { shouldValidate: Boolean(error) })
 );
 
-/** Create status toggle handler. */
+/**
+ * Create status toggle handler.
+ *
+ * @param {UseFormSetValue<RoleFormValues>} setValue - Set value
+ * @param {boolean} isActive - Whether active
+ * @returns {(() => void)} Resolved value
+ */
 const _createStatusToggle = (setValue: UseFormSetValue<RoleFormValues>, isActive: boolean): (() => void) => (
   (): void => setValue("isActive", !isActive, { shouldDirty: true })
 );
 
-/** Create form validation trigger. */
+/**
+ * Create form validation trigger.
+ *
+ * @param {UseFormTrigger<RoleFormValues>} trigger - Trigger
+ * @returns {(() => Promise<boolean>)} Resolved value
+ */
 const _createFormValidator = (trigger: UseFormTrigger<RoleFormValues>): (() => Promise<boolean>) => (
   async (): Promise<boolean> => await trigger()
 );
 
-/** Synchronize fetched role into form. */
+/**
+ * Synchronize fetched role into form.
+ *
+ * @param {RoleData | null} apiItem - Api item
+ * @param {string | null} initializedId - Initialized id
+ * @param {(id: string | null) => void} setInitializedId - Set initialized id
+ * @param {UseFormSetValue<RoleFormValues>} setValue - Set value
+ */
 const _syncApiRole = (apiItem: RoleData | null, initializedId: string | null, setInitializedId: (id: string | null) => void, setValue: UseFormSetValue<RoleFormValues>): void => {
   if (!apiItem || apiItem.id === initializedId) return;
 
@@ -75,7 +105,14 @@ const _syncApiRole = (apiItem: RoleData | null, initializedId: string | null, se
   setValue("isActive", apiItem.status === "active");
 };
 
-/** Send create or update mutation. */
+/**
+ * Send create or update mutation.
+ *
+ * @param {RoleSubmissionParams} params - Params
+ * @param {ReturnType<typeof useCreateRoleMutation>[0]} createRole - Create role
+ * @param {ReturnType<typeof useUpdateRoleMutation>[0]} updateRole - Update role
+ * @returns {Promise<RoleCreateResponse>} Resolved promise value
+ */
 const _sendRoleMutation = (params: RoleSubmissionParams, createRole: ReturnType<typeof useCreateRoleMutation>[0], updateRole: ReturnType<typeof useUpdateRoleMutation>[0]): Promise<RoleCreateResponse> => {
   const values = params.getValues();
 
@@ -86,14 +123,23 @@ const _sendRoleMutation = (params: RoleSubmissionParams, createRole: ReturnType<
   return createRole({ role: values.roleName, status: 1 }).unwrap();
 };
 
-/** Manage role submission. */
+/**
+ * Manage role submission.
+ *
+ * @param {RoleSubmissionParams} params - Params
+ * @returns {RoleSubmissionState} Resolved value
+ */
 const useRoleSubmission = (params: RoleSubmissionParams): RoleSubmissionState => {
   const navigate = useNavigate();
   const [createRole, { isLoading: isCreating }] = useCreateRoleMutation();
   const [updateRole, { isLoading: isUpdating }] = useUpdateRoleMutation();
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
-  /** Submit role form. */
+    /**
+   * Submit role form.
+   *
+   * @param {SyntheticEvent} event - Event
+   */
   const handleSubmit = async (event: SyntheticEvent): Promise<void> => {
     event.preventDefault();
     setErrorMessage(null);
@@ -124,7 +170,13 @@ const useRoleSubmission = (params: RoleSubmissionParams): RoleSubmissionState =>
   return { isSubmitting: isCreating || isUpdating, errorMessage, handleSubmit };
 };
 
-/** Manage role form fields. */
+/**
+ * Manage role form fields.
+ *
+ * @param {RoleData | undefined} routeRole - Route role
+ * @param {RoleData | null} apiItem - Api item
+ * @returns {RoleFormFieldsState} Resolved value
+ */
 const useRoleFormFields = (routeRole: RoleData | undefined, apiItem: RoleData | null): RoleFormFieldsState => {
   const { control, formState: { errors, isSubmitted }, getValues, register, setValue, trigger } = useForm<RoleFormValues>({
     defaultValues: { roleName: routeRole?.roleName ?? "", isActive: routeRole?.status !== "inactive" },
@@ -142,7 +194,11 @@ const useRoleFormFields = (routeRole: RoleData | undefined, apiItem: RoleData | 
   return { roleName, isActive, errors, isSubmitted, getValues, validateForm: _createFormValidator(trigger), handleRoleNameChange: _createRoleNameChange(setValue, errors.roleName), handleStatusChange: _createStatusToggle(setValue, isActive) };
 };
 
-/** Provide master role form state. */
+/**
+ * Provide master role form state.
+ *
+ * @returns {MasterRoleCreateFormState} Resolved value
+ */
 export const useMasterRoleCreateForm = (): MasterRoleCreateFormState => {
   const navigate = useNavigate();
   const location = useLocation();
@@ -154,7 +210,9 @@ export const useMasterRoleCreateForm = (): MasterRoleCreateFormState => {
   const formFields = useRoleFormFields(routeRole, _resolveRoleDetail(detailData));
   const submission = useRoleSubmission({ id, isEditMode, ...formFields });
 
-  /** Navigate back. */
+    /**
+   * Navigate back.
+   */
   const goBack = (): void => { navigate("/master-role"); };
 
   return { isEditMode, goBack, ...formFields, ...submission };

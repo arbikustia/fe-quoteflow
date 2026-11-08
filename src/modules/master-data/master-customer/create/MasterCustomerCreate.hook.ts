@@ -2,11 +2,25 @@ import type { ChangeEvent, SyntheticEvent } from "react";
 import { useState } from "react";
 import type {
   Control,
+  FieldErrors,
   UseFormRegister,
   UseFormSetValue,
 } from "react-hook-form";
 import { useForm, useWatch } from "react-hook-form";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
+
+import { parsePhoneInput } from "./MasterCustomerCreate.helpers";
+import type {
+  CustomerFormFields,
+  CustomerFormHandlers,
+  CustomerFormValidation,
+  CustomerFormValues,
+  CustomerRequestContext,
+  CustomerSubmissionParams,
+  CustomerSubmissionState,
+  CustomerSubmitContext,
+  MasterCustomerCreateFormState,
+} from "./MasterCustomerCreate.type";
 
 import type {
   CustomerCreateResponse,
@@ -17,18 +31,9 @@ import {
   useUpdateCustomerMutation,
 } from "@/services/master-customer.service";
 
-import { parsePhoneInput } from "./MasterCustomerCreate.helpers";
-import type {
-  CustomerFormFields,
-  CustomerFormValidation,
-  CustomerFormValues,
-  CustomerSubmissionParams,
-  CustomerSubmissionState,
-  MasterCustomerCreateFormState,
-} from "./MasterCustomerCreate.type";
-
 /**
  * Format backend messages into a display string.
+ *
  * @param {string[] | string} [messages] - Backend response messages
  * @returns {string} Display message
  */
@@ -42,6 +47,7 @@ const _formatMessages = (messages?: string[] | string): string => {
 
 /**
  * Derive customer fields from paged route state.
+ *
  * @param {CustomerData | undefined} routeCustomer - Customer from paged list
  * @returns {{ name: string; email: string; address: string; phoneNumber: string; isActive: boolean }} Initial values
  */
@@ -65,6 +71,7 @@ const EMAIL_REGEX = /^[^\s@]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
 /**
  * Register customer validation rules.
+ *
  * @param {UseFormRegister<CustomerFormValues>} register - Form register function
  * @returns {void} No return value
  */
@@ -91,6 +98,7 @@ const _registerCustomerFields = (
 
 /**
  * Create input change handler for customer fields.
+ *
  * @param {"name" | "email" | "address"} field - Field name
  * @param {UseFormSetValue<CustomerFormValues>} setValue - React hook form setValue
  * @param {boolean} hasError - Field error presence
@@ -108,6 +116,7 @@ const _createCustomerFieldChange =
 
 /**
  * Create phone number change handler.
+ *
  * @param {UseFormSetValue<CustomerFormValues>} setValue - React hook form setValue
  * @param {boolean} hasError - Field error presence
  * @returns {(event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void} Change handler
@@ -125,6 +134,7 @@ const _createPhoneChange =
 
 /**
  * Toggle customer status handler.
+ *
  * @param {UseFormSetValue<CustomerFormValues>} setValue - React hook form setValue
  * @param {boolean} isActive - Current active status
  * @returns {() => void} Toggle handler
@@ -140,6 +150,7 @@ const _createStatusToggle =
 
 /**
  * Create form validation trigger.
+ *
  * @param {() => Promise<boolean>} trigger - Form trigger function
  * @param {(submitted: boolean) => void} setIsSubmitted - Set submitted state
  * @returns {() => Promise<boolean>} Validate function
@@ -157,6 +168,7 @@ const _createValidateForm =
 
 /**
  * Watch all customer form values.
+ *
  * @param {Control<CustomerFormValues>} control - Form control
  * @returns {CustomerFormValues} Current watched values
  */
@@ -171,14 +183,34 @@ const useCustomerWatches = (
 });
 
 /**
+ * Build all customer field change handlers.
+ *
+ * @param {UseFormSetValue<CustomerFormValues>} setValue - React hook form setValue
+ * @param {CustomerFormValues} values - Current watched values
+ * @param {FieldErrors<CustomerFormValues>} errors - Current field errors
+ * @returns {CustomerFormHandlers} Bound field handlers
+ */
+const _buildCustomerHandlers = (
+  setValue: UseFormSetValue<CustomerFormValues>,
+  values: CustomerFormValues,
+  errors: FieldErrors<CustomerFormValues>,
+): CustomerFormHandlers => ({
+  handleNameChange: _createCustomerFieldChange("name", setValue, Boolean(errors.name)),
+  handleEmailChange: _createCustomerFieldChange("email", setValue, Boolean(errors.email)),
+  handlePhoneNumberChange: _createPhoneChange(setValue, Boolean(errors.phoneNumber)),
+  handleAddressChange: _createCustomerFieldChange("address", setValue, Boolean(errors.address)),
+  handleStatusChange: _createStatusToggle(setValue, values.isActive),
+});
+
+/**
  * Manage customer form fields and validation state.
+ *
  * @param {CustomerData | undefined} routeCustomer - Customer from paged route state
  * @returns {CustomerFormFields & CustomerFormValidation} Form state and handlers
  */
 const useCustomerFormFields = (
   routeCustomer: CustomerData | undefined,
 ): CustomerFormFields & CustomerFormValidation => {
-  const initial = _getInitialFieldValues(routeCustomer);
   const {
     control: formControl,
     formState: { errors },
@@ -187,7 +219,7 @@ const useCustomerFormFields = (
     setValue,
     trigger,
   } = useForm<CustomerFormValues>({
-    defaultValues: initial,
+    defaultValues: _getInitialFieldValues(routeCustomer),
     mode: "onSubmit",
     reValidateMode: "onChange",
   });
@@ -203,31 +235,77 @@ const useCustomerFormFields = (
     getValues,
     register,
     validateForm: _createValidateForm(trigger, setIsSubmitted),
-    handleNameChange: _createCustomerFieldChange(
-      "name",
-      setValue,
-      Boolean(errors.name),
-    ),
-    handleEmailChange: _createCustomerFieldChange(
-      "email",
-      setValue,
-      Boolean(errors.email),
-    ),
-    handlePhoneNumberChange: _createPhoneChange(
-      setValue,
-      Boolean(errors.phoneNumber),
-    ),
-    handleAddressChange: _createCustomerFieldChange(
-      "address",
-      setValue,
-      Boolean(errors.address),
-    ),
-    handleStatusChange: _createStatusToggle(setValue, values.isActive),
+    ..._buildCustomerHandlers(setValue, values, errors),
   };
 };
 
 /**
+ * Build the customer mutation payload.
+ *
+ * @param {CustomerFormValues} values - Current form values
+ * @param {boolean} isActive - Whether the customer is active
+ * @returns {{ name: string; email: string; address: string; phone_number: string; status: number }} Payload
+ */
+const _buildCustomerPayload = (
+  values: CustomerFormValues,
+  isActive: boolean,
+): { name: string; email: string; address: string; phone_number: string; status: number } => ({
+  name: values.name,
+  email: values.email,
+  address: values.address,
+  phone_number: values.phoneNumber,
+  status: isActive ? 1 : 0,
+});
+
+/**
+ * Send the customer create or update request.
+ *
+ * @param {CustomerRequestContext} context - Bound request context
+ * @returns {Promise<CustomerCreateResponse>} Mutation response
+ */
+const _sendCustomerMutation = (context: CustomerRequestContext): Promise<CustomerCreateResponse> => {
+  const payload = _buildCustomerPayload(context.values, context.isActive);
+
+  if (context.isEditMode && context.id) {
+    return context.updateCustomer({ ...payload, id: context.id }).unwrap();
+  }
+
+  return context.createCustomer({ ...payload, status: 1 }).unwrap();
+};
+
+/**
+ * Submit the customer form and report the result.
+ *
+ * @param {CustomerSubmitContext} context - Bound submit context
+ * @returns {Promise<void>} Resolves after submission settles
+ */
+const _submitCustomer = async (context: CustomerSubmitContext): Promise<void> => {
+  if (!(await context.validateForm())) return;
+
+  context.setErrorMessage(undefined);
+  context.setSuccessMessage(undefined);
+
+  try {
+    const response = await _sendCustomerMutation(context);
+
+    if (!response.status) {
+      context.setErrorMessage(_formatMessages(response.messages));
+
+      return;
+    }
+
+    const successMessage = context.isEditMode ? "Customer updated successfully." : "Customer created successfully.";
+
+    context.setSuccessMessage(successMessage);
+    context.navigate("/master-customer", { state: { successMessage } });
+  } catch {
+    context.setErrorMessage(context.isEditMode ? "Unable to update customer. Please try again." : "Unable to create customer. Please try again.");
+  }
+};
+
+/**
  * Handle form submission logic for create or update.
+ *
  * @param {CustomerSubmissionParams} params - Submission values
  * @returns {CustomerSubmissionState} Submission state
  */
@@ -236,68 +314,32 @@ const useCustomerSubmission = (
 ): CustomerSubmissionState => {
   const { id, isEditMode, isActive, getValues, validateForm } = params;
   const navigate = useNavigate();
-  const [createCustomer, { isLoading: isCreating }] =
-    useCreateCustomerMutation();
-  const [updateCustomer, { isLoading: isUpdating }] =
-    useUpdateCustomerMutation();
+  const [createCustomer, { isLoading: isCreating }] = useCreateCustomerMutation();
+  const [updateCustomer, { isLoading: isUpdating }] = useUpdateCustomerMutation();
   const [errorMessage, setErrorMessage] = useState<string>();
   const [successMessage, setSuccessMessage] = useState<string>();
 
   /**
    * Submit customer form.
+   *
    * @param {SyntheticEvent} event - Form submission event
    * @returns {Promise<void>} Completion promise
    */
   const handleSubmit = async (event: SyntheticEvent): Promise<void> => {
     event.preventDefault();
 
-    if (!(await validateForm())) {
-      return;
-    }
-
-    const { name, email, address, phoneNumber } = getValues();
-
-    setErrorMessage(undefined);
-    setSuccessMessage(undefined);
-
-    try {
-      const response: CustomerCreateResponse =
-        isEditMode && id
-          ? await updateCustomer({
-              id,
-              name,
-              email,
-              address,
-              phone_number: phoneNumber,
-              status: isActive ? 1 : 0,
-            }).unwrap()
-          : await createCustomer({
-              name,
-              email,
-              address,
-              phone_number: phoneNumber,
-              status: 1,
-            }).unwrap();
-
-      if (!response.status) {
-        setErrorMessage(_formatMessages(response.messages));
-
-        return;
-      }
-
-      const successMessage = isEditMode
-        ? "Customer updated successfully."
-        : "Customer created successfully.";
-
-      setSuccessMessage(successMessage);
-      navigate("/master-customer", { state: { successMessage } });
-    } catch {
-      setErrorMessage(
-        isEditMode
-          ? "Unable to update customer. Please try again."
-          : "Unable to create customer. Please try again.",
-      );
-    }
+    await _submitCustomer({
+      id,
+      isEditMode,
+      isActive,
+      values: getValues(),
+      validateForm,
+      createCustomer,
+      updateCustomer,
+      navigate,
+      setErrorMessage,
+      setSuccessMessage,
+    });
   };
 
   return {
@@ -310,6 +352,7 @@ const useCustomerSubmission = (
 
 /**
  * Hook managing master customer form state.
+ *
  * @returns {MasterCustomerCreateFormState} Form state
  */
 export const useMasterCustomerCreate = (): MasterCustomerCreateFormState => {
@@ -327,8 +370,9 @@ export const useMasterCustomerCreate = (): MasterCustomerCreateFormState => {
     validateForm: formFields.validateForm,
   });
 
-  /**
+    /**
    * Go back.
+   *
    * @returns {void}
    */
   const goBack = (): void => {

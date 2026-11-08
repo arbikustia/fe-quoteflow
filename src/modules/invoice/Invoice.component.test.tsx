@@ -3,11 +3,6 @@ import { fireEvent, render, screen } from "@/libs/unit-test";
 import { InvoiceComponent } from "./Invoice.component";
 import type { InvoiceProps } from "./Invoice.type";
 
-const mockGenerateInvoicePDF = jest.fn();
-jest.mock("@/utils/pdfGenerator", () => ({
-  generateInvoicePDF: (...args: unknown[]) => mockGenerateInvoicePDF(...args),
-}));
-
 jest.mock("@/app/layout", () => ({ children }: { children: React.ReactNode }): React.ReactElement => <div>{children}</div>);
 
 const props: InvoiceProps = {
@@ -18,7 +13,6 @@ const props: InvoiceProps = {
   totalCount: 1,
   isLoading: false,
   isEmpty: false,
-  errorMessage: null,
   setSearchTerm: jest.fn(),
   goToPage: jest.fn(),
   changePageSize: jest.fn(),
@@ -26,6 +20,7 @@ const props: InvoiceProps = {
   onRowClick: jest.fn(),
   onDetail: jest.fn(),
   onEdit: jest.fn(),
+  onDownload: jest.fn(async (): Promise<void> => undefined),
 };
 
 describe("InvoiceComponent", () => {
@@ -53,7 +48,7 @@ describe("InvoiceComponent", () => {
     expect(editButtons[0]).toHaveClass("rounded-3xl");
     fireEvent.click(downloadButtons[0]);
 
-    expect(mockGenerateInvoicePDF).toHaveBeenCalled();
+    expect(props.onDownload).toHaveBeenCalledWith(props.paginatedData[0]);
   });
 
   it("should render approved status and hide edit action", () => {

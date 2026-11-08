@@ -1,14 +1,13 @@
 import * as React from "react";
-import { FiDownload, FiEye } from "react-icons/fi";
+import { FiDownload, FiEdit2, FiEye } from "react-icons/fi";
 
 import { formatIndonesianDateTime } from "@/utils/date.helpers";
-import { generateInvoicePDF } from "@/utils/pdfGenerator";
 
 import { Pagination } from "@/components/Pagination";
 import { SearchFilter } from "@/components/SearchFilter";
 import Table, { type TableColumn } from "@/components/Table";
 
-import { getInvoiceRowNumber, InvoiceMobileCard, invoiceToQuoteData } from "./Invoice.helpers";
+import { getInvoiceRowNumber, InvoiceMobileCard } from "./Invoice.helpers";
 import type { InvoiceData, InvoiceProps } from "./Invoice.type";
 
 import Layout from "@/app/layout";
@@ -29,20 +28,42 @@ const _renderRowNumber = (_row: InvoiceData, index: number, props: InvoiceProps)
 /**
  * Render invoice download action.
  * @param {InvoiceData} row - Invoice row
+ * @param {InvoiceProps} props - Invoice props
  * @returns {React.ReactElement} Download action button
  */
-const _renderDownloadAction = (row: InvoiceData): React.ReactElement => (
+const _renderDownloadAction = (row: InvoiceData, props: InvoiceProps): React.ReactElement => (
   <button
     type="button"
     onClick={(event: React.MouseEvent): void => {
       event.stopPropagation();
-      void generateInvoicePDF(invoiceToQuoteData(row));
+      void props.onDownload(row);
     }}
     className="cursor-pointer rounded-3xl p-2.5 text-text-secondary hover:bg-action-primary-subtle hover:text-action-primary"
     title="Download PDF"
     aria-label="Download PDF"
   >
     <FiDownload className="h-5 w-5" />
+  </button>
+);
+
+/**
+ * Render invoice edit action.
+ * @param {InvoiceData} row - Invoice row
+ * @param {InvoiceProps} props - Invoice props
+ * @returns {React.ReactElement} Edit action button
+ */
+const _renderEditAction = (row: InvoiceData, props: InvoiceProps): React.ReactElement => (
+  <button
+    type="button"
+    onClick={(event: React.MouseEvent): void => {
+      event.stopPropagation();
+      props.onEdit(row);
+    }}
+    className="cursor-pointer rounded-3xl p-2.5 text-text-secondary hover:bg-action-primary-subtle hover:text-action-primary"
+    title="Edit invoice"
+    aria-label="Edit invoice"
+  >
+    <FiEdit2 className="h-5 w-5" />
   </button>
 );
 
@@ -86,8 +107,9 @@ const _renderStatus = (row: InvoiceData): React.ReactElement => (
  */
 const _renderActions = (row: InvoiceData, props: InvoiceProps): React.ReactElement => (
   <div className="flex items-center justify-center gap-1">
-    {_renderDownloadAction(row)}
+    {_renderDownloadAction(row, props)}
     {_renderDetailAction(row, props)}
+    {row.status !== 2 && _renderEditAction(row, props)}
   </div>
 );
 

@@ -14,22 +14,26 @@ import type {
 
 /**
  * Provide payment type navigation.
+ *
  * @returns {MasterPaymentTypeNavigation} Navigation handlers
  */
 export const useMasterPaymentTypeNavigation = (): MasterPaymentTypeNavigation => {
   const navigate = useNavigate();
-  /**
+    /**
    * Navigate to previous page.
+   *
    * @returns {void} No return value
    */
   const goBack = (): void => { navigate("/master-main"); };
-  /**
+    /**
    * Navigate to create page.
+   *
    * @returns {void} No return value
    */
   const goCreate = (): void => { navigate("/master-payment-type/create"); };
-  /**
+    /**
    * Navigate to edit page.
+   *
    * @param {PaymentTypeData} paymentType - Payment type to edit
    * @returns {void} No return value
    */
@@ -42,6 +46,7 @@ export const useMasterPaymentTypeNavigation = (): MasterPaymentTypeNavigation =>
 
 /**
  * Derive API payment type list state.
+ *
  * @param {ReturnType<typeof useGetPaymentTypesQuery>} queryResult - Query result
  * @returns {PaymentTypeListApiState} List state
  */
@@ -70,6 +75,7 @@ const _derivePaymentTypeListState = (
 
 /**
  * Provide API-backed payment type pagination.
+ *
  * @returns {MasterPaymentTypePagination} Pagination state
  */
 export const useMasterPaymentTypePagination = (): MasterPaymentTypePagination => {
@@ -109,6 +115,7 @@ export const useMasterPaymentTypePagination = (): MasterPaymentTypePagination =>
 
 /**
  * Provide master payment type container state.
+ *
  * @returns {MasterPaymentTypeContainerState} Container state
  */
 export const useMasterPaymentTypeContainerState = (): MasterPaymentTypeContainerState => {

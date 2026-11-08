@@ -4,6 +4,7 @@ import type { CustomerMobileCardProps } from "./MasterCustomer.type";
 
 /**
  * Format an optional display value without changing source data.
+ *
  * @param {string} value - Source display value
  * @returns {string} Display value
  */
@@ -11,6 +12,7 @@ export const formatCustomerDisplayValue = (value: string): string => value || "â
 
 /**
  * Render customer mobile card footer with address and phone number.
+ *
  * @param {CustomerMobileCardProps["customer"]} customer - Customer data
  * @returns {React.ReactElement} Card footer element
  */
@@ -36,14 +38,16 @@ const _renderCustomerCardFooter = (customer: CustomerMobileCardProps["customer"]
 
 /**
  * Render single customer card on mobile.
+ *
  * @param {CustomerMobileCardProps} props - Customer card props
  * @returns {React.ReactElement} Customer card
  */
 export const CustomerMobileCard = (props: CustomerMobileCardProps): React.ReactElement => {
   const { customer, onEdit } = props;
 
-  /**
+    /**
    * Handle customer card click.
+   *
    * @returns {void} No return value
    */
   const handleClick = (): void => {
@@ -72,6 +76,7 @@ export const CustomerMobileCard = (props: CustomerMobileCardProps): React.ReactE
 
 /**
  * Calculate customer table row number.
+ *
  * @param {number} currentPage - Active page
  * @param {number} pageSize - Active page size
  * @param {number} rowIndex - Zero-based row index

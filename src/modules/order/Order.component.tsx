@@ -1,14 +1,12 @@
-/* eslint-disable jsdoc/require-jsdoc */
 import * as React from "react";
 import { FiEdit2 } from "react-icons/fi";
 
+import type { OrderProps, QuoteData } from "./Order.type";
 import Layout from "../../app/layout";
 import { PageLayout } from "../../app/shared/PageLayout";
 import { Pagination } from "../../components/Pagination";
 import { SearchFilter } from "../../components/SearchFilter";
 import Table, { type TableColumn } from "../../components/Table";
-
-import type { OrderProps, QuoteData } from "./Order.type";
 
 /**
  * Format order currency.
@@ -118,7 +116,6 @@ const _renderListState = (props: OrderProps): React.ReactElement | null => {
  * @param {(event: React.ChangeEvent<HTMLInputElement>) => void} handleSearchChange - Search handler
  * @returns {React.ReactElement} Desktop list
  */
-// eslint-disable-next-line max-lines-per-function
 const _renderDesktopTable = (props: OrderProps, handleSearchChange: (event: React.ChangeEvent<HTMLInputElement>) => void): React.ReactElement => {
   const columns = _getColumns(props);
 

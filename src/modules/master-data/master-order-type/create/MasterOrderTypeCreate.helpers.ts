@@ -1,5 +1,6 @@
 /**
  * Clean and format order type name input.
+ *
  * @param {string} value - Raw input value
  * @returns {string} Trimmed name
  */

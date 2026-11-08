@@ -9,6 +9,7 @@ import type { ServiceTypeRouteState } from "./MasterServiceType.type";
 
 /**
  * Master Service Type Container
+ *
  * @returns {React.ReactElement} Container component
  */
 const MasterServiceTypeContainer = (): React.ReactElement => {

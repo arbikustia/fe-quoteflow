@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-import { mapUser, useGetUsersQuery } from "@/services/master-user.service";
 import { createPaginationHandlers } from "@/utils/pagination.helpers";
 
 import type {
@@ -11,31 +10,37 @@ import type {
   UserData,
 } from "./MasterUser.type";
 
+import { mapUser, useGetUsersQuery } from "@/services/master-user.service";
+
 /**
  * Navigation hook.
+ *
  * @returns {MasterUserNavigation} Navigation state
  */
 export const useMasterUserNavigation = (): MasterUserNavigation => {
   const navigate = useNavigate();
 
-  /**
+    /**
    * Navigate back.
+   *
    * @returns {void} No return value
    */
   const goBack = (): void => {
     navigate("/master-main");
   };
 
-  /**
+    /**
    * Navigate to create user.
+   *
    * @returns {void} No return value
    */
   const goCreate = (): void => {
     navigate("/master-user/create");
   };
 
-  /**
+    /**
    * Navigate to edit user.
+   *
    * @param {UserData} user - User record
    * @returns {void} No return value
    */
@@ -48,6 +53,7 @@ export const useMasterUserNavigation = (): MasterUserNavigation => {
 
 /**
  * Build user pagination data.
+ *
  * @param {number} currentPage - Current page
  * @param {number} pageSize - Items per page
  * @param {string} searchTerm - Search term
@@ -91,6 +97,7 @@ const useUserPaginationData = (
 
 /**
  * Manage pagination state for user list.
+ *
  * @returns {MasterUserPagination} User pagination state
  */
 export const useMasterUserPagination = (): MasterUserPagination => {
@@ -124,6 +131,7 @@ export const useMasterUserPagination = (): MasterUserPagination => {
 
 /**
  * Container state hook.
+ *
  * @returns {MasterUserContainerState} Container state
  */
 export const useMasterUserContainerState = (): MasterUserContainerState => {
@@ -131,17 +139,23 @@ export const useMasterUserContainerState = (): MasterUserContainerState => {
   const pagination = useMasterUserPagination();
   const [isMoreOpen, setIsMoreOpen] = useState(false);
 
-  /** Toggle more menu. */
+    /**
+   * Toggle more menu.
+   */
   const toggleMore = (): void => {
     setIsMoreOpen((previous) => !previous);
   };
 
-  /** Handle delete. */
+    /**
+   * Handle delete.
+   */
   const goDelete = (): void => {
     setIsMoreOpen(false);
   };
 
-  /** Close more menu. */
+    /**
+   * Close more menu.
+   */
   const handleCloseMore = (): void => {
     setIsMoreOpen(false);
   };

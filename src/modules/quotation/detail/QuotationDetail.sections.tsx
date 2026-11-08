@@ -5,6 +5,7 @@ import type {
   ApiQuotationCustomer,
   ApiQuotationItem,
   ApiQuotationProject,
+  ApiQuotationProjectItem,
   ApiQuotationReference,
   ApiQuotationTransaction,
 } from "../Quotation.type";
@@ -240,45 +241,62 @@ export const renderHandoversSection = (): ReactElement =>
   );
 
 /**
+ * Render rental item description block.
+ * @param {ApiQuotationItem} item - Rental item
+ * @returns {ReactElement} Item description
+ */
+const _renderItemDescription = (item: ApiQuotationItem): ReactElement => (
+  <div className="min-w-0">
+    <h3 className="break-words text-xl font-semibold text-text-primary">
+      {item.item_name}
+    </h3>
+    <p className="mt-1 text-lg font-medium text-text-secondary">
+      Category: {_renderTextValue(item.category_name)}
+    </p>
+    <p className="mt-1 text-lg font-semibold text-text-secondary">
+      {formatCurrency(item.price)}
+    </p>
+    <p className="mt-2 text-lg text-text-secondary">
+      <span className="font-semibold text-text-primary">Remark: </span>
+      {_renderTextValue(item.remark)}
+    </p>
+  </div>
+);
+
+/**
+ * Render rental item quantity and subtotal.
+ * @param {ApiQuotationItem} item - Rental item
+ * @returns {ReactElement} Item totals
+ */
+const _renderItemTotals = (item: ApiQuotationItem): ReactElement => (
+  <dl className="grid shrink-0 gap-2 text-right">
+    <div>
+      <dt className="sr-only">Qty</dt>
+      <dd className="text-lg font-semibold tabular-nums text-text-secondary">
+        Qty: {item.qty}
+      </dd>
+    </div>
+    <div>
+      <dt className="text-lg font-medium text-text-tertiary">Subtotal</dt>
+      <dd className="text-2xl font-bold tabular-nums text-text-primary sm:text-xl">
+        {formatCurrency(item.subtotal)}
+      </dd>
+    </div>
+  </dl>
+);
+
+/**
  * Render rental item row.
  * @param {ApiQuotationItem} item - Rental item
  * @returns {ReactElement} Rental item row
  */
-// eslint-disable-next-line max-lines-per-function
 const _renderItem = (item: ApiQuotationItem): ReactElement => (
   <article
     key={item.item_id}
     className="grid grid-cols-[minmax(0,1fr)_auto] items-start gap-4 border-b border-border-default/70 py-4 last:border-b-0"
   >
-    <div className="min-w-0">
-      <h3 className="break-words text-xl font-semibold text-text-primary">
-        {item.item_name}
-      </h3>
-      <p className="mt-1 text-lg font-medium text-text-secondary">
-        Category: {_renderTextValue(item.category_name)}
-      </p>
-      <p className="mt-1 text-lg font-semibold text-text-secondary">
-        {formatCurrency(item.price)}
-      </p>
-      <p className="mt-2 text-lg text-text-secondary">
-        <span className="font-semibold text-text-primary">Remark: </span>
-        {_renderTextValue(item.remark)}
-      </p>
-    </div>
-    <dl className="grid shrink-0 gap-2 text-right">
-      <div>
-        <dt className="sr-only">Qty</dt>
-        <dd className="text-lg font-semibold tabular-nums text-text-secondary">
-          Qty: {item.qty}
-        </dd>
-      </div>
-      <div>
-        <dt className="text-lg font-medium text-text-tertiary">Subtotal</dt>
-        <dd className="text-2xl font-bold tabular-nums text-text-primary sm:text-xl">
-          {formatCurrency(item.subtotal)}
-        </dd>
-      </div>
-    </dl>
+    {_renderItemDescription(item)}
+    {_renderItemTotals(item)}
   </article>
 );
 
@@ -298,14 +316,43 @@ export const renderItemsSection = (items: ApiQuotationItem[]): ReactElement =>
   );
 
 /**
- * Render project section.
- * @param {ApiQuotationProject} project - Rental project
- * @param {boolean} isProjectMetaVisible - Show project quantity and price
- * @returns {ReactElement} Project section
+ * Render project child item row.
+ * @param {ApiQuotationProjectItem} item - Project item
+ * @returns {ReactElement} Project item row
  */
-// eslint-disable-next-line max-lines-per-function
-const _renderProject = (project: ApiQuotationProject, isProjectMetaVisible: boolean): ReactElement => (
-  <article key={project.id} className="border-b border-border-default/70 py-5 last:border-b-0">
+const _renderProjectItem = (item: ApiQuotationProjectItem): ReactElement => (
+  <div
+    key={item.id}
+    className="grid grid-cols-[minmax(0,1fr)_auto] gap-4 border-b border-border-default/60 px-4 py-3 text-lg last:border-b-0"
+  >
+    <div>
+      <p className="font-semibold text-text-primary">{item.item_name}</p>
+      <p className="mt-1 text-lg font-medium text-text-secondary">
+        Category: {_renderTextValue(item.category_name)}
+      </p>
+      <p className="mt-1 text-lg font-medium text-text-secondary">
+        {formatCurrency(item.price)}
+      </p>
+    </div>
+    <div className="text-right text-text-secondary">
+      <span className="text-lg font-semibold tabular-nums text-text-secondary">
+        Qty: {item.qty}
+      </span>
+    </div>
+  </div>
+);
+
+/**
+ * Render project header with quantity and price.
+ * @param {ApiQuotationProject} project - Rental project
+ * @param {boolean} isProjectMetaVisible - Show project quantity
+ * @returns {ReactElement} Project header
+ */
+const _renderProjectHeader = (
+  project: ApiQuotationProject,
+  isProjectMetaVisible: boolean,
+): ReactElement => (
+  <>
     <div className="flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between">
       <div>
         <h3 className="text-xl font-bold text-text-primary">
@@ -324,28 +371,20 @@ const _renderProject = (project: ApiQuotationProject, isProjectMetaVisible: bool
     {project.remark && (
       <p className="mt-2 text-lg text-text-secondary">{project.remark}</p>
     )}
+  </>
+);
+
+/**
+ * Render project section.
+ * @param {ApiQuotationProject} project - Rental project
+ * @param {boolean} isProjectMetaVisible - Show project quantity and price
+ * @returns {ReactElement} Project section
+ */
+const _renderProject = (project: ApiQuotationProject, isProjectMetaVisible: boolean): ReactElement => (
+  <article key={project.id} className="border-b border-border-default/70 py-5 last:border-b-0">
+    {_renderProjectHeader(project, isProjectMetaVisible)}
     <div className="mt-3.5 overflow-hidden rounded-3xl border border-border-default bg-background-subtle/40">
-      {project.items.map((item) => (
-        <div
-          key={item.id}
-          className="grid grid-cols-[minmax(0,1fr)_auto] gap-4 border-b border-border-default/60 px-4 py-3 text-lg last:border-b-0"
-        >
-          <div>
-            <p className="font-semibold text-text-primary">{item.item_name}</p>
-            <p className="mt-1 text-lg font-medium text-text-secondary">
-              Category: {_renderTextValue(item.category_name)}
-            </p>
-            <p className="mt-1 text-lg font-medium text-text-secondary">
-              {formatCurrency(item.price)}
-            </p>
-          </div>
-          <div className="text-right text-text-secondary">
-            <span className="text-lg font-semibold tabular-nums text-text-secondary">
-              Qty: {item.qty}
-            </span>
-          </div>
-        </div>
-      ))}
+      {project.items.map(_renderProjectItem)}
     </div>
   </article>
 );

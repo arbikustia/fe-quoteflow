@@ -1,5 +1,6 @@
-import MasterMainContainer from "./MasterMain.container";
 import test from "../../../libs/unit-test";
+
+import MasterMainContainer from "./MasterMain.container";
 
 const configs = [
   {

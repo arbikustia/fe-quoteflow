@@ -2,6 +2,7 @@ import { NON_DIGIT_PATTERN } from "@/constants/regex.constant";
 
 /**
  * Filter phone input value to keep numbers only.
+ *
  * @param {string} value - Raw input value
  * @returns {string} Number-only value
  */

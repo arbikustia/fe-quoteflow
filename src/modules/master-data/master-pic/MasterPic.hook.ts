@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-import { mapPic, useGetPicsQuery } from "@/services/master-pic.service";
 import { createPaginationHandlers } from "@/utils/pagination.helpers";
 
 import type {
@@ -11,31 +10,37 @@ import type {
   PicData,
 } from "./MasterPic.type";
 
+import { mapPic, useGetPicsQuery } from "@/services/master-pic.service";
+
 /**
  * Hook for master PIC navigation.
+ *
  * @returns {MasterPicNavigation} Navigation handlers
  */
 export const useMasterPicNavigation = (): MasterPicNavigation => {
   const navigate = useNavigate();
 
-  /**
+    /**
    * Navigate back.
+   *
    * @returns {void} No return value
    */
   const goBack = (): void => {
     navigate("/master-main");
   };
 
-  /**
+    /**
    * Navigate to create PIC.
+   *
    * @returns {void} No return value
    */
   const goCreate = (): void => {
     navigate("/master-pic/create");
   };
 
-  /**
+    /**
    * Navigate to edit PIC.
+   *
    * @param {PicData} pic - PIC record
    * @returns {void} No return value
    */
@@ -48,6 +53,7 @@ export const useMasterPicNavigation = (): MasterPicNavigation => {
 
 /**
  * Load PIC pagination data.
+ *
  * @param {number} currentPage - Current page
  * @param {number} pageSize - Page size
  * @param {string} searchTerm - Search keyword
@@ -81,6 +87,7 @@ const usePicPaginationData = (
 
 /**
  * Hook for API PIC search and pagination.
+ *
  * @returns {MasterPicPagination} Pagination state
  */
 export const useMasterPicPagination = (): MasterPicPagination => {
@@ -112,23 +119,30 @@ export const useMasterPicPagination = (): MasterPicPagination => {
 
 /**
  * Hook for master PIC container state.
+ *
  * @returns {MasterPicContainerState} Container state
  */
 export const useMasterPicContainerState = (): MasterPicContainerState => {
   const pagination = useMasterPicPagination();
   const [isMoreOpen, setIsMoreOpen] = useState(false);
 
-  /** Toggle dropdown menu. */
+    /**
+   * Toggle dropdown menu.
+   */
   const toggleMore = (): void => {
     setIsMoreOpen((previous) => !previous);
   };
 
-  /** Close menu and delete. */
+    /**
+   * Close menu and delete.
+   */
   const goDelete = (): void => {
     setIsMoreOpen(false);
   };
 
-  /** Close dropdown menu. */
+    /**
+   * Close dropdown menu.
+   */
   const handleCloseMore = (): void => {
     setIsMoreOpen(false);
   };

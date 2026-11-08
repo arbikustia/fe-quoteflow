@@ -78,6 +78,24 @@ export type MasterOrderTypeNavigation = {
   goEdit: (orderType: OrderTypeData) => void;
 };
 
+export type OrderTypePaginationHandlers = {
+  goToPage: (page: number) => void;
+  nextPage: () => void;
+  prevPage: () => void;
+  changePageSize: (size: number) => void;
+  handleSearchTerm: (value: string) => void;
+};
+
+export type OrderTypePaginationContext = {
+  currentPage: number;
+  derived: OrderTypeListApiState;
+  hasNext: boolean;
+  hasPrevious: boolean;
+  setPage: (page: number) => void;
+  setSize: (size: number) => void;
+  setTerm: (term: string) => void;
+};
+
 export type MasterOrderTypePagination = {
   currentPage: number;
   totalPages: number;

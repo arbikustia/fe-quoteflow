@@ -10,14 +10,16 @@ import type { VoucherData, VoucherRouteState } from "./MasterVoucher.type";
 
 /**
  * Master Voucher Container
+ *
  * @returns {React.ReactElement} Container component
  */
 const MasterVoucherContainer = (): React.ReactElement => {
   const location = useLocation();
   const routeState: VoucherRouteState | null = location.state;
   const containerState = useMasterVoucherContainerState();
-  /**
+    /**
    * Handle voucher template download.
+   *
    * @param {VoucherData} voucher - Voucher row
    * @returns {void} No return value
    */

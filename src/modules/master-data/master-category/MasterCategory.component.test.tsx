@@ -6,7 +6,7 @@ import { fireEvent, render, screen } from "@/libs/unit-test";
 import { MasterCategoryComponent } from "./MasterCategory.component";
 import type { CategoryData, MasterCategoryProps } from "./MasterCategory.type";
 
-jest.mock("../../app/layout", () =>
+jest.mock("../../../app/layout", () =>
   ({ children }: { children: React.ReactNode }) => <div>{children}</div>,
 );
 

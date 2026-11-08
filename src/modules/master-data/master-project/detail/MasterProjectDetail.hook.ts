@@ -1,15 +1,17 @@
 import { useNavigate, useParams } from "react-router-dom";
 
+import type { ProjectData } from "../MasterProject.type";
+
+import type { MasterProjectDetailState } from "./MasterProjectDetail.type";
+
 import {
   mapProject,
   useGetProjectByIdQuery,
 } from "@/services/master-project.service";
 
-import type { MasterProjectDetailState } from "./MasterProjectDetail.type";
-import type { ProjectData } from "../MasterProject.type";
-
 /**
  * Resolve error message for project detail query.
+ *
  * @param {boolean} hasError - Query error flag
  * @param {boolean} isMissingData - Missing status flag
  * @returns {string | null} Error message or null
@@ -31,6 +33,7 @@ const _resolveErrorMessage = (
 
 /**
  * Manage project detail state.
+ *
  * @returns {MasterProjectDetailState} Detail state
  */
 export const useMasterProjectDetail = (): MasterProjectDetailState => {
@@ -43,16 +46,18 @@ export const useMasterProjectDetail = (): MasterProjectDetailState => {
     data?.status && data.data ? mapProject(data.data) : null;
   const errorMessage = _resolveErrorMessage(Boolean(error), Boolean(data && !data.status));
 
-  /**
+    /**
    * Navigate back.
+   *
    * @returns {void} No return value
    */
   const goBack = (): void => {
     navigate("/master-project");
   };
 
-  /**
+    /**
    * Navigate to project edit page.
+   *
    * @returns {void} No return value
    */
   const goEdit = (): void => {

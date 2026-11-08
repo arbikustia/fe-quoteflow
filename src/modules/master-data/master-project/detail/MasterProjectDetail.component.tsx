@@ -1,12 +1,14 @@
 import type { ReactElement } from "react";
 
-import Layout from "@/app/layout";
+import type { ProjectData } from "../MasterProject.type";
 
 import type { MasterProjectDetailState } from "./MasterProjectDetail.type";
-import type { ProjectData } from "../MasterProject.type";
+
+import Layout from "@/app/layout";
 
 /**
  * Render details section for project.
+ *
  * @param {ProjectData} project - Project details data
  * @returns {ReactElement} Details elements
  */
@@ -43,6 +45,7 @@ const _renderDetails = (project: ProjectData): ReactElement => (
 
 /**
  * Master Project Detail pure UI component.
+ *
  * @param {MasterProjectDetailState} props - Detail state and handlers
  * @returns {ReactElement} Detail page
  */

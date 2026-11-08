@@ -1,13 +1,13 @@
-import type { ReactElement } from "react";
+import type { ReactElement, SyntheticEvent } from "react";
 
 import { AlertComponent } from "@/components/Alert";
 import { RichTextEditor } from "@/components/RichTextEditor";
 import { SwitchComponent } from "@/components/Switch";
 
+import type { NoteCreateProps } from "./Note.type";
+
 import Layout from "@/app/layout";
 import { PageLayout } from "@/app/shared/PageLayout";
-
-import type { NoteCreateProps } from "./Note.type";
 
 /**
  * Get note submit button text.
@@ -21,6 +21,46 @@ const _getSubmitText = (props: NoteCreateProps): string => {
 };
 
 /**
+ * Render the note editor fields.
+ *
+ * @param {NoteCreateProps} props - Create page props
+ * @returns {ReactElement} Editor fields
+ */
+const _renderFields = (props: NoteCreateProps): ReactElement => (
+  <div className="space-y-6">
+    <div>
+      <label htmlFor="note-content" className="mb-3 block text-xl font-semibold text-text-primary lg:text-lg">Content</label>
+      <div id="note-content"><RichTextEditor value={props.editorContent} onChange={props.onContentChange} placeholder="Write your note..." /></div>
+    </div>
+    {props.isEditMode && <div className="flex items-center justify-between rounded-3xl border border-border-default bg-background-surface px-5 py-4"><div className="flex flex-col"><span className="text-xl font-semibold text-text-primary lg:text-lg">Status</span><span className="text-lg text-text-secondary lg:text-base">Toggle active or inactive status</span></div><SwitchComponent label="Note status" checked={props.isActive} onChange={props.onStatusChange} /></div>}
+  </div>
+);
+
+/**
+ * Render the note form actions.
+ * @param {NoteCreateProps} props - Create page props
+ * @param {string} submitText - Submit label
+ * @returns {ReactElement} Form actions
+ */
+const _renderActions = (props: NoteCreateProps, submitText: string): ReactElement => (
+  <div className="mt-8 flex items-center justify-between gap-3 border-t border-border-default pt-6">
+    <button type="button" onClick={props.onBack} disabled={props.isSubmitting} className="h-14 flex-1 cursor-pointer rounded-3xl border border-border-default bg-background-surface px-6 text-lg font-semibold text-text-primary transition-colors hover:bg-background-subtle disabled:cursor-not-allowed disabled:opacity-60 sm:flex-initial sm:px-8">Cancel</button>
+    <button type="submit" disabled={props.isSubmitting} className="h-14 flex-1 cursor-pointer rounded-3xl bg-action-primary px-6 text-lg font-semibold tracking-wide text-text-inverse shadow-xs transition-all hover:bg-action-primary-hover disabled:cursor-not-allowed disabled:opacity-60 sm:flex-initial sm:px-8">{submitText}</button>
+  </div>
+);
+
+/**
+ * Submit the note form.
+ * @param {SyntheticEvent<HTMLFormElement>} event - Form event
+ * @param {NoteCreateProps} props - Create page props
+ * @returns {void} No return value
+ */
+const _handleSubmit = (event: SyntheticEvent<HTMLFormElement>, props: NoteCreateProps): void => {
+  event.preventDefault();
+  props.onSubmitNote();
+};
+
+/**
  * Render note create page.
  * @param {NoteCreateProps} props - Create page props
  * @returns {ReactElement} Note create page
@@ -28,61 +68,24 @@ const _getSubmitText = (props: NoteCreateProps): string => {
 export const NoteCreateComponent = (props: NoteCreateProps): ReactElement => {
   const title = props.isEditMode ? "Edit Note" : "New Note";
   const subtitle = props.isEditMode ? "Update note details below." : "Write details for your new note below.";
+  const submitText = _getSubmitText(props);
+  /**
+   * Handle form submit events.
+   *
+   * @param {SyntheticEvent<HTMLFormElement>} event - Form event
+   * @returns {void} No return value
+   */
+  const handleSubmit = (event: SyntheticEvent<HTMLFormElement>): void => _handleSubmit(event, props);
 
-  return (
-    <Layout pageTitle={title}>
-      {props.errorMessage && <AlertComponent type="error" message={props.errorMessage} toast closable />}
-      <PageLayout
-        title={title}
-        subtitle={subtitle}
-        mobileHeaderClassName="px-0"
-        mobileTitleClassName="text-4xl"
-        onBack={props.onBack}
-      >
-        <form
-          noValidate
-          onSubmit={(event): void => {
-            event.preventDefault();
-            props.onSubmitNote();
-          }}
-          className="flex min-h-0 flex-1 flex-col justify-between rounded-3xl border border-border-default bg-background-surface p-6 shadow-medium lg:p-8"
-        >
-          <div className="space-y-6">
-            <div>
-              <label htmlFor="note-content" className="mb-3 block text-xl font-semibold text-text-primary lg:text-lg">Content</label>
-              <div id="note-content"><RichTextEditor value={props.editorContent} onChange={props.onContentChange} placeholder="Write your note..." /></div>
-            </div>
-            {props.isEditMode && (
-              <div className="flex items-center justify-between rounded-3xl border border-border-default bg-background-surface px-5 py-4">
-                <div className="flex flex-col">
-                  <span className="text-xl font-semibold text-text-primary lg:text-lg">Status</span>
-                  <span className="text-lg text-text-secondary lg:text-base">Toggle active or inactive status</span>
-                </div>
-                <SwitchComponent label="Note status" checked={props.isActive} onChange={props.onStatusChange} />
-              </div>
-            )}
-          </div>
-          <div className="mt-8 flex items-center justify-between gap-3 border-t border-border-default pt-6">
-            <button
-              type="button"
-              onClick={props.onBack}
-              disabled={props.isSubmitting}
-              className="h-14 flex-1 cursor-pointer rounded-3xl border border-border-default bg-background-surface px-6 text-lg font-semibold text-text-primary transition-colors hover:bg-background-subtle disabled:cursor-not-allowed disabled:opacity-60 sm:flex-initial sm:px-8"
-            >
-              Cancel
-            </button>
-            <button
-              type="submit"
-              disabled={props.isSubmitting}
-              className="h-14 flex-1 cursor-pointer rounded-3xl bg-action-primary px-6 text-lg font-semibold tracking-wide text-text-inverse shadow-xs transition-all hover:bg-action-primary-hover disabled:cursor-not-allowed disabled:opacity-60 sm:flex-initial sm:px-8"
-            >
-              {_getSubmitText(props)}
-            </button>
-          </div>
-        </form>
-      </PageLayout>
-    </Layout>
-  );
+  return <Layout pageTitle={title}>
+    {props.errorMessage && <AlertComponent type="error" message={props.errorMessage} toast closable />}
+    <PageLayout title={title} subtitle={subtitle} mobileHeaderClassName="px-0" mobileTitleClassName="text-4xl" onBack={props.onBack}>
+      <form noValidate onSubmit={handleSubmit} className="flex min-h-0 flex-1 flex-col justify-between rounded-3xl border border-border-default bg-background-surface p-6 shadow-medium lg:p-8">
+        {_renderFields(props)}
+        {_renderActions(props, submitText)}
+      </form>
+    </PageLayout>
+  </Layout>;
 };
 
 export default NoteCreateComponent;

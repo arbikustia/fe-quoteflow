@@ -1,18 +1,20 @@
-import {
-  mapUser,
-  useCreateUserMutation,
-  useUpdateUserMutation,
-} from "@/services/master-user.service";
-
-import type { UserSubmissionParams } from "./MasterUserCreate.type";
 import type {
   UserCreateResponse,
   UserData,
   UserDetailResponse,
 } from "../MasterUser.type";
 
+import type { UserSubmissionParams } from "./MasterUserCreate.type";
+
+import {
+  mapUser,
+  useCreateUserMutation,
+  useUpdateUserMutation,
+} from "@/services/master-user.service";
+
 /**
  * Resolve detail response into single UI user.
+ *
  * @param {UserDetailResponse | undefined} response - Detail response
  * @returns {UserData | null} User or null
  */
@@ -32,6 +34,7 @@ export const resolveUserDetail = (
 
 /**
  * Resolve role request error message.
+ *
  * @param {boolean} hasRoleError - Whether request failed
  * @param {boolean | undefined} responseStatus - API response status
  * @returns {string | null} Error message
@@ -53,6 +56,7 @@ export const getRoleOptionsError = (
 
 /**
  * Send create or update user mutation.
+ *
  * @param {UserSubmissionParams} params - Submission parameters
  * @param {ReturnType<typeof useCreateUserMutation>[0]} createUser - Create trigger
  * @param {ReturnType<typeof useUpdateUserMutation>[0]} updateUser - Update trigger
@@ -87,6 +91,7 @@ export const sendUserMutation = (
 
 /**
  * Resolve submission error message depending on mode.
+ *
  * @param {boolean} isEditMode - Edit mode flag
  * @returns {string} Error message
  */

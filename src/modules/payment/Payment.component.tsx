@@ -1,4 +1,3 @@
-/* eslint-disable jsdoc/require-jsdoc */
 import * as React from "react";
 import { FiEdit2, FiEye } from "react-icons/fi";
 
@@ -59,6 +58,11 @@ const _renderPaidAt = (row: PaymentData): React.ReactElement => (
   <span className="text-lg">{formatDate(row.paidAt)}</span>
 );
 
+/**
+ * Render remaining payment amount.
+ * @param {PaymentData} row - Payment row
+ * @returns {React.ReactElement} Remaining amount
+ */
 const _renderRemaining = (row: PaymentData): React.ReactElement => (
   <span className="text-lg font-semibold">{formatCurrency(row.remainingAmount ?? 0)}</span>
 );
@@ -81,6 +85,7 @@ const _renderStatus = (row: PaymentData): React.ReactElement => {
 /**
  * Render payment edit action.
  * @param {PaymentData} payment - Payment row
+ * @param {(payment: PaymentData) => void} onDetail - Detail callback
  * @param {(payment: PaymentData) => void} onEdit - Edit callback
  * @returns {React.ReactElement} Edit button
  */
@@ -122,16 +127,32 @@ const _renderActions = (
  * @param {PaymentProps} props - Payment page props
  * @returns {TableColumn<PaymentData>[]} Payment columns
  */
-const _getColumns = (props: PaymentProps): TableColumn<PaymentData>[] => [
-  { key: "no", header: "No", align: "center", render: (_row: PaymentData, index: number): React.ReactElement => _renderRowNumber(props, index) },
-  { key: "invoiceNo", header: "Invoice No", render: _renderInvoiceNo },
-  { key: "customerName", header: "Customer Name", render: _renderCustomerName },
-  { key: "amount", header: "Amount", align: "right", render: _renderAmount },
-  { key: "paidAt", header: "Last Payment", render: _renderPaidAt },
-  { key: "remainingAmount", header: "Remaining", align: "right", render: _renderRemaining },
-  { key: "status", header: "Status", align: "center", render: _renderStatus },
-  { key: "actions", header: "Action", align: "center", render: (row: PaymentData): React.ReactElement => _renderActions(row, props.onDetail ?? props.onRowClick, props.onEdit) },
-];
+const _getColumns = (props: PaymentProps): TableColumn<PaymentData>[] => {
+  /**
+   * Render row number.
+   * @param {PaymentData} _row - Payment row
+   * @param {number} index - Row index
+   * @returns {React.ReactElement} Row number
+   */
+  const renderRowNumber = (_row: PaymentData, index: number): React.ReactElement => _renderRowNumber(props, index);
+  /**
+   * Render row actions.
+   * @param {PaymentData} row - Payment row
+   * @returns {React.ReactElement} Row actions
+   */
+  const renderActions = (row: PaymentData): React.ReactElement => _renderActions(row, props.onDetail ?? props.onRowClick, props.onEdit);
+
+  return [
+    { key: "no", header: "No", align: "center", render: renderRowNumber },
+    { key: "invoiceNo", header: "Invoice No", render: _renderInvoiceNo },
+    { key: "customerName", header: "Customer Name", render: _renderCustomerName },
+    { key: "amount", header: "Amount", align: "right", render: _renderAmount },
+    { key: "paidAt", header: "Last Payment", render: _renderPaidAt },
+    { key: "remainingAmount", header: "Remaining", align: "right", render: _renderRemaining },
+    { key: "status", header: "Status", align: "center", render: _renderStatus },
+    { key: "actions", header: "Action", align: "center", render: renderActions },
+  ];
+};
 
 /**
  * Get column text alignment class.
@@ -298,6 +319,11 @@ const _renderTableContent = (props: PaymentProps): React.ReactElement => {
  * @returns {React.ReactElement} Mobile payment list
  */
 const _renderMobileCards = (props: PaymentProps): React.ReactElement => {
+  /**
+   * Update payment search.
+   * @param {React.ChangeEvent<HTMLInputElement>} event - Search input event
+   * @returns {void} No return value
+   */
   const handleSearch = (event: React.ChangeEvent<HTMLInputElement>): void => props.setSearchTerm(event.target.value);
 
   return (
@@ -317,6 +343,11 @@ const _renderMobileCards = (props: PaymentProps): React.ReactElement => {
  * @returns {React.ReactElement} Desktop table section
  */
 const _renderTable = (props: PaymentProps): React.ReactElement => {
+  /**
+   * Update payment search.
+   * @param {React.ChangeEvent<HTMLInputElement>} event - Search input event
+   * @returns {void} No return value
+   */
   const handleSearch = (event: React.ChangeEvent<HTMLInputElement>): void => props.setSearchTerm(event.target.value);
 
   return (

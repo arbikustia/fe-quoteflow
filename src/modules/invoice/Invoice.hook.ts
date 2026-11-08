@@ -1,9 +1,12 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-import type { InvoiceData, InvoicePageData, InvoicePagination } from "./Invoice.type";
+import { generateInvoicePDF } from "@/utils/pdfGenerator";
 
-import { mapInvoice, useGetInvoicesQuery } from "@/services/invoice.service";
+import { invoiceToQuoteData } from "./Invoice.helpers";
+import type { InvoiceData, InvoiceNavigation, InvoicePageData, InvoicePagination } from "./Invoice.type";
+
+import { mapInvoice, useGetInvoicesQuery, useLazyGetInvoiceByIdQuery } from "@/services/invoice.service";
 
 /**
  * Derive invoice rows from API.
@@ -34,11 +37,7 @@ export const useInvoicePagination = (): InvoicePagination => {
   const query = useGetInvoicesQuery({ pageNumber: currentPage, pageSize, searchTerm });
   const pageData = _getInvoicePageData(query);
   const boundedCurrentPage = Math.max(1, Math.min(currentPage, pageData.totalPages || 1));
-  let errorMessage: string | null = null;
-
-  if (query.isError) {
-    errorMessage = "Unable to load invoices.";
-  }
+  const errorMessage = query.isError ? "Unable to load invoices." : undefined;
 
   /**
    * Set search term and reset pagination.
@@ -83,16 +82,12 @@ export const useInvoicePagination = (): InvoicePagination => {
 };
 
 /**
- * Provide invoice navigation.
- * @returns {{onBack: () => void; onRowClick: (invoice: InvoiceData) => void; onDetail: (invoice: InvoiceData) => void; onEdit: (invoice: InvoiceData) => void}} Invoice navigation callbacks
+ * Provide invoice navigation and list actions.
+ * @returns {InvoiceNavigation} Invoice callbacks
  */
-export const useInvoiceNavigation = (): {
-  onBack: () => void;
-  onRowClick: (invoice: InvoiceData) => void;
-  onDetail: (invoice: InvoiceData) => void;
-  onEdit: (invoice: InvoiceData) => void;
-} => {
+export const useInvoiceNavigation = (): InvoiceNavigation => {
   const navigate = useNavigate();
+  const [getInvoice] = useLazyGetInvoiceByIdQuery();
 
   /**
    * Navigate back to document menu.
@@ -127,5 +122,18 @@ export const useInvoiceNavigation = (): {
     });
   };
 
-  return { onBack, onRowClick, onDetail, onEdit };
+  /**
+   * Download invoice using complete detail data.
+   * @param {InvoiceData} invoice - Selected invoice
+   * @returns {Promise<void>} Completion promise
+   */
+  const onDownload = async (invoice: InvoiceData): Promise<void> => {
+    const response = await getInvoice(invoice.id).unwrap();
+
+    if (response.data) {
+      generateInvoicePDF(invoiceToQuoteData(response.data));
+    }
+  };
+
+  return { onBack, onRowClick, onDetail, onEdit, onDownload };
 };

@@ -45,21 +45,30 @@ exports[`MasterMainContainer matches snapshot 1`] = `
         >
           <button
             aria-label="Back"
-            class="flex h-14 w-14 shrink-0 items-center justify-center rounded-full border border-border-default text-text-primary bg-white hover:bg-background-subtle transition-colors"
+            class="flex h-14 w-14 shrink-0 items-center justify-center rounded-full border border-border-default bg-background-page text-text-primary transition-colors hover:bg-background-subtle focus-visible:ring-2 focus-visible:ring-focus-ring/30 "
             type="button"
           >
             <svg
               aria-hidden="true"
-              class="w-6 h-6"
+              class="h-6 w-6"
               fill="none"
+              height="1em"
               stroke="currentColor"
               stroke-linecap="round"
               stroke-linejoin="round"
-              stroke-width="2.5"
+              stroke-width="2"
               viewBox="0 0 24 24"
+              width="1em"
+              xmlns="http://www.w3.org/2000/svg"
             >
-              <path
-                d="M19 12H5M12 19l-7-7 7-7"
+              <line
+                x1="19"
+                x2="5"
+                y1="12"
+                y2="12"
+              />
+              <polyline
+                points="12 19 5 12 12 5"
               />
             </svg>
           </button>

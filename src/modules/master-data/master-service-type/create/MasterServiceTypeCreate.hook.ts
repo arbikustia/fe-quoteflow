@@ -2,7 +2,10 @@ import type { ChangeEvent, SyntheticEvent } from "react";
 import { useState } from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 
-import type { ServiceTypeData } from "../MasterServiceType.type";
+import {
+  useCreateServiceTypeMutation,
+  useUpdateServiceTypeMutation,
+} from "@/services/master-service-type.service";
 
 import {
   formatServiceTypeMessages,
@@ -14,14 +17,11 @@ import type {
   ServiceTypeFormFieldsState,
   ServiceTypeSubmissionValues,
 } from "./MasterServiceTypeCreate.type";
-
-import {
-  useCreateServiceTypeMutation,
-  useUpdateServiceTypeMutation,
-} from "@/services/master-service-type.service";
+import type { ServiceTypeData } from "../MasterServiceType.type";
 
 /**
  * Send create or update mutation for service type.
+ *
  * @param {ServiceTypeSubmissionValues} params - Submission params
  * @param {ReturnType<typeof useCreateServiceTypeMutation>[0]} createServiceType - Create trigger
  * @param {ReturnType<typeof useUpdateServiceTypeMutation>[0]} updateServiceType - Update trigger
@@ -46,6 +46,7 @@ const _sendServiceTypeMutation = (
 
 /**
  * Execute form submission.
+ *
  * @param {ServiceTypeSubmissionValues} params - Submission values
  * @param {ReturnType<typeof useCreateServiceTypeMutation>[0]} createServiceType - Create trigger
  * @param {ReturnType<typeof useUpdateServiceTypeMutation>[0]} updateServiceType - Update trigger
@@ -60,7 +61,10 @@ const _executeSubmit = async (
   updateServiceType: ReturnType<typeof useUpdateServiceTypeMutation>[0],
   handlers: {
     setErrorMessage: (msg: string | null) => void;
-    navigate: (path: string, options?: { state: { successMessage: string } }) => void;
+    navigate: (
+      path: string,
+      options?: { state: { successMessage: string } },
+    ) => void;
   },
 ): Promise<void> => {
   try {
@@ -76,7 +80,9 @@ const _executeSubmit = async (
       return;
     }
 
-    const successMessage = params.isEditMode ? "Service type updated successfully." : "Service type created successfully.";
+    const successMessage = params.isEditMode
+      ? "Service type updated successfully."
+      : "Service type created successfully.";
 
     handlers.navigate("/master-service-type", { state: { successMessage } });
   } catch {
@@ -86,6 +92,7 @@ const _executeSubmit = async (
 
 /**
  * Manage service type form field states.
+ *
  * @param {ServiceTypeData | undefined} routeServiceType - Route state item
  * @returns {ServiceTypeFormFieldsState} Field states and handlers
  */
@@ -93,20 +100,28 @@ const useServiceTypeFields = (
   routeServiceType: ServiceTypeData | undefined,
 ): ServiceTypeFormFieldsState => {
   const [serviceName, setServiceName] = useState(routeServiceType?.name ?? "");
-  const [price, setPrice] = useState(routeServiceType ? String(routeServiceType.price) : "");
-  const [isActive, setIsActive] = useState(routeServiceType ? routeServiceType.status === "active" : true);
+  const [price, setPrice] = useState(
+    routeServiceType ? String(routeServiceType.price) : "",
+  );
+  const [isActive, setIsActive] = useState(
+    routeServiceType ? routeServiceType.status === "active" : true,
+  );
 
-  /**
+    /**
    * Handle service name change.
+   *
    * @param {ChangeEvent<HTMLInputElement>} event - Change event
    * @returns {void} No return value
    */
-  const handleServiceNameChange = (event: ChangeEvent<HTMLInputElement>): void => {
+  const handleServiceNameChange = (
+    event: ChangeEvent<HTMLInputElement>,
+  ): void => {
     setServiceName(event.target.value);
   };
 
-  /**
+    /**
    * Handle service price change.
+   *
    * @param {ChangeEvent<HTMLInputElement>} event - Change event
    * @returns {void} No return value
    */
@@ -114,8 +129,9 @@ const useServiceTypeFields = (
     setPrice(parseRupiahInput(event.target.value));
   };
 
-  /**
+    /**
    * Handle active status toggle.
+   *
    * @returns {void} No return value
    */
   const handleStatusChange = (): void => {
@@ -134,51 +150,58 @@ const useServiceTypeFields = (
 
 /**
  * Hook for master service type create/edit form.
+ *
  * @returns {MasterServiceTypeCreateFormState} Service type create form state
  */
-export const useMasterServiceTypeCreateForm = (): MasterServiceTypeCreateFormState => {
-  const navigate = useNavigate();
-  const location = useLocation();
-  const { id } = useParams<{ id: string }>();
-  const isEditMode = Boolean(id);
-  const routeServiceType: ServiceTypeData | undefined = location.state?.serviceType;
+export const useMasterServiceTypeCreateForm =
+  (): MasterServiceTypeCreateFormState => {
+    const navigate = useNavigate();
+    const location = useLocation();
+    const { id } = useParams<{ id: string }>();
+    const isEditMode = Boolean(id);
+    const routeServiceType: ServiceTypeData | undefined =
+      location.state?.serviceType;
 
-  const fields = useServiceTypeFields(routeServiceType);
-  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+    const fields = useServiceTypeFields(routeServiceType);
+    const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
-  const [createServiceType, { isLoading: isCreating }] = useCreateServiceTypeMutation();
-  const [updateServiceType, { isLoading: isUpdating }] = useUpdateServiceTypeMutation();
+    const [createServiceType, { isLoading: isCreating }] =
+      useCreateServiceTypeMutation();
+    const [updateServiceType, { isLoading: isUpdating }] =
+      useUpdateServiceTypeMutation();
 
-  /**
-   * Handle form submission.
-   * @param {SyntheticEvent} event - Submit event
-   * @returns {Promise<void>} Async result
-   */
-  const handleSubmit = async (event: SyntheticEvent): Promise<void> => {
-    event.preventDefault();
-    setErrorMessage(null);
-    await _executeSubmit(
-      { id, isEditMode, ...fields },
-      createServiceType,
-      updateServiceType,
-      { setErrorMessage, navigate },
-    );
+        /**
+     * Handle form submission.
+     *
+     * @param {SyntheticEvent} event - Submit event
+     * @returns {Promise<void>} Async result
+     */
+    const handleSubmit = async (event: SyntheticEvent): Promise<void> => {
+      event.preventDefault();
+      setErrorMessage(null);
+      await _executeSubmit(
+        { id, isEditMode, ...fields },
+        createServiceType,
+        updateServiceType,
+        { setErrorMessage, navigate },
+      );
+    };
+
+        /**
+     * Navigate back.
+     *
+     * @returns {void} No return value
+     */
+    const goBack = (): void => {
+      navigate("/master-service-type");
+    };
+
+    return {
+      ...fields,
+      isEditMode,
+      isSubmitting: isCreating || isUpdating,
+      errorMessage,
+      handleSubmit,
+      goBack,
+    };
   };
-
-  /**
-   * Navigate back.
-   * @returns {void} No return value
-   */
-  const goBack = (): void => {
-    navigate("/master-service-type");
-  };
-
-  return {
-    ...fields,
-    isEditMode,
-    isSubmitting: isCreating || isUpdating,
-    errorMessage,
-    handleSubmit,
-    goBack,
-  };
-};

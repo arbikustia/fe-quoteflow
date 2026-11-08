@@ -1,7 +1,9 @@
 import type * as React from "react";
 import type { ChangeEvent, SyntheticEvent } from "react";
+import type { FieldErrors, UseFormSetValue } from "react-hook-form";
 
 import type { RoleOption } from "../../master-role/MasterRole.type";
+import type { UserData } from "../MasterUser.type";
 
 export type UserFormFieldsState = UserFormValues & UserFormValidation & {
   isPasswordVisible: boolean;
@@ -40,6 +42,36 @@ export type UserSubmissionState = {
   isSubmitting: boolean;
   errorMessage: string | null;
   handleSubmit: (event: SyntheticEvent) => Promise<void>;
+};
+
+export type UserFormHandlers = Pick<
+  UserFormFieldsState,
+  | "handleUsernameChange"
+  | "handleEmailChange"
+  | "handlePasswordChange"
+  | "handleTogglePasswordVisibility"
+  | "handleRoleChange"
+  | "handleStatusChange"
+>;
+
+export type UserFormHandlersInput = {
+  setValue: UseFormSetValue<UserFormValues>;
+  errors: FieldErrors<UserFormValues>;
+  isActive: boolean;
+  setIsPasswordVisible: React.Dispatch<React.SetStateAction<boolean>>;
+};
+
+export type UserRouteParamsState = {
+  id: string | undefined;
+  isEditMode: boolean;
+  routeUser: UserData | undefined;
+};
+
+export type UserReferenceDataState = {
+  apiItem: UserData | null;
+  roleOptions: RoleOption[];
+  roleOptionsLoading: boolean;
+  roleOptionsError: string | null;
 };
 
 export type UserFieldInputsState = {
