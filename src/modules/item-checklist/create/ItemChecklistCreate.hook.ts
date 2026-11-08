@@ -86,6 +86,7 @@ const _buildPayload = (
   checklist?: ApiChecklist,
 ): ChecklistCreatePayload => ({
   order_id: orderId,
+  ...(checklist ? { checklist_no: checklist.checklist_no } : {}),
   status,
   items: rows.map((row) => ({
     item_id: row.itemId,

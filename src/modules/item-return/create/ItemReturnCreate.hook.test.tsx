@@ -27,6 +27,7 @@ const mockReturn: ApiReturn = {
       id: "entry-1",
       return_id: "return-1",
       item_id: "item-1",
+      category_name: "Sound System",
       qty: 2,
       condition: "Good",
       notes: "Speaker",

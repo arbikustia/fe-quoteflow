@@ -4,6 +4,8 @@ export type ApiReturnItem = {
   id: string;
   return_id: string;
   item_id: string;
+  item_name?: string;
+  category_name?: string;
   qty: number;
   condition: string;
   notes: string;

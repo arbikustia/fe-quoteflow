@@ -40,8 +40,8 @@ const _getReturnItems = (returnData: ApiReturn, categories: Map<string, string>)
   returnData.items.map((item): ReturnOrderItemRow => ({
     id: item.id,
     itemId: item.item_id,
-    itemName: item.notes || `Item ${item.item_id.slice(0, 8)}`,
-    category: categories.get(item.item_id) ?? "-",
+    itemName: item.item_name || item.notes || `Item ${item.item_id.slice(0, 8)}`,
+    category: item.category_name || (categories.get(item.item_id) ? categories.get(item.item_id) : "-"),
     qty: item.qty,
     unit: item.qty === 1 ? "unit" : "units",
     condition: item.condition || "Good",

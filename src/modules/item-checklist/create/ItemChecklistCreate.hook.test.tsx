@@ -155,7 +155,7 @@ describe("useItemChecklistCreate", () => {
     expect(result.current.filteredOrderItems).toHaveLength(1);
   });
 
-  it("should load saved flags and update checklist without checklist_date", async () => {
+  it("should update checklist with checklist_no and without checklist_date", async () => {
     const { result } = renderHook(() => ({ form: useItemChecklistCreate(), location: useLocation() }), { wrapper: EditRoute });
     await waitFor(() => expect(result.current.form.moveOutItemIds).toEqual(["entry-1"]));
     expect(result.current.form.moveInItemIds).toEqual(["entry-2"]);
@@ -168,6 +168,7 @@ describe("useItemChecklistCreate", () => {
       id: "checklist-1",
       body: {
         order_id: "order-1",
+        checklist_no: "CHK-1",
         status: 1,
         items: [
           { item_id: "item-1", description: "Speaker description", qty: 2, move_out: true, move_in: true, sign: "PIC" },

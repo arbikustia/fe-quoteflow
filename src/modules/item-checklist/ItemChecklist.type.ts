@@ -50,6 +50,7 @@ export type ChecklistItemPayload = {
 };
 export type ChecklistCreatePayload = {
   order_id: string;
+  checklist_no?: string;
   status: number;
   items: ChecklistItemPayload[];
 };
