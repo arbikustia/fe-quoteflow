@@ -1,19 +1,56 @@
 import * as React from "react";
 import { FiEdit2 } from "react-icons/fi";
 
-import type { OrderProps, QuoteData } from "./Order.type";
 import Layout from "../../app/layout";
 import { PageLayout } from "../../app/shared/PageLayout";
 import { Pagination } from "../../components/Pagination";
 import { SearchFilter } from "../../components/SearchFilter";
 import Table, { type TableColumn } from "../../components/Table";
 
+import type { OrderProps, QuoteData } from "./Order.type";
+
 /**
  * Format order currency.
  * @param {number} value - Amount
  * @returns {string} Formatted currency
  */
-const _formatCurrency = (value: number): string => `Rp ${value.toLocaleString("id-ID")}`;
+const _formatCurrency = (value: number): string =>
+  `Rp ${value.toLocaleString("id-ID")}`;
+
+/**
+ * Render the row number for the current page.
+ * @param {QuoteData} _row - Order row
+ * @param {number} index - Zero-based row index
+ * @param {OrderProps} props - Order page props
+ * @returns {React.ReactElement} Row number
+ */
+const _renderRowNumber = (
+  _row: QuoteData,
+  index: number,
+  props: OrderProps,
+): React.ReactElement => (
+  <span>{(props.currentPage - 1) * props.pageSize + index + 1}</span>
+);
+
+/**
+ * Render the order total.
+ * @param {QuoteData} row - Order row
+ * @returns {React.ReactElement} Order total
+ */
+const _renderGrandTotal = (row: QuoteData): React.ReactElement => (
+  <span>{row.grandTotal.toLocaleString("id-ID")}</span>
+);
+
+/**
+ * Render the edit action for an order.
+ * @param {QuoteData} row - Order row
+ * @param {OrderProps} props - Order page props
+ * @returns {React.ReactElement} Edit action
+ */
+const _renderColumnEditAction = (
+  row: QuoteData,
+  props: OrderProps,
+): React.ReactElement => _renderEditAction(row, props.openEditModal);
 
 /**
  * Build order table columns.
@@ -21,14 +58,42 @@ const _formatCurrency = (value: number): string => `Rp ${value.toLocaleString("i
  * @returns {TableColumn<QuoteData>[]} Order columns
  */
 const _getColumns = (props: OrderProps): TableColumn<QuoteData>[] => [
-  { key: "no", header: "No", align: "center", render: (_row: QuoteData, index: number): React.ReactElement => <span>{(props.currentPage - 1) * props.pageSize + index + 1}</span> },
+  {
+    key: "no",
+    header: "No",
+    align: "center",
+    /**
+     * Render the row number.
+     * @param {QuoteData} row - Order row
+     * @param {number} index - Zero-based row index
+     * @returns {React.ReactElement} Row number
+     */
+    render: (row: QuoteData, index: number): React.ReactElement =>
+      _renderRowNumber(row, index, props),
+  },
   { key: "name", header: "Event Name" },
   { key: "customerPhone", header: "Customer Phone" },
   { key: "location", header: "Address" },
   { key: "startDate", header: "Start Date" },
   { key: "endDate", header: "End Date" },
-  { key: "grandTotal", header: "Grand Total", align: "right", render: (row: QuoteData): React.ReactElement => <span>{row.grandTotal.toLocaleString("id-ID")}</span> },
-  { key: "actions", header: "Action", align: "center", render: (row: QuoteData): React.ReactElement => _renderEditAction(row, props.openEditModal) },
+  {
+    key: "grandTotal",
+    header: "Grand Total",
+    align: "right",
+    render: _renderGrandTotal,
+  },
+  {
+    key: "actions",
+    header: "Action",
+    align: "center",
+    /**
+     * Render the order edit action.
+     * @param {QuoteData} row - Order row
+     * @returns {React.ReactElement} Edit action
+     */
+    render: (row: QuoteData): React.ReactElement =>
+      _renderColumnEditAction(row, props),
+  },
 ];
 
 /**
@@ -37,14 +102,68 @@ const _getColumns = (props: OrderProps): TableColumn<QuoteData>[] => [
  * @param {(order: QuoteData) => void} onEdit - Edit callback
  * @returns {React.ReactElement} Edit button
  */
-const _renderEditAction = (order: QuoteData, onEdit: (order: QuoteData) => void): React.ReactElement => {
+const _renderEditAction = (
+  order: QuoteData,
+  onEdit: (order: QuoteData) => void,
+): React.ReactElement => {
+  /**
+   * Stop row navigation and open order editing.
+   * @param {React.MouseEvent<HTMLButtonElement>} event - Button click event
+   * @returns {void} No return value
+   */
   const handleEdit = (event: React.MouseEvent<HTMLButtonElement>): void => {
     event.stopPropagation();
     onEdit(order);
   };
 
-  return <button type="button" onClick={handleEdit} className="cursor-pointer rounded-lg p-1.5 text-text-secondary hover:bg-action-primary-subtle hover:text-action-primary" title="Edit order" aria-label="Edit order"><FiEdit2 className="h-4 w-4" /></button>;
+  return (
+    <button
+      type="button"
+      onClick={handleEdit}
+      className="cursor-pointer rounded-lg p-1.5 text-text-secondary hover:bg-action-primary-subtle hover:text-action-primary"
+      title="Edit order"
+      aria-label="Edit order"
+    >
+      <FiEdit2 className="h-4 w-4" />
+    </button>
+  );
 };
+
+/**
+ * Render mobile order card content.
+ * @param {QuoteData} order - Order row
+ * @param {string} status - Order status label
+ * @param {string} statusClass - Order status classes
+ * @returns {React.ReactElement} Order card content
+ */
+const _renderOrderCardContent = (
+  order: QuoteData,
+  status: string,
+  statusClass: string,
+): React.ReactElement => (
+  <>
+    <span className="min-w-0 flex-1">
+      <span className="block truncate text-2xl font-semibold text-text-primary">
+        {order.name || "-"}
+      </span>
+      <span className="mt-3 block">
+        <span className="grid gap-1 text-xl text-text-secondary">
+          <span className="truncate">{order.startDate || "-"}</span>
+          <span className="truncate">{order.endDate || "-"}</span>
+          <span className="truncate">{order.location || "-"}</span>
+          <span className="truncate">{_formatCurrency(order.grandTotal)}</span>
+        </span>
+      </span>
+    </span>
+    <span className="flex shrink-0 items-center gap-3">
+      <span
+        className={`rounded-full px-3 py-1 text-sm font-bold uppercase tracking-wider ${statusClass}`}
+      >
+        {status}
+      </span>
+    </span>
+  </>
+);
 
 /**
  * Render mobile order card.
@@ -52,7 +171,10 @@ const _renderEditAction = (order: QuoteData, onEdit: (order: QuoteData) => void)
  * @param {(quote: QuoteData) => void} onRowClick - Row click handler
  * @returns {React.ReactElement} Order card
  */
-const _renderOrderCard = (order: QuoteData, onRowClick: OrderProps["onRowClick"]): React.ReactElement => {
+const _renderOrderCard = (
+  order: QuoteData,
+  onRowClick: OrderProps["onRowClick"],
+): React.ReactElement => {
   /**
    * Open order details.
    * @returns {void} No return value
@@ -60,24 +182,18 @@ const _renderOrderCard = (order: QuoteData, onRowClick: OrderProps["onRowClick"]
   const handleClick = (): void => onRowClick(order);
 
   const status = order.status === 1 ? "active" : "inactive";
-  const statusClass = status === "active" ? "bg-success-subtle text-success-strong" : "bg-danger-subtle text-danger-strong";
+  const statusClass =
+    status === "active"
+      ? "bg-success-subtle text-success-strong"
+      : "bg-danger-subtle text-danger-strong";
 
   return (
-    <button type="button" onClick={handleClick} className="group flex w-full items-start gap-4 rounded-2xl border border-border-default bg-background-surface p-5 text-left shadow-small transition-colors hover:border-border-strong focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring">
-      <span className="min-w-0 flex-1">
-        <span className="block truncate text-2xl font-semibold text-text-primary">{order.name || "-"}</span>
-        <span className="mt-3 block">
-          <span className="grid gap-1 text-xl text-text-secondary">
-            <span className="truncate">{order.startDate || "-"}</span>
-            <span className="truncate">{order.endDate || "-"}</span>
-            <span className="truncate">{order.location || "-"}</span>
-            <span className="truncate">{_formatCurrency(order.grandTotal)}</span>
-          </span>
-        </span>
-      </span>
-      <span className="flex shrink-0 items-center gap-3">
-        <span className={`rounded-full px-3 py-1 text-sm font-bold uppercase tracking-wider ${statusClass}`}>{status}</span>
-      </span>
+    <button
+      type="button"
+      onClick={handleClick}
+      className="group flex w-full items-start gap-4 rounded-2xl border border-border-default bg-background-surface p-5 text-left shadow-small transition-colors hover:border-border-strong focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring"
+    >
+      {_renderOrderCardContent(order, status, statusClass)}
     </button>
   );
 };
@@ -92,7 +208,15 @@ const _renderMobileCards = (props: OrderProps): React.ReactElement => {
 
   if (listState) return listState;
 
-  return <div className="min-w-0 space-y-3">{props.paginatedData.map((order) => <React.Fragment key={order.id}>{_renderOrderCard(order, props.onRowClick)}</React.Fragment>)}</div>;
+  return (
+    <div className="min-w-0 space-y-3">
+      {props.paginatedData.map((order) => (
+        <React.Fragment key={order.id}>
+          {_renderOrderCard(order, props.onRowClick)}
+        </React.Fragment>
+      ))}
+    </div>
+  );
 };
 
 /**
@@ -101,14 +225,53 @@ const _renderMobileCards = (props: OrderProps): React.ReactElement => {
  * @returns {React.ReactElement | null} Active list state
  */
 const _renderListState = (props: OrderProps): React.ReactElement | null => {
-  if (props.isLoading) return <p className="py-10 text-center text-sm text-text-secondary">Loading orders…</p>;
+  if (props.isLoading)
+    return (
+      <p className="py-10 text-center text-sm text-text-secondary">
+        Loading orders…
+      </p>
+    );
 
-  if (props.errorMessage) return <p className="py-10 text-center text-sm text-danger">{props.errorMessage}</p>;
+  if (props.errorMessage)
+    return (
+      <p className="py-10 text-center text-sm text-danger">
+        {props.errorMessage}
+      </p>
+    );
 
-  if (props.isEmpty) return <p className="py-10 text-center text-sm text-text-secondary">No orders found.</p>;
+  if (props.isEmpty)
+    return (
+      <p className="py-10 text-center text-sm text-text-secondary">
+        No orders found.
+      </p>
+    );
 
   return null;
 };
+
+/**
+ * Render the desktop table controls.
+ * @param {OrderProps} props - Order component props
+ * @param {(event: React.ChangeEvent<HTMLInputElement>) => void} handleSearchChange - Search handler
+ * @returns {React.ReactElement} Table controls
+ */
+const _renderDesktopControls = (
+  props: OrderProps,
+  handleSearchChange: (event: React.ChangeEvent<HTMLInputElement>) => void,
+): React.ReactElement => (
+  <div className="flex items-center justify-between gap-4 border-brand-gray-light py-6">
+    <SearchFilter placeholder="Search order" onChange={handleSearchChange} />
+    {props.canCreateOrder && (
+      <button
+        type="button"
+        onClick={props.openCreateModal}
+        className="h-14 rounded-xl bg-brand-blue px-6 text-sm font-semibold text-brand-white shadow-sm transition-colors hover:bg-brand-blue/90 focus:outline-none focus:ring-2 focus:ring-brand-blue/30"
+      >
+        Create Order
+      </button>
+    )}
+  </div>
+);
 
 /**
  * Render desktop order table.
@@ -116,23 +279,15 @@ const _renderListState = (props: OrderProps): React.ReactElement | null => {
  * @param {(event: React.ChangeEvent<HTMLInputElement>) => void} handleSearchChange - Search handler
  * @returns {React.ReactElement} Desktop list
  */
-const _renderDesktopTable = (props: OrderProps, handleSearchChange: (event: React.ChangeEvent<HTMLInputElement>) => void): React.ReactElement => {
+const _renderDesktopTable = (
+  props: OrderProps,
+  handleSearchChange: (event: React.ChangeEvent<HTMLInputElement>) => void,
+): React.ReactElement => {
   const columns = _getColumns(props);
 
   return (
     <div className="hidden rounded-4xl border border-border-default bg-background-surface px-6 shadow-xs md:mt-6 md:flex md:flex-1 md:flex-col md:overflow-hidden lg:flex">
-      <div className="flex items-center justify-between gap-4 border-brand-gray-light py-6">
-        <SearchFilter placeholder="Search order" onChange={handleSearchChange} />
-        {props.canCreateOrder && (
-          <button
-            type="button"
-            onClick={props.openCreateModal}
-            className="h-14 rounded-xl bg-brand-blue px-6 text-sm font-semibold text-brand-white shadow-sm transition-colors hover:bg-brand-blue/90 focus:outline-none focus:ring-2 focus:ring-brand-blue/30"
-          >
-            Create Order
-          </button>
-        )}
-      </div>
+      {_renderDesktopControls(props, handleSearchChange)}
       <div className="flex-1 overflow-auto">
         {_renderListState(props) ?? (
           <Table
@@ -168,7 +323,13 @@ const _renderMobileList = (
 ): React.ReactElement => {
   return (
     <div className="flex min-w-0 flex-col gap-4 pb-16 pt-2 lg:hidden">
-      <SearchFilter placeholder="Search order" onChange={handleSearchChange} isRoundedFull={true} className="w-full sm:w-full [&_svg]:h-7 [&_svg]:w-7" inputClassName="h-16 pl-14 text-xl placeholder:text-xl lg:h-14" />
+      <SearchFilter
+        placeholder="Search order"
+        onChange={handleSearchChange}
+        isRoundedFull={true}
+        className="w-full sm:w-full [&_svg]:h-7 [&_svg]:w-7"
+        inputClassName="h-16 pl-14 text-xl placeholder:text-xl lg:h-14"
+      />
       {_renderMobileCards(props)}
       <Pagination
         currentPage={props.currentPage}
@@ -195,7 +356,9 @@ export const OrderComponent = (props: OrderProps): React.ReactElement => {
    * @param {React.ChangeEvent<HTMLInputElement>} event - Search input change event
    * @returns {void} No return value
    */
-  const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>): void => props.setSearchTerm(event.target.value);
+  const handleSearchChange = (
+    event: React.ChangeEvent<HTMLInputElement>,
+  ): void => props.setSearchTerm(event.target.value);
 
   const createButton = (
     <button

@@ -1,7 +1,19 @@
-import { render, screen } from '@testing-library/react';
+import type * as React from 'react';
 import { MemoryRouter } from 'react-router-dom';
 
+import { render, screen } from '@/libs/unit-test';
+
 import { OrderDetailComponent } from './OrderDetail.component';
+
+jest.mock('@/app/layout', () => ({
+  __esModule: true,
+  /**
+   * Render mocked layout.
+   * @param {{ children: React.ReactNode }} props - layout props
+   * @returns {React.ReactElement} mocked layout
+   */
+  default: ({ children }: { children: React.ReactNode }): React.ReactElement => <div data-testid="layout">{children}</div>,
+}));
 
 const order = {
   id: "ORD-123",

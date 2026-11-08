@@ -2,973 +2,345 @@
 
 exports[`OrderCreateComponent Snapshots Should Render OrderCreateComponent 1`] = `
 <DocumentFragment>
-  <div
-    class="flex h-full min-h-0 w-full overflow-hidden font-sans text-text-primary relative items-stretch transition-colors duration-200 bg-background-page"
-  >
+  <div>
     <div
-      class="hidden lg:flex h-full min-h-0 shrink-0 self-stretch"
-    >
-      <aside
-        aria-label="Sidebar"
-        class="w-[290px] h-full min-h-0 self-stretch bg-sidebar-background border border-border-default flex flex-col shrink-0 overflow-hidden transition-[width] duration-[250ms] ease-in-out"
-        style="border-radius: 0;"
-      >
-        <div
-          class="h-[72px] mb-16 flex items-center shrink-0 px-4"
-        >
-          <img
-            alt="Sonicline"
-            class="h-12 w-auto object-contain"
-            src="/src/assets/Sonicline-dark.png"
-          />
-        </div>
-        <div
-          class="min-h-0 flex-1 overflow-y-auto overflow-x-hidden pb-6 px-4 space-y-5 scrollbar-thin"
-        >
-          <div>
-            <p
-              class="px-2 mb-2 text-[15px] font-semibold tracking-widest uppercase text-text-tertiary"
-            >
-              Menu
-            </p>
-            <nav
-              aria-label="Menu"
-              class="space-y-1"
-            >
-              <a
-                class="min-h-14 flex items-center gap-3 rounded-[8px] px-4 py-3 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring/30 text-text-secondary hover:bg-background-elevated hover:text-text-primary"
-                data-discover="true"
-                href="/home"
-              >
-                <span
-                  class="shrink-0 [&_svg]:h-5 [&_svg]:w-5 text-text-tertiary"
-                >
-                  <svg
-                    fill="none"
-                    height="1em"
-                    stroke="currentColor"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    viewBox="0 0 24 24"
-                    width="1em"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <rect
-                      height="9"
-                      rx="1"
-                      width="7"
-                      x="3"
-                      y="3"
-                    />
-                    <rect
-                      height="5"
-                      rx="1"
-                      width="7"
-                      x="14"
-                      y="3"
-                    />
-                    <rect
-                      height="9"
-                      rx="1"
-                      width="7"
-                      x="14"
-                      y="12"
-                    />
-                    <rect
-                      height="5"
-                      rx="1"
-                      width="7"
-                      x="3"
-                      y="16"
-                    />
-                  </svg>
-                </span>
-                <span
-                  class="flex-1 truncate text-xl leading-none font-normal"
-                >
-                  Dashboard
-                </span>
-              </a>
-              <a
-                class="min-h-14 flex items-center gap-3 rounded-[8px] px-4 py-3 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring/30 text-text-secondary hover:bg-background-elevated hover:text-text-primary"
-                data-discover="true"
-                href="/order/create"
-              >
-                <span
-                  class="shrink-0 [&_svg]:h-5 [&_svg]:w-5 text-text-tertiary"
-                >
-                  <svg
-                    fill="none"
-                    height="1em"
-                    stroke="currentColor"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    viewBox="0 0 24 24"
-                    width="1em"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M4 22h14a2 2 0 0 0 2-2V7l-5-5H6a2 2 0 0 0-2 2v4"
-                    />
-                    <path
-                      d="M14 2v4a2 2 0 0 0 2 2h4"
-                    />
-                    <path
-                      d="M3 15h6"
-                    />
-                    <path
-                      d="M6 12v6"
-                    />
-                  </svg>
-                </span>
-                <span
-                  class="flex-1 truncate text-xl leading-none font-normal"
-                >
-                  Create Order
-                </span>
-              </a>
-              <div>
-                <button
-                  aria-expanded="false"
-                  class="w-full min-h-14 py-3 flex items-center gap-3 rounded-[8px] px-4 text-left transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring/30 text-text-secondary hover:bg-background-elevated hover:text-text-primary"
-                  type="button"
-                >
-                  <span
-                    class="shrink-0 [&_svg]:h-5 [&_svg]:w-5 text-text-tertiary"
-                  >
-                    <svg
-                      fill="none"
-                      height="1em"
-                      stroke="currentColor"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      viewBox="0 0 24 24"
-                      width="1em"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"
-                      />
-                      <path
-                        d="M14 2v4a2 2 0 0 0 2 2h4"
-                      />
-                      <path
-                        d="M10 9H8"
-                      />
-                      <path
-                        d="M16 13H8"
-                      />
-                      <path
-                        d="M16 17H8"
-                      />
-                    </svg>
-                  </span>
-                  <span
-                    class="flex-1 truncate text-xl leading-none font-normal"
-                  >
-                    Document
-                  </span>
-                  <span
-                    class="shrink-0 text-text-tertiary transition-transform duration-200 "
-                  >
-                    <svg
-                      fill="none"
-                      height="14"
-                      stroke="currentColor"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      viewBox="0 0 24 24"
-                      width="14"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="m6 9 6 6 6-6"
-                      />
-                    </svg>
-                  </span>
-                </button>
-              </div>
-              <a
-                class="min-h-14 flex items-center gap-3 rounded-[8px] px-4 py-3 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring/30 text-text-secondary hover:bg-background-elevated hover:text-text-primary"
-                data-discover="true"
-                href="/item-checklist"
-              >
-                <span
-                  class="shrink-0 [&_svg]:h-5 [&_svg]:w-5 text-text-tertiary"
-                >
-                  <svg
-                    fill="none"
-                    height="1em"
-                    stroke="currentColor"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    viewBox="0 0 24 24"
-                    width="1em"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <rect
-                      height="18"
-                      rx="2"
-                      width="18"
-                      x="3"
-                      y="3"
-                    />
-                    <path
-                      d="m9 12 2 2 4-4"
-                    />
-                  </svg>
-                </span>
-                <span
-                  class="flex-1 truncate text-xl leading-none font-normal"
-                >
-                  Item Checklist
-                </span>
-              </a>
-              <a
-                class="min-h-14 flex items-center gap-3 rounded-[8px] px-4 py-3 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring/30 text-text-secondary hover:bg-background-elevated hover:text-text-primary"
-                data-discover="true"
-                href="/item-return"
-              >
-                <span
-                  class="shrink-0 [&_svg]:h-5 [&_svg]:w-5 text-text-tertiary"
-                >
-                  <svg
-                    fill="none"
-                    height="1em"
-                    stroke="currentColor"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    viewBox="0 0 24 24"
-                    width="1em"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"
-                    />
-                    <path
-                      d="M3 3v5h5"
-                    />
-                  </svg>
-                </span>
-                <span
-                  class="flex-1 truncate text-xl leading-none font-normal"
-                >
-                  Item Return
-                </span>
-              </a>
-              <a
-                class="min-h-14 flex items-center gap-3 rounded-[8px] px-4 py-3 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring/30 text-text-secondary hover:bg-background-elevated hover:text-text-primary"
-                data-discover="true"
-                href="/calendar"
-              >
-                <span
-                  class="shrink-0 [&_svg]:h-5 [&_svg]:w-5 text-text-tertiary"
-                >
-                  <svg
-                    fill="none"
-                    height="1em"
-                    stroke="currentColor"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    viewBox="0 0 24 24"
-                    width="1em"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M8 2v4"
-                    />
-                    <path
-                      d="M16 2v4"
-                    />
-                    <rect
-                      height="18"
-                      rx="2"
-                      width="18"
-                      x="3"
-                      y="4"
-                    />
-                    <path
-                      d="M3 10h18"
-                    />
-                    <path
-                      d="M8 14h.01"
-                    />
-                    <path
-                      d="M12 14h.01"
-                    />
-                    <path
-                      d="M16 14h.01"
-                    />
-                    <path
-                      d="M8 18h.01"
-                    />
-                    <path
-                      d="M12 18h.01"
-                    />
-                    <path
-                      d="M16 18h.01"
-                    />
-                  </svg>
-                </span>
-                <span
-                  class="flex-1 truncate text-xl leading-none font-normal"
-                >
-                  Calendar
-                </span>
-              </a>
-              <a
-                class="min-h-14 flex items-center gap-3 rounded-[8px] px-4 py-3 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring/30 text-text-secondary hover:bg-background-elevated hover:text-text-primary"
-                data-discover="true"
-                href="/activity-log"
-              >
-                <span
-                  class="shrink-0 [&_svg]:h-5 [&_svg]:w-5 text-text-tertiary"
-                >
-                  <svg
-                    fill="none"
-                    height="1em"
-                    stroke="currentColor"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    viewBox="0 0 24 24"
-                    width="1em"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M22 12h-2.48a2 2 0 0 0-1.93 1.46l-2.35 8.36a.25.25 0 0 1-.48 0L9.24 2.18a.25.25 0 0 0-.48 0l-2.35 8.36A2 2 0 0 1 4.49 12H2"
-                    />
-                  </svg>
-                </span>
-                <span
-                  class="flex-1 truncate text-xl leading-none font-normal"
-                >
-                  Activity Log
-                </span>
-              </a>
-              <a
-                class="min-h-14 flex items-center gap-3 rounded-[8px] px-4 py-3 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring/30 text-text-secondary hover:bg-background-elevated hover:text-text-primary"
-                data-discover="true"
-                href="/note"
-              >
-                <span
-                  class="shrink-0 [&_svg]:h-5 [&_svg]:w-5 text-text-tertiary"
-                >
-                  <svg
-                    fill="none"
-                    height="1em"
-                    stroke="currentColor"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    viewBox="0 0 24 24"
-                    width="1em"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M2 6h4"
-                    />
-                    <path
-                      d="M2 10h4"
-                    />
-                    <path
-                      d="M2 14h4"
-                    />
-                    <path
-                      d="M2 18h4"
-                    />
-                    <rect
-                      height="20"
-                      rx="2"
-                      width="16"
-                      x="4"
-                      y="2"
-                    />
-                    <path
-                      d="M15 2v20"
-                    />
-                    <path
-                      d="M15 7h5"
-                    />
-                    <path
-                      d="M15 12h5"
-                    />
-                    <path
-                      d="M15 17h5"
-                    />
-                  </svg>
-                </span>
-                <span
-                  class="flex-1 truncate text-xl leading-none font-normal"
-                >
-                  Note
-                </span>
-              </a>
-              <div>
-                <button
-                  aria-expanded="false"
-                  class="w-full min-h-14 py-3 flex items-center gap-3 rounded-[8px] px-4 text-left transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring/30 text-text-secondary hover:bg-background-elevated hover:text-text-primary"
-                  type="button"
-                >
-                  <span
-                    class="shrink-0 [&_svg]:h-5 [&_svg]:w-5 text-text-tertiary"
-                  >
-                    <svg
-                      fill="none"
-                      height="1em"
-                      stroke="currentColor"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      viewBox="0 0 24 24"
-                      width="1em"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="M12 16v5"
-                      />
-                      <path
-                        d="M16 14v7"
-                      />
-                      <path
-                        d="M20 10v11"
-                      />
-                      <path
-                        d="m22 3-8.646 8.646a.5.5 0 0 1-.708 0L9.354 8.354a.5.5 0 0 0-.707 0L2 15"
-                      />
-                      <path
-                        d="M4 18v3"
-                      />
-                      <path
-                        d="M8 14v7"
-                      />
-                    </svg>
-                  </span>
-                  <span
-                    class="flex-1 truncate text-xl leading-none font-normal"
-                  >
-                    Report
-                  </span>
-                  <span
-                    class="shrink-0 text-text-tertiary transition-transform duration-200 "
-                  >
-                    <svg
-                      fill="none"
-                      height="14"
-                      stroke="currentColor"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      viewBox="0 0 24 24"
-                      width="14"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="m6 9 6 6 6-6"
-                      />
-                    </svg>
-                  </span>
-                </button>
-              </div>
-              <div>
-                <button
-                  aria-expanded="false"
-                  class="w-full min-h-14 py-3 flex items-center gap-3 rounded-[8px] px-4 text-left transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring/30 text-text-secondary hover:bg-background-elevated hover:text-text-primary"
-                  type="button"
-                >
-                  <span
-                    class="shrink-0 [&_svg]:h-5 [&_svg]:w-5 text-text-tertiary"
-                  >
-                    <svg
-                      fill="none"
-                      height="1em"
-                      stroke="currentColor"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      viewBox="0 0 24 24"
-                      width="1em"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="M11 21.73a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73z"
-                      />
-                      <path
-                        d="M12 22V12"
-                      />
-                      <path
-                        d="m3.3 7 7.703 4.734a2 2 0 0 0 1.994 0L20.7 7"
-                      />
-                      <path
-                        d="m7.5 4.27 9 5.15"
-                      />
-                    </svg>
-                  </span>
-                  <span
-                    class="flex-1 truncate text-xl leading-none font-normal"
-                  >
-                    Master Data
-                  </span>
-                  <span
-                    class="shrink-0 text-text-tertiary transition-transform duration-200 "
-                  >
-                    <svg
-                      fill="none"
-                      height="14"
-                      stroke="currentColor"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      viewBox="0 0 24 24"
-                      width="14"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="m6 9 6 6 6-6"
-                      />
-                    </svg>
-                  </span>
-                </button>
-              </div>
-            </nav>
-          </div>
-        </div>
-        <div
-          class="shrink-0 border-t border-border-default p-3"
-        >
-          <button
-            aria-checked="false"
-            aria-label="Toggle dark theme"
-            class="mb-2 flex min-h-12 w-full cursor-pointer items-center rounded-[8px] bg-background-subtle text-text-secondary transition-colors hover:bg-action-primary-subtle focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring gap-3 px-4 py-3"
-            role="switch"
-            type="button"
-          >
-            <span
-              aria-hidden="true"
-              class="shrink-0 [&_svg]:h-5 [&_svg]:w-5"
-            >
-              <svg
-                fill="none"
-                height="20"
-                stroke="currentColor"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="1.8"
-                viewBox="0 0 24 24"
-                width="20"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"
-                />
-              </svg>
-            </span>
-            <span
-              class="flex-1 text-left text-xl font-medium"
-            >
-              Dark theme
-            </span>
-          </button>
-          <button
-            aria-label="Log out"
-            class="mb-2 flex min-h-12 w-full cursor-pointer items-center rounded-[8px] bg-danger-subtle text-danger-strong transition-colors hover:bg-danger/20 focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring gap-3 px-4 py-3"
-            type="button"
-          >
-            <span
-              aria-hidden="true"
-              class="shrink-0 [&_svg]:h-5 [&_svg]:w-5"
-            >
-              <svg
-                fill="none"
-                height="16"
-                stroke="currentColor"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="1.8"
-                viewBox="0 0 24 24"
-                width="16"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"
-                />
-                <polyline
-                  points="16 17 21 12 16 7"
-                />
-                <line
-                  x1="21"
-                  x2="9"
-                  y1="12"
-                  y2="12"
-                />
-              </svg>
-            </span>
-            <span
-              class="flex-1 text-left text-xl font-medium"
-            >
-              Log out
-            </span>
-          </button>
-          <button
-            aria-expanded="false"
-            aria-haspopup="menu"
-            class="flex w-full cursor-pointer items-center rounded-[10px] transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring/30 hover:bg-background-elevated gap-3 px-4 py-3"
-            type="button"
-          >
-            <span
-              aria-hidden="true"
-              class="w-10 h-10 rounded-full bg-action-primary-subtle text-action-primary flex items-center justify-center text-sm font-semibold shrink-0"
-            >
-              US
-            </span>
-            <span
-              class="flex-1 min-w-0 text-left"
-            >
-              <span
-                class="block truncate text-xl font-semibold leading-tight text-text-primary"
-              >
-                User
-              </span>
-            </span>
-            <span
-              class="shrink-0 text-text-tertiary transition-transform duration-200 [&_svg]:h-5 [&_svg]:w-5 "
-            >
-              <svg
-                fill="none"
-                height="14"
-                stroke="currentColor"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                viewBox="0 0 24 24"
-                width="14"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="m6 9 6 6 6-6"
-                />
-              </svg>
-            </span>
-          </button>
-        </div>
-      </aside>
-    </div>
-    <div
-      class="flex-1 flex flex-col min-w-0 min-h-0 overflow-hidden relative transition-colors duration-200 bg-background-page"
+      class="flex h-full w-full flex-col bg-background-page pb-6 font-sans"
     >
       <div
-        class="hidden lg:block shrink-0"
+        class="mb-6 flex items-center gap-3 bg-background-page lg:hidden"
       >
-        <header
-          class="sticky top-0 z-10 flex h-20 items-center justify-between border-b border-border-default bg-background-surface px-8 transition-all"
+        <button
+          aria-label="Back"
+          class="flex h-14 w-14 shrink-0 items-center justify-center rounded-full border border-border-default bg-background-page text-text-primary transition-colors hover:bg-background-subtle focus-visible:ring-2 focus-visible:ring-focus-ring/30 "
+          type="button"
         >
-          <div
-            class="flex flex-1 items-center gap-4"
+          <svg
+            aria-hidden="true"
+            class="h-6 w-6"
+            fill="none"
+            height="1em"
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            viewBox="0 0 24 24"
+            width="1em"
+            xmlns="http://www.w3.org/2000/svg"
           >
-            <button
-              aria-expanded="true"
-              aria-label="Close sidebar"
-              class="flex h-10 w-10 items-center justify-center rounded-lg border border-border-default bg-background-surface text-text-secondary transition-colors hover:bg-background-subtle hover:text-text-primary focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring/30"
-              type="button"
-            >
-              <svg
-                fill="none"
-                height="20"
-                stroke="currentColor"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="1.8"
-                viewBox="0 0 24 24"
-                width="20"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <rect
-                  height="18"
-                  rx="3"
-                  width="18"
-                  x="3"
-                  y="3"
-                />
-                <path
-                  d="M9 3v18"
-                />
-              </svg>
-            </button>
-          </div>
-          <time
-            class="text-lg font-semibold tracking-wide text-text-primary tabular-nums sm:text-3xl"
-            data-testid="navbar-realtime-clock"
+            <line
+              x1="19"
+              x2="5"
+              y1="12"
+              y2="12"
+            />
+            <polyline
+              points="12 19 5 12 12 5"
+            />
+          </svg>
+        </button>
+        <div
+          class="min-w-0"
+        >
+          <h1
+            class="truncate text-4xl font-semibold leading-tight text-text-primary"
           >
-            22 Oktober 2026 18:45
-          </time>
-        </header>
+            Create Order
+          </h1>
+          <p
+            class="mt-1 text-lg text-text-secondary"
+          >
+            Fill in order details
+          </p>
+        </div>
       </div>
-      <main
-        class="relative z-0 flex-1 overflow-y-auto px-4 pt-4 pb-20 lg:p-8"
+      <div
+        class="flex min-h-0 w-full flex-1 flex-col pb-32 text-lg lg:pb-0"
       >
         <div
-          class="flex h-full w-full flex-col bg-background-page pb-6 font-sans"
+          class="mb-6 hidden lg:block"
+        >
+          <h1
+            class="text-4xl font-semibold leading-tight tracking-tight text-text-primary"
+          >
+            Create Order
+          </h1>
+          <p
+            class="mt-3 text-lg font-medium text-text-secondary opacity-70"
+          >
+            Fill in the order details below.
+          </p>
+        </div>
+        <form
+          class="mb-6 flex flex-col rounded-3xl border border-border-default bg-background-surface p-6 shadow-small sm:p-8 lg:mb-8 lg:rounded-3xl lg:p-10"
+          novalidate=""
         >
           <div
-            class="mb-6 flex items-center gap-3 bg-background-page lg:hidden"
+            aria-label="Order steps"
+            class="mb-6 flex items-center gap-4 overflow-x-auto border-b border-border-default lg:mb-8 lg:gap-8"
           >
-            <button
-              aria-label="Back"
-              class="flex h-14 w-14 shrink-0 items-center justify-center rounded-full border border-border-default bg-background-page text-text-primary transition-colors hover:bg-background-subtle"
-              type="button"
-            >
-              <svg
-                aria-hidden="true"
-                class="h-6 w-6"
-                fill="none"
-                stroke="currentColor"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2.5"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  d="M19 12H5M12 19l-7-7 7-7"
-                />
-              </svg>
-            </button>
             <div
-              class="min-w-0"
+              aria-current="step"
+              class="relative shrink-0 pb-3 text-lg lg:text-lg font-semibold text-text-primary"
             >
-              <h1
-                class="truncate text-4xl font-semibold leading-tight text-text-primary"
+              <span
+                class="lg:hidden"
               >
-                Create Order
-              </h1>
-              <p
-                class="mt-1 text-lg text-text-secondary"
+                Information
+              </span>
+              <span
+                class="hidden lg:inline"
               >
-                Fill in order details
-              </p>
+                Order Information
+              </span>
+              <span
+                aria-hidden="true"
+                class="absolute inset-x-0 bottom-0 h-0.5 bg-action-primary"
+              />
+            </div>
+            <div
+              class="relative shrink-0 pb-3 text-lg lg:text-lg font-normal text-text-secondary"
+            >
+              <span
+                class="lg:hidden"
+              >
+                Rental Items
+              </span>
+              <span
+                class="hidden lg:inline"
+              >
+                Rental Items
+              </span>
+              <span
+                aria-hidden="true"
+                class="absolute inset-x-0 bottom-0 h-0.5 bg-transparent"
+              />
+            </div>
+            <div
+              class="relative shrink-0 pb-3 text-lg lg:text-lg font-normal text-text-secondary"
+            >
+              <span
+                class="lg:hidden"
+              >
+                Review
+              </span>
+              <span
+                class="hidden lg:inline"
+              >
+                Review
+              </span>
+              <span
+                aria-hidden="true"
+                class="absolute inset-x-0 bottom-0 h-0.5 bg-transparent"
+              />
             </div>
           </div>
           <div
-            class="flex min-h-0 w-full flex-1 flex-col pb-32 text-lg lg:pb-0"
+            class="pb-6"
           >
-            <div
-              class="mb-6 hidden lg:block"
-            >
-              <h1
-                class="text-4xl font-semibold leading-tight tracking-tight text-text-primary"
-              >
-                Create Order
-              </h1>
-              <p
-                class="mt-3 text-lg font-medium text-text-secondary opacity-70"
-              >
-                Fill in the order details below.
-              </p>
-            </div>
-            <form
-              class="mb-6 flex flex-col rounded-3xl border border-border-default bg-background-surface p-6 shadow-small sm:p-8 lg:mb-5 lg:rounded-3xl lg:p-10"
-              novalidate=""
+            <section
+              class="space-y-5"
             >
               <div
-                aria-label="Order steps"
-                class="mb-6 flex items-center gap-4 overflow-x-auto border-b border-border-default lg:mb-8 lg:gap-8"
+                class="grid w-full grid-cols-1 gap-x-6 gap-y-5 lg:grid-cols-2"
               >
                 <div
-                  aria-current="step"
-                  class="relative shrink-0 pb-3 text-lg lg:text-lg font-semibold text-text-primary"
+                  class="relative mb-0"
                 >
-                  <span
-                    class="lg:hidden"
+                  <label
+                    class="mb-1.5 block text-sm font-semibold text-text-secondary !text-lg !font-normal !normal-case !text-text-primary lg:!text-lg"
+                    for="order-customer"
                   >
-                    Information
-                  </span>
-                  <span
-                    class="hidden lg:inline"
+                    Customer
+                    <span
+                      aria-hidden="true"
+                      class="ml-1 text-danger"
+                    >
+                      *
+                    </span>
+                  </label>
+                  <div
+                    class="ant-select ant-select-outlined h-14 w-full !border-2 [&_.ant-select-selector]:!rounded-2xl [&_.ant-select-content]:!text-xl [&_.ant-select-content]:!font-normal !border-border-strong [&_.ant-select-selector]:!border-2 [&_.ant-select-selector]:!border-border-strong !h-16 lg:!h-14 [&_.ant-select-selector]:!min-h-16 lg:[&_.ant-select-selector]:!min-h-14 [&_.ant-select-content]:!text-xl lg:[&_.ant-select-content]:!text-lg [&_.ant-select-content]:!font-normal css-var-root ant-select-css-var css-dev-only-do-not-override-eofgey ant-select-single ant-select-show-arrow ant-select-show-search"
+                    style="--ant-select-border-radius: 16px; border: 2px solid var(--border-strong);"
                   >
-                    Order Information
-                  </span>
-                  <span
-                    aria-hidden="true"
-                    class="absolute inset-x-0 bottom-0 h-0.5 bg-action-primary"
+                    <div
+                      class="ant-select-content"
+                    >
+                      <div
+                        class="ant-select-placeholder"
+                      >
+                        Select customer
+                      </div>
+                      <input
+                        aria-autocomplete="list"
+                        aria-expanded="false"
+                        aria-haspopup="listbox"
+                        aria-invalid="false"
+                        aria-label="Customer"
+                        aria-required="true"
+                        autocomplete="new-password"
+                        class="ant-select-input"
+                        id="order-customer"
+                        role="combobox"
+                        type="text"
+                        value=""
+                      />
+                    </div>
+                    <div
+                      class="ant-select-suffix"
+                    >
+                      <span
+                        aria-label="down"
+                        class="anticon anticon-down"
+                        role="img"
+                      >
+                        <svg
+                          aria-hidden="true"
+                          data-icon="down"
+                          fill="currentColor"
+                          focusable="false"
+                          height="1em"
+                          viewBox="64 64 896 896"
+                          width="1em"
+                        >
+                          <path
+                            d="M884 256h-75c-5.1 0-9.9 2.5-12.9 6.6L512 654.2 227.9 262.6c-3-4.1-7.8-6.6-12.9-6.6h-75c-6.5 0-10.3 7.4-6.5 12.7l352.6 486.1c12.8 17.6 39 17.6 51.7 0l352.6-486.1c3.9-5.3.1-12.7-6.4-12.7z"
+                          />
+                        </svg>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="mb-4 !mb-0 [&_.ant-input]:!h-16 lg:[&_.ant-input]:!h-14 [&_.ant-input]:!rounded-2xl [&_.ant-input]:!border-2 [&_.ant-input]:!border-border-strong [&_.ant-input.ant-input-status-error]:!border-danger [&_.ant-input]:!px-4 [&_.ant-input]:!text-xl lg:[&_.ant-input]:!text-lg [&_.ant-input]:!font-normal [&_.ant-input]:placeholder:!text-xl lg:[&_.ant-input]:placeholder:!text-lg [&_.ant-input]:placeholder:!font-normal [&_label]:!text-lg lg:[&_label]:!text-lg [&_label]:!font-normal [&_label]:!normal-case [&_label]:!text-text-primary"
+                >
+                  <label
+                    class="mb-1.5 block text-sm font-semibold text-text-secondary"
+                    for="order-customer_name"
+                  >
+                    Customer Name
+                    <span
+                      aria-hidden="true"
+                      class="ml-1 text-danger"
+                    >
+                      *
+                    </span>
+                  </label>
+                  <input
+                    aria-invalid="false"
+                    class="ant-input ant-input-lg css-dev-only-do-not-override-eofgey ant-input-outlined h-14 w-full !rounded-2xl css-var-root ant-input-css-var"
+                    id="order-customer_name"
+                    placeholder="Enter customer name"
+                    required=""
+                    type="text"
+                    value=""
                   />
                 </div>
                 <div
-                  class="relative shrink-0 pb-3 text-lg lg:text-lg font-normal text-text-secondary"
+                  class="mb-4 !mb-0 [&_.ant-input]:!h-16 lg:[&_.ant-input]:!h-14 [&_.ant-input]:!rounded-2xl [&_.ant-input]:!border-2 [&_.ant-input]:!border-border-strong [&_.ant-input.ant-input-status-error]:!border-danger [&_.ant-input]:!px-4 [&_.ant-input]:!text-xl lg:[&_.ant-input]:!text-lg [&_.ant-input]:!font-normal [&_.ant-input]:placeholder:!text-xl lg:[&_.ant-input]:placeholder:!text-lg [&_.ant-input]:placeholder:!font-normal [&_label]:!text-lg lg:[&_label]:!text-lg [&_label]:!font-normal [&_label]:!normal-case [&_label]:!text-text-primary"
                 >
-                  <span
-                    class="lg:hidden"
+                  <label
+                    class="mb-1.5 block text-sm font-semibold text-text-secondary"
+                    for="order-customer_phone"
                   >
-                    Rental Items
-                  </span>
-                  <span
-                    class="hidden lg:inline"
-                  >
-                    Rental Items
-                  </span>
-                  <span
-                    aria-hidden="true"
-                    class="absolute inset-x-0 bottom-0 h-0.5 bg-transparent"
+                    Customer Phone
+                    <span
+                      aria-hidden="true"
+                      class="ml-1 text-danger"
+                    >
+                      *
+                    </span>
+                  </label>
+                  <input
+                    aria-invalid="false"
+                    class="ant-input ant-input-lg css-dev-only-do-not-override-eofgey ant-input-outlined h-14 w-full !rounded-2xl css-var-root ant-input-css-var"
+                    id="order-customer_phone"
+                    placeholder="Enter customer phone number"
+                    required=""
+                    type="text"
+                    value=""
                   />
                 </div>
                 <div
-                  class="relative shrink-0 pb-3 text-lg lg:text-lg font-normal text-text-secondary"
+                  class="relative mb-0 [&_.ant-select-selector]:!min-h-16 lg:[&_.ant-select-selector]:!min-h-14"
                 >
-                  <span
-                    class="lg:hidden"
+                  <label
+                    class="mb-1.5 block text-sm font-semibold text-text-secondary !text-lg !font-normal !normal-case !text-text-primary lg:!text-lg"
+                    for="order-pic"
                   >
-                    Review
-                  </span>
-                  <span
-                    class="hidden lg:inline"
+                    PIC
+                    <span
+                      aria-hidden="true"
+                      class="ml-1 text-danger"
+                    >
+                      *
+                    </span>
+                  </label>
+                  <div
+                    class="ant-select ant-select-outlined h-14 w-full !border-2 [&_.ant-select-selector]:!rounded-2xl [&_.ant-select-content]:!text-xl [&_.ant-select-content]:!font-normal !border-border-strong [&_.ant-select-selector]:!border-2 [&_.ant-select-selector]:!border-border-strong !h-16 lg:!h-14 [&_.ant-select-content]:!text-xl lg:[&_.ant-select-content]:!text-lg [&_.ant-select-content]:!font-normal css-var-root ant-select-css-var css-dev-only-do-not-override-eofgey ant-select-single ant-select-show-arrow ant-select-show-search"
+                    style="--ant-select-border-radius: 16px; border: 2px solid var(--border-strong);"
                   >
-                    Review
-                  </span>
-                  <span
-                    aria-hidden="true"
-                    class="absolute inset-x-0 bottom-0 h-0.5 bg-transparent"
-                  />
+                    <div
+                      class="ant-select-content"
+                    >
+                      <div
+                        class="ant-select-placeholder"
+                      >
+                        Select PIC
+                      </div>
+                      <input
+                        aria-autocomplete="list"
+                        aria-expanded="false"
+                        aria-haspopup="listbox"
+                        aria-invalid="false"
+                        aria-label="PIC"
+                        aria-required="true"
+                        autocomplete="new-password"
+                        class="ant-select-input"
+                        id="order-pic"
+                        role="combobox"
+                        type="text"
+                        value=""
+                      />
+                    </div>
+                    <div
+                      class="ant-select-suffix"
+                    >
+                      <span
+                        aria-label="down"
+                        class="anticon anticon-down"
+                        role="img"
+                      >
+                        <svg
+                          aria-hidden="true"
+                          data-icon="down"
+                          fill="currentColor"
+                          focusable="false"
+                          height="1em"
+                          viewBox="64 64 896 896"
+                          width="1em"
+                        >
+                          <path
+                            d="M884 256h-75c-5.1 0-9.9 2.5-12.9 6.6L512 654.2 227.9 262.6c-3-4.1-7.8-6.6-12.9-6.6h-75c-6.5 0-10.3 7.4-6.5 12.7l352.6 486.1c12.8 17.6 39 17.6 51.7 0l352.6-486.1c3.9-5.3.1-12.7-6.4-12.7z"
+                          />
+                        </svg>
+                      </span>
+                    </div>
+                  </div>
                 </div>
-              </div>
-              <div
-                class="pb-6"
-              >
-                <section
-                  class="space-y-5"
+                <div
+                  class="block mb-0 lg:col-span-2 [&>div]:gap-5 [&_.ant-picker]:!h-16 lg:[&_.ant-picker]:!h-14 [&_.ant-picker]:!rounded-2xl [&_.ant-picker]:!border-2 [&_.ant-picker:not(.ant-picker-status-error)]:!border-border-strong [&_.ant-picker.ant-picker-status-error]:!border-danger [&_.ant-picker-input>input]:!text-xl lg:[&_.ant-picker-input>input]:!text-lg [&_.ant-picker-input>input]:!font-normal [&_label]:!text-lg lg:[&_label]:!text-lg [&_label]:!font-normal [&_label]:!normal-case [&_label]:!text-text-primary"
                 >
                   <div
-                    class="grid w-full grid-cols-1 gap-x-6 gap-y-5 lg:grid-cols-2"
+                    class="flex flex-col gap-4 sm:flex-row"
                   >
                     <div
-                      class="relative mb-0"
-                    >
-                      <label
-                        class="mb-1.5 block text-sm font-semibold text-text-secondary !text-lg !font-normal !normal-case !text-text-primary lg:!text-lg"
-                        for="order-customer"
-                      >
-                        Customer
-                        <span
-                          aria-hidden="true"
-                          class="ml-1 text-danger"
-                        >
-                          *
-                        </span>
-                      </label>
-                      <div
-                        class="ant-select ant-select-outlined h-14 w-full !border-2 [&_.ant-select-selector]:!rounded-2xl [&_.ant-select-content]:!text-xl [&_.ant-select-content]:!font-normal !border-border-strong [&_.ant-select-selector]:!border-2 [&_.ant-select-selector]:!border-border-strong !h-16 lg:!h-14 [&_.ant-select-selector]:!min-h-16 lg:[&_.ant-select-selector]:!min-h-14 [&_.ant-select-content]:!text-xl lg:[&_.ant-select-content]:!text-lg [&_.ant-select-content]:!font-normal css-var-root ant-select-css-var css-dev-only-do-not-override-eofgey ant-select-single ant-select-show-arrow ant-select-show-search"
-                        style="--ant-select-border-radius: 16px; border: 2px solid var(--border-strong);"
-                      >
-                        <div
-                          class="ant-select-content"
-                        >
-                          <div
-                            class="ant-select-placeholder"
-                          >
-                            Select customer
-                          </div>
-                          <input
-                            aria-autocomplete="list"
-                            aria-expanded="false"
-                            aria-haspopup="listbox"
-                            aria-invalid="false"
-                            aria-label="Customer"
-                            aria-required="true"
-                            autocomplete="new-password"
-                            class="ant-select-input"
-                            id="order-customer"
-                            role="combobox"
-                            type="text"
-                            value=""
-                          />
-                        </div>
-                        <div
-                          class="ant-select-suffix"
-                        >
-                          <span
-                            aria-label="down"
-                            class="anticon anticon-down"
-                            role="img"
-                          >
-                            <svg
-                              aria-hidden="true"
-                              data-icon="down"
-                              fill="currentColor"
-                              focusable="false"
-                              height="1em"
-                              viewBox="64 64 896 896"
-                              width="1em"
-                            >
-                              <path
-                                d="M884 256h-75c-5.1 0-9.9 2.5-12.9 6.6L512 654.2 227.9 262.6c-3-4.1-7.8-6.6-12.9-6.6h-75c-6.5 0-10.3 7.4-6.5 12.7l352.6 486.1c12.8 17.6 39 17.6 51.7 0l352.6-486.1c3.9-5.3.1-12.7-6.4-12.7z"
-                              />
-                            </svg>
-                          </span>
-                        </div>
-                      </div>
-                    </div>
-                    <div
-                      class="mb-4 !mb-0 [&_.ant-input]:!h-16 lg:[&_.ant-input]:!h-14 [&_.ant-input]:!rounded-2xl [&_.ant-input]:!border-2 [&_.ant-input]:!border-border-strong [&_.ant-input.ant-input-status-error]:!border-danger [&_.ant-input]:!px-4 [&_.ant-input]:!text-xl lg:[&_.ant-input]:!text-lg [&_.ant-input]:!font-normal [&_.ant-input]:placeholder:!text-xl lg:[&_.ant-input]:placeholder:!text-lg [&_.ant-input]:placeholder:!font-normal [&_label]:!text-lg lg:[&_label]:!text-lg [&_label]:!font-normal [&_label]:!normal-case [&_label]:!text-text-primary"
+                      class="flex-1"
                     >
                       <label
                         class="mb-1.5 block text-sm font-semibold text-text-secondary"
-                        for="order-customer_name"
+                        for="date-range-start"
                       >
-                        Customer Name
-                        <span
-                          aria-hidden="true"
-                          class="ml-1 text-danger"
-                        >
-                          *
-                        </span>
-                      </label>
-                      <input
-                        aria-invalid="false"
-                        class="ant-input ant-input-lg css-dev-only-do-not-override-eofgey ant-input-outlined h-14 w-full !rounded-2xl css-var-root ant-input-css-var"
-                        id="order-customer_name"
-                        placeholder="Enter customer name"
-                        required=""
-                        type="text"
-                        value=""
-                      />
-                    </div>
-                    <div
-                      class="mb-4 !mb-0 [&_.ant-input]:!h-16 lg:[&_.ant-input]:!h-14 [&_.ant-input]:!rounded-2xl [&_.ant-input]:!border-2 [&_.ant-input]:!border-border-strong [&_.ant-input.ant-input-status-error]:!border-danger [&_.ant-input]:!px-4 [&_.ant-input]:!text-xl lg:[&_.ant-input]:!text-lg [&_.ant-input]:!font-normal [&_.ant-input]:placeholder:!text-xl lg:[&_.ant-input]:placeholder:!text-lg [&_.ant-input]:placeholder:!font-normal [&_label]:!text-lg lg:[&_label]:!text-lg [&_label]:!font-normal [&_label]:!normal-case [&_label]:!text-text-primary"
-                    >
-                      <label
-                        class="mb-1.5 block text-sm font-semibold text-text-secondary"
-                        for="order-customer_phone"
-                      >
-                        Customer Phone
-                        <span
-                          aria-hidden="true"
-                          class="ml-1 text-danger"
-                        >
-                          *
-                        </span>
-                      </label>
-                      <input
-                        aria-invalid="false"
-                        class="ant-input ant-input-lg css-dev-only-do-not-override-eofgey ant-input-outlined h-14 w-full !rounded-2xl css-var-root ant-input-css-var"
-                        id="order-customer_phone"
-                        placeholder="Enter customer phone number"
-                        required=""
-                        type="text"
-                        value=""
-                      />
-                    </div>
-                    <div
-                      class="relative mb-0 [&_.ant-select-selector]:!min-h-16 lg:[&_.ant-select-selector]:!min-h-14"
-                    >
-                      <label
-                        class="mb-1.5 block text-sm font-semibold text-text-secondary !text-lg !font-normal !normal-case !text-text-primary lg:!text-lg"
-                        for="order-pic"
-                      >
-                        PIC
+                        Start Date
                         <span
                           aria-hidden="true"
                           class="ml-1 text-danger"
@@ -977,458 +349,383 @@ exports[`OrderCreateComponent Snapshots Should Render OrderCreateComponent 1`] =
                         </span>
                       </label>
                       <div
-                        class="ant-select ant-select-outlined h-14 w-full !border-2 [&_.ant-select-selector]:!rounded-2xl [&_.ant-select-content]:!text-xl [&_.ant-select-content]:!font-normal !border-border-strong [&_.ant-select-selector]:!border-2 [&_.ant-select-selector]:!border-border-strong !h-16 lg:!h-14 [&_.ant-select-content]:!text-xl lg:[&_.ant-select-content]:!text-lg [&_.ant-select-content]:!font-normal css-var-root ant-select-css-var css-dev-only-do-not-override-eofgey ant-select-single ant-select-show-arrow ant-select-show-search"
-                        style="--ant-select-border-radius: 16px; border: 2px solid var(--border-strong);"
+                        class="ant-picker ant-picker-outlined h-14 w-full css-dev-only-do-not-override-eofgey css-var-root ant-picker-css-var"
                       >
                         <div
-                          class="ant-select-content"
+                          class="ant-picker-input"
                         >
-                          <div
-                            class="ant-select-placeholder"
-                          >
-                            Select PIC
-                          </div>
                           <input
-                            aria-autocomplete="list"
-                            aria-expanded="false"
-                            aria-haspopup="listbox"
                             aria-invalid="false"
-                            aria-label="PIC"
-                            aria-required="true"
-                            autocomplete="new-password"
-                            class="ant-select-input"
-                            id="order-pic"
-                            role="combobox"
-                            type="text"
+                            autocomplete="off"
+                            id="date-range-start"
+                            placeholder="Select date"
+                            readonly=""
+                            size="18"
                             value=""
                           />
-                        </div>
-                        <div
-                          class="ant-select-suffix"
-                        >
                           <span
-                            aria-label="down"
-                            class="anticon anticon-down"
-                            role="img"
+                            class="ant-picker-suffix"
                           >
-                            <svg
-                              aria-hidden="true"
-                              data-icon="down"
-                              fill="currentColor"
-                              focusable="false"
-                              height="1em"
-                              viewBox="64 64 896 896"
-                              width="1em"
-                            >
-                              <path
-                                d="M884 256h-75c-5.1 0-9.9 2.5-12.9 6.6L512 654.2 227.9 262.6c-3-4.1-7.8-6.6-12.9-6.6h-75c-6.5 0-10.3 7.4-6.5 12.7l352.6 486.1c12.8 17.6 39 17.6 51.7 0l352.6-486.1c3.9-5.3.1-12.7-6.4-12.7z"
-                              />
-                            </svg>
-                          </span>
-                        </div>
-                      </div>
-                    </div>
-                    <div
-                      class="block mb-0 lg:col-span-2 [&>div]:gap-5 [&_.ant-picker]:!h-16 lg:[&_.ant-picker]:!h-14 [&_.ant-picker]:!rounded-2xl [&_.ant-picker]:!border-2 [&_.ant-picker:not(.ant-picker-status-error)]:!border-border-strong [&_.ant-picker.ant-picker-status-error]:!border-danger [&_.ant-picker-input>input]:!text-xl lg:[&_.ant-picker-input>input]:!text-lg [&_.ant-picker-input>input]:!font-normal [&_label]:!text-lg lg:[&_label]:!text-lg [&_label]:!font-normal [&_label]:!normal-case [&_label]:!text-text-primary"
-                    >
-                      <div
-                        class="flex flex-col gap-4 sm:flex-row"
-                      >
-                        <div
-                          class="flex-1"
-                        >
-                          <label
-                            class="mb-1.5 block text-sm font-semibold text-text-secondary"
-                            for="date-range-start"
-                          >
-                            Start Date
                             <span
                               aria-hidden="true"
-                              class="ml-1 text-danger"
+                              aria-label="calendar"
+                              class="anticon anticon-calendar"
+                              role="img"
                             >
-                              *
-                            </span>
-                          </label>
-                          <div
-                            class="ant-picker ant-picker-outlined h-14 w-full css-dev-only-do-not-override-eofgey css-var-root ant-picker-css-var"
-                          >
-                            <div
-                              class="ant-picker-input"
-                            >
-                              <input
-                                aria-invalid="false"
-                                autocomplete="off"
-                                id="date-range-start"
-                                placeholder="Select date"
-                                readonly=""
-                                size="18"
-                                value=""
-                              />
-                              <span
-                                class="ant-picker-suffix"
+                              <svg
+                                aria-hidden="true"
+                                data-icon="calendar"
+                                fill="currentColor"
+                                focusable="false"
+                                height="1em"
+                                viewBox="64 64 896 896"
+                                width="1em"
                               >
-                                <span
-                                  aria-hidden="true"
-                                  aria-label="calendar"
-                                  class="anticon anticon-calendar"
-                                  role="img"
-                                >
-                                  <svg
-                                    aria-hidden="true"
-                                    data-icon="calendar"
-                                    fill="currentColor"
-                                    focusable="false"
-                                    height="1em"
-                                    viewBox="64 64 896 896"
-                                    width="1em"
-                                  >
-                                    <path
-                                      d="M880 184H712v-64c0-4.4-3.6-8-8-8h-56c-4.4 0-8 3.6-8 8v64H384v-64c0-4.4-3.6-8-8-8h-56c-4.4 0-8 3.6-8 8v64H144c-17.7 0-32 14.3-32 32v664c0 17.7 14.3 32 32 32h736c17.7 0 32-14.3 32-32V216c0-17.7-14.3-32-32-32zm-40 656H184V460h656v380zM184 392V256h128v48c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8v-48h256v48c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8v-48h128v136H184z"
-                                    />
-                                  </svg>
-                                </span>
-                              </span>
-                            </div>
-                          </div>
+                                <path
+                                  d="M880 184H712v-64c0-4.4-3.6-8-8-8h-56c-4.4 0-8 3.6-8 8v64H384v-64c0-4.4-3.6-8-8-8h-56c-4.4 0-8 3.6-8 8v64H144c-17.7 0-32 14.3-32 32v664c0 17.7 14.3 32 32 32h736c17.7 0 32-14.3 32-32V216c0-17.7-14.3-32-32-32zm-40 656H184V460h656v380zM184 392V256h128v48c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8v-48h256v48c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8v-48h128v136H184z"
+                                />
+                              </svg>
+                            </span>
+                          </span>
                         </div>
-                        <div
-                          class="flex-1"
+                      </div>
+                    </div>
+                    <div
+                      class="flex-1"
+                    >
+                      <label
+                        class="mb-1.5 block text-sm font-semibold text-text-secondary"
+                        for="date-range-end"
+                      >
+                        End Date
+                        <span
+                          aria-hidden="true"
+                          class="ml-1 text-danger"
                         >
-                          <label
-                            class="mb-1.5 block text-sm font-semibold text-text-secondary"
-                            for="date-range-end"
+                          *
+                        </span>
+                      </label>
+                      <div
+                        class="ant-picker ant-picker-outlined h-14 w-full css-dev-only-do-not-override-eofgey css-var-root ant-picker-css-var"
+                      >
+                        <div
+                          class="ant-picker-input"
+                        >
+                          <input
+                            aria-invalid="false"
+                            autocomplete="off"
+                            id="date-range-end"
+                            placeholder="Select date"
+                            readonly=""
+                            size="18"
+                            value=""
+                          />
+                          <span
+                            class="ant-picker-suffix"
                           >
-                            End Date
                             <span
                               aria-hidden="true"
-                              class="ml-1 text-danger"
+                              aria-label="calendar"
+                              class="anticon anticon-calendar"
+                              role="img"
                             >
-                              *
-                            </span>
-                          </label>
-                          <div
-                            class="ant-picker ant-picker-outlined h-14 w-full css-dev-only-do-not-override-eofgey css-var-root ant-picker-css-var"
-                          >
-                            <div
-                              class="ant-picker-input"
-                            >
-                              <input
-                                aria-invalid="false"
-                                autocomplete="off"
-                                id="date-range-end"
-                                placeholder="Select date"
-                                readonly=""
-                                size="18"
-                                value=""
-                              />
-                              <span
-                                class="ant-picker-suffix"
+                              <svg
+                                aria-hidden="true"
+                                data-icon="calendar"
+                                fill="currentColor"
+                                focusable="false"
+                                height="1em"
+                                viewBox="64 64 896 896"
+                                width="1em"
                               >
-                                <span
-                                  aria-hidden="true"
-                                  aria-label="calendar"
-                                  class="anticon anticon-calendar"
-                                  role="img"
-                                >
-                                  <svg
-                                    aria-hidden="true"
-                                    data-icon="calendar"
-                                    fill="currentColor"
-                                    focusable="false"
-                                    height="1em"
-                                    viewBox="64 64 896 896"
-                                    width="1em"
-                                  >
-                                    <path
-                                      d="M880 184H712v-64c0-4.4-3.6-8-8-8h-56c-4.4 0-8 3.6-8 8v64H384v-64c0-4.4-3.6-8-8-8h-56c-4.4 0-8 3.6-8 8v64H144c-17.7 0-32 14.3-32 32v664c0 17.7 14.3 32 32 32h736c17.7 0 32-14.3 32-32V216c0-17.7-14.3-32-32-32zm-40 656H184V460h656v380zM184 392V256h128v48c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8v-48h256v48c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8v-48h128v136H184z"
-                                    />
-                                  </svg>
-                                </span>
-                              </span>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div
-                      class="relative mb-0 [&_.ant-select-selector]:!min-h-16 lg:[&_.ant-select-selector]:!min-h-14"
-                    >
-                      <label
-                        class="mb-1.5 block text-sm font-semibold text-text-secondary !text-lg !font-normal !normal-case !text-text-primary lg:!text-lg"
-                        for="order-service-type"
-                      >
-                        Service Type
-                        <span
-                          aria-hidden="true"
-                          class="ml-1 text-danger"
-                        >
-                          *
-                        </span>
-                      </label>
-                      <div
-                        class="ant-select ant-select-outlined h-14 w-full !border-2 [&_.ant-select-selector]:!rounded-2xl [&_.ant-select-content]:!text-xl [&_.ant-select-content]:!font-normal !border-border-strong [&_.ant-select-selector]:!border-2 [&_.ant-select-selector]:!border-border-strong !h-16 lg:!h-14 [&_.ant-select-content]:!text-xl lg:[&_.ant-select-content]:!text-lg [&_.ant-select-content]:!font-normal css-var-root ant-select-css-var css-dev-only-do-not-override-eofgey ant-select-single ant-select-show-arrow ant-select-show-search"
-                        style="--ant-select-border-radius: 16px; border: 2px solid var(--border-strong);"
-                      >
-                        <div
-                          class="ant-select-content"
-                        >
-                          <div
-                            class="ant-select-placeholder"
-                          >
-                            Select service type
-                          </div>
-                          <input
-                            aria-autocomplete="list"
-                            aria-expanded="false"
-                            aria-haspopup="listbox"
-                            aria-invalid="false"
-                            aria-label="Service Type"
-                            aria-required="true"
-                            autocomplete="new-password"
-                            class="ant-select-input"
-                            id="order-service-type"
-                            role="combobox"
-                            type="text"
-                            value=""
-                          />
-                        </div>
-                        <div
-                          class="ant-select-suffix"
-                        >
-                          <span
-                            aria-label="down"
-                            class="anticon anticon-down"
-                            role="img"
-                          >
-                            <svg
-                              aria-hidden="true"
-                              data-icon="down"
-                              fill="currentColor"
-                              focusable="false"
-                              height="1em"
-                              viewBox="64 64 896 896"
-                              width="1em"
-                            >
-                              <path
-                                d="M884 256h-75c-5.1 0-9.9 2.5-12.9 6.6L512 654.2 227.9 262.6c-3-4.1-7.8-6.6-12.9-6.6h-75c-6.5 0-10.3 7.4-6.5 12.7l352.6 486.1c12.8 17.6 39 17.6 51.7 0l352.6-486.1c3.9-5.3.1-12.7-6.4-12.7z"
-                              />
-                            </svg>
-                          </span>
-                        </div>
-                      </div>
-                    </div>
-                    <div
-                      class="mb-4 !mb-0 [&_.ant-input]:!h-16 lg:[&_.ant-input]:!h-14 [&_.ant-input]:!rounded-2xl [&_.ant-input]:!border-2 [&_.ant-input]:!border-border-strong [&_.ant-input]:!px-4 [&_.ant-input]:!text-xl lg:[&_.ant-input]:!text-lg [&_.ant-input]:!font-normal [&_.ant-input]:placeholder:!text-xl lg:[&_.ant-input]:placeholder:!text-lg [&_.ant-input]:placeholder:!font-normal [&_label]:!text-lg lg:[&_label]:!text-lg [&_label]:!font-normal [&_label]:!normal-case [&_label]:!text-text-primary"
-                    >
-                      <label
-                        class="mb-1.5 block text-sm font-semibold text-text-secondary"
-                        for="order-service-fee"
-                      >
-                        Service Fee
-                      </label>
-                      <input
-                        aria-invalid="false"
-                        class="ant-input ant-input-lg css-dev-only-do-not-override-eofgey ant-input-outlined h-14 w-full !rounded-2xl css-var-root ant-input-css-var"
-                        id="order-service-fee"
-                        inputmode="numeric"
-                        placeholder="Enter service fee"
-                        type="text"
-                        value=""
-                      />
-                    </div>
-                    <div
-                      class="mb-4 !mb-0 [&_.ant-input]:!h-16 lg:[&_.ant-input]:!h-14 [&_.ant-input]:!rounded-2xl [&_.ant-input]:!border-2 [&_.ant-input]:!border-border-strong [&_.ant-input.ant-input-status-error]:!border-danger [&_.ant-input]:!px-4 [&_.ant-input]:!text-xl lg:[&_.ant-input]:!text-lg [&_.ant-input]:!font-normal [&_.ant-input]:placeholder:!text-xl lg:[&_.ant-input]:placeholder:!text-lg [&_.ant-input]:placeholder:!font-normal [&_label]:!text-lg lg:[&_label]:!text-lg [&_label]:!font-normal [&_label]:!normal-case [&_label]:!text-text-primary"
-                    >
-                      <label
-                        class="mb-1.5 block text-sm font-semibold text-text-secondary"
-                        for="order-event_name"
-                      >
-                        Event Name
-                        <span
-                          aria-hidden="true"
-                          class="ml-1 text-danger"
-                        >
-                          *
-                        </span>
-                      </label>
-                      <input
-                        aria-invalid="false"
-                        class="ant-input ant-input-lg css-dev-only-do-not-override-eofgey ant-input-outlined h-14 w-full !rounded-2xl css-var-root ant-input-css-var"
-                        id="order-event_name"
-                        placeholder="Enter event name"
-                        required=""
-                        type="text"
-                        value=""
-                      />
-                    </div>
-                    <div
-                      class="relative mb-0 [&_.ant-select-selector]:!min-h-16 lg:[&_.ant-select-selector]:!min-h-14"
-                    >
-                      <label
-                        class="mb-1.5 block text-sm font-semibold text-text-secondary !text-lg !font-normal !normal-case !text-text-primary lg:!text-lg"
-                        for="order-order-type"
-                      >
-                        Order Type
-                        <span
-                          aria-hidden="true"
-                          class="ml-1 text-danger"
-                        >
-                          *
-                        </span>
-                      </label>
-                      <div
-                        class="ant-select ant-select-outlined h-14 w-full !border-2 [&_.ant-select-selector]:!rounded-2xl [&_.ant-select-content]:!text-xl [&_.ant-select-content]:!font-normal !border-border-strong [&_.ant-select-selector]:!border-2 [&_.ant-select-selector]:!border-border-strong !h-16 lg:!h-14 [&_.ant-select-content]:!text-xl lg:[&_.ant-select-content]:!text-lg [&_.ant-select-content]:!font-normal css-var-root ant-select-css-var css-dev-only-do-not-override-eofgey ant-select-single ant-select-show-arrow ant-select-show-search"
-                        style="--ant-select-border-radius: 16px; border: 2px solid var(--border-strong);"
-                      >
-                        <div
-                          class="ant-select-content"
-                        >
-                          <div
-                            class="ant-select-placeholder"
-                          >
-                            Select order type
-                          </div>
-                          <input
-                            aria-autocomplete="list"
-                            aria-expanded="false"
-                            aria-haspopup="listbox"
-                            aria-invalid="false"
-                            aria-label="Order Type"
-                            aria-required="true"
-                            autocomplete="new-password"
-                            class="ant-select-input"
-                            id="order-order-type"
-                            role="combobox"
-                            type="text"
-                            value=""
-                          />
-                        </div>
-                        <div
-                          class="ant-select-suffix"
-                        >
-                          <span
-                            aria-label="down"
-                            class="anticon anticon-down"
-                            role="img"
-                          >
-                            <svg
-                              aria-hidden="true"
-                              data-icon="down"
-                              fill="currentColor"
-                              focusable="false"
-                              height="1em"
-                              viewBox="64 64 896 896"
-                              width="1em"
-                            >
-                              <path
-                                d="M884 256h-75c-5.1 0-9.9 2.5-12.9 6.6L512 654.2 227.9 262.6c-3-4.1-7.8-6.6-12.9-6.6h-75c-6.5 0-10.3 7.4-6.5 12.7l352.6 486.1c12.8 17.6 39 17.6 51.7 0l352.6-486.1c3.9-5.3.1-12.7-6.4-12.7z"
-                              />
-                            </svg>
-                          </span>
-                        </div>
-                      </div>
-                    </div>
-                    <div
-                      class="relative mb-0 [&_.ant-select-selector]:!min-h-16 lg:[&_.ant-select-selector]:!min-h-14"
-                    >
-                      <label
-                        class="mb-1.5 block text-sm font-semibold text-text-secondary !text-lg !font-normal !normal-case !text-text-primary lg:!text-lg"
-                        for="order-voucher"
-                      >
-                        Voucher
-                      </label>
-                      <div
-                        class="ant-select ant-select-outlined h-14 w-full !border-2 [&_.ant-select-selector]:!rounded-2xl [&_.ant-select-content]:!text-xl [&_.ant-select-content]:!font-normal !border-border-strong [&_.ant-select-selector]:!border-2 [&_.ant-select-selector]:!border-border-strong !h-16 lg:!h-14 [&_.ant-select-content]:!text-xl lg:[&_.ant-select-content]:!text-lg [&_.ant-select-content]:!font-normal css-var-root ant-select-css-var css-dev-only-do-not-override-eofgey ant-select-single ant-select-show-arrow ant-select-show-search"
-                        style="--ant-select-border-radius: 16px; border: 2px solid var(--border-strong);"
-                      >
-                        <div
-                          class="ant-select-content"
-                        >
-                          <div
-                            class="ant-select-placeholder"
-                          >
-                            Select voucher
-                          </div>
-                          <input
-                            aria-autocomplete="list"
-                            aria-expanded="false"
-                            aria-haspopup="listbox"
-                            aria-invalid="false"
-                            aria-label="Voucher"
-                            autocomplete="new-password"
-                            class="ant-select-input"
-                            id="order-voucher"
-                            role="combobox"
-                            type="text"
-                            value=""
-                          />
-                        </div>
-                        <div
-                          class="ant-select-suffix"
-                        >
-                          <span
-                            aria-label="down"
-                            class="anticon anticon-down"
-                            role="img"
-                          >
-                            <svg
-                              aria-hidden="true"
-                              data-icon="down"
-                              fill="currentColor"
-                              focusable="false"
-                              height="1em"
-                              viewBox="64 64 896 896"
-                              width="1em"
-                            >
-                              <path
-                                d="M884 256h-75c-5.1 0-9.9 2.5-12.9 6.6L512 654.2 227.9 262.6c-3-4.1-7.8-6.6-12.9-6.6h-75c-6.5 0-10.3 7.4-6.5 12.7l352.6 486.1c12.8 17.6 39 17.6 51.7 0l352.6-486.1c3.9-5.3.1-12.7-6.4-12.7z"
-                              />
-                            </svg>
+                                <path
+                                  d="M880 184H712v-64c0-4.4-3.6-8-8-8h-56c-4.4 0-8 3.6-8 8v64H384v-64c0-4.4-3.6-8-8-8h-56c-4.4 0-8 3.6-8 8v64H144c-17.7 0-32 14.3-32 32v664c0 17.7 14.3 32 32 32h736c17.7 0 32-14.3 32-32V216c0-17.7-14.3-32-32-32zm-40 656H184V460h656v380zM184 392V256h128v48c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8v-48h256v48c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8v-48h128v136H184z"
+                                />
+                              </svg>
+                            </span>
                           </span>
                         </div>
                       </div>
                     </div>
                   </div>
+                </div>
+                <div
+                  class="relative mb-0 [&_.ant-select-selector]:!min-h-16 lg:[&_.ant-select-selector]:!min-h-14"
+                >
                   <label
-                    class="block space-y-2"
+                    class="mb-1.5 block text-sm font-semibold text-text-secondary !text-lg !font-normal !normal-case !text-text-primary lg:!text-lg"
+                    for="order-service-type"
                   >
+                    Service Type
                     <span
-                      class="text-lg font-normal text-text-primary lg:text-lg"
+                      aria-hidden="true"
+                      class="ml-1 text-danger"
                     >
-                      Address
+                      *
                     </span>
-                    <textarea
-                      class="min-h-36 w-full rounded-2xl border-2 border-border-strong bg-background-surface px-4 py-4 text-xl font-normal outline-none placeholder:font-normal placeholder:text-xl placeholder:text-text-tertiary focus:border-border-focus focus:ring-2 focus:ring-focus-ring/30 lg:min-h-28 lg:text-lg lg:placeholder:text-lg"
-                      placeholder="Enter address"
-                    />
                   </label>
-                </section>
+                  <div
+                    class="ant-select ant-select-outlined h-14 w-full !border-2 [&_.ant-select-selector]:!rounded-2xl [&_.ant-select-content]:!text-xl [&_.ant-select-content]:!font-normal !border-border-strong [&_.ant-select-selector]:!border-2 [&_.ant-select-selector]:!border-border-strong !h-16 lg:!h-14 [&_.ant-select-content]:!text-xl lg:[&_.ant-select-content]:!text-lg [&_.ant-select-content]:!font-normal css-var-root ant-select-css-var css-dev-only-do-not-override-eofgey ant-select-single ant-select-show-arrow ant-select-show-search"
+                    style="--ant-select-border-radius: 16px; border: 2px solid var(--border-strong);"
+                  >
+                    <div
+                      class="ant-select-content"
+                    >
+                      <div
+                        class="ant-select-placeholder"
+                      >
+                        Select service type
+                      </div>
+                      <input
+                        aria-autocomplete="list"
+                        aria-expanded="false"
+                        aria-haspopup="listbox"
+                        aria-invalid="false"
+                        aria-label="Service Type"
+                        aria-required="true"
+                        autocomplete="new-password"
+                        class="ant-select-input"
+                        id="order-service-type"
+                        role="combobox"
+                        type="text"
+                        value=""
+                      />
+                    </div>
+                    <div
+                      class="ant-select-suffix"
+                    >
+                      <span
+                        aria-label="down"
+                        class="anticon anticon-down"
+                        role="img"
+                      >
+                        <svg
+                          aria-hidden="true"
+                          data-icon="down"
+                          fill="currentColor"
+                          focusable="false"
+                          height="1em"
+                          viewBox="64 64 896 896"
+                          width="1em"
+                        >
+                          <path
+                            d="M884 256h-75c-5.1 0-9.9 2.5-12.9 6.6L512 654.2 227.9 262.6c-3-4.1-7.8-6.6-12.9-6.6h-75c-6.5 0-10.3 7.4-6.5 12.7l352.6 486.1c12.8 17.6 39 17.6 51.7 0l352.6-486.1c3.9-5.3.1-12.7-6.4-12.7z"
+                          />
+                        </svg>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="mb-4 !mb-0 [&_.ant-input]:!h-16 lg:[&_.ant-input]:!h-14 [&_.ant-input]:!rounded-2xl [&_.ant-input]:!border-2 [&_.ant-input]:!border-border-strong [&_.ant-input]:!px-4 [&_.ant-input]:!text-xl lg:[&_.ant-input]:!text-lg [&_.ant-input]:!font-normal [&_.ant-input]:placeholder:!text-xl lg:[&_.ant-input]:placeholder:!text-lg [&_.ant-input]:placeholder:!font-normal [&_label]:!text-lg lg:[&_label]:!text-lg [&_label]:!font-normal [&_label]:!normal-case [&_label]:!text-text-primary"
+                >
+                  <label
+                    class="mb-1.5 block text-sm font-semibold text-text-secondary"
+                    for="order-service-fee"
+                  >
+                    Service Fee
+                  </label>
+                  <input
+                    aria-invalid="false"
+                    class="ant-input ant-input-lg css-dev-only-do-not-override-eofgey ant-input-outlined h-14 w-full !rounded-2xl css-var-root ant-input-css-var"
+                    id="order-service-fee"
+                    inputmode="numeric"
+                    placeholder="Enter service fee"
+                    type="text"
+                    value=""
+                  />
+                </div>
+                <div
+                  class="mb-4 !mb-0 [&_.ant-input]:!h-16 lg:[&_.ant-input]:!h-14 [&_.ant-input]:!rounded-2xl [&_.ant-input]:!border-2 [&_.ant-input]:!border-border-strong [&_.ant-input.ant-input-status-error]:!border-danger [&_.ant-input]:!px-4 [&_.ant-input]:!text-xl lg:[&_.ant-input]:!text-lg [&_.ant-input]:!font-normal [&_.ant-input]:placeholder:!text-xl lg:[&_.ant-input]:placeholder:!text-lg [&_.ant-input]:placeholder:!font-normal [&_label]:!text-lg lg:[&_label]:!text-lg [&_label]:!font-normal [&_label]:!normal-case [&_label]:!text-text-primary"
+                >
+                  <label
+                    class="mb-1.5 block text-sm font-semibold text-text-secondary"
+                    for="order-event_name"
+                  >
+                    Event Name
+                    <span
+                      aria-hidden="true"
+                      class="ml-1 text-danger"
+                    >
+                      *
+                    </span>
+                  </label>
+                  <input
+                    aria-invalid="false"
+                    class="ant-input ant-input-lg css-dev-only-do-not-override-eofgey ant-input-outlined h-14 w-full !rounded-2xl css-var-root ant-input-css-var"
+                    id="order-event_name"
+                    placeholder="Enter event name"
+                    required=""
+                    type="text"
+                    value=""
+                  />
+                </div>
+                <div
+                  class="relative mb-0 [&_.ant-select-selector]:!min-h-16 lg:[&_.ant-select-selector]:!min-h-14"
+                >
+                  <label
+                    class="mb-1.5 block text-sm font-semibold text-text-secondary !text-lg !font-normal !normal-case !text-text-primary lg:!text-lg"
+                    for="order-order-type"
+                  >
+                    Order Type
+                    <span
+                      aria-hidden="true"
+                      class="ml-1 text-danger"
+                    >
+                      *
+                    </span>
+                  </label>
+                  <div
+                    class="ant-select ant-select-outlined h-14 w-full !border-2 [&_.ant-select-selector]:!rounded-2xl [&_.ant-select-content]:!text-xl [&_.ant-select-content]:!font-normal !border-border-strong [&_.ant-select-selector]:!border-2 [&_.ant-select-selector]:!border-border-strong !h-16 lg:!h-14 [&_.ant-select-content]:!text-xl lg:[&_.ant-select-content]:!text-lg [&_.ant-select-content]:!font-normal css-var-root ant-select-css-var css-dev-only-do-not-override-eofgey ant-select-single ant-select-show-arrow ant-select-show-search"
+                    style="--ant-select-border-radius: 16px; border: 2px solid var(--border-strong);"
+                  >
+                    <div
+                      class="ant-select-content"
+                    >
+                      <div
+                        class="ant-select-placeholder"
+                      >
+                        Select order type
+                      </div>
+                      <input
+                        aria-autocomplete="list"
+                        aria-expanded="false"
+                        aria-haspopup="listbox"
+                        aria-invalid="false"
+                        aria-label="Order Type"
+                        aria-required="true"
+                        autocomplete="new-password"
+                        class="ant-select-input"
+                        id="order-order-type"
+                        role="combobox"
+                        type="text"
+                        value=""
+                      />
+                    </div>
+                    <div
+                      class="ant-select-suffix"
+                    >
+                      <span
+                        aria-label="down"
+                        class="anticon anticon-down"
+                        role="img"
+                      >
+                        <svg
+                          aria-hidden="true"
+                          data-icon="down"
+                          fill="currentColor"
+                          focusable="false"
+                          height="1em"
+                          viewBox="64 64 896 896"
+                          width="1em"
+                        >
+                          <path
+                            d="M884 256h-75c-5.1 0-9.9 2.5-12.9 6.6L512 654.2 227.9 262.6c-3-4.1-7.8-6.6-12.9-6.6h-75c-6.5 0-10.3 7.4-6.5 12.7l352.6 486.1c12.8 17.6 39 17.6 51.7 0l352.6-486.1c3.9-5.3.1-12.7-6.4-12.7z"
+                          />
+                        </svg>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="relative mb-0 [&_.ant-select-selector]:!min-h-16 lg:[&_.ant-select-selector]:!min-h-14"
+                >
+                  <label
+                    class="mb-1.5 block text-sm font-semibold text-text-secondary !text-lg !font-normal !normal-case !text-text-primary lg:!text-lg"
+                    for="order-voucher"
+                  >
+                    Voucher
+                  </label>
+                  <div
+                    class="ant-select ant-select-outlined h-14 w-full !border-2 [&_.ant-select-selector]:!rounded-2xl [&_.ant-select-content]:!text-xl [&_.ant-select-content]:!font-normal !border-border-strong [&_.ant-select-selector]:!border-2 [&_.ant-select-selector]:!border-border-strong !h-16 lg:!h-14 [&_.ant-select-content]:!text-xl lg:[&_.ant-select-content]:!text-lg [&_.ant-select-content]:!font-normal css-var-root ant-select-css-var css-dev-only-do-not-override-eofgey ant-select-single ant-select-show-arrow ant-select-show-search"
+                    style="--ant-select-border-radius: 16px; border: 2px solid var(--border-strong);"
+                  >
+                    <div
+                      class="ant-select-content"
+                    >
+                      <div
+                        class="ant-select-placeholder"
+                      >
+                        Select voucher
+                      </div>
+                      <input
+                        aria-autocomplete="list"
+                        aria-expanded="false"
+                        aria-haspopup="listbox"
+                        aria-invalid="false"
+                        aria-label="Voucher"
+                        autocomplete="new-password"
+                        class="ant-select-input"
+                        id="order-voucher"
+                        role="combobox"
+                        type="text"
+                        value=""
+                      />
+                    </div>
+                    <div
+                      class="ant-select-suffix"
+                    >
+                      <span
+                        aria-label="down"
+                        class="anticon anticon-down"
+                        role="img"
+                      >
+                        <svg
+                          aria-hidden="true"
+                          data-icon="down"
+                          fill="currentColor"
+                          focusable="false"
+                          height="1em"
+                          viewBox="64 64 896 896"
+                          width="1em"
+                        >
+                          <path
+                            d="M884 256h-75c-5.1 0-9.9 2.5-12.9 6.6L512 654.2 227.9 262.6c-3-4.1-7.8-6.6-12.9-6.6h-75c-6.5 0-10.3 7.4-6.5 12.7l352.6 486.1c12.8 17.6 39 17.6 51.7 0l352.6-486.1c3.9-5.3.1-12.7-6.4-12.7z"
+                          />
+                        </svg>
+                      </span>
+                    </div>
+                  </div>
+                </div>
               </div>
-              <div
-                class="mt-8 flex justify-between gap-3 border-t border-border-default/60 pt-5 lg:mt-6 lg:border-border-default"
+              <label
+                class="block space-y-2"
               >
-                <button
-                  class="h-14 cursor-pointer rounded-xl border border-border-default px-8 text-lg font-semibold text-text-primary transition-colors hover:bg-background-subtle focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-action-primary disabled:cursor-not-allowed disabled:opacity-50 lg:text-lg"
-                  disabled=""
-                  type="button"
+                <span
+                  class="text-lg font-normal text-text-primary lg:text-lg"
                 >
-                  Back
-                </button>
-                <button
-                  class="h-14 cursor-pointer rounded-xl bg-action-primary px-8 text-lg font-semibold text-text-inverse shadow-xs transition-colors hover:bg-action-primary-hover focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-action-primary lg:text-lg"
-                  type="button"
-                >
-                  Next
-                </button>
-              </div>
-            </form>
-            <div
-              aria-hidden="true"
-              class="h-24 shrink-0 lg:hidden"
-            />
+                  Address
+                </span>
+                <textarea
+                  class="min-h-36 w-full rounded-2xl border-2 border-border-strong bg-background-surface px-4 py-4 text-xl font-normal outline-none placeholder:font-normal placeholder:text-xl placeholder:text-text-tertiary focus:border-border-focus focus:ring-2 focus:ring-focus-ring/30 lg:min-h-28 lg:text-lg lg:placeholder:text-lg"
+                  placeholder="Enter address"
+                />
+              </label>
+            </section>
           </div>
-        </div>
-      </main>
+          <div
+            class="mt-8 flex justify-between gap-3 border-t border-border-default/60 pt-5 lg:mt-6 lg:border-border-default"
+          >
+            <button
+              class="h-14 cursor-pointer rounded-xl border border-border-default px-8 text-lg font-semibold text-text-primary transition-colors hover:bg-background-subtle focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-action-primary disabled:cursor-not-allowed disabled:opacity-50 lg:text-lg"
+              disabled=""
+              type="button"
+            >
+              Back
+            </button>
+            <button
+              class="h-14 cursor-pointer rounded-xl bg-action-primary px-8 text-lg font-semibold text-text-inverse shadow-xs transition-colors hover:bg-action-primary-hover focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-action-primary lg:text-lg"
+              type="button"
+            >
+              Next
+            </button>
+          </div>
+        </form>
+        <div
+          aria-hidden="true"
+          class="h-24 shrink-0 lg:hidden"
+        />
+      </div>
     </div>
   </div>
 </DocumentFragment>

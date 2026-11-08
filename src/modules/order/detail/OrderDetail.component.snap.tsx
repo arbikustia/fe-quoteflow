@@ -1,7 +1,19 @@
+import type * as React from 'react';
+
 import test from '../../../libs/unit-test';
 
 import { OrderDetailComponent } from './OrderDetail.component';
 import type { OrderDetailProps } from './OrderDetail.type';
+
+jest.mock('@/app/layout', () => ({
+  __esModule: true,
+  /**
+   * Render mocked layout.
+   * @param {{ children: React.ReactNode }} props - layout props
+   * @returns {React.ReactElement} mocked layout
+   */
+  default: ({ children }: { children: React.ReactNode }): React.ReactElement => <div data-testid="layout">{children}</div>,
+}));
 
 jest.useFakeTimers();
 jest.setSystemTime(new Date("2026-10-22T18:45:00+07:00"));

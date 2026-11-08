@@ -8,7 +8,12 @@ import type { OrderCreateProps } from "./OrderCreate.type";
 
 jest.mock("@/app/layout", () => ({
   __esModule: true,
-  default: ({ children }: { children: React.ReactNode }) => <div>{children}</div>,
+  /**
+   * Render a plain wrapper around children.
+   * @param {React.PropsWithChildren} props - Layout props.
+   * @returns {React.ReactElement} Wrapper element.
+   */
+  default: (props: React.PropsWithChildren): React.ReactElement => <div>{props.children}</div>,
 }));
 
 const props: OrderCreateProps = {

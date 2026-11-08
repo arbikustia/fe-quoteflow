@@ -1,5 +1,17 @@
-import { render, screen } from '@testing-library/react';
+import type * as React from 'react';
 import { MemoryRouter, Route, Routes } from 'react-router-dom';
+
+import { render, screen } from '@/libs/unit-test';
+
+jest.mock('@/app/layout', () => ({
+  __esModule: true,
+  /**
+   * Render mocked layout.
+   * @param {{ children: React.ReactNode }} props - layout props
+   * @returns {React.ReactElement} mocked layout
+   */
+  default: ({ children }: { children: React.ReactNode }): React.ReactElement => <div data-testid="layout">{children}</div>,
+}));
 
 const mockOrder = {
   id: "ORD-123",
@@ -23,6 +35,10 @@ const mockOrder = {
 };
 
 jest.mock('@/services/order.service', () => ({
+  /**
+   * Mock get order by ID query.
+   * @returns {{ data: { status: boolean; data: typeof mockOrder }; error: undefined; isLoading: boolean }} query result
+   */
   useGetOrderByIdQuery: (): { data: { status: boolean; data: typeof mockOrder }; error: undefined; isLoading: boolean } => ({
     data: { status: true, data: mockOrder },
     error: undefined,
@@ -32,6 +48,10 @@ jest.mock('@/services/order.service', () => ({
 
 jest.mock('@/services/master-project.service', () => ({
   mapProject: jest.fn(),
+  /**
+   * Mock get all projects query.
+   * @returns {{ data: undefined }} query result
+   */
   useGetAllProjectsQuery: (): { data: undefined } => ({ data: undefined }),
 }));
 

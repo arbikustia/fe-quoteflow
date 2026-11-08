@@ -2,629 +2,337 @@
 
 exports[`OrderComponent Snapshots Should Render OrderComponent with empty data 1`] = `
 <DocumentFragment>
-  <div
-    class="flex h-full min-h-0 w-full overflow-hidden font-sans text-text-primary relative items-stretch transition-colors duration-200 bg-background-page"
-  >
+  <div>
     <div
-      class="hidden lg:flex h-full min-h-0 shrink-0 self-stretch"
+      class="flex min-h-full flex-col"
     >
-      <aside
-        aria-label="Sidebar"
-        class="w-[290px] h-full min-h-0 self-stretch bg-sidebar-background border border-border-default flex flex-col shrink-0 overflow-hidden transition-[width] duration-[250ms] ease-in-out"
-        style="border-radius: 0;"
+      <header
+        class="mb-6 shrink-0"
       >
         <div
-          class="h-[72px] mb-16 flex items-center shrink-0 px-4"
+          class="hidden items-start justify-between gap-4 lg:flex"
         >
-          <img
-            alt="Sonicline"
-            class="h-12 w-auto object-contain"
-            src="/src/assets/Sonicline-dark.png"
-          />
-        </div>
-        <div
-          class="min-h-0 flex-1 overflow-y-auto overflow-x-hidden pb-6 px-4 space-y-5 scrollbar-thin"
-        >
-          <div>
-            <p
-              class="px-2 mb-2 text-[15px] font-semibold tracking-widest uppercase text-text-tertiary"
-            >
-              Menu
-            </p>
+          <div
+            class="min-w-0"
+          >
             <nav
-              aria-label="Menu"
-              class="space-y-1"
+              aria-label="Breadcrumb"
+              class="mb-2 flex flex-wrap items-center gap-2 text-[15px] font-medium text-text-secondary"
             >
-              <a
-                class="min-h-14 flex items-center gap-3 rounded-[8px] px-4 py-3 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring/30 text-text-secondary hover:bg-background-elevated hover:text-text-primary"
-                data-discover="true"
-                href="/home"
+              <button
+                class="cursor-pointer hover:text-text-primary"
+                type="button"
               >
-                <span
-                  class="shrink-0 [&_svg]:h-5 [&_svg]:w-5 text-text-tertiary"
-                >
-                  <svg
-                    fill="none"
-                    height="1em"
-                    stroke="currentColor"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    viewBox="0 0 24 24"
-                    width="1em"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <rect
-                      height="9"
-                      rx="1"
-                      width="7"
-                      x="3"
-                      y="3"
-                    />
-                    <rect
-                      height="5"
-                      rx="1"
-                      width="7"
-                      x="14"
-                      y="3"
-                    />
-                    <rect
-                      height="9"
-                      rx="1"
-                      width="7"
-                      x="14"
-                      y="12"
-                    />
-                    <rect
-                      height="5"
-                      rx="1"
-                      width="7"
-                      x="3"
-                      y="16"
-                    />
-                  </svg>
-                </span>
-                <span
-                  class="flex-1 truncate text-xl leading-none font-normal"
-                >
-                  Dashboard
-                </span>
-              </a>
-              <a
-                class="min-h-14 flex items-center gap-3 rounded-[8px] px-4 py-3 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring/30 text-text-secondary hover:bg-background-elevated hover:text-text-primary"
-                data-discover="true"
-                href="/order/create"
+                Order
+              </button>
+              <span
+                aria-hidden="true"
               >
-                <span
-                  class="shrink-0 [&_svg]:h-5 [&_svg]:w-5 text-text-tertiary"
-                >
-                  <svg
-                    fill="none"
-                    height="1em"
-                    stroke="currentColor"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    viewBox="0 0 24 24"
-                    width="1em"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M4 22h14a2 2 0 0 0 2-2V7l-5-5H6a2 2 0 0 0-2 2v4"
-                    />
-                    <path
-                      d="M14 2v4a2 2 0 0 0 2 2h4"
-                    />
-                    <path
-                      d="M3 15h6"
-                    />
-                    <path
-                      d="M6 12v6"
-                    />
-                  </svg>
-                </span>
-                <span
-                  class="flex-1 truncate text-xl leading-none font-normal"
-                >
-                  Create Order
-                </span>
-              </a>
-              <div>
-                <button
-                  aria-expanded="false"
-                  class="w-full min-h-14 py-3 flex items-center gap-3 rounded-[8px] px-4 text-left transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring/30 text-text-secondary hover:bg-background-elevated hover:text-text-primary"
-                  type="button"
-                >
-                  <span
-                    class="shrink-0 [&_svg]:h-5 [&_svg]:w-5 text-text-tertiary"
-                  >
-                    <svg
-                      fill="none"
-                      height="1em"
-                      stroke="currentColor"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      viewBox="0 0 24 24"
-                      width="1em"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"
-                      />
-                      <path
-                        d="M14 2v4a2 2 0 0 0 2 2h4"
-                      />
-                      <path
-                        d="M10 9H8"
-                      />
-                      <path
-                        d="M16 13H8"
-                      />
-                      <path
-                        d="M16 17H8"
-                      />
-                    </svg>
-                  </span>
-                  <span
-                    class="flex-1 truncate text-xl leading-none font-normal"
-                  >
-                    Document
-                  </span>
-                  <span
-                    class="shrink-0 text-text-tertiary transition-transform duration-200 "
-                  >
-                    <svg
-                      fill="none"
-                      height="14"
-                      stroke="currentColor"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      viewBox="0 0 24 24"
-                      width="14"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="m6 9 6 6 6-6"
-                      />
-                    </svg>
-                  </span>
-                </button>
-              </div>
-              <a
-                class="min-h-14 flex items-center gap-3 rounded-[8px] px-4 py-3 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring/30 text-text-secondary hover:bg-background-elevated hover:text-text-primary"
-                data-discover="true"
-                href="/document/item-checklist"
-              >
-                <span
-                  class="shrink-0 [&_svg]:h-5 [&_svg]:w-5 text-text-tertiary"
-                >
-                  <svg
-                    fill="none"
-                    height="1em"
-                    stroke="currentColor"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    viewBox="0 0 24 24"
-                    width="1em"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <rect
-                      height="18"
-                      rx="2"
-                      width="18"
-                      x="3"
-                      y="3"
-                    />
-                    <path
-                      d="m9 12 2 2 4-4"
-                    />
-                  </svg>
-                </span>
-                <span
-                  class="flex-1 truncate text-xl leading-none font-normal"
-                >
-                  Item Checklist
-                </span>
-              </a>
-              <a
-                class="min-h-14 flex items-center gap-3 rounded-[8px] px-4 py-3 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring/30 text-text-secondary hover:bg-background-elevated hover:text-text-primary"
-                data-discover="true"
-                href="/calendar"
-              >
-                <span
-                  class="shrink-0 [&_svg]:h-5 [&_svg]:w-5 text-text-tertiary"
-                >
-                  <svg
-                    fill="none"
-                    height="1em"
-                    stroke="currentColor"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    viewBox="0 0 24 24"
-                    width="1em"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M8 2v4"
-                    />
-                    <path
-                      d="M16 2v4"
-                    />
-                    <rect
-                      height="18"
-                      rx="2"
-                      width="18"
-                      x="3"
-                      y="4"
-                    />
-                    <path
-                      d="M3 10h18"
-                    />
-                    <path
-                      d="M8 14h.01"
-                    />
-                    <path
-                      d="M12 14h.01"
-                    />
-                    <path
-                      d="M16 14h.01"
-                    />
-                    <path
-                      d="M8 18h.01"
-                    />
-                    <path
-                      d="M12 18h.01"
-                    />
-                    <path
-                      d="M16 18h.01"
-                    />
-                  </svg>
-                </span>
-                <span
-                  class="flex-1 truncate text-xl leading-none font-normal"
-                >
-                  Calendar
-                </span>
-              </a>
-              <a
-                class="min-h-14 flex items-center gap-3 rounded-[8px] px-4 py-3 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring/30 text-text-secondary hover:bg-background-elevated hover:text-text-primary"
-                data-discover="true"
-                href="/activity-log"
-              >
-                <span
-                  class="shrink-0 [&_svg]:h-5 [&_svg]:w-5 text-text-tertiary"
-                >
-                  <svg
-                    fill="none"
-                    height="1em"
-                    stroke="currentColor"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    viewBox="0 0 24 24"
-                    width="1em"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M22 12h-2.48a2 2 0 0 0-1.93 1.46l-2.35 8.36a.25.25 0 0 1-.48 0L9.24 2.18a.25.25 0 0 0-.48 0l-2.35 8.36A2 2 0 0 1 4.49 12H2"
-                    />
-                  </svg>
-                </span>
-                <span
-                  class="flex-1 truncate text-xl leading-none font-normal"
-                >
-                  Activity Log
-                </span>
-              </a>
-              <div>
-                <button
-                  aria-expanded="false"
-                  class="w-full min-h-14 py-3 flex items-center gap-3 rounded-[8px] px-4 text-left transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring/30 text-text-secondary hover:bg-background-elevated hover:text-text-primary"
-                  type="button"
-                >
-                  <span
-                    class="shrink-0 [&_svg]:h-5 [&_svg]:w-5 text-text-tertiary"
-                  >
-                    <svg
-                      fill="none"
-                      height="1em"
-                      stroke="currentColor"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      viewBox="0 0 24 24"
-                      width="1em"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="M12 16v5"
-                      />
-                      <path
-                        d="M16 14v7"
-                      />
-                      <path
-                        d="M20 10v11"
-                      />
-                      <path
-                        d="m22 3-8.646 8.646a.5.5 0 0 1-.708 0L9.354 8.354a.5.5 0 0 0-.707 0L2 15"
-                      />
-                      <path
-                        d="M4 18v3"
-                      />
-                      <path
-                        d="M8 14v7"
-                      />
-                    </svg>
-                  </span>
-                  <span
-                    class="flex-1 truncate text-xl leading-none font-normal"
-                  >
-                    Report
-                  </span>
-                  <span
-                    class="shrink-0 text-text-tertiary transition-transform duration-200 "
-                  >
-                    <svg
-                      fill="none"
-                      height="14"
-                      stroke="currentColor"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      viewBox="0 0 24 24"
-                      width="14"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="m6 9 6 6 6-6"
-                      />
-                    </svg>
-                  </span>
-                </button>
-              </div>
-              <div>
-                <button
-                  aria-expanded="false"
-                  class="w-full min-h-14 py-3 flex items-center gap-3 rounded-[8px] px-4 text-left transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring/30 text-text-secondary hover:bg-background-elevated hover:text-text-primary"
-                  type="button"
-                >
-                  <span
-                    class="shrink-0 [&_svg]:h-5 [&_svg]:w-5 text-text-tertiary"
-                  >
-                    <svg
-                      fill="none"
-                      height="1em"
-                      stroke="currentColor"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      viewBox="0 0 24 24"
-                      width="1em"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="M11 21.73a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73z"
-                      />
-                      <path
-                        d="M12 22V12"
-                      />
-                      <path
-                        d="m3.3 7 7.703 4.734a2 2 0 0 0 1.994 0L20.7 7"
-                      />
-                      <path
-                        d="m7.5 4.27 9 5.15"
-                      />
-                    </svg>
-                  </span>
-                  <span
-                    class="flex-1 truncate text-xl leading-none font-normal"
-                  >
-                    Master Data
-                  </span>
-                  <span
-                    class="shrink-0 text-text-tertiary transition-transform duration-200 "
-                  >
-                    <svg
-                      fill="none"
-                      height="14"
-                      stroke="currentColor"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      viewBox="0 0 24 24"
-                      width="14"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="m6 9 6 6 6-6"
-                      />
-                    </svg>
-                  </span>
-                </button>
-              </div>
+                /
+              </span>
+              <span>
+                Order List
+              </span>
             </nav>
+            <h1
+              class="truncate text-4xl font-semibold leading-tight tracking-tight text-text-primary"
+            >
+              Order List
+            </h1>
+          </div>
+          <div
+            class="flex shrink-0 items-center gap-3"
+          >
+            <button
+              class="h-14 rounded-full border-2 border-brand-blue bg-background-surface px-6 text-lg font-bold text-brand-blue transition-colors hover:bg-action-primary-subtle focus:outline-none focus:ring-2 focus:ring-focus-ring/30"
+              type="button"
+            >
+              Create
+            </button>
           </div>
         </div>
         <div
-          class="shrink-0 border-t border-border-default p-3"
+          class="flex items-center justify-between gap-3 lg:hidden px-0"
         >
-          <button
-            aria-checked="false"
-            aria-label="Toggle dark theme"
-            class="mb-2 flex min-h-12 w-full cursor-pointer items-center rounded-[8px] bg-background-subtle text-text-secondary transition-colors hover:bg-action-primary-subtle focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring gap-3 px-4 py-3"
-            role="switch"
-            type="button"
+          <div
+            class="flex items-center gap-3 min-w-0 flex-1"
           >
-            <span
-              aria-hidden="true"
-              class="shrink-0 [&_svg]:h-5 [&_svg]:w-5"
+            <button
+              aria-label="Back"
+              class="flex h-14 w-14 shrink-0 items-center justify-center rounded-full border border-border-default bg-background-page text-text-primary transition-colors hover:bg-background-subtle focus-visible:ring-2 focus-visible:ring-focus-ring/30 "
+              type="button"
             >
               <svg
+                aria-hidden="true"
+                class="h-6 w-6"
                 fill="none"
-                height="20"
-                stroke="currentColor"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="1.8"
-                viewBox="0 0 24 24"
-                width="20"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"
-                />
-              </svg>
-            </span>
-            <span
-              class="flex-1 text-left text-xl font-medium"
-            >
-              Dark theme
-            </span>
-          </button>
-          <button
-            aria-label="Log out"
-            class="mb-2 flex min-h-12 w-full cursor-pointer items-center rounded-[8px] bg-danger-subtle text-danger-strong transition-colors hover:bg-danger/20 focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring gap-3 px-4 py-3"
-            type="button"
-          >
-            <span
-              aria-hidden="true"
-              class="shrink-0 [&_svg]:h-5 [&_svg]:w-5"
-            >
-              <svg
-                fill="none"
-                height="16"
-                stroke="currentColor"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="1.8"
-                viewBox="0 0 24 24"
-                width="16"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"
-                />
-                <polyline
-                  points="16 17 21 12 16 7"
-                />
-                <line
-                  x1="21"
-                  x2="9"
-                  y1="12"
-                  y2="12"
-                />
-              </svg>
-            </span>
-            <span
-              class="flex-1 text-left text-xl font-medium"
-            >
-              Log out
-            </span>
-          </button>
-          <button
-            aria-expanded="false"
-            aria-haspopup="menu"
-            class="flex w-full cursor-pointer items-center rounded-[10px] transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring/30 hover:bg-background-elevated gap-3 px-4 py-3"
-            type="button"
-          >
-            <span
-              aria-hidden="true"
-              class="w-10 h-10 rounded-full bg-action-primary-subtle text-action-primary flex items-center justify-center text-sm font-semibold shrink-0"
-            >
-              US
-            </span>
-            <span
-              class="flex-1 min-w-0 text-left"
-            >
-              <span
-                class="block truncate text-xl font-semibold leading-tight text-text-primary"
-              >
-                User
-              </span>
-            </span>
-            <span
-              class="shrink-0 text-text-tertiary transition-transform duration-200 [&_svg]:h-5 [&_svg]:w-5 "
-            >
-              <svg
-                fill="none"
-                height="14"
+                height="1em"
                 stroke="currentColor"
                 stroke-linecap="round"
                 stroke-linejoin="round"
                 stroke-width="2"
                 viewBox="0 0 24 24"
-                width="14"
+                width="1em"
                 xmlns="http://www.w3.org/2000/svg"
               >
-                <path
-                  d="m6 9 6 6 6-6"
+                <line
+                  x1="19"
+                  x2="5"
+                  y1="12"
+                  y2="12"
                 />
-              </svg>
-            </span>
-          </button>
-        </div>
-      </aside>
-    </div>
-    <div
-      class="flex-1 flex flex-col min-w-0 min-h-0 overflow-hidden relative transition-colors duration-200 bg-background-page bg-background-surface lg:bg-background-page"
-    >
-      <div
-        class="hidden lg:block shrink-0"
-      >
-        <header
-          class="sticky top-0 z-10 flex h-20 items-center justify-between border-b border-border-default bg-background-surface px-8 transition-all"
-        >
-          <div
-            class="flex flex-1 items-center gap-4"
-          >
-            <button
-              aria-expanded="true"
-              aria-label="Close sidebar"
-              class="flex h-10 w-10 items-center justify-center rounded-lg border border-border-default bg-background-surface text-text-secondary transition-colors hover:bg-background-subtle hover:text-text-primary focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring/30"
-              type="button"
-            >
-              <svg
-                fill="none"
-                height="20"
-                stroke="currentColor"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="1.8"
-                viewBox="0 0 24 24"
-                width="20"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <rect
-                  height="18"
-                  rx="3"
-                  width="18"
-                  x="3"
-                  y="3"
-                />
-                <path
-                  d="M9 3v18"
+                <polyline
+                  points="12 19 5 12 12 5"
                 />
               </svg>
             </button>
             <div
-              class="group relative hidden max-w-lg flex-1 md:block"
+              class="min-w-0 flex-1"
+            >
+              <h1
+                class="truncate text-left text-3xl font-semibold tracking-tight text-text-primary text-4xl"
+              >
+                Order List
+              </h1>
+            </div>
+          </div>
+          <div
+            class="shrink-0"
+          >
+            <button
+              class="h-14 rounded-full border-2 border-brand-blue bg-background-surface px-6 text-lg font-bold text-brand-blue transition-colors hover:bg-action-primary-subtle focus:outline-none focus:ring-2 focus:ring-focus-ring/30"
+              type="button"
+            >
+              Create
+            </button>
+          </div>
+        </div>
+      </header>
+      <main
+        class="min-w-0 flex-1"
+      >
+        <div
+          class="relative flex h-full flex-col bg-background-surface px-0 pb-18 lg:-mt-4 lg:bg-transparent lg:px-0 lg:pb-0"
+        >
+          <div
+            class="flex min-w-0 flex-col gap-4 pb-16 pt-2 lg:hidden"
+          >
+            <label
+              class="relative block w-full sm:w-72 w-full sm:w-full [&_svg]:h-7 [&_svg]:w-7"
+            >
+              <span
+                class="sr-only"
+              >
+                Search order
+              </span>
+              <svg
+                aria-hidden="true"
+                class="pointer-events-none absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-text-tertiary"
+                fill="none"
+                height="1em"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+                width="1em"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <circle
+                  cx="11"
+                  cy="11"
+                  r="8"
+                />
+                <line
+                  x1="21"
+                  x2="16.65"
+                  y1="21"
+                  y2="16.65"
+                />
+              </svg>
+              <input
+                aria-label="Search order"
+                class="h-14 w-full rounded-full border border-border-default bg-background-surface pl-12 pr-4 text-base font-medium text-text-primary outline-none transition-colors placeholder:font-normal placeholder:text-text-tertiary hover:border-border-strong focus:border-border-focus focus:ring-2 focus:ring-focus-ring/30 h-16 pl-14 text-xl placeholder:text-xl lg:h-14"
+                placeholder="Search order"
+                type="search"
+              />
+            </label>
+            <p
+              class="py-10 text-center text-sm text-text-secondary"
+            >
+              No orders found.
+            </p>
+            <div
+              class="flex flex-col gap-3 py-4 mt-2 w-full rounded-2xl border border-border-default bg-background-surface px-4 py-3 shadow-xs"
             >
               <div
-                class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3 text-text-tertiary"
+                class="flex w-full items-center justify-between gap-2 overflow-x-auto"
               >
+                <div
+                  class="flex shrink-0 items-center gap-1.5 sm:gap-2"
+                >
+                  <p
+                    class="whitespace-nowrap text-xs text-text-secondary sm:text-sm"
+                  >
+                    Show 0/10 data
+                  </p>
+                  <div
+                    class="relative w-24 shrink-0"
+                  >
+                    <label
+                      class="mb-1.5 block text-sm font-semibold text-text-secondary sr-only"
+                      for="documents-per-page"
+                    >
+                      Documents per page
+                    </label>
+                    <div
+                      class="ant-select ant-select-outlined h-14 w-full !border-2 [&_.ant-select-selector]:!rounded-2xl [&_.ant-select-content]:!text-xl [&_.ant-select-content]:!font-normal !border-border-strong [&_.ant-select-selector]:!border-2 [&_.ant-select-selector]:!border-border-strong  css-var-root ant-select-css-var css-dev-only-do-not-override-eofgey ant-select-single ant-select-show-arrow ant-select-show-search"
+                      style="--ant-select-border-radius: 16px; border: 2px solid var(--border-strong);"
+                    >
+                      <div
+                        class="ant-select-content ant-select-content-has-value"
+                        title="10"
+                      >
+                        10
+                        <input
+                          aria-autocomplete="list"
+                          aria-expanded="false"
+                          aria-haspopup="listbox"
+                          aria-invalid="false"
+                          aria-label="Documents per page"
+                          autocomplete="new-password"
+                          class="ant-select-input"
+                          id="documents-per-page"
+                          role="combobox"
+                          type="text"
+                          value=""
+                        />
+                      </div>
+                      <div
+                        class="ant-select-suffix"
+                      >
+                        <span
+                          aria-label="down"
+                          class="anticon anticon-down"
+                          role="img"
+                        >
+                          <svg
+                            aria-hidden="true"
+                            data-icon="down"
+                            fill="currentColor"
+                            focusable="false"
+                            height="1em"
+                            viewBox="64 64 896 896"
+                            width="1em"
+                          >
+                            <path
+                              d="M884 256h-75c-5.1 0-9.9 2.5-12.9 6.6L512 654.2 227.9 262.6c-3-4.1-7.8-6.6-12.9-6.6h-75c-6.5 0-10.3 7.4-6.5 12.7l352.6 486.1c12.8 17.6 39 17.6 51.7 0l352.6-486.1c3.9-5.3.1-12.7-6.4-12.7z"
+                            />
+                          </svg>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="flex shrink-0 items-center justify-end gap-1 sm:gap-2"
+                >
+                  <button
+                    aria-label="Previous"
+                    class="flex h-10 items-center justify-center gap-1 rounded-xl border border-border-default text-sm font-semibold transition-colors w-10 cursor-not-allowed bg-background-disabled text-text-disabled"
+                    disabled=""
+                    type="button"
+                  >
+                    <svg
+                      class="h-5 w-3.5 sm:h-5 sm:w-5"
+                      fill="none"
+                      height="1em"
+                      stroke="currentColor"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      viewBox="0 0 24 24"
+                      width="1em"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <polyline
+                        points="15 18 9 12 15 6"
+                      />
+                    </svg>
+                    <span
+                      class="sr-only"
+                    >
+                      Previous
+                    </span>
+                  </button>
+                  <div
+                    class="flex min-w-0 items-center justify-center gap-1"
+                  >
+                    <button
+                      aria-current="page"
+                      class="flex h-10 w-10 items-center justify-center rounded-xl text-sm font-semibold transition-colors bg-action-primary text-text-inverse shadow-sm"
+                      type="button"
+                    >
+                      1
+                    </button>
+                  </div>
+                  <button
+                    aria-label="Next"
+                    class="flex h-10 items-center justify-center gap-1 rounded-xl border border-border-default text-sm font-semibold transition-colors w-10 cursor-not-allowed bg-background-disabled text-text-disabled"
+                    disabled=""
+                    type="button"
+                  >
+                    <span
+                      class="sr-only"
+                    >
+                      Next
+                    </span>
+                    <svg
+                      class="h-5 w-3.5 sm:h-5 sm:w-5"
+                      fill="none"
+                      height="1em"
+                      stroke="currentColor"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      viewBox="0 0 24 24"
+                      width="1em"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <polyline
+                        points="9 18 15 12 9 6"
+                      />
+                    </svg>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            class="hidden rounded-4xl border border-border-default bg-background-surface px-6 shadow-xs md:mt-6 md:flex md:flex-1 md:flex-col md:overflow-hidden lg:flex"
+          >
+            <div
+              class="flex items-center justify-between gap-4 border-brand-gray-light py-6"
+            >
+              <label
+                class="relative block w-full sm:w-72 "
+              >
+                <span
+                  class="sr-only"
+                >
+                  Search order
+                </span>
                 <svg
+                  aria-hidden="true"
+                  class="pointer-events-none absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-text-tertiary"
                   fill="none"
-                  height="18"
+                  height="1em"
                   stroke="currentColor"
                   stroke-linecap="round"
                   stroke-linejoin="round"
-                  stroke-width="1.8"
+                  stroke-width="2"
                   viewBox="0 0 24 24"
-                  width="18"
+                  width="1em"
                   xmlns="http://www.w3.org/2000/svg"
                 >
                   <circle
@@ -632,348 +340,119 @@ exports[`OrderComponent Snapshots Should Render OrderComponent with empty data 1
                     cy="11"
                     r="8"
                   />
-                  <path
-                    d="m21 21-4.3-4.3"
+                  <line
+                    x1="21"
+                    x2="16.65"
+                    y1="21"
+                    y2="16.65"
                   />
                 </svg>
-              </div>
-              <input
-                aria-label="Search anything"
-                class="w-full rounded-lg border border-border-default bg-background-surface py-2.5 pl-10 pr-12 text-sm font-medium text-text-primary transition-all placeholder:text-text-tertiary focus:border-action-primary focus:outline-none focus:ring-1 focus:ring-action-primary"
-                placeholder="Search anything"
-                type="text"
-              />
-              <div
-                class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3"
+                <input
+                  aria-label="Search order"
+                  class="h-14 w-full rounded-xl border border-border-default bg-background-surface pl-12 pr-4 text-base font-medium text-text-primary outline-none transition-colors placeholder:font-normal placeholder:text-text-tertiary hover:border-border-strong focus:border-border-focus focus:ring-2 focus:ring-focus-ring/30"
+                  placeholder="Search order"
+                  type="search"
+                />
+              </label>
+              <button
+                class="h-14 rounded-xl bg-brand-blue px-6 text-sm font-semibold text-brand-white shadow-sm transition-colors hover:bg-brand-blue/90 focus:outline-none focus:ring-2 focus:ring-brand-blue/30"
+                type="button"
               >
-                <span
-                  class="rounded border border-border-default bg-background-subtle px-1.5 py-0.5 text-[10px] font-medium text-text-tertiary"
-                >
-                  ⌘K
-                </span>
-              </div>
-            </div>
-          </div>
-          <time
-            class="text-lg font-semibold tracking-wide text-text-primary tabular-nums sm:text-3xl"
-            data-testid="navbar-realtime-clock"
-          >
-            22-10-2026 18:45:00
-          </time>
-        </header>
-      </div>
-      <main
-        class="relative z-0 flex-1 overflow-y-auto px-4 pt-4 pb-20 lg:p-8"
-      >
-        <div
-          class="flex min-h-full flex-col"
-        >
-          <header
-            class="mb-6 shrink-0"
-          >
-            <div
-              class="hidden items-start justify-between gap-4 lg:flex"
-            >
-              <div
-                class="min-w-0"
-              >
-                <nav
-                  aria-label="Breadcrumb"
-                  class="mb-2 flex flex-wrap items-center gap-2 text-[15px] font-medium text-text-secondary"
-                >
-                  <button
-                    class="cursor-pointer hover:text-text-primary"
-                    type="button"
-                  >
-                    Order
-                  </button>
-                  <span
-                    aria-hidden="true"
-                  >
-                    /
-                  </span>
-                  <span>
-                    Order List
-                  </span>
-                </nav>
-                <h1
-                  class="truncate text-4xl font-semibold leading-tight tracking-tight text-text-primary"
-                >
-                  Order List
-                </h1>
-              </div>
-              <div
-                class="flex shrink-0 items-center gap-3"
-              >
-                <button
-                  class="h-14 rounded-full border-2 border-brand-blue bg-background-surface px-6 text-lg font-bold text-brand-blue transition-colors hover:bg-action-primary-subtle focus:outline-none focus:ring-2 focus:ring-focus-ring/30"
-                  type="button"
-                >
-                  Create
-                </button>
-              </div>
+                Create Order
+              </button>
             </div>
             <div
-              class="flex items-center justify-between gap-3 lg:hidden px-0"
+              class="flex-1 overflow-auto"
             >
-              <div
-                class="flex items-center gap-3 min-w-0 flex-1"
+              <p
+                class="py-10 text-center text-sm text-text-secondary"
               >
-                <button
-                  aria-label="Back"
-                  class="flex h-14 w-14 shrink-0 items-center justify-center rounded-full border border-border-default text-text-primary bg-white hover:bg-background-subtle transition-colors"
-                  type="button"
-                >
-                  <svg
-                    aria-hidden="true"
-                    class="w-6 h-6"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2.5"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      d="M19 12H5M12 19l-7-7 7-7"
-                    />
-                  </svg>
-                </button>
-                <h1
-                  class="min-w-0 truncate text-left text-3xl font-semibold tracking-tight text-text-primary text-4xl"
-                >
-                  Order List
-                </h1>
-              </div>
-              <div
-                class="shrink-0"
-              >
-                <button
-                  class="h-14 rounded-full border-2 border-brand-blue bg-background-surface px-6 text-lg font-bold text-brand-blue transition-colors hover:bg-action-primary-subtle focus:outline-none focus:ring-2 focus:ring-focus-ring/30"
-                  type="button"
-                >
-                  Create
-                </button>
-              </div>
+                No orders found.
+              </p>
             </div>
-          </header>
-          <main
-            class="min-w-0 flex-1"
-          >
             <div
-              class="relative flex h-full flex-col bg-background-surface px-0 pb-18 lg:-mt-4 lg:bg-transparent lg:px-0 lg:pb-0"
+              class="flex flex-col gap-3 py-4 "
             >
               <div
-                class="flex min-w-0 flex-col gap-4 pb-16 pt-2 lg:hidden"
+                class="flex w-full items-center justify-between gap-2 overflow-x-auto"
               >
-                <label
-                  class="relative block w-full sm:w-72 w-full sm:w-full [&_svg]:h-7 [&_svg]:w-7"
-                >
-                  <span
-                    class="sr-only"
-                  >
-                    Search order
-                  </span>
-                  <svg
-                    aria-hidden="true"
-                    class="pointer-events-none absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-text-tertiary"
-                    fill="none"
-                    height="1em"
-                    stroke="currentColor"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    viewBox="0 0 24 24"
-                    width="1em"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <circle
-                      cx="11"
-                      cy="11"
-                      r="8"
-                    />
-                    <line
-                      x1="21"
-                      x2="16.65"
-                      y1="21"
-                      y2="16.65"
-                    />
-                  </svg>
-                  <input
-                    aria-label="Search order"
-                    class="h-14 w-full rounded-full border border-border-default bg-background-surface pl-12 pr-4 text-base font-medium text-text-primary outline-none transition-colors placeholder:font-normal placeholder:text-text-tertiary hover:border-border-strong focus:border-border-focus focus:ring-2 focus:ring-focus-ring/30 h-16 pl-14 text-xl placeholder:text-xl lg:h-14"
-                    placeholder="Search order"
-                    type="search"
-                  />
-                </label>
-                <p
-                  class="py-10 text-center text-sm text-text-secondary"
-                >
-                  No orders found.
-                </p>
                 <div
-                  class="flex flex-col gap-3 py-4 mt-2 w-full rounded-2xl border border-border-default bg-background-surface px-4 py-3 shadow-xs"
+                  class="flex shrink-0 items-center gap-1.5 sm:gap-2"
                 >
-                  <div
-                    class="flex w-full items-center justify-between gap-2 overflow-x-auto"
+                  <p
+                    class="whitespace-nowrap text-xs text-text-secondary sm:text-sm"
                   >
-                    <div
-                      class="flex shrink-0 items-center gap-1.5 sm:gap-2"
+                    Show 0/10 data
+                  </p>
+                  <div
+                    class="relative w-[180px] sm:w-auto sm:min-w-[100px] shrink-0"
+                  >
+                    <label
+                      class="mb-1.5 block text-sm font-semibold text-text-secondary sr-only"
+                      for="documents-per-page"
                     >
-                      <p
-                        class="whitespace-nowrap text-xs text-text-secondary sm:text-sm"
-                      >
-                        Show 0/10 data
-                      </p>
+                      Documents per page
+                    </label>
+                    <div
+                      class="ant-select ant-select-outlined h-14 w-full !border-2 [&_.ant-select-selector]:!rounded-2xl [&_.ant-select-content]:!text-xl [&_.ant-select-content]:!font-normal !border-border-strong [&_.ant-select-selector]:!border-2 [&_.ant-select-selector]:!border-border-strong  css-var-root ant-select-css-var css-dev-only-do-not-override-eofgey ant-select-single ant-select-show-arrow ant-select-show-search"
+                      style="--ant-select-border-radius: 16px; border: 2px solid var(--border-strong);"
+                    >
                       <div
-                        class="relative w-auto shrink-0"
+                        class="ant-select-content ant-select-content-has-value"
+                        title="10"
                       >
-                        <label
-                          class="mb-1.5 block text-xs font-bold uppercase tracking-wider text-text-secondary sr-only"
-                          for="documents-per-page"
+                        10
+                        <input
+                          aria-autocomplete="list"
+                          aria-expanded="false"
+                          aria-haspopup="listbox"
+                          aria-invalid="false"
+                          aria-label="Documents per page"
+                          autocomplete="new-password"
+                          class="ant-select-input"
+                          id="documents-per-page"
+                          role="combobox"
+                          type="text"
+                          value=""
+                        />
+                      </div>
+                      <div
+                        class="ant-select-suffix"
+                      >
+                        <span
+                          aria-label="down"
+                          class="anticon anticon-down"
+                          role="img"
                         >
-                          Documents per page
-                        </label>
-                        <div
-                          class="ant-select ant-select-outlined h-14 w-full [&_.ant-select-selector]:!rounded-2xl [&_.ant-select-content]:!text-xl [&_.ant-select-content]:!font-normal  css-var-root ant-select-css-var css-dev-only-do-not-override-eofgey ant-select-single ant-select-show-arrow ant-select-show-search"
-                          style="--ant-select-border-radius: 16px;"
-                        >
-                          <div
-                            class="ant-select-content ant-select-content-has-value"
-                            title="10"
+                          <svg
+                            aria-hidden="true"
+                            data-icon="down"
+                            fill="currentColor"
+                            focusable="false"
+                            height="1em"
+                            viewBox="64 64 896 896"
+                            width="1em"
                           >
-                            10
-                            <input
-                              aria-autocomplete="list"
-                              aria-expanded="false"
-                              aria-haspopup="listbox"
-                              aria-invalid="false"
-                              aria-label="Documents per page"
-                              autocomplete="new-password"
-                              class="ant-select-input"
-                              id="documents-per-page"
-                              role="combobox"
-                              type="text"
-                              value=""
+                            <path
+                              d="M884 256h-75c-5.1 0-9.9 2.5-12.9 6.6L512 654.2 227.9 262.6c-3-4.1-7.8-6.6-12.9-6.6h-75c-6.5 0-10.3 7.4-6.5 12.7l352.6 486.1c12.8 17.6 39 17.6 51.7 0l352.6-486.1c3.9-5.3.1-12.7-6.4-12.7z"
                             />
-                          </div>
-                          <div
-                            class="ant-select-suffix"
-                          >
-                            <span
-                              aria-label="down"
-                              class="anticon anticon-down"
-                              role="img"
-                            >
-                              <svg
-                                aria-hidden="true"
-                                data-icon="down"
-                                fill="currentColor"
-                                focusable="false"
-                                height="1em"
-                                viewBox="64 64 896 896"
-                                width="1em"
-                              >
-                                <path
-                                  d="M884 256h-75c-5.1 0-9.9 2.5-12.9 6.6L512 654.2 227.9 262.6c-3-4.1-7.8-6.6-12.9-6.6h-75c-6.5 0-10.3 7.4-6.5 12.7l352.6 486.1c12.8 17.6 39 17.6 51.7 0l352.6-486.1c3.9-5.3.1-12.7-6.4-12.7z"
-                                />
-                              </svg>
-                            </span>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div
-                      class="flex shrink-0 items-center justify-end gap-1 sm:gap-2"
-                    >
-                      <button
-                        aria-label="Previous"
-                        class="flex h-10 items-center justify-center gap-1 rounded-xl border border-border-default text-sm font-semibold transition-colors w-10 cursor-not-allowed bg-background-disabled text-text-disabled"
-                        disabled=""
-                        type="button"
-                      >
-                        <svg
-                          class="h-5 w-3.5 sm:h-5 sm:w-5"
-                          fill="none"
-                          height="1em"
-                          stroke="currentColor"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          stroke-width="2"
-                          viewBox="0 0 24 24"
-                          width="1em"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <polyline
-                            points="15 18 9 12 15 6"
-                          />
-                        </svg>
-                        <span
-                          class="sr-only"
-                        >
-                          Previous
+                          </svg>
                         </span>
-                      </button>
-                      <div
-                        class="flex min-w-0 items-center justify-center gap-1"
-                      >
-                        <button
-                          aria-current="page"
-                          class="flex h-10 w-10 items-center justify-center rounded-xl text-sm font-semibold transition-colors bg-action-primary text-text-inverse shadow-sm"
-                          type="button"
-                        >
-                          1
-                        </button>
                       </div>
-                      <button
-                        aria-label="Next"
-                        class="flex h-10 items-center justify-center gap-1 rounded-xl border border-border-default text-sm font-semibold transition-colors w-10 cursor-not-allowed bg-background-disabled text-text-disabled"
-                        disabled=""
-                        type="button"
-                      >
-                        <span
-                          class="sr-only"
-                        >
-                          Next
-                        </span>
-                        <svg
-                          class="h-5 w-3.5 sm:h-5 sm:w-5"
-                          fill="none"
-                          height="1em"
-                          stroke="currentColor"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          stroke-width="2"
-                          viewBox="0 0 24 24"
-                          width="1em"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <polyline
-                            points="9 18 15 12 9 6"
-                          />
-                        </svg>
-                      </button>
                     </div>
                   </div>
                 </div>
-              </div>
-              <div
-                class="hidden rounded-4xl border border-border-default bg-background-surface px-6 shadow-xs md:mt-6 md:flex md:flex-1 md:flex-col md:overflow-hidden lg:flex"
-              >
                 <div
-                  class="flex items-center justify-between gap-4 border-brand-gray-light py-6"
+                  class="flex shrink-0 items-center justify-end gap-1 sm:gap-2"
                 >
-                  <label
-                    class="relative block w-full sm:w-72 "
+                  <button
+                    aria-label="Previous"
+                    class="flex h-10 items-center justify-center gap-1 rounded-xl border border-border-default text-sm font-semibold transition-colors px-3 sm:px-4 cursor-not-allowed bg-background-disabled text-text-disabled"
+                    disabled=""
+                    type="button"
                   >
-                    <span
-                      class="sr-only"
-                    >
-                      Search order
-                    </span>
                     <svg
-                      aria-hidden="true"
-                      class="pointer-events-none absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-text-tertiary"
+                      class="h-5 w-3.5 sm:h-5 sm:w-5"
                       fill="none"
                       height="1em"
                       stroke="currentColor"
@@ -984,189 +463,59 @@ exports[`OrderComponent Snapshots Should Render OrderComponent with empty data 1
                       width="1em"
                       xmlns="http://www.w3.org/2000/svg"
                     >
-                      <circle
-                        cx="11"
-                        cy="11"
-                        r="8"
-                      />
-                      <line
-                        x1="21"
-                        x2="16.65"
-                        y1="21"
-                        y2="16.65"
+                      <polyline
+                        points="15 18 9 12 15 6"
                       />
                     </svg>
-                    <input
-                      aria-label="Search order"
-                      class="h-14 w-full rounded-xl border border-border-default bg-background-surface pl-12 pr-4 text-base font-medium text-text-primary outline-none transition-colors placeholder:font-normal placeholder:text-text-tertiary hover:border-border-strong focus:border-border-focus focus:ring-2 focus:ring-focus-ring/30"
-                      placeholder="Search order"
-                      type="search"
-                    />
-                  </label>
+                    <span
+                      class="hidden sm:inline"
+                    >
+                      Previous
+                    </span>
+                  </button>
+                  <div
+                    class="flex min-w-0 items-center justify-center gap-1"
+                  >
+                    <button
+                      aria-current="page"
+                      class="flex h-10 w-10 items-center justify-center rounded-xl text-sm font-semibold transition-colors bg-action-primary text-text-inverse shadow-sm"
+                      type="button"
+                    >
+                      1
+                    </button>
+                  </div>
                   <button
-                    class="h-14 rounded-xl bg-brand-blue px-6 text-sm font-semibold text-brand-white shadow-sm transition-colors hover:bg-brand-blue/90 focus:outline-none focus:ring-2 focus:ring-brand-blue/30"
+                    aria-label="Next"
+                    class="flex h-10 items-center justify-center gap-1 rounded-xl border border-border-default text-sm font-semibold transition-colors px-3 sm:px-4 cursor-not-allowed bg-background-disabled text-text-disabled"
+                    disabled=""
                     type="button"
                   >
-                    Create Order
+                    <span
+                      class="hidden sm:inline"
+                    >
+                      Next
+                    </span>
+                    <svg
+                      class="h-5 w-3.5 sm:h-5 sm:w-5"
+                      fill="none"
+                      height="1em"
+                      stroke="currentColor"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      viewBox="0 0 24 24"
+                      width="1em"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <polyline
+                        points="9 18 15 12 9 6"
+                      />
+                    </svg>
                   </button>
-                </div>
-                <div
-                  class="flex-1 overflow-auto"
-                >
-                  <p
-                    class="py-10 text-center text-sm text-text-secondary"
-                  >
-                    No orders found.
-                  </p>
-                </div>
-                <div
-                  class="flex flex-col gap-3 py-4 "
-                >
-                  <div
-                    class="flex w-full items-center justify-between gap-2 overflow-x-auto"
-                  >
-                    <div
-                      class="flex shrink-0 items-center gap-1.5 sm:gap-2"
-                    >
-                      <p
-                        class="whitespace-nowrap text-xs text-text-secondary sm:text-sm"
-                      >
-                        Show 0/10 data
-                      </p>
-                      <div
-                        class="relative w-[180px] sm:w-auto sm:min-w-[100px] shrink-0"
-                      >
-                        <label
-                          class="mb-1.5 block text-xs font-bold uppercase tracking-wider text-text-secondary sr-only"
-                          for="documents-per-page"
-                        >
-                          Documents per page
-                        </label>
-                        <div
-                          class="ant-select ant-select-outlined h-14 w-full [&_.ant-select-selector]:!rounded-2xl [&_.ant-select-content]:!text-xl [&_.ant-select-content]:!font-normal  css-var-root ant-select-css-var css-dev-only-do-not-override-eofgey ant-select-single ant-select-show-arrow ant-select-show-search"
-                          style="--ant-select-border-radius: 16px;"
-                        >
-                          <div
-                            class="ant-select-content ant-select-content-has-value"
-                            title="10"
-                          >
-                            10
-                            <input
-                              aria-autocomplete="list"
-                              aria-expanded="false"
-                              aria-haspopup="listbox"
-                              aria-invalid="false"
-                              aria-label="Documents per page"
-                              autocomplete="new-password"
-                              class="ant-select-input"
-                              id="documents-per-page"
-                              role="combobox"
-                              type="text"
-                              value=""
-                            />
-                          </div>
-                          <div
-                            class="ant-select-suffix"
-                          >
-                            <span
-                              aria-label="down"
-                              class="anticon anticon-down"
-                              role="img"
-                            >
-                              <svg
-                                aria-hidden="true"
-                                data-icon="down"
-                                fill="currentColor"
-                                focusable="false"
-                                height="1em"
-                                viewBox="64 64 896 896"
-                                width="1em"
-                              >
-                                <path
-                                  d="M884 256h-75c-5.1 0-9.9 2.5-12.9 6.6L512 654.2 227.9 262.6c-3-4.1-7.8-6.6-12.9-6.6h-75c-6.5 0-10.3 7.4-6.5 12.7l352.6 486.1c12.8 17.6 39 17.6 51.7 0l352.6-486.1c3.9-5.3.1-12.7-6.4-12.7z"
-                                />
-                              </svg>
-                            </span>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div
-                      class="flex shrink-0 items-center justify-end gap-1 sm:gap-2"
-                    >
-                      <button
-                        aria-label="Previous"
-                        class="flex h-10 items-center justify-center gap-1 rounded-xl border border-border-default text-sm font-semibold transition-colors px-3 sm:px-4 cursor-not-allowed bg-background-disabled text-text-disabled"
-                        disabled=""
-                        type="button"
-                      >
-                        <svg
-                          class="h-5 w-3.5 sm:h-5 sm:w-5"
-                          fill="none"
-                          height="1em"
-                          stroke="currentColor"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          stroke-width="2"
-                          viewBox="0 0 24 24"
-                          width="1em"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <polyline
-                            points="15 18 9 12 15 6"
-                          />
-                        </svg>
-                        <span
-                          class="hidden sm:inline"
-                        >
-                          Previous
-                        </span>
-                      </button>
-                      <div
-                        class="flex min-w-0 items-center justify-center gap-1"
-                      >
-                        <button
-                          aria-current="page"
-                          class="flex h-10 w-10 items-center justify-center rounded-xl text-sm font-semibold transition-colors bg-action-primary text-text-inverse shadow-sm"
-                          type="button"
-                        >
-                          1
-                        </button>
-                      </div>
-                      <button
-                        aria-label="Next"
-                        class="flex h-10 items-center justify-center gap-1 rounded-xl border border-border-default text-sm font-semibold transition-colors px-3 sm:px-4 cursor-not-allowed bg-background-disabled text-text-disabled"
-                        disabled=""
-                        type="button"
-                      >
-                        <span
-                          class="hidden sm:inline"
-                        >
-                          Next
-                        </span>
-                        <svg
-                          class="h-5 w-3.5 sm:h-5 sm:w-5"
-                          fill="none"
-                          height="1em"
-                          stroke="currentColor"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          stroke-width="2"
-                          viewBox="0 0 24 24"
-                          width="1em"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <polyline
-                            points="9 18 15 12 9 6"
-                          />
-                        </svg>
-                      </button>
-                    </div>
-                  </div>
                 </div>
               </div>
             </div>
-          </main>
+          </div>
         </div>
       </main>
     </div>
