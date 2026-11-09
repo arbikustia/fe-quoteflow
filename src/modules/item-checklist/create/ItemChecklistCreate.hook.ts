@@ -1,105 +1,27 @@
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
 import { useMasterActivityLog } from "@/hooks/useMasterActivityLog";
 
-import type { SelectOption } from "@/components/Select";
+import type { ChecklistCreateFormState, ChecklistLogicState } from "./ItemChecklistCreate.type";
+import { useChecklistHandlers, useFilteredOrderItems, useItemChecklistFormState } from "./ItemChecklistForm.hook";
+import { useItemChecklistData } from "./ItemChecklistHelpers";
+import { useItemChecklistSaveHandler } from "./ItemChecklistSave.hook";
+import { useItemChecklistScan } from "./ItemChecklistScan.hook";
 
-import type { ApiRentalOrder } from "@/modules/report/Report.type";
 import { useGetAllItemsQuery } from "@/services/master-item.service";
-import { useCreateRentalChecklistMutation, useGetRentalChecklistByIdQuery, useUpdateRentalChecklistMutation } from "@/services/rental-checklist.service";
+import {
+  useCreateRentalChecklistMutation,
+  useGetRentalChecklistByIdQuery,
+  useUpdateRentalChecklistMutation,
+} from "@/services/rental-checklist.service";
 import { useGetRentalOrderOptionsQuery } from "@/services/rental-order.service";
 
-import type { ChecklistCreateFormState, ChecklistFocusAt, ChecklistOrderItemRow } from "./ItemChecklistCreate.type";
-import { getOrderCustomerName } from "../ItemChecklist.helpers";
-import type { ApiChecklist, ChecklistCreatePayload } from "../ItemChecklist.type";
-
-const _getCustomerName = (order: ApiRentalOrder): string => getOrderCustomerName(order);
-
-const _getOrderOptions = (orders: ApiRentalOrder[]): SelectOption[] =>
-  orders.map((order) => ({
-    value: order.id,
-    label: `${_getCustomerName(order)} — ${order.order_no}`,
-  }));
-
-const _getChecklistItems = (checklist: ApiChecklist, categories: Map<string, string>): ChecklistOrderItemRow[] =>
-  checklist.items.map((item): ChecklistOrderItemRow => ({
-    id: item.id,
-    itemId: item.item_id,
-    itemName: item.item_name || item.description,
-    category: categories.get(item.item_id) ?? "-",
-    qty: item.qty,
-    unit: item.qty === 1 ? "unit" : "units",
-    moveOut: "",
-    moveIn: "",
-    sign: item.sign,
-  }));
-
-const _getOrderItems = (order: ApiRentalOrder | undefined): ChecklistOrderItemRow[] => {
-  if (!order) return [];
-
-  const transaction = order.invoice?.quotation?.transaction;
-  const picName = transaction?.pic?.name ?? "-";
-  const rows: ChecklistOrderItemRow[] = [];
-
-  const standardItems = transaction?.rental_transaction_items ?? [];
-  standardItems.forEach((item, index) => {
-    rows.push({
-      id: `${item.item_id}-${index}`,
-      itemId: item.item_id,
-      itemName: item.item_name,
-      category: item.category_name ?? "-",
-      qty: item.qty,
-      unit: item.qty === 1 ? "unit" : "units",
-      moveOut: "",
-      moveIn: "",
-      sign: picName,
-    });
-  });
-
-  const projectItems = transaction?.rental_transaction_project ?? [];
-  projectItems.forEach((project, projectIndex) => {
-    project.items?.forEach((item, itemIndex) => {
-      rows.push({
-        id: `${item.item_id}-proj-${projectIndex}-${itemIndex}`,
-        itemId: item.item_id,
-        itemName: item.item_name,
-        category: item.category_name ?? "-",
-        qty: item.qty,
-        unit: item.qty === 1 ? "unit" : "units",
-        moveOut: "",
-        moveIn: "",
-        sign: picName,
-      });
-    });
-  });
-
-  return rows;
-};
-
-const _buildPayload = (
-  orderId: string,
-  status: number,
-  rows: ChecklistOrderItemRow[],
-  moveOutIds: string[],
-  moveInIds: string[],
-  checklist?: ApiChecklist,
-): ChecklistCreatePayload => ({
-  order_id: orderId,
-  ...(checklist ? { checklist_no: checklist.checklist_no } : {}),
-  status,
-  items: rows.map((row) => ({
-    item_id: row.itemId,
-    description: checklist?.items.find((entry) => entry.id === row.id)?.description ?? row.itemName,
-    qty: row.qty,
-    move_out: moveOutIds.includes(row.id),
-    move_in: moveInIds.includes(row.id),
-    sign: row.sign,
-  })),
-});
-
-/** Manage create and edit checklist state. @returns {ChecklistCreateFormState} Checklist form state. */
-export const useItemChecklistCreate = (): ChecklistCreateFormState => {
+/**
+ * Custom hook logic for ItemChecklist.
+ * @returns {ChecklistLogicState} - Logic state
+ */
+const useItemChecklistLogic = (): ChecklistLogicState => {
   const navigate = useNavigate();
   const { id } = useParams<{ id: string }>();
   const isEditMode = Boolean(id);
@@ -107,212 +29,82 @@ export const useItemChecklistCreate = (): ChecklistCreateFormState => {
   const [updateChecklist, { isLoading: isUpdating }] = useUpdateRentalChecklistMutation();
   const { logCreate, logEdit } = useMasterActivityLog("Item Checklist");
   const detailQuery = useGetRentalChecklistByIdQuery(id ?? "", { skip: !id });
+
   const ordersQuery = useGetRentalOrderOptionsQuery();
   const itemsQuery = useGetAllItemsQuery();
   const initializedChecklistId = useRef<string | null>(null);
-  const scanBuffer = useRef("");
-  const scanResetTimer = useRef(0);
-  const [selectedOrderId, setSelectedOrderId] = useState("");
-  const [focusAt, setFocusAt] = useState<ChecklistFocusAt>("moveOut");
-  const [moveOutItemIds, setMoveOutItemIds] = useState<string[]>([]);
-  const [moveInItemIds, setMoveInItemIds] = useState<string[]>([]);
-  const [searchTerm, setSearchTerm] = useState("");
-  const [saveErrorMessage, setSaveErrorMessage] = useState<string | null>(null);
+  const form = useItemChecklistFormState();
+  const data = useItemChecklistData({
+    isEditMode,
+    selectedOrderId: form.selectedOrderId,
+    detailData: detailQuery.data?.status ? detailQuery.data.data : null,
+    ordersData: ordersQuery.data?.status ? ordersQuery.data.data : [],
+    ordersStatus: ordersQuery.data?.status,
+    itemsData: itemsQuery.data?.status ? itemsQuery.data.data.map(i => ({ id: i.id, category_name: i.category_name ?? undefined })) : [],
+    itemsStatus: itemsQuery.data?.status,
+  });
 
-  const itemCategoryMap = useMemo(() => {
-    const map = new Map<string, string>();
-    if (itemsQuery.data?.status && itemsQuery.data.data) {
-      itemsQuery.data.data.forEach((item) => {
-        if (item.category_name) {
-          map.set(item.id, item.category_name);
-        }
-      });
-    }
+  useItemChecklistScan({ orderItems: data.orderItems, focusAt: form.focusAt, setMoveInItemIds: form.setMoveInItemIds, setMoveOutItemIds: form.setMoveOutItemIds, setSearchTerm: form.setSearchTerm });
 
-    return map;
-  }, [itemsQuery.data]);
-
-  const orderOptions = ordersQuery.data?.status ? _getOrderOptions(ordersQuery.data.data) : [];
-
-  const selectedOrder = ordersQuery.data?.status
-    ? ordersQuery.data.data.find((order) => order.id === selectedOrderId)
-    : undefined;
-  const checklist = detailQuery.data?.status ? detailQuery.data.data : null;
-
-  const orderItems = useMemo(() => {
-    if (isEditMode && checklist) {
-      return _getChecklistItems(checklist, itemCategoryMap);
-    }
-
-    return _getOrderItems(selectedOrder);
-  }, [isEditMode, checklist, selectedOrder, itemCategoryMap]);
-
-  useEffect((): (() => void) => {
-    const handleScan = (event: KeyboardEvent): void => {
-      const target = event.target;
-      if (target instanceof HTMLInputElement || target instanceof HTMLTextAreaElement || target instanceof HTMLSelectElement) return;
-
-      if (event.key === "Enter") {
-        const scannedItemId = scanBuffer.current;
-        scanBuffer.current = "";
-        window.clearTimeout(scanResetTimer.current);
-        const row = orderItems.find((item) => item.itemId === scannedItemId);
-        if (!row) return;
-
-        setSearchTerm("");
-
-        if (focusAt === "moveIn") {
-          setMoveInItemIds((currentIds) => currentIds.includes(row.id) ? currentIds : [...currentIds, row.id]);
-        } else {
-          setMoveOutItemIds((currentIds) => currentIds.includes(row.id) ? currentIds : [...currentIds, row.id]);
-        }
-
-        return;
-      }
-
-      if (event.key.length !== 1 || event.ctrlKey || event.metaKey || event.altKey) return;
-      scanBuffer.current += event.key;
-      window.clearTimeout(scanResetTimer.current);
-      scanResetTimer.current = window.setTimeout((): void => { scanBuffer.current = ""; }, 100);
-    };
-
-    window.addEventListener("keydown", handleScan);
-
-    return (): void => {
-      window.removeEventListener("keydown", handleScan);
-      window.clearTimeout(scanResetTimer.current);
-    };
-  }, [focusAt, orderItems]);
-
-  useEffect((): void => {
-    if (!id || !checklist || initializedChecklistId.current === id) return;
+  /**
+   * Initializes checklist.
+   */
+  const initializeEffect = (): void => {
+    if (!id || !data.checklist || initializedChecklistId.current === id) return;
 
     initializedChecklistId.current = id;
-    setSelectedOrderId(checklist.order_id);
-    setMoveOutItemIds(checklist.items.filter((item) => item.move_out).map((item) => item.id));
-    setMoveInItemIds(checklist.items.filter((item) => item.move_in).map((item) => item.id));
-  }, [id, checklist]);
-
-  const filteredOrderItems = useMemo(() => {
-    if (!searchTerm.trim()) return orderItems;
-    const lower = searchTerm.toLowerCase();
-
-    return orderItems.filter(
-      (item) =>
-        item.itemId.toLowerCase().includes(lower) ||
-        item.itemName.toLowerCase().includes(lower) ||
-        item.category.toLowerCase().includes(lower) ||
-        item.sign.toLowerCase().includes(lower),
-    );
-  }, [orderItems, searchTerm]);
-
-  const handleOrderChange = (value: string): void => {
-    setSelectedOrderId(value);
-    setMoveOutItemIds([]);
-    setMoveInItemIds([]);
-    setSearchTerm("");
-    setSaveErrorMessage(null);
+    form.setSelectedOrderId(data.checklist.order_id);
+    form.setMoveOutItemIds(data.checklist.items.filter(i => i.move_out).map(i => i.id));
+    form.setMoveInItemIds(data.checklist.items.filter(i => i.move_in).map(i => i.id));
   };
 
-  const handleFocusAtChange = (value: string): void => {
-    if (value === "moveIn" || value === "moveOut") setFocusAt(value);
-  };
+  useEffect(initializeEffect, [id, data.checklist, form]);
 
-  const handleSearchChange = (term: string): void => {
-    setSearchTerm(term);
-  };
+  const filteredOrderItems = useFilteredOrderItems(data.orderItems, form.searchTerm);
 
-  const toggleItemId = (itemIds: string[], id: string): string[] =>
-    itemIds.includes(id) ? itemIds.filter((itemId) => itemId !== id) : [...itemIds, id];
+  const handleSave = useItemChecklistSaveHandler({ id, isEditMode, checklist: data.checklist, selectedOrder: data.selectedOrder, selectedOrderId: form.selectedOrderId, orderItems: data.orderItems, moveOutItemIds: form.moveOutItemIds, moveInItemIds: form.moveInItemIds, createChecklist, updateChecklist, logCreate, logEdit, navigate, setSaveErrorMessage: form.setSaveErrorMessage });
 
-  const onToggleMoveOut = (id: string): void => {
-    setMoveOutItemIds((prev) => toggleItemId(prev, id));
-  };
+  return { navigate, id, isEditMode, detailQuery, ordersQuery, form, data, isCreating, isUpdating, filteredOrderItems, handleSave };
+};
 
-  const onToggleMoveIn = (id: string): void => {
-    setMoveInItemIds((prev) => toggleItemId(prev, id));
-  };
+/**
+ * Manage checklist form state.
+ * @returns {ChecklistCreateFormState} - Checklist form state
+ */
+export const useItemChecklistCreate = (): ChecklistCreateFormState => {
+  const logic = useItemChecklistLogic();
+  const { navigate, id, isEditMode, detailQuery, ordersQuery, form, data } = logic;
+  const loadError = useMemo(() => {
+    if (isEditMode && (!id || detailQuery.error || (detailQuery.data && !detailQuery.data.status))) return "Unable to load item checklist.";
 
-  const handleSave = async (): Promise<void> => {
-    if (isEditMode && (!checklist || !id)) {
-      setSaveErrorMessage("Unable to load item checklist.");
-      return;
-    }
+    if (!isEditMode && ordersQuery.error) return "Unable to load rental orders.";
 
-    if (!isEditMode && !selectedOrder) {
-      setSaveErrorMessage("Please select a rental order first.");
-      return;
-    }
+    return null;
+  }, [isEditMode, id, detailQuery.error, detailQuery.data, ordersQuery.error]);
 
-    setSaveErrorMessage(null);
+  const handlers = useChecklistHandlers(form);
 
-    const payload = _buildPayload(
-      checklist?.order_id ?? selectedOrderId,
-      checklist?.status ?? 1,
-      orderItems,
-      moveOutItemIds,
-      moveInItemIds,
-      checklist ?? undefined,
-    );
-
-    const result = isEditMode && id
-      ? await updateChecklist({ id, body: payload })
-      : await createChecklist(payload);
-    if (result.error) {
-      const apiMessage = "data" in result.error ? result.error.data : result.error.message;
-      setSaveErrorMessage(
-        Array.isArray(apiMessage) ? apiMessage.join(" ") : apiMessage ?? "Unable to save item checklist.",
-      );
-      return;
-    }
-
-    if (!result.data?.status) {
-      setSaveErrorMessage(result.data?.messages.join(" ") || "Unable to save item checklist.");
-      return;
-    }
-
-    const checklistName = checklist?.checklist_no ?? selectedOrder?.order_no ?? id ?? "Item Checklist";
-    if (isEditMode) {
-      await logEdit(checklistName);
-    } else {
-      await logCreate(checklistName);
-    }
-
-    void navigate("/item-checklist");
-  };
-
-  const goBack = (): void => {
-    void navigate("/item-checklist");
-  };
-
-  let loadErrorMessage: string | null = null;
-  if (isEditMode && (!id || detailQuery.error || (detailQuery.data && !detailQuery.data.status))) {
-    loadErrorMessage = "Unable to load item checklist.";
-  } else if (!isEditMode && ordersQuery.error) {
-    loadErrorMessage = "Unable to load rental orders.";
-  }
-  const errorMessage = saveErrorMessage ?? loadErrorMessage;
+  /**
+   *
+   */
+  const goBack = (): void => { navigate("/item-checklist"); };
 
   return {
-    orderOptions,
+    orderOptions: data.orderOptions,
     isOrdersLoading: !isEditMode && ordersQuery.isLoading,
     isLoadingInitialData: isEditMode && detailQuery.isLoading,
     isEditMode,
-    selectedOrderId,
-    focusAt,
-    orderItems,
-    filteredOrderItems,
-    moveOutItemIds,
-    moveInItemIds,
-    searchTerm,
-    isSubmitting: isCreating || isUpdating,
-    errorMessage,
-    handleOrderChange,
-    handleFocusAtChange,
-    handleSearchChange,
-    onToggleMoveOut,
-    onToggleMoveIn,
-    handleSave,
+    selectedOrderId: form.selectedOrderId,
+    focusAt: form.focusAt,
+    orderItems: data.orderItems,
+    filteredOrderItems: logic.filteredOrderItems,
+    moveOutItemIds: form.moveOutItemIds,
+    moveInItemIds: form.moveInItemIds,
+    searchTerm: form.searchTerm,
+    isSubmitting: logic.isCreating || logic.isUpdating,
+    errorMessage: form.saveErrorMessage ?? loadError,
+    ...handlers,
+    handleSave: logic.handleSave,
     goBack,
   };
 };

@@ -5,6 +5,22 @@ import { fireEvent, render, screen } from "@/libs/unit-test";
 import { ItemChecklistDetailComponent } from "./ItemChecklistDetail.component";
 import type { ItemChecklistDetailState } from "./ItemChecklistDetail.type";
 
+jest.mock("@/app/layout", () => ({
+  __esModule: true,
+  default: ({ children }: { children: React.ReactNode }) => <div>{children}</div>,
+}));
+
+jest.mock("@/app/shared/PageLayout", () => ({
+  PageLayout: ({ children, title, onBack, headerRight }: { children: React.ReactNode; title: string; onBack: () => void; headerRight: React.ReactNode }) => (
+    <section>
+      <h1>{title}</h1>
+      <button onClick={onBack}>Back</button>
+      {headerRight}
+      {children}
+    </section>
+  ),
+}));
+
 const mockProps: ItemChecklistDetailState = {
   checklist: {
     id: "chk-1",
@@ -41,7 +57,7 @@ const mockProps: ItemChecklistDetailState = {
 describe("ItemChecklistDetailComponent", () => {
   it("should show checklist metadata and item details with nullable fields", () => {
     render(<MemoryRouter><ItemChecklistDetailComponent {...mockProps} /></MemoryRouter>);
-    expect(screen.getAllByRole("heading", { name: "Item Checklist Detail", level: 1 })).toHaveLength(2);
+    expect(screen.getByRole("heading", { name: "Item Checklist Detail", level: 1 })).toBeInTheDocument();
     expect(screen.getAllByText("CI20261101210842").length).toBeGreaterThan(0);
     expect(screen.queryByText("ord-1")).not.toBeInTheDocument();
     expect(screen.queryByText("Order ID")).not.toBeInTheDocument();

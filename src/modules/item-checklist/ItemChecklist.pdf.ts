@@ -1,10 +1,10 @@
 import jsPDF from "jspdf";
-import autoTable from "jspdf-autotable";
-
-import type { ApiRentalOrder } from "@/modules/report/Report.type";
+import autoTable, { CellHookData, HookData } from "jspdf-autotable";
 
 import { RENTAL_CHECKLIST_LOGO } from "./ItemChecklist.pdf-logo";
 import type { ApiChecklist } from "./ItemChecklist.type";
+
+import type { ApiRentalOrder } from "@/modules/report/Report.type";
 
 const PAGE_WIDTH = 612;
 const TABLE_LEFT = 38.4;
@@ -15,10 +15,15 @@ const COLUMN_WIDTHS = [21.5, 150, 91, 31, 45, 73.5, 79, 43.5];
 const HEADERS = ["NO", "DESCRIPTION", "SECTION", "QTY", "UNIT", "MOVE OUT (  )", "MOVE IN  (  )", "SIGN"];
 const CHECK_MARK = "__CHECK_MARK__";
 
-/** Draw vector check mark inside a checklist table cell. */
-const _drawCheckMark = (document: jsPDF, x: number, y: number, width: number, height: number): void => {
-  const centerX = x + width / 2;
-  const centerY = y + height / 2;
+/**
+ * Draw vector check mark inside a checklist table cell.
+ * @param {jsPDF} document - jspdf instance
+ * @param {CellHookData} data - cell hook data
+ * @returns {void}
+ */
+const _drawCheckMark = (document: jsPDF, data: CellHookData): void => {
+  const centerX = data.cell.x + data.cell.width / 2;
+  const centerY = data.cell.y + data.cell.height / 2;
 
   document.setDrawColor(0, 0, 0);
   document.setLineWidth(1.2);
@@ -26,7 +31,11 @@ const _drawCheckMark = (document: jsPDF, x: number, y: number, width: number, he
   document.line(centerX - 1, centerY + 3, centerX + 5, centerY - 4);
 };
 
-/** Format an API date for checklist PDF metadata. */
+/**
+ * Format an API date for checklist PDF metadata.
+ * @param {string} value - date value string
+ * @returns {string} - formatted date string
+ */
 const _formatDate = (value: string): string => {
   const date = new Date(value);
 
@@ -40,9 +49,14 @@ const _formatDate = (value: string): string => {
   });
 };
 
-/** Draw company and event details from checklist and rental order data. */
-const _drawHeader = (document: jsPDF, checklist: ApiChecklist, order: ApiRentalOrder): void => {
-  const transaction = order.invoice.quotation.transaction;
+/**
+ * Draw header logos and company details.
+ * @param {jsPDF} document - jspdf instance
+ * @param {ApiChecklist} checklist - checklist data
+ * @param {string} customerName - customer name
+ * @returns {void}
+ */
+const _drawCompanyHeader = (document: jsPDF, checklist: ApiChecklist, customerName: string): void => {
   document.addImage(RENTAL_CHECKLIST_LOGO, "JPEG", 42.3, 36, 119.6, 37.2);
   document.setFillColor(211, 221, 239);
   document.rect(300.5, 36.5, 272.2, 34.9, "F");
@@ -69,7 +83,20 @@ const _drawHeader = (document: jsPDF, checklist: ApiChecklist, order: ApiRentalO
   document.rect(430, 83.2, 142.7, 23.8);
   document.line(430, 95.1, 572.7, 95.1);
   document.text(_formatDate(checklist.checklist_date), 501.3, 91.4, { align: "center" });
-  document.text(transaction.customer_name, 501.3, 103.3, { align: "center" });
+  document.text(customerName, 501.3, 103.3, { align: "center" });
+};
+
+/**
+ * Draw company and event details from checklist and rental order data.
+ * @param {jsPDF} document - jspdf instance
+ * @param {ApiChecklist} checklist - checklist data
+ * @param {ApiRentalOrder} order - rental order data
+ * @returns {void}
+ */
+const _drawHeader = (document: jsPDF, checklist: ApiChecklist, order: ApiRentalOrder): void => {
+  const transaction = order.invoice.quotation.transaction;
+
+  _drawCompanyHeader(document, checklist, transaction.customer_name);
 
   const details = [
     ["COMPANY", transaction.customer_name],
@@ -78,8 +105,10 @@ const _drawHeader = (document: jsPDF, checklist: ApiChecklist, order: ApiRentalO
     ["LOCATION", transaction.address],
     ["PIC", transaction.pic?.name ?? "-"],
   ];
+
   details.forEach(([label, value], index): void => {
     const y = 151.2 + index * 11.9;
+
     document.setFont("helvetica", "bold");
     document.text(label, 49.2, y);
     document.setFont("helvetica", "normal");
@@ -88,9 +117,15 @@ const _drawHeader = (document: jsPDF, checklist: ApiChecklist, order: ApiRentalO
   });
 };
 
-/** Draw two signoff rows and tagline, preserving reference spacing. */
+/**
+ * Draw two signoff rows and tagline, preserving reference spacing.
+ * @param {jsPDF} document - jspdf instance
+ * @param {number} tableEnd - end position of the table
+ * @returns {void}
+ */
 const _drawFooter = (document: jsPDF, tableEnd: number): void => {
   const offset = Math.max(0, tableEnd - TABLE_BOTTOM);
+
   document.setTextColor(0, 0, 0);
   document.setFont("helvetica", "normal");
   document.setFontSize(8.8);
@@ -105,22 +140,54 @@ const _drawFooter = (document: jsPDF, tableEnd: number): void => {
   document.text("Audio | Video | Lighting | LED Screen | Backline | Event Production", PAGE_WIDTH / 2, 649.7 + offset, { align: "center" });
 };
 
-/** Build checklist PDF with checklist and rental order API data. */
-export const createChecklistPdf = (checklist: ApiChecklist, order: ApiRentalOrder): jsPDF => {
-  const document = new jsPDF({ unit: "pt", format: "letter" });
-  _drawHeader(document, checklist, order);
-  const rows = checklist.items.map((item, index): string[] => [
-    String(index + 1),
-    item.description || item.item_name,
-    item.category_name ?? "",
-    String(item.qty),
-    item.qty === 1 ? "Unit" : "Units",
-    item.move_out ? CHECK_MARK : "",
-    item.move_in ? CHECK_MARK : "",
-    item.sign,
-  ]);
-  while (rows.length < 27) rows.push(HEADERS.map((): string => ""));
+/**
+ * Draw cell.
+ * @param {jsPDF} document - jspdf instance
+ * @param {CellHookData} data - cell hook data
+ * @returns {void}
+ */
+const _drawCell = (document: jsPDF, data: CellHookData): void => {
+  if (data.cell.raw === CHECK_MARK) {
+    _drawCheckMark(document, data);
+  }
+};
+
+/**
+ * Draw page table borders.
+ * @param {jsPDF} document - jspdf instance
+ * @param {HookData} data - page hook data
+ * @returns {number} - table bottom position
+ */
+const _drawPage = (document: jsPDF, data: HookData): number => {
+  const top = data.pageNumber === 1 ? TABLE_TOP : 38;
+  const bottom = data.cursor?.y ?? TABLE_BOTTOM;
+
+  document.setLineWidth(0.84);
+  document.setDrawColor(0, 0, 0);
+  let x = TABLE_LEFT;
+
+  document.line(x, top, x, bottom);
+  COLUMN_WIDTHS.forEach((width): void => { x += width; document.line(x, top, x, bottom); });
+  document.line(TABLE_LEFT, bottom, TABLE_RIGHT, bottom);
+  document.setLineWidth(0.75);
+  document.setDrawColor(255, 255, 255);
+  [435, 499].forEach((checkX): void => {
+    document.line(checkX, top + 6.7, checkX + 2.2, top + 9);
+    document.line(checkX + 2.2, top + 9, checkX + 6.2, top + 3.5);
+  });
+
+  return bottom;
+};
+
+/**
+ * Build checklist table.
+ * @param {jsPDF} document - jspdf instance
+ * @param {string[][]} rows - checklist rows
+ * @returns {number} - table bottom position
+ */
+const _drawTable = (document: jsPDF, rows: string[][]): number => {
   let lastTableEnd = TABLE_BOTTOM;
+
   autoTable(document, {
     startY: TABLE_TOP,
     margin: { top: 38, left: TABLE_LEFT, right: PAGE_WIDTH - TABLE_RIGHT, bottom: 245 },
@@ -140,37 +207,69 @@ export const createChecklistPdf = (checklist: ApiChecklist, order: ApiRentalOrde
       6: { cellWidth: COLUMN_WIDTHS[6], halign: "center" },
       7: { cellWidth: COLUMN_WIDTHS[7], halign: "center" },
     },
-    didParseCell: (data): void => {
+    /**
+     * Parse cell.
+     * @param {CellHookData} data - cell hook data
+     * @returns {void}
+     */
+    didParseCell: (data: CellHookData): void => {
       if (data.cell.raw === CHECK_MARK) data.cell.text = [];
     },
-    didDrawCell: (data): void => {
-      if (data.cell.raw === CHECK_MARK) {
-        _drawCheckMark(document, data.cell.x, data.cell.y, data.cell.width, data.cell.height);
-      }
+    /**
+     * Draw cell.
+     * @param {CellHookData} data - cell hook data
+     * @returns {void}
+     */
+    didDrawCell: (data: CellHookData): void => {
+      _drawCell(document, data);
     },
-    didDrawPage: (data): void => {
-      const top = data.pageNumber === 1 ? TABLE_TOP : 38;
-      const bottom = data.cursor?.y ?? TABLE_BOTTOM;
-      lastTableEnd = bottom;
-      document.setLineWidth(0.84);
-      document.setDrawColor(0, 0, 0);
-      let x = TABLE_LEFT;
-      document.line(x, top, x, bottom);
-      COLUMN_WIDTHS.forEach((width): void => { x += width; document.line(x, top, x, bottom); });
-      document.line(TABLE_LEFT, bottom, TABLE_RIGHT, bottom);
-      document.setLineWidth(0.75);
-      document.setDrawColor(255, 255, 255);
-      [435, 499].forEach((checkX): void => {
-        document.line(checkX, top + 6.7, checkX + 2.2, top + 9);
-        document.line(checkX + 2.2, top + 9, checkX + 6.2, top + 3.5);
-      });
+    /**
+     * Draw page.
+     * @param {HookData} data - hook data
+     * @returns {void}
+     */
+    didDrawPage: (data: HookData): void => {
+      lastTableEnd = _drawPage(document, data);
     },
   });
-  _drawFooter(document, lastTableEnd);
+
+  return lastTableEnd;
+};
+
+/**
+ * Build checklist PDF with checklist and rental order API data.
+ * @param {ApiChecklist} checklist - checklist data
+ * @param {ApiRentalOrder} order - rental order data
+ * @returns {jsPDF} - jspdf instance
+ */
+export const createChecklistPdf = (checklist: ApiChecklist, order: ApiRentalOrder): jsPDF => {
+  const document = new jsPDF({ unit: "pt", format: "letter" });
+
+  _drawHeader(document, checklist, order);
+  const rows = checklist.items.map((item, index): string[] => [
+    String(index + 1),
+    item.description || item.item_name,
+    item.category_name ?? "",
+    String(item.qty),
+    item.qty === 1 ? "Unit" : "Units",
+    item.move_out ? CHECK_MARK : "",
+    item.move_in ? CHECK_MARK : "",
+    item.sign,
+  ]);
+
+  while (rows.length < 27) rows.push(HEADERS.map((): string => ""));
+
+  _drawFooter(document, _drawTable(document, rows));
+
   return document;
 };
 
-/** Download a generated checklist PDF. */
+/**
+ * Download a generated checklist PDF.
+ * @param {ApiChecklist} checklist - checklist data
+ * @param {ApiRentalOrder} order - rental order data
+ * @returns {void}
+ */
 export const downloadChecklistPdf = (checklist: ApiChecklist, order: ApiRentalOrder): void => {
   createChecklistPdf(checklist, order).save(`Item-Checklist-${checklist.checklist_no.replace(/[^a-zA-Z0-9_-]/g, "_")}.pdf`);
 };

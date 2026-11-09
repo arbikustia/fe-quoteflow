@@ -1,7 +1,12 @@
-import MobileDashboardContainer from './MobileDashboard.container';
 import test from '../../../libs/unit-test';
 
+import MobileDashboardContainer from './MobileDashboard.container';
+
 jest.mock('./MobileDashboard.hook', () => ({
+  /**
+   * Mock mobile dashboard effect hook
+   * @returns {object} - mock return
+   */
   useMobileDashboardEffect: (): { handleAddOrder: jest.Mock; handleOrderReport: jest.Mock } => ({
     handleAddOrder: jest.fn(),
     handleOrderReport: jest.fn(),

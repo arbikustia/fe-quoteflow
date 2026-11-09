@@ -1,13 +1,6 @@
 import * as React from "react";
 
-import type { RecentQuote } from "../DesktopDashboard.type";
-
-/**
- * Recent Quotes Table Props
- */
-type RecentQuotesTableProps = {
-  quotes: RecentQuote[];
-};
+import type { RecentQuotesTableProps } from './RecentQuotesTable.type';
 
 /**
  * Render Recent Quotes Table

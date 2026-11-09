@@ -15,6 +15,14 @@ const FOCUS_AT_OPTIONS = [
   { value: "moveIn", label: "Move In" },
 ];
 
+/**
+ * Renders the move checkbox for an item.
+ * @param {ChecklistOrderItemRow} row - Item row data
+ * @param {string[]} checkedItemIds - Array of checked item IDs
+ * @param {(id: string) => void} onToggle - Toggle handler
+ * @param {string} label - Checkbox label
+ * @returns {ReactElement} - Move checkbox component
+ */
 const _renderMoveCheckbox = (
   row: ChecklistOrderItemRow,
   checkedItemIds: string[],
@@ -34,6 +42,12 @@ const _renderMoveCheckbox = (
   </div>
 );
 
+/**
+ * Renders the mobile item card.
+ * @param {ChecklistOrderItemRow} row - Item row data
+ * @param {ChecklistCreateFormState} props - Form state props
+ * @returns {ReactElement} - Mobile item card component
+ */
 const _renderMobileItem = (row: ChecklistOrderItemRow, props: ChecklistCreateFormState): ReactElement => (
   <article key={row.id} className="min-w-0 rounded-3xl border border-border-default bg-background-surface p-5 shadow-small sm:p-6">
     <div className="flex items-start justify-between gap-4">
@@ -61,6 +75,11 @@ const _renderMobileItem = (row: ChecklistOrderItemRow, props: ChecklistCreateFor
   </article>
 );
 
+/**
+ * Renders form actions.
+ * @param {ChecklistCreateFormState} props - Form state props
+ * @returns {ReactElement} - Form actions
+ */
 const _renderActions = (props: ChecklistCreateFormState): ReactElement => {
   const saveLabel = props.isEditMode ? "Update Checklist" : "Save Checklist";
 
@@ -86,6 +105,11 @@ const _renderActions = (props: ChecklistCreateFormState): ReactElement => {
   );
 };
 
+/**
+ * Gets table columns.
+ * @param {ChecklistCreateFormState} props - Form state props
+ * @returns {TableColumn<ChecklistOrderItemRow>[]} - Table columns
+ */
 const _getColumns = (props: ChecklistCreateFormState): TableColumn<ChecklistOrderItemRow>[] => [
   { key: "itemName", header: "Item Name", mobile: { primary: true } },
   { key: "category", header: "Category" },
@@ -95,6 +119,11 @@ const _getColumns = (props: ChecklistCreateFormState): TableColumn<ChecklistOrde
     key: "moveOut",
     header: "Move Out",
     align: "center",
+    /**
+     * Renders move out checkbox.
+     * @param {ChecklistOrderItemRow} row - Item row data
+     * @returns {ReactElement} - Move out checkbox
+     */
     render: (row): ReactElement =>
       _renderMoveCheckbox(row, props.moveOutItemIds, props.onToggleMoveOut, "Move out"),
   },
@@ -102,6 +131,11 @@ const _getColumns = (props: ChecklistCreateFormState): TableColumn<ChecklistOrde
     key: "moveIn",
     header: "Move In",
     align: "center",
+    /**
+     * Renders move in checkbox.
+     * @param {ChecklistOrderItemRow} row - Item row data
+     * @returns {ReactElement} - Move in checkbox
+     */
     render: (row): ReactElement =>
       _renderMoveCheckbox(row, props.moveInItemIds, props.onToggleMoveIn, "Move in"),
   },
@@ -109,9 +143,108 @@ const _getColumns = (props: ChecklistCreateFormState): TableColumn<ChecklistOrde
 ];
 
 /**
- * Render checklist creation form with rental order selection and items table.
+ * Renders order selection controls.
+ * @param {ChecklistCreateFormState} props - Form state props
+ * @returns {ReactElement} - Order selection controls
+ */
+const _renderOrderSelection = (props: ChecklistCreateFormState): ReactElement => (
+  <div className="grid gap-4 md:grid-cols-2">
+    {props.isEditMode ? (
+      <div>
+        <p className="text-lg font-medium text-text-secondary">Rental Order</p>
+        <p className="mt-2 text-xl font-semibold text-text-primary">{props.orderOptions.find((option) => option.value === props.selectedOrderId)?.label ?? "Linked to this checklist"}</p>
+      </div>
+    ) : (
+      <Select
+        id="checklist-order"
+        label="Rental Order"
+        placeholder={props.isOrdersLoading ? "Loading rental orders..." : "Select customer and order number"}
+        value={props.selectedOrderId}
+        options={props.orderOptions}
+        onChange={props.handleOrderChange}
+        disabled={props.isOrdersLoading}
+        required
+        labelClassName="!text-lg font-normal text-text-primary"
+        selectClassName="h-14 !text-lg !border-2 !border-border-strong"
+        popupClassName="text-lg"
+      />
+    )}
+    <Select
+      id="checklist-focus-at"
+      label="Focus At"
+      placeholder="Select checklist focus"
+      value={props.focusAt}
+      options={FOCUS_AT_OPTIONS}
+      onChange={props.handleFocusAtChange}
+      labelClassName="!text-lg font-normal text-text-primary"
+      selectClassName="h-14 !text-lg !border-2 !border-border-strong"
+      popupClassName="text-lg"
+    />
+  </div>
+);
+
+/**
+ * Renders the items table section.
+ * @param {ChecklistCreateFormState} props - Form state props
+ * @param {TableColumn<ChecklistOrderItemRow>[]} columns - Table columns
+ * @returns {ReactElement} - Items section
+ */
+const _renderItemsTable = (props: ChecklistCreateFormState, columns: TableColumn<ChecklistOrderItemRow>[]): ReactElement => (
+  <>
+    <div className="space-y-4 md:hidden">
+      {props.filteredOrderItems.length > 0 ? props.filteredOrderItems.map((row) => _renderMobileItem(row, props)) : (
+        <p className="py-10 text-center text-lg text-text-secondary">
+          {props.searchTerm ? "No items matching search." : "No items found for this order."}
+        </p>
+      )}
+    </div>
+    <div className="hidden md:block">
+      <Table
+        data={props.filteredOrderItems}
+        columns={columns}
+        keyExtractor={(row): string => row.id}
+        emptyText={props.searchTerm ? "No items matching search." : "No items found for this order."}
+      />
+    </div>
+  </>
+);
+
+/**
+ * Renders the items table section.
+ * @param {ChecklistCreateFormState} props - Form state props
+ * @param {TableColumn<ChecklistOrderItemRow>[]} columns - Table columns
+ * @returns {ReactElement} - Items section
+ */
+const _renderItemsSection = (props: ChecklistCreateFormState, columns: TableColumn<ChecklistOrderItemRow>[]): ReactElement => (
+  <div className="rounded-3xl border border-border-default bg-background-surface p-6 shadow-small sm:p-8 lg:p-10">
+    <div className="mb-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+      <div className="flex flex-col gap-1">
+        <h3 className="text-2xl font-semibold text-text-primary">Order Items</h3>
+        <p className="text-lg text-text-secondary">
+          {props.moveOutItemIds.length} move out · {props.moveInItemIds.length} move in
+        </p>
+      </div>
+      <div className="w-full sm:w-80">
+        <SearchFilter
+          placeholder="Search items..."
+          value={props.searchTerm}
+          onChange={(event): void => props.handleSearchChange(event.target.value)}
+          className="w-full"
+          inputClassName="h-14 !text-lg placeholder:!text-lg border-2 border-border-strong"
+        />
+      </div>
+    </div>
+    {_renderItemsTable(props, columns)}
+    <p className="mt-8 border-t border-border-default pt-5 text-base text-text-secondary">
+      Select Move Out and Move In independently for each item.
+    </p>
+  </div>
+);
+
+/**
+ * Renders checklist creation form.
  * @param {ChecklistCreateFormState} props - Checklist form state
- * @returns {ReactElement} Checklist creation content
+ * @returns {ReactElement} - Checklist creation form
  */
 export const ItemChecklistCreateForm = (props: ChecklistCreateFormState): ReactElement => {
   const columns = _getColumns(props);
@@ -123,81 +256,11 @@ export const ItemChecklistCreateForm = (props: ChecklistCreateFormState): ReactE
   return (
     <div className="flex min-h-0 flex-1 flex-col gap-6 lg:-mt-4 lg:gap-8">
       <div className="rounded-3xl border border-border-default bg-background-surface p-6 shadow-small sm:p-8 lg:p-10">
-        <div className="grid gap-4 md:grid-cols-2">
-          {props.isEditMode ? (
-            <div>
-              <p className="text-lg font-medium text-text-secondary">Rental Order</p>
-              <p className="mt-2 text-xl font-semibold text-text-primary">{props.orderOptions.find((option) => option.value === props.selectedOrderId)?.label ?? "Linked to this checklist"}</p>
-            </div>
-          ) : (
-            <Select
-              id="checklist-order"
-              label="Rental Order"
-              placeholder={props.isOrdersLoading ? "Loading rental orders..." : "Select customer and order number"}
-              value={props.selectedOrderId}
-              options={props.orderOptions}
-              onChange={props.handleOrderChange}
-              disabled={props.isOrdersLoading}
-              required
-              labelClassName="!text-lg font-normal text-text-primary"
-              selectClassName="h-14 !text-lg !border-2 !border-border-strong"
-              popupClassName="text-lg"
-            />
-          )}
-          <Select
-            id="checklist-focus-at"
-            label="Focus At"
-            placeholder="Select checklist focus"
-            value={props.focusAt}
-            options={FOCUS_AT_OPTIONS}
-            onChange={props.handleFocusAtChange}
-            labelClassName="!text-lg font-normal text-text-primary"
-            selectClassName="h-14 !text-lg !border-2 !border-border-strong"
-            popupClassName="text-lg"
-          />
-        </div>
+        {_renderOrderSelection(props)}
         {props.errorMessage && <p role="alert" className="mt-3 text-lg text-danger">{props.errorMessage}</p>}
       </div>
 
-      {Boolean(props.selectedOrderId) && (
-        <div className="rounded-3xl border border-border-default bg-background-surface p-6 shadow-small sm:p-8 lg:p-10">
-          <div className="mb-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-            <div className="flex flex-col gap-1">
-              <h3 className="text-2xl font-semibold text-text-primary">Order Items</h3>
-              <p className="text-lg text-text-secondary">
-                {props.moveOutItemIds.length} move out · {props.moveInItemIds.length} move in
-              </p>
-            </div>
-            <div className="w-full sm:w-80">
-              <SearchFilter
-                placeholder="Search items..."
-                value={props.searchTerm}
-                onChange={(event): void => props.handleSearchChange(event.target.value)}
-                className="w-full"
-                inputClassName="h-14 !text-lg placeholder:!text-lg border-2 border-border-strong"
-              />
-            </div>
-          </div>
-          <div className="space-y-4 md:hidden">
-            {props.filteredOrderItems.length > 0 ? props.filteredOrderItems.map((row) => _renderMobileItem(row, props)) : (
-              <p className="py-10 text-center text-lg text-text-secondary">
-                {props.searchTerm ? "No items matching search." : "No items found for this order."}
-              </p>
-            )}
-          </div>
-          <div className="hidden md:block">
-            <Table
-              data={props.filteredOrderItems}
-              columns={columns}
-              keyExtractor={(row): string => row.id}
-              emptyText={props.searchTerm ? "No items matching search." : "No items found for this order."}
-            />
-          </div>
-          <p className="mt-8 border-t border-border-default pt-5 text-base text-text-secondary">
-            Select Move Out and Move In independently for each item.
-          </p>
-        </div>
-      )}
+      {Boolean(props.selectedOrderId) && _renderItemsSection(props, columns)}
       {_renderActions(props)}
     </div>
   );

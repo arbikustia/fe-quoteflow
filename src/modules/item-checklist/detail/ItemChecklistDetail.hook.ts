@@ -1,12 +1,16 @@
 import { useNavigate, useParams } from "react-router-dom";
 
+import { downloadChecklistPdf } from "../ItemChecklist.pdf";
+
+import type { ItemChecklistDetailState } from "./ItemChecklistDetail.type";
+
 import { useGetRentalChecklistByIdQuery } from "@/services/rental-checklist.service";
 import { useGetRentalOrderOptionsQuery } from "@/services/rental-order.service";
 
-import type { ItemChecklistDetailState } from "./ItemChecklistDetail.type";
-import { downloadChecklistPdf } from "../ItemChecklist.pdf";
-
-/** Get checklist detail page state. */
+/**
+ * Get checklist detail page state.
+ * @returns {ItemChecklistDetailState} - detail state
+ */
 export const useItemChecklistDetail = (): ItemChecklistDetailState => {
   const navigate = useNavigate();
   const { id = "" } = useParams<{ id: string }>();
@@ -20,8 +24,17 @@ export const useItemChecklistDetail = (): ItemChecklistDetailState => {
     errorMessage = query.data.messages.join(" ");
   }
 
+  /**
+   *
+   */
   const goBack = (): void => { void navigate("/item-checklist"); };
+  /**
+   *
+   */
   const goEdit = (): void => { if (id) void navigate(`/item-checklist/create/${id}`); };
+  /**
+   *
+   */
   const onDownload = (): void => {
     const checklist = query.data?.data;
     const order = checklist && ordersQuery.data?.status

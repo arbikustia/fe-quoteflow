@@ -3,13 +3,13 @@
 exports[`MobileDashboardComponent Snapshots Should Render MobileDashboardComponent with default props 1`] = `
 <DocumentFragment>
   <div
-    class="flex-1 w-full min-h-full bg-[#f8f9fb] font-sans pb-32 relative overflow-y-auto mt-2"
+    class="flex-1 w-full min-h-full bg-background-page font-sans pb-32 relative overflow-y-auto mt-2"
   >
     <div
       class="px-6"
     >
       <h2
-        class="text-[32px] font-normal tracking-wide text-gray-900 mb-6"
+        class="text-[32px] font-normal tracking-wide text-text-primary mb-6"
       >
         Order Data
       </h2>
@@ -23,13 +23,13 @@ exports[`MobileDashboardComponent Snapshots Should Render MobileDashboardCompone
             class="flex items-center gap-2 mb-2"
           >
             <div
-              class="w-12 h-12 bg-white rounded-full flex items-center justify-center shrink-0 text-white shadow-sm"
+              class="w-12 h-12 bg-background-surface rounded-full flex items-center justify-center shrink-0 text-white shadow-sm"
             />
             <div
               class="flex-1 min-w-0"
             >
               <span
-                class="font-semibold text-gray-700 text-[14px] leading-tight block wrap-break-word"
+                class="font-semibold text-text-secondary text-[14px] leading-tight block wrap-break-word"
               >
                 Pending Payment
               </span>
@@ -39,7 +39,7 @@ exports[`MobileDashboardComponent Snapshots Should Render MobileDashboardCompone
             class="flex-1 w-full flex items-center justify-center pb-2"
           >
             <span
-              class="text-7xl font-bold text-gray-900 leading-none tracking-tighter"
+              class="text-7xl font-bold text-text-primary leading-none tracking-tighter"
             >
               5
             </span>
@@ -50,7 +50,7 @@ exports[`MobileDashboardComponent Snapshots Should Render MobileDashboardCompone
         class="flex flex-col mb-6"
       >
         <h3
-          class="text-[20px] font-medium text-gray-900 mb-4 tracking-wide"
+          class="text-[20px] font-medium text-text-primary mb-4 tracking-wide"
         >
           Quick Action
         </h3>
@@ -61,7 +61,7 @@ exports[`MobileDashboardComponent Snapshots Should Render MobileDashboardCompone
             class="bg-[#daeaf3] rounded-4xl p-5 flex flex-col items-center justify-center shadow-sm active:scale-[0.98] transition-transform"
           >
             <div
-              class="w-12 h-12 bg-white rounded-full flex items-center justify-center text-[#3b82f6] mb-3 shadow-sm"
+              class="w-12 h-12 bg-background-surface rounded-full flex items-center justify-center text-[#3b82f6] mb-3 shadow-sm"
             >
               <svg
                 fill="none"
@@ -88,7 +88,7 @@ exports[`MobileDashboardComponent Snapshots Should Render MobileDashboardCompone
               </svg>
             </div>
             <span
-              class="text-[15px] font-medium text-gray-900 text-center leading-tight"
+              class="text-[15px] font-medium text-text-primary text-center leading-tight"
             >
               Add New
               <br />
@@ -99,7 +99,7 @@ exports[`MobileDashboardComponent Snapshots Should Render MobileDashboardCompone
             class="bg-[#f4e482] rounded-4xl p-5 flex flex-col items-center justify-center shadow-sm active:scale-[0.98] transition-transform"
           >
             <div
-              class="w-12 h-12 bg-white rounded-full flex items-center justify-center text-[#eab308] mb-3 shadow-sm"
+              class="w-12 h-12 bg-background-surface rounded-full flex items-center justify-center text-[#eab308] mb-3 shadow-sm"
             >
               <svg
                 fill="none"
@@ -135,7 +135,7 @@ exports[`MobileDashboardComponent Snapshots Should Render MobileDashboardCompone
               </svg>
             </div>
             <span
-              class="text-[15px] font-medium text-gray-900 text-center leading-tight"
+              class="text-[15px] font-medium text-text-primary text-center leading-tight"
             >
               Order
               <br />

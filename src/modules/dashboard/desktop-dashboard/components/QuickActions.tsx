@@ -1,14 +1,7 @@
 import * as React from "react";
 
-import { QuotesIcon, UsersIcon } from "./StatIcons";
-
-/**
- * Quick Actions Props
- */
-export type QuickActionsProps = {
-  onNewOrder: () => void;
-  onReturn: () => void;
-};
+import type { QuickActionsProps } from './QuickActions.type';
+import { QuotesIcon, UsersIcon } from './StatIcons';
 
 /**
  * Render Quick Actions Widget

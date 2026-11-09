@@ -1,5 +1,6 @@
-import { MobileDashboardComponent } from './MobileDashboard.component';
 import test from '../../../libs/unit-test';
+
+import { MobileDashboardComponent } from './MobileDashboard.component';
 
 const mockStatuses = [
   { 
