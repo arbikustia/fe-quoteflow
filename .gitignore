@@ -24,5 +24,6 @@ dist-ssr
 *.sw?
 
 # Playwright
+e2e/.auth
 playwright-report
 test-results

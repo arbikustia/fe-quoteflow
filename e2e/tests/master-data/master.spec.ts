@@ -1,4 +1,4 @@
-import { test, expect } from '@playwright/test';
+import { expect, test } from '@playwright/test';
 
 const MASTER_MODULES = [
   { name: 'Category', path: '/master-category' },
@@ -14,18 +14,11 @@ const MASTER_MODULES = [
 ];
 
 test.describe('Master Data Modules', () => {
-  test.beforeEach(async ({ page }) => {
-    await page.goto('/login');
-    await page.getByPlaceholder('name@sonicline.co.id').fill('arbi');
-    await page.getByPlaceholder('••••••••').fill('arbi123');
-    await page.getByRole('button', { name: 'Masuk' }).click();
-    await page.waitForURL('/home');
-  });
-
   for (const module of MASTER_MODULES) {
-    test(`Positive: should display ${module.name} list`, async ({ page }) => {
+    test(`should display ${module.name} list`, async ({ page }) => {
       await page.goto(module.path);
-      await expect(page.getByRole('heading')).toBeVisible();
+      await expect(page).toHaveURL(module.path);
+      await expect(page.getByRole('heading').first()).toBeVisible();
     });
   }
 });

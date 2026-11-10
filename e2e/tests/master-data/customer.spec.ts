@@ -1,22 +1,21 @@
-import { test, expect } from '@playwright/test';
+import { expect, test } from '@playwright/test';
 
 test.describe('Master Data - Customer', () => {
   test.beforeEach(async ({ page }) => {
-    await page.goto('/login');
-    await page.getByPlaceholder('name@sonicline.co.id').fill('arbi');
-    await page.getByPlaceholder('••••••••').fill('arbi123'); // Assuming known credential structure
-    await page.getByRole('button', { name: 'Masuk' }).click();
-    await page.waitForURL('/home');
     await page.goto('/master-customer');
+    await expect(page).toHaveURL('/master-customer');
   });
 
-  test('Positive: should display customer list', async ({ page }) => {
-    await expect(page.getByText('Customer')).toBeVisible();
+  test('should display customer list', async ({ page }) => {
+    await expect(page.getByRole('heading', { name: 'Customer List' })).toBeVisible();
   });
 
-  test('Negative: should show error for invalid customer creation (missing fields)', async ({ page }) => {
+  test('should show required errors for empty customer creation', async ({ page }) => {
     await page.goto('/master-customer/create');
-    await page.getByRole('button', { name: /save|simpan/i }).click();
-    await expect(page.getByText(/required|wajib/i)).toBeVisible();
+    await page.getByRole('button', { name: 'Create Customer' }).click();
+    await expect(page.getByText('Customer name is required.', { exact: true })).toBeVisible();
+    await expect(page.getByText('Email is required.', { exact: true })).toBeVisible();
+    await expect(page.getByText('Phone number is required.', { exact: true })).toBeVisible();
+    await expect(page.getByText('Address is required.', { exact: true })).toBeVisible();
   });
 });
