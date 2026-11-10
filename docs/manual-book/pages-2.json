@@ -1,0 +1,409 @@
+{
+  "master-voucher": {
+    "path": "/master-voucher",
+    "heads": [
+      "Voucher List",
+      "Voucher List"
+    ],
+    "columns": [
+      "NO",
+      "NAME",
+      "VOUCHER CODE",
+      "DISCOUNT (%)",
+      "STATUS",
+      "CREATED AT",
+      "ACTION"
+    ],
+    "rows": 2,
+    "buttons": [
+      "Master",
+      "Create New",
+      "Back",
+      "SL647MM7 ACTIVE Discount 8% Created At 04 November 2026 20:49",
+      "SL19H7HK ACTIVE Discount 3% Created At 04 November 2026 20:50",
+      "Previous",
+      "1",
+      "Next",
+      "Create Voucher",
+      "Download voucher SL647MM7",
+      "Edit voucher SL647MM7",
+      "Download voucher SL19H7HK",
+      "Edit voucher SL19H7HK"
+    ],
+    "labels": [
+      "Search voucher",
+      "Documents per page",
+      "Search voucher",
+      "Documents per page"
+    ],
+    "placeholders": [
+      "Search voucher",
+      "Search voucher"
+    ],
+    "text": "Voucher List Manage discount codes and vouchers Create New Search voucher SL647MM7 ACTIVE Discount 8% Created At 04 November 2026 20:49 SL19H7HK ACTIVE Discount 3% Created At 04 November 2026 20:50 Show 2/10 data Documents per page 10 Previous 1 Next Search voucher Create Voucher NO NAME VOUCHER CODE DISCOUNT (%) STATUS CREATED AT ACTION 1 Member voucher SL647MM7 8% ACTIVE 04 November 2026 20:49 2 Aniversary 3th SL19H7HK 3% ACTIVE 04 November 2026 20:50 Show 2/10 data Documents per page 10 Previous 1 Next"
+  },
+  "master-voucher-create": {
+    "path": "/master-voucher/create",
+    "heads": [
+      "New Voucher",
+      "New Voucher"
+    ],
+    "columns": [],
+    "rows": 0,
+    "buttons": [
+      "Back",
+      "Master",
+      "Cancel",
+      "Create Voucher"
+    ],
+    "labels": [
+      "Voucher Name*",
+      "Code Option*",
+      "Discount (%)*"
+    ],
+    "placeholders": [
+      "e.g. Summer Promo",
+      "e.g. 10"
+    ],
+    "text": "New Voucher Fill in the voucher details below. Voucher Name* Code Option* Generate Code Discount (%)* Cancel Create Voucher"
+  },
+  "master-role": {
+    "path": "/master-role",
+    "heads": [
+      "Role List",
+      "Role List"
+    ],
+    "columns": [
+      "NO",
+      "ROLE NAME",
+      "STATUS",
+      "CREATED AT",
+      "ACTION"
+    ],
+    "rows": 6,
+    "buttons": [
+      "Master",
+      "Create New",
+      "Back",
+      "staf INACTIVE Created 05 November 2026 04:57",
+      "manager ACTIVE Created 05 November 2026 04:57",
+      "admin ACTIVE Created 05 November 2026 04:52",
+      "It INACTIVE Created 05 November 2026 04:57",
+      "pic ACTIVE Created 05 November 2026 04:53",
+      "superadmin ACTIVE Created 04 November 2026 21:51",
+      "Previous",
+      "1",
+      "Next",
+      "Create Role",
+      "Edit role staf",
+      "Edit role manager",
+      "Edit role admin",
+      "Edit role It",
+      "Edit role pic",
+      "Edit role superadmin"
+    ],
+    "labels": [
+      "Search role",
+      "Documents per page",
+      "Search role",
+      "Documents per page"
+    ],
+    "placeholders": [
+      "Search role",
+      "Search role"
+    ],
+    "text": "Role List Manage user roles and access rights Create New Search role staf INACTIVE Created 05 November 2026 04:57 manager ACTIVE Created 05 November 2026 04:57 admin ACTIVE Created 05 November 2026 04:52 It INACTIVE Created 05 November 2026 04:57 pic ACTIVE Created 05 November 2026 04:53 superadmin ACTIVE Created 04 November 2026 21:51 Show 6/10 data Documents per page 10 Previous 1 Next Search role Create Role NO ROLE NAME STATUS CREATED AT ACTION 1 staf INACTIVE 05 November 2026 04:57 2 manager ACTIVE 05 November 2026 04:57 3 admin ACTIVE 05 November 2026 04:52 4 It INACTIVE 05 November 2026 04:57 5 pic ACTIVE 05 November 2026 04:53 6 superadmin ACTIVE 04 November 2026 21:51 Show 6/10 data Documents per page 10 Previous 1 Next"
+  },
+  "master-role-create": {
+    "path": "/master-role/create",
+    "heads": [
+      "New Role",
+      "New Role"
+    ],
+    "columns": [],
+    "rows": 0,
+    "buttons": [
+      "Back",
+      "Master",
+      "Cancel",
+      "Create Role"
+    ],
+    "labels": [
+      "Role Name*"
+    ],
+    "placeholders": [
+      "e.g. Administrator"
+    ],
+    "text": "New Role Fill in the role details below. Role Name* Cancel Create Role"
+  },
+  "master-user": {
+    "path": "/master-user",
+    "heads": [
+      "User List",
+      "User List"
+    ],
+    "columns": [
+      "NO",
+      "USERNAME",
+      "EMAIL",
+      "ROLE",
+      "CREATED AT",
+      "ACTION"
+    ],
+    "rows": 4,
+    "buttons": [
+      "Master",
+      "Create New",
+      "Back",
+      "superadmin ACTIVE Email spr@gmail.com Role superadmin Created 10 November 2026 03:41",
+      "arbika ACTIVE Email arbikustia14@gmail.com Role staf Created 09 November 2026 19:41",
+      "arbi ACTIVE Email arbi@gmail.com Role superadmin Created 11 November 2026 04:50",
+      "Chika ACTIVE Email chika@gmail.com Role admin Created 11 November 2026 02:23",
+      "Previous",
+      "1",
+      "Next",
+      "Create User",
+      "Edit user superadmin",
+      "Edit user arbika",
+      "Edit user arbi",
+      "Edit user Chika"
+    ],
+    "labels": [
+      "Search user",
+      "Documents per page",
+      "Search user",
+      "Documents per page"
+    ],
+    "placeholders": [
+      "Search user",
+      "Search user"
+    ],
+    "text": "User List Manage system users and their roles Create New Search user superadmin ACTIVE Email spr@gmail.com Role superadmin Created 10 November 2026 03:41 arbika ACTIVE Email arbikustia14@gmail.com Role staf Created 09 November 2026 19:41 arbi ACTIVE Email arbi@gmail.com Role superadmin Created 11 November 2026 04:50 Chika ACTIVE Email chika@gmail.com Role admin Created 11 November 2026 02:23 Show 4/10 data Documents per page 10 Previous 1 Next Search user Create User NO USERNAME EMAIL ROLE CREATED AT ACTION 1 superadmin spr@gmail.com superadmin 10 November 2026 03:41 2 arbika arbikustia14@gmail.com staf 09 November 2026 19:41 3 arbi arbi@gmail.com superadmin 11 November 2026 04:50 4 Chika chika@gmail.com admin 11 November 2026 02:23 Show 4/10 data Documents per page 10 Previous 1 Next"
+  },
+  "master-user-create": {
+    "path": "/master-user/create",
+    "heads": [
+      "New User",
+      "New User"
+    ],
+    "columns": [],
+    "rows": 0,
+    "buttons": [
+      "Back",
+      "Master",
+      "Tampilkan kata sandi",
+      "Cancel",
+      "Create User"
+    ],
+    "labels": [
+      "Username*",
+      "Email*",
+      "Password*",
+      "Role*"
+    ],
+    "placeholders": [
+      "e.g. johndoe",
+      "e.g. john@example.com"
+    ],
+    "text": "New User Fill in the user details below. Username* Email* Password* Password harus terdiri dari minimal 11 karakter. Gunakan kombinasi huruf besar, huruf kecil, angka, dan simbol agar password lebih aman. Role* User Cancel Create User"
+  },
+  "master-pic": {
+    "path": "/master-pic",
+    "heads": [
+      "PIC List",
+      "PIC List"
+    ],
+    "columns": [
+      "NO",
+      "PIC NAME",
+      "STATUS",
+      "CREATED AT",
+      "ACTION"
+    ],
+    "rows": 3,
+    "buttons": [
+      "Master",
+      "Create New",
+      "Back",
+      "Aurora ACTIVE Created At 04 November 2026 20:57",
+      "Kristofer ACTIVE Created At 04 November 2026 20:55",
+      "Felicia ACTIVE Created At 04 November 2026 20:55",
+      "Previous",
+      "1",
+      "Next",
+      "Create PIC",
+      "Edit PIC Aurora",
+      "Edit PIC Kristofer",
+      "Edit PIC Felicia"
+    ],
+    "labels": [
+      "Search PIC",
+      "Documents per page",
+      "Search PIC",
+      "Documents per page"
+    ],
+    "placeholders": [
+      "Search PIC",
+      "Search PIC"
+    ],
+    "text": "PIC List Manage person in charge data Create New Search PIC Aurora ACTIVE Created At 04 November 2026 20:57 Kristofer ACTIVE Created At 04 November 2026 20:55 Felicia ACTIVE Created At 04 November 2026 20:55 Show 3/10 data Documents per page 10 Previous 1 Next Search PIC Create PIC NO PIC NAME STATUS CREATED AT ACTION 1 Aurora ACTIVE 04 November 2026 20:57 2 Kristofer ACTIVE 04 November 2026 20:55 3 Felicia ACTIVE 04 November 2026 20:55 Show 3/10 data Documents per page 10 Previous 1 Next"
+  },
+  "master-pic-create": {
+    "path": "/master-pic/create",
+    "heads": [
+      "New PIC",
+      "New PIC"
+    ],
+    "columns": [],
+    "rows": 0,
+    "buttons": [
+      "Back",
+      "Master",
+      "Cancel",
+      "Create PIC"
+    ],
+    "labels": [
+      "PIC Name*"
+    ],
+    "placeholders": [
+      "e.g. John Doe"
+    ],
+    "text": "New PIC Fill in the PIC details below. PIC Name* Cancel Create PIC"
+  },
+  "master-order-type": {
+    "path": "/master-order-type",
+    "heads": [
+      "Order Type List",
+      "Order Type List"
+    ],
+    "columns": [
+      "NO",
+      "ORDER TYPE NAME",
+      "HANDOVER",
+      "STATUS",
+      "CREATED AT",
+      "ACTION"
+    ],
+    "rows": 2,
+    "buttons": [
+      "Master",
+      "Create New",
+      "Back",
+      "AMBIL ACTIVE Handover No Handover Created At 30 Oktober 2026 23:42",
+      "DI KIRIM ACTIVE Handover Handover Required Created At 30 Oktober 2026 21:09",
+      "Previous",
+      "1",
+      "Next",
+      "Create Order Type",
+      "Edit order type AMBIL",
+      "Edit order type DI KIRIM"
+    ],
+    "labels": [
+      "Search order type",
+      "Documents per page",
+      "Search order type",
+      "Documents per page"
+    ],
+    "placeholders": [
+      "Search order type",
+      "Search order type"
+    ],
+    "text": "Order Type List Manage order types and handover rules Create New Search order type AMBIL ACTIVE Handover No Handover Created At 30 Oktober 2026 23:42 DI KIRIM ACTIVE Handover Handover Required Created At 30 Oktober 2026 21:09 Show 2/10 data Documents per page 10 Previous 1 Next Search order type Create Order Type NO ORDER TYPE NAME HANDOVER STATUS CREATED AT ACTION 1 AMBIL NO ACTIVE 30 Oktober 2026 23:42 2 DI KIRIM YES ACTIVE 30 Oktober 2026 21:09 Show 2/10 data Documents per page 10 Previous 1 Next"
+  },
+  "master-order-type-create": {
+    "path": "/master-order-type/create",
+    "heads": [
+      "New Order Type",
+      "New Order Type"
+    ],
+    "columns": [],
+    "rows": 0,
+    "buttons": [
+      "Back",
+      "Master",
+      "Handover required",
+      "Cancel",
+      "Create Order Type"
+    ],
+    "labels": [
+      "Order Type Name*"
+    ],
+    "placeholders": [
+      "e.g. Rental, Project, or Sales"
+    ],
+    "text": "New Order Type Fill in the order type details below. Order Type Name* Require Handover Require handover identity documents for orders using this type Cancel Create Order Type"
+  },
+  "master-email-sender": {
+    "path": "/master-email-sender",
+    "heads": [
+      "Email Sender",
+      "Email Sender"
+    ],
+    "columns": [
+      "NO",
+      "NAME",
+      "EMAIL",
+      "SMTP HOST",
+      "SSL",
+      "DEFAULT",
+      "STATUS",
+      "CREATED AT",
+      "ACTION"
+    ],
+    "rows": 1,
+    "buttons": [
+      "Master",
+      "Create New",
+      "Back",
+      "Cpanel ACTIVE Email adeputri@bantuit.com Host mail.bantuit.com:465 Default sender Yes Created At 04 November 2026 23:04",
+      "Previous",
+      "1",
+      "Next",
+      "Create Email Sender",
+      "Edit email sender Cpanel"
+    ],
+    "labels": [
+      "Search email sender",
+      "Documents per page",
+      "Search email sender",
+      "Documents per page"
+    ],
+    "placeholders": [
+      "Search email sender",
+      "Search email sender"
+    ],
+    "text": "Email Sender Manage SMTP email sender settings Create New Search email sender Cpanel ACTIVE Email adeputri@bantuit.com Host mail.bantuit.com:465 Default sender Yes Created At 04 November 2026 23:04 Show 1/10 data Documents per page 10 Previous 1 Next Search email sender Create Email Sender NO NAME EMAIL SMTP HOST SSL DEFAULT STATUS CREATED AT ACTION 1 Cpanel adeputri@bantuit.com mail.bantuit.com:465 YES YES ACTIVE 04 November 2026 23:04 Show 1/10 data Documents per page 10 Previous 1 Next"
+  },
+  "master-email-sender-create": {
+    "path": "/master-email-sender/create",
+    "heads": [
+      "New Email Sender",
+      "New Email Sender"
+    ],
+    "columns": [],
+    "rows": 0,
+    "buttons": [
+      "Back",
+      "Master",
+      "Enable SSL",
+      "Default sender",
+      "Cancel",
+      "Create Email Sender"
+    ],
+    "labels": [
+      "Name*",
+      "Email*",
+      "SMTP Host*",
+      "SMTP Port*",
+      "SMTP Username*",
+      "SMTP Password*"
+    ],
+    "placeholders": [
+      "e.g. Finance Sender",
+      "e.g. finance@company.com",
+      "e.g. smtp.gmail.com",
+      "Enter SMTP password"
+    ],
+    "text": "New Email Sender Manage SMTP email sender settings Name* Email* SMTP Host* SMTP Port* SMTP Username* SMTP Password* Enable SSL Use an encrypted SMTP connection Default sender Use this sender as default Cancel Create Email Sender"
+  }
+}

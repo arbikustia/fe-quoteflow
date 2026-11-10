@@ -1,0 +1,392 @@
+{
+  "dashboard": {
+    "path": "/home",
+    "heads": [
+      "Dashboard",
+      "Rental order performance",
+      "November 2026",
+      "Bikin Customer Puas Maksimal dengan 2 Voucher Aktif",
+      "Rental order performance"
+    ],
+    "columns": [],
+    "rows": 0,
+    "buttons": [
+      "DEMO6:00 AM",
+      "Gathering PT sinar jaya abadi10:00 AM",
+      "Pesta Ulangtahun Riski6:00 AM",
+      "Create Order",
+      "Document",
+      "Item Checklist",
+      "Item Return",
+      "Master Data",
+      "Mail",
+      "Report",
+      "Activity Log",
+      "PROMO VOUCHER Bikin Customer Puas Maksimal dengan 2 Voucher Aktif Berikan ekstra kepuasan lewat penawaran sewa yang lebih berkesan."
+    ],
+    "labels": [],
+    "placeholders": [],
+    "text": "Create Order Document Item Checklist Item Return Master Data Mail Report Activity Log PROMO VOUCHER Bikin Customer Puas Maksimal dengan 2 Voucher Aktif Berikan ekstra kepuasan lewat penawaran sewa yang lebih berkesan. Rental order performance Rental orders created in the last 7 days 5 orders 1 2 0 1 1 0 0 4 Nov 5 Nov 6 Nov 7 Nov 8 Nov 9 Nov 10 Nov"
+  },
+  "master-main": {
+    "path": "/master-main",
+    "heads": [
+      "Master Data",
+      "Master Data"
+    ],
+    "columns": [],
+    "rows": 0,
+    "buttons": [
+      "Master Data",
+      "Back",
+      "Master Customer Manage customer profiles and contact info",
+      "Master Category Manage product and item categories",
+      "Master Item Manage items and inventory data",
+      "Master Project Manage project items and details",
+      "Master Payment Method Manage available payment methods",
+      "Master Voucher Manage discount codes and vouchers",
+      "Master Role Manage user roles and access rights",
+      "Master User Manage system users and their roles",
+      "Master PIC Manage person in charge data",
+      "Master Order Type Manage order types and handover rules",
+      "Master Email Sender Manage SMTP email sender settings"
+    ],
+    "labels": [],
+    "placeholders": [],
+    "text": "Master Data Manage core data used across QuoteFlow. Master Customer Manage customer profiles and contact info Master Category Manage product and item categories Master Item Manage items and inventory data Master Project Manage project items and details Master Payment Method Manage available payment methods Master Voucher Manage discount codes and vouchers Master Role Manage user roles and access rights Master User Manage system users and their roles Master PIC Manage person in charge data Master Order Type Manage order types and handover rules Master Email Sender Manage SMTP email sender settings"
+  },
+  "master-customer": {
+    "path": "/master-customer",
+    "heads": [
+      "Customer List",
+      "Customer List"
+    ],
+    "columns": [
+      "NO",
+      "CUSTOMER NAME",
+      "EMAIL",
+      "ADDRESS",
+      "PHONE NUMBER",
+      "STATUS",
+      "ACTION"
+    ],
+    "rows": 8,
+    "buttons": [
+      "Master",
+      "Create New",
+      "Back",
+      "Benedeta ACTIVE Email benedeta@gmail.com Address Jl Mawar Merah no 99 Phone 0895605293733",
+      "Valir AL Gozali ACTIVE Email valir@gmail.com Address Jl Mawar Merah no 99 Phone 0895605293764",
+      "ADE PUTRI ACTIVE Email adeputri.csk@gmail.com Address kp gaga barat rt.001 rw.002 Phone 085894960310",
+      "Miya ACTIVE Email — Address Jl. Depok Raya no 43 Phone 09897465271311",
+      "Citra ACTIVE Email — Address Jl Matraman no 88 Phone 0895995293709",
+      "Bunga ACTIVE Email — Address Jl Pahlawan no 10 Phone 0895995293775",
+      "Raka ACTIVE Email — Address Jl Pramuka no 21 Phone 0896605293775",
+      "Riski ACTIVE Email — Address Jl Sudirman no1 Phone 0895605293340",
+      "Previous",
+      "1",
+      "Next",
+      "Create Customer",
+      "Edit customer"
+    ],
+    "labels": [
+      "Search customer",
+      "Documents per page",
+      "Search customer",
+      "Documents per page"
+    ],
+    "placeholders": [
+      "Search customer",
+      "Search customer"
+    ],
+    "text": "Customer List Manage customer profiles and contact info Create New Search customer Benedeta ACTIVE Email benedeta@gmail.com Address Jl Mawar Merah no 99 Phone 0895605293733 Valir AL Gozali ACTIVE Email valir@gmail.com Address Jl Mawar Merah no 99 Phone 0895605293764 ADE PUTRI ACTIVE Email adeputri.csk@gmail.com Address kp gaga barat rt.001 rw.002 Phone 085894960310 Miya ACTIVE Email — Address Jl. Depok Raya no 43 Phone 09897465271311 Citra ACTIVE Email — Address Jl Matraman no 88 Phone 0895995293709 Bunga ACTIVE Email — Address Jl Pahlawan no 10 Phone 0895995293775 Raka ACTIVE Email — Address Jl Pramuka no 21 Phone 0896605293775 Riski ACTIVE Email — Address Jl Sudirman no1 Phone 0895605293340 Show 8/10 data Documents per page 10 Previous 1 Next Search customer Create Customer NO CUSTOMER NAME EMAIL ADDRESS PHONE NUMBER STATUS ACTION 1 Benedeta benedeta@gmail.com Jl Mawar Merah no 99 0895605293733 ACTIVE 2 Valir AL Gozali valir@gmail.com Jl Mawar Merah no 99 0895605293764 ACTIVE 3 ADE PUTRI adeputri.csk@gmail.com kp gaga barat rt.001 rw.002 085894960310 ACTIVE 4 Miya — Jl. Depok Raya no 43 09897465271311 ACTIVE 5 Citra — Jl Matraman no 88 0895995293709 ACTIVE 6 Bunga — Jl Pahlawan no 10 0895995293775 ACTIVE 7 Raka — Jl Pramuka no 21 0896605293775 ACTIVE 8 Riski — Jl Sudirman no1 0895605293340 ACTIVE Show 8/10 data Documents per page 10 Previous 1 Next"
+  },
+  "master-customer-create": {
+    "path": "/master-customer/create",
+    "heads": [
+      "New Customer",
+      "New Customer"
+    ],
+    "columns": [],
+    "rows": 0,
+    "buttons": [
+      "Back",
+      "Master",
+      "Cancel",
+      "Create Customer"
+    ],
+    "labels": [
+      "Customer Name*",
+      "Email*",
+      "Phone Number*",
+      "Address*"
+    ],
+    "placeholders": [
+      "e.g. PT Mega Jaya Abadi",
+      "e.g. customer@example.com",
+      "0812... atau 628...",
+      "e.g. Jl. Sudirman No. 45"
+    ],
+    "text": "New Customer Fill in the customer details below. Customer Name* Email* Phone Number* Address* Cancel Create Customer"
+  },
+  "master-category": {
+    "path": "/master-category",
+    "heads": [
+      "Category List",
+      "Category List"
+    ],
+    "columns": [
+      "NO",
+      "CATEGORY NAME",
+      "STATUS",
+      "CREATED AT",
+      "ACTION"
+    ],
+    "rows": 2,
+    "buttons": [
+      "Master",
+      "Create New",
+      "Back",
+      "Audio System Equipment ACTIVE Created 05 November 2026 pukul 16.19",
+      "Lighting Equipment ACTIVE Created 04 November 2026 pukul 15.31",
+      "Previous",
+      "1",
+      "Next",
+      "Create Category",
+      "Edit category"
+    ],
+    "labels": [
+      "Search category",
+      "Documents per page",
+      "Search category",
+      "Documents per page"
+    ],
+    "placeholders": [
+      "Search category",
+      "Search category"
+    ],
+    "text": "Category List Manage product and item categories Create New Search category Audio System Equipment ACTIVE Created 05 November 2026 pukul 16.19 Lighting Equipment ACTIVE Created 04 November 2026 pukul 15.31 Show 2/10 data Documents per page 10 Previous 1 Next Search category Create Category NO CATEGORY NAME STATUS CREATED AT ACTION 1 Audio System Equipment ACTIVE 05 November 2026 pukul 16.19 2 Lighting Equipment ACTIVE 04 November 2026 pukul 15.31 Show 2/10 data Documents per page 10 Previous 1 Next"
+  },
+  "master-category-create": {
+    "path": "/master-category/create",
+    "heads": [
+      "New Category",
+      "New Category"
+    ],
+    "columns": [],
+    "rows": 0,
+    "buttons": [
+      "Back",
+      "Master",
+      "Cancel",
+      "Create Category"
+    ],
+    "labels": [
+      "Category Name*"
+    ],
+    "placeholders": [
+      "e.g. Audio System"
+    ],
+    "text": "New Category Fill in the category details below. Category Name* Cancel Create Category"
+  },
+  "master-item": {
+    "path": "/master-item",
+    "heads": [
+      "Item List",
+      "Item List"
+    ],
+    "columns": [
+      "NO",
+      "IMAGE",
+      "ITEM NAME",
+      "CATEGORY",
+      "PRICE",
+      "STOCK",
+      "DURATION",
+      "STATUS",
+      "REMARK",
+      "ACTION"
+    ],
+    "rows": 4,
+    "buttons": [
+      "Master",
+      "Create New",
+      "Back",
+      "Beam 290 active Lighting Equipment Rp 100.000 · 11 unit · 1 days",
+      "Beam 450 active Lighting Equipment Rp 100.000 · 11 unit · 1 days",
+      "Monitor Speaker 15 active Audio System Equipment Rp 5.000 · 7 unit · 1 days",
+      "Strobo active Lighting Equipment Rp 100.000 · 10 unit · 1 days",
+      "Previous",
+      "1",
+      "Next",
+      "Download Multiple",
+      "Create Item",
+      "Edit item Beam 290",
+      "Edit item Beam 450",
+      "Edit item Monitor Speaker 15",
+      "Edit item Strobo"
+    ],
+    "labels": [
+      "Search item",
+      "Documents per page",
+      "Search item",
+      "Documents per page"
+    ],
+    "placeholders": [
+      "Search item",
+      "Search item"
+    ],
+    "text": "Item List Manage items and inventory data Create New Search item Beam 290 active Lighting Equipment Rp 100.000 · 11 unit · 1 days Beam 450 active Lighting Equipment Rp 100.000 · 11 unit · 1 days Monitor Speaker 15 active Audio System Equipment Rp 5.000 · 7 unit · 1 days Strobo active Lighting Equipment Rp 100.000 · 10 unit · 1 days Show 4/10 data Documents per page 10 Previous 1 Next Search item Download Multiple Create Item NO IMAGE ITEM NAME CATEGORY PRICE STOCK DURATION STATUS REMARK ACTION 1 See image Beam 290 Lighting Equipment Rp 100.000 11 1 ACTIVE Lighting 2 See image Beam 450 Lighting Equipment Rp 100.000 11 1 ACTIVE Lighting 3 See image Monitor Speaker 15 Audio System Equipment Rp 5.000 7 1 ACTIVE Monitor Speaker 15 4 See image Strobo Lighting Equipment Rp 100.000 10 1 ACTIVE Lighting Show 4/10 data Documents per page 10 Previous 1 Next"
+  },
+  "master-item-create": {
+    "path": "/master-item/create",
+    "heads": [
+      "New Item",
+      "New Item"
+    ],
+    "columns": [],
+    "rows": 0,
+    "buttons": [
+      "Back",
+      "Master",
+      "Cancel",
+      "Create Item"
+    ],
+    "labels": [
+      "Item Name*",
+      "Category*",
+      "Price*",
+      "Stock*",
+      "Duration (Days)*",
+      "Remarks"
+    ],
+    "placeholders": [
+      "e.g. Wireless Microphone",
+      "Rp 0",
+      "0",
+      "1",
+      "Optional notes"
+    ],
+    "text": "New Item Fill in the item details below. Item Name* Category* Select category Price* Stock* Duration (Days)* Upload Image Remarks Cancel Create Item"
+  },
+  "master-project": {
+    "path": "/master-project",
+    "heads": [
+      "Project List",
+      "Project List"
+    ],
+    "columns": [
+      "NO",
+      "PROJECT NAME",
+      "REMARK",
+      "STATUS",
+      "CREATED AT",
+      "ACTION"
+    ],
+    "rows": 5,
+    "buttons": [
+      "Master",
+      "Create New",
+      "Back",
+      "Previous",
+      "Next",
+      "Create Project"
+    ],
+    "labels": [
+      "Search project",
+      "Documents per page",
+      "Search project",
+      "Documents per page"
+    ],
+    "placeholders": [
+      "Search project",
+      "Search project"
+    ],
+    "text": "Project List Manage project items and details Create New Search project Show 0/10 data Documents per page 10 Previous Next Search project Create Project NO PROJECT NAME REMARK STATUS CREATED AT ACTION Show 0/10 data Documents per page 10 Previous Next"
+  },
+  "master-project-create": {
+    "path": "/master-project/create",
+    "heads": [
+      "New Project",
+      "New Project",
+      "Select items"
+    ],
+    "columns": [],
+    "rows": 0,
+    "buttons": [
+      "Back",
+      "Master",
+      "Select Beam 290",
+      "Select Beam 450",
+      "Select Monitor Speaker 15",
+      "Select Strobo",
+      "Cancel",
+      "Next"
+    ],
+    "labels": [],
+    "placeholders": [],
+    "text": "New Project Build project in three steps. Items Information Preview Select items Beam 290 Stock: 11 · Rp 100.000 ✓ Beam 450 Stock: 11 · Rp 100.000 ✓ Monitor Speaker 15 Stock: 7 · Rp 5.000 ✓ Strobo Stock: 10 · Rp 100.000 ✓ Cancel Next"
+  },
+  "master-payment-method": {
+    "path": "/master-payment-method",
+    "heads": [
+      "Payment Method List",
+      "Payment Method List"
+    ],
+    "columns": [
+      "NO",
+      "PAYMENT METHOD",
+      "DESCRIPTION",
+      "STATUS",
+      "CREATED AT",
+      "ACTION"
+    ],
+    "rows": 1,
+    "buttons": [
+      "Master",
+      "Create New",
+      "Back",
+      "BCA ACTIVE Description No Admin Fee",
+      "Previous",
+      "1",
+      "Next",
+      "Create Payment Method",
+      "Edit payment method"
+    ],
+    "labels": [
+      "Search payment method",
+      "Documents per page",
+      "Search payment method",
+      "Documents per page"
+    ],
+    "placeholders": [
+      "Search payment method",
+      "Search payment method"
+    ],
+    "text": "Payment Method List Manage available payment methods Create New Search payment method BCA ACTIVE Description No Admin Fee Show 1/10 data Documents per page 10 Previous 1 Next Search payment method Create Payment Method NO PAYMENT METHOD DESCRIPTION STATUS CREATED AT ACTION 1 BCA No Admin Fee ACTIVE 30 Oktober 2026 22:00 Show 1/10 data Documents per page 10 Previous 1 Next"
+  },
+  "master-payment-method-create": {
+    "path": "/master-payment-method/create",
+    "heads": [
+      "New Payment Method",
+      "New Payment Method"
+    ],
+    "columns": [],
+    "rows": 0,
+    "buttons": [
+      "Back",
+      "Master",
+      "Cancel",
+      "Create Payment Method"
+    ],
+    "labels": [
+      "Payment Method Name*",
+      "Description*"
+    ],
+    "placeholders": [
+      "e.g. Bank Transfer",
+      "Describe this payment method"
+    ],
+    "text": "New Payment Method Create a payment method for transactions. Payment Method Name* Description* Cancel Create Payment Method"
+  }
+}
