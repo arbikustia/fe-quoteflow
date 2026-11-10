@@ -100,7 +100,7 @@ const _renderActions = (voucher: VoucherData, onEdit: MasterVoucherProps["onEdit
    */
   const handleEdit = (event: React.MouseEvent): void => {
     event.stopPropagation();
-    onEdit(voucher);
+    onEdit?.(voucher);
   };
 
   return (
@@ -108,9 +108,9 @@ const _renderActions = (voucher: VoucherData, onEdit: MasterVoucherProps["onEdit
       <button type="button" onClick={handleDownload} className="cursor-pointer rounded-3xl p-2.5 text-text-secondary hover:bg-action-primary-subtle hover:text-action-primary" title="Download voucher" aria-label={`Download voucher ${voucher.code}`}>
         <FiDownload className="h-5 w-5" />
       </button>
-      <button type="button" onClick={handleEdit} className="cursor-pointer rounded-3xl p-2.5 text-text-secondary hover:bg-action-primary-subtle hover:text-action-primary" title="Edit voucher" aria-label={`Edit voucher ${voucher.code}`}>
+      {onEdit && <button type="button" onClick={handleEdit} className="cursor-pointer rounded-3xl p-2.5 text-text-secondary hover:bg-action-primary-subtle hover:text-action-primary" title="Edit voucher" aria-label={`Edit voucher ${voucher.code}`}>
         <FiEdit2 className="h-5 w-5" />
-      </button>
+      </button>}
     </div>
   );
 };
@@ -133,16 +133,20 @@ const _getColumns = (props: MasterVoucherProps): TableColumn<VoucherData>[] => {
    * @returns {React.ReactElement} Rendered element
    */
   const renderActions = (voucher: VoucherData): React.ReactElement => _renderActions(voucher, props.onEdit, props.onDownload);
-
-  return [
+  const columns: TableColumn<VoucherData>[] = [
     { key: "no", header: "No", align: "center", render: renderNumber },
     { key: "name", header: "Name", render: _renderName },
     { key: "code", header: "Voucher Code", render: _renderCode },
     { key: "discountPercent", header: "Discount (%)", align: "center", render: _renderDiscount },
     { key: "status", header: "Status", align: "center", render: _renderStatus },
     { key: "createAt", header: "Created At", render: _renderDate },
-    { key: "actions", header: "Action", align: "center", render: renderActions },
   ];
+
+  if (props.onEdit || props.onDownload) {
+    columns.push({ key: "actions", header: "Action", align: "center", render: renderActions });
+  }
+
+  return columns;
 };
 
 /**
@@ -241,10 +245,12 @@ const _renderVoucherCard = (voucher: VoucherData, onEdit: MasterVoucherProps["on
     /**
    * @returns {void} Resolved value
    */
-  const handleClick = (): void => onEdit(voucher);
+  const handleClick = (): void => {
+    if (onEdit) onEdit(voucher);
+  };
 
   return (
-    <button type="button" onClick={handleClick} className="group block w-full min-w-0 rounded-3xl border border-border-strong bg-background-surface p-5 text-left shadow-small transition-colors hover:border-border-strong hover:bg-background-subtle/40 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-action-primary">
+    <button type="button" disabled={!onEdit} onClick={handleClick} className="group block w-full min-w-0 rounded-3xl border border-border-strong bg-background-surface p-5 text-left shadow-small transition-colors hover:border-border-strong hover:bg-background-subtle/40 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-action-primary">
       <span className="flex min-w-0 flex-wrap items-center justify-between gap-3">
         <span className="min-w-0 break-words text-xl font-semibold text-text-primary">{voucher.code}</span>
         <span className={`rounded-full border border-current px-3 py-1 text-base font-semibold uppercase ${voucher.status === "active" ? "bg-success-subtle text-success-strong" : "bg-danger-subtle text-danger-strong"}`}>{voucher.status}</span>
@@ -298,7 +304,7 @@ const _renderDesktop = (props: MasterVoucherProps): React.ReactElement => {
     <div className="hidden rounded-3xl border border-border-default bg-background-surface px-6 pb-6 pt-0 shadow-xs md:mt-6 md:flex md:flex-1 md:flex-col md:overflow-hidden lg:flex">
       <div className="flex items-center justify-between gap-4 border-b border-border-default py-6">
         <SearchFilter placeholder="Search voucher" onChange={handleSearch} isRoundedFull={true} inputClassName="text-lg placeholder:text-lg" />
-        <button type="button" onClick={props.onCreate} className="h-14 rounded-2xl bg-action-primary px-6 text-lg font-semibold text-text-inverse hover:bg-action-primary-hover focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring">Create Voucher</button>
+        {props.onCreate && <button type="button" onClick={props.onCreate} className="h-14 rounded-2xl bg-action-primary px-6 text-lg font-semibold text-text-inverse hover:bg-action-primary-hover focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring">Create Voucher</button>}
       </div>
       <div className="flex-1 overflow-auto">
         {props.isLoading ? _renderTableSkeleton(props) : _renderListState(props) ?? <Table data={props.paginatedData} columns={_getColumns(props)} isDetail={false} keyExtractor={(row: VoucherData): string => row.id} />}
@@ -315,11 +321,11 @@ const _renderDesktop = (props: MasterVoucherProps): React.ReactElement => {
  * @returns {React.ReactElement} Page element
  */
 export const MasterVoucherComponent = (props: MasterVoucherProps): React.ReactElement => {
-  const createButton = (
+  const createButton = props.onCreate ? (
     <button type="button" onClick={props.onCreate} className="h-14 rounded-full border-2 border-action-primary bg-background-surface px-6 text-lg font-bold text-action-primary transition-colors hover:bg-action-primary-subtle focus:outline-none focus:ring-2 focus:ring-focus-ring/30 lg:hidden">
       Create New
     </button>
-  );
+  ) : null;
 
   return (
     <Layout pageTitle="Voucher List">

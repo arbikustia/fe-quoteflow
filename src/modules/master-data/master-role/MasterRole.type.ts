@@ -158,9 +158,9 @@ export type MasterRoleProps = {
   prevPage: () => void;
   changePageSize: (size: number) => void;
   setSearchTerm: (searchTerm: string) => void;
-  onCreate: () => void;
-  onEdit: (role: RoleData) => void;
-  onRowClick: (role: RoleData) => void;
+  onCreate?: () => void;
+  onEdit?: (role: RoleData) => void;
+  onRowClick?: (role: RoleData) => void;
   onBack: () => void;
   onMore?: () => void;
   isMoreOpen?: boolean;

@@ -2,6 +2,10 @@ import { render, screen } from "@/libs/unit-test";
 import { MemoryRouter } from "react-router-dom";
 
 import MasterRoleContainer from "./MasterRole.container";
+
+jest.mock("@/hooks/usePagePermission", () => ({
+  usePagePermission: jest.fn(() => ({ canView: true, canCreate: false, canEdit: false, isSuperadmin: false })),
+}));
 import type { RoleData } from "./MasterRole.type";
 
 jest.useFakeTimers();

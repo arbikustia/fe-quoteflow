@@ -174,8 +174,8 @@ export type MasterVoucherProps = {
   errorMessage: string | null;
   isEmpty: boolean;
   isMissingData: boolean;
-  onCreate: () => void;
-  onEdit: (voucher: VoucherData) => void;
+  onCreate?: () => void;
+  onEdit?: (voucher: VoucherData) => void;
   onBack: () => void;
   onDownload?: (voucher: VoucherData) => void;
   onMore?: () => void;

@@ -187,8 +187,8 @@ export type PaymentPagination = {
 
 export type PaymentProps = PaymentPagination & {
   onBack: () => void;
-  onCreate: () => void;
-  onEdit: (payment: PaymentData) => void;
+  onCreate?: () => void;
+  onEdit?: (payment: PaymentData) => void;
   onDetail?: (payment: PaymentData) => void;
   onRowClick: (payment: PaymentData) => void;
 };

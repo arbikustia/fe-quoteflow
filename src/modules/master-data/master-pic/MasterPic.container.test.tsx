@@ -4,6 +4,10 @@ import test from "../../../libs/unit-test";
 
 import MasterPicContainer from "./MasterPic.container";
 
+jest.mock("@/hooks/usePagePermission", () => ({
+  usePagePermission: jest.fn(() => ({ canView: true, canCreate: false, canEdit: false, isSuperadmin: false })),
+}));
+
 jest.mock("./MasterPic.hook", () => ({
   useMasterPicNavigation: jest.fn(() => ({ goBack: jest.fn(), goCreate: jest.fn(), goEdit: jest.fn(), goDetail: jest.fn() })),
   useMasterPicContainerState: jest.fn(() => ({

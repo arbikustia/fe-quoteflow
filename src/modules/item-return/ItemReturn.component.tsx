@@ -45,9 +45,9 @@ const _getColumns = (props: ReturnListState): TableColumn<ReturnRow>[] => [
     ),
   },
   {
-    key: "orderId",
-    header: "Order ID",
-    render: (row): ReactElement => <span className="text-lg font-medium">{row.orderId}</span>,
+    key: "customerName",
+    header: "Customer Name",
+    render: (row): ReactElement => <span className="text-lg font-medium">{row.customerName}</span>,
   },
   {
     key: "returnDate",
@@ -84,8 +84,8 @@ const _getColumns = (props: ReturnListState): TableColumn<ReturnRow>[] => [
             props.onEdit(row);
           }}
           className="cursor-pointer rounded-3xl p-2.5 text-text-secondary hover:bg-action-primary-subtle hover:text-action-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring"
-          title={`Edit ${row.orderId}`}
-          aria-label={`Edit ${row.orderId}`}
+          title={`Edit ${row.customerName}`}
+          aria-label={`Edit ${row.customerName}`}
         >
           <FiEdit2 className="h-5 w-5" aria-hidden="true" />
         </button>
@@ -109,7 +109,7 @@ export const ItemReturnMobileCard = ({ row, onClick }: ItemReturnMobileCardProps
       className="group block w-full min-w-0 rounded-3xl border border-border-strong bg-background-surface p-5 text-left shadow-small transition-colors hover:border-border-strong hover:bg-background-subtle/40 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-action-primary"
     >
       <span className="flex min-w-0 flex-wrap items-center justify-between gap-3">
-        <span className="min-w-0 break-words text-xl font-semibold text-text-primary">{row.orderId}</span>
+        <span className="min-w-0 break-words text-xl font-semibold text-text-primary">{row.customerName}</span>
         {_renderStatus(row)}
       </span>
       <span className="mt-4 block break-words text-lg text-text-secondary">

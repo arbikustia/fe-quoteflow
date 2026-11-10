@@ -63,6 +63,7 @@ export const apiRtkClient = createApi({
     "RentalChecklist",
     "RentalReturn",
     "Calendar",
+    "Permission",
   ],
   endpoints: () => ({}),
 });

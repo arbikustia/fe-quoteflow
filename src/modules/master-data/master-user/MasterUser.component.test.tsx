@@ -59,4 +59,5 @@ test.assertSnapshots(MasterUserComponent, [
   { props, desc: "default state" },
   { props: { ...props, paginatedData: [], isEmpty: true }, desc: "empty state" },
   { props: { ...props, isLoading: true }, desc: "loading state" },
+  { props: { ...props, onCreate: undefined, onEdit: undefined, onRowClick: undefined }, desc: "permission denied state" },
 ]);

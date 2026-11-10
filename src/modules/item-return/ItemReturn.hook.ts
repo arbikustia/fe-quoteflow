@@ -21,7 +21,7 @@ export const mapReturn = (item: ApiReturn): ReturnRow => {
 
   return {
     id: item.id,
-    orderId: item.order_id,
+    customerName: item.items[0]?.customer_name || "-",
     returnDate: item.return_date,
     itemCount: Array.isArray(item.items) ? item.items.length : 0,
     notes: item.notes || "-",

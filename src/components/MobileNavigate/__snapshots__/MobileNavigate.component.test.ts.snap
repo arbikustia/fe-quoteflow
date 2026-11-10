@@ -11,18 +11,17 @@ exports[`MobileNavigateComponent Test MobileNavigateComponent matches snapshot 1
     >
       <span
         aria-hidden="true"
-        class="pointer-events-none absolute bottom-0 left-0 h-10 w-1/4 bg-gradient-to-t from-action-primary/20 via-action-primary/5 to-transparent transition-transform duration-700 ease-in-out"
-        style="transform: translateX(0%);"
+        class="pointer-events-none absolute bottom-0 left-0 h-10 bg-gradient-to-t from-action-primary/20 via-action-primary/5 to-transparent transition-transform duration-700 ease-in-out"
+        style="width: 25%; transform: translateX(0%);"
       />
       <span
         aria-hidden="true"
-        class="pointer-events-none absolute bottom-0 left-0 h-0.5 w-1/4 bg-action-primary transition-transform duration-700 ease-in-out"
-        style="transform: translateX(0%);"
+        class="pointer-events-none absolute bottom-0 left-0 h-0.5 bg-action-primary transition-transform duration-700 ease-in-out"
+        style="width: 25%; transform: translateX(0%);"
       />
       <button
-        aria-current="page"
         aria-label="Home"
-        class="relative flex min-w-0 flex-1 flex-col items-center justify-center gap-1 px-1 py-3 transition-colors duration-500 focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring text-action-primary"
+        class="relative flex min-w-0 flex-1 flex-col items-center justify-center gap-1 px-1 py-3 transition-colors duration-500 focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring text-text-secondary hover:bg-background-subtle hover:text-text-primary"
         data-path="/home"
         type="button"
       >

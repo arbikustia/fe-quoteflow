@@ -1,6 +1,8 @@
 import * as React from "react";
 import { useLocation } from "react-router-dom";
 
+import { usePagePermission } from "@/hooks/usePagePermission";
+
 import { AlertComponent } from "@/components/Alert";
 
 import { MasterServiceTypeComponent } from "./MasterServiceType.component";
@@ -16,6 +18,7 @@ const MasterServiceTypeContainer = (): React.ReactElement => {
   const location = useLocation();
   const routeState: ServiceTypeRouteState | null = location.state;
   const containerState = useMasterServiceTypeContainerState();
+  const { canCreate, canEdit } = usePagePermission("/master-service-type");
 
   return (
     <>
@@ -23,8 +26,8 @@ const MasterServiceTypeContainer = (): React.ReactElement => {
       <MasterServiceTypeComponent
         {...containerState.pagination}
         onBack={containerState.goBack}
-        onCreate={containerState.goCreate}
-        onEdit={containerState.goEdit}
+        onCreate={canCreate ? containerState.goCreate : undefined}
+        onEdit={canEdit ? containerState.goEdit : undefined}
         onRowClick={containerState.goDetail}
         onMore={containerState.toggleMore}
         isMoreOpen={containerState.isMoreOpen}

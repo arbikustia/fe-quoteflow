@@ -90,18 +90,18 @@ export type MasterPicProps = {
   isLoading: boolean;
   isError: boolean;
   setSearchTerm: (searchTerm: string) => void;
-  onCreate: () => void;
-  onEdit: (pic: PicData) => void;
-  onRowClick: (pic: PicData) => void;
-  onMore: () => void;
+  onCreate?: () => void;
+  onEdit?: (pic: PicData) => void;
+  onRowClick?: (pic: PicData) => void;
+  onMore?: () => void;
   isMoreOpen: boolean;
   onCloseMore: () => void;
-  onDelete: () => void;
+  onDelete?: () => void;
   onBack: () => void;
 };
 
 export type GetColumnsParams = {
   currentPage: number;
   pageSize: number;
-  onEdit: (pic: PicData) => void;
+  onEdit?: (pic: PicData) => void;
 };

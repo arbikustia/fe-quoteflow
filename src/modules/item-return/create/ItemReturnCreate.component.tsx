@@ -39,23 +39,28 @@ const _renderCaptureButton = (row: ReturnOrderItemRow, props: ReturnCreateFormSt
 
 const _renderViewPhotoButton = (row: ReturnOrderItemRow, props: ReturnCreateFormState): ReactElement | null => {
   const stagedUrls = props.stagedPhotoUrls.get(row.id) ?? [];
-  const photos = stagedUrls.length ? stagedUrls : row.fileUrls;
+  const photos = [...row.fileUrls, ...stagedUrls];
   if (!photos.length) return null;
 
   return (
-    <button
-      type="button"
-      onClick={(): void => props.openPhoto(row.id)}
-      className="inline-flex min-h-12 cursor-pointer items-center gap-2.5 rounded-2xl border border-action-primary/30 bg-action-primary-subtle px-4 py-2.5 text-lg font-semibold text-action-primary transition-colors hover:bg-action-primary hover:text-text-inverse focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring"
-      aria-label="View photo"
-    >
-      <img
-        src={photos[0]}
-        alt=""
-        className="h-7 w-7 rounded-lg object-cover"
-      />
-      <span className="font-semibold tracking-wide">View photo ({photos.length})</span>
-    </button>
+    <div className="flex flex-wrap items-center gap-2">
+      {photos.map((photo, index) => (
+        <div key={photo} className="relative">
+          <button type="button" onClick={(): void => props.openPhoto(row.id)} aria-label={`View photo ${index + 1}`}>
+            <img src={photo} alt="" className="h-12 w-12 rounded-lg object-cover" />
+          </button>
+          <button
+            type="button"
+            onClick={(): void => props.onRemovePhoto(row.id, index)}
+            disabled={props.isSubmitting}
+            aria-label={`Remove photo ${index + 1}`}
+            className="absolute -right-2 -top-2 h-6 w-6 rounded-full bg-danger text-sm font-bold text-text-inverse disabled:opacity-50"
+          >
+            ×
+          </button>
+        </div>
+      ))}
+    </div>
   );
 };
 

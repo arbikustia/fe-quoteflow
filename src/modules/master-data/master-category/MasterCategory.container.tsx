@@ -1,6 +1,8 @@
 import * as React from "react";
 import { useLocation } from "react-router-dom";
 
+import { usePagePermission } from "@/hooks/usePagePermission";
+
 import { AlertComponent } from "@/components/Alert";
 
 import { MasterCategoryComponent } from "./MasterCategory.component";
@@ -17,6 +19,7 @@ const MasterCategoryContainer = (): React.ReactElement => {
   const routeState: CategoryRouteState | null = location.state;
   const { goBack, goCreate, goEdit } = useMasterCategoryNavigation();
   const { pagination, isMoreOpen, toggleMore, handleCloseMore, goDelete } = useMasterCategoryContainerState();
+  const { canCreate, canEdit } = usePagePermission("/master-category");
 
   return (
     <>
@@ -25,8 +28,8 @@ const MasterCategoryContainer = (): React.ReactElement => {
         {...pagination}
         isMoreOpen={isMoreOpen}
         onBack={goBack}
-        onCreate={goCreate}
-        onEdit={goEdit}
+        onCreate={canCreate ? goCreate : undefined}
+        onEdit={canEdit ? goEdit : undefined}
         onMore={toggleMore}
         onCloseMore={handleCloseMore}
         onDelete={goDelete}

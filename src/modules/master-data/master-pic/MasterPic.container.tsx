@@ -2,6 +2,7 @@ import * as React from "react";
 import { useLocation } from "react-router-dom";
 
 import { AlertComponent } from "@/components/Alert";
+import { usePagePermission } from "@/hooks/usePagePermission";
 
 import { MasterPicComponent } from "./MasterPic.component";
 import { useMasterPicContainerState, useMasterPicNavigation } from "./MasterPic.hook";
@@ -17,6 +18,7 @@ const MasterPicContainer = (): React.ReactElement => {
   const routeState: PicRouteState | null = location.state;
   const { goBack, goCreate, goEdit } = useMasterPicNavigation();
   const { pagination, isMoreOpen, toggleMore, goDelete, handleCloseMore } = useMasterPicContainerState();
+  const { canCreate, canEdit } = usePagePermission("/master-pic");
 
   return (
     <>
@@ -24,13 +26,13 @@ const MasterPicContainer = (): React.ReactElement => {
       <MasterPicComponent
         {...pagination}
         onBack={goBack}
-        onCreate={goCreate}
-        onEdit={goEdit}
-        onRowClick={goEdit}
-        onMore={toggleMore}
+        onCreate={canCreate ? goCreate : undefined}
+        onEdit={canEdit ? goEdit : undefined}
+        onRowClick={canEdit ? goEdit : undefined}
+        onMore={canEdit ? toggleMore : undefined}
         isMoreOpen={isMoreOpen}
         onCloseMore={handleCloseMore}
-        onDelete={goDelete}
+        onDelete={canEdit ? goDelete : undefined}
       />
     </>
   );

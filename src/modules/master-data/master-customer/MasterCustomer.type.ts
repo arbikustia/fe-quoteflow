@@ -114,8 +114,8 @@ export type MasterCustomerProps = {
   goToPage: (page: number) => void;
   changePageSize: (size: number) => void;
   setSearchTerm: (searchTerm: string) => void;
-  onCreate: () => void;
-  onEdit: (customer: CustomerData) => void;
+  onCreate?: () => void;
+  onEdit?: (customer: CustomerData) => void;
   onRowClick?: (customer: CustomerData) => void;
   onBack: () => void;
 };

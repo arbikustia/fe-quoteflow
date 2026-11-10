@@ -1,4 +1,6 @@
-import type { NavigationItem, NavigationSection } from "./Sidebar.type";
+import type { PermissionRow } from "@/modules/permission/Permission.type";
+
+import type { AccessTokenPayload, NavigationItem, NavigationSection, RoleIdentity, UserRoleIdentity, UserRoleValue } from "./Sidebar.type";
 
 /**
  * Read saved username from cookie.
@@ -9,6 +11,103 @@ export const getUsername = (): string => {
 
   return cookie ? decodeURIComponent(cookie.split("=")[1] ?? "") : "";
 };
+
+/**
+ * Read role names or ids from login JWT claims.
+ * @returns {string[]} Login role values
+ */
+export const getAccessTokenRoles = (): string[] => {
+  const token = localStorage.getItem("access_token");
+
+  if (!token) {
+    return [];
+  }
+
+  try {
+    const payload: AccessTokenPayload = JSON.parse(atob(token.split(".")[1] ?? ""));
+    const claimValues = [
+      payload.role,
+      payload.roles,
+      payload.role_id,
+      payload.roleId,
+      payload["http://schemas.microsoft.com/ws/2008/06/identity/claims/role"],
+    ];
+
+    return claimValues.flatMap((value) => {
+      if (Array.isArray(value)) {
+        return value;
+      }
+
+      return value ? [value] : [];
+    });
+  } catch {
+    return [];
+  }
+};
+
+/**
+ * Find role for the exact authenticated username.
+ * @param {UserRoleIdentity[]} users - User search results
+ * @param {string} username - Authenticated username
+ * @returns {UserRoleValue} Exact user's role
+ */
+export const findUserRole = (users: UserRoleIdentity[], username: string): UserRoleValue => (
+  users.find((user) => user.username?.toLowerCase() === username.toLowerCase())?.role
+);
+
+/**
+ * Normalize one API role value to a list.
+ * @param {UserRoleValue} role - User role value
+ * @returns {string[]} Role values
+ */
+export const normalizeUserRoles = (role: UserRoleValue): string[] => {
+  if (Array.isArray(role)) {
+    return role;
+  }
+
+  return role ? [role] : [];
+};
+
+/**
+ * Match direct role names or resolve role ids through role master data.
+ * @param {string[]} userRoles - User role names or ids
+ * @param {RoleIdentity[]} roles - Master role options
+ * @returns {boolean} Whether user is superadmin
+ */
+export const isSuperadminRole = (userRoles: string[], roles: RoleIdentity[]): boolean => userRoles.some((userRole) => (
+  userRole.toLowerCase() === "superadmin"
+  || roles.some((role) => role.id === userRole && role.role.toLowerCase() === "superadmin")
+));
+
+/**
+ * Filter role-restricted sidebar items.
+ * @param {NavigationSection[]} sections - Sidebar sections
+ * @param {string} role - Current user role
+ * @returns {NavigationSection[]} Allowed sidebar sections
+ */
+export const getNavigationSectionsForRole = (
+  sections: NavigationSection[],
+  role: string,
+): NavigationSection[] => sections.map((section) => ({
+  ...section,
+  items: section.items.filter((item) => item.path !== "/permission" || role.toLowerCase() === "superadmin"),
+}));
+
+export const filterNavigationByPermission = (sections: NavigationSection[], rows: PermissionRow[]): NavigationSection[] => sections.map((section) => ({
+  ...section,
+  items: section.items.map((item) => {
+    if (!item.children) {
+      if (!item.path) return item;
+      const row = rows.find((r) => r.url === item.path);
+      return row?.permission.includes("view") ? item : null;
+    }
+    const filteredChildren = item.children.filter((child) => {
+      const row = rows.find((r) => r.url === child.path);
+      return row?.permission.includes("view");
+    });
+    return filteredChildren.length > 0 ? { ...item, children: filteredChildren } : null;
+  }).filter((item): item is NavigationItem => item !== null),
+}));
 
 /**
  * Check whether navigation contains sections.

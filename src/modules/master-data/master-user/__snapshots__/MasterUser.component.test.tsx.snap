@@ -728,3 +728,121 @@ exports[`MasterUserComponent Snapshots loading state 1`] = `
   </div>
 </DocumentFragment>
 `;
+
+exports[`MasterUserComponent Snapshots permission denied state 1`] = `
+<DocumentFragment>
+  <div
+    data-testid="layout"
+  >
+    <div
+      data-testid="page-layout"
+    >
+      <div
+        class="relative flex h-full flex-col bg-background-page px-0 pb-18 lg:-mt-4 lg:bg-transparent lg:px-0 lg:pb-0"
+      >
+        <div
+          class="flex min-w-0 flex-col gap-4 pb-16 pt-2 lg:hidden"
+        >
+          <input
+            data-testid="search-filter"
+          />
+          <div
+            class="flex min-w-0 flex-col gap-4"
+          >
+            <button
+              class="group block w-full min-w-0 rounded-3xl border border-border-strong bg-background-surface p-5 text-left shadow-small transition-colors cursor-default"
+              disabled=""
+              type="button"
+            >
+              <span
+                class="flex min-w-0 flex-wrap items-center justify-between gap-3"
+              >
+                <span
+                  class="min-w-0 break-words text-xl font-semibold text-text-primary"
+                >
+                  admin1
+                </span>
+                <span
+                  class="rounded-full border border-current px-3 py-1 text-base font-semibold uppercase bg-success-subtle text-success-strong"
+                >
+                  active
+                </span>
+              </span>
+              <span
+                class="mt-4 block min-w-0 border-t border-border-default pt-4"
+              >
+                <span
+                  class="block text-lg text-text-tertiary"
+                >
+                  Email
+                </span>
+                <span
+                  class="mt-1 block break-all text-lg font-medium text-text-primary"
+                >
+                  admin@example.com
+                </span>
+              </span>
+              <span
+                class="mt-4 flex flex-wrap items-end justify-between gap-x-4 gap-y-3"
+              >
+                <span
+                  class="min-w-0"
+                >
+                  <span
+                    class="block text-lg text-text-tertiary"
+                  >
+                    Role
+                  </span>
+                  <span
+                    class="mt-1 block text-lg font-medium text-text-primary"
+                  >
+                    Admin
+                  </span>
+                </span>
+                <span
+                  class="min-w-0 text-right"
+                >
+                  <span
+                    class="block text-lg text-text-tertiary"
+                  >
+                    Created
+                  </span>
+                  <span
+                    class="mt-1 block text-lg font-medium text-text-primary"
+                  >
+                    01 Januari 2024 08:00
+                  </span>
+                </span>
+              </span>
+            </button>
+          </div>
+          <div
+            data-testid="pagination"
+          />
+        </div>
+        <div
+          class="hidden rounded-3xl border border-border-default bg-background-surface px-6 pb-6 pt-0 shadow-xs md:mt-6 md:flex md:flex-1 md:flex-col md:overflow-hidden lg:flex"
+        >
+          <div
+            class="flex items-center justify-between gap-4 border-b border-border-default py-6"
+          >
+            <input
+              data-testid="search-filter"
+            />
+          </div>
+          <div
+            class="flex-1 overflow-auto"
+          >
+            <div
+              data-testid="table"
+            />
+          </div>
+          <div
+            data-testid="pagination"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;

@@ -4,15 +4,20 @@ import { BrowserRouter } from "react-router-dom";
 
 import MasterProjectContainer from "./MasterProject.container";
 import * as hooks from "./MasterProject.hook";
+import { usePagePermission } from "@/hooks/usePagePermission";
+
+jest.mock("@/hooks/usePagePermission", () => ({
+  usePagePermission: jest.fn(),
+}));
 
 jest.mock("./MasterProject.hook", () => ({
   useMasterProjectContainerState: jest.fn(),
 }));
 
 jest.mock("./MasterProject.component", () => ({
-  MasterProjectComponent: (props: { currentPage: number }) => (
-    <div data-page={props.currentPage} data-testid="mock-component" />
-  ),
+  MasterProjectComponent: jest.fn(({ onCreate, onEdit }) => (
+    <div data-testid="mock-component" data-create={!!onCreate} data-edit={!!onEdit} />
+  )),
 }));
 
 const mockState = {
@@ -46,15 +51,31 @@ describe("MasterProjectContainer", () => {
   beforeEach(() => {
     jest.clearAllMocks();
     jest.mocked(hooks.useMasterProjectContainerState).mockReturnValue(mockState);
+    jest.mocked(usePagePermission).mockReturnValue({ canView: true, canCreate: true, canEdit: true, isSuperadmin: false });
   });
 
-  it("should render component with hook state", () => {
+  it("should pass create/edit when permitted", () => {
     render(
       <BrowserRouter>
         <MasterProjectContainer />
       </BrowserRouter>,
     );
 
-    expect(screen.getByTestId("mock-component").getAttribute("data-page")).toBe("1");
+    expect(screen.getByTestId("mock-component").getAttribute("data-create")).toBe("true");
+    expect(screen.getByTestId("mock-component").getAttribute("data-edit")).toBe("true");
+    expect(usePagePermission).toHaveBeenCalledWith("/master-project");
+  });
+
+  it("should omit create/edit when denied", () => {
+    jest.mocked(usePagePermission).mockReturnValue({ canView: true, canCreate: false, canEdit: false, isSuperadmin: false });
+
+    render(
+      <BrowserRouter>
+        <MasterProjectContainer />
+      </BrowserRouter>,
+    );
+
+    expect(screen.getByTestId("mock-component").getAttribute("data-create")).toBe("false");
+    expect(screen.getByTestId("mock-component").getAttribute("data-edit")).toBe("false");
   });
 });

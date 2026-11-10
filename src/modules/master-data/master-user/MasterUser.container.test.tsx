@@ -4,6 +4,10 @@ import test from "../../../libs/unit-test";
 
 import MasterUserContainer from "./MasterUser.container";
 
+jest.mock("@/hooks/usePagePermission", () => ({
+  usePagePermission: jest.fn(() => ({ canView: true, canCreate: false, canEdit: false, isSuperadmin: false })),
+}));
+
 jest.mock("./MasterUser.hook", () => ({
   useMasterUserContainerState: jest.fn(() => ({
     goBack: jest.fn(), goCreate: jest.fn(), goEdit: jest.fn(), goDetail: jest.fn(),

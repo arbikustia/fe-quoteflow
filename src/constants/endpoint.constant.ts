@@ -61,6 +61,7 @@ const ENDPOINT = {
     CREATE: "/api/users",
     DETAIL: "/api/users",
   },
+  PERMISSION: "/api/users/hak-akses",
   MASTER_PROJECT: {
     PAGED: "/api/project/paged",
     ALL: "/api/project",

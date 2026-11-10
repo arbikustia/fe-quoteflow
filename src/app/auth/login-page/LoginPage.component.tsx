@@ -1,6 +1,7 @@
 import type { ReactElement } from 'react';
 
-import SoniclineLogo from '@/assets/Sonicline.png';
+import LoginBanner from '@/assets/login_banner.webp';
+import SoniclineLogo from '@/assets/Sonicline-dark.png';
 import SoniclineLightLogo from '@/assets/Sonicline-light.png';
 
 import type { LoginPageProps } from './LoginPage.type';
@@ -132,23 +133,12 @@ const _renderRentalIllustration = (isCompact = false): ReactElement => (
  * @returns {ReactElement} visual panel node
  */
 const _renderVisualPanel = (): ReactElement => (
-  <div className="hidden lg:flex lg:w-1/2 h-full relative bg-background-page flex-col justify-between p-10 xl:p-14 overflow-hidden select-none border-l border-border-default">
-    <div className="absolute inset-0 bg-[linear-gradient(135deg,transparent_0%,transparent_58%,rgba(53,80,215,0.06)_58%,rgba(53,80,215,0.06)_100%)] pointer-events-none" />
-
-    {/* Center 2D Visual */}
-    <div className="relative z-10 my-auto w-full">
-      {_renderRentalIllustration()}
-    </div>
-
-    {/* Bottom Headline & Description */}
-    <div className="relative z-10 max-w-xl border-l-4 border-action-primary pl-5 pt-4">
-      <h3 className="text-xl xl:text-2xl font-bold tracking-tight text-text-primary">
-        Kelola rental lebih mudah, dari pemesanan hingga pengembalian.
-      </h3>
-      <p className="text-sm text-text-secondary leading-relaxed max-w-lg">
-        Pantau ketersediaan barang, transaksi, pelanggan, dan jadwal rental dalam satu sistem terintegrasi.
-      </p>
-    </div>
+  <div className="hidden lg:flex lg:w-1/2 h-full relative bg-background-page flex-col justify-center items-center overflow-hidden border-l border-border-default">
+    <img
+      src={LoginBanner}
+      alt="Login Banner"
+      className="h-full w-full object-cover"
+    />
   </div>
 );
 
@@ -175,45 +165,38 @@ export const LoginPageComponent = (props: LoginPageProps): ReactElement => {
   return (
     <div className="login-page-viewport w-full flex items-center justify-center bg-background-page p-0 font-sans overflow-hidden">
       <div className="relative w-full h-full bg-background-surface shadow-medium flex flex-col lg:flex-row overflow-hidden z-10">
-        <div className="w-full lg:w-1/2 h-full flex flex-col justify-between px-5 py-6 sm:px-10 sm:py-10 lg:p-12 xl:p-16 bg-background-surface overflow-y-auto">
-          {/* Logo Section */}
+        <div className="w-full lg:w-1/2 h-full flex flex-col justify-between px-5 pt-4 pb-6 sm:px-10 sm:py-10 lg:p-12 xl:p-16 bg-background-surface overflow-y-auto">
           <div className="flex items-center justify-between lg:justify-start w-full">
             <img
               src={SoniclineLogo}
               alt="Sonicline Logo"
-              className="h-10 w-auto object-contain sm:h-14 lg:h-16 dark:hidden"
+              className="h-12 w-auto object-contain sm:h-14 lg:h-16 dark:hidden"
             />
             <img
               src={SoniclineLightLogo}
               alt="Sonicline Logo"
-              className="hidden h-10 w-auto object-contain sm:h-14 lg:h-16 dark:block"
+              className="hidden h-12 w-auto object-contain sm:h-14 lg:h-16 dark:block"
             />
-            <span className="lg:hidden text-xs font-semibold uppercase tracking-[0.2em] text-text-tertiary">Rental workspace</span>
-          </div>
-
-          {/* Compact animated visual for mobile */}
-          <div className="lg:hidden w-full max-w-[260px] sm:max-w-xs mx-auto mt-5 mb-6">
-            {_renderRentalIllustration(true)}
           </div>
 
           {/* Form Content */}
-          <div className="w-full max-w-md mx-auto py-3 sm:py-6 lg:my-auto lg:py-8">
+          <div className="w-full max-w-md mx-auto py-1 sm:py-6 lg:m-auto lg:py-8">
             <div className="mb-5 sm:mb-8 text-center lg:text-left">
-              <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-text-primary mb-2">
-                Selamat datang kembali
+              <h1 className="text-3xl sm:text-4xl font-bold tracking-tight text-text-primary mb-3">
+                Welcome back
               </h1>
-              <p className="text-sm sm:text-base text-text-secondary">
-                Masuk untuk mengelola bisnis rental Anda.
+              <p className="text-base sm:text-lg text-text-secondary">
+                Sign in to manage your rental business.
               </p>
             </div>
 
-            <form onSubmit={onSubmit} className="space-y-4 sm:space-y-5">
+            <form onSubmit={onSubmit} className="space-y-6 sm:space-y-8">
               <div className="w-full">
                 <label
                   htmlFor="identifier"
-                  className="block text-sm font-semibold text-text-primary mb-2 text-left"
+                  className="block text-base font-semibold text-text-primary mb-3 text-left"
                 >
-                  Nama pengguna
+                  Username
                 </label>
                 <input
                   id="identifier"
@@ -221,17 +204,17 @@ export const LoginPageComponent = (props: LoginPageProps): ReactElement => {
                   required
                   value={identifier}
                   onChange={onIdentifierChange}
-                  placeholder="nama@sonicline.co.id"
-                  className="w-full h-12 px-4 rounded-xl border border-border-strong bg-background-surface text-base text-text-primary placeholder:text-text-disabled focus:border-action-primary focus:outline-none focus:ring-2 focus:ring-action-primary/25 transition-all"
+                  placeholder="name@sonicline.co.id"
+                  className="w-full h-14 px-5 rounded-xl border border-border-strong bg-background-surface text-lg text-text-primary placeholder:text-text-disabled focus:border-action-primary focus:outline-none focus:ring-2 focus:ring-action-primary/25 transition-all"
                 />
               </div>
 
               <div className="w-full">
                 <label
                   htmlFor="password"
-                  className="block text-sm font-semibold text-text-primary mb-2 text-left"
+                  className="block text-base font-semibold text-text-primary mb-3 text-left"
                 >
-                  Kata sandi
+                  Password
                 </label>
                 <div className="relative w-full">
                   <input
@@ -241,13 +224,13 @@ export const LoginPageComponent = (props: LoginPageProps): ReactElement => {
                     value={password}
                     onChange={onPasswordChange}
                     placeholder="••••••••"
-                    className="login-password-input w-full h-12 px-4 pr-12 rounded-xl border border-border-strong bg-background-surface text-base text-text-primary placeholder:text-text-disabled focus:border-action-primary focus:outline-none focus:ring-2 focus:ring-action-primary/25 transition-all"
+                    className="login-password-input w-full h-14 px-5 pr-14 rounded-xl border border-border-strong bg-background-surface text-lg text-text-primary placeholder:text-text-disabled focus:border-action-primary focus:outline-none focus:ring-2 focus:ring-action-primary/25 transition-all"
                   />
                   <button
                     type="button"
                     onClick={onTogglePasswordVisibility}
-                    className="absolute right-3 top-1/2 -translate-y-1/2 text-text-tertiary hover:text-text-primary focus:outline-none p-1.5 cursor-pointer"
-                    aria-label={isPasswordVisible ? "Sembunyikan kata sandi" : "Tampilkan kata sandi"}
+                    className="absolute right-4 top-1/2 -translate-y-1/2 text-text-tertiary hover:text-text-primary focus:outline-none p-2 cursor-pointer"
+                    aria-label={isPasswordVisible ? "Hide password" : "Show password"}
                   >
                     {isPasswordVisible ? (
                       <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><line x1="1" x2="23" y1="1" y2="23"/></svg>
@@ -258,7 +241,7 @@ export const LoginPageComponent = (props: LoginPageProps): ReactElement => {
                 </div>
               </div>
 
-              <div className="flex items-center justify-between pt-1 w-full">
+              <div className="flex items-center justify-between pt-1 w-full hidden">
                 <label className="flex items-center gap-2.5 cursor-pointer text-sm font-medium text-text-secondary select-none">
                   <input
                     type="checkbox"

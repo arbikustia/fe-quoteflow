@@ -232,8 +232,26 @@ describe("ItemReturnCreate.hook", () => {
         status: 1,
         return_date: expect.stringMatching(/^\d{2}-\d{2}-\d{4} 12:00:00$/),
         items: [
-          { item_id: "item-1", qty: 2, condition: "", notes: "", file_urls: ["/photos/return.jpg"], file_names: ["return.jpg"] },
-          { item_id: "item-2", qty: 1, condition: "", notes: "", file_urls: [], file_names: [] },
+          {
+            item_id: "item-1",
+            qty: 2,
+            condition: "Good",
+            notes: "",
+            file_url: "/photos/return.jpg",
+            file_name: "return.jpg",
+            images: [{ file_url: "/photos/return.jpg", file_name: "return.jpg" }],
+            status: 0,
+          },
+          {
+            item_id: "item-2",
+            qty: 1,
+            condition: "Good",
+            notes: "",
+            file_url: "",
+            file_name: "",
+            images: [],
+            status: 0,
+          },
         ],
       }),
     );
@@ -257,8 +275,8 @@ describe("ItemReturnCreate.hook", () => {
         status: 1,
         return_date: expect.stringMatching(/^\d{2}-\d{2}-\d{4} 12:00:00$/),
         items: [
-          { item_id: "item-1", qty: 2, condition: "", notes: "", file_urls: [], file_names: [] },
-          { item_id: "item-2", qty: 1, condition: "", notes: "", file_urls: [], file_names: [] },
+          { item_id: "item-1", qty: 2, condition: "Good", notes: "", file_url: "", file_name: "", images: [], status: 0 },
+          { item_id: "item-2", qty: 1, condition: "Good", notes: "", file_url: "", file_name: "", images: [], status: 0 },
         ],
       }),
     );
@@ -305,8 +323,8 @@ describe("ItemReturnCreate.hook", () => {
 
     expect(mockCreate).toHaveBeenCalledWith(expect.objectContaining({
       items: [
-        expect.objectContaining({ item_id: "item-1", notes: "Case dented", file_urls: ["/photos/return.jpg"] }),
-        expect.objectContaining({ item_id: "item-2", notes: "", file_urls: [] }),
+        expect.objectContaining({ item_id: "item-1", notes: "Case dented", file_url: "/photos/return.jpg", images: [{ file_url: "/photos/return.jpg", file_name: "return.jpg" }] }),
+        expect.objectContaining({ item_id: "item-2", notes: "", file_url: "", images: [] }),
       ],
     }));
   });
@@ -343,8 +361,8 @@ describe("ItemReturnCreate.hook", () => {
       expect.objectContaining({
         order_id: "order-1",
         items: [
-          expect.objectContaining({ item_id: "item-1", file_urls: ["/photos/item-1.jpg"], file_names: ["item-1.jpg"] }),
-          expect.objectContaining({ item_id: "item-2", file_urls: ["/photos/item-2.jpg"], file_names: ["item-2.jpg"] }),
+          expect.objectContaining({ item_id: "item-1", file_url: "/photos/item-1.jpg", file_name: "item-1.jpg", images: [{ file_url: "/photos/item-1.jpg", file_name: "item-1.jpg" }] }),
+          expect.objectContaining({ item_id: "item-2", file_url: "/photos/item-2.jpg", file_name: "item-2.jpg", images: [{ file_url: "/photos/item-2.jpg", file_name: "item-2.jpg" }] }),
         ],
       }),
     );
@@ -378,8 +396,12 @@ describe("ItemReturnCreate.hook", () => {
         items: expect.arrayContaining([
           expect.objectContaining({
             item_id: "item-1",
-            file_urls: ["/photos/a.jpg", "/photos/b.jpg"],
-            file_names: ["a.jpg", "b.jpg"],
+            file_url: "/photos/a.jpg",
+            file_name: "a.jpg",
+            images: [
+              { file_url: "/photos/a.jpg", file_name: "a.jpg" },
+              { file_url: "/photos/b.jpg", file_name: "b.jpg" },
+            ],
           }),
         ]),
       }),

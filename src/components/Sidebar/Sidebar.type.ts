@@ -1,5 +1,26 @@
 import type { Dispatch, ElementType, SetStateAction } from "react";
 
+export type RoleIdentity = {
+  id: string;
+  role: string;
+  status: number;
+};
+
+export type UserRoleValue = string | string[] | null | undefined;
+
+export type UserRoleIdentity = {
+  username: string | null;
+  role: UserRoleValue;
+};
+
+export type AccessTokenPayload = {
+  role?: string | string[];
+  roles?: string | string[];
+  role_id?: string;
+  roleId?: string;
+  "http://schemas.microsoft.com/ws/2008/06/identity/claims/role"?: string | string[];
+};
+
 export type NavigationChild = {
   name: string;
   path: string;

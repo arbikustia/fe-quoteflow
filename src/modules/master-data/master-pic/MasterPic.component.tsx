@@ -99,15 +99,22 @@ const _getColumns = (props: MasterPicProps): TableColumn<PicData>[] => {
    * @param {PicData} pic - Pic
    * @returns {React.ReactElement} Rendered element
    */
-  const renderActions = (pic: PicData): React.ReactElement => _renderActions(pic, props.onEdit);
-
-  return [
+  const columns: TableColumn<PicData>[] = [
     { key: "no", header: "No", align: "center", render: renderNumber },
     { key: "name", header: "PIC Name", render: _renderName },
     { key: "status", header: "Status", align: "center", render: _renderStatus },
     { key: "createAt", header: "Created At", render: _renderDate },
-    { key: "actions", header: "Action", align: "center", render: renderActions },
   ];
+
+  const onEdit = props.onEdit;
+
+  if (onEdit) {
+    const renderActions = (pic: PicData): React.ReactElement => _renderActions(pic, onEdit);
+
+    columns.push({ key: "actions", header: "Action", align: "center", render: renderActions });
+  }
+
+  return columns;
 };
 
 /**
@@ -202,10 +209,12 @@ const _renderPicCard = (pic: PicData, onEdit: MasterPicProps["onEdit"]): React.R
     /**
    * @returns {void} Resolved value
    */
-  const handleClick = (): void => onEdit(pic);
+  const handleClick = (): void => {
+    if (onEdit) onEdit(pic);
+  };
 
   return (
-    <button type="button" onClick={handleClick} className="group block w-full min-w-0 rounded-3xl border border-border-strong bg-background-surface p-5 text-left shadow-small transition-colors hover:border-border-strong hover:bg-background-subtle/40 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-action-primary">
+    <button type="button" onClick={handleClick} disabled={!onEdit} className={`group block w-full min-w-0 rounded-3xl border border-border-strong bg-background-surface p-5 text-left shadow-small transition-colors ${onEdit ? "hover:border-border-strong hover:bg-background-subtle/40 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-action-primary" : "cursor-default"}`}>
       <span className="flex min-w-0 flex-wrap items-center justify-between gap-3">
         <span className="min-w-0 break-words text-xl font-semibold text-text-primary">{pic.name}</span>
         <span className={`rounded-full border border-current px-3 py-1 text-base font-semibold uppercase ${pic.status === "active" ? "bg-success-subtle text-success-strong" : "bg-danger-subtle text-danger-strong"}`}>{pic.status}</span>
@@ -258,7 +267,7 @@ const _renderDesktop = (props: MasterPicProps): React.ReactElement => {
     <div className="hidden rounded-3xl border border-border-default bg-background-surface px-6 pb-6 pt-0 shadow-xs md:mt-6 md:flex md:flex-1 md:flex-col md:overflow-hidden lg:flex">
       <div className="flex items-center justify-between gap-4 border-b border-border-default py-6">
         <SearchFilter placeholder="Search PIC" onChange={handleSearch} isRoundedFull={true} inputClassName="text-lg placeholder:text-lg" />
-        <button type="button" onClick={props.onCreate} className="h-14 rounded-2xl bg-action-primary px-6 text-lg font-semibold text-text-inverse hover:bg-action-primary-hover focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring">Create PIC</button>
+        {props.onCreate && <button type="button" onClick={props.onCreate} className="h-14 rounded-2xl bg-action-primary px-6 text-lg font-semibold text-text-inverse hover:bg-action-primary-hover focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring">Create PIC</button>}
       </div>
       <div className="flex-1 overflow-auto">
         {props.isLoading ? _renderTableSkeleton(props) : _renderListState(props) ?? <Table data={props.paginatedData} columns={_getColumns(props)} isDetail={false} keyExtractor={(row: PicData): string => row.id} />}
@@ -275,11 +284,11 @@ const _renderDesktop = (props: MasterPicProps): React.ReactElement => {
  * @returns {React.ReactElement} Page element
  */
 export const MasterPicComponent = (props: MasterPicProps): React.ReactElement => {
-  const createButton = (
+  const createButton = props.onCreate ? (
     <button type="button" onClick={props.onCreate} className="h-14 rounded-full border-2 border-action-primary bg-background-surface px-6 text-lg font-bold text-action-primary transition-colors hover:bg-action-primary-subtle focus:outline-none focus:ring-2 focus:ring-focus-ring/30 lg:hidden">
       Create New
     </button>
-  );
+  ) : undefined;
 
   return (
     <Layout pageTitle="PIC List">

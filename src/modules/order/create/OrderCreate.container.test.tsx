@@ -5,8 +5,10 @@ import { render, screen } from "@/libs/unit-test";
 import OrderCreateContainer from "./OrderCreate.container";
 import { useOrderCreateLogic } from "./OrderCreate.hook";
 import type { OrderCreateState } from "./OrderCreate.type";
+import { usePagePermission } from "@/hooks/usePagePermission";
 
 jest.mock("./OrderCreate.hook", () => ({ useOrderCreateLogic: jest.fn() }));
+jest.mock("@/hooks/usePagePermission", () => ({ usePagePermission: jest.fn() }));
 jest.mock("./OrderCreate.component", () => ({ OrderCreateComponent: (): React.ReactElement => <div>Order create form</div> }));
 
 const state: OrderCreateState = {
@@ -16,11 +18,21 @@ const state: OrderCreateState = {
 };
 
 describe("OrderCreateContainer", (): void => {
-  it("should render component using hook state", (): void => {
+  it("should render component using hook state when create is allowed", (): void => {
     jest.mocked(useOrderCreateLogic).mockReturnValue(state);
+    jest.mocked(usePagePermission).mockReturnValue({ canView: false, canCreate: true, canEdit: false, isSuperadmin: false });
 
     render(<OrderCreateContainer />);
 
     expect(screen.getByText("Order create form")).toBeTruthy();
+  });
+
+  it("should not render component when create is denied", (): void => {
+    jest.mocked(useOrderCreateLogic).mockReturnValue(state);
+    jest.mocked(usePagePermission).mockReturnValue({ canView: true, canCreate: false, canEdit: false, isSuperadmin: false });
+
+    render(<OrderCreateContainer />);
+
+    expect(screen.queryByText("Order create form")).toBeNull();
   });
 });

@@ -41,6 +41,13 @@ const _renderPreferences = (props: ProfileProps): ReactElement => (
         <span className="min-w-0 flex-1"><span className="block text-base font-semibold text-text-primary">Install application</span><span className="mt-1 block text-sm text-text-secondary">Open QuoteFlow faster from your desktop.</span></span>
         <span className="text-sm font-semibold text-action-primary">{props.canInstall ? "Install" : "Instructions"}</span>
       </button>
+      {props.canManagePermissions && (
+        <button type="button" aria-label="Permission" onClick={props.onOpenPermission} className="group flex min-h-20 w-full items-center gap-4 px-6 py-5 text-left transition-colors hover:bg-background-subtle focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-focus-ring lg:hidden">
+          <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-border-default bg-background-subtle text-text-secondary group-hover:text-action-primary" aria-hidden="true"><Icons.Settings /></span>
+          <span className="min-w-0 flex-1"><span className="block text-base font-semibold text-text-primary">Permission</span><span className="mt-1 block text-sm text-text-secondary">Manage user menu and page access.</span></span>
+          <span className="text-action-primary" aria-hidden="true"><Icons.ChevronRight /></span>
+        </button>
+      )}
     </div>
   </section>
 );

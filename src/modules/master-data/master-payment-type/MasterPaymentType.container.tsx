@@ -1,6 +1,8 @@
 import * as React from "react";
 import { useLocation } from "react-router-dom";
 
+import { usePagePermission } from "@/hooks/usePagePermission";
+
 import { AlertComponent } from "@/components/Alert";
 
 import { MasterPaymentTypeComponent } from "./MasterPaymentType.component";
@@ -16,6 +18,7 @@ const MasterPaymentTypeContainer = (): React.ReactElement => {
   const location = useLocation();
   const routeState: PaymentTypeRouteState | null = location.state;
   const containerState = useMasterPaymentTypeContainerState();
+  const { canCreate, canEdit } = usePagePermission("/master-payment-type");
 
   return (
     <>
@@ -23,8 +26,8 @@ const MasterPaymentTypeContainer = (): React.ReactElement => {
       <MasterPaymentTypeComponent
         {...containerState.pagination}
         onBack={containerState.goBack}
-        onCreate={containerState.goCreate}
-        onEdit={containerState.goEdit}
+        onCreate={canCreate ? containerState.goCreate : undefined}
+        onEdit={canEdit ? containerState.goEdit : undefined}
       />
     </>
   );

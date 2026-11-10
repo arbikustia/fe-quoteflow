@@ -6,6 +6,10 @@ import { useMasterPaymentTypeNavigation } from "./MasterPaymentType.hook";
 import type { MasterPaymentTypeProps } from "./MasterPaymentType.type";
 
 // Mock the hooks
+jest.mock("@/hooks/usePagePermission", () => ({
+  usePagePermission: () => ({ canView: true, canCreate: true, canEdit: true, isSuperadmin: false }),
+}));
+
 jest.mock("./MasterPaymentType.hook", () => ({
   useMasterPaymentTypeNavigation: jest.fn(),
   useMasterPaymentTypeContainerState: jest.fn(() => ({

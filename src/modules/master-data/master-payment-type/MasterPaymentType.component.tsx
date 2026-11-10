@@ -71,13 +71,18 @@ const _getColumns = ({ currentPage, pageSize, onEdit }: GetColumnsParams): Table
     );
   };
 
-  return [
+  const columns: TableColumn<PaymentTypeData>[] = [
     { key: "no", header: "No", align: "center", render: renderNo },
     { key: "name", header: "Payment Type Name", mobile: { primary: true } },
     { key: "status", header: "Status", align: "center", render: renderStatus },
     { key: "createAt", header: "Created At" },
-    { key: "actions", header: "Action", align: "center", render: renderActions },
   ];
+
+  if (onEdit) {
+    columns.push({ key: "actions", header: "Action", align: "center", render: renderActions });
+  }
+
+  return columns;
 };
 
 /**
@@ -111,10 +116,12 @@ const _renderPaymentTypeCard = (paymentType: PaymentTypeData, onEdit: MasterPaym
    *
    * @returns {void} No return value
    */
-  const handleCardClick = (): void => onEdit(paymentType);
+  const handleCardClick = (): void => {
+    if (onEdit) onEdit(paymentType);
+  };
 
   return (
-    <MasterDataCard title={paymentType.name} status={paymentType.status} isLargeText={true} onClick={handleCardClick}>
+    <MasterDataCard title={paymentType.name} status={paymentType.status} isLargeText={true} onClick={onEdit ? handleCardClick : undefined}>
       <span className="text-xl text-text-secondary">Created {paymentType.createAt ?? "-"}</span>
     </MasterDataCard>
   );
@@ -188,7 +195,7 @@ const _renderDesktop = (props: MasterPaymentTypeProps): React.ReactElement => {
     <div className="hidden rounded-4xl border border-brand-gray-light bg-brand-white px-6 shadow-xs md:mt-6 md:flex-1 md:flex-col md:overflow-hidden lg:flex">
       <div className="flex items-center justify-between gap-4 py-6">
         <SearchFilter placeholder="Search payment type" onChange={handleSearch} />
-        <button type="button" onClick={onCreate} className="h-14 rounded-xl bg-brand-blue px-6 text-sm font-semibold text-brand-white">Create Payment Type</button>
+        {onCreate && <button type="button" onClick={onCreate} className="h-14 rounded-xl bg-brand-blue px-6 text-sm font-semibold text-brand-white">Create Payment Type</button>}
       </div>
       <div className="flex-1 overflow-auto">
         {props.isLoading ? (
@@ -210,11 +217,11 @@ const _renderDesktop = (props: MasterPaymentTypeProps): React.ReactElement => {
  */
 export const MasterPaymentTypeComponent = (props: MasterPaymentTypeProps): React.ReactElement => {
   const { onBack, onCreate } = props;
-  const createButton = (
+  const createButton = onCreate ? (
     <button type="button" onClick={onCreate} className="h-14 rounded-full border-2 border-brand-blue bg-background-surface px-6 text-lg font-bold text-brand-blue transition-colors hover:bg-action-primary-subtle focus:outline-none focus:ring-2 focus:ring-focus-ring/30">
       Create New
     </button>
-  );
+  ) : null;
 
   return (
     <Layout pageTitle="Payment Type List" mobileWhiteBackground={true}>

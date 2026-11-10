@@ -1,6 +1,8 @@
 import type { ReactElement } from "react";
+import { Navigate } from "react-router-dom";
 
 import Layout from "@/app/layout";
+import { usePagePermission } from "@/hooks/usePagePermission";
 
 import { MailCreateForm } from "./MailCreate.component";
 import { useMailCreate } from "./MailCreate.hook";
@@ -11,6 +13,9 @@ import { useMailCreate } from "./MailCreate.hook";
  */
 const MailCreateContainer = (): ReactElement => {
   const formState = useMailCreate();
+  const { canCreate } = usePagePermission("/mail");
+
+  if (!canCreate) return <Navigate to="/mail" replace />;
 
   return (
     <Layout>

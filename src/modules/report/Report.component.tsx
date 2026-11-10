@@ -1,5 +1,5 @@
 import * as React from "react";
-import { FiDownload, FiEdit2 } from "react-icons/fi";
+import { FiDownload } from "react-icons/fi";
 
 import { Pagination } from "@/components/Pagination";
 import { SearchFilter } from "@/components/SearchFilter";
@@ -34,26 +34,27 @@ const _renderStatus = (row: ReportOrderData): React.ReactElement => {
  * @param {ReportOrderData} row - Report order row data
  * @returns {React.ReactElement} Action cell
  */
-const _renderActions = (row: ReportOrderData, onEditStatus: (order: ReportOrderData) => void): React.ReactElement => {
-  /**
-   * Open status form.
-   * @param {React.MouseEvent} event - Mouse event
-   * @returns {void}
-   */
+  const _renderActions = (row: ReportOrderData, onEditStatus: (order: ReportOrderData) => void): React.ReactElement => {
   const handleEdit = (event: React.MouseEvent): void => {
     event.stopPropagation();
     onEditStatus(row);
   };
 
+  const isDone = row.status === 2;
+
   return (
     <button
       type="button"
       onClick={handleEdit}
-      className="cursor-pointer rounded-3xl p-2.5 text-text-secondary hover:bg-action-primary-subtle hover:text-action-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring"
-      title="Edit order status"
-      aria-label="Edit order status"
+      disabled={isDone}
+      className={`cursor-pointer rounded-2xl px-4 py-2 text-sm font-semibold transition-colors ${
+        isDone
+          ? "bg-background-subtle text-text-tertiary cursor-not-allowed"
+          : "bg-action-primary text-text-inverse hover:bg-action-primary-hover focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring"
+      }`}
+      aria-label={`Confirm order ${row.orderNo}`}
     >
-      <FiEdit2 className="h-5 w-5" />
+      {isDone ? "Done" : "Confirm"}
     </button>
   );
 };

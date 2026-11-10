@@ -5,15 +5,25 @@ import { BrowserRouter } from "react-router-dom";
 
 import MasterOrderTypeContainer from "./MasterOrderType.container";
 import * as hooks from "./MasterOrderType.hook";
+import { usePagePermission } from "@/hooks/usePagePermission";
 
 jest.mock("./MasterOrderType.hook", () => ({
   useMasterOrderTypeNavigation: jest.fn(),
   useMasterOrderTypeContainerState: jest.fn(),
 }));
 
+jest.mock("@/hooks/usePagePermission", () => ({
+  usePagePermission: jest.fn(),
+}));
+
 jest.mock("./MasterOrderType.component", () => ({
-  MasterOrderTypeComponent: (props: { currentPage: number }) => (
-    <div data-testid="mock-component" data-page={props.currentPage} />
+  MasterOrderTypeComponent: (props: { currentPage: number; onCreate: any; onEdit: any }) => (
+    <div 
+      data-testid="mock-component" 
+      data-page={props.currentPage} 
+      data-create={!!props.onCreate}
+      data-edit={!!props.onEdit}
+    />
   ),
 }));
 
@@ -22,7 +32,14 @@ describe("MasterOrderType Container", () => {
     jest.clearAllMocks();
   });
 
-  it("should render component with hook state", () => {
+  it("should render component with hook state and permissions", () => {
+    jest.mocked(usePagePermission).mockReturnValue({
+      canView: true,
+      canCreate: true,
+      canEdit: false,
+      isSuperadmin: false,
+    });
+
     jest.mocked(hooks.useMasterOrderTypeNavigation).mockReturnValue({
       goBack: jest.fn(),
       goCreate: jest.fn(),
@@ -58,7 +75,10 @@ describe("MasterOrderType Container", () => {
       </BrowserRouter>,
     );
 
-    expect(screen.getByTestId("mock-component")).toBeTruthy();
-    expect(screen.getByTestId("mock-component").getAttribute("data-page")).toBe("1");
+    const component = screen.getByTestId("mock-component");
+    expect(component).toBeTruthy();
+    expect(component.getAttribute("data-page")).toBe("1");
+    expect(component.getAttribute("data-create")).toBe("true");
+    expect(component.getAttribute("data-edit")).toBe("false");
   });
 });

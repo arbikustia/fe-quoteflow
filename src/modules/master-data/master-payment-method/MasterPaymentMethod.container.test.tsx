@@ -5,6 +5,10 @@ import MasterPaymentMethodContainer from "./MasterPaymentMethod.container";
 import { useMasterPaymentMethodContainerState } from "./MasterPaymentMethod.hook";
 import type { MasterPaymentMethodProps } from "./MasterPaymentMethod.type";
 
+jest.mock("@/hooks/usePagePermission", () => ({
+  usePagePermission: () => ({ canView: true, canCreate: true, canEdit: true, isSuperadmin: false }),
+}));
+
 jest.mock("./MasterPaymentMethod.component", () => ({
   MasterPaymentMethodComponent: (props: MasterPaymentMethodProps) => <div data-testid="component">{JSON.stringify(props)}</div>,
 }));

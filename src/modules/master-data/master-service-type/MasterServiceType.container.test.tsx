@@ -1,4 +1,5 @@
-import { render } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
+import "@testing-library/jest-dom";
 import MasterServiceTypeContainer from "./MasterServiceType.container";
 import * as Hook from "./MasterServiceType.hook";
 
@@ -12,8 +13,18 @@ jest.mock("react-router-dom", () => ({
   Link: ({ children }: any) => <a>{children}</a>,
 }));
 
+jest.mock("@/hooks/usePagePermission", () => ({
+  usePagePermission: jest.fn().mockReturnValue({ canView: true, canCreate: true, canEdit: false, isSuperadmin: false }),
+}));
+
+jest.mock("./MasterServiceType.component", () => ({
+  MasterServiceTypeComponent: ({ onCreate, onEdit, onRowClick }: any) => (
+    <div data-testid="component" data-create={!!onCreate} data-edit={!!onEdit} data-detail={!!onRowClick} />
+  ),
+}));
+
 describe("MasterServiceType.container", () => {
-  it("should match snapshot", () => {
+  it("should render component with permissions", () => {
     jest.spyOn(Hook, "useMasterServiceTypeContainerState").mockReturnValue({
       pagination: {
         currentPage: 1,
@@ -41,10 +52,9 @@ describe("MasterServiceType.container", () => {
       goDetail: jest.fn(),
     });
 
-    const { container } = render(<MasterServiceTypeContainer />);
-    
-    // We cannot use test.assertSnapshots here because it expects a component type and configs.
-    // For container, we can just do traditional snapshot test.
-    expect(container).toMatchSnapshot();
+    render(<MasterServiceTypeContainer />);
+    const comp = screen.getByTestId("component");
+    expect(comp.getAttribute("data-create")).toBe("true");
+    expect(comp.getAttribute("data-edit")).toBe("false");
   });
 });

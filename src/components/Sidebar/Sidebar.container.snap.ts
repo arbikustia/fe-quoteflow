@@ -1,8 +1,15 @@
 
-import test from "../../libs/unit-test";
-
 import SidebarContainer from "./Sidebar.container";
 import type { LogoutState, SidebarContainerProps, SidebarState } from "./Sidebar.type";
+import test from "../../libs/unit-test";
+
+jest.mock("@/services/master-role.service", () => ({
+  useGetAllRolesQuery: () => ({ data: { data: [] } }),
+}));
+
+jest.mock("@/services/master-user.service", () => ({
+  useGetUsersQuery: () => ({ data: { data: [] } }),
+}));
 
 jest.mock("./Sidebar.hook", () => ({
   /**

@@ -102,6 +102,17 @@ describe("PaymentComponent", () => {
     expect(table.querySelectorAll("tbody tr:first-child td")).toHaveLength(8);
   });
 
+  it("should hide create and edit actions when callbacks are unavailable", () => {
+    render(
+      <MemoryRouter>
+        <PaymentComponent {...mockProps} onCreate={undefined} onEdit={undefined} />
+      </MemoryRouter>,
+    );
+
+    expect(screen.queryByRole("button", { name: "Create Payment" })).not.toBeInTheDocument();
+    expect(screen.queryByRole("button", { name: "Edit payment" })).not.toBeInTheDocument();
+  });
+
   it("should trigger search when input changes", () => {
     render(
       <MemoryRouter>

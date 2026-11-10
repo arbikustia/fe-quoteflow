@@ -1,27 +1,27 @@
 import * as React from "react";
 
-import test from "../../../libs/unit-test";
+import test, { render, screen } from "../../../libs/unit-test";
 
 import { MasterPaymentTypeComponent } from "./MasterPaymentType.component";
 import type { MasterPaymentTypeProps, PaymentTypeData } from "./MasterPaymentType.type";
 
-jest.mock("../../app/layout", () =>
+jest.mock("../../../app/layout", () =>
   ({ children }: { children: React.ReactNode }) => <div data-testid="layout">{children}</div>,
 );
 
-jest.mock("../../components/Icons", () => ({
+jest.mock("../../../components/Icons", () => ({
   Icons: { Search: () => <div data-testid="icon-search" /> },
 }));
 
-jest.mock("../../components/MobileList", () => ({
+jest.mock("../../../components/MobileList", () => ({
   MobileList: () => <div data-testid="mobile-list" />,
 }));
 
-jest.mock("../../components/Pagination", () => ({
+jest.mock("../../../components/Pagination", () => ({
   Pagination: () => <div data-testid="pagination" />,
 }));
 
-jest.mock("../../components/Table", () => () => <div data-testid="table" />);
+jest.mock("../../../components/Table", () => () => <div data-testid="table" />);
 
 describe("MasterPaymentType Component", () => {
   const paymentTypes: PaymentTypeData[] = [
@@ -48,6 +48,15 @@ describe("MasterPaymentType Component", () => {
     onEdit: jest.fn(),
     onBack: jest.fn(),
   };
+
+  it("should hide create and disable editing without callbacks", () => {
+    render(<MasterPaymentTypeComponent {...mockProps} onCreate={undefined} onEdit={undefined} />);
+
+    expect(screen.queryByText("Create New")).not.toBeInTheDocument();
+    expect(screen.queryByText("Create Payment Type")).not.toBeInTheDocument();
+    expect(screen.queryByTitle("Edit")).not.toBeInTheDocument();
+    expect(screen.getByRole("button", { name: /PT 1/i })).toBeDisabled();
+  });
 
   test.assertSnapshots(MasterPaymentTypeComponent, [
     {

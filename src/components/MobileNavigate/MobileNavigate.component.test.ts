@@ -33,6 +33,16 @@ describe("MobileNavigateComponent Test", () => {
     expect(screen.getByRole("button", { name: "Profile" })).toBeDefined();
   });
 
+  it("should align the active indicator with two visible items", () => {
+    const items = [DEFAULT_PROPS.items[0], { ...DEFAULT_PROPS.items[3], isActive: true }];
+    items[0].isActive = false;
+    const { container } = render(React.createElement(MobileNavigateComponent, { ...DEFAULT_PROPS, items }));
+    const indicators = container.querySelectorAll("nav > div > span");
+
+    expect(indicators[0]).toHaveStyle({ width: "50%", transform: "translateX(100%)" });
+    expect(indicators[1]).toHaveStyle({ width: "50%", transform: "translateX(100%)" });
+  });
+
   it("should navigate to selected route", () => {
     const onNavigate = jest.fn();
 

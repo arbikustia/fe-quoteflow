@@ -7,7 +7,11 @@ import { useGetVouchersQuery } from "@/services/master-voucher.service";
 import MasterVoucherContainer from "./MasterVoucher.container";
 import type { VoucherData } from "./MasterVoucher.type";
 
-jest.mock("../../app/layout", () => ({
+jest.mock("@/hooks/usePagePermission", () => ({
+  usePagePermission: () => ({ canView: true, canCreate: true, canEdit: true, isSuperadmin: false }),
+}));
+
+jest.mock("../../../app/layout", () => ({
   __esModule: true,
   default: ({ children }: { children: React.ReactNode }) => <div data-testid="layout">{children}</div>,
 }));

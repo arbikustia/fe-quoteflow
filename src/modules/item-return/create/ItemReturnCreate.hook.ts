@@ -16,8 +16,7 @@ import {
 
 import { stampReturnPhoto } from "./ItemReturnCreate.helpers";
 import type { ReturnCreateFormState, ReturnOrderItemRow } from "./ItemReturnCreate.type";
-import type { ReturnCreatePayload } from "../ItemReturn.type";
-import type { ApiReturn, StagedPhoto } from "../ItemReturn.type";
+import type { ApiReturn, ApiReturnItem, ReturnCreatePayload, StagedPhoto } from "../ItemReturn.type";
 
 const _getCustomerName = (order: ApiRentalOrder): string =>
   order.invoice?.quotation?.transaction?.customer_name ??
@@ -46,8 +45,8 @@ const _getReturnItems = (returnData: ApiReturn, categories: Map<string, string>)
     unit: item.qty === 1 ? "unit" : "units",
     condition: item.condition || "Good",
     notes: item.notes || "",
-    fileUrls: _firstOrFallback(item.file_urls, item.file_url),
-    fileNames: _firstOrFallback(item.file_names, item.file_name),
+    fileUrls: item.images ? item.images.map((img) => img.file_url) : _firstOrFallback(item.file_urls, item.file_url),
+    fileNames: item.images ? item.images.map((img) => img.file_name) : _firstOrFallback(item.file_names, item.file_name),
   }));
 
 const _getOrderItems = (
@@ -106,13 +105,15 @@ export const formatReturnDate = (date: Date): string => {
   return `${month}-${day}-${year} 12:00:00`;
 };
 
-const _buildPayload = (
+  const _buildPayload = (
   orderId: string,
   returnDate: string,
   returnNotes: string,
   status: number,
   rows: ReturnOrderItemRow[],
   returnItemIds: string[],
+  isEditMode: boolean,
+  existingItems: ApiReturnItem[] | undefined,
 ): ReturnCreatePayload => ({
   order_id: orderId,
   return_date: returnDate ? formatReturnDate(new Date(returnDate)) : formatReturnDate(new Date()),
@@ -120,14 +121,23 @@ const _buildPayload = (
   status,
   items: rows
     .filter((row) => returnItemIds.includes(row.id))
-    .map((row) => ({
-      item_id: row.itemId,
-      qty: row.qty,
-      condition: "",
-      notes: row.notes,
-      file_urls: row.fileUrls,
-      file_names: row.fileNames,
-    })),
+    .map((row) => {
+      const existing = isEditMode ? existingItems?.find(item => item.item_id === row.itemId) : undefined;
+      return {
+        return_id: existing?.return_id,
+        item_id: row.itemId,
+        qty: row.qty,
+        condition: row.condition,
+        notes: row.notes,
+        file_url: row.fileUrls[0] || "",
+        file_name: row.fileNames[0] || "",
+        images: row.fileUrls.map((url, i) => ({
+          file_url: url,
+          file_name: row.fileNames[i] || "",
+        })),
+        status: existing?.status ?? 0,
+      };
+    }),
 });
 
 const _getPhotoValidationError = (isUploading: boolean, hasPreview: boolean, itemCount: number): string | null => {
@@ -173,6 +183,7 @@ export const useItemReturnCreate = (): ReturnCreateFormState => {
   const [returnDate, setReturnDate] = useState("");
   const [returnNotes, setReturnNotes] = useState("");
   const [itemOverrides, setItemOverrides] = useState<Record<string, { condition?: string; notes?: string }>>({});
+  const [itemPhotoOverrides, setItemPhotoOverrides] = useState<Map<string, { fileUrls: string[]; fileNames: string[] }>>(new Map());
   const [searchTerm, setSearchTerm] = useState("");
   const [saveErrorMessage, setSaveErrorMessage] = useState<string | null>(null);
 
@@ -210,8 +221,10 @@ export const useItemReturnCreate = (): ReturnCreateFormState => {
         ...item,
         condition: itemOverrides[item.id]?.condition ?? item.condition,
         notes: itemOverrides[item.id]?.notes ?? item.notes,
+        fileUrls: itemPhotoOverrides.get(item.id)?.fileUrls ?? item.fileUrls,
+        fileNames: itemPhotoOverrides.get(item.id)?.fileNames ?? item.fileNames,
       })),
-    [rawOrderItems, itemOverrides],
+    [rawOrderItems, itemOverrides, itemPhotoOverrides],
   );
 
   const returnItemIds = useMemo(() => {
@@ -353,6 +366,32 @@ export const useItemReturnCreate = (): ReturnCreateFormState => {
     setSaveErrorMessage(null);
   };
 
+  const onRemovePhoto = (itemId: string, photoIndex: number): void => {
+    const staged = stagedPhotosRef.current.get(itemId);
+    if (staged?.[photoIndex]) {
+      URL.revokeObjectURL(staged[photoIndex].url);
+      const remaining = staged.filter((_, index) => index !== photoIndex);
+      if (remaining.length) stagedPhotosRef.current.set(itemId, remaining);
+      else stagedPhotosRef.current.delete(itemId);
+      setStagedPhotos(new Map(stagedPhotosRef.current));
+      return;
+    }
+
+    const row = orderItems.find((item) => item.id === itemId);
+    if (!row) return;
+
+    // Check if it's an existing uploaded photo
+    const currentUrls = itemPhotoOverrides.get(itemId)?.fileUrls ?? row.fileUrls;
+    const currentNames = itemPhotoOverrides.get(itemId)?.fileNames ?? row.fileNames;
+
+    if (photoIndex < currentUrls.length) {
+      setItemPhotoOverrides((current) => new Map(current).set(itemId, {
+        fileUrls: currentUrls.filter((_, index) => index !== photoIndex),
+        fileNames: currentNames.filter((_, index) => index !== photoIndex),
+      }));
+    }
+  };
+
   const onItemConditionChange = (itemId: string, condition: string): void => {
     setItemOverrides((prev) => ({
       ...prev,
@@ -444,6 +483,8 @@ export const useItemReturnCreate = (): ReturnCreateFormState => {
         isEditMode ? returnData?.status ?? 1 : 1,
         rowsWithPhotos,
         returnItemIds,
+        isEditMode,
+        returnData?.items,
       );
 
       const result = isEditMode && id
@@ -505,6 +546,7 @@ export const useItemReturnCreate = (): ReturnCreateFormState => {
     handleDateChange,
     handleNotesChange,
     onCaptureItem,
+    onRemovePhoto,
     onItemConditionChange,
     onItemNotesChange,
     handleSave,

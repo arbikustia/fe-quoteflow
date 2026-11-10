@@ -69,13 +69,13 @@ export const MobileNavigateComponent = (props: MobileNavigateProps): ReactElemen
     >
       <div className="relative flex w-full items-end">
         <span
-          className="pointer-events-none absolute bottom-0 left-0 h-10 w-1/4 bg-gradient-to-t from-action-primary/20 via-action-primary/5 to-transparent transition-transform duration-700 ease-in-out"
-          style={{ transform: `translateX(${_getActiveIndicatorIndex(items) * 100}%)` }}
+          className="pointer-events-none absolute bottom-0 left-0 h-10 bg-gradient-to-t from-action-primary/20 via-action-primary/5 to-transparent transition-transform duration-700 ease-in-out"
+          style={{ width: `${100 / items.length}%`, transform: `translateX(${_getActiveIndicatorIndex(items) * 100}%)` }}
           aria-hidden="true"
         />
         <span
-          className="pointer-events-none absolute bottom-0 left-0 h-0.5 w-1/4 bg-action-primary transition-transform duration-700 ease-in-out"
-          style={{ transform: `translateX(${_getActiveIndicatorIndex(items) * 100}%)` }}
+          className="pointer-events-none absolute bottom-0 left-0 h-0.5 bg-action-primary transition-transform duration-700 ease-in-out"
+          style={{ width: `${100 / items.length}%`, transform: `translateX(${_getActiveIndicatorIndex(items) * 100}%)` }}
           aria-hidden="true"
         />
         {items.map((item) => _renderNavItem(item, handleNavigate))}

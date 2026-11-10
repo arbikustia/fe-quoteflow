@@ -1,5 +1,8 @@
-import { LuFileCheck2, LuReceiptText, LuCreditCard, LuBadgePercent } from "react-icons/lu";
 import type { ReactElement } from "react";
+import { useMemo } from "react";
+import { LuBadgePercent,LuCreditCard, LuFileCheck2, LuReceiptText } from "react-icons/lu";
+
+import { usePagePermission } from "@/hooks/usePagePermission";
 
 import { CalendarComponent } from "@/components/Calendar";
 
@@ -15,52 +18,27 @@ import BannerApp from "../../assets/banner-app.png";
  * @param {(route: DashboardRoute) => void} onClick - Banner click handler
  * @returns {ReactElement} Promotional banner
  */
-/**
- * Render quotation carousel cards.
- * @param {DashboardQuotation[]} quotations - Dashboard quotations
- * @param {(id: string) => void} onClick - Quotation click handler
- * @returns {ReactElement} Quotation cards
- */
-const _renderOrderCards = (orders: DashboardOrder[], onClick: (id: string) => void): ReactElement => (
-  <div className="no-scrollbar flex snap-x snap-mandatory gap-4 overflow-x-auto pb-2">
-    {orders.length > 0 ? orders.map((order) => (
-      <button
-        key={order.id}
-        type="button"
-        onClick={(): void => onClick(order.id)}
-        className="flex h-52 w-[85%] shrink-0 snap-start cursor-pointer flex-col justify-between rounded-xl border border-border-default bg-background-surface p-4 text-left transition-shadow hover:shadow-small focus:outline-none focus-visible:ring-2 focus-visible:ring-border-focus"
-      >
-        <div>
-          <div className="flex items-start justify-between gap-3">
-            <h3 className="truncate text-xl font-bold text-text-primary">{order.eventName}</h3>
-            <span className={`shrink-0 rounded-full px-2.5 py-1 text-xs font-semibold ${order.status === 1 ? "bg-success-subtle text-success-strong" : "bg-danger-subtle text-danger-strong"}`}>
-              {order.status === 1 ? "Active" : "Inactive"}
-            </span>
-          </div>
-          <p className="mt-3 truncate text-base font-semibold text-text-primary">{order.customerName}</p>
-          <p className="mt-1 truncate text-sm text-text-secondary">{order.startDate} - {order.endDate}</p>
-        </div>
-        <p className="text-lg font-bold text-action-primary">Rp {order.grandTotal.toLocaleString("id-ID")}</p>
-      </button>
-    )) : (
-      <div className="flex h-48 w-full items-center justify-center rounded-xl border border-dashed border-border-default text-sm text-text-secondary">
-        Belum ada rental order.
-      </div>
-    )}
-  </div>
-);
 
 /**
  * Render current-month calendar preview.
  * @param {(route: DashboardRoute) => void} onClick - Calendar navigation handler
  * @returns {ReactElement} Calendar preview card
  */
+const _renderDashboardIcon = (item: DashboardMenuItem): ReactElement | null => {
+  if (item.icon) {
+    return <img src={item.icon} alt="" className="absolute -top-3 h-28 w-28 object-contain" aria-hidden="true" />;
+  }
+  if (item.Icon) {
+    return <item.Icon className="h-14 w-14 text-action-primary" aria-hidden="true" />;
+  }
+  return null;
+};
+
 const _renderCalendarPreview = (
   events: ReturnType<typeof useDashboardQuotations>["calendarEvents"],
   isLoading: boolean,
   onClick: (route: DashboardRoute) => void,
-): ReactElement => {
-  return (
+): ReactElement => (
     <div
       role="button"
       tabIndex={0}
@@ -80,7 +58,6 @@ const _renderCalendarPreview = (
       />
     </div>
   );
-};
 
 const _renderDesktopDashboard = (
   overview: ReturnType<typeof useDashboardOverview>,
@@ -260,27 +237,6 @@ const _renderVoucherBanner = (
   );
 };
 
-/**
- * Render mobile rental-order carousel state.
- * @param {ReturnType<typeof useDashboardOrders>} orderState - Rental order state
- * @param {(id: string) => void} onClick - Order detail navigation
- * @returns {ReactElement} Carousel, loading, or error state
- */
-const _renderMobileRentalOrders = (orderState: ReturnType<typeof useDashboardOrders>, onClick: (id: string) => void): ReactElement => {
-  if (orderState.isLoading) {
-    return (
-      <div className="no-scrollbar flex gap-4 overflow-hidden pb-2" role="status" aria-label="Loading rental orders">
-        {[0, 1, 2].map((item) => <div key={item} className="h-48 w-[85%] shrink-0 animate-pulse rounded-2xl bg-background-subtle" />)}
-      </div>
-    );
-  }
-
-  if (orderState.isError) {
-    return <p className="rounded-xl border border-danger bg-danger-subtle px-4 py-3 text-sm text-danger-strong">Rental orders unavailable.</p>;
-  }
-
-  return _renderOrderCards(orderState.orders, onClick);
-};
 
 /**
  * Render rental-order counts for the last seven days.
@@ -329,6 +285,52 @@ export default function Dashboard(): ReactElement {
   const orderState = useDashboardOrders();
   const overview = useDashboardOverview();
 
+
+
+  const { canView: canViewOrder } = usePagePermission("/order/create");
+  const { canView: canViewDoc } = usePagePermission("/document");
+  const { canView: canViewCheck } = usePagePermission("/item-checklist");
+  const { canView: canViewReturn } = usePagePermission("/item-return");
+  const { canView: canViewMaster } = usePagePermission("/master-main");
+  const { canView: canViewCustomer } = usePagePermission("/master-customer");
+  const { canView: canViewCategory } = usePagePermission("/master-category");
+  const { canView: canViewItem } = usePagePermission("/master-item");
+  const { canView: canViewProject } = usePagePermission("/master-project");
+  const { canView: canViewPaymentMethod } = usePagePermission("/master-payment-method");
+  const { canView: canViewVoucher } = usePagePermission("/master-voucher");
+  const { canView: canViewRole } = usePagePermission("/master-role");
+  const { canView: canViewUser } = usePagePermission("/master-user");
+  const { canView: canViewPic } = usePagePermission("/master-pic");
+  const { canView: canViewOrderType } = usePagePermission("/master-order-type");
+  const { canView: canViewEmailSender } = usePagePermission("/master-email-sender");
+  const hasMasterAccess = canViewMaster || canViewCustomer || canViewCategory || canViewItem || canViewProject || canViewPaymentMethod || canViewVoucher || canViewRole || canViewUser || canViewPic || canViewOrderType || canViewEmailSender;
+  const { canView: canViewMail } = usePagePermission("/mail");
+  const { canView: canViewReport } = usePagePermission("/report");
+  const { canView: canViewLog } = usePagePermission("/activity-log");
+
+  const filteredMenuItems = useMemo(() => DASHBOARD_MENU_ITEMS.filter((item) => {
+    switch (item.route) {
+      case "/order/create": return canViewOrder;
+      case "/document": return canViewDoc;
+      case "/item-checklist": return canViewCheck;
+      case "/item-return": return canViewReturn;
+      case "/master-main": return hasMasterAccess;
+      case "/mail": return canViewMail;
+      case "/report": return canViewReport;
+      case "/activity-log": return canViewLog;
+      default: return true;
+    }
+  }), [
+    canViewOrder,
+    canViewDoc,
+    canViewCheck,
+    canViewReturn,
+    hasMasterAccess,
+    canViewMail,
+    canViewReport,
+    canViewLog,
+  ]);
+
   if (isLoading) {
     return (
       <ResponsiveLayout showMobileHeader={false}>
@@ -341,7 +343,7 @@ export default function Dashboard(): ReactElement {
             <div className="h-5 w-44 animate-pulse rounded bg-background-subtle" />
           </header>
           <div className="grid grid-cols-4 gap-5">
-            {DASHBOARD_MENU_ITEMS.slice(0, 4).map((item) => (
+            {filteredMenuItems.slice(0, 4).map((item) => (
               <div key={item.label} className="h-32 animate-pulse rounded-3xl border border-border-default bg-background-surface p-6">
                 <div className="h-4 w-20 rounded bg-background-subtle" />
                 <div className="mt-4 h-9 w-14 rounded bg-background-subtle" />
@@ -365,7 +367,7 @@ export default function Dashboard(): ReactElement {
         </section>
         <div className="-m-4 pb-10 lg:hidden" role="status" aria-label="Loading dashboard">
           <div className="h-64 w-full animate-pulse bg-background-subtle" />
-          <div className="relative -mt-10 px-4 sm:px-6"><div className="rounded-2xl border border-border-default bg-background-surface p-4 shadow-medium"><div className="grid grid-cols-4 gap-x-2 gap-y-6">{DASHBOARD_MENU_ITEMS.map((item) => <div key={item.label} className="flex flex-col items-center gap-1.5"><div className="h-24 w-24 animate-pulse rounded-3xl bg-background-subtle" /><div className="h-5 w-16 animate-pulse rounded-md bg-background-subtle" /></div>)}</div></div></div>
+          <div className="relative -mt-10 px-4 sm:px-6"><div className="rounded-2xl border border-border-default bg-background-surface p-4 shadow-medium"><div className="grid grid-cols-4 gap-x-2 gap-y-6">{filteredMenuItems.map((item) => <div key={item.label} className="flex flex-col items-center gap-1.5"><div className="h-24 w-24 animate-pulse rounded-3xl bg-background-subtle" /><div className="h-5 w-16 animate-pulse rounded-md bg-background-subtle" /></div>)}</div></div></div>
           <div className="mt-10 px-4 sm:px-6"><div className="h-28 w-full animate-pulse rounded-2xl bg-background-subtle" /></div>
           <div className="mt-10 px-4 sm:px-6"><div className="mb-3 flex items-center justify-between"><div className="h-6 w-40 animate-pulse rounded-md bg-background-subtle" /><div className="h-5 w-20 animate-pulse rounded-md bg-background-subtle" /></div><div className="no-scrollbar flex gap-4 overflow-hidden pb-2"><div className="h-48 w-[85%] shrink-0 animate-pulse rounded-2xl bg-background-subtle" /><div className="h-48 w-[85%] shrink-0 animate-pulse rounded-2xl bg-background-subtle" /><div className="h-48 w-[85%] shrink-0 animate-pulse rounded-2xl bg-background-subtle" /></div></div>
         </div>
@@ -384,7 +386,7 @@ export default function Dashboard(): ReactElement {
         <div className="relative -mt-10 px-4 sm:px-6">
           <div className="rounded-2xl border border-border-default bg-background-surface p-4 shadow-medium">
             <div className="grid grid-cols-4 gap-x-2 gap-y-6">
-              {DASHBOARD_MENU_ITEMS.map((item) => (
+              {filteredMenuItems.map((item) => (
                 <button
                   key={item.label}
                   type="button"
@@ -393,11 +395,7 @@ export default function Dashboard(): ReactElement {
                   aria-label={item.route ? `Open ${item.label}` : item.label}
                 >
                   <div className={`relative flex h-24 w-24 items-center justify-center rounded-3xl border border-border-default ${item.backgroundClassName} transition-transform active:scale-95`}>
-                    {item.icon ? (
-                      <img src={item.icon} alt="" className="absolute -top-3 h-28 w-28 object-contain" aria-hidden="true" />
-                    ) : item.Icon ? (
-                      <item.Icon className="h-14 w-14 text-action-primary" aria-hidden="true" />
-                    ) : null}
+                    {_renderDashboardIcon(item)}
                   </div>
                   <span className="text-base font-medium text-text-primary text-center leading-tight">{item.label}</span>
                 </button>
@@ -412,20 +410,6 @@ export default function Dashboard(): ReactElement {
           </div>
 
           <div className="space-y-8 px-4 sm:px-6">
-            <section>
-              <div className="mb-4 flex items-center justify-between gap-4">
-                <h2 className="text-xl font-bold text-text-primary">Rental orders</h2>
-                <button
-                  type="button"
-                  onClick={(): void => navigateTo("/report")}
-                  className="cursor-pointer text-sm font-semibold text-action-primary transition-colors hover:text-action-primary-hover focus:outline-none focus-visible:underline"
-                >
-                  Show More
-                </button>
-              </div>
-              {_renderMobileRentalOrders(orderState, navigateToOrder)}
-            </section>
-
             <section>
               <h2 className="mb-4 text-xl font-bold text-text-primary">Rental order performance</h2>
               {_renderMobileRentalOrderChart(orderState)}

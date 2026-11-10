@@ -9,6 +9,7 @@ import {
   LuFilePlus2,
   LuFileText,
   LuFolderKanban,
+  LuKeyRound,
   LuLayoutDashboard,
   LuMail,
   LuNotebookTabs,
@@ -100,6 +101,11 @@ export const NAVIGATION_CONFIG: NavigationItem[] = [
     name: "Master Data",
     icon: LuPackage,
     children: MASTER_DATA_ITEMS,
+  },
+  {
+    name: "Permission",
+    icon: LuKeyRound,
+    path: "/permission",
   },
 ];
 

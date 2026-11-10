@@ -92,7 +92,7 @@ const _renderStatus = (row: PaymentData): React.ReactElement => {
 const _renderActions = (
   payment: PaymentData,
   onDetail: (payment: PaymentData) => void,
-  onEdit: (payment: PaymentData) => void,
+  onEdit?: (payment: PaymentData) => void,
 ): React.ReactElement => (
   <div className="flex items-center justify-center gap-1">
     <button
@@ -107,18 +107,20 @@ const _renderActions = (
     >
       <FiEye className="h-5 w-5" />
     </button>
-    <button
-      type="button"
-      onClick={(event: React.MouseEvent): void => {
-        event.stopPropagation();
-        onEdit(payment);
-      }}
-      className="cursor-pointer rounded-3xl p-2.5 text-text-secondary hover:bg-action-primary-subtle hover:text-action-primary"
-      title="Edit payment"
-      aria-label="Edit payment"
-    >
-      <FiEdit2 className="h-5 w-5" />
-    </button>
+    {onEdit && (
+      <button
+        type="button"
+        onClick={(event: React.MouseEvent): void => {
+          event.stopPropagation();
+          onEdit(payment);
+        }}
+        className="cursor-pointer rounded-3xl p-2.5 text-text-secondary hover:bg-action-primary-subtle hover:text-action-primary"
+        title="Edit payment"
+        aria-label="Edit payment"
+      >
+        <FiEdit2 className="h-5 w-5" />
+      </button>
+    )}
   </div>
 );
 
@@ -354,9 +356,11 @@ const _renderTable = (props: PaymentProps): React.ReactElement => {
     <div className="hidden rounded-3xl border border-border-default bg-background-surface px-6 pb-6 pt-0 shadow-xs md:mt-6 md:flex md:flex-1 md:flex-col md:overflow-hidden lg:flex">
       <div className="flex items-center justify-between gap-4 border-b border-border-default py-6">
         <SearchFilter placeholder="Search payment" onChange={handleSearch} isRoundedFull={true} inputClassName="text-lg placeholder:text-lg" />
-        <button type="button" onClick={props.onCreate} className="h-14 rounded-3xl bg-action-primary px-6 text-lg font-semibold text-text-inverse hover:bg-action-primary-hover">
-          Create Payment
-        </button>
+        {props.onCreate && (
+          <button type="button" onClick={props.onCreate} className="h-14 rounded-3xl bg-action-primary px-6 text-lg font-semibold text-text-inverse hover:bg-action-primary-hover">
+            Create Payment
+          </button>
+        )}
       </div>
       <div className="flex-1 overflow-auto">
         {_renderTableContent(props)}
@@ -372,7 +376,7 @@ const _renderTable = (props: PaymentProps): React.ReactElement => {
  * @returns {React.ReactElement} Payment page
  */
 export const PaymentComponent = (props: PaymentProps): React.ReactElement => {
-  const createButton = (
+  const createButton = props.onCreate ? (
     <button
       type="button"
       onClick={props.onCreate}
@@ -380,7 +384,7 @@ export const PaymentComponent = (props: PaymentProps): React.ReactElement => {
     >
       Create New
     </button>
-  );
+  ) : undefined;
 
   return (
     <Layout pageTitle="Payment List">

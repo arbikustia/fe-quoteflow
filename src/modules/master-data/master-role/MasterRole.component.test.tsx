@@ -4,12 +4,12 @@ import { MasterRoleComponent } from "./MasterRole.component";
 import { formatRoleDate } from "./MasterRole.helpers";
 import type { MasterRoleProps, RoleData } from "./MasterRole.type";
 
-jest.mock("../../app/layout", () => ({
+jest.mock("../../../app/layout", () => ({
   __esModule: true,
   default: ({ children }: { children: React.ReactNode }) => <div data-testid="layout">{children}</div>,
 }));
 
-jest.mock("../../app/shared/PageLayout", () => ({
+jest.mock("../../../app/shared/PageLayout", () => ({
   PageLayout: ({ children, headerRight, onBack }: { children: React.ReactNode; headerRight: React.ReactNode; onBack: () => void }) => (
     <section>
       <button type="button" onClick={onBack}>Page Back</button>
@@ -19,11 +19,11 @@ jest.mock("../../app/shared/PageLayout", () => ({
   ),
 }));
 
-jest.mock("../../components/Pagination", () => ({
+jest.mock("../../../components/Pagination", () => ({
   Pagination: () => <div data-testid="pagination" />,
 }));
 
-jest.mock("../../components/Table", () => ({
+jest.mock("../../../components/Table", () => ({
   __esModule: true,
   default: ({ data, onRowClick }: { data: RoleData[]; onRowClick: (role: RoleData) => void }) => (
     <button type="button" onClick={() => onRowClick(data[0])}>Desktop role row</button>
@@ -82,6 +82,15 @@ describe("MasterRoleComponent", () => {
     expect(props.onRowClick).toHaveBeenCalledWith(mockRole);
     expect(props.onCreate).toHaveBeenCalled();
     expect(props.onBack).toHaveBeenCalled();
+  });
+
+  it("should hide create and edit controls when callbacks are omitted", () => {
+    render(<MasterRoleComponent {...createProps({ onCreate: undefined, onEdit: undefined, onRowClick: undefined })} />);
+
+    expect(screen.queryByRole("button", { name: "Create New" })).not.toBeInTheDocument();
+    expect(screen.queryByRole("button", { name: "Create Role" })).not.toBeInTheDocument();
+    expect(screen.queryByRole("button", { name: /edit role/i })).not.toBeInTheDocument();
+    expect(screen.getByText("Admin").closest("button")).toBeDisabled();
   });
 
   it("should render loading skeletons when isLoading is true", () => {

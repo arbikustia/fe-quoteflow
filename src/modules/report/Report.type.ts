@@ -124,6 +124,10 @@ export type ReportOrderPagination = {
 export type ReportOrderProps = ReportOrderPagination & {
   onBack: () => void;
   onEditStatus: (order: ReportOrderData) => void;
+  onConfirm: () => Promise<void>;
+  onCancelConfirm: () => void;
+  confirmOrder: ReportOrderData | null;
+  isSubmitting: boolean;
   onExport: () => void;
   isExporting: boolean;
 };

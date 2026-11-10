@@ -68,9 +68,9 @@ export type MasterUserProps = {
   isError: boolean;
   isEmpty: boolean;
   setSearchTerm: (searchTerm: string) => void;
-  onCreate: () => void;
-  onEdit: (user: UserData) => void;
-  onRowClick: (user: UserData) => void;
+  onCreate?: () => void;
+  onEdit?: (user: UserData) => void;
+  onRowClick?: (user: UserData) => void;
 
   onMore?: () => void;
   isMoreOpen?: boolean;
@@ -82,7 +82,7 @@ export type MasterUserProps = {
 export type GetColumnsParams = {
   currentPage: number;
   pageSize: number;
-  onEdit: (user: UserData) => void;
+  onEdit?: (user: UserData) => void;
 };
 
 /** Navigation hook return type */

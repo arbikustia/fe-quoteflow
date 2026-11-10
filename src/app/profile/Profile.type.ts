@@ -5,7 +5,9 @@ export type ProfileProps = {
   theme: Theme;
   isLogoutConfirmOpen: boolean;
   canInstall?: boolean;
+  canManagePermissions?: boolean;
   onInstall?: () => void;
+  onOpenPermission?: () => void;
   onToggleTheme: () => void;
   onOpenLogoutConfirm: () => void;
   onCloseLogoutConfirm: () => void;

@@ -17,6 +17,7 @@ export const MasterDataCard = ({ title, status, statusLabel, statusClassName, ch
   return (
     <button
       type="button"
+      disabled={!onClick}
       onClick={onClick}
       className={`group block w-full min-w-0 rounded-xl border border-border-strong bg-background-surface p-5 text-left shadow-small transition-colors hover:bg-background-subtle/40 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-action-primary ${className}`}
     >

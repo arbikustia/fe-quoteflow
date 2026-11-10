@@ -1,12 +1,15 @@
 import type { ReactElement } from "react";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 import Layout from "@/app/layout";
 import { PageLayout } from "@/app/shared/PageLayout";
+import { useGetAllRolesQuery } from "@/services/master-role.service";
+import { useGetUsersQuery } from "@/services/master-user.service";
 
 import { ProfileComponent } from "./Profile.component";
 import { useMobileProfileHeaderState } from "../shared/GlobalHeader.hook";
-import { getUsername } from "../../components/Sidebar/Sidebar.helpers";
+import { findUserRole, getAccessTokenRoles, getUsername, isSuperadminRole, normalizeUserRoles } from "../../components/Sidebar/Sidebar.helpers";
 import { useTheme } from "../../store/theme.hook";
 
 type BeforeInstallPromptEvent = Event & {
@@ -32,9 +35,19 @@ window.addEventListener("appinstalled", (): void => {
  * @returns {ReactElement} Profile page
  */
 export default function ProfilePage(): ReactElement {
+  const navigate = useNavigate();
   const { theme, toggleTheme } = useTheme();
   const { isLogoutConfirmOpen, onOpenLogoutConfirm, onCloseLogoutConfirm, onConfirmLogout } = useMobileProfileHeaderState();
   const username = getUsername();
+  const { data: usersResponse } = useGetUsersQuery({
+    PageNumber: 1,
+    PageSize: 10,
+    SearchTerm: username,
+  }, { skip: !username });
+  const { data: rolesResponse } = useGetAllRolesQuery();
+  const role = findUserRole(usersResponse?.data ?? [], username);
+  const userRoles = normalizeUserRoles(role);
+  const canManagePermissions = isSuperadminRole([...getAccessTokenRoles(), ...userRoles], rolesResponse?.data ?? []);
   const [canInstall, setCanInstall] = useState(Boolean(deferredInstallPrompt));
 
   useEffect(() => {
@@ -49,6 +62,9 @@ export default function ProfilePage(): ReactElement {
       window.removeEventListener("quoteflow-app-installed", onAppInstalled);
     };
   }, []);
+
+  /** Navigate to permission management. */
+  const handleOpenPermission = (): void => navigate("/permission");
 
   const handleInstall = async (): Promise<void> => {
     if (!deferredInstallPrompt) {
@@ -77,7 +93,9 @@ export default function ProfilePage(): ReactElement {
             theme={theme}
             isLogoutConfirmOpen={isLogoutConfirmOpen}
             canInstall={canInstall}
+            canManagePermissions={canManagePermissions}
             onInstall={handleInstall}
+            onOpenPermission={handleOpenPermission}
             onToggleTheme={toggleTheme}
             onOpenLogoutConfirm={onOpenLogoutConfirm}
             onCloseLogoutConfirm={onCloseLogoutConfirm}

@@ -42,6 +42,7 @@ describe("ItemReturn.hook", () => {
             id: "item-1",
             return_id: "return-1",
             item_id: "inv-1",
+            customer_name: "Customer Name",
             qty: 2,
             condition: "good",
             notes: "",
@@ -57,7 +58,7 @@ describe("ItemReturn.hook", () => {
       const mapped = mapReturn(item);
 
       expect(mapped.id).toBe("return-1");
-      expect(mapped.orderId).toBe("order-123");
+      expect(mapped.customerName).toBe("Customer Name");
       expect(mapped.itemCount).toBe(1);
       expect(mapped.status).toBe("active");
       expect(mapped.notes).toBe("Good condition");
@@ -167,7 +168,7 @@ describe("ItemReturn.hook", () => {
       const { result } = renderHook(() => useItemReturnNavigation());
       const row: ReturnRow = {
         id: "return-99",
-        orderId: "order-99",
+        customerName: "Customer 99",
         returnDate: "2026-11-03",
         itemCount: 1,
         notes: "test",

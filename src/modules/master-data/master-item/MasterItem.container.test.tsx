@@ -3,6 +3,11 @@ import { fireEvent, render, screen } from "@/libs/unit-test";
 import { BrowserRouter } from "react-router-dom";
 import MasterItemContainer from "./MasterItem.container";
 import { useGetItemsQuery } from "@/services/master-item.service";
+import { usePagePermission } from "@/hooks/usePagePermission";
+
+jest.mock("@/hooks/usePagePermission", () => ({
+  usePagePermission: jest.fn(),
+}));
 
 jest.mock("@/services/master-item.service", () => ({
   useGetItemsQuery: jest.fn(),
@@ -25,7 +30,7 @@ jest.mock("@/services/master-item.service", () => ({
 jest.mock("../../../app/layout", () => ({
   __esModule: true,
   default: ({ children }: { children: React.ReactNode }) => React.createElement("div", {}, children),
-}));
+}), { virtual: true });
 
 jest.mock("@/components/Sidebar/Sidebar.container", () => ({
   __esModule: true,
@@ -77,6 +82,10 @@ const mockQueryResult = {
 };
 
 describe("MasterItem Container", () => {
+  beforeEach(() => {
+    jest.mocked(usePagePermission).mockReturnValue({ canView: true, canCreate: true, canEdit: true, isSuperadmin: false });
+  });
+
   it("should render component while query resolves from API", () => {
     jest.mocked(useGetItemsQuery).mockReturnValue(
       mockQueryResult as ReturnType<typeof useGetItemsQuery>,
@@ -94,6 +103,22 @@ describe("MasterItem Container", () => {
       pageSize: 10,
       searchTerm: "",
     });
+  });
+
+  it("should hide create/edit controls when denied", () => {
+    jest.mocked(useGetItemsQuery).mockReturnValue(mockQueryResult as ReturnType<typeof useGetItemsQuery>);
+    jest.mocked(usePagePermission).mockReturnValue({ canView: true, canCreate: false, canEdit: false, isSuperadmin: false });
+
+    render(
+      <BrowserRouter>
+        <MasterItemContainer />
+      </BrowserRouter>,
+    );
+
+    expect(screen.queryByText("Create Item")).toBeNull();
+    expect(screen.queryByText("Create New")).toBeNull();
+    expect(screen.queryByLabelText("Edit item")).toBeNull();
+    expect(usePagePermission).toHaveBeenCalledWith("/master-item");
   });
 
   it("should refetch with search term when search input changes", () => {

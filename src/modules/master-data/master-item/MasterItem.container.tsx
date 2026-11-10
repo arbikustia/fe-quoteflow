@@ -1,6 +1,8 @@
 import * as React from "react";
 import { useLocation } from "react-router-dom";
 
+import { usePagePermission } from "@/hooks/usePagePermission";
+
 import { AlertComponent } from "@/components/Alert";
 
 import type { ItemRouteState } from "./create/MasterItemCreate.type";
@@ -18,6 +20,7 @@ const MasterItemContainer = (): React.ReactElement => {
   const containerState = useMasterItemContainerState();
   const navigation = containerState;
   const pagination = containerState.pagination;
+  const { canCreate, canEdit } = usePagePermission("/master-item");
 
   return (
     <>
@@ -32,8 +35,8 @@ const MasterItemContainer = (): React.ReactElement => {
         onDownload={containerState.onDownload}
         onDownloadSelected={containerState.onDownloadSelected}
         onBack={navigation.goBack}
-        onCreate={navigation.goCreate}
-        onEdit={navigation.goEdit}
+        onCreate={canCreate ? navigation.goCreate : undefined}
+        onEdit={canEdit ? navigation.goEdit : undefined}
         onMore={containerState.toggleMore}
         isMoreOpen={containerState.isMoreOpen}
         onCloseMore={containerState.handleCloseMore}

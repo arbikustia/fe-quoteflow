@@ -4,6 +4,10 @@ import { BrowserRouter } from "react-router-dom";
 import MasterCustomerContainer from "./MasterCustomer.container";
 import * as hooks from "./MasterCustomer.hook";
 
+jest.mock("@/hooks/usePagePermission", () => ({
+  usePagePermission: () => ({ canView: true, canCreate: true, canEdit: true, isSuperadmin: false }),
+}));
+
 jest.mock("./MasterCustomer.hook", () => ({
   useMasterCustomerNavigation: jest.fn(),
   useMasterCustomerPagination: jest.fn(),

@@ -18,7 +18,7 @@ jest.mock("@/app/shared/PageLayout", () => ({
 describe("ItemReturnComponent", () => {
   const mockRow: ReturnRow = {
     id: "return-1",
-    orderId: "ORD-001",
+    customerName: "Customer Name",
     returnDate: "2026-11-03T10:00:00.000Z",
     itemCount: 3,
     notes: "Semua lengkap",
@@ -56,7 +56,7 @@ describe("ItemReturnComponent", () => {
     expect(screen.getAllByText("Item Return List").length).toBeGreaterThan(0);
     expect(screen.getByRole("button", { name: "Create Item Return" })).toBeInTheDocument();
     expect(screen.getAllByText("Create New").length).toBeGreaterThan(0);
-    expect(screen.getAllByText("ORD-001").length).toBeGreaterThan(0);
+    expect(screen.getAllByText("Customer Name").length).toBeGreaterThan(0);
     expect(screen.getAllByText("3 items").length).toBeGreaterThan(0);
     expect(screen.getAllByText("active")[0]).toHaveClass("border-current", "px-3", "py-1", "text-base", "uppercase");
   });
@@ -64,7 +64,7 @@ describe("ItemReturnComponent", () => {
   it("should call onRowClick when mobile card is clicked", () => {
     renderComponent();
 
-    const cardButton = screen.getAllByRole("button").find((btn) => btn.textContent?.includes("ORD-001"));
+    const cardButton = screen.getAllByRole("button").find((btn) => btn.textContent?.includes("Customer Name"));
     expect(cardButton).toBeDefined();
 
     if (cardButton) {

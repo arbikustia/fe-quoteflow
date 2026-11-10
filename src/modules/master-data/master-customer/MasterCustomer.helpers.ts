@@ -51,7 +51,7 @@ export const CustomerMobileCard = (props: CustomerMobileCardProps): React.ReactE
    * @returns {void} No return value
    */
   const handleClick = (): void => {
-    onEdit(customer);
+    if (onEdit) onEdit(customer);
   };
 
   const isActive = customer.status === "active";
@@ -61,8 +61,9 @@ export const CustomerMobileCard = (props: CustomerMobileCardProps): React.ReactE
     "button",
     {
       type: "button",
+      disabled: !onEdit,
       onClick: handleClick,
-      className: "group block w-full min-w-0 rounded-3xl border border-border-strong bg-background-surface p-5 text-left shadow-small transition-colors hover:border-border-strong hover:bg-background-subtle/40 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-action-primary",
+      className: `group block w-full min-w-0 rounded-3xl border border-border-strong bg-background-surface p-5 text-left shadow-small transition-colors ${onEdit ? "hover:border-border-strong hover:bg-background-subtle/40 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-action-primary" : "cursor-default"}`,
     },
     React.createElement(
       "span",

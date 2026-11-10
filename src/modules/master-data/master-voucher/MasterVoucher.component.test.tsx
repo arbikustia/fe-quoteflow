@@ -6,7 +6,7 @@ import { fireEvent, render, screen } from "@/libs/unit-test";
 import { MasterVoucherComponent } from "./MasterVoucher.component";
 import type { MasterVoucherProps, VoucherData } from "./MasterVoucher.type";
 
-jest.mock("../../app/layout", () => ({
+jest.mock("../../../app/layout", () => ({
   __esModule: true,
   default: ({ children }: { children: React.ReactNode }) => <div data-testid="layout">{children}</div>,
 }));
@@ -82,6 +82,15 @@ describe("MasterVoucherComponent", () => {
     const backBtn = screen.getByLabelText("Back");
     fireEvent.click(backBtn);
     expect(onBack).toHaveBeenCalledTimes(1);
+  });
+
+  it("should hide create and edit controls without callbacks", () => {
+    renderWithRouter({ ...defaultProps, onCreate: undefined, onEdit: undefined });
+
+    expect(screen.queryByText("Create New")).not.toBeInTheDocument();
+    expect(screen.queryByText("Create Voucher")).not.toBeInTheDocument();
+    expect(screen.queryByRole("button", { name: /edit voucher/i })).not.toBeInTheDocument();
+    expect(screen.getByRole("button", { name: /DISC10/i })).toBeDisabled();
   });
 
   it("should render quotation-matched loading skeletons", () => {

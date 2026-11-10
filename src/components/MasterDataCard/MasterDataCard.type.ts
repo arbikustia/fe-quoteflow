@@ -6,7 +6,7 @@ export type MasterDataCardProps = {
   statusLabel?: string;
   statusClassName?: string;
   children: ReactNode;
-  onClick: () => void;
+  onClick?: () => void;
   className?: string;
   isLargeText?: boolean;
 };

@@ -6,6 +6,7 @@ export type ApiReturnItem = {
   item_id: string;
   item_name?: string;
   category_name?: string;
+  customer_name?: string;
   qty: number;
   condition: string;
   notes: string;
@@ -13,6 +14,10 @@ export type ApiReturnItem = {
   file_name: string;
   file_urls?: string[];
   file_names?: string[];
+  images?: {
+    file_url: string;
+    file_name: string;
+  }[];
   status: number;
   created_at: string;
   updated_at: string;
@@ -48,12 +53,18 @@ export type ReturnListParams = {
 };
 
 export type ReturnItemPayload = {
+  return_id?: string;
   item_id: string;
   qty: number;
   condition: string;
   notes: string;
-  file_urls: string[];
-  file_names: string[];
+  file_url: string;
+  file_name: string;
+  images: {
+    file_url: string;
+    file_name: string;
+  }[];
+  status: number;
 };
 
 export type ReturnCreatePayload = {
@@ -83,7 +94,7 @@ export type ReturnUpdateRequest = {
 
 export type ReturnRow = {
   id: string;
-  orderId: string;
+  customerName: string;
   returnDate: string;
   itemCount: number;
   notes: string;

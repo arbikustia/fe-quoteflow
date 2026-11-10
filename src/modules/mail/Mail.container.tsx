@@ -1,6 +1,8 @@
 import type { ReactElement } from "react";
 import { useLocation } from "react-router-dom";
 
+import { usePagePermission } from "@/hooks/usePagePermission";
+
 import { MailComponent } from "./Mail.component";
 import { useMailNavigation, useMailPagination } from "./Mail.hook";
 import type { MailRouteState } from "./Mail.type";
@@ -8,13 +10,16 @@ import { AlertComponent } from "../../components/Alert";
 
 /**
  * Mail Container
- * @returns {ReactElement} Container element
+ * @returns {ReactElement | null} Container element
  */
-const MailContainer = (): ReactElement => {
+const MailContainer = (): ReactElement | null => {
   const location = useLocation();
   const routeState: MailRouteState | undefined = location.state;
   const { goBack, goCompose } = useMailNavigation();
   const pagination = useMailPagination();
+  const { canView } = usePagePermission("/mail");
+
+  if (!canView) return null;
 
   return (
     <>

@@ -59,5 +59,9 @@ describe("MasterPic Component", () => {
       props: { ...mockProps, isMoreOpen: true },
       desc: "more open state",
     },
+    {
+      props: { ...mockProps, onCreate: undefined, onEdit: undefined, onRowClick: undefined },
+      desc: "permission denied state",
+    },
   ]);
 });

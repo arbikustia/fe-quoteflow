@@ -57,6 +57,7 @@ export type ReturnCreateFormState = {
   handleDateChange: (date: string) => void;
   handleNotesChange: (notes: string) => void;
   onCaptureItem: (id: string, files: File[]) => Promise<void>;
+  onRemovePhoto: (itemId: string, photoIndex: number) => void;
   onItemConditionChange: (id: string, condition: string) => void;
   onItemNotesChange: (id: string, notes: string) => void;
   handleSave: () => Promise<void>;

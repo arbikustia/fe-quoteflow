@@ -1,12 +1,17 @@
 import * as React from "react";
 
-import { useTheme } from "../../store/theme.hook";
-import ConfirmModal from "../ConfirmModal";
+import { useGetAllRolesQuery } from "@/services/master-role.service";
+import { useGetUsersQuery } from "@/services/master-user.service";
+import { useGetUserPermissionQuery } from "@/services/permission.service";
+import { flattenPermissionMenus } from "@/modules/permission/Permission.helpers";
 
 import { SidebarComponent } from "./Sidebar.component";
 import { NAVIGATION_SECTIONS } from "./Sidebar.config";
+import { filterNavigationByPermission, findUserRole, getAccessTokenRoles, getNavigationSectionsForRole, getUsername, isSuperadminRole, normalizeUserRoles } from "./Sidebar.helpers";
 import { useLogoutState, useSidebarState } from "./Sidebar.hook";
 import type { LogoutState, SidebarContainerProps } from "./Sidebar.type";
+import ConfirmModal from "../ConfirmModal";
+import { useTheme } from "../../store/theme.hook";
 
 /**
  * Render logout confirmation modal.
@@ -42,11 +47,28 @@ const SidebarContainer = (props: SidebarContainerProps = {}): React.ReactElement
   } = useSidebarState();
   const { theme } = useTheme();
   const logoutState = useLogoutState();
+  const username = getUsername();
+  const { data: usersResponse } = useGetUsersQuery({
+    PageNumber: 1,
+    PageSize: 10,
+    SearchTerm: username,
+  }, { skip: !username });
+  const { data: rolesResponse } = useGetAllRolesQuery();
+  const permissionQuery = useGetUserPermissionQuery(username, { skip: !username });
+  const role = findUserRole(usersResponse?.data ?? [], username);
+  const userRoles = normalizeUserRoles(role);
+  const isSuperadmin = isSuperadminRole([...getAccessTokenRoles(), ...userRoles], rolesResponse?.data ?? []);
+  let navigation = getNavigationSectionsForRole(NAVIGATION_SECTIONS, isSuperadmin ? "superadmin" : "");
+
+  if (!isSuperadmin && permissionQuery.data?.status && permissionQuery.data.data) {
+    const rows = flattenPermissionMenus(permissionQuery.data.data.menus);
+    navigation = filterNavigationByPermission(navigation, rows);
+  }
 
   return (
     <>
       <SidebarComponent
-        navigation={NAVIGATION_SECTIONS}
+        navigation={navigation}
         currentPath={currentPath}
         openMenus={openMenus}
         onToggleMenu={onToggleMenu}

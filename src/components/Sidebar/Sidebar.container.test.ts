@@ -22,6 +22,14 @@ jest.mock("./Sidebar.hook", () => ({
   }),
 }));
 
+jest.mock("@/services/master-role.service", () => ({
+  useGetAllRolesQuery: () => ({ data: { data: [] } }),
+}));
+
+jest.mock("@/services/master-user.service", () => ({
+  useGetUsersQuery: () => ({ data: { data: [] } }),
+}));
+
 jest.mock("../../store/theme.hook", () => ({
   useTheme: () => ({
     theme: "light" as const,

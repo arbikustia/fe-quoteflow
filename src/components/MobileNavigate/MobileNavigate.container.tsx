@@ -1,5 +1,8 @@
 import * as React from "react";
+import { useMemo } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+
+import { usePagePermission } from "@/hooks/usePagePermission";
 
 import { MobileNavigateComponent } from "./MobileNavigate.component";
 import { MOBILE_NAVIGATE_ITEMS } from "./MobileNavigate.config";
@@ -15,7 +18,18 @@ const MobileNavigateContainer = (): React.ReactElement => {
   const isMasterSubRoute = pathname.startsWith("/master-") && pathname !== "/master-main";
 
   const { getItems } = useMobileNavigate(pathname);
-  const items = getItems(MOBILE_NAVIGATE_ITEMS);
+  
+  const { canView: canViewCalendar } = usePagePermission("/calendar");
+  const { canView: canViewNote } = usePagePermission("/note");
+
+  const itemsWithPermission = useMemo(() => MOBILE_NAVIGATE_ITEMS.filter((item) => {
+    if (item.id === "/home" || item.id === "/profile") return true;
+    if (item.id === "/calendar") return canViewCalendar;
+    if (item.id === "/note") return canViewNote;
+    return false;
+  }), [canViewCalendar, canViewNote]);
+  
+  const items = getItems(itemsWithPermission);
 
   /**
    * Navigate to valid route.

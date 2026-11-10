@@ -93,8 +93,8 @@ export type MasterItemProps = {
   prevPage: () => void;
   changePageSize: (size: number) => void;
   totalCount: number;
-  onCreate: () => void;
-  onEdit: (item: ItemData) => void;
+  onCreate?: () => void;
+  onEdit?: (item: ItemData) => void;
   onMore?: () => void;
   isMoreOpen: boolean;
   onCloseMore: () => void;
@@ -155,7 +155,7 @@ export type BaseItemState = ModalState & ConfirmModalState;
 /** Mobile item card props */
 export type MobileItemCardProps = {
   item: ItemData;
-  onEdit: (item: ItemData) => void;
+  onEdit?: (item: ItemData) => void;
 };
 
 /** Required item fields. */
@@ -181,7 +181,7 @@ export type GetColumnsParams = {
   isMultiDownloadMode: boolean;
   selectedItemIds: string[];
   onToggleItem: (item: ItemData) => void;
-  onEdit: (item: ItemData) => void;
+  onEdit?: (item: ItemData) => void;
   onDownload: (item: ItemData, format: "image" | "pdf") => void;
 };
 

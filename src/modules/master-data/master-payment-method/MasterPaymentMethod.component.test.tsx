@@ -5,23 +5,23 @@ import test, { render, screen } from "@/libs/unit-test";
 import { MasterPaymentMethodComponent } from "./MasterPaymentMethod.component";
 import type { MasterPaymentMethodProps, PaymentMethodData } from "./MasterPaymentMethod.type";
 
-jest.mock("../../app/layout", () =>
+jest.mock("../../../app/layout", () =>
   ({ children }: { children: React.ReactNode }) => <div data-testid="layout">{children}</div>,
 );
 
-jest.mock("../../components/Icons", () => ({
+jest.mock("../../../components/Icons", () => ({
   Icons: { Search: () => <div data-testid="icon-search" /> },
 }));
 
-jest.mock("../../components/MobileList", () => ({
+jest.mock("../../../components/MobileList", () => ({
   MobileList: () => <div data-testid="mobile-list" />,
 }));
 
-jest.mock("../../components/Pagination", () => ({
+jest.mock("../../../components/Pagination", () => ({
   Pagination: () => <div data-testid="pagination" />,
 }));
 
-jest.mock("../../components/Table", () => () => <div data-testid="table" />);
+jest.mock("../../../components/Table", () => () => <div data-testid="table" />);
 
 describe("MasterPaymentMethod.component", () => {
   const paymentMethods: PaymentMethodData[] = [
@@ -51,6 +51,15 @@ describe("MasterPaymentMethod.component", () => {
     onCloseMore: jest.fn(),
     onDelete: jest.fn(),
   };
+
+  it("should hide create and disable editing without callbacks", () => {
+    render(<MasterPaymentMethodComponent {...defaultProps} onCreate={undefined} onEdit={undefined} />);
+
+    expect(screen.queryByText("Create New")).not.toBeInTheDocument();
+    expect(screen.queryByText("Create Payment Method")).not.toBeInTheDocument();
+    expect(screen.queryByRole("button", { name: "Edit payment method" })).not.toBeInTheDocument();
+    expect(screen.getByRole("button", { name: /Transfer Bank/i })).toBeDisabled();
+  });
 
   it("should render quotation-matched loading skeletons", () => {
     render(<MasterPaymentMethodComponent {...defaultProps} isLoading={true} />);

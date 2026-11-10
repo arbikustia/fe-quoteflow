@@ -32,6 +32,21 @@ describe("ProfileComponent", () => {
     expect(screen.getByText("Logged in as")).toBeInTheDocument();
   });
 
+  it("should open permission menu for superadmin", (): void => {
+    const onOpenPermission = jest.fn();
+    render(<ProfileComponent {...defaultProps} canManagePermissions={true} onOpenPermission={onOpenPermission} />);
+
+    fireEvent.click(screen.getByRole("button", { name: "Permission" }));
+
+    expect(onOpenPermission).toHaveBeenCalledTimes(1);
+  });
+
+  it("should hide permission menu for other roles", (): void => {
+    render(<ProfileComponent {...defaultProps} canManagePermissions={false} onOpenPermission={jest.fn()} />);
+
+    expect(screen.queryByRole("button", { name: "Permission" })).not.toBeInTheDocument();
+  });
+
   it("should request logout confirmation", (): void => {
     const onOpenLogoutConfirm = jest.fn();
     render(<ProfileComponent {...defaultProps} onOpenLogoutConfirm={onOpenLogoutConfirm} />);
