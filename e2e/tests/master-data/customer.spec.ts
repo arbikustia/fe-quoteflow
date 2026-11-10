@@ -2,6 +2,11 @@ import { test, expect } from '@playwright/test';
 
 test.describe('Master Data - Customer', () => {
   test.beforeEach(async ({ page }) => {
+    await page.goto('/login');
+    await page.getByPlaceholder('name@sonicline.co.id').fill('arbi');
+    await page.getByPlaceholder('••••••••').fill('arbi123'); // Assuming known credential structure
+    await page.getByRole('button', { name: 'Masuk' }).click();
+    await page.waitForURL('/home');
     await page.goto('/master-customer');
   });
 
