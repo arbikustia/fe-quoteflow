@@ -1,12 +1,14 @@
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useMemo, useState } from "react";
 
 import type {
-  ApiChecklist,
   ChecklistControls,
+  ChecklistDataState,
   ChecklistFocusAt,
   ChecklistHandlers,
   ChecklistOrderItemRow,
+  UseItemChecklistDataInput,
 } from "./ItemChecklistCreate.type";
+import { getChecklistData } from "./ItemChecklistCreate.util";
 
 /**
  * Manage checklist form state.
@@ -26,26 +28,6 @@ export const useItemChecklistFormState = (): ChecklistControls => {
 };
 
 /**
- * Initialize edit state.
- * @param {ChecklistControls} form - form controls
- * @param {string} [id] - checklist id
- * @param {ApiChecklist} [checklist] - checklist
- * @returns {void}
- */
-export const useChecklistInitialization = (form: ChecklistControls, id?: string, checklist?: ApiChecklist): void => {
-  const initializedId = useRef<string | undefined>(undefined);
-
-  useEffect((): void => {
-    if (!id || !checklist || initializedId.current === id) return;
-
-    initializedId.current = id;
-    form.setSelectedOrderId(checklist.order_id);
-    form.setMoveOutItemIds(checklist.items.filter((item) => item.move_out).map((item) => item.id));
-    form.setMoveInItemIds(checklist.items.filter((item) => item.move_in).map((item) => item.id));
-  }, [id, checklist, form]);
-};
-
-/**
  * Build checklist handlers.
  * @param {ChecklistControls} form - form controls
  * @returns {ChecklistHandlers} - handlers
@@ -54,6 +36,7 @@ export const useChecklistHandlers = (form: ChecklistControls): ChecklistHandlers
   /**
    * Handle order change.
    * @param {string} value - value
+   * @returns {void} No return value
    */
   const handleOrderChange = (value: string): void => {
     form.setSelectedOrderId(value);
@@ -67,15 +50,16 @@ export const useChecklistHandlers = (form: ChecklistControls): ChecklistHandlers
   /**
    * Handle focus at change.
    * @param {string} value - value
+   * @returns {void} No return value
    */
   const handleFocusAtChange = (value: string): void => {
-    if (value === "moveIn" || value === "moveOut") form.setFocusAt(value as ChecklistFocusAt);
+    if (value === "moveIn" || value === "moveOut") form.setFocusAt(value);
   };
 
   /**
    * Handle search change.
    * @param {string} value - value
-   * @returns {void}
+   * @returns {void} No return value
    */
   const handleSearchChange = (value: string): void => form.setSearchTerm(value);
 
@@ -96,3 +80,15 @@ export const useFilteredOrderItems = (orderItems: ChecklistOrderItemRow[], searc
 
     return orderItems.filter((item) => item.itemId.toLowerCase().includes(lower) || item.itemName.toLowerCase().includes(lower) || item.category.toLowerCase().includes(lower) || item.sign.toLowerCase().includes(lower));
   }, [orderItems, searchTerm]);
+
+/**
+ * Manage selected order and its items.
+ * @param {UseItemChecklistDataInput} input - checklist data input
+ * @returns {ChecklistDataState} - checklist data state
+ */
+export const useItemChecklistData = (input: UseItemChecklistDataInput): ChecklistDataState =>
+  useMemo(
+    (): ChecklistDataState => getChecklistData(input),
+    [input.isEditMode, input.selectedOrderId, input.detailData, input.ordersData,
+      input.ordersStatus, input.itemsData, input.itemsStatus],
+  );

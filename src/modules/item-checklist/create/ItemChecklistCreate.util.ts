@@ -1,9 +1,9 @@
-import { useMemo } from "react";
+import type { MouseEvent } from "react";
 
 import type { SelectOption } from "@/components/Select";
 
-import { getOrderCustomerName } from "../ItemChecklist.helpers";
 import type { ApiChecklist } from "../ItemChecklist.type";
+import { getOrderCustomerName } from "../ItemChecklist.util";
 
 import type {
   ChecklistDataState,
@@ -113,7 +113,7 @@ const _getCategories = (input: UseItemChecklistDataInput): Map<string, string> =
  * @param {UseItemChecklistDataInput} input - checklist data input
  * @returns {ChecklistDataState} - checklist form state
  */
-const _getChecklistData = (input: UseItemChecklistDataInput): ChecklistDataState => {
+export const getChecklistData = (input: UseItemChecklistDataInput): ChecklistDataState => {
   const orders = input.ordersStatus ? input.ordersData : undefined;
   const selectedOrder = orders?.find((order) => order.id === input.selectedOrderId);
   const checklist = input.detailData ?? null;
@@ -130,13 +130,28 @@ const _getChecklistData = (input: UseItemChecklistDataInput): ChecklistDataState
 };
 
 /**
- * Manage selected order and its items.
- * @param {UseItemChecklistDataInput} input - checklist data input
- * @returns {ChecklistDataState} - checklist data state
+ * Get the table row key of an order item.
+ * @param {ChecklistOrderItemRow} row - Order item row
+ * @returns {string} Row key
  */
-export const useItemChecklistData = (input: UseItemChecklistDataInput): ChecklistDataState =>
-  useMemo(
-    (): ChecklistDataState => _getChecklistData(input),
-    [input.isEditMode, input.selectedOrderId, input.detailData, input.ordersData,
-      input.ordersStatus, input.itemsData, input.itemsStatus],
-  );
+export const getOrderItemRowKey = (row: ChecklistOrderItemRow): string => row.id;
+
+/**
+ * Get the empty-state text for the items list.
+ * @param {string} searchTerm - Active search term
+ * @returns {string} Empty-state text
+ */
+export const getOrderItemsEmptyText = (searchTerm: string): string => searchTerm ? "No items matching search." : "No items found for this order.";
+
+/**
+ * Stop a click from bubbling to the table row.
+ * @param {MouseEvent} event - Click event
+ * @returns {void} No return value
+ */
+export const stopClickPropagation = (event: MouseEvent): void => event.stopPropagation();
+
+/**
+ * Ignore manual checkbox changes; move status is set only by barcode scan.
+ * @returns {void} No return value
+ */
+export const ignoreManualChange = (): void => undefined;

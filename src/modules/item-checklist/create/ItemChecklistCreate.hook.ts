@@ -4,8 +4,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useMasterActivityLog } from "@/hooks/useMasterActivityLog";
 
 import type { ChecklistCreateFormState, ChecklistLogicState } from "./ItemChecklistCreate.type";
-import { useChecklistHandlers, useFilteredOrderItems, useItemChecklistFormState } from "./ItemChecklistForm.hook";
-import { useItemChecklistData } from "./ItemChecklistHelpers";
+import { useChecklistHandlers, useFilteredOrderItems, useItemChecklistData, useItemChecklistFormState } from "./ItemChecklistForm.hook";
 import { useItemChecklistSaveHandler } from "./ItemChecklistSave.hook";
 import { useItemChecklistScan } from "./ItemChecklistScan.hook";
 
@@ -47,7 +46,8 @@ const useItemChecklistLogic = (): ChecklistLogicState => {
   useItemChecklistScan({ orderItems: data.orderItems, focusAt: form.focusAt, setMoveInItemIds: form.setMoveInItemIds, setMoveOutItemIds: form.setMoveOutItemIds, setSearchTerm: form.setSearchTerm, setHighlightedRowId: form.setHighlightedRowId, setNotFoundItemCode: form.setNotFoundItemCode });
 
   /**
-   * Initializes checklist.
+   * Initialize form state from the loaded checklist once per id.
+   * @returns {void} No return value
    */
   const initializeEffect = (): void => {
     if (!id || !data.checklist || initializedChecklistId.current === id) return;
@@ -85,7 +85,8 @@ export const useItemChecklistCreate = (): ChecklistCreateFormState => {
   const handlers = useChecklistHandlers(form);
 
   /**
-   *
+   * Return to the checklist list.
+   * @returns {void} No return value
    */
   const goBack = (): void => { navigate("/item-checklist"); };
 

@@ -37,8 +37,8 @@ const checklist = {
 const order = { id: "order-1" };
 
 const mockQueries = (): void => {
-  jest.mocked(useGetRentalChecklistByIdQuery).mockReturnValue({ data: { status: true, messages: [], data: checklist }, isLoading: false });
-  jest.mocked(useGetRentalOrderOptionsQuery).mockReturnValue({ data: { status: true, data: [order] } });
+  jest.mocked(useGetRentalChecklistByIdQuery).mockReturnValue({ data: { status: true, messages: [], data: checklist }, isLoading: false } as never);
+  jest.mocked(useGetRentalOrderOptionsQuery).mockReturnValue({ data: { status: true, data: [order] } } as never);
 };
 
 describe("useItemChecklistDetail", () => {
@@ -74,7 +74,7 @@ describe("useItemChecklistDetail", () => {
 
   it("should alert when rental order is unavailable", () => {
     const alert = jest.spyOn(window, "alert").mockImplementation(() => undefined);
-    jest.mocked(useGetRentalOrderOptionsQuery).mockReturnValue({ data: { status: true, data: [] } });
+    jest.mocked(useGetRentalOrderOptionsQuery).mockReturnValue({ data: { status: true, data: [] } } as never);
     const { result } = renderHook(useItemChecklistDetail);
 
     act(() => result.current.onDownload());
@@ -90,7 +90,7 @@ describe("useItemChecklistDetail", () => {
     expect(rendered.result.current.errorMessage).toBe("Unable to load item checklist.");
 
     jest.mocked(useParams).mockReturnValue({ id: "checklist-1" });
-    jest.mocked(useGetRentalChecklistByIdQuery).mockReturnValue({ data: { status: false, messages: ["Not found"], data: checklist }, isLoading: false });
+    jest.mocked(useGetRentalChecklistByIdQuery).mockReturnValue({ data: { status: false, messages: ["Not found"], data: checklist }, isLoading: false } as never);
     rendered = renderHook(useItemChecklistDetail);
 
     expect(rendered.result.current.errorMessage).toBe("Not found");

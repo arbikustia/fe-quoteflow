@@ -3,6 +3,7 @@ import type { ChecklistCreatePayload } from "../ItemChecklist.type";
 import type {
   ChecklistPayloadParams,
   ChecklistSaveError,
+  ChecklistSaveResult,
   UseItemChecklistSaveInput,
 } from "./ItemChecklistCreate.type";
 
@@ -31,9 +32,14 @@ export const buildChecklistPayload = (params: ChecklistPayloadParams): Checklist
  * @returns {string} - user-facing message
  */
 const _getErrorMessage = (error: ChecklistSaveError): string => {
-  const message = error.data ?? error.message;
+  let message: string | string[] | undefined;
 
-  return Array.isArray(message) ? message.join(" ") : (message ?? "Unable to save item checklist.");
+  if ("data" in error) message = error.data as string | string[];
+  else if ("message" in error) message = error.message;
+
+  if (Array.isArray(message)) return message.join(" ");
+
+  return typeof message === "string" ? message : "Unable to save item checklist.";
 };
 
 /**
@@ -53,12 +59,12 @@ const _getValidationError = (input: UseItemChecklistSaveInput): string | undefin
  * Run the appropriate checklist mutation.
  * @param {UseItemChecklistSaveInput} input - Save inputs
  * @param {ChecklistCreatePayload} payload - Payload
- * @returns {Promise<{ data?: { status: boolean; messages: string[] }; error?: ChecklistSaveError }>} Mutation result
+ * @returns {Promise<ChecklistSaveResult>} Mutation result
  */
 const _saveChecklist = async (
   input: UseItemChecklistSaveInput,
   payload: ChecklistCreatePayload,
-): Promise<{ data?: { status: boolean; messages: string[] }; error?: ChecklistSaveError }> => {
+): Promise<ChecklistSaveResult> => {
   if (input.isEditMode && input.id) return await input.updateChecklist({ id: input.id, body: payload });
 
   return await input.createChecklist(payload);
@@ -67,7 +73,7 @@ const _saveChecklist = async (
 /**
  * Record the successful save in the activity log.
  * @param {UseItemChecklistSaveInput} input - Save inputs
- * @returns {Promise<void>}
+ * @returns {Promise<void>} Completed log request
  */
 const _logSave = async (input: UseItemChecklistSaveInput): Promise<void> => {
   const name = input.checklist?.checklist_no ?? input.selectedOrder?.order_no ?? input.id ?? "Item Checklist";
@@ -104,7 +110,7 @@ export const useItemChecklistSaveHandler = (
   const result = await _saveChecklist(input, payload);
 
   if (result.error) {
-    input.setSaveErrorMessage(_getErrorMessage(result.error as ChecklistSaveError));
+    input.setSaveErrorMessage(_getErrorMessage(result.error));
 
     return;
   }

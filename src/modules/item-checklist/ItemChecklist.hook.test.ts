@@ -1,13 +1,16 @@
-import { act, renderHook } from "@/libs/unit-test";
+import { act, renderHook, waitFor } from "@/libs/unit-test";
 import { useGetRentalChecklistsQuery, useLazyGetRentalChecklistByIdQuery } from "@/services/rental-checklist.service";
 import { useGetRentalOrderOptionsQuery } from "@/services/rental-order.service";
 import { useNavigate } from "react-router-dom";
 
+import { downloadChecklistPdf } from "./ItemChecklist.pdf";
 import { useItemChecklistList, useItemChecklistNavigation, useItemChecklistState } from "./ItemChecklist.hook";
 
 jest.mock("react-router-dom", () => ({
   useNavigate: jest.fn(),
 }));
+
+jest.mock("./ItemChecklist.pdf", () => ({ downloadChecklistPdf: jest.fn() }));
 
 jest.mock("@/services/rental-checklist.service", () => ({
   useGetRentalChecklistsQuery: jest.fn(),
@@ -74,12 +77,12 @@ describe("ItemChecklist.hook", () => {
     expect(mockNavigate).toHaveBeenCalledWith("/item-checklist/create");
 
     act(() => {
-      result.current.onRowClick({ id: "1" } as any);
+      result.current.onRowClick({ id: "1" } as never);
     });
     expect(mockNavigate).toHaveBeenCalledWith("/item-checklist/1");
 
     act(() => {
-      result.current.onEdit({ id: "1" } as any);
+      result.current.onEdit({ id: "1" } as never);
     });
     expect(mockNavigate).toHaveBeenCalledWith("/item-checklist/create/1");
   });
@@ -111,5 +114,34 @@ describe("ItemChecklist.hook", () => {
     const { result } = renderHook(() => useItemChecklistState());
     expect(result.current.rows).toBeDefined();
     expect(result.current.onBack).toBeDefined();
+  });
+
+  it("should download the checklist PDF with its order", async () => {
+    const { result } = renderHook(() => useItemChecklistNavigation());
+
+    act(() => result.current.onDownload({ id: "1" } as never));
+
+    await waitFor(() => expect(downloadChecklistPdf).toHaveBeenCalled());
+    await waitFor(() => expect(result.current.isDownloadingId).toBeNull());
+  });
+
+  it("should alert when the order is unavailable for download", async () => {
+    const alert = jest.spyOn(window, "alert").mockImplementation(() => undefined);
+
+    (useGetRentalOrderOptionsQuery as jest.Mock).mockReturnValue({ data: { status: true, data: [] } });
+    const { result } = renderHook(() => useItemChecklistNavigation());
+
+    act(() => result.current.onDownload({ id: "1" } as never));
+
+    await waitFor(() => expect(alert).toHaveBeenCalledWith("Unable to download item checklist. Please try again."));
+    alert.mockRestore();
+  });
+
+  it("should report query errors and unsuccessful responses", () => {
+    (useGetRentalChecklistsQuery as jest.Mock).mockReturnValue({ error: {}, isLoading: false });
+    expect(renderHook(() => useItemChecklistList()).result.current.errorMessage).toBe("Unable to load item checklists.");
+
+    (useGetRentalChecklistsQuery as jest.Mock).mockReturnValue({ data: { status: false, messages: ["Nope"] }, isLoading: false });
+    expect(renderHook(() => useItemChecklistList()).result.current.errorMessage).toBe("Nope");
   });
 });

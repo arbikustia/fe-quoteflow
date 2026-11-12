@@ -9,7 +9,7 @@
 - [x] 8. payment
 - [x] 9. activity log
 - [x] 10. calendar
-- [ ] 11. item checklist
+- [x] 11. item checklist
 - [ ] 12. item return
 - [ ] 13. note
 - [ ] 14. report

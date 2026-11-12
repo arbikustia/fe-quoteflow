@@ -9,6 +9,7 @@ export type ApiChecklistItem = {
   move_out: boolean;
   move_in: boolean;
   sign: string;
+  category_name?: string | null;
   remark: string | null;
   status: number | null;
   created_at: string;
@@ -57,11 +58,53 @@ export type ChecklistCreatePayload = {
 export type ChecklistCreateResponse = { status: boolean; data: ApiChecklist | null; messages: string[] };
 export type ChecklistUpdateRequest = { id: string; body: ChecklistCreatePayload };
 
-export type ChecklistRow = { id: string; checklistNo: string; customerName: string; checklistDate: string; itemCount: number; status: "active" | "inactive" | "unavailable"; orderId: string };
+export type ChecklistRowStatus = "active" | "inactive" | "unavailable";
+
+export type ChecklistRow = {
+  id: string;
+  checklistNo: string;
+  customerName: string;
+  checklistDate: string;
+  itemCount: number;
+  status: ChecklistRowStatus;
+  orderId: string;
+};
+
+export type ChecklistStatusConfig = {
+  label: string;
+  className: string;
+};
+
+export type ChecklistStatusBadgeProps = {
+  status: ChecklistRowStatus;
+};
 
 export type ItemChecklistMobileCardProps = {
   row: ChecklistRow;
   onClick: (row: ChecklistRow) => void;
 };
 
-export type ChecklistListState = { currentPage: number; totalPages: number; pageSize: number; totalCount: number; rows: ChecklistRow[]; isLoading: boolean; errorMessage: string | null; isEmpty: boolean; setSearchTerm: (value: string) => void; goToPage: (page: number) => void; changePageSize: (size: number) => void; onCreate: () => void; onRowClick: (row: ChecklistRow) => void; onEdit: (row: ChecklistRow) => void; onDownload: (row: ChecklistRow) => void; isDownloadingId: string | null; onBack: () => void };
+export type ChecklistListData = {
+  currentPage: number;
+  totalPages: number;
+  pageSize: number;
+  totalCount: number;
+  rows: ChecklistRow[];
+  isLoading: boolean;
+  errorMessage: string | null;
+  isEmpty: boolean;
+  setSearchTerm: (value: string) => void;
+  goToPage: (page: number) => void;
+  changePageSize: (size: number) => void;
+};
+
+export type ChecklistNavigationState = {
+  onCreate: () => void;
+  onRowClick: (row: ChecklistRow) => void;
+  onEdit: (row: ChecklistRow) => void;
+  onDownload: (row: ChecklistRow) => void;
+  isDownloadingId: string | null;
+  onBack: () => void;
+};
+
+export type ChecklistListState = ChecklistListData & ChecklistNavigationState;

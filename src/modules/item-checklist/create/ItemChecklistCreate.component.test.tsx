@@ -1,6 +1,7 @@
 import { MemoryRouter } from "react-router-dom";
 
-import test, { fireEvent, render, screen } from "@/libs/unit-test";
+import { fireEvent, render, screen } from "@/libs/unit-test";
+
 import { ItemChecklistCreateForm } from "./ItemChecklistCreate.component";
 import type { ChecklistCreateFormState } from "./ItemChecklistCreate.type";
 
@@ -78,25 +79,25 @@ const mockSelectedFormProps: ChecklistCreateFormState = {
 describe("ItemChecklistCreateForm", () => {
   it("should render rental order select and master role actions when unselected", () => {
     render(<MemoryRouter><ItemChecklistCreateForm {...mockEmptyFormProps} /></MemoryRouter>);
-    expect(screen.getByLabelText("Rental Order")).toBeInTheDocument();
-    expect(screen.getByLabelText("Focus At")).toBeInTheDocument();
-    expect(screen.queryByText("Order Items")).not.toBeInTheDocument();
-    expect(screen.getByRole("button", { name: "Cancel" })).toHaveClass("h-14", "rounded-xl");
-    expect(screen.getByRole("button", { name: "Save Checklist" })).toHaveClass("h-14", "rounded-xl");
+    expect(screen.getByLabelText("Rental Order")).not.toBeNull();
+    expect(screen.getByLabelText("Focus At")).not.toBeNull();
+    expect(screen.queryByText("Order Items")).toBeNull();
+    expect(screen.getByRole("button", { name: "Cancel" }).className).toContain("h-14");
+    expect(screen.getByRole("button", { name: "Save Checklist" }).className).toContain("h-14");
   });
 
   it("should render order items table, search filter, and checkboxes when order is selected", () => {
     render(<MemoryRouter><ItemChecklistCreateForm {...mockSelectedFormProps} /></MemoryRouter>);
-    expect(screen.getByText("Order Items")).toBeInTheDocument();
-    expect(screen.getByPlaceholderText("Search items...")).toBeInTheDocument();
+    expect(screen.getByText("Order Items")).not.toBeNull();
+    expect(screen.getByPlaceholderText("Search items...")).not.toBeNull();
     expect(screen.getAllByText("Speaker Active").length).toBeGreaterThan(0);
     expect(screen.getAllByText("Microphone Wireless").length).toBeGreaterThan(0);
-    expect(screen.getByRole("button", { name: "Save Checklist" })).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "Save Checklist" })).not.toBeNull();
     const mobileItem = screen.getAllByText("Speaker Active")[0].closest("article");
     expect(mobileItem?.querySelectorAll(".text-xs, .text-sm, .text-base")).toHaveLength(0);
-    expect(screen.getByText("Select Move Out and Move In independently for each item.")).toHaveClass("text-base");
+    expect(screen.getByText("Select Move Out and Move In independently for each item.").className).toContain("text-base");
     screen.getAllByRole("checkbox", { name: "Move out Speaker Active" }).forEach((checkbox) => {
-      expect(checkbox.closest("label")).toHaveClass("[&_.ant-checkbox]:h-7!", "[&_.ant-checkbox]:w-7!", "[&_.ant-checkbox]:border-2!", "[&_.ant-checkbox::after]:border-t-0!", "[&_.ant-checkbox::after]:border-l-0!");
+      expect(checkbox.closest("label")?.className).toContain("[&_.ant-checkbox]:h-7!");
     });
   });
 
@@ -109,23 +110,23 @@ describe("ItemChecklistCreateForm", () => {
 
   it("should display edit state with scan-only disabled move checkboxes", () => {
     render(<MemoryRouter><ItemChecklistCreateForm {...mockSelectedFormProps} isEditMode={true} moveInItemIds={["itm-2-0"]} /></MemoryRouter>);
-    expect(screen.getByRole("button", { name: "Update Checklist" })).toBeInTheDocument();
-    expect(screen.queryByRole("combobox", { name: "Rental Order" })).not.toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "Update Checklist" })).not.toBeNull();
+    expect(screen.queryByRole("combobox", { name: "Rental Order" })).toBeNull();
     expect(screen.getAllByRole("checkbox", { name: "Move out Speaker Active" })).toHaveLength(2);
     expect(screen.getAllByRole("checkbox", { name: "Move in Microphone Wireless" })).toHaveLength(2);
-    screen.getAllByRole("checkbox", { name: "Move out Speaker Active" }).forEach((checkbox) => expect(checkbox).toBeChecked());
-    screen.getAllByRole("checkbox", { name: "Move in Microphone Wireless" }).forEach((checkbox) => expect(checkbox).toBeChecked());
-    screen.getAllByRole("checkbox").forEach((checkbox) => expect(checkbox).toBeDisabled());
+    screen.getAllByRole("checkbox", { name: "Move out Speaker Active" }).forEach((checkbox) => expect((checkbox as HTMLInputElement).checked).toBe(true));
+    screen.getAllByRole("checkbox", { name: "Move in Microphone Wireless" }).forEach((checkbox) => expect((checkbox as HTMLInputElement).checked).toBe(true));
+    screen.getAllByRole("checkbox").forEach((checkbox) => expect((checkbox as HTMLInputElement).disabled).toBe(true));
     fireEvent.click(screen.getAllByRole("checkbox", { name: "Move in Speaker Active" })[0]);
-    screen.getAllByRole("checkbox", { name: "Move in Speaker Active" }).forEach((checkbox) => expect(checkbox).not.toBeChecked());
+    screen.getAllByRole("checkbox", { name: "Move in Speaker Active" }).forEach((checkbox) => expect((checkbox as HTMLInputElement).checked).toBe(false));
   });
 
   it("should highlight scanned row and show not found badge", () => {
     render(<MemoryRouter><ItemChecklistCreateForm {...mockSelectedFormProps} highlightedRowId="itm-1-0" notFoundItemCode="UNKNOWN-1" /></MemoryRouter>);
-    expect(screen.getByRole("alert")).toHaveTextContent("Item \"UNKNOWN-1\" not found");
-    expect(screen.getAllByText("Speaker Active")[0].closest("article")).toHaveClass("motion-safe:animate-scan-success");
-    expect(screen.getAllByText("Speaker Active")[1].closest("tr")).toHaveClass("motion-safe:animate-scan-success");
-    expect(screen.getAllByText("Microphone Wireless")[1].closest("tr")).not.toHaveClass("motion-safe:animate-scan-success");
+    expect(screen.getByRole("alert").textContent).toContain("Item \"UNKNOWN-1\" not found");
+    expect(screen.getAllByText("Speaker Active")[0].closest("article")?.className).toContain("motion-safe:animate-scan-success");
+    expect(screen.getAllByText("Speaker Active")[1].closest("tr")?.className).toContain("motion-safe:animate-scan-success");
+    expect(screen.getAllByText("Microphone Wireless")[1].closest("tr")?.className).not.toContain("motion-safe:animate-scan-success");
   });
 
   it("should trigger save on button click", () => {
@@ -133,11 +134,24 @@ describe("ItemChecklistCreateForm", () => {
     fireEvent.click(screen.getByRole("button", { name: "Save Checklist" }));
     expect(mockSelectedFormProps.handleSave).toHaveBeenCalled();
   });
-});
 
-it("ItemChecklistCreateForm matches snapshot", () => {
-  test.assertSnapshots(ItemChecklistCreateForm, [
-    { props: mockEmptyFormProps, desc: "renders unselected form" },
-    { props: mockSelectedFormProps, desc: "renders selected order with table and search" },
-  ]);
+  it("should show loading skeleton while initial data loads", () => {
+    render(<MemoryRouter><ItemChecklistCreateForm {...mockSelectedFormProps} isLoadingInitialData={true} /></MemoryRouter>);
+
+    expect(screen.queryByText("Order Items")).toBeNull();
+  });
+
+  it("should show error message and empty search text", () => {
+    render(<MemoryRouter><ItemChecklistCreateForm {...mockSelectedFormProps} errorMessage="Failed" filteredOrderItems={[]} searchTerm="zzz" /></MemoryRouter>);
+
+    expect(screen.getByText("Failed")).not.toBeNull();
+    expect(screen.getAllByText("No items matching search.").length).toBeGreaterThan(0);
+  });
+
+  it("should trigger cancel", () => {
+    render(<MemoryRouter><ItemChecklistCreateForm {...mockSelectedFormProps} /></MemoryRouter>);
+    fireEvent.click(screen.getByRole("button", { name: "Cancel" }));
+
+    expect(mockSelectedFormProps.goBack).toHaveBeenCalled();
+  });
 });

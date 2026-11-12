@@ -5,10 +5,12 @@ import { useItemChecklistState } from "./ItemChecklist.hook";
 
 /**
  * Render Item Checklist container.
- * @returns {ReactElement} - Item Checklist container element
+ * @returns {ReactElement} Item Checklist container element
  */
 const ItemChecklistContainer = (): ReactElement => {
-  return <ItemChecklistComponent {...useItemChecklistState()} />;
+  const state = useItemChecklistState();
+
+  return <ItemChecklistComponent {...state} />;
 };
 
 export default ItemChecklistContainer;

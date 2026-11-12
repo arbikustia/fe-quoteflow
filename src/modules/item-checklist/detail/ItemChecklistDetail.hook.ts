@@ -25,15 +25,18 @@ export const useItemChecklistDetail = (): ItemChecklistDetailState => {
   }
 
   /**
-   *
+   * Return to the checklist list.
+   * @returns {void} No return value
    */
   const goBack = (): void => { void navigate("/item-checklist"); };
   /**
-   *
+   * Open the checklist edit page.
+   * @returns {void} No return value
    */
   const goEdit = (): void => { if (id) void navigate(`/item-checklist/create/${id}`); };
   /**
-   *
+   * Download the checklist PDF.
+   * @returns {void} No return value
    */
   const onDownload = (): void => {
     const checklist = query.data?.data;

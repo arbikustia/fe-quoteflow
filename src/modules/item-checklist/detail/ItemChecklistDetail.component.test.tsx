@@ -57,16 +57,16 @@ const mockProps: ItemChecklistDetailState = {
 describe("ItemChecklistDetailComponent", () => {
   it("should show checklist metadata and item details with nullable fields", () => {
     render(<MemoryRouter><ItemChecklistDetailComponent {...mockProps} /></MemoryRouter>);
-    expect(screen.getByRole("heading", { name: "Item Checklist Detail", level: 1 })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: "Item Checklist Detail", level: 1 })).not.toBeNull();
     expect(screen.getAllByText("CI20261101210842").length).toBeGreaterThan(0);
-    expect(screen.queryByText("ord-1")).not.toBeInTheDocument();
-    expect(screen.queryByText("Order ID")).not.toBeInTheDocument();
+    expect(screen.queryByText("ord-1")).toBeNull();
+    expect(screen.queryByText("Order ID")).toBeNull();
     expect(screen.getAllByText("Unavailable").length).toBeGreaterThan(0);
     expect(screen.getAllByText("Beam 290").length).toBeGreaterThan(0);
     expect(screen.getAllByText("Beam 290 description").length).toBeGreaterThan(0);
-    expect(screen.getAllByText("Beam 290 description")[0]).toHaveClass("text-lg");
-    expect(screen.getByText("Checklist date")).toHaveClass("text-lg");
-    expect(screen.getByText("Qty 1")).toHaveClass("text-lg");
+    expect(screen.getAllByText("Beam 290 description")[0].className).toContain("text-lg");
+    expect(screen.getByText("Checklist date").className).toContain("text-lg");
+    expect(screen.getByText("Qty 1").className).toContain("text-lg");
     expect(screen.getAllByText("Putri").length).toBeGreaterThan(0);
     expect(screen.getAllByText("-").length).toBeGreaterThan(0);
   });
@@ -87,7 +87,15 @@ describe("ItemChecklistDetailComponent", () => {
 
   it("should show an error instead of checklist data when request fails", () => {
     render(<MemoryRouter><ItemChecklistDetailComponent {...mockProps} errorMessage="Unable to load item checklist." /></MemoryRouter>);
-    expect(screen.getByRole("alert")).toHaveTextContent("Unable to load item checklist.");
-    expect(screen.queryByText("Beam 290")).not.toBeInTheDocument();
+    expect(screen.getByRole("alert").textContent).toContain("Unable to load item checklist.");
+    expect(screen.queryByText("Beam 290")).toBeNull();
+  });
+
+  it("should show loading and empty states", () => {
+    const { rerender } = render(<MemoryRouter><ItemChecklistDetailComponent {...mockProps} isLoading={true} /></MemoryRouter>);
+
+    expect(screen.queryByText("Beam 290")).toBeNull();
+    rerender(<MemoryRouter><ItemChecklistDetailComponent {...mockProps} checklist={null} /></MemoryRouter>);
+    expect(screen.queryByText("Beam 290")).toBeNull();
   });
 });

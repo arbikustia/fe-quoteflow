@@ -6,14 +6,14 @@ import type { ApiRentalOrder } from "@/modules/report/Report.type";
 const order: ApiRentalOrder = {
   id: "ord-1", transaction_id: "tx-1", invoice_id: "inv-1", quotation_id: "quo-1", order_no: "ORD-001", order_date: "2026-11-01", notes: null, status: 1, created_at: "2026-11-01", updated_at: "2026-11-01",
   invoice: {
-    id: "inv-1", transaction_id: "tx-1", invoice_no: "INV-001", invoice_date: "2026-11-01", due_date: "2026-11-08", notes: "", status: 1, created_at: "2026-11-01", updated_at: "2026-11-01",
+    id: "inv-1", transaction_id: "tx-1", payments: [], invoice_no: "INV-001", invoice_date: "2026-11-01", due_date: "2026-11-08", notes: "", status: 1, created_at: "2026-11-01", updated_at: "2026-11-01",
     quotation: {
       id: "quo-1", transaction_id: "tx-1", quotation_no: "QUO-001", quotation_date: "2026-10-20", expired_at: "2026-10-27", notes: "", status: 2, created_at: "2026-10-20", updated_at: "2026-10-20",
       transaction: {
-        id: "tx-1", service_type_id: "service-1", service_type_name: "REGULER", customer_name: "PT Acara Nyata", customer_phone: "0812345678", address: "Jakarta Convention Center", event_name: "Annual Expo 2026", start_at: "2026-11-20T12:00:00", end_at: "2026-11-21T15:30:00", subtotal: 1000000, service_fee: 0, discount: 0, grand_total: 1000000, status: 1, created_at: "2026-10-20", updated_at: "2026-10-20", rental_transaction_items: [], rental_transaction_project: [],
+        id: "tx-1", service_type_id: "service-1", service_type_name: "REGULER", customer_name: "PT Acara Nyata", customer_phone: "0812345678", address: "Jakarta Convention Center", event_name: "Annual Expo 2026", start_at: "2026-11-20T12:00:00", end_at: "2026-11-21T15:30:00", subtotal: 1000000, service_fee: 0, discount: 0, grand_total: 1000000, status: 1, created_at: "2026-10-20", updated_at: "2026-10-20", rental_transaction_items: [], rental_transaction_project: [], rental_handovers: [],
         customer: { id: "customer-001", name: "PT Acara Nyata", status: 1, created_at: "2026-01-01", updated_at: "2026-01-01", address: "Jakarta", phone_number: "0812345678" },
-        pic: { id: "pic-1", name: "Citra", status: 1, created_at: "2026-01-01", updated_at: "2026-01-01", address: "", phone_number: "" },
-        voucher: { id: "voucher-1", name: "No Voucher", status: 1, created_at: "2026-01-01", updated_at: "2026-01-01", address: "", phone_number: "" },
+        pic: { id: "pic-1", name: "Citra", status: 1, created_at: "2026-01-01", updated_at: "2026-01-01" },
+        voucher: { id: "voucher-1", name: "No Voucher", status: 1, created_at: "2026-01-01", updated_at: "2026-01-01" },
       },
     },
   },

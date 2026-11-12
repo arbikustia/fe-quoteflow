@@ -1,4 +1,4 @@
-import type { ReactElement } from "react";
+import type { ChangeEvent, ReactElement } from "react";
 
 import { CheckboxComponent } from "@/components/Checkbox";
 import { SearchFilter } from "@/components/SearchFilter";
@@ -7,46 +7,10 @@ import { SkeletonComponent } from "@/components/Skeleton";
 import type { TableColumn } from "@/components/Table";
 import Table from "@/components/Table";
 
+import { FOCUS_AT_OPTIONS, MOVE_CHECKBOX_CLASS, SCAN_HIGHLIGHT_CLASS } from "./ItemChecklistCreate.config";
+import { renderMoveCheckbox } from "./ItemChecklistCreate.helper";
 import type { ChecklistCreateFormState, ChecklistOrderItemRow } from "./ItemChecklistCreate.type";
-
-const MOVE_CHECKBOX_CLASS = "text-lg [&_.ant-checkbox]:h-7! [&_.ant-checkbox]:w-7! [&_.ant-checkbox]:rounded-lg! [&_.ant-checkbox]:border-2! [&_.ant-checkbox]:border-text-primary! [&_.ant-checkbox::after]:h-3.5! [&_.ant-checkbox::after]:w-2! [&_.ant-checkbox::after]:border-2! [&_.ant-checkbox::after]:border-t-0! [&_.ant-checkbox::after]:border-l-0!";
-const SCAN_HIGHLIGHT_CLASS = "motion-safe:animate-scan-success motion-reduce:bg-success-subtle";
-const FOCUS_AT_OPTIONS = [
-  { value: "moveOut", label: "Move Out" },
-  { value: "moveIn", label: "Move In" },
-];
-
-/**
- * Ignore manual checkbox changes; move status is set only by barcode scan.
- * @returns {void}
- */
-const _ignoreManualChange = (): void => undefined;
-
-/**
- * Renders the move checkbox for an item.
- * @param {ChecklistOrderItemRow} row - Item row data
- * @param {string[]} checkedItemIds - Array of checked item IDs
- * @param {string} label - Checkbox label
- * @returns {ReactElement} - Move checkbox component
- */
-const _renderMoveCheckbox = (
-  row: ChecklistOrderItemRow,
-  checkedItemIds: string[],
-  label: string,
-): ReactElement => (
-  <div
-    className="flex items-center justify-center"
-    onClick={(event): void => event.stopPropagation()}
-  >
-    <CheckboxComponent
-      ariaLabel={`${label} ${row.itemName}`}
-      checked={checkedItemIds.includes(row.id)}
-      onChange={_ignoreManualChange}
-      disabled
-      className={MOVE_CHECKBOX_CLASS}
-    />
-  </div>
-);
+import { getOrderItemRowKey, getOrderItemsEmptyText, ignoreManualChange } from "./ItemChecklistCreate.util";
 
 /**
  * Renders the mobile item card.
@@ -68,7 +32,7 @@ const _renderMobileItem = (row: ChecklistOrderItemRow, props: ChecklistCreateFor
         className={MOVE_CHECKBOX_CLASS}
         ariaLabel={`Move out ${row.itemName}`}
         checked={props.moveOutItemIds.includes(row.id)}
-        onChange={_ignoreManualChange}
+        onChange={ignoreManualChange}
         disabled
       />
       <CheckboxComponent
@@ -76,7 +40,7 @@ const _renderMobileItem = (row: ChecklistOrderItemRow, props: ChecklistCreateFor
         className={MOVE_CHECKBOX_CLASS}
         ariaLabel={`Move in ${row.itemName}`}
         checked={props.moveInItemIds.includes(row.id)}
-        onChange={_ignoreManualChange}
+        onChange={ignoreManualChange}
         disabled
       />
     </div>
@@ -91,6 +55,12 @@ const _renderMobileItem = (row: ChecklistOrderItemRow, props: ChecklistCreateFor
 const _renderActions = (props: ChecklistCreateFormState): ReactElement => {
   const saveLabel = props.isEditMode ? "Update Checklist" : "Save Checklist";
 
+  /**
+   * Save the checklist.
+   * @returns {void} No return value
+   */
+  const handleSaveClick = (): void => { void props.handleSave(); };
+
   return (
     <div className="mt-auto flex items-center justify-between gap-3 border-t border-border-default/60 pt-5">
       <button
@@ -103,7 +73,7 @@ const _renderActions = (props: ChecklistCreateFormState): ReactElement => {
       </button>
       <button
         type="button"
-        onClick={(): void => { void props.handleSave(); }}
+        onClick={handleSaveClick}
         disabled={props.isSubmitting}
         className="h-14 cursor-pointer rounded-xl bg-action-primary px-8 text-lg font-semibold text-text-inverse shadow-xs transition-colors hover:bg-action-primary-hover focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-action-primary disabled:cursor-not-allowed disabled:opacity-60"
       >
@@ -118,37 +88,31 @@ const _renderActions = (props: ChecklistCreateFormState): ReactElement => {
  * @param {ChecklistCreateFormState} props - Form state props
  * @returns {TableColumn<ChecklistOrderItemRow>[]} - Table columns
  */
-const _getColumns = (props: ChecklistCreateFormState): TableColumn<ChecklistOrderItemRow>[] => [
-  { key: "itemName", header: "Item Name", mobile: { primary: true } },
-  { key: "category", header: "Category" },
-  { key: "qty", header: "Qty", align: "center" },
-  { key: "unit", header: "Unit", align: "center" },
-  {
-    key: "moveOut",
-    header: "Move Out",
-    align: "center",
-    /**
-     * Renders move out checkbox.
-     * @param {ChecklistOrderItemRow} row - Item row data
-     * @returns {ReactElement} - Move out checkbox
-     */
-    render: (row): ReactElement =>
-      _renderMoveCheckbox(row, props.moveOutItemIds, "Move out"),
-  },
-  {
-    key: "moveIn",
-    header: "Move In",
-    align: "center",
-    /**
-     * Renders move in checkbox.
-     * @param {ChecklistOrderItemRow} row - Item row data
-     * @returns {ReactElement} - Move in checkbox
-     */
-    render: (row): ReactElement =>
-      _renderMoveCheckbox(row, props.moveInItemIds, "Move in"),
-  },
-  { key: "sign", header: "Sign", align: "center" },
-];
+const _getColumns = (props: ChecklistCreateFormState): TableColumn<ChecklistOrderItemRow>[] => {
+  /**
+   * Renders move out checkbox.
+   * @param {ChecklistOrderItemRow} row - Item row data
+   * @returns {ReactElement} - Move out checkbox
+   */
+  const renderMoveOut = (row: ChecklistOrderItemRow): ReactElement => renderMoveCheckbox({ row, checkedItemIds: props.moveOutItemIds, label: "Move out" });
+
+  /**
+   * Renders move in checkbox.
+   * @param {ChecklistOrderItemRow} row - Item row data
+   * @returns {ReactElement} - Move in checkbox
+   */
+  const renderMoveIn = (row: ChecklistOrderItemRow): ReactElement => renderMoveCheckbox({ row, checkedItemIds: props.moveInItemIds, label: "Move in" });
+
+  return [
+    { key: "itemName", header: "Item Name", mobile: { primary: true } },
+    { key: "category", header: "Category" },
+    { key: "qty", header: "Qty", align: "center" },
+    { key: "unit", header: "Unit", align: "center" },
+    { key: "moveOut", header: "Move Out", align: "center", render: renderMoveOut },
+    { key: "moveIn", header: "Move In", align: "center", render: renderMoveIn },
+    { key: "sign", header: "Sign", align: "center" },
+  ];
+};
 
 /**
  * Renders order selection controls.
@@ -197,26 +161,34 @@ const _renderOrderSelection = (props: ChecklistCreateFormState): ReactElement =>
  * @param {TableColumn<ChecklistOrderItemRow>[]} columns - Table columns
  * @returns {ReactElement} - Items section
  */
-const _renderItemsTable = (props: ChecklistCreateFormState, columns: TableColumn<ChecklistOrderItemRow>[]): ReactElement => (
+const _renderItemsTable = (props: ChecklistCreateFormState, columns: TableColumn<ChecklistOrderItemRow>[]): ReactElement => {
+  /**
+   * Get the highlight class of a scanned row.
+   * @param {ChecklistOrderItemRow} row - Item row data
+   * @returns {string} Row class name
+   */
+  const getRowClassName = (row: ChecklistOrderItemRow): string => (row.id === props.highlightedRowId ? SCAN_HIGHLIGHT_CLASS : "");
+  const emptyText = getOrderItemsEmptyText(props.searchTerm);
+
+  return (
   <>
     <div className="space-y-4 md:hidden">
       {props.filteredOrderItems.length > 0 ? props.filteredOrderItems.map((row) => _renderMobileItem(row, props)) : (
-        <p className="py-10 text-center text-lg text-text-secondary">
-          {props.searchTerm ? "No items matching search." : "No items found for this order."}
-        </p>
+        <p className="py-10 text-center text-lg text-text-secondary">{emptyText}</p>
       )}
     </div>
     <div className="hidden md:block">
       <Table
         data={props.filteredOrderItems}
         columns={columns}
-        keyExtractor={(row): string => row.id}
-        rowClassName={(row): string => (row.id === props.highlightedRowId ? SCAN_HIGHLIGHT_CLASS : "")}
-        emptyText={props.searchTerm ? "No items matching search." : "No items found for this order."}
+        keyExtractor={getOrderItemRowKey}
+        rowClassName={getRowClassName}
+        emptyText={emptyText}
       />
     </div>
   </>
-);
+  );
+};
 
 /**
  * Renders the items table section.
@@ -224,7 +196,15 @@ const _renderItemsTable = (props: ChecklistCreateFormState, columns: TableColumn
  * @param {TableColumn<ChecklistOrderItemRow>[]} columns - Table columns
  * @returns {ReactElement} - Items section
  */
-const _renderItemsSection = (props: ChecklistCreateFormState, columns: TableColumn<ChecklistOrderItemRow>[]): ReactElement => (
+const _renderItemsSection = (props: ChecklistCreateFormState, columns: TableColumn<ChecklistOrderItemRow>[]): ReactElement => {
+  /**
+   * Update the search term.
+   * @param {ChangeEvent<HTMLInputElement>} event - Search input event
+   * @returns {void} No return value
+   */
+  const handleSearch = (event: ChangeEvent<HTMLInputElement>): void => props.handleSearchChange(event.target.value);
+
+  return (
   <div className="rounded-3xl border border-border-default bg-background-surface p-6 shadow-small sm:p-8 lg:p-10">
     <div className="mb-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
       <div className="flex flex-col gap-1">
@@ -243,7 +223,7 @@ const _renderItemsSection = (props: ChecklistCreateFormState, columns: TableColu
           <SearchFilter
           placeholder="Search items..."
           value={props.searchTerm}
-          onChange={(event): void => props.handleSearchChange(event.target.value)}
+          onChange={handleSearch}
           className="w-full"
           inputClassName="h-14 !text-lg placeholder:!text-lg border-2 border-border-strong"
           />
@@ -255,7 +235,8 @@ const _renderItemsSection = (props: ChecklistCreateFormState, columns: TableColu
       Select Move Out and Move In independently for each item.
     </p>
   </div>
-);
+  );
+};
 
 /**
  * Renders checklist creation form.
