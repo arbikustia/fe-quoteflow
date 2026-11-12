@@ -2,6 +2,7 @@ import * as React from "react";
 
 import categoryIllustration from "../../../assets/category-illustration.png";
 import customerIllustration from "../../../assets/customer-illustration.png";
+import emailSenderIllustration from "../../../assets/email-sender-illustration.webp";
 import itemIllustration from "../../../assets/item-illustration.png";
 import paymentMethodIllustration from "../../../assets/payment-method-illustration.png";
 import picIllustration from "../../../assets/pic-illustration.png";
@@ -24,6 +25,7 @@ export const MASTER_MAIN_IMAGES = new Map<string, string>([
   ["/master-role", roleIllustration],
   ["/master-user", userIllustration],
   ["/master-pic", picIllustration],
+  ["/master-email-sender", emailSenderIllustration],
 ]);
 
 export const MASTER_MAIN_CONFIG: MasterMainCardProps[] = MASTER_DATA_ITEMS.map(

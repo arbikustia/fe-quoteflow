@@ -330,32 +330,12 @@ exports[`MasterMainComponent matches snapshot 1`] = `
               class="group flex min-h-36 w-full items-start gap-4 rounded-3xl border border-border-strong bg-background-surface p-5 text-left shadow-small transition-colors hover:border-border-strong hover:bg-background-subtle/40 focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring/30"
               type="button"
             >
-              <span
-                class="flex h-12 w-12 shrink-0 items-center justify-center rounded-3xl bg-action-primary-subtle text-action-primary transition-colors group-hover:bg-action-primary group-hover:text-white"
-              >
-                <svg
-                  fill="none"
-                  height="1em"
-                  stroke="currentColor"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  viewBox="0 0 24 24"
-                  width="1em"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <rect
-                    height="16"
-                    rx="2"
-                    width="20"
-                    x="2"
-                    y="4"
-                  />
-                  <path
-                    d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"
-                  />
-                </svg>
-              </span>
+              <img
+                alt=""
+                aria-hidden="true"
+                class="h-28 w-44 shrink-0 rounded-3xl object-contain"
+                src="/src/assets/email-sender-illustration.webp"
+              />
               <span
                 class="min-w-0 flex-1"
               >
