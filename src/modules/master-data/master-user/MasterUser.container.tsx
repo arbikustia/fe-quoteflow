@@ -1,39 +1,45 @@
 import * as React from "react";
 import { useLocation } from "react-router-dom";
 
-import { AlertComponent } from "@/components/Alert";
 import { usePagePermission } from "@/hooks/usePagePermission";
 
-import { MasterUserComponent } from "./MasterUser.component";
-import { useMasterUserContainerState } from "./MasterUser.hook";
+import MasterUserComponent from "./MasterUser.component";
+import { MASTER_USER_ROUTE } from "./MasterUser.config";
+import { useMasterUser } from "./MasterUser.hook";
 import type { UserRouteState } from "./MasterUser.type";
+import { normalizeUserList } from "./MasterUser.util";
+
+import { useGetUsersQuery } from "@/services/master-user.service";
 
 /**
- * Master User Container
- *
- * @returns {React.ReactElement} Container component
+ * Render the user list container.
+ * @returns {React.ReactElement} - Container of the user list view
  */
 const MasterUserContainer = (): React.ReactElement => {
   const location = useLocation();
-  const routeState: UserRouteState | null = location.state;
-  const containerState = useMasterUserContainerState();
-  const { canCreate, canEdit } = usePagePermission("/master-user");
+  const routeState: UserRouteState = location.state;
+  const { canCreate, canEdit } = usePagePermission(MASTER_USER_ROUTE.LIST);
+  const controller = useMasterUser();
+  const { data, isLoading, isError } = useGetUsersQuery(controller.queryParams);
+
+  // Single upstream fallback: the view receives normalized data only
+  const listView = normalizeUserList({ data, isLoading, isError });
 
   return (
-    <>
-      {routeState?.successMessage && <AlertComponent type="success" message={routeState.successMessage} toast closable />}
-      <MasterUserComponent
-        {...containerState.pagination}
-        onBack={containerState.goBack}
-        onCreate={canCreate ? containerState.goCreate : undefined}
-        onEdit={canEdit ? containerState.goEdit : undefined}
-        onRowClick={canEdit ? containerState.goEdit : undefined}
-        onMore={canEdit ? containerState.toggleMore : undefined}
-        isMoreOpen={containerState.isMoreOpen}
-        onCloseMore={containerState.handleCloseMore}
-        onDelete={canEdit ? containerState.goDelete : undefined}
-      />
-    </>
+    <MasterUserComponent
+      {...listView}
+      currentPage={controller.currentPage}
+      pageSize={controller.pageSize}
+      canCreate={canCreate}
+      canEdit={canEdit}
+      successMessage={routeState?.successMessage}
+      onPageChange={controller.handlePageChange}
+      onPageSizeChange={controller.handlePageSizeChange}
+      onSearchChange={controller.handleSearchChange}
+      onBack={controller.handleBack}
+      onCreate={controller.handleCreate}
+      onEdit={controller.handleEdit}
+    />
   );
 };
 

@@ -9,8 +9,8 @@ export type RoleIdentity = {
 export type UserRoleValue = string | string[] | null | undefined;
 
 export type UserRoleIdentity = {
-  username: string | null;
-  role: UserRoleValue;
+  username?: string | null;
+  role?: UserRoleValue;
 };
 
 export type AccessTokenPayload = {

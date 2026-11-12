@@ -1,171 +1,102 @@
-import { useState } from "react";
+import type { ChangeEvent } from "react";
+import { useCallback, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-import { createPaginationHandlers } from "@/utils/pagination.helpers";
-
+import { MASTER_USER_CONFIG, MASTER_USER_ROUTE } from "./MasterUser.config";
 import type {
-  MasterUserContainerState,
-  MasterUserNavigation,
-  MasterUserPagination,
+  MasterUserController,
   UserData,
+  UserListPaging,
+  UserListParams,
+  UserNavigation,
 } from "./MasterUser.type";
 
-import { mapUser, useGetUsersQuery } from "@/services/master-user.service";
+/**
+ * Manage page, page size and search term of the user list.
+ * @returns {UserListPaging} - Query params, paging state and handlers
+ */
+const useUserListPaging = (): UserListPaging => {
+  const [currentPage, setCurrentPage] = useState<number>(MASTER_USER_CONFIG.DEFAULT_PAGE);
+  const [pageSize, setPageSize] = useState<number>(MASTER_USER_CONFIG.DEFAULT_PAGE_SIZE);
+  const [searchTerm, setSearchTerm] = useState<string>("");
+
+  const queryParams = useMemo(
+    (): UserListParams => ({ PageNumber: currentPage, PageSize: pageSize, SearchTerm: searchTerm }),
+    [currentPage, pageSize, searchTerm],
+  );
+
+  /**
+   * Go to the given page, never below the first page.
+   * @param {number} page - Requested page
+   * @returns {void}
+   */
+  const handlePageChange = useCallback((page: number): void => {
+    setCurrentPage(Math.max(MASTER_USER_CONFIG.DEFAULT_PAGE, page));
+  }, []);
+
+  /**
+   * Change page size and return to the first page.
+   * @param {number} size - New page size
+   * @returns {void}
+   */
+  const handlePageSizeChange = useCallback((size: number): void => {
+    setPageSize(size);
+    setCurrentPage(MASTER_USER_CONFIG.DEFAULT_PAGE);
+  }, []);
+
+  /**
+   * Update the search term and return to the first page.
+   * @param {ChangeEvent<HTMLInputElement>} event - Search input change event
+   * @returns {void}
+   */
+  const handleSearchChange = useCallback((event: ChangeEvent<HTMLInputElement>): void => {
+    setSearchTerm(event.target.value);
+    setCurrentPage(MASTER_USER_CONFIG.DEFAULT_PAGE);
+  }, []);
+
+  return { queryParams, currentPage, pageSize, handlePageChange, handlePageSizeChange, handleSearchChange };
+};
 
 /**
- * Navigation hook.
- *
- * @returns {MasterUserNavigation} Navigation state
+ * Create the navigation handlers of the user list.
+ * @returns {UserNavigation} - Back, create and edit handlers
  */
-export const useMasterUserNavigation = (): MasterUserNavigation => {
+const useUserNavigation = (): UserNavigation => {
   const navigate = useNavigate();
 
-    /**
-   * Navigate back.
-   *
-   * @returns {void} No return value
+  /**
+   * Navigate back to the master data menu.
+   * @returns {void}
    */
-  const goBack = (): void => {
-    navigate("/master-main");
-  };
+  const handleBack = useCallback((): void => {
+    navigate(MASTER_USER_ROUTE.MASTER_MAIN);
+  }, [navigate]);
 
-    /**
-   * Navigate to create user.
-   *
-   * @returns {void} No return value
+  /**
+   * Navigate to the create user page.
+   * @returns {void}
    */
-  const goCreate = (): void => {
-    navigate("/master-user/create");
-  };
+  const handleCreate = useCallback((): void => {
+    navigate(MASTER_USER_ROUTE.CREATE);
+  }, [navigate]);
 
-    /**
-   * Navigate to edit user.
-   *
-   * @param {UserData} user - User record
-   * @returns {void} No return value
+  /**
+   * Navigate to the edit page of a user.
+   * @param {UserData} user - User to edit
+   * @returns {void}
    */
-  const goEdit = (user: UserData): void => {
-    navigate(`/master-user/edit/${user.id}`, { state: { user } });
-  };
+  const handleEdit = useCallback((user: UserData): void => {
+    navigate(`${MASTER_USER_ROUTE.EDIT}/${user.id}`);
+  }, [navigate]);
 
-  return { goBack, goCreate, goEdit };
+  return { handleBack, handleCreate, handleEdit };
 };
 
 /**
- * Build user pagination data.
- *
- * @param {number} currentPage - Current page
- * @param {number} pageSize - Items per page
- * @param {string} searchTerm - Search term
- * @returns {Pick<MasterUserPagination, "currentPage" | "pageSize" | "paginatedData" | "totalCount" | "totalPages" | "isLoading" | "isError" | "isEmpty">} User pagination data
+ * Manage user list paging, search and navigation.
+ * @returns {MasterUserController} - List query params, state and handlers
  */
-const useUserPaginationData = (
-  currentPage: number,
-  pageSize: number,
-  searchTerm: string,
-): Pick<
-  MasterUserPagination,
-  | "currentPage"
-  | "pageSize"
-  | "paginatedData"
-  | "totalCount"
-  | "totalPages"
-  | "isLoading"
-  | "isError"
-  | "isEmpty"
-> => {
-  const { data, isLoading, isError } = useGetUsersQuery({
-    PageNumber: currentPage,
-    PageSize: pageSize,
-    SearchTerm: searchTerm || undefined,
-  });
-  const paginatedData = data?.data.map(mapUser) ?? [];
-  const totalCount = data?.total_count ?? 0;
-  const totalPages = Math.max(1, data?.total_pages ?? 1);
-
-  return {
-    currentPage,
-    pageSize,
-    paginatedData,
-    totalCount,
-    totalPages,
-    isLoading,
-    isError,
-    isEmpty: !isLoading && paginatedData.length === 0,
-  };
-};
-
-/**
- * Manage pagination state for user list.
- *
- * @returns {MasterUserPagination} User pagination state
- */
-export const useMasterUserPagination = (): MasterUserPagination => {
-  const [currentPage, setCurrentPage] = useState(1);
-  const [pageSize, setPageSize] = useState(10);
-  const [searchTerm, setSearchTerm] = useState("");
-  const pagination = useUserPaginationData(currentPage, pageSize, searchTerm);
-  const handlers = createPaginationHandlers({
-    currentPage,
-    totalPages: pagination.totalPages,
-    hasNext: currentPage < pagination.totalPages,
-    hasPrevious: currentPage > 1,
-    canPaginate:
-      !pagination.isLoading &&
-      !pagination.isError &&
-      pagination.paginatedData.length > 0,
-    setCurrentPage,
-    setPageSize,
-    setSearchTerm,
-  });
-
-  return {
-    ...pagination,
-    goToPage: handlers.goToPage,
-    nextPage: handlers.nextPage,
-    prevPage: handlers.prevPage,
-    changePageSize: handlers.changePageSize,
-    setSearchTerm: handlers.handleSearchTerm,
-  };
-};
-
-/**
- * Container state hook.
- *
- * @returns {MasterUserContainerState} Container state
- */
-export const useMasterUserContainerState = (): MasterUserContainerState => {
-  const navigation = useMasterUserNavigation();
-  const pagination = useMasterUserPagination();
-  const [isMoreOpen, setIsMoreOpen] = useState(false);
-
-    /**
-   * Toggle more menu.
-   */
-  const toggleMore = (): void => {
-    setIsMoreOpen((previous) => !previous);
-  };
-
-    /**
-   * Handle delete.
-   */
-  const goDelete = (): void => {
-    setIsMoreOpen(false);
-  };
-
-    /**
-   * Close more menu.
-   */
-  const handleCloseMore = (): void => {
-    setIsMoreOpen(false);
-  };
-
-  return {
-    ...navigation,
-    pagination,
-    isMoreOpen,
-    toggleMore,
-    goDelete,
-    handleCloseMore,
-  };
-};
+export const useMasterUser = (): MasterUserController => ({
+  ...useUserListPaging(),
+  ...useUserNavigation(),
+});
