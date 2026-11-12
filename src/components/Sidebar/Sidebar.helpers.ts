@@ -87,10 +87,10 @@ export const isSuperadminRole = (userRoles: string[], roles: RoleIdentity[]): bo
  */
 export const getNavigationSectionsForRole = (
   sections: NavigationSection[],
-  role: string,
+  _role: string,
 ): NavigationSection[] => sections.map((section) => ({
   ...section,
-  items: section.items.filter((item) => item.path !== "/permission" || role.toLowerCase() === "superadmin"),
+  items: section.items,
 }));
 
 export const filterNavigationByPermission = (sections: NavigationSection[], rows: PermissionRow[]): NavigationSection[] => sections.map((section) => ({

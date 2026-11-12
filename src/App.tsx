@@ -56,6 +56,8 @@ import NoteCreatePage from "./app/note/create";
 import OrderPage from "./app/order";
 import OrderPageCreate from "./app/order/create";
 import OrderPageDetail from "./app/order/detail";
+import PermissionPage from "./app/permission";
+import PermissionAssignPage from "./app/permission/assign";
 import Preview from "./app/preview";
 import ProfilePage from "./app/profile";
 import Report from "./app/report";
@@ -151,6 +153,8 @@ function App(): React.ReactElement {
         <Route path="/master-user" element={<MasterUser />} />
         <Route path="/master-user/create" element={<MasterUserCreate />} />
         <Route path="/master-user/edit/:id" element={<MasterUserCreate />} />
+        <Route path="/permission" element={<PermissionPage />} />
+        <Route path="/permission/assign/:username" element={<PermissionAssignPage />} />
 
         {/* Documents */}
         <Route path="/document" element={<DocumentMain />} />

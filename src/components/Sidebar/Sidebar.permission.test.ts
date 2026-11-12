@@ -16,8 +16,8 @@ describe("getNavigationSectionsForRole", () => {
     expect(getNavigationSectionsForRole(sections, "SUPERADMIN")[0].items).toHaveLength(2);
   });
 
-  it("should hide permission for other roles", () => {
-    expect(getNavigationSectionsForRole(sections, "admin")[0].items).toHaveLength(1);
+  it("should show permission for other roles", () => {
+    expect(getNavigationSectionsForRole(sections, "admin")[0].items).toHaveLength(2);
   });
 });
 
