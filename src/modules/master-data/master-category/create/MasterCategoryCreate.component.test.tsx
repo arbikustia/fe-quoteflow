@@ -62,13 +62,10 @@ describe("MasterCategoryCreateComponent", () => {
     expect(props.onStatusChange).toHaveBeenCalledWith(true, expect.anything());
   });
 
-  it.each([
-    ["loading", "Loading category data…"],
-    ["error", "Unable to load category data. Please try again."],
-  ] as const)("should show the %s message instead of the form", (formStatus, message) => {
-    render(<MasterCategoryCreateComponent {...createProps({ mode: "edit", formStatus })} />);
+  it("should show the unavailable message instead of the form", () => {
+    render(<MasterCategoryCreateComponent {...createProps({ mode: "edit", formStatus: "error" })} />);
 
-    expect(screen.getByText(message)).toBeInTheDocument();
+    expect(screen.getByText("Category data is unavailable. Open the category from the category list to edit it.")).toBeInTheDocument();
     expect(screen.queryByRole("button", { name: "Update Category" })).not.toBeInTheDocument();
   });
 

@@ -21,6 +21,6 @@ describe("MasterCategoryCreateComponent Snapshot Test", () => {
     { desc: "should render category create form", props },
     { desc: "should render category create form while submitting", props: { ...props, isSubmitting: true } },
     { desc: "should render category edit form with error", props: { ...props, mode: "edit", nameError: "Category name is required." } },
-    { desc: "should render loading message in edit mode", props: { ...props, mode: "edit", formStatus: "loading" } },
+    { desc: "should render unavailable message in edit mode", props: { ...props, mode: "edit", formStatus: "error" } },
   ]);
 });

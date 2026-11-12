@@ -57,6 +57,6 @@ describe("useMasterCategory", () => {
     act(result.current.handleCreate);
     act(() => result.current.handleEdit({ id: "c-1", categoryName: "A", status: "active", createdAt: "-" }));
 
-    expect(mockNavigate.mock.calls).toEqual([["/master-main"], ["/master-category/create"], ["/master-category/edit/c-1"]]);
+    expect(mockNavigate.mock.calls).toEqual([["/master-main"], ["/master-category/create"], ["/master-category/edit/c-1", { state: { category: { id: "c-1", categoryName: "A", status: "active", createdAt: "-" } } }]]);
   });
 });

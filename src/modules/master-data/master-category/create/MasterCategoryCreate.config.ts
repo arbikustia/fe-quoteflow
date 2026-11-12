@@ -33,6 +33,5 @@ export const CATEGORY_FORM_MODE_TEXT: Record<CategoryFormMode, CategoryFormModeT
 
 /** Message shown in place of the form while it cannot be edited. */
 export const CATEGORY_FORM_STATUS_MESSAGE: Record<Exclude<CategoryFormStatus, "ready">, string> = {
-  loading: "Loading category data…",
-  error: "Unable to load category data. Please try again.",
+  error: "Category data is unavailable. Open the category from the category list to edit it.",
 };

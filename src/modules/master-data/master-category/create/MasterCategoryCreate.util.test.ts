@@ -8,22 +8,23 @@ describe("MasterCategoryCreate util", () => {
   });
 
   it("should return a ready empty form in create mode", () => {
-    expect(normalizeCategoryFormSource({ data: undefined, isLoading: false, isError: false })).toEqual({
+    expect(normalizeCategoryFormSource({})).toEqual({
       formStatus: "ready",
       initialValues: { name: "", isActive: true },
     });
   });
 
-  it("should return loading and error states for the detail query", () => {
-    expect(normalizeCategoryFormSource({ data: undefined, isLoading: true, isError: false }).formStatus).toBe("loading");
-    expect(normalizeCategoryFormSource({ data: undefined, isLoading: false, isError: true }).formStatus).toBe("error");
-    expect(normalizeCategoryFormSource({ data: { status: false, data: null, messages: null }, isLoading: false, isError: false }).formStatus).toBe("error");
+  it("should return an error state when the router state has no matching category", () => {
+    const routeCategory = { id: "c-2", categoryName: "Audio", status: "active", createdAt: "-" } as const;
+
+    expect(normalizeCategoryFormSource({ id: "c-1" }).formStatus).toBe("error");
+    expect(normalizeCategoryFormSource({ id: "c-1", routeCategory }).formStatus).toBe("error");
   });
 
-  it("should map the category detail into form values", () => {
-    const data = { status: true, messages: null, data: { id: "1", category_name: "Audio", status: 0, created_at: null } };
+  it("should map the category from router state into form values", () => {
+    const routeCategory = { id: "c-1", categoryName: "Audio", status: "inactive", createdAt: "-" } as const;
 
-    expect(normalizeCategoryFormSource({ data, isLoading: false, isError: false })).toEqual({
+    expect(normalizeCategoryFormSource({ id: "c-1", routeCategory })).toEqual({
       formStatus: "ready",
       initialValues: { name: "Audio", isActive: false },
     });

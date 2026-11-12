@@ -1,8 +1,7 @@
 import type { ChangeEvent, SubmitEvent } from "react";
 import { z } from "zod";
 
-import { CATEGORY_ACTIVE_STATUS } from "../MasterCategory.config";
-import type { CategoryCreatePayload, CategoryMutationResponse, CategoryUpdatePayload } from "../MasterCategory.type";
+import type { CategoryCreatePayload, CategoryData, CategoryMutationResponse, CategoryUpdatePayload } from "../MasterCategory.type";
 
 import { CATEGORY_FORM_MESSAGE } from "./MasterCategoryCreate.config";
 
@@ -14,25 +13,23 @@ export const CategoryFormSchema = z.object({
 
 export type CategoryFormValues = z.infer<typeof CategoryFormSchema>;
 
-/** Category from `GET /api/category/{id}`, normalized into form values. */
-export const CategoryDetailSchema = z
+/** Category list row passed through router state, normalized into form values. */
+export const CategoryRouteItemSchema = z
   .object({
-    category_name: z
-      .string()
-      .nullish()
-      .transform((value): string => value ?? ""),
-    status: z.number().catch(CATEGORY_ACTIVE_STATUS),
+    id: z.string(),
+    categoryName: z.string(),
+    status: z.enum(["active", "inactive"]),
   })
   .transform((category): CategoryFormValues => ({
-    name: category.category_name,
-    isActive: category.status === CATEGORY_ACTIVE_STATUS,
+    name: category.categoryName,
+    isActive: category.status === "active",
   }));
 
 /** Whether the form creates a new category or edits an existing one. */
 export type CategoryFormMode = "create" | "edit";
 
 /** Whether the form can be shown yet. */
-export type CategoryFormStatus = "loading" | "error" | "ready";
+export type CategoryFormStatus = "error" | "ready";
 
 /** Copy that differs between create and edit mode. */
 export type CategoryFormModeText = {
@@ -44,17 +41,16 @@ export type CategoryFormModeText = {
   failureMessage: string;
 };
 
-/** Normalized category detail query used to seed the form. */
+/** Normalized router state used to seed the form. */
 export type CategoryFormSource = {
   formStatus: CategoryFormStatus;
   initialValues: CategoryFormValues;
 };
 
-/** Raw RTK Query state consumed by the detail normalizer. */
-export type CategoryDetailQueryState = {
-  data?: CategoryMutationResponse;
-  isLoading: boolean;
-  isError: boolean;
+/** Inputs of the form source normalizer. */
+export type CategoryFormSourceParams = {
+  id?: string;
+  routeCategory?: CategoryData;
 };
 
 /** Result of an RTK Query mutation trigger. */

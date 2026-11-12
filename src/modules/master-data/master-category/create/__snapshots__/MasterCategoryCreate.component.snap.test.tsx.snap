@@ -589,7 +589,7 @@ exports[`MasterCategoryCreateComponent Snapshot Test MasterCategoryCreateCompone
 </DocumentFragment>
 `;
 
-exports[`MasterCategoryCreateComponent Snapshot Test MasterCategoryCreateComponent Snapshots should render loading message in edit mode 1`] = `
+exports[`MasterCategoryCreateComponent Snapshot Test MasterCategoryCreateComponent Snapshots should render unavailable message in edit mode 1`] = `
 <DocumentFragment>
   <div
     data-testid="layout"
@@ -697,7 +697,7 @@ exports[`MasterCategoryCreateComponent Snapshot Test MasterCategoryCreateCompone
         <p
           class="py-12 text-center text-sm text-text-secondary"
         >
-          Loading category data…
+          Category data is unavailable. Open the category from the category list to edit it.
         </p>
         <div
           aria-hidden="true"

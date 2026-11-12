@@ -86,7 +86,7 @@ const useCategoryNavigation = (): CategoryNavigation => {
    * @returns {void}
    */
   const handleEdit = useCallback((category: CategoryData): void => {
-    navigate(`${MASTER_CATEGORY_ROUTE.EDIT}/${category.id}`);
+    navigate(`${MASTER_CATEGORY_ROUTE.EDIT}/${category.id}`, { state: { category } });
   }, [navigate]);
 
   return { handleBack, handleCreate, handleEdit };

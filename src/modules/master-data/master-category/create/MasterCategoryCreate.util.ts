@@ -6,8 +6,8 @@ import { CATEGORY_ACTIVE_STATUS, CATEGORY_INACTIVE_STATUS } from "../MasterCateg
 import type { CategoryCreatePayload, CategoryMutationResponse } from "../MasterCategory.type";
 
 import { CATEGORY_FORM_DEFAULT_VALUES, CATEGORY_FORM_MESSAGE } from "./MasterCategoryCreate.config";
-import type { CategoryDetailQueryState, CategoryFormSource, CategoryFormValues, CategorySubmitTarget } from "./MasterCategoryCreate.type";
-import { CategoryDetailSchema, CategoryFormSchema } from "./MasterCategoryCreate.type";
+import type { CategoryFormSource, CategoryFormSourceParams, CategoryFormValues, CategorySubmitTarget } from "./MasterCategoryCreate.type";
+import { CategoryFormSchema, CategoryRouteItemSchema } from "./MasterCategoryCreate.type";
 
 /**
  * Join backend messages into one display string.
@@ -23,28 +23,25 @@ export const formatApiMessages = (messages?: ApiMessages): string => {
 };
 
 /**
- * Normalize the category detail query into the form source (single upstream fallback).
- * @param {CategoryDetailQueryState} queryState - RTK Query data and flags; data is undefined in create mode
+ * Normalize the router state into the form source (single upstream fallback).
+ * The backend has no GET-by-id endpoint, so edit mode uses the row passed from the list.
+ * @param {CategoryFormSourceParams} params - Route id and the category from router state
  * @returns {CategoryFormSource} - Form status and initial values
  */
-export const normalizeCategoryFormSource = (queryState: CategoryDetailQueryState): CategoryFormSource => {
-  const { data, isLoading, isError } = queryState;
+export const normalizeCategoryFormSource = (params: CategoryFormSourceParams): CategoryFormSource => {
+  const { id, routeCategory } = params;
 
-  if (isLoading) {
-    return { formStatus: "loading", initialValues: CATEGORY_FORM_DEFAULT_VALUES };
+  if (!id) {
+    return { formStatus: "ready", initialValues: CATEGORY_FORM_DEFAULT_VALUES };
   }
 
-  if (!data) {
-    return { formStatus: isError ? "error" : "ready", initialValues: CATEGORY_FORM_DEFAULT_VALUES };
-  }
+  const parsedCategory = CategoryRouteItemSchema.safeParse(routeCategory);
 
-  const parsedDetail = CategoryDetailSchema.safeParse(data.data);
-
-  if (!data.status || !parsedDetail.success) {
+  if (!parsedCategory.success || routeCategory?.id !== id) {
     return { formStatus: "error", initialValues: CATEGORY_FORM_DEFAULT_VALUES };
   }
 
-  return { formStatus: "ready", initialValues: parsedDetail.data };
+  return { formStatus: "ready", initialValues: parsedCategory.data };
 };
 
 /**

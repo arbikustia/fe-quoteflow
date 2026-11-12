@@ -31,10 +31,6 @@ export const masterCategoryService = apiRtkClient.injectEndpoints({
       }),
       providesTags: [CATEGORY_TAG],
     }),
-    getCategoryById: builder.query<CategoryMutationResponse, string>({
-      query: (id) => ({ url: `${ENDPOINT.MASTER_CATEGORY.DETAIL}/${id}`, method: "GET" }),
-      providesTags: [CATEGORY_TAG],
-    }),
     createCategory: builder.mutation<CategoryMutationResponse, CategoryCreatePayload>({
       query: (body) => ({ url: ENDPOINT.MASTER_CATEGORY.CREATE, method: "POST", data: body }),
       invalidatesTags: [CATEGORY_TAG],
@@ -54,7 +50,6 @@ export const masterCategoryService = apiRtkClient.injectEndpoints({
 export const {
   useGetAllCategoriesQuery,
   useGetCategoriesQuery,
-  useGetCategoryByIdQuery,
   useCreateCategoryMutation,
   useUpdateCategoryMutation,
 } = masterCategoryService;

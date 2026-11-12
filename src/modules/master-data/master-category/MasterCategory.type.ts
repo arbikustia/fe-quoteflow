@@ -103,6 +103,11 @@ export type CategoryRouteState = {
   successMessage?: string;
 } | null;
 
+/** Router state the edit page receives from the list (the backend has no GET-by-id endpoint). */
+export type CategoryEditRouteState = {
+  category?: CategoryData;
+} | null;
+
 /** Paging and search state of the category list. */
 export type CategoryListPaging = {
   queryParams: CategoryListParams;
