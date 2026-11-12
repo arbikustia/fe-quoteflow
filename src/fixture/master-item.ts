@@ -1,74 +1,43 @@
-import type { ItemData } from "../../modules/master-data/master-item/MasterItem.type";
+import type { ApiItem, ItemListResponse } from "@/modules/master-data/master-item/MasterItem.type";
 
-export const MOCK_ITEMS: ItemData[] = [
-  { 
-    id: "101", 
-    name: "Line Array Speaker", 
-    category: "Audio System", 
-    price: 5000000, 
-    stock: 12,
-    image: "https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?q=80&w=200&auto=format&fit=crop",
-    duration: "3 days",
-    status: "active",
-    remark: "High quality sound",
-    unit: "unit",
-    createAt: "2024-01-01T10:00:00Z",
-    createBy: "Admin"
+export const MOCK_API_ITEMS: ApiItem[] = [
+  {
+    id: "item-1",
+    name: "Beam 290",
+    category_id: "category-1",
+    category_name: "Lighting Equipment",
+    price: 100000,
+    stock: 11,
+    image: "https://cdn.example.com/api/image/beam-290.jpg",
+    duration: 1,
+    remark: "Lighting",
+    status: 1,
+    created_at: "2026-11-04 19:49:27",
+    created_by: null,
   },
-  { 
-    id: "102", 
-    name: "Subwoofer 18 inch", 
-    category: "Audio System", 
-    price: 1500000, 
-    stock: 8,
-    image: "https://images.unsplash.com/photo-1545167622-3a6ac756afa4?q=80&w=200&auto=format&fit=crop",
-    duration: "1 day",
-    status: "active",
-    remark: "Deep bass",
-    unit: "unit",
-    createAt: "2024-01-02T11:00:00Z",
-    createBy: "Admin"
+  {
+    id: "item-2",
+    name: "Wireless Mic",
+    category_id: null,
+    category_name: null,
+    price: null,
+    stock: null,
+    image: null,
+    duration: null,
+    remark: null,
+    status: 0,
+    created_at: null,
+    created_by: null,
   },
-  { 
-    id: "201", 
-    name: "LED Screen P3.9", 
-    category: "Visual & Display", 
-    price: 1200000, 
-    stock: 100,
-    image: "https://images.unsplash.com/photo-1517604931442-7e0c8ed2963c?q=80&w=200&auto=format&fit=crop",
-    duration: "1 day",
-    status: "active",
-    remark: "Indoor use",
-    unit: "unit",
-    createAt: "2024-01-03T09:00:00Z",
-    createBy: "Operator"
-  },
-  { 
-    id: "301", 
-    name: "Moving Head Beam 230W", 
-    category: "Lighting System", 
-    price: 600000, 
-    stock: 24,
-    image: "https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?q=80&w=200&auto=format&fit=crop",
-    duration: "2 days",
-    status: "inactive",
-    remark: "Sharp beam effect",
-    unit: "unit",
-    createAt: "2024-01-04T08:00:00Z",
-    createBy: "Admin"
-  },
-  { 
-    id: "701", 
-    name: "Banquet Chair", 
-    category: "Furniture", 
-    price: 20000, 
-    stock: 500,
-    image: "https://images.unsplash.com/photo-1519167758481-83f550bb49b3?q=80&w=200&auto=format&fit=crop",
-    duration: "5 days",
-    status: "active",
-    remark: "Including cover & ribbon",
-    unit: "unit",
-    createAt: "2024-01-05T14:00:00Z",
-    createBy: "Admin"
-  }
 ];
+
+export const MOCK_ITEM_LIST_RESPONSE: ItemListResponse = {
+  data: MOCK_API_ITEMS,
+  page_number: 1,
+  total_pages: 1,
+  total_count: MOCK_API_ITEMS.length,
+  has_previous: false,
+  has_next: false,
+  status: true,
+  messages: null,
+};

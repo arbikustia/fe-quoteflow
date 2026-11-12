@@ -1,301 +1,192 @@
-import type { ChangeEvent, SyntheticEvent } from "react";
-import { useState } from "react";
-import type { FieldErrors, UseFormSetValue } from "react-hook-form";
+import type { ChangeEvent } from "react";
+import { useCallback, useMemo, useState } from "react";
+import type { UseFormSetValue } from "react-hook-form";
 import { useForm, useWatch } from "react-hook-form";
-import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
-import { useCategorySelectOptions } from "@/hooks/useCategorySelectOptions";
+import { MASTER_ITEM_ROUTE } from "../MasterItem.config";
 
-import { parseRupiahInput } from "./MasterItemCreate.helpers";
+import { ITEM_FORM_MESSAGE, ITEM_FORM_MODE_TEXT } from "./MasterItemCreate.config";
 import type {
-  ImageUploadMutation,
-  ItemFormFieldsState,
   ItemFormValues,
-  ItemImageFieldState,
-  ItemRouteState,
-  ItemSubmissionParams,
-  ItemSubmissionState,
-  ItemTextFieldsState,
-  MasterItemCreateFormState,
+  ItemImageUpload,
+  ItemOptionalFieldHandlers,
+  ItemSubmission,
+  ItemTextField,
+  MasterItemCreateController,
+  MasterItemCreateParams,
 } from "./MasterItemCreate.type";
-
-import type { ItemCreatePayload, ItemCreateResponse } from "@/modules/master-data/master-item/MasterItem.type";
 import {
-  useCreateItemMutation,
-  useUpdateItemMutation,
-  useUploadImageMutation,
-} from "@/services/master-item.service";
+  buildImageFormData,
+  createTextChangeHandlers,
+  formatApiMessages,
+  getItemFieldErrors,
+  resolveItemForm,
+  sendItemMutation,
+} from "./MasterItemCreate.util";
 
 /**
- * Format backend messages into a display string.
- *
- * @param {string[] | string | null} messages - Backend response messages
- * @returns {string} Display message
+ * Submit the form through the create / update mutation and handle navigation.
+ * @param {MasterItemCreateParams} params - Form mode and mutation triggers
+ * @returns {ItemSubmission} - Submit error, submit and back handlers
  */
-const _formatMessages = (messages: string[] | string | null): string => {
-  if (Array.isArray(messages)) {
-    return messages.join(" ");
-  }
+const useItemSubmission = (params: MasterItemCreateParams): ItemSubmission => {
+  const { id, mode, createItem, updateItem } = params;
+  const navigate = useNavigate();
+  const [errorMessage, setErrorMessage] = useState<string>();
 
-  return messages ?? "Item request failed.";
+  /**
+   * Send the validated form and return to the list on success.
+   * @param {ItemFormValues} values - Valid form values
+   * @returns {Promise<void>} - Resolves when the request settles
+   */
+  const submitItem = useCallback(async (values: ItemFormValues): Promise<void> => {
+    const modeText = ITEM_FORM_MODE_TEXT[mode];
+
+    setErrorMessage(undefined);
+
+    try {
+      const response = await sendItemMutation(values, { id, createItem, updateItem });
+
+      if (!response.status) {
+        setErrorMessage(formatApiMessages(response.messages));
+
+        return;
+      }
+
+      navigate(MASTER_ITEM_ROUTE.LIST, { state: { successMessage: modeText.successMessage } });
+    } catch {
+      setErrorMessage(modeText.failureMessage);
+    }
+  }, [createItem, id, mode, navigate, updateItem]);
+
+  /**
+   * Navigate back to the item list.
+   * @returns {void}
+   */
+  const handleBack = useCallback((): void => {
+    navigate(MASTER_ITEM_ROUTE.LIST);
+  }, [navigate]);
+
+  return { errorMessage, submitItem, handleBack };
 };
 
 /**
- * Create validated text field change handler.
- *
- * @param {keyof ItemFormValues} field - Form field name
- * @param {UseFormSetValue<ItemFormValues>} setValue - React Hook Form value setter
- * @param {FieldErrors<ItemFormValues>} errors - Current validation errors
- * @param {(value: string) => string} transform - Input value transformer
- * @returns {(event: ChangeEvent<HTMLInputElement>) => void} Change handler
+ * Upload a selected image and store its URL in the form.
+ * @param {MasterItemCreateParams["uploadImage"]} uploadImage - Upload mutation trigger
+ * @param {UseFormSetValue<ItemFormValues>} setValue - Form value setter
+ * @returns {ItemImageUpload} - Upload error and file input handler
  */
-const _createTextHandler = (field: keyof ItemFormValues, setValue: UseFormSetValue<ItemFormValues>, errors: FieldErrors<ItemFormValues>, transform: (value: string) => string): ((event: ChangeEvent<HTMLInputElement>) => void) => (
-  (event: ChangeEvent<HTMLInputElement>): void => { setValue(field, transform(event.target.value), { shouldValidate: Boolean(errors[field]) }); }
-);
+const useItemImageUpload = (uploadImage: MasterItemCreateParams["uploadImage"], setValue: UseFormSetValue<ItemFormValues>): ItemImageUpload => {
+  const [imageUploadError, setImageUploadError] = useState<string>();
 
-/**
- * Register validation rules for item text fields.
- *
- * @param {import("react-hook-form").UseFormRegister<ItemFormValues>} register - Form register function
- * @returns {void} No return value
- */
-const _registerItemFields = (register: import("react-hook-form").UseFormRegister<ItemFormValues>): void => {
-  register("name", { required: "Item name is required." });
-  register("categoryId", { required: "Category is required." });
-  register("price", { required: "Price is required." });
-  register("stock", { required: "Stock is required." });
-  register("duration", { required: "Duration is required." });
-};
-
-/**
- * Manage item text form fields.
- *
- * @param {ItemRouteState} routeState - Route state
- * @returns {ItemTextFieldsState} Text fields and handlers
- */
-const useItemTextFields = (routeState: ItemRouteState): ItemTextFieldsState => {
-  const routeItem = routeState.item;
-  const { control, formState: { errors }, register, setValue, trigger } = useForm<ItemFormValues>({
-    defaultValues: {
-      name: routeItem?.name ?? "",
-      categoryId: routeItem?.categoryId ?? "",
-      price: routeItem?.price?.toString() ?? "",
-      stock: routeItem?.stock?.toString() ?? "",
-      duration: routeItem?.duration?.toString() ?? "",
-    },
-    mode: "onSubmit",
-    reValidateMode: "onChange",
-  });
-
-  _registerItemFields(register);
-  const name = useWatch({ control, name: "name" });
-  const categoryId = useWatch({ control, name: "categoryId" });
-  const price = useWatch({ control, name: "price" });
-  const stock = useWatch({ control, name: "stock" });
-  const duration = useWatch({ control, name: "duration" });
-  const [remark, setRemark] = useState(routeItem?.remark ?? "");
-  const [isActive, setIsActive] = useState(routeItem?.status === "active");
-  const [isSubmitted, setIsSubmitted] = useState(false);
-  const handleNameChange = _createTextHandler("name", setValue, errors, (v: string): string => v);
-    /**
-   * Update category selection.
-   *
-   * @param {string} value - Category ID
-   * @returns {void} No return value
+  /**
+   * Upload the selected image and store its URL.
+   * @param {ChangeEvent<HTMLInputElement>} event - File input change event
+   * @returns {Promise<void>} - Resolves when the upload settles
    */
-  const handleCategoryChange = (value: string): void => { setValue("categoryId", value, { shouldValidate: Boolean(errors.categoryId) }); };
-  const handlePriceChange = _createTextHandler("price", setValue, errors, parseRupiahInput);
-  const handleStockChange = _createTextHandler("stock", setValue, errors, (value: string): string => value);
-  const handleDurationChange = _createTextHandler("duration", setValue, errors, (value: string): string => value);
-    /**
-   * Update optional remark.
-   *
-   * @param {ChangeEvent<HTMLInputElement>} event - Remark change event
-   * @returns {void} No return value
-   */
-  const handleRemarkChange = (event: ChangeEvent<HTMLInputElement>): void => { setRemark(event.target.value); };
-    /**
-   * Toggle item status.
-   *
-   * @returns {void} No return value
-   */
-  const handleStatusChange = (): void => { setIsActive((current) => !current); };
-    /**
-   * Validate required item fields.
-   *
-   * @returns {Promise<boolean>} Validation result
-   */
-  const validateForm = async (): Promise<boolean> => {
-    setIsSubmitted(true);
-
-    return await trigger();
-  };
-
-  return { name, categoryId, price, stock, duration, remark, isActive, errors, isSubmitted, validateForm, handleNameChange, handleCategoryChange, handlePriceChange, handleStockChange, handleDurationChange, handleRemarkChange, handleStatusChange };
-};
-
-/**
- * Manage item image field.
- *
- * @param {ItemRouteState} routeState - Route state
- * @param {ImageUploadMutation} uploadImage - Image upload mutation
- * @param {boolean} isImageUploading - Image upload loading state
- * @returns {ItemImageFieldState} Image field and handler
- */
-const useItemImageField = (
-  routeState: ItemRouteState,
-  uploadImage: ImageUploadMutation,
-  isImageUploading: boolean,
-): ItemImageFieldState => {
-  const [image, setImage] = useState(routeState.item?.image ?? "");
-  const [imageUploadError, setImageUploadError] = useState<string | null>(null);
-
-    /**
-   * Upload selected image and store returned URL.
-   *
-   * @param {ChangeEvent<HTMLInputElement>} event - File input event
-   * @returns {Promise<void>} Upload result
-   */
-  const handleImageChange = async (event: ChangeEvent<HTMLInputElement>): Promise<void> => {
+  const handleImageChange = useCallback(async (event: ChangeEvent<HTMLInputElement>): Promise<void> => {
     const file = event.target.files?.[0];
 
     if (!file) {
       return;
     }
 
-    setImageUploadError(null);
-    const formData = new FormData();
-
-    formData.append("file", file);
+    setImageUploadError(undefined);
 
     try {
-      const response = await uploadImage(formData).unwrap();
+      const response = await uploadImage(buildImageFormData(file)).unwrap();
 
-      setImage(response.url);
+      setValue("image", response.url, { shouldDirty: true });
     } catch {
-      setImageUploadError("Unable to upload image. Please try again.");
+      setImageUploadError(ITEM_FORM_MESSAGE.IMAGE_UPLOAD_FAILED);
     }
-  };
+  }, [setValue, uploadImage]);
 
-  return { image, isImageUploading, imageUploadError, handleImageChange };
+  return { imageUploadError, handleImageChange };
 };
 
 /**
- * Manage item form input states.
- *
- * @param {ItemRouteState} routeState - Route state
- * @param {ImageUploadMutation} uploadImage - Image upload mutation
- * @param {boolean} isImageUploading - Image upload loading state
- * @returns {ItemFormFieldsState} Field states and handlers
+ * Create the handlers of the optional remark and status fields.
+ * @param {UseFormSetValue<ItemFormValues>} setValue - Form value setter
+ * @returns {ItemOptionalFieldHandlers} - Remark and status handlers
  */
-const useItemFormFields = (
-  routeState: ItemRouteState,
-  uploadImage: ImageUploadMutation,
-  isImageUploading: boolean,
-): ItemFormFieldsState => ({
-  ...useItemTextFields(routeState),
-  ...useItemImageField(routeState, uploadImage, isImageUploading),
-});
-
-/**
- * Send create or update mutation.
- *
- * @param {ItemSubmissionParams} params - Submission parameters
- * @returns {Promise<ItemCreateResponse>} Mutation response
- */
-const _sendItemMutation = (params: ItemSubmissionParams): Promise<ItemCreateResponse> => {
-  const { id, isEditMode, fields, createItem, updateItem } = params;
-  const payload: ItemCreatePayload = {
-    name: fields.name,
-    category_id: fields.categoryId,
-    price: Number(fields.price),
-    stock: Number(fields.stock),
-    image: fields.image,
-    duration: Number(fields.duration),
-    remark: fields.remark,
-    status: isEditMode && !fields.isActive ? 0 : 1,
-  };
-
-  if (isEditMode && id) {
-    return updateItem({ ...payload, id }).unwrap();
-  }
-
-  return createItem(payload).unwrap();
-};
-
-/**
- * Manage item form submission logic.
- *
- * @param {ItemSubmissionParams} params - Submission parameters
- * @returns {ItemSubmissionState} Submission state
- */
-const useItemSubmission = (params: ItemSubmissionParams): ItemSubmissionState => {
-  const navigate = useNavigate();
-  const [errorMessage, setErrorMessage] = useState<string | null>(null);
-  const [successMessage, setSuccessMessage] = useState<string | null>(null);
-
-    /**
-   * Submit item form.
-   *
-   * @param {SyntheticEvent} event - Submit event
-   * @returns {Promise<void>} Submission result
+const useItemOptionalFields = (setValue: UseFormSetValue<ItemFormValues>): ItemOptionalFieldHandlers => {
+  /**
+   * Handle the optional remark textarea.
+   * @param {ChangeEvent<HTMLTextAreaElement>} event - Textarea change event
+   * @returns {void}
    */
-  const handleSubmit = async (event: SyntheticEvent): Promise<void> => {
-    event.preventDefault();
-    setErrorMessage(null);
-    setSuccessMessage(null);
+  const handleRemarkChange = useCallback((event: ChangeEvent<HTMLTextAreaElement>): void => {
+    setValue("remark", event.target.value, { shouldDirty: true });
+  }, [setValue]);
 
-    if (!(await params.fields.validateForm())) {
-      return;
-    }
+  /**
+   * Handle the active status switch.
+   * @param {boolean} isActive - Whether the item is active
+   * @returns {void}
+   */
+  const handleStatusChange = useCallback((isActive: boolean): void => {
+    setValue("isActive", isActive, { shouldDirty: true });
+  }, [setValue]);
 
-    try {
-      const response = await _sendItemMutation(params);
-
-      if (!response.status) {
-        setErrorMessage(_formatMessages(response.messages));
-
-        return;
-      }
-
-      const message = params.isEditMode ? "Item updated successfully." : "Item created successfully.";
-
-      setSuccessMessage(message);
-      navigate("/master-item", { state: { successMessage: message } });
-    } catch {
-      setErrorMessage(params.isEditMode ? "Unable to update item. Please try again." : "Unable to create item. Please try again.");
-    }
-  };
-
-  return { errorMessage, successMessage, handleSubmit };
+  return { handleRemarkChange, handleStatusChange };
 };
 
 /**
- * Manage master item create and update form state.
- *
- * @returns {MasterItemCreateFormState} Form state
+ * Return a copy of the watched form values so every change yields a new object.
+ * @param {ItemFormValues} formValues - Current form values
+ * @returns {ItemFormValues} - Copy of the form values
  */
-export const useMasterItemCreateForm = (): MasterItemCreateFormState => {
-  const navigate = useNavigate();
-  const location = useLocation();
-  const { id } = useParams<{ id?: string }>();
-  const isEditMode = Boolean(id);
-  const routeState = (location.state as ItemRouteState) ?? {};
-  const categoryState = useCategorySelectOptions();
-  const [createItem, { isLoading: isCreating }] = useCreateItemMutation();
-  const [updateItem, { isLoading: isUpdating }] = useUpdateItemMutation();
-  const [uploadImage, { isLoading: isImageUploading }] = useUploadImageMutation();
-  const fields = useItemFormFields(routeState, uploadImage, isImageUploading);
-  const submission = useItemSubmission({ id, isEditMode, fields, createItem, updateItem });
+const _copyFormValues = (formValues: ItemFormValues): ItemFormValues => ({ ...formValues });
 
-    /**
-   * Navigate back to previous page.
-   *
-   * @returns {void} No return value
+/**
+ * Manage the item create / edit form: values, validation, image upload, submit and navigation.
+ * @param {MasterItemCreateParams} params - Form mode, initial values and mutation triggers
+ * @returns {MasterItemCreateController} - Form state and handlers
+ */
+export const useMasterItemCreate = (params: MasterItemCreateParams): MasterItemCreateController => {
+  const { control, formState, handleSubmit, setValue } = useForm<ItemFormValues>({
+    defaultValues: params.initialValues,
+    values: params.initialValues,
+    resetOptions: { keepDirtyValues: true },
+    resolver: resolveItemForm,
+    mode: "onSubmit",
+    reValidateMode: "onChange",
+  });
+  const { isSubmitted } = formState;
+  const submission = useItemSubmission(params);
+  const imageUpload = useItemImageUpload(params.uploadImage, setValue);
+
+  /**
+   * Store a required field value; re-validates once the form was submitted.
+   * @param {ItemTextField | "categoryId"} field - Field to update
+   * @param {string} value - New value
+   * @returns {void}
    */
-  const goBack = (): void => {
-    navigate("/master-item");
-  };
+  const handleFieldChange = useCallback((field: ItemTextField | "categoryId", value: string): void => {
+    setValue(field, value, { shouldDirty: true, shouldValidate: isSubmitted });
+  }, [isSubmitted, setValue]);
 
-  return { ...fields, isEditMode, isSubmitting: isCreating || isUpdating, isCategoryLoading: categoryState.isLoading, categoryError: categoryState.errorMessage, categories: categoryState.categories, errorMessage: submission.errorMessage, successMessage: submission.successMessage, handleSubmit: submission.handleSubmit, goBack };
+  /**
+   * Handle the category select.
+   * @param {string} categoryId - Selected category id
+   * @returns {void}
+   */
+  const handleCategoryChange = useCallback((categoryId: string): void => {
+    handleFieldChange("categoryId", categoryId);
+  }, [handleFieldChange]);
+
+  return {
+    values: useWatch({ control, compute: _copyFormValues }),
+    fieldErrors: getItemFieldErrors(formState.errors),
+    errorMessage: submission.errorMessage,
+    imageUploadError: imageUpload.imageUploadError,
+    handleTextChange: useMemo(() => createTextChangeHandlers(handleFieldChange), [handleFieldChange]),
+    handleCategoryChange,
+    handleImageChange: imageUpload.handleImageChange,
+    ...useItemOptionalFields(setValue),
+    handleSubmit: handleSubmit(submission.submitItem),
+    handleBack: submission.handleBack,
+  };
 };

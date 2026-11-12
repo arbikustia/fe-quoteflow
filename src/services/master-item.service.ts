@@ -1,57 +1,37 @@
 import { apiRtkClient } from "@/libs/ApiRtkServices/apiRtkClient";
 
-import ENDPOINT from "@/constants/endpoint.constant";
 import type {
-  ApiItem,
   ImageUploadResponse,
   ItemAllResponse,
   ItemCreatePayload,
-  ItemCreateResponse,
-  ItemData,
-  ItemDetailResponse,
   ItemListParams,
   ItemListResponse,
+  ItemMutationResponse,
   ItemUpdatePayload,
 } from "@/modules/master-data/master-item/MasterItem.type";
 
-/**
- * Map API item model to UI model.
- * @param {ApiItem} item - API item model
- * @returns {ItemData} UI item model
- */
-export const mapItem = (item: ApiItem): ItemData => ({
-  id: item.id,
-  name: item.name,
-  categoryId: item.category_id,
-  categoryName: item.category_name ?? null,
-  price: item.price ?? 0,
-  stock: item.stock ?? 0,
-  image: item.image,
-  duration: item.duration ?? 0,
-  remark: item.remark,
-  status: item.status === 1 ? "active" : "inactive",
-  createAt: item.created_at,
-  createBy: item.created_by,
-});
+import ENDPOINT from "@/constants/endpoint.constant";
+
+const ITEM_TAG = "Item";
 
 export const masterItemService = apiRtkClient.injectEndpoints({
-  /**
-   *
-   * @param builder
-   */
   endpoints: (builder) => ({
     getItems: builder.query<ItemListResponse, ItemListParams>({
-      /**
-       *
-       * @param params
-       */
-      query: (params) => ({ url: ENDPOINT.MASTER_ITEM.PAGED, method: "GET", params: { PageNumber: params.pageNumber, PageSize: params.pageSize, SearchTerm: params.searchTerm } }),
-      providesTags: ["Item"],
+      query: (params) => ({
+        url: ENDPOINT.MASTER_ITEM.PAGED,
+        method: "GET",
+        params: {
+          PageNumber: params.pageNumber,
+          PageSize: params.pageSize,
+          SearchTerm: params.searchTerm,
+        },
+      }),
+      providesTags: [ITEM_TAG],
     }),
-    getAllItems: builder.query<ItemAllResponse, void>({ /**
-     *
-     */
-    query: () => ({ url: ENDPOINT.MASTER_ITEM.ALL, method: "GET" }), providesTags: ["Item"] }),
+    getAllItems: builder.query<ItemAllResponse, void>({
+      query: () => ({ url: ENDPOINT.MASTER_ITEM.ALL, method: "GET" }),
+      providesTags: [ITEM_TAG],
+    }),
     uploadImage: builder.mutation<ImageUploadResponse, FormData>({
       query: (body) => ({
         url: ENDPOINT.IMAGE.UPLOAD,
@@ -60,48 +40,13 @@ export const masterItemService = apiRtkClient.injectEndpoints({
         headers: { "Content-Type": "multipart/form-data" },
       }),
     }),
-    getItemById: builder.query<ItemDetailResponse, string>({
-      /**
-       *
-       * @param id
-       */
-      query: (id) => ({ url: `${ENDPOINT.MASTER_ITEM.DETAIL}/${id}`, method: "GET" }),
-      /**
-       *
-       * @param _result
-       * @param _error
-       * @param id
-       */
-      providesTags: (_result, _error, id) => [{ type: "Item", id }],
-    }),
-    createItem: builder.mutation<ItemCreateResponse, ItemCreatePayload>({
-      /**
-       *
-       * @param body
-       */
+    createItem: builder.mutation<ItemMutationResponse, ItemCreatePayload>({
       query: (body) => ({ url: ENDPOINT.MASTER_ITEM.CREATE, method: "POST", data: body }),
-      invalidatesTags: ["Item"],
+      invalidatesTags: [ITEM_TAG],
     }),
-    updateItem: builder.mutation<ItemCreateResponse, ItemUpdatePayload>({
-      /**
-       *
-       * @param body
-       */
-      query: (body) => ({
-        url: `${ENDPOINT.MASTER_ITEM.CREATE}/${body.id}`,
-        method: "PUT",
-        data: {
-          name: body.name,
-          category_id: body.category_id,
-          price: body.price,
-          stock: body.stock,
-          image: body.image,
-          duration: body.duration,
-          remark: body.remark,
-          status: body.status,
-        },
-      }),
-      invalidatesTags: ["Item"],
+    updateItem: builder.mutation<ItemMutationResponse, ItemUpdatePayload>({
+      query: ({ id, ...body }) => ({ url: `${ENDPOINT.MASTER_ITEM.DETAIL}/${id}`, method: "PUT", data: body }),
+      invalidatesTags: [ITEM_TAG],
     }),
   }),
   overrideExisting: false,
@@ -111,7 +56,6 @@ export const {
   useGetItemsQuery,
   useGetAllItemsQuery,
   useUploadImageMutation,
-  useGetItemByIdQuery,
   useCreateItemMutation,
   useUpdateItemMutation,
 } = masterItemService;

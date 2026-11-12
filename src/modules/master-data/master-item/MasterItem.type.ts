@@ -1,37 +1,69 @@
-/**
- * @file MasterItem.type.ts
- * @description Types for Master Item module.
- */
+import type { ChangeEvent } from "react";
+import { z } from "zod";
 
-import type { ApiEnvelope, PaginatedResponse } from "../../../types/api.type";
+import type { ApiEnvelope, ApiMessages, PaginatedResponse } from "@/types/api.type";
 
-export type ApiItem = {
-  id: string;
-  name: string;
-  category_id: string | null;
-  category_name?: string | null;
-  price: number | null;
-  stock: number | null;
-  image: string | null;
-  duration: number | null;
-  remark: string | null;
-  status: number;
-  created_at: string | null;
-  created_by: string | null;
+import { ITEM_ACTIVE_STATUS, ITEM_EMPTY_VALUE } from "./MasterItem.config";
+
+/** Item status as shown in the UI. */
+export type ItemStatus = "active" | "inactive";
+
+/** QR label download format. */
+export type ItemDownloadFormat = "image" | "pdf";
+
+/** Raw item record as returned by `GET /api/item/paged`. */
+export const ApiItemSchema = z.object({
+  id: z.string(),
+  name: z.string(),
+  category_id: z.string().nullable(),
+  category_name: z.string().nullish(),
+  price: z.number().nullable(),
+  stock: z.number().nullable(),
+  image: z.string().nullable(),
+  duration: z.number().nullable(),
+  remark: z.string().nullable(),
+  status: z.number(),
+  created_at: z.string().nullable(),
+  created_by: z.string().nullable(),
+});
+
+/** Raw item record as returned by the API (also consumed by other modules). */
+export type ApiItem = z.input<typeof ApiItemSchema>;
+
+/** Item row normalized for the list view; `source` keeps the raw record for the edit page. */
+export const ItemListItemSchema = ApiItemSchema.transform((item) => {
+  const status: ItemStatus = item.status === ITEM_ACTIVE_STATUS ? "active" : "inactive";
+
+  return {
+    id: item.id,
+    name: item.name,
+    categoryName: item.category_name || ITEM_EMPTY_VALUE,
+    price: item.price ?? 0,
+    stock: item.stock ?? 0,
+    duration: item.duration ?? 0,
+    image: item.image,
+    remark: item.remark || ITEM_EMPTY_VALUE,
+    status,
+    source: item,
+  };
+});
+
+/** Item row ready for the list view. */
+export type ItemData = z.output<typeof ItemListItemSchema>;
+
+/** Paged item list response. */
+export type ItemListResponse = PaginatedResponse<ApiItem> & {
+  status: boolean;
+  messages: ApiMessages;
 };
 
-export type ItemListResponse = ApiEnvelope<ApiItem[] | null> &
-  PaginatedResponse<ApiItem>;
+/** Item lookup response from `GET /api/item/get-all-item`. */
 export type ItemAllResponse = ApiEnvelope<ApiItem[]>;
-export type ItemCreateResponse = ApiEnvelope<ApiItem | null>;
-export type ItemDetailResponse = ApiEnvelope<ApiItem | null>;
 
-export type ItemListParams = {
-  pageNumber: number;
-  pageSize: number;
-  searchTerm: string;
-};
+/** Create / update response for a single item. */
+export type ItemMutationResponse = ApiEnvelope<ApiItem | null>;
 
+/** Image upload response. */
 export type ImageUploadResponse = {
   file_name: string;
   content_type: string;
@@ -39,6 +71,7 @@ export type ImageUploadResponse = {
   url: string;
 };
 
+/** Create item request body. */
 export type ItemCreatePayload = {
   name: string;
   category_id: string;
@@ -50,173 +83,123 @@ export type ItemCreatePayload = {
   status: number;
 };
 
+/** Update item request body. */
 export type ItemUpdatePayload = ItemCreatePayload & {
   id: string;
 };
 
-export type MasterItemCreateState = {
-  createItem: (payload: ItemCreatePayload) => Promise<ItemCreateResponse>;
-  isCreating: boolean;
+/** Paged item list query params. */
+export type ItemListParams = {
+  pageNumber: number;
+  pageSize: number;
+  searchTerm: string;
 };
 
-/** Item data structure */
-export type ItemData = {
-  id: string;
-  name: string;
-  categoryId: string | null;
-  categoryName: string | null;
-  price: number;
-  stock: number;
-  image: string | null;
-  duration: number;
-  remark: string | null;
-  status: "active" | "inactive";
-  createAt: string | null;
-  createBy: string | null;
+/** Which part of the list view is rendered. */
+export type ItemListStatus = "loading" | "error" | "missing" | "empty" | "ready";
+
+/** List statuses that render a message instead of rows. */
+export type ItemListMessageStatus = Exclude<ItemListStatus, "loading" | "ready">;
+
+/** Normalized paged list data. */
+export type ItemListView = {
+  listStatus: ItemListStatus;
+  items: ItemData[];
+  totalPages: number;
+  totalCount: number;
 };
 
-/** Master Item component props */
-export type MasterItemProps = {
+/** Raw RTK Query state consumed by the list normalizer. */
+export type ItemListQueryState = {
+  data?: ItemListResponse;
+  isLoading: boolean;
+  isError: boolean;
+};
+
+/** Router state the list page receives after a create / update. */
+export type ItemRouteState = {
+  successMessage?: string;
+} | null;
+
+/** Item fields printed on a QR label. */
+export type ItemLabel = Pick<ItemData, "id" | "name" | "categoryName">;
+
+/** Position and width of one QR label on a PDF page. */
+export type ItemLabelPosition = {
+  page: number;
+  x: number;
+  y: number;
+  width: number;
+};
+
+/** Paging and search state of the item list. */
+export type ItemListPaging = {
+  queryParams: ItemListParams;
   currentPage: number;
+  pageSize: number;
+  handlePageChange: (page: number) => void;
+  handlePageSizeChange: (size: number) => void;
+  handleSearchChange: (event: ChangeEvent<HTMLInputElement>) => void;
+};
+
+/** Navigation handlers of the item list. */
+export type ItemNavigation = {
+  handleBack: () => void;
+  handleCreate: () => void;
+  handleEdit: (item: ItemData) => void;
+};
+
+/** QR download state and handlers of the item list. */
+export type ItemDownloadState = {
   selectedItemIds: string[];
   isMultiDownloadMode: boolean;
+  handleToggleItem: (item: ItemData) => void;
+  handleStartMultiDownload: () => void;
+  handleCancelMultiDownload: () => void;
+  handleDownload: (item: ItemData, format: ItemDownloadFormat) => void;
+  handleDownloadSelected: () => void;
+};
+
+/** Item list state and handlers owned by the module hook. */
+export type MasterItemController = ItemListPaging & ItemNavigation & ItemDownloadState;
+
+/** Inputs of the table column builder. */
+export type ItemColumnParams = {
+  currentPage: number;
+  pageSize: number;
+  canEdit: boolean;
+  isMultiDownloadMode: boolean;
+  selectedItemIds: string[];
   onToggleItem: (item: ItemData) => void;
-  onToggleMultiDownload: () => void;
-  onCancelMultiDownload: () => void;
-  onDownload: (item: ItemData, format: "image" | "pdf") => void;
-  onDownloadSelected: () => void;
-  totalPages: number;
-  pageSize: number;
-  paginatedData: ItemData[];
-  goToPage: (page: number) => void;
-  nextPage: () => void;
-  prevPage: () => void;
-  changePageSize: (size: number) => void;
-  totalCount: number;
-  onCreate?: () => void;
-  onEdit?: (item: ItemData) => void;
-  onMore?: () => void;
-  isMoreOpen: boolean;
-  onCloseMore: () => void;
-  onDelete: () => void;
-  onBack: () => void;
-  isLoading: boolean;
-  errorMessage: string | null;
-  isEmpty: boolean;
-  isMissingData: boolean;
-  setSearchTerm: (searchTerm: string) => void;
-};
-
-/** Toolbar props */
-export type ItemToolbarProps = {
-  pageSize: number;
-  totalCount: number;
-  changePageSize: (size: number) => void;
-};
-
-/** API list state */
-export type ItemListApiState = {
-  isLoading: boolean;
-  errorMessage: string | null;
-  isMissingData: boolean;
-  paginatedData: ItemData[];
-  totalPages: number;
-  totalCount: number;
-};
-
-/** Action buttons props */
-export type ItemActionProps = {
-  row: ItemData;
   onEdit: (item: ItemData) => void;
-  onConfirm: (item: ItemData) => void;
+  onDownload: (item: ItemData, format: ItemDownloadFormat) => void;
 };
 
-/** Modal state */
-export type ModalState = {
-  isModalOpen: boolean;
-  editingItem: ItemData | null;
-  openCreateModal: () => void;
-  openEditModal: (item: ItemData) => void;
-  closeModal: () => void;
-};
-
-/** Confirm modal state */
-export type ConfirmModalState = {
-  isConfirmModalOpen: boolean;
-  deletingItem: ItemData | null;
-  openConfirmModal: (item: ItemData) => void;
-  closeConfirmModal: () => void;
-  onConfirmDelete: () => void;
-};
-
-/** Base item state */
-export type BaseItemState = ModalState & ConfirmModalState;
-
-/** Mobile item card props */
-export type MobileItemCardProps = {
+/** Props of the item mobile card. */
+export type ItemMobileCardProps = {
   item: ItemData;
-  onEdit?: (item: ItemData) => void;
-};
-
-/** Required item fields. */
-export type RequiredItemFields = {
-  name: string;
-  categoryId: string;
-  price: string;
-  stock: string;
-  duration: string;
-};
-
-/** Action button props */
-export type ActionButtonProps = {
-  row: ItemData;
+  canEdit: boolean;
   onEdit: (item: ItemData) => void;
-  onDownload: (item: ItemData, format: "image" | "pdf") => void;
 };
 
-/** GetColumns params */
-export type GetColumnsParams = {
+/** Props of the item list view. */
+export type MasterItemProps = ItemListView & {
   currentPage: number;
   pageSize: number;
-  isMultiDownloadMode: boolean;
-  selectedItemIds: string[];
-  onToggleItem: (item: ItemData) => void;
-  onEdit?: (item: ItemData) => void;
-  onDownload: (item: ItemData, format: "image" | "pdf") => void;
-};
-
-/** Navigation hook return type */
-export type MasterItemNavigation = {
-  goBack: () => void;
-  goCreate: () => void;
-  goEdit: (item: ItemData) => void;
-};
-
-/** Master item pagination state */
-export type MasterItemPagination = ItemListApiState & {
-  currentPage: number;
-  pageSize: number;
-  isEmpty: boolean;
-  goToPage: (page: number) => void;
-  nextPage: () => void;
-  prevPage: () => void;
-  changePageSize: (size: number) => void;
-  setSearchTerm: (searchTerm: string) => void;
-};
-
-/** Container state hook return type */
-export type MasterItemContainerState = MasterItemNavigation & {
+  canCreate: boolean;
+  canEdit: boolean;
+  successMessage?: string;
   selectedItemIds: string[];
   isMultiDownloadMode: boolean;
+  onPageChange: (page: number) => void;
+  onPageSizeChange: (size: number) => void;
+  onSearchChange: (event: ChangeEvent<HTMLInputElement>) => void;
+  onBack: () => void;
+  onCreate: () => void;
+  onEdit: (item: ItemData) => void;
   onToggleItem: (item: ItemData) => void;
-  onToggleMultiDownload: () => void;
+  onStartMultiDownload: () => void;
   onCancelMultiDownload: () => void;
-  onDownload: (item: ItemData, format: "image" | "pdf") => void;
+  onDownload: (item: ItemData, format: ItemDownloadFormat) => void;
   onDownloadSelected: () => void;
-  pagination: MasterItemPagination;
-  isMoreOpen: boolean;
-  toggleMore: () => void;
-  goDelete: () => void;
-  handleCloseMore: () => void;
-  handleConfirm: () => void;
 };

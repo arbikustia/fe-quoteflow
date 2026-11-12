@@ -3,46 +3,50 @@ import { useLocation } from "react-router-dom";
 
 import { usePagePermission } from "@/hooks/usePagePermission";
 
-import { AlertComponent } from "@/components/Alert";
+import MasterItemComponent from "./MasterItem.component";
+import { MASTER_ITEM_ROUTE } from "./MasterItem.config";
+import { useMasterItem } from "./MasterItem.hook";
+import type { ItemRouteState } from "./MasterItem.type";
+import { normalizeItemList } from "./MasterItem.util";
 
-import type { ItemRouteState } from "./create/MasterItemCreate.type";
-import { MasterItemComponent } from "./MasterItem.component";
-import { useMasterItemContainerState } from "./MasterItem.hook";
+import { useGetItemsQuery } from "@/services/master-item.service";
 
 /**
- * Master Item container
- *
- * @returns {React.ReactElement} Container component
+ * Render the item list container.
+ * @returns {React.ReactElement} - Container of the item list view
  */
 const MasterItemContainer = (): React.ReactElement => {
   const location = useLocation();
-  const routeState: ItemRouteState | null = location.state;
-  const containerState = useMasterItemContainerState();
-  const navigation = containerState;
-  const pagination = containerState.pagination;
-  const { canCreate, canEdit } = usePagePermission("/master-item");
+  const routeState: ItemRouteState = location.state;
+  const { canCreate, canEdit } = usePagePermission(MASTER_ITEM_ROUTE.LIST);
+  const controller = useMasterItem();
+  const { data, isLoading, isError } = useGetItemsQuery(controller.queryParams);
+
+  // Single upstream fallback: the view receives normalized data only
+  const listView = normalizeItemList({ data, isLoading, isError });
 
   return (
-    <>
-      {routeState?.successMessage && <AlertComponent type="success" message={routeState.successMessage} toast closable />}
-      <MasterItemComponent
-        {...pagination}
-        selectedItemIds={containerState.selectedItemIds}
-        isMultiDownloadMode={containerState.isMultiDownloadMode}
-        onToggleItem={containerState.onToggleItem}
-        onToggleMultiDownload={containerState.onToggleMultiDownload}
-        onCancelMultiDownload={containerState.onCancelMultiDownload}
-        onDownload={containerState.onDownload}
-        onDownloadSelected={containerState.onDownloadSelected}
-        onBack={navigation.goBack}
-        onCreate={canCreate ? navigation.goCreate : undefined}
-        onEdit={canEdit ? navigation.goEdit : undefined}
-        onMore={containerState.toggleMore}
-        isMoreOpen={containerState.isMoreOpen}
-        onCloseMore={containerState.handleCloseMore}
-        onDelete={containerState.goDelete}
-      />
-    </>
+    <MasterItemComponent
+      {...listView}
+      currentPage={controller.currentPage}
+      pageSize={controller.pageSize}
+      canCreate={canCreate}
+      canEdit={canEdit}
+      successMessage={routeState?.successMessage}
+      selectedItemIds={controller.selectedItemIds}
+      isMultiDownloadMode={controller.isMultiDownloadMode}
+      onPageChange={controller.handlePageChange}
+      onPageSizeChange={controller.handlePageSizeChange}
+      onSearchChange={controller.handleSearchChange}
+      onBack={controller.handleBack}
+      onCreate={controller.handleCreate}
+      onEdit={controller.handleEdit}
+      onToggleItem={controller.handleToggleItem}
+      onStartMultiDownload={controller.handleStartMultiDownload}
+      onCancelMultiDownload={controller.handleCancelMultiDownload}
+      onDownload={controller.handleDownload}
+      onDownloadSelected={controller.handleDownloadSelected}
+    />
   );
 };
 

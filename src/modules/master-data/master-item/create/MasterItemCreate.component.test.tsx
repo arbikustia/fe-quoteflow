@@ -1,77 +1,107 @@
-import { describe, expect, it, jest } from "@jest/globals";
 import { fireEvent, render, screen } from "@/libs/unit-test";
 
-import { MasterItemCreateForm } from "./MasterItemCreate.component";
-import type { MasterItemCreateFormState } from "./MasterItemCreate.type";
+import MasterItemCreateComponent from "./MasterItemCreate.component";
+import { ITEM_FORM_DEFAULT_VALUES } from "./MasterItemCreate.config";
+import type { MasterItemCreateProps } from "./MasterItemCreate.type";
 
-const createProps = (overrides?: Partial<MasterItemCreateFormState>): MasterItemCreateFormState => ({
-  name: "",
-  categoryId: "",
-  price: "",
-  stock: "",
-  image: "",
-  duration: "",
-  remark: "",
-  isActive: true,
-  isEditMode: false,
-  isSubmitting: false,
+jest.mock("@/app/layout", () => ({ children }: { children: React.ReactNode }): React.ReactElement => <div data-testid="layout">{children}</div>);
+
+/**
+ * Build form view props.
+ * @param {Partial<MasterItemCreateProps>} [overrides] - Props to override
+ * @returns {MasterItemCreateProps} - Component props
+ */
+const createProps = (overrides?: Partial<MasterItemCreateProps>): MasterItemCreateProps => ({
+  mode: "create",
+  formStatus: "ready",
+  values: ITEM_FORM_DEFAULT_VALUES,
+  fieldErrors: {},
+  categoryOptions: [{ label: "Audio", value: "c-1" }],
   isCategoryLoading: false,
-  categoryError: null,
-  errorMessage: null,
-  categories: [
-    { id: "cat-1", category_name: "Audio System" },
-    { id: "cat-2", category_name: "Lighting" },
-  ],
-  handleNameChange: jest.fn(),
-  handleCategoryChange: jest.fn(),
-  handlePriceChange: jest.fn(),
-  handleStockChange: jest.fn(),
-  handleImageChange: jest.fn(),
-  handleDurationChange: jest.fn(),
-  handleRemarkChange: jest.fn(),
-  handleStatusChange: jest.fn(),
-  handleSubmit: jest.fn(async () => {}),
-  goBack: jest.fn(),
+  isSubmitting: false,
+  isImageUploading: false,
+  onTextChange: { name: jest.fn(), price: jest.fn(), stock: jest.fn(), duration: jest.fn() },
+  onCategoryChange: jest.fn(),
+  onRemarkChange: jest.fn(),
+  onImageChange: jest.fn(),
+  onStatusChange: jest.fn(),
+  onSubmit: jest.fn(),
+  onBack: jest.fn(),
   ...overrides,
 });
 
-describe("MasterItemCreateForm", () => {
-  it("should render item form fields and select options in create mode", () => {
-    render(<MasterItemCreateForm {...createProps()} />);
-
-    expect(screen.getByLabelText(/item name/i)).toBeTruthy();
-    const categorySelect = screen.getByRole("combobox", { name: "Category" });
-    expect(categorySelect).toBeTruthy();
-    fireEvent.mouseDown(categorySelect);
-    expect(screen.getByRole("option", { name: "Audio System" })).toBeTruthy();
-    expect(screen.getByRole("button", { name: "Create Item" })).toBeTruthy();
-    expect(screen.queryByRole("switch")).toBeNull();
-  });
-
-  it("should render status switch and update button in edit mode", () => {
-    render(<MasterItemCreateForm {...createProps({ isEditMode: true })} />);
-
-    expect(screen.getByRole("switch")).toBeTruthy();
-    expect(screen.getByRole("button", { name: "Update Item" })).toBeTruthy();
-  });
-
-  it("should render formatted price value and handle price input", () => {
-    const handlePriceChange = jest.fn();
-    render(<MasterItemCreateForm {...createProps({ price: "1500000", handlePriceChange })} />);
-
-    const priceInput = screen.getByLabelText(/price/i) as HTMLInputElement;
-    expect(priceInput.value).toBe("Rp 1.500.000");
-
-    fireEvent.change(priceInput, { target: { value: "Rp 2.000.000" } });
-    expect(handlePriceChange).toHaveBeenCalledTimes(1);
-  });
-
-  it("should submit form through handleSubmit", () => {
+describe("MasterItemCreateComponent", () => {
+  it("should render the create form without the status field", () => {
     const props = createProps();
-    render(<MasterItemCreateForm {...props} />);
 
-    fireEvent.submit(screen.getByRole("button", { name: "Create Item" }).closest("form")!);
+    render(<MasterItemCreateComponent {...props} />);
+    fireEvent.click(screen.getByRole("button", { name: "Cancel" }));
 
-    expect(props.handleSubmit).toHaveBeenCalledTimes(1);
+    expect(screen.getAllByText("New Item")).toHaveLength(3);
+    expect(screen.queryByRole("switch")).not.toBeInTheDocument();
+    expect(props.onBack).toHaveBeenCalledTimes(1);
+  });
+
+  it("should forward input, remark, image and submit events", () => {
+    const props = createProps();
+    const file = new File(["x"], "beam.jpg");
+
+    render(<MasterItemCreateComponent {...props} />);
+    fireEvent.change(screen.getByPlaceholderText("e.g. Wireless Microphone"), { target: { value: "Mic" } });
+    fireEvent.change(screen.getByPlaceholderText("Rp 0"), { target: { value: "Rp 10" } });
+    fireEvent.change(screen.getByLabelText("Remarks"), { target: { value: "Note" } });
+    fireEvent.change(screen.getByLabelText("Upload image"), { target: { files: [file] } });
+    fireEvent.submit(screen.getByRole("button", { name: "Create Item" }));
+
+    expect(props.onTextChange.name).toHaveBeenCalledTimes(1);
+    expect(props.onTextChange.price).toHaveBeenCalledTimes(1);
+    expect(props.onRemarkChange).toHaveBeenCalledTimes(1);
+    expect(props.onImageChange).toHaveBeenCalledTimes(1);
+    expect(props.onSubmit).toHaveBeenCalledTimes(1);
+  });
+
+  it("should show formatted price, uploaded image and errors", () => {
+    render(
+      <MasterItemCreateComponent
+        {...createProps({
+          values: { ...ITEM_FORM_DEFAULT_VALUES, price: "100000", image: "https://cdn.example.com/a/beam.jpg" },
+          fieldErrors: { name: "Item name is required." },
+          categoryErrorMessage: "Category is required.",
+          imageUploadError: "Unable to upload image. Please try again.",
+          isImageUploading: true,
+        })}
+      />,
+    );
+
+    expect(screen.getByDisplayValue("Rp 100.000")).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: "Uploaded: beam.jpg" })).toHaveAttribute("href", "https://cdn.example.com/a/beam.jpg");
+    expect(screen.getByText("Item name is required.")).toBeInTheDocument();
+    expect(screen.getByText("Category is required.")).toBeInTheDocument();
+    expect(screen.getByText("Uploading image…")).toBeInTheDocument();
+    expect(screen.getByText("Unable to upload image. Please try again.")).toBeInTheDocument();
+  });
+
+  it("should show the status badge and switch in edit mode", () => {
+    const props = createProps({ mode: "edit", values: { ...ITEM_FORM_DEFAULT_VALUES, isActive: false }, isSubmitting: true, isCategoryLoading: true });
+
+    render(<MasterItemCreateComponent {...props} />);
+    fireEvent.click(screen.getByRole("switch"));
+
+    expect(screen.getByText("inactive")).toHaveClass("bg-danger-subtle");
+    expect(screen.getByRole("button", { name: "Updating…" })).toBeDisabled();
+    expect(props.onStatusChange).toHaveBeenCalledWith(true, expect.anything());
+  });
+
+  it("should show the unavailable message instead of the form", () => {
+    render(<MasterItemCreateComponent {...createProps({ mode: "edit", formStatus: "error" })} />);
+
+    expect(screen.getByText("Item data is unavailable. Open the item from the item list to edit it.")).toBeInTheDocument();
+    expect(screen.queryByRole("button", { name: "Update Item" })).not.toBeInTheDocument();
+  });
+
+  it("should show the submit error toast", () => {
+    render(<MasterItemCreateComponent {...createProps({ errorMessage: "Duplicate item" })} />);
+
+    expect(screen.getByRole("alert")).toHaveTextContent("Duplicate item");
   });
 });

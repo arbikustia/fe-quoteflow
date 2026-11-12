@@ -1,5 +1,4 @@
-import type { ReactElement } from "react";
-import type { FieldError } from "react-hook-form";
+import * as React from "react";
 
 import { AlertComponent } from "@/components/Alert";
 import { BackButton } from "@/components/BackButton";
@@ -7,412 +6,205 @@ import { InputComponent } from "@/components/Input";
 import { Select } from "@/components/Select";
 import { SwitchComponent } from "@/components/Switch";
 
-import { formatRupiahInput } from "./MasterItemCreate.helpers";
-import type {
-  ItemFormContentProps,
-  MasterItemCreateFormState,
-} from "./MasterItemCreate.type";
+import { ITEM_STATUS_BADGE_CLASS } from "../MasterItem.config";
+
+import { ITEM_FORM_MODE_TEXT, ITEM_FORM_STATUS_MESSAGE } from "./MasterItemCreate.config";
+import type { ItemFormModeText, ItemTextField, MasterItemCreateProps } from "./MasterItemCreate.type";
+import { formatRupiahInput, getImageFileName } from "./MasterItemCreate.util";
+
+import Layout from "@/app/layout";
+
+const FIELD_CLASS_NAME = "!mb-0 [&_.ant-input]:!h-16 lg:[&_.ant-input]:!h-14 [&_.ant-input]:!rounded-2xl [&_.ant-input]:!border-2 [&_.ant-input:not(.ant-input-status-error)]:!border-border-strong [&_.ant-input.ant-input-status-error]:!border-danger [&_.ant-input]:!px-4 [&_.ant-input]:!text-xl lg:[&_.ant-input]:!text-lg [&_.ant-input]:!font-normal [&_.ant-input]:placeholder:!text-xl lg:[&_.ant-input]:placeholder:!text-lg [&_.ant-input]:placeholder:!font-normal [&_label]:!text-lg lg:[&_label]:!text-lg [&_label]:!font-normal [&_label]:!normal-case [&_label]:!text-text-primary";
+
+/** Static props of each text input. */
+const TEXT_FIELDS: { field: ItemTextField; id: string; label: string; placeholder: string; isNumeric: boolean; className?: string }[] = [
+  { field: "name", id: "item-name", label: "Item Name", placeholder: "e.g. Wireless Microphone", isNumeric: false },
+  { field: "price", id: "item-price", label: "Price", placeholder: "Rp 0", isNumeric: true },
+  { field: "stock", id: "item-stock", label: "Stock", placeholder: "0", isNumeric: true },
+  { field: "duration", id: "item-duration", label: "Duration (Days)", placeholder: "1", isNumeric: true, className: "lg:col-span-2" },
+];
 
 /**
- * Extract error message from field error.
- *
- * @param {FieldError | undefined} error - Field error object
- * @returns {string | null} Error message or null
+ * Render the mobile title bar with back button.
+ * @param {ItemFormModeText} modeText - Copy of the current mode
+ * @param {() => void} onBack - Back callback
+ * @returns {React.ReactElement} - Mobile title bar
  */
-const _getFieldError = (error: FieldError | undefined): string | null =>
-  error?.message?.toString() ?? null;
-
-/**
- * Render back icon SVG.
- *
- * @returns {ReactElement} Back icon
- */
-const _renderBackIcon = (): ReactElement => (
-  <svg
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2.5"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-    className="h-6 w-6"
-    aria-hidden="true"
-  >
-    <path d="M19 12H5M12 19l-7-7 7-7" />
-  </svg>
+const _renderMobileHeader = (modeText: ItemFormModeText, onBack: () => void): React.ReactElement => (
+  <div className="mb-6 flex items-center gap-3 bg-background-page lg:hidden">
+    <BackButton onClick={onBack} />
+    <div className="min-w-0">
+      <h2 className="truncate text-4xl font-semibold tracking-tight text-text-primary">{modeText.title}</h2>
+      <p className="mt-1 truncate text-sm text-text-secondary">{modeText.subtitle}</p>
+    </div>
+  </div>
 );
 
 /**
- * Render status switch field (edit mode only).
- *
- * @param {MasterItemCreateFormState} props - Form state
- * @returns {ReactElement | null} Field element
+ * Render the desktop breadcrumb and title.
+ * @param {ItemFormModeText} modeText - Copy of the current mode
+ * @param {() => void} onBack - Back callback
+ * @returns {React.ReactElement} - Desktop header
  */
-const _renderStatusField = (
-  props: MasterItemCreateFormState,
-): ReactElement | null => {
-  if (!props.isEditMode) return null;
+const _renderDesktopHeader = (modeText: ItemFormModeText, onBack: () => void): React.ReactElement => (
+  <div className="hidden lg:block">
+    <nav aria-label="Breadcrumb" className="mb-2 flex items-center gap-2 text-[15px] font-medium text-text-secondary">
+      <button type="button" onClick={onBack} className="cursor-pointer hover:text-text-primary">
+        Master
+      </button>
+      <span aria-hidden="true">/</span>
+      <span>Master Item</span>
+      <span aria-hidden="true">/</span>
+      <span className="text-text-primary">{modeText.title}</span>
+    </nav>
+    <div className="mb-6">
+      <h2 className="text-4xl font-semibold leading-tight tracking-tight text-text-primary">{modeText.title}</h2>
+      <p className="mt-2 text-sm text-text-secondary">{modeText.subtitle}</p>
+    </div>
+  </div>
+);
+
+/**
+ * Render one required text input.
+ * @param {MasterItemCreateProps} props - Form props
+ * @param {(typeof TEXT_FIELDS)[number]} config - Static input props
+ * @returns {React.ReactElement} - Text field
+ */
+const _renderTextField = (props: MasterItemCreateProps, config: (typeof TEXT_FIELDS)[number]): React.ReactElement => {
+  const { values, fieldErrors, onTextChange } = props;
+  const value = config.field === "price" ? formatRupiahInput(values.price) : values[config.field];
+
+  return (
+    <div key={config.field} className={config.className}>
+      <InputComponent
+        id={config.id}
+        type="text"
+        label={config.label}
+        placeholder={config.placeholder}
+        required={true}
+        inputMode={config.isNumeric ? "numeric" : undefined}
+        value={value}
+        errorMessage={fieldErrors[config.field]}
+        onChange={onTextChange[config.field]}
+        className={FIELD_CLASS_NAME}
+      />
+    </div>
+  );
+};
+
+/**
+ * Render the category select.
+ * @param {MasterItemCreateProps} props - Form props
+ * @returns {React.ReactElement} - Category field
+ */
+const _renderCategoryField = (props: MasterItemCreateProps): React.ReactElement => (
+  <Select
+    id="item-category"
+    label="Category"
+    labelClassName="!text-lg !font-normal !normal-case !text-text-primary lg:!text-lg"
+    className="mb-0 [&_.ant-select-selector]:!min-h-16 lg:[&_.ant-select-selector]:!min-h-14"
+    selectClassName="!h-16 lg:!h-14 [&_.ant-select-content]:!text-xl lg:[&_.ant-select-content]:!text-lg [&_.ant-select-content]:!font-normal"
+    required={true}
+    value={props.values.categoryId}
+    disabled={props.isCategoryLoading}
+    placeholder={props.isCategoryLoading ? "Loading categories..." : "Select category"}
+    options={props.categoryOptions}
+    onChange={props.onCategoryChange}
+    errorMessage={props.categoryErrorMessage}
+  />
+);
+
+/**
+ * Render the image upload field with its status.
+ * @param {MasterItemCreateProps} props - Form props
+ * @returns {React.ReactElement} - Image field
+ */
+const _renderImageField = (props: MasterItemCreateProps): React.ReactElement => {
+  const { values, isImageUploading, imageUploadError, onImageChange } = props;
+
+  return (
+    <div className="space-y-2">
+      <span className="text-lg font-normal text-text-primary">Upload Image</span>
+      <input
+        id="item-image"
+        type="file"
+        accept="image/*"
+        aria-label="Upload image"
+        onChange={onImageChange}
+        disabled={isImageUploading}
+        className="h-16 w-full rounded-2xl border-2 border-border-strong bg-background-surface px-4 py-3 text-xl font-normal outline-none file:mr-4 file:rounded-xl file:border-0 file:bg-action-primary file:px-4 file:py-2 file:text-sm file:font-semibold file:text-text-inverse hover:file:bg-action-primary-hover lg:h-14 lg:text-lg"
+      />
+      {isImageUploading && <p className="text-sm text-text-secondary">Uploading image…</p>}
+      {imageUploadError && <p role="alert" className="text-sm text-danger">{imageUploadError}</p>}
+      {values.image && (
+        <a href={values.image} target="_blank" rel="noreferrer" className="block truncate text-sm font-medium text-action-primary underline hover:text-action-primary-hover">
+          Uploaded: {getImageFileName(values.image)}
+        </a>
+      )}
+    </div>
+  );
+};
+
+/**
+ * Render the optional remark textarea.
+ * @param {MasterItemCreateProps} props - Form props
+ * @returns {React.ReactElement} - Remark field
+ */
+const _renderRemarkField = (props: MasterItemCreateProps): React.ReactElement => (
+  <label className="block space-y-2 lg:col-span-2">
+    <span className="text-lg font-normal text-text-primary">Remarks</span>
+    <textarea
+      value={props.values.remark}
+      onChange={props.onRemarkChange}
+      placeholder="Optional notes"
+      aria-label="Remarks"
+      className="min-h-36 w-full rounded-2xl border-2 border-border-strong bg-background-surface px-4 py-4 text-xl font-normal outline-none placeholder:text-xl placeholder:font-normal placeholder:text-text-tertiary focus:border-border-focus focus:ring-2 focus:ring-focus-ring/30 lg:min-h-28 lg:text-lg lg:placeholder:text-lg"
+    />
+  </label>
+);
+
+/**
+ * Render the active status switch with its badge (edit mode only).
+ * @param {MasterItemCreateProps} props - Form props
+ * @returns {React.ReactElement | null} - Status field, or null in create mode
+ */
+const _renderStatusField = (props: MasterItemCreateProps): React.ReactElement | null => {
+  const { mode, values, onStatusChange } = props;
+
+  if (mode !== "edit") {
+    return null;
+  }
+
+  const status = values.isActive ? "active" : "inactive";
 
   return (
     <div className="flex items-center justify-between rounded-2xl border-2 border-border-strong bg-background-surface px-5 py-4 lg:col-span-2">
       <div className="flex flex-col">
         <div className="flex items-center gap-2.5">
           <span className="text-lg font-normal text-text-primary">Status</span>
-          <span className={`inline-flex rounded-full px-3 py-0.5 text-base font-semibold uppercase ${props.isActive ? "bg-success-subtle text-success-strong" : "bg-danger-subtle text-danger-strong"}`}>
-            {props.isActive ? "active" : "inactive"}
-          </span>
+          <span className={`inline-flex rounded-full px-3 py-0.5 text-base font-semibold uppercase ${ITEM_STATUS_BADGE_CLASS[status]}`}>{status}</span>
         </div>
-        <span className="text-base text-text-secondary">
-          Toggle active or inactive status
-        </span>
+        <span className="text-base text-text-secondary">Toggle active or inactive status</span>
       </div>
-      <SwitchComponent
-        label="Item status"
-        checked={props.isActive}
-        onChange={props.handleStatusChange}
-      />
+      <SwitchComponent label="Item status" checked={values.isActive} onChange={onStatusChange} />
     </div>
   );
 };
 
 /**
- * Render mobile top back bar.
- *
- * @param {boolean} isEditMode - Edit mode flag
- * @param {() => void} goBack - Back action
- * @returns {ReactElement} Bar element
+ * Render the cancel and submit buttons.
+ * @param {MasterItemCreateProps} props - Form props
+ * @param {ItemFormModeText} modeText - Copy of the current mode
+ * @returns {React.ReactElement} - Form actions
  */
-const _renderMobileBack = (
-  isEditMode: boolean,
-  goBack: () => void,
-): ReactElement => {
-  const title = isEditMode ? "Edit Item" : "New Item";
-  const subtitle = isEditMode
-    ? "Update the item details below."
-    : "Fill in the item details below.";
-
-  return (
-    <div className="mb-6 flex items-center gap-3 bg-background-page lg:hidden">
-      <BackButton onClick={goBack} />
-      <div className="min-w-0">
-        <h2 className="truncate text-4xl font-semibold tracking-tight text-text-primary">
-          {title}
-        </h2>
-        <p className="mt-1 truncate text-sm text-text-secondary">{subtitle}</p>
-      </div>
-    </div>
-  );
-};
-
-/**
- * Render the desktop breadcrumb navigation.
- *
- * @param {string} title - Page title
- * @param {() => void} goBack - Back navigation
- * @returns {ReactElement} Breadcrumb element
- */
-const _renderBreadcrumb = (title: string, goBack: () => void): ReactElement => (
-  <nav
-    aria-label="Breadcrumb"
-    className="mb-2 flex items-center gap-2 text-[15px] font-medium text-text-secondary"
-  >
-    <button
-      type="button"
-      onClick={goBack}
-      className="cursor-pointer hover:text-text-primary"
-    >
-      Master
-    </button>
-    <span aria-hidden="true">/</span>
-    <span>Master Item</span>
-    <span aria-hidden="true">/</span>
-    <span className="text-text-primary">{title}</span>
-  </nav>
-);
-
-/**
- * Render page header with breadcrumb.
- *
- * @param {boolean} isEditMode - Edit mode flag
- * @param {() => void} goBack - Back navigation
- * @returns {ReactElement} Header element
- */
-const _renderHeaderSection = (
-  isEditMode: boolean,
-  goBack: () => void,
-): ReactElement => {
-  const title = isEditMode ? "Edit Item" : "New Item";
-  const subtitle = isEditMode
-    ? "Update the item details below."
-    : "Fill in the item details below.";
-
-  return (
-    <div className="hidden lg:block">
-      {_renderBreadcrumb(title, goBack)}
-      <div className="mb-6">
-        <h2 className="text-4xl font-semibold leading-tight tracking-tight text-text-primary">
-          {title}
-        </h2>
-        <p className="mt-2 text-sm text-text-secondary">
-          {subtitle}
-        </p>
-      </div>
-    </div>
-  );
-};
-
-// _renderInformationStepTab removed
-
-/**
- * Build the shared input field class string.
- *
- * @param {boolean} hasError - Whether the field currently has an error
- * @returns {string} Class names
- */
-const _inputClassName = (hasError: boolean): string =>
-  `!mb-0 [&_.ant-input]:!h-16 lg:[&_.ant-input]:!h-14 [&_.ant-input]:!rounded-2xl [&_.ant-input]:!border-2 ${
-    hasError ? "[&_.ant-input]:!border-danger" : "[&_.ant-input]:!border-border-strong"
-  } [&_.ant-input.ant-input-status-error]:!border-danger [&_.ant-input]:!px-4 [&_.ant-input]:!text-xl lg:[&_.ant-input]:!text-lg [&_.ant-input]:!font-normal [&_.ant-input]:placeholder:!text-xl lg:[&_.ant-input]:placeholder:!text-lg [&_.ant-input]:placeholder:!font-normal [&_label]:!text-lg lg:[&_label]:!text-lg [&_label]:!font-normal [&_label]:!normal-case [&_label]:!text-text-primary`;
-
-/**
- * Render basic input fields for item.
- *
- * @param {ItemFormContentProps} props - Field props
- * @returns {ReactElement} Inputs
- */
-const _renderBasicInputs = (props: ItemFormContentProps): ReactElement => {
-  const nameError = _getFieldError(props.errors?.name);
-
-  return (
-    <>
-      <InputComponent
-        id="item-name"
-        type="text"
-        label="Item Name"
-        placeholder="e.g. Wireless Microphone"
-        required
-        value={props.name}
-        errorMessage={nameError ?? undefined}
-        onChange={props.handleNameChange}
-        className={_inputClassName(Boolean(nameError))}
-      />
-      {_renderCategoryField(props)}
-    </>
-  );
-};
-
-/**
- * Render the category select field.
- *
- * @param {ItemFormContentProps} props - Field props
- * @returns {ReactElement} Category field
- */
-const _renderCategoryField = (props: ItemFormContentProps): ReactElement => (
-  <div>
-    <Select
-      id="item-category"
-      label="Category"
-      labelClassName="!text-lg !font-normal !normal-case !text-text-primary lg:!text-lg"
-      className="mb-0 [&_.ant-select-selector]:!min-h-16 lg:[&_.ant-select-selector]:!min-h-14"
-      selectClassName="!h-16 lg:!h-14 [&_.ant-select-content]:!text-xl lg:[&_.ant-select-content]:!text-lg [&_.ant-select-content]:!font-normal"
-      required
-      value={props.categoryId}
-      disabled={props.isCategoryLoading}
-      placeholder={props.isCategoryLoading ? "Loading categories..." : "Select category"}
-      options={props.categories.map((cat) => ({ label: cat.category_name, value: cat.id }))}
-      onChange={props.handleCategoryChange}
-      errorMessage={props.categoryError ?? _getFieldError(props.errors?.categoryId)}
-    />
-  </div>
-);
-
-/**
- * Render the price input field.
- *
- * @param {ItemFormContentProps} props - Field props
- * @returns {ReactElement} Price field
- */
-const _renderPriceField = (props: ItemFormContentProps): ReactElement => {
-  const priceError = _getFieldError(props.errors?.price);
-
-  return (
-    <InputComponent
-      id="item-price"
-      type="text"
-      label="Price"
-      placeholder="Rp 0"
-      required
-      inputMode="numeric"
-      value={formatRupiahInput(props.price)}
-      errorMessage={priceError ?? undefined}
-      onChange={props.handlePriceChange}
-      className={_inputClassName(Boolean(priceError))}
-    />
-  );
-};
-
-/**
- * Render the stock input field.
- *
- * @param {ItemFormContentProps} props - Field props
- * @returns {ReactElement} Stock field
- */
-const _renderStockField = (props: ItemFormContentProps): ReactElement => {
-  const stockError = _getFieldError(props.errors?.stock);
-
-  return (
-    <InputComponent
-      id="item-stock"
-      type="text"
-      label="Stock"
-      placeholder="0"
-      required
-      inputMode="numeric"
-      value={props.stock}
-      errorMessage={stockError ?? undefined}
-      onChange={props.handleStockChange}
-      className={_inputClassName(Boolean(stockError))}
-    />
-  );
-};
-
-/**
- * Render the duration input field.
- *
- * @param {ItemFormContentProps} props - Field props
- * @returns {ReactElement} Duration field
- */
-const _renderDurationField = (props: ItemFormContentProps): ReactElement => {
-  const durationError = _getFieldError(props.errors?.duration);
-
-  return (
-    <div className="lg:col-span-2">
-      <InputComponent
-        id="item-duration"
-        type="text"
-        label="Duration (Days)"
-        placeholder="1"
-        required
-        inputMode="numeric"
-        value={props.duration}
-        errorMessage={durationError ?? undefined}
-        onChange={props.handleDurationChange}
-        className={_inputClassName(Boolean(durationError))}
-      />
-    </div>
-  );
-};
-
-/**
- * Render numerical fields for item.
- *
- * @param {ItemFormContentProps} props - Field props
- * @returns {ReactElement} Numerical inputs
- */
-const _renderNumericalInputs = (props: ItemFormContentProps): ReactElement => (
-  <>
-    {_renderPriceField(props)}
-    {_renderStockField(props)}
-    {_renderDurationField(props)}
-  </>
-);
-
-/**
- * Render extra fields for item.
- *
- * @param {ItemFormContentProps} props - Field props
- * @returns {ReactElement} Extra inputs
- */
-const _renderExtraInputs = (props: ItemFormContentProps): ReactElement => (
-  <>
-    {_renderImageField(props)}
-    {_renderRemarkField(props)}
-  </>
-);
-
-/**
- * Render the image upload field.
- *
- * @param {ItemFormContentProps} props - Field props
- * @returns {ReactElement} Image field
- */
-const _renderImageField = (props: ItemFormContentProps): ReactElement => (
-  <div className="space-y-2">
-    <span className="text-lg font-normal text-text-primary lg:text-lg">
-      Upload Image
-    </span>
-    <input
-      id="item-image"
-      type="file"
-      accept="image/*"
-      aria-label="Upload image"
-      onChange={props.handleImageChange}
-      disabled={props.isImageUploading}
-      className="h-16 w-full rounded-2xl border-2 border-border-strong bg-background-surface px-4 py-3 text-xl font-normal outline-none file:mr-4 file:rounded-xl file:border-0 file:bg-action-primary file:px-4 file:py-2 file:text-sm file:font-semibold file:text-text-inverse hover:file:bg-action-primary-hover lg:h-14 lg:text-lg"
-    />
-    {props.isImageUploading && (
-      <p className="text-sm text-text-secondary">Uploading image…</p>
-    )}
-    {props.imageUploadError !== null && (
-      <p role="alert" className="text-sm text-danger">
-        {props.imageUploadError}
-      </p>
-    )}
-    {props.image && (
-      <a
-        href={props.image}
-        target="_blank"
-        rel="noreferrer"
-        className="block truncate text-sm font-medium text-action-primary underline hover:text-action-primary-hover"
-      >
-        Uploaded: {props.image.split("/").pop()}
-      </a>
-    )}
-  </div>
-);
-
-/**
- * Render the remark textarea field.
- *
- * @param {ItemFormContentProps} props - Field props
- * @returns {ReactElement} Remark field
- */
-const _renderRemarkField = (props: ItemFormContentProps): ReactElement => (
-  <label className="block space-y-2 lg:col-span-2">
-    <span className="text-lg font-normal text-text-primary lg:text-lg">
-      Remarks
-    </span>
-    <textarea
-      value={props.remark}
-      onChange={props.handleRemarkChange}
-      placeholder="Optional notes"
-      aria-label="Remarks"
-      className="min-h-36 w-full rounded-2xl border-2 border-border-strong bg-background-surface px-4 py-4 text-xl font-normal outline-none placeholder:font-normal placeholder:text-xl placeholder:text-text-tertiary focus:border-border-focus focus:ring-2 focus:ring-focus-ring/30 lg:min-h-28 lg:text-lg lg:placeholder:text-lg"
-    />
-  </label>
-);
-
-/**
- * Render form action footer.
- *
- * @param {boolean} isEditMode - Edit mode flag
- * @param {boolean} isSubmitting - Submitting state
- * @param {() => void} goBack - Back navigation
- * @returns {ReactElement} Action element
- */
-const _renderFormActions = (
-  isEditMode: boolean,
-  isSubmitting: boolean,
-  goBack: () => void,
-): ReactElement => {
-  const buttonText = isEditMode ? "Update Item" : "Create Item";
-  const submittingText = isEditMode ? "Updating…" : "Creating…";
+const _renderFormActions = (props: MasterItemCreateProps, modeText: ItemFormModeText): React.ReactElement => {
+  const { isSubmitting, onBack } = props;
 
   return (
     <div className="mt-auto flex justify-between gap-3 border-t border-border-default/60 pt-5 lg:border-border-default">
       <button
         type="button"
-        onClick={goBack}
+        onClick={onBack}
         disabled={isSubmitting}
         className="h-14 cursor-pointer rounded-xl border border-border-default px-8 text-lg font-semibold text-text-primary transition-colors hover:bg-background-subtle focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-action-primary disabled:cursor-not-allowed disabled:opacity-50 lg:text-lg"
       >
@@ -423,85 +215,70 @@ const _renderFormActions = (
         disabled={isSubmitting}
         className="h-14 cursor-pointer rounded-xl bg-action-primary px-8 text-lg font-semibold text-text-inverse shadow-xs transition-colors hover:bg-action-primary-hover focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-action-primary disabled:cursor-not-allowed disabled:opacity-60 lg:text-lg"
       >
-        {isSubmitting ? submittingText : buttonText}
+        {isSubmitting ? modeText.submittingLabel : modeText.submitLabel}
       </button>
     </div>
   );
 };
 
 /**
- * Render notification alerts.
- *
- * @param {string | null} errorMessage - Error alert text
- * @param {string | null} successMessage - Success alert text
- * @returns {ReactElement | null} Alert element
+ * Render the form, or the unavailable message in its place.
+ * @param {MasterItemCreateProps} props - Form props
+ * @param {ItemFormModeText} modeText - Copy of the current mode
+ * @returns {React.ReactElement} - Form or status message
  */
-const _renderAlerts = (
-  errorMessage: string | null,
-  successMessage: string | null,
-): ReactElement | null => {
-  if (errorMessage) {
-    return <AlertComponent type="error" message={errorMessage} toast closable />;
+const _renderFormContent = (props: MasterItemCreateProps, modeText: ItemFormModeText): React.ReactElement => {
+  const { formStatus, onSubmit } = props;
+
+  if (formStatus !== "ready") {
+    return <p className="py-12 text-center text-sm text-text-secondary">{ITEM_FORM_STATUS_MESSAGE[formStatus]}</p>;
   }
 
-  if (successMessage) {
-    return (
-      <AlertComponent
-        type="success"
-        message={successMessage}
-        toast
-        closable
-      />
-    );
-  }
+  const [nameField, ...numberFields] = TEXT_FIELDS;
 
-  return null;
+  return (
+    <form
+      noValidate
+      onSubmit={onSubmit}
+      className="mb-6 flex flex-col rounded-3xl border border-border-default bg-background-surface p-6 shadow-small sm:p-8 lg:-mt-4 lg:mb-5 lg:flex-1 lg:rounded-3xl lg:p-10"
+    >
+      <div className="pb-6">
+        <div className="grid w-full grid-cols-1 gap-x-6 gap-y-5 lg:grid-cols-2">
+          {_renderTextField(props, nameField)}
+          {_renderCategoryField(props)}
+          {numberFields.map((config) => _renderTextField(props, config))}
+          {_renderImageField(props)}
+          {_renderRemarkField(props)}
+          {_renderStatusField(props)}
+        </div>
+      </div>
+      {_renderFormActions(props, modeText)}
+    </form>
+  );
 };
 
 /**
- * Render form card container.
- *
- * @param {MasterItemCreateFormState} props - Form state
- * @returns {ReactElement} Form element
+ * Render the item create / edit page.
+ * @param {MasterItemCreateProps} props - Form props
+ * @returns {React.ReactElement} - Item form page
  */
-const _renderFormCard = (
-  props: MasterItemCreateFormState,
-): ReactElement => (
-    <form
-      noValidate
-      onSubmit={props.handleSubmit}
-      className="mb-6 flex flex-col rounded-3xl border border-border-default bg-background-surface p-6 shadow-small sm:p-8 lg:-mt-4 lg:mb-5 lg:flex-1 lg:rounded-3xl lg:p-10"
-    >
-    <div className="pb-6">
-      <section className="space-y-5">
-        <div className="grid w-full grid-cols-1 gap-x-6 gap-y-5 lg:grid-cols-2">
-          {_renderBasicInputs(props)}
-          {_renderNumericalInputs(props)}
-          {_renderExtraInputs(props)}
-          {_renderStatusField(props)}
-        </div>
-      </section>
-    </div>
-    {_renderFormActions(props.isEditMode, props.isSubmitting, props.goBack)}
-  </form>
-);
+const MasterItemCreateComponent = (props: MasterItemCreateProps): React.ReactElement => {
+  const { mode, errorMessage, onBack } = props;
+  const modeText = ITEM_FORM_MODE_TEXT[mode];
 
-/**
- * Render create item form.
- *
- * @param {MasterItemCreateFormState} props - Form state
- * @returns {ReactElement} Form
- */
-export const MasterItemCreateForm = (
-  props: MasterItemCreateFormState,
-): ReactElement => (
-  <div className="flex h-full w-full flex-col bg-background-page pb-6 font-sans">
-    {_renderAlerts(props.errorMessage, props.successMessage)}
-    {_renderMobileBack(props.isEditMode, props.goBack)}
-    <div className="flex min-h-0 w-full flex-1 flex-col pb-32 text-lg lg:pb-0">
-      {_renderHeaderSection(props.isEditMode, props.goBack)}
-      {_renderFormCard(props)}
-      <div className="h-24 shrink-0 lg:hidden" aria-hidden="true" />
-    </div>
-  </div>
-);
+  return (
+    <Layout>
+      <div className="flex h-full w-full flex-col bg-background-page pb-6 font-sans">
+        {errorMessage && <AlertComponent type="error" message={errorMessage} toast closable />}
+        {_renderMobileHeader(modeText, onBack)}
+        <div className="flex min-h-0 w-full flex-1 flex-col pb-32 text-lg lg:pb-0">
+          {_renderDesktopHeader(modeText, onBack)}
+          {_renderFormContent(props, modeText)}
+          <div className="h-24 shrink-0 lg:hidden" aria-hidden="true" />
+        </div>
+      </div>
+    </Layout>
+  );
+};
+
+export default MasterItemCreateComponent;

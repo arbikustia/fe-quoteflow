@@ -1,98 +1,131 @@
-import React from "react";
-import { render, screen, fireEvent } from "@/libs/unit-test";
-import { MemoryRouter } from "react-router-dom";
-import { MasterItemComponent } from "./MasterItem.component";
-import type { ItemData } from "./MasterItem.type";
+import { MOCK_API_ITEMS } from "@/fixture/master-item";
+import { fireEvent, render, screen } from "@/libs/unit-test";
 
-jest.mock("../../../app/layout", () => ({
-  __esModule: true,
-  default: ({ children }: { children: React.ReactNode }) => React.createElement("div", {}, children),
-}));
+import MasterItemComponent from "./MasterItem.component";
+import type { ItemData, MasterItemProps } from "./MasterItem.type";
 
-jest.useFakeTimers();
-jest.setSystemTime(new Date("2026-10-18T00:31:00+07:00"));
+jest.mock("@/app/layout", () => ({ children }: { children: React.ReactNode }): React.ReactElement => <div data-testid="layout">{children}</div>);
 
-afterAll(() => jest.useRealTimers());
+const ITEM: ItemData = {
+  id: "item-1",
+  name: "Beam 290",
+  categoryName: "Lighting Equipment",
+  price: 100000,
+  stock: 7,
+  duration: 1,
+  image: null,
+  remark: "Lighting",
+  status: "active",
+  source: MOCK_API_ITEMS[0],
+};
 
-const mockItems: ItemData[] = [
-  { id: "1", name: "Speaker", categoryId: "Audio", categoryName: "Audio", price: 5000000, stock: 12, image: "https://example.com/a.jpg", duration: 3, remark: "ok", status: "active", createAt: "2024-01-01", createBy: "Admin" },
-  { id: "2", name: "Light", categoryId: "Lighting", categoryName: "Lighting", price: 600000, stock: 5, image: "https://example.com/b.jpg", duration: 1, remark: "sharp", status: "inactive", createAt: "2024-01-02", createBy: "Admin" },
-];
-
-const mockColumns: any[] = [{ key: "name", header: "Item Name" }];
-
-const defaultProps = {
-  onEdit: jest.fn(),
-  onBack: jest.fn(),
-  onMore: jest.fn(),
-  paginatedData: mockItems,
-  columns: mockColumns,
+/**
+ * Build list view props.
+ * @param {Partial<MasterItemProps>} [overrides] - Props to override
+ * @returns {MasterItemProps} - Component props
+ */
+const createProps = (overrides?: Partial<MasterItemProps>): MasterItemProps => ({
+  listStatus: "ready",
+  items: [ITEM],
+  totalPages: 1,
+  totalCount: 1,
   currentPage: 1,
-  totalPages: 2,
-  pageSize: 5,
-  totalCount: 10,
-  isLoading: false,
-  errorMessage: null,
-  isEmpty: false,
-  isMissingData: false,
-  goToPage: jest.fn(),
-  nextPage: jest.fn(),
-  prevPage: jest.fn(),
-  changePageSize: jest.fn(),
-  setSearchTerm: jest.fn(),
-  onCreate: jest.fn(),
-  isMoreOpen: false,
-  onCloseMore: jest.fn(),
-  onDelete: jest.fn(),
+  pageSize: 10,
+  canCreate: true,
+  canEdit: true,
   selectedItemIds: [],
   isMultiDownloadMode: false,
+  onPageChange: jest.fn(),
+  onPageSizeChange: jest.fn(),
+  onSearchChange: jest.fn(),
+  onBack: jest.fn(),
+  onCreate: jest.fn(),
+  onEdit: jest.fn(),
   onToggleItem: jest.fn(),
-  onToggleMultiDownload: jest.fn(),
+  onStartMultiDownload: jest.fn(),
   onCancelMultiDownload: jest.fn(),
   onDownload: jest.fn(),
   onDownloadSelected: jest.fn(),
-};
-
-const renderWithRouter = (props = defaultProps) =>
-  render(
-    <MemoryRouter>
-      <MasterItemComponent {...props} />
-    </MemoryRouter>
-  );
+  ...overrides,
+});
 
 describe("MasterItemComponent", () => {
-  it("should render without crashing", () => {
-    renderWithRouter();
-    expect(screen.getAllByText("Item List").length).toBeGreaterThan(0);
+  it("should render items in the table and mobile cards", () => {
+    render(<MasterItemComponent {...createProps()} />);
+
+    expect(screen.getAllByText("Beam 290")).toHaveLength(2);
+    expect(screen.getByText("Lighting")).toBeInTheDocument();
   });
 
-  it("should handle empty data", () => {
-    renderWithRouter({ ...defaultProps, paginatedData: [] as ItemData[], totalCount: 0, totalPages: 1 });
-    expect(screen.getAllByText("Item List").length).toBeGreaterThan(0);
+  it("should call create, search and edit handlers", () => {
+    const props = createProps();
+
+    render(<MasterItemComponent {...props} />);
+    fireEvent.click(screen.getAllByRole("button", { name: "Create New" })[0]);
+    fireEvent.click(screen.getByRole("button", { name: "Create Item" }));
+    fireEvent.change(screen.getAllByPlaceholderText("Search item")[0], { target: { value: "beam" } });
+    fireEvent.click(screen.getByRole("button", { name: "Edit item Beam 290" }));
+
+    expect(props.onCreate).toHaveBeenCalledTimes(2);
+    expect(props.onSearchChange).toHaveBeenCalledTimes(1);
+    expect(props.onEdit).toHaveBeenCalledWith(ITEM);
   });
 
-  it("calls onBack when back button clicked", () => {
-    const onBack = jest.fn();
-    renderWithRouter({ ...defaultProps, onBack });
-    fireEvent.click(screen.getByLabelText("Back"));
-    expect(onBack).toHaveBeenCalledTimes(1);
+  it("should hide create and edit actions without permission", () => {
+    render(<MasterItemComponent {...createProps({ canCreate: false, canEdit: false })} />);
+
+    expect(screen.queryByRole("button", { name: "Create New" })).not.toBeInTheDocument();
+    expect(screen.queryByRole("button", { name: "Create Item" })).not.toBeInTheDocument();
+    expect(screen.queryByRole("button", { name: "Edit item Beam 290" })).not.toBeInTheDocument();
   });
 
-  it("matches snapshot", () => {
-    const { asFragment } = render(
-      <MemoryRouter>
-        <MasterItemComponent {...defaultProps} />
-      </MemoryRouter>
-    );
-    expect(asFragment()).toMatchSnapshot();
+  it("should start multi-download mode", () => {
+    const props = createProps();
+
+    render(<MasterItemComponent {...props} />);
+    fireEvent.click(screen.getByRole("button", { name: "Download Multiple" }));
+
+    expect(props.onStartMultiDownload).toHaveBeenCalledTimes(1);
   });
 
-  it("matches snapshot with empty data and closed menu", () => {
-    const { asFragment } = render(
-      <MemoryRouter>
-        <MasterItemComponent {...{ ...defaultProps, paginatedData: [] as ItemData[], totalCount: 0, totalPages: 1, isMoreOpen: false }} />
-      </MemoryRouter>
-    );
-    expect(asFragment()).toMatchSnapshot();
+  it("should download or cancel the selection in multi-download mode", () => {
+    const props = createProps({ isMultiDownloadMode: true, selectedItemIds: ["item-1"] });
+
+    render(<MasterItemComponent {...props} />);
+    fireEvent.click(screen.getByRole("button", { name: "Download Multiple (1)" }));
+    fireEvent.click(screen.getByRole("button", { name: "Cancel" }));
+
+    expect(screen.getByRole("checkbox", { name: "Select Beam 290" })).toBeChecked();
+    expect(props.onDownloadSelected).toHaveBeenCalledTimes(1);
+    expect(props.onCancelMultiDownload).toHaveBeenCalledTimes(1);
+  });
+
+  it("should disable the batch download without a selection", () => {
+    render(<MasterItemComponent {...createProps({ isMultiDownloadMode: true })} />);
+
+    expect(screen.getByRole("button", { name: "Download Multiple (0)" })).toBeDisabled();
+  });
+
+  it("should render skeletons while loading", () => {
+    const { container } = render(<MasterItemComponent {...createProps({ listStatus: "loading", items: [] })} />);
+
+    expect(screen.queryByText("Beam 290")).not.toBeInTheDocument();
+    expect(container.querySelectorAll(".animate-pulse").length).toBeGreaterThan(0);
+  });
+
+  it.each([
+    ["empty", "No items found."],
+    ["error", "Unable to load items."],
+    ["missing", "Item data is unavailable. Please try again."],
+  ] as const)("should render the %s message in both layouts", (listStatus, message) => {
+    render(<MasterItemComponent {...createProps({ listStatus, items: [] })} />);
+
+    expect(screen.getAllByText(message)).toHaveLength(2);
+  });
+
+  it("should show the success toast passed from the form page", () => {
+    render(<MasterItemComponent {...createProps({ successMessage: "Item created successfully." })} />);
+
+    expect(screen.getByRole("alert")).toHaveTextContent("Item created successfully.");
   });
 });
