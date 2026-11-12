@@ -37,6 +37,7 @@ export type PermissionFormPage = {
   number: number;
   page: string;
   url: string;
+  actions: PermissionAction[];
   permission: PermissionAction[];
 };
 

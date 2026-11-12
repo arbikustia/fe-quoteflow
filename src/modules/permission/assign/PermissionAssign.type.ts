@@ -9,6 +9,10 @@ export type PermissionAssignState = {
   formMessage?: string;
   userOptions: SelectOption[];
   isLoadingUsers: boolean;
+  isAllSelected: boolean;
+  isPartiallySelected: boolean;
+  onSelectAllChange: (checked: boolean) => void;
+  onRowSelectChange: (url: string, checked: boolean) => void;
   onUserChange: (username: string) => void;
   onUserSearch: (search: string) => void;
   onPermissionChange: (url: string, permission: PermissionAction, checked: boolean) => void;

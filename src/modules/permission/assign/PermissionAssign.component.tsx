@@ -7,9 +7,6 @@ import Layout from "@/app/layout";
 import { PageLayout } from "@/app/shared/PageLayout";
 
 import type { PermissionAssignState } from "./PermissionAssign.type";
-import type { PermissionAction } from "../Permission.type";
-
-const PERMISSION_ACTIONS: PermissionAction[] = ["view", "create", "edit"];
 
 export const PermissionAssignComponent = (props: PermissionAssignState): React.ReactElement => (
   <Layout pageTitle="Assign Permission">
@@ -40,6 +37,14 @@ export const PermissionAssignComponent = (props: PermissionAssignState): React.R
                 labelClassName="sr-only"
               />
             </div>
+            <CheckboxComponent
+              id="permission-select-all"
+              label="Select all"
+              ariaLabel="Select all permissions"
+              checked={props.isAllSelected}
+              indeterminate={props.isPartiallySelected}
+              onChange={props.onSelectAllChange}
+            />
           </div>
           <div className="overflow-x-auto">
             <table className="w-full border-collapse text-left">
@@ -52,7 +57,14 @@ export const PermissionAssignComponent = (props: PermissionAssignState): React.R
                     <td className="p-3"><code className="text-text-secondary">{page.url}</code></td>
                     <td className="p-3">
                       <div className="flex flex-wrap gap-4">
-                        {PERMISSION_ACTIONS.map((permission) => (
+                        <CheckboxComponent
+                          ariaLabel={`Select all ${page.page} permissions`}
+                          label="All"
+                          checked={page.permission.length === page.actions.length}
+                          indeterminate={page.permission.length > 0 && page.permission.length < page.actions.length}
+                          onChange={(checked): void => props.onRowSelectChange(page.url, checked)}
+                        />
+                        {page.actions.map((permission) => (
                           <CheckboxComponent
                             key={permission}
                             ariaLabel={`${page.page} ${permission}`}

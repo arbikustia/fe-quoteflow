@@ -8,12 +8,10 @@ import { buildPermissionPayload, getPermissionPages } from "./Permission.form";
 import { filterPermissionRows, flattenPermissionMenus } from "./Permission.helpers";
 import type { PermissionAction, PermissionFormPage, PermissionState } from "./Permission.type";
 
-const ACTIONS: PermissionAction[] = ["view", "create", "edit"];
-
 /** Merge current API permissions into sidebar page definitions. */
 const _mergePermissions = (pages: PermissionFormPage[], rows: PermissionState["rows"]): PermissionFormPage[] => pages.map((page) => {
   const current = rows.find((row) => row.url === page.url);
-  const permission = (current?.permission ?? []).filter((action): action is PermissionAction => ACTIONS.includes(action as PermissionAction));
+  const permission = page.actions.filter((action) => current?.permission.includes(action));
 
   return { ...page, permission };
 });

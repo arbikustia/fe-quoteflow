@@ -11,7 +11,7 @@ const createProps = (): PermissionState => ({
   selectedUsername: "admin",
   userOptions: [{ label: "admin", value: "admin" }],
   rows: [{ id: "Document-/quotation-Quotation", menu: "Document", page: "Quotation", url: "/quotation", permission: ["view", "create"] }],
-  formPages: [{ menu: "Document", number: 2, page: "Quotation", url: "/document/quotation", permission: ["view"] }],
+  formPages: [{ menu: "Document", number: 2, page: "Quotation", url: "/document/quotation", actions: ["view", "create", "edit"], permission: ["view"] }],
   isFormOpen: false,
   isLoadingUsers: false,
   isLoadingPermission: false,

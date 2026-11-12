@@ -8,13 +8,14 @@ import Table from "@/components/Table";
 import Layout from "@/app/layout";
 import { PageLayout } from "@/app/shared/PageLayout";
 
+import { DEFAULT_PERMISSION_BADGE_CLASS, PERMISSION_BADGE_CLASSES } from "./Permission.config";
 import type { PermissionRow, PermissionState } from "./Permission.type";
 
 /** Render permissions as badges. */
 const _renderPermissions = (row: PermissionRow): React.ReactElement => (
   <div className="flex flex-wrap gap-2">
     {row.permission.map((permission) => (
-      <span key={permission} className="rounded-full border border-action-primary px-3 py-1 text-sm font-semibold text-action-primary">
+      <span key={permission} className={`rounded-full border px-3 py-1 text-sm font-semibold ${PERMISSION_BADGE_CLASSES.find((badge) => badge.action === permission)?.className ?? DEFAULT_PERMISSION_BADGE_CLASS}`}>
         {permission}
       </span>
     ))}

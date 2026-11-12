@@ -142,7 +142,7 @@ exports[`PermissionComponent snapshot should match permission list 1`] = `
                             class="flex flex-wrap gap-2"
                           >
                             <span
-                              class="rounded-full border border-action-primary px-3 py-1 text-sm font-semibold text-action-primary"
+                              class="rounded-full border px-3 py-1 text-sm font-semibold border-information bg-information-subtle text-information-strong"
                             >
                               view
                             </span>
