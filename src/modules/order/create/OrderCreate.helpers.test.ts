@@ -1,6 +1,7 @@
+import type { ApiQuotation } from "../../quotation/Quotation.type";
 import type { ApiRentalTransactionDetail } from "../Order.type";
 
-import { buildEditForm } from "./helpers/OrderCreateForm.helpers";
+import { buildEditForm, mapQuotationToOrderDetail } from "./helpers/OrderCreateForm.helpers";
 import { calculateOrderTotals, clampQtyToStock, getNextOrderStep, getPreviousOrderStep, hasItemQtyWithinStock, hasSelectedOrderItem, isOrderInformationValid } from "./OrderCreate.helpers";
 
 describe("OrderCreate step helpers", () => {
@@ -158,5 +159,36 @@ describe("OrderCreate step helpers", () => {
     };
 
     expect(buildEditForm(order).remarks).toBe("Prepare before event");
+  });
+
+  it("should use global remark instead of project remark as edit form default remarks", (): void => {
+    const order = {
+      remarks: "Global remark",
+      rental_transaction_items: [],
+      rental_transaction_project: [{ remark: "Project remark" }],
+    } as unknown as ApiRentalTransactionDetail;
+
+    expect(buildEditForm(order).remarks).toBe("Global remark");
+  });
+
+  it("should use quotation transaction remarks as edit form default remarks", (): void => {
+    const quotation = {
+      id: "quotation-1",
+      notes: "Quotation notes",
+      transaction: {
+        id: "order-1",
+        remarks: "Quotation global remark",
+        service_type_name: "REGULER",
+        customer: { id: "customer-1" },
+        pic: { id: "pic-1" },
+        rental_transaction_items: [{ item_id: "item-1", item_name: "Lamp", qty: 1, price: 1000, subtotal: 1000, remark: "Item remark" }],
+        rental_transaction_project: [],
+      },
+    } as unknown as ApiQuotation;
+    const form = buildEditForm(mapQuotationToOrderDetail(quotation));
+
+    expect(form.remarks).toBe("Quotation global remark");
+    expect(form.customer_id).toBe("customer-1");
+    expect(form.rental_transaction_items[0]?.remark).toBe("Item remark");
   });
 });

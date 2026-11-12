@@ -2,6 +2,7 @@ import type React from "react";
 import { useEffect, useRef, useState } from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 
+import type { ApiQuotation } from "../../../quotation/Quotation.type";
 import type { ApiRentalTransactionDetail, OrderItemPayload } from "../../Order.type";
 import { getNextOrderStep, getPreviousOrderStep, hasItemQtyWithinStock, hasSelectedOrderItem, isOrderInformationValid } from "../OrderCreate.helpers";
 import type { OrderCreateFormState, OrderCreateState } from "../OrderCreate.type";
@@ -18,6 +19,7 @@ import { useGetAllProjectsQuery } from "@/services/master-project.service";
 import { useGetAllServiceTypesQuery } from "@/services/master-service-type.service";
 import { useGetAllVouchersQuery, useGetVoucherByCodeQuery } from "@/services/master-voucher.service";
 import { useCreateOrderMutation, useCreateProjectOrderMutation, useGetAllOrderTypesQuery, useGetOrderByIdQuery, useUpdateOrderMutation } from "@/services/order.service";
+import { useGetQuotationByIdQuery } from "@/services/quotation.service";
 
 export { updateSelectedItem } from "./OrderCreateForm.actions";
 
@@ -78,6 +80,34 @@ const _buildEditFormItems = (order: ApiRentalTransactionDetail): OrderItemPayloa
 };
 
 /**
+ * Map quotation detail (/api/quotation/:id) to order detail shape, using transaction remarks as global remarks.
+ * @param {ApiQuotation} quotation - Quotation detail.
+ * @returns {ApiRentalTransactionDetail} Order detail used to build the edit form.
+ */
+export const mapQuotationToOrderDetail = (quotation: ApiQuotation): ApiRentalTransactionDetail => {
+  const { transaction } = quotation;
+
+  return {
+    ...transaction,
+    remarks: transaction.remarks ?? "",
+    rental_transaction_items: (transaction.rental_transaction_items ?? []).map((item) => ({
+      item_id: item.item_id ?? "",
+      project_id: item.project_id ?? null,
+      item_name: item.item_name ?? "",
+      qty: item.qty,
+      price: item.price,
+      subtotal: item.subtotal,
+      remark: item.remark ?? "",
+    })),
+    rental_transaction_project: (transaction.rental_transaction_project ?? []).map((project) => ({
+      ...project,
+      remark: project.remark ?? "",
+      items: project.items.map((projectItem) => ({ ...projectItem, remark: projectItem.remark ?? "" })),
+    })),
+  };
+};
+
+/**
  * Build edit form defaults from order detail.
  * @param {ApiRentalTransactionDetail} order - Order detail.
  * @returns {OrderCreateFormState} - Populated edit form.
@@ -100,7 +130,7 @@ export const buildEditForm = (order: ApiRentalTransactionDetail): OrderCreateFor
   subtotal: order.subtotal ?? 0,
   discount: order.discount ?? 0,
   service_fee: order.service_fee ?? 0,
-  remarks: order.rental_transaction_project[0]?.remark ?? order.remark ?? order.remarks ?? "",
+  remarks: order.remarks || order.remark || "",
   grand_total: order.grand_total ?? 0,
   status: order.status ?? 1,
   rental_transaction_items: _buildEditFormItems(order),
@@ -178,20 +208,30 @@ const useOrderOptions = (): OrderOptionsState => {
 
 /**
  * Populate the form once when editing an existing order.
+ * Uses /api/quotation/:id when opened from a quotation, otherwise /api/rental-transaction/:id.
  * @param {FormSetter} setForm - Form state setter.
  * @param {string} [id] - Transaction ID when editing.
  * @returns {void} Nothing.
  */
 const useEditFormInit = (setForm: FormSetter, id?: string): void => {
-  const orderDetailQuery = useGetOrderByIdQuery(id ?? "", { skip: !id });
+  const location = useLocation();
+  const quotationId: OrderLocationState["quotationId"] = location.state?.quotationId;
+  const quotationDetailQuery = useGetQuotationByIdQuery(quotationId ?? "", { skip: !id || !quotationId, refetchOnMountOrArgChange: true });
+  const orderDetailQuery = useGetOrderByIdQuery(id ?? "", { skip: !id || Boolean(quotationId) });
   const hasInitializedEdit = useRef(false);
 
   useEffect(() => {
-    if (!id || hasInitializedEdit.current || !orderDetailQuery.data?.data) return;
+    if (!id || hasInitializedEdit.current) return;
 
-    setForm(buildEditForm(orderDetailQuery.data.data));
+    const quotation = quotationDetailQuery.data?.data;
+    const quotationOrder = quotation ? mapQuotationToOrderDetail(quotation) : null;
+    const order = quotationId ? quotationOrder : orderDetailQuery.data?.data;
+
+    if (!order) return;
+
+    setForm(buildEditForm(order));
     hasInitializedEdit.current = true;
-  }, [id, orderDetailQuery.data]);
+  }, [id, quotationId, quotationDetailQuery.data, orderDetailQuery.data]);
 };
 
 /**

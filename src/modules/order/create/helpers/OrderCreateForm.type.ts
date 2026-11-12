@@ -8,7 +8,7 @@ import type { ActivityLogPayload } from "@/services/activity-log.service";
 
 export type CustomerOption = SelectOption & { address: string; phone_number: string };
 export type VoucherOption = SelectOption & { discount_percent: number };
-export type OrderLocationState = { returnUrl?: string };
+export type OrderLocationState = { returnUrl?: string; quotationId?: string };
 export type ProjectData = OrderProjectOption;
 export type FormSetter = React.Dispatch<React.SetStateAction<OrderCreateFormState>>;
 export type ErrorMessageSetter = React.Dispatch<React.SetStateAction<OrderCreateState["errorMessage"]>>;

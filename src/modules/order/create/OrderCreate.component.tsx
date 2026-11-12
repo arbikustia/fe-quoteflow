@@ -531,8 +531,6 @@ const _renderProjectIncludedItem = (
 ): React.ReactElement => {
   const itemDetail = props.items.find((option) => option.id === item.item_id);
   const itemName = item.item_name ?? itemDetail?.name ?? item.item_id;
-  const price = itemDetail?.price ?? 0;
-  const subtotal = price * item.qty;
 
   return (
     <div
@@ -548,11 +546,6 @@ const _renderProjectIncludedItem = (
           <span className="rounded bg-action-primary-subtle px-1.5 py-0.5 font-semibold text-action-primary">
             Qty: {item.qty}
           </span>
-          {price > 0 && (
-            <span className="font-medium text-text-secondary">
-              Rp {subtotal.toLocaleString("id-ID")}
-            </span>
-          )}
         </div>
       </div>
     </div>
@@ -1716,6 +1709,7 @@ const _renderReviewPricing = (props: OrderCreateProps): React.ReactElement => {
 
 /**
  * Render a reviewed item inside a project section.
+ * Item prices are hidden; only the project header row shows its price.
  * @param {OrderProjectOption} project - Project option.
  * @param {OrderItemPayload} item - Project item row.
  * @returns {React.ReactElement} Project item row.
@@ -1723,29 +1717,36 @@ const _renderReviewPricing = (props: OrderCreateProps): React.ReactElement => {
 const _renderReviewProjectItem = (
   project: OrderProjectOption,
   item: OrderItemPayload,
-): React.ReactElement => (
-  <div
-    key={`${project.id}-${item.item_id}`}
-    className="grid gap-2 py-4 text-xl sm:grid-cols-[minmax(0,1fr)_auto] sm:items-center lg:text-lg"
-  >
-    <div className="min-w-0">
-      <p className="break-words font-semibold text-text-primary">
-        {item.item_name || item.item_id}
-      </p>
-      <p className="mt-1 text-lg text-text-secondary lg:text-lg">
-        Qty {item.qty} × Rp {item.price.toLocaleString("id-ID")}
-      </p>
-      {item.remark && (
-        <p className="mt-1 break-words text-lg text-text-secondary lg:text-lg">
-          {item.remark}
+): React.ReactElement => {
+  const isProjectHeader = item.item_id === project.id;
+
+  return (
+    <div
+      key={`${project.id}-${item.item_id}`}
+      className="grid gap-2 py-4 text-xl sm:grid-cols-[minmax(0,1fr)_auto] sm:items-center lg:text-lg"
+    >
+      <div className="min-w-0">
+        <p className="break-words font-semibold text-text-primary">
+          {item.item_name || item.item_id}
+        </p>
+        <p className="mt-1 text-lg text-text-secondary lg:text-lg">
+          Qty {item.qty}
+          {isProjectHeader && ` × Rp ${item.price.toLocaleString("id-ID")}`}
+        </p>
+        {item.remark && (
+          <p className="mt-1 break-words text-lg text-text-secondary lg:text-lg">
+            {item.remark}
+          </p>
+        )}
+      </div>
+      {isProjectHeader && (
+        <p className="font-semibold text-text-primary sm:text-right">
+          Rp {item.subtotal.toLocaleString("id-ID")}
         </p>
       )}
     </div>
-    <p className="font-semibold text-text-primary sm:text-right">
-      Rp {item.subtotal.toLocaleString("id-ID")}
-    </p>
-  </div>
-);
+  );
+};
 
 /**
  * Render a reviewed project section with its items.
