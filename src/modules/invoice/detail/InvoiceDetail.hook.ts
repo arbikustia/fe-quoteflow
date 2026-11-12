@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
-import type { ApiInvoice, InvoiceDetailState } from "../Invoice.type";
+import type { ApiInvoice, InvoiceApprovalState, InvoiceDetailState } from "../Invoice.type";
 
 import { useApproveInvoiceMutation, useGetInvoiceByIdQuery } from "@/services/invoice.service";
 
@@ -32,19 +32,12 @@ const _resolveErrorMessage = (hasError: boolean, isMissingData: boolean): string
  * Manage invoice approval flow.
  * @param {ApiInvoice | null} invoice - Invoice detail
  * @param {string} [id] - Route invoice ID
- * @returns {{isApproving: boolean; isConfirmOpen: boolean; submissionError: string | null; openApproveModal: () => void; closeApproveModal: () => void; handleApprove: () => Promise<void>}} Approval state
+ * @returns {InvoiceApprovalState} - Approval state and callbacks
  */
 const useInvoiceApproval = (
   invoice: ApiInvoice | null,
   id?: string,
-): {
-  isApproving: boolean;
-  isConfirmOpen: boolean;
-  submissionError: string | null;
-  openApproveModal: () => void;
-  closeApproveModal: () => void;
-  handleApprove: () => Promise<void>;
-} => {
+): InvoiceApprovalState => {
   const navigate = useNavigate();
   const [approveInvoice, { isLoading: isApproving }] = useApproveInvoiceMutation();
   const [isConfirmOpen, setIsConfirmOpen] = useState(false);
@@ -131,7 +124,6 @@ export const useInvoiceDetail = (): InvoiceDetailState => {
     isConfirmOpen: approval.isConfirmOpen,
     errorMessage: approval.submissionError ?? queryError,
     goBack,
-    goEdit: handleEdit,
     handleEdit,
     openApproveModal: approval.openApproveModal,
     closeApproveModal: approval.closeApproveModal,

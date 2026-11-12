@@ -5,8 +5,12 @@ import { useInvoiceDetail } from "./InvoiceDetail.hook";
 
 /**
  * Render invoice detail container.
- * @returns {ReactElement} - invoice detail container
+ * @returns {ReactElement} - Invoice detail page
  */
-export default function InvoiceDetailContainer(): ReactElement {
-  return <InvoiceDetailComponent {...useInvoiceDetail()} />;
-}
+const InvoiceDetailContainer = (): ReactElement => {
+  const detailState = useInvoiceDetail();
+
+  return <InvoiceDetailComponent {...detailState} />;
+};
+
+export default InvoiceDetailContainer;

@@ -2,7 +2,7 @@ import type { SyntheticEvent } from "react";
 import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
-import type { InvoiceStatusFormProps } from "./InvoiceStatus.type";
+import type { InvoiceStatusFormProps, InvoiceStatusSubmitState } from "./InvoiceStatus.type";
 
 import { useGetInvoiceByIdQuery, useUpdateInvoiceMutation } from "@/services/invoice.service";
 
@@ -20,13 +20,13 @@ const _resolveActiveStatus = (selectedStatus: boolean | null, isInvoiceActive: b
  * @param {boolean} isActive - Target active status
  * @param {string} transactionId - Transaction ID for payload
  * @param {string} [id] - Invoice ID
- * @returns {{isSubmitting: boolean; submissionError: string | null; handleSubmit: InvoiceStatusFormProps["handleSubmit"]}} Submission state
+ * @returns {InvoiceStatusSubmitState} - Submission state and submit handler
  */
 const useInvoiceStatusSubmit = (
   isActive: boolean,
   transactionId: string,
   id?: string,
-): Pick<InvoiceStatusFormProps, "isSubmitting" | "handleSubmit"> & { submissionError: string | null } => {
+): InvoiceStatusSubmitState => {
   const navigate = useNavigate();
   const [updateInvoice, { isLoading: isSubmitting }] = useUpdateInvoiceMutation();
   const [submissionError, setSubmissionError] = useState<string | null>(null);

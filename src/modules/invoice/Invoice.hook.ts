@@ -3,8 +3,8 @@ import { useNavigate } from "react-router-dom";
 
 import { generateInvoicePDF } from "@/utils/pdfGenerator";
 
-import { invoiceToQuoteData } from "./Invoice.helpers";
 import type { InvoiceData, InvoiceNavigation, InvoicePageData, InvoicePagination } from "./Invoice.type";
+import { invoiceToQuoteData } from "./Invoice.util";
 
 import { mapInvoice, useGetInvoicesQuery, useLazyGetInvoiceByIdQuery } from "@/services/invoice.service";
 

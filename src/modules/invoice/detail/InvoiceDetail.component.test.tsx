@@ -74,7 +74,6 @@ const createProps = (invoice: ApiInvoice | null = INVOICE): InvoiceDetailState =
   isConfirmOpen: false,
   errorMessage: null,
   goBack: jest.fn(),
-  goEdit: jest.fn(),
   handleEdit: jest.fn(),
   openApproveModal: jest.fn(),
   closeApproveModal: jest.fn(),
@@ -112,8 +111,10 @@ describe("InvoiceDetailComponent", () => {
     const invoiceCreatedBadges = screen.getAllByText("Invoice Created");
     expect(invoiceCreatedBadges.length).toBeGreaterThan(0);
     const invoiceSection = screen.getAllByText("Invoice").find((element) => element.tagName === "P")?.closest("section");
-    expect(invoiceSection).toHaveClass("bg-accent-50");
-    expect(invoiceCreatedBadges.find((element) => element.closest("section") === invoiceSection)).toHaveClass("bg-accent-600", "text-text-inverse");
+    expect(invoiceSection?.className).toContain("bg-accent-50");
+    const sectionBadge = invoiceCreatedBadges.find((element) => element.closest("section") === invoiceSection);
+    expect(sectionBadge?.className).toContain("bg-accent-600");
+    expect(sectionBadge?.className).toContain("text-text-inverse");
     expect(invoiceSection?.querySelector("dl")?.className).toContain("sm:grid-cols-3");
     expect(screen.getAllByText("Speaker").length).toBeGreaterThan(0);
     expect(screen.queryByText("Audio Package")).toBeNull();

@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`InvoiceStatusContainer Snapshots should render the invoice status form 1`] = `
+<DocumentFragment>
+  <div>
+    <div>
+      Status form
+    </div>
+  </div>
+</DocumentFragment>
+`;

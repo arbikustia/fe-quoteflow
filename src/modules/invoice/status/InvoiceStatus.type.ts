@@ -10,3 +10,7 @@ export type InvoiceStatusFormProps = {
   handleSubmit: (event: SyntheticEvent<HTMLFormElement>) => Promise<void>;
   goBack: () => void;
 };
+
+export type InvoiceStatusSubmitState = Pick<InvoiceStatusFormProps, "isSubmitting" | "handleSubmit"> & {
+  submissionError: string | null;
+};

@@ -5,7 +5,7 @@
 - [x] 4. master voucher
 - [x] 5. order
 - [x] 6. quotation
-- [ ] 7. invoice
+- [x] 7. invoice
 - [ ] 8. payment
 - [ ] 9. activity log
 - [ ] 10. calendar

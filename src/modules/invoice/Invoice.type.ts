@@ -92,9 +92,14 @@ export type InvoiceDetailState = {
   isConfirmOpen: boolean;
   errorMessage: string | null;
   goBack: () => void;
-  goEdit?: () => void;
   handleEdit: () => void;
   openApproveModal: () => void;
   closeApproveModal: () => void;
   handleApprove: () => Promise<void>;
 };
+
+export type InvoiceApprovalState = Pick<InvoiceDetailState, "isApproving" | "isConfirmOpen" | "openApproveModal" | "closeApproveModal" | "handleApprove"> & {
+  submissionError: string | null;
+};
+
+export type InvoiceRowAction = (invoice: InvoiceData) => void | Promise<void>;

@@ -1,9 +1,9 @@
-import { describe, expect, it } from "@jest/globals";
+import { describe, expect, it, jest } from "@jest/globals";
 
-import { getPaymentStatusBadgeClass, invoiceToQuoteData } from "./Invoice.helpers";
-import type { ApiInvoice, InvoiceData } from "./Invoice.type";
+import { createRowActionHandler, getInvoiceRowKey, getInvoiceRowNumber, getPaymentStatusBadgeClass, invoiceToQuoteData } from "./Invoice.util";
+import type { ApiInvoice, InvoiceData, InvoiceRowAction } from "./Invoice.type";
 
-describe("Invoice helpers", () => {
+describe("Invoice util", () => {
   it("should map payment status to badge class", () => {
     expect(getPaymentStatusBadgeClass("Lunas")).toBe("bg-success-subtle text-success-strong");
     expect(getPaymentStatusBadgeClass("Belum Lunas")).toBe("bg-danger-subtle text-danger-strong");
@@ -134,5 +134,25 @@ describe("Invoice helpers", () => {
     expect(quote.grandTotal).toBe(20500000);
     expect(quote.status).toBe(2);
     expect(quote.remark).toBe("Expo transaction remark");
+  });
+
+  it("should number rows across pages", (): void => {
+    expect(getInvoiceRowNumber(1, 10, 0)).toBe(1);
+    expect(getInvoiceRowNumber(3, 10, 4)).toBe(25);
+  });
+
+  it("should return the invoice id as row key", (): void => {
+    expect(getInvoiceRowKey({ id: "inv-9" } as InvoiceData)).toBe("inv-9");
+  });
+
+  it("should call the row action without bubbling to the row click", (): void => {
+    const action = jest.fn<InvoiceRowAction>();
+    const stopPropagation = jest.fn();
+    const invoice = { id: "inv-1" } as InvoiceData;
+
+    createRowActionHandler(invoice, action)({ stopPropagation } as unknown as React.MouseEvent);
+
+    expect(stopPropagation).toHaveBeenCalled();
+    expect(action).toHaveBeenCalledWith(invoice);
   });
 });

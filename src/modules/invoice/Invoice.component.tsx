@@ -7,8 +7,9 @@ import { Pagination } from "@/components/Pagination";
 import { SearchFilter } from "@/components/SearchFilter";
 import Table, { type TableColumn } from "@/components/Table";
 
-import { getInvoiceRowNumber, getPaymentStatusBadgeClass, InvoiceMobileCard } from "./Invoice.helpers";
+import { InvoiceMobileCard } from "./Invoice.helper";
 import type { InvoiceData, InvoiceProps } from "./Invoice.type";
+import { createRowActionHandler, getInvoiceRowKey, getInvoiceRowNumber, getPaymentStatusBadgeClass } from "./Invoice.util";
 
 import Layout from "@/app/layout";
 import { PageLayout } from "@/app/shared/PageLayout";
@@ -34,10 +35,7 @@ const _renderRowNumber = (_row: InvoiceData, index: number, props: InvoiceProps)
 const _renderDownloadAction = (row: InvoiceData, props: InvoiceProps): React.ReactElement => (
   <button
     type="button"
-    onClick={(event: React.MouseEvent): void => {
-      event.stopPropagation();
-      void props.onDownload(row);
-    }}
+    onClick={createRowActionHandler(row, props.onDownload)}
     className="cursor-pointer rounded-3xl p-2.5 text-text-secondary hover:bg-action-primary-subtle hover:text-action-primary"
     title="Download PDF"
     aria-label="Download PDF"
@@ -55,10 +53,7 @@ const _renderDownloadAction = (row: InvoiceData, props: InvoiceProps): React.Rea
 const _renderEditAction = (row: InvoiceData, props: InvoiceProps): React.ReactElement => (
   <button
     type="button"
-    onClick={(event: React.MouseEvent): void => {
-      event.stopPropagation();
-      props.onEdit(row);
-    }}
+    onClick={createRowActionHandler(row, props.onEdit)}
     className="cursor-pointer rounded-3xl p-2.5 text-text-secondary hover:bg-action-primary-subtle hover:text-action-primary"
     title="Edit invoice"
     aria-label="Edit invoice"
@@ -76,10 +71,7 @@ const _renderEditAction = (row: InvoiceData, props: InvoiceProps): React.ReactEl
 const _renderDetailAction = (row: InvoiceData, props: InvoiceProps): React.ReactElement => (
   <button
     type="button"
-    onClick={(event: React.MouseEvent): void => {
-      event.stopPropagation();
-      props.onDetail(row);
-    }}
+    onClick={createRowActionHandler(row, props.onDetail)}
     className="cursor-pointer rounded-3xl p-2.5 text-text-secondary hover:bg-action-primary-subtle hover:text-action-primary"
     title="View invoice detail"
     aria-label="View invoice detail"
@@ -323,7 +315,7 @@ const _renderTable = (props: InvoiceProps): React.ReactElement => {
         <SearchFilter placeholder="Search invoice" onChange={handleSearch} isRoundedFull={true} inputClassName="text-lg placeholder:text-lg" />
       </div>
       <div className="flex-1 overflow-auto">
-        {props.isLoading ? _renderInvoiceTableSkeleton(props) : _renderListState(props) ?? <Table data={props.paginatedData} columns={_getColumns(props)} isDetail={false} onRowClick={props.onRowClick} keyExtractor={(row: InvoiceData): string => row.id} />}
+        {props.isLoading ? _renderInvoiceTableSkeleton(props) : _renderListState(props) ?? <Table data={props.paginatedData} columns={_getColumns(props)} isDetail={false} onRowClick={props.onRowClick} keyExtractor={getInvoiceRowKey} />}
       </div>
       <Pagination currentPage={props.currentPage} totalPages={props.totalPages} pageSize={props.pageSize} onPageChange={props.goToPage} onPageSizeChange={props.changePageSize} totalItems={props.totalCount} className="pt-4" />
     </div>
