@@ -1,49 +1,46 @@
 import * as React from "react";
 import { useLocation } from "react-router-dom";
 
-import { AlertComponent } from "@/components/Alert";
+import { usePagePermission } from "@/hooks/usePagePermission";
 
-import { MasterVoucherComponent } from "./MasterVoucher.component";
-import { downloadVoucherTemplate } from "./MasterVoucher.helpers";
-import { useMasterVoucherContainerState } from "./MasterVoucher.hook";
-import type { VoucherData, VoucherRouteState } from "./MasterVoucher.type";
+import MasterVoucherComponent from "./MasterVoucher.component";
+import { MASTER_VOUCHER_ROUTE } from "./MasterVoucher.config";
+import { useMasterVoucher } from "./MasterVoucher.hook";
+import type { VoucherRouteState } from "./MasterVoucher.type";
+import { normalizeVoucherList } from "./MasterVoucher.util";
+
+import { useGetVouchersQuery } from "@/services/master-voucher.service";
 
 /**
- * Master Voucher Container
- *
- * @returns {React.ReactElement} Container component
+ * Render the voucher list container.
+ * @returns {React.ReactElement} - Container of the voucher list view
  */
 const MasterVoucherContainer = (): React.ReactElement => {
   const location = useLocation();
-  const routeState: VoucherRouteState | null = location.state;
-  const containerState = useMasterVoucherContainerState();
-    /**
-   * Handle voucher template download.
-   *
-   * @param {VoucherData} voucher - Voucher row
-   * @returns {void} No return value
-   */
-  const handleDownload = (voucher: VoucherData): void => {
-    void downloadVoucherTemplate(voucher).catch(() => {
-      window.alert("Unable to download voucher template.");
-    });
-  };
+  const routeState: VoucherRouteState = location.state;
+  const { canCreate, canEdit } = usePagePermission(MASTER_VOUCHER_ROUTE.LIST);
+  const controller = useMasterVoucher();
+  const { data, isLoading, isError } = useGetVouchersQuery(controller.queryParams);
+
+  // Single upstream fallback: the view receives normalized data only
+  const listView = normalizeVoucherList({ data, isLoading, isError });
 
   return (
-    <>
-      {routeState?.successMessage && <AlertComponent type="success" message={routeState.successMessage} toast closable />}
-      <MasterVoucherComponent
-        {...containerState.pagination}
-        onBack={containerState.goBack}
-        onCreate={containerState.goCreate}
-        onEdit={containerState.goEdit}
-        onDownload={handleDownload}
-        onMore={containerState.toggleMore}
-        isMoreOpen={containerState.isMoreOpen}
-        onCloseMore={containerState.handleCloseMore}
-        onDelete={containerState.goDelete}
-      />
-    </>
+    <MasterVoucherComponent
+      {...listView}
+      currentPage={controller.currentPage}
+      pageSize={controller.pageSize}
+      canCreate={canCreate}
+      canEdit={canEdit}
+      successMessage={routeState?.successMessage}
+      onPageChange={controller.handlePageChange}
+      onPageSizeChange={controller.handlePageSizeChange}
+      onSearchChange={controller.handleSearchChange}
+      onBack={controller.handleBack}
+      onCreate={controller.handleCreate}
+      onEdit={controller.handleEdit}
+      onDownload={controller.handleDownload}
+    />
   );
 };
 

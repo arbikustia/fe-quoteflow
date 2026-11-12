@@ -1,0 +1,326 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`MasterVoucherCreateContainer Snapshot Test MasterVoucherCreateContainer Snapshots should render the empty create form 1`] = `
+<DocumentFragment>
+  <div
+    data-testid="layout"
+  >
+    <div
+      class="flex h-full w-full flex-col bg-background-page pb-6 font-sans"
+    >
+      <div
+        class="mb-6 flex items-center gap-3 bg-background-page lg:hidden"
+      >
+        <button
+          aria-label="Back"
+          class="flex h-14 w-14 shrink-0 items-center justify-center rounded-full border border-border-default bg-background-page text-text-primary transition-colors hover:bg-background-subtle focus-visible:ring-2 focus-visible:ring-focus-ring/30 "
+          type="button"
+        >
+          <svg
+            aria-hidden="true"
+            class="h-6 w-6"
+            fill="none"
+            height="1em"
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            viewBox="0 0 24 24"
+            width="1em"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <line
+              x1="19"
+              x2="5"
+              y1="12"
+              y2="12"
+            />
+            <polyline
+              points="12 19 5 12 12 5"
+            />
+          </svg>
+        </button>
+        <div
+          class="min-w-0"
+        >
+          <h2
+            class="truncate text-4xl font-semibold tracking-tight text-text-primary"
+          >
+            New Voucher
+          </h2>
+          <p
+            class="mt-1 truncate text-sm text-text-secondary"
+          >
+            Fill in the voucher details below.
+          </p>
+        </div>
+      </div>
+      <div
+        class="flex min-h-0 w-full flex-1 flex-col pb-32 text-lg lg:pb-0"
+      >
+        <div
+          class="hidden lg:block"
+        >
+          <nav
+            aria-label="Breadcrumb"
+            class="mb-2 flex items-center gap-2 text-[15px] font-medium text-text-secondary"
+          >
+            <button
+              class="cursor-pointer hover:text-text-primary"
+              type="button"
+            >
+              Master
+            </button>
+            <span
+              aria-hidden="true"
+            >
+              /
+            </span>
+            <span>
+              Master Voucher
+            </span>
+            <span
+              aria-hidden="true"
+            >
+              /
+            </span>
+            <span
+              class="text-text-primary"
+            >
+              New Voucher
+            </span>
+          </nav>
+          <div
+            class="mb-6"
+          >
+            <h2
+              class="text-4xl font-semibold leading-tight tracking-tight text-text-primary"
+            >
+              New Voucher
+            </h2>
+            <p
+              class="mt-2 text-sm text-text-secondary"
+            >
+              Fill in the voucher details below.
+            </p>
+          </div>
+        </div>
+        <form
+          class="mb-6 flex flex-col rounded-3xl border border-border-default bg-background-surface p-6 shadow-small sm:p-8 lg:-mt-4 lg:mb-5 lg:flex-1 lg:rounded-3xl lg:p-10"
+          novalidate=""
+        >
+          <div
+            class="pb-6"
+          >
+            <div
+              class="grid w-full grid-cols-1 gap-x-6 gap-y-5 lg:grid-cols-2"
+            >
+              <div
+                class="mb-4 !mb-0 [&_.ant-input]:!rounded-2xl [&_.ant-input]:!border-2 [&_.ant-input:not(.ant-input-status-error)]:!border-border-strong [&_.ant-input.ant-input-status-error]:!border-danger [&_.ant-input]:!px-4 [&_.ant-input]:!text-xl lg:[&_.ant-input]:!text-lg [&_.ant-input]:!font-normal [&_.ant-input]:placeholder:!text-xl lg:[&_.ant-input]:placeholder:!text-lg [&_.ant-input]:placeholder:!font-normal [&_label]:!text-lg lg:[&_label]:!text-lg [&_label]:!font-normal [&_label]:!normal-case [&_label]:!text-text-primary [&_.ant-input]:!h-16 lg:[&_.ant-input]:!h-14"
+              >
+                <label
+                  class="mb-1.5 block text-sm font-semibold text-text-secondary"
+                  for="voucher-name"
+                >
+                  Voucher Name
+                  <span
+                    aria-hidden="true"
+                    class="ml-1 text-danger"
+                  >
+                    *
+                  </span>
+                </label>
+                <input
+                  aria-invalid="false"
+                  class="ant-input ant-input-lg css-dev-only-do-not-override-eofgey ant-input-outlined h-14 w-full !rounded-2xl css-var-root ant-input-css-var"
+                  id="voucher-name"
+                  placeholder="e.g. Summer Promo"
+                  required=""
+                  type="text"
+                  value=""
+                />
+              </div>
+              <div
+                class="relative !mb-0"
+              >
+                <label
+                  class="mb-1.5 block text-sm font-semibold text-text-secondary !text-lg !font-normal !text-text-primary"
+                  for="voucher-code-mode"
+                >
+                  Code Option
+                  <span
+                    aria-hidden="true"
+                    class="ml-1 text-danger"
+                  >
+                    *
+                  </span>
+                </label>
+                <div
+                  class="ant-select ant-select-outlined h-14 w-full !border-2 [&_.ant-select-selector]:!rounded-2xl [&_.ant-select-content]:!text-xl [&_.ant-select-content]:!font-normal !border-border-strong [&_.ant-select-selector]:!border-2 [&_.ant-select-selector]:!border-border-strong !h-16 lg:!h-14 [&_.ant-select-content]:!text-xl lg:[&_.ant-select-content]:!text-lg css-var-root ant-select-css-var css-dev-only-do-not-override-eofgey ant-select-single ant-select-show-arrow ant-select-show-search"
+                  style="--ant-select-border-radius: 16px; border: 2px solid var(--border-strong);"
+                >
+                  <div
+                    class="ant-select-content ant-select-content-has-value"
+                    title="Generate Code"
+                  >
+                    Generate Code
+                    <input
+                      aria-autocomplete="list"
+                      aria-expanded="false"
+                      aria-haspopup="listbox"
+                      aria-invalid="false"
+                      aria-label="Code Option"
+                      aria-required="true"
+                      autocomplete="new-password"
+                      class="ant-select-input"
+                      id="voucher-code-mode"
+                      role="combobox"
+                      type="text"
+                      value=""
+                    />
+                  </div>
+                  <div
+                    class="ant-select-suffix"
+                  >
+                    <span
+                      aria-label="down"
+                      class="anticon anticon-down"
+                      role="img"
+                    >
+                      <svg
+                        aria-hidden="true"
+                        data-icon="down"
+                        fill="currentColor"
+                        focusable="false"
+                        height="1em"
+                        viewBox="64 64 896 896"
+                        width="1em"
+                      >
+                        <path
+                          d="M884 256h-75c-5.1 0-9.9 2.5-12.9 6.6L512 654.2 227.9 262.6c-3-4.1-7.8-6.6-12.9-6.6h-75c-6.5 0-10.3 7.4-6.5 12.7l352.6 486.1c12.8 17.6 39 17.6 51.7 0l352.6-486.1c3.9-5.3.1-12.7-6.4-12.7z"
+                        />
+                      </svg>
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <div
+                class="mb-4 !mb-0 [&_.ant-input]:!rounded-2xl [&_.ant-input]:!border-2 [&_.ant-input:not(.ant-input-status-error)]:!border-border-strong [&_.ant-input.ant-input-status-error]:!border-danger [&_.ant-input]:!px-4 [&_.ant-input]:!text-xl lg:[&_.ant-input]:!text-lg [&_.ant-input]:!font-normal [&_.ant-input]:placeholder:!text-xl lg:[&_.ant-input]:placeholder:!text-lg [&_.ant-input]:placeholder:!font-normal [&_label]:!text-lg lg:[&_label]:!text-lg [&_label]:!font-normal [&_label]:!normal-case [&_label]:!text-text-primary [&_.ant-input]:!h-16 lg:[&_.ant-input]:!h-14"
+              >
+                <label
+                  class="mb-1.5 block text-sm font-semibold text-text-secondary"
+                  for="discount-percent"
+                >
+                  Discount (%)
+                  <span
+                    aria-hidden="true"
+                    class="ml-1 text-danger"
+                  >
+                    *
+                  </span>
+                </label>
+                <div
+                  class="ant-input-number ant-input-number-mode-input css-var-root ant-input-number-css-var css-dev-only-do-not-override-eofgey h-14 !w-full !rounded-2xl !mb-0 [&_.ant-input]:!rounded-2xl [&_.ant-input]:!border-2 [&_.ant-input:not(.ant-input-status-error)]:!border-border-strong [&_.ant-input.ant-input-status-error]:!border-danger [&_.ant-input]:!px-4 [&_.ant-input]:!text-xl lg:[&_.ant-input]:!text-lg [&_.ant-input]:!font-normal [&_.ant-input]:placeholder:!text-xl lg:[&_.ant-input]:placeholder:!text-lg [&_.ant-input]:placeholder:!font-normal [&_label]:!text-lg lg:[&_label]:!text-lg [&_label]:!font-normal [&_label]:!normal-case [&_label]:!text-text-primary [&_.ant-input]:!h-16 lg:[&_.ant-input]:!h-14 ant-input-number-outlined ant-input-number-lg"
+                  style="width: 100%;"
+                >
+                  <input
+                    aria-invalid="false"
+                    aria-valuemax="100"
+                    aria-valuemin="0"
+                    autocomplete="off"
+                    class="ant-input-number-input"
+                    id="discount-percent"
+                    placeholder="e.g. 10"
+                    required=""
+                    role="spinbutton"
+                    step="1"
+                    value=""
+                  />
+                  <div
+                    class="ant-input-number-actions"
+                  >
+                    <span
+                      aria-disabled="false"
+                      aria-label="Increase Value"
+                      class="ant-input-number-action ant-input-number-action-up"
+                      role="button"
+                      unselectable="on"
+                    >
+                      <span
+                        aria-label="up"
+                        class="anticon anticon-up"
+                        role="img"
+                      >
+                        <svg
+                          aria-hidden="true"
+                          data-icon="up"
+                          fill="currentColor"
+                          focusable="false"
+                          height="1em"
+                          viewBox="64 64 896 896"
+                          width="1em"
+                        >
+                          <path
+                            d="M890.5 755.3L537.9 269.2c-12.8-17.6-39-17.6-51.7 0L133.5 755.3A8 8 0 00140 768h75c5.1 0 9.9-2.5 12.9-6.6L512 369.8l284.1 391.6c3 4.1 7.8 6.6 12.9 6.6h75c6.5 0 10.3-7.4 6.5-12.7z"
+                          />
+                        </svg>
+                      </span>
+                    </span>
+                    <span
+                      aria-disabled="false"
+                      aria-label="Decrease Value"
+                      class="ant-input-number-action ant-input-number-action-down"
+                      role="button"
+                      unselectable="on"
+                    >
+                      <span
+                        aria-label="down"
+                        class="anticon anticon-down"
+                        role="img"
+                      >
+                        <svg
+                          aria-hidden="true"
+                          data-icon="down"
+                          fill="currentColor"
+                          focusable="false"
+                          height="1em"
+                          viewBox="64 64 896 896"
+                          width="1em"
+                        >
+                          <path
+                            d="M884 256h-75c-5.1 0-9.9 2.5-12.9 6.6L512 654.2 227.9 262.6c-3-4.1-7.8-6.6-12.9-6.6h-75c-6.5 0-10.3 7.4-6.5 12.7l352.6 486.1c12.8 17.6 39 17.6 51.7 0l352.6-486.1c3.9-5.3.1-12.7-6.4-12.7z"
+                          />
+                        </svg>
+                      </span>
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            class="mt-auto flex justify-between gap-3 border-t border-border-default/60 pt-5 lg:border-border-default"
+          >
+            <button
+              class="h-14 cursor-pointer rounded-xl border border-border-default px-8 text-lg font-semibold text-text-primary transition-colors hover:bg-background-subtle focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-action-primary disabled:cursor-not-allowed disabled:opacity-50 lg:text-lg"
+              type="button"
+            >
+              Cancel
+            </button>
+            <button
+              class="h-14 cursor-pointer rounded-xl bg-action-primary px-8 text-lg font-semibold text-text-inverse shadow-xs transition-colors hover:bg-action-primary-hover focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-action-primary disabled:cursor-not-allowed disabled:opacity-60 lg:text-lg"
+              type="submit"
+            >
+              Create Voucher
+            </button>
+          </div>
+        </form>
+        <div
+          aria-hidden="true"
+          class="h-24 shrink-0 lg:hidden"
+        />
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;

@@ -1,83 +1,67 @@
-import type * as React from "react";
+import type { ChangeEvent } from "react";
+import { z } from "zod";
 
-import type { ApiEnvelope } from "../../../types/api.type";
+import { formatIndonesianDateTime } from "@/utils/date.helpers";
 
-export type ApiVoucher = {
-  id: string;
-  name: string;
-  code: string;
-  discount_percent: number;
-  status: number;
-  created_at: string | null;
-  updated_at: string | null;
-};
+import type { ApiEnvelope, PaginatedResponse } from "@/types/api.type";
 
-export type VoucherListResponse = {
-  data: ApiVoucher[];
-  page_number: number;
-  total_pages: number;
-  page_size: number;
-  total_count: number;
-  has_previous: boolean;
-  has_next: boolean;
-  status: boolean;
-  messages: string[] | string | null;
-};
+import { VOUCHER_ACTIVE_STATUS, VOUCHER_EMPTY_VALUE } from "./MasterVoucher.config";
+
+/** Voucher status as shown in the UI. */
+export type VoucherStatus = "active" | "inactive";
+
+/** API status code (`1` = active) mapped to the UI status. */
+const VoucherStatusSchema = z
+  .number()
+  .catch(0)
+  .transform((status): VoucherStatus => (status === VOUCHER_ACTIVE_STATUS ? "active" : "inactive"));
+
+/** API timestamp formatted for display, with a placeholder when absent. */
+const VoucherDateSchema = z
+  .string()
+  .nullish()
+  .transform((value): string => (value ? formatIndonesianDateTime(value) : VOUCHER_EMPTY_VALUE));
+
+/** Raw voucher record as returned by the voucher endpoints. */
+export const ApiVoucherSchema = z.object({
+  id: z.string(),
+  name: z.string(),
+  code: z.string(),
+  discount_percent: z.number(),
+  status: z.number(),
+  created_at: z.string().nullish(),
+  updated_at: z.string().nullish(),
+});
+
+/** Raw voucher record as returned by the API. */
+export type ApiVoucher = z.input<typeof ApiVoucherSchema>;
+
+/** Voucher row normalized for display. */
+export const VoucherListItemSchema = ApiVoucherSchema.transform((voucher) => ({
+  id: voucher.id,
+  name: voucher.name || VOUCHER_EMPTY_VALUE,
+  code: voucher.code || VOUCHER_EMPTY_VALUE,
+  discountPercent: voucher.discount_percent,
+  status: VoucherStatusSchema.parse(voucher.status),
+  createdAt: VoucherDateSchema.parse(voucher.created_at),
+}));
+
+/** Voucher row ready for the list view. */
+export type VoucherData = z.output<typeof VoucherListItemSchema>;
+
+/** Paged voucher list response. */
+export type VoucherListResponse = PaginatedResponse<ApiVoucher>;
+
+/** Select-all voucher response. */
 export type VoucherAllResponse = ApiEnvelope<ApiVoucher[]>;
-export type VoucherCreateResponse = ApiEnvelope<ApiVoucher | null>;
-export type VoucherDetailResponse = ApiEnvelope<
-  ApiVoucher | ApiVoucher[] | null
->;
 
-export type VoucherFormValues = {
-  name: string;
-  code: string;
-  codeMode: "generate" | "type";
-  discountPercent: string;
-  isActive: boolean;
-};
+/** Detail / create / update response as sent by the backend: one voucher or a list of one. */
+export type VoucherRawResponse = ApiEnvelope<ApiVoucher | ApiVoucher[] | null>;
 
-export type VoucherRouteState = {
-  voucher?: VoucherData;
-  successMessage?: string;
-};
+/** Detail / create / update response normalized at the service boundary. */
+export type VoucherMutationResponse = ApiEnvelope<ApiVoucher | null>;
 
-export type VoucherSubmissionParams = {
-  id: string | undefined;
-  isEditMode: boolean;
-  isActive: boolean;
-  getValues: () => VoucherFormValues;
-  validateForm: () => Promise<boolean>;
-};
-
-export type VoucherFormValidation = {
-  errors: import("react-hook-form").FieldErrors<VoucherFormValues>;
-  isSubmitted: boolean;
-};
-
-export type VoucherSubmissionState = {
-  isSubmitting: boolean;
-  errorMessage: string | null;
-  handleSubmit: (event: React.SyntheticEvent) => Promise<void>;
-};
-
-export type VoucherFormFieldsState = VoucherFormValues &
-  VoucherFormValidation & {
-    getValues: () => VoucherFormValues;
-    validateForm: () => Promise<boolean>;
-    handleNameChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
-    handleCodeChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
-    handleCodeModeChange: (value: string) => void;
-    handleDiscountChange: (value: number | null) => void;
-    handleStatusChange: () => void;
-  };
-
-export type VoucherListParams = {
-  pageNumber: number;
-  pageSize: number;
-  searchTerm: string;
-};
-
+/** Create Voucher request body. */
 export type VoucherCreatePayload = {
   name: string;
   code: string;
@@ -85,101 +69,92 @@ export type VoucherCreatePayload = {
   status: number;
 };
 
+/** Update Voucher request body. */
 export type VoucherUpdatePayload = VoucherCreatePayload & {
   id: string;
 };
 
-export type MasterVoucherCreateFormState = {
-  name: string;
-  code: string;
-  codeMode: "generate" | "type";
-  discountPercent: string;
-  isActive: boolean;
-  isEditMode: boolean;
-  isSubmitting: boolean;
-  errorMessage: string | null;
-  handleNameChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  handleCodeChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  handleCodeModeChange: (value: string) => void;
-  handleDiscountChange: (value: number | null) => void;
-  handleStatusChange: () => void;
-  handleSubmit: (event: React.SyntheticEvent) => Promise<void>;
-  goBack: () => void;
-};
-
-export type VoucherData = {
-  id: string;
-  name: string;
-  code: string;
-  discountPercent: number;
-  status: "active" | "inactive";
-  createAt: string | null;
-  createBy: string | null;
-};
-
-export type VoucherListApiState = {
-  isLoading: boolean;
-  errorMessage: string | null;
-  isMissingData: boolean;
-  paginatedData: VoucherData[];
-  totalPages: number;
-  totalCount: number;
-  hasNext: boolean;
-  hasPrevious: boolean;
-};
-
-export type MasterVoucherNavigation = {
-  goBack: () => void;
-  goCreate: () => void;
-  goEdit: (voucher: VoucherData) => void;
-};
-
-export type MasterVoucherPagination = {
-  currentPage: number;
-  totalPages: number;
+/** Paged voucher list query params. */
+export type VoucherListParams = {
+  pageNumber: number;
   pageSize: number;
-  paginatedData: VoucherData[];
-  totalCount: number;
-  isLoading: boolean;
-  errorMessage: string | null;
-  isEmpty: boolean;
-  isMissingData: boolean;
-  goToPage: (page: number) => void;
-  nextPage: () => void;
-  prevPage: () => void;
-  changePageSize: (size: number) => void;
-  setSearchTerm: (searchTerm: string) => void;
+  searchTerm: string;
 };
 
-export type MasterVoucherContainerState = MasterVoucherNavigation & {
-  pagination: MasterVoucherPagination;
-  isMoreOpen: boolean;
-  toggleMore: () => void;
-  goDelete: () => void;
-  handleCloseMore: () => void;
-};
+/** Which part of the list view is rendered. */
+export type VoucherListStatus = "loading" | "error" | "missing" | "empty" | "ready";
 
-export type MasterVoucherProps = {
-  currentPage: number;
+/** List statuses that render a message instead of rows. */
+export type VoucherListMessageStatus = Exclude<VoucherListStatus, "loading" | "ready">;
+
+/** Normalized paged list data. */
+export type VoucherListView = {
+  listStatus: VoucherListStatus;
+  vouchers: VoucherData[];
   totalPages: number;
-  pageSize: number;
-  paginatedData: VoucherData[];
   totalCount: number;
-  goToPage: (page: number) => void;
-  nextPage: () => void;
-  prevPage: () => void;
-  changePageSize: (size: number) => void;
-  setSearchTerm: (searchTerm: string) => void;
+};
+
+/** Raw RTK Query state consumed by the list normalizer. */
+export type VoucherListQueryState = {
+  data?: VoucherListResponse;
   isLoading: boolean;
-  errorMessage: string | null;
-  isEmpty: boolean;
-  isMissingData: boolean;
-  onCreate?: () => void;
-  onEdit?: (voucher: VoucherData) => void;
+  isError: boolean;
+};
+
+/** Router state the list page receives after a create / update. */
+export type VoucherRouteState = {
+  successMessage?: string;
+} | null;
+
+/** Paging and search state of the voucher list. */
+export type VoucherListPaging = {
+  queryParams: VoucherListParams;
+  currentPage: number;
+  pageSize: number;
+  handlePageChange: (page: number) => void;
+  handlePageSizeChange: (size: number) => void;
+  handleSearchChange: (event: ChangeEvent<HTMLInputElement>) => void;
+};
+
+/** Navigation handlers of the voucher list. */
+export type VoucherNavigation = {
+  handleBack: () => void;
+  handleCreate: () => void;
+  handleEdit: (voucher: VoucherData) => void;
+};
+
+/** Voucher list state and handlers owned by the module hook. */
+export type MasterVoucherController = VoucherListPaging & VoucherNavigation & {
+  handleDownload: (voucher: VoucherData) => void;
+};
+
+/** Edit permission and row callbacks of the voucher table action cell. */
+export type VoucherRowActions = {
+  canEdit: boolean;
+  onEdit: (voucher: VoucherData) => void;
+  onDownload: (voucher: VoucherData) => void;
+};
+
+/** Props of the voucher mobile card. */
+export type VoucherMobileCardProps = {
+  voucher: VoucherData;
+  canEdit: boolean;
+  onEdit: (voucher: VoucherData) => void;
+};
+
+/** Props of the voucher list view. */
+export type MasterVoucherProps = VoucherListView & {
+  currentPage: number;
+  pageSize: number;
+  canCreate: boolean;
+  canEdit: boolean;
+  successMessage?: string;
+  onDownload: (voucher: VoucherData) => void;
+  onPageChange: (page: number) => void;
+  onPageSizeChange: (size: number) => void;
+  onSearchChange: (event: ChangeEvent<HTMLInputElement>) => void;
   onBack: () => void;
-  onDownload?: (voucher: VoucherData) => void;
-  onMore?: () => void;
-  isMoreOpen?: boolean;
-  onCloseMore?: () => void;
-  onDelete?: () => void;
+  onCreate: () => void;
+  onEdit: (voucher: VoucherData) => void;
 };

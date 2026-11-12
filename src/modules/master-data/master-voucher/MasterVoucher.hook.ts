@@ -1,151 +1,119 @@
-import { useState } from "react";
+import type { ChangeEvent } from "react";
+import { useCallback, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-import { createPaginationHandlers } from "@/utils/pagination.helpers";
-
+import { MASTER_VOUCHER_CONFIG, MASTER_VOUCHER_ROUTE, VOUCHER_DOWNLOAD_FAILED_MESSAGE } from "./MasterVoucher.config";
 import type {
-  MasterVoucherContainerState,
-  MasterVoucherNavigation,
-  MasterVoucherPagination,
+  MasterVoucherController,
   VoucherData,
-  VoucherListApiState,
-  VoucherListResponse,
+  VoucherListPaging,
+  VoucherListParams,
+  VoucherNavigation,
 } from "./MasterVoucher.type";
-
-import { mapVoucher, useGetVouchersQuery } from "@/services/master-voucher.service";
+import { downloadVoucherImage } from "./MasterVoucher.util";
 
 /**
- * Provide master voucher navigation.
- *
- * @returns {MasterVoucherNavigation} Navigation handlers
+ * Manage page, page size and search term of the voucher list.
+ * @returns {VoucherListPaging} - Query params, paging state and handlers
  */
-export const useMasterVoucherNavigation = (): MasterVoucherNavigation => {
+const useVoucherListPaging = (): VoucherListPaging => {
+  const [currentPage, setCurrentPage] = useState<number>(MASTER_VOUCHER_CONFIG.DEFAULT_PAGE);
+  const [pageSize, setPageSize] = useState<number>(MASTER_VOUCHER_CONFIG.DEFAULT_PAGE_SIZE);
+  const [searchTerm, setSearchTerm] = useState<string>("");
+
+  const queryParams = useMemo(
+    (): VoucherListParams => ({ pageNumber: currentPage, pageSize, searchTerm }),
+    [currentPage, pageSize, searchTerm],
+  );
+
+  /**
+   * Go to the given page, never below the first page.
+   * @param {number} page - Requested page
+   * @returns {void}
+   */
+  const handlePageChange = useCallback((page: number): void => {
+    setCurrentPage(Math.max(MASTER_VOUCHER_CONFIG.DEFAULT_PAGE, page));
+  }, []);
+
+  /**
+   * Change page size and return to the first page.
+   * @param {number} size - New page size
+   * @returns {void}
+   */
+  const handlePageSizeChange = useCallback((size: number): void => {
+    setPageSize(size);
+    setCurrentPage(MASTER_VOUCHER_CONFIG.DEFAULT_PAGE);
+  }, []);
+
+  /**
+   * Update the search term and return to the first page.
+   * @param {ChangeEvent<HTMLInputElement>} event - Search input change event
+   * @returns {void}
+   */
+  const handleSearchChange = useCallback((event: ChangeEvent<HTMLInputElement>): void => {
+    setSearchTerm(event.target.value);
+    setCurrentPage(MASTER_VOUCHER_CONFIG.DEFAULT_PAGE);
+  }, []);
+
+  return { queryParams, currentPage, pageSize, handlePageChange, handlePageSizeChange, handleSearchChange };
+};
+
+/**
+ * Create the navigation handlers of the voucher list.
+ * @returns {VoucherNavigation} - Back, create and edit handlers
+ */
+const useVoucherNavigation = (): VoucherNavigation => {
   const navigate = useNavigate();
 
-    /**
+  /**
+   * Navigate back to the master data menu.
+   * @returns {void}
    */
-  const goBack = (): void => { navigate("/master-main"); };
-    /**
-   */
-  const goCreate = (): void => { navigate("/master-voucher/create"); };
-    /**
-   * Navigate to edit voucher page.
-   *
-   * @param {VoucherData} voucher - Voucher data
-   * @returns {void} No return value
-   */
-  const goEdit = (voucher: VoucherData): void => {
-    navigate(`/master-voucher/edit/${voucher.id}`, { state: { voucher } });
-  };
+  const handleBack = useCallback((): void => {
+    navigate(MASTER_VOUCHER_ROUTE.MASTER_MAIN);
+  }, [navigate]);
 
-  return { goBack, goCreate, goEdit };
+  /**
+   * Navigate to the create voucher page.
+   * @returns {void}
+   */
+  const handleCreate = useCallback((): void => {
+    navigate(MASTER_VOUCHER_ROUTE.CREATE);
+  }, [navigate]);
+
+  /**
+   * Navigate to the edit page of a voucher.
+   * @param {VoucherData} voucher - Voucher to edit
+   * @returns {void}
+   */
+  const handleEdit = useCallback((voucher: VoucherData): void => {
+    navigate(`${MASTER_VOUCHER_ROUTE.EDIT}/${voucher.id}`);
+  }, [navigate]);
+
+  return { handleBack, handleCreate, handleEdit };
 };
 
 /**
- * Derive explicit list state from RTK Query result.
- *
- * @param {ReturnType<typeof useGetVouchersQuery>} queryResult - Query result
- * @returns {VoucherListApiState} Derived list state
+ * Tell the user that the voucher image could not be generated.
+ * @returns {void}
  */
-const _deriveVoucherListState = (
-  queryResult: ReturnType<typeof useGetVouchersQuery>,
-): VoucherListApiState => {
-  const { data, error, isLoading } = queryResult;
-
-  if (isLoading) {
-    return { isLoading: true, errorMessage: null, isMissingData: false, paginatedData: [], totalPages: 0, totalCount: 0, hasNext: false, hasPrevious: false };
-  }
-
-  if (error) {
-    return { isLoading: false, errorMessage: "Unable to load vouchers.", isMissingData: false, paginatedData: [], totalPages: 0, totalCount: 0, hasNext: false, hasPrevious: false };
-  }
-
-  const response: VoucherListResponse | undefined = data;
-
-  if (!response || !response.data) {
-    return { isLoading: false, errorMessage: "Voucher data is unavailable. Please try again.", isMissingData: true, paginatedData: [], totalPages: 0, totalCount: 0, hasNext: false, hasPrevious: false };
-  }
-
-  if (!response.status) {
-    const message = Array.isArray(response.messages)
-      ? response.messages.join(" ")
-      : (response.messages ?? "Unable to load vouchers.");
-
-    return { isLoading: false, errorMessage: message, isMissingData: false, paginatedData: [], totalPages: 0, totalCount: 0, hasNext: false, hasPrevious: false };
-  }
-
-  return {
-    isLoading: false,
-    errorMessage: null,
-    isMissingData: false,
-    paginatedData: response.data.map(mapVoucher),
-    totalPages: response.total_pages,
-    totalCount: response.total_count,
-    hasNext: response.has_next,
-    hasPrevious: response.has_previous,
-  };
+const _alertDownloadFailure = (): void => {
+  window.alert(VOUCHER_DOWNLOAD_FAILED_MESSAGE);
 };
 
 /**
- * Provide API-backed voucher pagination.
- *
- * @returns {MasterVoucherPagination} Voucher pagination state
+ * Manage voucher list paging, search, navigation and image download.
+ * @returns {MasterVoucherController} - List query params, state and handlers
  */
-export const useMasterVoucherPagination = (): MasterVoucherPagination => {
-  const [currentPage, setCurrentPage] = useState(1);
-  const [pageSize, setPageSize] = useState(10);
-  const [searchTerm, setSearchTerm] = useState("");
-  const queryResult = useGetVouchersQuery({ pageNumber: currentPage, pageSize, searchTerm });
-  const derived = _deriveVoucherListState(queryResult);
-
-  const handlers = createPaginationHandlers({
-    currentPage,
-    totalPages: derived.totalPages,
-    hasNext: derived.hasNext,
-    hasPrevious: derived.hasPrevious,
-    canPaginate: !derived.isLoading && !derived.errorMessage && derived.paginatedData.length > 0,
-    setCurrentPage,
-    setPageSize,
-    setSearchTerm,
-  });
-
-  return {
-    currentPage,
-    totalPages: derived.totalPages,
-    pageSize,
-    paginatedData: derived.paginatedData,
-    totalCount: derived.totalCount,
-    isLoading: derived.isLoading,
-    errorMessage: derived.errorMessage,
-    isEmpty: !derived.isLoading && !derived.errorMessage && !derived.isMissingData && derived.paginatedData.length === 0,
-    isMissingData: derived.isMissingData,
-    goToPage: handlers.goToPage,
-    nextPage: handlers.nextPage,
-    prevPage: handlers.prevPage,
-    changePageSize: handlers.changePageSize,
-    setSearchTerm: handlers.handleSearchTerm,
-  };
-};
-
-/**
- * Provide complete master voucher container state.
- *
- * @returns {MasterVoucherContainerState} Container state
- */
-export const useMasterVoucherContainerState = (): MasterVoucherContainerState => {
-  const navigation = useMasterVoucherNavigation();
-  const pagination = useMasterVoucherPagination();
-  const [isMoreOpen, setIsMoreOpen] = useState(false);
-
-    /**
+export const useMasterVoucher = (): MasterVoucherController => {
+  /**
+   * Download the voucher image, alerting on failure.
+   * @param {VoucherData} voucher - Voucher to download
+   * @returns {void}
    */
-  const toggleMore = (): void => { setIsMoreOpen((previous) => !previous); };
-    /**
-   */
-  const handleCloseMore = (): void => { setIsMoreOpen(false); };
-    /**
-   */
-  const goDelete = (): void => { handleCloseMore(); };
+  const handleDownload = useCallback((voucher: VoucherData): void => {
+    downloadVoucherImage(voucher).catch(_alertDownloadFailure);
+  }, []);
 
-  return { ...navigation, pagination, isMoreOpen, toggleMore, goDelete, handleCloseMore };
+  return { ...useVoucherListPaging(), ...useVoucherNavigation(), handleDownload };
 };

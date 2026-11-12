@@ -1,116 +1,109 @@
-import type * as React from "react";
-import { MemoryRouter } from "react-router-dom";
-
 import { fireEvent, render, screen } from "@/libs/unit-test";
 
-import { MasterVoucherComponent } from "./MasterVoucher.component";
+import MasterVoucherComponent from "./MasterVoucher.component";
 import type { MasterVoucherProps, VoucherData } from "./MasterVoucher.type";
 
-jest.mock("../../../app/layout", () => ({
-  __esModule: true,
-  default: ({ children }: { children: React.ReactNode }) => <div data-testid="layout">{children}</div>,
-}));
+jest.mock("@/app/layout", () => ({ children }: { children: React.ReactNode }): React.ReactElement => <div data-testid="layout">{children}</div>);
 
-const mockVoucher: VoucherData = {
-  id: "1",
-  name: "Discount Voucher",
-  code: "DISC10",
+const VOUCHER: VoucherData = {
+  id: "voucher-1",
+  name: "Summer Promo",
+  code: "SLABC123",
   discountPercent: 10,
   status: "active",
-  createAt: "2024-01-01",
-  createBy: "System",
+  createdAt: "30 Oktober 2026 22:00",
 };
 
-const defaultProps: MasterVoucherProps = {
-  paginatedData: [mockVoucher],
-  columns: [{ key: "code", header: "Voucher Code" }],
+/**
+ * Build list view props.
+ * @param {Partial<MasterVoucherProps>} [overrides] - Props to override
+ * @returns {MasterVoucherProps} - Component props
+ */
+const createProps = (overrides?: Partial<MasterVoucherProps>): MasterVoucherProps => ({
+  listStatus: "ready",
+  vouchers: [VOUCHER],
+  totalPages: 1,
+  totalCount: 1,
   currentPage: 1,
-  totalPages: 2,
   pageSize: 10,
-  totalCount: 15,
-  goToPage: jest.fn(),
-  nextPage: jest.fn(),
-  prevPage: jest.fn(),
-  changePageSize: jest.fn(),
-  setSearchTerm: jest.fn(),
-  isLoading: false,
-  errorMessage: null,
-  isEmpty: false,
-  isMissingData: false,
+  canCreate: true,
+  canEdit: true,
+  onPageChange: jest.fn(),
+  onPageSizeChange: jest.fn(),
+  onSearchChange: jest.fn(),
+  onBack: jest.fn(),
   onCreate: jest.fn(),
   onEdit: jest.fn(),
-  onRowClick: jest.fn(),
-  onBack: jest.fn(),
-  onMore: jest.fn(),
-  isMoreOpen: false,
-  onCloseMore: jest.fn(),
-  onDelete: jest.fn(),
-};
+  onDownload: jest.fn(),
+  ...overrides,
+});
 
 describe("MasterVoucherComponent", () => {
-  beforeAll(() => {
-    jest.useFakeTimers();
-    jest.setSystemTime(new Date("2026-10-18T01:30:00+07:00"));
+  it("should render vouchers in the table and mobile cards", () => {
+    render(<MasterVoucherComponent {...createProps()} />);
+
+    expect(screen.getByText("Summer Promo")).toBeInTheDocument();
+    expect(screen.getAllByText("SLABC123")).toHaveLength(2);
+    expect(screen.getAllByText("10%")).toHaveLength(2);
   });
 
-  afterAll(() => {
-    jest.useRealTimers();
+  it("should open edit from a mobile card and the row action, and download from the row", () => {
+    const props = createProps();
+
+    render(<MasterVoucherComponent {...props} />);
+    fireEvent.click(screen.getAllByText("SLABC123")[0].closest("button") as HTMLButtonElement);
+    fireEvent.click(screen.getByRole("button", { name: "Edit voucher SLABC123" }));
+    fireEvent.click(screen.getByRole("button", { name: "Download voucher SLABC123" }));
+
+    expect(props.onEdit).toHaveBeenCalledTimes(2);
+    expect(props.onDownload).toHaveBeenCalledWith(VOUCHER);
   });
 
-  const renderWithRouter = (props = defaultProps) => {
-    return render(
-      <MemoryRouter>
-        <MasterVoucherComponent {...props} />
-      </MemoryRouter>
-    );
-  };
+  it("should call create and search handlers", () => {
+    const props = createProps();
 
-  it("should render without crashing", () => {
-    renderWithRouter();
-    expect(screen.getAllByText("Voucher List").length).toBeGreaterThan(0);
-    expect(screen.getAllByText("DISC10").length).toBeGreaterThan(0);
+    render(<MasterVoucherComponent {...props} />);
+    fireEvent.click(screen.getAllByRole("button", { name: "Create New" })[0]);
+    fireEvent.click(screen.getByRole("button", { name: "Create Voucher" }));
+    fireEvent.change(screen.getAllByPlaceholderText("Search voucher")[0], { target: { value: "summer" } });
+
+    expect(props.onCreate).toHaveBeenCalledTimes(2);
+    expect(props.onSearchChange).toHaveBeenCalledTimes(1);
   });
 
-  it("should handle empty data", () => {
-    renderWithRouter({ ...defaultProps, paginatedData: [], isEmpty: true, totalCount: 0, totalPages: 1 });
-    expect(screen.getAllByText("No vouchers found.").length).toBeGreaterThan(0);
+  it("should hide create and edit actions without permission", () => {
+    render(<MasterVoucherComponent {...createProps({ canCreate: false, canEdit: false })} />);
+
+    expect(screen.queryByRole("button", { name: "Create New" })).not.toBeInTheDocument();
+    expect(screen.queryByRole("button", { name: "Create Voucher" })).not.toBeInTheDocument();
+    expect(screen.queryByRole("button", { name: "Edit voucher SLABC123" })).not.toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "Download voucher SLABC123" })).toBeInTheDocument();
+    expect(screen.getAllByText("SLABC123")[0].closest("button")).toBeDisabled();
   });
 
-  it("should call onBack when back button is clicked", () => {
-    const onBack = jest.fn();
-    renderWithRouter({ ...defaultProps, onBack });
-    const backBtn = screen.getByLabelText("Back");
-    fireEvent.click(backBtn);
-    expect(onBack).toHaveBeenCalledTimes(1);
-  });
+  it("should render matching table and card skeletons while loading", () => {
+    render(<MasterVoucherComponent {...createProps({ listStatus: "loading", vouchers: [] })} />);
 
-  it("should hide create and edit controls without callbacks", () => {
-    renderWithRouter({ ...defaultProps, onCreate: undefined, onEdit: undefined });
-
-    expect(screen.queryByText("Create New")).not.toBeInTheDocument();
-    expect(screen.queryByText("Create Voucher")).not.toBeInTheDocument();
-    expect(screen.queryByRole("button", { name: /edit voucher/i })).not.toBeInTheDocument();
-    expect(screen.getByRole("button", { name: /DISC10/i })).toBeDisabled();
-  });
-
-  it("should render quotation-matched loading skeletons", () => {
-    renderWithRouter({ ...defaultProps, isLoading: true });
-
-    expect(screen.getAllByRole("status", { name: "Loading voucher card" })).toHaveLength(5);
     const tableSkeleton = screen.getByRole("status", { name: "Loading voucher table" });
 
     expect(tableSkeleton.querySelectorAll("th")).toHaveLength(7);
-    expect(tableSkeleton.querySelectorAll("tbody tr:first-child td")).toHaveLength(7);
-    expect(tableSkeleton.querySelectorAll("tbody tr:first-child td:last-child span")).toHaveLength(2);
+    expect(tableSkeleton.querySelectorAll("tbody tr")).toHaveLength(5);
+    expect(screen.getAllByRole("status", { name: "Loading voucher card" })).toHaveLength(5);
   });
 
-  it("should match populated snapshot", () => {
-    const { asFragment } = renderWithRouter();
-    expect(asFragment()).toMatchSnapshot();
+  it.each([
+    ["empty", "No vouchers found."],
+    ["error", "Unable to load vouchers."],
+    ["missing", "Voucher data is unavailable. Please try again."],
+  ] as const)("should render the %s message in both layouts", (listStatus, message) => {
+    render(<MasterVoucherComponent {...createProps({ listStatus, vouchers: [] })} />);
+
+    expect(screen.getAllByText(message)).toHaveLength(2);
   });
 
-  it("should match empty snapshot with closed menu", () => {
-    const { asFragment } = renderWithRouter({ ...defaultProps, paginatedData: [], totalCount: 0, totalPages: 1, isMoreOpen: false });
-    expect(asFragment()).toMatchSnapshot();
+  it("should show the success toast passed from the form page", () => {
+    render(<MasterVoucherComponent {...createProps({ successMessage: "Voucher created successfully." })} />);
+
+    expect(screen.getByRole("alert")).toHaveTextContent("Voucher created successfully.");
   });
 });

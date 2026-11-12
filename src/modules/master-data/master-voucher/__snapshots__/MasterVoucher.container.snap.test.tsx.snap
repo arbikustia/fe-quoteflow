@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`MasterVoucherContainer should match snapshot 1`] = `
+exports[`MasterVoucherContainer Snapshot Test MasterVoucherContainer Snapshots should render the voucher list from query data 1`] = `
 <DocumentFragment>
   <div
     data-testid="layout"
@@ -172,11 +172,108 @@ exports[`MasterVoucherContainer should match snapshot 1`] = `
             <div
               class="flex min-w-0 flex-col gap-4"
             >
-              <p
-                class="py-10 text-center text-lg text-text-secondary"
+              <button
+                class="group block w-full min-w-0 rounded-3xl border border-border-strong bg-background-surface p-5 text-left shadow-small transition-colors hover:border-border-strong hover:bg-background-subtle/40 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-action-primary disabled:cursor-default disabled:hover:bg-background-surface"
+                type="button"
               >
-                No vouchers found.
-              </p>
+                <span
+                  class="flex min-w-0 flex-wrap items-center justify-between gap-3"
+                >
+                  <span
+                    class="min-w-0 break-words text-xl font-semibold text-text-primary"
+                  >
+                    SLABC123
+                  </span>
+                  <span
+                    class="rounded-full border border-current px-3 py-1 text-base font-semibold uppercase bg-success-subtle text-success-strong"
+                  >
+                    active
+                  </span>
+                </span>
+                <span
+                  class="mt-4 flex flex-wrap items-end justify-between gap-x-4 gap-y-3 border-t border-border-default pt-4"
+                >
+                  <span
+                    class="min-w-0"
+                  >
+                    <span
+                      class="block text-lg text-text-tertiary"
+                    >
+                      Discount
+                    </span>
+                    <span
+                      class="mt-1 block text-lg font-medium text-text-primary"
+                    >
+                      10%
+                    </span>
+                  </span>
+                  <span
+                    class="min-w-0 text-right"
+                  >
+                    <span
+                      class="block text-lg text-text-tertiary"
+                    >
+                      Created At
+                    </span>
+                    <span
+                      class="mt-1 block break-words text-lg font-medium text-text-primary"
+                    >
+                      -
+                    </span>
+                  </span>
+                </span>
+              </button>
+              <button
+                class="group block w-full min-w-0 rounded-3xl border border-border-strong bg-background-surface p-5 text-left shadow-small transition-colors hover:border-border-strong hover:bg-background-subtle/40 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-action-primary disabled:cursor-default disabled:hover:bg-background-surface"
+                type="button"
+              >
+                <span
+                  class="flex min-w-0 flex-wrap items-center justify-between gap-3"
+                >
+                  <span
+                    class="min-w-0 break-words text-xl font-semibold text-text-primary"
+                  >
+                    WINTER25
+                  </span>
+                  <span
+                    class="rounded-full border border-current px-3 py-1 text-base font-semibold uppercase bg-danger-subtle text-danger-strong"
+                  >
+                    inactive
+                  </span>
+                </span>
+                <span
+                  class="mt-4 flex flex-wrap items-end justify-between gap-x-4 gap-y-3 border-t border-border-default pt-4"
+                >
+                  <span
+                    class="min-w-0"
+                  >
+                    <span
+                      class="block text-lg text-text-tertiary"
+                    >
+                      Discount
+                    </span>
+                    <span
+                      class="mt-1 block text-lg font-medium text-text-primary"
+                    >
+                      25%
+                    </span>
+                  </span>
+                  <span
+                    class="min-w-0 text-right"
+                  >
+                    <span
+                      class="block text-lg text-text-tertiary"
+                    >
+                      Created At
+                    </span>
+                    <span
+                      class="mt-1 block break-words text-lg font-medium text-text-primary"
+                    >
+                      -
+                    </span>
+                  </span>
+                </span>
+              </button>
             </div>
             <div
               class="flex flex-col gap-3 py-4 w-full rounded-3xl border border-border-default bg-background-surface px-5 py-4 shadow-xs"
@@ -190,7 +287,7 @@ exports[`MasterVoucherContainer should match snapshot 1`] = `
                   <p
                     class="whitespace-nowrap text-xs text-text-secondary sm:text-sm"
                   >
-                    Show 0/10 data
+                    Show 2/10 data
                   </p>
                   <div
                     class="relative w-24 shrink-0"
@@ -380,11 +477,321 @@ exports[`MasterVoucherContainer should match snapshot 1`] = `
             <div
               class="flex-1 overflow-auto"
             >
-              <p
-                class="py-10 text-center text-lg text-text-secondary"
+              <div
+                class="flex flex-col bg-transparent overflow-hidden"
               >
-                No vouchers found.
-              </p>
+                <div
+                  class="hidden md:flex flex-1 overflow-auto"
+                >
+                  <div
+                    class="w-full overflow-x-auto"
+                  >
+                    <table
+                      class="w-full min-w-max border-separate border-spacing-0 whitespace-nowrap"
+                    >
+                      <thead>
+                        <tr>
+                          <th
+                            class="bg-table-header px-5 py-4 text-[13px] font-bold text-text-secondary uppercase tracking-widest rounded-l-xl  text-center "
+                          >
+                            No
+                          </th>
+                          <th
+                            class="bg-table-header px-5 py-4 text-[13px] font-bold text-text-secondary uppercase tracking-widest   text-left "
+                          >
+                            Name
+                          </th>
+                          <th
+                            class="bg-table-header px-5 py-4 text-[13px] font-bold text-text-secondary uppercase tracking-widest   text-left "
+                          >
+                            Voucher Code
+                          </th>
+                          <th
+                            class="bg-table-header px-5 py-4 text-[13px] font-bold text-text-secondary uppercase tracking-widest   text-center "
+                          >
+                            Discount (%)
+                          </th>
+                          <th
+                            class="bg-table-header px-5 py-4 text-[13px] font-bold text-text-secondary uppercase tracking-widest   text-center "
+                          >
+                            Status
+                          </th>
+                          <th
+                            class="bg-table-header px-5 py-4 text-[13px] font-bold text-text-secondary uppercase tracking-widest   text-left "
+                          >
+                            Created At
+                          </th>
+                          <th
+                            class="bg-table-header px-5 py-4 text-[13px] font-bold text-text-secondary uppercase tracking-widest  rounded-r-xl text-center "
+                          >
+                            Action
+                          </th>
+                        </tr>
+                      </thead>
+                      <tbody
+                        class="divide-y divide-border-default"
+                      >
+                        <tr
+                          class="hover:bg-background-subtle/50 transition-colors "
+                        >
+                          <td
+                            class="px-5 py-4 border-b border-border-default text-base text-center "
+                          >
+                            <span
+                              class="text-lg text-text-secondary"
+                            >
+                              1
+                            </span>
+                          </td>
+                          <td
+                            class="px-5 py-4 border-b border-border-default text-base text-left "
+                          >
+                            <span
+                              class="text-lg font-medium text-text-primary"
+                            >
+                              Summer Promo
+                            </span>
+                          </td>
+                          <td
+                            class="px-5 py-4 border-b border-border-default text-base text-left "
+                          >
+                            <span
+                              class="text-lg font-medium text-text-primary"
+                            >
+                              SLABC123
+                            </span>
+                          </td>
+                          <td
+                            class="px-5 py-4 border-b border-border-default text-base text-center "
+                          >
+                            <span
+                              class="text-lg text-text-secondary"
+                            >
+                              10%
+                            </span>
+                          </td>
+                          <td
+                            class="px-5 py-4 border-b border-border-default text-base text-center "
+                          >
+                            <span
+                              class="inline-flex rounded-full border border-current px-3 py-1 text-base font-semibold uppercase bg-success-subtle text-success-strong"
+                            >
+                              active
+                            </span>
+                          </td>
+                          <td
+                            class="px-5 py-4 border-b border-border-default text-base text-left "
+                          >
+                            <span
+                              class="text-lg text-text-secondary"
+                            >
+                              -
+                            </span>
+                          </td>
+                          <td
+                            class="px-5 py-4 border-b border-border-default text-base text-center "
+                          >
+                            <div
+                              class="flex items-center justify-center gap-1"
+                            >
+                              <button
+                                aria-label="Download voucher SLABC123"
+                                class="cursor-pointer rounded-3xl p-2.5 text-text-secondary hover:bg-action-primary-subtle hover:text-action-primary"
+                                title="Download voucher"
+                                type="button"
+                              >
+                                <svg
+                                  class="h-5 w-5"
+                                  fill="none"
+                                  height="1em"
+                                  stroke="currentColor"
+                                  stroke-linecap="round"
+                                  stroke-linejoin="round"
+                                  stroke-width="2"
+                                  viewBox="0 0 24 24"
+                                  width="1em"
+                                  xmlns="http://www.w3.org/2000/svg"
+                                >
+                                  <path
+                                    d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"
+                                  />
+                                  <polyline
+                                    points="7 10 12 15 17 10"
+                                  />
+                                  <line
+                                    x1="12"
+                                    x2="12"
+                                    y1="15"
+                                    y2="3"
+                                  />
+                                </svg>
+                              </button>
+                              <button
+                                aria-label="Edit voucher SLABC123"
+                                class="cursor-pointer rounded-3xl p-2.5 text-text-secondary hover:bg-action-primary-subtle hover:text-action-primary"
+                                title="Edit voucher"
+                                type="button"
+                              >
+                                <svg
+                                  class="h-5 w-5"
+                                  fill="none"
+                                  height="1em"
+                                  stroke="currentColor"
+                                  stroke-linecap="round"
+                                  stroke-linejoin="round"
+                                  stroke-width="2"
+                                  viewBox="0 0 24 24"
+                                  width="1em"
+                                  xmlns="http://www.w3.org/2000/svg"
+                                >
+                                  <path
+                                    d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"
+                                  />
+                                </svg>
+                              </button>
+                            </div>
+                          </td>
+                        </tr>
+                        <tr
+                          class="hover:bg-background-subtle/50 transition-colors "
+                        >
+                          <td
+                            class="px-5 py-4 border-b border-border-default text-base text-center "
+                          >
+                            <span
+                              class="text-lg text-text-secondary"
+                            >
+                              2
+                            </span>
+                          </td>
+                          <td
+                            class="px-5 py-4 border-b border-border-default text-base text-left "
+                          >
+                            <span
+                              class="text-lg font-medium text-text-primary"
+                            >
+                              Winter Promo
+                            </span>
+                          </td>
+                          <td
+                            class="px-5 py-4 border-b border-border-default text-base text-left "
+                          >
+                            <span
+                              class="text-lg font-medium text-text-primary"
+                            >
+                              WINTER25
+                            </span>
+                          </td>
+                          <td
+                            class="px-5 py-4 border-b border-border-default text-base text-center "
+                          >
+                            <span
+                              class="text-lg text-text-secondary"
+                            >
+                              25%
+                            </span>
+                          </td>
+                          <td
+                            class="px-5 py-4 border-b border-border-default text-base text-center "
+                          >
+                            <span
+                              class="inline-flex rounded-full border border-current px-3 py-1 text-base font-semibold uppercase bg-danger-subtle text-danger-strong"
+                            >
+                              inactive
+                            </span>
+                          </td>
+                          <td
+                            class="px-5 py-4 border-b border-border-default text-base text-left "
+                          >
+                            <span
+                              class="text-lg text-text-secondary"
+                            >
+                              -
+                            </span>
+                          </td>
+                          <td
+                            class="px-5 py-4 border-b border-border-default text-base text-center "
+                          >
+                            <div
+                              class="flex items-center justify-center gap-1"
+                            >
+                              <button
+                                aria-label="Download voucher WINTER25"
+                                class="cursor-pointer rounded-3xl p-2.5 text-text-secondary hover:bg-action-primary-subtle hover:text-action-primary"
+                                title="Download voucher"
+                                type="button"
+                              >
+                                <svg
+                                  class="h-5 w-5"
+                                  fill="none"
+                                  height="1em"
+                                  stroke="currentColor"
+                                  stroke-linecap="round"
+                                  stroke-linejoin="round"
+                                  stroke-width="2"
+                                  viewBox="0 0 24 24"
+                                  width="1em"
+                                  xmlns="http://www.w3.org/2000/svg"
+                                >
+                                  <path
+                                    d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"
+                                  />
+                                  <polyline
+                                    points="7 10 12 15 17 10"
+                                  />
+                                  <line
+                                    x1="12"
+                                    x2="12"
+                                    y1="15"
+                                    y2="3"
+                                  />
+                                </svg>
+                              </button>
+                              <button
+                                aria-label="Edit voucher WINTER25"
+                                class="cursor-pointer rounded-3xl p-2.5 text-text-secondary hover:bg-action-primary-subtle hover:text-action-primary"
+                                title="Edit voucher"
+                                type="button"
+                              >
+                                <svg
+                                  class="h-5 w-5"
+                                  fill="none"
+                                  height="1em"
+                                  stroke="currentColor"
+                                  stroke-linecap="round"
+                                  stroke-linejoin="round"
+                                  stroke-width="2"
+                                  viewBox="0 0 24 24"
+                                  width="1em"
+                                  xmlns="http://www.w3.org/2000/svg"
+                                >
+                                  <path
+                                    d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"
+                                  />
+                                </svg>
+                              </button>
+                            </div>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+                <div
+                  class="md:hidden bg-background-surface rounded-xl border border-border-default shadow-sm overflow-hidden"
+                >
+                  <div
+                    class="bg-background-surface overflow-hidden divide-y divide-border-default"
+                  >
+                    <div
+                      class="flex flex-col gap-3 px-4 py-4 bg-transparent transition-colors "
+                    />
+                    <div
+                      class="flex flex-col gap-3 px-4 py-4 bg-transparent transition-colors "
+                    />
+                  </div>
+                </div>
+              </div>
             </div>
             <div
               class="flex flex-col gap-3 py-4 pt-4"
@@ -398,7 +805,7 @@ exports[`MasterVoucherContainer should match snapshot 1`] = `
                   <p
                     class="whitespace-nowrap text-xs text-text-secondary sm:text-sm"
                   >
-                    Show 0/10 data
+                    Show 2/10 data
                   </p>
                   <div
                     class="relative w-[180px] sm:w-auto sm:min-w-[100px] shrink-0"

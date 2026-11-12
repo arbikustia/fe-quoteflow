@@ -1,92 +1,56 @@
-import type * as React from "react";
 import { MemoryRouter } from "react-router-dom";
 
-import { fireEvent, render, screen } from "@/libs/unit-test";
+import { MOCK_VOUCHER_LIST_RESPONSE } from "@/fixture/master-voucher";
+import { usePagePermission } from "@/hooks/usePagePermission";
+import { render, screen } from "@/libs/unit-test";
 import { useGetVouchersQuery } from "@/services/master-voucher.service";
 
 import MasterVoucherContainer from "./MasterVoucher.container";
-import type { VoucherData } from "./MasterVoucher.type";
 
-jest.mock("@/hooks/usePagePermission", () => ({
-  usePagePermission: () => ({ canView: true, canCreate: true, canEdit: true, isSuperadmin: false }),
-}));
+jest.mock("@/app/layout", () => ({ children }: { children: React.ReactNode }): React.ReactElement => <div data-testid="layout">{children}</div>);
+jest.mock("@/services/master-voucher.service", () => ({ useGetVouchersQuery: jest.fn() }));
+jest.mock("@/hooks/usePagePermission", () => ({ usePagePermission: jest.fn() }));
 
-jest.mock("../../../app/layout", () => ({
-  __esModule: true,
-  default: ({ children }: { children: React.ReactNode }) => <div data-testid="layout">{children}</div>,
-}));
-
-jest.mock("@/services/master-voucher.service", () => ({
-  useGetVouchersQuery: jest.fn(),
-  useCreateVoucherMutation: jest.fn(),
-  mapVoucher: (voucher: { id: string; name: string; code: string; discount_percent: number; status: number; created_at: string | null }) => ({
-    id: voucher.id,
-    name: voucher.name,
-    code: voucher.code,
-    discountPercent: voucher.discount_percent,
-    status: voucher.status === 1 ? "active" : "inactive",
-    createAt: voucher.created_at ?? "",
-    createBy: "",
-  }),
-}));
-
-const mockUseGetVouchersQuery = useGetVouchersQuery as jest.Mock;
-
-const mockVoucher: VoucherData = {
-  id: "1",
-  name: "Discount Voucher",
-  code: "DISC10",
-  discountPercent: 10,
-  status: "active",
-  createAt: "2024-01-01",
-  createBy: "System",
+/**
+ * Render the container inside a router.
+ * @param {string} [successMessage] - Router state success message
+ * @returns {void}
+ */
+const renderContainer = (successMessage?: string): void => {
+  render(
+    <MemoryRouter initialEntries={[{ pathname: "/master-voucher", state: { successMessage } }]}>
+      <MasterVoucherContainer />
+    </MemoryRouter>,
+  );
 };
 
 describe("MasterVoucherContainer", () => {
-  beforeAll(() => {
-    jest.useFakeTimers();
-    jest.setSystemTime(new Date("2026-10-18T01:30:00+07:00"));
-  });
-
-  afterAll(() => {
-    jest.useRealTimers();
-  });
-
   beforeEach(() => {
-    mockUseGetVouchersQuery.mockReturnValue({
-      data: {
-        status: true,
-        messages: null,
-        data: [],
-        page_number: 1,
-        page_size: 10,
-        total_pages: 1,
-        total_count: 0,
-        has_previous: false,
-        has_next: false,
-      },
-      error: undefined,
-      isLoading: false,
-    });
+    jest.mocked(useGetVouchersQuery).mockReturnValue({ data: MOCK_VOUCHER_LIST_RESPONSE, isLoading: false, isError: false } as never);
+    jest.mocked(usePagePermission).mockReturnValue({ canView: true, canCreate: true, canEdit: true, isSuperadmin: false, isLoading: false });
   });
 
-  it("should render container component correctly", () => {
-    const { container } = render(
-      <MemoryRouter>
-        <MasterVoucherContainer />
-      </MemoryRouter>
-    );
-    expect(container).toBeTruthy();
-    expect(screen.getAllByPlaceholderText(/Search/i).length).toBeGreaterThan(0);
+  it("should query the first page and render normalized vouchers", () => {
+    renderContainer();
+
+    expect(useGetVouchersQuery).toHaveBeenCalledWith({ pageNumber: 1, pageSize: 10, searchTerm: "" });
+    expect(usePagePermission).toHaveBeenCalledWith("/master-voucher");
+    expect(screen.getAllByText("WINTER25")).toHaveLength(2);
+    expect(screen.getAllByText("inactive")).toHaveLength(2);
   });
 
-  it("should match snapshot", () => {
-    const { asFragment } = render(
-      <MemoryRouter>
-        <MasterVoucherContainer />
-      </MemoryRouter>
-    );
-    expect(asFragment()).toMatchSnapshot();
+  it("should hide create and edit actions without permission", () => {
+    jest.mocked(usePagePermission).mockReturnValue({ canView: true, canCreate: false, canEdit: false, isSuperadmin: false, isLoading: false });
+
+    renderContainer();
+
+    expect(screen.queryByRole("button", { name: "Create Voucher" })).not.toBeInTheDocument();
+    expect(screen.queryAllByRole("button", { name: /^Edit voucher/ })).toHaveLength(0);
+  });
+
+  it("should show the success message from router state", () => {
+    renderContainer("Voucher updated successfully.");
+
+    expect(screen.getByRole("alert")).toHaveTextContent("Voucher updated successfully.");
   });
 });
-

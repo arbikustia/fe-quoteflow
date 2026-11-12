@@ -2,7 +2,7 @@
 - [x] 1. master project
 - [x] 2. master role
 - [x] 3. master user
-- [ ] 4. master voucher
+- [x] 4. master voucher
 - [ ] 5. order
 - [ ] 6. quotation
 - [ ] 7. invoice
