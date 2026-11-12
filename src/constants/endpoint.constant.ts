@@ -74,6 +74,7 @@ const ENDPOINT = {
   },
   MASTER_EMAIL_SENDER: {
     PAGED: "/api/email-sender/paged",
+    BY_ID: "/api/email-sender",
     ALL: "/api/master-email-sender",
     CREATE: "/api/master-email-sender",
     DETAIL: "/api/master-email-sender",
