@@ -7,7 +7,7 @@ import { Pagination } from "@/components/Pagination";
 import { SearchFilter } from "@/components/SearchFilter";
 import Table, { type TableColumn } from "@/components/Table";
 
-import { getInvoiceRowNumber, InvoiceMobileCard } from "./Invoice.helpers";
+import { getInvoiceRowNumber, getPaymentStatusBadgeClass, InvoiceMobileCard } from "./Invoice.helpers";
 import type { InvoiceData, InvoiceProps } from "./Invoice.type";
 
 import Layout from "@/app/layout";
@@ -89,13 +89,24 @@ const _renderDetailAction = (row: InvoiceData, props: InvoiceProps): React.React
 );
 
 /**
- * Render invoice status badge.
+ * Render invoice workflow status badge.
  * @param {InvoiceData} row - Invoice row
  * @returns {React.ReactElement} Status badge element
  */
 const _renderStatus = (row: InvoiceData): React.ReactElement => (
   <span className={`inline-flex rounded-full border border-current px-3 py-1 text-base font-semibold uppercase ${getStatusBadgeClass(row.status)}`}>
     {getInvoiceStatusLabel(row.status)}
+  </span>
+);
+
+/**
+ * Render invoice payment status badge.
+ * @param {InvoiceData} row - Invoice row
+ * @returns {React.ReactElement} Payment status badge element
+ */
+const _renderPaymentStatus = (row: InvoiceData): React.ReactElement => (
+  <span className={`inline-flex whitespace-nowrap rounded-full border border-current px-3 py-1 text-base font-semibold uppercase ${getPaymentStatusBadgeClass(row.paymentStatus)}`}>
+    {row.paymentStatus}
   </span>
 );
 
@@ -197,6 +208,7 @@ const _getColumns = (props: InvoiceProps): TableColumn<InvoiceData>[] => {
     { key: "startDate", header: "Event Start Date", render: _renderStartDate },
     { key: "endDate", header: "Event End Date", render: _renderEndDate },
     { key: "status", header: "Status", align: "center", render: _renderStatus },
+    { key: "paymentStatus", header: "Payment Status", align: "center", render: _renderPaymentStatus },
     { key: "actions", header: "Action", align: "center", render: renderActions },
   ];
 };

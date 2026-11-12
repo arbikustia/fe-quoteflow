@@ -8,6 +8,23 @@ import type { QuoteData } from "@/modules/order/Order.type";
 import { formatCurrency, getInvoiceStatusLabel, getStatusBadgeClass } from "@/modules/quotation/detail/QuotationDetail.helpers";
 
 /**
+ * Get badge CSS class for an invoice payment status (e.g. "Lunas", "Belum Lunas").
+ * @param {string} paymentStatus - Payment status label from the API
+ * @returns {string} Badge CSS class
+ */
+export const getPaymentStatusBadgeClass = (paymentStatus: string): string => {
+  const normalized = paymentStatus.trim().toLowerCase();
+
+  if (normalized === "lunas") return "bg-success-subtle text-success-strong";
+
+  if (normalized === "belum lunas") return "bg-danger-subtle text-danger-strong";
+
+  if (normalized === "-" || !normalized) return "bg-background-muted text-text-tertiary";
+
+  return "bg-warning-subtle text-warning-strong";
+};
+
+/**
  * Map invoice list row to quote data.
  * @param {InvoiceData} invoice - Invoice data row
  * @returns {QuoteData} Quote data
@@ -23,7 +40,7 @@ const _fromInvoiceData = (invoice: InvoiceData): QuoteData => ({
   qty: 1,
   pph: 0,
   discount: 0,
-  remark: invoice.notes || "",
+  remark: invoice.remarks || "",
   grandTotal: invoice.grandTotal,
   status: invoice.status,
   customerPhone: invoice.customerPhone || "-",
@@ -75,7 +92,7 @@ const _fromApiInvoice = (invoice: ApiInvoice): QuoteData => {
     pph: 0,
     discount: tx?.discount ?? 0,
     serviceFee: tx?.service_fee ?? 0,
-    remark: invoice.notes || "",
+    remark: tx?.remarks || "",
     grandTotal: tx?.grand_total ?? 0,
     status: invoice.status,
     customerPhone: tx?.customer_phone || "-",
@@ -124,6 +141,14 @@ const _renderMobileSummary = (invoice: InvoiceData): React.ReactElement => React
     { className: "mt-4 flex items-end justify-between gap-4 border-t border-border-default pt-4" },
     React.createElement("span", { className: "text-lg text-text-tertiary" }, "Total"),
     React.createElement("span", { className: "text-right text-xl font-semibold tabular-nums text-text-primary" }, formatCurrency(invoice.grandTotal)),
+  ),
+  React.createElement(
+    "span",
+    { className: "mt-4 flex items-center justify-between gap-4 border-t border-border-default pt-4" },
+    React.createElement("span", { className: "text-lg text-text-tertiary" }, "Payment status"),
+    React.createElement("span", {
+      className: `whitespace-nowrap rounded-full border border-current px-3 py-1 text-base font-semibold uppercase ${getPaymentStatusBadgeClass(invoice.paymentStatus)}`,
+    }, invoice.paymentStatus),
   ),
 );
 

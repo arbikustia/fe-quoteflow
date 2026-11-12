@@ -46,6 +46,7 @@ const INVOICE: ApiInvoice = {
       customer_phone: "0812345678",
       address: "Jakarta",
       event_name: "Annual Gala",
+      remarks: "Transaction global remark",
       start_at: "2026-12-01",
       end_at: "2026-12-02",
       subtotal: 1000000,
@@ -98,7 +99,8 @@ describe("InvoiceDetailComponent", () => {
     const documentSection = screen.getByText("Document Information").closest("section");
     expect(documentSection?.querySelector("dl")?.className).toContain("sm:grid-cols-3");
     const remarkSection = screen.getByRole("heading", { name: "Remark" }).closest("section");
-    expect(remarkSection?.textContent).toContain("Invoice generated from QUO-001");
+    expect(remarkSection?.textContent).toContain("Transaction global remark");
+    expect(remarkSection?.textContent).not.toContain("Invoice generated from QUO-001");
     expect(remarkSection?.textContent).not.toContain("Invoice Remark");
     expect(screen.getByText("Valid for thirty days")).toBeTruthy();
     expect(screen.queryByText("Quotation Expired At")).toBeNull();

@@ -8,7 +8,7 @@ jest.mock("@/app/layout", () => ({ children }: { children: React.ReactNode }): R
 const props: InvoiceProps = {
   currentPage: 1,
   pageSize: 10,
-  paginatedData: [{ id: "invoice-1", transactionId: "transaction-1", invoiceNumber: "INV-001", invoiceDate: "2026-11-20T12:00:00", dueDate: "2026-11-27T12:00:00", customerName: "PT Example", name: "Annual Gala", customerPhone: "0812345678", location: "Jakarta", startDate: "2026-11-20T12:00:00", endDate: "2026-11-21T15:30:00", grandTotal: 1050000, status: 1, notes: "Invoice" }],
+  paginatedData: [{ id: "invoice-1", transactionId: "transaction-1", invoiceNumber: "INV-001", invoiceDate: "2026-11-20T12:00:00", dueDate: "2026-11-27T12:00:00", customerName: "PT Example", name: "Annual Gala", customerPhone: "0812345678", location: "Jakarta", startDate: "2026-11-20T12:00:00", endDate: "2026-11-21T15:30:00", grandTotal: 1050000, status: 1, paymentStatus: "Belum Lunas", notes: "Invoice", remarks: "" }],
   totalPages: 1,
   totalCount: 1,
   isLoading: false,
@@ -35,6 +35,8 @@ describe("InvoiceComponent", () => {
     expect(screen.getByText("20 November 2026 12:00 – 21 November 2026 15:30")).toBeInTheDocument();
     expect(screen.getByRole("columnheader", { name: "Status" })).toBeInTheDocument();
     expect(screen.getAllByText("Invoice Created").length).toBeGreaterThan(0);
+    expect(screen.getAllByText("Belum Lunas").length).toBeGreaterThan(0);
+    expect(screen.getByText("Payment Status")).toBeTruthy();
     expect(screen.getAllByLabelText("Edit invoice").length).toBeGreaterThan(0);
     expect(screen.getAllByLabelText("Download PDF").length).toBeGreaterThan(0);
   });
@@ -52,9 +54,10 @@ describe("InvoiceComponent", () => {
   });
 
   it("should render approved status and hide edit action", () => {
-    render(<InvoiceComponent {...props} paginatedData={[{ ...props.paginatedData[0], status: 2 }]} />);
+    render(<InvoiceComponent {...props} paginatedData={[{ ...props.paginatedData[0], status: 2, paymentStatus: "Lunas" }]} />);
 
     const badge = screen.getAllByText("Approved")[0];
+    expect(badge).toHaveClass("border-current", "text-base", "uppercase");
     expect(badge).toHaveClass("border-current", "text-base", "uppercase");
     expect(screen.queryByRole("button", { name: "Edit invoice" })).toBeNull();
     expect(screen.getByRole("button", { name: "View invoice detail" })).toBeTruthy();
@@ -64,7 +67,7 @@ describe("InvoiceComponent", () => {
   it("should open invoice detail from mobile card", () => {
     render(<InvoiceComponent {...props} />);
 
-    const card = screen.getByRole("button", { name: /INV-001.*Invoice Created.*Annual Gala/s });
+    const card = screen.getByRole("button", { name: /INV-001.*Invoice Created.*Annual Gala.*Belum Lunas/s });
     expect(card).toHaveClass("rounded-3xl");
     expect(card).toHaveClass("border-border-strong");
     expect(card.querySelector(".rounded-full")).toHaveClass("border-current", "text-base", "uppercase");
@@ -99,9 +102,9 @@ describe("InvoiceComponent", () => {
     render(<InvoiceComponent {...props} isLoading={true} paginatedData={[]} />);
 
     const table = screen.getByRole("status", { name: "Loading invoice table" });
-    expect(table.querySelectorAll("th")).toHaveLength(9);
+    expect(table.querySelectorAll("th")).toHaveLength(10);
     expect(table.querySelectorAll("tbody tr")).toHaveLength(5);
-    expect(table.querySelectorAll("tbody tr:first-child td")).toHaveLength(9);
+    expect(table.querySelectorAll("tbody tr:first-child td")).toHaveLength(10);
     expect(table.querySelectorAll("tbody tr:first-child td:last-child span")).toHaveLength(3);
     const cardSkeletons = screen.getAllByRole("status", { name: "Loading invoice card" });
     expect(cardSkeletons).toHaveLength(5);

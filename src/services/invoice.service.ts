@@ -19,7 +19,9 @@ export const mapInvoice = (invoice: ApiInvoice): InvoiceData => ({
   endDate: invoice.quotation.transaction.end_at,
   grandTotal: invoice.quotation.transaction.grand_total,
   status: invoice.status,
+  paymentStatus: invoice.payment_status || "-",
   notes: invoice.notes,
+  remarks: invoice.quotation?.transaction?.remarks ?? "",
 });
 
 export const invoiceService = apiRtkClient.injectEndpoints({

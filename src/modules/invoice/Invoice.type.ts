@@ -5,12 +5,13 @@ export type InvoiceCustomer = { id: string; name: string; address: string; phone
 export type InvoiceReference = { id: string; name: string; status: number; created_at: string; updated_at: string; code?: string; discount_percent?: number };
 export type InvoiceTransaction = {
   id: string; service_type_id: string; service_type_name: string; order_type_id?: string; order_type_name?: string; customer_name: string; customer_phone: string; address: string; event_name: string; start_at: string; end_at: string;
-  subtotal: number; service_fee: number; discount: number; grand_total: number; status: number; created_at: string; updated_at: string;
-  rental_transaction_items: InvoiceItem[]; rental_transaction_project: InvoiceProject[]; rental_handovers: []; customer: InvoiceCustomer; pic: InvoiceReference; voucher: InvoiceReference;
+  remarks?: string | null; subtotal: number; service_fee: number; discount: number; grand_total: number; status: number; created_at: string; updated_at: string;
+  rental_transaction_items: InvoiceItem[]; rental_transaction_project: InvoiceProject[]; rental_handovers: []; customer: InvoiceCustomer; pic: InvoiceReference; voucher: InvoiceReference | null;
 };
 export type InvoiceQuotation = { id: string; transaction_id: string; quotation_no: string; quotation_date: string; expired_at: string; notes: string; status: number; created_at: string; updated_at: string; transaction: InvoiceTransaction };
 export type ApiInvoice = {
   id: string; transaction_id: string; invoice_no: string; invoice_date: string; due_date: string; notes: string; status: number; created_at: string; updated_at: string; quotation: InvoiceQuotation; payments: []; customer?: InvoiceCustomer;
+  grand_total?: number; total_paid?: number; remaining_amount?: number; payment_status?: string;
 };
 export type InvoiceDetailResponse = { status: boolean; data: ApiInvoice | null; messages: string[] };
 export type InvoiceAllResponse = { status: boolean; data: ApiInvoice[]; messages: string[] };
@@ -47,7 +48,9 @@ export type InvoiceData = {
   endDate: string;
   grandTotal: number;
   status: number;
+  paymentStatus: string;
   notes: string;
+  remarks: string;
 };
 
 export type InvoiceMobileCardProps = { invoice: InvoiceData; onClick: (invoice: InvoiceData) => void };

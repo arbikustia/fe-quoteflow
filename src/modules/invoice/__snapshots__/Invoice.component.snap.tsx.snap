@@ -555,6 +555,11 @@ exports[`InvoiceComponent Snapshots Should render InvoiceComponent loading skele
                       Status
                     </th>
                     <th
+                      class="bg-table-header px-5 py-4 text-[13px] font-bold uppercase tracking-widest text-text-secondary text-center  "
+                    >
+                      Payment Status
+                    </th>
+                    <th
                       class="bg-table-header px-5 py-4 text-[13px] font-bold uppercase tracking-widest text-text-secondary text-center  rounded-r-3xl"
                     >
                       Action
@@ -624,78 +629,8 @@ exports[`InvoiceComponent Snapshots Should render InvoiceComponent loading skele
                     <td
                       class="border-b border-border-default px-5 py-4 text-center"
                     >
-                      <div
-                        class="flex justify-center gap-1"
-                      >
-                        <span
-                          class="h-10 w-10 rounded-3xl bg-background-subtle"
-                        />
-                        <span
-                          class="h-10 w-10 rounded-3xl bg-background-subtle"
-                        />
-                        <span
-                          class="h-10 w-10 rounded-3xl bg-background-subtle"
-                        />
-                      </div>
-                    </td>
-                  </tr>
-                  <tr
-                    class="animate-pulse"
-                  >
-                    <td
-                      class="border-b border-border-default px-5 py-4 text-center"
-                    >
                       <span
-                        class="inline-block h-5 rounded-3xl bg-background-subtle align-middle w-6"
-                      />
-                    </td>
-                    <td
-                      class="border-b border-border-default px-5 py-4 text-left"
-                    >
-                      <span
-                        class="inline-block h-5 rounded-3xl bg-background-subtle align-middle w-28"
-                      />
-                    </td>
-                    <td
-                      class="border-b border-border-default px-5 py-4 text-left"
-                    >
-                      <span
-                        class="inline-block h-5 rounded-3xl bg-background-subtle align-middle w-32"
-                      />
-                    </td>
-                    <td
-                      class="border-b border-border-default px-5 py-4 text-left"
-                    >
-                      <span
-                        class="inline-block h-5 rounded-3xl bg-background-subtle align-middle w-36"
-                      />
-                    </td>
-                    <td
-                      class="border-b border-border-default px-5 py-4 text-left"
-                    >
-                      <span
-                        class="inline-block h-5 rounded-3xl bg-background-subtle align-middle w-24"
-                      />
-                    </td>
-                    <td
-                      class="border-b border-border-default px-5 py-4 text-left"
-                    >
-                      <span
-                        class="inline-block h-5 rounded-3xl bg-background-subtle align-middle w-24"
-                      />
-                    </td>
-                    <td
-                      class="border-b border-border-default px-5 py-4 text-left"
-                    >
-                      <span
-                        class="inline-block h-5 rounded-3xl bg-background-subtle align-middle w-24"
-                      />
-                    </td>
-                    <td
-                      class="border-b border-border-default px-5 py-4 text-center"
-                    >
-                      <span
-                        class="inline-block h-5 rounded-3xl bg-background-subtle align-middle w-28 rounded-full"
+                        class="inline-block h-5 rounded-3xl bg-background-subtle align-middle undefined"
                       />
                     </td>
                     <td
@@ -778,78 +713,8 @@ exports[`InvoiceComponent Snapshots Should render InvoiceComponent loading skele
                     <td
                       class="border-b border-border-default px-5 py-4 text-center"
                     >
-                      <div
-                        class="flex justify-center gap-1"
-                      >
-                        <span
-                          class="h-10 w-10 rounded-3xl bg-background-subtle"
-                        />
-                        <span
-                          class="h-10 w-10 rounded-3xl bg-background-subtle"
-                        />
-                        <span
-                          class="h-10 w-10 rounded-3xl bg-background-subtle"
-                        />
-                      </div>
-                    </td>
-                  </tr>
-                  <tr
-                    class="animate-pulse"
-                  >
-                    <td
-                      class="border-b border-border-default px-5 py-4 text-center"
-                    >
                       <span
-                        class="inline-block h-5 rounded-3xl bg-background-subtle align-middle w-6"
-                      />
-                    </td>
-                    <td
-                      class="border-b border-border-default px-5 py-4 text-left"
-                    >
-                      <span
-                        class="inline-block h-5 rounded-3xl bg-background-subtle align-middle w-28"
-                      />
-                    </td>
-                    <td
-                      class="border-b border-border-default px-5 py-4 text-left"
-                    >
-                      <span
-                        class="inline-block h-5 rounded-3xl bg-background-subtle align-middle w-32"
-                      />
-                    </td>
-                    <td
-                      class="border-b border-border-default px-5 py-4 text-left"
-                    >
-                      <span
-                        class="inline-block h-5 rounded-3xl bg-background-subtle align-middle w-36"
-                      />
-                    </td>
-                    <td
-                      class="border-b border-border-default px-5 py-4 text-left"
-                    >
-                      <span
-                        class="inline-block h-5 rounded-3xl bg-background-subtle align-middle w-24"
-                      />
-                    </td>
-                    <td
-                      class="border-b border-border-default px-5 py-4 text-left"
-                    >
-                      <span
-                        class="inline-block h-5 rounded-3xl bg-background-subtle align-middle w-24"
-                      />
-                    </td>
-                    <td
-                      class="border-b border-border-default px-5 py-4 text-left"
-                    >
-                      <span
-                        class="inline-block h-5 rounded-3xl bg-background-subtle align-middle w-24"
-                      />
-                    </td>
-                    <td
-                      class="border-b border-border-default px-5 py-4 text-center"
-                    >
-                      <span
-                        class="inline-block h-5 rounded-3xl bg-background-subtle align-middle w-28 rounded-full"
+                        class="inline-block h-5 rounded-3xl bg-background-subtle align-middle undefined"
                       />
                     </td>
                     <td
@@ -927,6 +792,181 @@ exports[`InvoiceComponent Snapshots Should render InvoiceComponent loading skele
                     >
                       <span
                         class="inline-block h-5 rounded-3xl bg-background-subtle align-middle w-28 rounded-full"
+                      />
+                    </td>
+                    <td
+                      class="border-b border-border-default px-5 py-4 text-center"
+                    >
+                      <span
+                        class="inline-block h-5 rounded-3xl bg-background-subtle align-middle undefined"
+                      />
+                    </td>
+                    <td
+                      class="border-b border-border-default px-5 py-4 text-center"
+                    >
+                      <div
+                        class="flex justify-center gap-1"
+                      >
+                        <span
+                          class="h-10 w-10 rounded-3xl bg-background-subtle"
+                        />
+                        <span
+                          class="h-10 w-10 rounded-3xl bg-background-subtle"
+                        />
+                        <span
+                          class="h-10 w-10 rounded-3xl bg-background-subtle"
+                        />
+                      </div>
+                    </td>
+                  </tr>
+                  <tr
+                    class="animate-pulse"
+                  >
+                    <td
+                      class="border-b border-border-default px-5 py-4 text-center"
+                    >
+                      <span
+                        class="inline-block h-5 rounded-3xl bg-background-subtle align-middle w-6"
+                      />
+                    </td>
+                    <td
+                      class="border-b border-border-default px-5 py-4 text-left"
+                    >
+                      <span
+                        class="inline-block h-5 rounded-3xl bg-background-subtle align-middle w-28"
+                      />
+                    </td>
+                    <td
+                      class="border-b border-border-default px-5 py-4 text-left"
+                    >
+                      <span
+                        class="inline-block h-5 rounded-3xl bg-background-subtle align-middle w-32"
+                      />
+                    </td>
+                    <td
+                      class="border-b border-border-default px-5 py-4 text-left"
+                    >
+                      <span
+                        class="inline-block h-5 rounded-3xl bg-background-subtle align-middle w-36"
+                      />
+                    </td>
+                    <td
+                      class="border-b border-border-default px-5 py-4 text-left"
+                    >
+                      <span
+                        class="inline-block h-5 rounded-3xl bg-background-subtle align-middle w-24"
+                      />
+                    </td>
+                    <td
+                      class="border-b border-border-default px-5 py-4 text-left"
+                    >
+                      <span
+                        class="inline-block h-5 rounded-3xl bg-background-subtle align-middle w-24"
+                      />
+                    </td>
+                    <td
+                      class="border-b border-border-default px-5 py-4 text-left"
+                    >
+                      <span
+                        class="inline-block h-5 rounded-3xl bg-background-subtle align-middle w-24"
+                      />
+                    </td>
+                    <td
+                      class="border-b border-border-default px-5 py-4 text-center"
+                    >
+                      <span
+                        class="inline-block h-5 rounded-3xl bg-background-subtle align-middle w-28 rounded-full"
+                      />
+                    </td>
+                    <td
+                      class="border-b border-border-default px-5 py-4 text-center"
+                    >
+                      <span
+                        class="inline-block h-5 rounded-3xl bg-background-subtle align-middle undefined"
+                      />
+                    </td>
+                    <td
+                      class="border-b border-border-default px-5 py-4 text-center"
+                    >
+                      <div
+                        class="flex justify-center gap-1"
+                      >
+                        <span
+                          class="h-10 w-10 rounded-3xl bg-background-subtle"
+                        />
+                        <span
+                          class="h-10 w-10 rounded-3xl bg-background-subtle"
+                        />
+                        <span
+                          class="h-10 w-10 rounded-3xl bg-background-subtle"
+                        />
+                      </div>
+                    </td>
+                  </tr>
+                  <tr
+                    class="animate-pulse"
+                  >
+                    <td
+                      class="border-b border-border-default px-5 py-4 text-center"
+                    >
+                      <span
+                        class="inline-block h-5 rounded-3xl bg-background-subtle align-middle w-6"
+                      />
+                    </td>
+                    <td
+                      class="border-b border-border-default px-5 py-4 text-left"
+                    >
+                      <span
+                        class="inline-block h-5 rounded-3xl bg-background-subtle align-middle w-28"
+                      />
+                    </td>
+                    <td
+                      class="border-b border-border-default px-5 py-4 text-left"
+                    >
+                      <span
+                        class="inline-block h-5 rounded-3xl bg-background-subtle align-middle w-32"
+                      />
+                    </td>
+                    <td
+                      class="border-b border-border-default px-5 py-4 text-left"
+                    >
+                      <span
+                        class="inline-block h-5 rounded-3xl bg-background-subtle align-middle w-36"
+                      />
+                    </td>
+                    <td
+                      class="border-b border-border-default px-5 py-4 text-left"
+                    >
+                      <span
+                        class="inline-block h-5 rounded-3xl bg-background-subtle align-middle w-24"
+                      />
+                    </td>
+                    <td
+                      class="border-b border-border-default px-5 py-4 text-left"
+                    >
+                      <span
+                        class="inline-block h-5 rounded-3xl bg-background-subtle align-middle w-24"
+                      />
+                    </td>
+                    <td
+                      class="border-b border-border-default px-5 py-4 text-left"
+                    >
+                      <span
+                        class="inline-block h-5 rounded-3xl bg-background-subtle align-middle w-24"
+                      />
+                    </td>
+                    <td
+                      class="border-b border-border-default px-5 py-4 text-center"
+                    >
+                      <span
+                        class="inline-block h-5 rounded-3xl bg-background-subtle align-middle w-28 rounded-full"
+                      />
+                    </td>
+                    <td
+                      class="border-b border-border-default px-5 py-4 text-center"
+                    >
+                      <span
+                        class="inline-block h-5 rounded-3xl bg-background-subtle align-middle undefined"
                       />
                     </td>
                     <td

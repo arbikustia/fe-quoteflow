@@ -1,9 +1,17 @@
 import { describe, expect, it } from "@jest/globals";
 
-import { invoiceToQuoteData } from "./Invoice.helpers";
+import { getPaymentStatusBadgeClass, invoiceToQuoteData } from "./Invoice.helpers";
 import type { ApiInvoice, InvoiceData } from "./Invoice.type";
 
 describe("Invoice helpers", () => {
+  it("should map payment status to badge class", () => {
+    expect(getPaymentStatusBadgeClass("Lunas")).toBe("bg-success-subtle text-success-strong");
+    expect(getPaymentStatusBadgeClass("Belum Lunas")).toBe("bg-danger-subtle text-danger-strong");
+    expect(getPaymentStatusBadgeClass("DP")).toBe("bg-warning-subtle text-warning-strong");
+    expect(getPaymentStatusBadgeClass("-")).toBe("bg-background-muted text-text-tertiary");
+  });
+
+
   it("converts InvoiceData to QuoteData correctly", () => {
     const row: InvoiceData = {
       id: "inv-1",
@@ -19,7 +27,9 @@ describe("Invoice helpers", () => {
       endDate: "2026-11-03",
       grandTotal: 15000000,
       status: 1,
+      paymentStatus: "Belum Lunas",
       notes: "Invoice DP 50%",
+      remarks: "Transaction remark",
     };
 
     const quote = invoiceToQuoteData(row);
@@ -31,7 +41,7 @@ describe("Invoice helpers", () => {
     expect(quote.endDate).toBe("2026-11-03");
     expect(quote.grandTotal).toBe(15000000);
     expect(quote.status).toBe(1);
-    expect(quote.remark).toBe("Invoice DP 50%");
+    expect(quote.remark).toBe("Transaction remark");
   });
 
   it("converts ApiInvoice to QuoteData correctly", () => {
@@ -63,6 +73,7 @@ describe("Invoice helpers", () => {
           customer_phone: "08198765432",
           address: "Surabaya Expo Center",
           event_name: "Expo Digital 2026",
+          remarks: "Expo transaction remark",
           start_at: "2026-11-20",
           end_at: "2026-11-22",
           subtotal: 20000000,
@@ -122,6 +133,6 @@ describe("Invoice helpers", () => {
     expect(quote.selectedItems).toEqual(["LED Videowall P2.9"]);
     expect(quote.grandTotal).toBe(20500000);
     expect(quote.status).toBe(2);
-    expect(quote.remark).toBe("Full payment");
+    expect(quote.remark).toBe("Expo transaction remark");
   });
 });

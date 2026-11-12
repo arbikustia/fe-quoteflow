@@ -90,7 +90,7 @@ const _renderDetails = (invoice: ApiInvoice): ReactElement => {
           {renderTransactionSummarySection(transaction)}
         </div>
         {_renderDocumentInformation(invoice)}
-        {renderGlobalRemarkSection(invoice.notes)}
+        {renderGlobalRemarkSection(invoice.quotation.transaction.remarks ?? "")}
         {renderVoucherSummarySection(transaction.voucher)}
         <div className="grid min-w-0 grid-cols-1 items-start gap-4 sm:gap-4 lg:grid-cols-[minmax(0,2fr)_minmax(20rem,1fr)]">
           <div className="min-w-0 space-y-4 sm:space-y-4">
