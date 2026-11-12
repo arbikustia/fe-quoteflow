@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`ActivityLogContainer snapshot ActivityLogContainer Snapshots should render activity log component 1`] = `
+<DocumentFragment>
+  <div>
+    ActivityLog rendered
+  </div>
+</DocumentFragment>
+`;

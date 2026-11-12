@@ -39,9 +39,7 @@ export type ActivityLogCardProps = {
   activity: ActivityLogData;
 };
 
-export type ActivityLogProps = ActivityLogPagination & {
-  onBack: () => void;
-};
+export type ActivityLogProps = ActivityLogPagination & ActivityLogNavigation;
 
 export type ActivityLogPageData = {
   paginatedData: ActivityLogData[];
@@ -61,4 +59,8 @@ export type ActivityLogPagination = {
   goToPage: (page: number) => void;
   changePageSize: (size: number) => void;
   setSearchTerm: (value: string) => void;
+};
+
+export type ActivityLogNavigation = {
+  onBack: () => void;
 };

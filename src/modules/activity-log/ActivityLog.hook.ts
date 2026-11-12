@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-import type { ActivityLogData, ActivityLogPageData, ActivityLogPagination } from "./ActivityLog.type";
+import type { ActivityLogData, ActivityLogNavigation, ActivityLogPageData, ActivityLogPagination } from "./ActivityLog.type";
 
 import { mapActivityLog, useGetActivityLogsQuery } from "@/services/activity-log.service";
 
@@ -66,12 +66,13 @@ export const useActivityLogPagination = (): ActivityLogPagination => {
 
 /**
  * Provide activity log navigation.
- * @returns {{onBack: () => void}} Navigation callbacks
+ * @returns {ActivityLogNavigation} Navigation callbacks
  */
-export const useActivityLogNavigation = (): { onBack: () => void } => {
+export const useActivityLogNavigation = (): ActivityLogNavigation => {
   const navigate = useNavigate();
   /**
-   *
+   * Navigate back to the previous page.
+   * @returns {void} No return value
    */
   const onBack = (): void => { void navigate(-1); };
 

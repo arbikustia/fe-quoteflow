@@ -1,7 +1,8 @@
 import React from "react";
 import { render, screen } from "@/libs/unit-test";
-import type { ActivityLogPagination } from "./ActivityLog.type";
+import type { ActivityLogNavigation, ActivityLogPagination } from "./ActivityLog.type";
 
+const mockPermission = { canView: true };
 const hookState: ActivityLogPagination = {
   paginatedData: [],
   isLoading: false,
@@ -16,9 +17,12 @@ const hookState: ActivityLogPagination = {
   changePageSize: jest.fn(),
 };
 
+jest.mock("@/hooks/usePagePermission", () => ({
+  usePagePermission: (): { canView: boolean } => mockPermission,
+}));
 jest.mock("./ActivityLog.hook", () => ({
   useActivityLogPagination: (): ActivityLogPagination => hookState,
-  useActivityLogNavigation: (): { onBack: () => void } => ({ onBack: jest.fn() }),
+  useActivityLogNavigation: (): ActivityLogNavigation => ({ onBack: jest.fn() }),
 }));
 jest.mock("./ActivityLog.component", () => ({
   /** Render activity log component test double. */
@@ -28,8 +32,15 @@ jest.mock("./ActivityLog.component", () => ({
 import ActivityLog from "./ActivityLog.container";
 
 describe("ActivityLog container", () => {
+  it("should render nothing without view permission", () => {
+    mockPermission.canView = false;
+    const { container } = render(<ActivityLog />);
+    expect(container.innerHTML).toBe("");
+    mockPermission.canView = true;
+  });
+
   it("should render activity log component", () => {
     render(<ActivityLog />);
-    expect(screen.getByText("Activity log content")).toBeInTheDocument();
+    expect(screen.getByText("Activity log content")).not.toBeNull();
   });
 });

@@ -1,3 +1,5 @@
+import type { ActivityLogData } from "./ActivityLog.type";
+
 const MONTH_NAMES = ["jan", "feb", "mar", "apr", "mei", "jun", "jul", "agu", "sep", "okt", "nov", "des"];
 
 /**
@@ -35,3 +37,10 @@ export const getActionBadgeClass = (action: string): string => {
 
   return "bg-information-subtle text-information-strong";
 };
+
+/**
+ * Get the table row key of an activity log.
+ * @param {ActivityLogData} activity - Activity row
+ * @returns {string} Row key
+ */
+export const getActivityLogRowKey = (activity: ActivityLogData): string => activity.id;

@@ -4,8 +4,8 @@ import { Pagination } from "@/components/Pagination";
 import { SearchFilter } from "@/components/SearchFilter";
 import Table, { type TableColumn } from "@/components/Table";
 
-import { formatActivityDateTime, getActionBadgeClass } from "./ActivityLog.helpers";
 import type { ActivityLogCardProps, ActivityLogData, ActivityLogProps } from "./ActivityLog.type";
+import { formatActivityDateTime, getActionBadgeClass, getActivityLogRowKey } from "./ActivityLog.util";
 
 import Layout from "@/app/layout";
 import { PageLayout } from "@/app/shared/PageLayout";
@@ -253,7 +253,7 @@ const _renderDesktopTable = (
    * @returns {void} No return value
    */
   const handleSearch = (event: ChangeEvent<HTMLInputElement>): void => props.setSearchTerm(event.target.value);
-  const tableContent = props.isLoading ? _renderTableSkeleton(columns) : listState ?? <Table data={props.paginatedData} columns={columns} keyExtractor={(row: ActivityLogData): string => row.id} />;
+  const tableContent = props.isLoading ? _renderTableSkeleton(columns) : listState ?? <Table data={props.paginatedData} columns={columns} keyExtractor={getActivityLogRowKey} />;
 
   return <div className="hidden rounded-3xl border border-border-default bg-background-surface px-6 pb-6 pt-0 shadow-xs md:mt-6 md:flex md:flex-1 md:flex-col md:overflow-hidden lg:flex">
     <div className="flex items-center justify-between gap-4 border-b border-border-default py-6"><SearchFilter placeholder="Search activity log" onChange={handleSearch} isRoundedFull={true} inputClassName="text-lg placeholder:text-lg" /></div>
