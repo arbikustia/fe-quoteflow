@@ -1,67 +1,103 @@
-import test from "../../../libs/unit-test";
-import { MasterPicComponent } from "./MasterPic.component";
+import { fireEvent, render, screen } from "@/libs/unit-test";
+
+import MasterPicComponent from "./MasterPic.component";
 import type { MasterPicProps, PicData } from "./MasterPic.type";
 
-jest.mock("../../app/layout", () =>
-  ({ children }: { children: React.ReactNode }) => <div data-testid="layout">{children}</div>,
-);
+jest.mock("@/app/layout", () => ({ children }: { children: React.ReactNode }): React.ReactElement => <div data-testid="layout">{children}</div>);
 
-jest.mock("../../components/Icons", () => ({
-  Icons: { Search: () => <div data-testid="icon-search" /> },
-}));
+const PIC: PicData = {
+  id: "pic-1",
+  name: "Aurora",
+ 
+  status: "active",
+  createdAt: "04 November 2026 20:57",
+};
 
-jest.mock("../../components/MobileList", () => ({
-  MobileList: () => <div data-testid="mobile-list" />,
-}));
+/**
+ * Build list view props.
+ * @param {Partial<MasterPicProps>} [overrides] - Props to override
+ * @returns {MasterPicProps} - Component props
+ */
+const createProps = (overrides?: Partial<MasterPicProps>): MasterPicProps => ({
+  listStatus: "ready",
+  pics: [PIC],
+  totalPages: 1,
+  totalCount: 1,
+  currentPage: 1,
+  pageSize: 10,
+  canCreate: true,
+  canEdit: true,
+  onPageChange: jest.fn(),
+  onPageSizeChange: jest.fn(),
+  onSearchChange: jest.fn(),
+  onBack: jest.fn(),
+  onCreate: jest.fn(),
+  onEdit: jest.fn(),
+  ...overrides,
+});
 
-jest.mock("../../components/Pagination", () => ({
-  Pagination: () => <div data-testid="pagination" />,
-}));
+describe("MasterPicComponent", () => {
+  it("should render PICs in the table and mobile cards", () => {
+    render(<MasterPicComponent {...createProps()} />);
 
-jest.mock("../../components/Table", () => () => <div data-testid="table" />);
+    expect(screen.getAllByText("Aurora")).toHaveLength(2);
+    expect(screen.getAllByText("04 November 2026 20:57")).toHaveLength(2);
+  });
 
-describe("MasterPic Component", () => {
-  const mockPaginatedData: PicData[] = [
-    { id: "1", name: "PIC 1", status: "active", createAt: "2024-01-01", createBy: "Admin" },
-    { id: "2", name: "PIC 2", status: "inactive", createAt: "2024-01-02", createBy: "Admin" },
-  ];
+  it("should open edit from a mobile card and the row action", () => {
+    const props = createProps();
 
-  const mockProps: MasterPicProps = {
-    currentPage: 1,
-    totalPages: 1,
-    pageSize: 10,
-    paginatedData: mockPaginatedData,
-    goToPage: jest.fn(),
-    nextPage: jest.fn(),
-    prevPage: jest.fn(),
-    changePageSize: jest.fn(),
-    setSearchTerm: jest.fn(),
-    totalCount: 2,
-    isEmpty: false,
-    isLoading: false,
-    isError: false,
-        onCreate: jest.fn(),
-    onEdit: jest.fn(),
-    onRowClick: jest.fn(),
-    onMore: jest.fn(),
-    isMoreOpen: false,
-    onCloseMore: jest.fn(),
-    onDelete: jest.fn(),
-    onBack: jest.fn(),
-  };
+    render(<MasterPicComponent {...props} />);
+    fireEvent.click(screen.getAllByText("Aurora")[0].closest("button") as HTMLButtonElement);
+    fireEvent.click(screen.getByRole("button", { name: "Edit PIC Aurora" }));
 
-  test.assertSnapshots(MasterPicComponent, [
-    {
-      props: mockProps,
-      desc: "default state",
-    },
-    {
-      props: { ...mockProps, isMoreOpen: true },
-      desc: "more open state",
-    },
-    {
-      props: { ...mockProps, onCreate: undefined, onEdit: undefined, onRowClick: undefined },
-      desc: "permission denied state",
-    },
-  ]);
+    expect(props.onEdit).toHaveBeenCalledTimes(2);
+  });
+
+  it("should call create and search handlers", () => {
+    const props = createProps();
+
+    render(<MasterPicComponent {...props} />);
+    fireEvent.click(screen.getAllByRole("button", { name: "Create New" })[0]);
+    fireEvent.click(screen.getByRole("button", { name: "Create PIC" }));
+    fireEvent.change(screen.getAllByPlaceholderText("Search PIC")[0], { target: { value: "aurora" } });
+
+    expect(props.onCreate).toHaveBeenCalledTimes(2);
+    expect(props.onSearchChange).toHaveBeenCalledTimes(1);
+  });
+
+  it("should hide create and edit actions without permission", () => {
+    render(<MasterPicComponent {...createProps({ canCreate: false, canEdit: false })} />);
+
+    expect(screen.queryByRole("button", { name: "Create New" })).not.toBeInTheDocument();
+    expect(screen.queryByRole("button", { name: "Create PIC" })).not.toBeInTheDocument();
+    expect(screen.queryByRole("button", { name: "Edit PIC Aurora" })).not.toBeInTheDocument();
+    expect(screen.getAllByText("Aurora")[0].closest("button")).toBeDisabled();
+  });
+
+  it("should render matching table and card skeletons while loading", () => {
+    render(<MasterPicComponent {...createProps({ listStatus: "loading", pics: [] })} />);
+
+    const tableSkeleton = screen.getByRole("status", { name: "Loading PIC table" });
+
+    expect(tableSkeleton.querySelectorAll("th")).toHaveLength(5);
+    expect(tableSkeleton.querySelectorAll("tbody tr")).toHaveLength(5);
+    expect(screen.getAllByRole("status", { name: "Loading PIC card" })).toHaveLength(5);
+  });
+
+  it.each([
+    ["empty", "No PICs found."],
+    ["error", "Unable to load PICs."],
+    ["missing", "PIC data is unavailable. Please try again."],
+  ] as const)("should render the %s message in both layouts", (listStatus, message) => {
+    render(<MasterPicComponent {...createProps({ listStatus, pics: [] })} />);
+
+    expect(screen.getAllByText(message)).toHaveLength(2);
+  });
+
+  it("should show the success toast passed from the form page", () => {
+    render(<MasterPicComponent {...createProps({ successMessage: "PIC created successfully." })} />);
+
+    expect(screen.getByRole("alert")).toHaveTextContent("PIC created successfully.");
+  });
 });

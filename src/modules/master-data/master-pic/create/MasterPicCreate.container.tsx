@@ -1,22 +1,43 @@
-import type { ReactElement } from "react";
+import * as React from "react";
+import { useLocation, useParams } from "react-router-dom";
 
-import { MasterPicCreateForm } from "./MasterPicCreate.component";
+import type { PicEditRouteState } from "../MasterPic.type";
+
+import MasterPicCreateComponent from "./MasterPicCreate.component";
 import { useMasterPicCreate } from "./MasterPicCreate.hook";
+import type { PicFormMode } from "./MasterPicCreate.type";
+import { normalizePicFormSource } from "./MasterPicCreate.util";
 
-import Layout from "@/app/layout";
+import { useCreatePicMutation, useUpdatePicMutation } from "@/services/master-pic.service";
 
 /**
- * Render PIC create container.
- *
- * @returns {ReactElement} Container
+ * Render the PIC create / edit container. Edit mode is the `/master-pic/edit/:id` route.
+ * @returns {React.ReactElement} - Container of the PIC form view
  */
-const MasterPicCreateContainer = (): ReactElement => {
-  const state = useMasterPicCreate();
+const MasterPicCreateContainer = (): React.ReactElement => {
+  const { id } = useParams();
+  const routeState: PicEditRouteState = useLocation().state;
+  const mode: PicFormMode = id ? "edit" : "create";
+  const [createPic, createState] = useCreatePicMutation();
+  const [updatePic, updateState] = useUpdatePicMutation();
+
+  // Single upstream fallback: the form receives normalized initial values only
+  const { formStatus, initialValues } = normalizePicFormSource({ id, routePic: routeState?.pic });
+  const controller = useMasterPicCreate({ id, mode, initialValues, createPic, updatePic });
 
   return (
-    <Layout pageTitle={state.isEditMode ? "Edit PIC" : "New PIC"} mobileWhiteBackground={true} showMobileGlobalHeader={true}>
-      <MasterPicCreateForm {...state} />
-    </Layout>
+    <MasterPicCreateComponent
+      mode={mode}
+      formStatus={formStatus}
+      values={controller.values}
+      fieldErrors={controller.fieldErrors}
+      isSubmitting={createState.isLoading || updateState.isLoading}
+      errorMessage={controller.errorMessage}
+      onNameChange={controller.handleNameChange}
+      onStatusChange={controller.handleStatusChange}
+      onSubmit={controller.handleSubmit}
+      onBack={controller.handleBack}
+    />
   );
 };
 

@@ -1,64 +1,114 @@
-import type * as React from "react";
-import type { Control, FieldErrors, UseFormRegister, UseFormSetValue } from "react-hook-form";
+import type { ChangeEvent, SubmitEvent } from "react";
+import { z } from "zod";
 
-import type { useCreatePicMutation, useUpdatePicMutation } from "@/services/master-pic.service";
+import type { PicCreatePayload, PicData, PicMutationResponse, PicUpdatePayload } from "../MasterPic.type";
 
-export type PicFormValues = {
-  name: string;
-  isActive: boolean;
+import { PIC_FORM_MESSAGE } from "./MasterPicCreate.config";
+
+/** PIC form input. */
+export const PicFormSchema = z.object({
+  name: z.string().trim().min(1, PIC_FORM_MESSAGE.NAME_REQUIRED),
+  isActive: z.boolean(),
+});
+
+/** Raw form values. */
+export type PicFormValues = z.input<typeof PicFormSchema>;
+
+/** Form values after validation. */
+export type PicValidValues = z.output<typeof PicFormSchema>;
+
+/** Form field names. */
+export type PicFieldName = keyof PicFormValues;
+
+/** Validation message per field. */
+export type PicFieldErrors = Partial<Record<PicFieldName, string>>;
+
+/** PIC row passed from the list through router state, normalized into form values. */
+export const PicRouteItemSchema = z
+  .object({
+    id: z.string(),
+    name: z.string(),
+    status: z.enum(["active", "inactive"]),
+  })
+  .transform((pic): PicFormValues => ({
+    name: pic.name,
+    isActive: pic.status === "active",
+  }));
+
+/** Whether the form creates a new PIC or edits an existing one. */
+export type PicFormMode = "create" | "edit";
+
+/** Whether the form can be shown. */
+export type PicFormStatus = "error" | "ready";
+
+/** Copy that differs between create and edit mode. */
+export type PicFormModeText = {
+  title: string;
+  subtitle: string;
+  submitLabel: string;
+  submittingLabel: string;
+  successMessage: string;
+  failureMessage: string;
 };
 
-export type PicFormValidation = {
-  errors: FieldErrors<PicFormValues>;
-  isSubmitted: boolean;
+/** Normalized form source used to seed the form. */
+export type PicFormSource = {
+  formStatus: PicFormStatus;
+  initialValues: PicFormValues;
 };
 
-export type PicFormFieldsState = PicFormValues & PicFormValidation & {
-  getValues: () => PicFormValues;
-  validateForm: () => Promise<boolean>;
-  handleNameChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  handleStatusChange: () => void;
-};
-
-export type PicSubmissionParams = {
+/** Inputs of the form source normalizer. */
+export type PicFormSourceParams = {
   id?: string;
-  isEditMode: boolean;
-  isActive: boolean;
-  getValues: () => PicFormValues;
-  validateForm: () => Promise<boolean>;
+  routePic?: PicData;
 };
 
-export type PicFormInstance = {
-  control: Control<PicFormValues>;
-  formState: {
-    errors: FieldErrors<PicFormValues>;
-    isSubmitted: boolean;
-  };
-  getValues: () => PicFormValues;
-  register: UseFormRegister<PicFormValues>;
-  setValue: UseFormSetValue<PicFormValues>;
-  trigger: () => Promise<boolean>;
+/** Result of an RTK Query mutation trigger. */
+export type PicMutationResult = {
+  unwrap: () => Promise<PicMutationResponse>;
 };
 
-export type PicSubmitContext = {
-  params: PicSubmissionParams;
-  createPic: ReturnType<typeof useCreatePicMutation>[0];
-  updatePic: ReturnType<typeof useUpdatePicMutation>[0];
-  navigate: (path: string, options: { state: { successMessage: string } }) => void;
-  setErrorMessage: (message: string | null) => void;
+/** Mutation triggers and target of a PIC submit. */
+export type PicSubmitTarget = {
+  id?: string;
+  createPic: (payload: PicCreatePayload) => PicMutationResult;
+  updatePic: (payload: PicUpdatePayload) => PicMutationResult;
 };
 
-export type MasterPicCreateState = {
-  name: string;
-  isActive: boolean;
-  isEditMode: boolean;
-  isLoadingInitialData: boolean;
+/** Inputs of the create / edit form hook. */
+export type MasterPicCreateParams = PicSubmitTarget & {
+  mode: PicFormMode;
+  initialValues: PicFormValues;
+};
+
+/** Submit state and handlers of the form. */
+export type PicSubmission = {
+  errorMessage?: string;
+  submitPic: (values: PicValidValues) => Promise<void>;
+  handleBack: () => void;
+};
+
+/** Form state and handlers owned by the module hook. */
+export type MasterPicCreateController = {
+  values: PicFormValues;
+  fieldErrors: PicFieldErrors;
+  errorMessage?: string;
+  handleNameChange: (event: ChangeEvent<HTMLInputElement>) => void;
+  handleStatusChange: (checked: boolean) => void;
+  handleSubmit: (event: SubmitEvent<HTMLFormElement>) => Promise<void>;
+  handleBack: () => void;
+};
+
+/** Props of the create / edit form view. */
+export type MasterPicCreateProps = {
+  mode: PicFormMode;
+  formStatus: PicFormStatus;
+  values: PicFormValues;
+  fieldErrors: PicFieldErrors;
   isSubmitting: boolean;
-  errorMessage: string | null;
-  errors: FieldErrors<PicFormValues>;
-  isSubmitted: boolean;
-  handleNameChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  handleStatusChange: () => void;
-  handleSubmit: (event: React.SyntheticEvent) => Promise<void>;
-  goBack: () => void;
+  errorMessage?: string;
+  onNameChange: (event: ChangeEvent<HTMLInputElement>) => void;
+  onStatusChange: (checked: boolean) => void;
+  onSubmit: (event: SubmitEvent<HTMLFormElement>) => Promise<void>;
+  onBack: () => void;
 };

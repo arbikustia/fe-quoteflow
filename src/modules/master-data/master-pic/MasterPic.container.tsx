@@ -1,40 +1,45 @@
 import * as React from "react";
 import { useLocation } from "react-router-dom";
 
-import { AlertComponent } from "@/components/Alert";
 import { usePagePermission } from "@/hooks/usePagePermission";
 
-import { MasterPicComponent } from "./MasterPic.component";
-import { useMasterPicContainerState, useMasterPicNavigation } from "./MasterPic.hook";
+import MasterPicComponent from "./MasterPic.component";
+import { MASTER_PIC_ROUTE } from "./MasterPic.config";
+import { useMasterPic } from "./MasterPic.hook";
 import type { PicRouteState } from "./MasterPic.type";
+import { normalizePicList } from "./MasterPic.util";
+
+import { useGetPicsQuery } from "@/services/master-pic.service";
 
 /**
- * Master PIC container component
- *
- * @returns {React.ReactElement} The container component
+ * Render the PIC list container.
+ * @returns {React.ReactElement} - Container of the PIC list view
  */
 const MasterPicContainer = (): React.ReactElement => {
   const location = useLocation();
-  const routeState: PicRouteState | null = location.state;
-  const { goBack, goCreate, goEdit } = useMasterPicNavigation();
-  const { pagination, isMoreOpen, toggleMore, goDelete, handleCloseMore } = useMasterPicContainerState();
-  const { canCreate, canEdit } = usePagePermission("/master-pic");
+  const routeState: PicRouteState = location.state;
+  const { canCreate, canEdit } = usePagePermission(MASTER_PIC_ROUTE.LIST);
+  const controller = useMasterPic();
+  const { data, isLoading, isError } = useGetPicsQuery(controller.queryParams);
+
+  // Single upstream fallback: the view receives normalized data only
+  const listView = normalizePicList({ data, isLoading, isError });
 
   return (
-    <>
-      {routeState?.successMessage && <AlertComponent type="success" message={routeState.successMessage} toast closable />}
-      <MasterPicComponent
-        {...pagination}
-        onBack={goBack}
-        onCreate={canCreate ? goCreate : undefined}
-        onEdit={canEdit ? goEdit : undefined}
-        onRowClick={canEdit ? goEdit : undefined}
-        onMore={canEdit ? toggleMore : undefined}
-        isMoreOpen={isMoreOpen}
-        onCloseMore={handleCloseMore}
-        onDelete={canEdit ? goDelete : undefined}
-      />
-    </>
+    <MasterPicComponent
+      {...listView}
+      currentPage={controller.currentPage}
+      pageSize={controller.pageSize}
+      canCreate={canCreate}
+      canEdit={canEdit}
+      successMessage={routeState?.successMessage}
+      onPageChange={controller.handlePageChange}
+      onPageSizeChange={controller.handlePageSizeChange}
+      onSearchChange={controller.handleSearchChange}
+      onBack={controller.handleBack}
+      onCreate={controller.handleCreate}
+      onEdit={controller.handleEdit}
+    />
   );
 };
 

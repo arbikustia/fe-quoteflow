@@ -1,151 +1,102 @@
-import { useState } from "react";
+import type { ChangeEvent } from "react";
+import { useCallback, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-import { createPaginationHandlers } from "@/utils/pagination.helpers";
-
+import { MASTER_PIC_CONFIG, MASTER_PIC_ROUTE } from "./MasterPic.config";
 import type {
-  MasterPicContainerState,
-  MasterPicNavigation,
-  MasterPicPagination,
+  MasterPicController,
   PicData,
+  PicListPaging,
+  PicListParams,
+  PicNavigation,
 } from "./MasterPic.type";
 
-import { mapPic, useGetPicsQuery } from "@/services/master-pic.service";
+/**
+ * Manage page, page size and search term of the PIC list.
+ * @returns {PicListPaging} - Query params, paging state and handlers
+ */
+const usePicListPaging = (): PicListPaging => {
+  const [currentPage, setCurrentPage] = useState<number>(MASTER_PIC_CONFIG.DEFAULT_PAGE);
+  const [pageSize, setPageSize] = useState<number>(MASTER_PIC_CONFIG.DEFAULT_PAGE_SIZE);
+  const [searchTerm, setSearchTerm] = useState<string>("");
+
+  const queryParams = useMemo(
+    (): PicListParams => ({ pageNumber: currentPage, pageSize, searchTerm }),
+    [currentPage, pageSize, searchTerm],
+  );
+
+  /**
+   * Go to the given page, never below the first page.
+   * @param {number} page - Requested page
+   * @returns {void}
+   */
+  const handlePageChange = useCallback((page: number): void => {
+    setCurrentPage(Math.max(MASTER_PIC_CONFIG.DEFAULT_PAGE, page));
+  }, []);
+
+  /**
+   * Change page size and return to the first page.
+   * @param {number} size - New page size
+   * @returns {void}
+   */
+  const handlePageSizeChange = useCallback((size: number): void => {
+    setPageSize(size);
+    setCurrentPage(MASTER_PIC_CONFIG.DEFAULT_PAGE);
+  }, []);
+
+  /**
+   * Update the search term and return to the first page.
+   * @param {ChangeEvent<HTMLInputElement>} event - Search input change event
+   * @returns {void}
+   */
+  const handleSearchChange = useCallback((event: ChangeEvent<HTMLInputElement>): void => {
+    setSearchTerm(event.target.value);
+    setCurrentPage(MASTER_PIC_CONFIG.DEFAULT_PAGE);
+  }, []);
+
+  return { queryParams, currentPage, pageSize, handlePageChange, handlePageSizeChange, handleSearchChange };
+};
 
 /**
- * Hook for master PIC navigation.
- *
- * @returns {MasterPicNavigation} Navigation handlers
+ * Create the navigation handlers of the PIC list.
+ * @returns {PicNavigation} - Back, create and edit handlers
  */
-export const useMasterPicNavigation = (): MasterPicNavigation => {
+const usePicNavigation = (): PicNavigation => {
   const navigate = useNavigate();
 
-    /**
-   * Navigate back.
-   *
-   * @returns {void} No return value
+  /**
+   * Navigate back to the master data menu.
+   * @returns {void}
    */
-  const goBack = (): void => {
-    navigate("/master-main");
-  };
+  const handleBack = useCallback((): void => {
+    navigate(MASTER_PIC_ROUTE.MASTER_MAIN);
+  }, [navigate]);
 
-    /**
-   * Navigate to create PIC.
-   *
-   * @returns {void} No return value
+  /**
+   * Navigate to the create PIC page.
+   * @returns {void}
    */
-  const goCreate = (): void => {
-    navigate("/master-pic/create");
-  };
+  const handleCreate = useCallback((): void => {
+    navigate(MASTER_PIC_ROUTE.CREATE);
+  }, [navigate]);
 
-    /**
-   * Navigate to edit PIC.
-   *
-   * @param {PicData} pic - PIC record
-   * @returns {void} No return value
+  /**
+   * Navigate to the edit page of an PIC.
+   * @param {PicData} pic - PIC to edit
+   * @returns {void}
    */
-  const goEdit = (pic: PicData): void => {
-    navigate(`/master-pic/edit/${pic.id}`, { state: { pic } });
-  };
+  const handleEdit = useCallback((pic: PicData): void => {
+    navigate(`${MASTER_PIC_ROUTE.EDIT}/${pic.id}`, { state: { pic } });
+  }, [navigate]);
 
-  return { goBack, goCreate, goEdit };
+  return { handleBack, handleCreate, handleEdit };
 };
 
 /**
- * Load PIC pagination data.
- *
- * @param {number} currentPage - Current page
- * @param {number} pageSize - Page size
- * @param {string} searchTerm - Search keyword
- * @returns {Pick<MasterPicPagination, "currentPage" | "pageSize" | "paginatedData" | "totalCount" | "totalPages" | "isLoading" | "isError" | "isEmpty">} Pagination data
+ * Manage PIC list paging, search and navigation.
+ * @returns {MasterPicController} - List query params, state and handlers
  */
-const usePicPaginationData = (
-  currentPage: number,
-  pageSize: number,
-  searchTerm: string,
-): Pick<MasterPicPagination, "currentPage" | "pageSize" | "paginatedData" | "totalCount" | "totalPages" | "isLoading" | "isError" | "isEmpty"> => {
-  const { data, isLoading, isError } = useGetPicsQuery({
-    PageNumber: currentPage,
-    PageSize: pageSize,
-    SearchTerm: searchTerm || undefined,
-  });
-  const paginatedData = data?.data.map(mapPic) ?? [];
-  const totalCount = data?.total_count ?? 0;
-  const totalPages = Math.max(1, data?.total_pages ?? 1);
-
-  return {
-    currentPage,
-    totalPages,
-    pageSize,
-    paginatedData,
-    totalCount,
-    isEmpty: !isLoading && paginatedData.length === 0,
-    isLoading,
-    isError,
-  };
-};
-
-/**
- * Hook for API PIC search and pagination.
- *
- * @returns {MasterPicPagination} Pagination state
- */
-export const useMasterPicPagination = (): MasterPicPagination => {
-  const [currentPage, setCurrentPage] = useState(1);
-  const [pageSize, setPageSize] = useState(10);
-  const [searchTerm, setSearchTerm] = useState("");
-  const paginationData = usePicPaginationData(currentPage, pageSize, searchTerm);
-
-  const handlers = createPaginationHandlers({
-    currentPage,
-    totalPages: paginationData.totalPages,
-    hasNext: currentPage < paginationData.totalPages,
-    hasPrevious: currentPage > 1,
-    canPaginate: !paginationData.isLoading && !paginationData.isError && paginationData.paginatedData.length > 0,
-    setCurrentPage,
-    setPageSize,
-    setSearchTerm,
-  });
-
-  return {
-    ...paginationData,
-    goToPage: handlers.goToPage,
-    nextPage: handlers.nextPage,
-    prevPage: handlers.prevPage,
-    changePageSize: handlers.changePageSize,
-    setSearchTerm: handlers.handleSearchTerm,
-  };
-};
-
-/**
- * Hook for master PIC container state.
- *
- * @returns {MasterPicContainerState} Container state
- */
-export const useMasterPicContainerState = (): MasterPicContainerState => {
-  const pagination = useMasterPicPagination();
-  const [isMoreOpen, setIsMoreOpen] = useState(false);
-
-    /**
-   * Toggle dropdown menu.
-   */
-  const toggleMore = (): void => {
-    setIsMoreOpen((previous) => !previous);
-  };
-
-    /**
-   * Close menu and delete.
-   */
-  const goDelete = (): void => {
-    setIsMoreOpen(false);
-  };
-
-    /**
-   * Close dropdown menu.
-   */
-  const handleCloseMore = (): void => {
-    setIsMoreOpen(false);
-  };
-
-  return { pagination, isMoreOpen, toggleMore, goDelete, handleCloseMore };
-};
+export const useMasterPic = (): MasterPicController => ({
+  ...usePicListPaging(),
+  ...usePicNavigation(),
+});

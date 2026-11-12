@@ -1,27 +1,56 @@
-import * as React from "react";
+import { MemoryRouter } from "react-router-dom";
 
-import test from "../../../libs/unit-test";
+import { MOCK_PIC_LIST_RESPONSE } from "@/fixture/master-pic";
+import { usePagePermission } from "@/hooks/usePagePermission";
+import { render, screen } from "@/libs/unit-test";
+import { useGetPicsQuery } from "@/services/master-pic.service";
 
 import MasterPicContainer from "./MasterPic.container";
 
-jest.mock("@/hooks/usePagePermission", () => ({
-  usePagePermission: jest.fn(() => ({ canView: true, canCreate: false, canEdit: false, isSuperadmin: false })),
-}));
+jest.mock("@/app/layout", () => ({ children }: { children: React.ReactNode }): React.ReactElement => <div data-testid="layout">{children}</div>);
+jest.mock("@/services/master-pic.service", () => ({ useGetPicsQuery: jest.fn() }));
+jest.mock("@/hooks/usePagePermission", () => ({ usePagePermission: jest.fn() }));
 
-jest.mock("./MasterPic.hook", () => ({
-  useMasterPicNavigation: jest.fn(() => ({ goBack: jest.fn(), goCreate: jest.fn(), goEdit: jest.fn(), goDetail: jest.fn() })),
-  useMasterPicContainerState: jest.fn(() => ({
-    pagination: {
-      currentPage: 1, totalPages: 1, pageSize: 10, paginatedData: [], totalCount: 0,
-      isEmpty: true, isLoading: false, isError: false, goToPage: jest.fn(), nextPage: jest.fn(),
-      prevPage: jest.fn(), changePageSize: jest.fn(), setSearchTerm: jest.fn(),
-    },
-    isMoreOpen: false, toggleMore: jest.fn(), goDelete: jest.fn(), handleCloseMore: jest.fn(),
-  })),
-}));
+/**
+ * Render the container inside a router.
+ * @param {string} [successMessage] - Router state success message
+ * @returns {void}
+ */
+const renderContainer = (successMessage?: string): void => {
+  render(
+    <MemoryRouter initialEntries={[{ pathname: "/master-pic", state: { successMessage } }]}>
+      <MasterPicContainer />
+    </MemoryRouter>,
+  );
+};
 
-jest.mock("./MasterPic.component", () => ({
-  MasterPicComponent: (props: object) => React.createElement("div", { "data-testid": "master-pic-component", "data-props": JSON.stringify(props) }),
-}));
+describe("MasterPicContainer", () => {
+  beforeEach(() => {
+    jest.mocked(useGetPicsQuery).mockReturnValue({ data: MOCK_PIC_LIST_RESPONSE, isLoading: false, isError: false } as never);
+    jest.mocked(usePagePermission).mockReturnValue({ canView: true, canCreate: true, canEdit: true, isSuperadmin: false, isLoading: false });
+  });
 
-test.assertSnapshots(MasterPicContainer, [{ props: {}, desc: "default state" }]);
+  it("should query the first page and render normalized PICs", () => {
+    renderContainer();
+
+    expect(useGetPicsQuery).toHaveBeenCalledWith({ pageNumber: 1, pageSize: 10, searchTerm: "" });
+    expect(usePagePermission).toHaveBeenCalledWith("/master-pic");
+    expect(screen.getAllByText("Kristofer")).toHaveLength(2);
+    expect(screen.getAllByText("inactive")).toHaveLength(2);
+  });
+
+  it("should hide create and edit actions without permission", () => {
+    jest.mocked(usePagePermission).mockReturnValue({ canView: true, canCreate: false, canEdit: false, isSuperadmin: false, isLoading: false });
+
+    renderContainer();
+
+    expect(screen.queryByRole("button", { name: "Create PIC" })).not.toBeInTheDocument();
+    expect(screen.queryAllByRole("button", { name: /^Edit PIC/ })).toHaveLength(0);
+  });
+
+  it("should show the success message from router state", () => {
+    renderContainer("PIC updated successfully.");
+
+    expect(screen.getByRole("alert")).toHaveTextContent("PIC updated successfully.");
+  });
+});
