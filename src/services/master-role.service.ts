@@ -1,97 +1,45 @@
 import { apiRtkClient } from "@/libs/ApiRtkServices/apiRtkClient";
 
-import ENDPOINT from "@/constants/endpoint.constant";
 import type {
   RoleAllResponse,
   RoleCreatePayload,
-  RoleCreateResponse,
-  RoleData,
-  RoleDetailResponse,
   RoleListParams,
   RoleListResponse,
+  RoleMutationResponse,
+  RoleRawResponse,
   RoleUpdatePayload,
 } from "@/modules/master-data/master-role/MasterRole.type";
+import { normalizeRoleResponse } from "@/modules/master-data/master-role/MasterRole.util";
 
-/**
- * Map API role model to UI model.
- * @param role
- */
-export const mapRole = (role: RoleListResponse["data"][number]): RoleData => ({
-  id: role.id,
-  roleName: role.role,
-  status: role.status === 0 ? "inactive" : "active",
-  createAt: role.last_created,
-  createBy: null,
-});
+import ENDPOINT from "@/constants/endpoint.constant";
 
 export const masterRoleService = apiRtkClient.injectEndpoints({
-  /**
-   *
-   * @param builder
-   */
   endpoints: (builder) => ({
     getRoles: builder.query<RoleListResponse, RoleListParams>({
-      /**
-       *
-       * @param params
-       */
       query: (params) => ({
         url: ENDPOINT.MASTER_ROLE.LIST,
         method: "GET",
-        params: {
-          PageNumber: params.pageNumber,
-          PageSize: params.pageSize,
-          SearchTerm: params.searchTerm,
-        },
+        params: { PageNumber: params.pageNumber, PageSize: params.pageSize, SearchTerm: params.searchTerm },
       }),
       providesTags: ["Role"],
     }),
     getAllRoles: builder.query<RoleAllResponse, void>({
-      query: () => ({
-        url: ENDPOINT.MASTER_ROLE.ALL,
-        method: "GET",
-      }),
+      query: () => ({ url: ENDPOINT.MASTER_ROLE.ALL, method: "GET" }),
       providesTags: ["Role"],
     }),
-    getRoleById: builder.query<RoleDetailResponse, string>({
-      /**
-       *
-       * @param id
-       */
-      query: (id) => ({
-        url: `${ENDPOINT.MASTER_ROLE.DETAIL}/${id}`,
-        method: "GET",
-      }),
-      /**
-       *
-       * @param _result
-       * @param _error
-       * @param id
-       */
+    getRoleById: builder.query<RoleMutationResponse, string>({
+      query: (id) => ({ url: `${ENDPOINT.MASTER_ROLE.DETAIL}/${id}`, method: "GET" }),
+      transformResponse: (response: RoleRawResponse): RoleMutationResponse => normalizeRoleResponse(response),
       providesTags: (_result, _error, id) => [{ type: "Role", id }],
     }),
-    createRole: builder.mutation<RoleCreateResponse, RoleCreatePayload>({
-      /**
-       *
-       * @param body
-       */
-      query: (body) => ({
-        url: ENDPOINT.MASTER_ROLE.CREATE,
-        method: "POST",
-        data: body,
-      }),
+    createRole: builder.mutation<RoleMutationResponse, RoleCreatePayload>({
+      query: (body) => ({ url: ENDPOINT.MASTER_ROLE.CREATE, method: "POST", data: body }),
+      transformResponse: (response: RoleRawResponse): RoleMutationResponse => normalizeRoleResponse(response),
       invalidatesTags: ["Role"],
     }),
-    updateRole: builder.mutation<RoleCreateResponse, RoleUpdatePayload>({
-      /**
-       *
-       * @param body
-       */
-      query: (body) => ({
-        url: `${ENDPOINT.MASTER_ROLE.CREATE}/${body.id}`,
-        method: "PUT",
-        data: { role: body.role, status: body.status },
-      }),
+    updateRole: builder.mutation<RoleMutationResponse, RoleUpdatePayload>({
+      query: ({ id, ...body }) => ({ url: `${ENDPOINT.MASTER_ROLE.DETAIL}/${id}`, method: "PUT", data: body }),
+      transformResponse: (response: RoleRawResponse): RoleMutationResponse => normalizeRoleResponse(response),
       invalidatesTags: ["Role"],
     }),
   }),

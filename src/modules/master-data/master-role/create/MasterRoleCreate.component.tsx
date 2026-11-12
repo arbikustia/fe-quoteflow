@@ -1,203 +1,195 @@
-import type { ReactElement } from "react";
-import type { FieldError } from "react-hook-form";
+import * as React from "react";
 
 import { AlertComponent } from "@/components/Alert";
 import { BackButton } from "@/components/BackButton";
 import { InputComponent } from "@/components/Input";
 import { SwitchComponent } from "@/components/Switch";
 
-import type { MasterRoleCreateFormState } from "./MasterRoleCreate.type";
+import { ROLE_STATUS_BADGE_CLASS } from "../MasterRole.config";
+
+import { ROLE_FORM_MODE_TEXT, ROLE_FORM_STATUS_MESSAGE } from "./MasterRoleCreate.config";
+import type { MasterRoleCreateProps, RoleFormModeText } from "./MasterRoleCreate.type";
+
+import Layout from "@/app/layout";
+
+const FIELD_BASE_CLASS_NAME = "!mb-0 [&_.ant-input]:!rounded-2xl [&_.ant-input]:!border-2 [&_.ant-input:not(.ant-input-status-error)]:!border-border-strong [&_.ant-input.ant-input-status-error]:!border-danger [&_.ant-input]:!px-4 [&_.ant-input]:!text-xl lg:[&_.ant-input]:!text-lg [&_.ant-input]:!font-normal [&_.ant-input]:placeholder:!text-xl lg:[&_.ant-input]:placeholder:!text-lg [&_.ant-input]:placeholder:!font-normal [&_label]:!text-lg lg:[&_label]:!text-lg [&_label]:!font-normal [&_label]:!normal-case [&_label]:!text-text-primary";
+
+const FIELD_CLASS_NAME = `${FIELD_BASE_CLASS_NAME} [&_.ant-input]:!h-16 lg:[&_.ant-input]:!h-14`;
 
 /**
- * Get validation message.
- *
- * @param {FieldError | undefined} error - Field error
- * @returns {string | null} Error message
+ * Render the mobile title bar with back button.
+ * @param {RoleFormModeText} modeText - Copy of the current mode
+ * @param {() => void} onBack - Back callback
+ * @returns {React.ReactElement} - Mobile title bar
  */
-const _getFieldError = (error: FieldError | undefined): string | null => error?.message?.toString() ?? null;
-
-/**
- * Render mobile back bar.
- *
- * @param {boolean} isEditMode - Edit mode flag
- * @param {() => void} goBack - Back navigation
- * @returns {ReactElement} Back bar
- */
-const _renderMobileBack = (isEditMode: boolean, goBack: () => void): ReactElement => {
-  const title = isEditMode ? "Edit Role" : "New Role";
-
-  return (
-    <div className="mb-6 flex items-center gap-3 bg-background-page lg:hidden">
-      <BackButton onClick={goBack} />
-      <div className="min-w-0">
-        <h2 className="truncate text-4xl font-semibold tracking-tight text-text-primary">
-          {title}
-        </h2>
-        <p className="mt-1 truncate text-sm text-text-secondary">
-          {isEditMode ? "Update the role details below." : "Fill in the role details below."}
-        </p>
-      </div>
+const _renderMobileHeader = (modeText: RoleFormModeText, onBack: () => void): React.ReactElement => (
+  <div className="mb-6 flex items-center gap-3 bg-background-page lg:hidden">
+    <BackButton onClick={onBack} />
+    <div className="min-w-0">
+      <h2 className="truncate text-4xl font-semibold tracking-tight text-text-primary">{modeText.title}</h2>
+      <p className="mt-1 truncate text-sm text-text-secondary">{modeText.subtitle}</p>
     </div>
-  );
-};
-
+  </div>
+);
 
 /**
- * Render form header.
- *
- * @param {boolean} isEditMode - Edit mode flag
- * @param {() => void} goBack - Back navigation
- * @returns {ReactElement} Header
+ * Render the desktop breadcrumb and title.
+ * @param {RoleFormModeText} modeText - Copy of the current mode
+ * @param {() => void} onBack - Back callback
+ * @returns {React.ReactElement} - Desktop header
  */
-const _renderHeader = (isEditMode: boolean, goBack: () => void): ReactElement => {
-  const title = isEditMode ? "Edit Role" : "New Role";
-  const subtitle = isEditMode ? "Update the role details below." : "Fill in the role details below.";
-
-  return (
-    <div className="hidden lg:block">
-      <nav
-        aria-label="Breadcrumb"
-        className="mb-2 flex items-center gap-2 text-[15px] font-medium text-text-secondary"
-      >
-        <button
-          type="button"
-          onClick={goBack}
-          className="cursor-pointer hover:text-text-primary"
-        >
-          Master
-        </button>
-        <span aria-hidden="true">/</span>
-        <span>Master Role</span>
-        <span aria-hidden="true">/</span>
-        <span className="text-text-primary">{title}</span>
-      </nav>
-      <div className="mb-6">
-        <h2 className="text-4xl font-semibold leading-tight tracking-tight text-text-primary">
-          {title}
-        </h2>
-        <p className="mt-2 text-sm text-text-secondary">
-          {subtitle}
-        </p>
-      </div>
+const _renderDesktopHeader = (modeText: RoleFormModeText, onBack: () => void): React.ReactElement => (
+  <div className="hidden lg:block">
+    <nav aria-label="Breadcrumb" className="mb-2 flex items-center gap-2 text-[15px] font-medium text-text-secondary">
+      <button type="button" onClick={onBack} className="cursor-pointer hover:text-text-primary">
+        Master
+      </button>
+      <span aria-hidden="true">/</span>
+      <span>Master Role</span>
+      <span aria-hidden="true">/</span>
+      <span className="text-text-primary">{modeText.title}</span>
+    </nav>
+    <div className="mb-6">
+      <h2 className="text-4xl font-semibold leading-tight tracking-tight text-text-primary">{modeText.title}</h2>
+      <p className="mt-2 text-sm text-text-secondary">{modeText.subtitle}</p>
     </div>
-  );
-};
-
-
-/**
- * Render form fields.
- *
- * @param {MasterRoleCreateFormState} props - Form state
- * @returns {ReactElement} Form fields
- */
-const _renderFields = (props: MasterRoleCreateFormState): ReactElement => {
-  const roleError = props.isSubmitted && !props.roleName ? "Role name is required." : _getFieldError(props.errors?.roleName);
-
-  return (
-    <div className="grid w-full grid-cols-1 gap-x-6 gap-y-5 lg:grid-cols-2">
-      <InputComponent
-        id="role-name"
-        type="text"
-        label="Role Name"
-        className={`!mb-0 lg:col-span-2 [&_.ant-input]:!h-16 lg:[&_.ant-input]:!h-14 [&_.ant-input]:!rounded-2xl [&_.ant-input]:!border-2 ${
-          roleError
-            ? "[&_.ant-input]:!border-danger"
-            : "[&_.ant-input]:!border-border-strong"
-        } [&_.ant-input.ant-input-status-error]:!border-danger [&_.ant-input]:!px-4 [&_.ant-input]:!text-xl lg:[&_.ant-input]:!text-lg [&_.ant-input]:!font-normal [&_.ant-input]:placeholder:!text-xl lg:[&_.ant-input]:placeholder:!text-lg [&_.ant-input]:placeholder:!font-normal [&_label]:!text-lg lg:[&_label]:!text-lg [&_label]:!font-normal [&_label]:!normal-case [&_label]:!text-text-primary`}
-        placeholder="e.g. Administrator"
-        value={props.roleName}
-        required
-        errorMessage={roleError ?? undefined}
-        onChange={props.handleRoleNameChange}
-      />
-      {_renderStatusCard(props)}
-    </div>
-  );
-};
+  </div>
+);
 
 /**
- * Render status card.
- *
- * @param {MasterRoleCreateFormState} props - Form state
- * @returns {ReactElement | null} Status card
+ * Render the active status switch with its badge (edit mode only).
+ * @param {MasterRoleCreateProps} props - Form props
+ * @returns {React.ReactElement | null} - Status field, or null in create mode
  */
-const _renderStatusCard = (props: MasterRoleCreateFormState): ReactElement | null => {
-  if (!props.isEditMode) return null;
+const _renderStatusField = (props: MasterRoleCreateProps): React.ReactElement | null => {
+  const { mode, values, onStatusChange } = props;
+
+  if (mode !== "edit") {
+    return null;
+  }
+
+  const status = values.isActive ? "active" : "inactive";
 
   return (
     <div className="flex items-center justify-between rounded-2xl border-2 border-border-strong bg-background-surface px-5 py-4 lg:col-span-2">
       <div className="flex flex-col">
         <div className="flex items-center gap-2.5">
           <span className="text-lg font-normal text-text-primary">Status</span>
-          <span className={`inline-flex rounded-full px-3 py-0.5 text-base font-semibold uppercase ${props.isActive ? "bg-success-subtle text-success-strong" : "bg-danger-subtle text-danger-strong"}`}>
-            {props.isActive ? "active" : "inactive"}
-          </span>
+          <span className={`inline-flex rounded-full border border-current px-3 py-0.5 text-base font-semibold uppercase ${ROLE_STATUS_BADGE_CLASS[status]}`}>{status}</span>
         </div>
-        <span className="text-base text-text-secondary">
-          Toggle active or inactive status
-        </span>
+        <span className="text-base text-text-secondary">Toggle active or inactive status</span>
       </div>
-      <SwitchComponent label="Role status" checked={props.isActive} onChange={props.handleStatusChange} />
+      <SwitchComponent label="Role status" checked={values.isActive} onChange={onStatusChange} />
     </div>
   );
 };
 
 /**
- * Render role form.
- *
- * @param {MasterRoleCreateFormState} props - Form state
- * @returns {ReactElement} Form
+ * Render the name input and the status switch.
+ * @param {MasterRoleCreateProps} props - Form props
+ * @returns {React.ReactElement} - Field grid
  */
-const _renderForm = (props: MasterRoleCreateFormState): ReactElement => {
-  const buttonText = props.isEditMode ? "Update Role" : "Create Role";
-  const submittingText = props.isEditMode ? "Updating…" : "Creating…";
+const _renderFields = (props: MasterRoleCreateProps): React.ReactElement => {
+  const { values, fieldErrors, onNameChange } = props;
+
+  return (
+    <div className="grid w-full grid-cols-1 gap-x-6 gap-y-5 lg:grid-cols-2">
+      <div className="lg:col-span-2">
+        <InputComponent
+          id="role-name"
+          label="Role Name"
+          placeholder="e.g. Administrator"
+          required={true}
+          className={FIELD_CLASS_NAME}
+          errorMessage={fieldErrors.name}
+          value={values.name}
+          onChange={onNameChange}
+        />
+      </div>
+      {_renderStatusField(props)}
+    </div>
+  );
+};
+
+/**
+ * Render the cancel and submit buttons.
+ * @param {MasterRoleCreateProps} props - Form props
+ * @param {RoleFormModeText} modeText - Copy of the current mode
+ * @returns {React.ReactElement} - Form actions
+ */
+const _renderFormActions = (props: MasterRoleCreateProps, modeText: RoleFormModeText): React.ReactElement => {
+  const { isSubmitting, onBack } = props;
+
+  return (
+    <div className="mt-auto flex justify-between gap-3 border-t border-border-default/60 pt-5 lg:border-border-default">
+      <button
+        type="button"
+        onClick={onBack}
+        disabled={isSubmitting}
+        className="h-14 cursor-pointer rounded-xl border border-border-default px-8 text-lg font-semibold text-text-primary transition-colors hover:bg-background-subtle focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-action-primary disabled:cursor-not-allowed disabled:opacity-50 lg:text-lg"
+      >
+        Cancel
+      </button>
+      <button
+        type="submit"
+        disabled={isSubmitting}
+        className="h-14 cursor-pointer rounded-xl bg-action-primary px-8 text-lg font-semibold text-text-inverse shadow-xs transition-colors hover:bg-action-primary-hover focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-action-primary disabled:cursor-not-allowed disabled:opacity-60 lg:text-lg"
+      >
+        {isSubmitting ? modeText.submittingLabel : modeText.submitLabel}
+      </button>
+    </div>
+  );
+};
+
+/**
+ * Render the form, or the loading / error message in its place.
+ * @param {MasterRoleCreateProps} props - Form props
+ * @param {RoleFormModeText} modeText - Copy of the current mode
+ * @returns {React.ReactElement} - Form or status message
+ */
+const _renderFormContent = (props: MasterRoleCreateProps, modeText: RoleFormModeText): React.ReactElement => {
+  const { formStatus, onSubmit } = props;
+
+  if (formStatus !== "ready") {
+    return <p className="py-12 text-center text-sm text-text-secondary">{ROLE_FORM_STATUS_MESSAGE[formStatus]}</p>;
+  }
 
   return (
     <form
       noValidate
-      onSubmit={props.handleSubmit}
+      onSubmit={onSubmit}
       className="mb-6 flex flex-col rounded-3xl border border-border-default bg-background-surface p-6 shadow-small sm:p-8 lg:-mt-4 lg:mb-5 lg:flex-1 lg:rounded-3xl lg:p-10"
     >
       <div className="pb-6">
-        <section className="space-y-5">{_renderFields(props)}</section>
+        {_renderFields(props)}
       </div>
-      <div className="mt-auto flex justify-between gap-3 border-t border-border-default/60 pt-5 lg:border-border-default">
-        <button
-          type="button"
-          onClick={props.goBack}
-          disabled={props.isSubmitting}
-          className="h-14 cursor-pointer rounded-xl border border-border-default px-8 text-lg font-semibold text-text-primary transition-colors hover:bg-background-subtle focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-action-primary disabled:cursor-not-allowed disabled:opacity-50 lg:text-lg"
-        >
-          Cancel
-        </button>
-        <button
-          type="submit"
-          disabled={props.isSubmitting}
-          className="h-14 cursor-pointer rounded-xl bg-action-primary px-8 text-lg font-semibold text-text-inverse shadow-xs transition-colors hover:bg-action-primary-hover focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-action-primary disabled:cursor-not-allowed disabled:opacity-60 lg:text-lg"
-        >
-          {props.isSubmitting ? submittingText : buttonText}
-        </button>
-      </div>
+      {_renderFormActions(props, modeText)}
     </form>
   );
 };
 
-
 /**
- * Render master role form.
- *
- * @param {MasterRoleCreateFormState} props - Form state
- * @returns {ReactElement} Role form
+ * Render the role create / edit page.
+ * @param {MasterRoleCreateProps} props - Form props
+ * @returns {React.ReactElement} - Role form page
  */
-export const MasterRoleCreateComponent = (props: MasterRoleCreateFormState): ReactElement => (
-  <div className="flex h-full w-full flex-col bg-background-page pb-6 font-sans">
-    {props.errorMessage && <AlertComponent type="error" message={props.errorMessage} toast closable />}
-    {_renderMobileBack(props.isEditMode, props.goBack)}
-    <div className="flex min-h-0 w-full flex-1 flex-col pb-32 text-lg lg:pb-0">
-      {_renderHeader(props.isEditMode, props.goBack)}
-      {_renderForm(props)}
-      <div className="h-24 shrink-0 lg:hidden" aria-hidden="true" />
-    </div>
-  </div>
-);
+const MasterRoleCreateComponent = (props: MasterRoleCreateProps): React.ReactElement => {
+  const { mode, errorMessage, onBack } = props;
+  const modeText = ROLE_FORM_MODE_TEXT[mode];
 
+  return (
+    <Layout pageTitle={modeText.title} mobileWhiteBackground={true}>
+      <div className="flex h-full w-full flex-col bg-background-page pb-6 font-sans">
+        {errorMessage && <AlertComponent type="error" message={errorMessage} toast closable />}
+        {_renderMobileHeader(modeText, onBack)}
+        <div className="flex min-h-0 w-full flex-1 flex-col pb-32 text-lg lg:pb-0">
+          {_renderDesktopHeader(modeText, onBack)}
+          {_renderFormContent(props, modeText)}
+          <div className="h-24 shrink-0 lg:hidden" aria-hidden="true" />
+        </div>
+      </div>
+    </Layout>
+  );
+};
+
+export default MasterRoleCreateComponent;

@@ -1,219 +1,115 @@
-import type { ChangeEvent, SyntheticEvent } from "react";
-import { useState } from "react";
-import type { FieldError, UseFormSetValue, UseFormTrigger } from "react-hook-form";
+import type { ChangeEvent } from "react";
+import { useCallback, useState } from "react";
 import { useForm, useWatch } from "react-hook-form";
-import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
+import { MASTER_ROLE_ROUTE } from "../MasterRole.config";
+
+import { ROLE_FORM_MODE_TEXT } from "./MasterRoleCreate.config";
 import type {
-  RoleCreateResponse,
-  RoleData,
-  RoleDetailResponse,
-  RoleFormFieldsState,
+  MasterRoleCreateController,
+  MasterRoleCreateParams,
   RoleFormValues,
-  RoleRouteState,
-  RoleSubmissionParams,
-  RoleSubmissionState,
-} from "../MasterRole.type";
-
-import type { MasterRoleCreateFormState } from "./MasterRoleCreate.type";
-
-import {
-  mapRole,
-  useCreateRoleMutation,
-  useGetRoleByIdQuery,
-  useUpdateRoleMutation,
-} from "@/services/master-role.service";
+  RoleSubmission,
+  RoleValidValues,
+} from "./MasterRoleCreate.type";
+import { formatApiMessages, getRoleFieldErrors, resolveRoleForm, sendRoleMutation } from "./MasterRoleCreate.util";
 
 /**
- * Format backend messages into display text.
- *
- * @param {string[] | string | null} messages - Backend messages
- * @returns {string} Display message
+ * Submit the form through the create / update mutation and handle navigation.
+ * @param {MasterRoleCreateParams} params - Form mode and mutation triggers
+ * @returns {RoleSubmission} - Submit error, submit and back handlers
  */
-const _formatMessages = (messages: string[] | string | null): string => Array.isArray(messages)
-  ? messages.join(" ")
-  : (messages ?? "Role request failed.");
-
-/**
- * Resolve detail response into role data.
- *
- * @param {RoleDetailResponse | undefined} response - Detail response
- * @returns {RoleData | null} Role data
- */
-const _resolveRoleDetail = (response: RoleDetailResponse | undefined): RoleData | null => {
-  if (!response?.status || !response.data) return null;
-
-  const rawItem = Array.isArray(response.data) ? response.data[0] : response.data;
-
-  return rawItem ? mapRole(rawItem) : null;
-};
-
-/**
- * Register role validation rules.
- *
- * @param {ReturnType<typeof useForm<RoleFormValues>>["register"]} register - Register
- */
-const _registerRoleFields = (register: ReturnType<typeof useForm<RoleFormValues>>["register"]): void => {
-  register("roleName", { required: "Role name is required." });
-};
-
-/**
- * Create role name change handler.
- *
- * @param {UseFormSetValue<RoleFormValues>} setValue - Set value
- * @param {FieldError | undefined} error - Error
- * @returns {((event: ChangeEvent<HTMLInputElement>) => void)} Resolved value
- */
-const _createRoleNameChange = (setValue: UseFormSetValue<RoleFormValues>, error: FieldError | undefined): ((event: ChangeEvent<HTMLInputElement>) => void) => (
-  (event: ChangeEvent<HTMLInputElement>): void => setValue("roleName", event.target.value, { shouldValidate: Boolean(error) })
-);
-
-/**
- * Create status toggle handler.
- *
- * @param {UseFormSetValue<RoleFormValues>} setValue - Set value
- * @param {boolean} isActive - Whether active
- * @returns {(() => void)} Resolved value
- */
-const _createStatusToggle = (setValue: UseFormSetValue<RoleFormValues>, isActive: boolean): (() => void) => (
-  (): void => setValue("isActive", !isActive, { shouldDirty: true })
-);
-
-/**
- * Create form validation trigger.
- *
- * @param {UseFormTrigger<RoleFormValues>} trigger - Trigger
- * @returns {(() => Promise<boolean>)} Resolved value
- */
-const _createFormValidator = (trigger: UseFormTrigger<RoleFormValues>): (() => Promise<boolean>) => (
-  async (): Promise<boolean> => await trigger()
-);
-
-/**
- * Synchronize fetched role into form.
- *
- * @param {RoleData | null} apiItem - Api item
- * @param {string | null} initializedId - Initialized id
- * @param {(id: string | null) => void} setInitializedId - Set initialized id
- * @param {UseFormSetValue<RoleFormValues>} setValue - Set value
- */
-const _syncApiRole = (apiItem: RoleData | null, initializedId: string | null, setInitializedId: (id: string | null) => void, setValue: UseFormSetValue<RoleFormValues>): void => {
-  if (!apiItem || apiItem.id === initializedId) return;
-
-  setInitializedId(apiItem.id);
-  setValue("roleName", apiItem.roleName);
-  setValue("isActive", apiItem.status === "active");
-};
-
-/**
- * Send create or update mutation.
- *
- * @param {RoleSubmissionParams} params - Params
- * @param {ReturnType<typeof useCreateRoleMutation>[0]} createRole - Create role
- * @param {ReturnType<typeof useUpdateRoleMutation>[0]} updateRole - Update role
- * @returns {Promise<RoleCreateResponse>} Resolved promise value
- */
-const _sendRoleMutation = (params: RoleSubmissionParams, createRole: ReturnType<typeof useCreateRoleMutation>[0], updateRole: ReturnType<typeof useUpdateRoleMutation>[0]): Promise<RoleCreateResponse> => {
-  const values = params.getValues();
-
-  if (params.isEditMode && params.id) {
-    return updateRole({ id: params.id, role: values.roleName, status: params.isActive ? 1 : 0 }).unwrap();
-  }
-
-  return createRole({ role: values.roleName, status: 1 }).unwrap();
-};
-
-/**
- * Manage role submission.
- *
- * @param {RoleSubmissionParams} params - Params
- * @returns {RoleSubmissionState} Resolved value
- */
-const useRoleSubmission = (params: RoleSubmissionParams): RoleSubmissionState => {
+const useRoleSubmission = (params: MasterRoleCreateParams): RoleSubmission => {
+  const { id, mode, createRole, updateRole } = params;
   const navigate = useNavigate();
-  const [createRole, { isLoading: isCreating }] = useCreateRoleMutation();
-  const [updateRole, { isLoading: isUpdating }] = useUpdateRoleMutation();
-  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [errorMessage, setErrorMessage] = useState<string>();
 
-    /**
-   * Submit role form.
-   *
-   * @param {SyntheticEvent} event - Event
+  /**
+   * Send the validated form and return to the list on success.
+   * @param {RoleValidValues} values - Valid form values
+   * @returns {Promise<void>} - Resolves when the request settles
    */
-  const handleSubmit = async (event: SyntheticEvent): Promise<void> => {
-    event.preventDefault();
-    setErrorMessage(null);
+  const submitRole = useCallback(async (values: RoleValidValues): Promise<void> => {
+    const modeText = ROLE_FORM_MODE_TEXT[mode];
 
-    if (!(await params.validateForm())) {
-      setErrorMessage("Role name is required.");
-
-      return;
-    }
+    setErrorMessage(undefined);
 
     try {
-      const response = await _sendRoleMutation(params, createRole, updateRole);
+      const response = await sendRoleMutation(values, { id, createRole, updateRole });
 
       if (!response.status) {
-        setErrorMessage(_formatMessages(response.messages));
+        setErrorMessage(formatApiMessages(response.messages));
 
         return;
       }
 
-      const successMessage = params.isEditMode ? "Role updated successfully." : "Role created successfully.";
-
-      navigate("/master-role", { state: { successMessage } });
+      navigate(MASTER_ROLE_ROUTE.LIST, { state: { successMessage: modeText.successMessage } });
     } catch {
-      setErrorMessage(params.isEditMode ? "Unable to update role. Please try again." : "Unable to create role. Please try again.");
+      setErrorMessage(modeText.failureMessage);
     }
-  };
+  }, [createRole, id, mode, navigate, updateRole]);
 
-  return { isSubmitting: isCreating || isUpdating, errorMessage, handleSubmit };
+  /**
+   * Navigate back to the role list.
+   * @returns {void}
+   */
+  const handleBack = useCallback((): void => {
+    navigate(MASTER_ROLE_ROUTE.LIST);
+  }, [navigate]);
+
+  return { errorMessage, submitRole, handleBack };
 };
 
 /**
- * Manage role form fields.
- *
- * @param {RoleData | undefined} routeRole - Route role
- * @param {RoleData | null} apiItem - Api item
- * @returns {RoleFormFieldsState} Resolved value
+ * Return a copy of the watched form values so every change yields a new object.
+ * @param {RoleFormValues} formValues - Current form values
+ * @returns {RoleFormValues} - Copy of the form values
  */
-const useRoleFormFields = (routeRole: RoleData | undefined, apiItem: RoleData | null): RoleFormFieldsState => {
-  const { control, formState: { errors, isSubmitted }, getValues, register, setValue, trigger } = useForm<RoleFormValues>({
-    defaultValues: { roleName: routeRole?.roleName ?? "", isActive: routeRole?.status !== "inactive" },
+const _copyFormValues = (formValues: RoleFormValues): RoleFormValues => ({ ...formValues });
+
+/**
+ * Manage the role create / edit form: values, validation, submit and navigation.
+ * @param {MasterRoleCreateParams} params - Form mode, initial values and mutation triggers
+ * @returns {MasterRoleCreateController} - Form state and handlers
+ */
+export const useMasterRoleCreate = (params: MasterRoleCreateParams): MasterRoleCreateController => {
+  const { control, formState, handleSubmit, setValue } = useForm<RoleFormValues, undefined, RoleValidValues>({
+    defaultValues: params.initialValues,
+    values: params.initialValues,
+    resetOptions: { keepDirtyValues: true },
+    resolver: resolveRoleForm,
     mode: "onSubmit",
     reValidateMode: "onChange",
   });
+  const { isSubmitted } = formState;
+  const submission = useRoleSubmission(params);
 
-  _registerRoleFields(register);
-  const [initializedId, setInitializedId] = useState<string | null>(routeRole?.id ?? null);
-  const roleName = useWatch({ control, name: "roleName" });
-  const isActive = useWatch({ control, name: "isActive" });
-
-  _syncApiRole(apiItem, initializedId, setInitializedId, setValue);
-
-  return { roleName, isActive, errors, isSubmitted, getValues, validateForm: _createFormValidator(trigger), handleRoleNameChange: _createRoleNameChange(setValue, errors.roleName), handleStatusChange: _createStatusToggle(setValue, isActive) };
-};
-
-/**
- * Provide master role form state.
- *
- * @returns {MasterRoleCreateFormState} Resolved value
- */
-export const useMasterRoleCreateForm = (): MasterRoleCreateFormState => {
-  const navigate = useNavigate();
-  const location = useLocation();
-  const { id } = useParams<{ id?: string }>();
-  const isEditMode = Boolean(id);
-  const routeState: RoleRouteState | null = location.state;
-  const routeRole = routeState?.role;
-  const { data: detailData } = useGetRoleByIdQuery(id ?? "", { skip: !isEditMode || !id || Boolean(routeRole) });
-  const formFields = useRoleFormFields(routeRole, _resolveRoleDetail(detailData));
-  const submission = useRoleSubmission({ id, isEditMode, ...formFields });
-
-    /**
-   * Navigate back.
+  /**
+   * Store the name input; re-validates once the form was submitted.
+   * @param {ChangeEvent<HTMLInputElement>} event - Name input change event
+   * @returns {void}
    */
-  const goBack = (): void => { navigate("/master-role"); };
+  const handleNameChange = useCallback((event: ChangeEvent<HTMLInputElement>): void => {
+    setValue("name", event.target.value, { shouldDirty: true, shouldValidate: isSubmitted });
+  }, [isSubmitted, setValue]);
 
-  return { isEditMode, goBack, ...formFields, ...submission };
+  /**
+   * Store the active status switch value.
+   * @param {boolean} checked - Whether the switch is on
+   * @returns {void}
+   */
+  const handleStatusChange = useCallback((checked: boolean): void => {
+    setValue("isActive", checked, { shouldDirty: true });
+  }, [setValue]);
+
+  return {
+    values: useWatch({ control, compute: _copyFormValues }),
+    fieldErrors: getRoleFieldErrors(formState.errors),
+    errorMessage: submission.errorMessage,
+    handleNameChange,
+    handleStatusChange,
+    handleSubmit: handleSubmit(submission.submitRole),
+    handleBack: submission.handleBack,
+  };
 };

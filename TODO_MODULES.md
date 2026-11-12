@@ -1,6 +1,6 @@
 # Progress Refactoring Tech Debt (/code-convention)
 - [x] 1. master project
-- [ ] 2. master role
+- [x] 2. master role
 - [ ] 3. master user
 - [ ] 4. master voucher
 - [ ] 5. order

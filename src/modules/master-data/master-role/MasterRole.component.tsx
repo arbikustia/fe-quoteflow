@@ -1,297 +1,267 @@
 import * as React from "react";
-import { FiEdit2 } from "react-icons/fi";
 
-import Layout from "../../../app/layout";
-import { PageLayout } from "../../../app/shared/PageLayout";
-import { Pagination } from "../../../components/Pagination";
-import { SearchFilter } from "../../../components/SearchFilter";
-import type { TableColumn } from "../../../components/Table";
-import Table from "../../../components/Table";
+import { AlertComponent } from "@/components/Alert";
+import { Pagination } from "@/components/Pagination";
+import { SearchFilter } from "@/components/SearchFilter";
+import type { TableColumn } from "@/components/Table";
+import Table from "@/components/Table";
 
-import { formatRoleDate } from "./MasterRole.helpers";
-import type { MasterRoleProps, RoleData } from "./MasterRole.type";
+import { MASTER_ROLE_CONFIG,ROLE_LIST_MESSAGE } from "./MasterRole.config";
+import { getRoleColumns, getRoleRowKey, renderRoleMobileCard } from "./MasterRole.helper";
+import type { MasterRoleProps,RoleData, RoleListStatus } from "./MasterRole.type";
 
-/**
- * Render role row number.
- *
- * @param {number} currentPage - Current page
- * @param {number} pageSize - Page size
- * @param {number} index - Row index
- * @returns {React.ReactElement} Number cell
- */
-const _renderNumber = (currentPage: number, pageSize: number, index: number): React.ReactElement => (
-  <span className="text-lg text-text-secondary">{(currentPage - 1) * pageSize + index + 1}</span>
-);
+import Layout from "@/app/layout";
+import { PageLayout } from "@/app/shared/PageLayout";
+
+const SKELETON_ROW_INDEXES = Array.from({ length: MASTER_ROLE_CONFIG.SKELETON_ROW_COUNT }, (_value, index) => index);
 
 /**
- * Render role name.
- *
- * @param {RoleData} role - Role row
- * @returns {React.ReactElement} Name cell
+ * Render the message shown instead of rows, if the list state has one.
+ * @param {RoleListStatus} listStatus - Current list state
+ * @returns {React.ReactElement | null} - State message, or null when rows render
  */
-const _renderRoleName = (role: RoleData): React.ReactElement => (
-  <span className="text-lg font-medium text-text-primary">{role.roleName}</span>
-);
+const _renderListMessage = (listStatus: RoleListStatus): React.ReactElement | null => {
+  if (listStatus === "loading" || listStatus === "ready") {
+    return null;
+  }
 
-/**
- * Render role status.
- *
- * @param {RoleData} role - Role row
- * @returns {React.ReactElement} Status cell
- */
-const _renderStatus = (role: RoleData): React.ReactElement => (
-  <span className={`inline-flex rounded-full border border-current px-3 py-1 text-base font-semibold uppercase ${role.status === "active" ? "bg-success-subtle text-success-strong" : "bg-danger-subtle text-danger-strong"}`}>
-    {role.status}
-  </span>
-);
-
-/**
- * Render role creation date.
- *
- * @param {RoleData} role - Role row
- * @returns {React.ReactElement} Date cell
- */
-const _renderDate = (role: RoleData): React.ReactElement => (
-  <span className="text-lg text-text-secondary">{role.createAt ? formatRoleDate(role.createAt) : "-"}</span>
-);
-
-/**
- * Render role row actions.
- *
- * @param {RoleData} role - Role row
- * @param {MasterRoleProps["onEdit"]} onEdit - Edit handler
- * @returns {React.ReactElement} Action cell
- */
-const _renderActions = (role: RoleData, onEdit: MasterRoleProps["onEdit"]): React.ReactElement => {
-    /**
-   * Handle edit click.
-   *
-   * @param {React.MouseEvent} event - Event
-   */
-  const handleEdit = (event: React.MouseEvent): void => {
-    event.stopPropagation();
-    onEdit(role);
-  };
-
-  return (
-    <div className="flex items-center justify-center gap-1">
-      <button type="button" onClick={handleEdit} className="cursor-pointer rounded-3xl p-2.5 text-text-secondary hover:bg-action-primary-subtle hover:text-action-primary" title="Edit role" aria-label={`Edit role ${role.roleName}`}>
-        <FiEdit2 className="h-5 w-5" />
-      </button>
-    </div>
-  );
+  return <p className="py-10 text-center text-lg text-text-secondary">{ROLE_LIST_MESSAGE[listStatus]}</p>;
 };
 
 /**
- * Build role table columns.
- *
- * @param {MasterRoleProps} props - Component props
- * @returns {TableColumn<RoleData>[]} Role columns
+ * Get the text alignment class of a table column.
+ * @param {TableColumn<RoleData>} column - Table column
+ * @returns {string} - Alignment class
  */
-const _getColumns = (props: MasterRoleProps): TableColumn<RoleData>[] => {
-    /**
-   * @param {RoleData} _role - Role
-   * @param {number} index - Index
-   * @returns {React.ReactElement} Rendered element
-   */
-  const renderNumber = (_role: RoleData, index: number): React.ReactElement => _renderNumber(props.currentPage, props.pageSize, index);
-    /**
-   * @param {RoleData} role - Role
-   * @returns {React.ReactElement} Rendered element
-   */
-  const renderActions = (role: RoleData): React.ReactElement => _renderActions(role, props.onEdit);
+const _getAlignClass = (column: TableColumn<RoleData>): string => (column.align === "center" ? "text-center" : "text-left");
 
-  return [
-    { key: "no", header: "No", align: "center", render: renderNumber },
-    { key: "roleName", header: "Role Name", render: _renderRoleName },
-    { key: "status", header: "Status", align: "center", render: _renderStatus },
-    { key: "createAt", header: "Created At", render: _renderDate },
-    { key: "actions", header: "Action", align: "center", render: renderActions },
-  ];
+/**
+ * Render one skeleton cell matching its column.
+ * @param {TableColumn<RoleData>} column - Table column
+ * @param {number} columnIndex - Column index
+ * @returns {React.ReactElement} - Skeleton cell
+ */
+const _renderSkeletonCell = (column: TableColumn<RoleData>, columnIndex: number): React.ReactElement => {
+  if (column.key === "actions") {
+    return (
+      <div className="flex justify-center gap-1">
+        <span className="h-10 w-10 rounded-3xl bg-background-subtle" />
+      </div>
+    );
+  }
+
+  const widthClass = column.key === "status" ? "w-24 rounded-full" : MASTER_ROLE_CONFIG.SKELETON_COLUMN_WIDTHS[columnIndex];
+
+  return <span className={`inline-block h-5 rounded-3xl bg-background-subtle align-middle ${widthClass}`} />;
 };
 
 /**
- * Render role list state.
- *
- * @param {MasterRoleProps} props - Component props
- * @returns {React.ReactElement | null} List state
+ * Render the role table skeleton with the real column headers.
+ * @param {TableColumn<RoleData>[]} columns - Table columns
+ * @returns {React.ReactElement} - Table skeleton
  */
-const _renderListState = (props: MasterRoleProps): React.ReactElement | null => {
-  if (props.isMissingData) return <p className="py-10 text-center text-lg text-danger">Role data is unavailable. Please try again.</p>;
-
-  if (props.errorMessage) return <p className="py-10 text-center text-lg text-danger">{props.errorMessage}</p>;
-
-  if (props.isEmpty) return <p className="py-10 text-center text-lg text-text-secondary">No roles found.</p>;
-
-  return null;
-};
-
-/**
- * Render action skeleton.
- *
- * @returns {React.ReactElement} Rendered element
- */
-const _renderActionSkeleton = (): React.ReactElement => (
-  <div className="flex justify-center gap-1">
-    <span className="h-10 w-10 rounded-3xl bg-background-subtle" />
+const _renderTableSkeleton = (columns: TableColumn<RoleData>[]): React.ReactElement => (
+  <div className="w-full overflow-x-auto" role="status" aria-label="Loading role table">
+    <table className="w-full min-w-max border-separate border-spacing-0 whitespace-nowrap">
+      <thead>
+        <tr>
+          {columns.map((column, index) => (
+            <th
+              key={column.key}
+              className={`bg-table-header px-5 py-4 text-[13px] font-bold uppercase tracking-widest text-text-secondary ${_getAlignClass(column)} ${index === 0 ? "rounded-l-3xl" : ""} ${index === columns.length - 1 ? "rounded-r-3xl" : ""}`}
+            >
+              {column.header}
+            </th>
+          ))}
+        </tr>
+      </thead>
+      <tbody>
+        {SKELETON_ROW_INDEXES.map((rowIndex) => (
+          <tr key={rowIndex} className="animate-pulse">
+            {columns.map((column, columnIndex) => (
+              <td key={column.key} className={`border-b border-border-default px-5 py-4 ${_getAlignClass(column)}`}>
+                {_renderSkeletonCell(column, columnIndex)}
+              </td>
+            ))}
+          </tr>
+        ))}
+      </tbody>
+    </table>
   </div>
 );
 
 /**
- * Render table skeleton.
- *
- * @param {MasterRoleProps} props - Component props
- * @returns {React.ReactElement} Table skeleton
- */
-const _renderTableSkeleton = (props: MasterRoleProps): React.ReactElement => {
-  const columns = _getColumns(props);
-  const widths = ["w-6", "w-52", "w-28", "w-28", "w-28"];
-
-  return (
-    <div className="w-full overflow-x-auto" role="status" aria-label="Loading role table">
-      <table className="w-full min-w-max border-separate border-spacing-0 whitespace-nowrap">
-        <thead>
-          <tr>
-            {columns.map((column, index) => (
-              <th key={column.key} className={`bg-table-header px-5 py-4 text-[13px] font-bold uppercase tracking-widest text-text-secondary ${column.align === "center" ? "text-center" : "text-left"} ${index === 0 ? "rounded-l-3xl" : ""} ${index === columns.length - 1 ? "rounded-r-3xl" : ""}`}>
-                {column.header}
-              </th>
-            ))}
-          </tr>
-        </thead>
-        <tbody>
-          {Array.from({ length: 5 }, (_value, rowIndex) => (
-            <tr key={rowIndex} className="animate-pulse">
-              {columns.map((column, columnIndex) => (
-                <td key={column.key} className={`border-b border-border-default px-5 py-4 ${column.align === "center" ? "text-center" : "text-left"}`}>
-                  {column.key === "actions" ? _renderActionSkeleton() : <span className={`inline-block h-5 rounded-3xl bg-background-subtle align-middle ${column.key === "status" ? "w-28 rounded-full" : widths[columnIndex]}`} />}
-                </td>
-              ))}
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
-  );
-};
-
-/**
- * Render mobile card skeleton.
- *
+ * Render one mobile role card skeleton.
  * @param {number} key - Skeleton key
- * @returns {React.ReactElement} Card skeleton
+ * @returns {React.ReactElement} - Card skeleton
  */
 const _renderMobileCardSkeleton = (key: number): React.ReactElement => (
-  <div key={key} className="animate-pulse rounded-3xl border border-border-strong bg-background-surface p-5 shadow-small" role="status" aria-label="Loading role card">
+  <div
+    key={key}
+    className="animate-pulse rounded-3xl border border-border-strong bg-background-surface p-5 shadow-small"
+    role="status"
+    aria-label="Loading role card"
+  >
     <div className="flex flex-wrap items-center justify-between gap-3">
       <span className="h-7 w-32 rounded-3xl bg-background-subtle" />
       <span className="h-8 w-24 rounded-full bg-background-subtle" />
     </div>
     <div className="mt-4 flex flex-wrap items-end justify-between gap-x-4 gap-y-3 border-t border-border-default pt-4">
-      <div><div className="h-7 w-20 rounded-3xl bg-background-subtle" /><div className="mt-1 h-7 w-28 rounded-3xl bg-background-subtle" /></div>
-      <div className="text-right"><div className="ml-auto h-7 w-12 rounded-3xl bg-background-subtle" /><div className="mt-1 h-7 w-28 rounded-3xl bg-background-subtle" /></div>
+      <div>
+        <div className="h-7 w-20 rounded-3xl bg-background-subtle" />
+        <div className="mt-1 h-7 w-40 rounded-3xl bg-background-subtle" />
+      </div>
+      <div className="text-right">
+        <div className="ml-auto h-7 w-16 rounded-3xl bg-background-subtle" />
+        <div className="mt-1 h-7 w-28 rounded-3xl bg-background-subtle" />
+      </div>
     </div>
   </div>
 );
 
 /**
- * Render mobile role card.
- *
- * @param {RoleData} role - Role data
- * @param {MasterRoleProps["onEdit"]} onEdit - Edit action
- * @returns {React.ReactElement} Role card
+ * Render the desktop table body for the current list state.
+ * @param {MasterRoleProps} props - Role list props
+ * @param {TableColumn<RoleData>[]} columns - Table columns
+ * @returns {React.ReactElement} - Skeleton, state message or table
  */
-const _renderRoleCard = (role: RoleData, onEdit: MasterRoleProps["onEdit"]): React.ReactElement => {
-    /**
-   * @returns {void} Resolved value
-   */
-  const handleClick = (): void => onEdit(role);
+const _renderDesktopContent = (props: MasterRoleProps, columns: TableColumn<RoleData>[]): React.ReactElement => {
+  const { listStatus, roles } = props;
+
+  if (listStatus === "loading") {
+    return _renderTableSkeleton(columns);
+  }
 
   return (
-    <button type="button" onClick={handleClick} className="group block w-full min-w-0 rounded-3xl border border-border-strong bg-background-surface p-5 text-left shadow-small transition-colors hover:border-border-strong hover:bg-background-subtle/40 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-action-primary">
-      <span className="flex min-w-0 flex-wrap items-center justify-between gap-3">
-        <span className="min-w-0 break-words text-xl font-semibold text-text-primary">{role.roleName}</span>
-        <span className={`rounded-full border border-current px-3 py-1 text-base font-semibold uppercase ${role.status === "active" ? "bg-success-subtle text-success-strong" : "bg-danger-subtle text-danger-strong"}`}>{role.status}</span>
-      </span>
-      <span className="mt-4 flex flex-wrap items-end justify-between gap-x-4 gap-y-3 border-t border-border-default pt-4">
-        <span className="min-w-0"><span className="block text-lg text-text-tertiary">Created</span><span className="mt-1 block text-lg font-medium text-text-primary">{role.createAt ? formatRoleDate(role.createAt) : "-"}</span></span>
-      </span>
-    </button>
+    _renderListMessage(listStatus) ?? (
+      <Table data={roles} columns={columns} isDetail={false} keyExtractor={getRoleRowKey} />
+    )
   );
 };
 
 /**
- * Render mobile role list.
- *
- * @param {MasterRoleProps} props - Component props
- * @returns {React.ReactElement} Mobile element
+ * Render the mobile list body for the current list state.
+ * @param {MasterRoleProps} props - Role list props
+ * @returns {React.ReactNode} - Skeletons, state message or sender cards
  */
-const _renderMobile = (props: MasterRoleProps): React.ReactElement => {
-    /**
-   * @param {React.ChangeEvent<HTMLInputElement>} event - Event
-   * @returns {void} Resolved value
-   */
-  const handleSearch = (event: React.ChangeEvent<HTMLInputElement>): void => props.setSearchTerm(event.target.value);
+const _renderMobileContent = (props: MasterRoleProps): React.ReactNode => {
+  const { listStatus, roles, canEdit, onEdit } = props;
 
-  return (
-    <div className="flex min-w-0 flex-col gap-4 pb-16 pt-2 lg:hidden">
-      <SearchFilter placeholder="Search role" onChange={handleSearch} isRoundedFull={true} className="w-full sm:w-full" inputClassName="!h-16 text-xl placeholder:text-xl" />
-      <div className="flex min-w-0 flex-col gap-4">
-        {props.isLoading ? Array.from({ length: 5 }, (_value, index) => _renderMobileCardSkeleton(index)) : _renderListState(props) ?? props.paginatedData.map((role) => <React.Fragment key={role.id}>{_renderRoleCard(role, props.onEdit)}</React.Fragment>)}
-      </div>
-      <Pagination currentPage={props.currentPage} totalPages={props.totalPages} pageSize={props.pageSize} onPageChange={props.goToPage} onPageSizeChange={props.changePageSize} totalItems={props.totalCount} isCompact={true} className="w-full rounded-3xl border border-border-default bg-background-surface px-5 py-4 shadow-xs" />
-    </div>
-  );
+  if (listStatus === "loading") {
+    return SKELETON_ROW_INDEXES.map(_renderMobileCardSkeleton);
+  }
+
+  return _renderListMessage(listStatus) ?? roles.map((role) => renderRoleMobileCard({ role, canEdit, onEdit }));
 };
 
 /**
- * Render desktop role table.
- *
- * @param {MasterRoleProps} props - Component props
- * @returns {React.ReactElement} Desktop element
+ * Render the desktop card with search, table and pagination.
+ * @param {MasterRoleProps} props - Role list props
+ * @returns {React.ReactElement} - Desktop list
  */
-const _renderDesktop = (props: MasterRoleProps): React.ReactElement => {
-    /**
-   * @param {React.ChangeEvent<HTMLInputElement>} event - Event
-   * @returns {void} Resolved value
-   */
-  const handleSearch = (event: React.ChangeEvent<HTMLInputElement>): void => props.setSearchTerm(event.target.value);
+const _renderDesktopList = (props: MasterRoleProps): React.ReactElement => {
+  const { currentPage, pageSize, totalPages, totalCount, canCreate, canEdit, onPageChange, onPageSizeChange, onSearchChange, onCreate, onEdit } = props;
+  const columns = getRoleColumns(currentPage, pageSize, canEdit, onEdit);
 
   return (
     <div className="hidden rounded-3xl border border-border-default bg-background-surface px-6 pb-6 pt-0 shadow-xs md:mt-6 md:flex md:flex-1 md:flex-col md:overflow-hidden lg:flex">
       <div className="flex items-center justify-between gap-4 border-b border-border-default py-6">
-        <SearchFilter placeholder="Search role" onChange={handleSearch} isRoundedFull={true} inputClassName="text-lg placeholder:text-lg" />
-        <button type="button" onClick={props.onCreate} className="h-14 rounded-2xl bg-action-primary px-6 text-lg font-semibold text-text-inverse hover:bg-action-primary-hover focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring">Create Role</button>
+        <SearchFilter placeholder="Search role" onChange={onSearchChange} isRoundedFull={true} inputClassName="text-lg placeholder:text-lg" />
+        {canCreate && (
+          <button
+            type="button"
+            onClick={onCreate}
+            className="h-14 rounded-2xl bg-action-primary px-6 text-lg font-semibold text-text-inverse hover:bg-action-primary-hover focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring"
+          >
+            Create Role
+          </button>
+        )}
       </div>
-      <div className="flex-1 overflow-auto">
-        {props.isLoading ? _renderTableSkeleton(props) : _renderListState(props) ?? <Table data={props.paginatedData} columns={_getColumns(props)} isDetail={false} keyExtractor={(row: RoleData): string => row.id} />}
-      </div>
-      <Pagination currentPage={props.currentPage} totalPages={props.totalPages} pageSize={props.pageSize} onPageChange={props.goToPage} onPageSizeChange={props.changePageSize} totalItems={props.totalCount} className="pt-4" />
+      <div className="flex-1 overflow-auto">{_renderDesktopContent(props, columns)}</div>
+      <Pagination
+        currentPage={currentPage}
+        totalPages={totalPages}
+        pageSize={pageSize}
+        onPageChange={onPageChange}
+        onPageSizeChange={onPageSizeChange}
+        totalItems={totalCount}
+        className="pt-4"
+      />
     </div>
   );
 };
 
 /**
- * Render master role page component.
- *
- * @param {MasterRoleProps} props - Component props
- * @returns {React.ReactElement} Page element
+ * Render the mobile list with search, cards and pagination.
+ * @param {MasterRoleProps} props - Role list props
+ * @returns {React.ReactElement} - Mobile list
  */
-export const MasterRoleComponent = (props: MasterRoleProps): React.ReactElement => {
-  const createButton = (
-    <button type="button" onClick={props.onCreate} className="h-14 rounded-full border-2 border-action-primary bg-background-surface px-6 text-lg font-bold text-action-primary transition-colors hover:bg-action-primary-subtle focus:outline-none focus:ring-2 focus:ring-focus-ring/30 lg:hidden">
-      Create New
-    </button>
-  );
+const _renderMobileList = (props: MasterRoleProps): React.ReactElement => {
+  const { currentPage, pageSize, totalPages, totalCount, onPageChange, onPageSizeChange, onSearchChange } = props;
 
   return (
-    <Layout pageTitle="Role List">
-      <PageLayout title="Role List" subtitle="Manage user roles and access rights" breadcrumbs={["Master", "Master Role"]} headerRight={createButton} mobileHeaderClassName="px-0" mobileTitleClassName="text-4xl" onBack={props.onBack}>
-        <div className="relative flex h-full flex-col bg-background-page px-0 pb-18 lg:-mt-4 lg:bg-transparent lg:px-0 lg:pb-0">
-          {_renderMobile(props)}
-          {_renderDesktop(props)}
-        </div>
-      </PageLayout>
-    </Layout>
+    <div className="flex min-w-0 flex-col gap-4 pb-16 pt-2 lg:hidden">
+      <SearchFilter
+        placeholder="Search role"
+        onChange={onSearchChange}
+        isRoundedFull={true}
+        className="w-full sm:w-full"
+        inputClassName="!h-16 text-xl placeholder:text-xl"
+      />
+      <div className="flex min-w-0 flex-col gap-4">{_renderMobileContent(props)}</div>
+      <Pagination
+        currentPage={currentPage}
+        totalPages={totalPages}
+        pageSize={pageSize}
+        onPageChange={onPageChange}
+        onPageSizeChange={onPageSizeChange}
+        totalItems={totalCount}
+        isCompact={true}
+        className="w-full rounded-3xl border border-border-default bg-background-surface px-5 py-4 shadow-xs"
+      />
+    </div>
   );
 };
+
+/**
+ * Render the role list page.
+ * @param {MasterRoleProps} props - Role list props
+ * @returns {React.ReactElement} - Role list page
+ */
+const MasterRoleComponent = (props: MasterRoleProps): React.ReactElement => {
+  const { successMessage, canCreate, onBack, onCreate } = props;
+
+  return (
+    <React.Fragment>
+      {successMessage && <AlertComponent type="success" message={successMessage} toast closable />}
+      <Layout pageTitle="Role List">
+        <PageLayout
+          title="Role List"
+          subtitle="Manage user roles and access rights"
+          breadcrumbs={["Master", "Master Role"]}
+          headerRight={
+            canCreate && (
+              <button
+                type="button"
+                onClick={onCreate}
+                className="h-14 rounded-full border-2 border-action-primary bg-background-surface px-6 text-lg font-bold text-action-primary transition-colors hover:bg-action-primary-subtle focus:outline-none focus:ring-2 focus:ring-focus-ring/30 lg:hidden"
+              >
+                Create New
+              </button>
+            )
+          }
+          mobileHeaderClassName="px-0"
+          mobileTitleClassName="text-4xl"
+          onBack={onBack}
+        >
+          <div className="relative flex h-full flex-col bg-background-page px-0 pb-18 lg:-mt-4 lg:bg-transparent lg:px-0 lg:pb-0">
+            {_renderMobileList(props)}
+            {_renderDesktopList(props)}
+          </div>
+        </PageLayout>
+      </Layout>
+    </React.Fragment>
+  );
+};
+
+export default MasterRoleComponent;

@@ -1,39 +1,45 @@
 import * as React from "react";
 import { useLocation } from "react-router-dom";
 
-import { AlertComponent } from "@/components/Alert";
 import { usePagePermission } from "@/hooks/usePagePermission";
 
-import { MasterRoleComponent } from "./MasterRole.component";
-import { useMasterRoleContainerState } from "./MasterRole.hook";
+import MasterRoleComponent from "./MasterRole.component";
+import { MASTER_ROLE_ROUTE } from "./MasterRole.config";
+import { useMasterRole } from "./MasterRole.hook";
 import type { RoleRouteState } from "./MasterRole.type";
+import { normalizeRoleList } from "./MasterRole.util";
+
+import { useGetRolesQuery } from "@/services/master-role.service";
 
 /**
- * Master Role Container
- *
- * @returns {React.ReactElement} Container component
+ * Render the role list container.
+ * @returns {React.ReactElement} - Container of the role list view
  */
 const MasterRoleContainer = (): React.ReactElement => {
   const location = useLocation();
-  const routeState: RoleRouteState | null = location.state;
-  const containerState = useMasterRoleContainerState();
-  const { canCreate, canEdit } = usePagePermission("/master-role");
+  const routeState: RoleRouteState = location.state;
+  const { canCreate, canEdit } = usePagePermission(MASTER_ROLE_ROUTE.LIST);
+  const controller = useMasterRole();
+  const { data, isLoading, isError } = useGetRolesQuery(controller.queryParams);
+
+  // Single upstream fallback: the view receives normalized data only
+  const listView = normalizeRoleList({ data, isLoading, isError });
 
   return (
-    <>
-      {routeState?.successMessage && <AlertComponent type="success" message={routeState.successMessage} toast closable />}
-      <MasterRoleComponent
-        {...containerState.pagination}
-        onBack={containerState.goBack}
-        onCreate={canCreate ? containerState.goCreate : undefined}
-        onEdit={canEdit ? containerState.goEdit : undefined}
-        onRowClick={canEdit ? containerState.goEdit : undefined}
-        onMore={canEdit ? containerState.toggleMore : undefined}
-        isMoreOpen={containerState.isMoreOpen}
-        onCloseMore={containerState.handleCloseMore}
-        onDelete={canEdit ? containerState.goDelete : undefined}
-      />
-    </>
+    <MasterRoleComponent
+      {...listView}
+      currentPage={controller.currentPage}
+      pageSize={controller.pageSize}
+      canCreate={canCreate}
+      canEdit={canEdit}
+      successMessage={routeState?.successMessage}
+      onPageChange={controller.handlePageChange}
+      onPageSizeChange={controller.handlePageSizeChange}
+      onSearchChange={controller.handleSearchChange}
+      onBack={controller.handleBack}
+      onCreate={controller.handleCreate}
+      onEdit={controller.handleEdit}
+    />
   );
 };
 

@@ -1,59 +1,56 @@
-import { render, screen } from "@/libs/unit-test";
 import { MemoryRouter } from "react-router-dom";
+
+import { MOCK_ROLE_LIST_RESPONSE } from "@/fixture/master-role";
+import { usePagePermission } from "@/hooks/usePagePermission";
+import { render, screen } from "@/libs/unit-test";
+import { useGetRolesQuery } from "@/services/master-role.service";
 
 import MasterRoleContainer from "./MasterRole.container";
 
-jest.mock("@/hooks/usePagePermission", () => ({
-  usePagePermission: jest.fn(() => ({ canView: true, canCreate: false, canEdit: false, isSuperadmin: false })),
-}));
-import type { RoleData } from "./MasterRole.type";
+jest.mock("@/app/layout", () => ({ children }: { children: React.ReactNode }): React.ReactElement => <div data-testid="layout">{children}</div>);
+jest.mock("@/services/master-role.service", () => ({ useGetRolesQuery: jest.fn() }));
+jest.mock("@/hooks/usePagePermission", () => ({ usePagePermission: jest.fn() }));
 
-jest.useFakeTimers();
-jest.setSystemTime(new Date("2026-10-18T01:01:00+07:00"));
-afterAll(() => jest.useRealTimers());
-
-jest.mock("@/services/master-role.service", () => ({
-  mapRole: (role: { id: string; role: string; last_created: string | null }) => ({
-    id: role.id,
-    roleName: role.role,
-    status: "active",
-    createAt: role.last_created ?? "",
-    createBy: "",
-  }),
-  useGetRolesQuery: jest.fn(() => ({
-    data: { data: [], total_pages: 0, total_count: 0, has_next: false, has_previous: false, page_number: 1 },
-    error: undefined,
-    isLoading: false,
-  })),
-  useCreateRoleMutation: jest.fn(),
-}));
-
-const mockRole: RoleData = {
-  id: "1",
-  roleName: "Admin",
-  status: "active",
-  createAt: "2024-01-01",
-  createBy: "System",
+/**
+ * Render the container inside a router.
+ * @param {string} [successMessage] - Router state success message
+ * @returns {void}
+ */
+const renderContainer = (successMessage?: string): void => {
+  render(
+    <MemoryRouter initialEntries={[{ pathname: "/master-role", state: { successMessage } }]}>
+      <MasterRoleContainer />
+    </MemoryRouter>,
+  );
 };
 
 describe("MasterRoleContainer", () => {
-  it("renders container component correctly", () => {
-    const { container } = render(
-      <MemoryRouter>
-        <MasterRoleContainer />
-      </MemoryRouter>
-    );
-    expect(container).toBeTruthy();
-    expect(screen.getAllByPlaceholderText(/Search/i).length).toBeGreaterThan(0);
+  beforeEach(() => {
+    jest.mocked(useGetRolesQuery).mockReturnValue({ data: MOCK_ROLE_LIST_RESPONSE, isLoading: false, isError: false } as never);
+    jest.mocked(usePagePermission).mockReturnValue({ canView: true, canCreate: true, canEdit: true, isSuperadmin: false, isLoading: false });
   });
 
-  it("matches snapshot", () => {
-    const { asFragment } = render(
-      <MemoryRouter>
-        <MasterRoleContainer />
-      </MemoryRouter>
-    );
-    expect(asFragment()).toMatchSnapshot();
+  it("should query the first page and render normalized roles", () => {
+    renderContainer();
+
+    expect(useGetRolesQuery).toHaveBeenCalledWith({ pageNumber: 1, pageSize: 10, searchTerm: "" });
+    expect(usePagePermission).toHaveBeenCalledWith("/master-role");
+    expect(screen.getAllByText("Sales")).toHaveLength(2);
+    expect(screen.getAllByText("inactive")).toHaveLength(2);
+  });
+
+  it("should hide create and edit actions without permission", () => {
+    jest.mocked(usePagePermission).mockReturnValue({ canView: true, canCreate: false, canEdit: false, isSuperadmin: false, isLoading: false });
+
+    renderContainer();
+
+    expect(screen.queryByRole("button", { name: "Create Role" })).not.toBeInTheDocument();
+    expect(screen.queryAllByRole("button", { name: /^Edit Role/ })).toHaveLength(0);
+  });
+
+  it("should show the success message from router state", () => {
+    renderContainer("Role updated successfully.");
+
+    expect(screen.getByRole("alert")).toHaveTextContent("Role updated successfully.");
   });
 });
-

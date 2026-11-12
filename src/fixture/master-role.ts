@@ -1,14 +1,30 @@
-import type { RoleData } from "../../modules/master-data/master-role/MasterRole.type";
+import type { ApiRole, RoleAllResponse, RoleListResponse, RoleMutationResponse } from "@/modules/master-data/master-role/MasterRole.type";
 
-export const MOCK_ROLES: RoleData[] = [
-  { id: "1", roleName: "Role 1", status: "active", createAt: "2024-02-01T00:00:00Z", createBy: "Admin" },
-  { id: "2", roleName: "Role 2", status: "active", createAt: "2024-03-01T00:00:00Z", createBy: "Admin" },
-  { id: "3", roleName: "Role 3", status: "inactive", createAt: "2024-04-01T00:00:00Z", createBy: "Admin" },
-  { id: "4", roleName: "Role 4", status: "active", createAt: "2024-05-01T00:00:00Z", createBy: "Admin" },
-  { id: "5", roleName: "Role 5", status: "active", createAt: "2024-06-01T00:00:00Z", createBy: "Admin" },
-  { id: "6", roleName: "Role 6", status: "inactive", createAt: "2024-07-01T00:00:00Z", createBy: "Admin" },
-  { id: "7", roleName: "Role 7", status: "active", createAt: "2024-08-01T00:00:00Z", createBy: "Admin" },
-  { id: "8", roleName: "Role 8", status: "active", createAt: "2024-09-01T00:00:00Z", createBy: "Admin" },
-  { id: "9", roleName: "Role 9", status: "inactive", createAt: "2024-01-01T00:00:00Z", createBy: "Admin" },
-  { id: "10", roleName: "Role 10", status: "active", createAt: "2024-02-01T00:00:00Z", createBy: "Admin" }
+export const MOCK_API_ROLES: ApiRole[] = [
+  { id: "role-1", role: "Administrator", status: 1, last_created: "2026-10-30 22:00:54" },
+  { id: "role-2", role: "Sales", status: 0, last_created: null },
 ];
+
+export const MOCK_ROLE_LIST_RESPONSE: RoleListResponse = {
+  data: MOCK_API_ROLES,
+  page_number: 1,
+  total_pages: 1,
+  total_count: MOCK_API_ROLES.length,
+  has_previous: false,
+  has_next: false,
+};
+
+export const MOCK_ROLE_DETAIL_RESPONSE: RoleMutationResponse = {
+  status: true,
+  data: MOCK_API_ROLES[0],
+  messages: null,
+};
+
+export const MOCK_ROLE_ALL_RESPONSE: RoleAllResponse = {
+  status: true,
+  data: [
+    { id: "role-1", role: "Administrator", status: 1 },
+    { id: "role-2", role: "Sales", status: 0 },
+  ],
+  messages: null,
+};

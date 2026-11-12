@@ -1,219 +1,102 @@
-import { useState } from "react";
+import type { ChangeEvent } from "react";
+import { useCallback, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-import { createPaginationHandlers } from "@/utils/pagination.helpers";
-
+import { MASTER_ROLE_CONFIG, MASTER_ROLE_ROUTE } from "./MasterRole.config";
 import type {
-  MasterRoleContainerState,
-  MasterRoleNavigation,
-  MasterRolePagination,
+  MasterRoleController,
   RoleData,
-  RoleListApiState,
+  RoleListPaging,
+  RoleListParams,
+  RoleNavigation,
 } from "./MasterRole.type";
 
-import {
-  mapRole,
-  useCreateRoleMutation,
-  useGetRolesQuery,
-} from "@/services/master-role.service";
+/**
+ * Manage page, page size and search term of the role list.
+ * @returns {RoleListPaging} - Query params, paging state and handlers
+ */
+const useRoleListPaging = (): RoleListPaging => {
+  const [currentPage, setCurrentPage] = useState<number>(MASTER_ROLE_CONFIG.DEFAULT_PAGE);
+  const [pageSize, setPageSize] = useState<number>(MASTER_ROLE_CONFIG.DEFAULT_PAGE_SIZE);
+  const [searchTerm, setSearchTerm] = useState<string>("");
+
+  const queryParams = useMemo(
+    (): RoleListParams => ({ pageNumber: currentPage, pageSize, searchTerm }),
+    [currentPage, pageSize, searchTerm],
+  );
+
+  /**
+   * Go to the given page, never below the first page.
+   * @param {number} page - Requested page
+   * @returns {void}
+   */
+  const handlePageChange = useCallback((page: number): void => {
+    setCurrentPage(Math.max(MASTER_ROLE_CONFIG.DEFAULT_PAGE, page));
+  }, []);
+
+  /**
+   * Change page size and return to the first page.
+   * @param {number} size - New page size
+   * @returns {void}
+   */
+  const handlePageSizeChange = useCallback((size: number): void => {
+    setPageSize(size);
+    setCurrentPage(MASTER_ROLE_CONFIG.DEFAULT_PAGE);
+  }, []);
+
+  /**
+   * Update the search term and return to the first page.
+   * @param {ChangeEvent<HTMLInputElement>} event - Search input change event
+   * @returns {void}
+   */
+  const handleSearchChange = useCallback((event: ChangeEvent<HTMLInputElement>): void => {
+    setSearchTerm(event.target.value);
+    setCurrentPage(MASTER_ROLE_CONFIG.DEFAULT_PAGE);
+  }, []);
+
+  return { queryParams, currentPage, pageSize, handlePageChange, handlePageSizeChange, handleSearchChange };
+};
 
 /**
- * Navigation hook
- *
- * @returns {MasterRoleNavigation} navigation state
+ * Create the navigation handlers of the role list.
+ * @returns {RoleNavigation} - Back, create and edit handlers
  */
-export const useMasterRoleNavigation = (): MasterRoleNavigation => {
+const useRoleNavigation = (): RoleNavigation => {
   const navigate = useNavigate();
 
-    /**
-   * Navigate back.
-   *
-   * @returns {void} No return value
+  /**
+   * Navigate back to the master data menu.
+   * @returns {void}
    */
-  const goBack = (): void => {
-    navigate("/master-main");
-  };
+  const handleBack = useCallback((): void => {
+    navigate(MASTER_ROLE_ROUTE.MASTER_MAIN);
+  }, [navigate]);
 
-    /**
-   * Navigate to create role.
-   *
-   * @returns {void} No return value
+  /**
+   * Navigate to the create role page.
+   * @returns {void}
    */
-  const goCreate = (): void => {
-    navigate("/master-role/create");
-  };
+  const handleCreate = useCallback((): void => {
+    navigate(MASTER_ROLE_ROUTE.CREATE);
+  }, [navigate]);
 
-    /**
-   * Navigate to edit role.
-   *
-   * @param {RoleData} role - Role record
-   * @returns {void} No return value
+  /**
+   * Navigate to the edit page of a role.
+   * @param {RoleData} role - Role to edit
+   * @returns {void}
    */
-  const goEdit = (role: RoleData): void => {
-    navigate(`/master-role/edit/${role.id}`, { state: { role } });
-  };
+  const handleEdit = useCallback((role: RoleData): void => {
+    navigate(`${MASTER_ROLE_ROUTE.EDIT}/${role.id}`);
+  }, [navigate]);
 
-  return { goBack, goCreate, goEdit };
+  return { handleBack, handleCreate, handleEdit };
 };
 
 /**
- * Derive role list state from API response.
- *
- * @param {ReturnType<typeof useGetRolesQuery>} queryResult - RTK Query result
- * @returns {RoleListApiState} derived role list state
+ * Manage role list paging, search and navigation.
+ * @returns {MasterRoleController} - List query params, state and handlers
  */
-const _deriveRoleListState = (
-  queryResult: ReturnType<typeof useGetRolesQuery>,
-): RoleListApiState => {
-  const { data, error, isLoading } = queryResult;
-
-  if (isLoading) {
-    return _createLoadingState();
-  }
-
-  if (error) {
-    return _createErrorState();
-  }
-
-  if (!data) {
-    return _createMissingResponseState();
-  }
-
-  return {
-    isLoading: false,
-    errorMessage: null,
-    isMissingData: false,
-    paginatedData: data.data.map(mapRole),
-    totalPages: data.total_pages,
-    totalCount: data.total_count,
-  };
-};
-
-/**
- * Create loading state.
- *
- * @returns {RoleListApiState} loading state
- */
-const _createLoadingState = (): RoleListApiState => ({
-  isLoading: true,
-  errorMessage: null,
-  isMissingData: false,
-  paginatedData: [],
-  totalPages: 0,
-  totalCount: 0,
+export const useMasterRole = (): MasterRoleController => ({
+  ...useRoleListPaging(),
+  ...useRoleNavigation(),
 });
-
-/**
- * Create HTTP error state.
- *
- * @returns {RoleListApiState} error state
- */
-const _createErrorState = (): RoleListApiState => ({
-  isLoading: false,
-  errorMessage: "Unable to load roles.",
-  isMissingData: false,
-  paginatedData: [],
-  totalPages: 0,
-  totalCount: 0,
-});
-
-/**
- * Create missing response state.
- *
- * @returns {RoleListApiState} missing response state
- */
-const _createMissingResponseState = (): RoleListApiState => ({
-  isLoading: false,
-  errorMessage: "No response received from server.",
-  isMissingData: true,
-  paginatedData: [],
-  totalPages: 0,
-  totalCount: 0,
-});
-
-/**
- * Hook for API-backed master role pagination.
- *
- * @returns {MasterRolePagination} role pagination state and handlers
- */
-export const useMasterRolePagination = (): MasterRolePagination => {
-  const [currentPage, setCurrentPage] = useState(1);
-  const [pageSize, setPageSize] = useState(10);
-  const [searchTerm, setSearchTerm] = useState("");
-  const queryResult = useGetRolesQuery({ pageNumber: currentPage, pageSize, searchTerm });
-  const derived = _deriveRoleListState(queryResult);
-
-  const handlers = createPaginationHandlers({
-    currentPage,
-    totalPages: derived.totalPages,
-    hasNext: Boolean(queryResult.data?.has_next),
-    hasPrevious: Boolean(queryResult.data?.has_previous),
-    canPaginate: !derived.isLoading && !derived.errorMessage && derived.paginatedData.length > 0,
-    setCurrentPage,
-    setPageSize,
-    setSearchTerm,
-  });
-
-  const isEmpty = !derived.isLoading && !derived.errorMessage && !derived.isMissingData && derived.paginatedData.length === 0;
-
-  return {
-    ...derived,
-    ...handlers,
-    currentPage,
-    pageSize,
-    isEmpty,
-    setSearchTerm: handlers.handleSearchTerm,
-  };
-};
-
-export { useMasterRoleCreateForm } from "./create/MasterRoleCreate.hook";
-
-/**
- * Hook for master role create mutation.
- *
- * @returns {ReturnType<typeof useCreateRoleMutation>} role create mutation
- */
-export const useMasterRoleCreateRole = (): ReturnType<
-  typeof useCreateRoleMutation
-> => useCreateRoleMutation();
-
-/**
- * Container state hook
- *
- * @returns {MasterRoleContainerState} container state
- */
-export const useMasterRoleContainerState = (): MasterRoleContainerState => {
-  const navigation = useMasterRoleNavigation();
-  const pagination = useMasterRolePagination();
-  const [isMoreOpen, setIsMoreOpen] = useState(false);
-
-    /**
-   * Toggle more menu.
-   *
-   * @returns {void} void
-   */
-  const toggleMore = (): void => setIsMoreOpen((previous) => !previous);
-
-    /**
-   * Handle delete action.
-   *
-   * @returns {void} void
-   */
-  const goDelete = (): void => setIsMoreOpen(false);
-
-    /**
-   * Close more menu.
-   *
-   * @returns {void} void
-   */
-  const handleCloseMore = (): void => setIsMoreOpen(false);
-
-  return {
-    ...navigation,
-    pagination,
-    isMoreOpen,
-    toggleMore,
-    goDelete,
-    handleCloseMore,
-  };
-};
