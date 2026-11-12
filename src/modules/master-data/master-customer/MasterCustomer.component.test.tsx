@@ -1,109 +1,86 @@
 import { fireEvent, render, screen } from "@/libs/unit-test";
-import { BrowserRouter } from "react-router-dom";
 
-import { MasterCustomerComponent } from "./MasterCustomer.component";
-import { MOCK_CUSTOMERS } from "../../../fixture/master-customer";
+import MasterCustomerComponent from "./MasterCustomer.component";
+import type { MasterCustomerProps } from "./MasterCustomer.type";
 
-jest.mock("../../components/Pagination", () => ({
-  Pagination: () => <div data-testid="pagination" />,
-}));
-jest.mock("react-icons/fi", () => ({
-  FiArrowLeft: () => <div data-testid="arrow-left-icon" />,
-  FiChevronRight: () => <div data-testid="chevron-right-icon" />,
-  FiEdit2: () => <div data-testid="edit-icon" />,
-  FiMapPin: () => <div data-testid="map-pin-icon" />,
-  FiPhone: () => <div data-testid="phone-icon" />,
-  FiSearch: () => <div data-testid="search-icon" />,
-  FiUser: () => <div data-testid="user-icon" />,
-}));
-jest.mock("../../components/Icons", () => ({
-  Icons: {
-    Search: () => <div data-testid="search-icon" />,
-  },
-}));
-jest.mock("../../app/layout", () =>
-  ({ children }: { children: React.ReactNode }) => <div data-testid="mock-layout">{children}</div>,
-);
+jest.mock("@/app/layout", () => ({ children }: { children: React.ReactNode }): React.ReactElement => <div data-testid="layout">{children}</div>);
 
-describe("MasterCustomer Component", () => {
-  const mockProps = {
-    currentPage: 1,
-    totalPages: 2,
-    pageSize: 10,
-    paginatedData: MOCK_CUSTOMERS.slice(0, 10),
-    totalCount: MOCK_CUSTOMERS.length,
-    isMoreOpen: false,
-    isLoading: false,
-    errorMessage: null,
-    isEmpty: false,
-    isMissingData: false,
-    setSearchTerm: jest.fn(),
-    goToPage: jest.fn(),
-    nextPage: jest.fn(),
-    prevPage: jest.fn(),
-    changePageSize: jest.fn(),
-    onCreate: jest.fn(),
-    onEdit: jest.fn(),
-    onRowClick: jest.fn(),
-    onBack: jest.fn(),
-    onMore: jest.fn(),
-    onCloseMore: jest.fn(),
-    onDelete: jest.fn(),
-  };
+const CUSTOMER = { id: "1", name: "PT Mega Jaya Abadi", email: "—", address: "Jl. Sudirman", phoneNumber: "0812345678", status: "active" } as const;
 
-  const renderComponent = (props = mockProps) => {
-    return render(
-      <BrowserRouter>
-        <MasterCustomerComponent {...props} />
-      </BrowserRouter>
-    );
-  };
+/**
+ * Build list view props.
+ * @param {Partial<MasterCustomerProps>} [overrides] - Props to override
+ * @returns {MasterCustomerProps} - Component props
+ */
+const createProps = (overrides?: Partial<MasterCustomerProps>): MasterCustomerProps => ({
+  listStatus: "ready",
+  customers: [CUSTOMER],
+  totalPages: 1,
+  totalCount: 1,
+  currentPage: 1,
+  pageSize: 10,
+  onPageChange: jest.fn(),
+  onPageSizeChange: jest.fn(),
+  onSearchChange: jest.fn(),
+  onBack: jest.fn(),
+  onCreate: jest.fn(),
+  onEdit: jest.fn(),
+  ...overrides,
+});
 
-  it("should render customer card and open edit", () => {
-    const mockOnEdit = jest.fn();
-    renderComponent({ ...mockProps, onEdit: mockOnEdit });
+describe("MasterCustomerComponent", () => {
+  it("should render customers in the table and mobile cards", () => {
+    render(<MasterCustomerComponent {...createProps()} />);
 
-    const customer = mockProps.paginatedData[0];
-    const customerName = screen.getAllByText(customer.name)[0];
-
-    // Gunakan helper formatCustomerDisplayValue di test sesuai implementasi baru
-    expect(screen.getAllByText(customer.email || "—")).toHaveLength(2);
-    expect(screen.getAllByText(customer.address || "—")[0]).toBeInTheDocument();
-    expect(screen.getAllByText(customer.phoneNumber || "—")[0]).toBeInTheDocument();
-
-    fireEvent.click(customerName.closest("button")!);
-
-    expect(mockOnEdit).toHaveBeenCalledWith(customer);
+    expect(screen.getAllByText("PT Mega Jaya Abadi")).toHaveLength(2);
+    expect(screen.getAllByText("—")).toHaveLength(2);
   });
 
-  it("should render matching mobile and desktop loading skeletons", () => {
-    renderComponent({ ...mockProps, isLoading: true, paginatedData: [] });
+  it("should open edit from a mobile card", () => {
+    const props = createProps();
+
+    render(<MasterCustomerComponent {...props} />);
+    fireEvent.click(screen.getAllByText("PT Mega Jaya Abadi")[0].closest("button") as HTMLButtonElement);
+
+    expect(props.onEdit).toHaveBeenCalledWith(CUSTOMER);
+  });
+
+  it("should call create from both create buttons and search on input", () => {
+    const props = createProps();
+
+    render(<MasterCustomerComponent {...props} />);
+    fireEvent.click(screen.getAllByRole("button", { name: "Create New" })[0]);
+    fireEvent.click(screen.getByRole("button", { name: "Create Customer" }));
+    fireEvent.change(screen.getAllByPlaceholderText("Search customer")[0], { target: { value: "mega" } });
+
+    expect(props.onCreate).toHaveBeenCalledTimes(2);
+    expect(props.onSearchChange).toHaveBeenCalledTimes(1);
+  });
+
+  it("should render matching table and card skeletons while loading", () => {
+    render(<MasterCustomerComponent {...createProps({ listStatus: "loading", customers: [] })} />);
 
     const tableSkeleton = screen.getByRole("status", { name: "Loading customer table" });
-    const cardSkeletons = screen.getAllByRole("status", { name: "Loading customer card" });
+
     expect(tableSkeleton.querySelectorAll("th")).toHaveLength(7);
     expect(tableSkeleton.querySelectorAll("tbody tr")).toHaveLength(5);
-    expect(tableSkeleton.querySelectorAll("tbody tr:first-child td")).toHaveLength(7);
     expect(tableSkeleton.querySelectorAll("tbody tr:first-child td:last-child span")).toHaveLength(1);
-    expect(cardSkeletons).toHaveLength(5);
-    expect(cardSkeletons[0]).toHaveClass("rounded-3xl");
+    expect(screen.getAllByRole("status", { name: "Loading customer card" })).toHaveLength(5);
   });
 
-  it("should render empty state", () => {
-    renderComponent({ ...mockProps, isEmpty: true, paginatedData: [] });
+  it.each([
+    ["empty", "No customers found."],
+    ["error", "Unable to load customers."],
+    ["missing", "Customer data is unavailable. Please try again."],
+  ] as const)("should render the %s message in both layouts", (listStatus, message) => {
+    render(<MasterCustomerComponent {...createProps({ listStatus, customers: [] })} />);
 
-    expect(screen.getAllByText("No customers found.")).toHaveLength(2);
+    expect(screen.getAllByText(message)).toHaveLength(2);
   });
 
-  describe("MasterCustomerComponent Snapshots", () => {
-    it("default state", () => {
-      const { asFragment } = renderComponent();
-      expect(asFragment()).toMatchSnapshot();
-    });
+  it("should show the success toast passed from the form page", () => {
+    render(<MasterCustomerComponent {...createProps({ successMessage: "Customer created successfully." })} />);
 
-    it("more open state", () => {
-      const { asFragment } = renderComponent({ ...mockProps, isMoreOpen: true });
-      expect(asFragment()).toMatchSnapshot();
-    });
+    expect(screen.getByRole("alert")).toHaveTextContent("Customer created successfully.");
   });
 });

@@ -1,57 +1,50 @@
-import { beforeEach, describe, expect, it, jest } from "@jest/globals";
+import { MemoryRouter } from "react-router-dom";
+
+import { MOCK_CUSTOMER_LIST_RESPONSE } from "@/fixture/master-customer";
 import { render, screen } from "@/libs/unit-test";
-import { BrowserRouter } from "react-router-dom";
+import { useGetCustomersQuery } from "@/services/master-customer.service";
+
 import MasterCustomerContainer from "./MasterCustomer.container";
-import * as hooks from "./MasterCustomer.hook";
 
-jest.mock("@/hooks/usePagePermission", () => ({
-  usePagePermission: () => ({ canView: true, canCreate: true, canEdit: true, isSuperadmin: false }),
-}));
+jest.mock("@/app/layout", () => ({ children }: { children: React.ReactNode }): React.ReactElement => <div data-testid="layout">{children}</div>);
+jest.mock("@/services/master-customer.service", () => ({ useGetCustomersQuery: jest.fn() }));
 
-jest.mock("./MasterCustomer.hook", () => ({
-  useMasterCustomerNavigation: jest.fn(),
-  useMasterCustomerPagination: jest.fn(),
-}));
-
-jest.mock("./MasterCustomer.component", () => ({
-  MasterCustomerComponent: (props: { totalCount: number }) => (
-    <div data-testid="mock-component" data-count={props.totalCount} />
-  ),
-}));
-
-describe("MasterCustomer Container", () => {
+describe("MasterCustomerContainer", () => {
   beforeEach(() => {
-    jest.clearAllMocks();
+    jest.mocked(useGetCustomersQuery).mockReturnValue({ data: MOCK_CUSTOMER_LIST_RESPONSE, isLoading: false, isError: false } as never);
   });
 
-  it("should render component with hook state", () => {
-    jest.mocked(hooks.useMasterCustomerNavigation).mockReturnValue({
-      goBack: jest.fn(),
-      goCreate: jest.fn(),
-      goEdit: jest.fn(),
-    });
-
-    jest.mocked(hooks.useMasterCustomerPagination).mockReturnValue({
-      currentPage: 1,
-      totalPages: 2,
-      pageSize: 10,
-      paginatedData: [],
-      totalCount: 5,
-      isLoading: false,
-      errorMessage: undefined,
-      isEmpty: false,
-      isMissingData: false,
-      goToPage: jest.fn(),
-      changePageSize: jest.fn(),
-      setSearchTerm: jest.fn(),
-    });
-
+  it("should query the first page and render normalized customers", () => {
     render(
-      <BrowserRouter>
+      <MemoryRouter>
         <MasterCustomerContainer />
-      </BrowserRouter>
+      </MemoryRouter>,
     );
 
-    expect(screen.getByTestId("mock-component").getAttribute("data-count")).toBe("5");
+    expect(useGetCustomersQuery).toHaveBeenCalledWith({ pageNumber: 1, pageSize: 10, searchTerm: "" });
+    expect(screen.getAllByText("CV Sinar Terang")).toHaveLength(2);
+    expect(screen.getAllByText("—").length).toBeGreaterThan(0);
+  });
+
+  it("should show the success message from router state", () => {
+    render(
+      <MemoryRouter initialEntries={[{ pathname: "/master-customer", state: { successMessage: "Customer updated successfully." } }]}>
+        <MasterCustomerContainer />
+      </MemoryRouter>,
+    );
+
+    expect(screen.getByRole("alert")).toHaveTextContent("Customer updated successfully.");
+  });
+
+  it("should render the error message when the query fails", () => {
+    jest.mocked(useGetCustomersQuery).mockReturnValue({ data: undefined, isLoading: false, isError: true } as never);
+
+    render(
+      <MemoryRouter>
+        <MasterCustomerContainer />
+      </MemoryRouter>,
+    );
+
+    expect(screen.getAllByText("Unable to load customers.")).toHaveLength(2);
   });
 });

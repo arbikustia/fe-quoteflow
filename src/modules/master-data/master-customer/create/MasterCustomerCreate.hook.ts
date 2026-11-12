@@ -1,389 +1,170 @@
-import type { ChangeEvent, SyntheticEvent } from "react";
-import { useState } from "react";
-import type {
-  Control,
-  FieldErrors,
-  UseFormRegister,
-  UseFormSetValue,
-} from "react-hook-form";
+import type { ChangeEvent } from "react";
+import { useCallback, useState } from "react";
+import type { Control, UseFormSetValue } from "react-hook-form";
 import { useForm, useWatch } from "react-hook-form";
-import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
-import { parsePhoneInput } from "./MasterCustomerCreate.helpers";
+import { MASTER_CUSTOMER_ROUTE } from "../MasterCustomer.config";
+
+import { CUSTOMER_FORM_MODE_TEXT } from "./MasterCustomerCreate.config";
 import type {
-  CustomerFormFields,
-  CustomerFormHandlers,
-  CustomerFormValidation,
+  CustomerFieldHandlers,
   CustomerFormValues,
-  CustomerRequestContext,
-  CustomerSubmissionParams,
-  CustomerSubmissionState,
-  CustomerSubmitContext,
-  MasterCustomerCreateFormState,
+  CustomerSubmission,
+  CustomerTextField,
+  MasterCustomerCreateController,
+  MasterCustomerCreateParams,
 } from "./MasterCustomerCreate.type";
-
-import type {
-  CustomerCreateResponse,
-  CustomerData,
-} from "@/modules/master-data/master-customer/MasterCustomer.type";
-import {
-  useCreateCustomerMutation,
-  useUpdateCustomerMutation,
-} from "@/services/master-customer.service";
+import { formatApiMessages, getCustomerFieldErrors, parsePhoneInput, resolveCustomerForm, sendCustomerMutation } from "./MasterCustomerCreate.util";
 
 /**
- * Format backend messages into a display string.
- *
- * @param {string[] | string} [messages] - Backend response messages
- * @returns {string} Display message
+ * Watch every customer form value.
+ * @param {Control<CustomerFormValues>} control - react-hook-form control
+ * @returns {CustomerFormValues} - Current form values
  */
-const _formatMessages = (messages?: string[] | string): string => {
-  if (Array.isArray(messages)) {
-    return messages.join(" ");
-  }
-
-  return messages ?? "Customer request failed.";
-};
-
-/**
- * Derive customer fields from paged route state.
- *
- * @param {CustomerData | undefined} routeCustomer - Customer from paged list
- * @returns {{ name: string; email: string; address: string; phoneNumber: string; isActive: boolean }} Initial values
- */
-const _getInitialFieldValues = (
-  routeCustomer: CustomerData | undefined,
-): {
-  name: string;
-  email: string;
-  address: string;
-  phoneNumber: string;
-  isActive: boolean;
-} => ({
-  name: routeCustomer?.name ?? "",
-  email: routeCustomer?.email ?? "",
-  address: routeCustomer?.address ?? "",
-  phoneNumber: routeCustomer?.phoneNumber ?? "",
-  isActive: routeCustomer?.status !== "inactive",
-});
-
-const EMAIL_REGEX = /^[^\s@]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-
-/**
- * Register customer validation rules.
- *
- * @param {UseFormRegister<CustomerFormValues>} register - Form register function
- * @returns {void} No return value
- */
-const _registerCustomerFields = (
-  register: UseFormRegister<CustomerFormValues>,
-): void => {
-  register("name", { required: "Customer name is required." });
-  register("email", {
-    required: "Email is required.",
-    pattern: {
-      value: EMAIL_REGEX,
-      message: "Please enter a valid email address.",
-    },
-  });
-  register("address", { required: "Address is required." });
-  register("phoneNumber", {
-    required: "Phone number is required.",
-    pattern: {
-      value: /^\d{6,15}$/,
-      message: "Phone number must contain 6–15 digits.",
-    },
-  });
-};
-
-/**
- * Create input change handler for customer fields.
- *
- * @param {"name" | "email" | "address"} field - Field name
- * @param {UseFormSetValue<CustomerFormValues>} setValue - React hook form setValue
- * @param {boolean} hasError - Field error presence
- * @returns {(event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void} Change handler
- */
-const _createCustomerFieldChange =
-  (
-    field: "name" | "email" | "address",
-    setValue: UseFormSetValue<CustomerFormValues>,
-    hasError: boolean,
-  ): ((event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void) =>
-  (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>): void => {
-    setValue(field, event.target.value, { shouldValidate: hasError });
-  };
-
-/**
- * Create phone number change handler.
- *
- * @param {UseFormSetValue<CustomerFormValues>} setValue - React hook form setValue
- * @param {boolean} hasError - Field error presence
- * @returns {(event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void} Change handler
- */
-const _createPhoneChange =
-  (
-    setValue: UseFormSetValue<CustomerFormValues>,
-    hasError: boolean,
-  ): ((event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void) =>
-  (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>): void => {
-    setValue("phoneNumber", parsePhoneInput(event.target.value), {
-      shouldValidate: hasError,
-    });
-  };
-
-/**
- * Toggle customer status handler.
- *
- * @param {UseFormSetValue<CustomerFormValues>} setValue - React hook form setValue
- * @param {boolean} isActive - Current active status
- * @returns {() => void} Toggle handler
- */
-const _createStatusToggle =
-  (
-    setValue: UseFormSetValue<CustomerFormValues>,
-    isActive: boolean,
-  ): (() => void) =>
-  (): void => {
-    setValue("isActive", !isActive, { shouldDirty: true });
-  };
-
-/**
- * Create form validation trigger.
- *
- * @param {() => Promise<boolean>} trigger - Form trigger function
- * @param {(submitted: boolean) => void} setIsSubmitted - Set submitted state
- * @returns {() => Promise<boolean>} Validate function
- */
-const _createValidateForm =
-  (
-    trigger: () => Promise<boolean>,
-    setIsSubmitted: (submitted: boolean) => void,
-  ): (() => Promise<boolean>) =>
-  async (): Promise<boolean> => {
-    setIsSubmitted(true);
-
-    return await trigger();
-  };
-
-/**
- * Watch all customer form values.
- *
- * @param {Control<CustomerFormValues>} control - Form control
- * @returns {CustomerFormValues} Current watched values
- */
-const useCustomerWatches = (
-  control: Control<CustomerFormValues>,
-): CustomerFormValues => ({
+const useCustomerFormValues = (control: Control<CustomerFormValues>): CustomerFormValues => ({
   name: useWatch({ control, name: "name" }),
   email: useWatch({ control, name: "email" }),
-  address: useWatch({ control, name: "address" }),
   phoneNumber: useWatch({ control, name: "phoneNumber" }),
+  address: useWatch({ control, name: "address" }),
   isActive: useWatch({ control, name: "isActive" }),
 });
 
 /**
- * Build all customer field change handlers.
- *
- * @param {UseFormSetValue<CustomerFormValues>} setValue - React hook form setValue
- * @param {CustomerFormValues} values - Current watched values
- * @param {FieldErrors<CustomerFormValues>} errors - Current field errors
- * @returns {CustomerFormHandlers} Bound field handlers
+ * Create the field change handlers; fields re-validate on change once the form was submitted.
+ * @param {UseFormSetValue<CustomerFormValues>} setValue - react-hook-form setValue
+ * @param {boolean} isSubmitted - Whether the form was submitted
+ * @returns {CustomerFieldHandlers} - Field change handlers
  */
-const _buildCustomerHandlers = (
-  setValue: UseFormSetValue<CustomerFormValues>,
-  values: CustomerFormValues,
-  errors: FieldErrors<CustomerFormValues>,
-): CustomerFormHandlers => ({
-  handleNameChange: _createCustomerFieldChange("name", setValue, Boolean(errors.name)),
-  handleEmailChange: _createCustomerFieldChange("email", setValue, Boolean(errors.email)),
-  handlePhoneNumberChange: _createPhoneChange(setValue, Boolean(errors.phoneNumber)),
-  handleAddressChange: _createCustomerFieldChange("address", setValue, Boolean(errors.address)),
-  handleStatusChange: _createStatusToggle(setValue, values.isActive),
-});
+const useCustomerFieldHandlers = (setValue: UseFormSetValue<CustomerFormValues>, isSubmitted: boolean): CustomerFieldHandlers => {
+  /**
+   * Store a text field value.
+   * @param {CustomerTextField} field - Field to update
+   * @param {string} value - New value
+   * @returns {void}
+   */
+  const updateTextField = useCallback((field: CustomerTextField, value: string): void => {
+    setValue(field, value, { shouldDirty: true, shouldValidate: isSubmitted });
+  }, [isSubmitted, setValue]);
+
+  /**
+   * Handle customer name input.
+   * @param {ChangeEvent<HTMLInputElement>} event - Input change event
+   * @returns {void}
+   */
+  const handleNameChange = useCallback((event: ChangeEvent<HTMLInputElement>): void => {
+    updateTextField("name", event.target.value);
+  }, [updateTextField]);
+
+  /**
+   * Handle email input.
+   * @param {ChangeEvent<HTMLInputElement>} event - Input change event
+   * @returns {void}
+   */
+  const handleEmailChange = useCallback((event: ChangeEvent<HTMLInputElement>): void => {
+    updateTextField("email", event.target.value);
+  }, [updateTextField]);
+
+  /**
+   * Handle phone number input, keeping digits only.
+   * @param {ChangeEvent<HTMLInputElement>} event - Input change event
+   * @returns {void}
+   */
+  const handlePhoneNumberChange = useCallback((event: ChangeEvent<HTMLInputElement>): void => {
+    updateTextField("phoneNumber", parsePhoneInput(event.target.value));
+  }, [updateTextField]);
+
+  /**
+   * Handle address input.
+   * @param {ChangeEvent<HTMLTextAreaElement>} event - Textarea change event
+   * @returns {void}
+   */
+  const handleAddressChange = useCallback((event: ChangeEvent<HTMLTextAreaElement>): void => {
+    updateTextField("address", event.target.value);
+  }, [updateTextField]);
+
+  /**
+   * Handle the active status switch.
+   * @param {boolean} isActive - Whether the customer is active
+   * @returns {void}
+   */
+  const handleStatusChange = useCallback((isActive: boolean): void => {
+    setValue("isActive", isActive, { shouldDirty: true });
+  }, [setValue]);
+
+  return { handleNameChange, handleEmailChange, handlePhoneNumberChange, handleAddressChange, handleStatusChange };
+};
 
 /**
- * Manage customer form fields and validation state.
- *
- * @param {CustomerData | undefined} routeCustomer - Customer from paged route state
- * @returns {CustomerFormFields & CustomerFormValidation} Form state and handlers
+ * Submit the form through the create / update mutation and handle navigation.
+ * @param {MasterCustomerCreateParams} params - Form mode and mutation triggers
+ * @returns {CustomerSubmission} - Submit error, submit and back handlers
  */
-const useCustomerFormFields = (
-  routeCustomer: CustomerData | undefined,
-): CustomerFormFields & CustomerFormValidation => {
-  const {
-    control: formControl,
-    formState: { errors },
-    getValues,
-    register,
-    setValue,
-    trigger,
-  } = useForm<CustomerFormValues>({
-    defaultValues: _getInitialFieldValues(routeCustomer),
+const useCustomerSubmission = (params: MasterCustomerCreateParams): CustomerSubmission => {
+  const { id, mode, createCustomer, updateCustomer } = params;
+  const navigate = useNavigate();
+  const [errorMessage, setErrorMessage] = useState<string>();
+
+  /**
+   * Send the validated form and return to the list on success.
+   * @param {CustomerFormValues} values - Valid form values
+   * @returns {Promise<void>} - Resolves when the request settles
+   */
+  const submitCustomer = useCallback(async (values: CustomerFormValues): Promise<void> => {
+    const modeText = CUSTOMER_FORM_MODE_TEXT[mode];
+
+    setErrorMessage(undefined);
+
+    try {
+      const response = await sendCustomerMutation(values, { id, createCustomer, updateCustomer });
+
+      if (!response.status) {
+        setErrorMessage(formatApiMessages(response.messages));
+
+        return;
+      }
+
+      navigate(MASTER_CUSTOMER_ROUTE.LIST, { state: { successMessage: modeText.successMessage } });
+    } catch {
+      setErrorMessage(modeText.failureMessage);
+    }
+  }, [createCustomer, id, mode, navigate, updateCustomer]);
+
+  /**
+   * Navigate back to the customer list.
+   * @returns {void}
+   */
+  const handleBack = useCallback((): void => {
+    navigate(MASTER_CUSTOMER_ROUTE.LIST);
+  }, [navigate]);
+
+  return { errorMessage, submitCustomer, handleBack };
+};
+
+/**
+ * Manage the customer create / edit form: values, validation, submit and navigation.
+ * @param {MasterCustomerCreateParams} params - Form mode, initial values and mutation triggers
+ * @returns {MasterCustomerCreateController} - Form state and handlers
+ */
+export const useMasterCustomerCreate = (params: MasterCustomerCreateParams): MasterCustomerCreateController => {
+  const { control, formState, handleSubmit, setValue } = useForm<CustomerFormValues>({
+    defaultValues: params.initialValues,
+    values: params.initialValues,
+    resetOptions: { keepDirtyValues: true },
+    resolver: resolveCustomerForm,
     mode: "onSubmit",
     reValidateMode: "onChange",
   });
-
-  _registerCustomerFields(register);
-  const [isSubmitted, setIsSubmitted] = useState(false);
-  const values = useCustomerWatches(formControl);
-
-  return {
-    ...values,
-    errors,
-    isSubmitted,
-    getValues,
-    register,
-    validateForm: _createValidateForm(trigger, setIsSubmitted),
-    ..._buildCustomerHandlers(setValue, values, errors),
-  };
-};
-
-/**
- * Build the customer mutation payload.
- *
- * @param {CustomerFormValues} values - Current form values
- * @param {boolean} isActive - Whether the customer is active
- * @returns {{ name: string; email: string; address: string; phone_number: string; status: number }} Payload
- */
-const _buildCustomerPayload = (
-  values: CustomerFormValues,
-  isActive: boolean,
-): { name: string; email: string; address: string; phone_number: string; status: number } => ({
-  name: values.name,
-  email: values.email,
-  address: values.address,
-  phone_number: values.phoneNumber,
-  status: isActive ? 1 : 0,
-});
-
-/**
- * Send the customer create or update request.
- *
- * @param {CustomerRequestContext} context - Bound request context
- * @returns {Promise<CustomerCreateResponse>} Mutation response
- */
-const _sendCustomerMutation = (context: CustomerRequestContext): Promise<CustomerCreateResponse> => {
-  const payload = _buildCustomerPayload(context.values, context.isActive);
-
-  if (context.isEditMode && context.id) {
-    return context.updateCustomer({ ...payload, id: context.id }).unwrap();
-  }
-
-  return context.createCustomer({ ...payload, status: 1 }).unwrap();
-};
-
-/**
- * Submit the customer form and report the result.
- *
- * @param {CustomerSubmitContext} context - Bound submit context
- * @returns {Promise<void>} Resolves after submission settles
- */
-const _submitCustomer = async (context: CustomerSubmitContext): Promise<void> => {
-  if (!(await context.validateForm())) return;
-
-  context.setErrorMessage(undefined);
-  context.setSuccessMessage(undefined);
-
-  try {
-    const response = await _sendCustomerMutation(context);
-
-    if (!response.status) {
-      context.setErrorMessage(_formatMessages(response.messages));
-
-      return;
-    }
-
-    const successMessage = context.isEditMode ? "Customer updated successfully." : "Customer created successfully.";
-
-    context.setSuccessMessage(successMessage);
-    context.navigate("/master-customer", { state: { successMessage } });
-  } catch {
-    context.setErrorMessage(context.isEditMode ? "Unable to update customer. Please try again." : "Unable to create customer. Please try again.");
-  }
-};
-
-/**
- * Handle form submission logic for create or update.
- *
- * @param {CustomerSubmissionParams} params - Submission values
- * @returns {CustomerSubmissionState} Submission state
- */
-const useCustomerSubmission = (
-  params: CustomerSubmissionParams,
-): CustomerSubmissionState => {
-  const { id, isEditMode, isActive, getValues, validateForm } = params;
-  const navigate = useNavigate();
-  const [createCustomer, { isLoading: isCreating }] = useCreateCustomerMutation();
-  const [updateCustomer, { isLoading: isUpdating }] = useUpdateCustomerMutation();
-  const [errorMessage, setErrorMessage] = useState<string>();
-  const [successMessage, setSuccessMessage] = useState<string>();
-
-  /**
-   * Submit customer form.
-   *
-   * @param {SyntheticEvent} event - Form submission event
-   * @returns {Promise<void>} Completion promise
-   */
-  const handleSubmit = async (event: SyntheticEvent): Promise<void> => {
-    event.preventDefault();
-
-    await _submitCustomer({
-      id,
-      isEditMode,
-      isActive,
-      values: getValues(),
-      validateForm,
-      createCustomer,
-      updateCustomer,
-      navigate,
-      setErrorMessage,
-      setSuccessMessage,
-    });
-  };
+  const values = useCustomerFormValues(control);
+  const fieldHandlers = useCustomerFieldHandlers(setValue, formState.isSubmitted);
+  const submission = useCustomerSubmission(params);
 
   return {
-    isSubmitting: isCreating || isUpdating,
-    errorMessage,
-    successMessage,
-    handleSubmit,
-  };
-};
-
-/**
- * Hook managing master customer form state.
- *
- * @returns {MasterCustomerCreateFormState} Form state
- */
-export const useMasterCustomerCreate = (): MasterCustomerCreateFormState => {
-  const navigate = useNavigate();
-  const location = useLocation();
-  const { id } = useParams<{ id?: string }>();
-  const isEditMode = Boolean(id);
-  const routeCustomer: CustomerData | undefined = location.state?.customer;
-  const formFields = useCustomerFormFields(routeCustomer);
-  const submission = useCustomerSubmission({
-    id,
-    isEditMode,
-    isActive: formFields.isActive,
-    getValues: formFields.getValues,
-    validateForm: formFields.validateForm,
-  });
-
-    /**
-   * Go back.
-   *
-   * @returns {void}
-   */
-  const goBack = (): void => {
-    navigate("/master-customer");
-  };
-
-  return {
-    ...formFields,
-    isEditMode,
-    isLoadingInitialData: false,
-    goBack,
-    ...submission,
+    ...fieldHandlers,
+    values,
+    fieldErrors: getCustomerFieldErrors(formState.errors),
+    errorMessage: submission.errorMessage,
+    handleSubmit: handleSubmit(submission.submitCustomer),
+    handleBack: submission.handleBack,
   };
 };
