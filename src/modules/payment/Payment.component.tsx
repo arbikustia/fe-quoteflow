@@ -6,7 +6,9 @@ import { SearchFilter } from "@/components/SearchFilter";
 import type { TableColumn } from "@/components/Table";
 import Table from "@/components/Table";
 
-import type { PaymentData, PaymentMobileCardProps, PaymentProps } from "./Payment.type";
+import { PaymentMobileCard } from "./Payment.helper";
+import type { PaymentData, PaymentProps } from "./Payment.type";
+import { createPaymentRowActionHandler } from "./Payment.util";
 
 import Layout from "@/app/layout";
 import { PageLayout } from "@/app/shared/PageLayout";
@@ -95,10 +97,7 @@ const _renderActions = (
   <div className="flex items-center justify-center gap-1">
     <button
       type="button"
-      onClick={(event: React.MouseEvent): void => {
-        event.stopPropagation();
-        onDetail(payment);
-      }}
+      onClick={createPaymentRowActionHandler(payment, onDetail)}
       className="cursor-pointer rounded-3xl p-2.5 text-text-secondary hover:bg-action-primary-subtle hover:text-action-primary"
       title="View payment detail"
       aria-label="View payment detail"
@@ -193,38 +192,6 @@ const _renderPaymentTableSkeleton = (props: PaymentProps): React.ReactElement =>
     </div>
   );
 };
-
-/**
- * Render payment card on mobile.
- * @param {PaymentMobileCardProps} props - Payment card props
- * @returns {React.ReactElement} Payment card
- */
-export const PaymentMobileCard = ({ payment, onClick }: PaymentMobileCardProps): React.ReactElement => (
-  <button
-    type="button"
-    onClick={(): void => onClick(payment)}
-    className="group block w-full min-w-0 rounded-3xl border border-border-strong bg-background-surface p-5 text-left shadow-small transition-colors hover:border-border-strong hover:bg-background-subtle/40 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-action-primary"
-  >
-    <span className="flex min-w-0 flex-wrap items-center justify-between gap-3">
-      <span className="min-w-0 break-all text-lg font-medium text-text-primary">{payment.invoiceNo}</span>
-      <span className={`rounded-full border border-current px-3 py-1 text-base font-semibold uppercase ${(payment.remainingAmount ?? 0) > 0 ? "bg-warning-subtle text-warning-strong" : "bg-success-subtle text-success-strong"}`}>
-        {payment.statusLabel || ((payment.remainingAmount ?? 0) > 0 ? "Unpaid" : "Paid")}
-      </span>
-    </span>
-    <span className="mt-4 block break-all text-xl font-semibold text-text-primary">{formatCurrency(payment.amount)}</span>
-    <span className="mt-1.5 block break-words text-lg text-text-secondary">{payment.customerName}</span>
-    <span className="mt-4 flex flex-wrap items-end justify-between gap-x-4 gap-y-3 border-t border-border-default pt-4">
-      <span className="min-w-0 text-lg text-text-secondary">
-        <span className="block text-lg text-text-tertiary">Paid at</span>
-        <span className="mt-1 block text-lg font-medium text-text-primary">{formatDate(payment.paidAt)}</span>
-      </span>
-      <span className="text-right tabular-nums">
-        <span className="block text-lg text-text-tertiary">Amount</span>
-        <span className="mt-1 block text-xl font-semibold text-text-primary">{formatCurrency(payment.amount)}</span>
-      </span>
-    </span>
-  </button>
-);
 
 /**
  * Render payment mobile card skeleton matching final card.

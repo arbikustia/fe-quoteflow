@@ -1,0 +1,386 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`PaymentDetailComponent Snapshots should render the payment detail 1`] = `
+<DocumentFragment>
+  <div>
+    <section>
+      <h1>
+        Payment Detail
+      </h1>
+      <div
+        class="relative flex h-full flex-col bg-background-page px-0 pb-18 lg:-mt-4 lg:bg-transparent lg:px-0 lg:pb-0"
+      >
+        <div
+          class="w-full space-y-4 pb-32 sm:space-y-4 lg:pb-8"
+        >
+          <section
+            class="min-w-0 overflow-hidden rounded-3xl border border-border-strong bg-background-surface shadow-small"
+          >
+            <header
+              class="border-b border-border-default px-5 py-4 sm:px-6"
+            >
+              <h2
+                class="text-xl font-bold text-text-primary sm:text-lg sm:font-semibold"
+              >
+                Payment Details
+              </h2>
+            </header>
+            <div
+              class="px-5 py-6 sm:px-6 sm:py-6"
+            >
+              <dl
+                class="grid grid-cols-1 gap-x-6 gap-y-6 sm:grid-cols-3"
+              >
+                <div
+                  class="grid min-w-0 grid-cols-[minmax(6rem,38%)_minmax(0,1fr)] items-start gap-3 border-b border-border-default/60 py-3 last:border-b-0 sm:block sm:py-3"
+                >
+                  <dt
+                    class="text-lg font-medium leading-7 text-text-secondary sm:mb-1 sm:text-lg sm:font-semibold sm:uppercase sm:tracking-wide sm:text-text-tertiary"
+                  >
+                    Invoice No
+                  </dt>
+                  <dd
+                    class="min-w-0 break-words text-right text-xl font-semibold leading-8 text-text-primary sm:text-left sm:text-lg sm:font-medium"
+                  >
+                    INV-001
+                  </dd>
+                </div>
+                <div
+                  class="grid min-w-0 grid-cols-[minmax(6rem,38%)_minmax(0,1fr)] items-start gap-3 border-b border-border-default/60 py-3 last:border-b-0 sm:block sm:py-3"
+                >
+                  <dt
+                    class="text-lg font-medium leading-7 text-text-secondary sm:mb-1 sm:text-lg sm:font-semibold sm:uppercase sm:tracking-wide sm:text-text-tertiary"
+                  >
+                    Customer Name
+                  </dt>
+                  <dd
+                    class="min-w-0 break-words text-right text-xl font-semibold leading-8 text-text-primary sm:text-left sm:text-lg sm:font-medium"
+                  >
+                    PT Example
+                  </dd>
+                </div>
+                <div
+                  class="grid min-w-0 grid-cols-[minmax(6rem,38%)_minmax(0,1fr)] items-start gap-3 border-b border-border-default/60 py-3 last:border-b-0 sm:block sm:py-3"
+                >
+                  <dt
+                    class="text-lg font-medium leading-7 text-text-secondary sm:mb-1 sm:text-lg sm:font-semibold sm:uppercase sm:tracking-wide sm:text-text-tertiary"
+                  >
+                    Grand Total
+                  </dt>
+                  <dd
+                    class="min-w-0 break-words text-right text-xl font-semibold leading-8 text-text-primary sm:text-left sm:text-lg sm:font-medium"
+                  >
+                    Rp 1.500.000
+                  </dd>
+                </div>
+                <div
+                  class="grid min-w-0 grid-cols-[minmax(6rem,38%)_minmax(0,1fr)] items-start gap-3 border-b border-border-default/60 py-3 last:border-b-0 sm:block sm:py-3"
+                >
+                  <dt
+                    class="text-lg font-medium leading-7 text-text-secondary sm:mb-1 sm:text-lg sm:font-semibold sm:uppercase sm:tracking-wide sm:text-text-tertiary"
+                  >
+                    Total Paid
+                  </dt>
+                  <dd
+                    class="min-w-0 break-words text-right text-xl font-semibold leading-8 text-text-primary sm:text-left sm:text-lg sm:font-medium"
+                  >
+                    Rp 1.500.000
+                  </dd>
+                </div>
+                <div
+                  class="grid min-w-0 grid-cols-[minmax(6rem,38%)_minmax(0,1fr)] items-start gap-3 border-b border-border-default/60 py-3 last:border-b-0 sm:block sm:py-3"
+                >
+                  <dt
+                    class="text-lg font-medium leading-7 text-text-secondary sm:mb-1 sm:text-lg sm:font-semibold sm:uppercase sm:tracking-wide sm:text-text-tertiary"
+                  >
+                    Remaining
+                  </dt>
+                  <dd
+                    class="min-w-0 break-words text-right text-xl font-semibold leading-8 text-text-primary sm:text-left sm:text-lg sm:font-medium"
+                  >
+                    Rp 0
+                  </dd>
+                </div>
+                <div
+                  class="grid min-w-0 grid-cols-[minmax(6rem,38%)_minmax(0,1fr)] items-start gap-3 border-b border-border-default/60 py-3 last:border-b-0 sm:block sm:py-3"
+                >
+                  <dt
+                    class="text-lg font-medium leading-7 text-text-secondary sm:mb-1 sm:text-lg sm:font-semibold sm:uppercase sm:tracking-wide sm:text-text-tertiary"
+                  >
+                    Status
+                  </dt>
+                  <dd
+                    class="min-w-0 break-words text-right text-xl font-semibold leading-8 text-text-primary sm:text-left sm:text-lg sm:font-medium"
+                  >
+                    Lunas
+                  </dd>
+                </div>
+              </dl>
+            </div>
+          </section>
+          <section
+            class="min-w-0 overflow-hidden rounded-3xl border border-border-strong bg-background-surface shadow-small"
+          >
+            <header
+              class="border-b border-border-default px-5 py-4 sm:px-6"
+            >
+              <h2
+                class="text-xl font-bold text-text-primary sm:text-lg sm:font-semibold"
+              >
+                Payment History (0)
+              </h2>
+            </header>
+            <div
+              class="px-5 py-5 sm:px-6"
+            >
+              <p
+                class="py-6 text-center text-lg text-text-secondary"
+              >
+                No payment recorded for this invoice.
+              </p>
+            </div>
+          </section>
+        </div>
+      </div>
+    </section>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`PaymentDetailComponent Snapshots should render the payment detail error 1`] = `
+<DocumentFragment>
+  <div>
+    <section>
+      <h1>
+        Payment Detail
+      </h1>
+      <div
+        class="relative flex h-full flex-col bg-background-page px-0 pb-18 lg:-mt-4 lg:bg-transparent lg:px-0 lg:pb-0"
+      >
+        <div
+          class="rounded-3xl border border-danger bg-danger-subtle p-5 text-lg font-medium text-danger-strong"
+          role="alert"
+        >
+          Unavailable
+        </div>
+      </div>
+    </section>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`PaymentDetailComponent Snapshots should render the payment detail skeleton 1`] = `
+<DocumentFragment>
+  <div>
+    <section>
+      <h1>
+        Payment Detail
+      </h1>
+      <div
+        class="relative flex h-full flex-col bg-background-page px-0 pb-18 lg:-mt-4 lg:bg-transparent lg:px-0 lg:pb-0"
+      >
+        <div
+          aria-label="Loading payment detail"
+          class="w-full space-y-4 pb-32 sm:space-y-4 lg:pb-8"
+          role="status"
+        >
+          <div
+            aria-hidden="true"
+            class="animate-pulse"
+          >
+            <section
+              aria-label="Loading payment overview"
+              class="min-w-0 rounded-3xl border border-border-strong bg-background-surface p-5 shadow-small sm:p-6"
+            >
+              <div
+                class="h-4 w-20 rounded-3xl bg-background-subtle"
+              />
+              <div
+                class="mt-2 flex flex-wrap items-center gap-3"
+              >
+                <div
+                  class="h-8 w-40 rounded-3xl bg-background-subtle"
+                />
+                <div
+                  class="h-7 w-24 rounded-full bg-background-subtle"
+                />
+                <div
+                  class="h-7 w-32 rounded-full bg-background-subtle"
+                />
+              </div>
+              <div
+                class="mt-4 grid grid-cols-1 gap-x-8 border-t border-border-default sm:mt-5 sm:grid-cols-2 lg:grid-cols-4"
+              >
+                <div
+                  class="grid min-w-0 grid-cols-[minmax(6rem,38%)_minmax(0,1fr)] items-start gap-3 border-b border-border-default/60 py-3 last:border-b-0 sm:block"
+                >
+                  <span
+                    class="h-5 w-20 rounded-3xl bg-background-subtle sm:h-4"
+                  />
+                  <span
+                    class="h-6 w-28 justify-self-end rounded-3xl bg-background-subtle sm:mt-1 sm:h-5 sm:justify-self-start"
+                  />
+                </div>
+                <div
+                  class="grid min-w-0 grid-cols-[minmax(6rem,38%)_minmax(0,1fr)] items-start gap-3 border-b border-border-default/60 py-3 last:border-b-0 sm:block"
+                >
+                  <span
+                    class="h-5 w-20 rounded-3xl bg-background-subtle sm:h-4"
+                  />
+                  <span
+                    class="h-6 w-28 justify-self-end rounded-3xl bg-background-subtle sm:mt-1 sm:h-5 sm:justify-self-start"
+                  />
+                </div>
+                <div
+                  class="grid min-w-0 grid-cols-[minmax(6rem,38%)_minmax(0,1fr)] items-start gap-3 border-b border-border-default/60 py-3 last:border-b-0 sm:block"
+                >
+                  <span
+                    class="h-5 w-20 rounded-3xl bg-background-subtle sm:h-4"
+                  />
+                  <span
+                    class="h-6 w-28 justify-self-end rounded-3xl bg-background-subtle sm:mt-1 sm:h-5 sm:justify-self-start"
+                  />
+                </div>
+                <div
+                  class="grid min-w-0 grid-cols-[minmax(6rem,38%)_minmax(0,1fr)] items-start gap-3 border-b border-border-default/60 py-3 last:border-b-0 sm:block"
+                >
+                  <span
+                    class="h-5 w-20 rounded-3xl bg-background-subtle sm:h-4"
+                  />
+                  <span
+                    class="h-6 w-28 justify-self-end rounded-3xl bg-background-subtle sm:mt-1 sm:h-5 sm:justify-self-start"
+                  />
+                </div>
+              </div>
+            </section>
+            <div
+              class="mt-4 grid min-w-0 grid-cols-1 items-start gap-4 sm:gap-4 lg:grid-cols-[minmax(0,2fr)_minmax(20rem,1fr)]"
+            >
+              <div
+                class="min-w-0 space-y-4 sm:space-y-4"
+              >
+                <section
+                  aria-label="Loading payment info"
+                  class="min-w-0 overflow-hidden rounded-3xl border border-border-strong bg-background-surface shadow-small"
+                >
+                  <div
+                    class="border-b border-border-default px-5 py-4 sm:px-6"
+                  >
+                    <span
+                      class="block h-6 w-40 rounded-3xl bg-background-subtle"
+                    />
+                  </div>
+                  <div
+                    class="grid grid-cols-1 gap-x-6 px-5 py-1 sm:grid-cols-2 sm:px-6 sm:py-0"
+                  >
+                    <div
+                      class="grid min-w-0 grid-cols-[minmax(6rem,38%)_minmax(0,1fr)] items-start gap-3 border-b border-border-default/60 py-3 last:border-b-0 sm:block"
+                    >
+                      <span
+                        class="h-5 w-20 rounded-3xl bg-background-subtle sm:h-4"
+                      />
+                      <span
+                        class="h-6 w-28 justify-self-end rounded-3xl bg-background-subtle sm:mt-1 sm:h-5 sm:justify-self-start"
+                      />
+                    </div>
+                    <div
+                      class="grid min-w-0 grid-cols-[minmax(6rem,38%)_minmax(0,1fr)] items-start gap-3 border-b border-border-default/60 py-3 last:border-b-0 sm:block"
+                    >
+                      <span
+                        class="h-5 w-20 rounded-3xl bg-background-subtle sm:h-4"
+                      />
+                      <span
+                        class="h-6 w-28 justify-self-end rounded-3xl bg-background-subtle sm:mt-1 sm:h-5 sm:justify-self-start"
+                      />
+                    </div>
+                    <div
+                      class="grid min-w-0 grid-cols-[minmax(6rem,38%)_minmax(0,1fr)] items-start gap-3 border-b border-border-default/60 py-3 last:border-b-0 sm:block"
+                    >
+                      <span
+                        class="h-5 w-20 rounded-3xl bg-background-subtle sm:h-4"
+                      />
+                      <span
+                        class="h-6 w-28 justify-self-end rounded-3xl bg-background-subtle sm:mt-1 sm:h-5 sm:justify-self-start"
+                      />
+                    </div>
+                    <div
+                      class="grid min-w-0 grid-cols-[minmax(6rem,38%)_minmax(0,1fr)] items-start gap-3 border-b border-border-default/60 py-3 last:border-b-0 sm:block"
+                    >
+                      <span
+                        class="h-5 w-20 rounded-3xl bg-background-subtle sm:h-4"
+                      />
+                      <span
+                        class="h-6 w-28 justify-self-end rounded-3xl bg-background-subtle sm:mt-1 sm:h-5 sm:justify-self-start"
+                      />
+                    </div>
+                    <div
+                      class="grid min-w-0 grid-cols-[minmax(6rem,38%)_minmax(0,1fr)] items-start gap-3 border-b border-border-default/60 py-3 last:border-b-0 sm:block"
+                    >
+                      <span
+                        class="h-5 w-20 rounded-3xl bg-background-subtle sm:h-4"
+                      />
+                      <span
+                        class="h-6 w-28 justify-self-end rounded-3xl bg-background-subtle sm:mt-1 sm:h-5 sm:justify-self-start"
+                      />
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <aside
+                class="min-w-0 space-y-4 sm:space-y-4"
+              >
+                <section
+                  aria-label="Loading payment summary"
+                  class="min-w-0 overflow-hidden rounded-3xl border border-border-strong bg-background-surface shadow-small"
+                >
+                  <div
+                    class="border-b border-border-default px-5 py-4 sm:px-6"
+                  >
+                    <span
+                      class="block h-6 w-40 rounded-3xl bg-background-subtle"
+                    />
+                  </div>
+                  <div
+                    class="grid grid-cols-1 gap-x-6 px-5 py-1 sm:grid-cols-2 sm:px-6 sm:py-0"
+                  >
+                    <div
+                      class="grid min-w-0 grid-cols-[minmax(6rem,38%)_minmax(0,1fr)] items-start gap-3 border-b border-border-default/60 py-3 last:border-b-0 sm:block"
+                    >
+                      <span
+                        class="h-5 w-20 rounded-3xl bg-background-subtle sm:h-4"
+                      />
+                      <span
+                        class="h-6 w-28 justify-self-end rounded-3xl bg-background-subtle sm:mt-1 sm:h-5 sm:justify-self-start"
+                      />
+                    </div>
+                    <div
+                      class="grid min-w-0 grid-cols-[minmax(6rem,38%)_minmax(0,1fr)] items-start gap-3 border-b border-border-default/60 py-3 last:border-b-0 sm:block"
+                    >
+                      <span
+                        class="h-5 w-20 rounded-3xl bg-background-subtle sm:h-4"
+                      />
+                      <span
+                        class="h-6 w-28 justify-self-end rounded-3xl bg-background-subtle sm:mt-1 sm:h-5 sm:justify-self-start"
+                      />
+                    </div>
+                    <div
+                      class="grid min-w-0 grid-cols-[minmax(6rem,38%)_minmax(0,1fr)] items-start gap-3 border-b border-border-default/60 py-3 last:border-b-0 sm:block"
+                    >
+                      <span
+                        class="h-5 w-20 rounded-3xl bg-background-subtle sm:h-4"
+                      />
+                      <span
+                        class="h-6 w-28 justify-self-end rounded-3xl bg-background-subtle sm:mt-1 sm:h-5 sm:justify-self-start"
+                      />
+                    </div>
+                  </div>
+                </section>
+              </aside>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</DocumentFragment>
+`;

@@ -2,24 +2,45 @@ import type { SyntheticEvent } from "react";
 import { useState } from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 
-import { formatPaymentPaidAt } from "../create/PaymentCreate.helpers";
+import { formatPaymentPaidAt } from "../create/PaymentCreate.util";
 import type { PaymentData } from "../Payment.type";
 
-import type { PaymentStatusFormProps } from "./PaymentStatus.type";
+import type { PaymentStatusFormProps, PaymentStatusSubmitState, PaymentStatusUpdatePayload } from "./PaymentStatus.type";
 
 import { useUpdatePaymentMutation } from "@/services/payment.service";
+
+const UPDATE_ERROR = "Unable to update payment status.";
+
+/**
+ * Build the update payload that keeps the payment fields and only changes its status.
+ * @param {PaymentData} payment - Payment data
+ * @param {string} id - Payment ID
+ * @param {boolean} isActive - Target active status
+ * @returns {PaymentStatusUpdatePayload} - Update payload
+ */
+const _buildStatusPayload = (payment: PaymentData, id: string, isActive: boolean): PaymentStatusUpdatePayload => ({
+  id,
+  invoice_id: payment.invoiceId,
+  payment_method_id: payment.paymentMethodId,
+  amount: payment.amount,
+  paid_at: formatPaymentPaidAt(payment.paidAt),
+  reference_no: payment.referenceNo,
+  notes: payment.notes,
+  status: isActive ? 1 : 0,
+});
 
 /**
  * Manage payment status submission.
  * @param {PaymentData | null} payment - Payment data
  * @param {string} [id] - Payment ID
- * @returns {{isSubmitting: boolean; submissionError: string | null; submit: (isActive: boolean) => Promise<string | null>}} Submission state
+ * @returns {PaymentStatusSubmitState} - Submission state and submit function
  */
 const usePaymentStatusSubmit = (
   payment: PaymentData | null,
   id?: string,
-): { isSubmitting: boolean; submissionError: string | null; submit: (isActive: boolean) => Promise<string | null> } => {
-  const [updatePayment, { isLoading: isSubmitting }] = useUpdatePaymentMutation(); const [submissionError, setSubmissionError] = useState<string | null>(null);
+): PaymentStatusSubmitState => {
+  const [updatePayment, { isLoading: isSubmitting }] = useUpdatePaymentMutation();
+  const [submissionError, setSubmissionError] = useState<string | null>(null);
 
   /**
    * Submit payment status update.
@@ -36,30 +57,16 @@ const usePaymentStatusSubmit = (
     }
 
     try {
-      const response = await updatePayment({
-        id,
-        invoice_id: payment.invoiceId,
-        payment_method_id: payment.paymentMethodId,
-        amount: payment.amount,
-        paid_at: formatPaymentPaidAt(payment.paidAt),
-        reference_no: payment.referenceNo,
-        notes: payment.notes,
-        status: isActive ? 1 : 0,
-      }).unwrap();
+      const response = await updatePayment(_buildStatusPayload(payment, id, isActive)).unwrap();
+      const message = response.status ? null : response.messages.join(" ") || UPDATE_ERROR;
 
-      if (!response.status) {
-        const message = response.messages.join(" ") || "Unable to update payment status.";
+      setSubmissionError(message);
 
-        setSubmissionError(message);
-
-        return message;
-      }
-
-      return null;
+      return message;
     } catch {
-      setSubmissionError("Unable to update payment status.");
+      setSubmissionError(UPDATE_ERROR);
 
-      return "Unable to update payment status.";
+      return UPDATE_ERROR;
     }
   };
 
@@ -88,7 +95,10 @@ export const usePaymentStatusForm = (): PaymentStatusFormProps => {
    */
   const handleStatusChange = (checked: boolean): void => setSelectedStatus(checked);
 
-  /** Navigate back to payment list. @returns {void} No return value */
+  /**
+   * Navigate back to the payment list.
+   * @returns {void} - Nothing
+   */
   const goBack = (): void => { void navigate("/document/payment"); };
 
   /**

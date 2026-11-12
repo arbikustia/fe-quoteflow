@@ -216,3 +216,17 @@ export type PaymentDetailState = {
   goBack: () => void;
   handleStatus: () => void;
 };
+
+export type PaymentNavigation = Pick<PaymentProps, "onBack" | "onCreate" | "onDetail" | "onRowClick">;
+
+export type PaymentRowAction = (payment: PaymentData) => void;
+
+export type PaymentSubmitState = {
+  isSubmitting: boolean;
+  errorMessage: string | null;
+  submit: (values: PaymentCreatePayload, referenceNo: string, amountLimit: PaymentAmountLimit | null) => Promise<string | null>;
+};
+
+export type PaymentDetailNavigation = Pick<PaymentDetailState, "goBack" | "handleStatus">;
+
+export type PaymentDetailRouteState = { payment?: PaymentData } | PaymentData | null;

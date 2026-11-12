@@ -2,12 +2,6 @@ import { NON_DIGIT_PATTERN } from "@/constants/regex.constant";
 
 import type { ApiPaymentSummary, PaymentAmountLimit, PaymentInvoiceOption, PaymentRequiredFields } from "../Payment.type";
 
-export const PAYMENT_STATUS_OPTIONS = [
-  { value: "1", label: "DP" },
-  { value: "2", label: "Partial" },
-  { value: "3", label: "Pelunasan" },
-];
-
 /**
  * Convert formatted Rupiah input into digit-only value.
  * @param {string} value - Formatted input value

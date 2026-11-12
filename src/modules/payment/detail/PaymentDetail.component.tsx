@@ -4,63 +4,8 @@ import type { ApiPaymentSummaryPayment, PaymentData, PaymentDetailState, Payment
 
 import Layout from "@/app/layout";
 import { PageLayout } from "@/app/shared/PageLayout";
-import { formatCurrency, formatDate } from "@/modules/quotation/detail/QuotationDetail.util";
 import { renderDetailField } from "@/modules/quotation/detail/QuotationDetail.helper";
-
-/**
- * Render payment overview summary fields.
- * @param {PaymentData} payment - Payment row
- * @returns {ReactElement} Summary fields
- */
-const _renderOverviewFields = (payment: PaymentData): ReactElement => (
-  <dl className="mt-4 grid grid-cols-1 gap-x-8 border-t border-border-default sm:mt-5 sm:grid-cols-2 lg:grid-cols-4">
-    {renderDetailField("Customer Name", payment.customerName)}
-    {renderDetailField("Grand Total", formatCurrency(payment.grandTotal ?? 0))}
-    {renderDetailField("Total Paid", formatCurrency(payment.amount))}
-    {renderDetailField("Remaining", formatCurrency(payment.remainingAmount ?? 0))}
-  </dl>
-);
-
-/**
- * Render payment overview card matching quotation overview.
- * @param {PaymentData} payment - Payment row
- * @param {string | undefined} methodName - Method name
- * @returns {ReactElement} Payment overview
- */
-const _renderPaymentOverview = (
-  payment: PaymentData,
-  methodName?: string,
-): ReactElement => {
-  const isSettled = (payment.remainingAmount ?? 0) <= 0;
-
-  return (
-    <section className="min-w-0 rounded-3xl border border-border-strong bg-background-surface p-5 shadow-small sm:p-6">
-      <div className="flex min-w-0 flex-col gap-3 sm:flex-row sm:items-start sm:justify-between sm:gap-4">
-        <div className="min-w-0">
-          <p className="text-lg font-semibold uppercase tracking-widest text-text-tertiary">Invoice</p>
-          <div className="mt-1 flex flex-wrap items-center gap-3">
-            <h2 className="break-all text-2xl font-bold tracking-tight text-text-primary sm:break-words lg:text-3xl">
-              {payment.invoiceNo}
-            </h2>
-            {methodName && (
-              <span className="inline-flex w-fit rounded-full bg-action-primary-subtle px-3.5 py-1 text-lg font-bold uppercase tracking-wide text-action-primary">
-                {methodName}
-              </span>
-            )}
-            <span
-              className={`inline-flex w-fit shrink-0 rounded-full px-3.5 py-1 text-lg font-semibold ${
-                isSettled ? "bg-success-subtle text-success-strong" : "bg-warning-subtle text-warning-strong"
-              }`}
-            >
-              {payment.statusLabel || (isSettled ? "Paid" : "Unpaid")}
-            </span>
-          </div>
-        </div>
-      </div>
-      {_renderOverviewFields(payment)}
-    </section>
-  );
-};
+import { formatCurrency, formatDate } from "@/modules/quotation/detail/QuotationDetail.util";
 
 /**
  * Render loading description field aligned with detail fields.

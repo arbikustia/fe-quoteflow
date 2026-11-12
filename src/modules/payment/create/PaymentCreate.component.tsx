@@ -16,12 +16,12 @@ import type {
   PaymentSelectFieldConfig,
 } from "../Payment.type";
 
+import { PAYMENT_STATUS_OPTIONS } from "./PaymentCreate.config";
 import {
   formatRupiahInput,
   getAmountLimitMessage,
   parseRupiahInput,
-  PAYMENT_STATUS_OPTIONS,
-} from "./PaymentCreate.helpers";
+} from "./PaymentCreate.util";
 
 /**
  * Render mobile top back bar.

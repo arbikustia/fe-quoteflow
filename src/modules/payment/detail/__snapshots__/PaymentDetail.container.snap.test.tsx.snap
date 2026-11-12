@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`PaymentDetailContainer Snapshots should render the module component 1`] = `
+<DocumentFragment>
+  <div>
+    PaymentDetailContainer rendered
+  </div>
+</DocumentFragment>
+`;

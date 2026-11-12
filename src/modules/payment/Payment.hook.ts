@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-import type { PaymentData, PaymentPagination, PaymentProps } from "./Payment.type";
+import type { PaymentData, PaymentNavigation, PaymentPagination } from "./Payment.type";
 
 import { mapPaymentSummary, useGetPaymentsQuery } from "@/services/payment.service";
 
@@ -29,19 +29,21 @@ export const usePaymentPagination = (): PaymentPagination => {
   if (isEnvelopeError) errorMessage = "Payment data is unavailable.";
 
   /**
-   *
-   * @param {number} page - page number
-   * @returns {void} - changes page
+   * Go to a page bounded by the total page count.
+   * @param {number} page - Requested page number
+   * @returns {void} - Nothing
    */
   const goToPage = (page: number): void => setCurrentPage(Math.max(1, Math.min(page, totalPages)));
   /**
-   *
-   * @param {number} size - page size
+   * Change the page size and reset to the first page.
+   * @param {number} size - Requested page size
+   * @returns {void} - Nothing
    */
   const changePageSize = (size: number): void => { setPageSize(size); setCurrentPage(1); };
   /**
-   *
-   * @param {string} value - value
+   * Set the search term and reset to the first page.
+   * @param {string} value - Search term
+   * @returns {void} - Nothing
    */
   const setSearchTerm = (value: string): void => { setSearchTermState(value); setCurrentPage(1); };
 
@@ -54,26 +56,30 @@ export const usePaymentPagination = (): PaymentPagination => {
 
 /**
  * Provide payment page navigation.
- * @returns {Pick<PaymentProps, "onBack" | "onCreate" | "onDetail" | "onRowClick">} - navigation callbacks
+ * @returns {PaymentNavigation} - Navigation callbacks
  */
-export const usePaymentNavigation = (): Pick<PaymentProps, "onBack" | "onCreate" | "onDetail" | "onRowClick"> => {
+export const usePaymentNavigation = (): PaymentNavigation => {
   const navigate = useNavigate();
   /**
-   *
+   * Navigate back to the document menu.
+   * @returns {void} - Nothing
    */
   const onBack = (): void => { void navigate("/document"); };
   /**
-   *
+   * Navigate to the payment create form.
+   * @returns {void} - Nothing
    */
   const onCreate = (): void => { void navigate("/document/payment/create"); };
   /**
-   *
-   * @param {PaymentData} payment - payment
+   * Navigate to the payment detail.
+   * @param {PaymentData} payment - Selected payment
+   * @returns {void} - Nothing
    */
   const onDetail = (payment: PaymentData): void => { void navigate(`/document/payment/${payment.invoiceNo}`, { state: payment }); };
   /**
-   *
-   * @param {PaymentData} payment - payment
+   * Open the detail of the clicked payment row.
+   * @param {PaymentData} payment - Selected payment
+   * @returns {void} - Nothing
    */
   const onRowClick = (payment: PaymentData): void => { onDetail(payment); };
 

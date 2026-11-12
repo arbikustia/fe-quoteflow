@@ -1,6 +1,6 @@
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 
-import type { PaymentData, PaymentDetailState } from "../Payment.type";
+import type { PaymentData, PaymentDetailNavigation, PaymentDetailRouteState, PaymentDetailState } from "../Payment.type";
 
 import {
   mapPaymentSummary,
@@ -12,17 +12,23 @@ import {
  * Manage payment detail navigation.
  * @param {PaymentData | null} payment - Payment data
  * @param {string} [id] - Payment ID
- * @returns {Pick<PaymentDetailState, "goBack" | "handleStatus">} Navigation handlers
+ * @returns {PaymentDetailNavigation} - Navigation handlers
  */
 const usePaymentDetailNavigation = (
   payment: PaymentData | null,
   id?: string,
-): Pick<PaymentDetailState, "goBack" | "handleStatus"> => {
+): PaymentDetailNavigation => {
   const navigate = useNavigate();
 
-  /** Navigate back. @returns {void} No return value */
+  /**
+   * Navigate back to the payment list.
+   * @returns {void} - Nothing
+   */
   const goBack = (): void => { void navigate("/document/payment"); };
-  /** Navigate to status. @returns {void} No return value */
+  /**
+   * Navigate to the payment status form.
+   * @returns {void} - Nothing
+   */
   const handleStatus = (): void => {
     if (id && payment) void navigate(`/document/payment/${id}/status`, { state: payment });
   };
@@ -37,7 +43,7 @@ const usePaymentDetailNavigation = (
 export const usePaymentDetail = (): PaymentDetailState => {
   const location = useLocation();
   const { id } = useParams<{ id: string }>();
-  const routeState = location.state as { payment?: PaymentData } | PaymentData | null;
+  const routeState = location.state as PaymentDetailRouteState;
   const initialPayment = routeState && "id" in routeState ? routeState : routeState?.payment ?? null;
 
   const invoiceNo = id ?? "";

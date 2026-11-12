@@ -2,9 +2,9 @@ import type { SyntheticEvent } from "react";
 import { useState } from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 
-import type { PaymentAmountLimit, PaymentCreateFormState, PaymentCreatePayload, PaymentData, PaymentInvoiceSelection } from "../Payment.type";
+import type { PaymentAmountLimit, PaymentCreateFormState, PaymentCreatePayload, PaymentData, PaymentInvoiceSelection, PaymentSubmitState } from "../Payment.type";
 
-import { formatPaymentPaidAt, getInvoiceGrandTotal, getInvoiceRemainingAmount, getPaymentAmountLimit, validateRequiredPaymentFields } from "./PaymentCreate.helpers";
+import { formatPaymentPaidAt, getInvoiceGrandTotal, getInvoiceRemainingAmount, getPaymentAmountLimit, validateRequiredPaymentFields } from "./PaymentCreate.util";
 
 import { useCreatePaymentMutation, useGetAllInvoicesQuery, useGetAllPaymentMethodsQuery, useGetPaymentsQuery, useUpdatePaymentMutation } from "@/services/payment.service";
 
@@ -39,13 +39,9 @@ const _validatePayload = (values: PaymentCreatePayload, referenceNo: string, amo
 /**
  * Manage payment form submission.
  * @param {string} [id] - Payment ID for edit mode
- * @returns {{isSubmitting: boolean; errorMessage: string | null; submit: (values: PaymentCreatePayload, referenceNo: string, amountLimit: PaymentAmountLimit | null) => Promise<string | null>}} Submission state
+ * @returns {PaymentSubmitState} - Submission state and submit function
  */
-const usePaymentSubmit = (id?: string): {
-  isSubmitting: boolean;
-  errorMessage: string | null;
-  submit: (values: PaymentCreatePayload, referenceNo: string, amountLimit: PaymentAmountLimit | null) => Promise<string | null>;
-} => {
+const usePaymentSubmit = (id?: string): PaymentSubmitState => {
   const [createPayment, { isLoading: isCreating }] = useCreatePaymentMutation();
   const [updatePayment, { isLoading: isUpdating }] = useUpdatePaymentMutation();
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
@@ -124,31 +120,24 @@ export const usePaymentCreate = (): PaymentCreateFormState => {
   const location = useLocation();
   const { id } = useParams<{ id: string }>();
   const routePayment = location.state as PaymentData | null;
-  const paymentMethodQuery = useGetAllPaymentMethodsQuery(); const submission = usePaymentSubmit(id);
+  const paymentMethodQuery = useGetAllPaymentMethodsQuery();
+  const submission = usePaymentSubmit(id);
   const [invoiceId, setInvoiceId] = useState(routePayment?.invoiceId ?? "");
   const [paymentMethodId, setPaymentMethodId] = useState(routePayment?.paymentMethodId ?? "");
   const [status, setStatus] = useState<string>(routePayment?.paymentStatus ? String(routePayment.paymentStatus) : "");
-  const [amount, setAmountState] = useState<number | null>(routePayment?.amount ?? null);
+  const [amount, setAmount] = useState<number | null>(routePayment?.amount ?? null);
   const [paidAt, setPaidAt] = useState(routePayment?.paidAt ? routePayment.paidAt.slice(0, 16) : "");
   const [referenceNo, setReferenceNo] = useState(routePayment?.referenceNo ?? "");
   const [notes, setNotes] = useState(routePayment?.notes ?? "");
   const [isActive, setIsActive] = useState(routePayment?.status === "active");
-  const [isSubmitted] = useState(false); const { invoices, selectedInvoice, grandTotal, amountLimit, isLoading: isLoadingInvoices } = useInvoiceSelection(invoiceId, Boolean(id));
-  const paymentMethods = paymentMethodQuery.data?.status ? paymentMethodQuery.data.data : []; const isEditMode = Boolean(id);
+  const { invoices, selectedInvoice, grandTotal, amountLimit, isLoading: isLoadingInvoices } = useInvoiceSelection(invoiceId, Boolean(id));
+  const paymentMethods = paymentMethodQuery.data?.status ? paymentMethodQuery.data.data : [];
+  const isEditMode = Boolean(id);
   /**
-   * Set payment amount.
-   * @param {number | null} value - Amount
-   * @returns {void} No return value
+   * Return to the previous page.
+   * @returns {void} - Nothing
    */
-  const setAmount = (value: number | null): void => setAmountState(value);
-  /** Return to previous page. @returns {void} No return value */
   const goBack = (): void => { void navigate(-1); };
-  /**
-   * Change payment status.
-   * @param {boolean} value - Selected status
-   * @returns {void} No return value
-   */
-  const handleStatusChange = (value: boolean): void => setIsActive(value);
 
   /**
    * Submit payment form.
@@ -174,5 +163,5 @@ export const usePaymentCreate = (): PaymentCreateFormState => {
     void navigate("/document/payment", { state: { successMessage: isEditMode ? "Payment updated successfully." : "Payment created successfully." } });
   };
 
-  return { id, isEditMode, isActive, invoices, paymentMethods, selectedInvoice, grandTotal, amountLimit, invoiceId, paymentMethodId, status, amount, paidAt, referenceNo, notes, isLoadingOptions: isLoadingInvoices || paymentMethodQuery.isLoading, isSubmitting: submission.isSubmitting, errorMessage: submission.errorMessage, isSubmitted, handleSubmit, setInvoiceId, setPaymentMethodId, setStatus, setAmount, setPaidAt, setReferenceNo, setNotes, goBack, handleStatusChange };
+  return { id, isEditMode, isActive, invoices, paymentMethods, selectedInvoice, grandTotal, amountLimit, invoiceId, paymentMethodId, status, amount, paidAt, referenceNo, notes, isLoadingOptions: isLoadingInvoices || paymentMethodQuery.isLoading, isSubmitting: submission.isSubmitting, errorMessage: submission.errorMessage, isSubmitted: false, handleSubmit, setInvoiceId, setPaymentMethodId, setStatus, setAmount, setPaidAt, setReferenceNo, setNotes, goBack, handleStatusChange: setIsActive };
 };

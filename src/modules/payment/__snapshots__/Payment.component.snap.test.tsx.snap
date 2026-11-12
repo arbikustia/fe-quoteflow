@@ -1,0 +1,2064 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`PaymentComponent Snapshots should render the empty payment list 1`] = `
+<DocumentFragment>
+  <div>
+    <section>
+      <h1>
+        Payment List
+      </h1>
+      <div
+        class="relative flex h-full flex-col bg-background-page px-0 pb-18 lg:-mt-4 lg:bg-transparent lg:px-0 lg:pb-0"
+      >
+        <div
+          class="flex min-w-0 flex-col gap-4 pb-16 pt-2 lg:hidden"
+        >
+          <label
+            class="relative block w-full sm:w-72 w-full sm:w-full"
+          >
+            <span
+              class="sr-only"
+            >
+              Search payment
+            </span>
+            <svg
+              aria-hidden="true"
+              class="pointer-events-none absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-text-tertiary"
+              fill="none"
+              height="1em"
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              viewBox="0 0 24 24"
+              width="1em"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <circle
+                cx="11"
+                cy="11"
+                r="8"
+              />
+              <line
+                x1="21"
+                x2="16.65"
+                y1="21"
+                y2="16.65"
+              />
+            </svg>
+            <input
+              aria-label="Search payment"
+              class="h-14 w-full rounded-full border border-border-default bg-background-surface pl-12 pr-4 text-base font-medium text-text-primary outline-none transition-colors placeholder:font-normal placeholder:text-text-tertiary hover:border-border-strong focus:border-border-focus focus:ring-2 focus:ring-focus-ring/30 !h-16 text-xl placeholder:text-xl"
+              placeholder="Search payment"
+              type="search"
+            />
+          </label>
+          <div
+            class="flex min-w-0 flex-col gap-4"
+          >
+            <p
+              class="py-10 text-center text-lg text-text-secondary"
+            >
+              No payments found.
+            </p>
+          </div>
+          <div
+            class="flex flex-col gap-3 py-4 w-full rounded-3xl border border-border-default bg-background-surface px-5 py-4 shadow-xs"
+          >
+            <div
+              class="flex w-full items-center justify-between gap-2 overflow-x-auto"
+            >
+              <div
+                class="flex shrink-0 items-center gap-1.5 sm:gap-2"
+              >
+                <p
+                  class="whitespace-nowrap text-xs text-text-secondary sm:text-sm"
+                >
+                  Show 1/10 data
+                </p>
+                <div
+                  class="relative w-24 shrink-0"
+                >
+                  <label
+                    class="mb-1.5 block text-sm font-semibold text-text-secondary sr-only"
+                    for="documents-per-page"
+                  >
+                    Documents per page
+                  </label>
+                  <div
+                    class="ant-select ant-select-outlined h-14 w-full !border-2 [&_.ant-select-selector]:!rounded-2xl [&_.ant-select-content]:!text-xl [&_.ant-select-content]:!font-normal !border-border-strong [&_.ant-select-selector]:!border-2 [&_.ant-select-selector]:!border-border-strong  css-var-root ant-select-css-var css-dev-only-do-not-override-eofgey ant-select-single ant-select-show-arrow ant-select-show-search"
+                    style="--ant-select-border-radius: 16px; border: 2px solid var(--border-strong);"
+                  >
+                    <div
+                      class="ant-select-content ant-select-content-has-value"
+                      title="10"
+                    >
+                      10
+                      <input
+                        aria-autocomplete="list"
+                        aria-expanded="false"
+                        aria-haspopup="listbox"
+                        aria-invalid="false"
+                        aria-label="Documents per page"
+                        autocomplete="new-password"
+                        class="ant-select-input"
+                        id="documents-per-page"
+                        role="combobox"
+                        type="text"
+                        value=""
+                      />
+                    </div>
+                    <div
+                      class="ant-select-suffix"
+                    >
+                      <span
+                        aria-label="down"
+                        class="anticon anticon-down"
+                        role="img"
+                      >
+                        <svg
+                          aria-hidden="true"
+                          data-icon="down"
+                          fill="currentColor"
+                          focusable="false"
+                          height="1em"
+                          viewBox="64 64 896 896"
+                          width="1em"
+                        >
+                          <path
+                            d="M884 256h-75c-5.1 0-9.9 2.5-12.9 6.6L512 654.2 227.9 262.6c-3-4.1-7.8-6.6-12.9-6.6h-75c-6.5 0-10.3 7.4-6.5 12.7l352.6 486.1c12.8 17.6 39 17.6 51.7 0l352.6-486.1c3.9-5.3.1-12.7-6.4-12.7z"
+                          />
+                        </svg>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div
+                class="flex shrink-0 items-center justify-end gap-1 sm:gap-2"
+              >
+                <button
+                  aria-label="Previous"
+                  class="flex h-10 items-center justify-center gap-1 rounded-xl border border-border-default text-sm font-semibold transition-colors w-10 cursor-not-allowed bg-background-disabled text-text-disabled"
+                  disabled=""
+                  type="button"
+                >
+                  <svg
+                    class="h-5 w-3.5 sm:h-5 sm:w-5"
+                    fill="none"
+                    height="1em"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    viewBox="0 0 24 24"
+                    width="1em"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <polyline
+                      points="15 18 9 12 15 6"
+                    />
+                  </svg>
+                  <span
+                    class="sr-only"
+                  >
+                    Previous
+                  </span>
+                </button>
+                <div
+                  class="flex min-w-0 items-center justify-center gap-1"
+                >
+                  <button
+                    aria-current="page"
+                    class="flex h-10 w-10 items-center justify-center rounded-xl text-sm font-semibold transition-colors bg-action-primary text-text-inverse shadow-sm"
+                    type="button"
+                  >
+                    1
+                  </button>
+                </div>
+                <button
+                  aria-label="Next"
+                  class="flex h-10 items-center justify-center gap-1 rounded-xl border border-border-default text-sm font-semibold transition-colors w-10 cursor-not-allowed bg-background-disabled text-text-disabled"
+                  disabled=""
+                  type="button"
+                >
+                  <span
+                    class="sr-only"
+                  >
+                    Next
+                  </span>
+                  <svg
+                    class="h-5 w-3.5 sm:h-5 sm:w-5"
+                    fill="none"
+                    height="1em"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    viewBox="0 0 24 24"
+                    width="1em"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <polyline
+                      points="9 18 15 12 9 6"
+                    />
+                  </svg>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          class="hidden rounded-3xl border border-border-default bg-background-surface px-6 pb-6 pt-0 shadow-xs md:mt-6 md:flex md:flex-1 md:flex-col md:overflow-hidden lg:flex"
+        >
+          <div
+            class="flex items-center justify-between gap-4 border-b border-border-default py-6"
+          >
+            <label
+              class="relative block w-full sm:w-72 "
+            >
+              <span
+                class="sr-only"
+              >
+                Search payment
+              </span>
+              <svg
+                aria-hidden="true"
+                class="pointer-events-none absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-text-tertiary"
+                fill="none"
+                height="1em"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+                width="1em"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <circle
+                  cx="11"
+                  cy="11"
+                  r="8"
+                />
+                <line
+                  x1="21"
+                  x2="16.65"
+                  y1="21"
+                  y2="16.65"
+                />
+              </svg>
+              <input
+                aria-label="Search payment"
+                class="h-14 w-full rounded-full border border-border-default bg-background-surface pl-12 pr-4 text-base font-medium text-text-primary outline-none transition-colors placeholder:font-normal placeholder:text-text-tertiary hover:border-border-strong focus:border-border-focus focus:ring-2 focus:ring-focus-ring/30 text-lg placeholder:text-lg"
+                placeholder="Search payment"
+                type="search"
+              />
+            </label>
+            <button
+              class="h-14 rounded-3xl bg-action-primary px-6 text-lg font-semibold text-text-inverse hover:bg-action-primary-hover"
+              type="button"
+            >
+              Create Payment
+            </button>
+          </div>
+          <div
+            class="flex-1 overflow-auto"
+          >
+            <p
+              class="py-10 text-center text-lg text-text-secondary"
+            >
+              No payments found.
+            </p>
+          </div>
+          <div
+            class="flex flex-col gap-3 py-4 pt-4"
+          >
+            <div
+              class="flex w-full items-center justify-between gap-2 overflow-x-auto"
+            >
+              <div
+                class="flex shrink-0 items-center gap-1.5 sm:gap-2"
+              >
+                <p
+                  class="whitespace-nowrap text-xs text-text-secondary sm:text-sm"
+                >
+                  Show 1/10 data
+                </p>
+                <div
+                  class="relative w-[180px] sm:w-auto sm:min-w-[100px] shrink-0"
+                >
+                  <label
+                    class="mb-1.5 block text-sm font-semibold text-text-secondary sr-only"
+                    for="documents-per-page"
+                  >
+                    Documents per page
+                  </label>
+                  <div
+                    class="ant-select ant-select-outlined h-14 w-full !border-2 [&_.ant-select-selector]:!rounded-2xl [&_.ant-select-content]:!text-xl [&_.ant-select-content]:!font-normal !border-border-strong [&_.ant-select-selector]:!border-2 [&_.ant-select-selector]:!border-border-strong  css-var-root ant-select-css-var css-dev-only-do-not-override-eofgey ant-select-single ant-select-show-arrow ant-select-show-search"
+                    style="--ant-select-border-radius: 16px; border: 2px solid var(--border-strong);"
+                  >
+                    <div
+                      class="ant-select-content ant-select-content-has-value"
+                      title="10"
+                    >
+                      10
+                      <input
+                        aria-autocomplete="list"
+                        aria-expanded="false"
+                        aria-haspopup="listbox"
+                        aria-invalid="false"
+                        aria-label="Documents per page"
+                        autocomplete="new-password"
+                        class="ant-select-input"
+                        id="documents-per-page"
+                        role="combobox"
+                        type="text"
+                        value=""
+                      />
+                    </div>
+                    <div
+                      class="ant-select-suffix"
+                    >
+                      <span
+                        aria-label="down"
+                        class="anticon anticon-down"
+                        role="img"
+                      >
+                        <svg
+                          aria-hidden="true"
+                          data-icon="down"
+                          fill="currentColor"
+                          focusable="false"
+                          height="1em"
+                          viewBox="64 64 896 896"
+                          width="1em"
+                        >
+                          <path
+                            d="M884 256h-75c-5.1 0-9.9 2.5-12.9 6.6L512 654.2 227.9 262.6c-3-4.1-7.8-6.6-12.9-6.6h-75c-6.5 0-10.3 7.4-6.5 12.7l352.6 486.1c12.8 17.6 39 17.6 51.7 0l352.6-486.1c3.9-5.3.1-12.7-6.4-12.7z"
+                          />
+                        </svg>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div
+                class="flex shrink-0 items-center justify-end gap-1 sm:gap-2"
+              >
+                <button
+                  aria-label="Previous"
+                  class="flex h-10 items-center justify-center gap-1 rounded-xl border border-border-default text-sm font-semibold transition-colors px-3 sm:px-4 cursor-not-allowed bg-background-disabled text-text-disabled"
+                  disabled=""
+                  type="button"
+                >
+                  <svg
+                    class="h-5 w-3.5 sm:h-5 sm:w-5"
+                    fill="none"
+                    height="1em"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    viewBox="0 0 24 24"
+                    width="1em"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <polyline
+                      points="15 18 9 12 15 6"
+                    />
+                  </svg>
+                  <span
+                    class="hidden sm:inline"
+                  >
+                    Previous
+                  </span>
+                </button>
+                <div
+                  class="flex min-w-0 items-center justify-center gap-1"
+                >
+                  <button
+                    aria-current="page"
+                    class="flex h-10 w-10 items-center justify-center rounded-xl text-sm font-semibold transition-colors bg-action-primary text-text-inverse shadow-sm"
+                    type="button"
+                  >
+                    1
+                  </button>
+                </div>
+                <button
+                  aria-label="Next"
+                  class="flex h-10 items-center justify-center gap-1 rounded-xl border border-border-default text-sm font-semibold transition-colors px-3 sm:px-4 cursor-not-allowed bg-background-disabled text-text-disabled"
+                  disabled=""
+                  type="button"
+                >
+                  <span
+                    class="hidden sm:inline"
+                  >
+                    Next
+                  </span>
+                  <svg
+                    class="h-5 w-3.5 sm:h-5 sm:w-5"
+                    fill="none"
+                    height="1em"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    viewBox="0 0 24 24"
+                    width="1em"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <polyline
+                      points="9 18 15 12 9 6"
+                    />
+                  </svg>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`PaymentComponent Snapshots should render the payment list 1`] = `
+<DocumentFragment>
+  <div>
+    <section>
+      <h1>
+        Payment List
+      </h1>
+      <div
+        class="relative flex h-full flex-col bg-background-page px-0 pb-18 lg:-mt-4 lg:bg-transparent lg:px-0 lg:pb-0"
+      >
+        <div
+          class="flex min-w-0 flex-col gap-4 pb-16 pt-2 lg:hidden"
+        >
+          <label
+            class="relative block w-full sm:w-72 w-full sm:w-full"
+          >
+            <span
+              class="sr-only"
+            >
+              Search payment
+            </span>
+            <svg
+              aria-hidden="true"
+              class="pointer-events-none absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-text-tertiary"
+              fill="none"
+              height="1em"
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              viewBox="0 0 24 24"
+              width="1em"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <circle
+                cx="11"
+                cy="11"
+                r="8"
+              />
+              <line
+                x1="21"
+                x2="16.65"
+                y1="21"
+                y2="16.65"
+              />
+            </svg>
+            <input
+              aria-label="Search payment"
+              class="h-14 w-full rounded-full border border-border-default bg-background-surface pl-12 pr-4 text-base font-medium text-text-primary outline-none transition-colors placeholder:font-normal placeholder:text-text-tertiary hover:border-border-strong focus:border-border-focus focus:ring-2 focus:ring-focus-ring/30 !h-16 text-xl placeholder:text-xl"
+              placeholder="Search payment"
+              type="search"
+            />
+          </label>
+          <div
+            class="flex min-w-0 flex-col gap-4"
+          >
+            <button
+              class="group block w-full min-w-0 rounded-3xl border border-border-strong bg-background-surface p-5 text-left shadow-small transition-colors hover:border-border-strong hover:bg-background-subtle/40 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-action-primary"
+              type="button"
+            >
+              <span
+                class="flex min-w-0 flex-wrap items-center justify-between gap-3"
+              >
+                <span
+                  class="min-w-0 break-all text-lg font-medium text-text-primary"
+                >
+                  INV-001
+                </span>
+                <span
+                  class="rounded-full border border-current px-3 py-1 text-base font-semibold uppercase bg-success-subtle text-success-strong"
+                >
+                  Paid
+                </span>
+              </span>
+              <span
+                class="mt-4 block break-all text-xl font-semibold text-text-primary"
+              >
+                Rp 1.000.000
+              </span>
+              <span
+                class="mt-1.5 block break-words text-lg text-text-secondary"
+              >
+                ADE PUTRI
+              </span>
+              <span
+                class="mt-4 flex flex-wrap items-end justify-between gap-x-4 gap-y-3 border-t border-border-default pt-4"
+              >
+                <span
+                  class="min-w-0 text-lg text-text-secondary"
+                >
+                  <span
+                    class="block text-lg text-text-tertiary"
+                  >
+                    Paid at
+                  </span>
+                  <span
+                    class="mt-1 block text-lg font-medium text-text-primary"
+                  >
+                    1 Nov 2026
+                  </span>
+                </span>
+                <span
+                  class="text-right tabular-nums"
+                >
+                  <span
+                    class="block text-lg text-text-tertiary"
+                  >
+                    Amount
+                  </span>
+                  <span
+                    class="mt-1 block text-xl font-semibold text-text-primary"
+                  >
+                    Rp 1.000.000
+                  </span>
+                </span>
+              </span>
+            </button>
+          </div>
+          <div
+            class="flex flex-col gap-3 py-4 w-full rounded-3xl border border-border-default bg-background-surface px-5 py-4 shadow-xs"
+          >
+            <div
+              class="flex w-full items-center justify-between gap-2 overflow-x-auto"
+            >
+              <div
+                class="flex shrink-0 items-center gap-1.5 sm:gap-2"
+              >
+                <p
+                  class="whitespace-nowrap text-xs text-text-secondary sm:text-sm"
+                >
+                  Show 1/10 data
+                </p>
+                <div
+                  class="relative w-24 shrink-0"
+                >
+                  <label
+                    class="mb-1.5 block text-sm font-semibold text-text-secondary sr-only"
+                    for="documents-per-page"
+                  >
+                    Documents per page
+                  </label>
+                  <div
+                    class="ant-select ant-select-outlined h-14 w-full !border-2 [&_.ant-select-selector]:!rounded-2xl [&_.ant-select-content]:!text-xl [&_.ant-select-content]:!font-normal !border-border-strong [&_.ant-select-selector]:!border-2 [&_.ant-select-selector]:!border-border-strong  css-var-root ant-select-css-var css-dev-only-do-not-override-eofgey ant-select-single ant-select-show-arrow ant-select-show-search"
+                    style="--ant-select-border-radius: 16px; border: 2px solid var(--border-strong);"
+                  >
+                    <div
+                      class="ant-select-content ant-select-content-has-value"
+                      title="10"
+                    >
+                      10
+                      <input
+                        aria-autocomplete="list"
+                        aria-expanded="false"
+                        aria-haspopup="listbox"
+                        aria-invalid="false"
+                        aria-label="Documents per page"
+                        autocomplete="new-password"
+                        class="ant-select-input"
+                        id="documents-per-page"
+                        role="combobox"
+                        type="text"
+                        value=""
+                      />
+                    </div>
+                    <div
+                      class="ant-select-suffix"
+                    >
+                      <span
+                        aria-label="down"
+                        class="anticon anticon-down"
+                        role="img"
+                      >
+                        <svg
+                          aria-hidden="true"
+                          data-icon="down"
+                          fill="currentColor"
+                          focusable="false"
+                          height="1em"
+                          viewBox="64 64 896 896"
+                          width="1em"
+                        >
+                          <path
+                            d="M884 256h-75c-5.1 0-9.9 2.5-12.9 6.6L512 654.2 227.9 262.6c-3-4.1-7.8-6.6-12.9-6.6h-75c-6.5 0-10.3 7.4-6.5 12.7l352.6 486.1c12.8 17.6 39 17.6 51.7 0l352.6-486.1c3.9-5.3.1-12.7-6.4-12.7z"
+                          />
+                        </svg>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div
+                class="flex shrink-0 items-center justify-end gap-1 sm:gap-2"
+              >
+                <button
+                  aria-label="Previous"
+                  class="flex h-10 items-center justify-center gap-1 rounded-xl border border-border-default text-sm font-semibold transition-colors w-10 cursor-not-allowed bg-background-disabled text-text-disabled"
+                  disabled=""
+                  type="button"
+                >
+                  <svg
+                    class="h-5 w-3.5 sm:h-5 sm:w-5"
+                    fill="none"
+                    height="1em"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    viewBox="0 0 24 24"
+                    width="1em"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <polyline
+                      points="15 18 9 12 15 6"
+                    />
+                  </svg>
+                  <span
+                    class="sr-only"
+                  >
+                    Previous
+                  </span>
+                </button>
+                <div
+                  class="flex min-w-0 items-center justify-center gap-1"
+                >
+                  <button
+                    aria-current="page"
+                    class="flex h-10 w-10 items-center justify-center rounded-xl text-sm font-semibold transition-colors bg-action-primary text-text-inverse shadow-sm"
+                    type="button"
+                  >
+                    1
+                  </button>
+                </div>
+                <button
+                  aria-label="Next"
+                  class="flex h-10 items-center justify-center gap-1 rounded-xl border border-border-default text-sm font-semibold transition-colors w-10 cursor-not-allowed bg-background-disabled text-text-disabled"
+                  disabled=""
+                  type="button"
+                >
+                  <span
+                    class="sr-only"
+                  >
+                    Next
+                  </span>
+                  <svg
+                    class="h-5 w-3.5 sm:h-5 sm:w-5"
+                    fill="none"
+                    height="1em"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    viewBox="0 0 24 24"
+                    width="1em"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <polyline
+                      points="9 18 15 12 9 6"
+                    />
+                  </svg>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          class="hidden rounded-3xl border border-border-default bg-background-surface px-6 pb-6 pt-0 shadow-xs md:mt-6 md:flex md:flex-1 md:flex-col md:overflow-hidden lg:flex"
+        >
+          <div
+            class="flex items-center justify-between gap-4 border-b border-border-default py-6"
+          >
+            <label
+              class="relative block w-full sm:w-72 "
+            >
+              <span
+                class="sr-only"
+              >
+                Search payment
+              </span>
+              <svg
+                aria-hidden="true"
+                class="pointer-events-none absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-text-tertiary"
+                fill="none"
+                height="1em"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+                width="1em"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <circle
+                  cx="11"
+                  cy="11"
+                  r="8"
+                />
+                <line
+                  x1="21"
+                  x2="16.65"
+                  y1="21"
+                  y2="16.65"
+                />
+              </svg>
+              <input
+                aria-label="Search payment"
+                class="h-14 w-full rounded-full border border-border-default bg-background-surface pl-12 pr-4 text-base font-medium text-text-primary outline-none transition-colors placeholder:font-normal placeholder:text-text-tertiary hover:border-border-strong focus:border-border-focus focus:ring-2 focus:ring-focus-ring/30 text-lg placeholder:text-lg"
+                placeholder="Search payment"
+                type="search"
+              />
+            </label>
+            <button
+              class="h-14 rounded-3xl bg-action-primary px-6 text-lg font-semibold text-text-inverse hover:bg-action-primary-hover"
+              type="button"
+            >
+              Create Payment
+            </button>
+          </div>
+          <div
+            class="flex-1 overflow-auto"
+          >
+            <div
+              class="flex flex-col bg-transparent overflow-hidden"
+            >
+              <div
+                class="hidden md:flex flex-1 overflow-auto"
+              >
+                <div
+                  class="w-full overflow-x-auto"
+                >
+                  <table
+                    class="w-full min-w-max border-separate border-spacing-0 whitespace-nowrap"
+                  >
+                    <thead>
+                      <tr>
+                        <th
+                          class="bg-table-header px-5 py-4 text-[13px] font-bold text-text-secondary uppercase tracking-widest rounded-l-xl  text-center "
+                        >
+                          No
+                        </th>
+                        <th
+                          class="bg-table-header px-5 py-4 text-[13px] font-bold text-text-secondary uppercase tracking-widest   text-left "
+                        >
+                          Invoice No
+                        </th>
+                        <th
+                          class="bg-table-header px-5 py-4 text-[13px] font-bold text-text-secondary uppercase tracking-widest   text-left "
+                        >
+                          Customer Name
+                        </th>
+                        <th
+                          class="bg-table-header px-5 py-4 text-[13px] font-bold text-text-secondary uppercase tracking-widest   text-right "
+                        >
+                          Amount
+                        </th>
+                        <th
+                          class="bg-table-header px-5 py-4 text-[13px] font-bold text-text-secondary uppercase tracking-widest   text-left "
+                        >
+                          Last Payment
+                        </th>
+                        <th
+                          class="bg-table-header px-5 py-4 text-[13px] font-bold text-text-secondary uppercase tracking-widest   text-right "
+                        >
+                          Remaining
+                        </th>
+                        <th
+                          class="bg-table-header px-5 py-4 text-[13px] font-bold text-text-secondary uppercase tracking-widest   text-center "
+                        >
+                          Status
+                        </th>
+                        <th
+                          class="bg-table-header px-5 py-4 text-[13px] font-bold text-text-secondary uppercase tracking-widest  rounded-r-xl text-center "
+                        >
+                          Action
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody
+                      class="divide-y divide-border-default"
+                    >
+                      <tr
+                        class="hover:bg-background-subtle/50 transition-colors cursor-pointer"
+                      >
+                        <td
+                          class="px-5 py-4 border-b border-border-default text-base text-center "
+                        >
+                          <span
+                            class="text-lg"
+                          >
+                            1
+                          </span>
+                        </td>
+                        <td
+                          class="px-5 py-4 border-b border-border-default text-base text-left "
+                        >
+                          <span
+                            class="text-lg font-medium"
+                          >
+                            INV-001
+                          </span>
+                        </td>
+                        <td
+                          class="px-5 py-4 border-b border-border-default text-base text-left "
+                        >
+                          <span
+                            class="text-lg"
+                          >
+                            ADE PUTRI
+                          </span>
+                        </td>
+                        <td
+                          class="px-5 py-4 border-b border-border-default text-base text-right "
+                        >
+                          <span
+                            class="text-lg font-semibold"
+                          >
+                            Rp 1.000.000
+                          </span>
+                        </td>
+                        <td
+                          class="px-5 py-4 border-b border-border-default text-base text-left "
+                        >
+                          <span
+                            class="text-lg"
+                          >
+                            1 Nov 2026
+                          </span>
+                        </td>
+                        <td
+                          class="px-5 py-4 border-b border-border-default text-base text-right "
+                        >
+                          <span
+                            class="text-lg font-semibold"
+                          >
+                            Rp 0
+                          </span>
+                        </td>
+                        <td
+                          class="px-5 py-4 border-b border-border-default text-base text-center "
+                        >
+                          <span
+                            class="rounded-full px-3 py-1 text-base font-semibold uppercase bg-success-subtle text-success-strong"
+                          >
+                            Paid
+                          </span>
+                        </td>
+                        <td
+                          class="px-5 py-4 border-b border-border-default text-base text-center "
+                        >
+                          <div
+                            class="flex items-center justify-center gap-1"
+                          >
+                            <button
+                              aria-label="View payment detail"
+                              class="cursor-pointer rounded-3xl p-2.5 text-text-secondary hover:bg-action-primary-subtle hover:text-action-primary"
+                              title="View payment detail"
+                              type="button"
+                            >
+                              <svg
+                                class="h-5 w-5"
+                                fill="none"
+                                height="1em"
+                                stroke="currentColor"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="2"
+                                viewBox="0 0 24 24"
+                                width="1em"
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
+                                <path
+                                  d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"
+                                />
+                                <circle
+                                  cx="12"
+                                  cy="12"
+                                  r="3"
+                                />
+                              </svg>
+                            </button>
+                          </div>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div
+                class="md:hidden bg-background-surface rounded-xl border border-border-default shadow-sm overflow-hidden"
+              >
+                <div
+                  class="bg-background-surface overflow-hidden divide-y divide-border-default"
+                >
+                  <div
+                    class="flex flex-col gap-3 px-4 py-4 bg-transparent transition-colors cursor-pointer active:bg-background-subtle/50"
+                    role="button"
+                    tabindex="0"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            class="flex flex-col gap-3 py-4 pt-4"
+          >
+            <div
+              class="flex w-full items-center justify-between gap-2 overflow-x-auto"
+            >
+              <div
+                class="flex shrink-0 items-center gap-1.5 sm:gap-2"
+              >
+                <p
+                  class="whitespace-nowrap text-xs text-text-secondary sm:text-sm"
+                >
+                  Show 1/10 data
+                </p>
+                <div
+                  class="relative w-[180px] sm:w-auto sm:min-w-[100px] shrink-0"
+                >
+                  <label
+                    class="mb-1.5 block text-sm font-semibold text-text-secondary sr-only"
+                    for="documents-per-page"
+                  >
+                    Documents per page
+                  </label>
+                  <div
+                    class="ant-select ant-select-outlined h-14 w-full !border-2 [&_.ant-select-selector]:!rounded-2xl [&_.ant-select-content]:!text-xl [&_.ant-select-content]:!font-normal !border-border-strong [&_.ant-select-selector]:!border-2 [&_.ant-select-selector]:!border-border-strong  css-var-root ant-select-css-var css-dev-only-do-not-override-eofgey ant-select-single ant-select-show-arrow ant-select-show-search"
+                    style="--ant-select-border-radius: 16px; border: 2px solid var(--border-strong);"
+                  >
+                    <div
+                      class="ant-select-content ant-select-content-has-value"
+                      title="10"
+                    >
+                      10
+                      <input
+                        aria-autocomplete="list"
+                        aria-expanded="false"
+                        aria-haspopup="listbox"
+                        aria-invalid="false"
+                        aria-label="Documents per page"
+                        autocomplete="new-password"
+                        class="ant-select-input"
+                        id="documents-per-page"
+                        role="combobox"
+                        type="text"
+                        value=""
+                      />
+                    </div>
+                    <div
+                      class="ant-select-suffix"
+                    >
+                      <span
+                        aria-label="down"
+                        class="anticon anticon-down"
+                        role="img"
+                      >
+                        <svg
+                          aria-hidden="true"
+                          data-icon="down"
+                          fill="currentColor"
+                          focusable="false"
+                          height="1em"
+                          viewBox="64 64 896 896"
+                          width="1em"
+                        >
+                          <path
+                            d="M884 256h-75c-5.1 0-9.9 2.5-12.9 6.6L512 654.2 227.9 262.6c-3-4.1-7.8-6.6-12.9-6.6h-75c-6.5 0-10.3 7.4-6.5 12.7l352.6 486.1c12.8 17.6 39 17.6 51.7 0l352.6-486.1c3.9-5.3.1-12.7-6.4-12.7z"
+                          />
+                        </svg>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div
+                class="flex shrink-0 items-center justify-end gap-1 sm:gap-2"
+              >
+                <button
+                  aria-label="Previous"
+                  class="flex h-10 items-center justify-center gap-1 rounded-xl border border-border-default text-sm font-semibold transition-colors px-3 sm:px-4 cursor-not-allowed bg-background-disabled text-text-disabled"
+                  disabled=""
+                  type="button"
+                >
+                  <svg
+                    class="h-5 w-3.5 sm:h-5 sm:w-5"
+                    fill="none"
+                    height="1em"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    viewBox="0 0 24 24"
+                    width="1em"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <polyline
+                      points="15 18 9 12 15 6"
+                    />
+                  </svg>
+                  <span
+                    class="hidden sm:inline"
+                  >
+                    Previous
+                  </span>
+                </button>
+                <div
+                  class="flex min-w-0 items-center justify-center gap-1"
+                >
+                  <button
+                    aria-current="page"
+                    class="flex h-10 w-10 items-center justify-center rounded-xl text-sm font-semibold transition-colors bg-action-primary text-text-inverse shadow-sm"
+                    type="button"
+                  >
+                    1
+                  </button>
+                </div>
+                <button
+                  aria-label="Next"
+                  class="flex h-10 items-center justify-center gap-1 rounded-xl border border-border-default text-sm font-semibold transition-colors px-3 sm:px-4 cursor-not-allowed bg-background-disabled text-text-disabled"
+                  disabled=""
+                  type="button"
+                >
+                  <span
+                    class="hidden sm:inline"
+                  >
+                    Next
+                  </span>
+                  <svg
+                    class="h-5 w-3.5 sm:h-5 sm:w-5"
+                    fill="none"
+                    height="1em"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    viewBox="0 0 24 24"
+                    width="1em"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <polyline
+                      points="9 18 15 12 9 6"
+                    />
+                  </svg>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`PaymentComponent Snapshots should render the payment list skeletons 1`] = `
+<DocumentFragment>
+  <div>
+    <section>
+      <h1>
+        Payment List
+      </h1>
+      <div
+        class="relative flex h-full flex-col bg-background-page px-0 pb-18 lg:-mt-4 lg:bg-transparent lg:px-0 lg:pb-0"
+      >
+        <div
+          class="flex min-w-0 flex-col gap-4 pb-16 pt-2 lg:hidden"
+        >
+          <label
+            class="relative block w-full sm:w-72 w-full sm:w-full"
+          >
+            <span
+              class="sr-only"
+            >
+              Search payment
+            </span>
+            <svg
+              aria-hidden="true"
+              class="pointer-events-none absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-text-tertiary"
+              fill="none"
+              height="1em"
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              viewBox="0 0 24 24"
+              width="1em"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <circle
+                cx="11"
+                cy="11"
+                r="8"
+              />
+              <line
+                x1="21"
+                x2="16.65"
+                y1="21"
+                y2="16.65"
+              />
+            </svg>
+            <input
+              aria-label="Search payment"
+              class="h-14 w-full rounded-full border border-border-default bg-background-surface pl-12 pr-4 text-base font-medium text-text-primary outline-none transition-colors placeholder:font-normal placeholder:text-text-tertiary hover:border-border-strong focus:border-border-focus focus:ring-2 focus:ring-focus-ring/30 !h-16 text-xl placeholder:text-xl"
+              placeholder="Search payment"
+              type="search"
+            />
+          </label>
+          <div
+            class="flex min-w-0 flex-col gap-4"
+          >
+            <div
+              aria-label="Loading payment card"
+              class="animate-pulse rounded-3xl border border-border-strong bg-background-surface p-5 shadow-small"
+              role="status"
+            >
+              <div
+                class="flex flex-wrap items-center justify-between gap-3"
+              >
+                <div
+                  class="h-7 w-28 rounded-3xl bg-background-subtle"
+                />
+                <div
+                  class="h-8 w-20 rounded-full bg-background-subtle"
+                />
+              </div>
+              <div
+                class="mt-4 h-7 w-4/5 rounded-3xl bg-background-subtle"
+              />
+              <div
+                class="mt-1.5 h-7 w-3/5 rounded-3xl bg-background-subtle"
+              />
+              <div
+                class="mt-4 flex flex-wrap items-end justify-between gap-x-4 gap-y-3 border-t border-border-default pt-4"
+              >
+                <div>
+                  <div
+                    class="h-7 w-16 rounded-3xl bg-background-subtle"
+                  />
+                  <div
+                    class="mt-1 h-7 w-28 rounded-3xl bg-background-subtle"
+                  />
+                </div>
+                <div
+                  class="text-right"
+                >
+                  <div
+                    class="ml-auto h-7 w-16 rounded-3xl bg-background-subtle"
+                  />
+                  <div
+                    class="mt-1 h-7 w-28 rounded-3xl bg-background-subtle"
+                  />
+                </div>
+              </div>
+            </div>
+            <div
+              aria-label="Loading payment card"
+              class="animate-pulse rounded-3xl border border-border-strong bg-background-surface p-5 shadow-small"
+              role="status"
+            >
+              <div
+                class="flex flex-wrap items-center justify-between gap-3"
+              >
+                <div
+                  class="h-7 w-28 rounded-3xl bg-background-subtle"
+                />
+                <div
+                  class="h-8 w-20 rounded-full bg-background-subtle"
+                />
+              </div>
+              <div
+                class="mt-4 h-7 w-4/5 rounded-3xl bg-background-subtle"
+              />
+              <div
+                class="mt-1.5 h-7 w-3/5 rounded-3xl bg-background-subtle"
+              />
+              <div
+                class="mt-4 flex flex-wrap items-end justify-between gap-x-4 gap-y-3 border-t border-border-default pt-4"
+              >
+                <div>
+                  <div
+                    class="h-7 w-16 rounded-3xl bg-background-subtle"
+                  />
+                  <div
+                    class="mt-1 h-7 w-28 rounded-3xl bg-background-subtle"
+                  />
+                </div>
+                <div
+                  class="text-right"
+                >
+                  <div
+                    class="ml-auto h-7 w-16 rounded-3xl bg-background-subtle"
+                  />
+                  <div
+                    class="mt-1 h-7 w-28 rounded-3xl bg-background-subtle"
+                  />
+                </div>
+              </div>
+            </div>
+            <div
+              aria-label="Loading payment card"
+              class="animate-pulse rounded-3xl border border-border-strong bg-background-surface p-5 shadow-small"
+              role="status"
+            >
+              <div
+                class="flex flex-wrap items-center justify-between gap-3"
+              >
+                <div
+                  class="h-7 w-28 rounded-3xl bg-background-subtle"
+                />
+                <div
+                  class="h-8 w-20 rounded-full bg-background-subtle"
+                />
+              </div>
+              <div
+                class="mt-4 h-7 w-4/5 rounded-3xl bg-background-subtle"
+              />
+              <div
+                class="mt-1.5 h-7 w-3/5 rounded-3xl bg-background-subtle"
+              />
+              <div
+                class="mt-4 flex flex-wrap items-end justify-between gap-x-4 gap-y-3 border-t border-border-default pt-4"
+              >
+                <div>
+                  <div
+                    class="h-7 w-16 rounded-3xl bg-background-subtle"
+                  />
+                  <div
+                    class="mt-1 h-7 w-28 rounded-3xl bg-background-subtle"
+                  />
+                </div>
+                <div
+                  class="text-right"
+                >
+                  <div
+                    class="ml-auto h-7 w-16 rounded-3xl bg-background-subtle"
+                  />
+                  <div
+                    class="mt-1 h-7 w-28 rounded-3xl bg-background-subtle"
+                  />
+                </div>
+              </div>
+            </div>
+            <div
+              aria-label="Loading payment card"
+              class="animate-pulse rounded-3xl border border-border-strong bg-background-surface p-5 shadow-small"
+              role="status"
+            >
+              <div
+                class="flex flex-wrap items-center justify-between gap-3"
+              >
+                <div
+                  class="h-7 w-28 rounded-3xl bg-background-subtle"
+                />
+                <div
+                  class="h-8 w-20 rounded-full bg-background-subtle"
+                />
+              </div>
+              <div
+                class="mt-4 h-7 w-4/5 rounded-3xl bg-background-subtle"
+              />
+              <div
+                class="mt-1.5 h-7 w-3/5 rounded-3xl bg-background-subtle"
+              />
+              <div
+                class="mt-4 flex flex-wrap items-end justify-between gap-x-4 gap-y-3 border-t border-border-default pt-4"
+              >
+                <div>
+                  <div
+                    class="h-7 w-16 rounded-3xl bg-background-subtle"
+                  />
+                  <div
+                    class="mt-1 h-7 w-28 rounded-3xl bg-background-subtle"
+                  />
+                </div>
+                <div
+                  class="text-right"
+                >
+                  <div
+                    class="ml-auto h-7 w-16 rounded-3xl bg-background-subtle"
+                  />
+                  <div
+                    class="mt-1 h-7 w-28 rounded-3xl bg-background-subtle"
+                  />
+                </div>
+              </div>
+            </div>
+            <div
+              aria-label="Loading payment card"
+              class="animate-pulse rounded-3xl border border-border-strong bg-background-surface p-5 shadow-small"
+              role="status"
+            >
+              <div
+                class="flex flex-wrap items-center justify-between gap-3"
+              >
+                <div
+                  class="h-7 w-28 rounded-3xl bg-background-subtle"
+                />
+                <div
+                  class="h-8 w-20 rounded-full bg-background-subtle"
+                />
+              </div>
+              <div
+                class="mt-4 h-7 w-4/5 rounded-3xl bg-background-subtle"
+              />
+              <div
+                class="mt-1.5 h-7 w-3/5 rounded-3xl bg-background-subtle"
+              />
+              <div
+                class="mt-4 flex flex-wrap items-end justify-between gap-x-4 gap-y-3 border-t border-border-default pt-4"
+              >
+                <div>
+                  <div
+                    class="h-7 w-16 rounded-3xl bg-background-subtle"
+                  />
+                  <div
+                    class="mt-1 h-7 w-28 rounded-3xl bg-background-subtle"
+                  />
+                </div>
+                <div
+                  class="text-right"
+                >
+                  <div
+                    class="ml-auto h-7 w-16 rounded-3xl bg-background-subtle"
+                  />
+                  <div
+                    class="mt-1 h-7 w-28 rounded-3xl bg-background-subtle"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            class="flex flex-col gap-3 py-4 w-full rounded-3xl border border-border-default bg-background-surface px-5 py-4 shadow-xs"
+          >
+            <div
+              class="flex w-full items-center justify-between gap-2 overflow-x-auto"
+            >
+              <div
+                class="flex shrink-0 items-center gap-1.5 sm:gap-2"
+              >
+                <p
+                  class="whitespace-nowrap text-xs text-text-secondary sm:text-sm"
+                >
+                  Show 1/10 data
+                </p>
+                <div
+                  class="relative w-24 shrink-0"
+                >
+                  <label
+                    class="mb-1.5 block text-sm font-semibold text-text-secondary sr-only"
+                    for="documents-per-page"
+                  >
+                    Documents per page
+                  </label>
+                  <div
+                    class="ant-select ant-select-outlined h-14 w-full !border-2 [&_.ant-select-selector]:!rounded-2xl [&_.ant-select-content]:!text-xl [&_.ant-select-content]:!font-normal !border-border-strong [&_.ant-select-selector]:!border-2 [&_.ant-select-selector]:!border-border-strong  css-var-root ant-select-css-var css-dev-only-do-not-override-eofgey ant-select-single ant-select-show-arrow ant-select-show-search"
+                    style="--ant-select-border-radius: 16px; border: 2px solid var(--border-strong);"
+                  >
+                    <div
+                      class="ant-select-content ant-select-content-has-value"
+                      title="10"
+                    >
+                      10
+                      <input
+                        aria-autocomplete="list"
+                        aria-expanded="false"
+                        aria-haspopup="listbox"
+                        aria-invalid="false"
+                        aria-label="Documents per page"
+                        autocomplete="new-password"
+                        class="ant-select-input"
+                        id="documents-per-page"
+                        role="combobox"
+                        type="text"
+                        value=""
+                      />
+                    </div>
+                    <div
+                      class="ant-select-suffix"
+                    >
+                      <span
+                        aria-label="down"
+                        class="anticon anticon-down"
+                        role="img"
+                      >
+                        <svg
+                          aria-hidden="true"
+                          data-icon="down"
+                          fill="currentColor"
+                          focusable="false"
+                          height="1em"
+                          viewBox="64 64 896 896"
+                          width="1em"
+                        >
+                          <path
+                            d="M884 256h-75c-5.1 0-9.9 2.5-12.9 6.6L512 654.2 227.9 262.6c-3-4.1-7.8-6.6-12.9-6.6h-75c-6.5 0-10.3 7.4-6.5 12.7l352.6 486.1c12.8 17.6 39 17.6 51.7 0l352.6-486.1c3.9-5.3.1-12.7-6.4-12.7z"
+                          />
+                        </svg>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div
+                class="flex shrink-0 items-center justify-end gap-1 sm:gap-2"
+              >
+                <button
+                  aria-label="Previous"
+                  class="flex h-10 items-center justify-center gap-1 rounded-xl border border-border-default text-sm font-semibold transition-colors w-10 cursor-not-allowed bg-background-disabled text-text-disabled"
+                  disabled=""
+                  type="button"
+                >
+                  <svg
+                    class="h-5 w-3.5 sm:h-5 sm:w-5"
+                    fill="none"
+                    height="1em"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    viewBox="0 0 24 24"
+                    width="1em"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <polyline
+                      points="15 18 9 12 15 6"
+                    />
+                  </svg>
+                  <span
+                    class="sr-only"
+                  >
+                    Previous
+                  </span>
+                </button>
+                <div
+                  class="flex min-w-0 items-center justify-center gap-1"
+                >
+                  <button
+                    aria-current="page"
+                    class="flex h-10 w-10 items-center justify-center rounded-xl text-sm font-semibold transition-colors bg-action-primary text-text-inverse shadow-sm"
+                    type="button"
+                  >
+                    1
+                  </button>
+                </div>
+                <button
+                  aria-label="Next"
+                  class="flex h-10 items-center justify-center gap-1 rounded-xl border border-border-default text-sm font-semibold transition-colors w-10 cursor-not-allowed bg-background-disabled text-text-disabled"
+                  disabled=""
+                  type="button"
+                >
+                  <span
+                    class="sr-only"
+                  >
+                    Next
+                  </span>
+                  <svg
+                    class="h-5 w-3.5 sm:h-5 sm:w-5"
+                    fill="none"
+                    height="1em"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    viewBox="0 0 24 24"
+                    width="1em"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <polyline
+                      points="9 18 15 12 9 6"
+                    />
+                  </svg>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          class="hidden rounded-3xl border border-border-default bg-background-surface px-6 pb-6 pt-0 shadow-xs md:mt-6 md:flex md:flex-1 md:flex-col md:overflow-hidden lg:flex"
+        >
+          <div
+            class="flex items-center justify-between gap-4 border-b border-border-default py-6"
+          >
+            <label
+              class="relative block w-full sm:w-72 "
+            >
+              <span
+                class="sr-only"
+              >
+                Search payment
+              </span>
+              <svg
+                aria-hidden="true"
+                class="pointer-events-none absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-text-tertiary"
+                fill="none"
+                height="1em"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+                width="1em"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <circle
+                  cx="11"
+                  cy="11"
+                  r="8"
+                />
+                <line
+                  x1="21"
+                  x2="16.65"
+                  y1="21"
+                  y2="16.65"
+                />
+              </svg>
+              <input
+                aria-label="Search payment"
+                class="h-14 w-full rounded-full border border-border-default bg-background-surface pl-12 pr-4 text-base font-medium text-text-primary outline-none transition-colors placeholder:font-normal placeholder:text-text-tertiary hover:border-border-strong focus:border-border-focus focus:ring-2 focus:ring-focus-ring/30 text-lg placeholder:text-lg"
+                placeholder="Search payment"
+                type="search"
+              />
+            </label>
+            <button
+              class="h-14 rounded-3xl bg-action-primary px-6 text-lg font-semibold text-text-inverse hover:bg-action-primary-hover"
+              type="button"
+            >
+              Create Payment
+            </button>
+          </div>
+          <div
+            class="flex-1 overflow-auto"
+          >
+            <div
+              aria-label="Loading payment table"
+              class="w-full overflow-x-auto"
+              role="status"
+            >
+              <table
+                class="w-full min-w-max border-separate border-spacing-0 whitespace-nowrap"
+              >
+                <thead>
+                  <tr>
+                    <th
+                      class="bg-table-header px-5 py-4 text-[13px] font-bold uppercase tracking-widest text-text-secondary text-center rounded-l-3xl "
+                    >
+                      No
+                    </th>
+                    <th
+                      class="bg-table-header px-5 py-4 text-[13px] font-bold uppercase tracking-widest text-text-secondary text-left  "
+                    >
+                      Invoice No
+                    </th>
+                    <th
+                      class="bg-table-header px-5 py-4 text-[13px] font-bold uppercase tracking-widest text-text-secondary text-left  "
+                    >
+                      Customer Name
+                    </th>
+                    <th
+                      class="bg-table-header px-5 py-4 text-[13px] font-bold uppercase tracking-widest text-text-secondary text-right  "
+                    >
+                      Amount
+                    </th>
+                    <th
+                      class="bg-table-header px-5 py-4 text-[13px] font-bold uppercase tracking-widest text-text-secondary text-left  "
+                    >
+                      Last Payment
+                    </th>
+                    <th
+                      class="bg-table-header px-5 py-4 text-[13px] font-bold uppercase tracking-widest text-text-secondary text-right  "
+                    >
+                      Remaining
+                    </th>
+                    <th
+                      class="bg-table-header px-5 py-4 text-[13px] font-bold uppercase tracking-widest text-text-secondary text-center  "
+                    >
+                      Status
+                    </th>
+                    <th
+                      class="bg-table-header px-5 py-4 text-[13px] font-bold uppercase tracking-widest text-text-secondary text-center  rounded-r-3xl"
+                    >
+                      Action
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr
+                    class="animate-pulse"
+                  >
+                    <td
+                      class="border-b border-border-default px-5 py-4 text-center"
+                    >
+                      <span
+                        class="inline-block h-5 rounded-3xl bg-background-subtle align-middle w-6"
+                      />
+                    </td>
+                    <td
+                      class="border-b border-border-default px-5 py-4 text-left"
+                    >
+                      <span
+                        class="inline-block h-5 rounded-3xl bg-background-subtle align-middle w-28"
+                      />
+                    </td>
+                    <td
+                      class="border-b border-border-default px-5 py-4 text-left"
+                    >
+                      <span
+                        class="inline-block h-5 rounded-3xl bg-background-subtle align-middle w-28"
+                      />
+                    </td>
+                    <td
+                      class="border-b border-border-default px-5 py-4 text-right"
+                    >
+                      <span
+                        class="inline-block h-5 rounded-3xl bg-background-subtle align-middle w-32"
+                      />
+                    </td>
+                    <td
+                      class="border-b border-border-default px-5 py-4 text-left"
+                    >
+                      <span
+                        class="inline-block h-5 rounded-3xl bg-background-subtle align-middle w-28"
+                      />
+                    </td>
+                    <td
+                      class="border-b border-border-default px-5 py-4 text-right"
+                    >
+                      <span
+                        class="inline-block h-5 rounded-3xl bg-background-subtle align-middle w-24"
+                      />
+                    </td>
+                    <td
+                      class="border-b border-border-default px-5 py-4 text-center"
+                    >
+                      <span
+                        class="inline-block h-5 rounded-3xl bg-background-subtle align-middle w-28 rounded-full"
+                      />
+                    </td>
+                    <td
+                      class="border-b border-border-default px-5 py-4 text-center"
+                    >
+                      <span
+                        class="inline-block h-10 w-10 rounded-3xl bg-background-subtle align-middle"
+                      />
+                    </td>
+                  </tr>
+                  <tr
+                    class="animate-pulse"
+                  >
+                    <td
+                      class="border-b border-border-default px-5 py-4 text-center"
+                    >
+                      <span
+                        class="inline-block h-5 rounded-3xl bg-background-subtle align-middle w-6"
+                      />
+                    </td>
+                    <td
+                      class="border-b border-border-default px-5 py-4 text-left"
+                    >
+                      <span
+                        class="inline-block h-5 rounded-3xl bg-background-subtle align-middle w-28"
+                      />
+                    </td>
+                    <td
+                      class="border-b border-border-default px-5 py-4 text-left"
+                    >
+                      <span
+                        class="inline-block h-5 rounded-3xl bg-background-subtle align-middle w-28"
+                      />
+                    </td>
+                    <td
+                      class="border-b border-border-default px-5 py-4 text-right"
+                    >
+                      <span
+                        class="inline-block h-5 rounded-3xl bg-background-subtle align-middle w-32"
+                      />
+                    </td>
+                    <td
+                      class="border-b border-border-default px-5 py-4 text-left"
+                    >
+                      <span
+                        class="inline-block h-5 rounded-3xl bg-background-subtle align-middle w-28"
+                      />
+                    </td>
+                    <td
+                      class="border-b border-border-default px-5 py-4 text-right"
+                    >
+                      <span
+                        class="inline-block h-5 rounded-3xl bg-background-subtle align-middle w-24"
+                      />
+                    </td>
+                    <td
+                      class="border-b border-border-default px-5 py-4 text-center"
+                    >
+                      <span
+                        class="inline-block h-5 rounded-3xl bg-background-subtle align-middle w-28 rounded-full"
+                      />
+                    </td>
+                    <td
+                      class="border-b border-border-default px-5 py-4 text-center"
+                    >
+                      <span
+                        class="inline-block h-10 w-10 rounded-3xl bg-background-subtle align-middle"
+                      />
+                    </td>
+                  </tr>
+                  <tr
+                    class="animate-pulse"
+                  >
+                    <td
+                      class="border-b border-border-default px-5 py-4 text-center"
+                    >
+                      <span
+                        class="inline-block h-5 rounded-3xl bg-background-subtle align-middle w-6"
+                      />
+                    </td>
+                    <td
+                      class="border-b border-border-default px-5 py-4 text-left"
+                    >
+                      <span
+                        class="inline-block h-5 rounded-3xl bg-background-subtle align-middle w-28"
+                      />
+                    </td>
+                    <td
+                      class="border-b border-border-default px-5 py-4 text-left"
+                    >
+                      <span
+                        class="inline-block h-5 rounded-3xl bg-background-subtle align-middle w-28"
+                      />
+                    </td>
+                    <td
+                      class="border-b border-border-default px-5 py-4 text-right"
+                    >
+                      <span
+                        class="inline-block h-5 rounded-3xl bg-background-subtle align-middle w-32"
+                      />
+                    </td>
+                    <td
+                      class="border-b border-border-default px-5 py-4 text-left"
+                    >
+                      <span
+                        class="inline-block h-5 rounded-3xl bg-background-subtle align-middle w-28"
+                      />
+                    </td>
+                    <td
+                      class="border-b border-border-default px-5 py-4 text-right"
+                    >
+                      <span
+                        class="inline-block h-5 rounded-3xl bg-background-subtle align-middle w-24"
+                      />
+                    </td>
+                    <td
+                      class="border-b border-border-default px-5 py-4 text-center"
+                    >
+                      <span
+                        class="inline-block h-5 rounded-3xl bg-background-subtle align-middle w-28 rounded-full"
+                      />
+                    </td>
+                    <td
+                      class="border-b border-border-default px-5 py-4 text-center"
+                    >
+                      <span
+                        class="inline-block h-10 w-10 rounded-3xl bg-background-subtle align-middle"
+                      />
+                    </td>
+                  </tr>
+                  <tr
+                    class="animate-pulse"
+                  >
+                    <td
+                      class="border-b border-border-default px-5 py-4 text-center"
+                    >
+                      <span
+                        class="inline-block h-5 rounded-3xl bg-background-subtle align-middle w-6"
+                      />
+                    </td>
+                    <td
+                      class="border-b border-border-default px-5 py-4 text-left"
+                    >
+                      <span
+                        class="inline-block h-5 rounded-3xl bg-background-subtle align-middle w-28"
+                      />
+                    </td>
+                    <td
+                      class="border-b border-border-default px-5 py-4 text-left"
+                    >
+                      <span
+                        class="inline-block h-5 rounded-3xl bg-background-subtle align-middle w-28"
+                      />
+                    </td>
+                    <td
+                      class="border-b border-border-default px-5 py-4 text-right"
+                    >
+                      <span
+                        class="inline-block h-5 rounded-3xl bg-background-subtle align-middle w-32"
+                      />
+                    </td>
+                    <td
+                      class="border-b border-border-default px-5 py-4 text-left"
+                    >
+                      <span
+                        class="inline-block h-5 rounded-3xl bg-background-subtle align-middle w-28"
+                      />
+                    </td>
+                    <td
+                      class="border-b border-border-default px-5 py-4 text-right"
+                    >
+                      <span
+                        class="inline-block h-5 rounded-3xl bg-background-subtle align-middle w-24"
+                      />
+                    </td>
+                    <td
+                      class="border-b border-border-default px-5 py-4 text-center"
+                    >
+                      <span
+                        class="inline-block h-5 rounded-3xl bg-background-subtle align-middle w-28 rounded-full"
+                      />
+                    </td>
+                    <td
+                      class="border-b border-border-default px-5 py-4 text-center"
+                    >
+                      <span
+                        class="inline-block h-10 w-10 rounded-3xl bg-background-subtle align-middle"
+                      />
+                    </td>
+                  </tr>
+                  <tr
+                    class="animate-pulse"
+                  >
+                    <td
+                      class="border-b border-border-default px-5 py-4 text-center"
+                    >
+                      <span
+                        class="inline-block h-5 rounded-3xl bg-background-subtle align-middle w-6"
+                      />
+                    </td>
+                    <td
+                      class="border-b border-border-default px-5 py-4 text-left"
+                    >
+                      <span
+                        class="inline-block h-5 rounded-3xl bg-background-subtle align-middle w-28"
+                      />
+                    </td>
+                    <td
+                      class="border-b border-border-default px-5 py-4 text-left"
+                    >
+                      <span
+                        class="inline-block h-5 rounded-3xl bg-background-subtle align-middle w-28"
+                      />
+                    </td>
+                    <td
+                      class="border-b border-border-default px-5 py-4 text-right"
+                    >
+                      <span
+                        class="inline-block h-5 rounded-3xl bg-background-subtle align-middle w-32"
+                      />
+                    </td>
+                    <td
+                      class="border-b border-border-default px-5 py-4 text-left"
+                    >
+                      <span
+                        class="inline-block h-5 rounded-3xl bg-background-subtle align-middle w-28"
+                      />
+                    </td>
+                    <td
+                      class="border-b border-border-default px-5 py-4 text-right"
+                    >
+                      <span
+                        class="inline-block h-5 rounded-3xl bg-background-subtle align-middle w-24"
+                      />
+                    </td>
+                    <td
+                      class="border-b border-border-default px-5 py-4 text-center"
+                    >
+                      <span
+                        class="inline-block h-5 rounded-3xl bg-background-subtle align-middle w-28 rounded-full"
+                      />
+                    </td>
+                    <td
+                      class="border-b border-border-default px-5 py-4 text-center"
+                    >
+                      <span
+                        class="inline-block h-10 w-10 rounded-3xl bg-background-subtle align-middle"
+                      />
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div
+            class="flex flex-col gap-3 py-4 pt-4"
+          >
+            <div
+              class="flex w-full items-center justify-between gap-2 overflow-x-auto"
+            >
+              <div
+                class="flex shrink-0 items-center gap-1.5 sm:gap-2"
+              >
+                <p
+                  class="whitespace-nowrap text-xs text-text-secondary sm:text-sm"
+                >
+                  Show 1/10 data
+                </p>
+                <div
+                  class="relative w-[180px] sm:w-auto sm:min-w-[100px] shrink-0"
+                >
+                  <label
+                    class="mb-1.5 block text-sm font-semibold text-text-secondary sr-only"
+                    for="documents-per-page"
+                  >
+                    Documents per page
+                  </label>
+                  <div
+                    class="ant-select ant-select-outlined h-14 w-full !border-2 [&_.ant-select-selector]:!rounded-2xl [&_.ant-select-content]:!text-xl [&_.ant-select-content]:!font-normal !border-border-strong [&_.ant-select-selector]:!border-2 [&_.ant-select-selector]:!border-border-strong  css-var-root ant-select-css-var css-dev-only-do-not-override-eofgey ant-select-single ant-select-show-arrow ant-select-show-search"
+                    style="--ant-select-border-radius: 16px; border: 2px solid var(--border-strong);"
+                  >
+                    <div
+                      class="ant-select-content ant-select-content-has-value"
+                      title="10"
+                    >
+                      10
+                      <input
+                        aria-autocomplete="list"
+                        aria-expanded="false"
+                        aria-haspopup="listbox"
+                        aria-invalid="false"
+                        aria-label="Documents per page"
+                        autocomplete="new-password"
+                        class="ant-select-input"
+                        id="documents-per-page"
+                        role="combobox"
+                        type="text"
+                        value=""
+                      />
+                    </div>
+                    <div
+                      class="ant-select-suffix"
+                    >
+                      <span
+                        aria-label="down"
+                        class="anticon anticon-down"
+                        role="img"
+                      >
+                        <svg
+                          aria-hidden="true"
+                          data-icon="down"
+                          fill="currentColor"
+                          focusable="false"
+                          height="1em"
+                          viewBox="64 64 896 896"
+                          width="1em"
+                        >
+                          <path
+                            d="M884 256h-75c-5.1 0-9.9 2.5-12.9 6.6L512 654.2 227.9 262.6c-3-4.1-7.8-6.6-12.9-6.6h-75c-6.5 0-10.3 7.4-6.5 12.7l352.6 486.1c12.8 17.6 39 17.6 51.7 0l352.6-486.1c3.9-5.3.1-12.7-6.4-12.7z"
+                          />
+                        </svg>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div
+                class="flex shrink-0 items-center justify-end gap-1 sm:gap-2"
+              >
+                <button
+                  aria-label="Previous"
+                  class="flex h-10 items-center justify-center gap-1 rounded-xl border border-border-default text-sm font-semibold transition-colors px-3 sm:px-4 cursor-not-allowed bg-background-disabled text-text-disabled"
+                  disabled=""
+                  type="button"
+                >
+                  <svg
+                    class="h-5 w-3.5 sm:h-5 sm:w-5"
+                    fill="none"
+                    height="1em"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    viewBox="0 0 24 24"
+                    width="1em"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <polyline
+                      points="15 18 9 12 15 6"
+                    />
+                  </svg>
+                  <span
+                    class="hidden sm:inline"
+                  >
+                    Previous
+                  </span>
+                </button>
+                <div
+                  class="flex min-w-0 items-center justify-center gap-1"
+                >
+                  <button
+                    aria-current="page"
+                    class="flex h-10 w-10 items-center justify-center rounded-xl text-sm font-semibold transition-colors bg-action-primary text-text-inverse shadow-sm"
+                    type="button"
+                  >
+                    1
+                  </button>
+                </div>
+                <button
+                  aria-label="Next"
+                  class="flex h-10 items-center justify-center gap-1 rounded-xl border border-border-default text-sm font-semibold transition-colors px-3 sm:px-4 cursor-not-allowed bg-background-disabled text-text-disabled"
+                  disabled=""
+                  type="button"
+                >
+                  <span
+                    class="hidden sm:inline"
+                  >
+                    Next
+                  </span>
+                  <svg
+                    class="h-5 w-3.5 sm:h-5 sm:w-5"
+                    fill="none"
+                    height="1em"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    viewBox="0 0 24 24"
+                    width="1em"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <polyline
+                      points="9 18 15 12 9 6"
+                    />
+                  </svg>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</DocumentFragment>
+`;

@@ -1,6 +1,6 @@
 import { describe, expect, it } from "@jest/globals";
 
-import { formatPaymentPaidAt, formatRupiahInput, getAmountLimitMessage, getInvoiceGrandTotal, getInvoiceRemainingAmount, getPaymentAmountLimit, parseRupiahInput, validateRequiredPaymentFields } from "./PaymentCreate.helpers";
+import { formatPaymentPaidAt, formatRupiahInput, getAmountLimitMessage, getInvoiceGrandTotal, getInvoiceRemainingAmount, getPaymentAmountLimit, parseRupiahInput, validateRequiredPaymentFields } from "./PaymentCreate.util";
 
 const validFields = {
   invoiceId: "invoice-1",
@@ -11,7 +11,7 @@ const validFields = {
   referenceNo: "PAY-001",
 };
 
-describe("PaymentCreate helpers", () => {
+describe("PaymentCreate util", () => {
   it("should format and parse Rupiah input", (): void => {
     expect(formatRupiahInput("1500000")).toBe("Rp 1.500.000");
     expect(parseRupiahInput("Rp 1.500.000")).toBe("1500000");

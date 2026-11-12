@@ -7,8 +7,16 @@ import Layout from "@/app/layout";
 
 /**
  * Render payment create container.
- * @returns {ReactElement} - payment create page
+ * @returns {ReactElement} - Payment create page
  */
-export default function PaymentCreateContainer(): ReactElement {
-  return <Layout><PaymentCreateComponent {...usePaymentCreate()} /></Layout>;
-}
+const PaymentCreateContainer = (): ReactElement => {
+  const formState = usePaymentCreate();
+
+  return (
+    <Layout>
+      <PaymentCreateComponent {...formState} />
+    </Layout>
+  );
+};
+
+export default PaymentCreateContainer;

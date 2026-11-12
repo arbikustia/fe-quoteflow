@@ -6,7 +6,7 @@
 - [x] 5. order
 - [x] 6. quotation
 - [x] 7. invoice
-- [ ] 8. payment
+- [x] 8. payment
 - [ ] 9. activity log
 - [ ] 10. calendar
 - [ ] 11. item checklist

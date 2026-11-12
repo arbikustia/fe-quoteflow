@@ -5,8 +5,12 @@ import { usePaymentDetail } from "./PaymentDetail.hook";
 
 /**
  * Render payment detail container.
- * @returns {ReactElement} - payment detail container
+ * @returns {ReactElement} - Payment detail page
  */
-export default function PaymentDetailContainer(): ReactElement {
-  return <PaymentDetailComponent {...usePaymentDetail()} />;
-}
+const PaymentDetailContainer = (): ReactElement => {
+  const detailState = usePaymentDetail();
+
+  return <PaymentDetailComponent {...detailState} />;
+};
+
+export default PaymentDetailContainer;
