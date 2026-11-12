@@ -7,7 +7,6 @@ import { Select } from "@/components/Select";
 
 import type { OrderItemPayload } from "../Order.type";
 
-import { calculateOrderTotals, clampQtyToStock } from "./OrderCreate.helpers";
 import type {
   OrderCreateFormState,
   OrderCreateProps,
@@ -15,6 +14,7 @@ import type {
   OrderProjectOption,
   SelectOption,
 } from "./OrderCreate.type";
+import { calculateOrderTotals, clampQtyToStock } from "./OrderCreate.util";
 
 import Layout from "@/app/layout";
 
@@ -970,236 +970,6 @@ const _renderItemCard = (
 };
 
 /**
- * Create item row text field change handler.
- * @param {OrderCreateProps} props - Component properties.
- * @param {number} index - Item row index.
- * @param {keyof OrderItemPayload} field - Item field.
- * @returns {(event: React.ChangeEvent<HTMLInputElement>) => void} Change handler.
- */
-const _createItemTextHandler =
-  (props: OrderCreateProps, index: number, field: keyof OrderItemPayload) =>
-  (event: React.ChangeEvent<HTMLInputElement>): void =>
-    props.onItemChange(index, field, event.target.value);
-
-/**
- * Create item row number field change handler.
- * @param {OrderCreateProps} props - Component properties.
- * @param {number} index - Item row index.
- * @param {keyof OrderItemPayload} field - Item field.
- * @returns {(event: React.ChangeEvent<HTMLInputElement>) => void} Change handler.
- */
-const _createItemNumberHandler =
-  (props: OrderCreateProps, index: number, field: keyof OrderItemPayload) =>
-  (event: React.ChangeEvent<HTMLInputElement>): void =>
-    props.onItemChange(index, field, Number(event.target.value));
-
-/**
- * Render item row header with index, title, and remove action.
- * @param {OrderCreateProps} props - Component properties.
- * @param {OrderItemPayload} item - Item row.
- * @param {number} index - Item row index.
- * @returns {React.ReactElement} Item row header.
- */
-const _renderItemRowHeader = (
-  props: OrderCreateProps,
-  item: OrderItemPayload,
-  index: number,
-): React.ReactElement => {
-  /**
-   * Remove the current item.
-   * @returns {void} Nothing.
-   */
-  const handleRemove = (): void => props.onRemoveItem(index);
-
-  return (
-    <div className="flex items-center justify-between gap-3">
-      <div className="flex min-w-0 items-center gap-3">
-        <span
-          className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-lg text-lg font-semibold ${item.item_id ? "bg-action-primary text-text-inverse" : "bg-background-subtle text-text-tertiary"}`}
-        >
-          {index + 1}
-        </span>
-        <div>
-          <h3 className="font-semibold text-text-primary">
-            {item.item_name || "Select item"}
-          </h3>
-          <p className="mt-0.5 text-lg text-text-secondary">
-            Set item, project, quantity, and price.
-          </p>
-        </div>
-      </div>
-      {props.form.rental_transaction_items.length > 1 && (
-        <button
-          type="button"
-          onClick={handleRemove}
-          className="text-lg font-semibold text-danger"
-        >
-          Remove
-        </button>
-      )}
-    </div>
-  );
-};
-
-/**
- * Render item select for an item row.
- * @param {OrderCreateProps} props - Component properties.
- * @param {OrderItemPayload} item - Item row.
- * @param {number} index - Item row index.
- * @returns {React.ReactElement} Item select.
- */
-const _renderItemRowItemSelect = (
-  props: OrderCreateProps,
-  item: OrderItemPayload,
-  index: number,
-): React.ReactElement => {
-  /**
-   * Handle item selection.
-   * @param {string} value - Selected item id.
-   * @returns {void} Nothing.
-   */
-  const handleItemSelect = (value: string): void =>
-    props.onItemSelect(index, value);
-
-  return (
-    <Select
-      id={`order-item-${index}`}
-      label="Item"
-      required
-      value={item.item_id}
-      onChange={handleItemSelect}
-      disabled={props.isItemsLoading}
-      placeholder={props.isItemsLoading ? "Loading items…" : "Select item"}
-      options={props.items.map((option) => ({
-        value: option.id,
-        label: option.name,
-      }))}
-    />
-  );
-};
-
-/**
- * Render project select for an item row.
- * @param {OrderCreateProps} props - Component properties.
- * @param {OrderItemPayload} item - Item row.
- * @param {number} index - Item row index.
- * @returns {React.ReactElement} Project select.
- */
-const _renderItemRowProjectSelect = (
-  props: OrderCreateProps,
-  item: OrderItemPayload,
-  index: number,
-): React.ReactElement => {
-  /**
-   * Handle project selection.
-   * @param {string} value - Selected project id.
-   * @returns {void} Nothing.
-   */
-  const handleProjectSelect = (value: string): void =>
-    props.onProjectSelect(index, value);
-
-  return (
-    <Select
-      id={`order-project-${index}`}
-      label="Project"
-      required
-      value={item.project_id ?? ""}
-      onChange={handleProjectSelect}
-      disabled={props.isProjectsLoading}
-      placeholder={
-        props.isProjectsLoading ? "Loading projects…" : "Select project"
-      }
-      options={props.projects.map((project) => ({
-        value: project.id,
-        label: project.name,
-      }))}
-    />
-  );
-};
-
-/**
- * Render quantity, price, and subtotal inputs for an item row.
- * @param {OrderCreateProps} props - Component properties.
- * @param {OrderItemPayload} item - Item row.
- * @param {number} index - Item row index.
- * @returns {React.ReactElement} Item row amount inputs.
- */
-const _renderItemRowAmountInputs = (
-  props: OrderCreateProps,
-  item: OrderItemPayload,
-  index: number,
-): React.ReactElement => (
-  <>
-    <input
-      required
-      min={1}
-      value={item.qty}
-      onChange={_createItemNumberHandler(props, index, "qty")}
-      type="number"
-      placeholder="Qty"
-      className="rounded-xl border-2 border-border-strong bg-background-surface px-4 py-3"
-    />
-    <input
-      required
-      min={0}
-      value={item.price}
-      onChange={_createItemNumberHandler(props, index, "price")}
-      type="number"
-      placeholder="Price"
-      className="rounded-xl border-2 border-border-strong bg-background-surface px-4 py-3"
-    />
-    <input
-      required
-      min={0}
-      value={item.subtotal}
-      onChange={_createItemNumberHandler(props, index, "subtotal")}
-      type="number"
-      placeholder="Subtotal"
-      className="rounded-xl border-2 border-border-strong bg-background-surface px-4 py-3"
-    />
-  </>
-);
-
-/* Item details are rendered inline in each Master Project-style card. */
-/**
- * Render _renderItem.
- * @param {OrderCreateProps} props - Component properties.
- * @param {OrderItemPayload} item - Render item.
- * @param {number} index - Item index.
- * @returns {React.ReactElement} Rendered element.
- */
-const _renderItem = (
-  props: OrderCreateProps,
-  item: OrderItemPayload,
-  index: number,
-): React.ReactElement => (
-  <div
-    key={`${index}-${item.item_id}`}
-    className={`relative space-y-4 rounded-2xl border p-4 transition-colors ${item.item_id ? "border-action-primary bg-action-primary-subtle" : "border-border-default bg-background-surface"}`}
-  >
-    {_renderItemRowHeader(props, item, index)}
-    <div className="grid gap-4 md:grid-cols-2">
-      {_renderItemRowItemSelect(props, item, index)}
-      {_renderItemRowProjectSelect(props, item, index)}
-      <input
-        required
-        value={item.item_name}
-        onChange={_createItemTextHandler(props, index, "item_name")}
-        placeholder="Item name"
-        className="rounded-xl border-2 border-border-strong bg-background-surface px-4 py-3"
-      />
-      {_renderItemRowAmountInputs(props, item, index)}
-      <input
-        value={item.remark}
-        onChange={_createItemTextHandler(props, index, "remark")}
-        placeholder="Remark"
-        className="rounded-xl border-2 border-border-strong bg-background-surface px-4 py-3 md:col-span-2"
-      />
-    </div>
-  </div>
-);
-
-/**
  * Resolve step text color.
  * @param {number} index - Step index
  * @param {number} step - Current step
@@ -1679,10 +1449,7 @@ const _renderPricingHeader = (): React.ReactElement => (
 const _renderReviewPricing = (props: OrderCreateProps): React.ReactElement => {
   const totals = calculateOrderTotals(
     props.form.rental_transaction_items.filter((item) => item.item_id),
-    props.form.discount,
-    props.form.service_fee,
-    props.form.start_at,
-    props.form.end_at,
+    props.form,
   );
 
   return (

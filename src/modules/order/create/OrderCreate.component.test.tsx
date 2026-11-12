@@ -52,7 +52,7 @@ describe("OrderCreateComponent", (): void => {
     expect(screen.getAllByLabelText("Qty")).toHaveLength(2);
     fireEvent.change(screen.getAllByLabelText("Qty")[1], { target: { value: "2" } });
     fireEvent.click(screen.getAllByRole("button", { name: "Increase Camera quantity" })[0]);
-    expect(screen.getAllByRole("button", { name: "Decrease Camera quantity" })[0]).toBeDisabled();
+    expect((screen.getAllByRole("button", { name: "Decrease Camera quantity" })[0] as HTMLButtonElement).disabled).toBe(true);
     fireEvent.change(screen.getAllByLabelText("Remark")[1], { target: { value: "Tripod" } });
     expect(onItemChange).toHaveBeenCalledWith(0, "qty", 2);
     expect(onItemChange).toHaveBeenCalledWith(0, "remark", "Tripod");
@@ -115,7 +115,7 @@ describe("OrderCreateComponent", (): void => {
     expect(screen.queryByLabelText("Remark Beam 290")).toBeNull();
     expect(screen.queryByLabelText("Remark Beam 450")).toBeNull();
     const projectRemark = screen.getByLabelText("Project Remark");
-    expect(projectRemark).toHaveValue("Delivery");
+    expect((projectRemark as HTMLTextAreaElement).value).toBe("Delivery");
     fireEvent.change(projectRemark, { target: { value: "Pickup" } });
     expect(onItemChange).toHaveBeenCalledTimes(1);
     expect(onItemChange).toHaveBeenCalledWith(0, "remark", "Pickup");

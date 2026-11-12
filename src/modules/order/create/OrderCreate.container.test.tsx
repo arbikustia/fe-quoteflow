@@ -20,7 +20,7 @@ const state: OrderCreateState = {
 describe("OrderCreateContainer", (): void => {
   it("should render component using hook state when create is allowed", (): void => {
     jest.mocked(useOrderCreateLogic).mockReturnValue(state);
-    jest.mocked(usePagePermission).mockReturnValue({ canView: false, canCreate: true, canEdit: false, isSuperadmin: false });
+    jest.mocked(usePagePermission).mockReturnValue({ canView: false, canCreate: true, canEdit: false, isSuperadmin: false, isLoading: false });
 
     render(<OrderCreateContainer />);
 
@@ -29,7 +29,7 @@ describe("OrderCreateContainer", (): void => {
 
   it("should not render component when create is denied", (): void => {
     jest.mocked(useOrderCreateLogic).mockReturnValue(state);
-    jest.mocked(usePagePermission).mockReturnValue({ canView: true, canCreate: false, canEdit: false, isSuperadmin: false });
+    jest.mocked(usePagePermission).mockReturnValue({ canView: true, canCreate: false, canEdit: false, isSuperadmin: false, isLoading: false });
 
     render(<OrderCreateContainer />);
 

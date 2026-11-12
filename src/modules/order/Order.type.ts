@@ -87,18 +87,6 @@ export type QuoteData = {
   customerPhone: string;
 };
 
-export type CategoryDetailModalProps = {
-  isOpen: boolean;
-  onClose: () => void;
-  quote: QuoteData | null;
-};
-
-export type ItemDetailModalProps = {
-  isOpen: boolean;
-  onClose: () => void;
-  quote: QuoteData | null;
-};
-
 export type BaseOrderState = {
   canCreateOrder: boolean;
   openCreateModal: () => void;
@@ -158,7 +146,7 @@ export type ApiRentalTransactionDetail = {
   voucher_id?: string;
   customer?: { id: string; name?: string; address?: string; phone_number?: string; phone?: string };
   pic?: { id: string; name?: string };
-  voucher?: { id: string; name?: string };
+  voucher?: { id: string; name?: string } | null;
   service_type_id: string;
   service_type_name: string;
   service_type?: { id: string; name?: string };

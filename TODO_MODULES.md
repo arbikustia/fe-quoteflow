@@ -3,7 +3,7 @@
 - [x] 2. master role
 - [x] 3. master user
 - [x] 4. master voucher
-- [ ] 5. order
+- [x] 5. order
 - [ ] 6. quotation
 - [ ] 7. invoice
 - [ ] 8. payment

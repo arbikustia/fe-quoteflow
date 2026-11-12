@@ -8,8 +8,8 @@ import { mapOrder, useGetOrdersQuery } from "@/services/order.service";
 const EMPTY_FILTER = "";
 
 /**
- * Handle module operation.
- * @returns {Pick<OrderProps, "currentPage" | "totalPages" | "pageSize" | "paginatedData" | "totalCount" | "isLoading" | "errorMessage" | "isEmpty" | "goToPage" | "changePageSize" | "setSearchTerm">} - Operation result
+ * Load, paginate and filter the order list.
+ * @returns {Pick<OrderProps, "currentPage" | "totalPages" | "pageSize" | "paginatedData" | "totalCount" | "isLoading" | "errorMessage" | "isEmpty" | "goToPage" | "changePageSize" | "setSearchTerm">} - Pagination state and handlers
  */
 export const useOrderPagination = (): Pick<OrderProps, "currentPage" | "totalPages" | "pageSize" | "paginatedData" | "totalCount" | "isLoading" | "errorMessage" | "isEmpty" | "goToPage" | "changePageSize" | "setSearchTerm"> => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -29,21 +29,21 @@ export const useOrderPagination = (): Pick<OrderProps, "currentPage" | "totalPag
   }
 
   /**
- * Handle module operation.
- * @param {number} page - page value
- * @returns {void} - Operation result
+ * Go to a page, never below the first.
+ * @param {number} page - Target page
+ * @returns {void} - No return value
  */
   const goToPage = (page: number): void => setCurrentPage(Math.max(1, page));
   /**
- * Handle module operation.
- * @param {number} size - size value
- * @returns {void} - Operation result
+ * Change the page size and return to the first page.
+ * @param {number} size - New page size
+ * @returns {void} - No return value
  */
   const changePageSize = (size: number): void => { setPageSize(size); setCurrentPage(1); };
   /**
- * Handle module operation.
- * @param {string} searchTerm - searchTerm value
- * @returns {void} - Operation result
+ * Filter the list by search term and return to the first page.
+ * @param {string} searchTerm - Search term
+ * @returns {void} - No return value
  */
   const setSearchTerm = (searchTerm: string): void => { setFilters((previous) => ({ ...previous, searchTerm })); setCurrentPage(1); };
 
@@ -51,33 +51,33 @@ export const useOrderPagination = (): Pick<OrderProps, "currentPage" | "totalPag
 };
 
 /**
- * Handle module operation.
- * @returns {BaseOrderState} - Operation result
+ * Build the order list navigation state.
+ * @returns {BaseOrderState} - Navigation state and handlers
  */
 export const useOrderState = (): BaseOrderState => {
   const { pathname } = useLocation();
   const navigate = useNavigate();
   const canCreateOrder = pathname !== "/order/draft";
   /**
- * Handle module operation.
- * @returns {void} - Operation result
+ * Open the order create page.
+ * @returns {void} - No return value
  */
   const openCreateModal = (): void => { navigate("/order/create"); };
   /**
- * Handle module operation.
- * @param {QuoteData} quote - quote value
- * @returns {void} - Operation result
+ * Open the order edit page.
+ * @param {QuoteData} quote - Order row
+ * @returns {void} - No return value
  */
   const openEditModal = (quote: QuoteData): void => { navigate(`/order/edit/${quote.id}`); };
   /**
- * Handle module operation.
- * @param {QuoteData} quote - quote value
- * @returns {void} - Operation result
+ * Open the order detail page.
+ * @param {QuoteData} quote - Order row
+ * @returns {void} - No return value
  */
   const onRowClick = (quote: QuoteData): void => { navigate(`/order/detail/${quote.id}`); };
   /**
- * Handle module operation.
- * @returns {void} - Operation result
+ * Go back one page.
+ * @returns {void} - No return value
  */
   const onBack = (): void => { void navigate(-1); };
 

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`OrderCreateContainer Snapshots Should Render OrderCreateContainer 1`] = `
+exports[`OrderCreateContainer Snapshots should render the order create form 1`] = `
 <DocumentFragment>
   <div>
     Order create form

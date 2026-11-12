@@ -1,12 +1,13 @@
 import * as React from "react";
 
-import { OrderCreateComponent } from "./OrderCreate.component";
-import { useOrderCreateLogic } from "./OrderCreate.hook";
 import { usePagePermission } from "@/hooks/usePagePermission";
 
+import { OrderCreateComponent } from "./OrderCreate.component";
+import { useOrderCreateLogic } from "./OrderCreate.hook";
+
 /**
- * Handle module operation.
- * @returns {React.ReactElement} - Operation result
+ * Render the order create form when the user may create orders.
+ * @returns {React.ReactElement} - Create form, or null when denied
  */
 const OrderCreateContainer = (): React.ReactElement | null => {
   const props = useOrderCreateLogic();

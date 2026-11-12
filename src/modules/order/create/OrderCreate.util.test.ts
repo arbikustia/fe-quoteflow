@@ -1,8 +1,8 @@
 import type { ApiQuotation } from "../../quotation/Quotation.type";
 import type { ApiRentalTransactionDetail } from "../Order.type";
 
-import { buildEditForm, mapQuotationToOrderDetail } from "./helpers/OrderCreateForm.helpers";
-import { calculateOrderTotals, clampQtyToStock, getNextOrderStep, getPreviousOrderStep, hasItemQtyWithinStock, hasSelectedOrderItem, isOrderInformationValid } from "./OrderCreate.helpers";
+import { buildEditForm, mapQuotationToOrderDetail } from "./OrderCreate.util";
+import { calculateOrderTotals, clampQtyToStock, getNextOrderStep, getPreviousOrderStep, hasItemQtyWithinStock, hasSelectedOrderItem, isOrderInformationValid } from "./OrderCreate.util";
 
 describe("OrderCreate step helpers", () => {
   it("should advance until pricing step", (): void => {
@@ -14,10 +14,7 @@ describe("OrderCreate step helpers", () => {
   it("should calculate subtotal for every event day before discount", (): void => {
     expect(calculateOrderTotals(
       [{ price: 250000, qty: 2 }, { price: 125000, qty: 1 }],
-      8,
-      25000,
-      "2026-11-12T06:00",
-      "2026-11-14T06:00"
+      { discount: 8, service_fee: 25000, start_at: "2026-11-12T06:00", end_at: "2026-11-14T06:00" },
     )).toEqual({
       subtotal: 1875000,
       discountAmount: 150000,
@@ -28,10 +25,7 @@ describe("OrderCreate step helpers", () => {
   it("should calculate Project edit pricing from daily price", (): void => {
     expect(calculateOrderTotals(
       [{ item_id: "project-1", project_id: "project-1", price: 1000000, qty: 0, subtotal: 0 }],
-      8,
-      10000,
-      "2026-11-13T06:00",
-      "2026-11-15T06:00",
+      { discount: 8, service_fee: 10000, start_at: "2026-11-13T06:00", end_at: "2026-11-15T06:00" },
     )).toEqual({
       subtotal: 3000000,
       discountAmount: 240000,
@@ -40,7 +34,7 @@ describe("OrderCreate step helpers", () => {
   });
 
   it("should calculate one day when dates are unavailable", (): void => {
-    expect(calculateOrderTotals([{ price: 100000, qty: 2 }], 10, 5000)).toEqual({
+    expect(calculateOrderTotals([{ price: 100000, qty: 2 }], { discount: 10, service_fee: 5000 })).toEqual({
       subtotal: 200000,
       discountAmount: 20000,
       grandTotal: 185000,

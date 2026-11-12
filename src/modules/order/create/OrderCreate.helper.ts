@@ -1,11 +1,12 @@
-import type { OrderItemPayload } from "../../Order.type";
-import { clampQtyToStock } from "../OrderCreate.helpers";
-import type { OrderCreateFormState, OrderItemOption } from "../OrderCreate.type";
+import type { NavigateFunction } from "react-router-dom";
 
-import type { ActionResult, FieldActions, FormActionOptions, FormFieldValue, ItemActions, OptionActions, OrderItemField, OrderItemFieldValue, VoucherSelection } from "./OrderCreateForm.action.type";
-import type { FormSetter, ProjectData } from "./OrderCreateForm.type";
+import { getUsername } from "@/components/Sidebar/Sidebar.helpers";
 
-export const EMPTY_ITEM: OrderItemPayload = { item_id: "", project_id: null, item_name: "", qty: 1, price: 0, subtotal: 0, remark: "" };
+import type { OrderCreatePayload, OrderItemPayload } from "../Order.type";
+
+import { EMPTY_ITEM } from "./OrderCreate.config";
+import type { ActionResult, FieldActions, FormActionOptions, FormFieldValue, FormSetter, ItemActions, OptionActions, OrderCreateFormState, OrderItemField, OrderItemFieldValue, OrderItemOption, OrderProjectOption, SubmitOrderParams, VoucherSelection } from "./OrderCreate.type";
+import { buildOrderPayload, buildProjectItems, clampQtyToStock, isProjectServiceType } from "./OrderCreate.util";
 
 /**
  * Update a row with the selected item option.
@@ -86,10 +87,10 @@ const _toggleItem = (form: OrderCreateFormState, itemId: string, items: OrderIte
 
 /**
  * Build form rows for a project header and its items.
- * @param {ProjectData} project - Selected project.
+ * @param {OrderProjectOption} project - Selected project.
  * @returns {OrderItemPayload[]} Project header row followed by project item rows.
  */
-const _buildProjectRows = (project: ProjectData): OrderItemPayload[] => {
+const _buildProjectRows = (project: OrderProjectOption): OrderItemPayload[] => {
   const projectHeader = { ...EMPTY_ITEM, item_id: project.id, project_id: project.id, item_name: project.name, qty: 1, price: project.price, subtotal: project.price };
   const projectItems = project.items.map((item) => ({ ...EMPTY_ITEM, item_id: item.item_id, project_id: project.id, item_name: item.item_name ?? "", qty: item.qty, price: 0, subtotal: 0 }));
 
@@ -100,10 +101,10 @@ const _buildProjectRows = (project: ProjectData): OrderItemPayload[] => {
  * Toggle project selection.
  * @param {OrderCreateFormState} form - Current form.
  * @param {string} projectId - Project ID.
- * @param {ProjectData[]} projects - Project options.
+ * @param {OrderProjectOption[]} projects - Project options.
  * @returns {OrderCreateFormState} Updated form.
  */
-const _toggleProject = (form: OrderCreateFormState, projectId: string, projects: ProjectData[]): OrderCreateFormState => {
+const _toggleProject = (form: OrderCreateFormState, projectId: string, projects: OrderProjectOption[]): OrderCreateFormState => {
   if (form.rental_transaction_items.some((item) => item.project_id === projectId)) return { ...form, rental_transaction_items: form.rental_transaction_items.filter((item) => item.project_id !== projectId) };
 
   const project = projects.find((option) => option.id === projectId);
@@ -271,3 +272,103 @@ export const createFormActions = (setForm: FormSetter, options: FormActionOption
   ..._createOptionActions(setForm, options),
   ..._createItemActions(setForm, options),
 });
+
+/**
+ * Route after successful order submission.
+ * @param {NavigateFunction} navigate - Route navigation.
+ * @param {string} [id] - Transaction ID when editing.
+ * @param {string} [returnUrl] - Return route.
+ * @returns {void} Nothing.
+ */
+export const resolveSubmitRoute = (navigate: NavigateFunction, id?: string, returnUrl?: string): void => {
+  if (returnUrl) {
+    navigate(returnUrl);
+
+    return;
+  }
+
+  if (id) {
+    navigate(-1);
+
+    return;
+  }
+
+  navigate("/document/quotation");
+};
+
+/**
+ * Persist the order through the matching mutation.
+ * @param {SubmitOrderParams} params - Submission params.
+ * @param {OrderCreatePayload} payload - Order payload.
+ * @param {OrderItemPayload[]} items - Selected form items.
+ * @returns {Promise<boolean>} True when the order was saved.
+ */
+const _persistOrder = async (params: SubmitOrderParams, payload: OrderCreatePayload, items: OrderItemPayload[]): Promise<boolean> => {
+  const { form, id, projects } = params;
+
+  if (id) {
+    await params.updateOrder({ id, payload: { ...payload, status: form.status } }).unwrap();
+
+    return true;
+  }
+
+  if (!isProjectServiceType(form)) {
+    await params.createOrder(payload).unwrap();
+
+    return true;
+  }
+
+  const projectItems = buildProjectItems(items, projects, form.start_at, form.end_at);
+
+  if (!projectItems.length) {
+    params.setErrorMessage("Please select at least one project with items.");
+
+    return false;
+  }
+
+  await params.createProjectOrder({ ...payload, rental_transaction_items: projectItems }).unwrap();
+
+  return true;
+};
+
+/**
+ * Record order activity without blocking the user workflow.
+ * @param {SubmitOrderParams} params - Submission params.
+ * @param {string} eventName - Order event name.
+ * @returns {Promise<void>} Completion promise.
+ */
+const _logOrderActivity = async (params: SubmitOrderParams, eventName: string): Promise<void> => {
+  const { id } = params;
+  const userName = getUsername();
+
+  if (!userName) return;
+
+  try {
+    await params.createActivityLog({
+      user_name: userName,
+      action: id ? "edit" : "create",
+      page: "Order",
+      description: `Order ${id || eventName} has been ${id ? "updated" : "created"}.`,
+    }).unwrap();
+  } catch {
+    // Activity log failure should not block user workflow
+  }
+};
+
+/**
+ * Submit order payload, log activity, and route away on success.
+ * @param {SubmitOrderParams} params - Submission params.
+ * @returns {Promise<void>} Completion promise.
+ */
+export const submitOrder = async (params: SubmitOrderParams): Promise<void> => {
+  const { form, orderTypes } = params;
+  const items = form.rental_transaction_items.filter((item) => item.item_id);
+  const payloadItems = isProjectServiceType(form) ? items.filter((item) => item.item_id === item.project_id) : items;
+  const payload = buildOrderPayload(form, payloadItems, orderTypes);
+  const isSaved = await _persistOrder(params, payload, items);
+
+  if (!isSaved) return;
+
+  await _logOrderActivity(params, payload.event_name);
+  resolveSubmitRoute(params.navigate, params.id, params.returnUrl);
+};

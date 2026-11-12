@@ -6,9 +6,9 @@ import Layout from "@/app/layout";
 import { PageLayout } from "@/app/shared/PageLayout";
 
 /**
- * Handle module operation.
- * @param {string} value - value value
- * @returns {string} - Operation result
+ * Format an ISO date as dd/mm/yyyy.
+ * @param {string} value - ISO date
+ * @returns {string} - Formatted date
  */
 const _formatDate = (value: string): string => {
   if (!value) return "—";
@@ -28,30 +28,30 @@ const _formatDate = (value: string): string => {
  */
 const _formatDiscount = (value: number): string => `${value}%`;
 /**
- * Handle module operation.
- * @param {number} value - value value
- * @returns {string} - Operation result
+ * Format an amount as Rupiah.
+ * @param {number} value - Amount
+ * @returns {string} - Formatted currency
  */
 const _formatCurrency = (value: number): string => `Rp ${value.toLocaleString("id-ID")}`;
 
 /**
  * Format order status label.
- * @param {number} value - status value
+ * @param {number} value - Order status
  * @returns {string} status label
  */
 const _formatStatus = (value: number): string => value === 1 ? "Active" : "Inactive";
 
 /**
  * Get order status classes.
- * @param {number} value - status value
+ * @param {number} value - Order status
  * @returns {string} status classes
  */
 const _getStatusClass = (value: number): string => value === 1 ? "bg-success-subtle text-success-strong" : "bg-danger-subtle text-danger-strong";
 
 /**
- * Handle module operation.
- * @param {OrderDetailProps} props - props value
- * @returns {ReactElement | null} - Operation result
+ * Render the loading, error or missing-order state.
+ * @param {OrderDetailProps} props - Order detail props
+ * @returns {ReactElement | null} - State message, or null when the order is shown
  */
 const _renderState = (props: OrderDetailProps): ReactElement | null => {
   if (props.isLoading) return <p className="py-20 text-center text-sm text-text-secondary">Loading order detail…</p>;
@@ -64,9 +64,9 @@ const _renderState = (props: OrderDetailProps): ReactElement | null => {
 };
 
 /**
- * Handle module operation.
- * @param {OrderDetailProps} props - props value
- * @returns {ReactElement} - Operation result
+ * Render the order information section.
+ * @param {OrderDetailProps} props - Order detail props
+ * @returns {ReactElement} - Information section
  */
 const _renderInformation = (props: OrderDetailProps): ReactElement => {
   const order = props.order;
@@ -77,9 +77,9 @@ const _renderInformation = (props: OrderDetailProps): ReactElement => {
 };
 
 /**
- * Handle module operation.
- * @param {OrderDetailProps} props - props value
- * @returns {ReactElement} - Operation result
+ * Render the order items section.
+ * @param {OrderDetailProps} props - Order detail props
+ * @returns {ReactElement} - Items section
  */
 const _renderItems = (props: OrderDetailProps): ReactElement => {
   const order = props.order;
@@ -118,9 +118,9 @@ const _renderItems = (props: OrderDetailProps): ReactElement => {
 };
 
 /**
- * Handle module operation.
- * @param {OrderDetailProps} props - props value
- * @returns {ReactElement} - Operation result
+ * Render the order summary section.
+ * @param {OrderDetailProps} props - Order detail props
+ * @returns {ReactElement} - Summary section
  */
 const _renderSummary = (props: OrderDetailProps): ReactElement => {
   const order = props.order;
@@ -131,9 +131,9 @@ const _renderSummary = (props: OrderDetailProps): ReactElement => {
 };
 
 /**
- * Handle module operation.
- * @param {OrderDetailProps} props - props value
- * @returns {ReactElement} - Operation result
+ * Render the order detail page.
+ * @param {OrderDetailProps} props - Order detail props
+ * @returns {ReactElement} - Order detail page
  */
 export const OrderDetailComponent = (props: OrderDetailProps): ReactElement => {
   const state = _renderState(props);
