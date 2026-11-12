@@ -4,8 +4,8 @@ import { useMasterActivityLog } from "@/hooks/useMasterActivityLog";
 
 import type { CalendarEventItem } from "@/components/Calendar";
 
-import { getCalendarMonthRange, mapCalendarItemToEvent } from "./Calendar.helpers";
 import type { CalendarNavigationState,CalendarPageState } from "./Calendar.type";
+import { getCalendarMonthRange, mapCalendarItemToEvent } from "./Calendar.util";
 
 import { useGetCalendarEventsQuery } from "@/services/calendar.service";
 
@@ -112,5 +112,3 @@ export const useCalendarQuotations = (): CalendarPageState => {
     onCloseDayModal,
   };
 };
-
-export const useCalendarEvents = useCalendarQuotations;

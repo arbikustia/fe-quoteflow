@@ -1,4 +1,4 @@
-import { fireEvent, render, screen, within } from "@testing-library/react";
+import { fireEvent, render, screen } from "@/libs/unit-test";
 
 import type { CalendarEventItem } from "@/components/Calendar";
 
@@ -36,8 +36,8 @@ describe("CalendarPageComponent", () => {
   it("should render calendar and not show modal when selectedDate is null", () => {
     render(<CalendarPageComponent {...defaultProps} />);
 
-    expect(screen.getByLabelText(/November 2026 calendar/i)).toBeInTheDocument();
-    expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
+    expect(screen.getByLabelText(/November 2026 calendar/i)).not.toBeNull();
+    expect(screen.queryByRole("dialog")).toBeNull();
   });
 
   it("should show modal with day events when selectedDate is provided", () => {
@@ -50,12 +50,12 @@ describe("CalendarPageComponent", () => {
     );
 
     const dialog = screen.getByRole("dialog");
-    expect(dialog).toBeInTheDocument();
-    expect(within(dialog).getByText("Pesta Nikah Budi")).toBeInTheDocument();
-    expect(within(dialog).getByText("#ORD-001")).toBeInTheDocument();
-    expect(within(dialog).getByText("Budi Santoso")).toBeInTheDocument();
-    expect(within(dialog).getByText("Jakarta Selatan")).toBeInTheDocument();
-    expect(within(dialog).getByText("Rp 5.000.000")).toBeInTheDocument();
+    expect(dialog).not.toBeNull();
+    expect(dialog.textContent).toContain("Pesta Nikah Budi");
+    expect(dialog.textContent).toContain("#ORD-001");
+    expect(dialog.textContent).toContain("Budi Santoso");
+    expect(dialog.textContent).toContain("Jakarta Selatan");
+    expect(dialog.textContent).toContain("Rp 5.000.000");
   });
 
   it("should call onNavigateToOrderDetail when detail button is clicked", () => {
@@ -84,6 +84,6 @@ describe("CalendarPageComponent", () => {
       />,
     );
 
-    expect(screen.getByText("Tidak Ada Jadwal")).toBeInTheDocument();
+    expect(screen.getByText("Tidak Ada Jadwal")).not.toBeNull();
   });
 });

@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 
 import { useMasterActivityLog } from "@/hooks/useMasterActivityLog";
 
-import { getCalendarMonthRange, mapCalendarItemToEvent } from "@/modules/calendar/Calendar.helpers";
+import { getCalendarMonthRange, mapCalendarItemToEvent } from "@/modules/calendar/Calendar.util";
 import { useGetCalendarEventsQuery } from "@/services/calendar.service";
 import { useGetInvoicesQuery } from "@/services/invoice.service";
 import { useGetAllVouchersQuery, useGetVouchersQuery } from "@/services/master-voucher.service";

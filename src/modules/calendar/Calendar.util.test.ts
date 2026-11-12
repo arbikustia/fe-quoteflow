@@ -3,10 +3,10 @@ import {
   getCalendarMonthRange,
   mapCalendarItemToEvent,
   mapQuotationToCalendarEvent,
-} from "./Calendar.helpers";
+} from "./Calendar.util";
 import type { ApiCalendarItem } from "./Calendar.type";
 
-describe("Calendar.helpers", () => {
+describe("Calendar.util", () => {
   describe("formatCalendarQueryDate", () => {
     it("should format date as MM-DD-YYYY", () => {
       const date = new Date(2026, 9, 1);

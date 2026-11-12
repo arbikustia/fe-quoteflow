@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`CalendarContainer snapshot CalendarContainer Snapshots should render calendar component 1`] = `
+<DocumentFragment>
+  <div>
+    Calendar rendered
+  </div>
+</DocumentFragment>
+`;

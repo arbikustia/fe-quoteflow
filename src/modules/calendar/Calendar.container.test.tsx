@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 
 import { fireEvent, render, screen } from "@/libs/unit-test";
 
-import { CalendarContainer } from "./Calendar.container";
+import CalendarContainer from "./Calendar.container";
 import { useCalendarQuotations } from "./Calendar.hook";
 import type { CalendarPageState } from "./Calendar.type";
 

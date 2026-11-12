@@ -8,7 +8,7 @@
 - [x] 7. invoice
 - [x] 8. payment
 - [x] 9. activity log
-- [ ] 10. calendar
+- [x] 10. calendar
 - [ ] 11. item checklist
 - [ ] 12. item return
 - [ ] 13. note

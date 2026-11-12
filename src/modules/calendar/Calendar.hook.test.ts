@@ -1,4 +1,4 @@
-import { act, renderHook } from "@testing-library/react";
+import { act, renderHook } from "@/libs/unit-test";
 
 import { useGetCalendarEventsQuery } from "@/services/calendar.service";
 

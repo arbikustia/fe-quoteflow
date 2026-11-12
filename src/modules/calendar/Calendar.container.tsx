@@ -8,7 +8,7 @@ import { useCalendarQuotations } from "./Calendar.hook";
  * Container managing quotation calendar page.
  * @returns {ReactElement} Calendar page container
  */
-export const CalendarContainer = (): ReactElement => {
+const CalendarContainer = (): ReactElement => {
   const navigate = useNavigate();
   const calendarState = useCalendarQuotations();
 

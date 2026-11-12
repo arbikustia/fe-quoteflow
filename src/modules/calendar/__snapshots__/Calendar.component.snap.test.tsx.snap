@@ -1,0 +1,1655 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`CalendarPageComponent snapshot CalendarPageComponent Snapshots should render loading state 1`] = `
+<DocumentFragment>
+  <div
+    class="flex min-h-full flex-col"
+  >
+    <header
+      class="mb-6 shrink-0"
+    >
+      <div
+        class="hidden items-start justify-between gap-4 lg:flex"
+      >
+        <div
+          class="min-w-0"
+        >
+          <h1
+            class="truncate text-4xl font-semibold leading-tight tracking-tight text-text-primary"
+          >
+            Calendar
+          </h1>
+          <p
+            class="mt-2 text-sm text-text-secondary"
+          >
+            View and manage order schedules and project timelines.
+          </p>
+        </div>
+      </div>
+      <div
+        class="flex items-center justify-between gap-3 lg:hidden px-0"
+      >
+        <div
+          class="flex items-center gap-3 min-w-0 flex-1"
+        >
+          <div
+            class="min-w-0 flex-1"
+          >
+            <h1
+              class="truncate text-left text-3xl font-semibold tracking-tight text-text-primary text-4xl"
+            >
+              Calendar
+            </h1>
+            <p
+              class="mt-1 truncate text-sm text-text-secondary"
+            >
+              View and manage order schedules and project timelines.
+            </p>
+          </div>
+        </div>
+        <span
+          aria-hidden="true"
+          class="h-12 w-12 shrink-0"
+        />
+      </div>
+    </header>
+    <main
+      class="min-w-0 flex-1"
+    >
+      <section
+        aria-label="November 2026 calendar"
+        class="overflow-hidden rounded-3xl border border-border-default bg-background-surface "
+      >
+        <header
+          class="flex min-h-20 items-center justify-between gap-3 border-b border-border-default px-4 py-4 sm:px-6 lg:min-h-24 lg:gap-6 lg:px-8 lg:py-5"
+        >
+          <div
+            class="min-w-0 flex-1"
+          >
+            <h1
+              class="truncate text-lg font-bold text-text-primary sm:text-xl lg:text-2xl"
+            >
+              November 2026
+            </h1>
+            <p
+              class="mt-0.5 truncate text-xs font-medium text-text-secondary sm:text-sm lg:mt-1 lg:text-base"
+            >
+              Nov 1, 2026 – Nov 30, 2026
+            </p>
+          </div>
+          <div
+            class="flex shrink-0 items-center text-text-secondary"
+          >
+            <div
+              class="flex overflow-hidden rounded-3xl border border-border-default"
+            >
+              <button
+                aria-label="Previous month"
+                class="flex h-10 w-10 items-center justify-center border-r border-border-default hover:bg-background-subtle sm:h-12 sm:w-12"
+                type="button"
+              >
+                <svg
+                  fill="none"
+                  height="20"
+                  stroke="currentColor"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  viewBox="0 0 24 24"
+                  width="20"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="m15 18-6-6 6-6"
+                  />
+                </svg>
+              </button>
+              <button
+                class="h-10 px-4 text-sm font-semibold text-text-primary hover:bg-background-subtle sm:h-12 sm:px-6 sm:text-base"
+                type="button"
+              >
+                Today
+              </button>
+              <button
+                aria-label="Next month"
+                class="flex h-10 w-10 items-center justify-center border-l border-border-default hover:bg-background-subtle sm:h-12 sm:w-12"
+                type="button"
+              >
+                <svg
+                  fill="none"
+                  height="20"
+                  stroke="currentColor"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  viewBox="0 0 24 24"
+                  width="20"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="m9 18 6-6-6-6"
+                  />
+                </svg>
+              </button>
+            </div>
+          </div>
+        </header>
+        <div
+          class="grid grid-cols-7 border-b border-border-default"
+        >
+          <div
+            class="py-3 text-center text-sm font-semibold text-text-tertiary"
+          >
+            Sun
+          </div>
+          <div
+            class="py-3 text-center text-sm font-semibold text-text-tertiary"
+          >
+            Mon
+          </div>
+          <div
+            class="py-3 text-center text-sm font-semibold text-text-tertiary"
+          >
+            Tue
+          </div>
+          <div
+            class="py-3 text-center text-sm font-semibold text-text-tertiary"
+          >
+            Wed
+          </div>
+          <div
+            class="py-3 text-center text-sm font-semibold text-text-tertiary"
+          >
+            Thu
+          </div>
+          <div
+            class="py-3 text-center text-sm font-semibold text-text-tertiary"
+          >
+            Fri
+          </div>
+          <div
+            class="py-3 text-center text-sm font-semibold text-text-tertiary"
+          >
+            Sat
+          </div>
+        </div>
+        <div
+          class="grid min-h-[100dvh] grid-cols-7 grid-rows-5 lg:min-h-[600px]"
+        >
+          <div
+            class="animate-pulse border-b border-r border-border-default bg-background-subtle"
+          />
+          <div
+            class="animate-pulse border-b border-r border-border-default bg-background-subtle"
+          />
+          <div
+            class="animate-pulse border-b border-r border-border-default bg-background-subtle"
+          />
+          <div
+            class="animate-pulse border-b border-r border-border-default bg-background-subtle"
+          />
+          <div
+            class="animate-pulse border-b border-r border-border-default bg-background-subtle"
+          />
+          <div
+            class="animate-pulse border-b border-r border-border-default bg-background-subtle"
+          />
+          <div
+            class="animate-pulse border-b border-r border-border-default bg-background-subtle"
+          />
+          <div
+            class="animate-pulse border-b border-r border-border-default bg-background-subtle"
+          />
+          <div
+            class="animate-pulse border-b border-r border-border-default bg-background-subtle"
+          />
+          <div
+            class="animate-pulse border-b border-r border-border-default bg-background-subtle"
+          />
+          <div
+            class="animate-pulse border-b border-r border-border-default bg-background-subtle"
+          />
+          <div
+            class="animate-pulse border-b border-r border-border-default bg-background-subtle"
+          />
+          <div
+            class="animate-pulse border-b border-r border-border-default bg-background-subtle"
+          />
+          <div
+            class="animate-pulse border-b border-r border-border-default bg-background-subtle"
+          />
+          <div
+            class="animate-pulse border-b border-r border-border-default bg-background-subtle"
+          />
+          <div
+            class="animate-pulse border-b border-r border-border-default bg-background-subtle"
+          />
+          <div
+            class="animate-pulse border-b border-r border-border-default bg-background-subtle"
+          />
+          <div
+            class="animate-pulse border-b border-r border-border-default bg-background-subtle"
+          />
+          <div
+            class="animate-pulse border-b border-r border-border-default bg-background-subtle"
+          />
+          <div
+            class="animate-pulse border-b border-r border-border-default bg-background-subtle"
+          />
+          <div
+            class="animate-pulse border-b border-r border-border-default bg-background-subtle"
+          />
+          <div
+            class="animate-pulse border-b border-r border-border-default bg-background-subtle"
+          />
+          <div
+            class="animate-pulse border-b border-r border-border-default bg-background-subtle"
+          />
+          <div
+            class="animate-pulse border-b border-r border-border-default bg-background-subtle"
+          />
+          <div
+            class="animate-pulse border-b border-r border-border-default bg-background-subtle"
+          />
+          <div
+            class="animate-pulse border-b border-r border-border-default bg-background-subtle"
+          />
+          <div
+            class="animate-pulse border-b border-r border-border-default bg-background-subtle"
+          />
+          <div
+            class="animate-pulse border-b border-r border-border-default bg-background-subtle"
+          />
+          <div
+            class="animate-pulse border-b border-r border-border-default bg-background-subtle"
+          />
+          <div
+            class="animate-pulse border-b border-r border-border-default bg-background-subtle"
+          />
+          <div
+            class="animate-pulse border-b border-r border-border-default bg-background-subtle"
+          />
+          <div
+            class="animate-pulse border-b border-r border-border-default bg-background-subtle"
+          />
+          <div
+            class="animate-pulse border-b border-r border-border-default bg-background-subtle"
+          />
+          <div
+            class="animate-pulse border-b border-r border-border-default bg-background-subtle"
+          />
+          <div
+            class="animate-pulse border-b border-r border-border-default bg-background-subtle"
+          />
+        </div>
+      </section>
+    </main>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`CalendarPageComponent snapshot CalendarPageComponent Snapshots should render month with events 1`] = `
+<DocumentFragment>
+  <div
+    class="flex min-h-full flex-col"
+  >
+    <header
+      class="mb-6 shrink-0"
+    >
+      <div
+        class="hidden items-start justify-between gap-4 lg:flex"
+      >
+        <div
+          class="min-w-0"
+        >
+          <h1
+            class="truncate text-4xl font-semibold leading-tight tracking-tight text-text-primary"
+          >
+            Calendar
+          </h1>
+          <p
+            class="mt-2 text-sm text-text-secondary"
+          >
+            View and manage order schedules and project timelines.
+          </p>
+        </div>
+      </div>
+      <div
+        class="flex items-center justify-between gap-3 lg:hidden px-0"
+      >
+        <div
+          class="flex items-center gap-3 min-w-0 flex-1"
+        >
+          <div
+            class="min-w-0 flex-1"
+          >
+            <h1
+              class="truncate text-left text-3xl font-semibold tracking-tight text-text-primary text-4xl"
+            >
+              Calendar
+            </h1>
+            <p
+              class="mt-1 truncate text-sm text-text-secondary"
+            >
+              View and manage order schedules and project timelines.
+            </p>
+          </div>
+        </div>
+        <span
+          aria-hidden="true"
+          class="h-12 w-12 shrink-0"
+        />
+      </div>
+    </header>
+    <main
+      class="min-w-0 flex-1"
+    >
+      <section
+        aria-label="November 2026 calendar"
+        class="overflow-hidden rounded-3xl border border-border-default bg-background-surface "
+      >
+        <header
+          class="flex min-h-20 items-center justify-between gap-3 border-b border-border-default px-4 py-4 sm:px-6 lg:min-h-24 lg:gap-6 lg:px-8 lg:py-5"
+        >
+          <div
+            class="min-w-0 flex-1"
+          >
+            <h1
+              class="truncate text-lg font-bold text-text-primary sm:text-xl lg:text-2xl"
+            >
+              November 2026
+            </h1>
+            <p
+              class="mt-0.5 truncate text-xs font-medium text-text-secondary sm:text-sm lg:mt-1 lg:text-base"
+            >
+              Nov 1, 2026 – Nov 30, 2026
+            </p>
+          </div>
+          <div
+            class="flex shrink-0 items-center text-text-secondary"
+          >
+            <div
+              class="flex overflow-hidden rounded-3xl border border-border-default"
+            >
+              <button
+                aria-label="Previous month"
+                class="flex h-10 w-10 items-center justify-center border-r border-border-default hover:bg-background-subtle sm:h-12 sm:w-12"
+                type="button"
+              >
+                <svg
+                  fill="none"
+                  height="20"
+                  stroke="currentColor"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  viewBox="0 0 24 24"
+                  width="20"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="m15 18-6-6 6-6"
+                  />
+                </svg>
+              </button>
+              <button
+                class="h-10 px-4 text-sm font-semibold text-text-primary hover:bg-background-subtle sm:h-12 sm:px-6 sm:text-base"
+                type="button"
+              >
+                Today
+              </button>
+              <button
+                aria-label="Next month"
+                class="flex h-10 w-10 items-center justify-center border-l border-border-default hover:bg-background-subtle sm:h-12 sm:w-12"
+                type="button"
+              >
+                <svg
+                  fill="none"
+                  height="20"
+                  stroke="currentColor"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  viewBox="0 0 24 24"
+                  width="20"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="m9 18 6-6-6-6"
+                  />
+                </svg>
+              </button>
+            </div>
+          </div>
+        </header>
+        <div
+          class="grid grid-cols-7 border-b border-border-default"
+        >
+          <div
+            class="py-3 text-center text-sm font-semibold text-text-tertiary"
+          >
+            Sun
+          </div>
+          <div
+            class="py-3 text-center text-sm font-semibold text-text-tertiary"
+          >
+            Mon
+          </div>
+          <div
+            class="py-3 text-center text-sm font-semibold text-text-tertiary"
+          >
+            Tue
+          </div>
+          <div
+            class="py-3 text-center text-sm font-semibold text-text-tertiary"
+          >
+            Wed
+          </div>
+          <div
+            class="py-3 text-center text-sm font-semibold text-text-tertiary"
+          >
+            Thu
+          </div>
+          <div
+            class="py-3 text-center text-sm font-semibold text-text-tertiary"
+          >
+            Fri
+          </div>
+          <div
+            class="py-3 text-center text-sm font-semibold text-text-tertiary"
+          >
+            Sat
+          </div>
+        </div>
+        <div>
+          <div>
+            <div
+              class="relative grid grid-cols-7 border-b border-border-default"
+            >
+              <div
+                aria-disabled="false"
+                class="relative min-h-[20dvh] lg:aspect-square lg:min-h-0 min-w-0 overflow-hidden border-r border-border-default p-2 cursor-pointer transition-colors hover:bg-background-subtle/50 focus:outline-none focus-visible:ring-1 focus-visible:ring-focus-ring"
+                role="button"
+                tabindex="0"
+              >
+                <span
+                  class="inline-flex h-6 min-w-6 items-center justify-center rounded-full px-1 text-xs font-semibold text-text-primary"
+                >
+                  1
+                </span>
+                <div />
+              </div>
+              <div
+                aria-disabled="false"
+                class="relative min-h-[20dvh] lg:aspect-square lg:min-h-0 min-w-0 overflow-hidden border-r border-border-default p-2 cursor-pointer transition-colors hover:bg-background-subtle/50 focus:outline-none focus-visible:ring-1 focus-visible:ring-focus-ring"
+                role="button"
+                tabindex="0"
+              >
+                <span
+                  class="inline-flex h-6 min-w-6 items-center justify-center rounded-full px-1 text-xs font-semibold text-text-primary"
+                >
+                  2
+                </span>
+                <div />
+              </div>
+              <div
+                aria-disabled="false"
+                class="relative min-h-[20dvh] lg:aspect-square lg:min-h-0 min-w-0 overflow-hidden border-r border-border-default p-2 cursor-pointer transition-colors hover:bg-background-subtle/50 focus:outline-none focus-visible:ring-1 focus-visible:ring-focus-ring"
+                role="button"
+                tabindex="0"
+              >
+                <span
+                  class="inline-flex h-6 min-w-6 items-center justify-center rounded-full px-1 text-xs font-semibold bg-action-primary text-text-inverse"
+                >
+                  3
+                </span>
+                <div />
+              </div>
+              <div
+                aria-disabled="false"
+                class="relative min-h-[20dvh] lg:aspect-square lg:min-h-0 min-w-0 overflow-hidden border-r border-border-default p-2 cursor-pointer transition-colors hover:bg-background-subtle/50 focus:outline-none focus-visible:ring-1 focus-visible:ring-focus-ring"
+                role="button"
+                tabindex="0"
+              >
+                <span
+                  class="inline-flex h-6 min-w-6 items-center justify-center rounded-full px-1 text-xs font-semibold text-text-primary"
+                >
+                  4
+                </span>
+                <div />
+              </div>
+              <div
+                aria-disabled="false"
+                class="relative min-h-[20dvh] lg:aspect-square lg:min-h-0 min-w-0 overflow-hidden border-r border-border-default p-2 cursor-pointer transition-colors hover:bg-background-subtle/50 focus:outline-none focus-visible:ring-1 focus-visible:ring-focus-ring"
+                role="button"
+                tabindex="0"
+              >
+                <span
+                  class="inline-flex h-6 min-w-6 items-center justify-center rounded-full px-1 text-xs font-semibold text-text-primary"
+                >
+                  5
+                </span>
+                <div />
+              </div>
+              <div
+                aria-disabled="false"
+                class="relative min-h-[20dvh] lg:aspect-square lg:min-h-0 min-w-0 overflow-hidden border-r border-border-default p-2 cursor-pointer transition-colors hover:bg-background-subtle/50 focus:outline-none focus-visible:ring-1 focus-visible:ring-focus-ring"
+                role="button"
+                tabindex="0"
+              >
+                <span
+                  class="inline-flex h-6 min-w-6 items-center justify-center rounded-full px-1 text-xs font-semibold text-text-primary"
+                >
+                  6
+                </span>
+                <div />
+              </div>
+              <div
+                aria-disabled="false"
+                class="relative min-h-[20dvh] lg:aspect-square lg:min-h-0 min-w-0 overflow-hidden border-r border-border-default p-2 cursor-pointer transition-colors hover:bg-background-subtle/50 focus:outline-none focus-visible:ring-1 focus-visible:ring-focus-ring"
+                role="button"
+                tabindex="0"
+              >
+                <span
+                  class="inline-flex h-6 min-w-6 items-center justify-center rounded-full px-1 text-xs font-semibold text-text-primary"
+                >
+                  7
+                </span>
+                <div />
+              </div>
+              <div
+                class="absolute z-10 block lg:hidden"
+                style="left: calc(28.5714% + 0.25rem); width: calc(14.2857% - 0.5rem); top: 2.25rem;"
+              >
+                <button
+                  class="flex min-w-0 max-w-full w-full items-center gap-1 rounded-md border px-2 py-1 text-left text-xs font-semibold leading-tight transition-opacity hover:opacity-75 sm:text-sm lg:text-base border-green-200 bg-green-50 text-green-700"
+                  title="Pesta Nikah Budi"
+                  type="button"
+                >
+                  <span
+                    class="min-w-0 flex-1 truncate"
+                  >
+                    Pesta Nikah Budi
+                  </span>
+                </button>
+              </div>
+              <div
+                class="absolute z-10 hidden lg:block"
+                style="left: calc(28.5714% + 0.5rem); width: calc(14.2857% - 1rem); top: 2.25rem;"
+              >
+                <button
+                  class="flex min-w-0 max-w-full w-full items-center gap-1 rounded-md border px-2 py-1 text-left text-xs font-semibold leading-tight transition-opacity hover:opacity-75 sm:text-sm lg:text-base border-green-200 bg-green-50 text-green-700"
+                  title="Pesta Nikah Budi"
+                  type="button"
+                >
+                  <span
+                    class="min-w-0 flex-1 truncate"
+                  >
+                    Pesta Nikah Budi
+                  </span>
+                </button>
+              </div>
+            </div>
+          </div>
+          <div>
+            <div
+              class="relative grid grid-cols-7 border-b border-border-default"
+            >
+              <div
+                aria-disabled="false"
+                class="relative min-h-[20dvh] lg:aspect-square lg:min-h-0 min-w-0 overflow-hidden border-r border-border-default p-2 cursor-pointer transition-colors hover:bg-background-subtle/50 focus:outline-none focus-visible:ring-1 focus-visible:ring-focus-ring"
+                role="button"
+                tabindex="0"
+              >
+                <span
+                  class="inline-flex h-6 min-w-6 items-center justify-center rounded-full px-1 text-xs font-semibold text-text-primary"
+                >
+                  8
+                </span>
+                <div />
+              </div>
+              <div
+                aria-disabled="false"
+                class="relative min-h-[20dvh] lg:aspect-square lg:min-h-0 min-w-0 overflow-hidden border-r border-border-default p-2 cursor-pointer transition-colors hover:bg-background-subtle/50 focus:outline-none focus-visible:ring-1 focus-visible:ring-focus-ring"
+                role="button"
+                tabindex="0"
+              >
+                <span
+                  class="inline-flex h-6 min-w-6 items-center justify-center rounded-full px-1 text-xs font-semibold text-text-primary"
+                >
+                  9
+                </span>
+                <div />
+              </div>
+              <div
+                aria-disabled="false"
+                class="relative min-h-[20dvh] lg:aspect-square lg:min-h-0 min-w-0 overflow-hidden border-r border-border-default p-2 cursor-pointer transition-colors hover:bg-background-subtle/50 focus:outline-none focus-visible:ring-1 focus-visible:ring-focus-ring"
+                role="button"
+                tabindex="0"
+              >
+                <span
+                  class="inline-flex h-6 min-w-6 items-center justify-center rounded-full px-1 text-xs font-semibold text-text-primary"
+                >
+                  10
+                </span>
+                <div />
+              </div>
+              <div
+                aria-disabled="false"
+                class="relative min-h-[20dvh] lg:aspect-square lg:min-h-0 min-w-0 overflow-hidden border-r border-border-default p-2 cursor-pointer transition-colors hover:bg-background-subtle/50 focus:outline-none focus-visible:ring-1 focus-visible:ring-focus-ring"
+                role="button"
+                tabindex="0"
+              >
+                <span
+                  class="inline-flex h-6 min-w-6 items-center justify-center rounded-full px-1 text-xs font-semibold text-text-primary"
+                >
+                  11
+                </span>
+                <div />
+              </div>
+              <div
+                aria-disabled="false"
+                class="relative min-h-[20dvh] lg:aspect-square lg:min-h-0 min-w-0 overflow-hidden border-r border-border-default p-2 cursor-pointer transition-colors hover:bg-background-subtle/50 focus:outline-none focus-visible:ring-1 focus-visible:ring-focus-ring"
+                role="button"
+                tabindex="0"
+              >
+                <span
+                  class="inline-flex h-6 min-w-6 items-center justify-center rounded-full px-1 text-xs font-semibold text-text-primary"
+                >
+                  12
+                </span>
+                <div />
+              </div>
+              <div
+                aria-disabled="false"
+                class="relative min-h-[20dvh] lg:aspect-square lg:min-h-0 min-w-0 overflow-hidden border-r border-border-default p-2 cursor-pointer transition-colors hover:bg-background-subtle/50 focus:outline-none focus-visible:ring-1 focus-visible:ring-focus-ring"
+                role="button"
+                tabindex="0"
+              >
+                <span
+                  class="inline-flex h-6 min-w-6 items-center justify-center rounded-full px-1 text-xs font-semibold text-text-primary"
+                >
+                  13
+                </span>
+                <div />
+              </div>
+              <div
+                aria-disabled="false"
+                class="relative min-h-[20dvh] lg:aspect-square lg:min-h-0 min-w-0 overflow-hidden border-r border-border-default p-2 cursor-pointer transition-colors hover:bg-background-subtle/50 focus:outline-none focus-visible:ring-1 focus-visible:ring-focus-ring"
+                role="button"
+                tabindex="0"
+              >
+                <span
+                  class="inline-flex h-6 min-w-6 items-center justify-center rounded-full px-1 text-xs font-semibold text-text-primary"
+                >
+                  14
+                </span>
+                <div />
+              </div>
+            </div>
+          </div>
+          <div>
+            <div
+              class="relative grid grid-cols-7 border-b border-border-default"
+            >
+              <div
+                aria-disabled="false"
+                class="relative min-h-[20dvh] lg:aspect-square lg:min-h-0 min-w-0 overflow-hidden border-r border-border-default p-2 cursor-pointer transition-colors hover:bg-background-subtle/50 focus:outline-none focus-visible:ring-1 focus-visible:ring-focus-ring"
+                role="button"
+                tabindex="0"
+              >
+                <span
+                  class="inline-flex h-6 min-w-6 items-center justify-center rounded-full px-1 text-xs font-semibold text-text-primary"
+                >
+                  15
+                </span>
+                <div />
+              </div>
+              <div
+                aria-disabled="false"
+                class="relative min-h-[20dvh] lg:aspect-square lg:min-h-0 min-w-0 overflow-hidden border-r border-border-default p-2 cursor-pointer transition-colors hover:bg-background-subtle/50 focus:outline-none focus-visible:ring-1 focus-visible:ring-focus-ring"
+                role="button"
+                tabindex="0"
+              >
+                <span
+                  class="inline-flex h-6 min-w-6 items-center justify-center rounded-full px-1 text-xs font-semibold text-text-primary"
+                >
+                  16
+                </span>
+                <div />
+              </div>
+              <div
+                aria-disabled="false"
+                class="relative min-h-[20dvh] lg:aspect-square lg:min-h-0 min-w-0 overflow-hidden border-r border-border-default p-2 cursor-pointer transition-colors hover:bg-background-subtle/50 focus:outline-none focus-visible:ring-1 focus-visible:ring-focus-ring"
+                role="button"
+                tabindex="0"
+              >
+                <span
+                  class="inline-flex h-6 min-w-6 items-center justify-center rounded-full px-1 text-xs font-semibold text-text-primary"
+                >
+                  17
+                </span>
+                <div />
+              </div>
+              <div
+                aria-disabled="false"
+                class="relative min-h-[20dvh] lg:aspect-square lg:min-h-0 min-w-0 overflow-hidden border-r border-border-default p-2 cursor-pointer transition-colors hover:bg-background-subtle/50 focus:outline-none focus-visible:ring-1 focus-visible:ring-focus-ring"
+                role="button"
+                tabindex="0"
+              >
+                <span
+                  class="inline-flex h-6 min-w-6 items-center justify-center rounded-full px-1 text-xs font-semibold text-text-primary"
+                >
+                  18
+                </span>
+                <div />
+              </div>
+              <div
+                aria-disabled="false"
+                class="relative min-h-[20dvh] lg:aspect-square lg:min-h-0 min-w-0 overflow-hidden border-r border-border-default p-2 cursor-pointer transition-colors hover:bg-background-subtle/50 focus:outline-none focus-visible:ring-1 focus-visible:ring-focus-ring"
+                role="button"
+                tabindex="0"
+              >
+                <span
+                  class="inline-flex h-6 min-w-6 items-center justify-center rounded-full px-1 text-xs font-semibold text-text-primary"
+                >
+                  19
+                </span>
+                <div />
+              </div>
+              <div
+                aria-disabled="false"
+                class="relative min-h-[20dvh] lg:aspect-square lg:min-h-0 min-w-0 overflow-hidden border-r border-border-default p-2 cursor-pointer transition-colors hover:bg-background-subtle/50 focus:outline-none focus-visible:ring-1 focus-visible:ring-focus-ring"
+                role="button"
+                tabindex="0"
+              >
+                <span
+                  class="inline-flex h-6 min-w-6 items-center justify-center rounded-full px-1 text-xs font-semibold text-text-primary"
+                >
+                  20
+                </span>
+                <div />
+              </div>
+              <div
+                aria-disabled="false"
+                class="relative min-h-[20dvh] lg:aspect-square lg:min-h-0 min-w-0 overflow-hidden border-r border-border-default p-2 cursor-pointer transition-colors hover:bg-background-subtle/50 focus:outline-none focus-visible:ring-1 focus-visible:ring-focus-ring"
+                role="button"
+                tabindex="0"
+              >
+                <span
+                  class="inline-flex h-6 min-w-6 items-center justify-center rounded-full px-1 text-xs font-semibold text-text-primary"
+                >
+                  21
+                </span>
+                <div />
+              </div>
+            </div>
+          </div>
+          <div>
+            <div
+              class="relative grid grid-cols-7 border-b border-border-default"
+            >
+              <div
+                aria-disabled="false"
+                class="relative min-h-[20dvh] lg:aspect-square lg:min-h-0 min-w-0 overflow-hidden border-r border-border-default p-2 cursor-pointer transition-colors hover:bg-background-subtle/50 focus:outline-none focus-visible:ring-1 focus-visible:ring-focus-ring"
+                role="button"
+                tabindex="0"
+              >
+                <span
+                  class="inline-flex h-6 min-w-6 items-center justify-center rounded-full px-1 text-xs font-semibold text-text-primary"
+                >
+                  22
+                </span>
+                <div />
+              </div>
+              <div
+                aria-disabled="false"
+                class="relative min-h-[20dvh] lg:aspect-square lg:min-h-0 min-w-0 overflow-hidden border-r border-border-default p-2 cursor-pointer transition-colors hover:bg-background-subtle/50 focus:outline-none focus-visible:ring-1 focus-visible:ring-focus-ring"
+                role="button"
+                tabindex="0"
+              >
+                <span
+                  class="inline-flex h-6 min-w-6 items-center justify-center rounded-full px-1 text-xs font-semibold text-text-primary"
+                >
+                  23
+                </span>
+                <div />
+              </div>
+              <div
+                aria-disabled="false"
+                class="relative min-h-[20dvh] lg:aspect-square lg:min-h-0 min-w-0 overflow-hidden border-r border-border-default p-2 cursor-pointer transition-colors hover:bg-background-subtle/50 focus:outline-none focus-visible:ring-1 focus-visible:ring-focus-ring"
+                role="button"
+                tabindex="0"
+              >
+                <span
+                  class="inline-flex h-6 min-w-6 items-center justify-center rounded-full px-1 text-xs font-semibold text-text-primary"
+                >
+                  24
+                </span>
+                <div />
+              </div>
+              <div
+                aria-disabled="false"
+                class="relative min-h-[20dvh] lg:aspect-square lg:min-h-0 min-w-0 overflow-hidden border-r border-border-default p-2 cursor-pointer transition-colors hover:bg-background-subtle/50 focus:outline-none focus-visible:ring-1 focus-visible:ring-focus-ring"
+                role="button"
+                tabindex="0"
+              >
+                <span
+                  class="inline-flex h-6 min-w-6 items-center justify-center rounded-full px-1 text-xs font-semibold text-text-primary"
+                >
+                  25
+                </span>
+                <div />
+              </div>
+              <div
+                aria-disabled="false"
+                class="relative min-h-[20dvh] lg:aspect-square lg:min-h-0 min-w-0 overflow-hidden border-r border-border-default p-2 cursor-pointer transition-colors hover:bg-background-subtle/50 focus:outline-none focus-visible:ring-1 focus-visible:ring-focus-ring"
+                role="button"
+                tabindex="0"
+              >
+                <span
+                  class="inline-flex h-6 min-w-6 items-center justify-center rounded-full px-1 text-xs font-semibold text-text-primary"
+                >
+                  26
+                </span>
+                <div />
+              </div>
+              <div
+                aria-disabled="false"
+                class="relative min-h-[20dvh] lg:aspect-square lg:min-h-0 min-w-0 overflow-hidden border-r border-border-default p-2 cursor-pointer transition-colors hover:bg-background-subtle/50 focus:outline-none focus-visible:ring-1 focus-visible:ring-focus-ring"
+                role="button"
+                tabindex="0"
+              >
+                <span
+                  class="inline-flex h-6 min-w-6 items-center justify-center rounded-full px-1 text-xs font-semibold text-text-primary"
+                >
+                  27
+                </span>
+                <div />
+              </div>
+              <div
+                aria-disabled="false"
+                class="relative min-h-[20dvh] lg:aspect-square lg:min-h-0 min-w-0 overflow-hidden border-r border-border-default p-2 cursor-pointer transition-colors hover:bg-background-subtle/50 focus:outline-none focus-visible:ring-1 focus-visible:ring-focus-ring"
+                role="button"
+                tabindex="0"
+              >
+                <span
+                  class="inline-flex h-6 min-w-6 items-center justify-center rounded-full px-1 text-xs font-semibold text-text-primary"
+                >
+                  28
+                </span>
+                <div />
+              </div>
+            </div>
+          </div>
+          <div>
+            <div
+              class="relative grid grid-cols-7 border-b border-border-default"
+            >
+              <div
+                aria-disabled="false"
+                class="relative min-h-[20dvh] lg:aspect-square lg:min-h-0 min-w-0 overflow-hidden border-r border-border-default p-2 cursor-pointer transition-colors hover:bg-background-subtle/50 focus:outline-none focus-visible:ring-1 focus-visible:ring-focus-ring"
+                role="button"
+                tabindex="0"
+              >
+                <span
+                  class="inline-flex h-6 min-w-6 items-center justify-center rounded-full px-1 text-xs font-semibold text-text-primary"
+                >
+                  29
+                </span>
+                <div />
+              </div>
+              <div
+                aria-disabled="false"
+                class="relative min-h-[20dvh] lg:aspect-square lg:min-h-0 min-w-0 overflow-hidden border-r border-border-default p-2 cursor-pointer transition-colors hover:bg-background-subtle/50 focus:outline-none focus-visible:ring-1 focus-visible:ring-focus-ring"
+                role="button"
+                tabindex="0"
+              >
+                <span
+                  class="inline-flex h-6 min-w-6 items-center justify-center rounded-full px-1 text-xs font-semibold text-text-primary"
+                >
+                  30
+                </span>
+                <div />
+              </div>
+              <div
+                aria-disabled="true"
+                class="relative min-h-[20dvh] lg:aspect-square lg:min-h-0 min-w-0 overflow-hidden border-r border-border-default p-2 pointer-events-none bg-background-subtle"
+              >
+                <span
+                  class="inline-flex h-6 min-w-6 items-center justify-center rounded-full px-1 text-xs font-semibold text-text-disabled opacity-40"
+                >
+                  1
+                </span>
+              </div>
+              <div
+                aria-disabled="true"
+                class="relative min-h-[20dvh] lg:aspect-square lg:min-h-0 min-w-0 overflow-hidden border-r border-border-default p-2 pointer-events-none bg-background-subtle"
+              >
+                <span
+                  class="inline-flex h-6 min-w-6 items-center justify-center rounded-full px-1 text-xs font-semibold text-text-disabled opacity-40"
+                >
+                  2
+                </span>
+              </div>
+              <div
+                aria-disabled="true"
+                class="relative min-h-[20dvh] lg:aspect-square lg:min-h-0 min-w-0 overflow-hidden border-r border-border-default p-2 pointer-events-none bg-background-subtle"
+              >
+                <span
+                  class="inline-flex h-6 min-w-6 items-center justify-center rounded-full px-1 text-xs font-semibold text-text-disabled opacity-40"
+                >
+                  3
+                </span>
+              </div>
+              <div
+                aria-disabled="true"
+                class="relative min-h-[20dvh] lg:aspect-square lg:min-h-0 min-w-0 overflow-hidden border-r border-border-default p-2 pointer-events-none bg-background-subtle"
+              >
+                <span
+                  class="inline-flex h-6 min-w-6 items-center justify-center rounded-full px-1 text-xs font-semibold text-text-disabled opacity-40"
+                >
+                  4
+                </span>
+              </div>
+              <div
+                aria-disabled="true"
+                class="relative min-h-[20dvh] lg:aspect-square lg:min-h-0 min-w-0 overflow-hidden border-r border-border-default p-2 pointer-events-none bg-background-subtle"
+              >
+                <span
+                  class="inline-flex h-6 min-w-6 items-center justify-center rounded-full px-1 text-xs font-semibold text-text-disabled opacity-40"
+                >
+                  5
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`CalendarPageComponent snapshot CalendarPageComponent Snapshots should render selected day modal 1`] = `
+<DocumentFragment>
+  <div
+    class="flex min-h-full flex-col"
+  >
+    <header
+      class="mb-6 shrink-0"
+    >
+      <div
+        class="hidden items-start justify-between gap-4 lg:flex"
+      >
+        <div
+          class="min-w-0"
+        >
+          <h1
+            class="truncate text-4xl font-semibold leading-tight tracking-tight text-text-primary"
+          >
+            Calendar
+          </h1>
+          <p
+            class="mt-2 text-sm text-text-secondary"
+          >
+            View and manage order schedules and project timelines.
+          </p>
+        </div>
+      </div>
+      <div
+        class="flex items-center justify-between gap-3 lg:hidden px-0"
+      >
+        <div
+          class="flex items-center gap-3 min-w-0 flex-1"
+        >
+          <div
+            class="min-w-0 flex-1"
+          >
+            <h1
+              class="truncate text-left text-3xl font-semibold tracking-tight text-text-primary text-4xl"
+            >
+              Calendar
+            </h1>
+            <p
+              class="mt-1 truncate text-sm text-text-secondary"
+            >
+              View and manage order schedules and project timelines.
+            </p>
+          </div>
+        </div>
+        <span
+          aria-hidden="true"
+          class="h-12 w-12 shrink-0"
+        />
+      </div>
+    </header>
+    <main
+      class="min-w-0 flex-1"
+    >
+      <section
+        aria-label="November 2026 calendar"
+        class="overflow-hidden rounded-3xl border border-border-default bg-background-surface "
+      >
+        <header
+          class="flex min-h-20 items-center justify-between gap-3 border-b border-border-default px-4 py-4 sm:px-6 lg:min-h-24 lg:gap-6 lg:px-8 lg:py-5"
+        >
+          <div
+            class="min-w-0 flex-1"
+          >
+            <h1
+              class="truncate text-lg font-bold text-text-primary sm:text-xl lg:text-2xl"
+            >
+              November 2026
+            </h1>
+            <p
+              class="mt-0.5 truncate text-xs font-medium text-text-secondary sm:text-sm lg:mt-1 lg:text-base"
+            >
+              Nov 1, 2026 – Nov 30, 2026
+            </p>
+          </div>
+          <div
+            class="flex shrink-0 items-center text-text-secondary"
+          >
+            <div
+              class="flex overflow-hidden rounded-3xl border border-border-default"
+            >
+              <button
+                aria-label="Previous month"
+                class="flex h-10 w-10 items-center justify-center border-r border-border-default hover:bg-background-subtle sm:h-12 sm:w-12"
+                type="button"
+              >
+                <svg
+                  fill="none"
+                  height="20"
+                  stroke="currentColor"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  viewBox="0 0 24 24"
+                  width="20"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="m15 18-6-6 6-6"
+                  />
+                </svg>
+              </button>
+              <button
+                class="h-10 px-4 text-sm font-semibold text-text-primary hover:bg-background-subtle sm:h-12 sm:px-6 sm:text-base"
+                type="button"
+              >
+                Today
+              </button>
+              <button
+                aria-label="Next month"
+                class="flex h-10 w-10 items-center justify-center border-l border-border-default hover:bg-background-subtle sm:h-12 sm:w-12"
+                type="button"
+              >
+                <svg
+                  fill="none"
+                  height="20"
+                  stroke="currentColor"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  viewBox="0 0 24 24"
+                  width="20"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="m9 18 6-6-6-6"
+                  />
+                </svg>
+              </button>
+            </div>
+          </div>
+        </header>
+        <div
+          class="grid grid-cols-7 border-b border-border-default"
+        >
+          <div
+            class="py-3 text-center text-sm font-semibold text-text-tertiary"
+          >
+            Sun
+          </div>
+          <div
+            class="py-3 text-center text-sm font-semibold text-text-tertiary"
+          >
+            Mon
+          </div>
+          <div
+            class="py-3 text-center text-sm font-semibold text-text-tertiary"
+          >
+            Tue
+          </div>
+          <div
+            class="py-3 text-center text-sm font-semibold text-text-tertiary"
+          >
+            Wed
+          </div>
+          <div
+            class="py-3 text-center text-sm font-semibold text-text-tertiary"
+          >
+            Thu
+          </div>
+          <div
+            class="py-3 text-center text-sm font-semibold text-text-tertiary"
+          >
+            Fri
+          </div>
+          <div
+            class="py-3 text-center text-sm font-semibold text-text-tertiary"
+          >
+            Sat
+          </div>
+        </div>
+        <div>
+          <div>
+            <div
+              class="relative grid grid-cols-7 border-b border-border-default"
+            >
+              <div
+                aria-disabled="false"
+                class="relative min-h-[20dvh] lg:aspect-square lg:min-h-0 min-w-0 overflow-hidden border-r border-border-default p-2 cursor-pointer transition-colors hover:bg-background-subtle/50 focus:outline-none focus-visible:ring-1 focus-visible:ring-focus-ring"
+                role="button"
+                tabindex="0"
+              >
+                <span
+                  class="inline-flex h-6 min-w-6 items-center justify-center rounded-full px-1 text-xs font-semibold text-text-primary"
+                >
+                  1
+                </span>
+                <div />
+              </div>
+              <div
+                aria-disabled="false"
+                class="relative min-h-[20dvh] lg:aspect-square lg:min-h-0 min-w-0 overflow-hidden border-r border-border-default p-2 cursor-pointer transition-colors hover:bg-background-subtle/50 focus:outline-none focus-visible:ring-1 focus-visible:ring-focus-ring"
+                role="button"
+                tabindex="0"
+              >
+                <span
+                  class="inline-flex h-6 min-w-6 items-center justify-center rounded-full px-1 text-xs font-semibold text-text-primary"
+                >
+                  2
+                </span>
+                <div />
+              </div>
+              <div
+                aria-disabled="false"
+                class="relative min-h-[20dvh] lg:aspect-square lg:min-h-0 min-w-0 overflow-hidden border-r border-border-default p-2 cursor-pointer transition-colors hover:bg-background-subtle/50 focus:outline-none focus-visible:ring-1 focus-visible:ring-focus-ring"
+                role="button"
+                tabindex="0"
+              >
+                <span
+                  class="inline-flex h-6 min-w-6 items-center justify-center rounded-full px-1 text-xs font-semibold bg-action-primary text-text-inverse"
+                >
+                  3
+                </span>
+                <div />
+              </div>
+              <div
+                aria-disabled="false"
+                class="relative min-h-[20dvh] lg:aspect-square lg:min-h-0 min-w-0 overflow-hidden border-r border-border-default p-2 cursor-pointer transition-colors hover:bg-background-subtle/50 focus:outline-none focus-visible:ring-1 focus-visible:ring-focus-ring"
+                role="button"
+                tabindex="0"
+              >
+                <span
+                  class="inline-flex h-6 min-w-6 items-center justify-center rounded-full px-1 text-xs font-semibold text-text-primary"
+                >
+                  4
+                </span>
+                <div />
+              </div>
+              <div
+                aria-disabled="false"
+                class="relative min-h-[20dvh] lg:aspect-square lg:min-h-0 min-w-0 overflow-hidden border-r border-border-default p-2 cursor-pointer transition-colors hover:bg-background-subtle/50 focus:outline-none focus-visible:ring-1 focus-visible:ring-focus-ring"
+                role="button"
+                tabindex="0"
+              >
+                <span
+                  class="inline-flex h-6 min-w-6 items-center justify-center rounded-full px-1 text-xs font-semibold text-text-primary"
+                >
+                  5
+                </span>
+                <div />
+              </div>
+              <div
+                aria-disabled="false"
+                class="relative min-h-[20dvh] lg:aspect-square lg:min-h-0 min-w-0 overflow-hidden border-r border-border-default p-2 cursor-pointer transition-colors hover:bg-background-subtle/50 focus:outline-none focus-visible:ring-1 focus-visible:ring-focus-ring"
+                role="button"
+                tabindex="0"
+              >
+                <span
+                  class="inline-flex h-6 min-w-6 items-center justify-center rounded-full px-1 text-xs font-semibold text-text-primary"
+                >
+                  6
+                </span>
+                <div />
+              </div>
+              <div
+                aria-disabled="false"
+                class="relative min-h-[20dvh] lg:aspect-square lg:min-h-0 min-w-0 overflow-hidden border-r border-border-default p-2 cursor-pointer transition-colors hover:bg-background-subtle/50 focus:outline-none focus-visible:ring-1 focus-visible:ring-focus-ring"
+                role="button"
+                tabindex="0"
+              >
+                <span
+                  class="inline-flex h-6 min-w-6 items-center justify-center rounded-full px-1 text-xs font-semibold text-text-primary"
+                >
+                  7
+                </span>
+                <div />
+              </div>
+              <div
+                class="absolute z-10 block lg:hidden"
+                style="left: calc(28.5714% + 0.25rem); width: calc(14.2857% - 0.5rem); top: 2.25rem;"
+              >
+                <button
+                  class="flex min-w-0 max-w-full w-full items-center gap-1 rounded-md border px-2 py-1 text-left text-xs font-semibold leading-tight transition-opacity hover:opacity-75 sm:text-sm lg:text-base border-green-200 bg-green-50 text-green-700"
+                  title="Pesta Nikah Budi"
+                  type="button"
+                >
+                  <span
+                    class="min-w-0 flex-1 truncate"
+                  >
+                    Pesta Nikah Budi
+                  </span>
+                </button>
+              </div>
+              <div
+                class="absolute z-10 hidden lg:block"
+                style="left: calc(28.5714% + 0.5rem); width: calc(14.2857% - 1rem); top: 2.25rem;"
+              >
+                <button
+                  class="flex min-w-0 max-w-full w-full items-center gap-1 rounded-md border px-2 py-1 text-left text-xs font-semibold leading-tight transition-opacity hover:opacity-75 sm:text-sm lg:text-base border-green-200 bg-green-50 text-green-700"
+                  title="Pesta Nikah Budi"
+                  type="button"
+                >
+                  <span
+                    class="min-w-0 flex-1 truncate"
+                  >
+                    Pesta Nikah Budi
+                  </span>
+                </button>
+              </div>
+            </div>
+          </div>
+          <div>
+            <div
+              class="relative grid grid-cols-7 border-b border-border-default"
+            >
+              <div
+                aria-disabled="false"
+                class="relative min-h-[20dvh] lg:aspect-square lg:min-h-0 min-w-0 overflow-hidden border-r border-border-default p-2 cursor-pointer transition-colors hover:bg-background-subtle/50 focus:outline-none focus-visible:ring-1 focus-visible:ring-focus-ring"
+                role="button"
+                tabindex="0"
+              >
+                <span
+                  class="inline-flex h-6 min-w-6 items-center justify-center rounded-full px-1 text-xs font-semibold text-text-primary"
+                >
+                  8
+                </span>
+                <div />
+              </div>
+              <div
+                aria-disabled="false"
+                class="relative min-h-[20dvh] lg:aspect-square lg:min-h-0 min-w-0 overflow-hidden border-r border-border-default p-2 cursor-pointer transition-colors hover:bg-background-subtle/50 focus:outline-none focus-visible:ring-1 focus-visible:ring-focus-ring"
+                role="button"
+                tabindex="0"
+              >
+                <span
+                  class="inline-flex h-6 min-w-6 items-center justify-center rounded-full px-1 text-xs font-semibold text-text-primary"
+                >
+                  9
+                </span>
+                <div />
+              </div>
+              <div
+                aria-disabled="false"
+                class="relative min-h-[20dvh] lg:aspect-square lg:min-h-0 min-w-0 overflow-hidden border-r border-border-default p-2 cursor-pointer transition-colors hover:bg-background-subtle/50 focus:outline-none focus-visible:ring-1 focus-visible:ring-focus-ring"
+                role="button"
+                tabindex="0"
+              >
+                <span
+                  class="inline-flex h-6 min-w-6 items-center justify-center rounded-full px-1 text-xs font-semibold text-text-primary"
+                >
+                  10
+                </span>
+                <div />
+              </div>
+              <div
+                aria-disabled="false"
+                class="relative min-h-[20dvh] lg:aspect-square lg:min-h-0 min-w-0 overflow-hidden border-r border-border-default p-2 cursor-pointer transition-colors hover:bg-background-subtle/50 focus:outline-none focus-visible:ring-1 focus-visible:ring-focus-ring"
+                role="button"
+                tabindex="0"
+              >
+                <span
+                  class="inline-flex h-6 min-w-6 items-center justify-center rounded-full px-1 text-xs font-semibold text-text-primary"
+                >
+                  11
+                </span>
+                <div />
+              </div>
+              <div
+                aria-disabled="false"
+                class="relative min-h-[20dvh] lg:aspect-square lg:min-h-0 min-w-0 overflow-hidden border-r border-border-default p-2 cursor-pointer transition-colors hover:bg-background-subtle/50 focus:outline-none focus-visible:ring-1 focus-visible:ring-focus-ring"
+                role="button"
+                tabindex="0"
+              >
+                <span
+                  class="inline-flex h-6 min-w-6 items-center justify-center rounded-full px-1 text-xs font-semibold text-text-primary"
+                >
+                  12
+                </span>
+                <div />
+              </div>
+              <div
+                aria-disabled="false"
+                class="relative min-h-[20dvh] lg:aspect-square lg:min-h-0 min-w-0 overflow-hidden border-r border-border-default p-2 cursor-pointer transition-colors hover:bg-background-subtle/50 focus:outline-none focus-visible:ring-1 focus-visible:ring-focus-ring"
+                role="button"
+                tabindex="0"
+              >
+                <span
+                  class="inline-flex h-6 min-w-6 items-center justify-center rounded-full px-1 text-xs font-semibold text-text-primary"
+                >
+                  13
+                </span>
+                <div />
+              </div>
+              <div
+                aria-disabled="false"
+                class="relative min-h-[20dvh] lg:aspect-square lg:min-h-0 min-w-0 overflow-hidden border-r border-border-default p-2 cursor-pointer transition-colors hover:bg-background-subtle/50 focus:outline-none focus-visible:ring-1 focus-visible:ring-focus-ring"
+                role="button"
+                tabindex="0"
+              >
+                <span
+                  class="inline-flex h-6 min-w-6 items-center justify-center rounded-full px-1 text-xs font-semibold text-text-primary"
+                >
+                  14
+                </span>
+                <div />
+              </div>
+            </div>
+          </div>
+          <div>
+            <div
+              class="relative grid grid-cols-7 border-b border-border-default"
+            >
+              <div
+                aria-disabled="false"
+                class="relative min-h-[20dvh] lg:aspect-square lg:min-h-0 min-w-0 overflow-hidden border-r border-border-default p-2 cursor-pointer transition-colors hover:bg-background-subtle/50 focus:outline-none focus-visible:ring-1 focus-visible:ring-focus-ring"
+                role="button"
+                tabindex="0"
+              >
+                <span
+                  class="inline-flex h-6 min-w-6 items-center justify-center rounded-full px-1 text-xs font-semibold text-text-primary"
+                >
+                  15
+                </span>
+                <div />
+              </div>
+              <div
+                aria-disabled="false"
+                class="relative min-h-[20dvh] lg:aspect-square lg:min-h-0 min-w-0 overflow-hidden border-r border-border-default p-2 cursor-pointer transition-colors hover:bg-background-subtle/50 focus:outline-none focus-visible:ring-1 focus-visible:ring-focus-ring"
+                role="button"
+                tabindex="0"
+              >
+                <span
+                  class="inline-flex h-6 min-w-6 items-center justify-center rounded-full px-1 text-xs font-semibold text-text-primary"
+                >
+                  16
+                </span>
+                <div />
+              </div>
+              <div
+                aria-disabled="false"
+                class="relative min-h-[20dvh] lg:aspect-square lg:min-h-0 min-w-0 overflow-hidden border-r border-border-default p-2 cursor-pointer transition-colors hover:bg-background-subtle/50 focus:outline-none focus-visible:ring-1 focus-visible:ring-focus-ring"
+                role="button"
+                tabindex="0"
+              >
+                <span
+                  class="inline-flex h-6 min-w-6 items-center justify-center rounded-full px-1 text-xs font-semibold text-text-primary"
+                >
+                  17
+                </span>
+                <div />
+              </div>
+              <div
+                aria-disabled="false"
+                class="relative min-h-[20dvh] lg:aspect-square lg:min-h-0 min-w-0 overflow-hidden border-r border-border-default p-2 cursor-pointer transition-colors hover:bg-background-subtle/50 focus:outline-none focus-visible:ring-1 focus-visible:ring-focus-ring"
+                role="button"
+                tabindex="0"
+              >
+                <span
+                  class="inline-flex h-6 min-w-6 items-center justify-center rounded-full px-1 text-xs font-semibold text-text-primary"
+                >
+                  18
+                </span>
+                <div />
+              </div>
+              <div
+                aria-disabled="false"
+                class="relative min-h-[20dvh] lg:aspect-square lg:min-h-0 min-w-0 overflow-hidden border-r border-border-default p-2 cursor-pointer transition-colors hover:bg-background-subtle/50 focus:outline-none focus-visible:ring-1 focus-visible:ring-focus-ring"
+                role="button"
+                tabindex="0"
+              >
+                <span
+                  class="inline-flex h-6 min-w-6 items-center justify-center rounded-full px-1 text-xs font-semibold text-text-primary"
+                >
+                  19
+                </span>
+                <div />
+              </div>
+              <div
+                aria-disabled="false"
+                class="relative min-h-[20dvh] lg:aspect-square lg:min-h-0 min-w-0 overflow-hidden border-r border-border-default p-2 cursor-pointer transition-colors hover:bg-background-subtle/50 focus:outline-none focus-visible:ring-1 focus-visible:ring-focus-ring"
+                role="button"
+                tabindex="0"
+              >
+                <span
+                  class="inline-flex h-6 min-w-6 items-center justify-center rounded-full px-1 text-xs font-semibold text-text-primary"
+                >
+                  20
+                </span>
+                <div />
+              </div>
+              <div
+                aria-disabled="false"
+                class="relative min-h-[20dvh] lg:aspect-square lg:min-h-0 min-w-0 overflow-hidden border-r border-border-default p-2 cursor-pointer transition-colors hover:bg-background-subtle/50 focus:outline-none focus-visible:ring-1 focus-visible:ring-focus-ring"
+                role="button"
+                tabindex="0"
+              >
+                <span
+                  class="inline-flex h-6 min-w-6 items-center justify-center rounded-full px-1 text-xs font-semibold text-text-primary"
+                >
+                  21
+                </span>
+                <div />
+              </div>
+            </div>
+          </div>
+          <div>
+            <div
+              class="relative grid grid-cols-7 border-b border-border-default"
+            >
+              <div
+                aria-disabled="false"
+                class="relative min-h-[20dvh] lg:aspect-square lg:min-h-0 min-w-0 overflow-hidden border-r border-border-default p-2 cursor-pointer transition-colors hover:bg-background-subtle/50 focus:outline-none focus-visible:ring-1 focus-visible:ring-focus-ring"
+                role="button"
+                tabindex="0"
+              >
+                <span
+                  class="inline-flex h-6 min-w-6 items-center justify-center rounded-full px-1 text-xs font-semibold text-text-primary"
+                >
+                  22
+                </span>
+                <div />
+              </div>
+              <div
+                aria-disabled="false"
+                class="relative min-h-[20dvh] lg:aspect-square lg:min-h-0 min-w-0 overflow-hidden border-r border-border-default p-2 cursor-pointer transition-colors hover:bg-background-subtle/50 focus:outline-none focus-visible:ring-1 focus-visible:ring-focus-ring"
+                role="button"
+                tabindex="0"
+              >
+                <span
+                  class="inline-flex h-6 min-w-6 items-center justify-center rounded-full px-1 text-xs font-semibold text-text-primary"
+                >
+                  23
+                </span>
+                <div />
+              </div>
+              <div
+                aria-disabled="false"
+                class="relative min-h-[20dvh] lg:aspect-square lg:min-h-0 min-w-0 overflow-hidden border-r border-border-default p-2 cursor-pointer transition-colors hover:bg-background-subtle/50 focus:outline-none focus-visible:ring-1 focus-visible:ring-focus-ring"
+                role="button"
+                tabindex="0"
+              >
+                <span
+                  class="inline-flex h-6 min-w-6 items-center justify-center rounded-full px-1 text-xs font-semibold text-text-primary"
+                >
+                  24
+                </span>
+                <div />
+              </div>
+              <div
+                aria-disabled="false"
+                class="relative min-h-[20dvh] lg:aspect-square lg:min-h-0 min-w-0 overflow-hidden border-r border-border-default p-2 cursor-pointer transition-colors hover:bg-background-subtle/50 focus:outline-none focus-visible:ring-1 focus-visible:ring-focus-ring"
+                role="button"
+                tabindex="0"
+              >
+                <span
+                  class="inline-flex h-6 min-w-6 items-center justify-center rounded-full px-1 text-xs font-semibold text-text-primary"
+                >
+                  25
+                </span>
+                <div />
+              </div>
+              <div
+                aria-disabled="false"
+                class="relative min-h-[20dvh] lg:aspect-square lg:min-h-0 min-w-0 overflow-hidden border-r border-border-default p-2 cursor-pointer transition-colors hover:bg-background-subtle/50 focus:outline-none focus-visible:ring-1 focus-visible:ring-focus-ring"
+                role="button"
+                tabindex="0"
+              >
+                <span
+                  class="inline-flex h-6 min-w-6 items-center justify-center rounded-full px-1 text-xs font-semibold text-text-primary"
+                >
+                  26
+                </span>
+                <div />
+              </div>
+              <div
+                aria-disabled="false"
+                class="relative min-h-[20dvh] lg:aspect-square lg:min-h-0 min-w-0 overflow-hidden border-r border-border-default p-2 cursor-pointer transition-colors hover:bg-background-subtle/50 focus:outline-none focus-visible:ring-1 focus-visible:ring-focus-ring"
+                role="button"
+                tabindex="0"
+              >
+                <span
+                  class="inline-flex h-6 min-w-6 items-center justify-center rounded-full px-1 text-xs font-semibold text-text-primary"
+                >
+                  27
+                </span>
+                <div />
+              </div>
+              <div
+                aria-disabled="false"
+                class="relative min-h-[20dvh] lg:aspect-square lg:min-h-0 min-w-0 overflow-hidden border-r border-border-default p-2 cursor-pointer transition-colors hover:bg-background-subtle/50 focus:outline-none focus-visible:ring-1 focus-visible:ring-focus-ring"
+                role="button"
+                tabindex="0"
+              >
+                <span
+                  class="inline-flex h-6 min-w-6 items-center justify-center rounded-full px-1 text-xs font-semibold text-text-primary"
+                >
+                  28
+                </span>
+                <div />
+              </div>
+            </div>
+          </div>
+          <div>
+            <div
+              class="relative grid grid-cols-7 border-b border-border-default"
+            >
+              <div
+                aria-disabled="false"
+                class="relative min-h-[20dvh] lg:aspect-square lg:min-h-0 min-w-0 overflow-hidden border-r border-border-default p-2 cursor-pointer transition-colors hover:bg-background-subtle/50 focus:outline-none focus-visible:ring-1 focus-visible:ring-focus-ring"
+                role="button"
+                tabindex="0"
+              >
+                <span
+                  class="inline-flex h-6 min-w-6 items-center justify-center rounded-full px-1 text-xs font-semibold text-text-primary"
+                >
+                  29
+                </span>
+                <div />
+              </div>
+              <div
+                aria-disabled="false"
+                class="relative min-h-[20dvh] lg:aspect-square lg:min-h-0 min-w-0 overflow-hidden border-r border-border-default p-2 cursor-pointer transition-colors hover:bg-background-subtle/50 focus:outline-none focus-visible:ring-1 focus-visible:ring-focus-ring"
+                role="button"
+                tabindex="0"
+              >
+                <span
+                  class="inline-flex h-6 min-w-6 items-center justify-center rounded-full px-1 text-xs font-semibold text-text-primary"
+                >
+                  30
+                </span>
+                <div />
+              </div>
+              <div
+                aria-disabled="true"
+                class="relative min-h-[20dvh] lg:aspect-square lg:min-h-0 min-w-0 overflow-hidden border-r border-border-default p-2 pointer-events-none bg-background-subtle"
+              >
+                <span
+                  class="inline-flex h-6 min-w-6 items-center justify-center rounded-full px-1 text-xs font-semibold text-text-disabled opacity-40"
+                >
+                  1
+                </span>
+              </div>
+              <div
+                aria-disabled="true"
+                class="relative min-h-[20dvh] lg:aspect-square lg:min-h-0 min-w-0 overflow-hidden border-r border-border-default p-2 pointer-events-none bg-background-subtle"
+              >
+                <span
+                  class="inline-flex h-6 min-w-6 items-center justify-center rounded-full px-1 text-xs font-semibold text-text-disabled opacity-40"
+                >
+                  2
+                </span>
+              </div>
+              <div
+                aria-disabled="true"
+                class="relative min-h-[20dvh] lg:aspect-square lg:min-h-0 min-w-0 overflow-hidden border-r border-border-default p-2 pointer-events-none bg-background-subtle"
+              >
+                <span
+                  class="inline-flex h-6 min-w-6 items-center justify-center rounded-full px-1 text-xs font-semibold text-text-disabled opacity-40"
+                >
+                  3
+                </span>
+              </div>
+              <div
+                aria-disabled="true"
+                class="relative min-h-[20dvh] lg:aspect-square lg:min-h-0 min-w-0 overflow-hidden border-r border-border-default p-2 pointer-events-none bg-background-subtle"
+              >
+                <span
+                  class="inline-flex h-6 min-w-6 items-center justify-center rounded-full px-1 text-xs font-semibold text-text-disabled opacity-40"
+                >
+                  4
+                </span>
+              </div>
+              <div
+                aria-disabled="true"
+                class="relative min-h-[20dvh] lg:aspect-square lg:min-h-0 min-w-0 overflow-hidden border-r border-border-default p-2 pointer-events-none bg-background-subtle"
+              >
+                <span
+                  class="inline-flex h-6 min-w-6 items-center justify-center rounded-full px-1 text-xs font-semibold text-text-disabled opacity-40"
+                >
+                  5
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+</DocumentFragment>
+`;
