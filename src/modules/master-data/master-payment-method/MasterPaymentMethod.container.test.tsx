@@ -1,49 +1,57 @@
-import { render } from "@/libs/unit-test";
 import { MemoryRouter } from "react-router-dom";
 
+import { MOCK_PAYMENT_METHOD_LIST_RESPONSE } from "@/fixture/master-payment-method";
+import { usePagePermission } from "@/hooks/usePagePermission";
+import { render, screen } from "@/libs/unit-test";
+import { useGetPaymentMethodsQuery } from "@/services/master-payment-method.service";
+
 import MasterPaymentMethodContainer from "./MasterPaymentMethod.container";
-import { useMasterPaymentMethodContainerState } from "./MasterPaymentMethod.hook";
-import type { MasterPaymentMethodProps } from "./MasterPaymentMethod.type";
 
-jest.mock("@/hooks/usePagePermission", () => ({
-  usePagePermission: () => ({ canView: true, canCreate: true, canEdit: true, isSuperadmin: false }),
-}));
+jest.mock("@/app/layout", () => ({ children }: { children: React.ReactNode }): React.ReactElement => <div data-testid="layout">{children}</div>);
+jest.mock("@/services/master-payment-method.service", () => ({ useGetPaymentMethodsQuery: jest.fn() }));
+jest.mock("@/hooks/usePagePermission", () => ({ usePagePermission: jest.fn() }));
 
-jest.mock("./MasterPaymentMethod.component", () => ({
-  MasterPaymentMethodComponent: (props: MasterPaymentMethodProps) => <div data-testid="component">{JSON.stringify(props)}</div>,
-}));
+/**
+ * Render the container inside a router.
+ * @param {string} [successMessage] - Router state success message
+ * @returns {void}
+ */
+const renderContainer = (successMessage?: string): void => {
+  render(
+    <MemoryRouter initialEntries={[{ pathname: "/master-payment-method", state: { successMessage } }]}>
+      <MasterPaymentMethodContainer />
+    </MemoryRouter>,
+  );
+};
 
-jest.mock("./MasterPaymentMethod.hook", () => ({ useMasterPaymentMethodContainerState: jest.fn() }));
+describe("MasterPaymentMethodContainer", () => {
+  beforeEach(() => {
+    jest.mocked(useGetPaymentMethodsQuery).mockReturnValue({ data: MOCK_PAYMENT_METHOD_LIST_RESPONSE, isLoading: false, isError: false } as never);
+    jest.mocked(usePagePermission).mockReturnValue({ canView: true, canCreate: true, canEdit: true, isSuperadmin: false, isLoading: false });
+  });
 
-describe("MasterPaymentMethod.container", () => {
-  it("should render correctly", () => {
-    jest.mocked(useMasterPaymentMethodContainerState).mockReturnValue({
-      goBack: jest.fn(),
-      goCreate: jest.fn(),
-      goEdit: jest.fn(),
-      pagination: {
-        paginatedData: [],
-        currentPage: 1,
-        totalPages: 1,
-        pageSize: 10,
-        totalCount: 0,
-        isLoading: false,
-        errorMessage: null,
-        isMissingData: false,
-        isEmpty: false,
-        setSearchTerm: jest.fn(),
-        goToPage: jest.fn(),
-        nextPage: jest.fn(),
-        prevPage: jest.fn(),
-        changePageSize: jest.fn(),
-      },
-      isMoreOpen: false,
-      toggleMore: jest.fn(),
-      goDelete: jest.fn(),
-      handleCloseMore: jest.fn(),
-    });
+  it("should query the first page and render normalized payment methods", () => {
+    renderContainer();
 
-    const { getByTestId } = render(<MemoryRouter><MasterPaymentMethodContainer /></MemoryRouter>);
-    expect(getByTestId("component")).toBeTruthy();
+    expect(useGetPaymentMethodsQuery).toHaveBeenCalledWith({ pageNumber: 1, pageSize: 10, searchTerm: "" });
+    expect(usePagePermission).toHaveBeenCalledWith("/master-payment-method");
+    expect(screen.getAllByText("BRI")).toHaveLength(2);
+    expect(screen.getAllByText("No description")).toHaveLength(2);
+    expect(screen.getAllByText("inactive")).toHaveLength(2);
+  });
+
+  it("should hide create and edit actions without permission", () => {
+    jest.mocked(usePagePermission).mockReturnValue({ canView: true, canCreate: false, canEdit: false, isSuperadmin: false, isLoading: false });
+
+    renderContainer();
+
+    expect(screen.queryByRole("button", { name: "Create Payment Method" })).not.toBeInTheDocument();
+    expect(screen.queryAllByRole("button", { name: /^Edit Payment Method/ })).toHaveLength(0);
+  });
+
+  it("should show the success message from router state", () => {
+    renderContainer("Payment method updated successfully.");
+
+    expect(screen.getByRole("alert")).toHaveTextContent("Payment method updated successfully.");
   });
 });

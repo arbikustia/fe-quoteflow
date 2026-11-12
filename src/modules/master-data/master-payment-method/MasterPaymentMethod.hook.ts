@@ -1,138 +1,102 @@
-import { useState } from "react";
+import type { ChangeEvent } from "react";
+import { useCallback, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-import { createPaginationHandlers } from "@/utils/pagination.helpers";
-
+import { MASTER_PAYMENT_METHOD_CONFIG, MASTER_PAYMENT_METHOD_ROUTE } from "./MasterPaymentMethod.config";
 import type {
-  MasterPaymentMethodContainerState,
-  MasterPaymentMethodNavigation,
-  MasterPaymentMethodPagination,
+  MasterPaymentMethodController,
   PaymentMethodData,
-  PaymentMethodListApiState,
+  PaymentMethodListPaging,
+  PaymentMethodListParams,
+  PaymentMethodNavigation,
 } from "./MasterPaymentMethod.type";
 
-import { mapPaymentMethod, useGetPaymentMethodsQuery } from "@/services/master-payment-method.service";
+/**
+ * Manage page, page size and search term of the payment method list.
+ * @returns {PaymentMethodListPaging} - Query params, paging state and handlers
+ */
+const usePaymentMethodListPaging = (): PaymentMethodListPaging => {
+  const [currentPage, setCurrentPage] = useState<number>(MASTER_PAYMENT_METHOD_CONFIG.DEFAULT_PAGE);
+  const [pageSize, setPageSize] = useState<number>(MASTER_PAYMENT_METHOD_CONFIG.DEFAULT_PAGE_SIZE);
+  const [searchTerm, setSearchTerm] = useState<string>("");
+
+  const queryParams = useMemo(
+    (): PaymentMethodListParams => ({ pageNumber: currentPage, pageSize, searchTerm }),
+    [currentPage, pageSize, searchTerm],
+  );
+
+  /**
+   * Go to the given page, never below the first page.
+   * @param {number} page - Requested page
+   * @returns {void}
+   */
+  const handlePageChange = useCallback((page: number): void => {
+    setCurrentPage(Math.max(MASTER_PAYMENT_METHOD_CONFIG.DEFAULT_PAGE, page));
+  }, []);
+
+  /**
+   * Change page size and return to the first page.
+   * @param {number} size - New page size
+   * @returns {void}
+   */
+  const handlePageSizeChange = useCallback((size: number): void => {
+    setPageSize(size);
+    setCurrentPage(MASTER_PAYMENT_METHOD_CONFIG.DEFAULT_PAGE);
+  }, []);
+
+  /**
+   * Update the search term and return to the first page.
+   * @param {ChangeEvent<HTMLInputElement>} event - Search input change event
+   * @returns {void}
+   */
+  const handleSearchChange = useCallback((event: ChangeEvent<HTMLInputElement>): void => {
+    setSearchTerm(event.target.value);
+    setCurrentPage(MASTER_PAYMENT_METHOD_CONFIG.DEFAULT_PAGE);
+  }, []);
+
+  return { queryParams, currentPage, pageSize, handlePageChange, handlePageSizeChange, handleSearchChange };
+};
 
 /**
- * Provide payment method navigation.
- *
- * @returns {MasterPaymentMethodNavigation} Navigation handlers
+ * Create the navigation handlers of the payment method list.
+ * @returns {PaymentMethodNavigation} - Back, create and edit handlers
  */
-export const useMasterPaymentMethodNavigation = (): MasterPaymentMethodNavigation => {
+const usePaymentMethodNavigation = (): PaymentMethodNavigation => {
   const navigate = useNavigate();
-    /**
-   * Navigate to previous page.
-   *
-   * @returns {void} No return value
+
+  /**
+   * Navigate back to the master data menu.
+   * @returns {void}
    */
-  const goBack = (): void => { navigate("/master-main"); };
-    /**
-   * Navigate to create page.
-   *
-   * @returns {void} No return value
+  const handleBack = useCallback((): void => {
+    navigate(MASTER_PAYMENT_METHOD_ROUTE.MASTER_MAIN);
+  }, [navigate]);
+
+  /**
+   * Navigate to the create payment method page.
+   * @returns {void}
    */
-  const goCreate = (): void => { navigate("/master-payment-method/create"); };
-    /**
-   * Navigate to edit page.
-   *
+  const handleCreate = useCallback((): void => {
+    navigate(MASTER_PAYMENT_METHOD_ROUTE.CREATE);
+  }, [navigate]);
+
+  /**
+   * Navigate to the edit page of a payment method.
    * @param {PaymentMethodData} paymentMethod - Payment method to edit
-   * @returns {void} No return value
+   * @returns {void}
    */
-  const goEdit = (paymentMethod: PaymentMethodData): void => {
-    navigate(`/master-payment-method/edit/${paymentMethod.id}`, { state: { paymentMethod } });
-  };
+  const handleEdit = useCallback((paymentMethod: PaymentMethodData): void => {
+    navigate(`${MASTER_PAYMENT_METHOD_ROUTE.EDIT}/${paymentMethod.id}`, { state: { paymentMethod: paymentMethod.source } });
+  }, [navigate]);
 
-
-  return { goBack, goCreate, goEdit };
+  return { handleBack, handleCreate, handleEdit };
 };
 
 /**
- * Derive API payment method list state.
- *
- * @param {ReturnType<typeof useGetPaymentMethodsQuery>} queryResult - Query result
- * @returns {PaymentMethodListApiState} List state
+ * Manage payment method list paging, search and navigation.
+ * @returns {MasterPaymentMethodController} - List query params, state and handlers
  */
-const _derivePaymentMethodListState = (
-  queryResult: ReturnType<typeof useGetPaymentMethodsQuery>,
-): PaymentMethodListApiState => {
-  const { data, error, isLoading } = queryResult;
-
-  if (isLoading) return { isLoading: true, errorMessage: null, isMissingData: false, paginatedData: [], totalPages: 0, totalCount: 0, hasNext: false, hasPrevious: false };
-
-  if (error) return { isLoading: false, errorMessage: "Unable to load payment methods.", isMissingData: false, paginatedData: [], totalPages: 0, totalCount: 0, hasNext: false, hasPrevious: false };
-
-  if (!data) return { isLoading: false, errorMessage: "No response received from server.", isMissingData: true, paginatedData: [], totalPages: 0, totalCount: 0, hasNext: false, hasPrevious: false };
-
-  return {
-    isLoading: false,
-    errorMessage: null,
-    isMissingData: false,
-    paginatedData: data.data.map(mapPaymentMethod),
-    totalPages: data.total_pages,
-    totalCount: data.total_count,
-    hasNext: data.has_next,
-    hasPrevious: data.has_previous,
-  };
-};
-
-/**
- * Provide API-backed payment method pagination.
- *
- * @returns {MasterPaymentMethodPagination} Pagination state
- */
-export const useMasterPaymentMethodPagination = (): MasterPaymentMethodPagination => {
-  const [currentPage, setCurrentPage] = useState(1);
-  const [pageSize, setPageSize] = useState(10);
-  const [searchTerm, setSearchTerm] = useState("");
-  const queryResult = useGetPaymentMethodsQuery({ PageNumber: currentPage, PageSize: pageSize, SearchTerm: searchTerm });
-  const derived = _derivePaymentMethodListState(queryResult);
-  const handlers = createPaginationHandlers({
-    currentPage,
-    totalPages: derived.totalPages,
-    hasNext: derived.hasNext,
-    hasPrevious: derived.hasPrevious,
-    canPaginate: !derived.isLoading && !derived.errorMessage && derived.paginatedData.length > 0,
-    setCurrentPage,
-    setPageSize,
-    setSearchTerm,
-  });
-
-  return {
-    currentPage,
-    totalPages: derived.totalPages,
-    pageSize,
-    paginatedData: derived.paginatedData,
-    totalCount: derived.totalCount,
-    isLoading: derived.isLoading,
-    errorMessage: derived.errorMessage,
-    isEmpty: !derived.isLoading && !derived.errorMessage && !derived.isMissingData && derived.paginatedData.length === 0,
-    isMissingData: derived.isMissingData,
-    goToPage: handlers.goToPage,
-    nextPage: handlers.nextPage,
-    prevPage: handlers.prevPage,
-    changePageSize: handlers.changePageSize,
-    setSearchTerm: handlers.handleSearchTerm,
-  };
-};
-
-/**
- * Provide payment method container state.
- *
- * @returns {MasterPaymentMethodContainerState} Container state
- */
-export const useMasterPaymentMethodContainerState = (): MasterPaymentMethodContainerState => {
-  const pagination = useMasterPaymentMethodPagination();
-  const navigation = useMasterPaymentMethodNavigation();
-  const [isMoreOpen, setIsMoreOpen] = useState(false);
-    /**
-   */
-  const toggleMore = (): void => { setIsMoreOpen((previous) => !previous); };
-    /**
-   */
-  const goDelete = (): void => { setIsMoreOpen(false); };
-    /**
-   */
-  const handleCloseMore = (): void => { setIsMoreOpen(false); };
-
-  return { ...navigation, pagination, isMoreOpen, toggleMore, goDelete, handleCloseMore };
-};
+export const useMasterPaymentMethod = (): MasterPaymentMethodController => ({
+  ...usePaymentMethodListPaging(),
+  ...usePaymentMethodNavigation(),
+});

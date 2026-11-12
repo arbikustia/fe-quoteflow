@@ -1,84 +1,105 @@
-import * as React from "react";
+import { MOCK_API_PAYMENT_METHODS } from "@/fixture/master-payment-method";
+import { fireEvent, render, screen } from "@/libs/unit-test";
 
-import test, { render, screen } from "@/libs/unit-test";
-
-import { MasterPaymentMethodComponent } from "./MasterPaymentMethod.component";
+import MasterPaymentMethodComponent from "./MasterPaymentMethod.component";
 import type { MasterPaymentMethodProps, PaymentMethodData } from "./MasterPaymentMethod.type";
 
-jest.mock("../../../app/layout", () =>
-  ({ children }: { children: React.ReactNode }) => <div data-testid="layout">{children}</div>,
-);
+jest.mock("@/app/layout", () => ({ children }: { children: React.ReactNode }): React.ReactElement => <div data-testid="layout">{children}</div>);
 
-jest.mock("../../../components/Icons", () => ({
-  Icons: { Search: () => <div data-testid="icon-search" /> },
-}));
+const PAYMENT_METHOD: PaymentMethodData = {
+  id: "payment-method-1",
+  name: "BCA",
+  description: "No Admin Fee",
+  status: "active",
+  createdAt: "30 Oktober 2026 22:00",
+  source: MOCK_API_PAYMENT_METHODS[0],
+};
 
-jest.mock("../../../components/MobileList", () => ({
-  MobileList: () => <div data-testid="mobile-list" />,
-}));
+/**
+ * Build list view props.
+ * @param {Partial<MasterPaymentMethodProps>} [overrides] - Props to override
+ * @returns {MasterPaymentMethodProps} - Component props
+ */
+const createProps = (overrides?: Partial<MasterPaymentMethodProps>): MasterPaymentMethodProps => ({
+  listStatus: "ready",
+  paymentMethods: [PAYMENT_METHOD],
+  totalPages: 1,
+  totalCount: 1,
+  currentPage: 1,
+  pageSize: 10,
+  canCreate: true,
+  canEdit: true,
+  onPageChange: jest.fn(),
+  onPageSizeChange: jest.fn(),
+  onSearchChange: jest.fn(),
+  onBack: jest.fn(),
+  onCreate: jest.fn(),
+  onEdit: jest.fn(),
+  ...overrides,
+});
 
-jest.mock("../../../components/Pagination", () => ({
-  Pagination: () => <div data-testid="pagination" />,
-}));
+describe("MasterPaymentMethodComponent", () => {
+  it("should render payment methods in the table and mobile cards", () => {
+    render(<MasterPaymentMethodComponent {...createProps()} />);
 
-jest.mock("../../../components/Table", () => () => <div data-testid="table" />);
-
-describe("MasterPaymentMethod.component", () => {
-  const paymentMethods: PaymentMethodData[] = [
-    { id: "pm-1", name: "Transfer Bank", description: "Transfer to bank account", status: "active", createAt: "2023-10-06", createBy: null },
-    { id: "pm-2", name: "Credit Card", description: "Pay with credit card", status: "inactive", createAt: "2023-10-06", createBy: null },
-  ];
-  const defaultProps: MasterPaymentMethodProps = {
-    paginatedData: paymentMethods,
-    currentPage: 1,
-    totalPages: 5,
-    pageSize: 10,
-    totalCount: 50,
-    isLoading: false,
-    errorMessage: null,
-    isMissingData: false,
-    isEmpty: false,
-    setSearchTerm: jest.fn(),
-    goToPage: jest.fn(),
-    nextPage: jest.fn(),
-    prevPage: jest.fn(),
-    changePageSize: jest.fn(),
-    onBack: jest.fn(),
-    onCreate: jest.fn(),
-    onEdit: jest.fn(),
-    onMore: jest.fn(),
-    isMoreOpen: false,
-    onCloseMore: jest.fn(),
-    onDelete: jest.fn(),
-  };
-
-  it("should hide create and disable editing without callbacks", () => {
-    render(<MasterPaymentMethodComponent {...defaultProps} onCreate={undefined} onEdit={undefined} />);
-
-    expect(screen.queryByText("Create New")).not.toBeInTheDocument();
-    expect(screen.queryByText("Create Payment Method")).not.toBeInTheDocument();
-    expect(screen.queryByRole("button", { name: "Edit payment method" })).not.toBeInTheDocument();
-    expect(screen.getByRole("button", { name: /Transfer Bank/i })).toBeDisabled();
+    expect(screen.getAllByText("BCA")).toHaveLength(2);
+    expect(screen.getAllByText("No Admin Fee")).toHaveLength(2);
   });
 
-  it("should render quotation-matched loading skeletons", () => {
-    render(<MasterPaymentMethodComponent {...defaultProps} isLoading={true} />);
+  it("should open edit from a mobile card and the row action", () => {
+    const props = createProps();
 
-    expect(screen.getAllByRole("status", { name: "Loading payment method card" })).toHaveLength(5);
+    render(<MasterPaymentMethodComponent {...props} />);
+    fireEvent.click(screen.getAllByText("BCA")[0].closest("button") as HTMLButtonElement);
+    fireEvent.click(screen.getByRole("button", { name: "Edit payment method BCA" }));
+
+    expect(props.onEdit).toHaveBeenCalledTimes(2);
+  });
+
+  it("should call create and search handlers", () => {
+    const props = createProps();
+
+    render(<MasterPaymentMethodComponent {...props} />);
+    fireEvent.click(screen.getAllByRole("button", { name: "Create New" })[0]);
+    fireEvent.click(screen.getByRole("button", { name: "Create Payment Method" }));
+    fireEvent.change(screen.getAllByPlaceholderText("Search payment method")[0], { target: { value: "bca" } });
+
+    expect(props.onCreate).toHaveBeenCalledTimes(2);
+    expect(props.onSearchChange).toHaveBeenCalledTimes(1);
+  });
+
+  it("should hide create and edit actions without permission", () => {
+    render(<MasterPaymentMethodComponent {...createProps({ canCreate: false, canEdit: false })} />);
+
+    expect(screen.queryByRole("button", { name: "Create New" })).not.toBeInTheDocument();
+    expect(screen.queryByRole("button", { name: "Create Payment Method" })).not.toBeInTheDocument();
+    expect(screen.queryByRole("button", { name: "Edit payment method BCA" })).not.toBeInTheDocument();
+    expect(screen.getAllByText("BCA")[0].closest("button")).toBeDisabled();
+  });
+
+  it("should render matching table and card skeletons while loading", () => {
+    render(<MasterPaymentMethodComponent {...createProps({ listStatus: "loading", paymentMethods: [] })} />);
+
     const tableSkeleton = screen.getByRole("status", { name: "Loading payment method table" });
 
     expect(tableSkeleton.querySelectorAll("th")).toHaveLength(6);
-    expect(tableSkeleton.querySelectorAll("tbody tr:first-child td")).toHaveLength(6);
+    expect(tableSkeleton.querySelectorAll("tbody tr")).toHaveLength(5);
+    expect(screen.getAllByRole("status", { name: "Loading payment method card" })).toHaveLength(5);
   });
 
-  test.assertSnapshots(MasterPaymentMethodComponent, [
-    {
-      props: defaultProps,
-      desc: "default state",
-    },
-    {
-      props: { ...defaultProps, isMoreOpen: true },
-      desc: "more open state",
-    },
-  ]);
+  it.each([
+    ["empty", "No payment methods found."],
+    ["error", "Unable to load payment methods."],
+    ["missing", "Payment method data is unavailable. Please try again."],
+  ] as const)("should render the %s message in both layouts", (listStatus, message) => {
+    render(<MasterPaymentMethodComponent {...createProps({ listStatus, paymentMethods: [] })} />);
+
+    expect(screen.getAllByText(message)).toHaveLength(2);
+  });
+
+  it("should show the success toast passed from the form page", () => {
+    render(<MasterPaymentMethodComponent {...createProps({ successMessage: "Payment method created successfully." })} />);
+
+    expect(screen.getByRole("alert")).toHaveTextContent("Payment method created successfully.");
+  });
 });
