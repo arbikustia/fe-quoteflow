@@ -66,7 +66,8 @@ export type PaymentCreatePayload = {
 };
 export type PaymentCreateResponse = { status: boolean; data: ApiPayment | null; messages: string[] };
 export type PaymentDetailResponse = { status: boolean; data: ApiPaymentSummary | null; messages: string[] };
-export type PaymentInvoiceOption = { id: string; invoice_no: string; customer_name?: string; event_name?: string };
+export type PaymentInvoiceTransaction = { customer_name?: string; event_name?: string; start_at?: string; end_at?: string; grand_total?: number };
+export type PaymentInvoiceOption = { id: string; invoice_no: string; customer_name?: string; event_name?: string; quotation?: { quotation_no?: string; transaction?: PaymentInvoiceTransaction | null } | null };
 export type PaymentMethodOption = { id: string; name: string };
 export type PaymentRequiredFields = {
   invoiceId: string;
@@ -75,6 +76,16 @@ export type PaymentRequiredFields = {
   amount: number | null;
   paidAt: string;
   referenceNo?: string;
+  amountLimit?: PaymentAmountLimit | null;
+};
+
+export type PaymentAmountLimit = { value: number; label: string };
+export type PaymentInvoiceSelection = {
+  invoices: PaymentInvoiceOption[];
+  selectedInvoice: PaymentInvoiceOption | null;
+  grandTotal: number | null;
+  amountLimit: PaymentAmountLimit | null;
+  isLoading: boolean;
 };
 
 export type PaymentCreateFormState = {
@@ -83,6 +94,9 @@ export type PaymentCreateFormState = {
   isActive?: boolean;
   invoices: PaymentInvoiceOption[];
   paymentMethods: PaymentMethodOption[];
+  selectedInvoice?: PaymentInvoiceOption | null;
+  grandTotal?: number | null;
+  amountLimit?: PaymentAmountLimit | null;
   invoiceId: string;
   paymentMethodId: string;
   status: string;
@@ -188,7 +202,6 @@ export type PaymentPagination = {
 export type PaymentProps = PaymentPagination & {
   onBack: () => void;
   onCreate?: () => void;
-  onEdit?: (payment: PaymentData) => void;
   onDetail?: (payment: PaymentData) => void;
   onRowClick: (payment: PaymentData) => void;
 };
@@ -201,6 +214,5 @@ export type PaymentDetailState = {
   isLoading: boolean;
   errorMessage: string | null;
   goBack: () => void;
-  handleEdit: () => void;
   handleStatus: () => void;
 };

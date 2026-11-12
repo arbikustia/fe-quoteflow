@@ -48,7 +48,6 @@ const mockProps: PaymentProps = {
   setSearchTerm: jest.fn(),
   onBack: jest.fn(),
   onCreate: jest.fn(),
-  onEdit: jest.fn(),
   onRowClick: jest.fn(),
 };
 
@@ -83,7 +82,7 @@ describe("PaymentComponent", () => {
     expect(viewButton).toHaveClass("rounded-3xl");
     fireEvent.click(viewButton);
     expect(mockProps.onRowClick).toHaveBeenCalledWith(mockProps.paginatedData[0]);
-    expect(screen.getByLabelText("Edit payment")).toHaveClass("rounded-3xl");
+    expect(screen.queryByLabelText("Edit payment")).not.toBeInTheDocument();
     fireEvent.click(card);
     expect(mockProps.onRowClick).toHaveBeenCalledTimes(2);
     expect(screen.getByRole("columnheader", { name: "Status" })).toBeInTheDocument();
@@ -102,10 +101,10 @@ describe("PaymentComponent", () => {
     expect(table.querySelectorAll("tbody tr:first-child td")).toHaveLength(8);
   });
 
-  it("should hide create and edit actions when callbacks are unavailable", () => {
+  it("should hide create action when callback is unavailable", () => {
     render(
       <MemoryRouter>
-        <PaymentComponent {...mockProps} onCreate={undefined} onEdit={undefined} />
+        <PaymentComponent {...mockProps} onCreate={undefined} />
       </MemoryRouter>,
     );
 

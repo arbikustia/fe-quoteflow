@@ -11,7 +11,7 @@ import { usePagePermission } from "@/hooks/usePagePermission";
 export default function PaymentContainer(): ReactElement {
   const pagination = usePaymentPagination();
   const navigation = usePaymentNavigation();
-  const { canCreate, canEdit } = usePagePermission("/document/payment");
+  const { canCreate } = usePagePermission("/document/payment");
 
-  return <PaymentComponent {...pagination} {...navigation} onCreate={canCreate ? navigation.onCreate : undefined} onEdit={canEdit ? navigation.onEdit : undefined} />;
+  return <PaymentComponent {...pagination} {...navigation} onCreate={canCreate ? navigation.onCreate : undefined} />;
 }

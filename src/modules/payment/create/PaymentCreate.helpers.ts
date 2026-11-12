@@ -1,6 +1,6 @@
 import { NON_DIGIT_PATTERN } from "@/constants/regex.constant";
 
-import type { PaymentRequiredFields } from "../Payment.type";
+import type { ApiPaymentSummary, PaymentAmountLimit, PaymentInvoiceOption, PaymentRequiredFields } from "../Payment.type";
 
 export const PAYMENT_STATUS_OPTIONS = [
   { value: "1", label: "DP" },
@@ -29,6 +29,55 @@ export const formatRupiahInput = (value: string): string => {
 };
 
 /**
+ * Get the grand total of the transaction linked to an invoice.
+ * @param {PaymentInvoiceOption | null | undefined} invoice - Selected invoice
+ * @returns {number | null} Grand total, or null when unavailable
+ */
+export const getInvoiceGrandTotal = (invoice?: PaymentInvoiceOption | null): number | null => {
+  const grandTotal = invoice?.quotation?.transaction?.grand_total;
+
+  return typeof grandTotal === "number" ? grandTotal : null;
+};
+
+/**
+ * Get the remaining amount of an invoice from its payment summaries.
+ * @param {ApiPaymentSummary[]} summaries - Payment summaries returned for the invoice search
+ * @param {string} invoiceId - Selected invoice ID
+ * @returns {number | null} Remaining amount, or null when unavailable
+ */
+export const getInvoiceRemainingAmount = (summaries: ApiPaymentSummary[], invoiceId: string): number | null => {
+  const summary = summaries.find((item) => item.invoice_id === invoiceId);
+
+  return typeof summary?.remaining_amount === "number" ? summary.remaining_amount : null;
+};
+
+/**
+ * Resolve the maximum payment amount: the remaining amount when known, otherwise the grand total.
+ * @param {number | null} remainingAmount - Invoice remaining amount
+ * @param {number | null} grandTotal - Transaction grand total
+ * @returns {PaymentAmountLimit | null} Amount limit, or null when no limit is known
+ */
+export const getPaymentAmountLimit = (remainingAmount: number | null, grandTotal: number | null): PaymentAmountLimit | null => {
+  if (remainingAmount !== null) return { value: remainingAmount, label: "remaining amount" };
+
+  if (grandTotal !== null) return { value: grandTotal, label: "grand total" };
+
+  return null;
+};
+
+/**
+ * Build the error message when amount exceeds the allowed maximum.
+ * @param {number | null} amount - Payment amount
+ * @param {PaymentAmountLimit | null} [limit] - Maximum allowed amount
+ * @returns {string | null} Error message or null
+ */
+export const getAmountLimitMessage = (amount: number | null, limit?: PaymentAmountLimit | null): string | null => {
+  if (amount === null || !limit || amount <= limit.value) return null;
+
+  return `Amount cannot be higher than ${limit.label} (${formatRupiahInput(String(limit.value)) || "Rp 0"}).`;
+};
+
+/**
  * Validate payment required fields.
  * @param {PaymentRequiredFields} fields - Payment field values
  * @returns {string | null} Error message or null
@@ -41,6 +90,10 @@ export const validateRequiredPaymentFields = (fields: PaymentRequiredFields): st
   if (!fields.status) return "Payment status is required.";
 
   if (!fields.amount || fields.amount <= 0) return "Amount must be greater than Rp 0.";
+
+  const amountLimitMessage = getAmountLimitMessage(fields.amount, fields.amountLimit);
+
+  if (amountLimitMessage) return amountLimitMessage;
 
   if (!fields.paidAt) return "Paid at is required.";
 

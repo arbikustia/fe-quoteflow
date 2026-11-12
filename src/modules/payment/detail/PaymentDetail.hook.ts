@@ -12,26 +12,22 @@ import {
  * Manage payment detail navigation.
  * @param {PaymentData | null} payment - Payment data
  * @param {string} [id] - Payment ID
- * @returns {Pick<PaymentDetailState, "goBack" | "handleEdit" | "handleStatus">} Navigation handlers
+ * @returns {Pick<PaymentDetailState, "goBack" | "handleStatus">} Navigation handlers
  */
 const usePaymentDetailNavigation = (
   payment: PaymentData | null,
   id?: string,
-): Pick<PaymentDetailState, "goBack" | "handleEdit" | "handleStatus"> => {
+): Pick<PaymentDetailState, "goBack" | "handleStatus"> => {
   const navigate = useNavigate();
 
   /** Navigate back. @returns {void} No return value */
   const goBack = (): void => { void navigate("/document/payment"); };
-  /** Navigate to edit. @returns {void} No return value */
-  const handleEdit = (): void => {
-    if (id && payment) void navigate(`/document/payment/${id}/edit`, { state: payment });
-  };
   /** Navigate to status. @returns {void} No return value */
   const handleStatus = (): void => {
     if (id && payment) void navigate(`/document/payment/${id}/status`, { state: payment });
   };
 
-  return { goBack, handleEdit, handleStatus };
+  return { goBack, handleStatus };
 };
 
 /**
@@ -77,7 +73,6 @@ export const usePaymentDetail = (): PaymentDetailState => {
     isLoading: isLoading && !payment,
     errorMessage,
     goBack: navigation.goBack,
-    handleEdit: navigation.handleEdit,
     handleStatus: navigation.handleStatus,
   };
 };

@@ -1,5 +1,4 @@
 import type { ReactElement } from "react";
-import { FiEdit2, FiMoreHorizontal } from "react-icons/fi";
 
 import type { ApiPaymentSummaryPayment, PaymentData, PaymentDetailState, PaymentInvoiceOption } from "../Payment.type";
 
@@ -132,13 +131,11 @@ const _renderDetailSkeleton = (): ReactElement => (
  * Render payment detail fields.
  * @param {PaymentData} payment - Payment row
  * @param {PaymentInvoiceOption | undefined} linkedInvoice - Linked invoice
- * @param {string | undefined} methodName - Method name
  * @returns {ReactElement} Detail fields
  */
 const _renderDetailFields = (
   payment: PaymentData,
   linkedInvoice: PaymentInvoiceOption | null | undefined,
-  methodName: string | undefined,
 ): ReactElement => (
   <dl className="grid grid-cols-1 gap-x-6 gap-y-6 sm:grid-cols-3">
     {renderDetailField("Invoice No", payment.invoiceNo)}
@@ -146,7 +143,6 @@ const _renderDetailFields = (
     {renderDetailField("Grand Total", formatCurrency(payment.grandTotal ?? 0))}
     {renderDetailField("Total Paid", formatCurrency(payment.amount))}
     {renderDetailField("Remaining", formatCurrency(payment.remainingAmount ?? 0))}
-    {renderDetailField("Payment Method", methodName ?? "-")}
     {renderDetailField("Status", payment.statusLabel || "-")}
     {linkedInvoice?.event_name && renderDetailField("Event", linkedInvoice.event_name)}
   </dl>
@@ -184,14 +180,12 @@ const _renderHistoryEntries = (entries: ApiPaymentSummaryPayment[]): ReactElemen
  * Render payment detail sections.
  * @param {PaymentData} payment - Payment row
  * @param {PaymentInvoiceOption | undefined} linkedInvoice - Linked invoice
- * @param {string | undefined} methodName - Method name
  * @param {ApiPaymentSummaryPayment[]} entries - Payment entries
  * @returns {ReactElement} Payment sections
  */
 const _renderDetail = (
   payment: PaymentData,
   linkedInvoice: PaymentInvoiceOption | null | undefined,
-  methodName: string | undefined,
   entries: ApiPaymentSummaryPayment[],
 ): ReactElement => (
   <div className="w-full space-y-4 pb-32 sm:space-y-4 lg:pb-8">
@@ -202,7 +196,7 @@ const _renderDetail = (
         </h2>
       </header>
       <div className="px-5 py-6 sm:px-6 sm:py-6">
-        {_renderDetailFields(payment, linkedInvoice, methodName)}
+        {_renderDetailFields(payment, linkedInvoice)}
       </div>
     </section>
 
@@ -220,29 +214,6 @@ const _renderDetail = (
 );
 
 /**
- * Render detail header actions.
- * @param {PaymentDetailState} props - Detail state
- * @returns {ReactElement | null} Header actions
- */
-const _renderHeaderActions = (props: PaymentDetailState): ReactElement | null => props.payment ? (
-  <div className="flex items-center gap-4">
-    <button type="button" onClick={props.handleEdit} className="hidden h-14 items-center gap-3 rounded-3xl border border-action-primary bg-background-surface px-6 text-lg font-bold text-action-primary transition-colors hover:bg-action-primary-subtle lg:flex">
-      <FiEdit2 className="h-5 w-5" aria-hidden="true" /> Edit
-    </button>
-    <details className="relative shrink-0 lg:hidden">
-      <summary data-testid="payment-detail-actions" className="flex h-14 w-14 cursor-pointer list-none items-center justify-center rounded-3xl border border-border-default text-text-secondary transition-colors hover:bg-background-subtle hover:text-text-primary" aria-label="More options">
-        <FiMoreHorizontal className="h-7 w-7" aria-hidden="true" />
-      </summary>
-      <div role="menu" className="absolute right-0 top-16 z-20 w-56 overflow-hidden rounded-3xl border border-border-default bg-background-surface py-2 shadow-lg">
-        <button type="button" role="menuitem" onClick={props.handleEdit} className="flex w-full items-center gap-3 px-5 py-3.5 text-left text-lg font-semibold text-text-primary transition-colors hover:bg-background-subtle">
-          <FiEdit2 className="h-5 w-5" aria-hidden="true" /> Edit
-        </button>
-      </div>
-    </details>
-  </div>
-) : null;
-
-/**
  * Render payment detail component.
  * @param {PaymentDetailState} props - Detail state
  * @returns {ReactElement} Detail page
@@ -253,7 +224,6 @@ export const PaymentDetailComponent = (props: PaymentDetailState): ReactElement 
         title="Payment Detail"
         subtitle="View payment details and transaction information"
         breadcrumbs={["Payment", "Detail"]}
-        headerRight={_renderHeaderActions(props)}
         mobileHeaderClassName="px-0"
         mobileTitleClassName="text-4xl"
         onBack={props.goBack}
@@ -271,7 +241,7 @@ export const PaymentDetailComponent = (props: PaymentDetailState): ReactElement 
             </div>
           )}
           {!props.isLoading && !props.errorMessage && props.payment && (
-            _renderDetail(props.payment, props.linkedInvoice, props.methodName, props.paymentEntries)
+            _renderDetail(props.payment, props.linkedInvoice, props.paymentEntries)
           )}
         </div>
       </PageLayout>

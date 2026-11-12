@@ -18,6 +18,7 @@ import type {
 
 import {
   formatRupiahInput,
+  getAmountLimitMessage,
   parseRupiahInput,
   PAYMENT_STATUS_OPTIONS,
 } from "./PaymentCreate.helpers";
@@ -109,6 +110,67 @@ const _renderSelectField = (config: PaymentSelectFieldConfig): ReactElement => (
     errorMessage={config.errorMessage ?? undefined}
   />
 );
+
+/**
+ * Format transaction date for the summary.
+ * @param {string} [value] - Date string
+ * @returns {string} Formatted date or "-"
+ */
+const _formatSummaryDate = (value?: string): string => {
+  if (!value) return "-";
+
+  const date = new Date(value);
+
+  return Number.isNaN(date.getTime())
+    ? value
+    : date.toLocaleDateString("id-ID", { day: "numeric", month: "long", year: "numeric" });
+};
+
+/**
+ * Render one transaction summary entry.
+ * @param {string} label - Entry label
+ * @param {string} value - Entry value
+ * @param {boolean} [isEmphasized] - Highlight the value
+ * @returns {ReactElement} Summary entry
+ */
+const _renderSummaryEntry = (label: string, value: string, isEmphasized = false): ReactElement => (
+  <div className="min-w-0">
+    <dt className="text-base text-text-secondary">{label}</dt>
+    <dd className={`mt-1 break-words ${isEmphasized ? "text-xl font-semibold text-text-primary" : "text-lg font-medium text-text-primary"}`}>
+      {value}
+    </dd>
+  </div>
+);
+
+/**
+ * Render transaction summary of the selected invoice.
+ * @param {PaymentCreateFormState} props - Form state
+ * @returns {ReactElement | null} Transaction summary or null when no invoice selected
+ */
+const _renderTransactionSummary = (props: PaymentCreateFormState): ReactElement | null => {
+  if (!props.selectedInvoice) return null;
+
+  const transaction = props.selectedInvoice.quotation?.transaction;
+  const startAt = _formatSummaryDate(transaction?.start_at);
+  const endAt = _formatSummaryDate(transaction?.end_at);
+  const eventDate = startAt === endAt ? startAt : `${startAt} - ${endAt}`;
+  const grandTotal = props.grandTotal === null || props.grandTotal === undefined ? "-" : formatRupiahInput(String(props.grandTotal)) || "Rp 0";
+
+  return (
+    <section
+      aria-label="Transaction summary"
+      className="rounded-2xl bg-background-subtle p-5 lg:col-span-2"
+    >
+      <h3 className="mb-3 text-lg font-semibold text-text-primary">Transaction</h3>
+      <dl className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        {_renderSummaryEntry("Customer", transaction?.customer_name || props.selectedInvoice.customer_name || "-")}
+        {_renderSummaryEntry("Event Name", transaction?.event_name || props.selectedInvoice.event_name || "-")}
+        {_renderSummaryEntry("Event Date", eventDate)}
+        {_renderSummaryEntry("Grand Total", grandTotal, true)}
+      </dl>
+    </section>
+  );
+};
 
 /**
  * Render amount input field.
@@ -252,6 +314,7 @@ const _renderMainSelects = (
 const _renderFormFields = (config: PaymentFormFieldsConfig): ReactElement => (
   <div className="grid w-full grid-cols-1 gap-x-6 gap-y-5 lg:grid-cols-2">
     {_renderMainSelects(config)}
+    {_renderTransactionSummary(config.props)}
     {_renderAmountField(config.amountValue, config.handleAmountChange, config.amountError)}
     {_renderDateField(config.props.paidAt, config.handlePaidAt, config.paidAtError)}
     {_renderNotesField(config.props.notes, config.handleNotes)}
@@ -305,7 +368,7 @@ const _getFormErrors = (
   amountError:
     props.isSubmitted && (!props.amount || props.amount <= 0)
       ? "Amount must be greater than Rp 0."
-      : null,
+      : getAmountLimitMessage(props.amount, props.amountLimit),
   invoiceError:
     props.isSubmitted && !props.invoiceId ? "Invoice is required." : null,
   paidAtError:

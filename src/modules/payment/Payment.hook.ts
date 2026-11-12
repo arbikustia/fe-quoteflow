@@ -54,9 +54,9 @@ export const usePaymentPagination = (): PaymentPagination => {
 
 /**
  * Provide payment page navigation.
- * @returns {Pick<PaymentProps, "onBack" | "onCreate" | "onEdit" | "onDetail" | "onRowClick">} - navigation callbacks
+ * @returns {Pick<PaymentProps, "onBack" | "onCreate" | "onDetail" | "onRowClick">} - navigation callbacks
  */
-export const usePaymentNavigation = (): Pick<PaymentProps, "onBack" | "onCreate" | "onEdit" | "onDetail" | "onRowClick"> => {
+export const usePaymentNavigation = (): Pick<PaymentProps, "onBack" | "onCreate" | "onDetail" | "onRowClick"> => {
   const navigate = useNavigate();
   /**
    *
@@ -70,11 +70,6 @@ export const usePaymentNavigation = (): Pick<PaymentProps, "onBack" | "onCreate"
    *
    * @param {PaymentData} payment - payment
    */
-  const onEdit = (payment: PaymentData): void => { void navigate(`/document/payment/${payment.invoiceNo}/edit`, { state: payment }); };
-  /**
-   *
-   * @param {PaymentData} payment - payment
-   */
   const onDetail = (payment: PaymentData): void => { void navigate(`/document/payment/${payment.invoiceNo}`, { state: payment }); };
   /**
    *
@@ -82,5 +77,5 @@ export const usePaymentNavigation = (): Pick<PaymentProps, "onBack" | "onCreate"
    */
   const onRowClick = (payment: PaymentData): void => { onDetail(payment); };
 
-  return { onBack, onCreate, onEdit, onDetail, onRowClick };
+  return { onBack, onCreate, onDetail, onRowClick };
 };

@@ -2,11 +2,11 @@ import type { SyntheticEvent } from "react";
 import { useState } from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 
-import type { PaymentCreateFormState, PaymentCreatePayload, PaymentData } from "../Payment.type";
+import type { PaymentAmountLimit, PaymentCreateFormState, PaymentCreatePayload, PaymentData, PaymentInvoiceSelection } from "../Payment.type";
 
-import { formatPaymentPaidAt, validateRequiredPaymentFields } from "./PaymentCreate.helpers";
+import { formatPaymentPaidAt, getInvoiceGrandTotal, getInvoiceRemainingAmount, getPaymentAmountLimit, validateRequiredPaymentFields } from "./PaymentCreate.helpers";
 
-import { useCreatePaymentMutation, useGetAllInvoicesQuery, useGetAllPaymentMethodsQuery, useUpdatePaymentMutation } from "@/services/payment.service";
+import { useCreatePaymentMutation, useGetAllInvoicesQuery, useGetAllPaymentMethodsQuery, useGetPaymentsQuery, useUpdatePaymentMutation } from "@/services/payment.service";
 
 /**
  * Normalize payment payload date.
@@ -22,9 +22,10 @@ const _buildPayload = (payload: PaymentCreatePayload): PaymentCreatePayload => (
  * Validate payment submission values.
  * @param {PaymentCreatePayload} values - Payment values
  * @param {string} referenceNo - Reference number
+ * @param {PaymentAmountLimit | null} amountLimit - Maximum allowed amount
  * @returns {string | null} Validation message
  */
-const _validatePayload = (values: PaymentCreatePayload, referenceNo: string): string | null =>
+const _validatePayload = (values: PaymentCreatePayload, referenceNo: string, amountLimit: PaymentAmountLimit | null): string | null =>
   validateRequiredPaymentFields({
     invoiceId: values.invoice_id,
     paymentMethodId: values.payment_method_id,
@@ -32,17 +33,18 @@ const _validatePayload = (values: PaymentCreatePayload, referenceNo: string): st
     amount: values.amount,
     paidAt: values.paid_at,
     referenceNo,
+    amountLimit,
   });
 
 /**
  * Manage payment form submission.
  * @param {string} [id] - Payment ID for edit mode
- * @returns {{isSubmitting: boolean; errorMessage: string | null; submit: (values: PaymentCreatePayload, referenceNo: string) => Promise<string | null>}} Submission state
+ * @returns {{isSubmitting: boolean; errorMessage: string | null; submit: (values: PaymentCreatePayload, referenceNo: string, amountLimit: PaymentAmountLimit | null) => Promise<string | null>}} Submission state
  */
 const usePaymentSubmit = (id?: string): {
   isSubmitting: boolean;
   errorMessage: string | null;
-  submit: (values: PaymentCreatePayload, referenceNo: string) => Promise<string | null>;
+  submit: (values: PaymentCreatePayload, referenceNo: string, amountLimit: PaymentAmountLimit | null) => Promise<string | null>;
 } => {
   const [createPayment, { isLoading: isCreating }] = useCreatePaymentMutation();
   const [updatePayment, { isLoading: isUpdating }] = useUpdatePaymentMutation();
@@ -51,11 +53,12 @@ const usePaymentSubmit = (id?: string): {
    * Submit payment payload.
    * @param {PaymentCreatePayload} values - Payment payload
    * @param {string} referenceNo - Payment reference number
+   * @param {PaymentAmountLimit | null} amountLimit - Maximum allowed amount
    * @returns {Promise<string | null>} Error message when failed
    */
-  const submit = async (values: PaymentCreatePayload, referenceNo: string): Promise<string | null> => {
+  const submit = async (values: PaymentCreatePayload, referenceNo: string, amountLimit: PaymentAmountLimit | null): Promise<string | null> => {
     setErrorMessage(null);
-    const validationMessage = _validatePayload(values, referenceNo);
+    const validationMessage = _validatePayload(values, referenceNo, amountLimit);
 
     if (validationMessage) {
       setErrorMessage(validationMessage);
@@ -90,6 +93,29 @@ const usePaymentSubmit = (id?: string): {
 };
 
 /**
+ * Load invoice options and resolve the selected invoice with its grand total and amount limit.
+ * The limit is the invoice remaining amount (payment summary `data[0].remaining_amount`) in create mode,
+ * falling back to the grand total when no summary is available.
+ * @param {string} invoiceId - Selected invoice ID
+ * @param {boolean} isEditMode - Edit mode flag (remaining amount already includes the edited payment)
+ * @returns {PaymentInvoiceSelection} Invoice selection state
+ */
+const useInvoiceSelection = (invoiceId: string, isEditMode: boolean): PaymentInvoiceSelection => {
+  const invoiceQuery = useGetAllInvoicesQuery();
+  const invoices = invoiceQuery.data?.status ? invoiceQuery.data.data : [];
+  const selectedInvoice = invoices.find((invoice) => invoice.id === invoiceId) ?? null;
+  const summaryQuery = useGetPaymentsQuery(
+    { pageNumber: 1, pageSize: 10, searchTerm: selectedInvoice?.invoice_no ?? "" },
+    { skip: !selectedInvoice || isEditMode, refetchOnMountOrArgChange: true },
+  );
+  const summaries = !isEditMode && summaryQuery.data?.status ? summaryQuery.data.data : [];
+  const grandTotal = getInvoiceGrandTotal(selectedInvoice);
+  const amountLimit = getPaymentAmountLimit(getInvoiceRemainingAmount(summaries, invoiceId), grandTotal);
+
+  return { invoices, selectedInvoice, grandTotal, amountLimit, isLoading: invoiceQuery.isLoading };
+};
+
+/**
  * Manage create and edit payment form state.
  * @returns {PaymentCreateFormState} - payment form state
  */
@@ -98,7 +124,7 @@ export const usePaymentCreate = (): PaymentCreateFormState => {
   const location = useLocation();
   const { id } = useParams<{ id: string }>();
   const routePayment = location.state as PaymentData | null;
-  const invoiceQuery = useGetAllInvoicesQuery(); const paymentMethodQuery = useGetAllPaymentMethodsQuery(); const submission = usePaymentSubmit(id);
+  const paymentMethodQuery = useGetAllPaymentMethodsQuery(); const submission = usePaymentSubmit(id);
   const [invoiceId, setInvoiceId] = useState(routePayment?.invoiceId ?? "");
   const [paymentMethodId, setPaymentMethodId] = useState(routePayment?.paymentMethodId ?? "");
   const [status, setStatus] = useState<string>(routePayment?.paymentStatus ? String(routePayment.paymentStatus) : "");
@@ -107,7 +133,7 @@ export const usePaymentCreate = (): PaymentCreateFormState => {
   const [referenceNo, setReferenceNo] = useState(routePayment?.referenceNo ?? "");
   const [notes, setNotes] = useState(routePayment?.notes ?? "");
   const [isActive, setIsActive] = useState(routePayment?.status === "active");
-  const [isSubmitted] = useState(false); const invoices = invoiceQuery.data?.status ? invoiceQuery.data.data : [];
+  const [isSubmitted] = useState(false); const { invoices, selectedInvoice, grandTotal, amountLimit, isLoading: isLoadingInvoices } = useInvoiceSelection(invoiceId, Boolean(id));
   const paymentMethods = paymentMethodQuery.data?.status ? paymentMethodQuery.data.data : []; const isEditMode = Boolean(id);
   /**
    * Set payment amount.
@@ -141,12 +167,12 @@ export const usePaymentCreate = (): PaymentCreateFormState => {
       amount,
       paid_at: paidAt,
       notes,
-    }, referenceNo);
+    }, referenceNo, amountLimit);
 
     if (error) return;
 
     void navigate("/document/payment", { state: { successMessage: isEditMode ? "Payment updated successfully." : "Payment created successfully." } });
   };
 
-  return { id, isEditMode, isActive, invoices, paymentMethods, invoiceId, paymentMethodId, status, amount, paidAt, referenceNo, notes, isLoadingOptions: invoiceQuery.isLoading || paymentMethodQuery.isLoading, isSubmitting: submission.isSubmitting, errorMessage: submission.errorMessage, isSubmitted, handleSubmit, setInvoiceId, setPaymentMethodId, setStatus, setAmount, setPaidAt, setReferenceNo, setNotes, goBack, handleStatusChange };
+  return { id, isEditMode, isActive, invoices, paymentMethods, selectedInvoice, grandTotal, amountLimit, invoiceId, paymentMethodId, status, amount, paidAt, referenceNo, notes, isLoadingOptions: isLoadingInvoices || paymentMethodQuery.isLoading, isSubmitting: submission.isSubmitting, errorMessage: submission.errorMessage, isSubmitted, handleSubmit, setInvoiceId, setPaymentMethodId, setStatus, setAmount, setPaidAt, setReferenceNo, setNotes, goBack, handleStatusChange };
 };

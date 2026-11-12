@@ -1,5 +1,5 @@
 import * as React from "react";
-import { FiEdit2, FiEye } from "react-icons/fi";
+import { FiEye } from "react-icons/fi";
 
 import { Pagination } from "@/components/Pagination";
 import { SearchFilter } from "@/components/SearchFilter";
@@ -83,16 +83,14 @@ const _renderStatus = (row: PaymentData): React.ReactElement => {
 };
 
 /**
- * Render payment edit action.
+ * Render payment row actions.
  * @param {PaymentData} payment - Payment row
  * @param {(payment: PaymentData) => void} onDetail - Detail callback
- * @param {(payment: PaymentData) => void} onEdit - Edit callback
- * @returns {React.ReactElement} Edit button
+ * @returns {React.ReactElement} Detail button
  */
 const _renderActions = (
   payment: PaymentData,
   onDetail: (payment: PaymentData) => void,
-  onEdit?: (payment: PaymentData) => void,
 ): React.ReactElement => (
   <div className="flex items-center justify-center gap-1">
     <button
@@ -107,20 +105,6 @@ const _renderActions = (
     >
       <FiEye className="h-5 w-5" />
     </button>
-    {onEdit && (
-      <button
-        type="button"
-        onClick={(event: React.MouseEvent): void => {
-          event.stopPropagation();
-          onEdit(payment);
-        }}
-        className="cursor-pointer rounded-3xl p-2.5 text-text-secondary hover:bg-action-primary-subtle hover:text-action-primary"
-        title="Edit payment"
-        aria-label="Edit payment"
-      >
-        <FiEdit2 className="h-5 w-5" />
-      </button>
-    )}
   </div>
 );
 
@@ -142,7 +126,7 @@ const _getColumns = (props: PaymentProps): TableColumn<PaymentData>[] => {
    * @param {PaymentData} row - Payment row
    * @returns {React.ReactElement} Row actions
    */
-  const renderActions = (row: PaymentData): React.ReactElement => _renderActions(row, props.onDetail ?? props.onRowClick, props.onEdit);
+  const renderActions = (row: PaymentData): React.ReactElement => _renderActions(row, props.onDetail ?? props.onRowClick);
 
   return [
     { key: "no", header: "No", align: "center", render: renderRowNumber },

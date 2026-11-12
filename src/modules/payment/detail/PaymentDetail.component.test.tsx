@@ -56,7 +56,6 @@ const createProps = (payment: PaymentData | null = PAYMENT): PaymentDetailState 
   isLoading: false,
   errorMessage: null,
   goBack: jest.fn(),
-  handleEdit: jest.fn(),
   handleStatus: jest.fn(),
 });
 
@@ -73,7 +72,8 @@ describe("PaymentDetailComponent", () => {
       </MemoryRouter>,
     );
 
-    expect(screen.getAllByText("Bank Central Asia").length).toBeGreaterThan(0);
+    expect(screen.queryByText("Payment Method")).toBeNull();
+    expect(screen.queryByText("Bank Central Asia")).toBeNull();
     expect(screen.getAllByText("INV-2026-001").length).toBeGreaterThan(0);
     expect(screen.getAllByText("PT Example").length).toBeGreaterThan(0);
     expect(screen.getAllByText("Annual Gala").length).toBeGreaterThan(0);
@@ -117,7 +117,7 @@ describe("PaymentDetailComponent", () => {
     expect(screen.getByText("Payment detail is unavailable.")).toBeInTheDocument();
   });
 
-  it("should trigger edit action from mobile dropdown", () => {
+  it("should not render edit actions", () => {
     const props = createProps();
     render(
       <MemoryRouter>
@@ -125,14 +125,8 @@ describe("PaymentDetailComponent", () => {
       </MemoryRouter>,
     );
 
-    const summary = screen.getByTestId("payment-detail-actions");
-    fireEvent.click(summary);
-    const editButtons = screen.getAllByRole("menuitem", { name: /Edit/i });
-    fireEvent.click(editButtons[0]);
-    expect(props.handleEdit).toHaveBeenCalledTimes(1);
-
-    const statusButtons = screen.queryByRole("menuitem", { name: /Change Status/i });
-    expect(statusButtons).not.toBeInTheDocument();
+    expect(screen.queryByRole("button", { name: /Edit/i })).not.toBeInTheDocument();
+    expect(screen.queryByTestId("payment-detail-actions")).not.toBeInTheDocument();
   });
 
   it("should call goBack when back button is clicked", () => {

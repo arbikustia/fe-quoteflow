@@ -34,6 +34,24 @@ const createProps = (): PaymentCreateFormState => ({
 });
 
 describe("PaymentCreateComponent", () => {
+  it("should show selected invoice transaction and block amount above grand total", () => {
+    const invoice = { id: "inv-1", invoice_no: "INV-001", quotation: { transaction: { customer_name: "PT Example", event_name: "Annual Gala", start_at: "2026-12-01", end_at: "2026-12-01", grand_total: 1000000 } } };
+
+    render(<PaymentCreateComponent {...createProps()} invoices={[invoice]} selectedInvoice={invoice} grandTotal={1000000} amountLimit={{ value: 1000000, label: "grand total" }} />);
+
+    const summary = screen.getByRole("region", { name: "Transaction summary" });
+    expect(summary.textContent).toContain("PT Example");
+    expect(summary.textContent).toContain("Annual Gala");
+    expect(summary.textContent).toContain("Rp 1.000.000");
+    expect(screen.getByText("Amount cannot be higher than grand total (Rp 1.000.000).")).toBeTruthy();
+  });
+
+  it("should not show transaction summary when no invoice is selected", () => {
+    render(<PaymentCreateComponent {...createProps()} selectedInvoice={null} />);
+
+    expect(screen.queryByRole("region", { name: "Transaction summary" })).toBeNull();
+  });
+
   it("should render all payment fields and submit button", () => {
     const props = createProps();
     const { container } = render(<PaymentCreateComponent {...props} />);
