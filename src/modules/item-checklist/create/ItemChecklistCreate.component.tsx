@@ -10,23 +10,28 @@ import Table from "@/components/Table";
 import type { ChecklistCreateFormState, ChecklistOrderItemRow } from "./ItemChecklistCreate.type";
 
 const MOVE_CHECKBOX_CLASS = "text-lg [&_.ant-checkbox]:h-7! [&_.ant-checkbox]:w-7! [&_.ant-checkbox]:rounded-lg! [&_.ant-checkbox]:border-2! [&_.ant-checkbox]:border-text-primary! [&_.ant-checkbox::after]:h-3.5! [&_.ant-checkbox::after]:w-2! [&_.ant-checkbox::after]:border-2! [&_.ant-checkbox::after]:border-t-0! [&_.ant-checkbox::after]:border-l-0!";
+const SCAN_HIGHLIGHT_CLASS = "motion-safe:animate-scan-success motion-reduce:bg-success-subtle";
 const FOCUS_AT_OPTIONS = [
   { value: "moveOut", label: "Move Out" },
   { value: "moveIn", label: "Move In" },
 ];
 
 /**
+ * Ignore manual checkbox changes; move status is set only by barcode scan.
+ * @returns {void}
+ */
+const _ignoreManualChange = (): void => undefined;
+
+/**
  * Renders the move checkbox for an item.
  * @param {ChecklistOrderItemRow} row - Item row data
  * @param {string[]} checkedItemIds - Array of checked item IDs
- * @param {(id: string) => void} onToggle - Toggle handler
  * @param {string} label - Checkbox label
  * @returns {ReactElement} - Move checkbox component
  */
 const _renderMoveCheckbox = (
   row: ChecklistOrderItemRow,
   checkedItemIds: string[],
-  onToggle: (id: string) => void,
   label: string,
 ): ReactElement => (
   <div
@@ -36,7 +41,8 @@ const _renderMoveCheckbox = (
     <CheckboxComponent
       ariaLabel={`${label} ${row.itemName}`}
       checked={checkedItemIds.includes(row.id)}
-      onChange={(): void => onToggle(row.id)}
+      onChange={_ignoreManualChange}
+      disabled
       className={MOVE_CHECKBOX_CLASS}
     />
   </div>
@@ -49,7 +55,7 @@ const _renderMoveCheckbox = (
  * @returns {ReactElement} - Mobile item card component
  */
 const _renderMobileItem = (row: ChecklistOrderItemRow, props: ChecklistCreateFormState): ReactElement => (
-  <article key={row.id} className="min-w-0 rounded-3xl border border-border-default bg-background-surface p-5 shadow-small sm:p-6">
+  <article key={row.id} className={`min-w-0 rounded-3xl border border-border-default bg-background-surface p-5 shadow-small sm:p-6 ${row.id === props.highlightedRowId ? SCAN_HIGHLIGHT_CLASS : ""}`}>
     <div className="flex items-start justify-between gap-4">
       <h4 className="max-w-[68%] min-w-0 break-words text-xl font-semibold text-text-primary">{row.itemName}</h4>
       <span className="shrink-0 text-right text-lg font-semibold text-text-secondary">{row.qty} {row.unit}</span>
@@ -62,14 +68,16 @@ const _renderMobileItem = (row: ChecklistOrderItemRow, props: ChecklistCreateFor
         className={MOVE_CHECKBOX_CLASS}
         ariaLabel={`Move out ${row.itemName}`}
         checked={props.moveOutItemIds.includes(row.id)}
-        onChange={(): void => props.onToggleMoveOut(row.id)}
+        onChange={_ignoreManualChange}
+        disabled
       />
       <CheckboxComponent
         label="Move In"
         className={MOVE_CHECKBOX_CLASS}
         ariaLabel={`Move in ${row.itemName}`}
         checked={props.moveInItemIds.includes(row.id)}
-        onChange={(): void => props.onToggleMoveIn(row.id)}
+        onChange={_ignoreManualChange}
+        disabled
       />
     </div>
   </article>
@@ -125,7 +133,7 @@ const _getColumns = (props: ChecklistCreateFormState): TableColumn<ChecklistOrde
      * @returns {ReactElement} - Move out checkbox
      */
     render: (row): ReactElement =>
-      _renderMoveCheckbox(row, props.moveOutItemIds, props.onToggleMoveOut, "Move out"),
+      _renderMoveCheckbox(row, props.moveOutItemIds, "Move out"),
   },
   {
     key: "moveIn",
@@ -137,7 +145,7 @@ const _getColumns = (props: ChecklistCreateFormState): TableColumn<ChecklistOrde
      * @returns {ReactElement} - Move in checkbox
      */
     render: (row): ReactElement =>
-      _renderMoveCheckbox(row, props.moveInItemIds, props.onToggleMoveIn, "Move in"),
+      _renderMoveCheckbox(row, props.moveInItemIds, "Move in"),
   },
   { key: "sign", header: "Sign", align: "center" },
 ];
@@ -203,6 +211,7 @@ const _renderItemsTable = (props: ChecklistCreateFormState, columns: TableColumn
         data={props.filteredOrderItems}
         columns={columns}
         keyExtractor={(row): string => row.id}
+        rowClassName={(row): string => (row.id === props.highlightedRowId ? SCAN_HIGHLIGHT_CLASS : "")}
         emptyText={props.searchTerm ? "No items matching search." : "No items found for this order."}
       />
     </div>
@@ -224,14 +233,21 @@ const _renderItemsSection = (props: ChecklistCreateFormState, columns: TableColu
           {props.moveOutItemIds.length} move out · {props.moveInItemIds.length} move in
         </p>
       </div>
-      <div className="w-full sm:w-80">
-        <SearchFilter
+      <div className="flex w-full flex-col gap-3 sm:w-auto sm:flex-row sm:items-center">
+        {props.notFoundItemCode ? (
+          <span role="alert" className="inline-flex items-center rounded-full border border-current bg-danger-subtle px-4 py-2 text-base font-semibold text-danger-strong">
+            Item "{props.notFoundItemCode}" not found
+          </span>
+        ) : undefined}
+        <div className="w-full sm:w-80">
+          <SearchFilter
           placeholder="Search items..."
           value={props.searchTerm}
           onChange={(event): void => props.handleSearchChange(event.target.value)}
           className="w-full"
           inputClassName="h-14 !text-lg placeholder:!text-lg border-2 border-border-strong"
-        />
+          />
+        </div>
       </div>
     </div>
     {_renderItemsTable(props, columns)}

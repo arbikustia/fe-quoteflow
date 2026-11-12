@@ -147,12 +147,21 @@ describe("useItemChecklistCreate", () => {
     });
 
     await waitFor(() => expect(result.current.moveInItemIds).toEqual(["item-1-0"]));
+    expect(result.current.highlightedRowId).toBe("item-1-0");
+    expect(result.current.notFoundItemCode).toBe("");
     expect(result.current.moveOutItemIds).toEqual([]);
     expect(result.current.searchTerm).toBe("");
     expect(result.current.filteredOrderItems).toHaveLength(1);
 
     act(() => result.current.handleSearchChange("item-1"));
     expect(result.current.filteredOrderItems).toHaveLength(1);
+
+    act(() => {
+      "nope".split("").forEach((key) => window.dispatchEvent(new KeyboardEvent("keydown", { key })));
+      window.dispatchEvent(new KeyboardEvent("keydown", { key: "Enter" }));
+    });
+    await waitFor(() => expect(result.current.notFoundItemCode).toBe("nope"));
+    expect(result.current.moveInItemIds).toEqual(["item-1-0"]);
   });
 
   it("should update checklist with checklist_no and without checklist_date", async () => {
@@ -161,7 +170,12 @@ describe("useItemChecklistCreate", () => {
     expect(result.current.form.moveInItemIds).toEqual(["entry-2"]);
     expect(result.current.form.isEditMode).toBe(true);
 
-    act(() => result.current.form.onToggleMoveIn("entry-1"));
+    act(() => result.current.form.handleFocusAtChange("moveIn"));
+    act(() => {
+      "item-1".split("").forEach((key) => window.dispatchEvent(new KeyboardEvent("keydown", { key })));
+      window.dispatchEvent(new KeyboardEvent("keydown", { key: "Enter" }));
+    });
+    await waitFor(() => expect(result.current.form.moveInItemIds).toEqual(["entry-2", "entry-1"]));
     await act(async () => { await result.current.form.handleSave(); });
 
     expect(mockUpdate).toHaveBeenCalledWith({

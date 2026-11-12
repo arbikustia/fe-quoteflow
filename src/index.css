@@ -76,6 +76,13 @@
   --color-information-subtle: var(--information-subtle);
   --color-information-strong: var(--information-strong);
 
+  --animate-scan-success: scan-success 1500ms ease-in-out 1;
+
+  @keyframes scan-success {
+    0%, 100% { background-color: transparent; }
+    35% { background-color: color-mix(in srgb, var(--success) 35%, transparent); }
+  }
+
   --color-brand-orange: var(--color-accent-500);
   --color-brand-blue: var(--color-primary-500);
   --color-brand-orange-dark: var(--color-accent-600);

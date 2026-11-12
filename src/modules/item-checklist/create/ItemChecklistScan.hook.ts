@@ -1,5 +1,7 @@
+import type { RefObject } from "react";
 import { useEffect, useRef } from "react";
 
+import { SCAN_HIGHLIGHT_DURATION_MS } from "./ItemChecklistCreate.config";
 import type { UseItemChecklistScanInput } from "./ItemChecklistCreate.type";
 
 /**
@@ -22,6 +24,32 @@ const _isEditableTarget = (target: EventTarget | null): boolean =>
   target instanceof HTMLSelectElement;
 
 /**
+ * Apply a completed scan: check the row in the focused column and flash it, or report not found.
+ * @param {UseItemChecklistScanInput} input - Scanner options and state setters
+ * @param {string} scannedCode - Scanned item code
+ * @param {RefObject<number>} highlightTimer - Highlight reset timer
+ * @returns {void}
+ */
+const _applyScan = (input: UseItemChecklistScanInput, scannedCode: string, highlightTimer: RefObject<number>): void => {
+  const row = input.orderItems.find((item) => item.itemId === scannedCode);
+
+  if (!row) {
+    if (scannedCode) input.setNotFoundItemCode(scannedCode);
+
+    return;
+  }
+
+  const setIds = input.focusAt === "moveIn" ? input.setMoveInItemIds : input.setMoveOutItemIds;
+
+  input.setNotFoundItemCode("");
+  input.setSearchTerm("");
+  setIds((currentIds) => _addScannedId(currentIds, row.id));
+  input.setHighlightedRowId(row.id);
+  window.clearTimeout(highlightTimer.current);
+  highlightTimer.current = window.setTimeout((): void => input.setHighlightedRowId(""), SCAN_HIGHLIGHT_DURATION_MS);
+};
+
+/**
  * Manage barcode scanning for item checklist.
  * @param {UseItemChecklistScanInput} input - Scanner options and state setters
  * @returns {void}
@@ -29,6 +57,7 @@ const _isEditableTarget = (target: EventTarget | null): boolean =>
 export const useItemChecklistScan = (input: UseItemChecklistScanInput): void => {
   const scanBuffer = useRef("");
   const scanResetTimer = useRef(0);
+  const highlightTimer = useRef(0);
 
   useEffect((): (() => void) => {
     /**
@@ -40,17 +69,11 @@ export const useItemChecklistScan = (input: UseItemChecklistScanInput): void => 
       if (_isEditableTarget(event.target)) return;
 
       if (event.key === "Enter") {
-        const row = input.orderItems.find((item) => item.itemId === scanBuffer.current);
+        const scannedCode = scanBuffer.current;
 
         scanBuffer.current = "";
         window.clearTimeout(scanResetTimer.current);
-
-        if (!row) return;
-
-        input.setSearchTerm("");
-        const setIds = input.focusAt === "moveIn" ? input.setMoveInItemIds : input.setMoveOutItemIds;
-
-        setIds((currentIds) => _addScannedId(currentIds, row.id));
+        _applyScan(input, scannedCode, highlightTimer);
 
         return;
       }
@@ -71,4 +94,6 @@ export const useItemChecklistScan = (input: UseItemChecklistScanInput): void => 
       window.clearTimeout(scanResetTimer.current);
     };
   }, [input]);
+
+  useEffect((): (() => void) => (): void => window.clearTimeout(highlightTimer.current), []);
 };

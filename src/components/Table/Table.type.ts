@@ -29,6 +29,7 @@ export type TableProps<T> = {
   columns: TableColumn<T>[];
   keyExtractor: (row: T) => string | number;
   onRowClick?: (row: T) => void;
+  rowClassName?: (row: T) => string;
   isDetail?: boolean;
   currentPage?: number;
   totalPages?: number;

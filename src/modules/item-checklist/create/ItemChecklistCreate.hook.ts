@@ -44,7 +44,7 @@ const useItemChecklistLogic = (): ChecklistLogicState => {
     itemsStatus: itemsQuery.data?.status,
   });
 
-  useItemChecklistScan({ orderItems: data.orderItems, focusAt: form.focusAt, setMoveInItemIds: form.setMoveInItemIds, setMoveOutItemIds: form.setMoveOutItemIds, setSearchTerm: form.setSearchTerm });
+  useItemChecklistScan({ orderItems: data.orderItems, focusAt: form.focusAt, setMoveInItemIds: form.setMoveInItemIds, setMoveOutItemIds: form.setMoveOutItemIds, setSearchTerm: form.setSearchTerm, setHighlightedRowId: form.setHighlightedRowId, setNotFoundItemCode: form.setNotFoundItemCode });
 
   /**
    * Initializes checklist.
@@ -101,6 +101,8 @@ export const useItemChecklistCreate = (): ChecklistCreateFormState => {
     moveOutItemIds: form.moveOutItemIds,
     moveInItemIds: form.moveInItemIds,
     searchTerm: form.searchTerm,
+    highlightedRowId: form.highlightedRowId,
+    notFoundItemCode: form.notFoundItemCode,
     isSubmitting: logic.isCreating || logic.isUpdating,
     errorMessage: form.saveErrorMessage ?? loadError,
     ...handlers,

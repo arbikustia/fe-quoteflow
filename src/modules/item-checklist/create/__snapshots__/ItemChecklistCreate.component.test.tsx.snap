@@ -312,56 +312,60 @@ exports[`ItemChecklistCreateForm matches snapshot 2`] = `
           </p>
         </div>
         <div
-          class="w-full sm:w-80"
+          class="flex w-full flex-col gap-3 sm:w-auto sm:flex-row sm:items-center"
         >
-          <label
-            class="relative block w-full sm:w-72 w-full"
+          <div
+            class="w-full sm:w-80"
           >
-            <span
-              class="sr-only"
+            <label
+              class="relative block w-full sm:w-72 w-full"
             >
-              Search items...
-            </span>
-            <svg
-              aria-hidden="true"
-              class="pointer-events-none absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-text-tertiary"
-              fill="none"
-              height="1em"
-              stroke="currentColor"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              viewBox="0 0 24 24"
-              width="1em"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <circle
-                cx="11"
-                cy="11"
-                r="8"
+              <span
+                class="sr-only"
+              >
+                Search items...
+              </span>
+              <svg
+                aria-hidden="true"
+                class="pointer-events-none absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-text-tertiary"
+                fill="none"
+                height="1em"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+                width="1em"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <circle
+                  cx="11"
+                  cy="11"
+                  r="8"
+                />
+                <line
+                  x1="21"
+                  x2="16.65"
+                  y1="21"
+                  y2="16.65"
+                />
+              </svg>
+              <input
+                aria-label="Search items..."
+                class="h-14 w-full rounded-xl border border-border-default bg-background-surface pl-12 pr-4 text-base font-medium text-text-primary outline-none transition-colors placeholder:font-normal placeholder:text-text-tertiary hover:border-border-strong focus:border-border-focus focus:ring-2 focus:ring-focus-ring/30 h-14 !text-lg placeholder:!text-lg border-2 border-border-strong"
+                placeholder="Search items..."
+                type="search"
+                value=""
               />
-              <line
-                x1="21"
-                x2="16.65"
-                y1="21"
-                y2="16.65"
-              />
-            </svg>
-            <input
-              aria-label="Search items..."
-              class="h-14 w-full rounded-xl border border-border-default bg-background-surface pl-12 pr-4 text-base font-medium text-text-primary outline-none transition-colors placeholder:font-normal placeholder:text-text-tertiary hover:border-border-strong focus:border-border-focus focus:ring-2 focus:ring-focus-ring/30 h-14 !text-lg placeholder:!text-lg border-2 border-border-strong"
-              placeholder="Search items..."
-              type="search"
-              value=""
-            />
-          </label>
+            </label>
+          </div>
         </div>
       </div>
       <div
         class="space-y-4 md:hidden"
       >
         <article
-          class="min-w-0 rounded-3xl border border-border-default bg-background-surface p-5 shadow-small sm:p-6"
+          class="min-w-0 rounded-3xl border border-border-default bg-background-surface p-5 shadow-small sm:p-6 "
         >
           <div
             class="flex items-start justify-between gap-4"
@@ -391,15 +395,16 @@ exports[`ItemChecklistCreateForm matches snapshot 2`] = `
             class="mt-4 flex flex-wrap gap-x-6 gap-y-3 border-t border-border-default pt-4"
           >
             <label
-              class="ant-checkbox-wrapper ant-checkbox-wrapper-checked text-lg [&_.ant-checkbox]:h-7! [&_.ant-checkbox]:w-7! [&_.ant-checkbox]:rounded-lg! [&_.ant-checkbox]:border-2! [&_.ant-checkbox]:border-text-primary! [&_.ant-checkbox::after]:h-3.5! [&_.ant-checkbox::after]:w-2! [&_.ant-checkbox::after]:border-2! [&_.ant-checkbox::after]:border-t-0! [&_.ant-checkbox::after]:border-l-0! css-var-root ant-checkbox-css-var css-dev-only-do-not-override-eofgey"
+              class="ant-checkbox-wrapper ant-checkbox-wrapper-checked ant-checkbox-wrapper-disabled text-lg [&_.ant-checkbox]:h-7! [&_.ant-checkbox]:w-7! [&_.ant-checkbox]:rounded-lg! [&_.ant-checkbox]:border-2! [&_.ant-checkbox]:border-text-primary! [&_.ant-checkbox::after]:h-3.5! [&_.ant-checkbox::after]:w-2! [&_.ant-checkbox::after]:border-2! [&_.ant-checkbox::after]:border-t-0! [&_.ant-checkbox::after]:border-l-0! css-var-root ant-checkbox-css-var css-dev-only-do-not-override-eofgey"
             >
               <span
-                class="ant-checkbox ant-wave-target css-dev-only-do-not-override-eofgey ant-checkbox-checked"
+                class="ant-checkbox ant-wave-target css-dev-only-do-not-override-eofgey ant-checkbox-checked ant-checkbox-disabled"
               >
                 <input
                   aria-label="Move out Speaker Active"
                   checked=""
                   class="ant-checkbox-input"
+                  disabled=""
                   type="checkbox"
                 />
               </span>
@@ -410,14 +415,15 @@ exports[`ItemChecklistCreateForm matches snapshot 2`] = `
               </span>
             </label>
             <label
-              class="ant-checkbox-wrapper text-lg [&_.ant-checkbox]:h-7! [&_.ant-checkbox]:w-7! [&_.ant-checkbox]:rounded-lg! [&_.ant-checkbox]:border-2! [&_.ant-checkbox]:border-text-primary! [&_.ant-checkbox::after]:h-3.5! [&_.ant-checkbox::after]:w-2! [&_.ant-checkbox::after]:border-2! [&_.ant-checkbox::after]:border-t-0! [&_.ant-checkbox::after]:border-l-0! css-var-root ant-checkbox-css-var css-dev-only-do-not-override-eofgey"
+              class="ant-checkbox-wrapper ant-checkbox-wrapper-disabled text-lg [&_.ant-checkbox]:h-7! [&_.ant-checkbox]:w-7! [&_.ant-checkbox]:rounded-lg! [&_.ant-checkbox]:border-2! [&_.ant-checkbox]:border-text-primary! [&_.ant-checkbox::after]:h-3.5! [&_.ant-checkbox::after]:w-2! [&_.ant-checkbox::after]:border-2! [&_.ant-checkbox::after]:border-t-0! [&_.ant-checkbox::after]:border-l-0! css-var-root ant-checkbox-css-var css-dev-only-do-not-override-eofgey"
             >
               <span
-                class="ant-checkbox ant-wave-target css-dev-only-do-not-override-eofgey"
+                class="ant-checkbox ant-wave-target css-dev-only-do-not-override-eofgey ant-checkbox-disabled"
               >
                 <input
                   aria-label="Move in Speaker Active"
                   class="ant-checkbox-input"
+                  disabled=""
                   type="checkbox"
                 />
               </span>
@@ -430,7 +436,7 @@ exports[`ItemChecklistCreateForm matches snapshot 2`] = `
           </div>
         </article>
         <article
-          class="min-w-0 rounded-3xl border border-border-default bg-background-surface p-5 shadow-small sm:p-6"
+          class="min-w-0 rounded-3xl border border-border-default bg-background-surface p-5 shadow-small sm:p-6 "
         >
           <div
             class="flex items-start justify-between gap-4"
@@ -460,14 +466,15 @@ exports[`ItemChecklistCreateForm matches snapshot 2`] = `
             class="mt-4 flex flex-wrap gap-x-6 gap-y-3 border-t border-border-default pt-4"
           >
             <label
-              class="ant-checkbox-wrapper text-lg [&_.ant-checkbox]:h-7! [&_.ant-checkbox]:w-7! [&_.ant-checkbox]:rounded-lg! [&_.ant-checkbox]:border-2! [&_.ant-checkbox]:border-text-primary! [&_.ant-checkbox::after]:h-3.5! [&_.ant-checkbox::after]:w-2! [&_.ant-checkbox::after]:border-2! [&_.ant-checkbox::after]:border-t-0! [&_.ant-checkbox::after]:border-l-0! css-var-root ant-checkbox-css-var css-dev-only-do-not-override-eofgey"
+              class="ant-checkbox-wrapper ant-checkbox-wrapper-disabled text-lg [&_.ant-checkbox]:h-7! [&_.ant-checkbox]:w-7! [&_.ant-checkbox]:rounded-lg! [&_.ant-checkbox]:border-2! [&_.ant-checkbox]:border-text-primary! [&_.ant-checkbox::after]:h-3.5! [&_.ant-checkbox::after]:w-2! [&_.ant-checkbox::after]:border-2! [&_.ant-checkbox::after]:border-t-0! [&_.ant-checkbox::after]:border-l-0! css-var-root ant-checkbox-css-var css-dev-only-do-not-override-eofgey"
             >
               <span
-                class="ant-checkbox ant-wave-target css-dev-only-do-not-override-eofgey"
+                class="ant-checkbox ant-wave-target css-dev-only-do-not-override-eofgey ant-checkbox-disabled"
               >
                 <input
                   aria-label="Move out Microphone Wireless"
                   class="ant-checkbox-input"
+                  disabled=""
                   type="checkbox"
                 />
               </span>
@@ -478,14 +485,15 @@ exports[`ItemChecklistCreateForm matches snapshot 2`] = `
               </span>
             </label>
             <label
-              class="ant-checkbox-wrapper text-lg [&_.ant-checkbox]:h-7! [&_.ant-checkbox]:w-7! [&_.ant-checkbox]:rounded-lg! [&_.ant-checkbox]:border-2! [&_.ant-checkbox]:border-text-primary! [&_.ant-checkbox::after]:h-3.5! [&_.ant-checkbox::after]:w-2! [&_.ant-checkbox::after]:border-2! [&_.ant-checkbox::after]:border-t-0! [&_.ant-checkbox::after]:border-l-0! css-var-root ant-checkbox-css-var css-dev-only-do-not-override-eofgey"
+              class="ant-checkbox-wrapper ant-checkbox-wrapper-disabled text-lg [&_.ant-checkbox]:h-7! [&_.ant-checkbox]:w-7! [&_.ant-checkbox]:rounded-lg! [&_.ant-checkbox]:border-2! [&_.ant-checkbox]:border-text-primary! [&_.ant-checkbox::after]:h-3.5! [&_.ant-checkbox::after]:w-2! [&_.ant-checkbox::after]:border-2! [&_.ant-checkbox::after]:border-t-0! [&_.ant-checkbox::after]:border-l-0! css-var-root ant-checkbox-css-var css-dev-only-do-not-override-eofgey"
             >
               <span
-                class="ant-checkbox ant-wave-target css-dev-only-do-not-override-eofgey"
+                class="ant-checkbox ant-wave-target css-dev-only-do-not-override-eofgey ant-checkbox-disabled"
               >
                 <input
                   aria-label="Move in Microphone Wireless"
                   class="ant-checkbox-input"
+                  disabled=""
                   type="checkbox"
                 />
               </span>
@@ -585,15 +593,16 @@ exports[`ItemChecklistCreateForm matches snapshot 2`] = `
                         class="flex items-center justify-center"
                       >
                         <label
-                          class="ant-checkbox-wrapper ant-checkbox-wrapper-checked text-lg [&_.ant-checkbox]:h-7! [&_.ant-checkbox]:w-7! [&_.ant-checkbox]:rounded-lg! [&_.ant-checkbox]:border-2! [&_.ant-checkbox]:border-text-primary! [&_.ant-checkbox::after]:h-3.5! [&_.ant-checkbox::after]:w-2! [&_.ant-checkbox::after]:border-2! [&_.ant-checkbox::after]:border-t-0! [&_.ant-checkbox::after]:border-l-0! css-var-root ant-checkbox-css-var css-dev-only-do-not-override-eofgey"
+                          class="ant-checkbox-wrapper ant-checkbox-wrapper-checked ant-checkbox-wrapper-disabled text-lg [&_.ant-checkbox]:h-7! [&_.ant-checkbox]:w-7! [&_.ant-checkbox]:rounded-lg! [&_.ant-checkbox]:border-2! [&_.ant-checkbox]:border-text-primary! [&_.ant-checkbox::after]:h-3.5! [&_.ant-checkbox::after]:w-2! [&_.ant-checkbox::after]:border-2! [&_.ant-checkbox::after]:border-t-0! [&_.ant-checkbox::after]:border-l-0! css-var-root ant-checkbox-css-var css-dev-only-do-not-override-eofgey"
                         >
                           <span
-                            class="ant-checkbox ant-wave-target css-dev-only-do-not-override-eofgey ant-checkbox-checked"
+                            class="ant-checkbox ant-wave-target css-dev-only-do-not-override-eofgey ant-checkbox-checked ant-checkbox-disabled"
                           >
                             <input
                               aria-label="Move out Speaker Active"
                               checked=""
                               class="ant-checkbox-input"
+                              disabled=""
                               type="checkbox"
                             />
                           </span>
@@ -607,14 +616,15 @@ exports[`ItemChecklistCreateForm matches snapshot 2`] = `
                         class="flex items-center justify-center"
                       >
                         <label
-                          class="ant-checkbox-wrapper text-lg [&_.ant-checkbox]:h-7! [&_.ant-checkbox]:w-7! [&_.ant-checkbox]:rounded-lg! [&_.ant-checkbox]:border-2! [&_.ant-checkbox]:border-text-primary! [&_.ant-checkbox::after]:h-3.5! [&_.ant-checkbox::after]:w-2! [&_.ant-checkbox::after]:border-2! [&_.ant-checkbox::after]:border-t-0! [&_.ant-checkbox::after]:border-l-0! css-var-root ant-checkbox-css-var css-dev-only-do-not-override-eofgey"
+                          class="ant-checkbox-wrapper ant-checkbox-wrapper-disabled text-lg [&_.ant-checkbox]:h-7! [&_.ant-checkbox]:w-7! [&_.ant-checkbox]:rounded-lg! [&_.ant-checkbox]:border-2! [&_.ant-checkbox]:border-text-primary! [&_.ant-checkbox::after]:h-3.5! [&_.ant-checkbox::after]:w-2! [&_.ant-checkbox::after]:border-2! [&_.ant-checkbox::after]:border-t-0! [&_.ant-checkbox::after]:border-l-0! css-var-root ant-checkbox-css-var css-dev-only-do-not-override-eofgey"
                         >
                           <span
-                            class="ant-checkbox ant-wave-target css-dev-only-do-not-override-eofgey"
+                            class="ant-checkbox ant-wave-target css-dev-only-do-not-override-eofgey ant-checkbox-disabled"
                           >
                             <input
                               aria-label="Move in Speaker Active"
                               class="ant-checkbox-input"
+                              disabled=""
                               type="checkbox"
                             />
                           </span>
@@ -657,14 +667,15 @@ exports[`ItemChecklistCreateForm matches snapshot 2`] = `
                         class="flex items-center justify-center"
                       >
                         <label
-                          class="ant-checkbox-wrapper text-lg [&_.ant-checkbox]:h-7! [&_.ant-checkbox]:w-7! [&_.ant-checkbox]:rounded-lg! [&_.ant-checkbox]:border-2! [&_.ant-checkbox]:border-text-primary! [&_.ant-checkbox::after]:h-3.5! [&_.ant-checkbox::after]:w-2! [&_.ant-checkbox::after]:border-2! [&_.ant-checkbox::after]:border-t-0! [&_.ant-checkbox::after]:border-l-0! css-var-root ant-checkbox-css-var css-dev-only-do-not-override-eofgey"
+                          class="ant-checkbox-wrapper ant-checkbox-wrapper-disabled text-lg [&_.ant-checkbox]:h-7! [&_.ant-checkbox]:w-7! [&_.ant-checkbox]:rounded-lg! [&_.ant-checkbox]:border-2! [&_.ant-checkbox]:border-text-primary! [&_.ant-checkbox::after]:h-3.5! [&_.ant-checkbox::after]:w-2! [&_.ant-checkbox::after]:border-2! [&_.ant-checkbox::after]:border-t-0! [&_.ant-checkbox::after]:border-l-0! css-var-root ant-checkbox-css-var css-dev-only-do-not-override-eofgey"
                         >
                           <span
-                            class="ant-checkbox ant-wave-target css-dev-only-do-not-override-eofgey"
+                            class="ant-checkbox ant-wave-target css-dev-only-do-not-override-eofgey ant-checkbox-disabled"
                           >
                             <input
                               aria-label="Move out Microphone Wireless"
                               class="ant-checkbox-input"
+                              disabled=""
                               type="checkbox"
                             />
                           </span>
@@ -678,14 +689,15 @@ exports[`ItemChecklistCreateForm matches snapshot 2`] = `
                         class="flex items-center justify-center"
                       >
                         <label
-                          class="ant-checkbox-wrapper text-lg [&_.ant-checkbox]:h-7! [&_.ant-checkbox]:w-7! [&_.ant-checkbox]:rounded-lg! [&_.ant-checkbox]:border-2! [&_.ant-checkbox]:border-text-primary! [&_.ant-checkbox::after]:h-3.5! [&_.ant-checkbox::after]:w-2! [&_.ant-checkbox::after]:border-2! [&_.ant-checkbox::after]:border-t-0! [&_.ant-checkbox::after]:border-l-0! css-var-root ant-checkbox-css-var css-dev-only-do-not-override-eofgey"
+                          class="ant-checkbox-wrapper ant-checkbox-wrapper-disabled text-lg [&_.ant-checkbox]:h-7! [&_.ant-checkbox]:w-7! [&_.ant-checkbox]:rounded-lg! [&_.ant-checkbox]:border-2! [&_.ant-checkbox]:border-text-primary! [&_.ant-checkbox::after]:h-3.5! [&_.ant-checkbox::after]:w-2! [&_.ant-checkbox::after]:border-2! [&_.ant-checkbox::after]:border-t-0! [&_.ant-checkbox::after]:border-l-0! css-var-root ant-checkbox-css-var css-dev-only-do-not-override-eofgey"
                         >
                           <span
-                            class="ant-checkbox ant-wave-target css-dev-only-do-not-override-eofgey"
+                            class="ant-checkbox ant-wave-target css-dev-only-do-not-override-eofgey ant-checkbox-disabled"
                           >
                             <input
                               aria-label="Move in Microphone Wireless"
                               class="ant-checkbox-input"
+                              disabled=""
                               type="checkbox"
                             />
                           </span>

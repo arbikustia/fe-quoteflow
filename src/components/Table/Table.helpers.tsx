@@ -194,6 +194,18 @@ const _getStickyHeaderClass = (sticky?: "left" | "right"): string => {
 };
 
 /**
+ * Build optional extra row class with a leading space.
+ * @param {T} row - Table row
+ * @param {(row: T) => string} [rowClassName] - Row class builder
+ * @returns {string} Extra class string
+ */
+const _getRowExtraClass = <T,>(row: T, rowClassName?: (row: T) => string): string => {
+  const extraClass = rowClassName?.(row);
+
+  return extraClass ? " " + extraClass : "";
+};
+
+/**
  * Render desktop table row.
  * @param {T} row - Table row
  * @param {number} index - Row index
@@ -201,13 +213,13 @@ const _getStickyHeaderClass = (sticky?: "left" | "right"): string => {
  * @returns {React.ReactElement} Table row
  */
 const _renderDesktopRow = <T,>(row: T, index: number, props: TableProps<T>): React.ReactElement => {
-  const { columns, isDetail = true, keyExtractor, onRowClick } = props;
+  const { columns, isDetail = true, keyExtractor, onRowClick, rowClassName } = props;
 
   return (
     <tr
       key={keyExtractor(row)}
       onClick={isDetail ? (): void => onRowClick?.(row) : undefined}
-      className={`hover:bg-background-subtle/50 transition-colors ${isDetail && onRowClick ? "cursor-pointer" : ""}`}
+      className={`hover:bg-background-subtle/50 transition-colors ${isDetail && onRowClick ? "cursor-pointer" : ""}${_getRowExtraClass(row, rowClassName)}`}
     >
       {columns.map((column) => (
         <td

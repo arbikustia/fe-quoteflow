@@ -1,9 +1,8 @@
 import * as React from "react";
 
-import { Pagination } from "../Pagination";
-
 import { renderDesktopTable, renderMobileCards } from "./Table.helpers";
 import type { TableProps } from "./Table.type";
+import { Pagination } from "../Pagination";
 
 /**
  * Render Table Component.

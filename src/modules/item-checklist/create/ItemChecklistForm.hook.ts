@@ -19,17 +19,10 @@ export const useItemChecklistFormState = (): ChecklistControls => {
   const [moveInItemIds, setMoveInItemIds] = useState<string[]>([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [saveErrorMessage, setSaveErrorMessage] = useState<string | null>(null);
+  const [highlightedRowId, setHighlightedRowId] = useState("");
+  const [notFoundItemCode, setNotFoundItemCode] = useState("");
 
-  /**
-   * Toggle an item id.
-   * @param {string[]} itemIds - item ids
-   * @param {string} itemId - item id
-   * @returns {string[]} - updated item ids
-   */
-  const toggleItemId = (itemIds: string[], itemId: string): string[] =>
-    itemIds.includes(itemId) ? itemIds.filter((id) => id !== itemId) : [...itemIds, itemId];
-
-  return { selectedOrderId, setSelectedOrderId, focusAt, setFocusAt, moveOutItemIds, setMoveOutItemIds, moveInItemIds, setMoveInItemIds, searchTerm, setSearchTerm, saveErrorMessage, setSaveErrorMessage, toggleItemId };
+  return { selectedOrderId, setSelectedOrderId, focusAt, setFocusAt, moveOutItemIds, setMoveOutItemIds, moveInItemIds, setMoveInItemIds, searchTerm, setSearchTerm, saveErrorMessage, setSaveErrorMessage, highlightedRowId, setHighlightedRowId, notFoundItemCode, setNotFoundItemCode };
 };
 
 /**
@@ -67,6 +60,7 @@ export const useChecklistHandlers = (form: ChecklistControls): ChecklistHandlers
     form.setMoveOutItemIds([]);
     form.setMoveInItemIds([]);
     form.setSearchTerm("");
+    form.setNotFoundItemCode("");
     form.setSaveErrorMessage(null);
   };
 
@@ -85,21 +79,7 @@ export const useChecklistHandlers = (form: ChecklistControls): ChecklistHandlers
    */
   const handleSearchChange = (value: string): void => form.setSearchTerm(value);
 
-  /**
-   * Toggle move out.
-   * @param {string} value - value
-   * @returns {void}
-   */
-  const onToggleMoveOut = (value: string): void => form.setMoveOutItemIds((current) => form.toggleItemId(current, value));
-
-  /**
-   * Toggle move in.
-   * @param {string} value - value
-   * @returns {void}
-   */
-  const onToggleMoveIn = (value: string): void => form.setMoveInItemIds((current) => form.toggleItemId(current, value));
-
-  return { handleOrderChange, handleFocusAtChange, handleSearchChange, onToggleMoveOut, onToggleMoveIn };
+  return { handleOrderChange, handleFocusAtChange, handleSearchChange };
 };
 
 /**
