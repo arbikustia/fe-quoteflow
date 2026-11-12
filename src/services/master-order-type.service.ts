@@ -1,40 +1,19 @@
 import { apiRtkClient } from "@/libs/ApiRtkServices/apiRtkClient";
 
-import ENDPOINT from "@/constants/endpoint.constant";
 import type {
-  ApiOrderType,
-  OrderTypeAllResponse,
   OrderTypeCreatePayload,
-  OrderTypeCreateResponse,
-  OrderTypeData,
-  OrderTypeDetailResponse,
   OrderTypeListParams,
   OrderTypeListResponse,
+  OrderTypeMutationResponse,
   OrderTypeUpdatePayload,
 } from "@/modules/master-data/master-order-type/MasterOrderType.type";
 
-const ORDER_TYPE_TAG = "OrderType";
+import ENDPOINT from "@/constants/endpoint.constant";
 
-/**
- * Map API order type model to UI model.
- * @param {ApiOrderType} orderType - API order type model
- * @returns {OrderTypeData} Order type UI model
- */
-export const mapOrderType = (orderType: ApiOrderType): OrderTypeData => ({
-  id: orderType.id,
-  name: orderType.name,
-  isHandover: Boolean(orderType.is_handover),
-  status: orderType.status === 1 ? "active" : "inactive",
-  createAt: orderType.created_at,
-  createBy: orderType.created_by ?? null,
-});
+const ORDER_TYPE_TAG = "OrderType";
 
 export const masterOrderTypeService = apiRtkClient.injectEndpoints({
   endpoints: (builder) => ({
-    getAllOrderTypes: builder.query<OrderTypeAllResponse, void>({
-      query: () => ({ url: ENDPOINT.MASTER_ORDER_TYPE.ALL, method: "GET" }),
-      providesTags: [ORDER_TYPE_TAG],
-    }),
     getOrderTypes: builder.query<OrderTypeListResponse, OrderTypeListParams>({
       query: (params) => ({
         url: ENDPOINT.MASTER_ORDER_TYPE.PAGED,
@@ -47,27 +26,16 @@ export const masterOrderTypeService = apiRtkClient.injectEndpoints({
       }),
       providesTags: [ORDER_TYPE_TAG],
     }),
-    createOrderType: builder.mutation<OrderTypeCreateResponse, OrderTypeCreatePayload>({
-      query: (body) => ({
-        url: ENDPOINT.MASTER_ORDER_TYPE.CREATE,
-        method: "POST",
-        data: body,
-      }),
-      invalidatesTags: [ORDER_TYPE_TAG],
-    }),
-    getOrderTypeById: builder.query<OrderTypeDetailResponse, string>({
-      query: (id) => ({
-        url: `${ENDPOINT.MASTER_ORDER_TYPE.DETAIL}/${id}`,
-        method: "GET",
-      }),
+    getOrderTypeById: builder.query<OrderTypeMutationResponse, string>({
+      query: (id) => ({ url: `${ENDPOINT.MASTER_ORDER_TYPE.DETAIL}/${id}`, method: "GET" }),
       providesTags: [ORDER_TYPE_TAG],
     }),
-    updateOrderType: builder.mutation<OrderTypeCreateResponse, OrderTypeUpdatePayload>({
-      query: (body) => ({
-        url: `${ENDPOINT.MASTER_ORDER_TYPE.DETAIL}/${body.id}`,
-        method: "PUT",
-        data: body,
-      }),
+    createOrderType: builder.mutation<OrderTypeMutationResponse, OrderTypeCreatePayload>({
+      query: (body) => ({ url: ENDPOINT.MASTER_ORDER_TYPE.CREATE, method: "POST", data: body }),
+      invalidatesTags: [ORDER_TYPE_TAG],
+    }),
+    updateOrderType: builder.mutation<OrderTypeMutationResponse, OrderTypeUpdatePayload>({
+      query: (body) => ({ url: `${ENDPOINT.MASTER_ORDER_TYPE.DETAIL}/${body.id}`, method: "PUT", data: body }),
       invalidatesTags: [ORDER_TYPE_TAG],
     }),
   }),
@@ -75,9 +43,8 @@ export const masterOrderTypeService = apiRtkClient.injectEndpoints({
 });
 
 export const {
-  useGetAllOrderTypesQuery,
   useGetOrderTypesQuery,
-  useCreateOrderTypeMutation,
   useGetOrderTypeByIdQuery,
+  useCreateOrderTypeMutation,
   useUpdateOrderTypeMutation,
 } = masterOrderTypeService;

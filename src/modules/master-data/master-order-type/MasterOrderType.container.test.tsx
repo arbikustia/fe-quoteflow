@@ -1,84 +1,56 @@
-import { beforeEach, describe, expect, it, jest } from "@jest/globals";
-import { render, screen } from "@testing-library/react";
-import "@testing-library/jest-dom";
-import { BrowserRouter } from "react-router-dom";
+import { MemoryRouter } from "react-router-dom";
+
+import { MOCK_ORDER_TYPE_LIST_RESPONSE } from "@/fixture/master-order-type";
+import { usePagePermission } from "@/hooks/usePagePermission";
+import { render, screen } from "@/libs/unit-test";
+import { useGetOrderTypesQuery } from "@/services/master-order-type.service";
 
 import MasterOrderTypeContainer from "./MasterOrderType.container";
-import * as hooks from "./MasterOrderType.hook";
-import { usePagePermission } from "@/hooks/usePagePermission";
 
-jest.mock("./MasterOrderType.hook", () => ({
-  useMasterOrderTypeNavigation: jest.fn(),
-  useMasterOrderTypeContainerState: jest.fn(),
-}));
+jest.mock("@/app/layout", () => ({ children }: { children: React.ReactNode }): React.ReactElement => <div data-testid="layout">{children}</div>);
+jest.mock("@/services/master-order-type.service", () => ({ useGetOrderTypesQuery: jest.fn() }));
+jest.mock("@/hooks/usePagePermission", () => ({ usePagePermission: jest.fn() }));
 
-jest.mock("@/hooks/usePagePermission", () => ({
-  usePagePermission: jest.fn(),
-}));
+/**
+ * Render the container inside a router.
+ * @param {string} [successMessage] - Router state success message
+ * @returns {void}
+ */
+const renderContainer = (successMessage?: string): void => {
+  render(
+    <MemoryRouter initialEntries={[{ pathname: "/master-order-type", state: { successMessage } }]}>
+      <MasterOrderTypeContainer />
+    </MemoryRouter>,
+  );
+};
 
-jest.mock("./MasterOrderType.component", () => ({
-  MasterOrderTypeComponent: (props: { currentPage: number; onCreate: any; onEdit: any }) => (
-    <div 
-      data-testid="mock-component" 
-      data-page={props.currentPage} 
-      data-create={!!props.onCreate}
-      data-edit={!!props.onEdit}
-    />
-  ),
-}));
-
-describe("MasterOrderType Container", () => {
+describe("MasterOrderTypeContainer", () => {
   beforeEach(() => {
-    jest.clearAllMocks();
+    jest.mocked(useGetOrderTypesQuery).mockReturnValue({ data: MOCK_ORDER_TYPE_LIST_RESPONSE, isLoading: false, isError: false } as never);
+    jest.mocked(usePagePermission).mockReturnValue({ canView: true, canCreate: true, canEdit: true, isSuperadmin: false, isLoading: false });
   });
 
-  it("should render component with hook state and permissions", () => {
-    jest.mocked(usePagePermission).mockReturnValue({
-      canView: true,
-      canCreate: true,
-      canEdit: false,
-      isSuperadmin: false,
-    });
+  it("should query the first page and render normalized order types", () => {
+    renderContainer();
 
-    jest.mocked(hooks.useMasterOrderTypeNavigation).mockReturnValue({
-      goBack: jest.fn(),
-      goCreate: jest.fn(),
-      goEdit: jest.fn(),
-    });
+    expect(useGetOrderTypesQuery).toHaveBeenCalledWith({ pageNumber: 1, pageSize: 10, searchTerm: "" });
+    expect(usePagePermission).toHaveBeenCalledWith("/master-order-type");
+    expect(screen.getAllByText("Pickup")).toHaveLength(2);
+    expect(screen.getByText("No Handover")).toBeInTheDocument();
+  });
 
-    jest.mocked(hooks.useMasterOrderTypeContainerState).mockReturnValue({
-      pagination: {
-        currentPage: 1,
-        totalPages: 2,
-        pageSize: 10,
-        paginatedData: [],
-        totalCount: 0,
-        isLoading: false,
-        errorMessage: null,
-        isEmpty: true,
-        isMissingData: false,
-        goToPage: jest.fn(),
-        nextPage: jest.fn(),
-        prevPage: jest.fn(),
-        changePageSize: jest.fn(),
-        setSearchTerm: jest.fn(),
-      },
-      isMoreOpen: false,
-      toggleMore: jest.fn(),
-      handleCloseMore: jest.fn(),
-      goDelete: jest.fn(),
-    });
+  it("should hide create and edit actions without permission", () => {
+    jest.mocked(usePagePermission).mockReturnValue({ canView: true, canCreate: false, canEdit: false, isSuperadmin: false, isLoading: false });
 
-    render(
-      <BrowserRouter>
-        <MasterOrderTypeContainer />
-      </BrowserRouter>,
-    );
+    renderContainer();
 
-    const component = screen.getByTestId("mock-component");
-    expect(component).toBeTruthy();
-    expect(component.getAttribute("data-page")).toBe("1");
-    expect(component.getAttribute("data-create")).toBe("true");
-    expect(component.getAttribute("data-edit")).toBe("false");
+    expect(screen.queryByRole("button", { name: "Create Order Type" })).not.toBeInTheDocument();
+    expect(screen.queryAllByRole("button", { name: /^Edit order type/ })).toHaveLength(0);
+  });
+
+  it("should show the success message from router state", () => {
+    renderContainer("Order type updated successfully.");
+
+    expect(screen.getByRole("alert")).toHaveTextContent("Order type updated successfully.");
   });
 });

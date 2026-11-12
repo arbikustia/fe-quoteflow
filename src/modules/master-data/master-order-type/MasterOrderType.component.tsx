@@ -1,285 +1,267 @@
 import * as React from "react";
-import { FiEdit2 } from "react-icons/fi";
 
-import Layout from "../../../app/layout";
-import { PageLayout } from "../../../app/shared/PageLayout";
-import { Pagination } from "../../../components/Pagination";
-import { SearchFilter } from "../../../components/SearchFilter";
-import { CardSkeletonComponent } from "../../../components/Skeleton";
-import type { TableColumn } from "../../../components/Table";
-import Table from "../../../components/Table";
-import { formatIndonesianDateTime } from "../../../utils/date.helpers";
+import { AlertComponent } from "@/components/Alert";
+import { Pagination } from "@/components/Pagination";
+import { SearchFilter } from "@/components/SearchFilter";
+import type { TableColumn } from "@/components/Table";
+import Table from "@/components/Table";
 
-import { getOrderTypeRowNumber } from "./MasterOrderType.helpers";
-import type { MasterOrderTypeProps, OrderTypeData } from "./MasterOrderType.type";
+import { MASTER_ORDER_TYPE_CONFIG,ORDER_TYPE_LIST_MESSAGE } from "./MasterOrderType.config";
+import { getOrderTypeColumns, getOrderTypeRowKey, renderOrderTypeMobileCard } from "./MasterOrderType.helper";
+import type { MasterOrderTypeProps,OrderTypeData, OrderTypeListStatus } from "./MasterOrderType.type";
 
-/**
- * Render order type row number.
- *
- * @param {number} currentPage - Current page
- * @param {number} pageSize - Page size
- * @param {number} index - Row index
- * @returns {React.ReactElement} Number cell
- */
-const _renderNumber = (currentPage: number, pageSize: number, index: number): React.ReactElement => (
-  <span className="text-lg text-text-secondary">{getOrderTypeRowNumber(currentPage, pageSize, index)}</span>
-);
+import Layout from "@/app/layout";
+import { PageLayout } from "@/app/shared/PageLayout";
+
+const SKELETON_ROW_INDEXES = Array.from({ length: MASTER_ORDER_TYPE_CONFIG.SKELETON_ROW_COUNT }, (_value, index) => index);
 
 /**
- * Render order type status.
- *
- * @param {OrderTypeData} row - Order type row data
- * @returns {React.ReactElement} Status cell
+ * Render the message shown instead of rows, if the list state has one.
+ * @param {OrderTypeListStatus} listStatus - Current list state
+ * @returns {React.ReactElement | null} - State message, or null when rows render
  */
-const _renderStatus = (row: OrderTypeData): React.ReactElement => (
-  <span className={`inline-flex rounded-full border border-current px-3 py-1 text-base font-semibold uppercase ${row.status === "active" ? "bg-success-subtle text-success-strong" : "bg-danger-subtle text-danger-strong"}`}>
-    {row.status}
-  </span>
-);
+const _renderListMessage = (listStatus: OrderTypeListStatus): React.ReactElement | null => {
+  if (listStatus === "loading" || listStatus === "ready") {
+    return null;
+  }
 
-/**
- * Render order type handover cell.
- *
- * @param {OrderTypeData} row - Order type row data
- * @returns {React.ReactElement} Handover cell
- */
-const _renderHandover = (row: OrderTypeData): React.ReactElement => (
-  <span className={`inline-flex rounded-full border border-current px-3 py-1 text-base font-semibold uppercase ${row.isHandover ? "bg-information-subtle text-information-strong" : "bg-background-subtle text-text-secondary"}`}>
-    {row.isHandover ? "Yes" : "No"}
-  </span>
-);
-
-/**
- * Render order type creation date.
- *
- * @param {OrderTypeData} row - Order type row data
- * @returns {React.ReactElement} Date cell
- */
-const _renderDate = (row: OrderTypeData): React.ReactElement => (
-  <span className="text-lg text-text-secondary">{row.createAt ? formatIndonesianDateTime(row.createAt) : "-"}</span>
-);
-
-/**
- * Render order type action cell.
- *
- * @param {OrderTypeData} row - Order type row data
- * @param {(orderType: OrderTypeData) => void} onEdit - Edit handler
- * @returns {React.ReactElement} Action cell
- */
-const _renderActions = (row: OrderTypeData, onEdit: (orderType: OrderTypeData) => void): React.ReactElement => {
-    /**
-   * @param {React.MouseEvent} event - Event
-   */
-  const handleEdit = (event: React.MouseEvent): void => {
-    event.stopPropagation();
-    onEdit(row);
-  };
-
-  return (
-    <div className="flex items-center justify-center gap-1">
-      <button type="button" onClick={handleEdit} className="cursor-pointer rounded-3xl p-2.5 text-text-secondary hover:bg-action-primary-subtle hover:text-action-primary" title="Edit order type" aria-label={`Edit order type ${row.name}`}>
-        <FiEdit2 className="h-5 w-5" />
-      </button>
-    </div>
-  );
+  return <p className="py-10 text-center text-lg text-text-secondary">{ORDER_TYPE_LIST_MESSAGE[listStatus]}</p>;
 };
 
 /**
- * Render order type name cell.
- *
- * @param {OrderTypeData} row - Order type row
- * @returns {React.ReactElement} Name cell
+ * Get the text alignment class of a table column.
+ * @param {TableColumn<OrderTypeData>} column - Table column
+ * @returns {string} - Alignment class
  */
-const _renderName = (row: OrderTypeData): React.ReactElement => (
-  <span className="text-lg font-medium text-text-primary">{row.name}</span>
-);
+const _getAlignClass = (column: TableColumn<OrderTypeData>): string => (column.align === "center" ? "text-center" : "text-left");
 
 /**
- * Build order type table columns.
- *
- * @param {MasterOrderTypeProps} props - Component props
- * @returns {TableColumn<OrderTypeData>[]} Order type columns
+ * Render one skeleton cell matching its column.
+ * @param {TableColumn<OrderTypeData>} column - Table column
+ * @param {number} columnIndex - Column index
+ * @returns {React.ReactElement} - Skeleton cell
  */
-const _getColumns = (props: MasterOrderTypeProps): TableColumn<OrderTypeData>[] => {
-  /**
-   * Render row number cell.
-   *
-   * @param {OrderTypeData} _row - Order type row
-   * @param {number} index - Row index
-   * @returns {React.ReactElement} Number cell
-   */
-  const renderNumber = (_row: OrderTypeData, index: number): React.ReactElement => _renderNumber(props.currentPage, props.pageSize, index);
-  /**
-   * Render action cell.
-   *
-   * @param {OrderTypeData} row - Order type row
-   * @returns {React.ReactElement} Action cell
-   */
-  const renderAction = (row: OrderTypeData): React.ReactElement => _renderActions(row, props.onEdit);
+const _renderSkeletonCell = (column: TableColumn<OrderTypeData>, columnIndex: number): React.ReactElement => {
+  if (column.key === "actions") {
+    return (
+      <div className="flex justify-center gap-1">
+        <span className="h-10 w-10 rounded-3xl bg-background-subtle" />
+      </div>
+    );
+  }
 
-  return [
-    { key: "no", header: "No", align: "center", render: renderNumber },
-    { key: "name", header: "Order Type Name", render: _renderName },
-    { key: "isHandover", header: "Handover", align: "center", render: _renderHandover },
-    { key: "status", header: "Status", align: "center", render: _renderStatus },
-    { key: "createAt", header: "Created At", render: _renderDate },
-    { key: "actions", header: "Action", align: "center", render: renderAction },
-  ];
+  const widthClass = column.key === "status" ? "w-24 rounded-full" : MASTER_ORDER_TYPE_CONFIG.SKELETON_COLUMN_WIDTHS[columnIndex];
+
+  return <span className={`inline-block h-5 rounded-3xl bg-background-subtle align-middle ${widthClass}`} />;
 };
 
 /**
- * Render loading, empty, and error states.
- *
- * @param {MasterOrderTypeProps} props - The component props
- * @returns {React.ReactElement | null} The state element when no rows should render
+ * Render the order type table skeleton with the real column headers.
+ * @param {TableColumn<OrderTypeData>[]} columns - Table columns
+ * @returns {React.ReactElement} - Table skeleton
  */
-const _renderListState = (props: MasterOrderTypeProps): React.ReactElement | null => {
-  if (props.isLoading) return <p className="py-10 text-center text-lg text-text-secondary">Loading order types…</p>;
-
-  if (props.isMissingData) return <p className="py-10 text-center text-lg text-danger">Order type data is unavailable. Please try again.</p>;
-
-  if (props.errorMessage) return <p className="py-10 text-center text-lg text-danger">{props.errorMessage}</p>;
-
-  if (props.isEmpty) return <p className="py-10 text-center text-lg text-text-secondary">No order types found.</p>;
-
-  return null;
-};
-
-/**
- * Render table skeleton.
- *
- * @param {MasterOrderTypeProps} props - Props
- * @returns {React.ReactElement} Rendered element
- */
-const _renderTableSkeleton = (props: MasterOrderTypeProps): React.ReactElement => {
-  const columns = _getColumns(props);
-  const widths = ["w-6", "w-52", "w-28", "w-28", "w-28", "w-28"];
-
-  return (
-    <div className="w-full overflow-x-auto" role="status" aria-label="Loading order type table">
-      <table className="w-full min-w-max border-separate border-spacing-0 whitespace-nowrap">
-        <thead>
-          <tr>
-            {columns.map((column, index) => (
-              <th key={column.key} className={`bg-table-header px-5 py-4 text-[13px] font-bold uppercase tracking-widest text-text-secondary ${column.align === "center" ? "text-center" : "text-left"} ${index === 0 ? "rounded-l-3xl" : ""} ${index === columns.length - 1 ? "rounded-r-3xl" : ""}`}>
-                {column.header}
-              </th>
+const _renderTableSkeleton = (columns: TableColumn<OrderTypeData>[]): React.ReactElement => (
+  <div className="w-full overflow-x-auto" role="status" aria-label="Loading order type table">
+    <table className="w-full min-w-max border-separate border-spacing-0 whitespace-nowrap">
+      <thead>
+        <tr>
+          {columns.map((column, index) => (
+            <th
+              key={column.key}
+              className={`bg-table-header px-5 py-4 text-[13px] font-bold uppercase tracking-widest text-text-secondary ${_getAlignClass(column)} ${index === 0 ? "rounded-l-3xl" : ""} ${index === columns.length - 1 ? "rounded-r-3xl" : ""}`}
+            >
+              {column.header}
+            </th>
+          ))}
+        </tr>
+      </thead>
+      <tbody>
+        {SKELETON_ROW_INDEXES.map((rowIndex) => (
+          <tr key={rowIndex} className="animate-pulse">
+            {columns.map((column, columnIndex) => (
+              <td key={column.key} className={`border-b border-border-default px-5 py-4 ${_getAlignClass(column)}`}>
+                {_renderSkeletonCell(column, columnIndex)}
+              </td>
             ))}
           </tr>
-        </thead>
-        <tbody>
-          {Array.from({ length: 5 }, (_value, rowIndex) => (
-            <tr key={rowIndex} className="animate-pulse">
-              {columns.map((column, columnIndex) => (
-                <td key={column.key} className={`border-b border-border-default px-5 py-4 ${column.align === "center" ? "text-center" : "text-left"}`}>
-                  {column.key === "actions" ? <div className="flex justify-center"><span className="h-10 w-10 rounded-3xl bg-background-subtle" /></div> : <span className={`inline-block h-5 rounded-3xl bg-background-subtle align-middle ${column.key === "status" ? "w-28 rounded-full" : widths[columnIndex]}`} />}
-                </td>
-              ))}
-            </tr>
-          ))}
-        </tbody>
-      </table>
+        ))}
+      </tbody>
+    </table>
+  </div>
+);
+
+/**
+ * Render one mobile order type card skeleton.
+ * @param {number} key - Skeleton key
+ * @returns {React.ReactElement} - Card skeleton
+ */
+const _renderMobileCardSkeleton = (key: number): React.ReactElement => (
+  <div
+    key={key}
+    className="animate-pulse rounded-3xl border border-border-strong bg-background-surface p-5 shadow-small"
+    role="status"
+    aria-label="Loading order type card"
+  >
+    <div className="flex flex-wrap items-center justify-between gap-3">
+      <span className="h-7 w-32 rounded-3xl bg-background-subtle" />
+      <span className="h-8 w-24 rounded-full bg-background-subtle" />
     </div>
+    <div className="mt-4 flex flex-wrap items-end justify-between gap-x-4 gap-y-3 border-t border-border-default pt-4">
+      <div>
+        <div className="h-7 w-20 rounded-3xl bg-background-subtle" />
+        <div className="mt-1 h-7 w-40 rounded-3xl bg-background-subtle" />
+      </div>
+      <div className="text-right">
+        <div className="ml-auto h-7 w-16 rounded-3xl bg-background-subtle" />
+        <div className="mt-1 h-7 w-28 rounded-3xl bg-background-subtle" />
+      </div>
+    </div>
+  </div>
+);
+
+/**
+ * Render the desktop table body for the current list state.
+ * @param {MasterOrderTypeProps} props - Order type list props
+ * @param {TableColumn<OrderTypeData>[]} columns - Table columns
+ * @returns {React.ReactElement} - Skeleton, state message or table
+ */
+const _renderDesktopContent = (props: MasterOrderTypeProps, columns: TableColumn<OrderTypeData>[]): React.ReactElement => {
+  const { listStatus, orderTypes } = props;
+
+  if (listStatus === "loading") {
+    return _renderTableSkeleton(columns);
+  }
+
+  return (
+    _renderListMessage(listStatus) ?? (
+      <Table data={orderTypes} columns={columns} isDetail={false} keyExtractor={getOrderTypeRowKey} />
+    )
   );
 };
 
 /**
- * Render desktop table.
- *
- * @param {MasterOrderTypeProps} props - Props
- * @returns {React.ReactElement} Rendered element
+ * Render the mobile list body for the current list state.
+ * @param {MasterOrderTypeProps} props - Order type list props
+ * @returns {React.ReactNode} - Skeletons, state message or sender cards
  */
-const _renderDesktop = (props: MasterOrderTypeProps): React.ReactElement => {
-    /**
-   * @param {React.ChangeEvent<HTMLInputElement>} event - Event
-   * @returns {void} Resolved value
-   */
-  const handleSearch = (event: React.ChangeEvent<HTMLInputElement>): void => props.setSearchTerm(event.target.value);
+const _renderMobileContent = (props: MasterOrderTypeProps): React.ReactNode => {
+  const { listStatus, orderTypes, canEdit, onEdit } = props;
+
+  if (listStatus === "loading") {
+    return SKELETON_ROW_INDEXES.map(_renderMobileCardSkeleton);
+  }
+
+  return _renderListMessage(listStatus) ?? orderTypes.map((orderType) => renderOrderTypeMobileCard({ orderType, canEdit, onEdit }));
+};
+
+/**
+ * Render the desktop card with search, table and pagination.
+ * @param {MasterOrderTypeProps} props - Order type list props
+ * @returns {React.ReactElement} - Desktop list
+ */
+const _renderDesktopList = (props: MasterOrderTypeProps): React.ReactElement => {
+  const { currentPage, pageSize, totalPages, totalCount, canCreate, canEdit, onPageChange, onPageSizeChange, onSearchChange, onCreate, onEdit } = props;
+  const columns = getOrderTypeColumns(currentPage, pageSize, canEdit, onEdit);
 
   return (
     <div className="hidden rounded-3xl border border-border-default bg-background-surface px-6 pb-6 pt-0 shadow-xs md:mt-6 md:flex md:flex-1 md:flex-col md:overflow-hidden lg:flex">
       <div className="flex items-center justify-between gap-4 border-b border-border-default py-6">
-        <SearchFilter placeholder="Search order type" onChange={handleSearch} isRoundedFull={true} inputClassName="text-lg placeholder:text-lg" />
-        <button type="button" onClick={props.onCreate} className="h-14 rounded-2xl bg-action-primary px-6 text-lg font-semibold text-text-inverse hover:bg-action-primary-hover focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring">Create Order Type</button>
+        <SearchFilter placeholder="Search order type" onChange={onSearchChange} isRoundedFull={true} inputClassName="text-lg placeholder:text-lg" />
+        {canCreate && (
+          <button
+            type="button"
+            onClick={onCreate}
+            className="h-14 rounded-2xl bg-action-primary px-6 text-lg font-semibold text-text-inverse hover:bg-action-primary-hover focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring"
+          >
+            Create Order Type
+          </button>
+        )}
       </div>
-      <div className="flex-1 overflow-auto">
-        {props.isLoading ? _renderTableSkeleton(props) : _renderListState(props) ?? <Table data={props.paginatedData} columns={_getColumns(props)} isDetail={false} keyExtractor={(r: OrderTypeData) => r.id} />}
-      </div>
-      <Pagination currentPage={props.currentPage} totalPages={props.totalPages} pageSize={props.pageSize} onPageChange={props.goToPage} onPageSizeChange={props.changePageSize} totalItems={props.totalCount} className="pt-4" />
+      <div className="flex-1 overflow-auto">{_renderDesktopContent(props, columns)}</div>
+      <Pagination
+        currentPage={currentPage}
+        totalPages={totalPages}
+        pageSize={pageSize}
+        onPageChange={onPageChange}
+        onPageSizeChange={onPageSizeChange}
+        totalItems={totalCount}
+        className="pt-4"
+      />
     </div>
   );
 };
 
 /**
- * Render mobile order type card.
- *
- * @param {OrderTypeData} orderType - Order type data
- * @param {MasterOrderTypeProps["onEdit"]} onEdit - Edit handler
- * @returns {React.ReactElement} Order type card
+ * Render the mobile list with search, cards and pagination.
+ * @param {MasterOrderTypeProps} props - Order type list props
+ * @returns {React.ReactElement} - Mobile list
  */
-const _renderMobileCard = (orderType: OrderTypeData, onEdit: MasterOrderTypeProps["onEdit"]): React.ReactElement => {
-    /**
-   * @returns {void} Resolved value
-   */
-  const handleClick = (): void => onEdit(orderType);
-
-  return (
-    <button type="button" onClick={handleClick} className="group block w-full min-w-0 rounded-3xl border border-border-strong bg-background-surface p-5 text-left shadow-small transition-colors hover:border-border-strong hover:bg-background-subtle/40 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-action-primary">
-      <span className="flex min-w-0 flex-wrap items-center justify-between gap-3">
-        <span className="min-w-0 break-words text-xl font-semibold text-text-primary">{orderType.name}</span>
-        <span className={`rounded-full border border-current px-3 py-1 text-base font-semibold uppercase ${orderType.status === "active" ? "bg-success-subtle text-success-strong" : "bg-danger-subtle text-danger-strong"}`}>{orderType.status}</span>
-      </span>
-      <span className="mt-4 grid grid-cols-2 gap-4 border-t border-border-default pt-4">
-        <span className="min-w-0"><span className="block text-lg text-text-tertiary">Handover</span><span className="mt-1 block text-lg font-medium text-text-primary">{orderType.isHandover ? "Handover Required" : "No Handover"}</span></span>
-        <span className="min-w-0 text-right"><span className="block text-lg text-text-tertiary">Created At</span><span className="mt-1 block text-lg font-medium text-text-primary">{orderType.createAt ? formatIndonesianDateTime(orderType.createAt) : "-"}</span></span>
-      </span>
-    </button>
-  );
-};
-
-/**
- * Render mobile list.
- *
- * @param {MasterOrderTypeProps} props - Props
- * @returns {React.ReactElement} Rendered element
- */
-const _renderMobile = (props: MasterOrderTypeProps): React.ReactElement => {
-    /**
-   * @param {React.ChangeEvent<HTMLInputElement>} event - Event
-   * @returns {void} Resolved value
-   */
-  const handleSearch = (event: React.ChangeEvent<HTMLInputElement>): void => props.setSearchTerm(event.target.value);
+const _renderMobileList = (props: MasterOrderTypeProps): React.ReactElement => {
+  const { currentPage, pageSize, totalPages, totalCount, onPageChange, onPageSizeChange, onSearchChange } = props;
 
   return (
     <div className="flex min-w-0 flex-col gap-4 pb-16 pt-2 lg:hidden">
-      <SearchFilter placeholder="Search order type" onChange={handleSearch} isRoundedFull={true} className="w-full sm:w-full" inputClassName="!h-16 text-xl placeholder:text-xl" />
-      <div className="flex min-w-0 flex-col gap-4">
-        {props.isLoading ? <CardSkeletonComponent count={5} /> : _renderListState(props) ?? props.paginatedData.map((orderType) => <React.Fragment key={orderType.id}>{_renderMobileCard(orderType, props.onEdit)}</React.Fragment>)}
-      </div>
-      <Pagination currentPage={props.currentPage} totalPages={props.totalPages} pageSize={props.pageSize} onPageChange={props.goToPage} onPageSizeChange={props.changePageSize} totalItems={props.totalCount} isCompact={true} className="w-full rounded-3xl border border-border-default bg-background-surface px-5 py-4 shadow-xs" />
+      <SearchFilter
+        placeholder="Search order type"
+        onChange={onSearchChange}
+        isRoundedFull={true}
+        className="w-full sm:w-full"
+        inputClassName="!h-16 text-xl placeholder:text-xl"
+      />
+      <div className="flex min-w-0 flex-col gap-4">{_renderMobileContent(props)}</div>
+      <Pagination
+        currentPage={currentPage}
+        totalPages={totalPages}
+        pageSize={pageSize}
+        onPageChange={onPageChange}
+        onPageSizeChange={onPageSizeChange}
+        totalItems={totalCount}
+        isCompact={true}
+        className="w-full rounded-3xl border border-border-default bg-background-surface px-5 py-4 shadow-xs"
+      />
     </div>
   );
 };
 
 /**
- * @param {MasterOrderTypeProps} props - Props
- * @returns {React.ReactElement} Rendered element
+ * Render the order type list page.
+ * @param {MasterOrderTypeProps} props - Order type list props
+ * @returns {React.ReactElement} - Order type list page
  */
-export const MasterOrderTypeComponent = (props: MasterOrderTypeProps): React.ReactElement => {
-  const createButton = (
-    <button type="button" onClick={props.onCreate} className="h-14 rounded-full border-2 border-action-primary bg-background-surface px-6 text-lg font-bold text-action-primary transition-colors hover:bg-action-primary-subtle focus:outline-none focus:ring-2 focus:ring-focus-ring/30 lg:hidden">
-      Create New
-    </button>
-  );
+const MasterOrderTypeComponent = (props: MasterOrderTypeProps): React.ReactElement => {
+  const { successMessage, canCreate, onBack, onCreate } = props;
 
   return (
-    <Layout pageTitle="Order Type List">
-      <PageLayout title="Order Type List" subtitle="Manage order types and handover rules" breadcrumbs={["Master", "Master Order Type"]} headerRight={createButton} mobileHeaderClassName="px-0" mobileTitleClassName="text-4xl" onBack={props.onBack}>
-        <div className="relative flex h-full flex-col bg-background-page px-0 pb-18 lg:-mt-4 lg:bg-transparent lg:px-0 lg:pb-0">
-          {_renderMobile(props)}
-          {_renderDesktop(props)}
-        </div>
-      </PageLayout>
-    </Layout>
+    <React.Fragment>
+      {successMessage && <AlertComponent type="success" message={successMessage} toast closable />}
+      <Layout pageTitle="Order Type List">
+        <PageLayout
+          title="Order Type List"
+          subtitle="Manage order types and handover rules"
+          breadcrumbs={["Master", "Master Order Type"]}
+          headerRight={
+            canCreate && (
+              <button
+                type="button"
+                onClick={onCreate}
+                className="h-14 rounded-full border-2 border-action-primary bg-background-surface px-6 text-lg font-bold text-action-primary transition-colors hover:bg-action-primary-subtle focus:outline-none focus:ring-2 focus:ring-focus-ring/30 lg:hidden"
+              >
+                Create New
+              </button>
+            )
+          }
+          mobileHeaderClassName="px-0"
+          mobileTitleClassName="text-4xl"
+          onBack={onBack}
+        >
+          <div className="relative flex h-full flex-col bg-background-page px-0 pb-18 lg:-mt-4 lg:bg-transparent lg:px-0 lg:pb-0">
+            {_renderMobileList(props)}
+            {_renderDesktopList(props)}
+          </div>
+        </PageLayout>
+      </Layout>
+    </React.Fragment>
   );
 };
+
+export default MasterOrderTypeComponent;
