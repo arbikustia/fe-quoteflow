@@ -8,9 +8,10 @@ import { SearchFilter } from "@/components/SearchFilter";
 import type { TableColumn } from "@/components/Table";
 import Table from "@/components/Table";
 
-import { getQuotationStatusLabel, getStatusBadgeClass } from "./detail/QuotationDetail.helpers";
-import { getQuotationRowNumber, QuotationMobileCard } from "./Quotation.helpers";
+import { getQuotationStatusLabel, getStatusBadgeClass } from "./detail/QuotationDetail.util";
+import { QuotationMobileCard } from "./Quotation.helper";
 import type { QuotationData, QuotationProps } from "./Quotation.type";
+import { getQuotationRowNumber } from "./Quotation.util";
 
 import Layout from "@/app/layout";
 import { PageLayout } from "@/app/shared/PageLayout";
@@ -71,15 +72,15 @@ const _renderDetailAction = (row: QuotationData, props: QuotationProps): React.R
 /**
  * Render quotation status action.
  * @param {QuotationData} row - quotation row.
- * @param {QuotationProps} props - quotation state and handlers.
+ * @param {(quotation: QuotationData) => void} onEdit - Edit callback
  * @returns {React.ReactElement} Status action.
  */
-const _renderStatusAction = (row: QuotationData, props: QuotationProps): React.ReactElement => (
+const _renderStatusAction = (row: QuotationData, onEdit: (quotation: QuotationData) => void): React.ReactElement => (
   <button
     type="button"
     onClick={(event: React.MouseEvent): void => {
       event.stopPropagation();
-      props.onEdit(row);
+      onEdit(row);
     }}
     className="cursor-pointer rounded-3xl p-2.5 text-text-secondary hover:bg-action-primary-subtle hover:text-action-primary"
     title="Edit quotation"
@@ -110,7 +111,7 @@ const _renderActions = (row: QuotationData, props: QuotationProps): React.ReactE
   <div className="flex items-center justify-center gap-1">
     {_renderDownloadAction(row, props)}
     {_renderDetailAction(row, props)}
-    {row.status !== 2 && _renderStatusAction(row, props)}
+    {row.status !== 2 && props.onEdit && _renderStatusAction(row, props.onEdit)}
   </div>
 );
 
@@ -204,8 +205,8 @@ const _getColumns = (props: QuotationProps): TableColumn<QuotationData>[] => {
 
 /**
  * Render loading, empty, and error state messages.
- * @param {QuotationProps} props - props value.
- * @returns {React.ReactElement | null} - result.
+ * @param {QuotationProps} props - Quotation list props
+ * @returns {React.ReactElement | null} - State message, or null when rows render
  */
 const _renderListState = (props: QuotationProps): React.ReactElement | null => {
   if (props.isMissingData) return <p className="py-10 text-center text-lg text-danger">Quotation data is unavailable. Please try again.</p>;
@@ -350,9 +351,9 @@ const _renderMobile = (props: QuotationProps): React.ReactElement => {
 };
 
 /**
- * QuotationComponent.
- * @param {QuotationProps} props - props value.
- * @returns {React.ReactElement} - result.
+ * Render the quotation list page.
+ * @param {QuotationProps} props - Quotation list props
+ * @returns {React.ReactElement} - Quotation list page
  */
 export const QuotationComponent = (props: QuotationProps): React.ReactElement => (
   <Layout pageTitle="Quotation List">

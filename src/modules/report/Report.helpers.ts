@@ -1,6 +1,6 @@
 import * as React from "react";
 
-import { formatCurrency } from "@/modules/quotation/detail/QuotationDetail.helpers";
+import { formatCurrency } from "@/modules/quotation/detail/QuotationDetail.util";
 import { formatIndonesianDateTime } from "@/utils/date.helpers";
 
 import type { OrderMobileCardProps, ReportOrderData } from "./Report.type";

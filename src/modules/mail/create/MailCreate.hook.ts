@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 
 import { MAIL_CONFIG } from "@/modules/mail/Mail.config";
 import type { MailTemplate } from "@/modules/mail/Mail.type";
-import { quotationToQuoteData } from "@/modules/quotation/Quotation.helpers";
+import { quotationToQuoteData } from "@/modules/quotation/Quotation.util";
 import { useGetInvoiceOptionsQuery } from "@/services/invoice.service";
 import {
   buildMailSendFormData,

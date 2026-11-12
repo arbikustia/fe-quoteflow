@@ -170,7 +170,6 @@ export type QuotationListApiState = {
 };
 
 export type QuotationPagination = QuotationListApiState & {
-  itemCategories: Map<string, string>;
   currentPage: number;
   pageSize: number;
   isEmpty: boolean;
@@ -188,7 +187,7 @@ export type QuotationNavigation = {
   onRowClick: (quotation: QuotationData) => void;
 };
 
-export type QuotationProps = QuotationPagination & QuotationNavigation;
+export type QuotationProps = QuotationPagination & Omit<QuotationNavigation, "onEdit"> & Partial<Pick<QuotationNavigation, "onEdit">>;
 
 export type QuotationDetailResponse = {
   status: boolean;
@@ -210,67 +209,11 @@ export type QuotationDetailState = {
   handleApprove: () => Promise<void>;
 };
 
-
-export type QuotationInfoSection = {
-  quotationNo: string;
-  quotationDate: string;
-  expiredAt: string;
-  notes: string;
-  statusText: string;
-  isActive: boolean;
-};
-
-export type QuotationTxSummary = {
-  eventName: string;
-  serviceTypeName: string;
-  startAt: string;
-  endAt: string;
-  subtotal: string;
-  serviceFee: string;
-  discount: string;
-  grandTotal: string;
-};
-
-export type CustomerSummary = {
-  name: string;
-  phone: string;
-  address: string;
-  statusText: string;
-};
-
-export type PicSummary = {
-  name: string;
-  statusText: string;
-};
-
-export type VoucherSummary = {
-  name: string;
-  code: string;
-  discountPercent: string;
-  statusText: string;
-};
-
-export type ItemRow = {
-  id: string;
-  name: string;
-  qty: number;
-  price: string;
-  subtotal: string;
-  remark: string;
-};
-
-export type ProjectItemRow = {
-  id: string;
-  name: string;
-  qty: number;
-  price: string;
-};
-
-export type ProjectSection = {
-  id: string;
-  name: string;
-  remark: string;
-  qty: number;
-  subtotal: string;
-  items: ProjectItemRow[];
+export type QuotationApprovalState = {
+  isApproving: boolean;
+  isConfirmOpen: boolean;
+  errorMessage?: string;
+  openConfirm: () => void;
+  closeConfirm: () => void;
+  approve: () => Promise<void>;
 };

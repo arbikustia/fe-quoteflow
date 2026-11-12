@@ -4,8 +4,8 @@ import type { ApiPaymentSummaryPayment, PaymentData, PaymentDetailState, Payment
 
 import Layout from "@/app/layout";
 import { PageLayout } from "@/app/shared/PageLayout";
-import { formatCurrency, formatDate } from "@/modules/quotation/detail/QuotationDetail.helpers";
-import { renderDetailField } from "@/modules/quotation/detail/QuotationDetail.sections";
+import { formatCurrency, formatDate } from "@/modules/quotation/detail/QuotationDetail.util";
+import { renderDetailField } from "@/modules/quotation/detail/QuotationDetail.helper";
 
 /**
  * Render payment overview summary fields.

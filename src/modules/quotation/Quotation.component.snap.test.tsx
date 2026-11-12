@@ -36,7 +36,6 @@ const onDownload = (): Promise<void> => Promise.resolve();
 const noop = (): void => undefined;
 
 const dummyProps: QuotationProps = {
-  itemCategories: new Map(),
   currentPage: 1,
   pageSize: 10,
   totalPages: 1,
@@ -48,11 +47,11 @@ const dummyProps: QuotationProps = {
       quotationNumber: "QUO-001",
       customerName: "PT Example",
       name: "Event Test",
-      quotationDate: "2026-10-01",
+      quotationDate: "2026-10-01T08:00:00",
       customerPhone: "0812345678",
       location: "Jakarta",
-      startDate: "2026-11-01",
-      endDate: "2026-11-02",
+      startDate: "2026-11-01T08:00:00",
+      endDate: "2026-11-02T08:00:00",
       grandTotal: 5000000,
       status: 1,
     },
@@ -85,6 +84,6 @@ const dummyProps: QuotationProps = {
 };
 
 test.assertSnapshots(QuotationComponent, [
-  { props: dummyProps, desc: "renders QuotationComponent with data" },
-  { props: { ...dummyProps, isLoading: true, paginatedData: [] }, desc: "renders QuotationComponent in loading state" },
+  { props: dummyProps, desc: "should render the quotation list with data" },
+  { props: { ...dummyProps, isLoading: true, paginatedData: [] }, desc: "should render the quotation list loading state" },
 ]);

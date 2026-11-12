@@ -10,7 +10,7 @@ import type { PaymentData, PaymentMobileCardProps, PaymentProps } from "./Paymen
 
 import Layout from "@/app/layout";
 import { PageLayout } from "@/app/shared/PageLayout";
-import { formatCurrency, formatDate } from "@/modules/quotation/detail/QuotationDetail.helpers";
+import { formatCurrency, formatDate } from "@/modules/quotation/detail/QuotationDetail.util";
 
 /**
  * Render row number cell.

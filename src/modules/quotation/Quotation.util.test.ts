@@ -1,17 +1,17 @@
 import { describe, expect, it } from "@jest/globals";
 
-import { getQuotationRowNumber, quotationToQuoteData } from "./Quotation.helpers";
+import { getQuotationRowNumber, quotationToQuoteData } from "./Quotation.util";
 import type { ApiQuotation, QuotationData } from "./Quotation.type";
 
 describe("Quotation helpers", () => {
-  it("calculates 1-based index across pages", () => {
+  it("should calculate 1-based index across pages", () => {
     expect(getQuotationRowNumber(1, 10, 0)).toBe(1);
     expect(getQuotationRowNumber(1, 10, 4)).toBe(5);
     expect(getQuotationRowNumber(2, 10, 0)).toBe(11);
     expect(getQuotationRowNumber(3, 20, 2)).toBe(43);
   });
 
-  it("converts QuotationData to QuoteData correctly", () => {
+  it("should convert QuotationData to QuoteData", () => {
     const row: QuotationData = {
       id: "q-1",
       transactionId: "tx-1",
@@ -41,7 +41,7 @@ describe("Quotation helpers", () => {
     expect(quote.pdfItems).toEqual([{ name: "Speaker", category: "Audio", qty: 7, price: 500000, remark: "Main hall" }]);
   });
 
-  it("converts ApiQuotation to QuoteData correctly", () => {
+  it("should convert ApiQuotation to QuoteData", () => {
     const apiQuote: ApiQuotation = {
       id: "api-q-1",
       transaction_id: "tx-1",

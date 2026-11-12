@@ -12,7 +12,7 @@ import type { InvoiceData, InvoiceProps } from "./Invoice.type";
 
 import Layout from "@/app/layout";
 import { PageLayout } from "@/app/shared/PageLayout";
-import { getInvoiceStatusLabel, getStatusBadgeClass } from "@/modules/quotation/detail/QuotationDetail.helpers";
+import { getInvoiceStatusLabel, getStatusBadgeClass } from "@/modules/quotation/detail/QuotationDetail.util";
 
 /**
  * Render row number cell.

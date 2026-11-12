@@ -6,8 +6,8 @@ import { generateQuotationPDF } from "@/utils/pdfGenerator";
 import { ActionMenu } from "@/components/ActionMenu";
 import ConfirmModal from "@/components/ConfirmModal";
 
-import { quotationToQuoteData } from "../Quotation.helpers";
 import type { ApiQuotation, QuotationDetailState } from "../Quotation.type";
+import { quotationToQuoteData } from "../Quotation.util";
 
 import {
   renderGlobalRemarkSection,
@@ -17,7 +17,7 @@ import {
   renderQuotationOverview,
   renderTransactionSummarySection,
   renderVoucherSummarySection,
-} from "./QuotationDetail.sections";
+} from "./QuotationDetail.helper";
 
 import Layout from "@/app/layout";
 import { PageLayout } from "@/app/shared/PageLayout";

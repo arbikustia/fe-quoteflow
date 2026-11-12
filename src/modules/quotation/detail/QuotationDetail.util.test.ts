@@ -5,7 +5,7 @@ import {
   getInvoiceStatusLabel,
   getQuotationStatusLabel,
   getStatusBadgeClass,
-} from "./QuotationDetail.helpers";
+} from "./QuotationDetail.util";
 
 describe("QuotationDetail helpers status mapping", () => {
   it("should format percentage discount as Rupiah amount", (): void => {

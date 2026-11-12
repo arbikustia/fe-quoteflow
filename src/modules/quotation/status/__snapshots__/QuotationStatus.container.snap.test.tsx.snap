@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`QuotationStatusContainer Snapshots should render the quotation status form 1`] = `
+<DocumentFragment>
+  <div>
+    <div>
+      Status form
+    </div>
+  </div>
+</DocumentFragment>
+`;

@@ -5,7 +5,7 @@ import { formatIndonesianDateTime } from "@/utils/date.helpers";
 import type { ApiInvoice, InvoiceData, InvoiceMobileCardProps } from "./Invoice.type";
 
 import type { QuoteData } from "@/modules/order/Order.type";
-import { formatCurrency, getInvoiceStatusLabel, getStatusBadgeClass } from "@/modules/quotation/detail/QuotationDetail.helpers";
+import { formatCurrency, getInvoiceStatusLabel, getStatusBadgeClass } from "@/modules/quotation/detail/QuotationDetail.util";
 
 /**
  * Get badge CSS class for an invoice payment status (e.g. "Lunas", "Belum Lunas").

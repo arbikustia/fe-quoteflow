@@ -90,7 +90,7 @@ describe("QuotationDetailComponent", () => {
     expect(screen.getAllByText("Quotation Created").length).toBeGreaterThan(0);
     expect(screen.queryByText("Expired At")).toBeNull();
     const quotationSection = screen.getAllByText("Quotation").find((element) => element.tagName === "P")?.closest("section");
-    expect(quotationSection).toHaveClass("bg-action-primary-subtle");
+    expect(quotationSection?.className).toContain("bg-action-primary-subtle");
     expect(quotationSection?.querySelector("dl")?.className).toContain("sm:grid-cols-3");
     const updatedAtField = screen.getByText("Updated At").closest("div");
     expect(updatedAtField?.parentElement?.className).toContain("[&>div:last-child]:!border-b");

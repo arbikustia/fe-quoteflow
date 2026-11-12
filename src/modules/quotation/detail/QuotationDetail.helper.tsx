@@ -10,7 +10,7 @@ import type {
   ApiQuotationTransaction,
 } from "../Quotation.type";
 
-import { formatCurrency, formatDate, formatDiscount, getQuotationStatusLabel, getStatusBadgeClass, getStatusLabel } from "./QuotationDetail.helpers";
+import { formatCurrency, formatDate, formatDiscount, getQuotationStatusLabel, getStatusBadgeClass, getStatusLabel } from "./QuotationDetail.util";
 
 /**
  * Render labeled value.

@@ -1,18 +1,18 @@
 import * as React from "react";
 
-import { QuotationComponent } from "./Quotation.component";
-import { useQuotationNavigation, useQuotationPagination } from "./Quotation.hook";
 import { usePagePermission } from "@/hooks/usePagePermission";
 
+import { QuotationComponent } from "./Quotation.component";
+import { useQuotationNavigation, useQuotationPagination } from "./Quotation.hook";
+
 /**
- * QuotationContainer.
- * @returns {React.ReactElement} - result.
+ * Render the quotation list; editing needs the edit permission.
+ * @returns {React.ReactElement} - Quotation list page
  */
 const QuotationContainer = (): React.ReactElement => {
   const pagination = useQuotationPagination();
   const navigation = useQuotationNavigation();
-
-  const { canCreate, canEdit } = usePagePermission("/document/quotation");
+  const { canEdit } = usePagePermission("/document/quotation");
 
   return <QuotationComponent {...pagination} {...navigation} onEdit={canEdit ? navigation.onEdit : undefined} />;
 };

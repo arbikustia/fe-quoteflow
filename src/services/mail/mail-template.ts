@@ -3,7 +3,7 @@ import LogoMark from "@/assets/logo.png";
 import type { ApiInvoice } from "@/modules/invoice/Invoice.type";
 import { MAIL_CONFIG } from "@/modules/mail/Mail.config";
 import type { MailTemplate, MailTemplateContent } from "@/modules/mail/Mail.type";
-import { formatCurrency } from "@/modules/quotation/detail/QuotationDetail.helpers";
+import { formatCurrency } from "@/modules/quotation/detail/QuotationDetail.util";
 import type { ApiQuotation } from "@/modules/quotation/Quotation.type";
 
 const PAGE = "#F1F2F4";

@@ -4,8 +4,8 @@ import { QuotationDetailComponent } from "./QuotationDetail.component";
 import { useQuotationDetail } from "./QuotationDetail.hook";
 
 /**
- * QuotationDetailContainer.
- * @returns {ReactElement} - result.
+ * Render the quotation detail page.
+ * @returns {ReactElement} - Quotation detail page
  */
 const QuotationDetailContainer = (): ReactElement => {
   const state = useQuotationDetail();

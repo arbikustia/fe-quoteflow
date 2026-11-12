@@ -1,9 +1,9 @@
-import { useMemo, useState } from "react";
+import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
-import type { QuotationDetailState } from "../Quotation.type";
+import { useItemCategories } from "../Quotation.hook";
+import type { QuotationApprovalState, QuotationDetailState } from "../Quotation.type";
 
-import { useGetAllItemsQuery } from "@/services/master-item.service";
 import { useApproveQuotationMutation, useGetQuotationByIdQuery } from "@/services/quotation.service";
 
 /**
@@ -21,35 +21,11 @@ const _resolveErrorMessage = (hasError: boolean, isMissingData: boolean): string
 };
 
 /**
- * Build item category lookup from master items.
- * @returns {Map<string, string>} Item category names by item ID
- */
-const useItemCategories = (): Map<string, string> => {
-  const { data: itemResponse } = useGetAllItemsQuery();
-
-  return useMemo(
-    (): Map<string, string> => new Map(
-      itemResponse?.status
-        ? itemResponse.data.map((item): [string, string] => [item.id, item.category_name ?? "Uncategorized"])
-        : [],
-    ),
-    [itemResponse],
-  );
-};
-
-/**
  * Manage quotation approval confirmation.
  * @param {string} [id] - Quotation ID
- * @returns {{isApproving: boolean; isConfirmOpen: boolean; errorMessage?: string; openConfirm: () => void; closeConfirm: () => void; approve: () => Promise<void>}} Approval state
+ * @returns {QuotationApprovalState} - Approval state
  */
-const useQuotationApproval = (id: string | undefined): {
-  isApproving: boolean;
-  isConfirmOpen: boolean;
-  errorMessage?: string;
-  openConfirm: () => void;
-  closeConfirm: () => void;
-  approve: () => Promise<void>;
-} => {
+const useQuotationApproval = (id?: string): QuotationApprovalState => {
   const navigate = useNavigate();
   const [approveQuotation, { isLoading: isApproving }] = useApproveQuotationMutation();
   const [isConfirmOpen, setIsConfirmOpen] = useState(false);
@@ -66,7 +42,10 @@ const useQuotationApproval = (id: string | undefined): {
    */
   const closeConfirm = (): void => setIsConfirmOpen(false);
 
-  /** Approve quotation. @returns {Promise<void>} Completion promise */
+  /**
+   * Approve the quotation and go to invoices.
+   * @returns {Promise<void>} - Completion promise
+   */
   const approve = async (): Promise<void> => {
     if (!id) return;
 
@@ -104,10 +83,16 @@ export const useQuotationDetail = (): QuotationDetailState => {
   const quotation = data?.status && data.data ? data.data : null;
   const queryError = _resolveErrorMessage(Boolean(error), Boolean(data && !data.status));
 
-  /** Navigate back. @returns {void} No return value */
+  /**
+   * Navigate back.
+   * @returns {void} - No return value
+   */
   const goBack = (): void => { void navigate(-1); };
 
-  /** Navigate to edit form. @returns {void} No return value */
+  /**
+   * Navigate to the order edit form.
+   * @returns {void} - No return value
+   */
   const handleEdit = (): void => {
     if (!quotation || quotation.status !== 1) return;
 

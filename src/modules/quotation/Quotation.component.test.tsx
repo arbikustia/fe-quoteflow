@@ -72,7 +72,6 @@ const createProps = (overrides?: Partial<QuotationProps>): QuotationProps => {
   const onDownload = jest.fn<QuotationProps["onDownload"]>();
 
   return {
-    itemCategories: new Map([["item-1", "Audio"]]),
     currentPage: 1,
     pageSize: 10,
     totalPages: 1,
@@ -96,7 +95,7 @@ const createProps = (overrides?: Partial<QuotationProps>): QuotationProps => {
 };
 
 describe("QuotationComponent", () => {
-  it("renders quotation table columns without create button", () => {
+  it("should render quotation table columns without create button", () => {
     const props = createProps();
     render(<MemoryRouter><QuotationComponent {...props} /></MemoryRouter>);
 
@@ -145,7 +144,7 @@ describe("QuotationComponent", () => {
     });
   });
 
-  it("handles view detail and edit quotation action click", () => {
+  it("should handle view detail and edit quotation action click", () => {
     const onDetail = jest.fn();
     const onEdit = jest.fn();
     const props = createProps({ onDetail, onEdit });
@@ -199,7 +198,7 @@ describe("QuotationComponent", () => {
     expect(onRowClick).toHaveBeenCalledWith(MOCK_ROWS[0]);
   });
 
-  it("handles search input change", () => {
+  it("should handle search input change", () => {
     const setSearchTerm = jest.fn();
     const props = createProps({ setSearchTerm });
     render(<MemoryRouter><QuotationComponent {...props} /></MemoryRouter>);
@@ -210,7 +209,7 @@ describe("QuotationComponent", () => {
     expect(setSearchTerm).toHaveBeenCalledWith("Annual");
   });
 
-  it("renders loading skeleton when loading", () => {
+  it("should render loading skeleton when loading", () => {
     const props = createProps({ isLoading: true, paginatedData: [] });
     render(<MemoryRouter><QuotationComponent {...props} /></MemoryRouter>);
 
@@ -226,7 +225,7 @@ describe("QuotationComponent", () => {
     expect(screen.queryByText("QUO-001")).toBeNull();
   });
 
-  it("renders error message on error", () => {
+  it("should render error message on error", () => {
     const props = createProps({ errorMessage: "Failed to fetch", paginatedData: [] });
     render(<MemoryRouter><QuotationComponent {...props} /></MemoryRouter>);
 

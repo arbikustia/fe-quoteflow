@@ -28,7 +28,7 @@ jest.mock("@/services/invoice.service", () => ({
   useGetInvoiceOptionsQuery: () => ({ data: mockInvoiceResponse, isLoading: false }),
 }));
 
-jest.mock("@/modules/quotation/Quotation.helpers", () => ({
+jest.mock("@/modules/quotation/Quotation.util", () => ({
   quotationToQuoteData: () => ({ id: "QUO-001" }),
 }));
 

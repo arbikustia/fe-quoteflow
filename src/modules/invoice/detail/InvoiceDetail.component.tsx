@@ -11,7 +11,7 @@ import type { ApiInvoice, InvoiceDetailState } from "../Invoice.type";
 
 import Layout from "@/app/layout";
 import { PageLayout } from "@/app/shared/PageLayout";
-import { formatDate, getInvoiceStatusLabel, getQuotationStatusLabel, getStatusBadgeClass } from "@/modules/quotation/detail/QuotationDetail.helpers";
+import { formatDate, getInvoiceStatusLabel, getQuotationStatusLabel, getStatusBadgeClass } from "@/modules/quotation/detail/QuotationDetail.util";
 import {
   renderDetailField,
   renderGlobalRemarkSection,
@@ -20,7 +20,7 @@ import {
   renderProjectsSection,
   renderTransactionSummarySection,
   renderVoucherSummarySection,
-} from "@/modules/quotation/detail/QuotationDetail.sections";
+} from "@/modules/quotation/detail/QuotationDetail.helper";
 
 /**
  * Render invoice overview.

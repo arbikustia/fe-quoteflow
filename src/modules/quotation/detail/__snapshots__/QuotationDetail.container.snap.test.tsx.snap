@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`QuotationDetailContainer Snapshots should render the quotation detail 1`] = `
+<DocumentFragment>
+  <div>
+    Quotation detail
+  </div>
+</DocumentFragment>
+`;

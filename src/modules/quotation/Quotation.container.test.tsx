@@ -89,8 +89,12 @@ jest.mock("@/services/master-item.service", () => ({
   }),
 }));
 
+jest.mock("@/hooks/usePagePermission", () => ({
+  usePagePermission: (): { canEdit: boolean } => ({ canEdit: true }),
+}));
+
 describe("QuotationContainer", () => {
-  it("renders QuotationContainer with data", () => {
+  it("should render the quotation list with data", () => {
     render(
       <MemoryRouter>
         <QuotationContainer />
