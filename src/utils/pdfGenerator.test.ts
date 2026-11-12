@@ -20,8 +20,11 @@ jest.mock("jspdf", () => {
     setFontSize: mockSetFontSize,
     setFont: mockSetFont,
     addPage: mockAddPage,
+    output: jest.fn(() => new Blob()),
   }));
 });
+
+URL.createObjectURL = jest.fn(() => "blob:pdf");
 
 jest.mock("jspdf-autotable", () => jest.fn());
 
@@ -93,6 +96,8 @@ describe("pdfGenerator", () => {
     expect(tableOptions?.body).toContainEqual(expect.arrayContaining([expect.objectContaining({ content: "Service Fee" })]));
     expect(tableOptions?.body).toContainEqual(expect.arrayContaining([expect.objectContaining({ content: "Rp 250.000" })]));
     expect(tableOptions?.columnStyles?.[4]).toEqual({ cellWidth: 35, halign: "right" });
+    expect(tableOptions?.body?.at(-1)).toEqual(expect.arrayContaining([expect.objectContaining({ content: "Total" })]));
+    expect(JSON.stringify(tableOptions?.body)).not.toContain("Special note");
   });
 
   it("generateQuotationPDF should render project quantity as one and item remark", async () => {

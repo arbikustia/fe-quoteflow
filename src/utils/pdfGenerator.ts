@@ -266,10 +266,6 @@ const _generateQuoteBlob = async (quote: QuoteData, options?: PdfOptions): Promi
     ""
   ]);
 
-  tableData.push([
-    { content: quote.remark || "** INCLUDE OPERATOR DAN CREW BERPENGALAMAN", colSpan: 6, styles: { fontStyle: 'bold', halign: 'left', fillColor: [255, 255, 255] } }
-  ]);
-
   autoTable(doc, {
     startY: 103,
     head: [[
