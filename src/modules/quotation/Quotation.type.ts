@@ -65,6 +65,7 @@ export type ApiQuotationTransaction = {
   subtotal: number;
   service_fee: number;
   discount: number;
+  remarks?: string | null;
   grand_total: number;
   status: number;
   created_at: string;
@@ -74,7 +75,7 @@ export type ApiQuotationTransaction = {
   rental_handovers: [];
   customer: ApiQuotationCustomer;
   pic: ApiQuotationReference;
-  voucher: ApiQuotationReference;
+  voucher: ApiQuotationReference | null;
 };
 
 export type ApiQuotation = {

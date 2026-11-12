@@ -125,10 +125,10 @@ export const renderTransactionSummarySection = (transaction: ApiQuotationTransac
       {_renderField("Customer Name", transaction.customer_name)}
       {_renderField("Customer Phone", transaction.customer_phone)}
       {_renderField("PIC", transaction.pic?.name)}
-      {_renderField("Address", transaction.address)}
       {_renderField("Event Name", transaction.event_name)}
-      {_renderField("Event Start", formatDate(transaction.start_at))}
       {_renderField("Event End", formatDate(transaction.end_at))}
+      {_renderField("Event Start", formatDate(transaction.start_at))}
+      {_renderField("Address", transaction.address)}
     </dl>,
   );
 
@@ -217,16 +217,16 @@ export const renderVoucherSection = (voucher: ApiQuotationReference): ReactEleme
 
 /**
  * Render quotation voucher without audit metadata.
- * @param {ApiQuotationReference} voucher - Voucher response
+ * @param {ApiQuotationReference | null} voucher - Voucher response, null when no voucher is used
  * @returns {ReactElement} Voucher summary section
  */
-export const renderVoucherSummarySection = (voucher: ApiQuotationReference): ReactElement =>
+export const renderVoucherSummarySection = (voucher: ApiQuotationReference | null): ReactElement =>
   _renderSection(
     "Voucher",
     <dl className="grid grid-cols-1 gap-x-8 sm:grid-cols-3">
-      {_renderField("Name", voucher.name)}
-      {_renderField("Code", voucher.code || "Unavailable")}
-      {_renderField("Discount Percent", voucher.discount_percent !== undefined ? `${voucher.discount_percent}%` : "Unavailable")}
+      {_renderField("Name", _renderTextValue(voucher?.name))}
+      {_renderField("Code", _renderTextValue(voucher?.code))}
+      {_renderField("Discount Percent", voucher?.discount_percent !== undefined ? `${voucher.discount_percent}%` : "Unavailable")}
     </dl>,
   );
 

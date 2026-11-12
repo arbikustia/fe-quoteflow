@@ -155,7 +155,7 @@ export const useQuotationNavigation = (): QuotationNavigation => {
     const targetId = quotation.transactionId || quotation.id;
 
     void navigate(`/order/create/${targetId}`, {
-      state: { returnUrl: "/document/quotation" },
+      state: { returnUrl: "/document/quotation", quotationId: quotation.id },
     });
   };
 

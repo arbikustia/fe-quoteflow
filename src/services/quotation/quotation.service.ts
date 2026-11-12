@@ -78,7 +78,7 @@ export const quotationService = apiRtkClient.injectEndpoints({
         method: "PATCH",
         data: { status: 2 },
       }),
-      invalidatesTags: [QUOTATION_TAG],
+      invalidatesTags: [QUOTATION_TAG, "Invoice", "Order"], // Approval creates an invoice and changes the order status.
     }),
   }),
   overrideExisting: false,

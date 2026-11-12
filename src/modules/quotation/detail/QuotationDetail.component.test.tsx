@@ -36,6 +36,7 @@ const QUOTATION: ApiQuotation = {
     customer_phone: "0812345678",
     address: "Jakarta",
     event_name: "Annual Gala",
+    remarks: "Transaction global remark",
     start_at: "2026-12-01T08:00:00.000Z",
     end_at: "2026-12-02T18:00:00.000Z",
     subtotal: 1000000,
@@ -69,6 +70,15 @@ const createProps = (quotation: ApiQuotation | null = QUOTATION): QuotationDetai
 });
 
 describe("QuotationDetailComponent", () => {
+  it("should render quotation without voucher", (): void => {
+    const quotation: ApiQuotation = { ...QUOTATION, transaction: { ...QUOTATION.transaction, voucher: null } };
+
+    render(<MemoryRouter><QuotationDetailComponent {...createProps(quotation)} /></MemoryRouter>);
+
+    const voucherSection = screen.getByRole("heading", { name: "Voucher" }).closest("section");
+    expect(voucherSection?.textContent).toContain("Unavailable");
+  });
+
   it("should render all quotation response sections", (): void => {
     render(<MemoryRouter><QuotationDetailComponent {...createProps()} /></MemoryRouter>);
 
@@ -95,7 +105,8 @@ describe("QuotationDetailComponent", () => {
     expect(screen.getByText("Main hall")).toBeTruthy();
     expect(screen.queryByText("Global Remark")).toBeNull();
     expect(screen.getByRole("heading", { name: "Remark" })).toBeTruthy();
-    expect(screen.getByText("Valid for thirty days")).toBeTruthy();
+    expect(screen.getByText("Transaction global remark")).toBeTruthy();
+    expect(screen.queryByText("Valid for thirty days")).toBeNull();
     const itemRemark = screen.getByText("Main hall").closest("p");
     expect(itemRemark?.textContent).toBe("Remark: Main hall");
     const qtyElement = screen.getByText("Qty: 2");

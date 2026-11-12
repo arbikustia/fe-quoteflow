@@ -38,7 +38,7 @@ const _renderDetail = (quotation: ApiQuotation): ReactElement => {
           {renderTransactionSummarySection(quotation.transaction)}
         </div>
         {renderVoucherSummarySection(quotation.transaction.voucher)}
-        {renderGlobalRemarkSection(quotation.notes)}
+        {renderGlobalRemarkSection(quotation.transaction.remarks ?? "")}
         <div className="grid min-w-0 grid-cols-1 items-start gap-4 sm:gap-4 lg:grid-cols-[minmax(0,2fr)_minmax(20rem,1fr)]">
           <div className="min-w-0 space-y-4 sm:space-y-4">
             {isProject

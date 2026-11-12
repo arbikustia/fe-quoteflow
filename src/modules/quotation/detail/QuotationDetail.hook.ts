@@ -111,7 +111,7 @@ export const useQuotationDetail = (): QuotationDetailState => {
   const handleEdit = (): void => {
     if (!quotation || quotation.status !== 1) return;
 
-    void navigate(`/order/create/${quotation.transaction_id}`, { state: { returnUrl: `/document/quotation/${id ?? quotation.id}` } });
+    void navigate(`/order/create/${quotation.transaction_id}`, { state: { returnUrl: `/document/quotation/${id ?? quotation.id}`, quotationId: quotation.id } });
   };
 
   return {
