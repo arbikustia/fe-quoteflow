@@ -47,7 +47,6 @@ jest.mock('@/services/order.service', () => ({
 }));
 
 jest.mock('@/services/master-project.service', () => ({
-  mapProject: jest.fn(),
   /**
    * Mock get all projects query.
    * @returns {{ data: undefined }} query result

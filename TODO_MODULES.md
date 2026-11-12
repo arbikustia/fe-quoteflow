@@ -1,0 +1,15 @@
+# Progress Refactoring Tech Debt (/code-convention)
+- [x] 1. master project
+- [ ] 2. master role
+- [ ] 3. master user
+- [ ] 4. master voucher
+- [ ] 5. order
+- [ ] 6. quotation
+- [ ] 7. invoice
+- [ ] 8. payment
+- [ ] 9. activity log
+- [ ] 10. calendar
+- [ ] 11. item checklist
+- [ ] 12. item return
+- [ ] 13. note
+- [ ] 14. report

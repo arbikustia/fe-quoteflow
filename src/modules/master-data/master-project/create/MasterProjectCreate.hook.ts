@@ -1,452 +1,229 @@
-import type { ChangeEvent, SyntheticEvent } from "react";
-import { useMemo, useState } from "react";
-import { useForm } from "react-hook-form";
-import { useNavigate, useParams } from "react-router-dom";
+import type { ChangeEvent, SubmitEvent } from "react";
+import { useCallback, useState } from "react";
+import { useForm, useWatch } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
 
-import { formatProjectMessages, mapProjectItemOptions, mapProjectSelectedItems, validateProjectStep } from "./MasterProjectCreate.helpers";
-import { useProjectItemSelection } from "./MasterProjectCreate.items.hook";
+import { MASTER_PROJECT_ROUTE } from "../MasterProject.config";
 
-import type { ApiProject, MasterProjectCreateFormState, ProjectDraftFormState, ProjectDraftHandlers, ProjectDraftHandlersInput, ProjectDraftSetters, ProjectDraftStateApi, ProjectFormStep, ProjectFormValues, ProjectItemOption, ProjectSubmissionHandlers, ProjectSubmissionParams, ProjectSubmissionState } from "@/modules/master-data/master-project/MasterProject.type";
-import { useGetAllItemsQuery } from "@/services/master-item.service";
-import { useCreateProjectMutation, useGetProjectByIdQuery, useUpdateProjectMutation } from "@/services/master-project.service";
+import { PROJECT_FORM_MODE_TEXT, PROJECT_FORM_STEP_FIELDS, PROJECT_FORM_STEPS } from "./MasterProjectCreate.config";
+import type {
+  MasterProjectCreateController,
+  MasterProjectCreateParams,
+  ProjectFieldHandlers,
+  ProjectFieldHandlersParams,
+  ProjectFormStep,
+  ProjectFormValues,
+  ProjectItemOption,
+  ProjectSubmission,
+  ProjectValidValues,
+  ProjectWizard,
+  ProjectWizardParams,
+} from "./MasterProjectCreate.type";
+import {
+  formatApiMessages,
+  getAdjacentFormStep,
+  getProjectFieldErrors,
+  resolveProjectForm,
+  sendProjectMutation,
+  shouldValidateField,
+  toggleSelectedItem,
+  updateSelectedItemQuantity,
+} from "./MasterProjectCreate.util";
 
 /**
- * Create input field change handler.
- *
- * @param {(val: string) => void} setter - State setter
- * @returns {(event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void} Change handler
+ * Submit the form through the create / update mutation and handle navigation.
+ * @param {MasterProjectCreateParams} params - Form mode and mutation triggers
+ * @returns {ProjectSubmission} - Submit error, submit and back handlers
  */
-const _createInputChange = (
-  setter: (val: string) => void,
-): ((event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void) => (
-  (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>): void => {
-    setter(event.target.value);
-  }
-);
+const useProjectSubmission = (params: MasterProjectCreateParams): ProjectSubmission => {
+  const { id, mode, createProject, updateProject } = params;
+  const navigate = useNavigate();
+  const [errorMessage, setErrorMessage] = useState<string>();
 
-/**
- * Apply loaded project data into the draft form state.
- *
- * @param {ApiProject} project - Loaded project
- * @param {ProjectItemOption[]} items - Loaded item options
- * @param {string | null} initializedId - Last applied project id
- * @param {ProjectDraftSetters} setters - Draft setters
- * @returns {void} No return value
- */
-const _applyLoadedProject = (
-  project: ApiProject,
-  items: ProjectItemOption[],
-  initializedId: string | null,
-  setters: ProjectDraftSetters,
-): void => {
-  if (items.length === 0 || project.id === initializedId) return;
+  /**
+   * Send the validated form and return to the list on success.
+   * @param {ProjectValidValues} values - Valid form values
+   * @returns {Promise<void>} - Resolves when the request settles
+   */
+  const submitProject = useCallback(async (values: ProjectValidValues): Promise<void> => {
+    const modeText = PROJECT_FORM_MODE_TEXT[mode];
 
-  const price = String(project.price ?? 0);
+    setErrorMessage(undefined);
 
-  setters.setInitializedId(project.id);
-  setters.setName(project.name ?? "");
-  setters.setValue("name", project.name ?? "");
-  setters.setPrice(price);
-  setters.setValue("price", price);
-  setters.clearErrors();
-  setters.setRemark(project.remark ?? "");
-  setters.setIsActive(project.status === 1);
-  setters.setSelectedItems(mapProjectSelectedItems(project, items));
+    try {
+      const response = await sendProjectMutation(values, { id, createProject, updateProject });
+
+      if (!response.status) {
+        setErrorMessage(formatApiMessages(response.messages));
+
+        return;
+      }
+
+      navigate(MASTER_PROJECT_ROUTE.LIST, { state: { successMessage: modeText.successMessage } });
+    } catch {
+      setErrorMessage(modeText.failureMessage);
+    }
+  }, [createProject, id, mode, navigate, updateProject]);
+
+  /**
+   * Navigate back to the project list.
+   * @returns {void}
+   */
+  const handleBack = useCallback((): void => {
+    navigate(MASTER_PROJECT_ROUTE.LIST);
+  }, [navigate]);
+
+  return { errorMessage, submitProject, handleBack };
 };
 
 /**
- * Build the project draft change handlers.
- *
- * @param {ProjectDraftHandlersInput} input - Handler inputs
- * @returns {ProjectDraftHandlers} Change handlers
+ * Create the field change handlers of the project form.
+ * @param {ProjectFieldHandlersParams} params - react-hook-form accessors and validation state
+ * @returns {ProjectFieldHandlers} - Item, name, price, remark and status handlers
  */
-const _buildProjectDraftHandlers = (input: ProjectDraftHandlersInput): ProjectDraftHandlers => ({
-  /**
-   * Update project name and validation value.
-   *
-   * @param {ChangeEvent<HTMLInputElement | HTMLTextAreaElement>} event - Input event
-   * @returns {void} No return value
-   */
-  handleNameChange: (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>): void => {
-    input.setName(event.target.value);
-    input.setValue("name", event.target.value, { shouldValidate: input.isSubmitted });
-  },
-  /**
-   * Update project price and validation value.
-   *
-   * @param {ChangeEvent<HTMLInputElement | HTMLTextAreaElement>} event - Input event
-   * @returns {void} No return value
-   */
-  handlePriceChange: (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>): void => {
-    input.setPrice(event.target.value);
-    input.setValue("price", event.target.value, { shouldValidate: input.isSubmitted });
-  },
-  handleRemarkChange: _createInputChange(input.setRemark),
-  /**
-   * Toggle project active status.
-   *
-   * @returns {void} No return value
-   */
-  handleStatusChange: (): void => {
-    input.setIsActive((current) => !current);
-  },
-});
-
-/**
- * Create the project draft state container.
- *
- * @returns {ProjectDraftStateApi} Draft state and setters
- */
-const useProjectDraftState = (): ProjectDraftStateApi => {
-  const form = useForm<ProjectFormValues>({ mode: "onChange", defaultValues: { name: "" } });
-  const [step, setStep] = useState<ProjectFormStep>(1);
-  const [name, setName] = useState("");
-  const [price, setPrice] = useState("");
-  const [remark, setRemark] = useState("");
-  const [isActive, setIsActive] = useState(true);
-  const [initializedId, setInitializedId] = useState<string | null>(null);
-  const [isSubmitted, setIsSubmitted] = useState(false);
-  const itemSelection = useProjectItemSelection();
-
-  form.register("name", { required: "Project name is required." });
-  form.register("price", { required: "Project price is required." });
-
-  return {
-    form,
-    step,
-    setStep,
-    name,
-    setName,
-    price,
-    setPrice,
-    remark,
-    setRemark,
-    isActive,
-    setIsActive,
-    initializedId,
-    setInitializedId,
-    isSubmitted,
-    setIsSubmitted,
-    itemSelection,
-  };
-};
-
-/**
- * Build the draft form state returned by the draft hook.
- *
- * @param {ProjectDraftStateApi} state - Draft state container
- * @param {ProjectDraftHandlers} handlers - Change handlers
- * @param {() => Promise<boolean>} validateStep2 - Step 2 validator
- * @returns {ProjectDraftFormState} Draft form state
- */
-const _buildDraftFormState = (
-  state: ProjectDraftStateApi,
-  handlers: ProjectDraftHandlers,
-  validateStep2: () => Promise<boolean>,
-): ProjectDraftFormState => ({
-  step: state.step,
-  name: state.name,
-  price: state.price,
-  remark: state.remark,
-  isActive: state.isActive,
-  selectedItems: state.itemSelection.selectedItems,
-  ...handlers,
-  toggleItem: state.itemSelection.toggleItem,
-  updateItemQuantity: state.itemSelection.updateItemQuantity,
-  /**
-   * Advance to next step.
-   *
-   * @returns {void} No return value
-   */
-  nextStep: (): void => {
-    state.setStep((current) => (current + 1) as ProjectFormStep);
-  },
-  /**
-   * Return to previous step.
-   *
-   * @returns {void} No return value
-   */
-  previousStep: (): void => {
-    state.setStep((current) => (current - 1) as ProjectFormStep);
-  },
-  errors: state.form.formState.errors,
-  isSubmitted: state.isSubmitted,
-  validateStep2,
-});
-
-/**
- * Manage project form input state and step wizard.
- *
- * @param {ApiProject | null} project - Initial project data
- * @param {ProjectItemOption[]} items - Loaded item options
- * @returns {ProjectDraftFormState} Draft form state
- */
-const useProjectDraft = (
-  project: ApiProject | null,
-  items: ProjectItemOption[],
-): ProjectDraftFormState => {
-  const state = useProjectDraftState();
-  const { form, itemSelection } = state;
+const useProjectFieldHandlers = (params: ProjectFieldHandlersParams): ProjectFieldHandlers => {
+  const { errors, isSubmitted, getValues, setValue } = params;
 
   /**
-   * Validate step 2 input.
-   *
-   * @returns {Promise<boolean>} Validation result
+   * Select or unselect an item.
+   * @param {ProjectItemOption} item - Item to toggle
+   * @returns {void}
    */
-  const validateStep2 = async (): Promise<boolean> => {
-    state.setIsSubmitted(true);
-
-    return await form.trigger("name");
-  };
-
-  if (project) {
-    _applyLoadedProject(project, items, state.initializedId, {
-      setInitializedId: state.setInitializedId,
-      setName: state.setName,
-      setValue: form.setValue,
-      setPrice: state.setPrice,
-      clearErrors: form.clearErrors,
-      setRemark: state.setRemark,
-      setIsActive: state.setIsActive,
-      setSelectedItems: itemSelection.setSelectedItems,
+  const handleItemToggle = useCallback((item: ProjectItemOption): void => {
+    setValue("selectedItems", toggleSelectedItem(getValues("selectedItems"), item), {
+      shouldDirty: true,
+      shouldValidate: shouldValidateField(isSubmitted, errors, "selectedItems"),
     });
-  }
+  }, [errors, getValues, isSubmitted, setValue]);
 
-  const handlers = _buildProjectDraftHandlers({
-    setName: state.setName,
-    setValue: form.setValue,
-    isSubmitted: state.isSubmitted,
-    setPrice: state.setPrice,
-    setRemark: state.setRemark,
-    setIsActive: state.setIsActive,
-  });
+  /**
+   * Change the quantity of a selected item.
+   * @param {string} itemId - Item to update
+   * @param {number} quantity - Requested quantity
+   * @returns {void}
+   */
+  const handleItemQuantityChange = useCallback((itemId: string, quantity: number): void => {
+    setValue("selectedItems", updateSelectedItemQuantity(getValues("selectedItems"), itemId, quantity), { shouldDirty: true });
+  }, [getValues, setValue]);
 
-  return _buildDraftFormState(state, handlers, validateStep2);
-};
+  /**
+   * Store the name input.
+   * @param {ChangeEvent<HTMLInputElement>} event - Name input change event
+   * @returns {void}
+   */
+  const handleNameChange = useCallback((event: ChangeEvent<HTMLInputElement>): void => {
+    setValue("name", event.target.value, { shouldDirty: true, shouldValidate: shouldValidateField(isSubmitted, errors, "name") });
+  }, [errors, isSubmitted, setValue]);
 
+  /**
+   * Store the price input.
+   * @param {number | null} price - Entered price, or null when cleared
+   * @returns {void}
+   */
+  const handlePriceChange = useCallback((price: number | null): void => {
+    setValue("price", price, { shouldDirty: true, shouldValidate: shouldValidateField(isSubmitted, errors, "price") });
+  }, [errors, isSubmitted, setValue]);
 
-/**
- * Send project create or update mutation.
- *
- * @param {ProjectSubmissionParams} params - Submission params
- * @param {ReturnType<typeof useCreateProjectMutation>[0]} createProject - Create trigger
- * @param {ReturnType<typeof useUpdateProjectMutation>[0]} updateProject - Update trigger
- * @returns {Promise<any>} API response
- */
-const _sendProjectMutation = (
-  params: ProjectSubmissionParams,
-  createProject: ReturnType<typeof useCreateProjectMutation>[0],
-  updateProject: ReturnType<typeof useUpdateProjectMutation>[0],
-): Promise<{ status: boolean; messages: string[] | string | null }> => {
-  const { id, isEdit, name, price, remark, isActive, selectedItems } = params;
-  const status = !isEdit || isActive ? 1 : 0;
-  const payload = {
-    name,
-    remark,
-    price: Number(price),
-    status,
-    items: selectedItems.map((item) => ({ item_id: item.id, qty: item.qty, price: item.price })),
-  };
+  /**
+   * Store the remark input.
+   * @param {ChangeEvent<HTMLTextAreaElement>} event - Remark textarea change event
+   * @returns {void}
+   */
+  const handleRemarkChange = useCallback((event: ChangeEvent<HTMLTextAreaElement>): void => {
+    setValue("remark", event.target.value, { shouldDirty: true });
+  }, [setValue]);
 
-  return isEdit && id
-    ? updateProject({ id, ...payload }).unwrap()
-    : createProject(payload).unwrap();
-};
+  /**
+   * Store the active status switch value.
+   * @param {boolean} checked - Whether the switch is on
+   * @returns {void}
+   */
+  const handleStatusChange = useCallback((checked: boolean): void => {
+    setValue("isActive", checked, { shouldDirty: true });
+  }, [setValue]);
 
-/**
- * Validate the current wizard step and advance when possible.
- *
- * @param {ProjectSubmissionParams} params - Params
- * @param {ProjectSubmissionHandlers} handlers - Status setters and navigator
- * @returns {Promise<boolean>} Whether the form may submit now
- */
-const _passSubmissionStep = async (
-  params: ProjectSubmissionParams,
-  handlers: ProjectSubmissionHandlers,
-): Promise<boolean> => {
-  const { name, selectedItems, step, nextStep } = params;
-  const stepError = validateProjectStep(step, selectedItems.length, name);
-
-  if (step === 2 && !await params.validateStep2()) {
-    handlers.setErrorMessage("Project name is required.");
-
-    return false;
-  }
-
-  if (stepError) {
-    handlers.setErrorMessage(stepError);
-
-    return false;
-  }
-
-  if (step !== 3) {
-    nextStep();
-
-    return false;
-  }
-
-  return true;
+  return { handleItemToggle, handleItemQuantityChange, handleNameChange, handlePriceChange, handleRemarkChange, handleStatusChange };
 };
 
 /**
- * Handle form submission execution.
- *
- * @param {ProjectSubmissionParams} params - Params
- * @param {ReturnType<typeof useCreateProjectMutation>[0]} createProject - Create mutation
- * @param {ReturnType<typeof useUpdateProjectMutation>[0]} updateProject - Update mutation
- * @param {ProjectSubmissionHandlers} handlers - Status setters and navigator
- * @returns {Promise<void>} Async result
+ * Manage the wizard step: validate and advance, submit on the last step, go back.
+ * @param {ProjectWizardParams} params - Form submit / trigger accessors and the submission
+ * @returns {ProjectWizard} - Current step and wizard handlers
  */
-const _executeSubmission = async (
-  params: ProjectSubmissionParams,
-  createProject: ReturnType<typeof useCreateProjectMutation>[0],
-  updateProject: ReturnType<typeof useUpdateProjectMutation>[0],
-  handlers: ProjectSubmissionHandlers,
-): Promise<void> => {
-  if (!await _passSubmissionStep(params, handlers)) return;
+const useProjectWizard = (params: ProjectWizardParams): ProjectWizard => {
+  const { handleSubmit, trigger, submission } = params;
+  const [step, setStep] = useState<ProjectFormStep>(PROJECT_FORM_STEPS[0]);
 
-  try {
-    const response = await _sendProjectMutation(params, createProject, updateProject);
-
-    if (!response.status) {
-      handlers.setErrorMessage(formatProjectMessages(response.messages));
+  /**
+   * Validate the current step and move on; on the last step submit the project.
+   * @param {SubmitEvent<HTMLFormElement>} event - Form submit event
+   * @returns {Promise<void>} - Resolves when validation or submit settles
+   */
+  const handleFormSubmit = useCallback(async (event: SubmitEvent<HTMLFormElement>): Promise<void> => {
+    if (step === "preview") {
+      await handleSubmit(submission.submitProject)(event);
 
       return;
     }
 
-    const successMessage = params.isEdit ? "Project updated successfully." : "Project created successfully.";
-
-    handlers.setSuccessMessage(successMessage);
-    handlers.navigate("/master-project", { state: { successMessage } });
-  } catch {
-    handlers.setErrorMessage("Unable to create project. Please try again.");
-  }
-};
-
-/**
- * Handle API project submission.
- *
- * @param {ProjectSubmissionParams} params - Submission params
- * @returns {ProjectSubmissionState} Submission state
- */
-const useProjectSubmission = (params: ProjectSubmissionParams): ProjectSubmissionState => {
-  const navigate = useNavigate();
-  const [createProject, { isLoading: isCreating }] = useCreateProjectMutation();
-  const [updateProject, { isLoading: isUpdating }] = useUpdateProjectMutation();
-  const [errorMessage, setErrorMessage] = useState<string | null>(null);
-  const [successMessage, setSuccessMessage] = useState<string | null>(null);
-
-    /**
-   * Submit project form to backend.
-   *
-   * @param {SyntheticEvent} event - Submit event
-   * @returns {Promise<void>} Async result
-   */
-  const handleSubmit = async (event: SyntheticEvent): Promise<void> => {
     event.preventDefault();
-    setErrorMessage(null);
-    setSuccessMessage(null);
-    await _executeSubmission(params, createProject, updateProject, {
-      navigate,
-      setErrorMessage,
-      setSuccessMessage,
-    });
-  };
 
-  return {
-    isSubmitting: isCreating || isUpdating,
-    errorMessage,
-    successMessage,
-    setErrorMessage,
-    handleSubmit,
-  };
-};
+    if (await trigger(PROJECT_FORM_STEP_FIELDS[step])) {
+      setStep(getAdjacentFormStep(step, 1));
+    }
+  }, [handleSubmit, step, submission.submitProject, trigger]);
 
-
-/**
- * Create step navigation handlers.
- *
- * @param {ProjectDraftFormState} draft - Draft state
- * @param {ProjectSubmissionState} submission - Submission state
- * @returns {object} Navigation handlers
- */
-const _createStepNavigators = (
-  draft: ProjectDraftFormState,
-  submission: ProjectSubmissionState,
-): { nextStep: () => void; previousStep: () => void } => {
-    /**
-   * Advance to next step.
-   *
-   * @returns {void} No return
+  /**
+   * Go to the previous step, or leave the form from the first step.
+   * @returns {void}
    */
-  const nextStep = (): void => {
-    submission.setErrorMessage(null);
-    const stepError = validateProjectStep(draft.step, draft.selectedItems.length, draft.name);
-
-    if (stepError) {
-      submission.setErrorMessage(stepError);
+  const handleStepBack = useCallback((): void => {
+    if (step === PROJECT_FORM_STEPS[0]) {
+      submission.handleBack();
 
       return;
     }
 
-    draft.nextStep();
-  };
+    setStep(getAdjacentFormStep(step, -1));
+  }, [step, submission]);
 
-    /**
-   * Return to previous step.
-   *
-   * @returns {void} No return
-   */
-  const previousStep = (): void => {
-    submission.setErrorMessage(null);
-    draft.previousStep();
-  };
-
-  return { nextStep, previousStep };
+  return { step, handleFormSubmit, handleStepBack };
 };
 
 /**
- * Manage master project create form state and submission.
- *
- * @returns {MasterProjectCreateFormState} Form state and handlers
+ * Return a copy of the watched form values so every change yields a new object.
+ * @param {ProjectFormValues} formValues - Current form values
+ * @returns {ProjectFormValues} - Copy of the form values
  */
-export const useMasterProjectCreate = (): MasterProjectCreateFormState => {
-  const navigate = useNavigate();
-  const { id } = useParams<{ readonly id: string }>();
-  const isEdit = Boolean(id);
+const _copyFormValues = (formValues: ProjectFormValues): ProjectFormValues => ({ ...formValues });
 
-  const { data: itemResponse, isLoading: isItemsLoading, error: itemError } = useGetAllItemsQuery();
-  const { data: projectResponse, isLoading: isProjectLoading } = useGetProjectByIdQuery(id ?? "", { skip: !isEdit });
-
-  const project = projectResponse?.status ? projectResponse.data : null;
-  const items = useMemo(() => mapProjectItemOptions(itemResponse), [itemResponse]);
-  const itemsError = itemError || (itemResponse && !itemResponse.status) ? "Unable to load items." : null;
-
-  const draft = useProjectDraft(project, items);
-  const submission = useProjectSubmission({ id, isEdit, ...draft });
-  const { nextStep, previousStep } = _createStepNavigators(draft, submission);
-
-    /**
-   * Navigate back.
-   *
-   * @returns {void} No return
-   */
-  const goBack = (): void => {
-    navigate("/master-project");
-  };
+/**
+ * Manage the project create / edit wizard: step, values, validation, submit and navigation.
+ * @param {MasterProjectCreateParams} params - Form mode, initial values and mutation triggers
+ * @returns {MasterProjectCreateController} - Form state and handlers
+ */
+export const useMasterProjectCreate = (params: MasterProjectCreateParams): MasterProjectCreateController => {
+  const { control, formState, getValues, handleSubmit, setValue, trigger } = useForm<ProjectFormValues, undefined, ProjectValidValues>({
+    defaultValues: params.initialValues,
+    values: params.initialValues,
+    resetOptions: { keepDirtyValues: true },
+    resolver: resolveProjectForm,
+    mode: "onSubmit",
+    reValidateMode: "onChange",
+  });
+  const { errors, isSubmitted } = formState;
+  const submission = useProjectSubmission(params);
+  const wizard = useProjectWizard({ handleSubmit, trigger, submission });
+  const fieldHandlers = useProjectFieldHandlers({ errors, isSubmitted, getValues, setValue });
 
   return {
-    ...draft,
-    isEditMode: isEdit,
-    nextStep,
-    previousStep,
-    items,
-    isItemsLoading,
-    itemsError,
-    isSubmitting: submission.isSubmitting || isProjectLoading,
+    step: wizard.step,
+    values: useWatch({ control, compute: _copyFormValues }),
+    fieldErrors: getProjectFieldErrors(errors),
     errorMessage: submission.errorMessage,
-    successMessage: submission.successMessage,
-    handleSubmit: submission.handleSubmit,
-    goBack,
+    ...fieldHandlers,
+    handleSubmit: wizard.handleFormSubmit,
+    handleStepBack: wizard.handleStepBack,
+    handleBack: submission.handleBack,
   };
 };

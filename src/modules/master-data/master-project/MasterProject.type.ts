@@ -1,306 +1,169 @@
-import type * as React from "react";
-import type { FieldErrors, UseFormSetValue } from "react-hook-form";
+import type { ChangeEvent } from "react";
+import { z } from "zod";
 
-import type { ApiEnvelope, PaginatedResponse } from "../../../types/api.type";
-import type { MasterBase } from "../../../types/master";
+import { formatIndonesianDateTime } from "@/utils/date.helpers";
 
-export type ProjectItem = {
-  item_id: string;
-  item_name?: string | null;
-  qty: number;
-  price: number;
-};
+import type { ApiEnvelope, PaginatedResponse } from "@/types/api.type";
 
-export type ApiProjectItem = {
-  id: string;
-  item_id: string;
-  item_name: string | null;
-  qty: number;
-  price: number;
-  status: number;
-};
+import { PROJECT_ACTIVE_STATUS, PROJECT_EMPTY_VALUE } from "./MasterProject.config";
 
-export type ApiProject = {
-  id: string;
-  name: string;
-  remark: string | null;
-  price: number;
-  status: number;
-  created_at: string | null;
-  created_by: string | null;
-  items?: ApiProjectItem[] | null;
-};
+/** Project status as shown in the UI. */
+export type ProjectStatus = "active" | "inactive";
 
-export type ProjectAllResponse = ApiEnvelope<ApiProject[]>;
-export type ProjectDetailResponse = ApiEnvelope<ApiProject | null>;
+/** API status code (`1` = active) mapped to the UI status. */
+export const ProjectStatusSchema = z
+  .number()
+  .catch(0)
+  .transform((status): ProjectStatus => (status === PROJECT_ACTIVE_STATUS ? "active" : "inactive"));
+
+/** API timestamp formatted for display, with a placeholder when absent. */
+export const ProjectDateSchema = z
+  .string()
+  .nullish()
+  .transform((value): string => (value ? formatIndonesianDateTime(value) : PROJECT_EMPTY_VALUE));
+
+/** Raw project item record nested in a project response. */
+export const ApiProjectItemSchema = z.object({
+  id: z.string(),
+  item_id: z.string(),
+  item_name: z.string().nullable(),
+  qty: z.number(),
+  price: z.number(),
+  status: z.number(),
+});
+
+/** Raw project item record as returned by the API. */
+export type ApiProjectItem = z.input<typeof ApiProjectItemSchema>;
+
+/** Raw project record as returned by `GET /api/project`, `/api/project/paged` and `/api/project/{id}`. */
+export const ApiProjectSchema = z.object({
+  id: z.string(),
+  name: z.string(),
+  remark: z.string().nullable(),
+  price: z.number(),
+  status: z.number(),
+  created_at: z.string().nullable(),
+  created_by: z.string().nullable(),
+  items: z.array(ApiProjectItemSchema).nullish(),
+});
+
+/** Raw project record as returned by the API (also consumed by the order modules). */
+export type ApiProject = z.input<typeof ApiProjectSchema>;
+
+/** Project row normalized for the list view. */
+export const ProjectListItemSchema = ApiProjectSchema.transform((project) => ({
+  id: project.id,
+  name: project.name,
+  remark: project.remark || PROJECT_EMPTY_VALUE,
+  status: ProjectStatusSchema.parse(project.status),
+  createdAt: ProjectDateSchema.parse(project.created_at),
+  itemCount: project.items?.length ?? 0,
+}));
+
+/** Project row ready for the list view. */
+export type ProjectData = z.output<typeof ProjectListItemSchema>;
+
+/** Paged project list response. */
 export type ProjectListResponse = PaginatedResponse<ApiProject>;
-export type ProjectCreateResponse = ApiEnvelope<ApiProject | null>;
-export type ProjectUpdateResponse = ApiEnvelope<ApiProject | null>;
 
+/** All-projects response used by the order modules. */
+export type ProjectAllResponse = ApiEnvelope<ApiProject[]>;
+
+/** Single project response of the detail, create and update endpoints. */
+export type ProjectDetailResponse = ApiEnvelope<ApiProject | null>;
+
+/** Project item in a create / update request body. */
+export type ProjectItemPayload = {
+  item_id: string;
+  qty: number;
+  price: number;
+};
+
+/** Create Project request body. */
+export type ProjectCreatePayload = {
+  name: string;
+  remark: string;
+  price: number;
+  status: number;
+  items: ProjectItemPayload[];
+};
+
+/** Update Project request body. */
+export type ProjectUpdatePayload = ProjectCreatePayload & {
+  id: string;
+};
+
+/** Paged project list query params. */
 export type ProjectListParams = {
   pageNumber: number;
   pageSize: number;
   searchTerm: string;
 };
 
-export type ProjectData = MasterBase & {
-  name: string;
-  remark: string;
-  status: "active" | "inactive";
-  items: ProjectItem[];
-};
+/** Which part of the list view is rendered. */
+export type ProjectListStatus = "loading" | "error" | "missing" | "empty" | "ready";
 
-export type ProjectListApiState = {
-  isLoading: boolean;
-  errorMessage: string | null;
-  isEnvelopeError: boolean;
-  isMissingData: boolean;
-  paginatedData: ProjectData[];
+/** List statuses that render a message instead of rows. */
+export type ProjectListMessageStatus = Exclude<ProjectListStatus, "loading" | "ready">;
+
+/** Normalized paged list data. */
+export type ProjectListView = {
+  listStatus: ProjectListStatus;
+  projects: ProjectData[];
   totalPages: number;
   totalCount: number;
 };
 
-export type ProjectCreatePayload = {
-  name: string;
-  remark: string;
-  price: number;
-  status: number;
-  items: ProjectItem[];
-};
-
-export type ProjectUpdatePayload = ProjectCreatePayload & {
-  id: string;
-};
-
-export type ProjectItemOption = {
-  id: string;
-  name: string;
-  image: string;
-  price: number;
-  stock: number;
-};
-
-export type ProjectItemSelection = ProjectItemOption & {
-  qty: number;
-};
-
-export type ProjectFormStep = 1 | 2 | 3;
-
-export type MasterProjectNavigation = {
-  goBack: () => void;
-  goCreate: () => void;
-  goEdit: (item: ProjectData) => void;
-  goDetail: (item: ProjectData) => void;
-};
-
-export type MasterProjectPagination = {
-  currentPage: number;
-  totalPages: number;
-  pageSize: number;
-  paginatedData: ProjectData[];
-  totalCount: number;
+/** Raw RTK Query state consumed by the list normalizer. */
+export type ProjectListQueryState = {
+  data?: ProjectListResponse;
   isLoading: boolean;
-  errorMessage: string | null;
-  isEmpty: boolean;
-  isMissingData: boolean;
-  goToPage: (page: number) => void;
-  nextPage: () => void;
-  prevPage: () => void;
-  changePageSize: (size: number) => void;
-  setSearchTerm: (searchTerm: string) => void;
+  isError: boolean;
 };
 
-export type MasterProjectContainerState = MasterProjectNavigation & {
-  pagination: MasterProjectPagination;
-  isMoreOpen: boolean;
-  toggleMore: () => void;
-  handleCloseMore: () => void;
-  goDelete: () => void;
-};
-
-export type MasterProjectProps = {
-  currentPage: number;
-  totalPages: number;
-  pageSize: number;
-  paginatedData: ProjectData[];
-  totalCount: number;
-  isMoreOpen: boolean;
-  isLoading: boolean;
-  errorMessage: string | null;
-  isEmpty: boolean;
-  isMissingData: boolean;
-  goToPage: (page: number) => void;
-  nextPage: () => void;
-  prevPage: () => void;
-  changePageSize: (size: number) => void;
-  setSearchTerm: (searchTerm: string) => void;
-  onCreate?: () => void;
-  onEdit?: (project: ProjectData) => void;
-  onBack: () => void;
-  onMore: () => void;
-  onCloseMore: () => void;
-  onDelete: () => void;
-};
-
-export type InputFieldProps = {
-  label: string;
-  placeholder: string;
-  value: string;
-  required?: boolean;
-  icon: React.ReactNode;
-  type?: string;
-  multiline?: boolean;
-  onChange: (
-    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
-  ) => void;
-};
-
-export type ProjectFormValues = {
-  name: string;
-  price: string;
-};
-
-export type MasterProjectCreateFormState = {
-  isEditMode: boolean;
-  step: ProjectFormStep;
-  items: ProjectItemOption[];
-  selectedItems: ProjectItemSelection[];
-  isItemsLoading: boolean;
-  itemsError: string | null;
-  name: string;
-  price: string;
-  remark: string;
-  isActive: boolean;
-  isSubmitting: boolean;
-  errorMessage: string | null;
-  successMessage: string | null;
-  errors: FieldErrors<ProjectFormValues>;
-  isSubmitted: boolean;
-  validateStep2: () => Promise<boolean>;
-  handleNameChange: (
-    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
-  ) => void;
-  handlePriceChange: (
-    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
-  ) => void;
-  handleRemarkChange: (
-    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
-  ) => void;
-  handleStatusChange: () => void;
-  nextStep: () => void;
-  previousStep: () => void;
-  toggleItem: (item: ProjectItemOption) => void;
-  updateItemQuantity: (itemId: string, quantity: number) => void;
-  handleSubmit: (event: React.SyntheticEvent) => void;
-  goBack: () => void;
-};
-
-export type ProjectSubmissionParams = {
-  id: string | undefined;
-  isEdit: boolean;
-  name: string;
-  price: string;
-  remark: string;
-  isActive: boolean;
-  selectedItems: ProjectItemSelection[];
-  validateStep2: () => Promise<boolean>;
-  step: ProjectFormStep;
-  nextStep: () => void;
-};
-
-export type ProjectSubmissionState = {
-  isSubmitting: boolean;
-  errorMessage: string | null;
-  successMessage: string | null;
-  setErrorMessage: React.Dispatch<React.SetStateAction<string | null>>;
-  handleSubmit: (event: React.SyntheticEvent) => Promise<void>;
-};
-
-export type ProjectSubmissionHandlers = {
-  navigate: (path: string, options?: { state: { successMessage: string } }) => void;
-  setErrorMessage: (msg: string | null) => void;
-  setSuccessMessage: (msg: string | null) => void;
-};
-
-export type ProjectDraftFormState = {
-  step: ProjectFormStep;
-  name: string;
-  price: string;
-  remark: string;
-  isActive: boolean;
-  selectedItems: ProjectItemSelection[];
-  errors: FieldErrors<ProjectFormValues>;
-  isSubmitted: boolean;
-  validateStep2: () => Promise<boolean>;
-  handleNameChange: (
-    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
-  ) => void;
-  handlePriceChange: (
-    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
-  ) => void;
-  handleRemarkChange: (
-    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
-  ) => void;
-  handleStatusChange: () => void;
-  toggleItem: (item: ProjectItemOption) => void;
-  updateItemQuantity: (itemId: string, quantity: number) => void;
-  nextStep: () => void;
-  previousStep: () => void;
-};
-
-export type ProjectDraftHandlers = Pick<
-  ProjectDraftFormState,
-  "handleNameChange" | "handlePriceChange" | "handleRemarkChange" | "handleStatusChange"
->;
-
-export type ProjectDraftHandlersInput = {
-  setName: (value: string) => void;
-  setValue: UseFormSetValue<ProjectFormValues>;
-  isSubmitted: boolean;
-  setPrice: (value: string) => void;
-  setRemark: (value: string) => void;
-  setIsActive: React.Dispatch<React.SetStateAction<boolean>>;
-};
-
-export type ProjectDraftSetters = {
-  setInitializedId: (id: string) => void;
-  setName: (value: string) => void;
-  setValue: UseFormSetValue<ProjectFormValues>;
-  setPrice: (value: string) => void;
-  clearErrors: () => void;
-  setRemark: (value: string) => void;
-  setIsActive: (value: boolean) => void;
-  setSelectedItems: (items: ProjectItemSelection[]) => void;
-};
-
-export type ProjectDraftStateApi = {
-  form: UseFormReturn<ProjectFormValues>;
-  step: ProjectFormStep;
-  setStep: React.Dispatch<React.SetStateAction<ProjectFormStep>>;
-  name: string;
-  setName: (value: string) => void;
-  price: string;
-  setPrice: (value: string) => void;
-  remark: string;
-  setRemark: (value: string) => void;
-  isActive: boolean;
-  setIsActive: React.Dispatch<React.SetStateAction<boolean>>;
-  initializedId: string | null;
-  setInitializedId: (id: string) => void;
-  isSubmitted: boolean;
-  setIsSubmitted: (value: boolean) => void;
-  itemSelection: ProjectItemSelectionApi;
-};
-
+/** Router state the list page receives after a create / update. */
 export type ProjectRouteState = {
   successMessage?: string;
+} | null;
+
+/** Paging and search state of the project list. */
+export type ProjectListPaging = {
+  queryParams: ProjectListParams;
+  currentPage: number;
+  pageSize: number;
+  handlePageChange: (page: number) => void;
+  handlePageSizeChange: (size: number) => void;
+  handleSearchChange: (event: ChangeEvent<HTMLInputElement>) => void;
 };
 
-export type ProjectItemSelectionState = {
-  selectedItems: ProjectItemSelection[];
-  setSelectedItems: React.Dispatch<
-    React.SetStateAction<ProjectItemSelection[]>
-  >;
-  toggleItem: (item: ProjectItemOption) => void;
-  updateItemQuantity: (itemId: string, quantity: number) => void;
+/** Navigation handlers of the project list. */
+export type ProjectNavigation = {
+  handleBack: () => void;
+  handleCreate: () => void;
+  handleEdit: (project: ProjectData) => void;
+};
+
+/** Project list state and handlers owned by the module hook. */
+export type MasterProjectController = ProjectListPaging & ProjectNavigation;
+
+/** Props of the project mobile card. */
+export type ProjectMobileCardProps = {
+  project: ProjectData;
+  canEdit: boolean;
+  onEdit: (project: ProjectData) => void;
+};
+
+/** Props of the project list view. */
+export type MasterProjectProps = ProjectListView & {
+  currentPage: number;
+  pageSize: number;
+  canCreate: boolean;
+  canEdit: boolean;
+  successMessage?: string;
+  onPageChange: (page: number) => void;
+  onPageSizeChange: (size: number) => void;
+  onSearchChange: (event: ChangeEvent<HTMLInputElement>) => void;
+  onBack: () => void;
+  onCreate: () => void;
+  onEdit: (project: ProjectData) => void;
 };

@@ -1,8 +1,10 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`MasterProjectCreateForm should match project form snapshot 1`] = `
+exports[`MasterProjectCreateContainer Snapshot Test MasterProjectCreateContainer Snapshots should render the empty create form 1`] = `
 <DocumentFragment>
-  <div>
+  <div
+    data-testid="layout"
+  >
     <div
       class="flex h-full min-h-full w-full flex-col bg-background-page pb-6 font-sans"
     >
@@ -98,7 +100,7 @@ exports[`MasterProjectCreateForm should match project form snapshot 1`] = `
           </p>
         </div>
         <form
-          class="mb-6 flex flex-col rounded-3xl border border-border-default bg-background-surface p-6 shadow-small sm:p-8 lg:-mt-4 lg:mb-5 lg:flex-1 lg:rounded-3xl lg:p-10"
+          class="mb-6 flex flex-col rounded-3xl border border-border-default bg-background-surface p-6 shadow-small sm:p-8 lg:-mt-4 lg:mb-5 lg:flex-1 lg:p-10"
           novalidate=""
         >
           <div
@@ -150,12 +152,50 @@ exports[`MasterProjectCreateForm should match project form snapshot 1`] = `
                   class="relative rounded-2xl border p-4 transition-colors border-border-default bg-background-surface"
                 >
                   <button
-                    aria-label="Select Camera"
+                    aria-label="Select Beam 290"
                     class="absolute inset-0 z-0 rounded-2xl focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring/30"
                     type="button"
                   />
                   <div
-                    class="relative z-10 flex items-center gap-3 pointer-events-none"
+                    class="pointer-events-none relative z-10 flex items-center gap-3"
+                  >
+                    <img
+                      alt=""
+                      class="h-12 w-12 shrink-0 rounded-lg object-cover"
+                      src="https://cdn.example.com/api/image/beam-290.jpg"
+                    />
+                    <span
+                      class="min-w-0 flex-1"
+                    >
+                      <strong
+                        class="block truncate text-xl font-semibold text-text-primary"
+                      >
+                        Beam 290
+                      </strong>
+                      <small
+                        class="mt-1 block text-lg text-text-secondary"
+                      >
+                        Stock: 11 · Rp 100.000
+                      </small>
+                    </span>
+                    <span
+                      aria-hidden="true"
+                      class="flex h-6 w-6 shrink-0 items-center justify-center rounded-full border text-sm border-border-default text-transparent"
+                    >
+                      ✓
+                    </span>
+                  </div>
+                </div>
+                <div
+                  class="relative rounded-2xl border p-4 transition-colors border-border-default bg-background-surface"
+                >
+                  <button
+                    aria-label="Select Wireless Mic"
+                    class="absolute inset-0 z-0 rounded-2xl focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring/30"
+                    type="button"
+                  />
+                  <div
+                    class="pointer-events-none relative z-10 flex items-center gap-3"
                   >
                     <div
                       class="flex h-12 w-12 shrink-0 items-center justify-center rounded-lg bg-background-subtle text-xs text-text-tertiary"
@@ -168,12 +208,12 @@ exports[`MasterProjectCreateForm should match project form snapshot 1`] = `
                       <strong
                         class="block truncate text-xl font-semibold text-text-primary"
                       >
-                        Camera
+                        Wireless Mic
                       </strong>
                       <small
                         class="mt-1 block text-lg text-text-secondary"
                       >
-                        Stock: 5 · Rp 100.000
+                        Stock: 0 · Rp 0
                       </small>
                     </span>
                     <span

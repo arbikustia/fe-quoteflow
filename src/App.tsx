@@ -41,7 +41,6 @@ import MasterPIC from "./app/master-pic";
 import MasterPICCreate from "./app/master-pic/create";
 import MasterProject from "./app/master-project";
 import MasterProjectCreate from "./app/master-project/create";
-import MasterProjectDetail from "./app/master-project/detail";
 import MasterRole from "./app/master-role";
 import MasterRoleCreate from "./app/master-role/create";
 import MasterServiceType from "./app/master-service-type";
@@ -121,7 +120,6 @@ function App(): React.ReactElement {
         <Route path="/master-project" element={<MasterProject />} />
         <Route path="/master-project/create" element={<MasterProjectCreate />} />
         <Route path="/master-project/edit/:id" element={<MasterProjectCreate />} />
-        <Route path="/master-project/detail/:id" element={<MasterProjectDetail />} />
 
         {/* Service Type */}
         <Route path="/master-service-type" element={<MasterServiceType />} />

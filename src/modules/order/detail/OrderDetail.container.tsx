@@ -4,7 +4,7 @@ import { useLocation, useNavigate, useParams, useSearchParams } from "react-rout
 import { OrderDetailComponent } from "./OrderDetail.component";
 import type { OrderDetailRouteState } from "./OrderDetail.type";
 
-import { mapProject, useGetAllProjectsQuery } from "@/services/master-project.service";
+import { useGetAllProjectsQuery } from "@/services/master-project.service";
 import { useGetOrderByIdQuery } from "@/services/order.service";
 
 /**
@@ -39,7 +39,7 @@ const OrderDetailContainer = (): React.ReactElement => {
 
   const query = useGetOrderByIdQuery(id, { skip: id.length === 0 });
   const projectsQuery = useGetAllProjectsQuery();
-  const projects = (projectsQuery.data?.data ?? []).map(mapProject);
+  const projects = projectsQuery.data?.data ?? [];
 
   /** Navigate back to order list or report. */
   const handleNavigateBack = (): void => {

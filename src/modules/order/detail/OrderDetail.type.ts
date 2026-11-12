@@ -1,6 +1,6 @@
 import type { ApiRentalTransactionDetail } from "../Order.type";
 
-import type { ProjectData } from "@/modules/master-data/master-project/MasterProject.type";
+import type { ApiProject } from "@/modules/master-data/master-project/MasterProject.type";
 
 export type OrderDetailRouteState = {
   from?: string;
@@ -9,7 +9,7 @@ export type OrderDetailRouteState = {
 
 export type OrderDetailProps = {
   order: ApiRentalTransactionDetail | null;
-  projects: ProjectData[];
+  projects: ApiProject[];
   isLoading: boolean;
   errorMessage: string | null;
   onNavigateBack: () => void;

@@ -1,65 +1,48 @@
-import type { ProjectData } from "../../modules/master-data/master-project/MasterProject.type";
+import type { ItemAllResponse } from "@/modules/master-data/master-item/MasterItem.type";
+import type { ApiProject, ProjectDetailResponse, ProjectListResponse } from "@/modules/master-data/master-project/MasterProject.type";
 
-export const MOCK_PROJECTS: ProjectData[] = [
+import { MOCK_API_ITEMS } from "./master-item";
+
+export const MOCK_API_PROJECTS: ApiProject[] = [
   {
-    id: "P001",
-    name: "Wedding Gala - Grand Ballroom",
-    status: "active",
-    createAt: "2024-02-01T10:00:00Z",
-    createBy: "Sales A",
-    remark: "Full setup including staging",
-    items: [
-      { itemId: "101", qty: 4 },
-      { itemId: "102", qty: 2 },
-      { itemId: "301", qty: 8 }
-    ]
+    id: "project-1",
+    name: "Wedding Package",
+    remark: "Full stage setup",
+    price: 5000000,
+    status: 1,
+    created_at: "2026-11-04 19:49:27",
+    created_by: "admin",
+    items: [{ id: "project-item-1", item_id: "item-1", item_name: "Beam 290", qty: 4, price: 100000, status: 1 }],
   },
   {
-    id: "P002",
-    name: "Corporate Annual Meeting",
-    status: "active",
-    createAt: "2024-02-05T11:00:00Z",
-    createBy: "Sales B",
-    remark: "Standard meeting setup",
-    items: [
-      { itemId: "201", qty: 10 },
-      { itemId: "701", qty: 100 }
-    ]
+    id: "project-2",
+    name: "Meeting Package",
+    remark: null,
+    price: 0,
+    status: 0,
+    created_at: null,
+    created_by: null,
+    items: null,
   },
-  {
-    id: "P003",
-    name: "Music Festival - Outdoor",
-    status: "inactive",
-    createAt: "2024-02-10T09:00:00Z",
-    createBy: "Admin",
-    remark: "Pending equipment verification",
-    items: [
-      { itemId: "101", qty: 12 },
-      { itemId: "102", qty: 8 },
-      { itemId: "301", qty: 24 }
-    ]
-  },
-  {
-    id: "P004",
-    name: "Product Launch - Tech Expo",
-    status: "active",
-    createAt: "2024-02-15T08:00:00Z",
-    createBy: "Sales A",
-    remark: "Hi-tech visual focus",
-    items: [
-      { itemId: "201", qty: 50 }
-    ]
-  },
-  {
-    id: "P005",
-    name: "Exhibition Booth - Hall C",
-    status: "active",
-    createAt: "2024-02-20T14:00:00Z",
-    createBy: "Sales C",
-    remark: "Small booth setup",
-    items: [
-      { itemId: "701", qty: 10 },
-      { itemId: "102", qty: 2 }
-    ]
-  }
 ];
+
+export const MOCK_PROJECT_LIST_RESPONSE: ProjectListResponse = {
+  data: MOCK_API_PROJECTS,
+  page_number: 1,
+  total_pages: 1,
+  total_count: MOCK_API_PROJECTS.length,
+  has_previous: false,
+  has_next: false,
+};
+
+export const MOCK_PROJECT_DETAIL_RESPONSE: ProjectDetailResponse = {
+  status: true,
+  data: MOCK_API_PROJECTS[0],
+  messages: null,
+};
+
+export const MOCK_PROJECT_ITEMS_RESPONSE: ItemAllResponse = {
+  status: true,
+  data: MOCK_API_ITEMS,
+  messages: null,
+};

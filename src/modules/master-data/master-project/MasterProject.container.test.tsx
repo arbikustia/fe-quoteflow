@@ -1,81 +1,56 @@
-import { beforeEach, describe, expect, it, jest } from "@jest/globals";
+import { MemoryRouter } from "react-router-dom";
+
+import { MOCK_PROJECT_LIST_RESPONSE } from "@/fixture/master-project";
+import { usePagePermission } from "@/hooks/usePagePermission";
 import { render, screen } from "@/libs/unit-test";
-import { BrowserRouter } from "react-router-dom";
+import { useGetProjectsQuery } from "@/services/master-project.service";
 
 import MasterProjectContainer from "./MasterProject.container";
-import * as hooks from "./MasterProject.hook";
-import { usePagePermission } from "@/hooks/usePagePermission";
 
-jest.mock("@/hooks/usePagePermission", () => ({
-  usePagePermission: jest.fn(),
-}));
+jest.mock("@/app/layout", () => ({ children }: { children: React.ReactNode }): React.ReactElement => <div data-testid="layout">{children}</div>);
+jest.mock("@/services/master-project.service", () => ({ useGetProjectsQuery: jest.fn() }));
+jest.mock("@/hooks/usePagePermission", () => ({ usePagePermission: jest.fn() }));
 
-jest.mock("./MasterProject.hook", () => ({
-  useMasterProjectContainerState: jest.fn(),
-}));
-
-jest.mock("./MasterProject.component", () => ({
-  MasterProjectComponent: jest.fn(({ onCreate, onEdit }) => (
-    <div data-testid="mock-component" data-create={!!onCreate} data-edit={!!onEdit} />
-  )),
-}));
-
-const mockState = {
-  pagination: {
-    currentPage: 1,
-    totalPages: 2,
-    pageSize: 10,
-    paginatedData: [],
-    totalCount: 0,
-    isLoading: false,
-    errorMessage: null,
-    isEmpty: true,
-    isMissingData: false,
-    goToPage: jest.fn(),
-    nextPage: jest.fn(),
-    prevPage: jest.fn(),
-    changePageSize: jest.fn(),
-    setSearchTerm: jest.fn(),
-  },
-  isMoreOpen: false,
-  toggleMore: jest.fn(),
-  handleCloseMore: jest.fn(),
-  goBack: jest.fn(),
-  goCreate: jest.fn(),
-  goEdit: jest.fn(),
-  goDetail: jest.fn(),
-  goDelete: jest.fn(),
+/**
+ * Render the container inside a router.
+ * @param {string} [successMessage] - Router state success message
+ * @returns {void}
+ */
+const renderContainer = (successMessage?: string): void => {
+  render(
+    <MemoryRouter initialEntries={[{ pathname: "/master-project", state: { successMessage } }]}>
+      <MasterProjectContainer />
+    </MemoryRouter>,
+  );
 };
 
 describe("MasterProjectContainer", () => {
   beforeEach(() => {
-    jest.clearAllMocks();
-    jest.mocked(hooks.useMasterProjectContainerState).mockReturnValue(mockState);
-    jest.mocked(usePagePermission).mockReturnValue({ canView: true, canCreate: true, canEdit: true, isSuperadmin: false });
+    jest.mocked(useGetProjectsQuery).mockReturnValue({ data: MOCK_PROJECT_LIST_RESPONSE, isLoading: false, isError: false } as never);
+    jest.mocked(usePagePermission).mockReturnValue({ canView: true, canCreate: true, canEdit: true, isSuperadmin: false, isLoading: false });
   });
 
-  it("should pass create/edit when permitted", () => {
-    render(
-      <BrowserRouter>
-        <MasterProjectContainer />
-      </BrowserRouter>,
-    );
+  it("should query the first page and render normalized projects", () => {
+    renderContainer();
 
-    expect(screen.getByTestId("mock-component").getAttribute("data-create")).toBe("true");
-    expect(screen.getByTestId("mock-component").getAttribute("data-edit")).toBe("true");
+    expect(useGetProjectsQuery).toHaveBeenCalledWith({ pageNumber: 1, pageSize: 10, searchTerm: "" });
     expect(usePagePermission).toHaveBeenCalledWith("/master-project");
+    expect(screen.getAllByText("Meeting Package")).toHaveLength(2);
+    expect(screen.getAllByText("inactive")).toHaveLength(2);
   });
 
-  it("should omit create/edit when denied", () => {
-    jest.mocked(usePagePermission).mockReturnValue({ canView: true, canCreate: false, canEdit: false, isSuperadmin: false });
+  it("should hide create and edit actions without permission", () => {
+    jest.mocked(usePagePermission).mockReturnValue({ canView: true, canCreate: false, canEdit: false, isSuperadmin: false, isLoading: false });
 
-    render(
-      <BrowserRouter>
-        <MasterProjectContainer />
-      </BrowserRouter>,
-    );
+    renderContainer();
 
-    expect(screen.getByTestId("mock-component").getAttribute("data-create")).toBe("false");
-    expect(screen.getByTestId("mock-component").getAttribute("data-edit")).toBe("false");
+    expect(screen.queryByRole("button", { name: "Create Project" })).not.toBeInTheDocument();
+    expect(screen.queryAllByRole("button", { name: /^Edit project/ })).toHaveLength(0);
+  });
+
+  it("should show the success message from router state", () => {
+    renderContainer("Project updated successfully.");
+
+    expect(screen.getByRole("alert")).toHaveTextContent("Project updated successfully.");
   });
 });
