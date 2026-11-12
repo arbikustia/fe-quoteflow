@@ -1,0 +1,178 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`MasterCategoryCreateContainer Snapshot Test MasterCategoryCreateContainer Snapshots should render the empty create form 1`] = `
+<DocumentFragment>
+  <div
+    data-testid="layout"
+  >
+    <div
+      class="flex h-full w-full flex-col bg-background-page pb-6 font-sans"
+    >
+      <div
+        class="mb-6 flex items-center gap-3 bg-background-page lg:hidden"
+      >
+        <button
+          aria-label="Back"
+          class="flex h-14 w-14 shrink-0 items-center justify-center rounded-full border border-border-default bg-background-page text-text-primary transition-colors hover:bg-background-subtle focus-visible:ring-2 focus-visible:ring-focus-ring/30 "
+          type="button"
+        >
+          <svg
+            aria-hidden="true"
+            class="h-6 w-6"
+            fill="none"
+            height="1em"
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            viewBox="0 0 24 24"
+            width="1em"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <line
+              x1="19"
+              x2="5"
+              y1="12"
+              y2="12"
+            />
+            <polyline
+              points="12 19 5 12 12 5"
+            />
+          </svg>
+        </button>
+        <div
+          class="min-w-0"
+        >
+          <h2
+            class="truncate text-4xl font-semibold tracking-tight text-text-primary"
+          >
+            New Category
+          </h2>
+          <p
+            class="mt-1 truncate text-sm text-text-secondary"
+          >
+            Fill in the category details below.
+          </p>
+        </div>
+      </div>
+      <div
+        class="flex min-h-0 w-full flex-1 flex-col pb-32 text-lg lg:pb-0"
+      >
+        <div
+          class="hidden lg:block"
+        >
+          <nav
+            aria-label="Breadcrumb"
+            class="mb-2 flex items-center gap-2 text-[15px] font-medium text-text-secondary"
+          >
+            <button
+              class="cursor-pointer hover:text-text-primary"
+              type="button"
+            >
+              Master
+            </button>
+            <span
+              aria-hidden="true"
+            >
+              /
+            </span>
+            <span>
+              Master Category
+            </span>
+            <span
+              aria-hidden="true"
+            >
+              /
+            </span>
+            <span
+              class="text-text-primary"
+            >
+              New Category
+            </span>
+          </nav>
+          <div
+            class="mb-6"
+          >
+            <h2
+              class="text-4xl font-semibold leading-tight tracking-tight text-text-primary"
+            >
+              New Category
+            </h2>
+            <p
+              class="mt-2 text-sm text-text-secondary"
+            >
+              Fill in the category details below.
+            </p>
+          </div>
+        </div>
+        <form
+          class="mb-6 flex flex-col rounded-3xl border border-border-default bg-background-surface p-6 shadow-small sm:p-8 lg:-mt-4 lg:mb-5 lg:flex-1 lg:rounded-3xl lg:p-10"
+          novalidate=""
+        >
+          <div
+            class="pb-6"
+          >
+            <section
+              class="space-y-5"
+            >
+              <div
+                class="grid w-full grid-cols-1 gap-x-6 gap-y-5 lg:grid-cols-2"
+              >
+                <div
+                  class="lg:col-span-2"
+                >
+                  <div
+                    class="mb-4 !mb-0 [&_.ant-input]:!h-16 lg:[&_.ant-input]:!h-14 [&_.ant-input]:!rounded-2xl [&_.ant-input]:!border-2 [&_.ant-input]:!border-border-strong [&_.ant-input.ant-input-status-error]:!border-danger [&_.ant-input]:!px-4 [&_.ant-input]:!text-xl lg:[&_.ant-input]:!text-lg [&_.ant-input]:!font-normal [&_.ant-input]:placeholder:!text-xl lg:[&_.ant-input]:placeholder:!text-lg [&_.ant-input]:placeholder:!font-normal [&_label]:!text-lg lg:[&_label]:!text-lg [&_label]:!font-normal [&_label]:!normal-case [&_label]:!text-text-primary"
+                  >
+                    <label
+                      class="mb-1.5 block text-sm font-semibold text-text-secondary"
+                      for="category-name"
+                    >
+                      Category Name
+                      <span
+                        aria-hidden="true"
+                        class="ml-1 text-danger"
+                      >
+                        *
+                      </span>
+                    </label>
+                    <input
+                      aria-invalid="false"
+                      class="ant-input ant-input-lg css-dev-only-do-not-override-eofgey ant-input-outlined h-14 w-full !rounded-2xl css-var-root ant-input-css-var"
+                      id="category-name"
+                      placeholder="e.g. Audio System"
+                      required=""
+                      type="text"
+                      value=""
+                    />
+                  </div>
+                </div>
+              </div>
+            </section>
+          </div>
+          <div
+            class="mt-auto flex justify-between gap-3 border-t border-border-default/60 pt-5 lg:border-border-default"
+          >
+            <button
+              class="h-14 cursor-pointer rounded-xl border border-border-default px-8 text-lg font-semibold text-text-primary transition-colors hover:bg-background-subtle focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-action-primary disabled:cursor-not-allowed disabled:opacity-50 lg:text-lg"
+              type="button"
+            >
+              Cancel
+            </button>
+            <button
+              class="h-14 cursor-pointer rounded-xl bg-action-primary px-8 text-lg font-semibold text-text-inverse shadow-xs transition-colors hover:bg-action-primary-hover focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-action-primary disabled:cursor-not-allowed disabled:opacity-60 lg:text-lg"
+              type="submit"
+            >
+              Create Category
+            </button>
+          </div>
+        </form>
+        <div
+          aria-hidden="true"
+          class="h-24 shrink-0 lg:hidden"
+        />
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;

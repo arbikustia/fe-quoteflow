@@ -4,6 +4,8 @@ import type { FieldErrors, UseFormSetValue } from "react-hook-form";
 import { useForm, useWatch } from "react-hook-form";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 
+import { useCategorySelectOptions } from "@/hooks/useCategorySelectOptions";
+
 import { parseRupiahInput } from "./MasterItemCreate.helpers";
 import type {
   ImageUploadMutation,
@@ -17,7 +19,6 @@ import type {
   MasterItemCreateFormState,
 } from "./MasterItemCreate.type";
 
-import { useCategorySelectOptions } from "@/modules/master-data/master-category/MasterCategory.hook";
 import type { ItemCreatePayload, ItemCreateResponse } from "@/modules/master-data/master-item/MasterItem.type";
 import {
   useCreateItemMutation,

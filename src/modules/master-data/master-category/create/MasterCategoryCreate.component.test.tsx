@@ -1,83 +1,80 @@
-import { describe, expect, it, jest } from "@jest/globals";
 import { fireEvent, render, screen } from "@/libs/unit-test";
 
-import { MasterCategoryCreateForm } from "./MasterCategoryCreate.component";
-import type { MasterCategoryCreateFormState } from "./MasterCategoryCreate.type";
+import MasterCategoryCreateComponent from "./MasterCategoryCreate.component";
+import type { MasterCategoryCreateProps } from "./MasterCategoryCreate.type";
 
-const createProps = (overrides?: Partial<MasterCategoryCreateFormState>): MasterCategoryCreateFormState => ({
-  name: "",
-  isActive: true,
-  isEditMode: false,
-  isLoadingInitialData: false,
+jest.mock("@/app/layout", () => ({ children }: { children: React.ReactNode }): React.ReactElement => <div data-testid="layout">{children}</div>);
+
+/**
+ * Build form view props.
+ * @param {Partial<MasterCategoryCreateProps>} [overrides] - Props to override
+ * @returns {MasterCategoryCreateProps} - Component props
+ */
+const createProps = (overrides?: Partial<MasterCategoryCreateProps>): MasterCategoryCreateProps => ({
+  mode: "create",
+  formStatus: "ready",
+  values: { name: "", isActive: true },
   isSubmitting: false,
-  errorMessage: null,
-  successMessage: null,
-  errors: {},
-  isSubmitted: false,
-  handleNameChange: jest.fn(),
-  handleStatusChange: jest.fn(),
-  handleSubmit: jest.fn(),
-  goBack: jest.fn(),
+  onNameChange: jest.fn(),
+  onStatusChange: jest.fn(),
+  onSubmit: jest.fn(),
+  onBack: jest.fn(),
   ...overrides,
 });
 
-describe("MasterCategoryCreateForm", () => {
-  it("should render category name input and create button in create mode", () => {
+describe("MasterCategoryCreateComponent", () => {
+  it("should render the create form without the status field", () => {
     const props = createProps();
-    const { container } = render(<MasterCategoryCreateForm {...props} />);
 
-    expect(screen.getByText("Category Name")).toBeTruthy();
-    expect(screen.getByRole("navigation", { name: "Breadcrumb" }).textContent).toBe(
-      "Master/Master Category/New Category",
-    );
-    expect(screen.getAllByText("New Category")).toHaveLength(3);
-    expect(screen.getAllByText("Fill in the category details below.")).toHaveLength(2);
-    expect(screen.getByRole("button", { name: "Cancel" })).toBeTruthy();
-    expect(screen.getByRole("button", { name: "Create Category" })).toBeTruthy();
-
-    const form = container.querySelector("form");
-    expect(form?.classList.contains("rounded-3xl")).toBe(true);
-
+    render(<MasterCategoryCreateComponent {...props} />);
     fireEvent.click(screen.getByRole("button", { name: "Cancel" }));
-    expect(props.goBack).toHaveBeenCalledTimes(1);
+
+    expect(screen.getAllByText("New Category")).toHaveLength(3);
+    expect(screen.queryByRole("switch")).not.toBeInTheDocument();
+    expect(props.onBack).toHaveBeenCalledTimes(1);
   });
 
-  it("should render status badge and update button in edit mode", () => {
-    const { rerender } = render(
-      <MasterCategoryCreateForm {...createProps({ isEditMode: true })} />,
-    );
-
-    expect(screen.getAllByText("Edit Category").length).toBeGreaterThan(0);
-    expect(screen.getByText("active")).toBeTruthy();
-    expect(screen.getByRole("button", { name: "Update Category" })).toBeTruthy();
-
-    rerender(
-      <MasterCategoryCreateForm
-        {...createProps({ isEditMode: true, isActive: false })}
-      />,
-    );
-
-    expect(screen.getByText("inactive")).toBeTruthy();
-  });
-
-  it("should submit form using provided handler", () => {
+  it("should forward name input and submit", () => {
     const props = createProps();
-    render(<MasterCategoryCreateForm {...props} />);
 
-    const button = screen.getByRole("button", { name: "Create Category" });
-    const form = button.closest("form");
+    render(<MasterCategoryCreateComponent {...props} />);
+    fireEvent.change(screen.getByPlaceholderText("e.g. Audio System"), { target: { value: "Audio" } });
+    fireEvent.submit(screen.getByRole("button", { name: "Create Category" }));
 
-    if (form) {
-      fireEvent.submit(form);
-    }
-
-    expect(props.handleSubmit).toHaveBeenCalledTimes(1);
+    expect(props.onNameChange).toHaveBeenCalledTimes(1);
+    expect(props.onSubmit).toHaveBeenCalledTimes(1);
   });
 
-  it("should show submitting and error states", () => {
-    render(<MasterCategoryCreateForm {...createProps({ isSubmitting: true, errorMessage: "Duplicate category" })} />);
+  it("should show the name error", () => {
+    render(<MasterCategoryCreateComponent {...createProps({ nameError: "Category name is required." })} />);
 
-    expect(screen.getByRole("button", { name: "Creating…" }).hasAttribute("disabled")).toBe(true);
-    expect(screen.getByRole("alert").textContent).toBe("Duplicate category");
+    expect(screen.getByText("Category name is required.")).toBeInTheDocument();
+  });
+
+  it("should show the status badge and switch in edit mode", () => {
+    const props = createProps({ mode: "edit", values: { name: "Audio", isActive: false }, isSubmitting: true });
+
+    render(<MasterCategoryCreateComponent {...props} />);
+    fireEvent.click(screen.getByRole("switch"));
+
+    expect(screen.getByText("inactive")).toHaveClass("bg-danger-subtle");
+    expect(screen.getByRole("button", { name: "Updating…" })).toBeDisabled();
+    expect(props.onStatusChange).toHaveBeenCalledWith(true, expect.anything());
+  });
+
+  it.each([
+    ["loading", "Loading category data…"],
+    ["error", "Unable to load category data. Please try again."],
+  ] as const)("should show the %s message instead of the form", (formStatus, message) => {
+    render(<MasterCategoryCreateComponent {...createProps({ mode: "edit", formStatus })} />);
+
+    expect(screen.getByText(message)).toBeInTheDocument();
+    expect(screen.queryByRole("button", { name: "Update Category" })).not.toBeInTheDocument();
+  });
+
+  it("should show the submit error toast", () => {
+    render(<MasterCategoryCreateComponent {...createProps({ errorMessage: "Duplicate category" })} />);
+
+    expect(screen.getByRole("alert")).toHaveTextContent("Duplicate category");
   });
 });

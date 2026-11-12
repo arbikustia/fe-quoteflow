@@ -4,11 +4,11 @@ import * as Router from "react-router-dom";
 import { useMasterItemCreateForm } from "./MasterItemCreate.hook";
 import type { ItemRouteState } from "./MasterItemCreate.type";
 
-import * as CategoryHook from "@/modules/master-data/master-category/MasterCategory.hook";
+import * as CategoryHook from "@/hooks/useCategorySelectOptions";
 import * as ItemService from "@/services/master-item.service";
 
 jest.mock("react-router-dom", () => ({ ...jest.requireActual("react-router-dom"), useNavigate: jest.fn(), useLocation: jest.fn(), useParams: jest.fn() }));
-jest.mock("@/modules/master-data/master-category/MasterCategory.hook", () => ({ useCategorySelectOptions: jest.fn() }));
+jest.mock("@/hooks/useCategorySelectOptions", () => ({ useCategorySelectOptions: jest.fn() }));
 jest.mock("@/services/master-item.service", () => ({ useCreateItemMutation: jest.fn(), useUpdateItemMutation: jest.fn(), useUploadImageMutation: jest.fn() }));
 
 describe("MasterItemCreate.hook", () => {

@@ -1,293 +1,102 @@
-import { useState } from "react";
+import type { ChangeEvent } from "react";
+import { useCallback, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
+import { MASTER_CATEGORY_CONFIG, MASTER_CATEGORY_ROUTE } from "./MasterCategory.config";
 import type {
-  BaseCategoryState,
-  CategoryAllItem,
   CategoryData,
-  CategoryListApiState,
-  CategoryListResponse,
-  CategorySelectState,
-  ConfirmModalState,
-  MasterCategoryContainerState,
-  MasterCategoryNavigation,
-  MasterCategoryPagination,
-  ModalState,
+  CategoryListPaging,
+  CategoryListParams,
+  CategoryNavigation,
+  MasterCategoryController,
 } from "./MasterCategory.type";
 
-import { mapCategory, useGetAllCategoriesQuery, useGetCategoriesQuery } from "@/services/master-category.service";
+/**
+ * Manage page, page size and search term of the category list.
+ * @returns {CategoryListPaging} - Query params, paging state and handlers
+ */
+const useCategoryListPaging = (): CategoryListPaging => {
+  const [currentPage, setCurrentPage] = useState<number>(MASTER_CATEGORY_CONFIG.DEFAULT_PAGE);
+  const [pageSize, setPageSize] = useState<number>(MASTER_CATEGORY_CONFIG.DEFAULT_PAGE_SIZE);
+  const [searchTerm, setSearchTerm] = useState<string>("");
+
+  const queryParams = useMemo(
+    (): CategoryListParams => ({ pageNumber: currentPage, pageSize, searchTerm }),
+    [currentPage, pageSize, searchTerm],
+  );
+
+  /**
+   * Go to the given page, never below the first page.
+   * @param {number} page - Requested page
+   * @returns {void}
+   */
+  const handlePageChange = useCallback((page: number): void => {
+    setCurrentPage(Math.max(MASTER_CATEGORY_CONFIG.DEFAULT_PAGE, page));
+  }, []);
+
+  /**
+   * Change page size and return to the first page.
+   * @param {number} size - New page size
+   * @returns {void}
+   */
+  const handlePageSizeChange = useCallback((size: number): void => {
+    setPageSize(size);
+    setCurrentPage(MASTER_CATEGORY_CONFIG.DEFAULT_PAGE);
+  }, []);
+
+  /**
+   * Update the search term and return to the first page.
+   * @param {ChangeEvent<HTMLInputElement>} event - Search input change event
+   * @returns {void}
+   */
+  const handleSearchChange = useCallback((event: ChangeEvent<HTMLInputElement>): void => {
+    setSearchTerm(event.target.value);
+    setCurrentPage(MASTER_CATEGORY_CONFIG.DEFAULT_PAGE);
+  }, []);
+
+  return { queryParams, currentPage, pageSize, handlePageChange, handlePageSizeChange, handleSearchChange };
+};
 
 /**
- * Hook for master category navigation.
- *
- * @returns {MasterCategoryNavigation} Navigation functions
+ * Create the navigation handlers of the category list.
+ * @returns {CategoryNavigation} - Back, create and edit handlers
  */
-export const useMasterCategoryNavigation = (): MasterCategoryNavigation => {
+const useCategoryNavigation = (): CategoryNavigation => {
   const navigate = useNavigate();
-    /**
-   */
-  const goBack = (): void => { navigate("/master-main"); };
-    /**
-   */
-  const goCreate = (): void => { navigate("/master-category/create"); };
-    /**
-   * @param {CategoryData} category - Category
-   */
-  const goEdit = (category: CategoryData): void => { navigate(`/master-category/edit/${category.id}`, { state: { category } }); };
 
-  return { goBack, goCreate, goEdit };
+  /**
+   * Navigate back to the master data menu.
+   * @returns {void}
+   */
+  const handleBack = useCallback((): void => {
+    navigate(MASTER_CATEGORY_ROUTE.MASTER_MAIN);
+  }, [navigate]);
+
+  /**
+   * Navigate to the create category page.
+   * @returns {void}
+   */
+  const handleCreate = useCallback((): void => {
+    navigate(MASTER_CATEGORY_ROUTE.CREATE);
+  }, [navigate]);
+
+  /**
+   * Navigate to the edit page of a category.
+   * @param {CategoryData} category - Category to edit
+   * @returns {void}
+   */
+  const handleEdit = useCallback((category: CategoryData): void => {
+    navigate(`${MASTER_CATEGORY_ROUTE.EDIT}/${category.id}`);
+  }, [navigate]);
+
+  return { handleBack, handleCreate, handleEdit };
 };
 
 /**
- * Derive category state from API response.
- *
- * @param {ReturnType<typeof useGetCategoriesQuery>} queryResult - RTK Query result
- * @returns {CategoryListApiState} Derived category list state
+ * Manage category list paging, search and navigation.
+ * @returns {MasterCategoryController} - List query params, state and handlers
  */
-const _deriveCategoryListState = (queryResult: ReturnType<typeof useGetCategoriesQuery>): CategoryListApiState => {
-  const { data, error, isLoading } = queryResult;
-
-  if (isLoading) return _createLoadingState();
-
-  if (error) return _createErrorState();
-
-  const response: CategoryListResponse | undefined = data;
-
-  if (!response) return _createMissingResponseState();
-
-  const categoryList = response.data;
-
-  if (!categoryList) return _createMissingPayloadState();
-
-  return _createSuccessState(categoryList.map(mapCategory), response.total_pages, response.total_count);
-};
-
-/**
- * Create loading state.
- *
- * @returns {CategoryListApiState} Loading state
- */
-const _createLoadingState = (): CategoryListApiState => ({
-  isLoading: true,
-  errorMessage: null,
-  isEnvelopeError: false,
-  isMissingData: false,
-  paginatedData: [],
-  totalPages: 0,
-  totalCount: 0,
+export const useMasterCategory = (): MasterCategoryController => ({
+  ...useCategoryListPaging(),
+  ...useCategoryNavigation(),
 });
-
-/**
- * Create transport error state.
- *
- * @returns {CategoryListApiState} Error state
- */
-const _createErrorState = (): CategoryListApiState => ({
-  isLoading: false,
-  errorMessage: "Unable to load categories.",
-  isEnvelopeError: false,
-  isMissingData: false,
-  paginatedData: [],
-  totalPages: 0,
-  totalCount: 0,
-});
-
-/**
- * Create missing response state.
- *
- * @returns {CategoryListApiState} Missing response state
- */
-const _createMissingResponseState = (): CategoryListApiState => ({
-  isLoading: false,
-  errorMessage: "No response received from server.",
-  isEnvelopeError: false,
-  isMissingData: true,
-  paginatedData: [],
-  totalPages: 0,
-  totalCount: 0,
-});
-
-/**
- * Create missing payload state.
- *
- * @returns {CategoryListApiState} Missing payload state
- */
-const _createMissingPayloadState = (): CategoryListApiState => ({
-  isLoading: false,
-  errorMessage: "Response is missing data payload.",
-  isEnvelopeError: false,
-  isMissingData: true,
-  paginatedData: [],
-  totalPages: 0,
-  totalCount: 0,
-});
-
-/**
- * Create successful state.
- *
- * @param {CategoryData[]} categories - Mapped categories
- * @param {number} totalPages - Total pages from API
- * @param {number} totalCount - Total count from API
- * @returns {CategoryListApiState} Success state
- */
-const _createSuccessState = (categories: CategoryData[], totalPages: number, totalCount: number): CategoryListApiState => ({
-  isLoading: false,
-  errorMessage: null,
-  isEnvelopeError: false,
-  isMissingData: false,
-  paginatedData: categories,
-  totalPages,
-  totalCount,
-});
-
-/**
- * Hook for API-backed master category pagination.
- *
- * @returns {MasterCategoryPagination} Category pagination state and handlers
- */
-export const useMasterCategoryPagination = (): MasterCategoryPagination => {
-  const [currentPage, setCurrentPage] = useState(1);
-  const [pageSize, setPageSize] = useState(10);
-  const [searchTerm, setSearchTerm] = useState("");
-  const queryResult = useGetCategoriesQuery({ pageNumber: currentPage, pageSize, searchTerm });
-  const derived = _deriveCategoryListState(queryResult);
-
-    /**
-   * @param {number} page - Page
-   * @returns {void} Resolved value
-   */
-  const goToPage = (page: number): void => setCurrentPage(Math.max(1, Math.min(page, derived.totalPages)));
-    /**
-   */
-  const nextPage = (): void => { if (!derived.isLoading && !derived.errorMessage && derived.paginatedData.length > 0 && queryResult.data?.has_next) goToPage(currentPage + 1); };
-    /**
-   */
-  const prevPage = (): void => { if (!derived.isLoading && !derived.errorMessage && derived.paginatedData.length > 0 && queryResult.data?.has_previous) goToPage(currentPage - 1); };
-    /**
-   * @param {number} size - Size
-   */
-  const changePageSize = (size: number): void => { setPageSize(size); setCurrentPage(1); };
-    /**
-   * @param {string} value - Value
-   */
-  const handleSearchTerm = (value: string): void => { setSearchTerm(value); setCurrentPage(1); };
-
-  return {
-    currentPage,
-    totalPages: derived.totalPages,
-    pageSize,
-    paginatedData: derived.paginatedData,
-    totalCount: derived.totalCount,
-    isLoading: derived.isLoading,
-    errorMessage: derived.errorMessage,
-    isEmpty: !derived.isLoading && !derived.errorMessage && !derived.isMissingData && derived.paginatedData.length === 0,
-    isMissingData: derived.isMissingData,
-    goToPage,
-    nextPage,
-    prevPage,
-    changePageSize,
-    setSearchTerm: handleSearchTerm,
-  };
-};
-
-/**
- * Hook for master category container state.
- *
- * @returns {MasterCategoryContainerState} Container state and handlers
- */
-export const useMasterCategoryContainerState = (): MasterCategoryContainerState => {
-  const pagination = useMasterCategoryPagination();
-  const [isMoreOpen, setIsMoreOpen] = useState(false);
-    /**
-   * @returns {void} Resolved value
-   */
-  const toggleMore = (): void => setIsMoreOpen((previous) => !previous);
-    /**
-   * @returns {void} Resolved value
-   */
-  const handleCloseMore = (): void => setIsMoreOpen(false);
-    /**
-   * @returns {void} Resolved value
-   */
-  const goDelete = (): void => handleCloseMore();
-
-  return { pagination, isMoreOpen, toggleMore, handleCloseMore, goDelete };
-};
-
-/**
- * @returns {ModalState} Resolved value
- */
-const useModalState = (): ModalState => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [editingCategory, setEditingCategory] = useState<CategoryData | null>(null);
-    /**
-   */
-  const openCreateModal = (): void => { setEditingCategory(null); setIsModalOpen(true); };
-    /**
-   * @param {CategoryData} data - Data
-   */
-  const openEditModal = (data: CategoryData): void => { setEditingCategory(data); setIsModalOpen(true); };
-    /**
-   */
-  const closeModal = (): void => { setIsModalOpen(false); setTimeout(() => setEditingCategory(null), 200); };
-
-  return { isModalOpen, editingCategory, openCreateModal, openEditModal, closeModal };
-};
-
-/**
- * @returns {ConfirmModalState} Resolved value
- */
-const useConfirmModalState = (): ConfirmModalState => {
-  const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false);
-  const [deletingCategory, setDeletingCategory] = useState<CategoryData | null>(null);
-    /**
-   * @param {CategoryData} data - Data
-   */
-  const openConfirmModal = (data: CategoryData): void => { setDeletingCategory(data); setIsConfirmModalOpen(true); };
-    /**
-   */
-  const closeConfirmModal = (): void => { setIsConfirmModalOpen(false); setTimeout(() => setDeletingCategory(null), 200); };
-    /**
-   */
-  const onConfirmDelete = (): void => { closeConfirmModal(); };
-
-  return { isConfirmModalOpen, deletingCategory, openConfirmModal, closeConfirmModal, onConfirmDelete };
-};
-
-/**
- * Master Category modal state hook.
- *
- * @returns {BaseCategoryState} Modal state
- */
-export const useMasterCategoryState = (): BaseCategoryState => ({ ...useModalState(), ...useConfirmModalState() });
-
-/**
- * Hook to fetch all categories for use in select/dropdown inputs.
- *
- * @returns {CategorySelectState} Categories list, loading and error state
- */
-export const useCategorySelectOptions = (): CategorySelectState => {
-  const { data, error, isLoading } = useGetAllCategoriesQuery();
-
-  if (isLoading) {
-    return { categories: [], isLoading: true, errorMessage: null };
-  }
-
-  if (error) {
-    return { categories: [], isLoading: false, errorMessage: "Unable to load categories." };
-  }
-
-  if (!data) {
-    return { categories: [], isLoading: false, errorMessage: "No response received from server." };
-  }
-
-  if (!data.status) {
-    const message = Array.isArray(data.messages) ? data.messages.join(" ") : (data.messages ?? "Category request failed.");
-
-    return { categories: [], isLoading: false, errorMessage: message };
-  }
-
-  const categories: CategoryAllItem[] = data.data;
-
-  return { categories, isLoading: false, errorMessage: null };
-};

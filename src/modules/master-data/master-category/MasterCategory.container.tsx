@@ -3,38 +3,43 @@ import { useLocation } from "react-router-dom";
 
 import { usePagePermission } from "@/hooks/usePagePermission";
 
-import { AlertComponent } from "@/components/Alert";
-
-import { MasterCategoryComponent } from "./MasterCategory.component";
-import { useMasterCategoryContainerState, useMasterCategoryNavigation } from "./MasterCategory.hook";
+import MasterCategoryComponent from "./MasterCategory.component";
+import { MASTER_CATEGORY_ROUTE } from "./MasterCategory.config";
+import { useMasterCategory } from "./MasterCategory.hook";
 import type { CategoryRouteState } from "./MasterCategory.type";
+import { normalizeCategoryList } from "./MasterCategory.util";
+
+import { useGetCategoriesQuery } from "@/services/master-category.service";
 
 /**
- * Master Category Container.
- *
- * @returns {React.ReactElement} Container element
+ * Render the category list container.
+ * @returns {React.ReactElement} - Container of the category list view
  */
 const MasterCategoryContainer = (): React.ReactElement => {
   const location = useLocation();
-  const routeState: CategoryRouteState | null = location.state;
-  const { goBack, goCreate, goEdit } = useMasterCategoryNavigation();
-  const { pagination, isMoreOpen, toggleMore, handleCloseMore, goDelete } = useMasterCategoryContainerState();
-  const { canCreate, canEdit } = usePagePermission("/master-category");
+  const routeState: CategoryRouteState = location.state;
+  const { canCreate, canEdit } = usePagePermission(MASTER_CATEGORY_ROUTE.LIST);
+  const controller = useMasterCategory();
+  const { data, isLoading, isError } = useGetCategoriesQuery(controller.queryParams);
+
+  // Single upstream fallback: the view receives normalized data only
+  const listView = normalizeCategoryList({ data, isLoading, isError });
 
   return (
-    <>
-      {routeState?.successMessage && <AlertComponent type="success" message={routeState.successMessage} toast closable />}
-      <MasterCategoryComponent
-        {...pagination}
-        isMoreOpen={isMoreOpen}
-        onBack={goBack}
-        onCreate={canCreate ? goCreate : undefined}
-        onEdit={canEdit ? goEdit : undefined}
-        onMore={toggleMore}
-        onCloseMore={handleCloseMore}
-        onDelete={goDelete}
-      />
-    </>
+    <MasterCategoryComponent
+      {...listView}
+      currentPage={controller.currentPage}
+      pageSize={controller.pageSize}
+      canCreate={canCreate}
+      canEdit={canEdit}
+      successMessage={routeState?.successMessage}
+      onPageChange={controller.handlePageChange}
+      onPageSizeChange={controller.handlePageSizeChange}
+      onSearchChange={controller.handleSearchChange}
+      onBack={controller.handleBack}
+      onCreate={controller.handleCreate}
+      onEdit={controller.handleEdit}
+    />
   );
 };
 

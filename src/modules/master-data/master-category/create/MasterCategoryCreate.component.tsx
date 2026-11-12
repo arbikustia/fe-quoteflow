@@ -1,134 +1,65 @@
-import type { ReactElement } from "react";
-import type { FieldError } from "react-hook-form";
+import * as React from "react";
 
 import { AlertComponent } from "@/components/Alert";
 import { BackButton } from "@/components/BackButton";
 import { InputComponent } from "@/components/Input";
 import { SwitchComponent } from "@/components/Switch";
 
-import type { MasterCategoryCreateFormState } from "./MasterCategoryCreate.type";
+import { CATEGORY_STATUS_BADGE_CLASS } from "../MasterCategory.config";
+
+import { CATEGORY_FORM_MODE_TEXT, CATEGORY_FORM_STATUS_MESSAGE } from "./MasterCategoryCreate.config";
+import type { CategoryFormModeText, MasterCategoryCreateProps } from "./MasterCategoryCreate.type";
+
+import Layout from "@/app/layout";
 
 /**
- * Render back icon SVG.
- *
- * @returns {ReactElement} Back icon
+ * Render the mobile title bar with back button.
+ * @param {CategoryFormModeText} modeText - Copy of the current mode
+ * @param {() => void} onBack - Back callback
+ * @returns {React.ReactElement} - Mobile title bar
  */
-const _renderBackIcon = (): ReactElement => (
-  <svg
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2.5"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-    className="h-6 w-6"
-    aria-hidden="true"
-  >
-    <path d="M19 12H5M12 19l-7-7 7-7" />
-  </svg>
+const _renderMobileHeader = (modeText: CategoryFormModeText, onBack: () => void): React.ReactElement => (
+  <div className="mb-6 flex items-center gap-3 bg-background-page lg:hidden">
+    <BackButton onClick={onBack} />
+    <div className="min-w-0">
+      <h2 className="truncate text-4xl font-semibold tracking-tight text-text-primary">{modeText.title}</h2>
+      <p className="mt-1 truncate text-sm text-text-secondary">{modeText.subtitle}</p>
+    </div>
+  </div>
 );
 
 /**
- * Render mobile top back bar.
- *
- * @param {boolean} isEditMode - Edit mode flag
- * @param {() => void} goBack - Back action
- * @returns {ReactElement} Bar element
+ * Render the desktop breadcrumb and title.
+ * @param {CategoryFormModeText} modeText - Copy of the current mode
+ * @param {() => void} onBack - Back callback
+ * @returns {React.ReactElement} - Desktop header
  */
-const _renderMobileBack = (
-  isEditMode: boolean,
-  goBack: () => void,
-): ReactElement => {
-  const title = isEditMode ? "Edit Category" : "New Category";
-  const subtitle = isEditMode
-    ? "Update the category details below."
-    : "Fill in the category details below.";
-
-  return (
-    <div className="mb-6 flex items-center gap-3 bg-background-page lg:hidden">
-      <BackButton onClick={goBack} />
-      <div className="min-w-0">
-        <h2 className="truncate text-4xl font-semibold tracking-tight text-text-primary">
-          {title}
-        </h2>
-        <p className="mt-1 truncate text-sm text-text-secondary">{subtitle}</p>
-      </div>
+const _renderDesktopHeader = (modeText: CategoryFormModeText, onBack: () => void): React.ReactElement => (
+  <div className="hidden lg:block">
+    <nav aria-label="Breadcrumb" className="mb-2 flex items-center gap-2 text-[15px] font-medium text-text-secondary">
+      <button type="button" onClick={onBack} className="cursor-pointer hover:text-text-primary">
+        Master
+      </button>
+      <span aria-hidden="true">/</span>
+      <span>Master Category</span>
+      <span aria-hidden="true">/</span>
+      <span className="text-text-primary">{modeText.title}</span>
+    </nav>
+    <div className="mb-6">
+      <h2 className="text-4xl font-semibold leading-tight tracking-tight text-text-primary">{modeText.title}</h2>
+      <p className="mt-2 text-sm text-text-secondary">{modeText.subtitle}</p>
     </div>
-  );
-};
+  </div>
+);
 
 /**
- * Render page header with breadcrumb.
- *
- * @param {boolean} isEditMode - Edit mode flag
- * @param {() => void} goBack - Back navigation
- * @returns {ReactElement} Header element
+ * Render the category name input.
+ * @param {MasterCategoryCreateProps} props - Form props
+ * @returns {React.ReactElement} - Name field
  */
-const _renderHeaderSection = (
-  isEditMode: boolean,
-  goBack: () => void,
-): ReactElement => {
-  const title = isEditMode ? "Edit Category" : "New Category";
-  const subtitle = isEditMode ? "Update the category details below." : "Fill in the category details below.";
-
-  return (
-    <div className="hidden lg:block">
-      <nav
-        aria-label="Breadcrumb"
-        className="mb-2 flex items-center gap-2 text-[15px] font-medium text-text-secondary"
-      >
-        <button
-          type="button"
-          onClick={goBack}
-          className="cursor-pointer hover:text-text-primary"
-        >
-          Master
-        </button>
-        <span aria-hidden="true">/</span>
-        <span>Master Category</span>
-        <span aria-hidden="true">/</span>
-        <span className="text-text-primary">{title}</span>
-      </nav>
-      <div className="mb-6">
-        <h2 className="text-4xl font-semibold leading-tight tracking-tight text-text-primary">
-          {title}
-        </h2>
-        <p className="mt-2 text-sm text-text-secondary">
-          {subtitle}
-        </p>
-      </div>
-    </div>
-  );
-};
-
-/**
- * Render information step tab.
- * @returns {ReactElement} Step tab element
- */
-// _renderInformationStepTab removed
-
-/**
- * Read validation message from React Hook Form.
- *
- * @param {FieldError | undefined} error - Field validation error
- * @returns {string | null} Validation message
- */
-const _getFieldError = (error: FieldError | undefined): string | null =>
-  error?.message?.toString() ?? null;
-
-/**
- * Render category name field.
- *
- * @param {MasterCategoryCreateFormState} props - Form state
- * @returns {ReactElement} Field element
- */
-const _renderNameField = (
-  props: MasterCategoryCreateFormState,
-): ReactElement => {
-  const errorMessage =
-    props.isSubmitted && !props.name
-      ? "Category name is required."
-      : _getFieldError(props.errors.name);
+const _renderNameField = (props: MasterCategoryCreateProps): React.ReactElement => {
+  const { values, nameError, onNameChange } = props;
+  const borderClass = nameError ? "[&_.ant-input]:!border-danger" : "[&_.ant-input]:!border-border-strong";
 
   return (
     <InputComponent
@@ -136,73 +67,57 @@ const _renderNameField = (
       type="text"
       label="Category Name"
       placeholder="e.g. Audio System"
-      value={props.name}
-      required
-      onChange={props.handleNameChange}
-      className={`!mb-0 [&_.ant-input]:!h-16 lg:[&_.ant-input]:!h-14 [&_.ant-input]:!rounded-2xl [&_.ant-input]:!border-2 ${
-        errorMessage
-          ? "[&_.ant-input]:!border-danger"
-          : "[&_.ant-input]:!border-border-strong"
-      } [&_.ant-input.ant-input-status-error]:!border-danger [&_.ant-input]:!px-4 [&_.ant-input]:!text-xl lg:[&_.ant-input]:!text-lg [&_.ant-input]:!font-normal [&_.ant-input]:placeholder:!text-xl lg:[&_.ant-input]:placeholder:!text-lg [&_.ant-input]:placeholder:!font-normal [&_label]:!text-lg lg:[&_label]:!text-lg [&_label]:!font-normal [&_label]:!normal-case [&_label]:!text-text-primary`}
-      errorMessage={errorMessage ?? undefined}
+      value={values.name}
+      required={true}
+      onChange={onNameChange}
+      className={`!mb-0 [&_.ant-input]:!h-16 lg:[&_.ant-input]:!h-14 [&_.ant-input]:!rounded-2xl [&_.ant-input]:!border-2 ${borderClass} [&_.ant-input.ant-input-status-error]:!border-danger [&_.ant-input]:!px-4 [&_.ant-input]:!text-xl lg:[&_.ant-input]:!text-lg [&_.ant-input]:!font-normal [&_.ant-input]:placeholder:!text-xl lg:[&_.ant-input]:placeholder:!text-lg [&_.ant-input]:placeholder:!font-normal [&_label]:!text-lg lg:[&_label]:!text-lg [&_label]:!font-normal [&_label]:!normal-case [&_label]:!text-text-primary`}
+      errorMessage={nameError}
     />
   );
 };
 
 /**
- * Render status switch field (edit mode only).
- *
- * @param {MasterCategoryCreateFormState} props - Form state
- * @returns {ReactElement | null} Field element
+ * Render the active status switch with its badge (edit mode only).
+ * @param {MasterCategoryCreateProps} props - Form props
+ * @returns {React.ReactElement | null} - Status field, or null in create mode
  */
-const _renderStatusField = (
-  props: MasterCategoryCreateFormState,
-): ReactElement | null => {
-  if (!props.isEditMode) return null;
+const _renderStatusField = (props: MasterCategoryCreateProps): React.ReactElement | null => {
+  const { mode, values, onStatusChange } = props;
+
+  if (mode !== "edit") {
+    return null;
+  }
+
+  const status = values.isActive ? "active" : "inactive";
 
   return (
     <div className="flex items-center justify-between rounded-2xl border-2 border-border-strong bg-background-surface px-5 py-4 lg:col-span-2">
       <div className="flex flex-col">
         <div className="flex items-center gap-2.5">
           <span className="text-lg font-normal text-text-primary">Status</span>
-          <span className={`inline-flex rounded-full px-3 py-0.5 text-sm font-semibold uppercase ${props.isActive ? "bg-success-subtle text-success-strong" : "bg-danger-subtle text-danger-strong"}`}>
-            {props.isActive ? "active" : "inactive"}
-          </span>
+          <span className={`inline-flex rounded-full px-3 py-0.5 text-sm font-semibold uppercase ${CATEGORY_STATUS_BADGE_CLASS[status]}`}>{status}</span>
         </div>
-        <span className="text-base text-text-secondary">
-          Toggle active or inactive status
-        </span>
+        <span className="text-base text-text-secondary">Toggle active or inactive status</span>
       </div>
-      <SwitchComponent
-        label="Category status"
-        checked={props.isActive}
-        onChange={props.handleStatusChange}
-      />
+      <SwitchComponent label="Category status" checked={values.isActive} onChange={onStatusChange} />
     </div>
   );
 };
 
 /**
- * Render submit button section.
- *
- * @param {boolean} isSubmitting - Submitting state
- * @param {boolean} isEditMode - Edit mode flag
- * @param {() => void} goBack - Back action
- * @returns {ReactElement} Submit section
+ * Render the cancel and submit buttons.
+ * @param {MasterCategoryCreateProps} props - Form props
+ * @param {CategoryFormModeText} modeText - Copy of the current mode
+ * @returns {React.ReactElement} - Form actions
  */
-const _renderSubmitSection = (
-  isSubmitting: boolean,
-  isEditMode: boolean,
-  goBack: () => void,
-): ReactElement => {
-  const buttonText = isEditMode ? "Update Category" : "Create Category";
-  const submittingText = isEditMode ? "Updating…" : "Creating…";
+const _renderFormActions = (props: MasterCategoryCreateProps, modeText: CategoryFormModeText): React.ReactElement => {
+  const { isSubmitting, onBack } = props;
 
   return (
     <div className="mt-auto flex justify-between gap-3 border-t border-border-default/60 pt-5 lg:border-border-default">
       <button
         type="button"
-        onClick={goBack}
+        onClick={onBack}
         disabled={isSubmitting}
         className="h-14 cursor-pointer rounded-xl border border-border-default px-8 text-lg font-semibold text-text-primary transition-colors hover:bg-background-subtle focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-action-primary disabled:cursor-not-allowed disabled:opacity-50 lg:text-lg"
       >
@@ -213,101 +128,66 @@ const _renderSubmitSection = (
         disabled={isSubmitting}
         className="h-14 cursor-pointer rounded-xl bg-action-primary px-8 text-lg font-semibold text-text-inverse shadow-xs transition-colors hover:bg-action-primary-hover focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-action-primary disabled:cursor-not-allowed disabled:opacity-60 lg:text-lg"
       >
-        {isSubmitting ? submittingText : buttonText}
+        {isSubmitting ? modeText.submittingLabel : modeText.submitLabel}
       </button>
     </div>
   );
 };
 
 /**
- * Render form card container.
- *
- * @param {MasterCategoryCreateFormState} props - Form state
- * @returns {ReactElement} Form element
+ * Render the form, or the loading / error message in its place.
+ * @param {MasterCategoryCreateProps} props - Form props
+ * @param {CategoryFormModeText} modeText - Copy of the current mode
+ * @returns {React.ReactElement} - Form or status message
  */
-const _renderFormCard = (
-  props: MasterCategoryCreateFormState,
-): ReactElement => (
-  <form
-    noValidate
-    onSubmit={props.handleSubmit}
-    className="mb-6 flex flex-col rounded-3xl border border-border-default bg-background-surface p-6 shadow-small sm:p-8 lg:-mt-4 lg:mb-5 lg:flex-1 lg:rounded-3xl lg:p-10"
-  >
-    <div className="pb-6">
-      <section className="space-y-5">
-        <div className="grid w-full grid-cols-1 gap-x-6 gap-y-5 lg:grid-cols-2">
-          <div className="lg:col-span-2">
-            {_renderNameField(props)}
-          </div>
-          {_renderStatusField(props)}
-        </div>
-      </section>
-    </div>
-    {_renderSubmitSection(props.isSubmitting, props.isEditMode, props.goBack)}
-  </form>
-);
+const _renderFormContent = (props: MasterCategoryCreateProps, modeText: CategoryFormModeText): React.ReactElement => {
+  const { formStatus, onSubmit } = props;
 
-/**
- * Render notification alerts.
- *
- * @param {string | null} errorMessage - Error alert text
- * @param {string | null} successMessage - Success alert text
- * @returns {ReactElement | null} Alert element
- */
-const _renderAlerts = (
-  errorMessage: string | null,
-  successMessage: string | null,
-): ReactElement | null => {
-  if (errorMessage) {
-    return <AlertComponent type="error" message={errorMessage} toast closable />;
+  if (formStatus !== "ready") {
+    return <p className="py-12 text-center text-sm text-text-secondary">{CATEGORY_FORM_STATUS_MESSAGE[formStatus]}</p>;
   }
-
-  if (successMessage) {
-    return (
-      <AlertComponent
-        type="success"
-        message={successMessage}
-        toast
-        closable
-      />
-    );
-  }
-
-  return null;
-};
-
-/**
- * Render master category create form.
- *
- * @param {MasterCategoryCreateFormState} props - Form props
- * @returns {ReactElement} Create form
- */
-export const MasterCategoryCreateForm = (
-  props: MasterCategoryCreateFormState,
-): ReactElement => {
-  const {
-    isEditMode,
-    isLoadingInitialData,
-    errorMessage,
-    successMessage,
-    goBack,
-  } = props;
 
   return (
-    <div className="flex h-full w-full flex-col bg-background-page pb-6 font-sans">
-      {_renderAlerts(errorMessage, successMessage)}
-      {_renderMobileBack(isEditMode, goBack)}
-      <div className="flex min-h-0 w-full flex-1 flex-col pb-32 text-lg lg:pb-0">
-        {_renderHeaderSection(props.isEditMode, props.goBack)}
-        {isLoadingInitialData ? (
-          <p className="py-12 text-center text-sm text-text-secondary">
-            Loading category data…
-          </p>
-        ) : (
-          _renderFormCard(props)
-        )}
-        <div className="h-24 shrink-0 lg:hidden" aria-hidden="true" />
+    <form
+      noValidate
+      onSubmit={onSubmit}
+      className="mb-6 flex flex-col rounded-3xl border border-border-default bg-background-surface p-6 shadow-small sm:p-8 lg:-mt-4 lg:mb-5 lg:flex-1 lg:rounded-3xl lg:p-10"
+    >
+      <div className="pb-6">
+        <section className="space-y-5">
+          <div className="grid w-full grid-cols-1 gap-x-6 gap-y-5 lg:grid-cols-2">
+            <div className="lg:col-span-2">{_renderNameField(props)}</div>
+            {_renderStatusField(props)}
+          </div>
+        </section>
       </div>
-    </div>
+      {_renderFormActions(props, modeText)}
+    </form>
   );
 };
+
+/**
+ * Render the category create / edit page.
+ * @param {MasterCategoryCreateProps} props - Form props
+ * @returns {React.ReactElement} - Category form page
+ */
+const MasterCategoryCreateComponent = (props: MasterCategoryCreateProps): React.ReactElement => {
+  const { mode, errorMessage, onBack } = props;
+  const modeText = CATEGORY_FORM_MODE_TEXT[mode];
+
+  return (
+    <Layout>
+      <div className="flex h-full w-full flex-col bg-background-page pb-6 font-sans">
+        {errorMessage && <AlertComponent type="error" message={errorMessage} toast closable />}
+        {_renderMobileHeader(modeText, onBack)}
+        <div className="flex min-h-0 w-full flex-1 flex-col pb-32 text-lg lg:pb-0">
+          {_renderDesktopHeader(modeText, onBack)}
+          {_renderFormContent(props, modeText)}
+          <div className="h-24 shrink-0 lg:hidden" aria-hidden="true" />
+        </div>
+      </div>
+    </Layout>
+  );
+};
+
+export default MasterCategoryCreateComponent;
