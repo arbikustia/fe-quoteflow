@@ -1,13 +1,16 @@
 import type { ChangeEvent, ReactElement } from "react";
 
-import { formatMailDisplayValue, getMailRowNumber, MailMobileCard } from "./Mail.helpers";
+import { Pagination } from "@/components/Pagination";
+import { SearchFilter } from "@/components/SearchFilter";
+import type { TableColumn } from "@/components/Table";
+import Table from "@/components/Table";
+
+import { MailMobileCard } from "./Mail.helper";
 import type { MailData, MailProps } from "./Mail.type";
-import Layout from "../../app/layout";
-import { PageLayout } from "../../app/shared/PageLayout";
-import { Pagination } from "../../components/Pagination";
-import { SearchFilter } from "../../components/SearchFilter";
-import type { TableColumn } from "../../components/Table";
-import Table from "../../components/Table";
+import { formatMailDisplayValue, getMailRowNumber } from "./Mail.util";
+
+import Layout from "@/app/layout";
+import { PageLayout } from "@/app/shared/PageLayout";
 
 /**
  * Render mail subject cell.
@@ -108,11 +111,17 @@ const _renderMobileCardSkeleton = (key: number): ReactElement => (
 const _renderListState = (props: MailProps): ReactElement | null => {
   const { errorMessage, isEmpty, isMissingData } = props;
 
-  if (isMissingData) return <p className="py-10 text-center text-lg text-text-tertiary">Mail data is unavailable. Please try again.</p>;
+  if (isMissingData) {
+    return <p className="py-10 text-center text-lg text-text-tertiary">Mail data is unavailable. Please try again.</p>;
+  }
 
-  if (errorMessage) return <p className="py-10 text-center text-lg text-text-tertiary">{errorMessage}</p>;
+  if (errorMessage) {
+    return <p className="py-10 text-center text-lg text-text-tertiary">{errorMessage}</p>;
+  }
 
-  if (isEmpty) return <p className="py-10 text-center text-lg text-text-tertiary">No mails found.</p>;
+  if (isEmpty) {
+    return <p className="py-10 text-center text-lg text-text-tertiary">No mails found.</p>;
+  }
 
   return null;
 };

@@ -7,9 +7,9 @@ import { InputComponent } from "@/components/Input";
 import { RichTextEditor } from "@/components/RichTextEditor";
 import { Select } from "@/components/Select";
 
-import { buildMailHtmlTemplate } from "@/services/mail/mail.service";
-
 import type { MailComposeFormState, MailTextFieldConfig } from "./MailCreate.type";
+
+import { buildMailHtmlTemplate } from "@/services/mail/mail.service";
 
 /**
  * Render standard text input field.
@@ -213,33 +213,6 @@ const _renderAttachmentPreview = (props: MailComposeFormState): ReactElement => 
     >
       <FiX className="h-5 w-5" />
     </button>
-  </div>
-);
-
-/**
- * Render the PDF attachment field.
- * @param {MailComposeFormState} props - Form state
- * @returns {ReactElement} Attachment field
- */
-const _renderAttachmentField = (props: MailComposeFormState): ReactElement => (
-  <div className="space-y-2 lg:col-span-2">
-    <label htmlFor="mail-attachment" className="block text-lg font-normal text-text-primary">
-      Attachment
-    </label>
-    <input
-      id="mail-attachment"
-      type="file"
-      accept="application/pdf"
-      onChange={props.handleAttachmentChange}
-      disabled={props.isSubmitting}
-      className="block w-full cursor-pointer rounded-2xl border-2 border-dashed border-border-strong bg-background-surface px-4 py-4 text-lg font-normal text-text-secondary outline-none file:mr-4 file:cursor-pointer file:rounded-xl file:border-0 file:bg-action-primary file:px-4 file:py-2 file:text-sm file:font-semibold file:text-text-inverse hover:border-action-primary hover:file:bg-action-primary-hover focus-visible:border-border-focus focus-visible:ring-2 focus-visible:ring-focus-ring/30 disabled:cursor-not-allowed disabled:opacity-60"
-    />
-    {props.attachmentName && _renderAttachmentPreview(props)}
-    {props.attachmentError && (
-      <p role="alert" className="text-sm text-danger">
-        {props.attachmentError}
-      </p>
-    )}
   </div>
 );
 

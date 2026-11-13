@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`MailCreateContainer snapshot MailCreateContainer Snapshots should render the compose form 1`] = `
+<DocumentFragment>
+  <main>
+    <div>
+      Form rendered
+    </div>
+  </main>
+</DocumentFragment>
+`;

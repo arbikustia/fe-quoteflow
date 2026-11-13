@@ -1,11 +1,12 @@
 import type { ReactElement } from "react";
 import { Navigate } from "react-router-dom";
 
-import Layout from "@/app/layout";
 import { usePagePermission } from "@/hooks/usePagePermission";
 
 import { MailCreateForm } from "./MailCreate.component";
 import { useMailCreate } from "./MailCreate.hook";
+
+import Layout from "@/app/layout";
 
 /**
  * Mail create page container.

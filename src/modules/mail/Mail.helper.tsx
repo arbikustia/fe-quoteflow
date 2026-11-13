@@ -1,20 +1,14 @@
-import * as React from "react";
+import type { ReactElement } from "react";
 
 import type { MailMobileCardProps } from "./Mail.type";
-
-/**
- * Format a display value without changing source data.
- * @param {string} value - Source display value
- * @returns {string} Display value
- */
-export const formatMailDisplayValue = (value: string): string => value || "—";
+import { formatMailDisplayValue } from "./Mail.util";
 
 /**
  * Render mail mobile card footer with sender, recipient and created date.
  * @param {MailMobileCardProps["mail"]} mail - Mail data
- * @returns {React.ReactElement} Card footer element
+ * @returns {ReactElement} Card footer element
  */
-const _renderMailCardFooter = (mail: MailMobileCardProps["mail"]): React.ReactElement => (
+const _renderMailCardFooter = (mail: MailMobileCardProps["mail"]): ReactElement => (
   <span className="mt-4 flex flex-wrap items-end justify-between gap-x-4 gap-y-3 border-t border-border-default pt-4">
     <span className="min-w-0">
       <span className="block text-lg text-text-tertiary">From</span>
@@ -32,9 +26,9 @@ const _renderMailCardFooter = (mail: MailMobileCardProps["mail"]): React.ReactEl
 /**
  * Render single mail card on mobile.
  * @param {MailMobileCardProps} props - Mail card props
- * @returns {React.ReactElement} Mail card
+ * @returns {ReactElement} Mail card
  */
-export const MailMobileCard = (props: MailMobileCardProps): React.ReactElement => {
+export const MailMobileCard = (props: MailMobileCardProps): ReactElement => {
   const { mail } = props;
 
   return (
@@ -46,12 +40,3 @@ export const MailMobileCard = (props: MailMobileCardProps): React.ReactElement =
     </article>
   );
 };
-
-/**
- * Calculate mail table row number.
- * @param {number} currentPage - Active page
- * @param {number} pageSize - Active page size
- * @param {number} rowIndex - Zero-based row index
- * @returns {number} Display row number
- */
-export const getMailRowNumber = (currentPage: number, pageSize: number, rowIndex: number): number => (currentPage - 1) * pageSize + rowIndex + 1;

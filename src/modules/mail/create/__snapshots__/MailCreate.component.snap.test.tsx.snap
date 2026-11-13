@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`MailCreateForm Snapshots should render mail compose form 1`] = `
+exports[`MailCreateForm snapshot MailCreateForm Snapshots should render mail compose form 1`] = `
 <DocumentFragment>
   <div
     class="flex h-full w-full flex-col bg-background-page pb-6 font-sans"
@@ -110,7 +110,7 @@ exports[`MailCreateForm Snapshots should render mail compose form 1`] = `
             <iframe
               class="h-[560px] w-full rounded-2xl border border-border-default bg-white lg:h-[720px]"
               sandbox=""
-              srcdoc="<!DOCTYPE html><html><head><meta charset="utf-8" /><meta name="viewport" content="width=device-width,initial-scale=1" /></head><body style="margin:0;padding:0;background-color:#F1F2F4;"><table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background-color:#F1F2F4;padding:24px 12px;"><tr><td align="center"><table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:600px;background-color:#FFFFFF;border-radius:12px;box-shadow:0 1px 3px rgba(16,24,40,0.10);font-family:Arial,Helvetica,sans-serif;"><tr><td style="background-color:#3F51B5;padding:26px 32px;border-radius:12px 12px 0 0;"><table role="presentation" width="100%" cellpadding="0" cellspacing="0"><tr><td width="60" valign="middle"><img src="http://localhost/src/assets/logo.png" width="48" height="48" alt="QuoteFlow" style="display:block;width:48px;height:48px;border:0;" /></td><td valign="middle"><h1 style="margin:0;font-family:Arial,Helvetica,sans-serif;font-size:22px;font-weight:700;line-height:1.3;color:#FFFFFF;">Penawaran Harga</h1><p style="margin:6px 0 0;font-family:Arial,Helvetica,sans-serif;font-size:11px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.78);">Quotation</p></td></tr></table></td></tr><tr><td style="background-color:#FFFFFF;padding:28px 32px 8px;"><p style="margin:0 0 16px;font-family:Arial,Helvetica,sans-serif;font-size:14px;line-height:1.75;color:#424242;">Yth. Bapak/Ibu,</p><p style="margin:0 0 16px;font-family:Arial,Helvetica,sans-serif;font-size:14px;line-height:1.75;color:#424242;">Hello</p><p style="margin:24px 0 0;font-family:Arial,Helvetica,sans-serif;font-size:14px;line-height:1.75;color:#424242;">Hormat kami,</p><p style="margin:0 0 24px;font-family:Arial,Helvetica,sans-serif;font-size:14px;font-weight:700;line-height:1.75;color:#424242;">Tim Kami</p></td></tr><tr><td align="center" style="background-color:#F7F8FA;padding:20px 32px;border-radius:0 0 12px 12px;border-top:1px solid #E5E7EB;"><p style="margin:0 0 4px;font-family:Arial,Helvetica,sans-serif;font-size:12px;line-height:1.6;color:#9CA3AF;">Email ini dikirim secara resmi sebagai bagian dari komunikasi penawaran harga.</p><p style="margin:0;font-family:Arial,Helvetica,sans-serif;font-size:11px;line-height:1.6;color:#9CA3AF;">Terima kasih telah mempercayai layanan kami.</p></td></tr></table></td></tr></table></body></html>"
+              srcdoc="<!DOCTYPE html><html><head><meta charset="utf-8" /><meta name="viewport" content="width=device-width,initial-scale=1" /></head><body style="margin:0;padding:0;background-color:#F1F2F4;"><table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background-color:#F1F2F4;padding:24px 12px;"><tr><td align="center"><table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:600px;background-color:#FFFFFF;border-radius:12px;box-shadow:0 1px 3px rgba(16,24,40,0.10);font-family:Arial,Helvetica,sans-serif;"><tr><td style="background-color:#6B7280;padding:26px 32px;border-radius:12px 12px 0 0;"><table role="presentation" width="100%" cellpadding="0" cellspacing="0"><tr><td width="60" valign="middle"><img src="http://localhost/src/assets/logo.png" width="48" height="48" alt="QuoteFlow" style="display:block;width:48px;height:48px;border:0;" /></td><td valign="middle"><h1 style="margin:0;font-family:Arial,Helvetica,sans-serif;font-size:22px;font-weight:700;line-height:1.3;color:#FFFFFF;">Penawaran Harga</h1><p style="margin:6px 0 0;font-family:Arial,Helvetica,sans-serif;font-size:11px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.78);">Quotation</p></td></tr></table></td></tr><tr><td style="background-color:#FFFFFF;padding:28px 32px 24px;"><div style="margin:0 0 16px;font-family:Arial,Helvetica,sans-serif;font-size:14px;line-height:1.75;color:#424242;">Hello</div></td></tr><tr><td align="center" style="background-color:#F7F8FA;padding:20px 32px;border-radius:0 0 12px 12px;border-top:1px solid #E5E7EB;"><p style="margin:0 0 4px;font-family:Arial,Helvetica,sans-serif;font-size:12px;line-height:1.6;color:#9CA3AF;">Email ini dikirim secara resmi sebagai bagian dari komunikasi penawaran harga.</p><p style="margin:0;font-family:Arial,Helvetica,sans-serif;font-size:11px;line-height:1.6;color:#9CA3AF;">Terima kasih telah mempercayai layanan kami.</p></td></tr></table></td></tr></table></body></html>"
               title="Mail template preview"
             />
           </section>
@@ -311,7 +311,7 @@ exports[`MailCreateForm Snapshots should render mail compose form 1`] = `
                   />
                 </div>
                 <div
-                  class="space-y-2"
+                  class="space-y-3 pb-2 lg:col-span-2"
                 >
                   <div
                     class="relative mb-0 [&_.ant-select-selector]:!min-h-16 lg:[&_.ant-select-selector]:!min-h-14"
@@ -381,7 +381,7 @@ exports[`MailCreateForm Snapshots should render mail compose form 1`] = `
                     </div>
                   </div>
                   <div
-                    class="flex items-center justify-between gap-4 rounded-2xl border-2 border-action-primary/40 bg-action-primary-subtle px-4 py-3"
+                    class="mt-3 flex items-center justify-between gap-4 rounded-2xl border-2 border-action-primary/40 bg-action-primary-subtle px-4 py-3"
                   >
                     <div
                       class="flex min-w-0 items-center gap-3"
@@ -472,8 +472,8 @@ exports[`MailCreateForm Snapshots should render mail compose form 1`] = `
                     </button>
                   </div>
                 </div>
-                <label
-                  class="block space-y-2 lg:col-span-2"
+                <div
+                  class="space-y-2 lg:col-span-2"
                 >
                   <span
                     class="text-lg font-normal text-text-primary"
@@ -486,14 +486,14 @@ exports[`MailCreateForm Snapshots should render mail compose form 1`] = `
                       *
                     </span>
                   </span>
-                  <textarea
-                    class="min-h-36 w-full rounded-2xl border-2 border-border-strong bg-background-surface px-4 py-4 text-xl font-normal outline-none placeholder:text-xl placeholder:text-text-tertiary focus:border-border-focus focus:ring-2 focus:ring-focus-ring/30 lg:min-h-28 lg:text-lg lg:placeholder:text-lg"
+                  <div
                     id="mail-body"
-                    placeholder="Write the mail content"
                   >
-                    Hello
-                  </textarea>
-                </label>
+                    <div>
+                      Editor
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
             <div
@@ -520,7 +520,7 @@ exports[`MailCreateForm Snapshots should render mail compose form 1`] = `
 </DocumentFragment>
 `;
 
-exports[`MailCreateForm Snapshots should render mail compose form while loading senders 1`] = `
+exports[`MailCreateForm snapshot MailCreateForm Snapshots should render mail compose form while loading senders 1`] = `
 <DocumentFragment>
   <div
     class="flex h-full w-full flex-col bg-background-page pb-6 font-sans"
@@ -630,7 +630,7 @@ exports[`MailCreateForm Snapshots should render mail compose form while loading 
             <iframe
               class="h-[560px] w-full rounded-2xl border border-border-default bg-white lg:h-[720px]"
               sandbox=""
-              srcdoc="<!DOCTYPE html><html><head><meta charset="utf-8" /><meta name="viewport" content="width=device-width,initial-scale=1" /></head><body style="margin:0;padding:0;background-color:#F1F2F4;"><table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background-color:#F1F2F4;padding:24px 12px;"><tr><td align="center"><table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:600px;background-color:#FFFFFF;border-radius:12px;box-shadow:0 1px 3px rgba(16,24,40,0.10);font-family:Arial,Helvetica,sans-serif;"><tr><td style="background-color:#3F51B5;padding:26px 32px;border-radius:12px 12px 0 0;"><table role="presentation" width="100%" cellpadding="0" cellspacing="0"><tr><td width="60" valign="middle"><img src="http://localhost/src/assets/logo.png" width="48" height="48" alt="QuoteFlow" style="display:block;width:48px;height:48px;border:0;" /></td><td valign="middle"><h1 style="margin:0;font-family:Arial,Helvetica,sans-serif;font-size:22px;font-weight:700;line-height:1.3;color:#FFFFFF;">Penawaran Harga</h1><p style="margin:6px 0 0;font-family:Arial,Helvetica,sans-serif;font-size:11px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.78);">Quotation</p></td></tr></table></td></tr><tr><td style="background-color:#FFFFFF;padding:28px 32px 8px;"><p style="margin:0 0 16px;font-family:Arial,Helvetica,sans-serif;font-size:14px;line-height:1.75;color:#424242;">Yth. Bapak/Ibu,</p><p style="margin:0 0 16px;font-family:Arial,Helvetica,sans-serif;font-size:14px;line-height:1.75;color:#424242;">Hello</p><p style="margin:24px 0 0;font-family:Arial,Helvetica,sans-serif;font-size:14px;line-height:1.75;color:#424242;">Hormat kami,</p><p style="margin:0 0 24px;font-family:Arial,Helvetica,sans-serif;font-size:14px;font-weight:700;line-height:1.75;color:#424242;">Tim Kami</p></td></tr><tr><td align="center" style="background-color:#F7F8FA;padding:20px 32px;border-radius:0 0 12px 12px;border-top:1px solid #E5E7EB;"><p style="margin:0 0 4px;font-family:Arial,Helvetica,sans-serif;font-size:12px;line-height:1.6;color:#9CA3AF;">Email ini dikirim secara resmi sebagai bagian dari komunikasi penawaran harga.</p><p style="margin:0;font-family:Arial,Helvetica,sans-serif;font-size:11px;line-height:1.6;color:#9CA3AF;">Terima kasih telah mempercayai layanan kami.</p></td></tr></table></td></tr></table></body></html>"
+              srcdoc="<!DOCTYPE html><html><head><meta charset="utf-8" /><meta name="viewport" content="width=device-width,initial-scale=1" /></head><body style="margin:0;padding:0;background-color:#F1F2F4;"><table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background-color:#F1F2F4;padding:24px 12px;"><tr><td align="center"><table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:600px;background-color:#FFFFFF;border-radius:12px;box-shadow:0 1px 3px rgba(16,24,40,0.10);font-family:Arial,Helvetica,sans-serif;"><tr><td style="background-color:#6B7280;padding:26px 32px;border-radius:12px 12px 0 0;"><table role="presentation" width="100%" cellpadding="0" cellspacing="0"><tr><td width="60" valign="middle"><img src="http://localhost/src/assets/logo.png" width="48" height="48" alt="QuoteFlow" style="display:block;width:48px;height:48px;border:0;" /></td><td valign="middle"><h1 style="margin:0;font-family:Arial,Helvetica,sans-serif;font-size:22px;font-weight:700;line-height:1.3;color:#FFFFFF;">Penawaran Harga</h1><p style="margin:6px 0 0;font-family:Arial,Helvetica,sans-serif;font-size:11px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.78);">Quotation</p></td></tr></table></td></tr><tr><td style="background-color:#FFFFFF;padding:28px 32px 24px;"><div style="margin:0 0 16px;font-family:Arial,Helvetica,sans-serif;font-size:14px;line-height:1.75;color:#424242;">Hello</div></td></tr><tr><td align="center" style="background-color:#F7F8FA;padding:20px 32px;border-radius:0 0 12px 12px;border-top:1px solid #E5E7EB;"><p style="margin:0 0 4px;font-family:Arial,Helvetica,sans-serif;font-size:12px;line-height:1.6;color:#9CA3AF;">Email ini dikirim secara resmi sebagai bagian dari komunikasi penawaran harga.</p><p style="margin:0;font-family:Arial,Helvetica,sans-serif;font-size:11px;line-height:1.6;color:#9CA3AF;">Terima kasih telah mempercayai layanan kami.</p></td></tr></table></td></tr></table></body></html>"
               title="Mail template preview"
             />
           </section>
@@ -832,7 +832,7 @@ exports[`MailCreateForm Snapshots should render mail compose form while loading 
                   />
                 </div>
                 <div
-                  class="space-y-2"
+                  class="space-y-3 pb-2 lg:col-span-2"
                 >
                   <div
                     class="relative mb-0 [&_.ant-select-selector]:!min-h-16 lg:[&_.ant-select-selector]:!min-h-14"
@@ -902,7 +902,7 @@ exports[`MailCreateForm Snapshots should render mail compose form while loading 
                     </div>
                   </div>
                   <div
-                    class="flex items-center justify-between gap-4 rounded-2xl border-2 border-action-primary/40 bg-action-primary-subtle px-4 py-3"
+                    class="mt-3 flex items-center justify-between gap-4 rounded-2xl border-2 border-action-primary/40 bg-action-primary-subtle px-4 py-3"
                   >
                     <div
                       class="flex min-w-0 items-center gap-3"
@@ -993,8 +993,8 @@ exports[`MailCreateForm Snapshots should render mail compose form while loading 
                     </button>
                   </div>
                 </div>
-                <label
-                  class="block space-y-2 lg:col-span-2"
+                <div
+                  class="space-y-2 lg:col-span-2"
                 >
                   <span
                     class="text-lg font-normal text-text-primary"
@@ -1007,14 +1007,14 @@ exports[`MailCreateForm Snapshots should render mail compose form while loading 
                       *
                     </span>
                   </span>
-                  <textarea
-                    class="min-h-36 w-full rounded-2xl border-2 border-border-strong bg-background-surface px-4 py-4 text-xl font-normal outline-none placeholder:text-xl placeholder:text-text-tertiary focus:border-border-focus focus:ring-2 focus:ring-focus-ring/30 lg:min-h-28 lg:text-lg lg:placeholder:text-lg"
+                  <div
                     id="mail-body"
-                    placeholder="Write the mail content"
                   >
-                    Hello
-                  </textarea>
-                </label>
+                    <div>
+                      Editor
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
             <div
@@ -1041,7 +1041,7 @@ exports[`MailCreateForm Snapshots should render mail compose form while loading 
 </DocumentFragment>
 `;
 
-exports[`MailCreateForm Snapshots should render mail compose form while sending 1`] = `
+exports[`MailCreateForm snapshot MailCreateForm Snapshots should render mail compose form while sending 1`] = `
 <DocumentFragment>
   <div
     class="flex h-full w-full flex-col bg-background-page pb-6 font-sans"
@@ -1151,7 +1151,7 @@ exports[`MailCreateForm Snapshots should render mail compose form while sending 
             <iframe
               class="h-[560px] w-full rounded-2xl border border-border-default bg-white lg:h-[720px]"
               sandbox=""
-              srcdoc="<!DOCTYPE html><html><head><meta charset="utf-8" /><meta name="viewport" content="width=device-width,initial-scale=1" /></head><body style="margin:0;padding:0;background-color:#F1F2F4;"><table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background-color:#F1F2F4;padding:24px 12px;"><tr><td align="center"><table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:600px;background-color:#FFFFFF;border-radius:12px;box-shadow:0 1px 3px rgba(16,24,40,0.10);font-family:Arial,Helvetica,sans-serif;"><tr><td style="background-color:#3F51B5;padding:26px 32px;border-radius:12px 12px 0 0;"><table role="presentation" width="100%" cellpadding="0" cellspacing="0"><tr><td width="60" valign="middle"><img src="http://localhost/src/assets/logo.png" width="48" height="48" alt="QuoteFlow" style="display:block;width:48px;height:48px;border:0;" /></td><td valign="middle"><h1 style="margin:0;font-family:Arial,Helvetica,sans-serif;font-size:22px;font-weight:700;line-height:1.3;color:#FFFFFF;">Penawaran Harga</h1><p style="margin:6px 0 0;font-family:Arial,Helvetica,sans-serif;font-size:11px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.78);">Quotation</p></td></tr></table></td></tr><tr><td style="background-color:#FFFFFF;padding:28px 32px 8px;"><p style="margin:0 0 16px;font-family:Arial,Helvetica,sans-serif;font-size:14px;line-height:1.75;color:#424242;">Yth. Bapak/Ibu,</p><p style="margin:0 0 16px;font-family:Arial,Helvetica,sans-serif;font-size:14px;line-height:1.75;color:#424242;">Hello</p><p style="margin:24px 0 0;font-family:Arial,Helvetica,sans-serif;font-size:14px;line-height:1.75;color:#424242;">Hormat kami,</p><p style="margin:0 0 24px;font-family:Arial,Helvetica,sans-serif;font-size:14px;font-weight:700;line-height:1.75;color:#424242;">Tim Kami</p></td></tr><tr><td align="center" style="background-color:#F7F8FA;padding:20px 32px;border-radius:0 0 12px 12px;border-top:1px solid #E5E7EB;"><p style="margin:0 0 4px;font-family:Arial,Helvetica,sans-serif;font-size:12px;line-height:1.6;color:#9CA3AF;">Email ini dikirim secara resmi sebagai bagian dari komunikasi penawaran harga.</p><p style="margin:0;font-family:Arial,Helvetica,sans-serif;font-size:11px;line-height:1.6;color:#9CA3AF;">Terima kasih telah mempercayai layanan kami.</p></td></tr></table></td></tr></table></body></html>"
+              srcdoc="<!DOCTYPE html><html><head><meta charset="utf-8" /><meta name="viewport" content="width=device-width,initial-scale=1" /></head><body style="margin:0;padding:0;background-color:#F1F2F4;"><table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background-color:#F1F2F4;padding:24px 12px;"><tr><td align="center"><table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:600px;background-color:#FFFFFF;border-radius:12px;box-shadow:0 1px 3px rgba(16,24,40,0.10);font-family:Arial,Helvetica,sans-serif;"><tr><td style="background-color:#6B7280;padding:26px 32px;border-radius:12px 12px 0 0;"><table role="presentation" width="100%" cellpadding="0" cellspacing="0"><tr><td width="60" valign="middle"><img src="http://localhost/src/assets/logo.png" width="48" height="48" alt="QuoteFlow" style="display:block;width:48px;height:48px;border:0;" /></td><td valign="middle"><h1 style="margin:0;font-family:Arial,Helvetica,sans-serif;font-size:22px;font-weight:700;line-height:1.3;color:#FFFFFF;">Penawaran Harga</h1><p style="margin:6px 0 0;font-family:Arial,Helvetica,sans-serif;font-size:11px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.78);">Quotation</p></td></tr></table></td></tr><tr><td style="background-color:#FFFFFF;padding:28px 32px 24px;"><div style="margin:0 0 16px;font-family:Arial,Helvetica,sans-serif;font-size:14px;line-height:1.75;color:#424242;">Hello</div></td></tr><tr><td align="center" style="background-color:#F7F8FA;padding:20px 32px;border-radius:0 0 12px 12px;border-top:1px solid #E5E7EB;"><p style="margin:0 0 4px;font-family:Arial,Helvetica,sans-serif;font-size:12px;line-height:1.6;color:#9CA3AF;">Email ini dikirim secara resmi sebagai bagian dari komunikasi penawaran harga.</p><p style="margin:0;font-family:Arial,Helvetica,sans-serif;font-size:11px;line-height:1.6;color:#9CA3AF;">Terima kasih telah mempercayai layanan kami.</p></td></tr></table></td></tr></table></body></html>"
               title="Mail template preview"
             />
           </section>
@@ -1352,7 +1352,7 @@ exports[`MailCreateForm Snapshots should render mail compose form while sending 
                   />
                 </div>
                 <div
-                  class="space-y-2"
+                  class="space-y-3 pb-2 lg:col-span-2"
                 >
                   <div
                     class="relative mb-0 [&_.ant-select-selector]:!min-h-16 lg:[&_.ant-select-selector]:!min-h-14"
@@ -1422,7 +1422,7 @@ exports[`MailCreateForm Snapshots should render mail compose form while sending 
                     </div>
                   </div>
                   <div
-                    class="flex items-center justify-between gap-4 rounded-2xl border-2 border-action-primary/40 bg-action-primary-subtle px-4 py-3"
+                    class="mt-3 flex items-center justify-between gap-4 rounded-2xl border-2 border-action-primary/40 bg-action-primary-subtle px-4 py-3"
                   >
                     <div
                       class="flex min-w-0 items-center gap-3"
@@ -1514,8 +1514,8 @@ exports[`MailCreateForm Snapshots should render mail compose form while sending 
                     </button>
                   </div>
                 </div>
-                <label
-                  class="block space-y-2 lg:col-span-2"
+                <div
+                  class="space-y-2 lg:col-span-2"
                 >
                   <span
                     class="text-lg font-normal text-text-primary"
@@ -1528,14 +1528,14 @@ exports[`MailCreateForm Snapshots should render mail compose form while sending 
                       *
                     </span>
                   </span>
-                  <textarea
-                    class="min-h-36 w-full rounded-2xl border-2 border-border-strong bg-background-surface px-4 py-4 text-xl font-normal outline-none placeholder:text-xl placeholder:text-text-tertiary focus:border-border-focus focus:ring-2 focus:ring-focus-ring/30 lg:min-h-28 lg:text-lg lg:placeholder:text-lg"
+                  <div
                     id="mail-body"
-                    placeholder="Write the mail content"
                   >
-                    Hello
-                  </textarea>
-                </label>
+                    <div>
+                      Editor
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
             <div
@@ -1554,6 +1554,526 @@ exports[`MailCreateForm Snapshots should render mail compose form while sending 
                 type="submit"
               >
                 Sending…
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`MailCreateForm snapshot MailCreateForm Snapshots should render mail compose form with the invoice template 1`] = `
+<DocumentFragment>
+  <div
+    class="flex h-full w-full flex-col bg-background-page pb-6 font-sans"
+  >
+    <div
+      class="mb-6 flex items-center gap-3 bg-background-page lg:hidden"
+    >
+      <button
+        aria-label="Back"
+        class="flex h-14 w-14 shrink-0 items-center justify-center rounded-full border border-border-default bg-background-page text-text-primary transition-colors hover:bg-background-subtle focus-visible:ring-2 focus-visible:ring-focus-ring/30 "
+        type="button"
+      >
+        <svg
+          aria-hidden="true"
+          class="h-6 w-6"
+          fill="none"
+          height="1em"
+          stroke="currentColor"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          viewBox="0 0 24 24"
+          width="1em"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <line
+            x1="19"
+            x2="5"
+            y1="12"
+            y2="12"
+          />
+          <polyline
+            points="12 19 5 12 12 5"
+          />
+        </svg>
+      </button>
+      <div
+        class="min-w-0"
+      >
+        <h2
+          class="truncate text-4xl font-semibold tracking-tight text-text-primary"
+        >
+          New Mail
+        </h2>
+        <p
+          class="mt-1 truncate text-sm text-text-secondary"
+        >
+          Fill in the mail details below.
+        </p>
+      </div>
+    </div>
+    <div
+      class="flex min-h-0 w-full flex-1 flex-col pb-32 text-lg lg:pb-0"
+    >
+      <div
+        class="hidden lg:block"
+      >
+        <nav
+          aria-label="Breadcrumb"
+          class="mb-2 flex items-center gap-2 text-[15px] font-medium text-text-secondary"
+        >
+          <span>
+            Mail
+          </span>
+          <span
+            aria-hidden="true"
+          >
+            /
+          </span>
+          <span
+            class="text-text-primary"
+          >
+            New Mail
+          </span>
+        </nav>
+        <div
+          class="mb-6"
+        >
+          <h2
+            class="text-4xl font-semibold leading-tight tracking-tight text-text-primary"
+          >
+            New Mail
+          </h2>
+          <p
+            class="mt-2 text-sm text-text-secondary"
+          >
+            Fill in the mail details below.
+          </p>
+        </div>
+      </div>
+      <div
+        class="flex flex-col gap-6 lg:-mt-4 lg:mb-5 lg:grid lg:grid-cols-12 lg:items-start lg:gap-6"
+      >
+        <div
+          class="min-w-0 lg:col-span-4"
+        >
+          <section
+            aria-labelledby="mail-template-preview-title"
+            class="min-w-0 rounded-3xl border border-border-default bg-background-surface p-4 shadow-small lg:sticky lg:top-6 lg:h-fit"
+          >
+            <h3
+              class="mb-4 text-lg font-semibold text-text-primary"
+              id="mail-template-preview-title"
+            >
+              Template preview
+            </h3>
+            <iframe
+              class="h-[560px] w-full rounded-2xl border border-border-default bg-white lg:h-[720px]"
+              sandbox=""
+              srcdoc="<!DOCTYPE html><html><head><meta charset="utf-8" /><meta name="viewport" content="width=device-width,initial-scale=1" /></head><body style="margin:0;padding:0;background-color:#F1F2F4;"><table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background-color:#F1F2F4;padding:24px 12px;"><tr><td align="center"><table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:600px;background-color:#FFFFFF;border-radius:12px;box-shadow:0 1px 3px rgba(16,24,40,0.10);font-family:Arial,Helvetica,sans-serif;"><tr><td style="background-color:#6B7280;padding:26px 32px;border-radius:12px 12px 0 0;"><table role="presentation" width="100%" cellpadding="0" cellspacing="0"><tr><td width="60" valign="middle"><img src="http://localhost/src/assets/logo.png" width="48" height="48" alt="QuoteFlow" style="display:block;width:48px;height:48px;border:0;" /></td><td valign="middle"><h1 style="margin:0;font-family:Arial,Helvetica,sans-serif;font-size:22px;font-weight:700;line-height:1.3;color:#FFFFFF;">Invoice</h1><p style="margin:6px 0 0;font-family:Arial,Helvetica,sans-serif;font-size:11px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.78);">Invoice</p></td></tr></table></td></tr><tr><td style="background-color:#FFFFFF;padding:28px 32px 24px;"><div style="margin:0 0 16px;font-family:Arial,Helvetica,sans-serif;font-size:14px;line-height:1.75;color:#424242;">Hello</div></td></tr><tr><td align="center" style="background-color:#F7F8FA;padding:20px 32px;border-radius:0 0 12px 12px;border-top:1px solid #E5E7EB;"><p style="margin:0 0 4px;font-family:Arial,Helvetica,sans-serif;font-size:12px;line-height:1.6;color:#9CA3AF;">Email ini dikirim secara resmi sebagai bagian dari komunikasi penagihan.</p><p style="margin:0;font-family:Arial,Helvetica,sans-serif;font-size:11px;line-height:1.6;color:#9CA3AF;">Terima kasih telah mempercayai layanan kami.</p></td></tr></table></td></tr></table></body></html>"
+              title="Mail template preview"
+            />
+          </section>
+        </div>
+        <div
+          class="min-w-0 lg:col-span-8"
+        >
+          <form
+            class="flex min-w-0 flex-col rounded-3xl border border-border-default bg-background-surface p-6 shadow-small sm:p-8 lg:p-10"
+            novalidate=""
+          >
+            <div
+              class="pb-6"
+            >
+              <div
+                class="grid w-full grid-cols-1 gap-x-6 gap-y-5 lg:grid-cols-2"
+              >
+                <div>
+                  <div
+                    class="relative mb-0 [&_.ant-select-selector]:!min-h-16 lg:[&_.ant-select-selector]:!min-h-14"
+                  >
+                    <label
+                      class="mb-1.5 block text-sm font-semibold text-text-secondary !text-lg !font-normal !normal-case !text-text-primary lg:!text-lg"
+                      for="mail-sender"
+                    >
+                      From
+                      <span
+                        aria-hidden="true"
+                        class="ml-1 text-danger"
+                      >
+                        *
+                      </span>
+                    </label>
+                    <div
+                      class="ant-select ant-select-outlined h-14 w-full !border-2 [&_.ant-select-selector]:!rounded-2xl [&_.ant-select-content]:!text-xl [&_.ant-select-content]:!font-normal !border-border-strong [&_.ant-select-selector]:!border-2 [&_.ant-select-selector]:!border-border-strong !h-16 lg:!h-14 [&_.ant-select-content]:!text-xl lg:[&_.ant-select-content]:!text-lg [&_.ant-select-content]:!font-normal css-var-root ant-select-css-var css-dev-only-do-not-override-eofgey ant-select-single ant-select-show-arrow ant-select-show-search"
+                      style="--ant-select-border-radius: 16px; border: 2px solid var(--border-strong);"
+                    >
+                      <div
+                        class="ant-select-content ant-select-content-has-value"
+                        title="sales@example.com"
+                      >
+                        sales@example.com
+                        <input
+                          aria-autocomplete="list"
+                          aria-expanded="false"
+                          aria-haspopup="listbox"
+                          aria-invalid="false"
+                          aria-label="From"
+                          aria-required="true"
+                          autocomplete="new-password"
+                          class="ant-select-input"
+                          id="mail-sender"
+                          role="combobox"
+                          type="text"
+                          value=""
+                        />
+                      </div>
+                      <div
+                        class="ant-select-suffix"
+                      >
+                        <span
+                          aria-label="down"
+                          class="anticon anticon-down"
+                          role="img"
+                        >
+                          <svg
+                            aria-hidden="true"
+                            data-icon="down"
+                            fill="currentColor"
+                            focusable="false"
+                            height="1em"
+                            viewBox="64 64 896 896"
+                            width="1em"
+                          >
+                            <path
+                              d="M884 256h-75c-5.1 0-9.9 2.5-12.9 6.6L512 654.2 227.9 262.6c-3-4.1-7.8-6.6-12.9-6.6h-75c-6.5 0-10.3 7.4-6.5 12.7l352.6 486.1c12.8 17.6 39 17.6 51.7 0l352.6-486.1c3.9-5.3.1-12.7-6.4-12.7z"
+                            />
+                          </svg>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div>
+                  <div
+                    class="relative mb-0 [&_.ant-select-selector]:!min-h-16 lg:[&_.ant-select-selector]:!min-h-14"
+                  >
+                    <label
+                      class="mb-1.5 block text-sm font-semibold text-text-secondary !text-lg !font-normal !normal-case !text-text-primary lg:!text-lg"
+                      for="mail-template"
+                    >
+                      Template
+                      <span
+                        aria-hidden="true"
+                        class="ml-1 text-danger"
+                      >
+                        *
+                      </span>
+                    </label>
+                    <div
+                      class="ant-select ant-select-outlined h-14 w-full !border-2 [&_.ant-select-selector]:!rounded-2xl [&_.ant-select-content]:!text-xl [&_.ant-select-content]:!font-normal !border-border-strong [&_.ant-select-selector]:!border-2 [&_.ant-select-selector]:!border-border-strong !h-16 lg:!h-14 [&_.ant-select-content]:!text-xl lg:[&_.ant-select-content]:!text-lg [&_.ant-select-content]:!font-normal css-var-root ant-select-css-var css-dev-only-do-not-override-eofgey ant-select-single ant-select-show-arrow ant-select-show-search"
+                      style="--ant-select-border-radius: 16px; border: 2px solid var(--border-strong);"
+                    >
+                      <div
+                        class="ant-select-content ant-select-content-has-value"
+                        title="Invoice"
+                      >
+                        Invoice
+                        <input
+                          aria-autocomplete="list"
+                          aria-expanded="false"
+                          aria-haspopup="listbox"
+                          aria-invalid="false"
+                          aria-label="Template"
+                          aria-required="true"
+                          autocomplete="new-password"
+                          class="ant-select-input"
+                          id="mail-template"
+                          role="combobox"
+                          type="text"
+                          value=""
+                        />
+                      </div>
+                      <div
+                        class="ant-select-suffix"
+                      >
+                        <span
+                          aria-label="down"
+                          class="anticon anticon-down"
+                          role="img"
+                        >
+                          <svg
+                            aria-hidden="true"
+                            data-icon="down"
+                            fill="currentColor"
+                            focusable="false"
+                            height="1em"
+                            viewBox="64 64 896 896"
+                            width="1em"
+                          >
+                            <path
+                              d="M884 256h-75c-5.1 0-9.9 2.5-12.9 6.6L512 654.2 227.9 262.6c-3-4.1-7.8-6.6-12.9-6.6h-75c-6.5 0-10.3 7.4-6.5 12.7l352.6 486.1c12.8 17.6 39 17.6 51.7 0l352.6-486.1c3.9-5.3.1-12.7-6.4-12.7z"
+                            />
+                          </svg>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="mb-4 !mb-0 [&_.ant-input]:!h-16 lg:[&_.ant-input]:!h-14 [&_.ant-input]:!rounded-2xl [&_.ant-input]:!border-2 [&_.ant-input]:!border-border-strong [&_.ant-input]:!px-4 [&_.ant-input]:!text-xl lg:[&_.ant-input]:!text-lg [&_label]:!text-lg [&_label]:!font-normal [&_label]:!normal-case [&_label]:!text-text-primary"
+                >
+                  <label
+                    class="mb-1.5 block text-sm font-semibold text-text-secondary"
+                    for="mail-to"
+                  >
+                    To
+                    <span
+                      aria-hidden="true"
+                      class="ml-1 text-danger"
+                    >
+                      *
+                    </span>
+                  </label>
+                  <input
+                    aria-invalid="false"
+                    class="ant-input ant-input-lg css-dev-only-do-not-override-eofgey ant-input-outlined h-14 w-full !rounded-2xl css-var-root ant-input-css-var"
+                    id="mail-to"
+                    placeholder="e.g. customer@example.com"
+                    required=""
+                    type="email"
+                    value="customer@example.com"
+                  />
+                </div>
+                <div
+                  class="mb-4 !mb-0 [&_.ant-input]:!h-16 lg:[&_.ant-input]:!h-14 [&_.ant-input]:!rounded-2xl [&_.ant-input]:!border-2 [&_.ant-input]:!border-border-strong [&_.ant-input]:!px-4 [&_.ant-input]:!text-xl lg:[&_.ant-input]:!text-lg [&_label]:!text-lg [&_label]:!font-normal [&_label]:!normal-case [&_label]:!text-text-primary"
+                >
+                  <label
+                    class="mb-1.5 block text-sm font-semibold text-text-secondary"
+                    for="mail-subject"
+                  >
+                    Subject
+                    <span
+                      aria-hidden="true"
+                      class="ml-1 text-danger"
+                    >
+                      *
+                    </span>
+                  </label>
+                  <input
+                    aria-invalid="false"
+                    class="ant-input ant-input-lg css-dev-only-do-not-override-eofgey ant-input-outlined h-14 w-full !rounded-2xl css-var-root ant-input-css-var"
+                    id="mail-subject"
+                    placeholder="e.g. Quotation follow up"
+                    required=""
+                    type="text"
+                    value="Quotation follow up"
+                  />
+                </div>
+                <div
+                  class="space-y-3 pb-2 lg:col-span-2"
+                >
+                  <div
+                    class="relative mb-0 [&_.ant-select-selector]:!min-h-16 lg:[&_.ant-select-selector]:!min-h-14"
+                  >
+                    <label
+                      class="mb-1.5 block text-sm font-semibold text-text-secondary !text-lg !font-normal !normal-case !text-text-primary lg:!text-lg"
+                      for="mail-invoice"
+                    >
+                      Invoice Attachment
+                      <span
+                        aria-hidden="true"
+                        class="ml-1 text-danger"
+                      >
+                        *
+                      </span>
+                    </label>
+                    <div
+                      class="ant-select ant-select-outlined h-14 w-full !border-2 [&_.ant-select-selector]:!rounded-2xl [&_.ant-select-content]:!text-xl [&_.ant-select-content]:!font-normal !border-border-strong [&_.ant-select-selector]:!border-2 [&_.ant-select-selector]:!border-border-strong !h-16 lg:!h-14 [&_.ant-select-content]:!text-xl lg:[&_.ant-select-content]:!text-lg [&_.ant-select-content]:!font-normal css-var-root ant-select-css-var css-dev-only-do-not-override-eofgey ant-select-single ant-select-show-arrow ant-select-show-search"
+                      style="--ant-select-border-radius: 16px; border: 2px solid var(--border-strong);"
+                    >
+                      <div
+                        class="ant-select-content"
+                      >
+                        <div
+                          class="ant-select-placeholder"
+                        >
+                          Select invoice to attach
+                        </div>
+                        <input
+                          aria-autocomplete="list"
+                          aria-expanded="false"
+                          aria-haspopup="listbox"
+                          aria-invalid="false"
+                          aria-label="Invoice Attachment"
+                          aria-required="true"
+                          autocomplete="new-password"
+                          class="ant-select-input"
+                          id="mail-invoice"
+                          role="combobox"
+                          type="text"
+                          value=""
+                        />
+                      </div>
+                      <div
+                        class="ant-select-suffix"
+                      >
+                        <span
+                          aria-label="down"
+                          class="anticon anticon-down"
+                          role="img"
+                        >
+                          <svg
+                            aria-hidden="true"
+                            data-icon="down"
+                            fill="currentColor"
+                            focusable="false"
+                            height="1em"
+                            viewBox="64 64 896 896"
+                            width="1em"
+                          >
+                            <path
+                              d="M884 256h-75c-5.1 0-9.9 2.5-12.9 6.6L512 654.2 227.9 262.6c-3-4.1-7.8-6.6-12.9-6.6h-75c-6.5 0-10.3 7.4-6.5 12.7l352.6 486.1c12.8 17.6 39 17.6 51.7 0l352.6-486.1c3.9-5.3.1-12.7-6.4-12.7z"
+                            />
+                          </svg>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    class="mt-3 flex items-center justify-between gap-4 rounded-2xl border-2 border-action-primary/40 bg-action-primary-subtle px-4 py-3"
+                  >
+                    <div
+                      class="flex min-w-0 items-center gap-3"
+                    >
+                      <svg
+                        aria-hidden="true"
+                        class="h-8 w-8 shrink-0 text-action-primary"
+                        fill="none"
+                        height="1em"
+                        stroke="currentColor"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        viewBox="0 0 24 24"
+                        width="1em"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"
+                        />
+                        <polyline
+                          points="14 2 14 8 20 8"
+                        />
+                        <line
+                          x1="16"
+                          x2="8"
+                          y1="13"
+                          y2="13"
+                        />
+                        <line
+                          x1="16"
+                          x2="8"
+                          y1="17"
+                          y2="17"
+                        />
+                        <polyline
+                          points="10 9 9 9 8 9"
+                        />
+                      </svg>
+                      <div
+                        class="min-w-0"
+                      >
+                        <p
+                          class="truncate text-lg font-semibold text-text-primary"
+                        >
+                          quotation.pdf
+                        </p>
+                        <a
+                          class="text-sm font-semibold text-action-primary underline underline-offset-2 hover:text-action-primary-hover"
+                          href="blob:quotation-preview"
+                          rel="noreferrer"
+                          target="_blank"
+                        >
+                          Open attachment
+                        </a>
+                      </div>
+                    </div>
+                    <button
+                      aria-label="Remove attachment"
+                      class="shrink-0 cursor-pointer rounded-xl p-2 text-text-secondary transition-colors hover:bg-danger-subtle hover:text-danger-strong focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-action-primary disabled:cursor-not-allowed disabled:opacity-50"
+                      type="button"
+                    >
+                      <svg
+                        class="h-5 w-5"
+                        fill="none"
+                        height="1em"
+                        stroke="currentColor"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        viewBox="0 0 24 24"
+                        width="1em"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <line
+                          x1="18"
+                          x2="6"
+                          y1="6"
+                          y2="18"
+                        />
+                        <line
+                          x1="6"
+                          x2="18"
+                          y1="6"
+                          y2="18"
+                        />
+                      </svg>
+                    </button>
+                  </div>
+                </div>
+                <div
+                  class="space-y-2 lg:col-span-2"
+                >
+                  <span
+                    class="text-lg font-normal text-text-primary"
+                  >
+                    Body
+                    <span
+                      aria-hidden="true"
+                      class="ml-1 text-danger"
+                    >
+                      *
+                    </span>
+                  </span>
+                  <div
+                    id="mail-body"
+                  >
+                    <div>
+                      Editor
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              class="mt-auto flex justify-between gap-3 border-t border-border-default/60 pt-5"
+            >
+              <button
+                class="h-14 cursor-pointer rounded-xl border border-border-default px-8 text-lg font-semibold text-text-primary transition-colors hover:bg-background-subtle focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-action-primary disabled:cursor-not-allowed disabled:opacity-50"
+                type="button"
+              >
+                Cancel
+              </button>
+              <button
+                class="h-14 cursor-pointer rounded-xl bg-action-primary px-8 text-lg font-semibold text-text-inverse shadow-xs transition-colors hover:bg-action-primary-hover focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-action-primary disabled:cursor-not-allowed disabled:opacity-60"
+                type="submit"
+              >
+                Send Mail
               </button>
             </div>
           </form>

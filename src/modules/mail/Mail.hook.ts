@@ -1,9 +1,10 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-import { mapMail, useGetMailsQuery } from "@/services/mail/mail.service";
-
+import { MAIL_CONFIG } from "./Mail.config";
 import type { MailListApiState, MailNavigation, MailPagination } from "./Mail.type";
+
+import { mapMail, useGetMailsQuery } from "@/services/mail/mail.service";
 
 /**
  * Hook for mail navigation.
@@ -14,7 +15,7 @@ export const useMailNavigation = (): MailNavigation => {
 
   /**
    * Navigate back.
-   * @returns {void}
+   * @returns {void} - Nothing
    */
   const goBack = (): void => {
     navigate("/home");
@@ -22,7 +23,7 @@ export const useMailNavigation = (): MailNavigation => {
 
   /**
    * Navigate to the compose page.
-   * @returns {void}
+   * @returns {void} - Nothing
    */
   const goCompose = (): void => {
     navigate("/mail/create");
@@ -84,7 +85,7 @@ const _deriveMailListState = (queryResult: ReturnType<typeof useGetMailsQuery>):
  */
 export const useMailPagination = (): MailPagination => {
   const [currentPage, setCurrentPage] = useState(1);
-  const [pageSize, setPageSize] = useState(10);
+  const [pageSize, setPageSize] = useState(MAIL_CONFIG.DEFAULT_PAGE_SIZE);
   const [searchTerm, setSearchTerm] = useState("");
 
   const queryResult = useGetMailsQuery({ pageNumber: currentPage, pageSize, searchTerm });
@@ -93,14 +94,14 @@ export const useMailPagination = (): MailPagination => {
   /**
    * Handle page change.
    * @param {number} page - New page number
-   * @returns {void}
+   * @returns {void} - Nothing
    */
   const goToPage = (page: number): void => setCurrentPage(Math.max(1, Math.min(page, derived.totalPages)));
 
   /**
    * Handle page size change.
    * @param {number} size - New page size
-   * @returns {void}
+   * @returns {void} - Nothing
    */
   const changePageSize = (size: number): void => {
     setPageSize(size);
@@ -110,7 +111,7 @@ export const useMailPagination = (): MailPagination => {
   /**
    * Handle search term change.
    * @param {string} value - Search term
-   * @returns {void}
+   * @returns {void} - Nothing
    */
   const handleSearchTerm = (value: string): void => {
     setSearchTerm(value);

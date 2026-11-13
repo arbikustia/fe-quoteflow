@@ -3,10 +3,11 @@ import { useLocation } from "react-router-dom";
 
 import { usePagePermission } from "@/hooks/usePagePermission";
 
+import { AlertComponent } from "@/components/Alert";
+
 import { MailComponent } from "./Mail.component";
 import { useMailNavigation, useMailPagination } from "./Mail.hook";
 import type { MailRouteState } from "./Mail.type";
-import { AlertComponent } from "../../components/Alert";
 
 /**
  * Mail Container
@@ -19,7 +20,9 @@ const MailContainer = (): ReactElement | null => {
   const pagination = useMailPagination();
   const { canView } = usePagePermission("/mail");
 
-  if (!canView) return null;
+  if (!canView) {
+    return null;
+  }
 
   return (
     <>

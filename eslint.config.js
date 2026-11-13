@@ -167,6 +167,7 @@ export default defineConfig([
       "src/modules/dashboard/**/*.{ts,tsx}",
       "src/modules/item-checklist/**/*.{ts,tsx}",
       "src/modules/item-return/**/*.{ts,tsx}",
+      "src/modules/mail/**/*.{ts,tsx}",
       // "src/modules/master-service-type/**/*.{ts,tsx}",
       // "src/modules/master-payment-type/**/*.{ts,tsx}",
       // "src/modules/order/**/*.{ts,tsx}",

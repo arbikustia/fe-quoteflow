@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`MailComponent Snapshots should render mail list 1`] = `
+exports[`MailComponent snapshot MailComponent Snapshots should render mail list 1`] = `
 <DocumentFragment>
   <div
     data-testid="mock-layout"
@@ -681,7 +681,7 @@ exports[`MailComponent Snapshots should render mail list 1`] = `
 </DocumentFragment>
 `;
 
-exports[`MailComponent Snapshots should render mail list while loading 1`] = `
+exports[`MailComponent snapshot MailComponent Snapshots should render mail list while loading 1`] = `
 <DocumentFragment>
   <div
     data-testid="mock-layout"

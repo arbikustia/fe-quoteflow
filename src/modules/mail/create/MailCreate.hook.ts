@@ -2,6 +2,32 @@ import type { ChangeEvent, SyntheticEvent } from "react";
 import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
+import { generateQuotationPdfBlob } from "@/utils/pdfGenerator";
+
+import type {
+  MailAttachmentFieldState,
+  MailComposeFieldState,
+  MailComposeFormState,
+  MailComposeValues,
+  MailCompositeErrors,
+  MailDocumentState,
+  MailFieldProps,
+  MailInputFieldState,
+  MailNavigate,
+  MailPdfInput,
+  MailSenderOptionsState,
+  MailSendState,
+  MailStatusProps,
+} from "./MailCreate.type";
+import {
+  buildInvoiceOptions,
+  buildQuotationOptions,
+  formatSendMessages,
+  getSelectedFile,
+  isPdfFile,
+  validateMailValues,
+} from "./MailCreate.util";
+
 import { MAIL_CONFIG } from "@/modules/mail/Mail.config";
 import type { MailTemplate } from "@/modules/mail/Mail.type";
 import { quotationToQuoteData } from "@/modules/quotation/Quotation.util";
@@ -12,37 +38,12 @@ import {
   useSendMailMutation,
 } from "@/services/mail/mail.service";
 import { useGetQuotationOptionsQuery } from "@/services/quotation/quotation.service";
-import { generateQuotationPdfBlob } from "@/utils/pdfGenerator";
-
-import { getSelectedFile, isPdfFile, validateMailValues } from "./MailCreate.helpers";
-import type {
-  EmailSenderOption,
-  MailComposeFieldState,
-  MailComposeFormState,
-  MailComposeValues,
-  MailCompositeErrors,
-} from "./MailCreate.type";
-
-import type { ApiMessages } from "@/types/api.type";
-
-/**
- * Format backend messages into a display string.
- * @param {ApiMessages} [messages] - Backend response messages
- * @returns {string} Display message
- */
-const _formatMessages = (messages?: ApiMessages): string => {
-  if (!messages) {
-    return "Unable to send mail. Please try again.";
-  }
-
-  return Array.isArray(messages) ? messages.join(" ") : messages;
-};
 
 /**
  * Hook loading email sender options for the From field.
- * @returns {{ senderOptions: EmailSenderOption[]; isSenderLoading: boolean; senderError?: string }} Sender select state
+ * @returns {MailSenderOptionsState} - Sender select state
  */
-const useSenderOptions = (): { senderOptions: EmailSenderOption[]; isSenderLoading: boolean; senderError?: string } => {
+export const useSenderOptions = (): MailSenderOptionsState => {
   const { data, isLoading, error } = useGetMailSendersQuery();
 
   if (isLoading) {
@@ -63,31 +64,26 @@ const useSenderOptions = (): { senderOptions: EmailSenderOption[]; isSenderLoadi
 
 /**
  * Hook owning the PDF attachment field.
- * @returns {{ attachment?: File; attachmentUrl: string; attachmentError?: string; handleAttachmentChange: (event: ChangeEvent<HTMLInputElement>) => void; handleAttachmentRemove: () => void }} Attachment state
+ * @returns {MailAttachmentFieldState} - Attachment state
  */
-const useAttachmentField = (): {
-  attachment?: File;
-  attachmentUrl: string;
-  attachmentError?: string;
-  handleAttachmentChange: (event: ChangeEvent<HTMLInputElement>) => void;
-  handleAttachmentRemove: () => void;
-} => {
+export const useAttachmentField = (): MailAttachmentFieldState => {
   const [attachment, setAttachment] = useState<File>();
   const [attachmentUrl, setAttachmentUrl] = useState("");
   const [attachmentError, setAttachmentError] = useState<string>();
 
-  useEffect(() => () => {
+  useEffect((): (() => void) => (): void => {
     if (attachmentUrl) {
       URL.revokeObjectURL(attachmentUrl);
     }
   }, [attachmentUrl]);
 
   /**
-   * Store the selected PDF and expose a preview URL.
-   * @param {File} file - Selected file
-   * @returns {void}
+   * Store a PDF and expose a preview URL.
+   * @param {File} file - PDF file
+   * @returns {void} - Nothing
    */
-  const _previewFile = (file: File): void => {
+  const attachFile = (file: File): void => {
+    setAttachmentError(undefined);
     setAttachment(file);
     setAttachmentUrl(URL.createObjectURL(file));
   };
@@ -95,7 +91,7 @@ const useAttachmentField = (): {
   /**
    * Store the selected file when it is a PDF.
    * @param {ChangeEvent<HTMLInputElement>} event - File input change event
-   * @returns {void}
+   * @returns {void} - Nothing
    */
   const handleAttachmentChange = (event: ChangeEvent<HTMLInputElement>): void => {
     const file = getSelectedFile(event);
@@ -110,13 +106,12 @@ const useAttachmentField = (): {
       return;
     }
 
-    setAttachmentError(undefined);
-    _previewFile(file);
+    attachFile(file);
   };
 
   /**
    * Clear the selected attachment.
-   * @returns {void}
+   * @returns {void} - Nothing
    */
   const handleAttachmentRemove = (): void => {
     setAttachment(undefined);
@@ -124,55 +119,105 @@ const useAttachmentField = (): {
     setAttachmentError(undefined);
   };
 
-  return { attachment, attachmentUrl, attachmentError, handleAttachmentChange, handleAttachmentRemove };
+  return { attachment, attachmentUrl, attachmentError, attachFile, handleAttachmentChange, handleAttachmentRemove };
 };
 
 /**
- * Hook owning compose fields, validation errors, and field handlers.
- * @returns {MailComposeFieldState} Field state
+ * Hook owning the plain input fields and their handlers.
+ * @returns {MailInputFieldState} - Input field state
  */
-const useComposeFields = (): MailComposeFieldState => {
+export const useInputFields = (): MailInputFieldState => {
   const [senderId, setSenderId] = useState("");
   const [template, setTemplate] = useState<MailTemplate>(MAIL_CONFIG.DEFAULT_TEMPLATE);
   const [to, setTo] = useState("");
   const [subject, setSubject] = useState("");
   const [body, setBody] = useState("");
+
+  /**
+   * Handle template selection.
+   * @param {string} value - Selected template
+   * @returns {void} - Nothing
+   */
+  const handleTemplateChange = (value: string): void => setTemplate(value as MailTemplate);
+
+  /**
+   * Handle recipient input change.
+   * @param {ChangeEvent<HTMLInputElement>} event - Change event
+   * @returns {void} - Nothing
+   */
+  const handleToChange = (event: ChangeEvent<HTMLInputElement>): void => setTo(event.target.value);
+
+  /**
+   * Handle subject input change.
+   * @param {ChangeEvent<HTMLInputElement>} event - Change event
+   * @returns {void} - Nothing
+   */
+  const handleSubjectChange = (event: ChangeEvent<HTMLInputElement>): void => setSubject(event.target.value);
+
+  return { senderId, template, to, subject, body, handleSenderChange: setSenderId, handleTemplateChange, handleToChange, handleSubjectChange, handleBodyChange: setBody };
+};
+
+/**
+ * Hook owning the selected quotation or invoice and its options.
+ * @param {MailTemplate} template - Active template
+ * @returns {MailDocumentState} - Document state
+ */
+export const useDocumentFields = (template: MailTemplate): MailDocumentState => {
   const [quotationId, setQuotationId] = useState("");
   const [invoiceId, setInvoiceId] = useState("");
-  const [errors, setErrors] = useState<MailCompositeErrors>({});
-  const attachmentField = useAttachmentField();
-
   const { data: quotationsData } = useGetQuotationOptionsQuery();
-  const quotations = quotationsData?.status ? quotationsData.data : [];
   const { data: invoicesData } = useGetInvoiceOptionsQuery();
+  const quotations = quotationsData?.status ? quotationsData.data : [];
   const invoices = invoicesData?.status ? invoicesData.data : [];
-  const pendingPdf = useRef<Promise<File> | undefined>(undefined);
   const isInvoiceTemplate = template === "invoice";
-  const selectedQuotation = isInvoiceTemplate ? undefined : quotations.find((q) => q.id === quotationId);
-  const selectedInvoice = isInvoiceTemplate ? invoices.find((i) => i.id === invoiceId) : undefined;
-  const documentQuotation = selectedInvoice?.quotation ?? selectedQuotation;
+  const selectedQuotation = isInvoiceTemplate ? undefined : quotations.find((quotation) => quotation.id === quotationId);
+  const selectedInvoice = isInvoiceTemplate ? invoices.find((invoice) => invoice.id === invoiceId) : undefined;
+
+  return {
+    quotationId,
+    invoiceId,
+    selectedQuotation,
+    selectedInvoice,
+    documentQuotation: selectedInvoice?.quotation ?? selectedQuotation,
+    quotationOptions: buildQuotationOptions(quotations),
+    invoiceOptions: buildInvoiceOptions(invoices),
+    handleQuotationChange: setQuotationId,
+    handleInvoiceChange: setInvoiceId,
+  };
+};
+
+/**
+ * Hook generating the document PDF and attaching it.
+ * @param {MailPdfInput} input - Document and attachment state
+ * @returns {() => Promise<File | undefined>} - Resolver of the attachment
+ */
+export const usePdfAttachment = (input: MailPdfInput): (() => Promise<File | undefined>) => {
+  const { documentQuotation, hasDocumentId, attachmentField } = input;
+  const pendingPdf = useRef<Promise<File> | undefined>(undefined);
 
   useEffect(() => {
     if (documentQuotation) {
       pendingPdf.current = generateQuotationPdfBlob(quotationToQuoteData(documentQuotation)).then((file) => {
-        attachmentField.handleAttachmentChange({ target: { files: [file] } } as unknown as ChangeEvent<HTMLInputElement>);
+        attachmentField.attachFile(file);
 
         return file;
       }).catch((error: Error) => {
         attachmentField.handleAttachmentRemove();
         throw error;
       });
-    } else if (quotationId || invoiceId) {
+    } else if (hasDocumentId) {
       attachmentField.handleAttachmentRemove();
     }
-  }, [documentQuotation, quotationId, invoiceId]);
+  }, [documentQuotation, hasDocumentId]);
 
   /**
    * Resolve the quotation PDF attachment, waiting for generation when still running.
-   * @returns {Promise<File | undefined>} Attachment file
+   * @returns {Promise<File | undefined>} - Attachment file
    */
-  const getAttachment = async (): Promise<File | undefined> => {
-    if (!pendingPdf.current) return attachmentField.attachment;
+  return async (): Promise<File | undefined> => {
+    if (!pendingPdf.current) {
+      return attachmentField.attachment;
+    }
 
     try {
       return await pendingPdf.current;
@@ -180,61 +225,29 @@ const useComposeFields = (): MailComposeFieldState => {
       return undefined;
     }
   };
+};
 
-  const values: MailComposeValues = {
-    senderId,
-    template,
-    to,
-    subject,
-    body,
-    attachment: attachmentField.attachment,
-    quotation: selectedQuotation,
-    invoice: selectedInvoice,
-  };
-
-  /**
-   * Handle sender selection.
-   * @param {string} value - Selected sender id
-   * @returns {void}
-   */
-  const handleSenderChange = (value: string): void => setSenderId(value);
+/**
+ * Hook owning compose fields, validation errors, and field handlers.
+ * @returns {MailComposeFieldState} - Field state
+ */
+export const useComposeFields = (): MailComposeFieldState => {
+  const [errors, setErrors] = useState<MailCompositeErrors>({});
+  const inputs = useInputFields();
+  const documents = useDocumentFields(inputs.template);
+  const attachmentField = useAttachmentField();
+  const getAttachment = usePdfAttachment({
+    documentQuotation: documents.documentQuotation,
+    hasDocumentId: Boolean(documents.quotationId || documents.invoiceId),
+    attachmentField,
+  });
 
   /**
-   * Handle template selection.
-   * @param {string} value - Selected template
-   * @returns {void}
-   */
-  const handleTemplateChange = (value: string): void => setTemplate(value as MailTemplate);
-
-  /**
-   * Handle recipient input change.
-   * @param {ChangeEvent<HTMLInputElement>} event - Change event
-   * @returns {void}
-   */
-  const handleToChange = (event: ChangeEvent<HTMLInputElement>): void => setTo(event.target.value);
-
-  /**
-   * Handle subject input change.
-   * @param {ChangeEvent<HTMLInputElement>} event - Change event
-   * @returns {void}
-   */
-  const handleSubjectChange = (event: ChangeEvent<HTMLInputElement>): void => setSubject(event.target.value);
-
-  /**
-   * Handle body input change.
-   * @param {ChangeEvent<HTMLTextAreaElement>} event - Change event
-   * @returns {void}
-   */
-  const handleBodyChange = (value: string): void => setBody(value);
-
-  const handleQuotationChange = (value: string): void => setQuotationId(value);
-  const handleInvoiceChange = (value: string): void => setInvoiceId(value);
-
-  /**
-   * Validate the current values.
+   * Validate the current values and store the errors.
+   * @returns {boolean} - Whether the form is valid
    */
   const validate = (): boolean => {
-    const nextErrors = validateMailValues(values);
+    const nextErrors = validateMailValues(inputs);
 
     setErrors(nextErrors);
 
@@ -242,29 +255,13 @@ const useComposeFields = (): MailComposeFieldState => {
   };
 
   return {
-    ...values,
-    quotationId,
-    invoiceId,
-    selectedQuotation,
-    selectedInvoice,
-    quotationOptions: quotations.map((q) => ({
-      label: q.transaction?.customer_name ? `${q.quotation_no} - ${q.transaction.customer_name}` : q.quotation_no,
-      value: q.id,
-    })),
-    invoiceOptions: invoices.map((invoice) => {
-      const customerName = invoice.customer?.name ?? invoice.quotation?.transaction?.customer_name;
-
-      return { label: customerName ? `${invoice.invoice_no} - ${customerName}` : invoice.invoice_no, value: invoice.id };
-    }),
+    ...inputs,
+    ...documents,
+    attachment: attachmentField.attachment,
+    quotation: documents.selectedQuotation,
+    invoice: documents.selectedInvoice,
     errors: { ...errors, attachmentError: attachmentField.attachmentError },
     attachmentUrl: attachmentField.attachmentUrl,
-    handleSenderChange,
-    handleTemplateChange,
-    handleToChange,
-    handleSubjectChange,
-    handleBodyChange,
-    handleQuotationChange,
-    handleInvoiceChange,
     handleAttachmentChange: attachmentField.handleAttachmentChange,
     handleAttachmentRemove: attachmentField.handleAttachmentRemove,
     getAttachment,
@@ -274,39 +271,27 @@ const useComposeFields = (): MailComposeFieldState => {
 
 /**
  * Hook sending the compose form through the email endpoint.
- * @returns {{ isSubmitting: boolean; errorMessage?: string; send: (values: MailComposeValues) => Promise<boolean> }} Send state
+ * @returns {MailSendState} - Send state
  */
-const useMailSend = (): {
-  isSubmitting: boolean;
-  errorMessage?: string;
-  send: (values: MailComposeValues) => Promise<boolean>;
-} => {
+export const useMailSend = (): MailSendState => {
   const [sendMail, { isLoading }] = useSendMailMutation();
   const [errorMessage, setErrorMessage] = useState<string>();
 
   /**
    * Send the mail.
    * @param {MailComposeValues} values - Validated form values
-   * @returns {Promise<boolean>} Whether the mail was sent
+   * @returns {Promise<boolean>} - Whether the mail was sent
    */
   const send = async (values: MailComposeValues): Promise<boolean> => {
     setErrorMessage(undefined);
 
-    const formData = buildMailSendFormData(
-      values.senderId,
-      values.to,
-      values.subject,
-      values.body,
-      values.attachment,
-      values.template,
-      values.quotation,
-    );
+    const formData = buildMailSendFormData(values.senderId, values.to, values.subject, values.body, values.attachment, values.template, values.quotation);
 
     try {
       const response = await sendMail(formData).unwrap();
 
       if (!response.status) {
-        setErrorMessage(_formatMessages(response.messages));
+        setErrorMessage(formatSendMessages(response.messages));
 
         return false;
       }
@@ -323,79 +308,107 @@ const useMailSend = (): {
 };
 
 /**
+ * Pick the field props the form renders from the field state.
+ * @param {MailComposeFieldState} fields - Field state
+ * @returns {MailFieldProps} - Form field props
+ */
+const _toFieldProps = (fields: MailComposeFieldState): MailFieldProps => ({
+  senderId: fields.senderId,
+  template: fields.template,
+  to: fields.to,
+  subject: fields.subject,
+  body: fields.body,
+  quotationId: fields.quotationId,
+  invoiceId: fields.invoiceId,
+  selectedQuotation: fields.selectedQuotation,
+  selectedInvoice: fields.selectedInvoice,
+  quotationOptions: fields.quotationOptions,
+  invoiceOptions: fields.invoiceOptions,
+  attachmentUrl: fields.attachmentUrl,
+  toError: fields.errors.toError,
+  subjectError: fields.errors.subjectError,
+  bodyError: fields.errors.bodyError,
+  attachmentError: fields.errors.attachmentError,
+  handleSenderChange: fields.handleSenderChange,
+  handleTemplateChange: fields.handleTemplateChange,
+  handleToChange: fields.handleToChange,
+  handleSubjectChange: fields.handleSubjectChange,
+  handleBodyChange: fields.handleBodyChange,
+  handleQuotationChange: fields.handleQuotationChange,
+  handleInvoiceChange: fields.handleInvoiceChange,
+  handleAttachmentChange: fields.handleAttachmentChange,
+  handleAttachmentRemove: fields.handleAttachmentRemove,
+});
+
+/**
+ * Pick the status props the form renders from sender and send state.
+ * @param {MailComposeFieldState} fields - Field state
+ * @param {MailSenderOptionsState} senderState - Sender state
+ * @param {MailSendState} submission - Send state
+ * @returns {MailStatusProps} - Form status props
+ */
+const _toStatusProps = (fields: MailComposeFieldState, senderState: MailSenderOptionsState, submission: MailSendState): MailStatusProps => ({
+  templateOptions: MAIL_CONFIG.TEMPLATE_OPTIONS,
+  attachmentName: fields.attachment?.name ?? "",
+  senderOptions: senderState.senderOptions,
+  isSenderLoading: senderState.isSenderLoading,
+  senderError: senderState.senderError ?? fields.errors.senderError,
+  isSubmitting: submission.isSubmitting,
+  errorMessage: submission.errorMessage,
+});
+
+/**
+ * Hook building the compose form submit handler.
+ * @param {MailComposeFieldState} fields - Field state
+ * @param {MailSendState} submission - Send state
+ * @param {MailNavigate} navigate - Router navigate
+ * @returns {(event: SyntheticEvent) => Promise<void>} - Submit handler
+ */
+export const useMailSubmit = (
+  fields: MailComposeFieldState,
+  submission: MailSendState,
+  navigate: MailNavigate,
+): ((event: SyntheticEvent) => Promise<void>) => async (event: SyntheticEvent): Promise<void> => {
+  event.preventDefault();
+
+  if (!fields.validate()) {
+    return;
+  }
+
+  const payload: MailComposeValues = {
+    senderId: fields.senderId,
+    template: fields.template,
+    to: fields.to,
+    subject: fields.subject,
+    body: fields.body,
+    attachment: await fields.getAttachment(),
+    quotation: fields.quotation,
+    invoice: fields.invoice,
+  };
+
+  if (await submission.send(payload)) {
+    await navigate("/mail", { state: { successMessage: "Mail sent successfully." } });
+  }
+};
+
+/**
  * Hook managing the mail compose form.
- * @returns {MailComposeFormState} Compose form state
+ * @returns {MailComposeFormState} - Compose form state
  */
 export const useMailCreate = (): MailComposeFormState => {
   const navigate = useNavigate();
   const senderState = useSenderOptions();
   const fields = useComposeFields();
   const submission = useMailSend();
+  const handleSubmit = useMailSubmit(fields, submission, navigate);
 
   /**
-   * Submit the compose form.
-   * @param {SyntheticEvent} event - Form submission event
-   * @returns {Promise<void>} Completion promise
+   * Navigate back to the mail list.
+   * @returns {void} - Nothing
    */
-  const handleSubmit = async (event: SyntheticEvent): Promise<void> => {
-    event.preventDefault();
-
-    if (!fields.validate()) {
-      return;
-    }
-
-    const payload: MailComposeValues = {
-      senderId: fields.senderId,
-      template: fields.template,
-      to: fields.to,
-      subject: fields.subject,
-      body: fields.body,
-      attachment: await fields.getAttachment(),
-      quotation: fields.quotation,
-      invoice: fields.invoice,
-    };
-
-    if (await submission.send(payload)) {
-      navigate("/mail", { state: { successMessage: "Mail sent successfully." } });
-    }
+  const goBack = (): void => {
+    void navigate("/mail");
   };
 
-  return {
-    senderId: fields.senderId,
-    template: fields.template,
-    templateOptions: MAIL_CONFIG.TEMPLATE_OPTIONS,
-    to: fields.to,
-    subject: fields.subject,
-    body: fields.body,
-    quotationId: fields.quotationId,
-    quotationOptions: fields.quotationOptions,
-    invoiceId: fields.invoiceId,
-    invoiceOptions: fields.invoiceOptions,
-    selectedQuotation: fields.selectedQuotation,
-    selectedInvoice: fields.selectedInvoice,
-    attachmentName: fields.attachment?.name ?? "",
-    attachmentUrl: fields.attachmentUrl,
-    senderOptions: senderState.senderOptions,
-    isSenderLoading: senderState.isSenderLoading,
-    senderError: senderState.senderError ?? fields.errors.senderError,
-    isSubmitting: submission.isSubmitting,
-    errorMessage: submission.errorMessage,
-    toError: fields.errors.toError,
-    subjectError: fields.errors.subjectError,
-    bodyError: fields.errors.bodyError,
-    attachmentError: fields.errors.attachmentError,
-    handleSenderChange: fields.handleSenderChange,
-    handleTemplateChange: fields.handleTemplateChange,
-    handleToChange: fields.handleToChange,
-    handleSubjectChange: fields.handleSubjectChange,
-    handleBodyChange: fields.handleBodyChange,
-    handleQuotationChange: fields.handleQuotationChange,
-    handleInvoiceChange: fields.handleInvoiceChange,
-    handleAttachmentChange: fields.handleAttachmentChange,
-    handleAttachmentRemove: fields.handleAttachmentRemove,
-    handleSubmit,
-    goBack: (): void => {
-      navigate("/mail");
-    },
-  };
+  return { ..._toFieldProps(fields), ..._toStatusProps(fields, senderState, submission), handleSubmit, goBack };
 };

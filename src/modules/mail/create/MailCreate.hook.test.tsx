@@ -1,4 +1,4 @@
-import { act, renderHook, waitFor } from "@testing-library/react";
+import { act, renderHook, waitFor } from "@/libs/unit-test";
 import type { ReactNode } from "react";
 import { MemoryRouter } from "react-router-dom";
 

@@ -1,6 +1,11 @@
 import type { ChangeEvent } from "react";
 
-import type { MailComposeValues,MailCompositeErrors } from "./MailCreate.type";
+import type { ApiMessages } from "@/types/api.type";
+
+import type { EmailSenderOption, MailComposeValues, MailCompositeErrors } from "./MailCreate.type";
+
+import type { ApiInvoice } from "@/modules/invoice/Invoice.type";
+import type { ApiQuotation } from "@/modules/quotation/Quotation.type";
 
 const EMAIL_REGEX = /^[^\s@]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 const PDF_MIME_TYPE = "application/pdf";
@@ -83,3 +88,39 @@ export const isPdfFile = (file: File): boolean => file.type === PDF_MIME_TYPE;
  * @returns {File | undefined} Selected file
  */
 export const getSelectedFile = (event: ChangeEvent<HTMLInputElement>): File | undefined => event.target.files?.[0];
+
+/**
+ * Build quotation select options labelled with number and customer.
+ * @param {ApiQuotation[]} quotations - Quotations
+ * @returns {EmailSenderOption[]} - Select options
+ */
+export const buildQuotationOptions = (quotations: ApiQuotation[]): EmailSenderOption[] =>
+  quotations.map((quotation) => ({
+    label: quotation.transaction?.customer_name ? `${quotation.quotation_no} - ${quotation.transaction.customer_name}` : quotation.quotation_no,
+    value: quotation.id,
+  }));
+
+/**
+ * Build invoice select options labelled with number and customer.
+ * @param {ApiInvoice[]} invoices - Invoices
+ * @returns {EmailSenderOption[]} - Select options
+ */
+export const buildInvoiceOptions = (invoices: ApiInvoice[]): EmailSenderOption[] =>
+  invoices.map((invoice) => {
+    const customerName = invoice.customer?.name ?? invoice.quotation?.transaction?.customer_name;
+
+    return { label: customerName ? `${invoice.invoice_no} - ${customerName}` : invoice.invoice_no, value: invoice.id };
+  });
+
+/**
+ * Format backend messages into a display string.
+ * @param {ApiMessages} [messages] - Backend response messages
+ * @returns {string} - Display message
+ */
+export const formatSendMessages = (messages?: ApiMessages): string => {
+  if (!messages) {
+    return "Unable to send mail. Please try again.";
+  }
+
+  return Array.isArray(messages) ? messages.join(" ") : messages;
+};

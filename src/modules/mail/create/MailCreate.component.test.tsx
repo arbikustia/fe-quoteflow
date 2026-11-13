@@ -1,38 +1,28 @@
-import { describe, expect, it, jest } from "@jest/globals";
-
-import { fireEvent, render, screen } from "@/libs/unit-test";
 import { BrowserRouter } from "react-router-dom";
+
+import { MOCK_MAIL_FORM_PROPS } from "@/fixture/mail";
+import { fireEvent, render, screen } from "@/libs/unit-test";
 
 import { MailCreateForm } from "./MailCreate.component";
 import type { MailComposeFormState } from "./MailCreate.type";
 
+jest.mock("@/components/RichTextEditor", () => ({
+  RichTextEditor: (): React.ReactElement => <div>Editor</div>,
+}));
+
+/**
+ * Build form props with overrides.
+ * @param {Partial<MailComposeFormState>} [overrides] - Prop overrides
+ * @returns {MailComposeFormState} - Form props
+ */
 const buildProps = (overrides: Partial<MailComposeFormState> = {}): MailComposeFormState => ({
+  ...MOCK_MAIL_FORM_PROPS,
   senderId: "",
-  template: "quotation",
   to: "",
   subject: "",
   body: "",
-  quotationId: "",
-  quotationOptions: [{ label: "QUOT20261107151923", value: "q-1" }],
   attachmentName: "",
   attachmentUrl: "",
-  senderOptions: [{ label: "sales@example.com", value: "sales@example.com" }],
-  templateOptions: [
-    { label: "Quotation", value: "quotation" },
-    { label: "Invoice", value: "invoice" },
-  ],
-  isSenderLoading: false,
-  isSubmitting: false,
-  handleSenderChange: jest.fn(),
-  handleTemplateChange: jest.fn(),
-  handleToChange: jest.fn(),
-  handleSubjectChange: jest.fn(),
-  handleBodyChange: jest.fn(),
-  handleQuotationChange: jest.fn(),
-  handleAttachmentChange: jest.fn(),
-  handleAttachmentRemove: jest.fn(),
-  handleSubmit: jest.fn(),
-  goBack: jest.fn(),
   ...overrides,
 });
 
@@ -52,7 +42,7 @@ describe("MailCreateForm", () => {
     expect(screen.getByLabelText("Template", { exact: true })).toBeDefined();
     expect(screen.getByLabelText(/To/)).toBeDefined();
     expect(screen.getByLabelText(/Subject/)).toBeDefined();
-    expect(screen.getByLabelText(/Body/)).toBeDefined();
+    expect(screen.getByText("Editor")).toBeDefined();
     expect(screen.getByLabelText(/Quotation Attachment/)).toBeDefined();
   });
 
