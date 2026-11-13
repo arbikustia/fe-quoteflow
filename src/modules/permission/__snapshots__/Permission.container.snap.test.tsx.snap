@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`PermissionContainer snapshot PermissionContainer Snapshots should render the permission component 1`] = `
+<DocumentFragment>
+  <div>
+    Permission rendered
+  </div>
+</DocumentFragment>
+`;

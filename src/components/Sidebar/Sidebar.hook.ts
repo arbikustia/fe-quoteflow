@@ -1,11 +1,11 @@
 import { useCallback, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 
+import { useCreateActivityLogMutation } from "@/services/activity-log.service";
+
 import { NAVIGATION_CONFIG } from "./Sidebar.config";
 import { getInitialOpenMenus, getUsername } from "./Sidebar.helpers";
 import type { LogoutState, SidebarState } from "./Sidebar.type";
-
-import { useCreateActivityLogMutation } from "@/services/activity-log.service";
 
 /**
  * Manage sidebar navigation and profile state.

@@ -1,13 +1,12 @@
 import * as React from "react";
 import { Link } from "react-router-dom";
 
+import { isMenuItemActive, isNavigationChildActive } from "./Sidebar.helpers";
+import type { NavigationChild, SidebarItemProps, SidebarLogoProps, SidebarNavigationProps, SidebarProfileProps, SidebarRenderProps } from "./Sidebar.type";
+import { Icons } from "../Icons";
 import LogoCollapsed from "../../assets/logo.png";
 import SoniclineDarkLogo from "../../assets/Sonicline-dark.png";
 import SoniclineLightLogo from "../../assets/Sonicline-light.png";
-import { Icons } from "../Icons";
-
-import { isMenuItemActive, isNavigationChildActive } from "./Sidebar.helpers";
-import type { NavigationChild, SidebarItemProps, SidebarLogoProps, SidebarNavigationProps, SidebarProfileProps, SidebarRenderProps } from "./Sidebar.type";
 
 /**
  * Render item badge.

@@ -32,6 +32,11 @@ export type PermissionRow = {
 
 export type PermissionAction = "view" | "create" | "edit";
 
+export type PermissionBadgeClass = {
+  action: PermissionAction;
+  className: string;
+};
+
 export type PermissionFormPage = {
   menu: string;
   number: number;
@@ -41,34 +46,57 @@ export type PermissionFormPage = {
   permission: PermissionAction[];
 };
 
+export type PermissionPayloadMenu = {
+  menu: string;
+  number: number;
+  pages: ApiPermissionPage[];
+};
+
 export type PermissionPayload = {
   username: string;
-  menus: Array<{
-    menu: string;
-    number: number;
-    pages: ApiPermissionPage[];
-  }>;
+  menus: PermissionPayloadMenu[];
+};
+
+export type PermissionCounts = {
+  selected: number;
+  total: number;
+};
+
+export type PermissionRouteState = {
+  message?: string;
+};
+
+export type PermissionNavigateOptions = {
+  state: PermissionRouteState;
+};
+
+export type PermissionNavigate = (path: string, options?: PermissionNavigateOptions) => void | Promise<void>;
+
+export type PermissionUsersState = {
+  userOptions: SelectOption[];
+  isLoadingUsers: boolean;
+  isUsersError: boolean;
+  onUserSearch: (username: string) => void;
+};
+
+export type PermissionRowsState = {
+  rows: PermissionRow[];
+  isLoadingPermission: boolean;
+  isPermissionError: boolean;
 };
 
 export type PermissionState = {
   selectedUsername: string;
   userOptions: SelectOption[];
   rows: PermissionRow[];
-  formPages: PermissionFormPage[];
-  isFormOpen: boolean;
   isLoadingUsers: boolean;
   isLoadingPermission: boolean;
-  isSubmitting: boolean;
   errorMessage?: string;
   formMessage?: string;
   isEmpty: boolean;
-  searchTerm: string;
   onUsernameChange: (username: string) => void;
   onUserSearch: (username: string) => void;
   onSearchChange: (searchTerm: string) => void;
   onOpenForm: () => void;
-  onCloseForm: () => void;
-  onPermissionChange: (url: string, permission: PermissionAction, checked: boolean) => void;
-  onSubmit: () => void;
   onBack: () => void;
 };

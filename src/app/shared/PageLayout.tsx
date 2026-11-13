@@ -1,7 +1,8 @@
 import * as React from "react";
 
-import type { PageLayoutAction, PageLayoutProps } from "./PageLayout.type";
 import { BackButton } from "@/components/BackButton";
+
+import type { PageLayoutAction, PageLayoutProps } from "./PageLayout.type";
 
 /**
  * Render action menu items.

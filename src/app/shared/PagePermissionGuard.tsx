@@ -3,7 +3,8 @@ import { Navigate, useLocation } from "react-router-dom";
 
 import { useAllPermissions, usePagePermission } from "@/hooks/usePagePermission";
 
-import { flattenPermissionMenus } from "@/modules/permission/Permission.helpers";
+import type { ApiPermissionMenu } from "@/modules/permission/Permission.type";
+import { flattenPermissionMenus } from "@/modules/permission/Permission.util";
 
 import type { PagePermissionGuardProps } from "./PagePermissionGuard.type";
 

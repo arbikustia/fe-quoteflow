@@ -1,9 +1,9 @@
 import * as React from "react";
 
+import { flattenPermissionMenus } from "@/modules/permission/Permission.util";
 import { useGetAllRolesQuery } from "@/services/master-role.service";
 import { useGetUsersQuery } from "@/services/master-user.service";
 import { useGetUserPermissionQuery } from "@/services/permission.service";
-import { flattenPermissionMenus } from "@/modules/permission/Permission.helpers";
 
 import { SidebarComponent } from "./Sidebar.component";
 import { NAVIGATION_SECTIONS } from "./Sidebar.config";

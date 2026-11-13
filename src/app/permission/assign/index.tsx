@@ -1,1 +1,1 @@
-export { default } from "../../../modules/permission/assign";
+export { default } from "@/modules/permission/assign";

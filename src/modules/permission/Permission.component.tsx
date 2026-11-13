@@ -5,40 +5,24 @@ import { Select } from "@/components/Select/Select.component";
 import type { TableColumn } from "@/components/Table";
 import Table from "@/components/Table";
 
+import { createSearchChangeHandler, getPermissionRowKey, renderMenu, renderPage, renderPermissions, renderUrl } from "./Permission.helper";
+import type { PermissionRow, PermissionState } from "./Permission.type";
+
 import Layout from "@/app/layout";
 import { PageLayout } from "@/app/shared/PageLayout";
 
-import { DEFAULT_PERMISSION_BADGE_CLASS, PERMISSION_BADGE_CLASSES } from "./Permission.config";
-import type { PermissionRow, PermissionState } from "./Permission.type";
-
-/** Render permissions as badges. */
-const _renderPermissions = (row: PermissionRow): React.ReactElement => (
-  <div className="flex flex-wrap gap-2">
-    {row.permission.map((permission) => (
-      <span key={permission} className={`rounded-full border px-3 py-1 text-sm font-semibold ${PERMISSION_BADGE_CLASSES.find((badge) => badge.action === permission)?.className ?? DEFAULT_PERMISSION_BADGE_CLASS}`}>
-        {permission}
-      </span>
-    ))}
-  </div>
-);
-
-/** Render menu value. */
-const _renderMenu = (row: PermissionRow): React.ReactElement => <span className="text-lg font-medium">{row.menu}</span>;
-
-/** Render page value. */
-const _renderPage = (row: PermissionRow): React.ReactElement => <span className="text-lg">{row.page}</span>;
-
-/** Render URL value. */
-const _renderUrl = (row: PermissionRow): React.ReactElement => <code className="text-base text-text-secondary">{row.url}</code>;
-
 const COLUMNS: TableColumn<PermissionRow>[] = [
-  { key: "menu", header: "Menu", render: _renderMenu },
-  { key: "page", header: "Page", render: _renderPage },
-  { key: "url", header: "URL", render: _renderUrl },
-  { key: "permission", header: "Permission", render: _renderPermissions },
+  { key: "menu", header: "Menu", render: renderMenu },
+  { key: "page", header: "Page", render: renderPage },
+  { key: "url", header: "URL", render: renderUrl },
+  { key: "permission", header: "Permission", render: renderPermissions },
 ];
 
-/** Render permission table state. */
+/**
+ * Render the permission table or its empty, loading and error states.
+ * @param {PermissionState} props - Permission page props
+ * @returns {React.ReactElement} - Table content
+ */
 const _renderTableContent = (props: PermissionState): React.ReactElement => {
   if (!props.selectedUsername) {
     return <p className="py-10 text-center text-lg text-text-tertiary">Select a user to view permissions.</p>;
@@ -56,15 +40,15 @@ const _renderTableContent = (props: PermissionState): React.ReactElement => {
     return <p className="py-10 text-center text-lg text-text-tertiary">No permissions found.</p>;
   }
 
-  return <Table data={props.rows} columns={COLUMNS} keyExtractor={(row: PermissionRow): string => row.id} />;
+  return <Table data={props.rows} columns={COLUMNS} keyExtractor={getPermissionRowKey} />;
 };
 
-/** Render user selection and permission search form. */
-const _renderAssignForm = (props: PermissionState): React.ReactElement => {
-  /** Handle permission search input. */
-  const handleSearch = (event: React.ChangeEvent<HTMLInputElement>): void => props.onSearchChange(event.target.value);
-
-  return (
+/**
+ * Render user selection, permission search and the assign trigger.
+ * @param {PermissionState} props - Permission page props
+ * @returns {React.ReactElement} - Toolbar
+ */
+const _renderAssignForm = (props: PermissionState): React.ReactElement => (
     <div className="flex flex-col gap-4 border-b border-border-default py-6 md:flex-row md:items-end">
       <Select
         id="permission-user"
@@ -82,7 +66,7 @@ const _renderAssignForm = (props: PermissionState): React.ReactElement => {
       />
       <SearchFilter
         placeholder="Search permission"
-        onChange={handleSearch}
+        onChange={createSearchChangeHandler(props.onSearchChange)}
         isRoundedFull={true}
         className="w-full md:max-w-md"
         inputClassName="text-lg placeholder:text-lg"
@@ -95,8 +79,7 @@ const _renderAssignForm = (props: PermissionState): React.ReactElement => {
         Assign Permission
       </button>
     </div>
-  );
-};
+);
 
 /**
  * Render permission page.

@@ -1,13 +1,12 @@
 import * as React from "react";
 import { useNavigate } from "react-router-dom";
 
-import type { GlobalHeaderProps } from "./GlobalHeader.type";
 import { getGreeting } from "./GlobalHeader.helpers";
 import { useMobileProfileHeaderState } from "./GlobalHeader.hook";
-
+import type { GlobalHeaderProps } from "./GlobalHeader.type";
+import ConfirmModal from "../../components/ConfirmModal";
 import Drawer from "../../components/Drawer";
 import { Icons } from "../../components/Icons";
-import ConfirmModal from "../../components/ConfirmModal";
 import { getUsername } from "../../components/Sidebar/Sidebar.helpers";
 import { useTheme } from "../../store/theme.hook";
 

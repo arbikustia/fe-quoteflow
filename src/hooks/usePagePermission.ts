@@ -8,8 +8,8 @@ import {
   normalizeUserRoles,
 } from "@/components/Sidebar/Sidebar.helpers";
 
-import { checkPermission, flattenPermissionMenus } from "@/modules/permission/Permission.helpers";
 import type { ApiPermissionMenu } from "@/modules/permission/Permission.type";
+import { checkPermission, flattenPermissionMenus } from "@/modules/permission/Permission.util";
 import { useGetAllRolesQuery } from "@/services/master-role.service";
 import { useGetUsersQuery } from "@/services/master-user.service";
 import { useGetUserPermissionQuery } from "@/services/permission.service";

@@ -1,104 +1,86 @@
 import { useMemo, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
+
+import { PERMISSION_ALL_USERS, PERMISSION_USER_PAGE_SIZE } from "./Permission.config";
+import type { PermissionRouteState, PermissionRowsState, PermissionState, PermissionUsersState } from "./Permission.type";
+import { buildUserOptions, filterPermissionRows, flattenPermissionMenus, getPermissionErrorMessage } from "./Permission.util";
 
 import { useGetUsersQuery } from "@/services/master-user.service";
-import { useGetUserPermissionQuery, useSaveUserPermissionMutation } from "@/services/permission.service";
+import { useGetUserPermissionQuery } from "@/services/permission.service";
 
-import { buildPermissionPayload, getPermissionPages } from "./Permission.form";
-import { filterPermissionRows, flattenPermissionMenus } from "./Permission.helpers";
-import type { PermissionAction, PermissionFormPage, PermissionState } from "./Permission.type";
+/**
+ * Load the user select options with a remote search term.
+ * @returns {PermissionUsersState} - User options state
+ */
+export const usePermissionUsers = (): PermissionUsersState => {
+  const [userSearchTerm, setUserSearchTerm] = useState("");
+  const usersQuery = useGetUsersQuery({ PageNumber: 1, PageSize: PERMISSION_USER_PAGE_SIZE, SearchTerm: userSearchTerm || undefined });
+  const userOptions = useMemo(() => buildUserOptions(usersQuery.data?.data ?? []), [usersQuery.data]);
 
-/** Merge current API permissions into sidebar page definitions. */
-const _mergePermissions = (pages: PermissionFormPage[], rows: PermissionState["rows"]): PermissionFormPage[] => pages.map((page) => {
-  const current = rows.find((row) => row.url === page.url);
-  const permission = page.actions.filter((action) => current?.permission.includes(action));
+  return { userOptions, isLoadingUsers: usersQuery.isLoading, isUsersError: usersQuery.isError, onUserSearch: setUserSearchTerm };
+};
 
-  return { ...page, permission };
-});
+/**
+ * Load the permission rows of a user, filtered by a search term.
+ * @param {string} username - Selected username
+ * @param {string} searchTerm - Row search term
+ * @returns {PermissionRowsState} - Permission rows state
+ */
+export const usePermissionRows = (username: string, searchTerm: string): PermissionRowsState => {
+  const permissionQuery = useGetUserPermissionQuery(username, { skip: !username });
+  const menus = permissionQuery.data?.status ? permissionQuery.data.data?.menus : undefined;
+  const allRows = useMemo(() => flattenPermissionMenus(menus ?? []), [menus]);
+  const rows = useMemo(() => filterPermissionRows(allRows, searchTerm), [allRows, searchTerm]);
 
-/** Manage permission page data, form, and filters. */
+  return {
+    rows,
+    isLoadingPermission: permissionQuery.isLoading,
+    isPermissionError: permissionQuery.isError || permissionQuery.data?.status === false,
+  };
+};
+
+/**
+ * Manage the permission list page: user selection, rows and navigation.
+ * @returns {PermissionState} - Permission page state
+ */
 export const usePermissionState = (): PermissionState => {
   const navigate = useNavigate();
+  const routeState = useLocation().state as PermissionRouteState | null;
   const [selectedUsername, setSelectedUsername] = useState("");
-  const [userSearchTerm, setUserSearchTerm] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
-  const [isFormOpen, setIsFormOpen] = useState(false);
-  const [formPages, setFormPages] = useState<PermissionFormPage[]>(getPermissionPages);
-  const [formMessage, setFormMessage] = useState<string>();
-  const usersQuery = useGetUsersQuery({ PageNumber: 1, PageSize: 100, SearchTerm: userSearchTerm || undefined });
-  const permissionQuery = useGetUserPermissionQuery(selectedUsername, { skip: !selectedUsername });
-  const [savePermission, saveState] = useSaveUserPermissionMutation();
-  const userOptions = useMemo(() => (usersQuery.data?.data ?? [])
-    .filter((user) => Boolean(user.username))
-    .map((user) => ({ label: user.username ?? "", value: user.username ?? "" })), [usersQuery.data]);
-  const permissionRows = useMemo(() => (
-    permissionQuery.data?.status && permissionQuery.data.data
-      ? flattenPermissionMenus(permissionQuery.data.data.menus)
-      : []
-  ), [permissionQuery.data]);
-  const rows = useMemo(() => filterPermissionRows(permissionRows, searchTerm), [permissionRows, searchTerm]);
-  let errorMessage: string | undefined;
+  const users = usePermissionUsers();
+  const permission = usePermissionRows(selectedUsername, searchTerm);
+  const errorMessage = getPermissionErrorMessage(users.isUsersError, permission.isPermissionError);
 
-  if (usersQuery.isError) errorMessage = "Unable to load users.";
-  else if (permissionQuery.isError || permissionQuery.data?.status === false) errorMessage = "Unable to load permissions.";
-
-  const onUsernameChange = (username: string): void => {
-    setSelectedUsername(username);
-    setIsFormOpen(false);
-    setFormMessage(undefined);
+  /**
+   * Open the assign page for the selected user, or all users.
+   * @returns {void} - Nothing
+   */
+  const onOpenForm = (): void => {
+    void navigate(`/permission/assign/${selectedUsername || PERMISSION_ALL_USERS}`);
   };
 
-  const onOpenAssign = (): void => {
-    navigate(`/permission/assign/${selectedUsername || "all"}`);
-  };
-
-  const onPermissionChange = (url: string, permission: PermissionAction, checked: boolean): void => {
-    setFormPages((current) => current.map((page) => {
-      if (page.url !== url) return page;
-      const permissions = checked
-        ? [...page.permission, permission].filter((action, index, actions) => actions.indexOf(action) === index)
-        : page.permission.filter((action) => action !== permission);
-
-      return { ...page, permission: permissions };
-    }));
-  };
-
-  const onSubmit = (): void => {
-    if (!selectedUsername) return;
-
-    void (async (): Promise<void> => {
-      setFormMessage(undefined);
-      try {
-        const response = await savePermission(buildPermissionPayload(selectedUsername, formPages)).unwrap();
-        if (!response.status) throw new Error("Save rejected");
-        setFormMessage("Permissions saved successfully.");
-        setIsFormOpen(false);
-      } catch {
-        setFormMessage("Unable to save permissions.");
-      }
-    })();
+  /**
+   * Navigate back to the dashboard.
+   * @returns {void} - Nothing
+   */
+  const onBack = (): void => {
+    void navigate("/home");
   };
 
   return {
     selectedUsername,
-    userOptions,
-    rows,
-    formPages,
-    isFormOpen,
-    isLoadingUsers: usersQuery.isLoading,
-    isLoadingPermission: permissionQuery.isLoading,
-    isSubmitting: saveState.isLoading,
+    userOptions: users.userOptions,
+    rows: permission.rows,
+    isLoadingUsers: users.isLoadingUsers,
+    isLoadingPermission: permission.isLoadingPermission,
     errorMessage,
-    formMessage,
-    isEmpty: Boolean(selectedUsername) && !permissionQuery.isLoading && !errorMessage && rows.length === 0,
-    searchTerm,
-    onUsernameChange,
-    onUserSearch: setUserSearchTerm,
+    formMessage: routeState?.message,
+    isEmpty: Boolean(selectedUsername) && !permission.isLoadingPermission && !errorMessage && permission.rows.length === 0,
+    onUsernameChange: setSelectedUsername,
+    onUserSearch: users.onUserSearch,
     onSearchChange: setSearchTerm,
-    onOpenForm: onOpenAssign,
-    onCloseForm: (): void => setIsFormOpen(false),
-    onPermissionChange,
-    onSubmit,
-    onBack: (): void => navigate("/home"),
+    onOpenForm,
+    onBack,
   };
 };

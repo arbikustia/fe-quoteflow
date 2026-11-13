@@ -1,0 +1,556 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`PermissionAssignComponent snapshot PermissionAssignComponent Snapshots should render the permission matrix 1`] = `
+<DocumentFragment>
+  <div>
+    <div>
+      <div
+        class="relative flex h-full flex-col bg-background-page px-0 pb-18 lg:-mt-4 lg:bg-transparent lg:px-0 lg:pb-0"
+      >
+        <section
+          aria-label="Permission form"
+          class="mt-2 rounded-3xl border border-border-default bg-background-surface p-5 shadow-xs md:mt-6 md:p-6"
+        >
+          <div
+            class="mb-5 flex items-center justify-between gap-4"
+          >
+            <div>
+              <h2
+                class="text-2xl font-semibold text-text-primary"
+              >
+                Assign Permission
+              </h2>
+              <div
+                data-testid="user-select"
+              />
+            </div>
+            <label
+              class="ant-checkbox-wrapper css-var-root ant-checkbox-css-var css-dev-only-do-not-override-eofgey"
+            >
+              <span
+                class="ant-checkbox ant-checkbox-indeterminate ant-wave-target css-dev-only-do-not-override-eofgey"
+              >
+                <input
+                  aria-label="Select all permissions"
+                  class="ant-checkbox-input"
+                  id="permission-select-all"
+                  type="checkbox"
+                />
+              </span>
+              <span
+                class="ant-checkbox-label"
+              >
+                Select all
+              </span>
+            </label>
+          </div>
+          <div
+            class="overflow-x-auto"
+          >
+            <table
+              class="w-full border-collapse text-left"
+            >
+              <thead>
+                <tr
+                  class="border-b border-border-default"
+                >
+                  <th
+                    class="p-3"
+                  >
+                    Menu
+                  </th>
+                  <th
+                    class="p-3"
+                  >
+                    Page
+                  </th>
+                  <th
+                    class="p-3"
+                  >
+                    URL
+                  </th>
+                  <th
+                    class="p-3"
+                  >
+                    Permission
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr
+                  class="border-b border-border-default last:border-0"
+                >
+                  <td
+                    class="p-3 font-medium"
+                  >
+                    Dashboard
+                  </td>
+                  <td
+                    class="p-3"
+                  >
+                    Dashboard
+                  </td>
+                  <td
+                    class="p-3"
+                  >
+                    <code
+                      class="text-text-secondary"
+                    >
+                      /home
+                    </code>
+                  </td>
+                  <td
+                    class="p-3"
+                  >
+                    <div
+                      class="flex flex-wrap gap-4"
+                    >
+                      <label
+                        class="ant-checkbox-wrapper css-var-root ant-checkbox-css-var css-dev-only-do-not-override-eofgey"
+                      >
+                        <span
+                          class="ant-checkbox ant-wave-target css-dev-only-do-not-override-eofgey"
+                        >
+                          <input
+                            aria-label="Select all Dashboard permissions"
+                            class="ant-checkbox-input"
+                            type="checkbox"
+                          />
+                        </span>
+                        <span
+                          class="ant-checkbox-label"
+                        >
+                          All
+                        </span>
+                      </label>
+                      <label
+                        class="ant-checkbox-wrapper css-var-root ant-checkbox-css-var css-dev-only-do-not-override-eofgey"
+                      >
+                        <span
+                          class="ant-checkbox ant-wave-target css-dev-only-do-not-override-eofgey"
+                        >
+                          <input
+                            aria-label="Dashboard view"
+                            class="ant-checkbox-input"
+                            type="checkbox"
+                          />
+                        </span>
+                        <span
+                          class="ant-checkbox-label"
+                        >
+                          view
+                        </span>
+                      </label>
+                    </div>
+                  </td>
+                </tr>
+                <tr
+                  class="border-b border-border-default last:border-0"
+                >
+                  <td
+                    class="p-3 font-medium"
+                  >
+                    Document
+                  </td>
+                  <td
+                    class="p-3"
+                  >
+                    Quotation
+                  </td>
+                  <td
+                    class="p-3"
+                  >
+                    <code
+                      class="text-text-secondary"
+                    >
+                      /quotation
+                    </code>
+                  </td>
+                  <td
+                    class="p-3"
+                  >
+                    <div
+                      class="flex flex-wrap gap-4"
+                    >
+                      <label
+                        class="ant-checkbox-wrapper css-var-root ant-checkbox-css-var css-dev-only-do-not-override-eofgey"
+                      >
+                        <span
+                          class="ant-checkbox ant-checkbox-indeterminate ant-wave-target css-dev-only-do-not-override-eofgey"
+                        >
+                          <input
+                            aria-label="Select all Quotation permissions"
+                            class="ant-checkbox-input"
+                            type="checkbox"
+                          />
+                        </span>
+                        <span
+                          class="ant-checkbox-label"
+                        >
+                          All
+                        </span>
+                      </label>
+                      <label
+                        class="ant-checkbox-wrapper ant-checkbox-wrapper-checked css-var-root ant-checkbox-css-var css-dev-only-do-not-override-eofgey"
+                      >
+                        <span
+                          class="ant-checkbox ant-wave-target css-dev-only-do-not-override-eofgey ant-checkbox-checked"
+                        >
+                          <input
+                            aria-label="Quotation view"
+                            checked=""
+                            class="ant-checkbox-input"
+                            type="checkbox"
+                          />
+                        </span>
+                        <span
+                          class="ant-checkbox-label"
+                        >
+                          view
+                        </span>
+                      </label>
+                      <label
+                        class="ant-checkbox-wrapper css-var-root ant-checkbox-css-var css-dev-only-do-not-override-eofgey"
+                      >
+                        <span
+                          class="ant-checkbox ant-wave-target css-dev-only-do-not-override-eofgey"
+                        >
+                          <input
+                            aria-label="Quotation create"
+                            class="ant-checkbox-input"
+                            type="checkbox"
+                          />
+                        </span>
+                        <span
+                          class="ant-checkbox-label"
+                        >
+                          create
+                        </span>
+                      </label>
+                      <label
+                        class="ant-checkbox-wrapper css-var-root ant-checkbox-css-var css-dev-only-do-not-override-eofgey"
+                      >
+                        <span
+                          class="ant-checkbox ant-wave-target css-dev-only-do-not-override-eofgey"
+                        >
+                          <input
+                            aria-label="Quotation edit"
+                            class="ant-checkbox-input"
+                            type="checkbox"
+                          />
+                        </span>
+                        <span
+                          class="ant-checkbox-label"
+                        >
+                          edit
+                        </span>
+                      </label>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div
+            class="mt-6 flex justify-between"
+          >
+            <button
+              class="h-12 rounded-2xl border border-border-default px-6 font-semibold text-text-secondary hover:bg-background-subtle"
+              type="button"
+            >
+              Cancel
+            </button>
+            <button
+              class="h-12 rounded-2xl bg-action-primary px-6 font-semibold text-text-inverse disabled:opacity-50"
+              type="button"
+            >
+              Save Permission
+            </button>
+          </div>
+        </section>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`PermissionAssignComponent snapshot PermissionAssignComponent Snapshots should render the saving state with an error 1`] = `
+<DocumentFragment>
+  <div>
+    <div>
+      <div
+        class="relative flex h-full flex-col bg-background-page px-0 pb-18 lg:-mt-4 lg:bg-transparent lg:px-0 lg:pb-0"
+      >
+        <section
+          aria-label="Permission form"
+          class="mt-2 rounded-3xl border border-border-default bg-background-surface p-5 shadow-xs md:mt-6 md:p-6"
+        >
+          <div
+            class="mb-5 flex items-center justify-between gap-4"
+          >
+            <div>
+              <h2
+                class="text-2xl font-semibold text-text-primary"
+              >
+                Assign Permission
+              </h2>
+              <div
+                data-testid="user-select"
+              />
+            </div>
+            <label
+              class="ant-checkbox-wrapper css-var-root ant-checkbox-css-var css-dev-only-do-not-override-eofgey"
+            >
+              <span
+                class="ant-checkbox ant-checkbox-indeterminate ant-wave-target css-dev-only-do-not-override-eofgey"
+              >
+                <input
+                  aria-label="Select all permissions"
+                  class="ant-checkbox-input"
+                  id="permission-select-all"
+                  type="checkbox"
+                />
+              </span>
+              <span
+                class="ant-checkbox-label"
+              >
+                Select all
+              </span>
+            </label>
+          </div>
+          <div
+            class="overflow-x-auto"
+          >
+            <table
+              class="w-full border-collapse text-left"
+            >
+              <thead>
+                <tr
+                  class="border-b border-border-default"
+                >
+                  <th
+                    class="p-3"
+                  >
+                    Menu
+                  </th>
+                  <th
+                    class="p-3"
+                  >
+                    Page
+                  </th>
+                  <th
+                    class="p-3"
+                  >
+                    URL
+                  </th>
+                  <th
+                    class="p-3"
+                  >
+                    Permission
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr
+                  class="border-b border-border-default last:border-0"
+                >
+                  <td
+                    class="p-3 font-medium"
+                  >
+                    Dashboard
+                  </td>
+                  <td
+                    class="p-3"
+                  >
+                    Dashboard
+                  </td>
+                  <td
+                    class="p-3"
+                  >
+                    <code
+                      class="text-text-secondary"
+                    >
+                      /home
+                    </code>
+                  </td>
+                  <td
+                    class="p-3"
+                  >
+                    <div
+                      class="flex flex-wrap gap-4"
+                    >
+                      <label
+                        class="ant-checkbox-wrapper css-var-root ant-checkbox-css-var css-dev-only-do-not-override-eofgey"
+                      >
+                        <span
+                          class="ant-checkbox ant-wave-target css-dev-only-do-not-override-eofgey"
+                        >
+                          <input
+                            aria-label="Select all Dashboard permissions"
+                            class="ant-checkbox-input"
+                            type="checkbox"
+                          />
+                        </span>
+                        <span
+                          class="ant-checkbox-label"
+                        >
+                          All
+                        </span>
+                      </label>
+                      <label
+                        class="ant-checkbox-wrapper css-var-root ant-checkbox-css-var css-dev-only-do-not-override-eofgey"
+                      >
+                        <span
+                          class="ant-checkbox ant-wave-target css-dev-only-do-not-override-eofgey"
+                        >
+                          <input
+                            aria-label="Dashboard view"
+                            class="ant-checkbox-input"
+                            type="checkbox"
+                          />
+                        </span>
+                        <span
+                          class="ant-checkbox-label"
+                        >
+                          view
+                        </span>
+                      </label>
+                    </div>
+                  </td>
+                </tr>
+                <tr
+                  class="border-b border-border-default last:border-0"
+                >
+                  <td
+                    class="p-3 font-medium"
+                  >
+                    Document
+                  </td>
+                  <td
+                    class="p-3"
+                  >
+                    Quotation
+                  </td>
+                  <td
+                    class="p-3"
+                  >
+                    <code
+                      class="text-text-secondary"
+                    >
+                      /quotation
+                    </code>
+                  </td>
+                  <td
+                    class="p-3"
+                  >
+                    <div
+                      class="flex flex-wrap gap-4"
+                    >
+                      <label
+                        class="ant-checkbox-wrapper css-var-root ant-checkbox-css-var css-dev-only-do-not-override-eofgey"
+                      >
+                        <span
+                          class="ant-checkbox ant-checkbox-indeterminate ant-wave-target css-dev-only-do-not-override-eofgey"
+                        >
+                          <input
+                            aria-label="Select all Quotation permissions"
+                            class="ant-checkbox-input"
+                            type="checkbox"
+                          />
+                        </span>
+                        <span
+                          class="ant-checkbox-label"
+                        >
+                          All
+                        </span>
+                      </label>
+                      <label
+                        class="ant-checkbox-wrapper ant-checkbox-wrapper-checked css-var-root ant-checkbox-css-var css-dev-only-do-not-override-eofgey"
+                      >
+                        <span
+                          class="ant-checkbox ant-wave-target css-dev-only-do-not-override-eofgey ant-checkbox-checked"
+                        >
+                          <input
+                            aria-label="Quotation view"
+                            checked=""
+                            class="ant-checkbox-input"
+                            type="checkbox"
+                          />
+                        </span>
+                        <span
+                          class="ant-checkbox-label"
+                        >
+                          view
+                        </span>
+                      </label>
+                      <label
+                        class="ant-checkbox-wrapper css-var-root ant-checkbox-css-var css-dev-only-do-not-override-eofgey"
+                      >
+                        <span
+                          class="ant-checkbox ant-wave-target css-dev-only-do-not-override-eofgey"
+                        >
+                          <input
+                            aria-label="Quotation create"
+                            class="ant-checkbox-input"
+                            type="checkbox"
+                          />
+                        </span>
+                        <span
+                          class="ant-checkbox-label"
+                        >
+                          create
+                        </span>
+                      </label>
+                      <label
+                        class="ant-checkbox-wrapper css-var-root ant-checkbox-css-var css-dev-only-do-not-override-eofgey"
+                      >
+                        <span
+                          class="ant-checkbox ant-wave-target css-dev-only-do-not-override-eofgey"
+                        >
+                          <input
+                            aria-label="Quotation edit"
+                            class="ant-checkbox-input"
+                            type="checkbox"
+                          />
+                        </span>
+                        <span
+                          class="ant-checkbox-label"
+                        >
+                          edit
+                        </span>
+                      </label>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <p
+            class="mt-4 text-sm font-medium text-danger"
+            role="alert"
+          >
+            Unable to save permissions.
+          </p>
+          <div
+            class="mt-6 flex justify-between"
+          >
+            <button
+              class="h-12 rounded-2xl border border-border-default px-6 font-semibold text-text-secondary hover:bg-background-subtle"
+              type="button"
+            >
+              Cancel
+            </button>
+            <button
+              class="h-12 rounded-2xl bg-action-primary px-6 font-semibold text-text-inverse disabled:opacity-50"
+              disabled=""
+              type="button"
+            >
+              Saving…
+            </button>
+          </div>
+        </section>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
