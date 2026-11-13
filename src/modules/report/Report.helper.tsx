@@ -1,10 +1,11 @@
 import type { ReactElement } from "react";
 
-import { formatCurrency } from "@/modules/quotation/detail/QuotationDetail.util";
 import { formatIndonesianDateTime } from "@/utils/date.helpers";
 
 import type { OrderMobileCardProps, ReportOrderData } from "./Report.type";
 import { getOrderCustomerLabel, getOrderEventTitle, getOrderStatusClass, getOrderStatusLabel } from "./Report.util";
+
+import { formatCurrency } from "@/modules/quotation/detail/QuotationDetail.util";
 
 /**
  * Render mobile order identity details.
