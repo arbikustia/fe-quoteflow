@@ -1,0 +1,1824 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`DashboardComponent snapshot DashboardComponent Snapshots should render the chart error state 1`] = `
+<DocumentFragment>
+  <div>
+    <section
+      class="hidden min-h-full bg-background-page lg:block"
+    >
+      <header
+        class="mb-6 flex items-start justify-between gap-6"
+      >
+        <div>
+          <h1
+            class="truncate text-4xl font-semibold leading-tight tracking-tight text-text-primary"
+          >
+            Dashboard
+          </h1>
+          <p
+            class="mt-2 text-sm text-text-secondary"
+          >
+            Monitor quotation, invoice, payment, and voucher performance.
+          </p>
+        </div>
+      </header>
+      <div
+        class="grid grid-cols-4 gap-5"
+      >
+        <div
+          class="rounded-3xl border border-border-default bg-background-surface p-6 shadow-none"
+        >
+          <div
+            class="flex items-start justify-between gap-4"
+          >
+            <div
+              class="flex h-12 w-12 items-center justify-center rounded-2xl bg-action-primary-subtle text-action-primary"
+            >
+              <svg
+                aria-hidden="true"
+                fill="none"
+                height="1em"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+                width="1em"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M4 22h14a2 2 0 0 0 2-2V7l-5-5H6a2 2 0 0 0-2 2v4"
+                />
+                <path
+                  d="M14 2v4a2 2 0 0 0 2 2h4"
+                />
+                <path
+                  d="m3 15 2 2 4-4"
+                />
+              </svg>
+            </div>
+            <span
+              class="text-xs font-semibold uppercase tracking-wider text-text-tertiary"
+            >
+              Quotation
+            </span>
+          </div>
+          <div
+            class="mt-5"
+          >
+            <p
+              class="tabular-nums text-4xl font-bold tracking-tight text-text-primary"
+            >
+              10
+            </p>
+            <p
+              class="mt-1.5 text-sm text-text-secondary"
+            >
+              Active quotation records
+            </p>
+          </div>
+        </div>
+        <div
+          class="rounded-3xl border border-border-default bg-background-surface p-6 shadow-none"
+        >
+          <div
+            class="flex items-start justify-between gap-4"
+          >
+            <div
+              class="flex h-12 w-12 items-center justify-center rounded-2xl bg-information-subtle text-information"
+            >
+              <svg
+                aria-hidden="true"
+                fill="none"
+                height="1em"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+                width="1em"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M4 2v20l2-1 2 1 2-1 2 1 2-1 2 1 2-1 2 1V2l-2 1-2-1-2 1-2-1-2 1-2-1-2 1Z"
+                />
+                <path
+                  d="M14 8H8"
+                />
+                <path
+                  d="M16 12H8"
+                />
+                <path
+                  d="M13 16H8"
+                />
+              </svg>
+            </div>
+            <span
+              class="text-xs font-semibold uppercase tracking-wider text-text-tertiary"
+            >
+              Invoice
+            </span>
+          </div>
+          <div
+            class="mt-5"
+          >
+            <p
+              class="tabular-nums text-4xl font-bold tracking-tight text-text-primary"
+            >
+              5
+            </p>
+            <p
+              class="mt-1.5 text-sm text-text-secondary"
+            >
+              Issued invoice records
+            </p>
+          </div>
+        </div>
+        <div
+          class="rounded-3xl border border-border-default bg-background-surface p-6 shadow-none"
+        >
+          <div
+            class="flex items-start justify-between gap-4"
+          >
+            <div
+              class="flex h-12 w-12 items-center justify-center rounded-2xl bg-success-subtle text-success"
+            >
+              <svg
+                aria-hidden="true"
+                fill="none"
+                height="1em"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+                width="1em"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <rect
+                  height="14"
+                  rx="2"
+                  width="20"
+                  x="2"
+                  y="5"
+                />
+                <line
+                  x1="2"
+                  x2="22"
+                  y1="10"
+                  y2="10"
+                />
+              </svg>
+            </div>
+            <span
+              class="text-xs font-semibold uppercase tracking-wider text-text-tertiary"
+            >
+              Payment
+            </span>
+          </div>
+          <div
+            class="mt-5"
+          >
+            <p
+              class="tabular-nums text-4xl font-bold tracking-tight text-text-primary"
+            >
+              2
+            </p>
+            <p
+              class="mt-1.5 text-sm text-text-secondary"
+            >
+              Recorded payments
+            </p>
+          </div>
+        </div>
+        <div
+          class="rounded-3xl border border-border-default bg-background-surface p-6 shadow-none"
+        >
+          <div
+            class="flex items-start justify-between gap-4"
+          >
+            <div
+              class="flex h-12 w-12 items-center justify-center rounded-2xl bg-accent-50 text-accent-600"
+            >
+              <svg
+                aria-hidden="true"
+                fill="none"
+                height="1em"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+                width="1em"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M3.85 8.62a4 4 0 0 1 4.78-4.77 4 4 0 0 1 6.74 0 4 4 0 0 1 4.78 4.78 4 4 0 0 1 0 6.74 4 4 0 0 1-4.77 4.78 4 4 0 0 1-6.75 0 4 4 0 0 1-4.78-4.77 4 4 0 0 1 0-6.76Z"
+                />
+                <path
+                  d="m15 9-6 6"
+                />
+                <path
+                  d="M9 9h.01"
+                />
+                <path
+                  d="M15 15h.01"
+                />
+              </svg>
+            </div>
+            <span
+              class="text-xs font-semibold uppercase tracking-wider text-text-tertiary"
+            >
+              Voucher
+            </span>
+          </div>
+          <div
+            class="mt-5"
+          >
+            <p
+              class="tabular-nums text-4xl font-bold tracking-tight text-text-primary"
+            >
+              1
+            </p>
+            <p
+              class="mt-1.5 text-sm text-text-secondary"
+            >
+              Available vouchers
+            </p>
+          </div>
+        </div>
+      </div>
+      <div
+        class="mt-6 grid min-h-[calc(100vh-28rem)] grid-cols-3 gap-5"
+      >
+        <div
+          class="col-span-2 h-full rounded-3xl border border-border-default bg-background-surface p-6 shadow-none"
+        >
+          <div
+            class="flex items-start justify-between gap-6 border-b border-border-default pb-4"
+          >
+            <div>
+              <h2
+                class="text-base font-semibold text-text-primary"
+              >
+                Rental order performance
+              </h2>
+              <p
+                class="mt-1 text-sm text-text-secondary"
+              >
+                Rental orders created in the last 7 days.
+              </p>
+            </div>
+          </div>
+          <p
+            class="mt-6 rounded-lg border border-danger bg-danger-subtle px-4 py-3 text-sm text-danger-strong"
+          >
+            Rental order performance unavailable.
+          </p>
+        </div>
+        <div
+          aria-label="Open calendar"
+          class="cursor-pointer rounded-3xl focus:outline-none focus-visible:ring-2 focus-visible:ring-border-focus"
+          role="button"
+          tabindex="0"
+        >
+          calendar
+        </div>
+      </div>
+    </section>
+    <div
+      class="-m-4 pb-28 lg:hidden"
+    >
+      <div
+        class="relative h-64 w-full overflow-hidden"
+      >
+        <img
+          alt=""
+          aria-hidden="true"
+          class="h-full w-full object-cover"
+          src="/src/assets/banner-app.png"
+        />
+      </div>
+      <div
+        class="relative -mt-10 px-4 sm:px-6"
+      >
+        <div
+          class="rounded-2xl border border-border-default bg-background-surface p-4 shadow-medium"
+        >
+          <div
+            class="grid grid-cols-4 gap-x-2 gap-y-6"
+          >
+            <button
+              aria-label="Open Create Order"
+              class="flex flex-col items-center gap-1.5 focus:outline-none"
+              type="button"
+            >
+              <div
+                class="relative flex h-24 w-24 items-center justify-center rounded-3xl border border-border-default bg-action-primary-subtle transition-transform active:scale-95"
+              >
+                <img
+                  alt=""
+                  aria-hidden="true"
+                  class="absolute -top-3 h-28 w-28 object-contain"
+                  src="/src/assets/icon-order-menu.png"
+                />
+              </div>
+              <span
+                class="text-base font-medium text-text-primary text-center leading-tight"
+              >
+                Create Order
+              </span>
+            </button>
+            <button
+              aria-label="Open Document"
+              class="flex flex-col items-center gap-1.5 focus:outline-none"
+              type="button"
+            >
+              <div
+                class="relative flex h-24 w-24 items-center justify-center rounded-3xl border border-border-default bg-background-subtle transition-transform active:scale-95"
+              >
+                <img
+                  alt=""
+                  aria-hidden="true"
+                  class="absolute -top-3 h-28 w-28 object-contain"
+                  src="/src/assets/icon-document-menu.png"
+                />
+              </div>
+              <span
+                class="text-base font-medium text-text-primary text-center leading-tight"
+              >
+                Document
+              </span>
+            </button>
+            <button
+              aria-label="Open Item Checklist"
+              class="flex flex-col items-center gap-1.5 focus:outline-none"
+              type="button"
+            >
+              <div
+                class="relative flex h-24 w-24 items-center justify-center rounded-3xl border border-border-default bg-background-subtle transition-transform active:scale-95"
+              >
+                <img
+                  alt=""
+                  aria-hidden="true"
+                  class="absolute -top-3 h-28 w-28 object-contain"
+                  src="/src/assets/icon-item-checklist-menu.png"
+                />
+              </div>
+              <span
+                class="text-base font-medium text-text-primary text-center leading-tight"
+              >
+                Item Checklist
+              </span>
+            </button>
+            <button
+              aria-label="Open Item Return"
+              class="flex flex-col items-center gap-1.5 focus:outline-none"
+              type="button"
+            >
+              <div
+                class="relative flex h-24 w-24 items-center justify-center rounded-3xl border border-border-default bg-action-primary-subtle transition-transform active:scale-95"
+              >
+                <img
+                  alt=""
+                  aria-hidden="true"
+                  class="absolute -top-3 h-28 w-28 object-contain"
+                  src="/src/assets/icon-return-menu.png"
+                />
+              </div>
+              <span
+                class="text-base font-medium text-text-primary text-center leading-tight"
+              >
+                Item Return
+              </span>
+            </button>
+            <button
+              aria-label="Open Master Data"
+              class="flex flex-col items-center gap-1.5 focus:outline-none"
+              type="button"
+            >
+              <div
+                class="relative flex h-24 w-24 items-center justify-center rounded-3xl border border-border-default bg-background-subtle transition-transform active:scale-95"
+              >
+                <img
+                  alt=""
+                  aria-hidden="true"
+                  class="absolute -top-3 h-28 w-28 object-contain"
+                  src="/src/assets/icon-masterdata-menu.png"
+                />
+              </div>
+              <span
+                class="text-base font-medium text-text-primary text-center leading-tight"
+              >
+                Master Data
+              </span>
+            </button>
+            <button
+              aria-label="Open Mail"
+              class="flex flex-col items-center gap-1.5 focus:outline-none"
+              type="button"
+            >
+              <div
+                class="relative flex h-24 w-24 items-center justify-center rounded-3xl border border-border-default bg-action-primary-subtle transition-transform active:scale-95"
+              >
+                <img
+                  alt=""
+                  aria-hidden="true"
+                  class="absolute -top-3 h-28 w-28 object-contain"
+                  src="/src/assets/icon-email-menu.webp"
+                />
+              </div>
+              <span
+                class="text-base font-medium text-text-primary text-center leading-tight"
+              >
+                Mail
+              </span>
+            </button>
+            <button
+              aria-label="Open Report"
+              class="flex flex-col items-center gap-1.5 focus:outline-none"
+              type="button"
+            >
+              <div
+                class="relative flex h-24 w-24 items-center justify-center rounded-3xl border border-border-default bg-action-primary-subtle transition-transform active:scale-95"
+              >
+                <img
+                  alt=""
+                  aria-hidden="true"
+                  class="absolute -top-3 h-28 w-28 object-contain"
+                  src="/src/assets/icon-report-menu.png"
+                />
+              </div>
+              <span
+                class="text-base font-medium text-text-primary text-center leading-tight"
+              >
+                Report
+              </span>
+            </button>
+            <button
+              aria-label="Open Activity Log"
+              class="flex flex-col items-center gap-1.5 focus:outline-none"
+              type="button"
+            >
+              <div
+                class="relative flex h-24 w-24 items-center justify-center rounded-3xl border border-border-default bg-action-primary-subtle transition-transform active:scale-95"
+              >
+                <img
+                  alt=""
+                  aria-hidden="true"
+                  class="absolute -top-3 h-28 w-28 object-contain"
+                  src="/src/assets/icon-activity-log-menu.png"
+                />
+              </div>
+              <span
+                class="text-base font-medium text-text-primary text-center leading-tight"
+              >
+                Activity Log
+              </span>
+            </button>
+          </div>
+        </div>
+      </div>
+      <div
+        class="mt-10 space-y-10"
+      >
+        <div
+          class="px-4 sm:px-6"
+        >
+          <button
+            aria-label="Lihat voucher promo"
+            class="group relative flex min-h-28 w-full cursor-pointer items-center justify-between overflow-hidden rounded-3xl border border-[#74C919]/40 bg-gradient-to-r from-[#8BE328] via-[#DCF87D] to-[#8BE328] px-4 py-4 text-center shadow-sm transition-all duration-300 hover:shadow-md hover:brightness-105 active:scale-[0.99] sm:min-h-32 sm:px-8 sm:py-5 dark:border-lime-500/30 dark:from-[#173814] dark:via-[#265320] dark:to-[#173814]"
+            type="button"
+          >
+            <div
+              aria-hidden="true"
+              class="pointer-events-none absolute -left-6 -top-6 h-28 w-28 rounded-full bg-[#B8F042]/50 blur-md dark:bg-lime-500/20"
+            />
+            <div
+              aria-hidden="true"
+              class="pointer-events-none absolute -bottom-6 -right-6 h-28 w-28 rounded-full bg-[#B8F042]/50 blur-md dark:bg-lime-500/20"
+            />
+            <div
+              aria-hidden="true"
+              class="pointer-events-none relative z-10 shrink-0 -rotate-12 transition-transform duration-300 group-hover:-rotate-6"
+            >
+              <svg
+                class="h-10 w-12 drop-shadow-md sm:h-12 sm:w-16"
+                fill="none"
+                height="52"
+                viewBox="0 0 68 52"
+                width="68"
+              >
+                <rect
+                  fill="#133E1A"
+                  height="48"
+                  rx="8"
+                  width="64"
+                  x="2"
+                  y="2"
+                />
+                <circle
+                  class="dark:fill-[#173814]"
+                  cx="2"
+                  cy="26"
+                  fill="#8BE328"
+                  r="6"
+                />
+                <circle
+                  class="dark:fill-[#265320]"
+                  cx="66"
+                  cy="26"
+                  fill="#DCF87D"
+                  r="6"
+                />
+                <line
+                  stroke="#A3E635"
+                  stroke-dasharray="3 3"
+                  stroke-width="1.5"
+                  x1="22"
+                  x2="22"
+                  y1="6"
+                  y2="46"
+                />
+                <circle
+                  cx="44"
+                  cy="20"
+                  fill="#FFFFFF"
+                  r="3.5"
+                />
+                <circle
+                  cx="44"
+                  cy="32"
+                  fill="#FFFFFF"
+                  r="3.5"
+                />
+                <line
+                  stroke="#FFFFFF"
+                  stroke-linecap="round"
+                  stroke-width="2"
+                  x1="36"
+                  x2="52"
+                  y1="34"
+                  y2="18"
+                />
+              </svg>
+            </div>
+            <div
+              class="relative z-10 flex flex-1 flex-col items-center justify-center px-2 sm:px-4"
+            >
+              <div
+                class="inline-flex items-center gap-1.5 rounded-full bg-[#123816] px-3 py-0.5 text-[11px] font-bold uppercase tracking-wider text-[#D9F99D] shadow-xs sm:text-xs"
+              >
+                <span
+                  class="h-1.5 w-1.5 rounded-full bg-[#A3E635] animate-pulse"
+                />
+                Promo Voucher
+              </div>
+              <h3
+                class="mt-1.5 text-base font-extrabold tracking-tight text-[#0A260F] sm:text-xl md:text-2xl dark:text-lime-100"
+              >
+                Bikin Customer Puas Maksimal dengan Voucher Pilihan
+              </h3>
+              <p
+                class="mt-0.5 text-xs font-semibold text-[#1B4320] sm:text-sm dark:text-lime-200/90"
+              >
+                Berikan ekstra kepuasan lewat penawaran sewa yang lebih berkesan.
+              </p>
+            </div>
+            <div
+              aria-hidden="true"
+              class="pointer-events-none relative z-10 shrink-0 rotate-12 transition-transform duration-300 group-hover:rotate-6"
+            >
+              <svg
+                class="h-10 w-12 drop-shadow-md sm:h-12 sm:w-16"
+                fill="none"
+                height="52"
+                viewBox="0 0 68 52"
+                width="68"
+              >
+                <rect
+                  fill="#133E1A"
+                  height="48"
+                  rx="8"
+                  width="64"
+                  x="2"
+                  y="2"
+                />
+                <circle
+                  class="dark:fill-[#265320]"
+                  cx="2"
+                  cy="26"
+                  fill="#DCF87D"
+                  r="6"
+                />
+                <circle
+                  class="dark:fill-[#173814]"
+                  cx="66"
+                  cy="26"
+                  fill="#8BE328"
+                  r="6"
+                />
+                <line
+                  stroke="#A3E635"
+                  stroke-dasharray="3 3"
+                  stroke-width="1.5"
+                  x1="46"
+                  x2="46"
+                  y1="6"
+                  y2="46"
+                />
+                <circle
+                  cx="24"
+                  cy="20"
+                  fill="#FFFFFF"
+                  r="3.5"
+                />
+                <circle
+                  cx="24"
+                  cy="32"
+                  fill="#FFFFFF"
+                  r="3.5"
+                />
+                <line
+                  stroke="#FFFFFF"
+                  stroke-linecap="round"
+                  stroke-width="2"
+                  x1="16"
+                  x2="32"
+                  y1="34"
+                  y2="18"
+                />
+              </svg>
+            </div>
+          </button>
+        </div>
+        <div
+          class="space-y-8 px-4 sm:px-6"
+        >
+          <section>
+            <h2
+              class="mb-4 text-xl font-bold text-text-primary"
+            >
+              Rental order performance
+            </h2>
+            <p
+              class="rounded-xl border border-danger bg-danger-subtle px-4 py-3 text-sm text-danger-strong"
+            >
+              Rental order performance unavailable.
+            </p>
+          </section>
+        </div>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`DashboardComponent snapshot DashboardComponent Snapshots should render the loaded dashboard 1`] = `
+<DocumentFragment>
+  <div>
+    <section
+      class="hidden min-h-full bg-background-page lg:block"
+    >
+      <header
+        class="mb-6 flex items-start justify-between gap-6"
+      >
+        <div>
+          <h1
+            class="truncate text-4xl font-semibold leading-tight tracking-tight text-text-primary"
+          >
+            Dashboard
+          </h1>
+          <p
+            class="mt-2 text-sm text-text-secondary"
+          >
+            Monitor quotation, invoice, payment, and voucher performance.
+          </p>
+        </div>
+      </header>
+      <div
+        class="grid grid-cols-4 gap-5"
+      >
+        <div
+          class="rounded-3xl border border-border-default bg-background-surface p-6 shadow-none"
+        >
+          <div
+            class="flex items-start justify-between gap-4"
+          >
+            <div
+              class="flex h-12 w-12 items-center justify-center rounded-2xl bg-action-primary-subtle text-action-primary"
+            >
+              <svg
+                aria-hidden="true"
+                fill="none"
+                height="1em"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+                width="1em"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M4 22h14a2 2 0 0 0 2-2V7l-5-5H6a2 2 0 0 0-2 2v4"
+                />
+                <path
+                  d="M14 2v4a2 2 0 0 0 2 2h4"
+                />
+                <path
+                  d="m3 15 2 2 4-4"
+                />
+              </svg>
+            </div>
+            <span
+              class="text-xs font-semibold uppercase tracking-wider text-text-tertiary"
+            >
+              Quotation
+            </span>
+          </div>
+          <div
+            class="mt-5"
+          >
+            <p
+              class="tabular-nums text-4xl font-bold tracking-tight text-text-primary"
+            >
+              10
+            </p>
+            <p
+              class="mt-1.5 text-sm text-text-secondary"
+            >
+              Active quotation records
+            </p>
+          </div>
+        </div>
+        <div
+          class="rounded-3xl border border-border-default bg-background-surface p-6 shadow-none"
+        >
+          <div
+            class="flex items-start justify-between gap-4"
+          >
+            <div
+              class="flex h-12 w-12 items-center justify-center rounded-2xl bg-information-subtle text-information"
+            >
+              <svg
+                aria-hidden="true"
+                fill="none"
+                height="1em"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+                width="1em"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M4 2v20l2-1 2 1 2-1 2 1 2-1 2 1 2-1 2 1V2l-2 1-2-1-2 1-2-1-2 1-2-1-2 1Z"
+                />
+                <path
+                  d="M14 8H8"
+                />
+                <path
+                  d="M16 12H8"
+                />
+                <path
+                  d="M13 16H8"
+                />
+              </svg>
+            </div>
+            <span
+              class="text-xs font-semibold uppercase tracking-wider text-text-tertiary"
+            >
+              Invoice
+            </span>
+          </div>
+          <div
+            class="mt-5"
+          >
+            <p
+              class="tabular-nums text-4xl font-bold tracking-tight text-text-primary"
+            >
+              5
+            </p>
+            <p
+              class="mt-1.5 text-sm text-text-secondary"
+            >
+              Issued invoice records
+            </p>
+          </div>
+        </div>
+        <div
+          class="rounded-3xl border border-border-default bg-background-surface p-6 shadow-none"
+        >
+          <div
+            class="flex items-start justify-between gap-4"
+          >
+            <div
+              class="flex h-12 w-12 items-center justify-center rounded-2xl bg-success-subtle text-success"
+            >
+              <svg
+                aria-hidden="true"
+                fill="none"
+                height="1em"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+                width="1em"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <rect
+                  height="14"
+                  rx="2"
+                  width="20"
+                  x="2"
+                  y="5"
+                />
+                <line
+                  x1="2"
+                  x2="22"
+                  y1="10"
+                  y2="10"
+                />
+              </svg>
+            </div>
+            <span
+              class="text-xs font-semibold uppercase tracking-wider text-text-tertiary"
+            >
+              Payment
+            </span>
+          </div>
+          <div
+            class="mt-5"
+          >
+            <p
+              class="tabular-nums text-4xl font-bold tracking-tight text-text-primary"
+            >
+              2
+            </p>
+            <p
+              class="mt-1.5 text-sm text-text-secondary"
+            >
+              Recorded payments
+            </p>
+          </div>
+        </div>
+        <div
+          class="rounded-3xl border border-border-default bg-background-surface p-6 shadow-none"
+        >
+          <div
+            class="flex items-start justify-between gap-4"
+          >
+            <div
+              class="flex h-12 w-12 items-center justify-center rounded-2xl bg-accent-50 text-accent-600"
+            >
+              <svg
+                aria-hidden="true"
+                fill="none"
+                height="1em"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+                width="1em"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M3.85 8.62a4 4 0 0 1 4.78-4.77 4 4 0 0 1 6.74 0 4 4 0 0 1 4.78 4.78 4 4 0 0 1 0 6.74 4 4 0 0 1-4.77 4.78 4 4 0 0 1-6.75 0 4 4 0 0 1-4.78-4.77 4 4 0 0 1 0-6.76Z"
+                />
+                <path
+                  d="m15 9-6 6"
+                />
+                <path
+                  d="M9 9h.01"
+                />
+                <path
+                  d="M15 15h.01"
+                />
+              </svg>
+            </div>
+            <span
+              class="text-xs font-semibold uppercase tracking-wider text-text-tertiary"
+            >
+              Voucher
+            </span>
+          </div>
+          <div
+            class="mt-5"
+          >
+            <p
+              class="tabular-nums text-4xl font-bold tracking-tight text-text-primary"
+            >
+              1
+            </p>
+            <p
+              class="mt-1.5 text-sm text-text-secondary"
+            >
+              Available vouchers
+            </p>
+          </div>
+        </div>
+      </div>
+      <div
+        class="mt-6 grid min-h-[calc(100vh-28rem)] grid-cols-3 gap-5"
+      >
+        <div
+          class="col-span-2 h-full rounded-3xl border border-border-default bg-background-surface p-6 shadow-none"
+        >
+          <div
+            class="flex items-start justify-between gap-6 border-b border-border-default pb-4"
+          >
+            <div>
+              <h2
+                class="text-base font-semibold text-text-primary"
+              >
+                Rental order performance
+              </h2>
+              <p
+                class="mt-1 text-sm text-text-secondary"
+              >
+                Rental orders created in the last 7 days.
+              </p>
+            </div>
+            <span
+              class="shrink-0 text-sm text-text-tertiary"
+            >
+              12 Nov - 13 Nov
+            </span>
+          </div>
+          <div
+            class="mt-6"
+          >
+            <p
+              class="tabular-nums text-2xl font-semibold text-text-primary"
+            >
+              3 orders
+            </p>
+            <div
+              aria-label="3 rental orders created in the last 7 days"
+              class="mt-6 grid h-[calc(100vh-38rem)] min-h-[22rem] grid-cols-7 items-end gap-4 border-b border-border-strong"
+              role="img"
+            >
+              <div
+                class="flex h-full min-w-0 flex-col items-center justify-end"
+              >
+                <span
+                  class="mb-2 text-sm font-semibold tabular-nums text-text-primary"
+                >
+                  1
+                </span>
+                <div
+                  class="w-full max-w-20 rounded-t-lg bg-action-primary"
+                  style="height: 50%;"
+                />
+              </div>
+              <div
+                class="flex h-full min-w-0 flex-col items-center justify-end"
+              >
+                <span
+                  class="mb-2 text-sm font-semibold tabular-nums text-text-primary"
+                >
+                  2
+                </span>
+                <div
+                  class="w-full max-w-20 rounded-t-lg bg-action-primary"
+                  style="height: 100%;"
+                />
+              </div>
+            </div>
+            <div
+              class="mt-3 grid grid-cols-7 gap-4"
+            >
+              <span
+                class="text-center text-sm text-text-tertiary"
+              >
+                12 Nov
+              </span>
+              <span
+                class="text-center text-sm text-text-tertiary"
+              >
+                13 Nov
+              </span>
+            </div>
+          </div>
+        </div>
+        <div
+          aria-label="Open calendar"
+          class="cursor-pointer rounded-3xl focus:outline-none focus-visible:ring-2 focus-visible:ring-border-focus"
+          role="button"
+          tabindex="0"
+        >
+          calendar
+        </div>
+      </div>
+    </section>
+    <div
+      class="-m-4 pb-28 lg:hidden"
+    >
+      <div
+        class="relative h-64 w-full overflow-hidden"
+      >
+        <img
+          alt=""
+          aria-hidden="true"
+          class="h-full w-full object-cover"
+          src="/src/assets/banner-app.png"
+        />
+      </div>
+      <div
+        class="relative -mt-10 px-4 sm:px-6"
+      >
+        <div
+          class="rounded-2xl border border-border-default bg-background-surface p-4 shadow-medium"
+        >
+          <div
+            class="grid grid-cols-4 gap-x-2 gap-y-6"
+          >
+            <button
+              aria-label="Open Create Order"
+              class="flex flex-col items-center gap-1.5 focus:outline-none"
+              type="button"
+            >
+              <div
+                class="relative flex h-24 w-24 items-center justify-center rounded-3xl border border-border-default bg-action-primary-subtle transition-transform active:scale-95"
+              >
+                <img
+                  alt=""
+                  aria-hidden="true"
+                  class="absolute -top-3 h-28 w-28 object-contain"
+                  src="/src/assets/icon-order-menu.png"
+                />
+              </div>
+              <span
+                class="text-base font-medium text-text-primary text-center leading-tight"
+              >
+                Create Order
+              </span>
+            </button>
+            <button
+              aria-label="Open Document"
+              class="flex flex-col items-center gap-1.5 focus:outline-none"
+              type="button"
+            >
+              <div
+                class="relative flex h-24 w-24 items-center justify-center rounded-3xl border border-border-default bg-background-subtle transition-transform active:scale-95"
+              >
+                <img
+                  alt=""
+                  aria-hidden="true"
+                  class="absolute -top-3 h-28 w-28 object-contain"
+                  src="/src/assets/icon-document-menu.png"
+                />
+              </div>
+              <span
+                class="text-base font-medium text-text-primary text-center leading-tight"
+              >
+                Document
+              </span>
+            </button>
+            <button
+              aria-label="Open Item Checklist"
+              class="flex flex-col items-center gap-1.5 focus:outline-none"
+              type="button"
+            >
+              <div
+                class="relative flex h-24 w-24 items-center justify-center rounded-3xl border border-border-default bg-background-subtle transition-transform active:scale-95"
+              >
+                <img
+                  alt=""
+                  aria-hidden="true"
+                  class="absolute -top-3 h-28 w-28 object-contain"
+                  src="/src/assets/icon-item-checklist-menu.png"
+                />
+              </div>
+              <span
+                class="text-base font-medium text-text-primary text-center leading-tight"
+              >
+                Item Checklist
+              </span>
+            </button>
+            <button
+              aria-label="Open Item Return"
+              class="flex flex-col items-center gap-1.5 focus:outline-none"
+              type="button"
+            >
+              <div
+                class="relative flex h-24 w-24 items-center justify-center rounded-3xl border border-border-default bg-action-primary-subtle transition-transform active:scale-95"
+              >
+                <img
+                  alt=""
+                  aria-hidden="true"
+                  class="absolute -top-3 h-28 w-28 object-contain"
+                  src="/src/assets/icon-return-menu.png"
+                />
+              </div>
+              <span
+                class="text-base font-medium text-text-primary text-center leading-tight"
+              >
+                Item Return
+              </span>
+            </button>
+            <button
+              aria-label="Open Master Data"
+              class="flex flex-col items-center gap-1.5 focus:outline-none"
+              type="button"
+            >
+              <div
+                class="relative flex h-24 w-24 items-center justify-center rounded-3xl border border-border-default bg-background-subtle transition-transform active:scale-95"
+              >
+                <img
+                  alt=""
+                  aria-hidden="true"
+                  class="absolute -top-3 h-28 w-28 object-contain"
+                  src="/src/assets/icon-masterdata-menu.png"
+                />
+              </div>
+              <span
+                class="text-base font-medium text-text-primary text-center leading-tight"
+              >
+                Master Data
+              </span>
+            </button>
+            <button
+              aria-label="Open Mail"
+              class="flex flex-col items-center gap-1.5 focus:outline-none"
+              type="button"
+            >
+              <div
+                class="relative flex h-24 w-24 items-center justify-center rounded-3xl border border-border-default bg-action-primary-subtle transition-transform active:scale-95"
+              >
+                <img
+                  alt=""
+                  aria-hidden="true"
+                  class="absolute -top-3 h-28 w-28 object-contain"
+                  src="/src/assets/icon-email-menu.webp"
+                />
+              </div>
+              <span
+                class="text-base font-medium text-text-primary text-center leading-tight"
+              >
+                Mail
+              </span>
+            </button>
+            <button
+              aria-label="Open Report"
+              class="flex flex-col items-center gap-1.5 focus:outline-none"
+              type="button"
+            >
+              <div
+                class="relative flex h-24 w-24 items-center justify-center rounded-3xl border border-border-default bg-action-primary-subtle transition-transform active:scale-95"
+              >
+                <img
+                  alt=""
+                  aria-hidden="true"
+                  class="absolute -top-3 h-28 w-28 object-contain"
+                  src="/src/assets/icon-report-menu.png"
+                />
+              </div>
+              <span
+                class="text-base font-medium text-text-primary text-center leading-tight"
+              >
+                Report
+              </span>
+            </button>
+            <button
+              aria-label="Open Activity Log"
+              class="flex flex-col items-center gap-1.5 focus:outline-none"
+              type="button"
+            >
+              <div
+                class="relative flex h-24 w-24 items-center justify-center rounded-3xl border border-border-default bg-action-primary-subtle transition-transform active:scale-95"
+              >
+                <img
+                  alt=""
+                  aria-hidden="true"
+                  class="absolute -top-3 h-28 w-28 object-contain"
+                  src="/src/assets/icon-activity-log-menu.png"
+                />
+              </div>
+              <span
+                class="text-base font-medium text-text-primary text-center leading-tight"
+              >
+                Activity Log
+              </span>
+            </button>
+          </div>
+        </div>
+      </div>
+      <div
+        class="mt-10 space-y-10"
+      >
+        <div
+          class="px-4 sm:px-6"
+        >
+          <button
+            aria-label="Lihat voucher promo"
+            class="group relative flex min-h-28 w-full cursor-pointer items-center justify-between overflow-hidden rounded-3xl border border-[#74C919]/40 bg-gradient-to-r from-[#8BE328] via-[#DCF87D] to-[#8BE328] px-4 py-4 text-center shadow-sm transition-all duration-300 hover:shadow-md hover:brightness-105 active:scale-[0.99] sm:min-h-32 sm:px-8 sm:py-5 dark:border-lime-500/30 dark:from-[#173814] dark:via-[#265320] dark:to-[#173814]"
+            type="button"
+          >
+            <div
+              aria-hidden="true"
+              class="pointer-events-none absolute -left-6 -top-6 h-28 w-28 rounded-full bg-[#B8F042]/50 blur-md dark:bg-lime-500/20"
+            />
+            <div
+              aria-hidden="true"
+              class="pointer-events-none absolute -bottom-6 -right-6 h-28 w-28 rounded-full bg-[#B8F042]/50 blur-md dark:bg-lime-500/20"
+            />
+            <div
+              aria-hidden="true"
+              class="pointer-events-none relative z-10 shrink-0 -rotate-12 transition-transform duration-300 group-hover:-rotate-6"
+            >
+              <svg
+                class="h-10 w-12 drop-shadow-md sm:h-12 sm:w-16"
+                fill="none"
+                height="52"
+                viewBox="0 0 68 52"
+                width="68"
+              >
+                <rect
+                  fill="#133E1A"
+                  height="48"
+                  rx="8"
+                  width="64"
+                  x="2"
+                  y="2"
+                />
+                <circle
+                  class="dark:fill-[#173814]"
+                  cx="2"
+                  cy="26"
+                  fill="#8BE328"
+                  r="6"
+                />
+                <circle
+                  class="dark:fill-[#265320]"
+                  cx="66"
+                  cy="26"
+                  fill="#DCF87D"
+                  r="6"
+                />
+                <line
+                  stroke="#A3E635"
+                  stroke-dasharray="3 3"
+                  stroke-width="1.5"
+                  x1="22"
+                  x2="22"
+                  y1="6"
+                  y2="46"
+                />
+                <circle
+                  cx="44"
+                  cy="20"
+                  fill="#FFFFFF"
+                  r="3.5"
+                />
+                <circle
+                  cx="44"
+                  cy="32"
+                  fill="#FFFFFF"
+                  r="3.5"
+                />
+                <line
+                  stroke="#FFFFFF"
+                  stroke-linecap="round"
+                  stroke-width="2"
+                  x1="36"
+                  x2="52"
+                  y1="34"
+                  y2="18"
+                />
+              </svg>
+            </div>
+            <div
+              class="relative z-10 flex flex-1 flex-col items-center justify-center px-2 sm:px-4"
+            >
+              <div
+                class="inline-flex items-center gap-1.5 rounded-full bg-[#123816] px-3 py-0.5 text-[11px] font-bold uppercase tracking-wider text-[#D9F99D] shadow-xs sm:text-xs"
+              >
+                <span
+                  class="h-1.5 w-1.5 rounded-full bg-[#A3E635] animate-pulse"
+                />
+                Promo Voucher
+              </div>
+              <h3
+                class="mt-1.5 text-base font-extrabold tracking-tight text-[#0A260F] sm:text-xl md:text-2xl dark:text-lime-100"
+              >
+                Bikin Customer Puas Maksimal dengan 3 Voucher Aktif
+              </h3>
+              <p
+                class="mt-0.5 text-xs font-semibold text-[#1B4320] sm:text-sm dark:text-lime-200/90"
+              >
+                Berikan ekstra kepuasan lewat penawaran sewa yang lebih berkesan.
+              </p>
+            </div>
+            <div
+              aria-hidden="true"
+              class="pointer-events-none relative z-10 shrink-0 rotate-12 transition-transform duration-300 group-hover:rotate-6"
+            >
+              <svg
+                class="h-10 w-12 drop-shadow-md sm:h-12 sm:w-16"
+                fill="none"
+                height="52"
+                viewBox="0 0 68 52"
+                width="68"
+              >
+                <rect
+                  fill="#133E1A"
+                  height="48"
+                  rx="8"
+                  width="64"
+                  x="2"
+                  y="2"
+                />
+                <circle
+                  class="dark:fill-[#265320]"
+                  cx="2"
+                  cy="26"
+                  fill="#DCF87D"
+                  r="6"
+                />
+                <circle
+                  class="dark:fill-[#173814]"
+                  cx="66"
+                  cy="26"
+                  fill="#8BE328"
+                  r="6"
+                />
+                <line
+                  stroke="#A3E635"
+                  stroke-dasharray="3 3"
+                  stroke-width="1.5"
+                  x1="46"
+                  x2="46"
+                  y1="6"
+                  y2="46"
+                />
+                <circle
+                  cx="24"
+                  cy="20"
+                  fill="#FFFFFF"
+                  r="3.5"
+                />
+                <circle
+                  cx="24"
+                  cy="32"
+                  fill="#FFFFFF"
+                  r="3.5"
+                />
+                <line
+                  stroke="#FFFFFF"
+                  stroke-linecap="round"
+                  stroke-width="2"
+                  x1="16"
+                  x2="32"
+                  y1="34"
+                  y2="18"
+                />
+              </svg>
+            </div>
+          </button>
+        </div>
+        <div
+          class="space-y-8 px-4 sm:px-6"
+        >
+          <section>
+            <h2
+              class="mb-4 text-xl font-bold text-text-primary"
+            >
+              Rental order performance
+            </h2>
+            <div
+              class="rounded-xl border border-border-default bg-background-surface p-4"
+            >
+              <p
+                class="text-sm text-text-secondary"
+              >
+                Rental orders created in the last 7 days
+              </p>
+              <p
+                class="mt-1 tabular-nums text-xl font-semibold text-text-primary"
+              >
+                3 orders
+              </p>
+              <div
+                aria-label="3 rental orders created in the last 7 days"
+                class="mt-5 grid h-40 grid-cols-7 items-end gap-2 border-b border-border-strong"
+                role="img"
+              >
+                <div
+                  class="flex h-full min-w-0 flex-col items-center justify-end"
+                >
+                  <span
+                    class="mb-1 text-xs font-semibold tabular-nums text-text-primary"
+                  >
+                    1
+                  </span>
+                  <div
+                    class="w-full rounded-t-md bg-action-primary"
+                    style="height: 50%;"
+                  />
+                </div>
+                <div
+                  class="flex h-full min-w-0 flex-col items-center justify-end"
+                >
+                  <span
+                    class="mb-1 text-xs font-semibold tabular-nums text-text-primary"
+                  >
+                    2
+                  </span>
+                  <div
+                    class="w-full rounded-t-md bg-action-primary"
+                    style="height: 100%;"
+                  />
+                </div>
+              </div>
+              <div
+                class="mt-2 grid grid-cols-7 gap-2"
+              >
+                <span
+                  class="text-center text-[10px] text-text-tertiary"
+                >
+                  12 Nov
+                </span>
+                <span
+                  class="text-center text-[10px] text-text-tertiary"
+                >
+                  13 Nov
+                </span>
+              </div>
+            </div>
+          </section>
+        </div>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`DashboardComponent snapshot DashboardComponent Snapshots should render the loading skeleton 1`] = `
+<DocumentFragment>
+  <div>
+    <section
+      aria-label="Loading dashboard"
+      class="hidden min-h-full bg-background-page lg:block"
+      role="status"
+    >
+      <header
+        class="mb-6 flex items-start justify-between gap-6"
+      >
+        <div
+          class="space-y-2"
+        >
+          <div
+            class="h-10 w-52 animate-pulse rounded bg-background-subtle"
+          />
+          <div
+            class="h-5 w-96 animate-pulse rounded bg-background-subtle"
+          />
+        </div>
+        <div
+          class="h-5 w-44 animate-pulse rounded bg-background-subtle"
+        />
+      </header>
+      <div
+        class="grid grid-cols-4 gap-5"
+      >
+        <div
+          class="h-32 animate-pulse rounded-3xl border border-border-default bg-background-surface p-6"
+        >
+          <div
+            class="h-4 w-20 rounded bg-background-subtle"
+          />
+          <div
+            class="mt-4 h-9 w-14 rounded bg-background-subtle"
+          />
+          <div
+            class="mt-3 h-4 w-28 rounded bg-background-subtle"
+          />
+        </div>
+        <div
+          class="h-32 animate-pulse rounded-3xl border border-border-default bg-background-surface p-6"
+        >
+          <div
+            class="h-4 w-20 rounded bg-background-subtle"
+          />
+          <div
+            class="mt-4 h-9 w-14 rounded bg-background-subtle"
+          />
+          <div
+            class="mt-3 h-4 w-28 rounded bg-background-subtle"
+          />
+        </div>
+        <div
+          class="h-32 animate-pulse rounded-3xl border border-border-default bg-background-surface p-6"
+        >
+          <div
+            class="h-4 w-20 rounded bg-background-subtle"
+          />
+          <div
+            class="mt-4 h-9 w-14 rounded bg-background-subtle"
+          />
+          <div
+            class="mt-3 h-4 w-28 rounded bg-background-subtle"
+          />
+        </div>
+        <div
+          class="h-32 animate-pulse rounded-3xl border border-border-default bg-background-surface p-6"
+        >
+          <div
+            class="h-4 w-20 rounded bg-background-subtle"
+          />
+          <div
+            class="mt-4 h-9 w-14 rounded bg-background-subtle"
+          />
+          <div
+            class="mt-3 h-4 w-28 rounded bg-background-subtle"
+          />
+        </div>
+      </div>
+      <div
+        class="mt-6 grid min-h-[calc(100vh-28rem)] grid-cols-3 gap-5"
+      >
+        <div
+          class="col-span-2 rounded-3xl border border-border-default bg-background-surface p-6"
+        >
+          <div
+            class="flex items-start justify-between border-b border-border-default pb-4"
+          >
+            <div
+              class="space-y-2"
+            >
+              <div
+                class="h-5 w-48 animate-pulse rounded bg-background-subtle"
+              />
+              <div
+                class="h-4 w-72 animate-pulse rounded bg-background-subtle"
+              />
+            </div>
+            <div
+              class="h-4 w-48 animate-pulse rounded bg-background-subtle"
+            />
+          </div>
+          <div
+            class="mt-6 h-[calc(100vh-38rem)] min-h-[22rem] animate-pulse rounded-lg bg-background-subtle"
+          />
+        </div>
+        <div
+          class="rounded-3xl border border-border-default bg-background-surface p-6"
+        >
+          <div
+            class="h-16 animate-pulse rounded bg-background-subtle"
+          />
+          <div
+            class="mt-5 grid grid-cols-7 gap-px overflow-hidden rounded border border-border-default bg-border-default"
+          >
+            <div
+              class="min-h-[6rem] animate-pulse bg-background-surface"
+            />
+            <div
+              class="min-h-[6rem] animate-pulse bg-background-surface"
+            />
+            <div
+              class="min-h-[6rem] animate-pulse bg-background-surface"
+            />
+            <div
+              class="min-h-[6rem] animate-pulse bg-background-surface"
+            />
+            <div
+              class="min-h-[6rem] animate-pulse bg-background-surface"
+            />
+            <div
+              class="min-h-[6rem] animate-pulse bg-background-surface"
+            />
+            <div
+              class="min-h-[6rem] animate-pulse bg-background-surface"
+            />
+            <div
+              class="min-h-[6rem] animate-pulse bg-background-surface"
+            />
+            <div
+              class="min-h-[6rem] animate-pulse bg-background-surface"
+            />
+            <div
+              class="min-h-[6rem] animate-pulse bg-background-surface"
+            />
+            <div
+              class="min-h-[6rem] animate-pulse bg-background-surface"
+            />
+            <div
+              class="min-h-[6rem] animate-pulse bg-background-surface"
+            />
+            <div
+              class="min-h-[6rem] animate-pulse bg-background-surface"
+            />
+            <div
+              class="min-h-[6rem] animate-pulse bg-background-surface"
+            />
+            <div
+              class="min-h-[6rem] animate-pulse bg-background-surface"
+            />
+            <div
+              class="min-h-[6rem] animate-pulse bg-background-surface"
+            />
+            <div
+              class="min-h-[6rem] animate-pulse bg-background-surface"
+            />
+            <div
+              class="min-h-[6rem] animate-pulse bg-background-surface"
+            />
+            <div
+              class="min-h-[6rem] animate-pulse bg-background-surface"
+            />
+            <div
+              class="min-h-[6rem] animate-pulse bg-background-surface"
+            />
+            <div
+              class="min-h-[6rem] animate-pulse bg-background-surface"
+            />
+            <div
+              class="min-h-[6rem] animate-pulse bg-background-surface"
+            />
+            <div
+              class="min-h-[6rem] animate-pulse bg-background-surface"
+            />
+            <div
+              class="min-h-[6rem] animate-pulse bg-background-surface"
+            />
+            <div
+              class="min-h-[6rem] animate-pulse bg-background-surface"
+            />
+            <div
+              class="min-h-[6rem] animate-pulse bg-background-surface"
+            />
+            <div
+              class="min-h-[6rem] animate-pulse bg-background-surface"
+            />
+            <div
+              class="min-h-[6rem] animate-pulse bg-background-surface"
+            />
+            <div
+              class="min-h-[6rem] animate-pulse bg-background-surface"
+            />
+            <div
+              class="min-h-[6rem] animate-pulse bg-background-surface"
+            />
+            <div
+              class="min-h-[6rem] animate-pulse bg-background-surface"
+            />
+            <div
+              class="min-h-[6rem] animate-pulse bg-background-surface"
+            />
+            <div
+              class="min-h-[6rem] animate-pulse bg-background-surface"
+            />
+            <div
+              class="min-h-[6rem] animate-pulse bg-background-surface"
+            />
+            <div
+              class="min-h-[6rem] animate-pulse bg-background-surface"
+            />
+          </div>
+        </div>
+      </div>
+    </section>
+    <div
+      aria-label="Loading dashboard"
+      class="-m-4 pb-10 lg:hidden"
+      role="status"
+    >
+      <div
+        class="h-64 w-full animate-pulse bg-background-subtle"
+      />
+      <div
+        class="relative -mt-10 px-4 sm:px-6"
+      >
+        <div
+          class="rounded-2xl border border-border-default bg-background-surface p-4 shadow-medium"
+        >
+          <div
+            class="grid grid-cols-4 gap-x-2 gap-y-6"
+          >
+            <div
+              class="flex flex-col items-center gap-1.5"
+            >
+              <div
+                class="h-24 w-24 animate-pulse rounded-3xl bg-background-subtle"
+              />
+              <div
+                class="h-5 w-16 animate-pulse rounded-md bg-background-subtle"
+              />
+            </div>
+            <div
+              class="flex flex-col items-center gap-1.5"
+            >
+              <div
+                class="h-24 w-24 animate-pulse rounded-3xl bg-background-subtle"
+              />
+              <div
+                class="h-5 w-16 animate-pulse rounded-md bg-background-subtle"
+              />
+            </div>
+            <div
+              class="flex flex-col items-center gap-1.5"
+            >
+              <div
+                class="h-24 w-24 animate-pulse rounded-3xl bg-background-subtle"
+              />
+              <div
+                class="h-5 w-16 animate-pulse rounded-md bg-background-subtle"
+              />
+            </div>
+            <div
+              class="flex flex-col items-center gap-1.5"
+            >
+              <div
+                class="h-24 w-24 animate-pulse rounded-3xl bg-background-subtle"
+              />
+              <div
+                class="h-5 w-16 animate-pulse rounded-md bg-background-subtle"
+              />
+            </div>
+            <div
+              class="flex flex-col items-center gap-1.5"
+            >
+              <div
+                class="h-24 w-24 animate-pulse rounded-3xl bg-background-subtle"
+              />
+              <div
+                class="h-5 w-16 animate-pulse rounded-md bg-background-subtle"
+              />
+            </div>
+            <div
+              class="flex flex-col items-center gap-1.5"
+            >
+              <div
+                class="h-24 w-24 animate-pulse rounded-3xl bg-background-subtle"
+              />
+              <div
+                class="h-5 w-16 animate-pulse rounded-md bg-background-subtle"
+              />
+            </div>
+            <div
+              class="flex flex-col items-center gap-1.5"
+            >
+              <div
+                class="h-24 w-24 animate-pulse rounded-3xl bg-background-subtle"
+              />
+              <div
+                class="h-5 w-16 animate-pulse rounded-md bg-background-subtle"
+              />
+            </div>
+            <div
+              class="flex flex-col items-center gap-1.5"
+            >
+              <div
+                class="h-24 w-24 animate-pulse rounded-3xl bg-background-subtle"
+              />
+              <div
+                class="h-5 w-16 animate-pulse rounded-md bg-background-subtle"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="mt-10 px-4 sm:px-6"
+      >
+        <div
+          class="h-28 w-full animate-pulse rounded-2xl bg-background-subtle"
+        />
+      </div>
+      <div
+        class="mt-10 px-4 sm:px-6"
+      >
+        <div
+          class="mb-3 flex items-center justify-between"
+        >
+          <div
+            class="h-6 w-40 animate-pulse rounded-md bg-background-subtle"
+          />
+          <div
+            class="h-5 w-20 animate-pulse rounded-md bg-background-subtle"
+          />
+        </div>
+        <div
+          class="no-scrollbar flex gap-4 overflow-hidden pb-2"
+        >
+          <div
+            class="h-48 w-[85%] shrink-0 animate-pulse rounded-2xl bg-background-subtle"
+          />
+          <div
+            class="h-48 w-[85%] shrink-0 animate-pulse rounded-2xl bg-background-subtle"
+          />
+          <div
+            class="h-48 w-[85%] shrink-0 animate-pulse rounded-2xl bg-background-subtle"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
