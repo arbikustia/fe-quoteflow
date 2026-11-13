@@ -37,7 +37,7 @@ import {
   useGetMailSendersQuery,
   useSendMailMutation,
 } from "@/services/mail/mail.service";
-import { useGetQuotationOptionsQuery } from "@/services/quotation/quotation.service";
+import { useGetQuotationOptionsQuery } from "@/services/quotation.service";
 
 /**
  * Hook loading email sender options for the From field.
@@ -285,7 +285,7 @@ export const useMailSend = (): MailSendState => {
   const send = async (values: MailComposeValues): Promise<boolean> => {
     setErrorMessage(undefined);
 
-    const formData = buildMailSendFormData(values.senderId, values.to, values.subject, values.body, values.attachment, values.template, values.quotation);
+    const formData = buildMailSendFormData(values);
 
     try {
       const response = await sendMail(formData).unwrap();

@@ -1,10 +1,14 @@
 import { apiRtkClient } from "@/libs/ApiRtkServices/apiRtkClient";
 
-import type { ApiInvoice, InvoiceAllResponse, InvoiceApproveRequest, InvoiceData, InvoiceDetailResponse, InvoiceListParams, InvoiceListResponse, InvoiceUpdateRequest, InvoiceUpdateResponse } from "@/modules/invoice/Invoice.type";
-
 import ENDPOINT from "@/constants/endpoint.constant";
 
-/** Map API invoice to table row. */
+import type { ApiInvoice, InvoiceAllResponse, InvoiceApproveRequest, InvoiceData, InvoiceDetailResponse, InvoiceListParams, InvoiceListResponse, InvoiceUpdateRequest, InvoiceUpdateResponse } from "@/modules/invoice/Invoice.type";
+
+/**
+ * Map API invoice to table row.
+ * @param {ApiInvoice} invoice - API invoice
+ * @returns {InvoiceData} Table row
+ */
 export const mapInvoice = (invoice: ApiInvoice): InvoiceData => ({
   id: invoice.id,
   transactionId: invoice.quotation?.transaction?.id ?? invoice.quotation?.transaction_id ?? invoice.transaction_id ?? "",

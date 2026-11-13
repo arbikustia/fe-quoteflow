@@ -1,5 +1,7 @@
 import { apiRtkClient } from "@/libs/ApiRtkServices/apiRtkClient";
 
+import ENDPOINT from "@/constants/endpoint.constant";
+
 import type {
   CategoryAllResponse,
   CategoryCreatePayload,
@@ -8,8 +10,6 @@ import type {
   CategoryMutationResponse,
   CategoryUpdatePayload,
 } from "@/modules/master-data/master-category/MasterCategory.type";
-
-import ENDPOINT from "@/constants/endpoint.constant";
 
 const CATEGORY_TAG = "Category";
 

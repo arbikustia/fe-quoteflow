@@ -1,5 +1,7 @@
 import { apiRtkClient } from "@/libs/ApiRtkServices/apiRtkClient";
 
+import ENDPOINT from "@/constants/endpoint.constant";
+
 import type {
   RoleAllResponse,
   RoleCreatePayload,
@@ -10,8 +12,6 @@ import type {
   RoleUpdatePayload,
 } from "@/modules/master-data/master-role/MasterRole.type";
 import { normalizeRoleResponse } from "@/modules/master-data/master-role/MasterRole.util";
-
-import ENDPOINT from "@/constants/endpoint.constant";
 
 export const masterRoleService = apiRtkClient.injectEndpoints({
   endpoints: (builder) => ({

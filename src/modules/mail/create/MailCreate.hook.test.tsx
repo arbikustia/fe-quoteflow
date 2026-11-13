@@ -20,7 +20,7 @@ jest.mock("@/services/mail/mail.service", () => ({
   useSendMailMutation: () => [mockSendMail, { isLoading: false }],
 }));
 
-jest.mock("@/services/quotation/quotation.service", () => ({
+jest.mock("@/services/quotation.service", () => ({
   useGetQuotationOptionsQuery: () => ({ data: mockQuotationResponse, isLoading: false }),
 }));
 

@@ -1,5 +1,7 @@
 import { apiRtkClient } from "@/libs/ApiRtkServices/apiRtkClient";
 
+import ENDPOINT from "@/constants/endpoint.constant";
+
 import type {
   PaymentMethodCreatePayload,
   PaymentMethodListParams,
@@ -7,8 +9,6 @@ import type {
   PaymentMethodMutationResponse,
   PaymentMethodUpdatePayload,
 } from "@/modules/master-data/master-payment-method/MasterPaymentMethod.type";
-
-import ENDPOINT from "@/constants/endpoint.constant";
 
 const PAYMENT_METHOD_TAG = "PaymentMethod";
 

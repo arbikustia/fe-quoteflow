@@ -1,6 +1,7 @@
 import { describe, expect, it } from "@jest/globals";
 
 import type { ApiInvoice } from "@/modules/invoice/Invoice.type";
+import type { MailComposeValues } from "@/modules/mail/create/MailCreate.type";
 import type { ApiQuotation } from "@/modules/quotation/Quotation.type";
 import { buildMailHtmlTemplate, buildMailSendFormData } from "@/services/mail/mail.service";
 
@@ -92,9 +93,17 @@ describe("buildMailHtmlTemplate", () => {
   });
 });
 
+const BASE_VALUES: MailComposeValues = {
+  senderId: "sales@example.com",
+  template: "quotation",
+  to: "customer@example.com",
+  subject: "Follow up",
+  body: "Hello",
+};
+
 describe("buildMailSendFormData", () => {
   it("should append required multipart fields with the html body", () => {
-    const formData = buildMailSendFormData("sales@example.com", "customer@example.com", "Follow up", "Hello");
+    const formData = buildMailSendFormData({ ...BASE_VALUES });
 
     expect(formData.get("senderId")).toBe("sales@example.com");
     expect(formData.get("to")).toBe("customer@example.com");
@@ -105,14 +114,14 @@ describe("buildMailSendFormData", () => {
   });
 
   it("should render the selected template in the body", () => {
-    const formData = buildMailSendFormData("sales@example.com", "customer@example.com", "Follow up", "Hello", undefined, "invoice");
+    const formData = buildMailSendFormData({ ...BASE_VALUES, template: "invoice" });
 
     expect(formData.get("body")).toContain(">Invoice<");
   });
 
   it("should append the pdf attachment when provided", () => {
     const file = new File(["pdf"], "quotation.pdf", { type: "application/pdf" });
-    const formData = buildMailSendFormData("sales@example.com", "customer@example.com", "Follow up", "Hello", file);
+    const formData = buildMailSendFormData({ ...BASE_VALUES, attachment: file });
 
     expect(formData.get("attachments")).toBeInstanceOf(File);
     expect((formData.get("attachments") as File).name).toBe("quotation.pdf");

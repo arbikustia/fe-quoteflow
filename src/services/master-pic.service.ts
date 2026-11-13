@@ -1,5 +1,7 @@
 import { apiRtkClient } from "@/libs/ApiRtkServices/apiRtkClient";
 
+import ENDPOINT from "@/constants/endpoint.constant";
+
 import type {
   PicAllResponse,
   PicCreatePayload,
@@ -8,8 +10,6 @@ import type {
   PicMutationResponse,
   PicUpdatePayload,
 } from "@/modules/master-data/master-pic/MasterPic.type";
-
-import ENDPOINT from "@/constants/endpoint.constant";
 
 const PIC_TAG = "Pic";
 

@@ -1,8 +1,10 @@
 import { apiRtkClient } from "@/libs/ApiRtkServices/apiRtkClient";
 
 import ENDPOINT from "@/constants/endpoint.constant";
+
 import type {
   ApiQuotation,
+  QuotationAllResponse,
   QuotationApproveRequest,
   QuotationData,
   QuotationDetailResponse,
@@ -49,6 +51,13 @@ export const quotationService = apiRtkClient.injectEndpoints({
       }),
       providesTags: [QUOTATION_TAG],
     }),
+    getQuotationOptions: builder.query<QuotationAllResponse, void>({
+      query: () => ({
+        url: ENDPOINT.QUOTATION.ALL,
+        method: "GET",
+      }),
+      providesTags: [QUOTATION_TAG],
+    }),
     getQuotationById: builder.query<QuotationDetailResponse, string>({
       query: (id) => ({
         url: `${ENDPOINT.QUOTATION.DETAIL}/${id}`,
@@ -78,6 +87,7 @@ export const quotationService = apiRtkClient.injectEndpoints({
 
 export const {
   useGetQuotationsQuery,
+  useGetQuotationOptionsQuery,
   useGetQuotationByIdQuery,
   useLazyGetQuotationByIdQuery,
   useUpdateQuotationMutation,

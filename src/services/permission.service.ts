@@ -1,8 +1,8 @@
 import { apiRtkClient } from "@/libs/ApiRtkServices/apiRtkClient";
 
-import type { PermissionPayload, UserPermissionResponse } from "@/modules/permission/Permission.type";
-
 import ENDPOINT from "@/constants/endpoint.constant";
+
+import type { PermissionPayload, UserPermissionResponse } from "@/modules/permission/Permission.type";
 
 /**
  * Build permission detail request.

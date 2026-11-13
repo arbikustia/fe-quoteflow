@@ -1,7 +1,10 @@
 import { apiRtkClient } from "@/libs/ApiRtkServices/apiRtkClient";
 
-import type { ApiInvoice } from "@/modules/invoice/Invoice.type";
-import { MAIL_CONFIG } from "@/modules/mail/Mail.config";
+import ENDPOINT from "@/constants/endpoint.constant";
+
+import { buildMailHtmlTemplate } from "./mail-template";
+
+import type { MailComposeValues } from "@/modules/mail/create/MailCreate.type";
 import type {
   ApiEmailHistoryItem,
   EmailSenderListResponse,
@@ -9,13 +12,7 @@ import type {
   MailListParams,
   MailListResponse,
   MailSendResponse,
-  MailTemplate,
 } from "@/modules/mail/Mail.type";
-import type { ApiQuotation } from "@/modules/quotation/Quotation.type";
-
-import { buildMailHtmlTemplate } from "./mail-template";
-
-import ENDPOINT from "@/constants/endpoint.constant";
 
 export { buildMailHtmlTemplate };
 
@@ -38,34 +35,20 @@ export const mapMail = (mail: ApiEmailHistoryItem): MailData => ({
 
 /**
  * Build multipart body for POST /api/email/send.
- * @param {string} senderId - Selected email sender id
- * @param {string} to - Recipient address
- * @param {string} subject - Mail subject
- * @param {string} body - Mail body
- * @param {File} [attachment] - Optional PDF attachment
- * @param {MailTemplate} [template] - Selected mail template
+ * @param {MailComposeValues} values - Validated compose form values
  * @returns {FormData} Multipart form data
  */
-export const buildMailSendFormData = (
-  senderId: string,
-  to: string,
-  subject: string,
-  body: string,
-  attachment?: File,
-  template: MailTemplate = MAIL_CONFIG.DEFAULT_TEMPLATE,
-  quotation?: ApiQuotation,
-  invoice?: ApiInvoice,
-): FormData => {
+export const buildMailSendFormData = (values: MailComposeValues): FormData => {
   const formData = new FormData();
 
-  formData.append("senderId", senderId);
-  formData.append("to", to);
-  formData.append("subject", subject);
-  formData.append("body", buildMailHtmlTemplate(body, template, quotation, invoice));
+  formData.append("senderId", values.senderId);
+  formData.append("to", values.to);
+  formData.append("subject", values.subject);
+  formData.append("body", buildMailHtmlTemplate(values.body, values.template, values.quotation, values.invoice));
   formData.append("isHtml", "true");
 
-  if (attachment) {
-    formData.append("attachments", attachment, attachment.name);
+  if (values.attachment) {
+    formData.append("attachments", values.attachment, values.attachment.name);
   }
 
   return formData;

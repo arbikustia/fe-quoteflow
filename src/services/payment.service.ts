@@ -1,6 +1,7 @@
 import { apiRtkClient } from "@/libs/ApiRtkServices/apiRtkClient";
 
 import ENDPOINT from "@/constants/endpoint.constant";
+
 import type { ApiPayment, ApiPaymentSummary, PaymentCreatePayload, PaymentCreateResponse, PaymentData, PaymentDetailResponse, PaymentInvoiceListResponse, PaymentListParams, PaymentListResponse, PaymentMethodListResponse } from "@/modules/payment/Payment.type";
 
 /**
@@ -29,7 +30,11 @@ export const mapPaymentSummary = (summary: ApiPaymentSummary): PaymentData => {
   };
 };
 
-/** Map API payment model to table row. */
+/**
+ * Map API payment model to table row.
+ * @param {ApiPayment} payment - API payment
+ * @returns {PaymentData} Table row
+ */
 export const mapPayment = (payment: ApiPayment): PaymentData => ({
   id: payment.id,
   invoiceId: payment.invoice_id,

@@ -7,6 +7,10 @@ export type ActivityLogPayload = {
   description: string;
 };
 
+export type ActivityLogCreateResponse = {
+  status: boolean;
+};
+
 export type MasterActivityBody = {
   name?: string;
   category_name?: string;

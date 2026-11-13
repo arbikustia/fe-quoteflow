@@ -1,5 +1,7 @@
 import { apiRtkClient } from "@/libs/ApiRtkServices/apiRtkClient";
 
+import ENDPOINT from "@/constants/endpoint.constant";
+
 import type {
   EmailSenderCreatePayload,
   EmailSenderListParams,
@@ -7,8 +9,6 @@ import type {
   EmailSenderMutationResponse,
   EmailSenderUpdatePayload,
 } from "@/modules/master-data/master-email-sender/MasterEmailSender.type";
-
-import ENDPOINT from "@/constants/endpoint.constant";
 
 const EMAIL_SENDER_TAG = "EmailSender";
 

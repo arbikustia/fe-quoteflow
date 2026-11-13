@@ -1,5 +1,7 @@
 import { apiRtkClient } from "@/libs/ApiRtkServices/apiRtkClient";
 
+import ENDPOINT from "@/constants/endpoint.constant";
+
 import type {
   CustomerAllResponse,
   CustomerCreatePayload,
@@ -8,8 +10,6 @@ import type {
   CustomerMutationResponse,
   CustomerUpdatePayload,
 } from "@/modules/master-data/master-customer/MasterCustomer.type";
-
-import ENDPOINT from "@/constants/endpoint.constant";
 
 const CUSTOMER_TAG = "Customer";
 

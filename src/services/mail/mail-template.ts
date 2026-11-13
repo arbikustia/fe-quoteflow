@@ -171,6 +171,8 @@ const _renderFooter = (content: MailTemplateContent): string =>
  * Build the HTML mail body for the selected template.
  * @param {string} body - Plain text mail body entered by the user
  * @param {MailTemplate} template - Selected mail template
+ * @param {ApiQuotation} [quotation] - Quotation shown in the summary
+ * @param {ApiInvoice} [invoice] - Invoice shown in the summary
  * @returns {string} HTML mail body
  */
 export const buildMailHtmlTemplate = (

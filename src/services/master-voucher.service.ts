@@ -1,5 +1,7 @@
 import { apiRtkClient } from "@/libs/ApiRtkServices/apiRtkClient";
 
+import ENDPOINT from "@/constants/endpoint.constant";
+
 import type {
   VoucherAllResponse,
   VoucherCreatePayload,
@@ -10,8 +12,6 @@ import type {
   VoucherUpdatePayload,
 } from "@/modules/master-data/master-voucher/MasterVoucher.type";
 import { normalizeVoucherResponse } from "@/modules/master-data/master-voucher/MasterVoucher.util";
-
-import ENDPOINT from "@/constants/endpoint.constant";
 
 export const masterVoucherService = apiRtkClient.injectEndpoints({
   endpoints: (builder) => ({

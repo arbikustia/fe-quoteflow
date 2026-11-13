@@ -1,5 +1,7 @@
 import { apiRtkClient } from "@/libs/ApiRtkServices/apiRtkClient";
 
+import ENDPOINT from "@/constants/endpoint.constant";
+
 import type {
   UserCreatePayload,
   UserListParams,
@@ -9,8 +11,6 @@ import type {
   UserUpdatePayload,
 } from "@/modules/master-data/master-user/MasterUser.type";
 import { normalizeUserResponse } from "@/modules/master-data/master-user/MasterUser.util";
-
-import ENDPOINT from "@/constants/endpoint.constant";
 
 export const masterUserService = apiRtkClient.injectEndpoints({
   endpoints: (builder) => ({

@@ -170,10 +170,10 @@ export default defineConfig([
       "src/modules/mail/**/*.{ts,tsx}",
       "src/modules/permission/**/*.{ts,tsx}",
       "src/modules/report/**/*.{ts,tsx}",
+      "src/services/**/*.{ts,tsx}",
       // "src/modules/master-service-type/**/*.{ts,tsx}",
       // "src/modules/master-payment-type/**/*.{ts,tsx}",
       // "src/modules/order/**/*.{ts,tsx}",
-      // "src/services/**/*.{ts,tsx}",
       // "src/components/**/*.{ts,tsx}",
     ],
     rules: {
@@ -353,6 +353,30 @@ export default defineConfig([
     },
   },
 
+  // Services: JSDoc only on named functions (Section 4.3); inline RTK callbacks exempt.
+  // max-lines-per-function off: injectEndpoints({ endpoints }) is a declarative list.
+  {
+    files: ["src/services/**/*.{ts,tsx}"],
+    rules: {
+      "max-lines-per-function": "off",
+      "jsdoc/require-jsdoc": [
+        "error",
+        {
+          require: {
+            FunctionDeclaration: true,
+            MethodDefinition: true,
+            ClassDeclaration: true,
+            ArrowFunctionExpression: false,
+            FunctionExpression: false,
+          },
+          contexts: [
+            "VariableDeclaration:has(> VariableDeclarator > ArrowFunctionExpression)",
+          ],
+        },
+      ],
+    },
+  },
+
   // Strictly no hooks in components
   {
     files: ["**/*.component.tsx"],
@@ -381,7 +405,7 @@ export default defineConfig([
 
   // Relaxed rules for types and service files
   {
-    files: ["**/*.type.ts", "**/*.types.ts", "src/services/**/*.{ts,tsx}"],
+    files: ["**/*.type.ts", "**/*.types.ts"],
     rules: {
       "func-style": "off",
       "@typescript-eslint/explicit-function-return-type": "off",

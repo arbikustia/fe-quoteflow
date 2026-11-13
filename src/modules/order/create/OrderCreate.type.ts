@@ -1,9 +1,9 @@
 import type React from "react";
 import type { NavigateFunction } from "react-router-dom";
 
-import type { OrderCreatePayload, OrderCreateResponse, OrderItemPayload, ProjectOrderCreatePayload, UpdateOrderRequest } from "../Order.type";
+import type { ActivityLogPayload } from "@/types/activity-log.type";
 
-import type { ActivityLogPayload } from "@/services/activity-log.service";
+import type { OrderCreatePayload, OrderCreateResponse, OrderItemPayload, ProjectOrderCreatePayload, UpdateOrderRequest } from "../Order.type";
 
 export type OrderCreateFormState = {
   customer_id: string;

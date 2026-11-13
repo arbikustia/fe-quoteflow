@@ -1,5 +1,7 @@
 import { apiRtkClient } from "@/libs/ApiRtkServices/apiRtkClient";
 
+import ENDPOINT from "@/constants/endpoint.constant";
+
 import type {
   ProjectAllResponse,
   ProjectCreatePayload,
@@ -8,8 +10,6 @@ import type {
   ProjectListResponse,
   ProjectUpdatePayload,
 } from "@/modules/master-data/master-project/MasterProject.type";
-
-import ENDPOINT from "@/constants/endpoint.constant";
 
 export const masterProjectService = apiRtkClient.injectEndpoints({
   endpoints: (builder) => ({

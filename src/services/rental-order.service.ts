@@ -1,9 +1,9 @@
 import apiClient from "@/libs/api/ApiClient/ApiClient";
 import { apiRtkClient } from "@/libs/ApiRtkServices/apiRtkClient";
 
-import type { ApiRentalOrder, DashboardRentalOrderParams, DashboardRentalOrderResponse, RentalOrderListParams, RentalOrderListResponse, RentalOrderResponse, RentalOrderUpdateRequest, RentalOrderUpdateResponse, ReportOrderData } from "@/modules/report/Report.type";
-
 import ENDPOINT from "@/constants/endpoint.constant";
+
+import type { ApiRentalOrder, DashboardRentalOrderParams, DashboardRentalOrderResponse, RentalOrderListParams, RentalOrderListResponse, RentalOrderResponse, RentalOrderUpdateRequest, RentalOrderUpdateResponse, ReportOrderData } from "@/modules/report/Report.type";
 
 const RENTAL_ORDER_TAG = "RentalOrder";
 

@@ -1,5 +1,7 @@
 import { apiRtkClient } from "@/libs/ApiRtkServices/apiRtkClient";
 
+import ENDPOINT from "@/constants/endpoint.constant";
+
 import type {
   OrderTypeCreatePayload,
   OrderTypeListParams,
@@ -7,8 +9,6 @@ import type {
   OrderTypeMutationResponse,
   OrderTypeUpdatePayload,
 } from "@/modules/master-data/master-order-type/MasterOrderType.type";
-
-import ENDPOINT from "@/constants/endpoint.constant";
 
 const ORDER_TYPE_TAG = "OrderType";
 
