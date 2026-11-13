@@ -13,7 +13,9 @@ const ItemReturnContainer = (): ReactElement | null => {
   const { canView } = usePagePermission("/item-return");
   const state = useItemReturnState();
 
-  if (!canView) return null;
+  if (!canView) {
+    return null;
+  }
 
   return <ItemReturnComponent {...state} />;
 };

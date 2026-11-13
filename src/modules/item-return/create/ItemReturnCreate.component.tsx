@@ -4,389 +4,215 @@ import Modal from "@/components/Modal";
 import { SearchFilter } from "@/components/SearchFilter";
 import { Select } from "@/components/Select";
 import { SkeletonComponent } from "@/components/Skeleton";
-import type { TableColumn } from "@/components/Table";
 import Table from "@/components/Table";
 
+import {
+  CONFIRM_BUTTON_CLASS,
+  DISCARD_BUTTON_CLASS,
+  EMPTY_ORDER_TEXT,
+  EMPTY_SEARCH_TEXT,
+  ITEMS_SKELETON_COLUMNS,
+  ITEMS_SKELETON_ROWS,
+  NOTES_INPUT_CLASS,
+  NOTES_TEXTAREA_CLASS,
+} from "./ItemReturnCreate.config";
+import { createTextChangeHandler, getColumns, renderActions, renderMobileItem } from "./ItemReturnCreate.helper";
 import type { ReturnCreateFormState, ReturnOrderItemRow } from "./ItemReturnCreate.type";
 
 /**
- *
- * @param row
- * @param props
+ * Get the row key for the items table.
+ * @param {ReturnOrderItemRow} row - Item row
+ * @returns {string} - Row id
  */
-const _renderCaptureButton = (row: ReturnOrderItemRow, props: ReturnCreateFormState): ReactElement => {
-  const stagedUrls = props.stagedPhotoUrls.get(row.id) ?? [];
-  const hasPhoto = stagedUrls.length > 0 || row.fileUrls.length > 0;
-  let label = "Add photos";
-
-  if (hasPhoto) label = "Add more photos";
-
-  if (props.uploadingItemId === row.id) label = "Uploading…";
-
-  return (
-    <label className="relative inline-flex min-h-12 cursor-pointer items-center justify-center rounded-2xl border border-border-default bg-background-surface px-5 py-2.5 text-lg font-medium text-text-primary hover:bg-background-subtle focus-within:ring-2 focus-within:ring-focus-ring">
-      {label}
-      <input
-        type="file"
-        accept="image/*"
-        multiple
-        capture="environment"
-        aria-label={`Add photos for ${row.itemName}`}
-        disabled={props.isSubmitting}
-        className="absolute inset-0 h-full w-full cursor-pointer opacity-0 disabled:cursor-not-allowed"
-        onChange={(event): void => {
-          const files = Array.from(event.target.files ?? []);
-
-          if (files.length) void props.onCaptureItem(row.id, files);
-
-          event.target.value = "";
-        }}
-      />
-    </label>
-  );
-};
+const _getRowKey = (row: ReturnOrderItemRow): string => row.id;
 
 /**
- *
- * @param row
- * @param props
+ * Render the rental order field: read-only in edit mode, a select otherwise.
+ * @param {ReturnCreateFormState} props - Form state
+ * @returns {ReactElement} - Order field
  */
-const _renderViewPhotoButton = (row: ReturnOrderItemRow, props: ReturnCreateFormState): ReactElement | null => {
-  const stagedUrls = props.stagedPhotoUrls.get(row.id) ?? [];
-  const photos = [...row.fileUrls, ...stagedUrls];
+export const _renderOrderField = (props: ReturnCreateFormState): ReactElement => {
+  if (props.isEditMode) {
+    const label = props.orderOptions.find((option) => option.value === props.selectedOrderId)?.label ?? "Linked to this return";
 
-  if (!photos.length) return null;
-
-  return (
-    <div className="flex flex-wrap items-center gap-2">
-      {photos.map((photo, index) => (
-        <div key={photo} className="relative">
-          <button type="button" onClick={(): void => props.openPhoto(row.id)} aria-label={`View photo ${index + 1}`}>
-            <img src={photo} alt="" className="h-12 w-12 rounded-lg object-cover" />
-          </button>
-          <button
-            type="button"
-            onClick={(): void => props.onRemovePhoto(row.id, index)}
-            disabled={props.isSubmitting}
-            aria-label={`Remove photo ${index + 1}`}
-            className="absolute -right-2 -top-2 h-6 w-6 rounded-full bg-danger text-sm font-bold text-text-inverse disabled:opacity-50"
-          >
-            ×
-          </button>
-        </div>
-      ))}
-    </div>
-  );
-};
-
-/**
- *
- * @param row
- * @param props
- */
-const _renderCapture = (row: ReturnOrderItemRow, props: ReturnCreateFormState): ReactElement => (
-  <div className="flex flex-wrap items-center justify-center gap-2">
-    {_renderCaptureButton(row, props)}
-    {_renderViewPhotoButton(row, props)}
-  </div>
-);
-
-/**
- *
- * @param row
- * @param props
- */
-const _renderMobileItem = (row: ReturnOrderItemRow, props: ReturnCreateFormState): ReactElement => (
-  <article key={row.id} className="min-w-0 rounded-3xl border border-border-default bg-background-surface p-5 sm:p-6 shadow-2xs">
-    <div className="flex items-start justify-between gap-4">
-      <h4 className="max-w-[68%] min-w-0 break-words text-xl font-bold text-text-primary">{row.itemName}</h4>
-      <span className="shrink-0 text-right text-lg font-semibold text-text-secondary">{row.qty} {row.unit}</span>
-    </div>
-    <div className="mt-4">
-      <label htmlFor={`return-remark-mobile-${row.id}`} className="block text-lg font-medium text-text-secondary">
-        Remark
-      </label>
-      <textarea
-        id={`return-remark-mobile-${row.id}`}
-        value={row.notes}
-        onChange={(event): void => props.onItemNotesChange(row.id, event.target.value)}
-        disabled={props.isSubmitting}
-        rows={3}
-        placeholder="Optional item remark"
-        className="mt-2 min-h-24 w-full resize-y rounded-2xl border border-border-strong bg-background-surface px-4 py-3 text-lg text-text-primary placeholder:text-text-placeholder focus:border-action-primary focus:outline-none focus:ring-2 focus:ring-focus-ring disabled:opacity-50"
-      />
-    </div>
-    <div className="mt-5 flex items-center justify-between gap-3 border-t border-border-default pt-4">
-      {_renderCaptureButton(row, props)}
-      {_renderViewPhotoButton(row, props)}
-    </div>
-  </article>
-);
-
-/**
- *
- * @param props
- */
-const _renderActions = (props: ReturnCreateFormState): ReactElement => {
-  const saveLabel = props.isEditMode ? "Update Return" : "Save Return";
-
-  return (
-    <div className="mt-auto flex items-center justify-between gap-3 border-t border-border-default/60 pt-5">
-      <button
-        type="button"
-        onClick={props.goBack}
-        disabled={props.isSubmitting}
-        className="h-14 cursor-pointer rounded-xl border border-border-default bg-background-surface px-8 text-lg font-semibold text-text-primary transition-colors hover:bg-background-subtle focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-action-primary disabled:cursor-not-allowed disabled:opacity-50"
-      >
-        Cancel
-      </button>
-      <button
-        type="button"
-        onClick={(): void => { void props.handleSave(); }}
-        disabled={props.isSubmitting}
-        className="h-14 cursor-pointer rounded-xl bg-action-primary px-8 text-lg font-semibold text-text-inverse shadow-xs transition-colors hover:bg-action-primary-hover focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-action-primary disabled:cursor-not-allowed disabled:opacity-60"
-      >
-        {props.isSubmitting ? "Saving…" : saveLabel}
-      </button>
-    </div>
-  );
-};
-
-/**
- *
- * @param props
- */
-const _getColumns = (props: ReturnCreateFormState): TableColumn<ReturnOrderItemRow>[] => [
-  {
-    key: "itemName",
-    header: "Item Name",
-    width: "28%",
-    mobile: { primary: true },
-    /**
-     *
-     * @param row
-     */
-    render: (row): ReactElement => <span className="text-lg font-semibold text-text-primary">{row.itemName}</span>,
-  },
-  {
-    key: "category",
-    header: "Category",
-    width: "18%",
-    /**
-     *
-     * @param row
-     */
-    render: (row): ReactElement => <span className="text-lg text-text-secondary">{row.category}</span>,
-  },
-  {
-    key: "qty",
-    header: "Qty",
-    width: "12%",
-    align: "center",
-    /**
-     *
-     * @param row
-     */
-    render: (row): ReactElement => <span className="text-lg text-text-primary">{row.qty} {row.unit}</span>,
-  },
-  {
-    key: "photo",
-    header: "Return photo",
-    align: "center",
-    /**
-     *
-     * @param row
-     */
-    render: (row): ReactElement => _renderCapture(row, props),
-  },
-  {
-    key: "notes",
-    header: "Remark",
-    /**
-     *
-     * @param row
-     */
-    render: (row): ReactElement => (
-      <label className="block min-w-48 text-lg text-text-secondary">
-        <span className="sr-only">Remark for {row.itemName}</span>
-        <input
-          type="text"
-          value={row.notes}
-          onChange={(event): void => props.onItemNotesChange(row.id, event.target.value)}
-          disabled={props.isSubmitting}
-          placeholder="Optional item remark"
-          className="h-12 w-full rounded-2xl border border-border-strong bg-background-surface px-4 text-lg text-text-primary placeholder:text-text-placeholder focus:border-action-primary focus:outline-none focus:ring-2 focus:ring-focus-ring disabled:opacity-50"
-        />
-      </label>
-    ),
-  },
-];
-
-/**
- * Render return creation form with rental order selection and items table.
- * @param {ReturnCreateFormState} props - Return form state
- * @returns {ReactElement} Return creation content
- */
-export const ItemReturnCreateForm = (props: ReturnCreateFormState): ReactElement => {
-  const columns = _getColumns(props);
-
-  if (props.isLoadingInitialData) {
     return (
-      <SkeletonComponent
-        rows={5}
-        columns={[
-          { width: "30%" },
-          { width: "20%" },
-          { width: "10%" },
-          { width: "15%" },
-          { width: "15%" },
-          { width: "10%" },
-        ]}
-      />
+      <div>
+        <p className="mb-1.5 text-lg font-medium text-text-secondary">Rental Order</p>
+        <p className="flex h-14 items-center text-xl font-semibold text-text-primary">{label}</p>
+      </div>
     );
   }
 
   return (
-    <div className="flex min-h-0 flex-1 flex-col gap-6 lg:-mt-4 lg:gap-8">
-      <div className="rounded-3xl border border-border-default bg-background-surface p-6 shadow-small sm:p-8 lg:p-10">
-        <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-          {props.isEditMode ? (
-            <div>
-              <p className="mb-1.5 text-lg font-medium text-text-secondary">Rental Order</p>
-              <p className="flex h-14 items-center text-xl font-semibold text-text-primary">
-                {props.orderOptions.find((option) => option.value === props.selectedOrderId)?.label ??
-                  "Linked to this return"}
-              </p>
-            </div>
-          ) : (
-            <Select
-              id="return-order"
-              label="Rental Order"
-              placeholder={props.isOrdersLoading ? "Loading rental orders..." : "Select customer and order number"}
-              value={props.selectedOrderId}
-              options={props.orderOptions}
-              onChange={props.handleOrderChange}
-              disabled={props.isOrdersLoading}
-              required
-              className="w-full"
-              labelClassName="!text-lg font-medium"
-              selectClassName="!h-14 [&_.ant-select-content]:!text-lg"
-              popupClassName="text-lg"
-            />
-          )}
+    <Select
+      id="return-order"
+      label="Rental Order"
+      placeholder={props.isOrdersLoading ? "Loading rental orders..." : "Select customer and order number"}
+      value={props.selectedOrderId}
+      options={props.orderOptions}
+      onChange={props.handleOrderChange}
+      disabled={props.isOrdersLoading}
+      required
+      className="w-full"
+      labelClassName="!text-lg font-medium"
+      selectClassName="!h-14 [&_.ant-select-content]:!text-lg"
+      popupClassName="text-lg"
+    />
+  );
+};
 
-          <div>
-            <label htmlFor="return-notes-mobile" className="mb-1.5 block text-lg font-medium text-text-secondary md:hidden">
-              Return Remark
-            </label>
-            <label htmlFor="return-notes" className="mb-1.5 hidden text-lg font-medium text-text-secondary md:block">
-              Return Remark
-            </label>
-            <textarea
-              id="return-notes-mobile"
-              rows={3}
-              placeholder="Optional return remark"
-              value={props.returnNotes}
-              onChange={(event): void => props.handleNotesChange(event.target.value)}
-              disabled={props.isSubmitting}
-              className="min-h-24 w-full resize-y rounded-2xl border-2 border-border-strong bg-background-surface px-4 py-3 text-xl text-text-primary placeholder:text-xl placeholder:text-text-placeholder focus:border-action-primary focus:outline-none focus:ring-2 focus:ring-focus-ring md:hidden"
-            />
-            <input
-              id="return-notes"
-              type="text"
-              placeholder="Optional return remark"
-              value={props.returnNotes}
-              onChange={(event): void => props.handleNotesChange(event.target.value)}
-              disabled={props.isSubmitting}
-              className="hidden h-14 w-full rounded-2xl border-2 border-border-strong bg-background-surface px-4 text-lg text-text-primary placeholder:text-lg placeholder:text-text-placeholder focus:border-action-primary focus:outline-none focus:ring-2 focus:ring-focus-ring md:block"
-            />
-          </div>
+/**
+ * Render the return remark field (textarea on mobile, input on desktop).
+ * @param {ReturnCreateFormState} props - Form state
+ * @returns {ReactElement} - Remark field
+ */
+export const _renderNotesField = (props: ReturnCreateFormState): ReactElement => (
+  <div>
+    <label htmlFor="return-notes-mobile" className="mb-1.5 block text-lg font-medium text-text-secondary md:hidden">
+      Return Remark
+    </label>
+    <label htmlFor="return-notes" className="mb-1.5 hidden text-lg font-medium text-text-secondary md:block">
+      Return Remark
+    </label>
+    <textarea
+      id="return-notes-mobile"
+      rows={3}
+      placeholder="Optional return remark"
+      value={props.returnNotes}
+      onChange={createTextChangeHandler(props.handleNotesChange)}
+      disabled={props.isSubmitting}
+      className={NOTES_TEXTAREA_CLASS}
+    />
+    <input
+      id="return-notes"
+      type="text"
+      placeholder="Optional return remark"
+      value={props.returnNotes}
+      onChange={createTextChangeHandler(props.handleNotesChange)}
+      disabled={props.isSubmitting}
+      className={NOTES_INPUT_CLASS}
+    />
+  </div>
+);
+
+/**
+ * Render the header card with order, remark and error.
+ * @param {ReturnCreateFormState} props - Form state
+ * @returns {ReactElement} - Header card
+ */
+export const _renderHeaderCard = (props: ReturnCreateFormState): ReactElement => (
+  <div className="rounded-3xl border border-border-default bg-background-surface p-6 shadow-small sm:p-8 lg:p-10">
+    <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+      {_renderOrderField(props)}
+      {_renderNotesField(props)}
+    </div>
+    {props.errorMessage && (
+      <p role="alert" className="mt-4 text-lg text-danger">
+        {props.errorMessage}
+      </p>
+    )}
+  </div>
+);
+
+/**
+ * Render the modal that previews a captured photo before staging.
+ * @param {ReturnCreateFormState} props - Form state
+ * @returns {ReactElement} - Preview modal
+ */
+export const _renderPreviewModal = (props: ReturnCreateFormState): ReactElement => (
+  <Modal
+    isOpen={Boolean(props.photoPreview)}
+    onClose={props.closePhotoPreview}
+    title={props.photoPreview ? `Preview: ${props.photoPreview.itemName}` : "Photo preview"}
+    dialogClassName="h-auto max-h-[90vh]"
+  >
+    {props.photoPreview && (
+      <div className="flex flex-col gap-4">
+        <img src={props.photoPreview.url} alt={`Captured return for ${props.photoPreview.itemName}`} className="max-h-[60vh] w-full object-contain" />
+        <p className="text-lg text-text-secondary">Check timestamp and location name. Photos upload when you save the return.</p>
+        {props.errorMessage && <p role="alert" className="text-lg text-danger">{props.errorMessage}</p>}
+        <div className="flex justify-end gap-3">
+          <button type="button" onClick={props.closePhotoPreview} disabled={props.isSubmitting} className={DISCARD_BUTTON_CLASS}>Discard</button>
+          <button type="button" onClick={props.confirmPhoto} disabled={props.isSubmitting} className={CONFIRM_BUTTON_CLASS}>Save photo for return</button>
         </div>
-
-        {props.errorMessage && (
-          <p role="alert" className="mt-4 text-lg text-danger">
-            {props.errorMessage}
-          </p>
-        )}
       </div>
+    )}
+  </Modal>
+);
 
-      <Modal
-        isOpen={Boolean(props.photoPreview)}
-        onClose={props.closePhotoPreview}
-        title={props.photoPreview ? `Preview: ${props.photoPreview.itemName}` : "Photo preview"}
-        dialogClassName="h-auto max-h-[90vh]"
-      >
-        {props.photoPreview && (
-          <div className="flex flex-col gap-4">
-            <img src={props.photoPreview.url} alt={`Captured return for ${props.photoPreview.itemName}`} className="max-h-[60vh] w-full object-contain" />
-            <p className="text-lg text-text-secondary">Check timestamp and location name. Photos upload when you save the return.</p>
-            {props.errorMessage && <p role="alert" className="text-lg text-danger">{props.errorMessage}</p>}
-            <div className="flex justify-end gap-3">
-              <button type="button" onClick={props.closePhotoPreview} disabled={props.isSubmitting} className="min-h-12 rounded-2xl border border-border-default px-6 text-lg font-medium text-text-primary hover:bg-background-subtle disabled:opacity-50">Discard</button>
-              <button type="button" onClick={props.confirmPhoto} disabled={props.isSubmitting} className="min-h-12 rounded-2xl bg-action-primary px-6 text-lg font-semibold text-text-inverse hover:bg-action-primary-hover disabled:opacity-50">Save photo for return</button>
-            </div>
-          </div>
-        )}
-      </Modal>
-      <Modal
-        isOpen={Boolean(props.viewedPhoto)}
-        onClose={props.closeViewedPhoto}
-        title={props.viewedPhoto ? `Photo: ${props.viewedPhoto.itemName}` : "Return photo"}
-        dialogClassName="h-auto max-h-[90vh]"
-      >
-        {props.viewedPhoto && (
-          <img
-            src={props.viewedPhoto.url}
-            alt={`Return photo for ${props.viewedPhoto.itemName}`}
-            className="max-h-[70vh] w-full object-contain"
-          />
-        )}
-      </Modal>
-      {Boolean(props.selectedOrderId) && (
-        <div className="rounded-3xl border border-border-default bg-background-surface p-6 shadow-small sm:p-8 lg:p-10">
-          <div className="mb-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-            <div className="flex items-center gap-3">
-              <h3 className="text-2xl font-bold text-text-primary">Order Items</h3>
-              <span className="text-lg font-medium text-text-secondary">
-                {props.returnItemIds.length} items to return
-              </span>
-            </div>
-            <div className="w-full sm:w-80">
-              <SearchFilter
-                placeholder="Search items..."
-                value={props.searchTerm}
-                onChange={(event): void => props.handleSearchChange(event.target.value)}
-                className="w-full"
-                inputClassName="text-lg placeholder:text-lg"
-              />
-            </div>
-          </div>
+/**
+ * Render the modal that shows a saved or staged photo.
+ * @param {ReturnCreateFormState} props - Form state
+ * @returns {ReactElement} - Viewer modal
+ */
+export const _renderViewerModal = (props: ReturnCreateFormState): ReactElement => (
+  <Modal
+    isOpen={Boolean(props.viewedPhoto)}
+    onClose={props.closeViewedPhoto}
+    title={props.viewedPhoto ? `Photo: ${props.viewedPhoto.itemName}` : "Return photo"}
+    dialogClassName="h-auto max-h-[90vh]"
+  >
+    {props.viewedPhoto && (
+      <img src={props.viewedPhoto.url} alt={`Return photo for ${props.viewedPhoto.itemName}`} className="max-h-[70vh] w-full object-contain" />
+    )}
+  </Modal>
+);
 
-          <div className="space-y-4 md:hidden">
-            {props.filteredOrderItems.length > 0 ? (
-              props.filteredOrderItems.map((row) => _renderMobileItem(row, props))
-            ) : (
-              <p className="py-10 text-center text-lg text-text-secondary">
-                {props.searchTerm ? "No items matching search." : "No items found for this order."}
-              </p>
-            )}
-          </div>
+/**
+ * Render the order items card (search, mobile cards, desktop table).
+ * @param {ReturnCreateFormState} props - Form state
+ * @returns {ReactElement} - Items card
+ */
+export const _renderItemsCard = (props: ReturnCreateFormState): ReactElement => {
+  const emptyText = props.searchTerm ? EMPTY_SEARCH_TEXT : EMPTY_ORDER_TEXT;
 
-          <div className="hidden md:block">
-            <Table
-              data={props.filteredOrderItems}
-              columns={columns}
-              keyExtractor={(row): string => row.id}
-              emptyText={props.searchTerm ? "No items matching search." : "No items found for this order."}
-            />
-          </div>
-
-          <p className="mt-8 border-t border-border-default pt-5 text-base text-text-secondary">
-            Item photos and remarks are optional.
-          </p>
+  return (
+    <div className="rounded-3xl border border-border-default bg-background-surface p-6 shadow-small sm:p-8 lg:p-10">
+      <div className="mb-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+        <div className="flex items-center gap-3">
+          <h3 className="text-2xl font-bold text-text-primary">Order Items</h3>
+          <span className="text-lg font-medium text-text-secondary">{props.returnItemIds.length} items to return</span>
         </div>
-      )}
-      {_renderActions(props)}
+        <div className="w-full sm:w-80">
+          <SearchFilter
+            placeholder="Search items..."
+            value={props.searchTerm}
+            onChange={createTextChangeHandler(props.handleSearchChange)}
+            className="w-full"
+            inputClassName="text-lg placeholder:text-lg"
+          />
+        </div>
+      </div>
+      <div className="space-y-4 md:hidden">
+        {props.filteredOrderItems.length > 0
+          ? props.filteredOrderItems.map((row) => renderMobileItem(row, props))
+          : <p className="py-10 text-center text-lg text-text-secondary">{emptyText}</p>}
+      </div>
+      <div className="hidden md:block">
+        <Table data={props.filteredOrderItems} columns={getColumns(props)} keyExtractor={_getRowKey} emptyText={emptyText} />
+      </div>
+      <p className="mt-8 border-t border-border-default pt-5 text-base text-text-secondary">Item photos and remarks are optional.</p>
+    </div>
+  );
+};
+
+/**
+ * Render return creation form with rental order selection and items table.
+ * @param {ReturnCreateFormState} props - Return form state
+ * @returns {ReactElement} - Return creation content
+ */
+export const ItemReturnCreateForm = (props: ReturnCreateFormState): ReactElement => {
+  if (props.isLoadingInitialData) {
+    return <SkeletonComponent rows={ITEMS_SKELETON_ROWS} columns={ITEMS_SKELETON_COLUMNS} />;
+  }
+
+  return (
+    <div className="flex min-h-0 flex-1 flex-col gap-6 lg:-mt-4 lg:gap-8">
+      {_renderHeaderCard(props)}
+      {_renderPreviewModal(props)}
+      {_renderViewerModal(props)}
+      {Boolean(props.selectedOrderId) && _renderItemsCard(props)}
+      {renderActions(props)}
     </div>
   );
 };

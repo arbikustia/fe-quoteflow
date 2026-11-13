@@ -1,6 +1,6 @@
 import type { MouseEvent } from "react";
 
-import type { ApiReturn, ReturnRow, ReturnRowStatus } from "./ItemReturn.type";
+import type { ApiReturn, ReturnListResponseStatus, ReturnRow, ReturnRowStatus } from "./ItemReturn.type";
 
 /**
  * Resolve display status from API status code.
@@ -8,7 +8,9 @@ import type { ApiReturn, ReturnRow, ReturnRowStatus } from "./ItemReturn.type";
  * @returns {ReturnRowStatus} Display status
  */
 export const getReturnStatus = (status: number | null): ReturnRowStatus => {
-  if (status === null) return "unavailable";
+  if (status === null) {
+    return "unavailable";
+  }
 
   return status === 1 ? "active" : "inactive";
 };
@@ -65,3 +67,21 @@ export const createEditClickHandler = (
     event.stopPropagation();
     onEdit(row);
   };
+
+/**
+ * Derive the list error message from the query result.
+ * @param {boolean} hasError - Whether the request failed
+ * @param {ReturnListResponseStatus} [data] - Response body
+ * @returns {string | null} - Error message, or null when none
+ */
+export const getReturnListError = (hasError: boolean, data?: ReturnListResponseStatus): string | null => {
+  if (hasError) {
+    return "Unable to load item returns.";
+  }
+
+  if (data && !data.status) {
+    return data.messages?.join(" ") || "Error loading item returns.";
+  }
+
+  return null;
+};

@@ -5,7 +5,7 @@ import { useMasterActivityLog } from "@/hooks/useMasterActivityLog";
 
 import { RETURN_PAGE_SIZE_DEFAULT } from "./ItemReturn.config";
 import type { ReturnListData, ReturnListState, ReturnNavigationState, ReturnRow } from "./ItemReturn.type";
-import { mapReturn } from "./ItemReturn.util";
+import { getReturnListError, mapReturn } from "./ItemReturn.util";
 
 import { useGetRentalReturnsPagedQuery } from "@/services/rental-return.service";
 
@@ -61,10 +61,7 @@ export const useItemReturnList = (): ReturnListData => {
 
   const rows = query.data?.status && Array.isArray(query.data.data) ? query.data.data.map(mapReturn) : [];
   const totalPages = query.data?.total_pages ?? 0;
-  let errorMessage: string | null = null;
-
-  if (query.error) errorMessage = "Unable to load item returns.";
-  else if (query.data && !query.data.status) errorMessage = query.data.messages?.join(" ") || "Error loading item returns.";
+  const errorMessage = getReturnListError(Boolean(query.error), query.data);
 
   /**
    * Update search term and reset to the first page.

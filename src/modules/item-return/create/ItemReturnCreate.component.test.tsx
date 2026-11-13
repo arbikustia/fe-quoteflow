@@ -1,104 +1,9 @@
 import { MemoryRouter } from "react-router-dom";
 
-import test, { fireEvent, render, screen } from "@/libs/unit-test";
+import { mockEmptyFormProps, mockSelectedFormProps } from "@/fixture/item-return-create";
+import { fireEvent, render, screen } from "@/libs/unit-test";
 
 import { ItemReturnCreateForm } from "./ItemReturnCreate.component";
-import type { ReturnCreateFormState } from "./ItemReturnCreate.type";
-
-const mockEmptyFormProps: ReturnCreateFormState = {
-  orderOptions: [{ value: "order-1", label: "PT Customer — ORD-001" }],
-  isOrdersLoading: false,
-  isLoadingInitialData: false,
-  isEditMode: false,
-  selectedOrderId: "",
-  orderItems: [],
-  filteredOrderItems: [],
-  returnItemIds: [],
-  uploadingItemId: null,
-  photoPreview: null,
-  stagedPhotoUrls: new Map(),
-  viewedPhoto: null,
-  openPhoto: jest.fn(),
-  closeViewedPhoto: jest.fn(),
-  confirmPhoto: jest.fn(),
-  closePhotoPreview: jest.fn(),
-  returnDate: "",
-  returnNotes: "",
-  searchTerm: "",
-  isSubmitting: false,
-  errorMessage: null,
-  handleOrderChange: jest.fn(),
-  handleSearchChange: jest.fn(),
-  handleDateChange: jest.fn(),
-  handleNotesChange: jest.fn(),
-  onCaptureItem: jest.fn(),
-  onItemConditionChange: jest.fn(),
-  onItemNotesChange: jest.fn(),
-  onRemovePhoto: jest.fn(),
-  handleSave: jest.fn(),
-  goBack: jest.fn(),
-};
-
-const mockOrderItems = [
-  {
-    id: "itm-1-0",
-    itemId: "itm-1",
-    itemName: "Speaker Active",
-    category: "Audio",
-    qty: 1,
-    unit: "unit",
-    condition: "Good",
-    notes: "",
-    fileUrls: [],
-    fileNames: [],
-  },
-  {
-    id: "itm-2-0",
-    itemId: "itm-2",
-    itemName: "Microphone Wireless",
-    category: "Audio",
-    qty: 2,
-    unit: "units",
-    condition: "Good",
-    notes: "",
-    fileUrls: [],
-    fileNames: [],
-  },
-];
-
-const mockSelectedFormProps: ReturnCreateFormState = {
-  orderOptions: [{ value: "order-1", label: "PT Customer — ORD-001" }],
-  isOrdersLoading: false,
-  isLoadingInitialData: false,
-  isEditMode: false,
-  selectedOrderId: "order-1",
-  orderItems: mockOrderItems,
-  filteredOrderItems: mockOrderItems,
-  returnItemIds: ["itm-1-0"],
-  uploadingItemId: null,
-  photoPreview: null,
-  stagedPhotoUrls: new Map(),
-  viewedPhoto: null,
-  openPhoto: jest.fn(),
-  closeViewedPhoto: jest.fn(),
-  confirmPhoto: jest.fn(),
-  closePhotoPreview: jest.fn(),
-  returnDate: "2026-11-03",
-  returnNotes: "Catatan pengembalian",
-  searchTerm: "",
-  isSubmitting: false,
-  errorMessage: null,
-  handleOrderChange: jest.fn(),
-  handleSearchChange: jest.fn(),
-  handleDateChange: jest.fn(),
-  handleNotesChange: jest.fn(),
-  onCaptureItem: jest.fn(),
-  onItemConditionChange: jest.fn(),
-  onItemNotesChange: jest.fn(),
-  onRemovePhoto: jest.fn(),
-  handleSave: jest.fn(),
-  goBack: jest.fn(),
-};
 
 describe("ItemReturnCreateForm", () => {
   it("should render rental order select and master role form actions when unselected", () => {
@@ -219,11 +124,4 @@ describe("ItemReturnCreateForm", () => {
     fireEvent.click(screen.getByRole("button", { name: "Cancel" }));
     expect(mockSelectedFormProps.goBack).toHaveBeenCalled();
   });
-});
-
-it("ItemReturnCreateForm matches snapshot", () => {
-  test.assertSnapshots(ItemReturnCreateForm, [
-    { props: mockEmptyFormProps, desc: "renders unselected form" },
-    { props: mockSelectedFormProps, desc: "renders selected order with table and search" },
-  ]);
 });

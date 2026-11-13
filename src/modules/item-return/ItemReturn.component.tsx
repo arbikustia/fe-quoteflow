@@ -19,7 +19,9 @@ import { PageLayout } from "@/app/shared/PageLayout";
  * @returns {ReactElement[] | ReactElement | null} Mobile content
  */
 const _renderMobileContent = (props: ReturnListState, state: ReactElement | null): ReactElement[] | ReactElement | null => {
-  if (props.isLoading) return Array.from({ length: RETURN_SKELETON_ROW_COUNT }, (_value, index) => renderMobileCardSkeleton(index));
+  if (props.isLoading) {
+    return Array.from({ length: RETURN_SKELETON_ROW_COUNT }, (_value, index) => renderMobileCardSkeleton(index));
+  }
 
   return state ?? props.rows.map((row) => <ItemReturnMobileCard key={row.id} row={row} onClick={props.onRowClick} />);
 };
@@ -33,7 +35,9 @@ const _renderMobileContent = (props: ReturnListState, state: ReactElement | null
 const _renderDesktopContent = (props: ReturnListState, state: ReactElement | null): ReactElement => {
   const columns = getReturnColumns(props);
 
-  if (props.isLoading) return renderTableSkeleton(columns);
+  if (props.isLoading) {
+    return renderTableSkeleton(columns);
+  }
 
   return state ?? <Table data={props.rows} columns={columns} isDetail={true} onRowClick={props.onRowClick} keyExtractor={getReturnRowKey} />;
 };

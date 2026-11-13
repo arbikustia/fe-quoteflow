@@ -1,4 +1,4 @@
-import type { Dispatch, MutableRefObject, SetStateAction } from "react";
+import type { Dispatch, RefObject, SetStateAction } from "react";
 import type { SerializedError } from "@reduxjs/toolkit";
 import type { FetchBaseQueryError } from "@reduxjs/toolkit/query";
 
@@ -57,6 +57,16 @@ export type ReturnPhotoOverrides = Map<string, ReturnPhotoOverride>;
 
 export type ReturnSaveError = FetchBaseQueryError | SerializedError;
 
+export type ReturnTextHandler = (value: string) => void;
+
+export type ReturnRowHandler = (id: string) => void;
+
+export type ReturnPhotoRemoveHandler = (id: string, photoIndex: number) => void;
+
+export type ReturnNotesChangeHandler = (id: string, notes: string) => void;
+
+export type ReturnCaptureHandler = (id: string, files: File[]) => Promise<void>;
+
 export type ReturnUploadFn = ReturnType<typeof useUploadImageMutation>[0];
 
 export type ReturnPayloadParams = {
@@ -81,9 +91,9 @@ export type ReturnSaveValidationInput = {
 };
 
 export type ReturnGuards = {
-  upload: MutableRefObject<boolean>;
-  saving: MutableRefObject<boolean>;
-  orderId: MutableRefObject<string>;
+  upload: RefObject<boolean>;
+  saving: RefObject<boolean>;
+  orderId: RefObject<string>;
 };
 
 export type ReturnFieldsState = {
@@ -125,7 +135,7 @@ export type ReturnItemsState = {
 
 export type ReturnViewerState = {
   viewedPhoto: ReturnViewedPhoto | null;
-  viewedRef: MutableRefObject<ReturnViewedPhoto | null>;
+  viewedRef: RefObject<ReturnViewedPhoto | null>;
   showPhoto: (photo: ReturnViewedPhoto | null) => void;
   closeViewedPhoto: () => void;
 };
@@ -139,8 +149,8 @@ export type ReturnPreviewState = {
 
 export type ReturnStagedState = {
   stagedPhotoUrls: Map<string, string[]>;
-  stagedRef: MutableRefObject<Map<string, StagedPhoto[]>>;
-  uploadedRef: MutableRefObject<ReturnPhotoOverrides>;
+  stagedRef: RefObject<Map<string, StagedPhoto[]>>;
+  uploadedRef: RefObject<ReturnPhotoOverrides>;
   syncStaged: () => void;
   getStagedUrl: (itemId: string) => string | undefined;
   addStaged: (itemId: string, photos: StagedPhoto[]) => void;
@@ -159,7 +169,7 @@ export type ReturnCaptureInput = {
 };
 
 export type ReturnCaptureState = {
-  onCaptureItem: (id: string, files: File[]) => Promise<void>;
+  onCaptureItem: ReturnCaptureHandler;
   confirmPhoto: () => void;
 };
 
@@ -183,13 +193,14 @@ export type ReturnPhotosView = {
   closeViewedPhoto: () => void;
   openPhoto: (itemId: string) => void;
   onRemovePhoto: (itemId: string, photoIndex: number) => void;
-  onCaptureItem: (id: string, files: File[]) => Promise<void>;
+  onCaptureItem: ReturnCaptureHandler;
   confirmPhoto: () => void;
 };
 
 export type ReturnPhotosState = {
   view: ReturnPhotosView;
   guards: ReturnGuards;
+  setOrderGuard: (orderId: string) => void;
   resetPhotos: () => void;
   uploadStaged: ReturnUploadStaged;
 };

@@ -4,7 +4,8 @@ import { REVERSE_GEOCODE_URL } from "./ItemReturnCreate.config";
 import type { Coordinates, ReturnLocation, ReverseGeocodeResponse } from "./ItemReturnCreate.type";
 
 /**
- *
+ * Read the device coordinates from the geolocation API.
+ * @returns {Promise<Coordinates>} - Device coordinates
  */
 const _getCoordinates = (): Promise<Coordinates> => new Promise((resolve, reject): void => {
   if (!navigator.geolocation) {
@@ -20,7 +21,8 @@ const _getCoordinates = (): Promise<Coordinates> => new Promise((resolve, reject
   );
 });
 
-/** Resolve device position into human-readable locality for photo evidence.
+/**
+ * Resolve device position into human-readable locality for photo evidence.
  * @returns {Promise<ReturnLocation>} Named location and coordinates
  */
 export const getReturnLocation = async (): Promise<ReturnLocation> => {
@@ -45,9 +47,76 @@ export const getReturnLocation = async (): Promise<ReturnLocation> => {
   }
 };
 
-/** Add capture time and readable location directly to photo pixels.
+/**
+ * Load an object URL into an image element.
+ * @param {string} url - Object URL
+ * @returns {Promise<HTMLImageElement>} - Loaded image
+ */
+export const _loadImage = (url: string): Promise<HTMLImageElement> => new Promise((resolve, reject): void => {
+  const image = new Image();
+
+  image.addEventListener("load", (): void => resolve(image));
+  image.addEventListener("error", (): void => reject(new Error("Photo cannot be opened. Take another photo.")));
+  image.src = url;
+});
+
+/**
+ * Draw the image with a caption box at the bottom-left corner.
+ * @param {HTMLImageElement} image - Source image
+ * @param {string[]} lines - Caption lines
+ * @returns {HTMLCanvasElement} - Stamped canvas
+ */
+export const _drawStamp = (image: HTMLImageElement, lines: string[]): HTMLCanvasElement => {
+  const canvas = document.createElement("canvas");
+
+  canvas.width = image.naturalWidth;
+  canvas.height = image.naturalHeight;
+  const context = canvas.getContext("2d");
+
+  if (!context || !canvas.width || !canvas.height) {
+    throw new Error("Photo cannot be processed. Take another photo.");
+  }
+
+  context.drawImage(image, 0, 0);
+  const fontSize = Math.max(16, Math.round(canvas.width * 0.025));
+
+  context.font = `${fontSize}px sans-serif`;
+  const padding = Math.round(fontSize * 0.75);
+  const lineHeight = Math.round(fontSize * 1.4);
+  const width = Math.max(...lines.map((line) => context.measureText(line).width)) + padding * 2;
+  const height = lineHeight * lines.length + padding * 2;
+
+  context.fillStyle = "rgba(0, 0, 0, 0.75)";
+  context.fillRect(0, canvas.height - height, Math.min(width, canvas.width), height);
+  context.fillStyle = "#fff";
+  lines.forEach((line, index): void => {
+    context.fillText(line, padding, canvas.height - height + padding + lineHeight * (index + 0.8));
+  });
+
+  return canvas;
+};
+
+/**
+ * Encode a canvas as a JPEG blob.
+ * @param {HTMLCanvasElement} canvas - Source canvas
+ * @returns {Promise<Blob>} - JPEG blob
+ */
+export const _canvasToBlob = (canvas: HTMLCanvasElement): Promise<Blob> => new Promise((resolve, reject): void => {
+  canvas.toBlob((result): void => {
+    if (result) {
+      resolve(result);
+
+      return;
+    }
+
+    reject(new Error("Photo cannot be processed. Take another photo."));
+  }, "image/jpeg", 0.9);
+});
+
+/**
+ * Add capture time and readable location directly to photo pixels.
  * @param {File} file - Captured image
- * @returns {Promise<File>} Stamped JPEG
+ * @returns {Promise<File>} - Stamped JPEG
  */
 export const stampReturnPhoto = async (file: File): Promise<File> => {
   if (!file.type.startsWith("image/")) {
@@ -57,54 +126,10 @@ export const stampReturnPhoto = async (file: File): Promise<File> => {
   const location = await getReturnLocation();
   const capturedAt = new Date().toLocaleString("id-ID", { dateStyle: "medium", timeStyle: "medium" });
   const objectUrl = URL.createObjectURL(file);
-  const image = new Image();
 
   try {
-    await new Promise<void>((resolve, reject): void => {
-      /**
-       *
-       */
-      image.onload = (): void => resolve();
-      /**
-       *
-       */
-      image.onerror = (): void => reject(new Error("Photo cannot be opened. Take another photo."));
-      image.src = objectUrl;
-    });
-
-    const canvas = document.createElement("canvas");
-
-    canvas.width = image.naturalWidth;
-    canvas.height = image.naturalHeight;
-    const context = canvas.getContext("2d");
-
-    if (!context || !canvas.width || !canvas.height) {
-      throw new Error("Photo cannot be processed. Take another photo.");
-    }
-
-    context.drawImage(image, 0, 0);
-    const fontSize = Math.max(16, Math.round(canvas.width * 0.025));
-
-    context.font = `${fontSize}px sans-serif`;
-    const lines = [capturedAt, `Lokasi: ${location.name}`];
-    const padding = Math.round(fontSize * 0.75);
-    const lineHeight = Math.round(fontSize * 1.4);
-    const width = Math.max(...lines.map((line) => context.measureText(line).width)) + padding * 2;
-    const height = lineHeight * lines.length + padding * 2;
-
-    context.fillStyle = "rgba(0, 0, 0, 0.75)";
-    context.fillRect(0, canvas.height - height, Math.min(width, canvas.width), height);
-    context.fillStyle = "#fff";
-    lines.forEach((line, index): void => {
-      context.fillText(line, padding, canvas.height - height + padding + lineHeight * (index + 0.8));
-    });
-
-    const blob = await new Promise<Blob>((resolve, reject): void => {
-      canvas.toBlob((result): void => {
-        if (result) resolve(result);
-        else reject(new Error("Photo cannot be processed. Take another photo."));
-      }, "image/jpeg", 0.9);
-    });
+    const image = await _loadImage(objectUrl);
+    const blob = await _canvasToBlob(_drawStamp(image, [capturedAt, `Lokasi: ${location.name}`]));
 
     return new File([blob], `${file.name.replace(/\.[^.]+$/, "")}-return.jpg`, { type: "image/jpeg" });
   } finally {

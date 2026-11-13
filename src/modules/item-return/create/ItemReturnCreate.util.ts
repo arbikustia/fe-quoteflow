@@ -2,7 +2,7 @@ import type { SelectOption } from "@/components/Select";
 
 import type { ApiReturn, ReturnCreatePayload, ReturnItemPayload } from "../ItemReturn.type";
 
-import type { ReturnItemOverrides, ReturnOrderItemRow, ReturnPayloadParams, ReturnPhotoOverrides, ReturnSaveError, ReturnSaveValidationInput, ReturnSourceItem } from "./ItemReturnCreate.type";
+import type { ReturnItemOverrides, ReturnOrderItemRow, ReturnPayloadParams, ReturnPhotoOverrides, ReturnSaveError, ReturnSaveInput, ReturnSaveValidationInput, ReturnSourceItem } from "./ItemReturnCreate.type";
 
 import type { ApiItem } from "@/modules/master-data/master-item/MasterItem.type";
 import type { ApiRentalOrder } from "@/modules/report/Report.type";
@@ -37,7 +37,9 @@ export const getQtyUnit = (qty: number): string => (qty === 1 ? "unit" : "units"
  * @returns {string[]} Values
  */
 export const firstOrFallback = (list?: string[], single?: string): string[] => {
-  if (list?.length) return list;
+  if (list?.length) {
+    return list;
+  }
 
   return single ? [single] : [];
 };
@@ -99,7 +101,9 @@ const _toOrderRow = (id: string, item: ReturnSourceItem, categories: Map<string,
 export const getOrderItems = (order: ApiRentalOrder | undefined, categories: Map<string, string>): ReturnOrderItemRow[] => {
   const transaction = order?.invoice?.quotation?.transaction;
 
-  if (!transaction) return [];
+  if (!transaction) {
+    return [];
+  }
 
   const standardRows = (transaction.rental_transaction_items ?? []).map((item, index) =>
     _toOrderRow(`${item.item_id}-${index}`, item as ReturnSourceItem, categories));
@@ -134,7 +138,9 @@ export const applyItemOverrides = (rows: ReturnOrderItemRow[], overrides: Return
 export const filterReturnItems = (rows: ReturnOrderItemRow[], searchTerm: string): ReturnOrderItemRow[] => {
   const lower = searchTerm.trim().toLowerCase();
 
-  if (!lower) return rows;
+  if (!lower) {
+    return rows;
+  }
 
   return rows.filter((item) => [item.itemName, item.category, item.condition].some((value) => value.toLowerCase().includes(lower)));
 };
@@ -192,13 +198,21 @@ export const buildReturnPayload = (params: ReturnPayloadParams): ReturnCreatePay
  * @returns {string | null} Validation error
  */
 export const getSaveValidationError = (input: ReturnSaveValidationInput): string | null => {
-  if (input.isEditMode && (!input.hasReturnData || !input.hasId)) return "Unable to load item return.";
+  if (input.isEditMode && (!input.hasReturnData || !input.hasId)) {
+    return "Unable to load item return.";
+  }
 
-  if (!input.isEditMode && !input.hasSelectedOrder) return "Please select a rental order first.";
+  if (!input.isEditMode && !input.hasSelectedOrder) {
+    return "Please select a rental order first.";
+  }
 
-  if (input.isUploading) return "Wait for photo upload to finish.";
+  if (input.isUploading) {
+    return "Wait for photo upload to finish.";
+  }
 
-  if (input.hasPreview) return "Confirm or discard photo before saving.";
+  if (input.hasPreview) {
+    return "Confirm or discard photo before saving.";
+  }
 
   return input.itemCount === 0 ? "No items available to return for this order." : null;
 };
@@ -211,10 +225,16 @@ export const getSaveValidationError = (input: ReturnSaveValidationInput): string
 export const getSaveErrorMessage = (error: ReturnSaveError): string => {
   let message: string | string[] | undefined;
 
-  if ("data" in error) message = error.data as string | string[];
-  else if ("message" in error) message = error.message;
+  if ("data" in error) {
+    message = error.data as string | string[];
+  }
+  else if ("message" in error) {
+    message = error.message;
+  }
 
-  if (Array.isArray(message)) return message.join(" ");
+  if (Array.isArray(message)) {
+    return message.join(" ");
+  }
 
   return typeof message === "string" ? message : "Unable to save item return.";
 };
@@ -235,3 +255,51 @@ export const getThrownMessage = (error: Error | string | null | undefined, fallb
  * @returns {string[]} List without the index
  */
 export const removeAt = (list: string[], index: number): string[] => list.filter((_value, position) => position !== index);
+
+/**
+ * Build the save payload from the form state and the rows with uploaded photos.
+ * @param {ReturnSaveInput} input - Save dependencies
+ * @param {ReturnOrderItemRow[]} rows - Rows with uploaded photos
+ * @returns {ReturnCreatePayload} - Return payload
+ */
+export const buildSubmitPayload = (input: ReturnSaveInput, rows: ReturnOrderItemRow[]): ReturnCreatePayload => {
+  const { source, fields } = input;
+
+  return buildReturnPayload({
+    orderId: source.returnData?.order_id ?? fields.selectedOrderId,
+    returnDate: fields.returnDate,
+    returnNotes: fields.returnNotes,
+    status: source.isEditMode ? (source.returnData?.status ?? 1) : 1,
+    rows,
+    returnItemIds: source.returnItemIds,
+    isEditMode: source.isEditMode,
+    existingItems: source.returnData?.items,
+  });
+};
+
+/**
+ * Validate the form before saving.
+ * @param {ReturnSaveInput} input - Save dependencies
+ * @returns {string | null} - Validation message, or null when valid
+ */
+export const getReturnSaveError = (input: ReturnSaveInput): string | null => {
+  const { source, photos } = input;
+
+  return getSaveValidationError({
+    isEditMode: source.isEditMode,
+    hasId: Boolean(input.id),
+    hasReturnData: Boolean(source.returnData),
+    hasSelectedOrder: Boolean(source.selectedOrder),
+    isUploading: photos.guards.upload.current,
+    hasPreview: Boolean(photos.view.photoPreview),
+    itemCount: source.returnItemIds.length,
+  });
+};
+
+/**
+ * Pick the id/name used for the activity log entry.
+ * @param {ReturnSaveInput} input - Save dependencies
+ * @returns {string} - Activity log name
+ */
+export const getActivityName = (input: ReturnSaveInput): string =>
+  input.source.returnData?.id ?? input.source.selectedOrder?.id ?? input.id ?? "Item Return";

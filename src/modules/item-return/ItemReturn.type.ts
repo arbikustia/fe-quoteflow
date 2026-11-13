@@ -129,3 +129,8 @@ export type ReturnNavigationState = {
 };
 
 export type ReturnListState = ReturnListData & ReturnNavigationState;
+
+export type ReturnListResponseStatus = {
+  status: boolean;
+  messages?: string[];
+};

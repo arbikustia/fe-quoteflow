@@ -1,4 +1,4 @@
-import { createEditClickHandler, getReturnRemark, getReturnRowKey, getReturnRowNumber, mapReturn } from "./ItemReturn.util";
+import { createEditClickHandler, getReturnListError, getReturnRemark, getReturnRowKey, getReturnRowNumber, mapReturn } from "./ItemReturn.util";
 import type { ApiReturn, ReturnRow } from "./ItemReturn.type";
 
 const row: ReturnRow = { id: "r-1", customerName: "A", returnDate: "2026-11-01T08:00:00", itemCount: 1, notes: "-", status: "active" };
@@ -83,5 +83,23 @@ describe("ItemReturn util", () => {
 
     expect(stopPropagation).toHaveBeenCalled();
     expect(onEdit).toHaveBeenCalledWith(row);
+  });
+});
+
+describe("getReturnListError", () => {
+  it("should return the request failure message when the query errored", () => {
+    expect(getReturnListError(true)).toBe("Unable to load item returns.");
+  });
+
+  it("should join API messages when the response status is false", () => {
+    expect(getReturnListError(false, { status: false, messages: ["Bad", "request"] })).toBe("Bad request");
+  });
+
+  it("should fall back to the default message when the API sends no messages", () => {
+    expect(getReturnListError(false, { status: false, messages: [] })).toBe("Error loading item returns.");
+  });
+
+  it("should return null for a successful response", () => {
+    expect(getReturnListError(false, { status: true })).toBeNull();
   });
 });

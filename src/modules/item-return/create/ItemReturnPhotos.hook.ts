@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from "react";
 import type { StagedPhoto } from "../ItemReturn.type";
 
 import type {
+  ReturnCaptureHandler,
   ReturnCaptureInput,
   ReturnCaptureState,
   ReturnFieldsState,
@@ -58,6 +59,23 @@ const _stampPhotos = async (files: File[]): Promise<StagedPhoto[]> => {
 };
 
 /**
+ * Replace the staged photos of an item, deleting the entry when none remain.
+ * @param {Map<string, StagedPhoto[]>} staged - Staged photos by item id
+ * @param {string} itemId - Item row id
+ * @param {StagedPhoto[]} remaining - Photos to keep
+ * @returns {void} Nothing
+ */
+const _replaceStaged = (staged: Map<string, StagedPhoto[]>, itemId: string, remaining: StagedPhoto[]): void => {
+  if (remaining.length) {
+    staged.set(itemId, remaining);
+
+    return;
+  }
+
+  staged.delete(itemId);
+};
+
+/**
  * Manage the photo viewer modal state.
  * @returns {ReturnViewerState} Viewer state
  */
@@ -101,7 +119,9 @@ export const useReturnPreview = (guards: ReturnGuards): ReturnPreviewState => {
    * @returns {void} Nothing
    */
   const closePhotoPreview = (): void => {
-    if (guards.upload.current || guards.saving.current) return;
+    if (guards.upload.current || guards.saving.current) {
+      return;
+    }
 
     urlsRef.current.forEach(_revokeUrl);
     urlsRef.current = [];
@@ -184,14 +204,12 @@ export const useReturnStaged = (): ReturnStagedState => {
   const removeStaged = (itemId: string, photoIndex: number): boolean => {
     const staged = stagedRef.current.get(itemId);
 
-    if (!staged?.[photoIndex]) return false;
+    if (!staged?.[photoIndex]) {
+      return false;
+    }
 
     _revokePhoto(staged[photoIndex]);
-    const remaining = staged.filter((_photo, index) => index !== photoIndex);
-
-    if (remaining.length) stagedRef.current.set(itemId, remaining);
-    else stagedRef.current.delete(itemId);
-
+    _replaceStaged(stagedRef.current, itemId, staged.filter((_photo, index) => index !== photoIndex));
     syncStaged();
 
     return true;
@@ -213,12 +231,12 @@ export const useReturnStaged = (): ReturnStagedState => {
 };
 
 /**
- * Manage capturing photos and confirming them into staging.
+ * Build the handler that captures photos for an item.
  * @param {ReturnCaptureInput} input - Capture dependencies
- * @returns {ReturnCaptureState} Capture handlers
+ * @returns {ReturnCaptureHandler} Capture handler
  */
-export const useReturnCapture = (input: ReturnCaptureInput): ReturnCaptureState => {
-  const { guards, preview, staged, fields, orderItems } = input;
+export const useReturnCaptureItem = (input: ReturnCaptureInput): ReturnCaptureHandler => {
+  const { guards, preview, fields, orderItems } = input;
 
   /**
    * Stamp captured files and show them for confirmation.
@@ -229,7 +247,9 @@ export const useReturnCapture = (input: ReturnCaptureInput): ReturnCaptureState 
   const onCaptureItem = async (itemId: string, files: File[]): Promise<void> => {
     const item = orderItems.find((row) => row.id === itemId);
 
-    if (guards.upload.current || guards.saving.current || !item || files.length === 0) return;
+    if (guards.upload.current || guards.saving.current || !item || files.length === 0) {
+      return;
+    }
 
     guards.upload.current = true;
     fields.setUploadingItemId(itemId);
@@ -239,8 +259,12 @@ export const useReturnCapture = (input: ReturnCaptureInput): ReturnCaptureState 
     try {
       const photos = await _stampPhotos(files);
 
-      if (currentOrderId !== guards.orderId.current) photos.forEach(_revokePhoto);
-      else preview.showPreview({ itemId, itemName: item.itemName, url: photos[0].url }, photos);
+      if (currentOrderId !== guards.orderId.current) {
+        photos.forEach(_revokePhoto);
+      }
+      else {
+        preview.showPreview({ itemId, itemName: item.itemName, url: photos[0].url }, photos);
+      }
     } catch (error) {
       fields.setErrorMessage(getThrownMessage(error as Error, "Photo processing failed. Retry capture."));
     } finally {
@@ -249,23 +273,48 @@ export const useReturnCapture = (input: ReturnCaptureInput): ReturnCaptureState 
     }
   };
 
+  return onCaptureItem;
+};
+
+/**
+ * Build the handler that moves previewed photos into staging.
+ * @param {ReturnCaptureInput} input - Capture dependencies
+ * @returns {() => void} Confirm handler
+ */
+export const useReturnConfirmPhoto = (input: ReturnCaptureInput): (() => void) => {
+  const { guards, preview, staged, fields } = input;
+
   /**
    * Move the previewed photos into staging.
    * @returns {void} Nothing
    */
   const confirmPhoto = (): void => {
-    if (guards.upload.current || guards.saving.current) return;
+    if (guards.upload.current || guards.saving.current) {
+      return;
+    }
 
     const pending = preview.takePending();
 
-    if (!pending) return;
+    if (!pending) {
+      return;
+    }
 
     staged.addStaged(pending.itemId, pending.photos);
     fields.setErrorMessage(null);
   };
 
-  return { onCaptureItem, confirmPhoto };
+  return confirmPhoto;
 };
+
+/**
+ * Manage capturing photos and confirming them into staging.
+ * @param {ReturnCaptureInput} input - Capture dependencies
+ * @returns {ReturnCaptureState} Capture handlers
+ */
+export const useReturnCapture = (input: ReturnCaptureInput): ReturnCaptureState => ({
+  onCaptureItem: useReturnCaptureItem(input),
+  confirmPhoto: useReturnConfirmPhoto(input),
+});
 
 /**
  * Manage opening and removing item photos.
@@ -284,7 +333,9 @@ export const useReturnPhotoActions = (input: ReturnPhotoActionsInput): ReturnPho
     const row = orderItems.find((item) => item.id === itemId);
     const url = staged.getStagedUrl(itemId) ?? row?.fileUrls[0];
 
-    if (row && url) viewer.showPhoto({ itemName: row.itemName, url });
+    if (row && url) {
+      viewer.showPhoto({ itemName: row.itemName, url });
+    }
   };
 
   /**
@@ -294,11 +345,15 @@ export const useReturnPhotoActions = (input: ReturnPhotoActionsInput): ReturnPho
    * @returns {void} Nothing
    */
   const onRemovePhoto = (itemId: string, photoIndex: number): void => {
-    if (staged.removeStaged(itemId, photoIndex)) return;
+    if (staged.removeStaged(itemId, photoIndex)) {
+      return;
+    }
 
     const row = orderItems.find((item) => item.id === itemId);
 
-    if (!row || photoIndex >= row.fileUrls.length) return;
+    if (!row || photoIndex >= row.fileUrls.length) {
+      return;
+    }
 
     fields.setPhotoOverrides((current) => new Map(current).set(itemId, {
       fileUrls: removeAt(row.fileUrls, photoIndex),
@@ -319,7 +374,9 @@ const _uploadRowPhotos = async (row: ReturnOrderItemRow, input: ReturnUploadInpu
   const { upload, staged, viewer, fields } = input;
   const photos = staged.stagedRef.current.get(row.id);
 
-  if (!photos?.length || staged.uploadedRef.current.has(row.id)) return;
+  if (!photos?.length || staged.uploadedRef.current.has(row.id)) {
+    return;
+  }
 
   fields.setUploadingItemId(row.id);
   const fileUrls: string[] = [];
@@ -331,7 +388,9 @@ const _uploadRowPhotos = async (row: ReturnOrderItemRow, input: ReturnUploadInpu
     formData.append("file", photo.file);
     const result = await upload(formData).unwrap();
 
-    if (!result.url || !result.file_name) throw new Error(`Upload returned incomplete photo data for ${row.itemName}.`);
+    if (!result.url || !result.file_name) {
+      throw new Error(`Upload returned incomplete photo data for ${row.itemName}.`);
+    }
 
     fileUrls.push(result.url);
     fileNames.push(result.file_name);
@@ -339,7 +398,9 @@ const _uploadRowPhotos = async (row: ReturnOrderItemRow, input: ReturnUploadInpu
 
   staged.uploadedRef.current.set(row.id, { fileUrls, fileNames });
 
-  if (viewer.viewedRef.current?.url === photos[0].url) viewer.closeViewedPhoto();
+  if (viewer.viewedRef.current?.url === photos[0].url) {
+    viewer.closeViewedPhoto();
+  }
 
   photos.forEach(_revokePhoto);
   staged.stagedRef.current.delete(row.id);
@@ -354,7 +415,8 @@ const _uploadRowPhotos = async (row: ReturnOrderItemRow, input: ReturnUploadInpu
  */
 export const useReturnPhotos = (fields: ReturnFieldsState, orderItems: ReturnOrderItemRow[]): ReturnPhotosState => {
   const [upload] = useUploadImageMutation();
-  const guards: ReturnGuards = { upload: useRef(false), saving: useRef(false), orderId: useRef("") };
+  const orderIdRef = useRef("");
+  const guards: ReturnGuards = { upload: useRef(false), saving: useRef(false), orderId: orderIdRef };
   const viewer = useReturnViewer();
   const preview = useReturnPreview(guards);
   const staged = useReturnStaged();
@@ -367,7 +429,9 @@ export const useReturnPhotos = (fields: ReturnFieldsState, orderItems: ReturnOrd
    * @returns {Promise<ReturnOrderItemRow[]>} Rows with uploaded photos
    */
   const uploadStaged: ReturnUploadStaged = async (rows) => {
-    for (const row of rows) await _uploadRowPhotos(row, { upload, staged, viewer, fields });
+    for (const row of rows) {
+      await _uploadRowPhotos(row, { upload, staged, viewer, fields });
+    }
 
     fields.setUploadingItemId(null);
 
@@ -389,7 +453,16 @@ export const useReturnPhotos = (fields: ReturnFieldsState, orderItems: ReturnOrd
     staged.uploadedRef.current.clear();
   };
 
+  /**
+   * Record the order the form currently targets.
+   * @param {string} orderId - Selected order id
+   * @returns {void} Nothing
+   */
+  const setOrderGuard = (orderId: string): void => {
+    orderIdRef.current = orderId;
+  };
+
   const view = { ...capture, ...actions, photoPreview: preview.photoPreview, closePhotoPreview: preview.closePhotoPreview, stagedPhotoUrls: staged.stagedPhotoUrls, viewedPhoto: viewer.viewedPhoto, closeViewedPhoto: viewer.closeViewedPhoto };
 
-  return { view, guards, resetPhotos, uploadStaged };
+  return { view, guards, setOrderGuard, resetPhotos, uploadStaged };
 };
