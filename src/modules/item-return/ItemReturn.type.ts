@@ -1,5 +1,12 @@
 export type StagedPhoto = { file: File; url: string };
 
+export type ReturnImage = {
+  file_url: string;
+  file_name: string;
+};
+
+export type ReturnRowStatus = "active" | "inactive" | "unavailable";
+
 export type ApiReturnItem = {
   id: string;
   return_id: string;
@@ -14,10 +21,7 @@ export type ApiReturnItem = {
   file_name: string;
   file_urls?: string[];
   file_names?: string[];
-  images?: {
-    file_url: string;
-    file_name: string;
-  }[];
+  images?: ReturnImage[];
   status: number;
   created_at: string;
   updated_at: string;
@@ -60,10 +64,7 @@ export type ReturnItemPayload = {
   notes: string;
   file_url: string;
   file_name: string;
-  images: {
-    file_url: string;
-    file_name: string;
-  }[];
+  images: ReturnImage[];
   status: number;
 };
 
@@ -98,7 +99,7 @@ export type ReturnRow = {
   returnDate: string;
   itemCount: number;
   notes: string;
-  status: "active" | "inactive" | "unavailable";
+  status: ReturnRowStatus;
 };
 
 export type ItemReturnMobileCardProps = {
@@ -106,7 +107,7 @@ export type ItemReturnMobileCardProps = {
   onClick: (row: ReturnRow) => void;
 };
 
-export type ReturnListState = {
+export type ReturnListData = {
   currentPage: number;
   totalPages: number;
   pageSize: number;
@@ -118,8 +119,13 @@ export type ReturnListState = {
   setSearchTerm: (value: string) => void;
   goToPage: (page: number) => void;
   changePageSize: (size: number) => void;
+};
+
+export type ReturnNavigationState = {
   onCreate: () => void;
   onEdit: (row: ReturnRow) => void;
   onRowClick: (row: ReturnRow) => void;
   onBack: () => void;
 };
+
+export type ReturnListState = ReturnListData & ReturnNavigationState;

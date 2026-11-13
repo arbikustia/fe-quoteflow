@@ -9,11 +9,18 @@ import Table from "@/components/Table";
 
 import type { ReturnCreateFormState, ReturnOrderItemRow } from "./ItemReturnCreate.type";
 
+/**
+ *
+ * @param row
+ * @param props
+ */
 const _renderCaptureButton = (row: ReturnOrderItemRow, props: ReturnCreateFormState): ReactElement => {
   const stagedUrls = props.stagedPhotoUrls.get(row.id) ?? [];
   const hasPhoto = stagedUrls.length > 0 || row.fileUrls.length > 0;
   let label = "Add photos";
+
   if (hasPhoto) label = "Add more photos";
+
   if (props.uploadingItemId === row.id) label = "Uploading…";
 
   return (
@@ -29,7 +36,9 @@ const _renderCaptureButton = (row: ReturnOrderItemRow, props: ReturnCreateFormSt
         className="absolute inset-0 h-full w-full cursor-pointer opacity-0 disabled:cursor-not-allowed"
         onChange={(event): void => {
           const files = Array.from(event.target.files ?? []);
+
           if (files.length) void props.onCaptureItem(row.id, files);
+
           event.target.value = "";
         }}
       />
@@ -37,9 +46,15 @@ const _renderCaptureButton = (row: ReturnOrderItemRow, props: ReturnCreateFormSt
   );
 };
 
+/**
+ *
+ * @param row
+ * @param props
+ */
 const _renderViewPhotoButton = (row: ReturnOrderItemRow, props: ReturnCreateFormState): ReactElement | null => {
   const stagedUrls = props.stagedPhotoUrls.get(row.id) ?? [];
   const photos = [...row.fileUrls, ...stagedUrls];
+
   if (!photos.length) return null;
 
   return (
@@ -64,6 +79,11 @@ const _renderViewPhotoButton = (row: ReturnOrderItemRow, props: ReturnCreateForm
   );
 };
 
+/**
+ *
+ * @param row
+ * @param props
+ */
 const _renderCapture = (row: ReturnOrderItemRow, props: ReturnCreateFormState): ReactElement => (
   <div className="flex flex-wrap items-center justify-center gap-2">
     {_renderCaptureButton(row, props)}
@@ -71,6 +91,11 @@ const _renderCapture = (row: ReturnOrderItemRow, props: ReturnCreateFormState): 
   </div>
 );
 
+/**
+ *
+ * @param row
+ * @param props
+ */
 const _renderMobileItem = (row: ReturnOrderItemRow, props: ReturnCreateFormState): ReactElement => (
   <article key={row.id} className="min-w-0 rounded-3xl border border-border-default bg-background-surface p-5 sm:p-6 shadow-2xs">
     <div className="flex items-start justify-between gap-4">
@@ -98,6 +123,10 @@ const _renderMobileItem = (row: ReturnOrderItemRow, props: ReturnCreateFormState
   </article>
 );
 
+/**
+ *
+ * @param props
+ */
 const _renderActions = (props: ReturnCreateFormState): ReactElement => {
   const saveLabel = props.isEditMode ? "Update Return" : "Save Return";
 
@@ -123,18 +152,30 @@ const _renderActions = (props: ReturnCreateFormState): ReactElement => {
   );
 };
 
+/**
+ *
+ * @param props
+ */
 const _getColumns = (props: ReturnCreateFormState): TableColumn<ReturnOrderItemRow>[] => [
   {
     key: "itemName",
     header: "Item Name",
     width: "28%",
     mobile: { primary: true },
+    /**
+     *
+     * @param row
+     */
     render: (row): ReactElement => <span className="text-lg font-semibold text-text-primary">{row.itemName}</span>,
   },
   {
     key: "category",
     header: "Category",
     width: "18%",
+    /**
+     *
+     * @param row
+     */
     render: (row): ReactElement => <span className="text-lg text-text-secondary">{row.category}</span>,
   },
   {
@@ -142,17 +183,29 @@ const _getColumns = (props: ReturnCreateFormState): TableColumn<ReturnOrderItemR
     header: "Qty",
     width: "12%",
     align: "center",
+    /**
+     *
+     * @param row
+     */
     render: (row): ReactElement => <span className="text-lg text-text-primary">{row.qty} {row.unit}</span>,
   },
   {
     key: "photo",
     header: "Return photo",
     align: "center",
+    /**
+     *
+     * @param row
+     */
     render: (row): ReactElement => _renderCapture(row, props),
   },
   {
     key: "notes",
     header: "Remark",
+    /**
+     *
+     * @param row
+     */
     render: (row): ReactElement => (
       <label className="block min-w-48 text-lg text-text-secondary">
         <span className="sr-only">Remark for {row.itemName}</span>

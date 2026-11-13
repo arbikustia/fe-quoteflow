@@ -3,9 +3,13 @@ import axios from "axios";
 import { REVERSE_GEOCODE_URL } from "./ItemReturnCreate.config";
 import type { Coordinates, ReturnLocation, ReverseGeocodeResponse } from "./ItemReturnCreate.type";
 
+/**
+ *
+ */
 const _getCoordinates = (): Promise<Coordinates> => new Promise((resolve, reject): void => {
   if (!navigator.geolocation) {
     reject(new Error("Location unavailable. Enable location access before taking photo."));
+
     return;
   }
 
@@ -57,12 +61,19 @@ export const stampReturnPhoto = async (file: File): Promise<File> => {
 
   try {
     await new Promise<void>((resolve, reject): void => {
+      /**
+       *
+       */
       image.onload = (): void => resolve();
+      /**
+       *
+       */
       image.onerror = (): void => reject(new Error("Photo cannot be opened. Take another photo."));
       image.src = objectUrl;
     });
 
     const canvas = document.createElement("canvas");
+
     canvas.width = image.naturalWidth;
     canvas.height = image.naturalHeight;
     const context = canvas.getContext("2d");
@@ -73,12 +84,14 @@ export const stampReturnPhoto = async (file: File): Promise<File> => {
 
     context.drawImage(image, 0, 0);
     const fontSize = Math.max(16, Math.round(canvas.width * 0.025));
+
     context.font = `${fontSize}px sans-serif`;
     const lines = [capturedAt, `Lokasi: ${location.name}`];
     const padding = Math.round(fontSize * 0.75);
     const lineHeight = Math.round(fontSize * 1.4);
     const width = Math.max(...lines.map((line) => context.measureText(line).width)) + padding * 2;
     const height = lineHeight * lines.length + padding * 2;
+
     context.fillStyle = "rgba(0, 0, 0, 0.75)";
     context.fillRect(0, canvas.height - height, Math.min(width, canvas.width), height);
     context.fillStyle = "#fff";

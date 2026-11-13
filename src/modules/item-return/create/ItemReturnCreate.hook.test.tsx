@@ -12,7 +12,7 @@ const mockCreateObjectURL = jest.fn(() => "blob:preview");
 const mockRevokeObjectURL = jest.fn();
 Object.defineProperty(URL, "createObjectURL", { configurable: true, value: mockCreateObjectURL });
 Object.defineProperty(URL, "revokeObjectURL", { configurable: true, value: mockRevokeObjectURL });
-jest.mock("./ItemReturnCreate.helpers", () => ({ stampReturnPhoto: (file: File) => Promise.resolve(file) }));
+jest.mock("./ItemReturnPhoto.util", () => ({ stampReturnPhoto: (file: File) => Promise.resolve(file) }));
 
 const mockReturn: ApiReturn = {
   id: "return-1",

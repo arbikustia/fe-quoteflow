@@ -3,102 +3,91 @@ import { useNavigate } from "react-router-dom";
 
 import { useMasterActivityLog } from "@/hooks/useMasterActivityLog";
 
+import { RETURN_PAGE_SIZE_DEFAULT } from "./ItemReturn.config";
+import type { ReturnListData, ReturnListState, ReturnNavigationState, ReturnRow } from "./ItemReturn.type";
+import { mapReturn } from "./ItemReturn.util";
+
 import { useGetRentalReturnsPagedQuery } from "@/services/rental-return.service";
-
-import type { ApiReturn, ReturnListState, ReturnRow } from "./ItemReturn.type";
-
-/**
- * Map API return record into table/card display row.
- * @param {ApiReturn} item - API return item
- * @returns {ReturnRow} Display row
- */
-export const mapReturn = (item: ApiReturn): ReturnRow => {
-  let status: ReturnRow["status"] = "unavailable";
-
-  if (item.status !== null) {
-    status = item.status === 1 ? "active" : "inactive";
-  }
-
-  return {
-    id: item.id,
-    customerName: item.items[0]?.customer_name || "-",
-    returnDate: item.return_date,
-    itemCount: Array.isArray(item.items) ? item.items.length : 0,
-    notes: item.notes || "-",
-    status,
-  };
-};
 
 /**
  * Return navigation handlers for item return module.
- * @returns {Pick<ReturnListState, "onBack" | "onCreate" | "onEdit" | "onRowClick">} Navigation callbacks
+ * @returns {ReturnNavigationState} Navigation callbacks
  */
-export const useItemReturnNavigation = (): Pick<ReturnListState, "onBack" | "onCreate" | "onEdit" | "onRowClick"> => {
+export const useItemReturnNavigation = (): ReturnNavigationState => {
   const navigate = useNavigate();
 
+  /**
+   * Go back to home.
+   * @returns {void} Nothing
+   */
   const onBack = (): void => {
     void navigate("/home");
   };
 
+  /**
+   * Open the create page.
+   * @returns {void} Nothing
+   */
   const onCreate = (): void => {
     void navigate("/item-return/create");
   };
 
+  /**
+   * Open the edit page of a row.
+   * @param {ReturnRow} row - Return row
+   * @returns {void} Nothing
+   */
   const onEdit = (row: ReturnRow): void => {
     void navigate(`/item-return/create/${row.id}`);
   };
 
-  const onRowClick = (row: ReturnRow): void => {
-    void navigate(`/item-return/create/${row.id}`);
-  };
-
-  return { onBack, onCreate, onEdit, onRowClick };
+  return { onBack, onCreate, onEdit, onRowClick: onEdit };
 };
 
 /**
  * Return data fetching and pagination state for item return list.
- * @returns {Omit<ReturnListState, "onBack" | "onCreate" | "onEdit" | "onRowClick">} List state
+ * @returns {ReturnListData} List state
  */
-export const useItemReturnList = (): Omit<ReturnListState, "onBack" | "onCreate" | "onEdit" | "onRowClick"> => {
+export const useItemReturnList = (): ReturnListData => {
   const [currentPage, setCurrentPage] = useState(1);
-  const [pageSize, setPageSize] = useState(10);
+  const [pageSize, setPageSize] = useState(RETURN_PAGE_SIZE_DEFAULT);
   const [searchTerm, setSearchTermState] = useState("");
   const { logView } = useMasterActivityLog("Item Return");
+  const query = useGetRentalReturnsPagedQuery({ pageNumber: currentPage, pageSize, searchTerm });
 
-  useEffect(() => {
-    let active = true;
-    void logView().then(() => {
-      if (!active) return;
-    });
-
-    return () => {
-      active = false;
-    };
+  useEffect((): void => {
+    void logView();
   }, [logView]);
 
-  const query = useGetRentalReturnsPagedQuery({
-    pageNumber: currentPage,
-    pageSize,
-    searchTerm,
-  });
-
-  const rows = query.data?.status && Array.isArray(query.data.data)
-    ? query.data.data.map(mapReturn)
-    : [];
-
-  let errorMessage: string | null = null;
-  if (query.error) {
-    errorMessage = "Unable to load item returns.";
-  } else if (query.data && !query.data.status) {
-    errorMessage = query.data.messages?.join(" ") || "Error loading item returns.";
-  }
-
+  const rows = query.data?.status && Array.isArray(query.data.data) ? query.data.data.map(mapReturn) : [];
   const totalPages = query.data?.total_pages ?? 0;
+  let errorMessage: string | null = null;
+
+  if (query.error) errorMessage = "Unable to load item returns.";
+  else if (query.data && !query.data.status) errorMessage = query.data.messages?.join(" ") || "Error loading item returns.";
+
+  /**
+   * Update search term and reset to the first page.
+   * @param {string} value - Search term
+   * @returns {void} Nothing
+   */
   const setSearchTerm = (value: string): void => {
     setSearchTermState(value);
     setCurrentPage(1);
   };
+
+  /**
+   * Go to a page within range.
+   * @param {number} page - Target page
+   * @returns {void} Nothing
+   */
   const goToPage = (page: number): void => setCurrentPage(Math.max(1, Math.min(page, totalPages || 1)));
+
+  /**
+   * Change page size and reset to the first page.
+   * @param {number} size - Page size
+   * @returns {void} Nothing
+   */
   const changePageSize = (size: number): void => {
     setPageSize(size);
     setCurrentPage(1);
@@ -123,7 +112,9 @@ export const useItemReturnList = (): Omit<ReturnListState, "onBack" | "onCreate"
  * Return full combined state for item return page.
  * @returns {ReturnListState} Complete state
  */
-export const useItemReturnState = (): ReturnListState => ({
-  ...useItemReturnList(),
-  ...useItemReturnNavigation(),
-});
+export const useItemReturnState = (): ReturnListState => {
+  const list = useItemReturnList();
+  const navigation = useItemReturnNavigation();
+
+  return { ...list, ...navigation };
+};

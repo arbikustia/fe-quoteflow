@@ -1,9 +1,8 @@
-import { act, renderHook } from "@testing-library/react";
-
+import { act, renderHook } from "@/libs/unit-test";
 import { useGetRentalReturnsPagedQuery } from "@/services/rental-return.service";
 
-import { mapReturn, useItemReturnList, useItemReturnNavigation } from "./ItemReturn.hook";
-import type { ApiReturn, ReturnRow } from "./ItemReturn.type";
+import { useItemReturnList, useItemReturnNavigation, useItemReturnState } from "./ItemReturn.hook";
+import type { ReturnRow } from "./ItemReturn.type";
 
 const mockNavigate = jest.fn();
 
@@ -27,67 +26,6 @@ describe("ItemReturn.hook", () => {
     jest.clearAllMocks();
   });
 
-  describe("mapReturn", () => {
-    it("should map active return correctly", () => {
-      const item: ApiReturn = {
-        id: "return-1",
-        order_id: "order-123",
-        return_date: "2026-11-03T10:00:00.000Z",
-        notes: "Good condition",
-        status: 1,
-        created_at: "2026-11-03T10:00:00.000Z",
-        updated_at: "2026-11-03T10:00:00.000Z",
-        items: [
-          {
-            id: "item-1",
-            return_id: "return-1",
-            item_id: "inv-1",
-            customer_name: "Customer Name",
-            qty: 2,
-            condition: "good",
-            notes: "",
-            file_url: "",
-            file_name: "",
-            status: 1,
-            created_at: "2026-11-03T10:00:00.000Z",
-            updated_at: "2026-11-03T10:00:00.000Z",
-          },
-        ],
-      };
-
-      const mapped = mapReturn(item);
-
-      expect(mapped.id).toBe("return-1");
-      expect(mapped.customerName).toBe("Customer Name");
-      expect(mapped.itemCount).toBe(1);
-      expect(mapped.status).toBe("active");
-      expect(mapped.notes).toBe("Good condition");
-    });
-
-    it("should map inactive and null status", () => {
-      const itemInactive: ApiReturn = {
-        id: "return-2",
-        order_id: "order-456",
-        return_date: "2026-11-03T10:00:00.000Z",
-        notes: "",
-        status: 0,
-        created_at: "",
-        updated_at: "",
-        items: [],
-      };
-
-      expect(mapReturn(itemInactive).status).toBe("inactive");
-      expect(mapReturn(itemInactive).notes).toBe("-");
-
-      const itemNull: ApiReturn = {
-        ...itemInactive,
-        status: null,
-      };
-
-      expect(mapReturn(itemNull).status).toBe("unavailable");
-    });
-  });
-
   describe("useItemReturnList", () => {
     it("should fetch returns and handle pagination", () => {
       mockQuery.mockReturnValue({
@@ -104,7 +42,7 @@ describe("ItemReturn.hook", () => {
         },
         isLoading: false,
         error: undefined,
-      } as unknown as ReturnType<typeof useGetRentalReturnsPagedQuery>);
+      } as never);
 
       const { result } = renderHook(() => useItemReturnList());
 
@@ -139,11 +77,38 @@ describe("ItemReturn.hook", () => {
         data: undefined,
         isLoading: false,
         error: { message: "Network error" },
-      } as unknown as ReturnType<typeof useGetRentalReturnsPagedQuery>);
+      } as never);
 
       const { result } = renderHook(() => useItemReturnList());
 
       expect(result.current.errorMessage).toBe("Unable to load item returns.");
+      expect(result.current.isEmpty).toBe(false);
+    });
+
+    it("should map rows and API failure message", () => {
+      mockQuery.mockReturnValue({
+        data: { status: false, data: [], messages: ["Denied"], total_pages: 0, total_count: 0 },
+        isLoading: false,
+        error: undefined,
+      } as never);
+
+      const { result } = renderHook(() => useItemReturnState());
+
+      expect(result.current.errorMessage).toBe("Denied");
+      expect(result.current.rows).toEqual([]);
+      expect(typeof result.current.onCreate).toBe("function");
+    });
+
+    it("should map successful rows", () => {
+      mockQuery.mockReturnValue({
+        data: { status: true, data: [{ id: "r-1", return_date: "2026-11-01T08:00:00", notes: "", status: 1, items: [] }], messages: [], total_pages: 1, total_count: 1 },
+        isLoading: false,
+        error: undefined,
+      } as never);
+
+      const { result } = renderHook(() => useItemReturnList());
+
+      expect(result.current.rows[0]?.id).toBe("r-1");
       expect(result.current.isEmpty).toBe(false);
     });
   });

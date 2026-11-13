@@ -34,6 +34,7 @@ const mockEmptyFormProps: ReturnCreateFormState = {
   onCaptureItem: jest.fn(),
   onItemConditionChange: jest.fn(),
   onItemNotesChange: jest.fn(),
+  onRemovePhoto: jest.fn(),
   handleSave: jest.fn(),
   goBack: jest.fn(),
 };
@@ -94,6 +95,7 @@ const mockSelectedFormProps: ReturnCreateFormState = {
   onCaptureItem: jest.fn(),
   onItemConditionChange: jest.fn(),
   onItemNotesChange: jest.fn(),
+  onRemovePhoto: jest.fn(),
   handleSave: jest.fn(),
   goBack: jest.fn(),
 };

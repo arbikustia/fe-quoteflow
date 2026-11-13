@@ -1,7 +1,7 @@
 import axios from "axios";
 
 import { REVERSE_GEOCODE_URL } from "./ItemReturnCreate.config";
-import { getReturnLocation, stampReturnPhoto } from "./ItemReturnCreate.helpers";
+import { getReturnLocation, stampReturnPhoto } from "./ItemReturnPhoto.util";
 
 jest.mock("axios");
 
