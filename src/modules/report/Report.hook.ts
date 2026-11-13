@@ -1,277 +1,167 @@
-import type { SyntheticEvent } from "react";
 import { useEffect, useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
-
-import apiClient from "@/libs/api/ApiClient/ApiClient";
+import { useNavigate } from "react-router-dom";
 
 import { useMasterActivityLog } from "@/hooks/useMasterActivityLog";
 
-import { mapRentalOrder, useGetRentalOrdersQuery, useUpdateRentalOrderMutation } from "@/services/rental-order.service";
+import { mapRentalOrder, useExportRentalOrdersMutation, useGetRentalOrdersQuery, useUpdateRentalOrderMutation } from "@/services/rental-order.service";
 
-import { sortReportOrders } from "./Report.helpers";
+import { REPORT_CONFIG } from "./Report.config";
 import type {
-  RentalOrderListResponse,
-  ReportOrderApiState,
+  ReportOrderConfirm,
   ReportOrderData,
+  ReportOrderExport,
+  ReportOrderListState,
+  ReportOrderNavigation,
   ReportOrderPagination,
-  ReportOrderStatusFormProps,
 } from "./Report.type";
-
-import ENDPOINT from "@/constants/endpoint.constant";
+import { buildConfirmMessage, buildOrderUpdateRequest, sortReportOrders } from "./Report.util";
 
 /**
  * Hook for report order navigation.
- * @returns {{ goBack: () => void; goToStatus: (order: ReportOrderData) => void }} Navigation functions
+ * @returns {ReportOrderNavigation} - Navigation functions
  */
-export const useReportOrderNavigation = (): { goBack: () => void; goToStatus: (order: ReportOrderData) => void } => {
+export const useReportOrderNavigation = (): ReportOrderNavigation => {
   const navigate = useNavigate();
 
   /**
    * Navigate back.
-   * @returns {void}
+   * @returns {void} - Nothing
    */
-  const goBack = (): void => { navigate(-1); };
-
-  /**
-   * Navigate to order status form.
-   * @param {ReportOrderData} order - Report order
-   * @returns {void}
-   */
-  const goToStatus = (order: ReportOrderData): void => {
-    navigate(`/report/order/${order.id}/status`, { state: order });
+  const goBack = (): void => {
+    navigate(-1);
   };
 
-  return { goBack, goToStatus };
+  return { goBack };
 };
 
 /**
- * Create loading state.
- * @returns {ReportOrderApiState} Loading state
+ * Create report order list state without rows.
+ * @param {boolean} isLoading - Whether the list is loading
+ * @param {boolean} isMissingData - Whether the API response data is missing
+ * @param {string | null} errorMessage - List error message
+ * @returns {ReportOrderListState} - Empty list state
  */
-const _createLoadingState = (): ReportOrderApiState => ({
-  isLoading: true,
-  errorMessage: null,
-  isEnvelopeError: false,
-  isMissingData: false,
+const _createListState = (isLoading: boolean, isMissingData: boolean, errorMessage: string | null): ReportOrderListState => ({
+  isLoading,
+  errorMessage,
+  isMissingData,
   paginatedData: [],
   totalPages: 0,
   totalCount: 0,
 });
 
 /**
- * Create HTTP error state.
- * @returns {ReportOrderApiState} Error state
- */
-const _createErrorState = (): ReportOrderApiState => ({
-  isLoading: false,
-  errorMessage: "Unable to load orders.",
-  isEnvelopeError: false,
-  isMissingData: false,
-  paginatedData: [],
-  totalPages: 0,
-  totalCount: 0,
-});
-
-/**
- * Create missing response state.
- * @returns {ReportOrderApiState} Missing response state
- */
-const _createMissingResponseState = (): ReportOrderApiState => ({
-  isLoading: false,
-  errorMessage: "No response received from server.",
-  isEnvelopeError: false,
-  isMissingData: true,
-  paginatedData: [],
-  totalPages: 0,
-  totalCount: 0,
-});
-
-/**
- * Create missing payload state.
- * @returns {ReportOrderApiState} Missing payload state
- */
-const _createMissingPayloadState = (): ReportOrderApiState => ({
-  isLoading: false,
-  errorMessage: "Response is missing data payload.",
-  isEnvelopeError: false,
-  isMissingData: true,
-  paginatedData: [],
-  totalPages: 0,
-  totalCount: 0,
-});
-
-/**
- * Create success state.
- * @param {ReportOrderData[]} orders - Mapped order data
- * @param {number} totalPages - Total pages from API
- * @param {number} totalCount - Total count from API
- * @returns {ReportOrderApiState} Success state
- */
-const _createSuccessState = (orders: ReportOrderData[], totalPages: number, totalCount: number): ReportOrderApiState => ({
-  isLoading: false,
-  errorMessage: null,
-  isEnvelopeError: false,
-  isMissingData: false,
-  paginatedData: orders,
-  totalPages,
-  totalCount,
-});
-
-/**
- * Derive paginated state from API response envelope.
+ * Derive list state from the API response envelope.
  * @param {ReturnType<typeof useGetRentalOrdersQuery>} queryResult - RTK Query result
- * @returns {ReportOrderApiState} Derived state
+ * @returns {ReportOrderListState} - Derived state
  */
-const _deriveReportOrderListState = (queryResult: ReturnType<typeof useGetRentalOrdersQuery>): ReportOrderApiState => {
+const _deriveReportOrderListState = (queryResult: ReturnType<typeof useGetRentalOrdersQuery>): ReportOrderListState => {
   const { data, error, isLoading } = queryResult;
 
-  if (isLoading) return _createLoadingState();
+  if (isLoading) return _createListState(true, false, null);
 
-  if (error) return _createErrorState();
+  if (error) return _createListState(false, false, "Unable to load orders.");
 
-  const response: RentalOrderListResponse | undefined = data;
+  if (!data) return _createListState(false, true, "No response received from server.");
 
-  if (!response) return _createMissingResponseState();
+  if (!data.data) return _createListState(false, true, "Response is missing data payload.");
 
-  const orderList = response.data;
-
-  if (!orderList) return _createMissingPayloadState();
-
-  const orders = sortReportOrders(orderList.map(mapRentalOrder));
-
-  return _createSuccessState(orders, response.total_pages, response.total_count);
+  return {
+    isLoading: false,
+    errorMessage: null,
+    isMissingData: false,
+    paginatedData: sortReportOrders(data.data.map(mapRentalOrder)),
+    totalPages: data.total_pages,
+    totalCount: data.total_count,
+  };
 };
 
 /**
- * Hook for exporting the rental order report PDF.
- * @returns {{ isExporting: boolean; onExport: () => void }} Export state and handler
+ * Trigger a browser download for a blob object URL, then release it.
+ * @param {string} objectUrl - Blob object URL
+ * @returns {void} - Nothing
  */
-export const useReportOrderExport = (): { isExporting: boolean; onExport: () => void } => {
-  const [isExporting, setIsExporting] = useState(false);
+const _downloadFile = (objectUrl: string): void => {
+  const link = document.createElement("a");
+
+  link.href = objectUrl;
+  link.download = REPORT_CONFIG.EXPORT_FILE_NAME;
+  link.click();
+  URL.revokeObjectURL(objectUrl);
+};
+
+/**
+ * Hook for exporting the rental order report.
+ * @returns {ReportOrderExport} - Export state and handler
+ */
+export const useReportOrderExport = (): ReportOrderExport => {
+  const [exportRentalOrders, { isLoading: isExporting }] = useExportRentalOrdersMutation();
 
   /**
-   * Download order report PDF from the export endpoint.
-   * @returns {void}
+   * Download the order report from the export endpoint.
+   * @returns {void} - Nothing
    */
   const onExport = (): void => {
     if (isExporting) return;
 
-    setIsExporting(true);
-
-    void apiClient.get<Blob>(ENDPOINT.RENTAL_ORDER.EXPORT, { responseType: "blob" }).then((response) => {
-      const objectUrl = URL.createObjectURL(response.data);
-      const link = document.createElement("a");
-
-      link.href = objectUrl;
-      link.download = "rental-order-report.xlsx";
-      link.click();
-      URL.revokeObjectURL(objectUrl);
-    }).catch(() => {
+    void exportRentalOrders().unwrap().then(_downloadFile).catch(() => {
       window.alert("Unable to export order report. Please try again.");
-    }).finally(() => setIsExporting(false));
+    });
   };
 
   return { isExporting, onExport };
 };
 
 /**
- * Hook for API-backed report order pagination.
- * @returns {ReportOrderPagination} Report order pagination state and handlers
+ * Hook for confirming an order as done.
+ * @returns {ReportOrderConfirm} - Confirmation state and handlers
  */
-/**
- * Hook for report order status form.
- * @returns {ReportOrderStatusFormProps} Status form state
- */
-export const useReportOrderStatusForm = (): ReportOrderStatusFormProps => {
-  const navigate = useNavigate();
-  const location = useLocation();
-  const order = location.state as ReportOrderData | null;
-  const [isActive, setIsActive] = useState(order?.status === 2);
-  const [submissionError, setSubmissionError] = useState<string | null>(null);
+export const useReportOrderConfirm = (): ReportOrderConfirm => {
+  const [confirmOrder, setConfirmOrder] = useState<ReportOrderData | null>(null);
   const [updateRentalOrder, { isLoading: isSubmitting }] = useUpdateRentalOrderMutation();
-  const { logEdit } = useMasterActivityLog("Report Order");
+  const { logEdit } = useMasterActivityLog(REPORT_CONFIG.ACTIVITY_PAGE);
 
   /**
-   * Update selected status.
-   * @param {boolean} checked - Active status
-   * @returns {void} No return value
+   * Close the confirmation modal.
+   * @returns {void} - Nothing
    */
-  const handleStatusChange = (checked: boolean): void => setIsActive(checked);
+  const onCancelConfirm = (): void => setConfirmOrder(null);
 
   /**
-   * Return to report list.
-   * @returns {void} No return value
+   * Mark the selected order as done and log the edit.
+   * @returns {void} - Nothing
    */
-  const goBack = (): void => { void navigate("/report"); };
+  const onConfirm = (): void => {
+    if (!confirmOrder) return;
 
-  /**
-   * Submit complete rental-order payload with updated status.
-   * @param {SyntheticEvent<HTMLFormElement>} event - Form submit event
-   * @returns {Promise<void>} Completion promise
-   */
-  const handleSubmit = async (event?: SyntheticEvent): Promise<void> => {
-    event?.preventDefault();
-
-    if (!order) {
-      setSubmissionError("Order data is unavailable.");
-
-      return;
-    }
-
-    setSubmissionError(null);
-
-    try {
-      const response = await updateRentalOrder({
-        id: order.id,
-        transaction_id: order.transactionId,
-        invoice_id: order.invoiceId,
-        quotation_id: order.quotationId,
-        order_no: order.orderNo,
-        order_date: order.rawOrderDate,
-        notes: order.notes,
-        status: isActive ? 2 : 1,
-      }).unwrap();
-
-      if (!response.status) {
-        setSubmissionError(response.messages?.join(" ") || "Unable to update order status.");
-
-        return;
-      }
-
-      await logEdit(order.orderNo);
-
-      void navigate("/report", { state: { successMessage: "Order status updated successfully." } });
-    } catch {
-      setSubmissionError("Unable to update order status.");
-    }
+    void updateRentalOrder(buildOrderUpdateRequest(confirmOrder, REPORT_CONFIG.STATUS_DONE))
+      .unwrap()
+      .then(() => logEdit(confirmOrder.orderNo))
+      .catch(() => undefined);
   };
 
   return {
-    orderNo: order?.orderNo ?? null,
-    isActive,
+    confirmOrder,
+    confirmMessage: buildConfirmMessage(confirmOrder?.orderNo ?? ""),
     isSubmitting,
-    errorMessage: submissionError ?? (!order ? "Order data is unavailable." : null),
-    handleStatusChange,
-    handleSubmit,
-    goBack,
+    onEditStatus: setConfirmOrder,
+    onConfirm,
+    onCancelConfirm,
   };
 };
 
+/**
+ * Hook for API-backed report order pagination.
+ * @returns {ReportOrderPagination} - Report order pagination state and handlers
+ */
 export const useReportOrderPagination = (): ReportOrderPagination => {
   const [currentPage, setCurrentPage] = useState(1);
-  const [pageSize, setPageSize] = useState(10);
+  const [pageSize, setPageSize] = useState(REPORT_CONFIG.DEFAULT_PAGE_SIZE);
   const [searchTerm, setSearchTerm] = useState("");
-  const { logView } = useMasterActivityLog("Report Order");
+  const { logView } = useMasterActivityLog(REPORT_CONFIG.ACTIVITY_PAGE);
 
   useEffect(() => {
-    let active = true;
-    void logView().then(() => {
-      if (!active) return;
-    });
-
-    return () => {
-      active = false;
-    };
+    void logView();
   }, [logView]);
 
   const queryResult = useGetRentalOrdersQuery({ pageNumber: currentPage, pageSize, searchTerm });
@@ -280,34 +170,14 @@ export const useReportOrderPagination = (): ReportOrderPagination => {
   /**
    * Handle page change.
    * @param {number} page - New page number
-   * @returns {void}
+   * @returns {void} - Nothing
    */
   const goToPage = (page: number): void => setCurrentPage(Math.max(1, Math.min(page, derived.totalPages)));
 
   /**
-   * Handle next page.
-   * @returns {void}
-   */
-  const nextPage = (): void => {
-    if (!derived.isLoading && !derived.errorMessage && derived.paginatedData.length > 0 && queryResult.data?.has_next) {
-      goToPage(currentPage + 1);
-    }
-  };
-
-  /**
-   * Handle prev page.
-   * @returns {void}
-   */
-  const prevPage = (): void => {
-    if (!derived.isLoading && !derived.errorMessage && derived.paginatedData.length > 0 && queryResult.data?.has_previous) {
-      goToPage(currentPage - 1);
-    }
-  };
-
-  /**
    * Handle page size change.
    * @param {number} size - New page size
-   * @returns {void}
+   * @returns {void} - Nothing
    */
   const changePageSize = (size: number): void => {
     setPageSize(size);
@@ -317,7 +187,7 @@ export const useReportOrderPagination = (): ReportOrderPagination => {
   /**
    * Handle search term change.
    * @param {string} value - Search term
-   * @returns {void}
+   * @returns {void} - Nothing
    */
   const handleSearchTerm = (value: string): void => {
     setSearchTerm(value);
@@ -335,8 +205,6 @@ export const useReportOrderPagination = (): ReportOrderPagination => {
     isEmpty: !derived.isLoading && !derived.errorMessage && !derived.isMissingData && derived.paginatedData.length === 0,
     isMissingData: derived.isMissingData,
     goToPage,
-    nextPage,
-    prevPage,
     changePageSize,
     setSearchTerm: handleSearchTerm,
   };

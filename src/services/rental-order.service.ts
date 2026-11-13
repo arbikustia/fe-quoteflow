@@ -1,7 +1,9 @@
+import apiClient from "@/libs/api/ApiClient/ApiClient";
 import { apiRtkClient } from "@/libs/ApiRtkServices/apiRtkClient";
 
+import type { ApiRentalOrder, DashboardRentalOrderParams, DashboardRentalOrderResponse, RentalOrderListParams, RentalOrderListResponse, RentalOrderResponse, RentalOrderUpdateRequest, RentalOrderUpdateResponse, ReportOrderData } from "@/modules/report/Report.type";
+
 import ENDPOINT from "@/constants/endpoint.constant";
-import type { ApiRentalOrder, DashboardRentalOrderParams, DashboardRentalOrderResponse, RentalOrderListParams, RentalOrderListResponse, RentalOrderResponse, RentalOrderUpdatePayload, RentalOrderUpdateResponse, ReportOrderData } from "@/modules/report/Report.type";
 
 const RENTAL_ORDER_TAG = "RentalOrder";
 
@@ -66,7 +68,7 @@ export const rentalOrderService = apiRtkClient.injectEndpoints({
       }),
       providesTags: [RENTAL_ORDER_TAG],
     }),
-    updateRentalOrder: builder.mutation<RentalOrderUpdateResponse, RentalOrderUpdatePayload & { id: string }>({
+    updateRentalOrder: builder.mutation<RentalOrderUpdateResponse, RentalOrderUpdateRequest>({
       query: ({ id, ...body }) => ({
         url: `${ENDPOINT.RENTAL_ORDER.LIST}/${id}`,
         method: "PUT",
@@ -74,8 +76,19 @@ export const rentalOrderService = apiRtkClient.injectEndpoints({
       }),
       invalidatesTags: [RENTAL_ORDER_TAG],
     }),
+    exportRentalOrders: builder.mutation<string, void>({
+      queryFn: async () => {
+        try {
+          const response = await apiClient.get<Blob>(ENDPOINT.RENTAL_ORDER.EXPORT, { responseType: "blob" });
+
+          return { data: URL.createObjectURL(response.data) };
+        } catch {
+          return { error: { status: 0, data: "Unable to export order report." } };
+        }
+      },
+    }),
   }),
   overrideExisting: false,
 });
 
-export const { useGetRentalOrdersQuery, useGetRentalOrderOptionsQuery, useGetDashboardRentalOrdersQuery, useUpdateRentalOrderMutation } = rentalOrderService;
+export const { useGetRentalOrdersQuery, useGetRentalOrderOptionsQuery, useGetDashboardRentalOrdersQuery, useUpdateRentalOrderMutation, useExportRentalOrdersMutation } = rentalOrderService;

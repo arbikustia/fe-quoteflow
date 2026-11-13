@@ -62,7 +62,6 @@ import ProfilePage from "./app/profile";
 import Report from "./app/report";
 import ReportDetail from "./app/report/detail";
 import ReportMain from "./app/report/main";
-import ReportOrderStatus from "./app/report/status";
 
 function App(): React.ReactElement {
   return (
@@ -177,7 +176,6 @@ function App(): React.ReactElement {
         <Route path="/preview" element={<Preview />} />
         <Route path="/report/main" element={<ReportMain />} />
         <Route path="/report" element={<Report />} />
-        <Route path="/report/order/:id/status" element={<ReportOrderStatus />} />
         <Route path="/report/detail/:id" element={<ReportDetail />} />
         
         <Route path="*" element={<Navigate to="/login" replace />} />

@@ -1,6 +1,7 @@
 import * as React from "react";
 import { FiDownload } from "react-icons/fi";
 
+import ConfirmModal from "@/components/ConfirmModal";
 import { Pagination } from "@/components/Pagination";
 import { SearchFilter } from "@/components/SearchFilter";
 import type { TableColumn } from "@/components/Table";
@@ -10,37 +11,39 @@ import Layout from "@/app/layout";
 import { PageLayout } from "@/app/shared/PageLayout";
 import { formatIndonesianDateTime } from "@/utils/date.helpers";
 
-import { getOrderRowNumber, OrderMobileCard } from "./Report.helpers";
+import { OrderMobileCard } from "./Report.helper";
 import type { ReportOrderData, ReportOrderProps } from "./Report.type";
+import { getOrderRowNumber, getOrderStatusClass, getOrderStatusLabel, isOrderDone } from "./Report.util";
 
 /**
  * Render order status cell.
  * @param {ReportOrderData} row - Report order row data
- * @returns {React.ReactElement} Status cell
+ * @returns {React.ReactElement} - Status cell
  */
-const _renderStatus = (row: ReportOrderData): React.ReactElement => {
-  const isDone = row.status === 2;
-  const statusClass = isDone || row.status === 1 ? "bg-success-subtle text-success-strong" : "bg-danger-subtle text-danger-strong";
-
-  return (
-    <span className={`inline-flex rounded-full px-4 py-1.5 text-lg font-semibold uppercase ${statusClass}`}>
-      {isDone ? "Done" : row.statusLabel}
-    </span>
-  );
-};
+const _renderStatus = (row: ReportOrderData): React.ReactElement => (
+  <span className={`inline-flex rounded-full px-4 py-1.5 text-lg font-semibold uppercase ${getOrderStatusClass(row)}`}>
+    {getOrderStatusLabel(row)}
+  </span>
+);
 
 /**
  * Render order action cell.
  * @param {ReportOrderData} row - Report order row data
- * @returns {React.ReactElement} Action cell
+ * @param {(order: ReportOrderData) => void} onEditStatus - Edit status callback
+ * @returns {React.ReactElement} - Action cell
  */
-  const _renderActions = (row: ReportOrderData, onEditStatus: (order: ReportOrderData) => void): React.ReactElement => {
+const _renderActions = (row: ReportOrderData, onEditStatus: (order: ReportOrderData) => void): React.ReactElement => {
+  const isDone = isOrderDone(row);
+
+  /**
+   * Open the confirmation for this row without triggering the row click.
+   * @param {React.MouseEvent} event - Click event
+   * @returns {void} - Nothing
+   */
   const handleEdit = (event: React.MouseEvent): void => {
     event.stopPropagation();
     onEditStatus(row);
   };
-
-  const isDone = row.status === 2;
 
   return (
     <button
@@ -65,7 +68,7 @@ const _renderStatus = (row: ReportOrderData): React.ReactElement => {
  * @param {number} index - Zero-based row index
  * @param {number} currentPage - Active page
  * @param {number} pageSize - Active page size
- * @returns {React.ReactElement} Number cell
+ * @returns {React.ReactElement} - Number cell
  */
 const _renderNumber = (_row: ReportOrderData, index: number, currentPage: number, pageSize: number): React.ReactElement => (
   <span className="text-lg">{getOrderRowNumber(currentPage, pageSize, index)}</span>
@@ -75,20 +78,22 @@ const _renderNumber = (_row: ReportOrderData, index: number, currentPage: number
  * Build report table columns.
  * @param {number} currentPage - Active page
  * @param {number} pageSize - Active page size
- * @returns {TableColumn<ReportOrderData>[]} Report order columns
+ * @param {(order: ReportOrderData) => void} onEditStatus - Edit status callback
+ * @returns {TableColumn<ReportOrderData>[]} - Report order columns
  */
 const _getColumns = (currentPage: number, pageSize: number, onEditStatus: (order: ReportOrderData) => void): TableColumn<ReportOrderData>[] => {
   /**
    * Render order number.
    * @param {ReportOrderData} row - Row data
    * @param {number} index - Row index
-   * @returns {React.ReactElement} Number cell
+   * @returns {React.ReactElement} - Number cell
    */
   const renderNumber = (row: ReportOrderData, index: number): React.ReactElement => _renderNumber(row, index, currentPage, pageSize);
+
   /**
    * Render row actions.
    * @param {ReportOrderData} row - Row data
-   * @returns {React.ReactElement} Action cell
+   * @returns {React.ReactElement} - Action cell
    */
   const renderActions = (row: ReportOrderData): React.ReactElement => _renderActions(row, onEditStatus);
 
@@ -106,9 +111,16 @@ const _getColumns = (currentPage: number, pageSize: number, onEditStatus: (order
 };
 
 /**
+ * Get the table row key.
+ * @param {ReportOrderData} row - Report order row data
+ * @returns {string} - Row key
+ */
+const _getOrderKey = (row: ReportOrderData): string => row.id;
+
+/**
  * Render loading, empty, and error states.
  * @param {ReportOrderProps} props - The component props
- * @returns {React.ReactElement | null} The state element when no rows should render
+ * @returns {React.ReactElement | null} - The state element when no rows should render
  */
 const _renderListState = (props: ReportOrderProps): React.ReactElement | null => {
   const { errorMessage, isEmpty, isMissingData } = props;
@@ -125,7 +137,7 @@ const _renderListState = (props: ReportOrderProps): React.ReactElement | null =>
 /**
  * Render report table skeleton with quotation-style geometry.
  * @param {TableColumn<ReportOrderData>[]} columns - Columns
- * @returns {React.ReactElement} Table skeleton element
+ * @returns {React.ReactElement} - Table skeleton element
  */
 const _renderTableSkeleton = (columns: TableColumn<ReportOrderData>[]): React.ReactElement => {
   const widths = ["w-6", "w-28", "w-32", "w-36", "w-24", "w-24", "w-24"];
@@ -181,16 +193,16 @@ const _renderTableSkeleton = (columns: TableColumn<ReportOrderData>[]): React.Re
 /**
  * Render desktop table view.
  * @param {ReportOrderProps} props - Component props
- * @returns {React.ReactElement} Desktop table element
+ * @returns {React.ReactElement} - Desktop table element
  */
 const _renderDesktopTable = (props: ReportOrderProps): React.ReactElement => {
-  const { paginatedData, currentPage, totalPages, goToPage, pageSize, changePageSize, onEditStatus, setSearchTerm, totalCount } = props;
+  const { paginatedData, currentPage, totalPages, goToPage, pageSize, changePageSize, onEditStatus, setSearchTerm, totalCount, onExport, isExporting, isLoading } = props;
   const columns = _getColumns(currentPage, pageSize, onEditStatus);
 
   /**
    * Handle search input change.
    * @param {React.ChangeEvent<HTMLInputElement>} event - Change event
-   * @returns {void}
+   * @returns {void} - Nothing
    */
   const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>): void => setSearchTerm(event.target.value);
 
@@ -200,17 +212,17 @@ const _renderDesktopTable = (props: ReportOrderProps): React.ReactElement => {
         <SearchFilter placeholder="Search order" onChange={handleSearchChange} isRoundedFull={true} inputClassName="text-lg placeholder:text-lg" />
         <button
           type="button"
-          onClick={props.onExport}
-          disabled={props.isExporting}
-          aria-label="Export PDF"
+          onClick={onExport}
+          disabled={isExporting}
+          aria-label="Export report"
           className="inline-flex h-12 shrink-0 items-center gap-2 rounded-full border-2 border-action-primary bg-background-surface px-6 text-lg font-semibold text-action-primary transition-colors hover:bg-action-primary-subtle focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring disabled:cursor-wait disabled:opacity-60"
         >
           <FiDownload className="h-5 w-5" aria-hidden="true" />
-          {props.isExporting ? "Exporting…" : "Export"}
+          {isExporting ? "Exporting…" : "Export"}
         </button>
       </div>
       <div className="flex-1 overflow-auto">
-        {props.isLoading ? (
+        {isLoading ? (
           _renderTableSkeleton(columns)
         ) : (
           _renderListState(props) ?? (
@@ -218,7 +230,7 @@ const _renderDesktopTable = (props: ReportOrderProps): React.ReactElement => {
               data={paginatedData}
               columns={columns}
               isDetail={false}
-              keyExtractor={(r: ReportOrderData): string => r.id}
+              keyExtractor={_getOrderKey}
             />
           )
         )}
@@ -239,13 +251,13 @@ const _renderDesktopTable = (props: ReportOrderProps): React.ReactElement => {
 /**
  * Render mobile search.
  * @param {ReportOrderProps["setSearchTerm"]} setSearchTerm - Search callback
- * @returns {React.ReactElement} Search field
+ * @returns {React.ReactElement} - Search field
  */
 const _renderMobileSearch = (setSearchTerm: ReportOrderProps["setSearchTerm"]): React.ReactElement => {
   /**
    * Handle mobile search input.
    * @param {React.ChangeEvent<HTMLInputElement>} event - Search change event
-   * @returns {void}
+   * @returns {void} - Nothing
    */
   const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>): void => setSearchTerm(event.target.value);
 
@@ -263,7 +275,7 @@ const _renderMobileSearch = (setSearchTerm: ReportOrderProps["setSearchTerm"]): 
 /**
  * Render loading card with quotation card geometry.
  * @param {number} key - Skeleton key
- * @returns {React.ReactElement} Loading card
+ * @returns {React.ReactElement} - Loading card
  */
 const _renderMobileCardSkeleton = (key: number): React.ReactElement => (
   <div
@@ -293,16 +305,16 @@ const _renderMobileCardSkeleton = (key: number): React.ReactElement => (
 /**
  * Render mobile order cards list view.
  * @param {ReportOrderProps} props - Component props
- * @returns {React.ReactElement} Mobile list element
+ * @returns {React.ReactElement} - Mobile list element
  */
 const _renderMobileCards = (props: ReportOrderProps): React.ReactElement => {
-  const { paginatedData, currentPage, totalPages, goToPage, pageSize, changePageSize, setSearchTerm, totalCount, onEditStatus } = props;
+  const { paginatedData, currentPage, totalPages, goToPage, pageSize, changePageSize, setSearchTerm, totalCount, onEditStatus, isLoading } = props;
 
   return (
     <div className="flex min-w-0 flex-col gap-4 pb-16 pt-2 lg:hidden">
       <div className="w-full">{_renderMobileSearch(setSearchTerm)}</div>
       <div className="flex min-w-0 flex-col gap-4">
-        {props.isLoading
+        {isLoading
           ? Array.from({ length: 5 }, (_value, index) => _renderMobileCardSkeleton(index))
           : _renderListState(props) ??
             paginatedData.map((order) => <OrderMobileCard key={order.id} order={order} onEditStatus={onEditStatus} />)}
@@ -324,10 +336,10 @@ const _renderMobileCards = (props: ReportOrderProps): React.ReactElement => {
 /**
  * Report Order Component.
  * @param {ReportOrderProps} props - Component props
- * @returns {React.ReactElement} Report Order component
+ * @returns {React.ReactElement} - Report Order component
  */
 export const ReportOrderComponent = (props: ReportOrderProps): React.ReactElement => {
-  const { onBack } = props;
+  const { onBack, confirmOrder, confirmMessage, isSubmitting, onConfirm, onCancelConfirm } = props;
 
   return (
     <Layout pageTitle="Order Report">
@@ -344,6 +356,15 @@ export const ReportOrderComponent = (props: ReportOrderProps): React.ReactElemen
           {_renderDesktopTable(props)}
         </div>
       </PageLayout>
+      <ConfirmModal
+        isOpen={Boolean(confirmOrder)}
+        onClose={onCancelConfirm}
+        onConfirm={onConfirm}
+        title="Confirm Completion"
+        message={confirmMessage}
+        confirmText={isSubmitting ? "Saving…" : "Save"}
+        cancelText="Cancel"
+      />
     </Layout>
   );
 };

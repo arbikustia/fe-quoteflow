@@ -1,5 +1,3 @@
-import type { SyntheticEvent } from "react";
-
 import type { ApiInvoice } from "@/modules/invoice/Invoice.type";
 
 export type ApiRentalOrder = {
@@ -31,6 +29,8 @@ export type RentalOrderUpdatePayload = {
   notes: string;
   status: number;
 };
+
+export type RentalOrderUpdateRequest = RentalOrderUpdatePayload & { id: string };
 
 export type RentalOrderUpdateResponse = {
   status: boolean;
@@ -94,14 +94,17 @@ export type ReportOrderData = {
   orderTypeName: string;
 };
 
-export type ReportOrderApiState = {
+export type ReportOrderListState = {
   isLoading: boolean;
   errorMessage: string | null;
-  isEnvelopeError: boolean;
   isMissingData: boolean;
   paginatedData: ReportOrderData[];
   totalPages: number;
   totalCount: number;
+};
+
+export type ReportOrderNavigation = {
+  goBack: () => void;
 };
 
 export type ReportOrderPagination = {
@@ -115,34 +118,29 @@ export type ReportOrderPagination = {
   isEmpty: boolean;
   isMissingData: boolean;
   goToPage: (page: number) => void;
-  nextPage: () => void;
-  prevPage: () => void;
   changePageSize: (size: number) => void;
   setSearchTerm: (value: string) => void;
 };
 
-export type ReportOrderProps = ReportOrderPagination & {
-  onBack: () => void;
-  onEditStatus: (order: ReportOrderData) => void;
-  onConfirm: () => Promise<void>;
-  onCancelConfirm: () => void;
-  confirmOrder: ReportOrderData | null;
-  isSubmitting: boolean;
-  onExport: () => void;
+export type ReportOrderExport = {
   isExporting: boolean;
+  onExport: () => void;
+};
+
+export type ReportOrderConfirm = {
+  confirmOrder: ReportOrderData | null;
+  confirmMessage: string;
+  isSubmitting: boolean;
+  onEditStatus: (order: ReportOrderData) => void;
+  onConfirm: () => void;
+  onCancelConfirm: () => void;
+};
+
+export type ReportOrderProps = ReportOrderPagination & ReportOrderExport & ReportOrderConfirm & {
+  onBack: () => void;
 };
 
 export type OrderMobileCardProps = {
   order: ReportOrderData;
   onEditStatus: (order: ReportOrderData) => void;
-};
-
-export type ReportOrderStatusFormProps = {
-  orderNo: string | null;
-  isActive: boolean;
-  isSubmitting: boolean;
-  errorMessage: string | null;
-  handleStatusChange: (checked: boolean) => void;
-  handleSubmit: (event?: SyntheticEvent) => Promise<void>;
-  goBack: () => void;
 };
